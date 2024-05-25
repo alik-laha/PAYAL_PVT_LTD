@@ -59,7 +59,7 @@ const Captcha: React.FC<CaptchaProps> = ({ onVerify }) => {
   return (
     <div>
       <canvas ref={canvasRef} width="250" height="50"></canvas>
-      <input type="text" value={input} onChange={handleChange} width={50}/>
+      <input type="text" value={input} onChange={handleChange} width={50} />
       <button onClick={handleVerify}>Verify</button>
     </div>
   );
