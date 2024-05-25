@@ -1,15 +1,11 @@
-import { useState } from 'react'
 import './App.css'
-import { Button } from './components/ui/button'
+import { Login } from './components/login/login'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <Button onClick={() => setCount((count) => count + 1)} variant="outline" >
-        count is: {count}
-      </Button>
+      <Login />
     </>
   )
 }
