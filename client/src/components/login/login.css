@@ -7,7 +7,8 @@
 
 .login-container {
     background: url('./../../assets/Static_Images/Login-banner.webp');
-
+    background-repeat: no-repeat;
+    background-size:cover
 }
 
 .login-container select {
