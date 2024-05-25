@@ -1,0 +1,10 @@
+.login {
+    box-shadow: 0 8px 22px #0006;
+    border-radius: 10px;
+    background-color: #fff;
+    
+}
+
+.login-container{
+    background: url('./../../assets/Static_Images/Login-banner.webp');
+}
