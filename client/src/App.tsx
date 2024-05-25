@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <Button onClick={() => setCount((count) => count + 1)}>
+      <Button onClick={() => setCount((count) => count + 1)} variant="outline" >
         count is: {count}
       </Button>
     </>
