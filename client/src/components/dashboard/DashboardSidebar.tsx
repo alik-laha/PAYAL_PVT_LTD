@@ -6,7 +6,7 @@ import {
 // import { useNavigate } from "react-router-dom"
 import "./dashboard.css"
 import { useState } from "react"
-import icon from '../../assets/Static_Images/operater_icon.png'
+import icon from '../../assets/Static_Images/OIP.jpeg'
 
 
 const DashboardSidebar = () => {
@@ -39,7 +39,7 @@ const DashboardSidebar = () => {
         
         <span className='operator-hide' onClick={logoutVisiblity}><p className="logo-lg"></p><img src={icon}></img></span>
         <span  className='navbar-custom-menu'>
-          <ul className="dropdown-menu" style={{ display: 'block'}}>
+          <ul className="dropdown-menu" style={{ display: dashbvisi}}>
             <li className="user-header">
               <span style={{textAlign:'center'}}><img src={icon} alt='Operator Icon' className="img-header"></img></span>
               <p className="text-logout">Welcome </p>
