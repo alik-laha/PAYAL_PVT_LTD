@@ -6,6 +6,8 @@ import {
 // import { useNavigate } from "react-router-dom"
 import "./dashboard.css"
 import { useState } from "react"
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { MdCallReceived } from "react-icons/md";
 
 
 
@@ -32,7 +34,7 @@ const DashboardSidebar = () => {
                 <a href="#" className="closebtn" onClick={closeSidebar}>&times;</a>
                 <a>
                     <Collapsible >
-                        <CollapsibleTrigger className="user-pvt">Admin & HR</CollapsibleTrigger>
+                        <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25}/><p>Admin & HR</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
                             Create Employee
                         </CollapsibleContent >
@@ -47,7 +49,7 @@ const DashboardSidebar = () => {
                         </CollapsibleContent>
                     </Collapsible>
                     <Collapsible >
-                        <CollapsibleTrigger className="user-pvt">Receiving</CollapsibleTrigger>
+                        <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25}/><p>Receiving</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
                             Create User
                         </CollapsibleContent>
