@@ -1,8 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { HiRefresh } from "react-icons/hi";
+import { Input } from "@/components/ui/input"
 
 const Captcha: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [captchaText, setCaptchaText] = useState('');
+ 
 
   const generateCaptcha = () => {
     const canvas = canvasRef.current;
@@ -21,12 +24,12 @@ const Captcha: React.FC = () => {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Generate random CAPTCHA text
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 5; i++) {
       generatedText += characters.charAt(Math.floor(Math.random() * characters.length));
     }
 
     // Set CAPTCHA text properties
-    ctx.font = '30px Arial';
+    ctx.font = '18px Arial';
     ctx.fillStyle = 'black';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -62,11 +65,13 @@ const Captcha: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <canvas id="captchaCanvas" ref={canvasRef} width="200" height="100" style={{ border: '1px solid #ccc' }}></canvas>
-      <br />
-      <button onClick={generateCaptcha}>Refresh CAPTCHA</button>
-      <p>CAPTCHA Text: {captchaText}</p>
+    <div style={{ textAlign: 'center', marginTop: '10px',display:'flex',flexDirection:'row',marginBottom:'20px' }} >
+      
+      <canvas id="captchaCanvas" ref={canvasRef} width="120" height="40" style={{ border: '1px solid #ccc',marginRight:'5%' }}></canvas>
+      
+      <button onClick={generateCaptcha}><HiRefresh /></button>
+      <Input height={40} type="text" placeholder="Enter Text" className='mt-1 ml-3' />
+      {/* <p>CAPTCHA Text: {captchaText}</p> */}
     </div>
   );
 };
