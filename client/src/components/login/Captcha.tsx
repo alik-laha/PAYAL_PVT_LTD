@@ -1,11 +1,11 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { HiRefresh } from "react-icons/hi";
 import { Input } from "@/components/ui/input"
 
 const Captcha: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [captchaText, setCaptchaText] = useState('');
- 
+  // const [captchaText, setCaptchaText] = useState('');
+
 
   const generateCaptcha = () => {
     const canvas = canvasRef.current;
@@ -20,8 +20,8 @@ const Captcha: React.FC = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Generate random background color
-   ctx.fillStyle = '#'+Math.floor(Math.random() * 16777215).toString(16);
-   //ctx.fillStyle='white';
+    ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
+    //ctx.fillStyle='white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Generate random CAPTCHA text
@@ -50,7 +50,7 @@ const Captcha: React.FC = () => {
 
     // Draw some random lines for added security
     for (let i = 0; i < 5; i++) {
-      ctx.strokeStyle = '#'+Math.floor(Math.random() * 16777215).toString(16);
+      ctx.strokeStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
       ctx.beginPath();
       ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
       ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
@@ -58,7 +58,7 @@ const Captcha: React.FC = () => {
     }
 
     // Store the CAPTCHA text for validation (you would need to implement the validation logic)
-    setCaptchaText(generatedText);
+    // setCaptchaText(generatedText);
   };
 
   useEffect(() => {
@@ -66,10 +66,10 @@ const Captcha: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ textAlign: 'center',display:'flex',flexDirection:'row',marginBottom:'10px' }} >
-      
-      <canvas id="captchaCanvas" ref={canvasRef} width="110" height="40" style={{ border: '1px solid #ccc',marginRight:'3%' }}></canvas>
-      
+    <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'row', marginBottom: '10px' }} >
+
+      <canvas id="captchaCanvas" ref={canvasRef} width="110" height="40" style={{ border: '1px solid #ccc', marginRight: '3%' }}></canvas>
+
       <button onClick={generateCaptcha}><HiRefresh /></button>
       <Input height={40} type="text" placeholder="Enter Captcha" className=' ml-2 h-11' />
       {/* <p>CAPTCHA Text: {captchaText}</p> */}
