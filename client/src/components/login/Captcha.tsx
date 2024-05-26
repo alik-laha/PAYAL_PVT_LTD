@@ -1,66 +1,72 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
-
-interface CaptchaProps {
-  onVerify: (isVerified: boolean) => void;
-}
-
-const Captcha: React.FC<CaptchaProps> = ({ onVerify }) => {
-  const [captcha, setCaptcha] = useState<string>('');
-  const [input, setInput] = useState<string>('');
+const Captcha: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [captchaText, setCaptchaText] = useState('');
 
   const generateCaptcha = () => {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    for (let i = 0; i < 6; i++) {
-      const randomIndex = Math.floor(Math.random() * chars.length);
-      result += chars[randomIndex];
-    }
-    setCaptcha(result);
-  };
-
-  const renderCaptcha = () => {
     const canvas = canvasRef.current;
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      if (ctx) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.font = '20px Arial';
-        ctx.fillText(captcha, 10, 30);
-      }
-    }
-  };
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let generatedText = '';
 
-  const handleVerify = () => {
-    if (input === captcha) {
-      onVerify(true);
-      alert('CAPTCHA Verified');
-    } else {
-      onVerify(false);
-      alert('CAPTCHA Incorrect');
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Generate random background color
+    ctx.fillStyle = '#'+Math.floor(Math.random() * 16777215).toString(16);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Generate random CAPTCHA text
+    for (let i = 0; i < 6; i++) {
+      generatedText += characters.charAt(Math.floor(Math.random() * characters.length));
     }
-    generateCaptcha();
-    setInput('');
+
+    // Set CAPTCHA text properties
+    ctx.font = '30px Arial';
+    ctx.fillStyle = 'black';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Draw CAPTCHA text with some random transformations
+    for (let i = 0; i < generatedText.length; i++) {
+      const x = (i + 1) * (canvas.width / 7);
+      const y = canvas.height / 2;
+      const rotation = (Math.random() - 0.5) * 0.4;
+
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(rotation);
+      ctx.fillText(generatedText.charAt(i), 0, 0);
+      ctx.restore();
+    }
+
+    // Draw some random lines for added security
+    for (let i = 0; i < 5; i++) {
+      ctx.strokeStyle = '#'+Math.floor(Math.random() * 16777215).toString(16);
+      ctx.beginPath();
+      ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+      ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+      ctx.stroke();
+    }
+
+    // Store the CAPTCHA text for validation (you would need to implement the validation logic)
+    setCaptchaText(generatedText);
   };
 
   useEffect(() => {
     generateCaptcha();
   }, []);
 
-  useEffect(() => {
-    renderCaptcha();
-  }, [captcha]);
-
   return (
-    <div>
-      <canvas ref={canvasRef} width="250" height="50"></canvas>
-      <input type="text" value={input} onChange={handleChange} width={50} />
-      <button onClick={handleVerify}>Verify</button>
+    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+      <canvas id="captchaCanvas" ref={canvasRef} width="200" height="100" style={{ border: '1px solid #ccc' }}></canvas>
+      <br />
+      <button onClick={generateCaptcha}>Refresh CAPTCHA</button>
+      <p>CAPTCHA Text: {captchaText}</p>
     </div>
   );
 };

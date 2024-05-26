@@ -21,7 +21,7 @@ export const Login = () => {
                             Almond
                         </option>
                     </select>
-                <h3 className="text-sm font-sans mb-4 font-semibold pb-2 pt-5">Provide Username & Password</h3>
+                <h3 className="text-sm font-sans mb-4 font-semibold pb-1 pt-6 text-cyan-700">Provide Username & Password</h3>
                 <form className="flex flex-col gap-4 w-64">
 
                     <Input type="text" placeholder="Username" />
