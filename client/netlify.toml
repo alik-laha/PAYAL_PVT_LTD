@@ -1,0 +1,11 @@
+
+[[redirects]]
+  from = "/api/*"
+  force = true
+  to = "https://payal-pvt-ltd.onrender.com/api/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200
