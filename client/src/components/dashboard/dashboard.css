@@ -18,13 +18,13 @@
 
 /* Sidebar links */
 .sidebar a {
-    padding: 8px 8px 8px 32px;
+    padding: 5px 8px 5px 20px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+    color: #2643ad;
     display: block;
     transition: 0.2s;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 /* Sidebar close button */
@@ -32,7 +32,7 @@
     position: absolute;
     top: 45px;
     right: 25px;
-    font-size: 36px;
+    font-size: 30px;
 }
 
 /* When the sidebar is open */
@@ -44,16 +44,49 @@
 /* The main content */
 .main {
     transition: margin-left .5s;
-    padding: 16px;
+    padding: 10px;
 }
 
 /* Hamburger menu */
 .openbtn {
-    font-size: 25px;
+    font-size: 20px;
     cursor: pointer;
     
 }
+/* //sidebar Starts*/
+.user-pvt{
+    font-size: 17px;
+    font-weight: 600;
+    border: none;
+    background-color: inherit;
+    outline: none;
+    cursor: pointer;
+    margin: 8px 5px 8px 10px;
+    display: flex;
+}
+.user-pvt p{
+    float: right;
+    padding-right: 10px;
+}
+.Items-pvt{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #777;
+    background-color: whitesmoke;
+    padding: 5px 0px 5px 20px;
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    
+}
 
+.Items-pvt:hover{
+    color:black;
+    background-color: blanchedalmond;
+    font-weight: 700;
+    
+}
 
 
 /* Dashboard Header */
@@ -166,6 +199,7 @@
     border-top-width: 0;
     width: 250px;
 }
+
 
 
 
