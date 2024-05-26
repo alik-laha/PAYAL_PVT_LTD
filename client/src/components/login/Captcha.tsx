@@ -20,7 +20,8 @@ const Captcha: React.FC = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Generate random background color
-    ctx.fillStyle = '#'+Math.floor(Math.random() * 16777215).toString(16);
+   ctx.fillStyle = '#'+Math.floor(Math.random() * 16777215).toString(16);
+   //ctx.fillStyle='white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Generate random CAPTCHA text
@@ -65,12 +66,12 @@ const Captcha: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '10px',display:'flex',flexDirection:'row',marginBottom:'20px' }} >
+    <div style={{ textAlign: 'center',display:'flex',flexDirection:'row',marginBottom:'10px' }} >
       
-      <canvas id="captchaCanvas" ref={canvasRef} width="120" height="40" style={{ border: '1px solid #ccc',marginRight:'5%' }}></canvas>
+      <canvas id="captchaCanvas" ref={canvasRef} width="110" height="40" style={{ border: '1px solid #ccc',marginRight:'3%' }}></canvas>
       
       <button onClick={generateCaptcha}><HiRefresh /></button>
-      <Input height={40} type="text" placeholder="Enter Text" className='mt-1 ml-3' />
+      <Input height={40} type="text" placeholder="Enter Captcha" className=' ml-2 h-11' />
       {/* <p>CAPTCHA Text: {captchaText}</p> */}
     </div>
   );
