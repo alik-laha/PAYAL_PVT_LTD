@@ -123,23 +123,32 @@
     height: 225px;
     padding: 10px;
     text-align: center;
-    background-color: #edc1c1;
+    background-color: #f3ecd5;
 }
 .dashoboard-main-header .navbar-custom-menu img.img-header {
     text-align: center;
-    height: 90px;
-    width: 90px;
+    height: 100px;
+    width: 100px;
     border: 3px solid; 
     border-color: rgba(255,255,255,0.2);
     border-radius: 50%;
     vertical-align: middle;
-    margin-top: 30px;
+    margin-top: 20px;
+    background-color: white;
 }
 .dashoboard-main-header .navbar-custom-menu p.text-logout  {
-    color: #fff;
-    color: rgba(255,255,255,0.8);
+    color: black;
+    /* color: rgba(255,255,255,0.8); */
     font-size: 17px;
     margin-top: 10px;
+    margin-bottom: 8px;
+}
+.dashoboard-main-header .navbar-custom-menu p.text-logout-2  {
+    color: black;
+    /* color: rgba(255,255,255,0.8); */
+    font-size: 14px;
+    margin-top: 3px;
+    
 }
 .dashoboard-main-header .navbar-custom-menu li.user-footer {
     background-color: #f9f9f9;
