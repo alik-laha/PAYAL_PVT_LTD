@@ -42,6 +42,9 @@ const DashboardSidebar = () => {
                         <CollapsibleContent className="Items-pvt">
                             Create Dashboard User
                         </CollapsibleContent>
+                        <CollapsibleContent className="Items-pvt">
+                            Modify/Export Dashboard User
+                        </CollapsibleContent>
                     </Collapsible>
                     <Collapsible >
                         <CollapsibleTrigger className="user-pvt">Receiving</CollapsibleTrigger>
@@ -55,7 +58,7 @@ const DashboardSidebar = () => {
                 </a>
             </div>
             <div className="main">
-                <span className="openbtn" onClick={openSidebar}>&#9776;</span>
+                <span className="openbtn" onClick={openSidebar}>&#9776; </span>
             </div>
             
             
