@@ -7,9 +7,10 @@ function App() {
 
   return (
     <>
-      <DashboardSidebar />
+      
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<DashboardSidebar />} />
       </Routes>
     </>
   )
