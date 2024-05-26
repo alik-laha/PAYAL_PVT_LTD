@@ -3,12 +3,12 @@ import {
     CollapsibleContent,
     CollapsibleTrigger,
 } from "@/components/ui/collapsible"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 import "./dashboard.css"
 import { useState } from "react"
 
 const DashboardSidebar = () => {
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const openSidebar = () => {
