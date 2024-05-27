@@ -18,7 +18,7 @@ const employeeMiddleWare = (req: Request, res: Response, next: NextFunction) => 
     if (pincode.length !== 6) {
         return res.status(400).json({ message: "Pincode should be of 6 digits" })
     }
-    if (adharNo.length !== 12) {
+    if (aadhaarNo.length !== 12) {
         return res.status(400).json({ message: "Adhar number should be of 12 digits" })
     }
     if (panNo.length !== 10) {
