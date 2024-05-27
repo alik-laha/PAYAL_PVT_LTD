@@ -82,7 +82,7 @@ const Employee = sequelize.define('employee', {
         type: DataTypes.STRING,
         allowNull: true
     },
-    resginationDate: {
+    releseDate: {
         type: DataTypes.DATE,
         allowNull: true
     },
