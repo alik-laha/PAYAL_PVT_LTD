@@ -4,9 +4,17 @@ import Employee from "../../model/employeeModel";
 const createEmployee = async (req: Request, res: Response) => {
     try {
         const { employeeName, designation, email, mobNo, employeeId, aadhaarNo, panNo, dateOfJoining, address, pincode, emergencyContact, emergencyMobNo, alternateMobNo, bloodGroup, heighstQualification, pfNo } = req.body;
-        const oldEmployee = await Employee.findOne({ where: { employeeId } });
+        let oldEmployee = await Employee.findOne({ where: { employeeId } });
         if (oldEmployee) {
             return res.status(400).json({ msg: 'Employee already exist with this employeeId' })
+        }
+        oldEmployee = await Employee.findOne({ where: { aadhaarNo } });
+        if (oldEmployee) {
+            return res.status(400).json({ msg: 'Employee already exist with this aadhaarNo' })
+        }
+        oldEmployee = await Employee.findOne({ where: { panNo } });
+        if (oldEmployee) {
+            return res.status(400).json({ msg: 'Employee already exist with this panNo' })
         }
         Employee.create({
             employeeName,
