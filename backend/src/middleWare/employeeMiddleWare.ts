@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 
 const employeeMiddleWare = (req: Request, res: Response, next: NextFunction) => {
-    const { employeeName, designation, email, mobNo, adharNo, panNo, dateOfJoining, address, pincode, emergencyContact, emergencyMobNo, alternateMobNo, bloodGroup, heighstQualification, pfNo, employeeId } = req.body;
+    const { employeeName, designation, email, mobNo, aadhaarNo, panNo, dateOfJoining, address, pincode, emergencyContact, emergencyMobNo, alternateMobNo, bloodGroup, heighstQualification, pfNo, employeeId } = req.body;
 
-    if (!employeeName || !designation || !email || !mobNo || !adharNo || !panNo || !dateOfJoining || !address || !pincode || !emergencyContact || !emergencyMobNo || !employeeId) {
+    if (!employeeName || !designation || !email || !mobNo || !aadhaarNo || !panNo || !dateOfJoining || !address || !pincode || !emergencyContact || !emergencyMobNo || !employeeId) {
         return res.status(400).json({ message: "All fields are required" })
     }
     if (mobNo.length !== 10) {

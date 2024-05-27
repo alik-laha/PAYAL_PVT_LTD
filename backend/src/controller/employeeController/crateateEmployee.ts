@@ -3,14 +3,14 @@ import Employee from "../../model/employeeModel";
 
 const createEmployee = async (req: Request, res: Response) => {
     try {
-        const { employeeName, designation, email, mobNo, employeeId, adharNo, panNo, dateOfJoining, address, pincode, emergencyContact, emergencyMobNo, alternateMobNo, bloodGroup, heighstQualification, pfNo } = req.body;
+        const { employeeName, designation, email, mobNo, employeeId, aadhaarNo, panNo, dateOfJoining, address, pincode, emergencyContact, emergencyMobNo, alternateMobNo, bloodGroup, heighstQualification, pfNo } = req.body;
         Employee.create({
             employeeName,
             employeeId,
             designation,
             email,
             mobNo,
-            adharNo,
+            aadhaarNo,
             panNo,
             dateOfJoining,
             address,
