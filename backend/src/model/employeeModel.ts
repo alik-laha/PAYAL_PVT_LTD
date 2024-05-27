@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig";
+import e from "express";
 
 sequelize.sync()
     .then(() => {
@@ -14,6 +15,11 @@ const Employee = sequelize.define('employee', {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
+    },
+    employeeId: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
     },
     employeeName: {
         type: DataTypes.STRING,
