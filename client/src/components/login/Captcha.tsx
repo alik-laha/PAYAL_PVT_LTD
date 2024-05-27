@@ -70,7 +70,7 @@ const Captcha: React.FC = () => {
 
       <canvas id="captchaCanvas" ref={canvasRef} width="110" height="40" style={{ border: '1px solid #ccc', marginRight: '3%' }}></canvas>
 
-      <button onClick={generateCaptcha}><HiRefresh /></button>
+      <button type="button" onClick={generateCaptcha}><HiRefresh /></button>
       <Input height={40} type="text" placeholder="Captcha Text" className=' ml-2 h-11' />
       {/* <p>CAPTCHA Text: {captchaText}</p> */}
     </div>
