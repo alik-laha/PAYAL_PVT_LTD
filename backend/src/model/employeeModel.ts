@@ -83,6 +83,16 @@ const Employee = sequelize.define('employee', {
         type: DataTypes.STRING,
         allowNull: true
     },
+    resginationDate: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
+    }
+
 });
 
 export default Employee;
