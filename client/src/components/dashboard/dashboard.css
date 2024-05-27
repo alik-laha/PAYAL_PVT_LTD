@@ -248,5 +248,10 @@
             padding-top: 25vw;
         
     }
+    .user-pvt p{
+        font-size: 16px;
+        padding-left: 2vw;
+    }
+  
 
 }
