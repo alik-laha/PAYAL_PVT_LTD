@@ -34,7 +34,8 @@ const DashboardSidebar = () => {
                 <a href="#" className="closebtn" onClick={closeSidebar}>&times;</a>
                 <a>
                     <Collapsible >
-                        <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25}/><p>Admin & HR</p></CollapsibleTrigger>
+                        <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25}/>
+                        <p>Admin & HR</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
                             Create Employee
                         </CollapsibleContent >
@@ -49,7 +50,8 @@ const DashboardSidebar = () => {
                         </CollapsibleContent>
                     </Collapsible>
                     <Collapsible >
-                        <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25}/><p>Receiving</p></CollapsibleTrigger>
+                        <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25}/>
+                        <p>Receiving</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
                             Create User
                         </CollapsibleContent>
@@ -57,6 +59,8 @@ const DashboardSidebar = () => {
                             Create Employee
                         </CollapsibleContent>
                     </Collapsible>
+
+                    
                 </a>
             </div>
             <div className="main">

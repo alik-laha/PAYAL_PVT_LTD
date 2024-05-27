@@ -23,13 +23,13 @@ export const Login = () => {
 
                 <Select>
                     <SelectTrigger>
-                        <SelectValue placeholder="Select Company" />
+                        <SelectValue placeholder="Cashew" />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
                             <SelectItem value="1">Cashew</SelectItem>
                             <SelectItem value="2">Almond</SelectItem>
-                            <SelectItem value="3">Agarbati</SelectItem>
+                     
                         </SelectGroup>
                     </SelectContent>
                 </Select>
