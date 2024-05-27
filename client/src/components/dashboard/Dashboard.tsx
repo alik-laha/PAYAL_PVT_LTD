@@ -4,7 +4,7 @@ import DashboardSidebar from './DashboardSidebar'
 import icon from '../../assets/Static_Images/OIP.jpeg'
 import icon2 from '../../assets/Static_Images/OIP-2.webp'
 import { useState } from "react"
-
+import "./dashboard.css"
 
 export const Dashboard = () => {
 
@@ -19,7 +19,7 @@ const logoutVisiblity = () => {
   }
 
     return (
-        <>
+        <div>
         <div className='dashoboard-main-header'>
         <span className="logo-lg dashboard-text" ></span>
         
@@ -41,9 +41,8 @@ const logoutVisiblity = () => {
 
         
         </div>
-        
         <DashboardSidebar/>
-        </>
+        </div>
         
     
     )

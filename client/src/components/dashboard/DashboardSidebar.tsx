@@ -28,7 +28,9 @@ const DashboardSidebar = () => {
 
     return (
         <> 
-       
+        <div className="main">
+                <span className="openbtn" onClick={openSidebar}>&#9776; </span>
+            </div>
        
         <div className={`sidebar ${sidebarOpen ? 'open' : ''}` }>
                 <a href="#" className="closebtn" onClick={closeSidebar}>&times;</a>
@@ -63,9 +65,7 @@ const DashboardSidebar = () => {
                     
                 </a>
             </div>
-            <div className="main">
-                <span className="openbtn" onClick={openSidebar}>&#9776; </span>
-            </div>
+            
             
             
         
