@@ -31,7 +31,11 @@ const Captcha: React.FC = () => {
 
     // Set CAPTCHA text properties
     ctx.font = '18px Arial';
-    ctx.fillStyle = 'black';
+    if (ctx.fillStyle === "#000000") {
+      ctx.fillStyle = 'white';
+    } else {
+      ctx.fillStyle = 'black';
+    }
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
