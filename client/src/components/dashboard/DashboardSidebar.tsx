@@ -8,6 +8,9 @@ import "./dashboard.css"
 import { useState } from "react"
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { MdCallReceived } from "react-icons/md";
+import { MdOutlineFactory } from "react-icons/md";
+import { LuBadgeCheck ,LuServerCrash} from "react-icons/lu";
+import { BsUiChecksGrid } from "react-icons/bs";
 
 
 
@@ -42,24 +45,52 @@ const DashboardSidebar = () => {
                             Create Employee
                         </CollapsibleContent >
                         <CollapsibleContent className="Items-pvt">
-                            Modify/Export Employee
+                            Employee Details
                         </CollapsibleContent>
                         <CollapsibleContent className="Items-pvt">
                             Create Dashboard User
                         </CollapsibleContent>
                         <CollapsibleContent className="Items-pvt">
-                            Modify/Export Dashboard User
+                            Dashboard User Details
                         </CollapsibleContent>
                     </Collapsible>
                     <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25}/>
                         <p>Receiving</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
-                            Create User
+                            RCN Primary Entry
                         </CollapsibleContent>
                         <CollapsibleContent className="Items-pvt">
-                            Create Employee
+                            RCN Primary Entry Status
                         </CollapsibleContent>
+                        <CollapsibleContent className="Items-pvt">
+                            Create Item Code
+                        </CollapsibleContent>
+                        <CollapsibleContent className="Items-pvt">
+                            Store Entry
+                        </CollapsibleContent>
+                    </Collapsible>
+                    
+                    <Collapsible >
+                        <CollapsibleTrigger className="user-pvt"><LuBadgeCheck size={25}/>
+                        <p>Quality</p></CollapsibleTrigger>
+                        <CollapsibleContent className="Items-pvt">
+                            RCN Primary QC
+                        </CollapsibleContent>
+                        <CollapsibleContent className="Items-pvt">
+                            Packaging Material QC
+                        </CollapsibleContent>
+                      
+                    </Collapsible>
+                    <Collapsible >
+                        <CollapsibleTrigger className="user-pvt"><LuServerCrash size={25}/>
+                        <p>Maintainance</p></CollapsibleTrigger>
+                       
+                    </Collapsible>
+                    <Collapsible >
+                        <CollapsibleTrigger className="user-pvt"><MdOutlineFactory  size={25}/>
+                        <p>Production</p></CollapsibleTrigger>
+                       
                     </Collapsible>
 
                     
