@@ -45,7 +45,7 @@ const RcnPrimary = sequelize.define('rcnEntry', {
     },
     rcnStatus: {
         type: DataTypes.STRING,
-        defaultValue: 'pending'
+        defaultValue: 'QC pending'
     },
     receivedBy: {
         type: DataTypes.STRING,
