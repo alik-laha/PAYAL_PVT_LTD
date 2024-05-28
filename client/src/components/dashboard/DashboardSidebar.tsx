@@ -10,6 +10,7 @@ import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { MdCallReceived } from "react-icons/md";
 import { MdOutlineFactory } from "react-icons/md";
 import { LuBadgeCheck, LuServerCrash } from "react-icons/lu";
+import { NavLink } from "react-router-dom";
 
 
 
@@ -52,14 +53,14 @@ const DashboardSidebar = () => {
                         <CollapsibleContent className="Items-pvt">
                             Machine
                         </CollapsibleContent >
-                        
-                       
-                        
+
+
+
                     </Collapsible>
                     <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineFactory size={25} />
                             <p>Production</p></CollapsibleTrigger>
-                            <CollapsibleContent className="Items-pvt">
+                        <CollapsibleContent className="Items-pvt">
                             RCN Grading
                         </CollapsibleContent>
                         <CollapsibleContent className="Items-pvt">
@@ -71,9 +72,12 @@ const DashboardSidebar = () => {
                         <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25} />
                             <p>Receiving</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
-                            RCN Primary Entry
+                            <NavLink to="/dashboard/rcnprimaryentry">
+                                RCN Primary Entry
+                            </NavLink>
+
                         </CollapsibleContent>
-                        
+
                     </Collapsible>
 
                     <Collapsible >
@@ -82,7 +86,7 @@ const DashboardSidebar = () => {
                         <CollapsibleContent className="Items-pvt">
                             RCN Primary QC
                         </CollapsibleContent>
-                        
+
 
                     </Collapsible>
                     <Collapsible >
@@ -90,7 +94,7 @@ const DashboardSidebar = () => {
                             <p>Maintainance</p></CollapsibleTrigger>
 
                     </Collapsible>
-               
+
 
                 </a>
             </div>
