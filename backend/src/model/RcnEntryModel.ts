@@ -58,3 +58,4 @@ const RcnPrimary = sequelize.define('rcnEntry', {
 
 
 });
+export default RcnPrimary;
