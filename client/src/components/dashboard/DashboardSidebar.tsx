@@ -41,33 +41,36 @@ const DashboardSidebar = () => {
                         <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25} />
                             <p>Admin & HR</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
-                            Create Employee
+                            Employee
                         </CollapsibleContent >
                         <CollapsibleContent className="Items-pvt">
-                            Employee Details
+                            Dashboard User
                         </CollapsibleContent>
                         <CollapsibleContent className="Items-pvt">
-                            Create Dashboard User
+                            Machine
+                        </CollapsibleContent >
+                        
+                       
+                        
+                    </Collapsible>
+                    <Collapsible >
+                        <CollapsibleTrigger className="user-pvt"><MdOutlineFactory size={25} />
+                            <p>Production</p></CollapsibleTrigger>
+                            <CollapsibleContent className="Items-pvt">
+                            RCN Grading
                         </CollapsibleContent>
                         <CollapsibleContent className="Items-pvt">
-                            Dashboard User Details
+                            RCN Boiling
                         </CollapsibleContent>
                     </Collapsible>
+
                     <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25} />
                             <p>Receiving</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
                             RCN Primary Entry
                         </CollapsibleContent>
-                        <CollapsibleContent className="Items-pvt">
-                            RCN Primary Entry Status
-                        </CollapsibleContent>
-                        <CollapsibleContent className="Items-pvt">
-                            Create Item Code
-                        </CollapsibleContent>
-                        <CollapsibleContent className="Items-pvt">
-                            Store Entry
-                        </CollapsibleContent>
+                        
                     </Collapsible>
 
                     <Collapsible >
@@ -76,9 +79,7 @@ const DashboardSidebar = () => {
                         <CollapsibleContent className="Items-pvt">
                             RCN Primary QC
                         </CollapsibleContent>
-                        <CollapsibleContent className="Items-pvt">
-                            Packaging Material QC
-                        </CollapsibleContent>
+                        
 
                     </Collapsible>
                     <Collapsible >
@@ -86,12 +87,7 @@ const DashboardSidebar = () => {
                             <p>Maintainance</p></CollapsibleTrigger>
 
                     </Collapsible>
-                    <Collapsible >
-                        <CollapsibleTrigger className="user-pvt"><MdOutlineFactory size={25} />
-                            <p>Production</p></CollapsibleTrigger>
-
-                    </Collapsible>
-
+               
 
                 </a>
             </div>
