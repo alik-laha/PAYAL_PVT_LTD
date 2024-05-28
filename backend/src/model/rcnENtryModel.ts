@@ -1,97 +1,60 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig";
 
-sequelize.sync()
-    .then(() => {
-        console.log('All models were synchronized successfully.');
-    })
-    .catch((error) => {
-        console.error('Error synchronizing models:', error);
-    });
-
-const Employee = sequelize.define('employee', {
+const RcnPrimary = sequelize.define('rcnEntry', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    employeeId: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-    },
-    employeeName: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    designation: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    mobNo: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    alternateMobNo: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    aadhaarNo: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-    },
-    panNo: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-    },
-    heighstQualification: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    bloodGroup: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    dateOfJoining: {
+    date: {
         type: DataTypes.DATE,
         allowNull: false
     },
-    address: {
-        type: DataTypes.STRING(500),
-        allowNull: false
-    },
-    pincode: {
+    blNo: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    emergencyContact: {
+    truckNo: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    emergencyMobNo: {
+    conNo: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    pfNo: {
+    blWeight: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+    },
+    netWeight: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+    },
+    difference: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+    },
+    noOfBags: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    origin: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    rcnStatus: {
+        type: DataTypes.STRING,
+        defaultValue: 'pending'
+    },
+    receivedBy: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    approvedBy: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    releseDate: {
-        type: DataTypes.DATE,
-        allowNull: true
-    },
-    status: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: true
-    }
+
 
 });
-
-export default Employee;
