@@ -1,11 +1,12 @@
 import express from "express";
-import createEmployee from "../controller/employeeController/createateEmployee";
+import createEmployee from "../controller/employeeController/createEmployee";
 import employeeMiddleWare from "../middleWare/employeeMiddleWare";
 import updateEmployee from "../controller/employeeController/updateEmployee";
 import searchEmployee from "../controller/employeeController/searchEmployee";
 import getAllEmployee from "../controller/employeeController/getAllEmployee";
 import DeleteEmployee from "../controller/employeeController/deleteEmployee";
 import releseEmployee from "../controller/employeeController/releseEmployee";
+
 const router = express.Router();
 
 router.post("/create", employeeMiddleWare, createEmployee)
