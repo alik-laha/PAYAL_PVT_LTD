@@ -1,5 +1,5 @@
 import express from "express";
-import createEmployee from "../controller/employeeController/crateateEmployee";
+import createEmployee from "../controller/employeeController/createateEmployee";
 import employeeMiddleWare from "../middleWare/employeeMiddleWare";
 import updateEmployee from "../controller/employeeController/updateEmployee";
 import searchEmployee from "../controller/employeeController/searchEmployee";
