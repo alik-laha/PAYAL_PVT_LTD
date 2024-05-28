@@ -54,8 +54,15 @@ const RcnPrimary = sequelize.define('rcnEntry', {
     approvedBy: {
         type: DataTypes.STRING,
         allowNull: true
-    },
+    }
+},
+    {
+        indexes: [
+            {
+                unique: true,
+                fields: ['blNo', 'conNo']
+            }
+        ]
+    });
 
-
-});
 export default RcnPrimary;
