@@ -44,6 +44,9 @@ const DashboardSidebar = () => {
                             Employee
                         </CollapsibleContent >
                         <CollapsibleContent className="Items-pvt">
+                            Dept-Role Mapping
+                        </CollapsibleContent >
+                        <CollapsibleContent className="Items-pvt">
                             Dashboard User
                         </CollapsibleContent>
                         <CollapsibleContent className="Items-pvt">
