@@ -275,12 +275,14 @@
     float: right;
     width: 77%;
     margin-left: 23%;
+    
 }
 .flexbox-header{
     display: flex;
     flex-wrap: wrap;
     gap: 18px;
     padding: 16px;
+    margin-top: -30px;
 }
 
 .flexbox-tile{
@@ -294,10 +296,11 @@
     color: whitesmoke;
     font-size: 16px;
     box-shadow: 0 0 0.20rem 0.20rem hsla(189, 68%, 71%, 0.466);
+    width:10%
 }
 
 .flexbox-tile p{
-    font-size: 35px;
+    font-size: 25px;
 }
 
 @media screen and (max-width: 999px) {
@@ -341,22 +344,19 @@
    
 
     .flexbox-tile{
-        flex: 1 1 10% ;
+        flex: 1 1 25% ;
         background-color: rgb(79, 116, 236);
         padding: 15px;
-   
         height: 20vw;
-       
         font-size: 12px;
+       
        
     }
     .flexbox-header{
-      
         gap: 15px;
-      
     }
     .flexbox-tile p{
-        font-size: 20px;
+        font-size: 12px;
     }
   
 

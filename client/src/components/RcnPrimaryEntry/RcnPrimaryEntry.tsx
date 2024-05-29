@@ -44,19 +44,19 @@ const RcnPrimaryEntry = () => {
             {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
           
 
-            <Dialog>
-  <DialogTrigger>   <Button className="bg-orange-400 mb-2 mt-5 ml-4">+ Add New Entry</Button></DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>RCN Primary Entry Form</DialogTitle>
-      <DialogDescription>
-        Enter RCN Receiving Data Carefully
-      </DialogDescription>
-    </DialogHeader>
+                <Dialog>
+                    <DialogTrigger>   <Button className="bg-orange-400 mb-2 mt-5 ml-4">+ Add New Entry</Button></DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>RCN Primary Entry Form</DialogTitle>
+                            <DialogDescription>
+                                Enter RCN Receiving Data Carefully
+                            </DialogDescription>
+                        </DialogHeader>
 
-    <RcnPrimaryEntryForm/>
-  </DialogContent>
-</Dialog>
+                        <RcnPrimaryEntryForm />
+                    </DialogContent>
+                </Dialog>
 
             <div>
 

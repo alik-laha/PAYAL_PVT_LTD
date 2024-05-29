@@ -11,14 +11,20 @@ import { Input } from "../ui/input";
 import DatePicker from "../common/DatePicker";
 
 
+
 const RcnPrimaryEntryTable = () => {
     const [date, setDate] = React.useState<Date | undefined>()
     return (
-        <div>
-            <Input />
-
+        <div className="ml-5 mt-5">
+            <div className="flex ">
+            
+            <Input className="w-30" placeholder="Search By BL/Con No."/>
             <DatePicker buttonName="From Date" value={date} setValue={setDate} />
-            <Table>
+            </div>
+            
+
+            
+            <Table >
                 <TableHeader>
                     <TableRow>
                         <TableHead>Id</TableHead>
