@@ -3,6 +3,7 @@
 const RcnPrimaryEntryMain = () => {
     return (
        <>
+       <p className=''>RCN Entry Dashboard</p>
        <div className="flexbox-header">
        <div className="flexbox-tile">
             Ghana <br/><p>1100</p>
@@ -24,6 +25,9 @@ const RcnPrimaryEntryMain = () => {
         </div>
        </div>
     
+        <div>
+
+        </div>
 
        
        </>
