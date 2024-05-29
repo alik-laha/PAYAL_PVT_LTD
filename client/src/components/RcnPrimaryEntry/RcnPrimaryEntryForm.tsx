@@ -10,6 +10,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { useRef, useState } from "react"
+import { Origin } from "../common/exportData"
 
 const RcnPrimaryEntryForm = () => {
     const [origin, setOrigin] = useState<string>("")
@@ -29,8 +30,8 @@ const RcnPrimaryEntryForm = () => {
         console.log({ origin, blNo, conNo, truckNo, blWeight, netWeight })
     }
     return (
-        <div className='flex flex-col gap-4 '>
-            <form onSubmit={handleSubmit}>
+        <div >
+            <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
                 <div className="flex mt-8"><Label className="w-2/4 pl-16">Origin</Label>
                     <Select value={origin} onValueChange={(value) => setOrigin(value)}>
                         <SelectTrigger className="w-2/4 mr-10">
@@ -38,8 +39,15 @@ const RcnPrimaryEntryForm = () => {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                <SelectItem value="1">Country 1</SelectItem>
-                                <SelectItem value="2">Country 2</SelectItem>
+                                {
+                                    Origin.map((item) => {
+                                        return (
+                                            <SelectItem key={item} value={item}>
+                                                {item}
+                                            </SelectItem>
+                                        )
+                                    })
+                                }
                             </SelectGroup>
                         </SelectContent>
                     </Select>
