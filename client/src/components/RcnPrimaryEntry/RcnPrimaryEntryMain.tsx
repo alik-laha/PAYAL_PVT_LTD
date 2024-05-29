@@ -5,6 +5,7 @@ import {
 } from "@/components/ui/popover"
 import RcnPrimaryEntryForm from "./RcnPrimaryentryForm";
 import { Button } from "@/components/ui/button";
+import RcnPrimaryEntryTable from "./RcnPrimaryEntryTable";
 
 
 
@@ -46,7 +47,7 @@ const RcnPrimaryEntryMain = () => {
             <div>
 
             </div>
-
+            <RcnPrimaryEntryTable />
 
         </>
 
