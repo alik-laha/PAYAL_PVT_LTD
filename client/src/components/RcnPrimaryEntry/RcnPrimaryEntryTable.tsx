@@ -9,29 +9,16 @@ import {
 import React from "react"
 import { Input } from "../ui/input";
 import DatePicker from "../common/DatePicker";
-import axios from "axios";
-import { useQuery } from "react-query";
 import { RcnPrimaryEntryData } from "@/type/type";
+import UseQueryData from "../common/dataFetcher";
 
-const getAllRcnPrimaryEntry = async () => {
-    try {
-        const data = await axios.get('/api/rcnprimary/all')
-        console.log(data.data)
-        return data.data
 
-    }
-    catch (err) {
-        console.log(err)
-    }
-}
 
 const RcnPrimaryEntryTable = () => {
     const [date, setDate] = React.useState<Date | undefined>();
-    const {
-        data,
-        error,
-        isLoading,
-    } = useQuery("postsData", getAllRcnPrimaryEntry);
+
+    const { data, error, isLoading } = UseQueryData('/api/rcnprimary/all', 'GET', 'postsData')
+    console.log(data)
 
     if (isLoading) {
         return <div>Loading...</div>
@@ -40,7 +27,6 @@ const RcnPrimaryEntryTable = () => {
         return <div>Error</div>
     }
     if (data) {
-
         return (
             <div className="ml-5 mt-5">
                 <div className="flex ">
