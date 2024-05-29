@@ -51,7 +51,7 @@
 
 /* When the sidebar is open */
 .sidebar.open {
-    width: 23vw;
+    width: 23%;
     padding-top: 6.5vw;
 }
 
@@ -257,6 +257,22 @@
     color: white;
     border-color: #ddd;
     background-color: #132b39c2;
+}
+
+
+/* //main-content */
+.dashboard-main-container{
+    width:100%;
+    flex:1;
+    background-color: #dddddd;
+    padding: 16px;
+    transition: width 0.5s;
+    height: 100%;
+}
+
+.sidebar.open+.dashboard-main-container{
+    float: right;
+    width: 77%;
 }
 
 @media screen and (max-width: 999px) {

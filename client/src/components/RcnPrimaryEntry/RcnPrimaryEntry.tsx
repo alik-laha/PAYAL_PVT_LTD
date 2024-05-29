@@ -1,11 +1,19 @@
-import { Dashboard } from "../dashboard/Dashboard";
+
+import DashboardHeader from '../dashboard/DashboardHeader'
+import DashboardSidebar from '../dashboard/DashboardSidebar'
+import DashboardPrimaryEntryMain from '../RcnPrimaryEntry/RcnPrimaryEntryMain'
 
 const RcnPrimaryEntry = () => {
     return (
         <div>
-            <Dashboard />
-            <h1>RCN Primary Entry</h1>
+        <DashboardHeader/>
+        <DashboardSidebar/>
+        <div className='dashboard-main-container'>
+        < DashboardPrimaryEntryMain/>
         </div>
-    );
+        </div>
+        
+    
+    )
 }
 export default RcnPrimaryEntry;
