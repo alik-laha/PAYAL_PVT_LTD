@@ -23,22 +23,22 @@ const RcnPrimaryEntry = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile">
-                        Ghana <br /><p>1100 Kg</p>
+                        Ghana <br /><p>1100 Bag</p>
                     </div>
                     <div className="flexbox-tile">
-                        Nizeria <br /><p>5000 Kg</p>
+                        Nizeria <br /><p>5000 Bag</p>
                     </div>
                     <div className="flexbox-tile">
-                        Tanzania<br /><p>5000 Kg</p>
+                        Tanzania<br /><p>5000 Bag</p>
                     </div>
                     <div className="flexbox-tile">
-                        IVC<br /><p>1000 Kg</p>
+                        IVC<br /><p>1000 Bag</p>
                     </div>
                     <div className="flexbox-tile">
-                        Origin5<br /><p>1340 Kg</p>
+                        Origin5<br /><p>1340 Bag</p>
                     </div>
                     <div className="flexbox-tile">
-                        Origin6<br /><p>987 Kg</p>
+                        Origin6<br /><p>987 Bag</p>
                     </div>
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
