@@ -261,6 +261,8 @@
 
 
 /* //main-content */
+
+
 .dashboard-main-container{
     width:100%;
     flex:1;
@@ -277,7 +279,7 @@
 .flexbox-header{
     display: flex;
     flex-wrap: wrap;
-    gap: 40px;
+    gap: 18px;
     padding: 16px;
 }
 
@@ -302,13 +304,13 @@
 
     .sidebar a {
         font-size: 25px;
-
-        
+  
     }
 
     .sidebar.open {
         width: 65%;
             padding-top: 25vw;
+          
         
     }
     .user-pvt p{
@@ -334,7 +336,9 @@
     .sidebar.open+.dashboard-main-container{
         float: right;
         width: 35%;
+       display: none;
     }
+   
 
     .flexbox-tile{
         flex: 1 1 10% ;
@@ -345,6 +349,11 @@
        
         font-size: 12px;
        
+    }
+    .flexbox-header{
+      
+        gap: 15px;
+      
     }
     .flexbox-tile p{
         font-size: 20px;
