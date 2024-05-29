@@ -290,7 +290,7 @@
     height: 12vw;
     color: whitesmoke;
     font-size: 16px;
-    box-shadow: 0 0 0.5rem 0.25rem hsla(194, 51%, 72%, 0.466);
+    box-shadow: 0 0 0.20rem 0.20rem hsla(189, 68%, 71%, 0.466);
 }
 
 .flexbox-tile p{
@@ -342,11 +342,11 @@
    
         height: 20vw;
        
-        font-size: 14px;
+        font-size: 12px;
        
     }
     .flexbox-tile p{
-        font-size: 25px;
+        font-size: 20px;
     }
   
 
