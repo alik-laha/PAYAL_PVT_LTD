@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Employee from "../../model/employeeModel";
-import { Op, where } from "sequelize";
+import { Op } from "sequelize";
 
 
 const searchEmployee = async (req: Request, res: Response) => {
