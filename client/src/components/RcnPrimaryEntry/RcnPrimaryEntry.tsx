@@ -48,9 +48,9 @@ const RcnPrimaryEntry = () => {
                     <DialogTrigger>   <Button className="bg-orange-400 mb-2 mt-5 ml-4">+ Add New Entry</Button></DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle>RCN Primary Entry Form</DialogTitle>
+                            <DialogTitle><p className='text-1xl pb-2 text-center mt-5'>RCN Primary Entry Form</p></DialogTitle>
                             <DialogDescription>
-                                Enter RCN Receiving Data Carefully
+                            <p className='text-1xl text-center'>To Be Filled Up By RCN Accountant</p> 
                             </DialogDescription>
                         </DialogHeader>
 
