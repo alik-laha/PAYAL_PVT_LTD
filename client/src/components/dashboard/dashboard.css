@@ -265,29 +265,30 @@
     width:100%;
     flex:1;
     padding: 16px;
-    transition: width 0.4s linear;
+    transition: margin-left 0.4s;
     height: 100%;
 }
 
 .sidebar.open+.dashboard-main-container{
     float: right;
     width: 77%;
+    margin-left: 23%;
 }
 .flexbox-header{
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 40px;
     padding: 16px;
 }
 
 .flexbox-tile{
     flex: 1 1 10% ;
     background-color: rgb(79, 116, 236);
-    padding: 20px;
+    padding: 30px 20px 20px 20px;
     text-align: center;
     border: 1px solid #ddd;
     box-sizing: border-box;
-    height: 12vw;
+    height: 9vw;
     color: whitesmoke;
     font-size: 16px;
     box-shadow: 0 0 0.20rem 0.20rem hsla(189, 68%, 71%, 0.466);
