@@ -9,25 +9,23 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { Origin } from "../common/exportData"
+import axios from "axios"
 
 const RcnPrimaryEntryForm = () => {
     const [origin, setOrigin] = useState<string>("")
-    const blNoRef = useRef<HTMLInputElement>(null)
-    const conNoRef = useRef<HTMLInputElement>(null)
-    const truckNoRef = useRef<HTMLInputElement>(null)
-    const blWeightRef = useRef<HTMLInputElement>(null)
-    const netWeightRef = useRef<HTMLInputElement>(null)
+    const [blNo, setBlNo] = useState<string>("")
+    const [conNo, setConNo] = useState<string>("")
+    const [truckNo, setTruckNo] = useState<string>("")
+    const [blWeight, setBlWeight] = useState<number | undefined>()
+    const [noOfBags, setNoOfBags] = useState<number | undefined>()
+    const [netWeight, setNetWeight] = useState<number | undefined>()
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        const blNo = blNoRef.current?.value
-        const conNo = conNoRef.current?.value
-        const truckNo = truckNoRef.current?.value
-        const blWeight = blWeightRef.current?.value
-        const netWeight = netWeightRef.current?.value
         console.log({ origin, blNo, conNo, truckNo, blWeight, netWeight })
+        axios.post('/api/rcnprimary/create', { origin, blNo, conNo, truckNo, blWeight, netWeight, noOfBags })
     }
     return (
         <div >
@@ -53,19 +51,24 @@ const RcnPrimaryEntryForm = () => {
                     </Select>
                     {/* <Input   placeholder="Origin"/>  */}</div>
                 <div className="flex"><Label className="w-2/4 pl-16">BL No.</Label>
-                    <Input className="w-2/4 mr-10" placeholder="BL No." ref={blNoRef} /> </div>
+                    <Input className="w-2/4 mr-10" placeholder="BL No." value={blNo} onChange={(e) => setBlNo(e.target.value)} /> </div>
                 <div className="flex"><Label className="w-2/4 pl-16">Container No.</Label>
-                    <Input className="w-2/4 mr-10" placeholder="Container No." ref={conNoRef} /> </div>
+                    <Input className="w-2/4 mr-10" placeholder="Container No." value={conNo} onChange={(e) => setConNo(e.target.value)} /> </div>
                 <div className="flex"><Label className="w-2/4 pl-16" > Truck No.</Label>
-                    <Input className="w-2/4 mr-10" placeholder="Truck No." ref={truckNoRef} />
+                    <Input className="w-2/4 mr-10" placeholder="Truck No." value={truckNo} onChange={(e) => setTruckNo(e.target.value)} />
                 </div>
-                <div className="flex"><Label className="w-2/4 pl-16"> BL Weight</Label>
-                    <Input className="w-2/4 mr-10" placeholder="BL Weight" ref={blWeightRef} />
+                <div className="flex">
+                    <Label className="w-2/4 pl-16">Total Bags</Label>
+                    <Input className="w-2/4 mr-10" placeholder="Total Bags" value={noOfBags} onChange={(e) => setNoOfBags(Number(e.target.value))} type="number" />
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pl-16"> BL Weight</Label>
+                    <Input className="w-2/4 mr-10" placeholder="BL Weight" value={blWeight} onChange={(e) => setBlWeight(Number(e.target.value))} type="number" />
                 </div>
                 <div className="flex"><Label className="w-2/4 pl-16"> Net Weight</Label>
-                    <Input className="w-2/4 mr-10" placeholder="Net Weight" ref={netWeightRef} />
+                    <Input className="w-2/4 mr-10" placeholder="Net Weight" value={netWeight} onChange={(e) => setNetWeight(Number(e.target.value))} type="number" />
                 </div>
-                <Button className="bg-orange-500 mb-2 mt-5 ml-40 mr-40 text-center items-center justify-center" type="submit">Submit</Button>
+                <Button className="bg-orange-500 mb-2 mt-5 ml-40 mr-40 text-center items-center justify-center">Submit</Button>
             </form>
         </div>
     )
