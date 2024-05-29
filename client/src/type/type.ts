@@ -3,3 +3,11 @@ export interface DatePickerProps {
     value: Date | undefined;
     setValue: (value: Date | undefined) => void;
 }
+
+export interface RcnPrimaryEntryData {
+    id: number;
+    origin: string;
+    blNo: string;
+    conNo: string;
+    rcnStatus: string;
+}
