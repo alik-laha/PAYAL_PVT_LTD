@@ -11,3 +11,8 @@ export interface RcnPrimaryEntryData {
     conNo: string;
     rcnStatus: string;
 }
+
+export interface SumofAllCuntryData {
+    origin: string;
+    total: number;
+}
