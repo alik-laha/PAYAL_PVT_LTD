@@ -14,5 +14,5 @@ export interface RcnPrimaryEntryData {
 
 export interface SumofAllCuntryData {
     origin: string;
-    total: number;
+    totalBags: number;
 }
