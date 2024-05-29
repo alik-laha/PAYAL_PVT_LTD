@@ -23,7 +23,7 @@ const Employee = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile">
-                       Total Employee <br /><p>11000</p>
+                    Employee <br /><p>11000</p>
                     </div>
                    
                 </div>
@@ -31,12 +31,12 @@ const Employee = () => {
 
 
                 <Dialog>
-                    <DialogTrigger>   <Button className="bg-orange-400 mb-2 mt-5 ml-4">+ Add New Entry</Button></DialogTrigger>
+                    <DialogTrigger>   <Button className="bg-orange-400 mb-2 mt-5 ml-4">+ Add New Employee</Button></DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle><p className='text-1xl pb-2 text-center mt-5'>RCN Primary Entry Form</p></DialogTitle>
+                            <DialogTitle><p className='text-1xl pb-2 text-center mt-5'>Employee Entry Form</p></DialogTitle>
                             <DialogDescription>
-                            <p className='text-1xl text-center'>To Be Filled Up By RCN Accountant</p> 
+                            <p className='text-1xl text-center'>To Be Filled Up By Admin</p> 
                             </DialogDescription>
                         </DialogHeader>
 
