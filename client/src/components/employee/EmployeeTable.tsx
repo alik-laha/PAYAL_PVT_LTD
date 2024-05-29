@@ -18,7 +18,7 @@ const EmployeeTable = () => {
         <div className="ml-5 mt-5">
             <div className="flex ">
             
-            <Input className="w-30" placeholder="Search By BL/Con No."/>
+            <Input className="w-30" placeholder="Search By Employee Id"/>
             <DatePicker buttonName="From Date" value={date} setValue={setDate} />
             </div>
             
