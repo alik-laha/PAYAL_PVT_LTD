@@ -70,10 +70,10 @@ const RcnPrimaryEntryTable = () => {
 
 
 
-                <Table >
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Id</TableHead>
+                <Table className="mt-8">
+                    <TableHeader className="bg-neutral-100 text-stone-950">
+                        
+                            <TableHead >Id</TableHead>
                             <TableHead>Origin</TableHead>
                             <TableHead>Date </TableHead>
                             <TableHead>BL No.</TableHead>
@@ -81,7 +81,7 @@ const RcnPrimaryEntryTable = () => {
                             <TableHead>QC </TableHead>
                             <TableHead>Original Status </TableHead>
                             <TableHead>Action</TableHead>
-                        </TableRow>
+                        
                     </TableHeader>
                     <TableBody>
                         {
