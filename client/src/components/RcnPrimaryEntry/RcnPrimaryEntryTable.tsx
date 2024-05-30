@@ -44,7 +44,7 @@ const RcnPrimaryEntryTable = () => {
             <div className="ml-5 mt-5">
                 <div className="flex flexbox-search">
 
-                    <Input className="flexbox-search-width mt-1" placeholder="Search By BL/Con No." />
+                    <Input className="flexbox-search-width mt-1" placeholder=" BL No. / Container No." />
                     <div className="flex pl-7 mt-1 flexbox-search-width ">
                     <Select value={origin} onValueChange={(value) => setOrigin(value)}>
                         <SelectTrigger className="w-3/4 h-8">
@@ -95,7 +95,7 @@ const RcnPrimaryEntryTable = () => {
                                         <TableCell className="text-center" >{item.conNo}</TableCell>
                                         <TableCell className="text-center" ><button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button></TableCell>
                                         <TableCell className="text-center" >
-                                            
+                                            Created
                                         </TableCell>
                                         <TableCell className="text-center" >
                                         <button className="bg-green-500 p-1 text-white rounded">Edit</button>
