@@ -9,11 +9,22 @@ import EmployeeTable from "./EmployeeTable";
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
+    
     DialogHeader,
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+  } from "@/components/ui/alert-dialog"
 
 const Employee = () => {
     return (
