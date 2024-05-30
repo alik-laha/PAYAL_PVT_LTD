@@ -5,6 +5,7 @@ import DeleteRcnEntry from '../controller/RcnPrimaryEntry/DeleteRcnEntry';
 import UpdateRcnPrimaryEntry from '../controller/RcnPrimaryEntry/UpdateRcnPrimaryEntry';
 import SearchRcnPrimary from '../controller/RcnPrimaryEntry/SearchRcnPrimary';
 import SumOfAllOriginRcnPrimary from '../controller/RcnPrimaryEntry/SumofAllOriginRcnPrimary';
+import getAllRcnPrimaryEntry from '../controller/RcnPrimaryEntry/getAllRcnPrimaryEntry';
 
 const router = express.Router();
 
@@ -22,6 +23,10 @@ router.post('/search', SearchRcnPrimary);
 
 //Get Sum of all Origin Rcn Primary
 router.get('/sum', SumOfAllOriginRcnPrimary);
+
+//Get All Rcn Entry
+
+router.get('/all', getAllRcnPrimaryEntry);
 
 
 
