@@ -6,6 +6,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { FaSearch } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import React from "react"
 import { Input } from "../ui/input";
@@ -91,7 +92,7 @@ const RcnPrimaryEntryTable = () => {
                     </Select></div>
                     <span className="flexbox-search-width"><DatePicker buttonName="From Date" value={fromdate} setValue={setfromDate} /></span>
                     <span className="flexbox-search-width"> <DatePicker buttonName="To Date" value={todate} setValue={settoDate} /></span>
-                    <span className="w-1/10"><Button className="bg-slate-500">Search</Button></span>
+                    <span className="w-1/8 "><Button className="bg-slate-500 float-right"><FaSearch size={15}/> Search</Button></span>
                 
                 </div>
 
@@ -105,6 +106,11 @@ const RcnPrimaryEntryTable = () => {
                             <TableHead className="text-center" >Date </TableHead>
                             <TableHead className="text-center" >BL No.</TableHead>
                             <TableHead className="text-center" >Con No.</TableHead>
+                            <TableHead className="text-center" >Truck No.</TableHead>
+                           
+                            <TableHead className="text-center" >BL Weight</TableHead>
+                            <TableHead className="text-center" >Net Weight</TableHead>
+                            <TableHead className="text-center" >Difference</TableHead>
                             <TableHead className="text-center" >Bag Count</TableHead>
                             <TableHead className="text-center" >QC </TableHead>
                             <TableHead className="text-center" >Status </TableHead>
@@ -121,7 +127,12 @@ const RcnPrimaryEntryTable = () => {
                                         <TableCell className="text-center" >{item.date.slice(0,10)}</TableCell>
                                         <TableCell className="text-center" >{item.blNo}</TableCell>
                                         <TableCell className="text-center" >{item.conNo}</TableCell>
-                                        <TableCell className="text-center" >{item.noOfBags}</TableCell>
+                                        <TableCell className="text-center" >{item.truckNo}</TableCell>
+                                        
+                                        <TableCell className="text-center" >{item.blWeight}</TableCell>
+                                        <TableCell className="text-center" >{item.netWeight}</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-600" >{item.difference}</TableCell>
+                                        <TableCell className="text-center font-semibold" >{item.noOfBags}</TableCell>
                                         <TableCell className="text-center" ><button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button></TableCell>
                                         <TableCell className="text-center" >
                                             Created

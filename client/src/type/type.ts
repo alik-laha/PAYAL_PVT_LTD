@@ -12,6 +12,10 @@ export interface RcnPrimaryEntryData {
     rcnStatus: string;
     date:string;
     noOfBags:string;
+    truckNo:string;
+    blWeight:string;
+    netWeight:string;
+    difference:string;
 }
 
 export interface SumofAllCuntryData {
