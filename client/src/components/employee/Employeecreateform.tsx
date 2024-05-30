@@ -9,9 +9,9 @@ import React from "react"
 const Employeecreateform = () => {
     const [date, setDate] = React.useState<Date | undefined>()
 return(
-    <div className='flex flex-col gap-4 '>
+    <div className='flex flex-col gap-4 text-center'>
        
-       <div className="flex"><Label className="w-1/4 pl-5 pt-2 mr-2">Name</Label>
+       <div className="flex"><Label className="w-1/4 pl-5 pt-2 mr-2 ">Name</Label>
        <Input  className="w-3/4 mr-2" placeholder="Name"/><Label className="w-1/4 pl-2 pt-2 mr-2">Desg.</Label>
        <Input  className="w-3/4 mr-2" placeholder="Designation"/>  </div>
 
@@ -23,7 +23,7 @@ return(
         </div>
 
        <div className="flex">
-       <Label className="w-1/4 pl-2 pt-2 mr-2">Contact</Label>
+       <Label className="w-1/4 pl-2 pt-2 mr-2">Contact No.</Label>
        <Input  className="w-3/4 mr-2" placeholder="Contact No."/>
        <Label className="w-1/4 pl-2 pt-2 mr-2">Blood Gp.</Label>
        <Input  className="w-3/4 mr-2" placeholder="Blood Group"/>
@@ -31,37 +31,42 @@ return(
         </div>
 
        <div className="flex">
-       <Label className="w-1/4 pl-5 pt-2 mr-2"> Alt. No.</Label>
-       <Input  className="w-3/4 mr-2" placeholder=" Alt No."/>
-       <Label className="w-1/4 pl-2 pt-2 mr-2"> Highest Study </Label>
+       <Label className="w-1/4 pl-5 pt-2 mr-2">Contact No.(Alt)</Label>
+       <Input  className="w-3/4 mr-2" placeholder="Alt No."/>
+       <Label className="w-1/4 pl-2 pt-2 mr-2">Highest Study </Label>
        <Input  className="w-3/4 mr-2" placeholder=" Quaification"/>
        </div>
       
 
        <div className="flex">
-       <Label className="w-1/4 pl-2 pt-2 mr-2"> Aadhar </Label>
+       <Label className="w-1/4 pl-2 pt-2 mr-2">Aadhar No.</Label>
        <Input  className="w-3/4 mr-2" placeholder=" Aadhar No."/>
-       <Label className="w-1/4 pl-3 pt-2 mr-2">Pan</Label>
+       <Label className="w-1/4 pl-3 pt-2 mr-2">Pan No.</Label>
        <Input  className="w-3/4 mr-2" placeholder="Pan No."/>  </div>
 
        <div className="flex">
-       <Label className="w-1/4 pl-2 pt-2 mr-2"> Emergency Contact Name </Label>
-       <Input  className="w-3/4 mr-2" placeholder=" Emergency Contact Name "/>
+       <Label className="w-1/4 pl-2 pt-2 mr-2">Emergency Contact Name </Label>
+       <Input  className="w-3/4 mr-2" placeholder=" Contact Name "/>
        <Label className="w-1/4 pl-3 pt-2 mr-2">Emergency Contact No. </Label>
-       <Input  className="w-3/4 mr-2" placeholder="Emergency Contact No. "/>  </div>
+       <Input  className="w-3/4 mr-2" placeholder="Contact No. "/>  </div>
 
        <div className="flex">
-      
-       <Label className="w-1/4 pl-3 pt-2 mr-2">Address </Label>
-       <Textarea  className="w-3/4 mr-2" placeholder="Address "/>
+       <Label className="w-1/4 pl-3 pt-2 mr-2">PF No.(Optional) </Label>
+       <Input  className="w-3/4 mr-2" placeholder="PF No. "/>
+       
        <Label className="w-1/4 pl-2 pt-2 mr-2"> Pincode</Label>
        <Input  className="w-3/4 mr-2" placeholder=" Pincode "/>  </div>
+       <div className="flex">
+       <Label className="w-1/4 pl-3 pt-2 mr-2">Address </Label>
+       <Textarea  className="w-3/4 mr-2" placeholder="Address "/>
+       
+        </div>
       
        
       
        
        
-       <Button className="bg-orange-500 mb-2 mt-5 ml-40 mr-40 text-center items-center justify-center">Submit</Button>
+       <Button className="bg-orange-500 mb-2  ml-40 mr-40 text-center items-center justify-center">Submit</Button>
     </div>
 )
 

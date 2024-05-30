@@ -53,7 +53,7 @@ const RcnPrimaryEntry = () => {
                         <RcnPrimaryEntryForm />
                     </DialogContent>
                 </Dialog>
-                <Button className="bg-orange-400 mb-2 mt-5 ml-8">Pending Approval</Button>
+                <Button className="bg-orange-400 mb-2 mt-5 ml-8">Pending Edit Approval (5)</Button>
 
                 <div>
 

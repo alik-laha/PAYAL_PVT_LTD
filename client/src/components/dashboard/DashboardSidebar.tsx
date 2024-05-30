@@ -47,9 +47,7 @@ const DashboardSidebar = () => {
                             </NavLink>
                             
                         </CollapsibleContent >
-                        <CollapsibleContent className="Items-pvt">
-                            Dept-Role Mapping
-                        </CollapsibleContent >
+                     
                         <CollapsibleContent className="Items-pvt">
                             Dashboard User
                         </CollapsibleContent>

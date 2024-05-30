@@ -23,8 +23,11 @@ const Employee = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile">
-                    Employee <br /><p>11000</p>
+                    Active <br /><p>11000</p>
                     </div>
+                    
+                   
+                    
                    
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
@@ -34,10 +37,8 @@ const Employee = () => {
                     <DialogTrigger>   <Button className="bg-orange-400 mb-2 mt-5 ml-4">+ Add New Employee</Button></DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle><p className='text-1xl pb-2 text-center mt-5'>Employee Entry Form</p></DialogTitle>
-                            <DialogDescription>
-                            <p className='text-1xl text-center'>To Be Filled Up By Admin</p> 
-                            </DialogDescription>
+                            <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Employee Entry</p></DialogTitle>
+                       
                         </DialogHeader>
 
                         <Employeecreateform/>
