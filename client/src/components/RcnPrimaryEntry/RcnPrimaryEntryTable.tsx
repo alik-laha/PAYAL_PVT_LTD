@@ -11,11 +11,24 @@ import { Input } from "../ui/input";
 import DatePicker from "../common/DatePicker";
 import { RcnPrimaryEntryData } from "@/type/type";
 import UseQueryData from "../common/dataFetcher";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import { Origin } from "../common/exportData"
+import { useState } from "react"
+
 
 
 
 const RcnPrimaryEntryTable = () => {
-    const [date, setDate] = React.useState<Date | undefined>();
+    const [origin, setOrigin] = useState<string>("")
+    const [fromdate, setfromDate] = React.useState<Date | undefined>();
+    const [todate, settoDate] = React.useState<Date | undefined>();
 
     const { data, error, isLoading } = UseQueryData('/api/rcnprimary/all', 'GET', 'postsData')
     console.log(data)
@@ -29,10 +42,30 @@ const RcnPrimaryEntryTable = () => {
     if (data) {
         return (
             <div className="ml-5 mt-5">
-                <div className="flex ">
+                <div className="flex flexbox-search">
 
-                    <Input className="w-30" placeholder="Search By BL/Con No." />
-                    <DatePicker buttonName="From Date" value={date} setValue={setDate} />
+                    <Input className="flexbox-search-width mt-1" placeholder="Search By BL/Con No." />
+                    <div className="flex pl-7 mt-1 flexbox-search-width ">
+                    <Select value={origin} onValueChange={(value) => setOrigin(value)}>
+                        <SelectTrigger className="w-3/4 h-8">
+                            <SelectValue placeholder="Origin" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {
+                                    Origin.map((item) => {
+                                        return (
+                                            <SelectItem key={item} value={item}>
+                                                {item}
+                                            </SelectItem>
+                                        )
+                                    })
+                                }
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select></div>
+                    <span className="flexbox-search-width"><DatePicker buttonName="From Date" value={fromdate} setValue={setfromDate} /></span>
+                    <span className="flexbox-search-width"> <DatePicker buttonName="To Date" value={todate} setValue={settoDate} /></span>
                 </div>
 
 

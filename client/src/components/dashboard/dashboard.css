@@ -299,6 +299,17 @@
     max-width:20%!important;
 }
 
+.flexbox-search{
+   
+    flex-wrap: wrap;
+   row-gap: 10px;
+}
+
+.flexbox-search-width{
+   
+    width: 23%!important;
+}
+
 .flexbox-tile p{
     font-size: 25px;
 }
@@ -361,6 +372,12 @@
     .flexbox-tile p{
         font-size: 16px;
     }
+
+    .flexbox-search-width{
+   
+        width: 50%!important;
+    }
+    
   
 
 }
