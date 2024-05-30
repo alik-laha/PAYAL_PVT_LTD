@@ -19,6 +19,14 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import {
+    Dialog,
+    DialogContent,
+    
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 import { Origin } from "../common/exportData"
 import { useState } from "react"
 import {
@@ -26,7 +34,18 @@ import {
     PopoverContent,
     PopoverTrigger,
   } from "@/components/ui/popover"
-
+import RcnPrimaryModify from './RcnPrimaryModify'
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+  } from "@/components/ui/alert-dialog"
 
 
 
@@ -108,9 +127,59 @@ const RcnPrimaryEntryTable = () => {
                                         <Popover>
                                         <PopoverTrigger>       <button className="bg-green-500 p-2 text-white rounded">Action</button>
                                         </PopoverTrigger>
-                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium"><button className="bg-transparent pb-2 text-left">Modify</button>
+                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                            
+                                        <Dialog>
+                                        <DialogTrigger>   <button className="bg-transparent pb-2 text-left">Modify</button></DialogTrigger>
+                                        <DialogContent>
+                                            <DialogHeader>
+                                                <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>RCN Primary Entry Modification</p></DialogTitle>
+                                        
+                                            </DialogHeader>
+
+                                            <RcnPrimaryModify/>
+                                        </DialogContent>
+                                    </Dialog>
+
+                                            <AlertDialog>
+                                            <AlertDialogTrigger><button className="bg-transparent text-left pb-2">Approve</button></AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
+                                                
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                <AlertDialogAction>Continue</AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                            </AlertDialog>
+
+
+                                            <AlertDialog>
+                                            <AlertDialogTrigger><button className="bg-transparent text-left">Reject</button></AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
+                                                
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                <AlertDialogAction>Continue</AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                            </AlertDialog>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            {/* <button className="bg-transparent pb-2 text-left">Modify</button>
                                         <button className="bg-transparent pb-2 text-left">Delete</button>
-                                       <button className="bg-transparent text-left">Approve</button></PopoverContent>
+                                       <button className="bg-transparent text-left">Approve</button> */}
+                                       </PopoverContent>
                                         </Popover>
                                  
                                         </TableCell>

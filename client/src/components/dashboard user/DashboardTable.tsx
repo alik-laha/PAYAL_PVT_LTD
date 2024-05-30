@@ -102,16 +102,6 @@ const EmployeeTable = () => {
                                                 </AlertDialogFooter>
                                             </AlertDialogContent>
                                             </AlertDialog>
-
-                                       
-                                            
-                                            
-                                            
-                            
-                                            
-                                            {/* <button className="bg-transparent pb-2 text-left">Modify</button> */}
-                                        {/* <button className="bg-transparent pb-2 text-left">Delete</button> */}
-                                        {/* <button className="bg-transparent pb-2 text-left">Resign</button> */}
                                       </PopoverContent>
                                         </Popover>
                                  
