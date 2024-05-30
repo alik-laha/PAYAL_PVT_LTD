@@ -10,6 +10,7 @@ export interface RcnPrimaryEntryData {
     blNo: string;
     conNo: string;
     rcnStatus: string;
+    date:string
 }
 
 export interface SumofAllCuntryData {

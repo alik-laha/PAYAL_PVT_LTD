@@ -42,9 +42,11 @@ const RcnPrimaryEntryTable = () => {
                         <TableRow>
                             <TableHead>Id</TableHead>
                             <TableHead>Origin</TableHead>
+                            <TableHead>Date </TableHead>
                             <TableHead>BL No.</TableHead>
                             <TableHead>Con No.</TableHead>
-                            <TableHead>QC status</TableHead>
+                            <TableHead>QC </TableHead>
+                            <TableHead>Original Status </TableHead>
                             <TableHead>Action</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -55,6 +57,7 @@ const RcnPrimaryEntryTable = () => {
                                     <TableRow key={item.id}>
                                         <TableCell>{item.id}</TableCell>
                                         <TableCell>{item.origin}</TableCell>
+                                        <TableCell>{item.date.slice(0,10)}</TableCell>
                                         <TableCell>{item.blNo}</TableCell>
                                         <TableCell>{item.conNo}</TableCell>
                                         <TableCell>{item.rcnStatus}</TableCell>
