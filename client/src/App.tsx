@@ -4,6 +4,7 @@ import { Login } from './components/login/login'
 
 import { Dashboard } from './components/dashboard/Dashboard'
 import RcnPrimaryEntry from './components/RcnPrimaryEntry/RcnPrimaryEntry'
+import RcnGrading from './components/Rcn Grading/RCNGrading'
 import Employee from './components/employee/Employee'
 import DashboardUser from './components/dashboard user/DashboardUser'
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path='/dashboard/rcnprimaryentry' element={<RcnPrimaryEntry />} />
         <Route path='/dashboard/employee' element={<Employee/>} />
         <Route path='/dashboard/user' element={<DashboardUser/>} />
+        <Route path='/dashboard/RcnGrading' element={<RcnGrading/>} />
       </Routes>
     </>
   )

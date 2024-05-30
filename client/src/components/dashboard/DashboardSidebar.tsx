@@ -64,7 +64,9 @@ const DashboardSidebar = () => {
                         <CollapsibleTrigger className="user-pvt"><MdOutlineFactory size={25} />
                             <p>Production</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
-                            RCN Grading
+                        <NavLink to="/dashboard/RcnGrading" >
+                       RCN Grading
+                            </NavLink>
                         </CollapsibleContent>
                         <CollapsibleContent className="Items-pvt">
                             RCN Boiling

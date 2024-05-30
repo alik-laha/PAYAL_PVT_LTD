@@ -23,7 +23,7 @@ const Employee = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                    <div className="flexbox-tile">
+                    <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-600">
                     Active <br /><p>11000</p>
                     </div>
                     
