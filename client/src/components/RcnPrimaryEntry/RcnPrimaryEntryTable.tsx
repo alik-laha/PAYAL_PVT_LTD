@@ -21,6 +21,11 @@ import {
 } from "@/components/ui/select"
 import { Origin } from "../common/exportData"
 import { useState } from "react"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+  } from "@/components/ui/popover"
 
 
 
@@ -78,6 +83,7 @@ const RcnPrimaryEntryTable = () => {
                             <TableHead className="text-center" >Date </TableHead>
                             <TableHead className="text-center" >BL No.</TableHead>
                             <TableHead className="text-center" >Con No.</TableHead>
+                            <TableHead className="text-center" >Bag Count</TableHead>
                             <TableHead className="text-center" >QC </TableHead>
                             <TableHead className="text-center" >Status </TableHead>
                             <TableHead className="text-center" >Action</TableHead>
@@ -93,13 +99,20 @@ const RcnPrimaryEntryTable = () => {
                                         <TableCell className="text-center" >{item.date.slice(0,10)}</TableCell>
                                         <TableCell className="text-center" >{item.blNo}</TableCell>
                                         <TableCell className="text-center" >{item.conNo}</TableCell>
+                                        <TableCell className="text-center" >{item.noOfBags}</TableCell>
                                         <TableCell className="text-center" ><button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button></TableCell>
                                         <TableCell className="text-center" >
                                             Created
                                         </TableCell>
                                         <TableCell className="text-center" >
-                                        <button className="bg-green-500 p-1 text-white rounded">Edit</button>
-                                            <button className="bg-red-500 p-1 text-white rounded">Delete</button>
+                                        <Popover>
+                                        <PopoverTrigger>       <button className="bg-green-500 p-1 text-white rounded">Action</button>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium"><button className="bg-transparent pb-2 text-left">Modify</button>
+                                        <button className="bg-transparent pb-2 text-left">Delete</button>
+                                       <button className="bg-transparent text-left">Approve</button></PopoverContent>
+                                        </Popover>
+                                 
                                         </TableCell>
                                     </TableRow>
                                 )
