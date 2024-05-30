@@ -42,7 +42,10 @@ const DashboardSidebar = () => {
                         <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25} />
                             <p>Admin & HR</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
-                            Employee
+                        <NavLink to="/dashboard/employee">
+                        Employee
+                            </NavLink>
+                            
                         </CollapsibleContent >
                         <CollapsibleContent className="Items-pvt">
                             Dept-Role Mapping

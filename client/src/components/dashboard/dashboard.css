@@ -296,7 +296,7 @@
     color: whitesmoke;
     font-size: 16px;
     box-shadow: 0 0 0.20rem 0.20rem hsla(189, 68%, 71%, 0.466);
-    width:10%
+    max-width:20%!important;
 }
 
 .flexbox-tile p{
@@ -346,9 +346,12 @@
     .flexbox-tile{
         flex: 1 1 25% ;
         background-color: rgb(79, 116, 236);
-        padding: 15px;
+        padding: 20px 15px 20px 15px;
         height: 20vw;
-        font-size: 12px;
+        font-size: 14px;
+        max-width:30%!important;
+        box-shadow: 0 0 0.10rem 0.10rem hsla(189, 68%, 71%, 0.466);
+      
        
        
     }
@@ -356,7 +359,7 @@
         gap: 15px;
     }
     .flexbox-tile p{
-        font-size: 12px;
+        font-size: 16px;
     }
   
 
