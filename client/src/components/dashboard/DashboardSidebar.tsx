@@ -42,18 +42,18 @@ const DashboardSidebar = () => {
                         <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25} />
                             <p>Admin & HR</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
-                        <NavLink to="/dashboard/employee">
+                        <NavLink to="/dashboard/employee" >
                         Employee
                             </NavLink>
                             
                         </CollapsibleContent >
                      
                         <CollapsibleContent className="Items-pvt">
-                        <NavLink to="/dashboard/user">
+                        <NavLink to="/dashboard/user" >
                        Dashboard user
                             </NavLink>
                         </CollapsibleContent>
-                        <CollapsibleContent className="Items-pvt">
+                        <CollapsibleContent className="Items-pvt" >
                             Machine
                         </CollapsibleContent >
 
@@ -75,7 +75,7 @@ const DashboardSidebar = () => {
                         <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25} />
                             <p>Receiving</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
-                            <NavLink to="/dashboard/rcnprimaryentry">
+                            <NavLink to="/dashboard/rcnprimaryentry" >
                                 RCN Primary Entry
                             </NavLink>
 
