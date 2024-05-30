@@ -71,16 +71,16 @@ const RcnPrimaryEntryTable = () => {
 
 
                 <Table className="mt-8">
-                    <TableHeader className="bg-neutral-100 text-stone-950">
+                    <TableHeader className="bg-neutral-100 text-stone-950 ">
                         
-                            <TableHead >Id</TableHead>
-                            <TableHead>Origin</TableHead>
-                            <TableHead>Date </TableHead>
-                            <TableHead>BL No.</TableHead>
-                            <TableHead>Con No.</TableHead>
-                            <TableHead>QC </TableHead>
-                            <TableHead>Original Status </TableHead>
-                            <TableHead>Action</TableHead>
+                            <TableHead  className="text-center" >Id</TableHead>
+                            <TableHead className="text-center" >Origin</TableHead>
+                            <TableHead className="text-center" >Date </TableHead>
+                            <TableHead className="text-center" >BL No.</TableHead>
+                            <TableHead className="text-center" >Con No.</TableHead>
+                            <TableHead className="text-center" >QC </TableHead>
+                            <TableHead className="text-center" >Status </TableHead>
+                            <TableHead className="text-center" >Action</TableHead>
                         
                     </TableHeader>
                     <TableBody>
@@ -88,14 +88,17 @@ const RcnPrimaryEntryTable = () => {
                             data.map((item: RcnPrimaryEntryData) => {
                                 return (
                                     <TableRow key={item.id}>
-                                        <TableCell>{item.id}</TableCell>
-                                        <TableCell>{item.origin}</TableCell>
-                                        <TableCell>{item.date.slice(0,10)}</TableCell>
-                                        <TableCell>{item.blNo}</TableCell>
-                                        <TableCell>{item.conNo}</TableCell>
-                                        <TableCell>{item.rcnStatus}</TableCell>
-                                        <TableCell>
-                                            <button className="bg-green-500 p-1 text-white rounded">Edit</button>
+                                        <TableCell className="text-center" >{item.id}</TableCell>
+                                        <TableCell className="text-center" >{item.origin}</TableCell>
+                                        <TableCell className="text-center" >{item.date.slice(0,10)}</TableCell>
+                                        <TableCell className="text-center" >{item.blNo}</TableCell>
+                                        <TableCell className="text-center" >{item.conNo}</TableCell>
+                                        <TableCell className="text-center" ><button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button></TableCell>
+                                        <TableCell className="text-center" >
+                                            
+                                        </TableCell>
+                                        <TableCell className="text-center" >
+                                        <button className="bg-green-500 p-1 text-white rounded">Edit</button>
                                             <button className="bg-red-500 p-1 text-white rounded">Delete</button>
                                         </TableCell>
                                     </TableRow>
