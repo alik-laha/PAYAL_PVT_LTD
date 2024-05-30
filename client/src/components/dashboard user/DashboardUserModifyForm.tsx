@@ -14,8 +14,8 @@ import {
 import { Dept,Role } from "../common/exportData"
 import { useState  } from "react"
 
-const DashboardUserEntryForm = () => {
-
+const DashboardUserModifyForm = () => {
+    
     const [dept, setDept] = useState<string>("")
     const [role, setRole] = useState<string>("")
 
@@ -29,14 +29,11 @@ const DashboardUserEntryForm = () => {
       
 return(
     <div >
-     <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
+     <form className='flex flex-col gap-4 mt-5 ' onSubmit={handleSubmit}>
      <div className="flex"><Label className="w-2/4 pl-16">User Name</Label>
                     <Input className="w-2/4 mr-10" placeholder="User Name" /> </div>
-
                 <div className="flex"><Label className="w-2/4 pl-16">Password</Label>
                     <Input type="password" className="w-2/4 mr-10" placeholder="Password" /> </div>
-
-
                     <div className="flex"><Label className="w-2/4 pl-16">Confirm Password</Label>
                     <Input type="password" className="w-2/4 mr-10" placeholder="Confirm Password" /> </div>
                     <div className="flex"><Label className="w-2/4 pl-16">Department</Label>
@@ -85,8 +82,9 @@ return(
       
        
        
-       <Button className="bg-orange-500 mb-2  ml-40 mr-40 text-center items-center justify-center mt-8">Submit</Button>
+       <Button className="bg-orange-500 mb-2 mt-8 ml-40 mr-40 text-center items-center justify-center">Submit</Button>
        </form> 
+
 
 
 
@@ -96,4 +94,4 @@ return(
 
 
 }
-export default DashboardUserEntryForm
+export default DashboardUserModifyForm

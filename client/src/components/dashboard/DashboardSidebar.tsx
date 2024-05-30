@@ -49,7 +49,9 @@ const DashboardSidebar = () => {
                         </CollapsibleContent >
                      
                         <CollapsibleContent className="Items-pvt">
-                            Dashboard User
+                        <NavLink to="/dashboard/user">
+                       Dashboard user
+                            </NavLink>
                         </CollapsibleContent>
                         <CollapsibleContent className="Items-pvt">
                             Machine

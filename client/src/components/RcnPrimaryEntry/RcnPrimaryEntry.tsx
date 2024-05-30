@@ -46,7 +46,7 @@ const RcnPrimaryEntry = () => {
                         <DialogHeader>
                             <DialogTitle><p className='text-1xl pb-2 text-center mt-5'>RCN Primary Entry Form</p></DialogTitle>
                             <DialogDescription>
-                                <p className='text-1xl text-center'>To Be Filled Up By RCN Accountant</p>
+                                <p className='text-1xl text-center'>To Be Filled Up By Receiving Supervisor</p>
                             </DialogDescription>
                         </DialogHeader>
 

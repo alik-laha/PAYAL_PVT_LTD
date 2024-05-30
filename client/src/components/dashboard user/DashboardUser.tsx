@@ -3,13 +3,13 @@ import DashboardHeader from '../dashboard/DashboardHeader'
 import DashboardSidebar from '../dashboard/DashboardSidebar'
 
 
-import Employeecreateform from './Employeecreateform';
+import DashboardUserEntryForm from './DashboardUserEntryForm';
 import { Button } from "@/components/ui/button";
-import EmployeeTable from "./EmployeeTable";
+import DashboardTable from "./DashboardTable";
 import {
     Dialog,
     DialogContent,
-    
+    DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -39,17 +39,19 @@ const Employee = () => {
                     <DialogContent>
                         <DialogHeader>
                             <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>New User Creation</p></DialogTitle>
-                       
+                            <DialogDescription>
+                                <p className='text-1xl text-center'>To Be Filled Up By Admin</p>
+                            </DialogDescription>
                         </DialogHeader>
 
-                        <Employeecreateform/>
+                        <DashboardUserEntryForm/>
                     </DialogContent>
                 </Dialog>
 
                 <div>
 
                 </div>
-                <EmployeeTable/>
+                <DashboardTable/>
 
             </div>
         </div>

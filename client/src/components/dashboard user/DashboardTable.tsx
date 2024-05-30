@@ -22,7 +22,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import EmployeeModifyForm from './EmployeeModifyForm'
+import DashboardUserModifyForm from './DashboardUserModifyForm'
 import {
     AlertDialog,
     AlertDialogAction,
@@ -79,7 +79,7 @@ const EmployeeTable = () => {
                                         
                                             </DialogHeader>
 
-                                            <EmployeeModifyForm/>
+                                            <DashboardUserModifyForm/>
                                         </DialogContent>
                                     </Dialog>
 
@@ -139,7 +139,7 @@ const EmployeeTable = () => {
 
     </DialogHeader>
 
-    <EmployeeModifyForm/>
+    <DashboardUserModifyForm/>
 </DialogContent>
 </Dialog>
 
