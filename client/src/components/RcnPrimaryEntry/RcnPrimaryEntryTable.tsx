@@ -106,7 +106,7 @@ const RcnPrimaryEntryTable = () => {
                                         </TableCell>
                                         <TableCell className="text-center" >
                                         <Popover>
-                                        <PopoverTrigger>       <button className="bg-green-500 p-1 text-white rounded">Action</button>
+                                        <PopoverTrigger>       <button className="bg-green-500 p-2 text-white rounded">Action</button>
                                         </PopoverTrigger>
                                         <PopoverContent className="flex flex-col w-30 text-sm font-medium"><button className="bg-transparent pb-2 text-left">Modify</button>
                                         <button className="bg-transparent pb-2 text-left">Delete</button>
