@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea"
 import React from "react"
 
 
-const Employeecreateform = () => {
+const EmployeeModifyForm = () => {
     const [date, setDate] = React.useState<Date | undefined>()
     
 
@@ -87,4 +87,4 @@ return(
 
 
 }
-export default Employeecreateform
+export default EmployeeModifyForm

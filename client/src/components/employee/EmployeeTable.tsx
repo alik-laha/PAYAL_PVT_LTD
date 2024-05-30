@@ -14,7 +14,26 @@ import {
     PopoverTrigger,
   } from "@/components/ui/popover"
 
-
+  import {
+    Dialog,
+    DialogContent,
+    
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import EmployeeModifyForm from './EmployeeModifyForm'
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+  } from "@/components/ui/alert-dialog"
 
 const EmployeeTable = () => {
     
@@ -57,17 +76,71 @@ const EmployeeTable = () => {
                                         <TableCell className="text-center" >Active</TableCell>
     
                                         <TableCell className="text-center" >
+
                                         <Popover>
                                         <PopoverTrigger><button className="bg-green-500 p-2 text-white rounded">Action</button>
                                         </PopoverTrigger>
-                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium"><button className="bg-transparent pb-2 text-left">Modify</button>
-                                        <button className="bg-transparent pb-2 text-left">Delete</button>
-                                        <button className="bg-transparent pb-2 text-left">Resign</button>
+                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                            
+                                        <Dialog>
+                                        <DialogTrigger>   <button className="bg-transparent pb-2 text-left">Modify</button></DialogTrigger>
+                                        <DialogContent>
+                                            <DialogHeader>
+                                                <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Employee Modify</p></DialogTitle>
+                                        
+                                            </DialogHeader>
+
+                                            <EmployeeModifyForm/>
+                                        </DialogContent>
+                                    </Dialog>
+
+                                            <AlertDialog>
+                                            <AlertDialogTrigger><button className="bg-transparent pb-2 text-left">Delete</button></AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                                <AlertDialogDescription>
+                                                    This action cannot be undone. This will permanently delete employee Data
+                                                </AlertDialogDescription>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                <AlertDialogAction>Continue</AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                            </AlertDialog>
+
+                                            <AlertDialog>
+                                            <AlertDialogTrigger><button className="bg-transparent text-left"><button className="bg-transparent pb-2 text-left">Resign</button></button></AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                <AlertDialogTitle>Are you sure want to Resign?</AlertDialogTitle>
+                                                <AlertDialogDescription>
+                                                    This action cannot be undone. This will remove user profile Linked to It.
+                                                </AlertDialogDescription>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                <AlertDialogAction>Continue</AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                            </AlertDialog>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            {/* <button className="bg-transparent pb-2 text-left">Modify</button> */}
+                                        {/* <button className="bg-transparent pb-2 text-left">Delete</button> */}
+                                        {/* <button className="bg-transparent pb-2 text-left">Resign</button> */}
                                       </PopoverContent>
                                         </Popover>
                                  
                                         </TableCell>
                                     </TableRow>
+
+
+
                                     <TableRow >
                                         <TableCell className="text-center" >2</TableCell>
                                         <TableCell className="text-center" >Indranil Datta</TableCell>
@@ -79,6 +152,7 @@ const EmployeeTable = () => {
                                         <TableCell className="text-center" >Resigned</TableCell>
     
                                         <TableCell className="text-center" >
+
                                         <Popover>
                                         <PopoverTrigger><button className="bg-green-500 p-2 text-white rounded">Action</button>
                                         </PopoverTrigger>
