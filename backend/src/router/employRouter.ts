@@ -6,6 +6,7 @@ import searchEmployee from "../controller/employeeController/searchEmployee";
 import getAllEmployee from "../controller/employeeController/getAllEmployee";
 import DeleteEmployee from "../controller/employeeController/deleteEmployee";
 import releseEmployee from "../controller/employeeController/releseEmployee";
+import activeEmployeeCount from "../controller/employeeController/activeEmployeeCount";
 
 const router = express.Router();
 
@@ -20,6 +21,9 @@ router.get("/getall", getAllEmployee)
 router.delete("/delete/:id", DeleteEmployee)
 
 router.put("/relese", releseEmployee)
+
+//active Employee Count
+router.get("/activeEmployeeCount", activeEmployeeCount)
 
 
 
