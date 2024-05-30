@@ -68,7 +68,7 @@ return(
        <Input  className="w-3/4 mr-2" placeholder=" Pincode "/>  </div>
        <div className="flex">
        <Label className="w-1/4 pl-3 pt-2 mr-2">Address </Label>
-       <Textarea  className="w-3/4 mr-2" placeholder="Address "/>
+       <Textarea  className="w-2/4 mr-2" placeholder="Address "/>
        
         </div>
       
@@ -76,7 +76,7 @@ return(
       
        
        
-       <Button className="bg-orange-500 mb-2  ml-40 mr-40 text-center items-center justify-center">Submit</Button>
+       <Button className="bg-orange-500 mb-2 w-1/6  text-center items-center justify-center">Submit</Button>
        </form> 
 
 

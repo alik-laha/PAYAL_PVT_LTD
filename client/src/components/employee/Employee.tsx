@@ -23,7 +23,7 @@ const Employee = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                    <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-400">
+                    <div className="flexbox-tile bg-yellow-400 hover:bg-yellow-500">
                     Active <br /><p>11000</p>
                     </div>
                     
@@ -34,11 +34,11 @@ const Employee = () => {
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
 
 
-                <Dialog>
-                    <DialogTrigger>   <Button className="bg-orange-400 mb-2 mt-5 ml-4">+ Add New Employee</Button></DialogTrigger>
-                    <DialogContent>
+                <Dialog >
+                    <DialogTrigger>   <Button className="bg-blue-400 mb-2 mt-5 ml-4">+ Add New Employee</Button></DialogTrigger>
+                    <DialogContent className='max-w-6xl'>
                         <DialogHeader>
-                            <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Employee Entry</p></DialogTitle>
+                            <DialogTitle><p className='text-1xl pb-1 text-center mt-2 mb-5'>Employee Entry details</p></DialogTitle>
                        
                         </DialogHeader>
 

@@ -32,7 +32,7 @@ const RcnPrimaryEntry = () => {
                     {
                         data.map((item: SumofAllCuntryData) => {
                             return (
-                                <div className="flexbox-tile bg-blue-700 hover:bg-blue-500" key={item.origin}>
+                                <div className="flexbox-tile bg-blue-600 hover:bg-blue-700" key={item.origin}>
                                     {item.origin} <br /><p>{item.totalBags} Bag</p>
                                 </div>
                             )
