@@ -53,6 +53,8 @@ const EmployeeTable = () => {
                             <TableHead  className="text-center" >Id</TableHead>
                             <TableHead className="text-center" >Emp name</TableHead>
                             <TableHead className="text-center" >User Name </TableHead>
+                            <TableHead className="text-center" >Department </TableHead>
+                            <TableHead className="text-center" >Role </TableHead>
                             <TableHead className="text-center" >Action</TableHead>
                         
                     </TableHeader>
@@ -64,6 +66,8 @@ const EmployeeTable = () => {
                                         <TableCell className="text-center" >1</TableCell>
                                         <TableCell className="text-center" >Sumit Datta</TableCell>
                                         <TableCell className="text-center" >Sumit_PAY</TableCell>
+                                        <TableCell className="text-center" >Admin</TableCell>
+                                        <TableCell className="text-center" >Admin-Supervisor</TableCell>
                                         <TableCell className="text-center" >
 
                                         <Popover>
@@ -75,7 +79,7 @@ const EmployeeTable = () => {
                                         <DialogTrigger>   <button className="bg-transparent pb-2 text-left">Modify</button></DialogTrigger>
                                         <DialogContent>
                                             <DialogHeader>
-                                                <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>User Modify</p></DialogTitle>
+                                                <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>User Modification</p></DialogTitle>
                                         
                                             </DialogHeader>
 
@@ -84,7 +88,7 @@ const EmployeeTable = () => {
                                     </Dialog>
 
                                             <AlertDialog>
-                                            <AlertDialogTrigger><button className="bg-transparent pb-2 text-left">Delete</button></AlertDialogTrigger>
+                                            <AlertDialogTrigger><button className="bg-transparent text-left">Delete</button></AlertDialogTrigger>
                                             <AlertDialogContent>
                                                 <AlertDialogHeader>
                                                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -120,7 +124,8 @@ const EmployeeTable = () => {
                                         <TableCell className="text-center" >2</TableCell>
                                         <TableCell className="text-center" >Indranil Datta</TableCell>
                                         <TableCell className="text-center" >INDRA_PAy</TableCell>
-                                     
+                                        <TableCell className="text-center" >Production</TableCell>
+                                        <TableCell className="text-center" >Production-Manager</TableCell>
     
                                       
 
@@ -135,7 +140,7 @@ const EmployeeTable = () => {
 <DialogTrigger>   <button className="bg-transparent pb-2 text-left">Modify</button></DialogTrigger>
 <DialogContent>
     <DialogHeader>
-        <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>User Modify</p></DialogTitle>
+        <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>User Modification</p></DialogTitle>
 
     </DialogHeader>
 
@@ -144,7 +149,7 @@ const EmployeeTable = () => {
 </Dialog>
 
     <AlertDialog>
-    <AlertDialogTrigger><button className="bg-transparent pb-2 text-left">Delete</button></AlertDialogTrigger>
+    <AlertDialogTrigger><button className="bg-transparent text-left">Delete</button></AlertDialogTrigger>
     <AlertDialogContent>
         <AlertDialogHeader>
         <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>

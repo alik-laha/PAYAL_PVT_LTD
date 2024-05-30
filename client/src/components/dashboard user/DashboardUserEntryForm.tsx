@@ -29,7 +29,7 @@ const DashboardUserEntryForm = () => {
       
 return(
     <div >
-     <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
+     <form className='flex flex-col gap-4 mt-5' onSubmit={handleSubmit}>
      <div className="flex"><Label className="w-2/4 pl-16">User Name</Label>
                     <Input className="w-2/4 mr-10" placeholder="User Name" /> </div>
 
