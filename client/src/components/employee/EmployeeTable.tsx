@@ -86,7 +86,7 @@ const EmployeeTable = () => {
                                         <DialogTrigger>   <button className="bg-transparent pb-2 text-left">Modify</button></DialogTrigger>
                                         <DialogContent className='max-w-6xl'>
                                             <DialogHeader>
-                                                <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Employee Modify</p></DialogTitle>
+                                                <DialogTitle><p className='text-1xl pb-1 text-center mt-3 mb-5'>Modify Employee</p></DialogTitle>
                                         
                                             </DialogHeader>
 
