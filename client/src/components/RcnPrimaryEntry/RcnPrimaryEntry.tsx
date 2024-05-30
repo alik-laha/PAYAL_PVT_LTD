@@ -13,11 +13,12 @@ import {
 } from "@/components/ui/dialog"
 import UseQueryData from "../common/dataFetcher";
 import { SumofAllCuntryData } from "@/type/type";
+import { Skeleton } from "@/components/ui/skeleton"
 
 const RcnPrimaryEntry = () => {
     const { data, error, isLoading } = UseQueryData('/api/rcnprimary/sum', 'GET', 'sumData')
     if (isLoading) {
-        return <div>Loading...</div>
+        return <Skeleton className="w-[100px] h-[20px] rounded-full" />
     }
     if (error) {
         return <div>Error</div>

@@ -6,6 +6,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { Button } from "@/components/ui/button";
 import React from "react"
 import { Input } from "../ui/input";
 import DatePicker from "../common/DatePicker";
@@ -90,6 +91,8 @@ const RcnPrimaryEntryTable = () => {
                     </Select></div>
                     <span className="flexbox-search-width"><DatePicker buttonName="From Date" value={fromdate} setValue={setfromDate} /></span>
                     <span className="flexbox-search-width"> <DatePicker buttonName="To Date" value={todate} setValue={settoDate} /></span>
+                    <span className="w-1/10"><Button className="bg-slate-500">Search</Button></span>
+                
                 </div>
 
 
