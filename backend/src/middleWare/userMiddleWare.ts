@@ -16,9 +16,13 @@ const UserMiddleWare = async (req: Request, res: Response, next: NextFunction) =
         if (!employee) {
             return res.status(404).json({ message: "Employee not found" })
         }
-        const oldUser = await User.findOne({ where: { employeeId } });
-        if (oldUser) {
-            return res.status(400).json({ message: "User already exists" })
+        const oldUserByName = await User.findOne({ where: { userName } });
+        if (oldUserByName) {
+            return res.status(400).json({ message: "User Name already exists" })
+        }
+        const oldUserByEmployeeId = await User.findOne({ where: { employeeId } });
+        if (oldUserByEmployeeId) {
+            return res.status(400).json({ message: "Employee already has a user" })
         }
         next();
     }

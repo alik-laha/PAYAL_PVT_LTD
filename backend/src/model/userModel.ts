@@ -36,5 +36,12 @@ const User = sequelize.define('user', {
         allowNull: false
     },
 
+}, {
+    indexes: [
+        {
+            unique: true,
+            fields: ['username']
+        }
+    ]
 })
 export default User;

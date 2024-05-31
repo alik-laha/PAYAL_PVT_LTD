@@ -8,3 +8,12 @@ export interface RcnPrimaryModifyProps {
     blWeight: string;
     netWeight: string;
 }
+
+export interface UserData {
+    id: number;
+    userName: string;
+    password: string;
+    role: string;
+    dept: string;
+    createdBy: string;
+}
