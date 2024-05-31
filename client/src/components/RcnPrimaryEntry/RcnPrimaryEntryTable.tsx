@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table"
 import { FaSearch } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
-import React from "react"
+import React, { useEffect } from "react"
 import { Input } from "../ui/input";
 import DatePicker from "../common/DatePicker";
 import { RcnPrimaryEntryData } from "@/type/type";
@@ -54,10 +54,26 @@ import axios from "axios";
 const RcnPrimaryEntryTable = () => {
     const [origin, setOrigin] = useState<string>("")
     const [fromdate, setfromDate] = React.useState<Date | undefined>();
-    const [todate, settoDate] = React.useState<Date | undefined>();
+    const [todate, settoDate] = React.useState<Date | undefined>(new Date());
     const [blConNo, setBlConNo] = useState<string>("")
+    const [Data, setData] = useState<RcnPrimaryEntryData[]>([])
 
     // const { data, error, isLoading } = UseQueryData('/api/rcnprimary/all', 'GET', 'postsData')
+    const handleSearch = () => {
+        console.log('search button pressed')
+        axios.post('/api/rcnprimary/search', {
+            blConNo: blConNo,
+            origin: origin,
+            fromDate: fromdate,
+            toDate: todate
+        }).then((res) => {
+            console.log(res.data)
+            setData(res.data)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
 
     const FetchData = async (url: string) => {
         try {
@@ -89,6 +105,9 @@ const RcnPrimaryEntryTable = () => {
     }
 
     const { data, error, isLoading } = UseQueryData('/api/rcnprimary/all', "fetchRcnTable")
+    useEffect(() => {
+
+    }, [])
 
     if (isLoading) {
         return <div>Loading...</div>
@@ -123,7 +142,7 @@ const RcnPrimaryEntryTable = () => {
                         </Select></div>
                     <span className="flexbox-search-width"><DatePicker buttonName="From Date" value={fromdate} setValue={setfromDate} /></span>
                     <span className="flexbox-search-width"> <DatePicker buttonName="To Date" value={todate} setValue={settoDate} /></span>
-                    <span className="w-1/8 "><Button className="bg-slate-500 float-right"><FaSearch size={15} /> Search</Button></span>
+                    <span className="w-1/8 "><Button className="bg-slate-500 float-right" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
 
@@ -150,7 +169,7 @@ const RcnPrimaryEntryTable = () => {
                     </TableHeader>
                     <TableBody>
                         {
-                            data.data.map((item: RcnPrimaryEntryData) => {
+                            Data.length > 0 ? Data : data.data.map((item: RcnPrimaryEntryData) => {
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center" >{item.id}</TableCell>
