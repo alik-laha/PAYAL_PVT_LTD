@@ -24,6 +24,7 @@ import {
 import {
     Dialog,
     DialogContent,
+    DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -49,7 +50,15 @@ import {
 } from "@/components/ui/alert-dialog"
 import axios from "axios";
 
-
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+   
+    PaginationNext,
+    PaginationPrevious,
+  } from "@/components/ui/pagination"
 
 const RcnPrimaryEntryTable = () => {
     const [origin, setOrigin] = useState<string>("")
@@ -110,7 +119,6 @@ const RcnPrimaryEntryTable = () => {
                 <span className="flexbox-search-width"><DatePicker buttonName="From Date" value={fromdate} setValue={setfromDate} /></span>
                 <span className="flexbox-search-width"> <DatePicker buttonName="To Date" value={todate} setValue={settoDate} /></span>
                 <span className="w-1/8 "><Button className="bg-slate-500 float-right" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
-
             </div>
 
 
@@ -220,7 +228,22 @@ const RcnPrimaryEntryTable = () => {
                     }
                 </TableBody>
             </Table>
+         <Pagination className="pt-5 ">
+                                <PaginationContent>
+                                    <PaginationItem>
+                                    <PaginationPrevious href="#" />
+                                    </PaginationItem>
+                                    
+                                    <PaginationItem>
+                                    <PaginationEllipsis />
+                                    </PaginationItem>
+                                    <PaginationItem>
+                                    <PaginationNext href="#" />
+                                    </PaginationItem>
+                                </PaginationContent>
+                            </Pagination>
         </div>
     )
+   
 }
 export default RcnPrimaryEntryTable;
