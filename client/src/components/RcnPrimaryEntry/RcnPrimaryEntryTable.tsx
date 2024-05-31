@@ -100,6 +100,13 @@ const RcnPrimaryEntryTable = () => {
             handleSearch()
         }
     }
+    const handleApprove = async (item: RcnPrimaryEntryData) => {
+        const response = await axios.put(`/api/rcnprimary/approveeditrcn/${item.id}`)
+        const data = await response.data
+        if (data.message === "Rcn Entry approved successfully") {
+            handleSearch()
+        }
+    }
 
     return (
         <div className="ml-5 mt-5">
@@ -196,7 +203,7 @@ const RcnPrimaryEntryTable = () => {
                                                         </AlertDialogHeader>
                                                         <AlertDialogFooter>
                                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction>Continue</AlertDialogAction>
+                                                            <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
                                                         </AlertDialogFooter>
                                                     </AlertDialogContent>
                                                 </AlertDialog>
@@ -215,16 +222,6 @@ const RcnPrimaryEntryTable = () => {
                                                         </AlertDialogFooter>
                                                     </AlertDialogContent>
                                                 </AlertDialog>
-
-
-
-
-
-
-
-                                                {/* <button className="bg-transparent pb-2 text-left">Modify</button>
-                                        <button className="bg-transparent pb-2 text-left">Delete</button>
-                                       <button className="bg-transparent text-left">Approve</button> */}
                                             </PopoverContent>
                                         </Popover>
 

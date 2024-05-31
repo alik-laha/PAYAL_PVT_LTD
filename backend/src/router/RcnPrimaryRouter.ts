@@ -6,6 +6,7 @@ import UpdateRcnPrimaryEntry from '../controller/RcnPrimaryEntry/UpdateRcnPrimar
 import SearchRcnPrimary from '../controller/RcnPrimaryEntry/SearchRcnPrimary';
 import SumOfAllOriginRcnPrimary from '../controller/RcnPrimaryEntry/SumofAllOriginRcnPrimary';
 import EditReject from '../controller/RcnPrimaryEntry/EditReject';
+import EditApprove from '../controller/RcnPrimaryEntry/EditApprove';
 
 
 const router = express.Router();
@@ -28,6 +29,9 @@ router.get('/sum', SumOfAllOriginRcnPrimary);
 
 //Edit Reject Rcn Entry by Id
 router.delete('/rejectededitrcn/:id', EditReject);
+
+//Edit Approve Rcn Entry by Id
+router.put("/approveeditrcn/:id", EditApprove);
 
 
 
