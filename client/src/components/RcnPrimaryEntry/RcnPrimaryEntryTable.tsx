@@ -10,7 +10,7 @@ import { FaSearch } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import React, { useEffect } from "react"
 import { Input } from "../ui/input";
-import DatePicker from "../common/DatePicker";
+// import DatePicker from "../common/DatePicker";
 import { RcnPrimaryEntryData } from "@/type/type";
 import {
     Select,
@@ -61,12 +61,13 @@ import {
 
 const RcnPrimaryEntryTable = () => {
     const [origin, setOrigin] = useState<string>("")
-    const [fromdate, setfromDate] = React.useState<Date | undefined>();
-    const [todate, settoDate] = React.useState<Date | undefined>(new Date());
+    const [fromdate, setfromDate] = React.useState<string>('');
+    const [todate, settoDate] = React.useState<string>('');
+    const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [blConNo, setBlConNo] = useState<string>("")
     const [Data, setData] = useState<RcnPrimaryEntryData[]>([])
     const [page, setPage] = useState(1)
-    const limit = 20
+    const limit = 10
 
     const handleSearch = async () => {
         console.log('search button pressed')
@@ -108,6 +109,17 @@ const RcnPrimaryEntryTable = () => {
         }
     }
 
+    const handleTodate =  (e: React.ChangeEvent<HTMLInputElement>) => {
+        const selected= e.target.value;
+        const date=new Date(selected)
+        date.setDate(date.getDate()+1);
+
+        const nextday=date.toISOString().split('T')[0];
+        sethidetoDate(selected)
+        settoDate(nextday)
+    }
+    
+
     return (
         <div className="ml-5 mt-5">
             <div className="flex flexbox-search">
@@ -132,8 +144,26 @@ const RcnPrimaryEntryTable = () => {
                             </SelectGroup>
                         </SelectContent>
                     </Select></div>
-                <span className="flexbox-search-width"><DatePicker buttonName="From Date" value={fromdate} setValue={setfromDate} /></span>
-                <span className="flexbox-search-width"> <DatePicker buttonName="To Date" value={todate} setValue={settoDate} /></span>
+                
+                <Input className="w-2/4 ml-2"
+                        type="date"
+                        value={fromdate}
+                        onChange={(e) => setfromDate(e.target.value)}
+                        placeholder="From Date"
+                        required={true}
+                    />
+                    {/* <DatePicker buttonName="From Date" value={fromdate} setValue={setfromDate} /> */}
+                  
+                
+                {/* <DatePicker buttonName="To Date" value={todate} setValue={settoDate} /> */}
+                <Input className="w-2/4 ml-2"
+                        type="date"
+                        value={hidetodate}
+                        onChange={handleTodate}
+                        placeholder="From Date"
+                        required={true}
+                    />
+                
                 <span className="w-1/8 "><Button className="bg-slate-500 float-right" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
             </div>
 
