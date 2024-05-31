@@ -7,7 +7,7 @@ const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
         const date = new Date();
         // const receivedBy = req.cookies.user;
         const receivedBy = "alik";
-        const difference = netWeight - blWeight;
+        const difference = blWeight - netWeight;
         const rcnPrimary = await RcnPrimary.create({
             date,
             blNo,
