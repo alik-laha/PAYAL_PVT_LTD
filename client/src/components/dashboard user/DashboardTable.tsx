@@ -6,6 +6,15 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+   
+    PaginationNext,
+    PaginationPrevious,
+  } from "@/components/ui/pagination"
 
 import { Input } from "../ui/input";
 import {
@@ -172,6 +181,20 @@ const EmployeeTable = () => {
                        
                     </TableBody>
                 </Table>
+                <Pagination className="pt-5 ">
+                                <PaginationContent>
+                                    <PaginationItem>
+                                    <PaginationPrevious href="#" />
+                                    </PaginationItem>
+                                    
+                                    <PaginationItem>
+                                    <PaginationEllipsis />
+                                    </PaginationItem>
+                                    <PaginationItem>
+                                    <PaginationNext href="#" />
+                                    </PaginationItem>
+                                </PaginationContent>
+                            </Pagination>
         </div>
     )
 

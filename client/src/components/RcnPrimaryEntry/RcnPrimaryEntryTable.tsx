@@ -24,6 +24,7 @@ import {
 import {
     Dialog,
     DialogContent,
+    DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -152,10 +153,12 @@ const RcnPrimaryEntryTable = () => {
 
                                                     <Dialog>
                                                         <DialogTrigger>   <button className="bg-transparent pb-2 text-left">Modify</button></DialogTrigger>
-                                                        <DialogContent>
+                                                        <DialogContent className="max-w-2xl">
                                                             <DialogHeader>
                                                                 <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>RCN Primary Entry Modification</p></DialogTitle>
-
+                                                                <DialogDescription>
+                                <p className='text-1xl text-center'>To Be Filled Up By Receiving Supervisor</p>
+                            </DialogDescription>
                                                             </DialogHeader>
 
                                                             <RcnPrimaryModify />

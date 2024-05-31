@@ -55,7 +55,7 @@ return(
                 <div className="flex"><Label className="w-2/4 ">Container No.</Label>
                     <Input className="w-2/4 " placeholder="Container No." /> </div>
                 <div className="flex"><Label className="w-2/4 " > Truck No.</Label>
-                    <Input className="w-2/4 mr-10" placeholder="Truck No."  />
+                    <Input className="w-2/4 " placeholder="Truck No."  />
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 ">Total Bags</Label>
@@ -63,10 +63,10 @@ return(
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 "> BL Weight</Label>
-                    <Input className="w-2/4 mr-10" placeholder="BL Weight"  type="number" />
+                    <Input className="w-2/4 " placeholder="BL Weight"  type="number" />
                 </div>
                 <div className="flex"><Label className="w-2/4 "> Net Weight</Label>
-                    <Input className="w-2/4 mr-10" placeholder="Net Weight"  type="number" />
+                    <Input className="w-2/4 " placeholder="Net Weight"  type="number" />
                 </div>
                 <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
             </form>
