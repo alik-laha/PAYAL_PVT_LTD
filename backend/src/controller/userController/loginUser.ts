@@ -22,7 +22,7 @@ const LoginUser = async (req: Request, res: Response) => {
         res.cookie("user", user.userName, { httpOnly: true, secure: true });
         res.cookie("role", user.role, { httpOnly: true, secure: true });
         res.cookie("dept", user.dept, { httpOnly: true, secure: true });
-        return res.status(200).json({ message: "Login Success", token });
+        return res.status(200).json({ message: "Login Success", user: user.userName, role: user.role, dept: user.dept });
 
     }
     catch (err) {
