@@ -93,7 +93,20 @@ const RcnPrimaryEntryTable = () => {
         handleSearch()
     }, [page])
 
-
+    const handleRejection = async (item: RcnPrimaryEntryData) => {
+        const response = await axios.delete(`/api/rcnprimary/rejectededitrcn/${item.id}`)
+        const data = await response.data
+        if (data.message === "Rcn Entry rejected successfully") {
+            handleSearch()
+        }
+    }
+    const handleApprove = async (item: RcnPrimaryEntryData) => {
+        const response = await axios.put(`/api/rcnprimary/approveeditrcn/${item.id}`)
+        const data = await response.data
+        if (data.message === "Rcn Entry approved successfully") {
+            handleSearch()
+        }
+    }
 
     return (
         <div className="ml-5 mt-5">
@@ -147,10 +160,10 @@ const RcnPrimaryEntryTable = () => {
                 </TableHeader>
                 <TableBody>
                     {
-                        Data.map((item: RcnPrimaryEntryData,idx) => {
+                        Data.map((item: RcnPrimaryEntryData, idx) => {
                             return (
                                 <TableRow key={item.id}>
-                                    <TableCell className="text-center" >{(limit*(page-1))+idx+1}</TableCell>
+                                    <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center" >{item.origin}</TableCell>
                                     <TableCell className="text-center" >{item.date.slice(0, 10)}</TableCell>
                                     <TableCell className="text-center" >{item.blNo}</TableCell>
@@ -167,7 +180,7 @@ const RcnPrimaryEntryTable = () => {
                                         
                                         </TableCell>
                                     <TableCell className="text-center" >
-                                       {item.editStatus}
+                                        {item.editStatus}
                                     </TableCell>
                                     <TableCell className="text-center" >
                                         <Popover>
@@ -180,10 +193,8 @@ const RcnPrimaryEntryTable = () => {
                                                     <DialogContent>
                                                         <DialogHeader>
                                                             <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>RCN Primary Entry Modification</p></DialogTitle>
-
                                                         </DialogHeader>
-
-                                                        <RcnPrimaryModify />
+                                                        <RcnPrimaryModify data={item} />
                                                     </DialogContent>
                                                 </Dialog>
 
@@ -196,7 +207,7 @@ const RcnPrimaryEntryTable = () => {
                                                         </AlertDialogHeader>
                                                         <AlertDialogFooter>
                                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction>Continue</AlertDialogAction>
+                                                            <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
                                                         </AlertDialogFooter>
                                                     </AlertDialogContent>
                                                 </AlertDialog>
@@ -211,20 +222,10 @@ const RcnPrimaryEntryTable = () => {
                                                         </AlertDialogHeader>
                                                         <AlertDialogFooter>
                                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction>Continue</AlertDialogAction>
+                                                            <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
                                                         </AlertDialogFooter>
                                                     </AlertDialogContent>
                                                 </AlertDialog>
-
-
-
-
-
-
-
-                                                {/* <button className="bg-transparent pb-2 text-left">Modify</button>
-                                        <button className="bg-transparent pb-2 text-left">Delete</button>
-                                       <button className="bg-transparent text-left">Approve</button> */}
                                             </PopoverContent>
                                         </Popover>
 
@@ -246,8 +247,8 @@ const RcnPrimaryEntryTable = () => {
                         })} />
                     </PaginationItem>
                     <PaginationItem>
-      <PaginationLink href="#">{page}</PaginationLink>
-    </PaginationItem>
+                        <PaginationLink href="#">{page}</PaginationLink>
+                    </PaginationItem>
                     <PaginationItem>
                         <PaginationEllipsis />
                     </PaginationItem>
