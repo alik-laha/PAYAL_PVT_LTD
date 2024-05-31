@@ -20,55 +20,60 @@ const Employeecreateform = () => {
       
 return(
     <div >
-    <form className='flex flex-col gap-4 text-center ' onSubmit={handleSubmit}>  
-       <div className="flex"><Label className="w-1/4 pl-5 pt-2 mr-2 employee-form">Name</Label>
-       <Input  className="w-3/4 mr-2 employee-form" placeholder="Name"/><Label className="w-1/4 pl-2 pt-2 mr-2 employee-form">Designation</Label>
-       <Input  className="w-3/4 mr-2 employee-form" placeholder="Designation"/>  </div>
+    <form className='flex flex-col gap-3 text-center ' onSubmit={handleSubmit}>  
+       <div className="flex">
+        <Label className="w-1/4 pt-2">Name</Label>
+       <Input  className="w-3/4 " placeholder="Name"/>
 
-       <div className="flex"><Label className="w-1/4 pl-5 pt-2 mr-2">Email </Label>
-       <Input  className="w-3/4 mr-2" placeholder="Email"/>
-       <Label className="w-1/4 pl-3 pt-2 mr-2">Date Of Birth </Label>
+       <Label className="w-1/4 pt-2 ">Desg.</Label>
+       <Input  className="w-3/4 " placeholder="Designation"/> 
+        </div>
+
+       <div className="flex">
+        <Label className="w-1/4  pt-2">Email </Label>
+       <Input  className="w-3/4" placeholder="Email"/>
+       <Label className="w-1/4 pt-2 ">Date Of Birth </Label>
       <DatePicker  buttonName="D.O.B" value={date} setValue={setDate} />
        
         </div>
 
        <div className="flex">
-       <Label className="w-1/4 pl-2 pt-2 mr-2">Contact No.</Label>
-       <Input  className="w-3/4 mr-2" placeholder="Contact No."/>
-       <Label className="w-1/4 pl-2 pt-2 mr-2">Blood Gp.</Label>
-       <Input  className="w-3/4 mr-2" placeholder="Blood Group"/>
+       <Label className="w-1/4 pt-2 ">Contact No.</Label>
+       <Input  className="w-3/4 " placeholder="Contact No."/>
+       <Label className="w-1/4 pt-2 ">Blood Group</Label>
+       <Input  className="w-3/4" placeholder="Blood Group"/>
        
         </div>
 
        <div className="flex">
-       <Label className="w-1/4 pl-5 pt-2 mr-2">Contact No.(Alt)</Label>
-       <Input  className="w-3/4 mr-2" placeholder="Alt No."/>
-       <Label className="w-1/4 pl-2 pt-2 mr-2">Highest Study </Label>
-       <Input  className="w-3/4 mr-2" placeholder=" Quaification"/>
+       <Label className="w-1/4 pt-2 ">Contact No.(Alt)</Label>
+       <Input  className="w-3/4 " placeholder="Alt No."/>
+       <Label className="w-1/4 pt-2 ">Highest Study </Label>
+       <Input  className="w-3/4 " placeholder=" Quaification"/>
        </div>
       
 
        <div className="flex">
-       <Label className="w-1/4 pl-2 pt-2 mr-2">Aadhar No.</Label>
-       <Input  className="w-3/4 mr-2" placeholder=" Aadhar No."/>
-       <Label className="w-1/4 pl-3 pt-2 mr-2">Pan No.</Label>
-       <Input  className="w-3/4 mr-2" placeholder="Pan No."/>  </div>
+       <Label className="w-1/4 pt-2">Aadhar No.</Label>
+       <Input  className="w-3/4 " placeholder=" Aadhar No."/>
+       <Label className="w-1/4 pt-2 ">Pan No.</Label>
+       <Input  className="w-3/4 " placeholder="Pan No."/>  </div>
 
        <div className="flex">
-       <Label className="w-1/4 pl-2 pt-2 mr-2">Emergency Contact Name </Label>
-       <Input  className="w-3/4 mr-2" placeholder=" Contact Name "/>
-       <Label className="w-1/4 pl-3 pt-2 mr-2">Emergency Contact No. </Label>
-       <Input  className="w-3/4 mr-2" placeholder="Contact No. "/>  </div>
+       <Label className="w-1/4  pt-2 ">Emergency Contact Name </Label>
+       <Input  className="w-3/4 " placeholder=" Contact Name "/>
+       <Label className="w-1/4 pt-2 ">Emergency Contact No. </Label>
+       <Input  className="w-3/4" placeholder="Contact No. "/>  </div>
 
        <div className="flex">
-       <Label className="w-1/4 pl-3 pt-2 mr-2">PF No.(Optional) </Label>
-       <Input  className="w-3/4 mr-2" placeholder="PF No. "/>
+       <Label className="w-1/4 pt-2 ">PF No.(Optional) </Label>
+       <Input  className="w-3/4 " placeholder="PF No. "/>
        
-       <Label className="w-1/4 pl-2 pt-2 mr-2"> Pincode</Label>
-       <Input  className="w-3/4 mr-2" placeholder=" Pincode "/>  </div>
+       <Label className="w-1/4  pt-2 "> Pincode</Label>
+       <Input  className="w-3/4" placeholder=" Pincode "/>  </div>
        <div className="flex">
-       <Label className="w-1/4 pl-3 pt-2 mr-2">Address </Label>
-       <Textarea  className="w-2/4 mr-2" placeholder="Address "/>
+       <Label className="w-1/4 pt-2 ">Address </Label>
+       <Textarea  className="w-2/4 " placeholder="Address "/>
        
         </div>
       
