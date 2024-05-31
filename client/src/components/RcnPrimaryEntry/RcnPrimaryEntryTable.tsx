@@ -54,7 +54,7 @@ import {
     PaginationContent,
     PaginationEllipsis,
     PaginationItem,
-   
+
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
@@ -236,12 +236,12 @@ const RcnPrimaryEntryTable = () => {
                     <PaginationItem>
                         <PaginationPrevious onClick={() => setPage((prev) => {
                             if (prev === 0) {
-                                return prev
+                                return prev + 1
                             }
                             return prev - 1
                         })} />
                     </PaginationItem>
-                    
+
                     <PaginationItem>
                         <PaginationEllipsis />
                     </PaginationItem>
