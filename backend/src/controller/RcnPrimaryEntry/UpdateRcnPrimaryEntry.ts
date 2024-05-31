@@ -1,25 +1,23 @@
 import { Request, Response } from "express";
 import RcnPrimary from "../../model/RcnEntryModel";
+import RcnEdit from "../../model/RcnEditModel";
 
 const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
     try {
-        const id = req.params.id;
-        const { date, blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin } = req.body;
-        const receivedBy = req.cookies.user;
+        const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin, id } = req.body;
         const difference = netWeight - blWeight;
         if (!id) {
-            return res.status(400).json({ message: "Id is required" });
+            return res.status(400).json({ message: "Please provide the id" });
         }
-        const oldRcnPrimary = await RcnPrimary.findOne({
-            where: {
-                id
-            }
-        });
-        if (!oldRcnPrimary) {
-            return res.status(400).json({ message: "Rcn Primary Entry not found" });
-        }
-        const rcnPrimary = await RcnPrimary.update({
-            date,
+        const rcn = await RcnPrimary.update({
+            editStatus: "Pending",
+        },
+            {
+                where: {
+                    id
+                }
+            });
+        const rcnEdit = await RcnEdit.create({
             blNo,
             truckNo,
             conNo,
@@ -28,14 +26,11 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
             difference,
             noOfBags,
             origin,
-            receivedBy
-        }, {
-            where: {
-                id
-            }
+            id,
         });
-        res.status(200).json({ message: "Rcn Primary Entry Updated Successfully", rcnPrimary });
+        return res.status(200).json({ message: "Rcn Entry updated successfully Wait for approve" });
     }
+
     catch (err) {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error", error: err });
