@@ -302,7 +302,7 @@
 .flexbox-search{
    
     flex-wrap: wrap;
-   row-gap: 10px;
+   row-gap: 14px;
 }
 
 .flexbox-search-width{
@@ -375,7 +375,7 @@
 
     .flexbox-search-width{
    
-        width: 40%!important;
+        width: 42%!important;
     }
     .employee-form{
        width: 100%!important;
@@ -406,6 +406,9 @@
     }
     .no-padding{
         padding: 0!important;
+    }
+    .no-margin{
+        margin:0!important;
     }
   
 

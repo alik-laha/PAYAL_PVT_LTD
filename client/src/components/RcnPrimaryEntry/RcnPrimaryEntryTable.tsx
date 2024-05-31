@@ -170,7 +170,7 @@ const RcnPrimaryEntryTable = () => {
                     />
             
                 
-                <span className="w-1/8 ml-6"><Button className="bg-slate-500 float-right h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 float-right h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
             </div>
 
 
