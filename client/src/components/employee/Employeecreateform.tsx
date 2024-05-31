@@ -37,7 +37,7 @@ return(
 
        <div className='flex'>
        <Label className="w-2/4 pt-1 ">Date Of Birth </Label>
-      <DatePicker buttonName="D.O.B" value={date} setValue={setDate} />
+      <span className="w-1/3"><DatePicker buttonName="D.O.B" value={date} setValue={setDate} /></span>
         </div>
 
         <div className="flex">
