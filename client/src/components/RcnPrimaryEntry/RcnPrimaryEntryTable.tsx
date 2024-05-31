@@ -93,7 +93,13 @@ const RcnPrimaryEntryTable = () => {
         handleSearch()
     }, [page])
 
-
+    const handleRejection = async (item: RcnPrimaryEntryData) => {
+        const response = await axios.delete(`/api/rcnprimary/rejectededitrcn/${item.id}`)
+        const data = await response.data
+        if (data.message === "Rcn Entry rejected successfully") {
+            handleSearch()
+        }
+    }
 
     return (
         <div className="ml-5 mt-5">
@@ -205,7 +211,7 @@ const RcnPrimaryEntryTable = () => {
                                                         </AlertDialogHeader>
                                                         <AlertDialogFooter>
                                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction>Continue</AlertDialogAction>
+                                                            <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
                                                         </AlertDialogFooter>
                                                     </AlertDialogContent>
                                                 </AlertDialog>

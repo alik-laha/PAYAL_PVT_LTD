@@ -13,8 +13,10 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { useState } from "react"
+import axios from "axios"
 interface RcnPrimaryModifyProps {
     data: {
+        id: number;
         origin: string;
         blNo: string;
         conNo: string;
@@ -38,7 +40,12 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        console.log('button pressed')
+        axios.put(`/api/rcnprimary/update/${props.data.id}`, { origin, blNo, conNo, truckNo, noOfBags, blWeight, netWeight })
+            .then((res) => {
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
+            })
     }
 
     useEffect(() => {
