@@ -48,7 +48,15 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 
-
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+   
+    PaginationNext,
+    PaginationPrevious,
+  } from "@/components/ui/pagination"
 
 const RcnPrimaryEntryTable = () => {
     const [origin, setOrigin] = useState<string>("")
@@ -168,7 +176,6 @@ const RcnPrimaryEntryTable = () => {
                                                         </AlertDialogContent>
                                                     </AlertDialog>
 
-
                                                     <AlertDialog>
                                                         <AlertDialogTrigger><button className="bg-transparent text-left">Reject</button></AlertDialogTrigger>
                                                         <AlertDialogContent>
@@ -201,7 +208,22 @@ const RcnPrimaryEntryTable = () => {
                             })
                         }
                     </TableBody>
+                
                 </Table>
+                            <Pagination className="pt-5 ">
+                                <PaginationContent>
+                                    <PaginationItem>
+                                    <PaginationPrevious href="#" />
+                                    </PaginationItem>
+                                    
+                                    <PaginationItem>
+                                    <PaginationEllipsis />
+                                    </PaginationItem>
+                                    <PaginationItem>
+                                    <PaginationNext href="#" />
+                                    </PaginationItem>
+                                </PaginationContent>
+                            </Pagination>
             </div>
         )
     }
