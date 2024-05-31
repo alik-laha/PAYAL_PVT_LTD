@@ -55,7 +55,7 @@ const Employeecreateform = () => {
             employeeName,
             email,
             designation,
-            dateOfJoining,
+            dateOfJoining: date,
             mobNo,
             bloodGroup,
             heighstQualification,
