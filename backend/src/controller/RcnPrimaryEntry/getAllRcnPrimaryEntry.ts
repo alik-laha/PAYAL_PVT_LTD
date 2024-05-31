@@ -4,7 +4,7 @@ import RcnPrimary from "../../model/RcnEntryModel";
 const getAllRcnPrimaryEntry = async (req: Request, res: Response) => {
     try {
         const page = parseInt(req.query.page as string, 10) || 1;
-        const size = parseInt(req.query.limit as string, 10) || 20;
+        const size = parseInt(req.query.limit as string, 10) || 10;
 
         const offset = (page - 1) * size;
         const limit = size;

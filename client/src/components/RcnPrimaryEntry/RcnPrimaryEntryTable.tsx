@@ -24,7 +24,6 @@ import {
 import {
     Dialog,
     DialogContent,
-    
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -35,19 +34,19 @@ import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-  } from "@/components/ui/popover"
+} from "@/components/ui/popover"
 import RcnPrimaryModify from './RcnPrimaryModify'
 import {
     AlertDialog,
     AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
-   
+
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-  } from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog"
 
 
 
@@ -72,63 +71,63 @@ const RcnPrimaryEntryTable = () => {
 
                     <Input className="flexbox-search-width mt-1" placeholder=" BL No. / Container No." />
                     <div className="flex pl-7 mt-1 flexbox-search-width ">
-                    <Select value={origin} onValueChange={(value) => setOrigin(value)}>
-                        <SelectTrigger className="w-3/4 h-8">
-                            <SelectValue placeholder="Origin" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                {
-                                    Origin.map((item) => {
-                                        return (
-                                            <SelectItem key={item} value={item}>
-                                                {item}
-                                            </SelectItem>
-                                        )
-                                    })
-                                }
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select></div>
+                        <Select value={origin} onValueChange={(value) => setOrigin(value)}>
+                            <SelectTrigger className="w-3/4 h-8">
+                                <SelectValue placeholder="Origin" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    {
+                                        Origin.map((item) => {
+                                            return (
+                                                <SelectItem key={item} value={item}>
+                                                    {item}
+                                                </SelectItem>
+                                            )
+                                        })
+                                    }
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select></div>
                     <span className="flexbox-search-width"><DatePicker buttonName="From Date" value={fromdate} setValue={setfromDate} /></span>
                     <span className="flexbox-search-width"> <DatePicker buttonName="To Date" value={todate} setValue={settoDate} /></span>
-                    <span className="w-1/8 "><Button className="bg-slate-500 float-right"><FaSearch size={15}/> Search</Button></span>
-                
+                    <span className="w-1/8 "><Button className="bg-slate-500 float-right"><FaSearch size={15} /> Search</Button></span>
+
                 </div>
 
 
 
                 <Table className="mt-8">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-                        
-                            <TableHead  className="text-center" >Id</TableHead>
-                            <TableHead className="text-center" >Origin</TableHead>
-                            <TableHead className="text-center" >Date </TableHead>
-                            <TableHead className="text-center" >BL No.</TableHead>
-                            <TableHead className="text-center" >Con No.</TableHead>
-                            <TableHead className="text-center" >Truck No.</TableHead>
-                           
-                            <TableHead className="text-center" >BL Weight</TableHead>
-                            <TableHead className="text-center" >Net Weight</TableHead>
-                            <TableHead className="text-center" >Difference</TableHead>
-                            <TableHead className="text-center" >Bag Count</TableHead>
-                            <TableHead className="text-center" >QC </TableHead>
-                            <TableHead className="text-center" >Status </TableHead>
-                            <TableHead className="text-center" >Action</TableHead>
-                        
+
+                        <TableHead className="text-center" >Id</TableHead>
+                        <TableHead className="text-center" >Origin</TableHead>
+                        <TableHead className="text-center" >Date </TableHead>
+                        <TableHead className="text-center" >BL No.</TableHead>
+                        <TableHead className="text-center" >Con No.</TableHead>
+                        <TableHead className="text-center" >Truck No.</TableHead>
+
+                        <TableHead className="text-center" >BL Weight</TableHead>
+                        <TableHead className="text-center" >Net Weight</TableHead>
+                        <TableHead className="text-center" >Difference</TableHead>
+                        <TableHead className="text-center" >Bag Count</TableHead>
+                        <TableHead className="text-center" >QC </TableHead>
+                        <TableHead className="text-center" >Status </TableHead>
+                        <TableHead className="text-center" >Action</TableHead>
+
                     </TableHeader>
                     <TableBody>
                         {
-                            data.map((item: RcnPrimaryEntryData) => {
+                            data.data.map((item: RcnPrimaryEntryData) => {
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center" >{item.id}</TableCell>
                                         <TableCell className="text-center" >{item.origin}</TableCell>
-                                        <TableCell className="text-center" >{item.date.slice(0,10)}</TableCell>
+                                        <TableCell className="text-center" >{item.date.slice(0, 10)}</TableCell>
                                         <TableCell className="text-center" >{item.blNo}</TableCell>
                                         <TableCell className="text-center" >{item.conNo}</TableCell>
                                         <TableCell className="text-center" >{item.truckNo}</TableCell>
-                                        
+
                                         <TableCell className="text-center" >{item.blWeight}</TableCell>
                                         <TableCell className="text-center" >{item.netWeight}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-600" >{item.difference}</TableCell>
@@ -138,64 +137,64 @@ const RcnPrimaryEntryTable = () => {
                                             Created
                                         </TableCell>
                                         <TableCell className="text-center" >
-                                        <Popover>
-                                        <PopoverTrigger>       <button className="bg-green-500 p-2 text-white rounded">Action</button>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                            
-                                        <Dialog>
-                                        <DialogTrigger>   <button className="bg-transparent pb-2 text-left">Modify</button></DialogTrigger>
-                                        <DialogContent>
-                                            <DialogHeader>
-                                                <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>RCN Primary Entry Modification</p></DialogTitle>
-                                        
-                                            </DialogHeader>
+                                            <Popover>
+                                                <PopoverTrigger>       <button className="bg-green-500 p-2 text-white rounded">Action</button>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
-                                            <RcnPrimaryModify/>
-                                        </DialogContent>
-                                    </Dialog>
+                                                    <Dialog>
+                                                        <DialogTrigger>   <button className="bg-transparent pb-2 text-left">Modify</button></DialogTrigger>
+                                                        <DialogContent>
+                                                            <DialogHeader>
+                                                                <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>RCN Primary Entry Modification</p></DialogTitle>
 
-                                            <AlertDialog>
-                                            <AlertDialogTrigger><button className="bg-transparent text-left pb-2">Approve</button></AlertDialogTrigger>
-                                            <AlertDialogContent>
-                                                <AlertDialogHeader>
-                                                <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                
-                                                </AlertDialogHeader>
-                                                <AlertDialogFooter>
-                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                <AlertDialogAction>Continue</AlertDialogAction>
-                                                </AlertDialogFooter>
-                                            </AlertDialogContent>
-                                            </AlertDialog>
+                                                            </DialogHeader>
+
+                                                            <RcnPrimaryModify />
+                                                        </DialogContent>
+                                                    </Dialog>
+
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger><button className="bg-transparent text-left pb-2">Approve</button></AlertDialogTrigger>
+                                                        <AlertDialogContent>
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
+
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <AlertDialogAction>Continue</AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
 
 
-                                            <AlertDialog>
-                                            <AlertDialogTrigger><button className="bg-transparent text-left">Reject</button></AlertDialogTrigger>
-                                            <AlertDialogContent>
-                                                <AlertDialogHeader>
-                                                <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                
-                                                </AlertDialogHeader>
-                                                <AlertDialogFooter>
-                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                <AlertDialogAction>Continue</AlertDialogAction>
-                                                </AlertDialogFooter>
-                                            </AlertDialogContent>
-                                            </AlertDialog>
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            {/* <button className="bg-transparent pb-2 text-left">Modify</button>
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger><button className="bg-transparent text-left">Reject</button></AlertDialogTrigger>
+                                                        <AlertDialogContent>
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
+
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <AlertDialogAction>Continue</AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+
+
+
+
+
+
+
+                                                    {/* <button className="bg-transparent pb-2 text-left">Modify</button>
                                         <button className="bg-transparent pb-2 text-left">Delete</button>
                                        <button className="bg-transparent text-left">Approve</button> */}
-                                       </PopoverContent>
-                                        </Popover>
-                                 
+                                                </PopoverContent>
+                                            </Popover>
+
                                         </TableCell>
                                     </TableRow>
                                 )
