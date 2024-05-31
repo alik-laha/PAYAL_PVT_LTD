@@ -6,6 +6,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import {format,toZonedTime} from 'date-fns-tz'
 import { FaSearch } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import React, { useEffect } from "react"
@@ -88,6 +89,12 @@ const RcnPrimaryEntryTable = () => {
 
         }
         setData(data.rcnEntries)
+        
+        
+
+
+
+
     }
 
     useEffect(() => {
@@ -191,11 +198,14 @@ const RcnPrimaryEntryTable = () => {
                 <TableBody>
                     {
                         Data.map((item: RcnPrimaryEntryData, idx) => {
+                            const apidate=new Date(item.date)
+                            const localdate= toZonedTime(apidate,Intl.DateTimeFormat().resolvedOptions().timeZone)
+                            
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center" >{item.origin}</TableCell>
-                                    <TableCell className="text-center" >{item.date.slice(0, 10)}</TableCell>
+                                    <TableCell className="text-center" >{format(localdate,'dd-MM-yyyy',{timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone})}</TableCell>
                                     <TableCell className="text-center" >{item.blNo}</TableCell>
                                     <TableCell className="text-center" >{item.conNo}</TableCell>
                                     <TableCell className="text-center" >{item.truckNo}</TableCell>
