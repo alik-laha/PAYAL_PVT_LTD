@@ -54,7 +54,7 @@ import {
     PaginationContent,
     PaginationEllipsis,
     PaginationItem,
-
+    PaginationLink,
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
@@ -66,7 +66,7 @@ const RcnPrimaryEntryTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const [Data, setData] = useState<RcnPrimaryEntryData[]>([])
     const [page, setPage] = useState(1)
-    const limit = 2
+    const limit = 3
 
     const handleSearch = async () => {
         console.log('search button pressed')
@@ -147,10 +147,10 @@ const RcnPrimaryEntryTable = () => {
                 </TableHeader>
                 <TableBody>
                     {
-                        Data.map((item: RcnPrimaryEntryData) => {
+                        Data.map((item: RcnPrimaryEntryData,idx) => {
                             return (
                                 <TableRow key={item.id}>
-                                    <TableCell className="text-center" >{item.id}</TableCell>
+                                    <TableCell className="text-center" >{(limit*(page-1))+idx+1}</TableCell>
                                     <TableCell className="text-center" >{item.origin}</TableCell>
                                     <TableCell className="text-center" >{item.date.slice(0, 10)}</TableCell>
                                     <TableCell className="text-center" >{item.blNo}</TableCell>
@@ -235,13 +235,15 @@ const RcnPrimaryEntryTable = () => {
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious onClick={() => setPage((prev) => {
-                            if (prev === 0) {
-                                return prev + 1
+                            if (prev === 1) {
+                                return prev
                             }
                             return prev - 1
                         })} />
                     </PaginationItem>
-
+                    <PaginationItem>
+      <PaginationLink href="#">{page}</PaginationLink>
+    </PaginationItem>
                     <PaginationItem>
                         <PaginationEllipsis />
                     </PaginationItem>
