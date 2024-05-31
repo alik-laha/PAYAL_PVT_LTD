@@ -4,7 +4,7 @@ import { Op } from "sequelize";
 
 const SearchRcnPrimary = async (req: Request, res: Response) => {
     try {
-        const { conBlNo, fromDate, toDate, origin } = req.body;
+        const { blConNo, fromDate, toDate, origin } = req.body;
         const page = parseInt(req.query.page as string, 10) || 1;
         const size = parseInt(req.query.limit as string, 10) || 10;
 
@@ -14,11 +14,11 @@ const SearchRcnPrimary = async (req: Request, res: Response) => {
         let whereClause = [];
 
         // Conditionally add parameters to the whereClause
-        if (conBlNo) {
+        if (blConNo) {
             whereClause.push({
                 [Op.or]: [
-                    { blNo: { [Op.like]: `%${conBlNo}%` } },
-                    { conNo: { [Op.like]: `%${conBlNo}%` } }
+                    { blNo: { [Op.like]: `%${blConNo}%` } },
+                    { conNo: { [Op.like]: `%${blConNo}%` } }
                 ]
             });
         }
