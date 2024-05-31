@@ -19,7 +19,7 @@ router.put('/update/:id', RcnPrimaryMiddleWare, UpdateRcnPrimaryEntry);
 router.delete('/delete/:id', DeleteRcnEntry);
 
 //search Rcn Entry by ConBlNo, fromDate, toDate, origin
-router.put('/search', SearchRcnPrimary);
+router.put('/rcnprimarysearch', SearchRcnPrimary);
 
 //Get Sum of all Origin Rcn Primary
 router.get('/sum', SumOfAllOriginRcnPrimary);

@@ -66,11 +66,11 @@ const RcnPrimaryEntryTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const [Data, setData] = useState<RcnPrimaryEntryData[]>([])
     const [page, setPage] = useState(1)
-    const limit = 20
+    const limit = 2
 
     const handleSearch = async () => {
         console.log('search button pressed')
-        const response = await axios.put('/api/rcnprimary/search', {
+        const response = await axios.put('/api/rcnprimary/rcnprimarysearch', {
             blConNo: blConNo,
             origin: origin,
             fromDate: fromdate,
