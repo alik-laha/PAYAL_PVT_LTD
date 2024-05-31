@@ -12,7 +12,6 @@ import React, { useEffect } from "react"
 import { Input } from "../ui/input";
 import DatePicker from "../common/DatePicker";
 import { RcnPrimaryEntryData } from "@/type/type";
-import { useQuery } from "react-query"
 import {
     Select,
     SelectContent,
@@ -24,7 +23,7 @@ import {
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
+    // DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -55,10 +54,10 @@ import {
     PaginationContent,
     PaginationEllipsis,
     PaginationItem,
-   
+
     PaginationNext,
     PaginationPrevious,
-  } from "@/components/ui/pagination"
+} from "@/components/ui/pagination"
 
 const RcnPrimaryEntryTable = () => {
     const [origin, setOrigin] = useState<string>("")
@@ -67,7 +66,7 @@ const RcnPrimaryEntryTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const [Data, setData] = useState<RcnPrimaryEntryData[]>([])
     const [page, setPage] = useState(1)
-    const [limit, setLimit] = useState(10)
+    const limit = 10
 
     const handleSearch = async () => {
         console.log('search button pressed')
@@ -83,7 +82,10 @@ const RcnPrimaryEntryTable = () => {
             }
         })
         const data = await response.data
-        setData(data.rcnEntries)
+        if (data.rcnEntries.length === 0) {
+            setPage((prev) => prev - 1)
+            setData(data.rcnEntries)
+        }
     }
 
     useEffect(() => {
@@ -228,22 +230,22 @@ const RcnPrimaryEntryTable = () => {
                     }
                 </TableBody>
             </Table>
-         <Pagination className="pt-5 ">
-                                <PaginationContent>
-                                    <PaginationItem>
-                                    <PaginationPrevious href="#" />
-                                    </PaginationItem>
-                                    
-                                    <PaginationItem>
-                                    <PaginationEllipsis />
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                    <PaginationNext href="#" />
-                                    </PaginationItem>
-                                </PaginationContent>
-                            </Pagination>
+            <Pagination className="pt-5 ">
+                <PaginationContent>
+                    <PaginationItem>
+                        <PaginationPrevious onClick={() => setPage((prev) => prev - 1)} />
+                    </PaginationItem>
+
+                    <PaginationItem>
+                        <PaginationEllipsis />
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                    </PaginationItem>
+                </PaginationContent>
+            </Pagination>
         </div>
     )
-   
+
 }
 export default RcnPrimaryEntryTable;
