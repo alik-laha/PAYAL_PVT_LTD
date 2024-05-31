@@ -163,7 +163,7 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center font-semibold" >{item.noOfBags}</TableCell>
                                     <TableCell className="text-center" ><button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button></TableCell>
                                     <TableCell className="text-center" >
-                                        Created
+                                       {item.editStatus}
                                     </TableCell>
                                     <TableCell className="text-center" >
                                         <Popover>
