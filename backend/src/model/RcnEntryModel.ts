@@ -43,10 +43,10 @@ const RcnPrimary = sequelize.define('rcnEntry', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    editStatus: {
-        type: DataTypes.STRING,
-        defaultValue: "Created"
-    },
+    // editStatus: {
+    //     type: DataTypes.STRING,
+    //     defaultValue: "Created"
+    // },
     rcnStatus: {
         type: DataTypes.STRING,
         defaultValue: 'QC pending'

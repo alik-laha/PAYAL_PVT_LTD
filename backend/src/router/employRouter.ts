@@ -10,17 +10,17 @@ import activeEmployeeCount from "../controller/employeeController/activeEmployee
 
 const router = express.Router();
 
-router.post("/create", employeeMiddleWare, createEmployee)
+router.post("/createemployee", employeeMiddleWare, createEmployee)
 
-router.put("/update", employeeMiddleWare, updateEmployee)
+router.put("/updateemployee", employeeMiddleWare, updateEmployee)
 
-router.post("/search", searchEmployee)
+router.post("/searchemployee", searchEmployee)
 
-router.get("/getall", getAllEmployee)
+router.get("/getallemployee", getAllEmployee)
 
-router.delete("/delete/:id", DeleteEmployee)
+router.delete("/deleteemployee/:id", DeleteEmployee)
 
-router.put("/relese", releseEmployee)
+router.put("/releseemployee", releseEmployee)
 
 //active Employee Count
 router.get("/activeEmployeeCount", activeEmployeeCount)
