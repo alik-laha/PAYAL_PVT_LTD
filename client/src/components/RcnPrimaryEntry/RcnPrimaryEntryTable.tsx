@@ -13,14 +13,8 @@ import React, { useEffect } from "react"
 import { Input } from "../ui/input";
 // import DatePicker from "../common/DatePicker";
 import { RcnPrimaryEntryData } from "@/type/type";
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+import { label } from "../ui/input";
+
 import {
     Dialog,
     DialogContent,
@@ -139,28 +133,22 @@ const RcnPrimaryEntryTable = () => {
         <div className="ml-5 mt-5">
             <div className="flex flexbox-search">
 
-                <Input className="flexbox-search-width mt-1" placeholder=" BL No. / Con No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
-                <div className="flex pl-7 mt-1 flexbox-search-width ">
-                    <Select value={origin} onValueChange={(value) => setOrigin(value)}>
-                        <SelectTrigger className="w-3/4 h-8">
-                            <SelectValue placeholder="Origin" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                {
-                                    Origin.map((item) => {
-                                        return (
-                                            <SelectItem key={item} value={item}>
-                                                {item}
-                                            </SelectItem>
-                                        )
-                                    })
-                                }
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select></div>
+                <Input className=" w-1/5" placeholder=" BL No. / Con No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                <select className='flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                    onChange={(e) => setOrigin(e.target.value)} value={origin}>
+                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
+                        {Origin.map((data, index) => (
+                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                {data}
+                            </option>
+                        ))}
+                    </select>
                 
-                <Input className="w-2/4 ml-2"
+                <label className="font-semibold mt-1 ml-8 mr-5">From </label>
+                <Input className="w-1/6 "
                         type="date"
                         value={fromdate}
                         onChange={(e) => setfromDate(e.target.value)}
@@ -171,15 +159,17 @@ const RcnPrimaryEntryTable = () => {
                   
                 
                 {/* <DatePicker buttonName="To Date" value={todate} setValue={settoDate} /> */}
-                <Input className="w-2/4 ml-2"
+                <label className="font-semibold mt-1 ml-8 mr-5">To </label>
+                <Input className="w-1/6 "
                         type="date"
                         value={hidetodate}
                         onChange={handleTodate}
                         placeholder="To Date"
                        
                     />
+            
                 
-                <span className="w-1/8 "><Button className="bg-slate-500 float-right" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+                <span className="w-1/8 ml-6"><Button className="bg-slate-500 float-right h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
             </div>
 
 
