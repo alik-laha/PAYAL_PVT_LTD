@@ -13,7 +13,7 @@ import React, { useEffect } from "react"
 import { Input } from "../ui/input";
 // import DatePicker from "../common/DatePicker";
 import { RcnPrimaryEntryData } from "@/type/type";
-import { label } from "../ui/input";
+
 
 import {
     Dialog,
