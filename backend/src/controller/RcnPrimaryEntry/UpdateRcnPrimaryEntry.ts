@@ -4,7 +4,8 @@ import RcnEdit from "../../model/RcnEditModel";
 
 const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
     try {
-        const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin, id } = req.body;
+        const id = req.params.id;
+        const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin } = req.body;
         const difference = netWeight - blWeight;
         if (!id) {
             return res.status(400).json({ message: "Please provide the id" });
