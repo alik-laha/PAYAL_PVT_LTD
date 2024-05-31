@@ -12,7 +12,7 @@ import React from "react"
 import { Input } from "../ui/input";
 import DatePicker from "../common/DatePicker";
 import { RcnPrimaryEntryData } from "@/type/type";
-import UseQueryData from "../common/dataFetcher";
+import { useQuery } from "react-query"
 import {
     Select,
     SelectContent,
@@ -47,6 +47,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import axios from "axios";
 
 
 
@@ -54,9 +55,40 @@ const RcnPrimaryEntryTable = () => {
     const [origin, setOrigin] = useState<string>("")
     const [fromdate, setfromDate] = React.useState<Date | undefined>();
     const [todate, settoDate] = React.useState<Date | undefined>();
+    const [blConNo, setBlConNo] = useState<string>("")
 
-    const { data, error, isLoading } = UseQueryData('/api/rcnprimary/all', 'GET', 'postsData')
-    console.log(data)
+    // const { data, error, isLoading } = UseQueryData('/api/rcnprimary/all', 'GET', 'postsData')
+
+    const FetchData = async (url: string) => {
+        try {
+            const response = await axios.get(url, {
+                params: {
+                    page: 1,
+                    limit: 5
+                }
+            })
+                .then((res) => {
+                    console.log(res.data)
+                    return res.data
+                }
+                )
+            return response;
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const UseQueryData = (url: string, type: string) => {
+        const {
+            data,
+            error,
+            isLoading,
+        } = useQuery(type, () => FetchData(url));
+
+        return { data, error, isLoading }
+    }
+
+    const { data, error, isLoading } = UseQueryData('/api/rcnprimary/all', "fetchRcnTable")
 
     if (isLoading) {
         return <div>Loading...</div>
@@ -69,7 +101,7 @@ const RcnPrimaryEntryTable = () => {
             <div className="ml-5 mt-5">
                 <div className="flex flexbox-search">
 
-                    <Input className="flexbox-search-width mt-1" placeholder=" BL No. / Container No." />
+                    <Input className="flexbox-search-width mt-1" placeholder=" BL No. / Container No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
                     <div className="flex pl-7 mt-1 flexbox-search-width ">
                         <Select value={origin} onValueChange={(value) => setOrigin(value)}>
                             <SelectTrigger className="w-3/4 h-8">

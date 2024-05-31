@@ -6,6 +6,7 @@ const SearchRcnPrimary = async (req: Request, res: Response) => {
     try {
         const { conBlNo, fromDate, toDate, origin } = req.body;
         const rcnEntries = await RcnPrimary.findAll({
+            order: [['date', 'DESC']],
             where: {
                 [Op.and]: [
                     {
