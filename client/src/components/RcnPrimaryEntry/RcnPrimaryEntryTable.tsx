@@ -82,7 +82,7 @@ const RcnPrimaryEntryTable = () => {
             }
         })
         const data = await response.data
-        if (data.rcnEntries.length === 0) {
+        if (data.rcnEntries.length === 0 && page >1) {
             setPage((prev) => prev - 1)
 
         }
@@ -99,7 +99,7 @@ const RcnPrimaryEntryTable = () => {
         <div className="ml-5 mt-5">
             <div className="flex flexbox-search">
 
-                <Input className="flexbox-search-width mt-1" placeholder=" BL No. / Container No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                <Input className="flexbox-search-width mt-1" placeholder=" BL No. / Con No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
                 <div className="flex pl-7 mt-1 flexbox-search-width ">
                     <Select value={origin} onValueChange={(value) => setOrigin(value)}>
                         <SelectTrigger className="w-3/4 h-8">
@@ -161,13 +161,17 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center" >{item.netWeight}</TableCell>
                                     <TableCell className="text-center font-semibold text-red-600" >{item.difference}</TableCell>
                                     <TableCell className="text-center font-semibold" >{item.noOfBags}</TableCell>
-                                    <TableCell className="text-center" ><button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button></TableCell>
+                                    <TableCell className="text-center" >{item.rcnStatus==='QC pending' ?
+                                    <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>:  
+                                    <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>}
+                                        
+                                        </TableCell>
                                     <TableCell className="text-center" >
                                        {item.editStatus}
                                     </TableCell>
                                     <TableCell className="text-center" >
                                         <Popover>
-                                            <PopoverTrigger>       <button className="bg-green-500 p-2 text-white rounded">Action</button>
+                                            <PopoverTrigger>       <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
