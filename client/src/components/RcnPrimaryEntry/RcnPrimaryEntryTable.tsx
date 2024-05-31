@@ -133,8 +133,9 @@ const RcnPrimaryEntryTable = () => {
         <div className="ml-5 mt-5">
             <div className="flex flexbox-search">
 
-                <Input className=" w-1/5" placeholder=" BL No. / Con No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
-                <select className='flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" BL No. / Con No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                
+                <select className='flexbox-search-width flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                     onChange={(e) => setOrigin(e.target.value)} value={origin}>
                         <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
@@ -147,8 +148,8 @@ const RcnPrimaryEntryTable = () => {
                         ))}
                     </select>
                 
-                <label className="font-semibold mt-1 ml-8 mr-5">From </label>
-                <Input className="w-1/6 "
+                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
+                <Input className="w-1/6 flexbox-search-width-calender"
                         type="date"
                         value={fromdate}
                         onChange={(e) => setfromDate(e.target.value)}
@@ -159,8 +160,8 @@ const RcnPrimaryEntryTable = () => {
                   
                 
                 {/* <DatePicker buttonName="To Date" value={todate} setValue={settoDate} /> */}
-                <label className="font-semibold mt-1 ml-8 mr-5">To </label>
-                <Input className="w-1/6 "
+                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
+                <Input className="w-1/6 flexbox-search-width-calender"
                         type="date"
                         value={hidetodate}
                         onChange={handleTodate}

@@ -307,7 +307,7 @@
 
 .flexbox-search-width{
    
-    width: 23%!important;
+    width: 18%!important;
 }
 
 .flexbox-tile p{
@@ -375,12 +375,38 @@
 
     .flexbox-search-width{
    
-        width: 40px!important;
+        width: 40%!important;
     }
     .employee-form{
        width: 100%!important;
     }
-    
+    .flexbox-search-width-calender{
+   
+        width: 33%!important;
+        margin-left: 0%!important;
+        padding: 0!important;
+
+    }
+    .flexbox-search-width-label-right{
+   
+        width: 10%!important;
+        margin-left: 10px!important;
+        padding: 0!important;
+        margin-right: 5px!important;
+        text-align: center;
+
+    }
+    .flexbox-search-width-label-left{
+   
+        width: 10%!important;
+        margin-left: 0!important;
+        padding: 0!important;
+        margin-right: 5px!important;
+
+    }
+    .no-padding{
+        padding: 0!important;
+    }
   
 
 }
