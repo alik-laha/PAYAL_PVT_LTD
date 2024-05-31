@@ -66,7 +66,7 @@ const RcnPrimaryEntryTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const [Data, setData] = useState<RcnPrimaryEntryData[]>([])
     const [page, setPage] = useState(1)
-    const limit = 3
+    const limit = 20
 
     const handleSearch = async () => {
         console.log('search button pressed')
