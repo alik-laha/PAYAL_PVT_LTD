@@ -22,7 +22,7 @@ const createEmployee = async (req: Request, res: Response) => {
             Id = LastUserId.id + 1;
             let id = "";
             const schoolName = "PAYC";
-            const year = dateOfJoining.slice(0, 4);
+            const year = new Date().getFullYear().toString();
             const ID = Id.toString();
             if (ID.length === 1) {
                 id = "0000" + ID;
