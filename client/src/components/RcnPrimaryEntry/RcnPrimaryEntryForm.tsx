@@ -13,6 +13,7 @@ import { useState, useRef } from "react"
 import { Origin } from "../common/exportData"
 import axios from "axios"
 
+
 const RcnPrimaryEntryForm = () => {
     const [origin, setOrigin] = useState<string>("")
     const blNoRef = useRef<HTMLInputElement>(null)
@@ -21,7 +22,7 @@ const RcnPrimaryEntryForm = () => {
     const blWeightRef = useRef<HTMLInputElement>(null)
     const netWeightRef = useRef<HTMLInputElement>(null)
     const noOfBagsRef = useRef<HTMLInputElement>(null)
-
+    
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -33,6 +34,7 @@ const RcnPrimaryEntryForm = () => {
         const noOfBags = noOfBagsRef.current?.value
         console.log({ origin, blNo, conNo, truckNo, blWeight, netWeight })
         axios.post('/api/rcnprimary/create', { origin, blNo, conNo, truckNo, blWeight, netWeight, noOfBags })
+      
     }
     return (
         <div >

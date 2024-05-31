@@ -36,7 +36,7 @@ const Employee = () => {
 
                 <Dialog >
                     <DialogTrigger>   <Button className="bg-blue-400 mb-2 mt-5 ml-4">+ Add New Employee</Button></DialogTrigger>
-                    <DialogContent className='max-w-6xl'>
+                    <DialogContent className='max-w-4xl'>
                         <DialogHeader>
                             <DialogTitle><p className='text-1xl pb-1 text-center mt-2 mb-5'>Employee Entry details</p></DialogTitle>
                        

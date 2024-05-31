@@ -20,10 +20,10 @@ const Employeecreateform = () => {
       
 return(
     <div >
-    <form className='flex flex-col gap-4 text-center' onSubmit={handleSubmit}>  
-       <div className="flex"><Label className="w-1/4 pl-5 pt-2 mr-2 ">Name</Label>
-       <Input  className="w-3/4 mr-2" placeholder="Name"/><Label className="w-1/4 pl-2 pt-2 mr-2">Designation</Label>
-       <Input  className="w-3/4 mr-2" placeholder="Designation"/>  </div>
+    <form className='flex flex-col gap-4 text-center ' onSubmit={handleSubmit}>  
+       <div className="flex"><Label className="w-1/4 pl-5 pt-2 mr-2 employee-form">Name</Label>
+       <Input  className="w-3/4 mr-2 employee-form" placeholder="Name"/><Label className="w-1/4 pl-2 pt-2 mr-2 employee-form">Designation</Label>
+       <Input  className="w-3/4 mr-2 employee-form" placeholder="Designation"/>  </div>
 
        <div className="flex"><Label className="w-1/4 pl-5 pt-2 mr-2">Email </Label>
        <Input  className="w-3/4 mr-2" placeholder="Email"/>
