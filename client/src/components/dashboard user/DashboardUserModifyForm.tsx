@@ -28,17 +28,17 @@ const DashboardUserModifyForm = () => {
    
       
 return(
-    <div >
+    <div className="pl-10 pr-10">
      <form className='flex flex-col gap-4 mt-5 ' onSubmit={handleSubmit}>
-     <div className="flex"><Label className="w-2/4 pl-16">User Name</Label>
-                    <Input className="w-2/4 mr-10" placeholder="User Name" /> </div>
-                <div className="flex"><Label className="w-2/4 pl-16">Password</Label>
-                    <Input type="password" className="w-2/4 mr-10" placeholder="Password" /> </div>
-                    <div className="flex"><Label className="w-2/4 pl-16">Confirm Password</Label>
-                    <Input type="password" className="w-2/4 mr-10" placeholder="Confirm Password" /> </div>
-                    <div className="flex"><Label className="w-2/4 pl-16">Department</Label>
+     <div className="flex"><Label className="w-2/4 ">User Name</Label>
+                    <Input className="w-2/4 " placeholder="User Name" /> </div>
+                <div className="flex"><Label className="w-2/4 ">Password</Label>
+                    <Input type="password" className="w-2/4 " placeholder="Password" /> </div>
+                    <div className="flex"><Label className="w-2/4 ">Confirm Password</Label>
+                    <Input type="password" className="w-2/4 " placeholder="Confirm Password" /> </div>
+                    <div className="flex"><Label className="w-2/4 ">Department</Label>
                     <Select value={dept} onValueChange={(value) => setDept(value)}>
-                        <SelectTrigger className="w-2/4 mr-10">
+                        <SelectTrigger className="w-2/4">
                             <SelectValue placeholder="Department" />
                         </SelectTrigger>
                         <SelectContent>
@@ -56,9 +56,9 @@ return(
                         </SelectContent>
                     </Select>
                     {/* <Input   placeholder="Origin"/>  */}</div>
-                    <div className="flex"><Label className="w-2/4 pl-16">Role</Label>
+                    <div className="flex"><Label className="w-2/4 ">Role</Label>
                     <Select value={role} onValueChange={(value) => setRole(value)}>
-                        <SelectTrigger className="w-2/4 mr-10">
+                        <SelectTrigger className="w-2/4 ">
                             <SelectValue placeholder="Role" />
                         </SelectTrigger>
                         <SelectContent>
@@ -82,7 +82,7 @@ return(
       
        
        
-       <Button className="bg-orange-500 mb-2 mt-8 ml-40 mr-40 text-center items-center justify-center">Submit</Button>
+       <Button className="bg-orange-500 mb-2 mt-8 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
        </form> 
 
 
