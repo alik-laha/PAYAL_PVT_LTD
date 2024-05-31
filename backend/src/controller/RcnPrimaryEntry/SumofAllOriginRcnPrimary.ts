@@ -9,6 +9,10 @@ const SumOfAllOriginRcnPrimary = async (req: Request, res: Response): Promise<Re
                 'origin',
                 [sequelize.fn('sum', sequelize.col('noOfBags')), 'totalBags']
             ],
+            where: {
+                rcnStatus: 'QC Approved',
+                editStatus: 'Created'
+            },
             group: ['origin']
         });
 
