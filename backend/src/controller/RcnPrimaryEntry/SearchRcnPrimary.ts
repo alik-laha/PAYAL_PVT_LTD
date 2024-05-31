@@ -44,8 +44,8 @@ const SearchRcnPrimary = async (req: Request, res: Response) => {
         const rcnEntries = await RcnPrimary.findAll({
             where,
             order: [['createdAt', 'DESC']], // Order by date descending
-            limit: size,
-            offset: page
+            limit: limit,
+            offset: offset
         });
         return res.status(200).json({ msg: 'Rcn Entry found', rcnEntries })
     }
