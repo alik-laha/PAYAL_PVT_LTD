@@ -117,11 +117,19 @@ const RcnPrimaryEntryTable = () => {
     }
 
     const handleTodate =  (e: React.ChangeEvent<HTMLInputElement>) => {
+       
         const selected= e.target.value;
+        if (!selected){
+            settoDate('')
+            sethidetoDate('')
+            return
+        }
+        //console.log(selected)
         const date=new Date(selected)
         date.setDate(date.getDate()+1);
-
+        //console.log(date)
         const nextday=date.toISOString().split('T')[0];
+        //console.log(nextday)
         sethidetoDate(selected)
         settoDate(nextday)
     }
@@ -157,7 +165,7 @@ const RcnPrimaryEntryTable = () => {
                         value={fromdate}
                         onChange={(e) => setfromDate(e.target.value)}
                         placeholder="From Date"
-                        required={true}
+                       
                     />
                     {/* <DatePicker buttonName="From Date" value={fromdate} setValue={setfromDate} /> */}
                   
@@ -167,8 +175,8 @@ const RcnPrimaryEntryTable = () => {
                         type="date"
                         value={hidetodate}
                         onChange={handleTodate}
-                        placeholder="From Date"
-                        required={true}
+                        placeholder="To Date"
+                       
                     />
                 
                 <span className="w-1/8 "><Button className="bg-slate-500 float-right" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
