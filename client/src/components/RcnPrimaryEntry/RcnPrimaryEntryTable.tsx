@@ -66,7 +66,7 @@ const RcnPrimaryEntryTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const [Data, setData] = useState<RcnPrimaryEntryData[]>([])
     const [page, setPage] = useState(1)
-    const limit = 10
+    const limit = 2
 
     const handleSearch = async () => {
         console.log('search button pressed')
@@ -84,13 +84,14 @@ const RcnPrimaryEntryTable = () => {
         const data = await response.data
         if (data.rcnEntries.length === 0) {
             setPage((prev) => prev - 1)
-            setData(data.rcnEntries)
+
         }
+        setData(data.rcnEntries)
     }
 
     useEffect(() => {
         handleSearch()
-    }, [])
+    }, [page])
 
 
 
@@ -233,7 +234,12 @@ const RcnPrimaryEntryTable = () => {
             <Pagination className="pt-5 ">
                 <PaginationContent>
                     <PaginationItem>
-                        <PaginationPrevious onClick={() => setPage((prev) => prev - 1)} />
+                        <PaginationPrevious onClick={() => setPage((prev) => {
+                            if (prev === 0) {
+                                return prev
+                            }
+                            return prev - 1
+                        })} />
                     </PaginationItem>
 
                     <PaginationItem>
