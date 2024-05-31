@@ -9,13 +9,21 @@ import EmployeeTable from "./EmployeeTable";
 import {
     Dialog,
     DialogContent,
-    
-    
+
+
     DialogTrigger,
 } from "@/components/ui/dialog"
+import UseQueryData from '../common/dataFetcher';
 
 
 const Employee = () => {
+    const { data, error, isLoading } = UseQueryData('/api/employee/activeEmployeeCount', 'GET', 'EmployeeCount')
+    if (isLoading) {
+        return <div>Loading...</div>
+    }
+    if (error) {
+        return <div>Error</div>
+    }
     return (
         <div>
             <DashboardHeader />
@@ -23,12 +31,12 @@ const Employee = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-yellow-400 hover:bg-yellow-500">
-                    Active <br /><p>11000</p>
+                        Active <br /><p>{data.Data}</p>
                     </div>
-                    
-                   
-                    
-                   
+
+
+
+
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
 
@@ -41,14 +49,14 @@ const Employee = () => {
                        
                         </DialogHeader> */}
 
-                        <Employeecreateform/>
+                        <Employeecreateform />
                     </DialogContent>
                 </Dialog>
 
                 <div>
 
                 </div>
-                <EmployeeTable/>
+                <EmployeeTable />
 
             </div>
         </div>
