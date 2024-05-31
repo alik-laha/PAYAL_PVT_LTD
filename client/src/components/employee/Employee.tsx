@@ -36,11 +36,11 @@ const Employee = () => {
 
                 <Dialog >
                     <DialogTrigger>   <Button className="bg-blue-400 mb-2 mt-5 ml-4">+ Add New Employee</Button></DialogTrigger>
-                    <DialogContent className='max-w-3xl'>
-                        <DialogHeader>
+                    <DialogContent className='max-w-2xl'>
+                        {/* <DialogHeader>
                             <DialogTitle><p className='text-1xl text-center mt-2'>Employee Details</p></DialogTitle>
                        
-                        </DialogHeader>
+                        </DialogHeader> */}
 
                         <Employeecreateform/>
                     </DialogContent>

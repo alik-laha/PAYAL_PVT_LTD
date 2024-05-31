@@ -19,8 +19,8 @@ const Employeecreateform = () => {
    
       
 return(
-    <div className="pl-10 pr-10">
-    <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit}>  
+    <div className="pl-10 pr-10 ">
+    <form className='flex flex-col gap-0.5 text-xs' onSubmit={handleSubmit}>  
 
        <div className="flex">
         <Label className="w-2/4 pt-1">Name</Label>
@@ -97,7 +97,7 @@ return(
       
        
        
-       <Button className="bg-orange-500 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
+       <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
        </form> 
 
 
