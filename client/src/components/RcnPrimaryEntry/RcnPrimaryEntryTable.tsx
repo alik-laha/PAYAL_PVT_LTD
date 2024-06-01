@@ -172,10 +172,10 @@ const RcnPrimaryEntryTable = () => {
                     />
             
                 
-                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 float-right h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
-               
+                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+                {/* <span className="w-1/8 ml-10"><Button className="bg-green-700 h-8 w-30 text-sm"><LuDownload size={18}/></Button>  </span> */}
             </div>
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-6 w-50 text-sm"><LuDownload size={18}/>Excel Export</Button>  </span>
+            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4"><LuDownload size={18}/></Button>  </span>
 
                    
 

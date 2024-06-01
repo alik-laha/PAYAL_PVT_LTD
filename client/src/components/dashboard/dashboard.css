@@ -438,6 +438,7 @@
     }
     .flexbox-header{
         gap: 15px;
+        padding: 12px 10px 5px 10px;
 
     }
     .flexbox-tile p{
