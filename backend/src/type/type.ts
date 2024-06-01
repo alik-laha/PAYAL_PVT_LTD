@@ -8,6 +8,7 @@ export interface RcnPrimaryModifyProps {
     blWeight: string;
     netWeight: string;
     rcnStatus: string;
+    editedBy: string;
 
 }
 
