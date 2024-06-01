@@ -6,6 +6,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { LuDownload } from "react-icons/lu";
 import {format,toZonedTime} from 'date-fns-tz'
 import { FaSearch } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
@@ -130,7 +131,8 @@ const RcnPrimaryEntryTable = () => {
     
 
     return (
-        <div className="ml-5 mt-5">
+        <div className="ml-5 mt-5 ">
+             
             <div className="flex flexbox-search">
 
                 <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" BL No. / Con No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
@@ -171,11 +173,13 @@ const RcnPrimaryEntryTable = () => {
             
                 
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 float-right h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+               
             </div>
+            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-6 w-50 text-sm"><LuDownload size={18}/>Excel Export</Button>  </span>
 
+                   
 
-
-            <Table className="mt-8">
+            <Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Id</TableHead>
