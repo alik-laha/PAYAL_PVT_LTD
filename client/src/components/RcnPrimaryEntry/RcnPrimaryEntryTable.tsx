@@ -191,6 +191,7 @@ const RcnPrimaryEntryTable = () => {
                     <TableHead className="text-center" >Bag Count</TableHead>
                     <TableHead className="text-center" >QC </TableHead>
                     <TableHead className="text-center" >Status </TableHead>
+                    <TableHead className="text-center" >Entried By </TableHead>
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>
@@ -220,6 +221,9 @@ const RcnPrimaryEntryTable = () => {
                                     </TableCell>
                                     <TableCell className="text-center" >
                                         {item.editStatus}
+                                    </TableCell>
+                                    <TableCell className="text-center" >
+                                        {item.receivedBy}
                                     </TableCell>
                                     <TableCell className="text-center" >
                                         <Popover>

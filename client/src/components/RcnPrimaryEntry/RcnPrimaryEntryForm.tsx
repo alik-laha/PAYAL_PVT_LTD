@@ -150,7 +150,7 @@ const RcnPrimaryEntryForm = () => {
 
             <dialog id="myDialog" className="dashboard-modal">
                 <button id="closeDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={tick} height={30} width={40} alt='tick_image'/>
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
                 <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Primary Entry Submitted Successfully</p></span>
                 
                 {/* <!-- Add more elements as needed --> */}
@@ -158,7 +158,7 @@ const RcnPrimaryEntryForm = () => {
 
             <dialog id="errorDialog" className="dashboard-modal">
                 <button id="errorcloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={cross} height={30} width={40} alt='error_image'/>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
                 <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
                 
                 {/* <!-- Add more elements as needed --> */}
