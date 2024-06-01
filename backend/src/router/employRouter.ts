@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post("/createemployee", employeeMiddleWare, createEmployee)
 
-router.put("/updateemployee", employeeMiddleWare, updateEmployee)
+router.put("/updateemployee/:id", employeeMiddleWare, updateEmployee)
 
 router.post("/searchemployee", searchEmployee)
 

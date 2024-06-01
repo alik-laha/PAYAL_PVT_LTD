@@ -41,6 +41,8 @@ import { EmployeeData } from "@/type/type";
 const EmployeeTable = () => {
     const [Data, setData] = useState<EmployeeData[]>([])
     const [Error, setError] = useState<string>("")
+
+
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchData = e.target.value
         axios.post('/api/employee/searchemployee', { searchData }).then((res) => {
@@ -116,10 +118,10 @@ const EmployeeTable = () => {
                                                     <DialogContent className='max-w-6xl'>
                                                         <DialogHeader>
                                                             <DialogTitle><p className='text-1xl pb-1 text-center mt-3 mb-5'>Modify Employee</p></DialogTitle>
-
                                                         </DialogHeader>
-
-                                                        <EmployeeModifyForm />
+                                                        <EmployeeModifyForm
+                                                            data={item}
+                                                        />
                                                     </DialogContent>
                                                 </Dialog>
 

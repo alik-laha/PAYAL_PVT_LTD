@@ -40,5 +40,8 @@ export interface EmployeeData {
     releaseDate: string;
     status: string;
     address: string;
+    emergencyContact: string;
+    emergencyMobNo: string;
+    pfNo: string;
     pincode: string;
 }
