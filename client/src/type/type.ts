@@ -17,6 +17,7 @@ export interface RcnPrimaryEntryData {
     netWeight: string;
     difference: string;
     editStatus: string;
+    receivedBy: string;
 }
 
 export interface SumofAllCuntryData {
