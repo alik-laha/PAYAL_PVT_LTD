@@ -10,16 +10,35 @@ export interface RcnPrimaryEntryData {
     blNo: string;
     conNo: string;
     rcnStatus: string;
-    date:string;
-    noOfBags:string;
-    truckNo:string;
-    blWeight:string;
-    netWeight:string;
-    difference:string;
-    editStatus:string;
+    date: string;
+    noOfBags: string;
+    truckNo: string;
+    blWeight: string;
+    netWeight: string;
+    difference: string;
+    editStatus: string;
 }
 
 export interface SumofAllCuntryData {
     origin: string;
     totalBags: number;
+}
+
+export interface EmployeeData {
+    id: number;
+    employeeId: string;
+    employeeName: string;
+    designation: string;
+    email: string;
+    mobNo: string;
+    alternateMobNo: string;
+    aadhaarNo: string;
+    panNo: string;
+    heighstQualification: string;
+    bloodGroup: string;
+    dateOfJoining: string;
+    releaseDate: string;
+    status: string;
+    address: string;
+    pincode: string;
 }
