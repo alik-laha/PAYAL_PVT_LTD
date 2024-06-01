@@ -24,12 +24,13 @@ const RcnPrimaryEntryForm = () => {
     const netWeightRef = useRef<HTMLInputElement>(null)
     const noOfBagsRef = useRef<HTMLInputElement>(null)
     
-    const dialog = document.getElementById('myDialog');
-    const closeDialogButton = document.getElementById('closeDialog');
+    const dialog = document.getElementById('myDialog') as HTMLInputElement;
+    // const dialog = document.getElementById('myDialog');
+    const closeDialogButton = document.getElementById('closeDialog') as HTMLInputElement;
     if(closeDialogButton){
         closeDialogButton.addEventListener('click', () => {
             if(dialog!=null){
-                dialog.close();
+                (dialog as any).close();
             }
             
           });
@@ -48,11 +49,27 @@ const RcnPrimaryEntryForm = () => {
         .then((res) => {
             console.log(res)
             if(dialog!=null){
-                dialog.showModal();
+                (dialog as any).showModal();
             }
             if(blNoRef.current!=null){
                 blNoRef.current.value='';
             }
+            if(conNoRef.current!=null){
+                conNoRef.current.value='';
+            }
+            if(truckNoRef.current!=null){
+                truckNoRef.current.value='';
+            }
+            if(blWeightRef.current!=null){
+                blWeightRef.current.value='';
+            }
+            if(netWeightRef.current!=null){
+                netWeightRef.current.value='';
+            }
+            if(noOfBagsRef.current!=null){
+                noOfBagsRef.current.value='';
+            }
+            setOrigin('')
            
           
             
