@@ -34,6 +34,18 @@ const RcnEdit = sequelize.define('rcnEdit', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
+    rcnStatus: {
+        type: DataTypes.STRING,
+        defaultValue: 'QC pending'
+    },
+    editStatus: {
+        type: DataTypes.STRING,
+        defaultValue: "pending"
+    },
+    editedBy: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     origin: {
         type: DataTypes.STRING,
         allowNull: false

@@ -27,7 +27,9 @@ const EditApprove = async (req: Request, res: Response) => {
             noOfBags: rcn.noOfBags,
             blWeight: rcn.blWeight,
             netWeight: rcn.netWeight,
-            editStatus: "Created",
+            editStatus: "Approved",
+            rcnStatus: rcn.rcnStatus,
+            receivedBy: rcn.editedBy,
             approvedBy
         }, {
             where: {

@@ -30,7 +30,7 @@ const RcnPrimaryEntry = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     {
-                        data.map((item: SumofAllCuntryData) => {
+                        data.AllOriginRcnPrimary.map((item: SumofAllCuntryData) => {
                             return (
                                 <div className="flexbox-tile bg-blue-600 hover:bg-blue-700" key={item.origin}>
                                     {item.origin} <br /><p>{item.totalBags} Bag</p>
@@ -54,7 +54,7 @@ const RcnPrimaryEntry = () => {
                         <RcnPrimaryEntryForm />
                     </DialogContent>
                 </Dialog>
-                <Button className="bg-orange-400 mb-2 mt-5 ml-8"> Pending Edit (5)</Button>
+                <Button className="bg-orange-400 mb-2 mt-5 ml-8"> Pending Edit ({data.CountPendingEdit})</Button>
 
                 <div>
 
