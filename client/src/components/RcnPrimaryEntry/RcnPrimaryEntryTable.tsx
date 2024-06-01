@@ -6,20 +6,15 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import {format,toZonedTime} from 'date-fns-tz'
 import { FaSearch } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import React, { useEffect } from "react"
 import { Input } from "../ui/input";
-import DatePicker from "../common/DatePicker";
+// import DatePicker from "../common/DatePicker";
 import { RcnPrimaryEntryData } from "@/type/type";
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+
+
 import {
     Dialog,
     DialogContent,
@@ -61,12 +56,13 @@ import {
 
 const RcnPrimaryEntryTable = () => {
     const [origin, setOrigin] = useState<string>("")
-    const [fromdate, setfromDate] = useState<Date | undefined>();
-    const [todate, settoDate] = useState<Date | undefined>(new Date());
+    const [fromdate, setfromDate] = React.useState<string>('');
+    const [todate, settoDate] = React.useState<string>('');
+    const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [blConNo, setBlConNo] = useState<string>("")
     const [Data, setData] = useState<RcnPrimaryEntryData[]>([])
     const [page, setPage] = useState(1)
-    const limit = 20
+    const limit = 10
 
     const handleSearch = async () => {
         console.log('search button pressed')
@@ -87,6 +83,12 @@ const RcnPrimaryEntryTable = () => {
 
         }
         setData(data.rcnEntries)
+        
+        
+
+
+
+
     }
 
     useEffect(() => {
@@ -108,33 +110,67 @@ const RcnPrimaryEntryTable = () => {
         }
     }
 
+    const handleTodate =  (e: React.ChangeEvent<HTMLInputElement>) => {
+       
+        const selected= e.target.value;
+        if (!selected){
+            settoDate('')
+            sethidetoDate('')
+            return
+        }
+        //console.log(selected)
+        const date=new Date(selected)
+        date.setDate(date.getDate()+1);
+        //console.log(date)
+        const nextday=date.toISOString().split('T')[0];
+        //console.log(nextday)
+        sethidetoDate(selected)
+        settoDate(nextday)
+    }
+    
+
     return (
         <div className="ml-5 mt-5">
             <div className="flex flexbox-search">
 
-                <Input className="flexbox-search-width mt-1" placeholder=" BL No. / Con No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
-                <div className="flex pl-7 mt-1 flexbox-search-width ">
-                    <Select value={origin} onValueChange={(value) => setOrigin(value)}>
-                        <SelectTrigger className="w-3/4 h-8">
-                            <SelectValue placeholder="Origin" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                {
-                                    Origin.map((item) => {
-                                        return (
-                                            <SelectItem key={item} value={item}>
-                                                {item}
-                                            </SelectItem>
-                                        )
-                                    })
-                                }
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select></div>
-                <span className="flexbox-search-width"><DatePicker buttonName="From Date" value={fromdate} setValue={setfromDate} /></span>
-                <span className="flexbox-search-width"> <DatePicker buttonName="To Date" value={todate} setValue={settoDate} /></span>
-                <span className="w-1/8 "><Button className="bg-slate-500 float-right" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+                <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" BL No. / Con No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                
+                <select className='flexbox-search-width flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                    onChange={(e) => setOrigin(e.target.value)} value={origin}>
+                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
+                        {Origin.map((data, index) => (
+                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                {data}
+                            </option>
+                        ))}
+                    </select>
+                
+                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
+                <Input className="w-1/6 flexbox-search-width-calender"
+                        type="date"
+                        value={fromdate}
+                        onChange={(e) => setfromDate(e.target.value)}
+                        placeholder="From Date"
+                       
+                    />
+                    {/* <DatePicker buttonName="From Date" value={fromdate} setValue={setfromDate} /> */}
+                  
+                
+                {/* <DatePicker buttonName="To Date" value={todate} setValue={settoDate} /> */}
+                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
+                <Input className="w-1/6 flexbox-search-width-calender"
+                        type="date"
+                        value={hidetodate}
+                        onChange={handleTodate}
+                        placeholder="To Date"
+                       
+                    />
+            
+                
+                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 float-right h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
             </div>
 
 
@@ -161,11 +197,14 @@ const RcnPrimaryEntryTable = () => {
                 <TableBody>
                     {
                         Data.map((item: RcnPrimaryEntryData, idx) => {
+                            const apidate=new Date(item.date)
+                            const localdate= toZonedTime(apidate,Intl.DateTimeFormat().resolvedOptions().timeZone)
+                            
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center" >{item.origin}</TableCell>
-                                    <TableCell className="text-center" >{item.date.slice(0, 10)}</TableCell>
+                                    <TableCell className="text-center" >{format(localdate,'dd-MM-yyyy',{timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone})}</TableCell>
                                     <TableCell className="text-center" >{item.blNo}</TableCell>
                                     <TableCell className="text-center" >{item.conNo}</TableCell>
                                     <TableCell className="text-center" >{item.truckNo}</TableCell>
