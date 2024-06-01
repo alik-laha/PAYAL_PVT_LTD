@@ -46,7 +46,7 @@ const RcnPrimaryEntry = () => {
                 
                 <div>
                 <Dialog>
-                    <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4">+ Add New Entry</Button></DialogTrigger>
+                    <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust">+ Add New Entry</Button></DialogTrigger>
                     <DialogContent className='max-w-2xl'>
                         <DialogHeader>
                             <DialogTitle><p className='text-1xl pb-2 text-center mt-5'>RCN Primary Entry Form</p></DialogTitle>
@@ -58,7 +58,7 @@ const RcnPrimaryEntry = () => {
                         <RcnPrimaryEntryForm />
                     </DialogContent>
                 </Dialog>
-                <Button className="bg-orange-400 mb-2 ml-8"> Pending Edit ({data.CountPendingEdit})</Button>
+                <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust"> Pending Edit ({data.CountPendingEdit})</Button>
             
                 </div>
                 <RcnPrimaryEntryTable />
