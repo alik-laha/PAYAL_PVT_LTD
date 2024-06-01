@@ -9,13 +9,13 @@ const RcnPrimaryMiddleWare = (req: Request, res: Response, next: NextFunction) =
 
         if (!blNo || !truckNo || !conNo || !blWeight || !netWeight || !noOfBags || !origin) {
             console.log(blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin);
-            return res.status(400).json({ message: "All fields are required" });
+            return res.status(400).json({ message: "All Fields Are Required" });
         }
         if (!receivedBy) {
-            return res.status(400).json({ message: "User not found" });
+            return res.status(400).json({ message: "User Not found" });
         }
         if (difference < 0) {
-            return res.status(400).json({ message: "Net weight cannot be greater than BL weight" });
+            return res.status(400).json({ message: "Net weight Can't be Greater than BL weight" });
         }
         next();
     }

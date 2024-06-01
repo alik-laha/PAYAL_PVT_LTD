@@ -88,6 +88,14 @@ const RcnPrimaryEntryForm = () => {
               
 }).catch((err) => {
     console.log(err)
+    if(err.response.data.error.original.errno===1062)
+        {
+            setErrorText('Duplicate Entry is Not Allowed')
+            if(errordialog!=null){
+                (errordialog as any).showModal();
+            }
+            return
+        }
     setErrorText(err.response.data.message)
     if(errordialog!=null){
         (errordialog as any).showModal();
@@ -151,7 +159,7 @@ const RcnPrimaryEntryForm = () => {
             <dialog id="errorDialog" className="dashboard-modal">
                 <button id="errorcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={30} width={40} alt='error_image'/>
-                <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
+                <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
                 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
