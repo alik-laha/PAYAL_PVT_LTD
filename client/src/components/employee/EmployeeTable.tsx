@@ -69,6 +69,16 @@ const EmployeeTable = () => {
         })
     }, [])
 
+    const handleDelete = (data: EmployeeData) => {
+        axios.delete(`/api/employee/deleteemployee/${data.employeeId}`).then((res) => {
+            console.log(res.data)
+            setData(Data.filter((item) => item.id !== data.id))
+        }
+        ).catch((err) => {
+            console.log(err)
+        })
+    }
+
     return (
         <div className="ml-5 mt-5">
             <div className="flex ">
@@ -136,7 +146,7 @@ const EmployeeTable = () => {
                                                         </AlertDialogHeader>
                                                         <AlertDialogFooter>
                                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction>Continue</AlertDialogAction>
+                                                            <AlertDialogAction onClick={() => handleDelete(item)}>Continue</AlertDialogAction>
                                                         </AlertDialogFooter>
                                                     </AlertDialogContent>
                                                 </AlertDialog>
