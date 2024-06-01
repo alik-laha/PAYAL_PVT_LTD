@@ -41,6 +41,7 @@ import { EmployeeData } from "@/type/type";
 const EmployeeTable = () => {
     const [Data, setData] = useState<EmployeeData[]>([])
     const [Error, setError] = useState<string>("")
+    const [releaseDate, setReleaseDate] = useState<string>("")
 
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,6 +76,13 @@ const EmployeeTable = () => {
             setData(Data.filter((item) => item.id !== data.id))
         }
         ).catch((err) => {
+            console.log(err)
+        })
+    }
+    const handleRelese = (data: EmployeeData) => {
+        axios.put(`/api/employee/releseemployee/${data.employeeId}`, { releseDate: releaseDate }).then((res) => {
+            console.log(res.data)
+        }).catch((err) => {
             console.log(err)
         })
     }
@@ -158,11 +166,12 @@ const EmployeeTable = () => {
                                                             <AlertDialogTitle>Are you sure want to Resign?</AlertDialogTitle>
                                                             <AlertDialogDescription>
                                                                 This action cannot be undone. This will remove user profile Linked to It.
+                                                                <input type="date" placeholder="Release Date" value={releaseDate} onChange={(e) => setReleaseDate(e.target.value)} required />
                                                             </AlertDialogDescription>
                                                         </AlertDialogHeader>
                                                         <AlertDialogFooter>
                                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction>Continue</AlertDialogAction>
+                                                            <AlertDialogAction onClick={() => handleRelese(item)}>Continue</AlertDialogAction>
                                                         </AlertDialogFooter>
                                                     </AlertDialogContent>
                                                 </AlertDialog>
