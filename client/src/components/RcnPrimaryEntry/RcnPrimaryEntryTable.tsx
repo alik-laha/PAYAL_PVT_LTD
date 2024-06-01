@@ -78,7 +78,7 @@ const RcnPrimaryEntryTable = () => {
             }
         })
         const data = await response.data
-        if (data.rcnEntries.length === 0 && page >1) {
+        if (data.rcnEntries.length === 0 && page > 1) {
             setPage((prev) => prev - 1)
 
         }
@@ -213,11 +213,11 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center" >{item.netWeight}</TableCell>
                                     <TableCell className="text-center font-semibold text-red-600" >{item.difference}</TableCell>
                                     <TableCell className="text-center font-semibold" >{item.noOfBags}</TableCell>
-                                    <TableCell className="text-center" >{item.rcnStatus==='QC pending' ?
-                                    <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>:  
-                                    <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>}
-                                        
-                                        </TableCell>
+                                    <TableCell className="text-center" >{item.rcnStatus === 'QC pending' ?
+                                        <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button> :
+                                        <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>}
+
+                                    </TableCell>
                                     <TableCell className="text-center" >
                                         {item.editStatus}
                                     </TableCell>

@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post("/createemployee", employeeMiddleWare, createEmployee)
 
-router.put("/updateemployee", employeeMiddleWare, updateEmployee)
+router.put("/updateemployee/:id", employeeMiddleWare, updateEmployee)
 
 router.post("/searchemployee", searchEmployee)
 
@@ -20,7 +20,7 @@ router.get("/getallemployee", getAllEmployee)
 
 router.delete("/deleteemployee/:id", DeleteEmployee)
 
-router.put("/releseemployee", releseEmployee)
+router.put("/releseemployee/:id", releseEmployee)
 
 //active Employee Count
 router.get("/activeEmployeeCount", activeEmployeeCount)

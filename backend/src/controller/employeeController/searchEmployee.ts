@@ -5,15 +5,31 @@ import { Op } from "sequelize";
 
 const searchEmployee = async (req: Request, res: Response) => {
     try {
+        const page = parseInt(req.query.page as string, 10) || 1;
+        const size = parseInt(req.query.limit as string, 10) || 10;
         const { searchData } = req.body;
-        const Employees = await Employee.findAll({
-            where: {
+        const offset = (page - 1) * size;
+        const limit = size;
+        let where
+        if (!searchData) {
+            where = {}
+        }
+        if (searchData) {
+            where = {
                 [Op.or]: [
                     { employeeName: { [Op.like]: `%${searchData}%` } },
+                    { designation: { [Op.like]: `%${searchData}%` } },
                     { employeeId: { [Op.like]: `%${searchData}%` } },
+                    { aadhaarNo: { [Op.like]: `%${searchData}%` } },
+                    { panNo: { [Op.like]: `%${searchData}%` } },
                 ]
             }
-
+        }
+        const Employees = await Employee.findAll({
+            where,
+            order: [['createdAt', 'DESC']], // Order by date descending
+            limit: limit,
+            offset: offset
         });
         if (Employees.length === 0) {
             return res.status(404).json({ msg: 'No Employee found' })

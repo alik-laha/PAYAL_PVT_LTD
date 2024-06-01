@@ -17,3 +17,20 @@ export interface UserData {
     dept: string;
     createdBy: string;
 }
+
+export interface EmployeeData {
+    id: number;
+    employeeId: string;
+    employeeName: string;
+    designation: string;
+    email: string;
+    mobNo: string;
+    alternateMobNo: string;
+    aadhaarNo: string;
+    panNo: string;
+    heighstQualification: string;
+    bloodGroup: string;
+    dateOfJoining: string;
+    address: string;
+    pincode: string;
+}
