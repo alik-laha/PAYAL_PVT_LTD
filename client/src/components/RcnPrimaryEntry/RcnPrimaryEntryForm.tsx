@@ -13,10 +13,13 @@ import { useState, useRef } from "react"
 import { Origin } from "../common/exportData"
 import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 
 
 const RcnPrimaryEntryForm = () => {
     const [origin, setOrigin] = useState<string>("")
+    const [errortext, setErrorText] = useState<string>("")
+
     const blNoRef = useRef<HTMLInputElement>(null)
     const conNoRef = useRef<HTMLInputElement>(null)
     const truckNoRef = useRef<HTMLInputElement>(null)
@@ -24,13 +27,25 @@ const RcnPrimaryEntryForm = () => {
     const netWeightRef = useRef<HTMLInputElement>(null)
     const noOfBagsRef = useRef<HTMLInputElement>(null)
     
-    const dialog = document.getElementById('myDialog') as HTMLInputElement;
+    const successdialog = document.getElementById('myDialog') as HTMLInputElement;
+    const errordialog = document.getElementById('errorDialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
     const closeDialogButton = document.getElementById('closeDialog') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('errorcloseDialog') as HTMLInputElement;
+    
     if(closeDialogButton){
         closeDialogButton.addEventListener('click', () => {
-            if(dialog!=null){
-                (dialog as any).close();
+            if(successdialog!=null){
+                (successdialog as any).close();
+            }
+            
+            
+          });
+    }
+    if(errorcloseDialogButton){
+        errorcloseDialogButton.addEventListener('click', () => {
+            if(errordialog!=null){
+                (errordialog as any).close();
             }
             
           });
@@ -48,8 +63,8 @@ const RcnPrimaryEntryForm = () => {
         axios.post('/api/rcnprimary/create', { origin, blNo, conNo, truckNo, blWeight, netWeight, noOfBags })
         .then((res) => {
             console.log(res)
-            if(dialog!=null){
-                (dialog as any).showModal();
+            if(successdialog!=null){
+                (successdialog as any).showModal();
             }
             if(blNoRef.current!=null){
                 blNoRef.current.value='';
@@ -70,9 +85,14 @@ const RcnPrimaryEntryForm = () => {
                 noOfBagsRef.current.value='';
             }
             setOrigin('')
-           
-          
-            
+              
+}).catch((err) => {
+    console.log(err)
+    setErrorText(err.response.data.message)
+    if(errordialog!=null){
+        (errordialog as any).showModal();
+    }
+    
 })
       
     }
@@ -124,6 +144,14 @@ const RcnPrimaryEntryForm = () => {
                 <button id="closeDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={30} width={40} alt='tick_image'/>
                 <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Primary Entry Submitted Successfully</p></span>
+                
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+
+            <dialog id="errorDialog" className="dashboard-modal">
+                <button id="errorcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={30} width={40} alt='error_image'/>
+                <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
                 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
