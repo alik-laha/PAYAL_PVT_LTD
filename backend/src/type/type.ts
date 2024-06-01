@@ -7,6 +7,8 @@ export interface RcnPrimaryModifyProps {
     noOfBags: string;
     blWeight: string;
     netWeight: string;
+    rcnStatus: string;
+
 }
 
 export interface UserData {
