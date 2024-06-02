@@ -163,7 +163,7 @@ const RcnPrimaryEntryTable = () => {
         if(EditData.length > 0 ){
             transformed = EditData.map((item:EditPendingData,idx: number) => ({
                 SL_No:idx+1,
-                
+                Date: handletimezone(item.date),
                 Origin: item.origin,
                 Bl_No: item.blNo,
                 Con_No: item.conNo,
@@ -335,7 +335,7 @@ const RcnPrimaryEntryTable = () => {
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{idx + 1}</TableCell>
                                     <TableCell className="text-center">{item.origin}</TableCell>
-                                    <TableCell className="text-center">{handletimezone(item.createdAt)}</TableCell>
+                                    <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center">{item.blNo}</TableCell>
                                     <TableCell className="text-center">{item.conNo}</TableCell>
                                     <TableCell className="text-center">{item.truckNo}</TableCell>
