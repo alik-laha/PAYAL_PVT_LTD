@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Origin } from "../common/exportData"
 import React, { useEffect } from "react"
-
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 import {
     Select,
     SelectContent,
@@ -37,14 +38,54 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
     const [noOfBags, setNoOfBags] = useState<string>("")
     const [blWeight, setBlWeight] = useState<string>("")
     const [netWeight, setNetWeight] = useState<string>("")
+    const [errortext, setErrorText] = useState<string>("")
+
+    const successdialog = document.getElementById('rcneditscsDialog') as HTMLInputElement;
+    const errordialog = document.getElementById('rcnediterrDialog') as HTMLInputElement;
+    // const dialog = document.getElementById('myDialog');
+    const closeDialogButton = document.getElementById('rcnscscloseDialog') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('rcnerrorcloseDialog') as HTMLInputElement;
+    
+    if(closeDialogButton){
+        closeDialogButton.addEventListener('click', () => {
+            if(successdialog!=null){
+                (successdialog as any).close();
+            }
+            
+            
+          });
+    }
+    if(errorcloseDialogButton){
+        errorcloseDialogButton.addEventListener('click', () => {
+            if(errordialog!=null){
+                (errordialog as any).close();
+            }
+            
+          });
+    }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         axios.put(`/api/rcnprimary/update/${props.data.id}`, { origin, blNo, conNo, truckNo, noOfBags, blWeight, netWeight })
             .then((res) => {
                 console.log(res)
+                if(successdialog!=null){
+                    (successdialog as any).showModal();
+                }
+               setBlNo('')
+               setConNo('')
+               setTruckNo('')
+               setBlWeight('')
+               setNetWeight('')
+               setNoOfBags('')
+            setOrigin('')
+            
             }).catch((err) => {
                 console.log(err)
+                setErrorText(err.response.data.message)
+                if(errordialog!=null){
+                    (errordialog as any).showModal();
+                }
             })
     }
 
@@ -102,6 +143,22 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
                 </div>
                 <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
             </form>
+
+            <dialog id="rcneditscsDialog" className="dashboard-modal">
+                <button id="rcnscscloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
+                <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Primary Entry Submitted Successfully</p></span>
+                
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+
+            <dialog id="rcnediterrDialog" className="dashboard-modal">
+                <button id="rcnerrorcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
+                <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
 
 
 
