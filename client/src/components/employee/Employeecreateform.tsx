@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import DatePicker from "../common/DatePicker";
-import { useRef ,useState} from "react"
+import { useRef, useState } from "react"
 import React from "react"
 import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
@@ -34,23 +34,23 @@ const Employeecreateform = () => {
     // const dialog = document.getElementById('myDialog');
     const closeDialogButton = document.getElementById('empcloseDialog') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('errorempcloseDialog') as HTMLInputElement;
-    
-    if(closeDialogButton){
+
+    if (closeDialogButton) {
         closeDialogButton.addEventListener('click', () => {
-            if(successdialog!=null){
+            if (successdialog != null) {
                 (successdialog as any).close();
             }
-            
-            
-          });
+
+
+        });
     }
-    if(errorcloseDialogButton){
+    if (errorcloseDialogButton) {
         errorcloseDialogButton.addEventListener('click', () => {
-            if(errordialog!=null){
+            if (errordialog != null) {
                 (errordialog as any).close();
             }
-            
-          });
+
+        });
     }
 
 
@@ -93,56 +93,56 @@ const Employeecreateform = () => {
             address
         }).then((res) => {
             console.log(res)
-            if(successdialog!=null){
+            if (successdialog != null) {
                 (successdialog as any).showModal();
             }
-            if(nameref.current!=null){
-                nameref.current.value='';
+            if (nameref.current != null) {
+                nameref.current.value = '';
             }
-            if(emailref.current!=null){
-                emailref.current.value='';
+            if (emailref.current != null) {
+                emailref.current.value = '';
             }
-            if(desgref.current!=null){
-                desgref.current.value='';
+            if (desgref.current != null) {
+                desgref.current.value = '';
             }
-            if(dobref.current!=null){
-                dobref.current.value='';
+            if (dobref.current != null) {
+                dobref.current.value = '';
             }
-            if(contactNoref.current!=null){
-                contactNoref.current.value='';
+            if (contactNoref.current != null) {
+                contactNoref.current.value = '';
             }
-            if(bloodgpref.current!=null){
-                bloodgpref.current.value='';
+            if (bloodgpref.current != null) {
+                bloodgpref.current.value = '';
             }
-            if(studyref.current!=null){
-                studyref.current.value='';
+            if (studyref.current != null) {
+                studyref.current.value = '';
             }
-            if(altcontactref.current!=null){
-                altcontactref.current.value='';
+            if (altcontactref.current != null) {
+                altcontactref.current.value = '';
             }
-            if(adharref.current!=null){
-                adharref.current.value='';
+            if (adharref.current != null) {
+                adharref.current.value = '';
             }
-            if(panref.current!=null){
-                panref.current.value='';
+            if (panref.current != null) {
+                panref.current.value = '';
             }
-            if(emgNameref.current!=null){
-                emgNameref.current.value='';
+            if (emgNameref.current != null) {
+                emgNameref.current.value = '';
             }
-            if(emgContactref.current!=null){
-                emgContactref.current.value='';
+            if (emgContactref.current != null) {
+                emgContactref.current.value = '';
             }
-            if(pfref.current!=null){
-                pfref.current.value='';
+            if (pfref.current != null) {
+                pfref.current.value = '';
             }
-            if(pincoderef.current!=null){
-                pincoderef.current.value='';
+            if (pincoderef.current != null) {
+                pincoderef.current.value = '';
             }
-            if(addressref.current!=null){
-                addressref.current.value='';
+            if (addressref.current != null) {
+                addressref.current.value = '';
             }
-            setDate(null)
-            
+            setDate(undefined);
+
         }).catch((err) => {
             console.log(err)
             // if(err.response.data.error.original.errno===1062)
@@ -154,7 +154,7 @@ const Employeecreateform = () => {
             //         return
             //     }
             setErrorText(err.response.data.message)
-            if(errordialog!=null){
+            if (errordialog != null) {
                 (errordialog as any).showModal();
             }
 
@@ -245,17 +245,17 @@ const Employeecreateform = () => {
             </form>
             <dialog id="successemployeedialog" className="dashboard-modal">
                 <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
-                <p id="modal-text" className="pl-3 mt-1 font-medium">Employee Created Successfully</p></span>
-                
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">Employee Created Successfully</p></span>
+
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
             <dialog id="erroremployeedialog" className="dashboard-modal">
                 <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
-                <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
-                
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
