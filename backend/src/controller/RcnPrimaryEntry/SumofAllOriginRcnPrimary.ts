@@ -13,6 +13,7 @@ const SumOfAllOriginRcnPrimary = async (req: Request, res: Response): Promise<Re
             ],
             where: {
                 rcnStatus: 'QC Approved',
+                
                 [Op.or]: [
                     { editStatus: 'Approved' },
                     { editStatus: 'Created' }

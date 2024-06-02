@@ -1,16 +1,20 @@
 import { Request, Response } from "express";
 import RcnPrimary from "../../model/RcnEntryModel";
 import RcnEdit from "../../model/RcnEditModel";
-import { Op } from "sequelize";
+
 
 const EditReject = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
-        if (!id) {
-            return res.status(400).json({ message: "Please provide the id" });
+
+        // const rejectedBy = req.cookies.user;
+        const rejectedBy = "RC Admin 2";
+        if (!id || !rejectedBy) {
+            return res.status(400).json({ message: "Please provide the id or rejected By" });
         }
         const rcn = await RcnPrimary.update({
-            editStatus: "Created"
+            editStatus: "Created",
+            approvedBy:rejectedBy
         }, {
             where: {
                 id
