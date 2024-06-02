@@ -13,15 +13,28 @@ import {
 } from "@/components/ui/dialog"
 import UseQueryData from "../common/dataFetcher";
 import { SumofAllCuntryData } from "@/type/type";
+
+import { useContext } from 'react';
+import Context from '../context/context';
+import axios from 'axios';
 import Loader from '../common/Loader';
 
+
 const RcnPrimaryEntry = () => {
-    const { data, error, isLoading } = UseQueryData('/api/rcnprimary/sum', 'GET', 'sumData')
+    const { setEditPendingData } = useContext(Context);
+
+    const handleEditFetch = async () => {
+        const Data = await axios.get('/api/rcnprimary/geteditpending');
+        console.log(Data)
+        setEditPendingData(Data.data);
+    };
+    const { data, isLoading, error } = UseQueryData('/api/rcnprimary/sum', 'GET', 'AllOriginRcnPrimary');
     if (isLoading) {
         return <Loader/>
     }
+
     if (error) {
-        return <div>Error</div>
+        return <div>Error</div>;
     }
     return (
         <div>
@@ -58,8 +71,9 @@ const RcnPrimaryEntry = () => {
                         <RcnPrimaryEntryForm />
                     </DialogContent>
                 </Dialog>
-                <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust"> Pending Edit ({data.CountPendingEdit})</Button>
-            
+
+                <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.CountPendingEdit})</Button>
+                  
                 </div>
                 <RcnPrimaryEntryTable />
 
