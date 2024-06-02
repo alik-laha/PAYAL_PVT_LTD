@@ -86,7 +86,7 @@ const RcnPrimaryEntryTable = () => {
         rejectcloseDialogButton.addEventListener('click', () => {
             if(rejectsuccessdialog!=null){
                 (rejectsuccessdialog as any).close();
-               // window.location.reload()
+                window.location.reload()
             }
             
             
@@ -453,7 +453,7 @@ const RcnPrimaryEntryTable = () => {
             <dialog id="rejectsuccessdialog" className="dashboard-modal">
                 <button id="rejectcloseDialogButton" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
-                <p id="modal-text" className="pl-3 mt-1 text-base font-medium">RCN Entry Modify request has rejected</p></span>
+                <p id="modal-text" className="pl-3 mt-1 text-base font-medium">RCN Entry Modify request has Been Rejected</p></span>
                 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
