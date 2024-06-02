@@ -6,7 +6,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { format, toZonedTime } from 'date-fns-tz'
+import { LuDownload } from "react-icons/lu";
+import {format,toZonedTime} from 'date-fns-tz'
 import { FaSearch } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import React, { useEffect } from "react"
@@ -138,7 +139,8 @@ const RcnPrimaryEntryTable = () => {
 
 
     return (
-        <div className="ml-5 mt-5">
+        <div className="ml-5 mt-5 ">
+             
             <div className="flex flexbox-search">
 
                 <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" BL No. / Con No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
@@ -170,20 +172,22 @@ const RcnPrimaryEntryTable = () => {
                 {/* <DatePicker buttonName="To Date" value={todate} setValue={settoDate} /> */}
                 <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
                 <Input className="w-1/6 flexbox-search-width-calender"
-                    type="date"
-                    value={hidetodate}
-                    onChange={handleTodate}
-                    placeholder="To Date"
-
-                />
-
-
-                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 float-right h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+                        type="date"
+                        value={hidetodate}
+                        onChange={handleTodate}
+                        placeholder="To Date"
+                       
+                    />
+            
+                
+                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+             
             </div>
+            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4"><LuDownload size={18}/></Button>  </span>
 
+                   
 
-
-            <Table className="mt-8">
+            <Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Id</TableHead>

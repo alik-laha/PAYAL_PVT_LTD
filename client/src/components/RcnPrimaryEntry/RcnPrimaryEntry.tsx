@@ -13,10 +13,12 @@ import {
 } from "@/components/ui/dialog"
 import UseQueryData from "../common/dataFetcher";
 import { SumofAllCuntryData } from "@/type/type";
-import { Skeleton } from "@/components/ui/skeleton"
+
 import { useContext } from 'react';
 import Context from '../context/context';
 import axios from 'axios';
+import Loader from '../common/Loader';
+
 
 const RcnPrimaryEntry = () => {
     const { setEditPendingData } = useContext(Context);
@@ -28,7 +30,7 @@ const RcnPrimaryEntry = () => {
     };
     const { data, isLoading, error } = UseQueryData('/api/rcnprimary/sum', 'GET', 'AllOriginRcnPrimary');
     if (isLoading) {
-        return <Skeleton className="w-[100px] h-[20px] rounded-full" />;
+        return <Loader/>
     }
 
     if (error) {
@@ -37,13 +39,14 @@ const RcnPrimaryEntry = () => {
     return (
         <div>
             <DashboardHeader />
+            
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     {
                         data.AllOriginRcnPrimary.map((item: SumofAllCuntryData) => {
                             return (
-                                <div className="flexbox-tile bg-blue-600 hover:bg-blue-700" key={item.origin}>
+                                <div className="flexbox-tile bg-red-400 " key={item.origin}>
                                     {item.origin} <br /><p>{item.totalBags} Bag</p>
                                 </div>
                             )
@@ -52,8 +55,11 @@ const RcnPrimaryEntry = () => {
 
                 </div>
 
+                
+                
+                <div>
                 <Dialog>
-                    <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4">+ Add New Entry</Button></DialogTrigger>
+                    <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust">+ Add New Entry</Button></DialogTrigger>
                     <DialogContent className='max-w-2xl'>
                         <DialogHeader>
                             <DialogTitle><p className='text-1xl pb-2 text-center mt-5'>RCN Primary Entry Form</p></DialogTitle>
@@ -65,10 +71,9 @@ const RcnPrimaryEntry = () => {
                         <RcnPrimaryEntryForm />
                     </DialogContent>
                 </Dialog>
-                <Button className="bg-orange-400 mb-2 mt-5 ml-8" onClick={handleEditFetch}> Pending Edit ({data.CountPendingEdit})</Button>
 
-                <div>
-
+                <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.CountPendingEdit})</Button>
+                  
                 </div>
                 <RcnPrimaryEntryTable />
 

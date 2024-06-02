@@ -283,21 +283,43 @@
     gap: 18px;
     padding: 16px;
     margin-top: -30px;
+    width: 100%;
+    
 }
 
 .flexbox-tile{
     flex: 1 1 10% ;
-    background-color: rgb(79, 116, 236);
     padding: 30px 20px 20px 20px;
     text-align: center;
-    border: 1px solid #ddd;
     box-sizing: border-box;
     height: 9vw;
-    color: whitesmoke;
     font-size: 16px;
-    box-shadow: 0 0 0.20rem 0.20rem hsla(189, 68%, 71%, 0.466);
+    z-index: 10;
     max-width:20%!important;
+    color: white;
+  background: linear-gradient(145deg, #4a86d531, #060a50);
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
+.flexbox-tile:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 12px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .flexbox-tile::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120%;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    filter: blur(10px);
+    opacity: 0.5;
+    z-index: -1;
+  }
 
 .flexbox-search{
    
@@ -356,6 +378,13 @@
 
 @media screen and (max-width: 999px) {
 
+    .responsive-button-adjust{
+        height: 5vh!important;
+        font-size: 13px!important;
+        padding: 5px 8px 5px 8px!important;
+
+    }
+
     .sidebar a {
         font-size: 25px;
   
@@ -396,21 +425,24 @@
 
     .flexbox-tile{
         flex: 1 1 25% ;
-        background-color: rgb(79, 116, 236);
+       
         padding: 20px 15px 20px 15px;
         height: 20vw;
-        font-size: 14px;
+        font-size: 12px;
         max-width:30%!important;
-        box-shadow: 0 0 0.10rem 0.10rem hsla(189, 68%, 71%, 0.466);
+        border-radius: 5px;
+        
       
        
        
     }
     .flexbox-header{
         gap: 15px;
+        padding: 12px 10px 5px 10px;
+
     }
     .flexbox-tile p{
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .flexbox-search-width{
