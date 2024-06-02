@@ -5,7 +5,7 @@ const employeeMiddleWare = (req: Request, res: Response, next: NextFunction) => 
 
     if (!employeeName || !designation || !email || !mobNo || !aadhaarNo || !panNo || !dateOfJoining || !address || !pincode || !emergencyContact || !emergencyMobNo) {
         console.log(employeeName, designation, dateOfJoining, email, aadhaarNo, panNo, address, pincode, emergencyContact, emergencyMobNo)
-        return res.status(400).json({ message: "All fields are required" })
+        return res.status(400).json({ message: "All fields are Required" })
     }
     if (mobNo.length !== 10) {
         return res.status(400).json({ message: "Mobile number should be of 10 digits" })
@@ -20,10 +20,10 @@ const employeeMiddleWare = (req: Request, res: Response, next: NextFunction) => 
         return res.status(400).json({ message: "Pincode should be of 6 digits" })
     }
     if (aadhaarNo.length !== 12) {
-        return res.status(400).json({ message: "Adhar number should be of 12 digits" })
+        return res.status(400).json({ message: "Adhar Number should be of 12 digits" })
     }
     if (panNo.length !== 10) {
-        return res.status(400).json({ message: "Pan number should be of 10 digits" })
+        return res.status(400).json({ message: "Pan Number should be of 10 digits" })
     }
     else {
         next();

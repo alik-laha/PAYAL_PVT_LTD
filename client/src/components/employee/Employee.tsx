@@ -14,12 +14,12 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import UseQueryData from '../common/dataFetcher';
-
+import Loader from '../common/Loader';
 
 const Employee = () => {
     const { data, error, isLoading } = UseQueryData('/api/employee/activeEmployeeCount', 'GET', 'EmployeeCount')
     if (isLoading) {
-        return <div>Loading...</div>
+        return <Loader/>
     }
     if (error) {
         return <div>Error</div>
