@@ -12,7 +12,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Dept, Role } from "../common/exportData"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import axios from "axios"
 import { EmployeeData } from "@/type/type"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -24,11 +24,24 @@ const DashboardUserEntryForm = () => {
     const [employeeData, setEmployeeData] = useState<EmployeeData[]>([])
     const [employeeId, setEmployeeId] = useState<string>("")
     const [scrollView, setScrollView] = useState<string>("none")
+    const userNameRef = useRef<HTMLInputElement>(null)
+    const passwordRef = useRef<HTMLInputElement>(null)
+    const confirmPasswordRef = useRef<HTMLInputElement>(null)
+
 
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        console.log('button pressed')
+        const userName = userNameRef.current?.value
+        const password = passwordRef.current?.value
+        const confirmPassword = confirmPasswordRef.current?.value
+        axios.post('/api/user/createuser', { userName, password, dept, role, employeeId, confirmPassword })
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((err) => {
+                console.log(err.response.data.message)
+            })
     }
 
     const fetchemployeeId = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,14 +93,14 @@ const DashboardUserEntryForm = () => {
                     }
                 </ScrollArea>
                 <div className="flex"><Label className="w-2/4">User Name</Label>
-                    <Input className="w-2/4 " placeholder="User Name" /> </div>
+                    <Input className="w-2/4 " placeholder="User Name" ref={userNameRef} /> </div>
 
                 <div className="flex"><Label className="w-2/4">Password</Label>
-                    <Input type="password" className="w-2/4 " placeholder="Password" /> </div>
+                    <Input type="password" className="w-2/4 " placeholder="Password" ref={passwordRef} /> </div>
 
 
                 <div className="flex"><Label className="w-2/4 ">Confirm Password</Label>
-                    <Input type="password" className="w-2/4" placeholder="Confirm Password" /> </div>
+                    <Input type="password" className="w-2/4" placeholder="Confirm Password" ref={confirmPasswordRef} /> </div>
                 <div className="flex"><Label className="w-2/4">Department</Label>
                     <Select value={dept} onValueChange={(value) => setDept(value)}>
                         <SelectTrigger className="w-2/4">

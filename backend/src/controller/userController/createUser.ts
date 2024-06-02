@@ -12,7 +12,7 @@ const CreateUser = async (req: Request, res: Response) => {
             return res.status(201).json({ message: "User Created" });
         }
     } catch (err) {
-        return res.status(500).json({ message: "Internal Server Error" });
+        return res.status(500).json({ message: "Internal Server Error", error: err });
     }
 }
 export default CreateUser;
