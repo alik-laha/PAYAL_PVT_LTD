@@ -14,6 +14,9 @@ import React, { useEffect } from "react"
 import { Input } from "../ui/input";
 // import DatePicker from "../common/DatePicker";
 import { RcnPrimaryEntryData } from "@/type/type";
+import { ExcelRcnPrimaryEntryData } from "@/type/type";
+import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
 
 
 import {
@@ -71,6 +74,9 @@ const RcnPrimaryEntryTable = () => {
     const { editPendingData } = useContext(Context);
     const [blockpagen,setblockpagen] = useState('flex')
 
+    const [transformedData, setTransformedData] = useState<ExcelRcnPrimaryEntryData[]>([]);
+    
+
     useEffect(() => {
         if (editPendingData) {
             console.log(editPendingData)
@@ -103,9 +109,56 @@ const RcnPrimaryEntryTable = () => {
 
     }
 
+   
+
     useEffect(() => {
         handleSearch()
     }, [page])
+
+    const exportToExcel = async () => {
+        const response = await axios.put('/api/rcnprimary/rcnprimarysearch', {
+            blConNo: blConNo,
+            origin: origin,
+            fromDate: fromdate,
+            toDate: todate
+        })
+        const data1 = await response.data
+        //console.log(data1)
+       // Transform the data
+        const transformed = data1.rcnEntries.map((item:RcnPrimaryEntryData,idx: number) => ({
+            SL_No:idx+1,
+           
+            Origin: item.origin,
+            Bl_No: item.blNo,
+            Con_No: item.conNo,
+            RCN_QC_Status: item.rcnStatus,
+            Date: handletimezone(item.date),
+            No_Of_Bags: item.noOfBags,
+            Truck_No: item.truckNo,
+            Bl_Weight: item.blWeight,
+            Net_Weight: item.netWeight,
+            Difference: item.difference,
+            Edit_Status: item.editStatus,
+            Created_by: item.receivedBy, 
+            Approved_or_Rejected_By: item.editedBy
+      }));
+  
+        setTransformedData(transformed);
+        //console.log(transformedData)
+        
+        let ws
+        if(EditData.length > 0 ){
+             ws = XLSX.utils.json_to_sheet(EditData);
+        }
+        else{
+            ws = XLSX.utils.json_to_sheet(transformedData);
+        }
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'data.xlsx');
+      };
 
     const handleRejection = async (item: RcnPrimaryEntryData) => {
         const response = await axios.delete(`/api/rcnprimary/rejectededitrcn/${item.id}`)
@@ -121,6 +174,13 @@ const RcnPrimaryEntryTable = () => {
             handleSearch()
         }
     }
+    function handletimezone(date: string  | Date) {
+        const apidate = new Date(date);
+        const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
+        const finaldate=format(localdate, 'dd-MM-yyyy',{ timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })
+        return finaldate;
+      }
+  
 
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -186,7 +246,7 @@ const RcnPrimaryEntryTable = () => {
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
              
             </div>
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4"><LuDownload size={18}/></Button>  </span>
+            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18}/></Button>  </span>
 
                    
 
@@ -213,12 +273,12 @@ const RcnPrimaryEntryTable = () => {
                 <TableBody>
                     {EditData.length > 0 ? (
                         EditData.map((item: RcnPrimaryEntryData, idx) => {
-
+                         
                             return (
                                 <TableRow key={item.id}>
-                                    <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                    <TableCell className="text-center">{idx + 1}</TableCell>
                                     <TableCell className="text-center">{item.origin}</TableCell>
-                                    <TableCell className="text-center">{item.createdAt.slice(0, 10)}</TableCell>
+                                    <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center">{item.blNo}</TableCell>
                                     <TableCell className="text-center">{item.conNo}</TableCell>
                                     <TableCell className="text-center">{item.truckNo}</TableCell>
@@ -228,7 +288,7 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center font-semibold text-red-600">{item.difference}</TableCell>
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
                                     <TableCell className="text-center">
-                                        {item.rcnStatus === 'QC pending' ? (
+                                        {item.rcnStatus === 'QC Pending' ? (
                                             <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
                                         ) : (
                                             <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>
@@ -281,14 +341,13 @@ const RcnPrimaryEntryTable = () => {
                         })
                     ) : (
                         Data.map((item: RcnPrimaryEntryData, idx) => {
-                            const apidate = new Date(item.date);
-                            const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
+                  
 
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center">{item.origin}</TableCell>
-                                    <TableCell className="text-center">{format(localdate, 'dd-MM-yyyy', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })}</TableCell>
+                                    <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center">{item.blNo}</TableCell>
                                     <TableCell className="text-center">{item.conNo}</TableCell>
                                     <TableCell className="text-center">{item.truckNo}</TableCell>
