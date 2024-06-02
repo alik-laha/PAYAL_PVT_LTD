@@ -4,12 +4,17 @@ import { EditPendingData } from '../../type/type';
 interface ContextType {
     editPendingData: EditPendingData[];
     setEditPendingData: (data: EditPendingData[]) => void;
+    count: number;
+    setCount: (count: number) => void;
+
 
 }
 
 const Context = createContext<ContextType>({
     editPendingData: [],
-    setEditPendingData: () => { }
+    setEditPendingData: () => { },
+    count: 0,
+    setCount: () => { }
 
 });
 

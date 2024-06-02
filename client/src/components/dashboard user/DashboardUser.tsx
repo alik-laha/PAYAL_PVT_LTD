@@ -14,9 +14,12 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { useContext } from 'react'
+import Context from '../context/context'
 
 
 const Employee = () => {
+    const { count } = useContext(Context)
     return (
         <div>
             <DashboardHeader />
@@ -24,12 +27,12 @@ const Employee = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-red-500 hover:bg-red-600">
-                    User<br /><p>1100</p>
+                        User<br /><p>{count}</p>
                     </div>
-                    
-                   
-                    
-                   
+
+
+
+
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
 
@@ -44,14 +47,14 @@ const Employee = () => {
                             </DialogDescription>
                         </DialogHeader>
 
-                        <DashboardUserEntryForm/>
+                        <DashboardUserEntryForm />
                     </DialogContent>
                 </Dialog>
 
                 <div>
 
                 </div>
-                <DashboardTable/>
+                <DashboardTable />
 
             </div>
         </div>
