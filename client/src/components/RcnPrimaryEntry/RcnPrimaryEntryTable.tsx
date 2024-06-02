@@ -309,12 +309,12 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
-                                                <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                                <button className="bg-cyan-500 p-2 text-white rounded" disabled={item.editStatus==='Pending'?true:false}>Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <Dialog>
                                                     <DialogTrigger>
-                                                        <button className="bg-transparent pb-2 text-left">Modify</button>
+                                                        <button className="bg-transparent text-black text-left hover:font-bold hover:text-sm " >Modify</button>
                                                     </DialogTrigger>
                                                     <DialogContent>
                                                         <DialogHeader>

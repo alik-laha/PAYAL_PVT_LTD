@@ -37,6 +37,7 @@ const RcnPrimaryEntryForm = () => {
         closeDialogButton.addEventListener('click', () => {
             if(successdialog!=null){
                 (successdialog as any).close();
+                window.location.reload()
             }
             
             
@@ -46,6 +47,7 @@ const RcnPrimaryEntryForm = () => {
         errorcloseDialogButton.addEventListener('click', () => {
             if(errordialog!=null){
                 (errordialog as any).close();
+               
             }
             
           });
@@ -85,6 +87,7 @@ const RcnPrimaryEntryForm = () => {
                 noOfBagsRef.current.value='';
             }
             setOrigin('')
+           
               
 }).catch((err) => {
     console.log(err)
@@ -140,10 +143,10 @@ const RcnPrimaryEntryForm = () => {
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1"> BL Weight</Label>
-                    <Input className="w-2/4 " placeholder="BL Weight" ref={blWeightRef} type="number" required/>
+                    <Input className="w-2/4 " placeholder="BL Weight" ref={blWeightRef} type="number" step="0.01" required/>
                 </div>
                 <div className="flex"><Label className="w-2/4 pt-1"> Net Weight</Label>
-                    <Input className="w-2/4 " placeholder="Net Weight" ref={netWeightRef} type="number" required/>
+                    <Input className="w-2/4 " placeholder="Net Weight" ref={netWeightRef} type="number" step="0.01" required/>
                 </div>
                 <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
             </form>

@@ -50,6 +50,7 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
         closeDialogButton.addEventListener('click', () => {
             if(successdialog!=null){
                 (successdialog as any).close();
+                window.location.reload()
             }
             
             
@@ -79,7 +80,7 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
                setNetWeight('')
                setNoOfBags('')
             setOrigin('')
-            
+
             }).catch((err) => {
                 console.log(err)
                 setErrorText(err.response.data.message)
