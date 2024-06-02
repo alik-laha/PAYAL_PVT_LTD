@@ -69,17 +69,20 @@ const RcnPrimaryEntryTable = () => {
     const [EditData, setEditData] = useState<EditPendingData[]>([])
     const limit = 10
     const { editPendingData } = useContext(Context);
+    const [blockpagen,setblockpagen] = useState('flex')
 
     useEffect(() => {
         if (editPendingData) {
             console.log(editPendingData)
             setEditData(editPendingData)
+            setblockpagen('none')
         }
     }, [editPendingData])
 
     const handleSearch = async () => {
         console.log('search button pressed')
         setEditData([])
+        setblockpagen('flex')
         const response = await axios.put('/api/rcnprimary/rcnprimarysearch', {
             blConNo: blConNo,
             origin: origin,
@@ -107,14 +110,14 @@ const RcnPrimaryEntryTable = () => {
     const handleRejection = async (item: RcnPrimaryEntryData) => {
         const response = await axios.delete(`/api/rcnprimary/rejectededitrcn/${item.id}`)
         const data = await response.data
-        if (data.message === "Rcn Entry rejected successfully") {
+        if (data.message === "Rcn Entry Rejected successfully") {
             handleSearch()
         }
     }
     const handleApprove = async (item: RcnPrimaryEntryData) => {
         const response = await axios.put(`/api/rcnprimary/approveeditrcn/${item.id}`)
         const data = await response.data
-        if (data.message === "Rcn Entry approved successfully") {
+        if (data.message === "Rcn Entry Approved successfully") {
             handleSearch()
         }
     }
@@ -140,7 +143,7 @@ const RcnPrimaryEntryTable = () => {
 
     return (
         <div className="ml-5 mt-5 ">
-             
+            
             <div className="flex flexbox-search">
 
                 <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" BL No. / Con No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
@@ -343,7 +346,7 @@ const RcnPrimaryEntryTable = () => {
                     )}
                 </TableBody>
             </Table>
-            <Pagination className="pt-5 ">
+            <Pagination style={{display:blockpagen}} className="pt-5 ">
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious onClick={() => setPage((prev) => {

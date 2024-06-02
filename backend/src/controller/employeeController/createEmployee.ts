@@ -55,7 +55,7 @@ const createEmployee = async (req: Request, res: Response) => {
                 heighstQualification,
                 pfNo
             }).then((data) => {
-                return res.status(201).json({ msg: 'New Employee has Created successfully with Emp ID'+employeeId, data })
+                return res.status(201).json({ msg: 'New Employee has Created successfully with Emp ID', data })
             }).catch((err) => {
                 console.log(err)
                 return res.status(500).json({ msg: 'error While Creating', error: err })
