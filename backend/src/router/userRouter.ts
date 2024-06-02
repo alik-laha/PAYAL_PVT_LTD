@@ -9,7 +9,7 @@ router.post("/createuser", UserMiddleWare, CreateUser)
 
 router.post("/login", UserMiddleWare, LoginUser)
 
-router.post("/searchuser", UserMiddleWare, SearchUser)
+router.post("/searchuser", SearchUser)
 
 
 

@@ -13,10 +13,11 @@ const SearchUser = async (req: Request, res: Response) => {
         let user
         if (page === 0 || size === 0) {
             user = await User.findAll({
+                attributes: ['employeeName', 'userName', 'dept', 'role', 'createdBy', 'employeeId'],
                 where: {
                     [Op.or]: [
                         {
-                            username: {
+                            userName: {
                                 [Op.like]: `%${SearchUser}%`
                             }
                         },
@@ -34,27 +35,9 @@ const SearchUser = async (req: Request, res: Response) => {
                 }
             })
             return res.status(200).json({ msg: 'User found', user })
-
         }
         user = await User.findAll({
             where: {
-                [Op.or]: [
-                    {
-                        username: {
-                            [Op.like]: `%${SearchUser}%`
-                        }
-                    },
-                    {
-                        dept: {
-                            [Op.like]: `%${SearchUser}%`
-                        }
-                    },
-                    {
-                        role: {
-                            [Op.like]: `%${SearchUser}%`
-                        }
-                    }
-                ],
                 limit: limit,
                 offset: offset
             }

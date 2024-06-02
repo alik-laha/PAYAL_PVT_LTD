@@ -26,6 +26,7 @@ const DashboardUserEntryForm = () => {
     const [scrollView, setScrollView] = useState<string>("none")
     const userNameRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
+    const [employeeName, setEmployeeName] = useState<string>("")
     const confirmPasswordRef = useRef<HTMLInputElement>(null)
 
 
@@ -35,7 +36,7 @@ const DashboardUserEntryForm = () => {
         const userName = userNameRef.current?.value
         const password = passwordRef.current?.value
         const confirmPassword = confirmPasswordRef.current?.value
-        axios.post('/api/user/createuser', { userName, password, dept, role, employeeId, confirmPassword })
+        axios.post('/api/user/createuser', { userName, password, dept, role, employeeId, confirmPassword, employeeName })
             .then((res) => {
                 console.log(res.data)
             })
@@ -69,6 +70,7 @@ const DashboardUserEntryForm = () => {
     }, [employeeId, employeeData])
     const handleEmployeeIdClick = (data: EmployeeData) => {
         setEmployeeId(data.employeeId)
+        setEmployeeName(data.employeeName)
         setEmployeeData([])
         setScrollView("none")
 
