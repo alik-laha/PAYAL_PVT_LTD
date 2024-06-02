@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 
-import React from "react"
+import React, { useEffect } from "react"
 import {
     Select,
     SelectContent,
@@ -15,6 +15,7 @@ import { Dept, Role } from "../common/exportData"
 import { useState } from "react"
 import axios from "axios"
 import { EmployeeData } from "@/type/type"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 const DashboardUserEntryForm = () => {
 
@@ -22,6 +23,7 @@ const DashboardUserEntryForm = () => {
     const [role, setRole] = useState<string>("")
     const [employeeData, setEmployeeData] = useState<EmployeeData[]>([])
     const [employeeId, setEmployeeId] = useState<string>("")
+    const [scrollView, setScrollView] = useState<string>("none")
 
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -35,12 +37,28 @@ const DashboardUserEntryForm = () => {
             .then((res) => {
                 console.log(res.data)
                 setEmployeeData(res.data.Employees)
+                setScrollView("block")
                 console.log(employeeData)
             }
             )
             .catch((err) => {
                 console.log(err)
             })
+    }
+    useEffect(() => {
+        if (employeeId === '') {
+            setEmployeeData([])
+            setScrollView("none")
+        }
+        if (employeeData.length < 0) {
+            setScrollView("none")
+        }
+    }, [employeeId, employeeData])
+    const handleEmployeeIdClick = (data: EmployeeData) => {
+        setEmployeeId(data.employeeId)
+        setEmployeeData([])
+        setScrollView("none")
+
     }
 
 
@@ -49,6 +67,18 @@ const DashboardUserEntryForm = () => {
             <form className='flex flex-col gap-4 mt-5' onSubmit={handleSubmit}>
                 <div className="flex"><Label className="w-2/4">Employee Id</Label>
                     <Input className="w-2/4 " placeholder="Employee Id" value={employeeId} onChange={fetchemployeeId} /> </div>
+                <ScrollArea className="h-30 w-30" style={{ display: scrollView }}>
+                    {
+                        employeeData.map((item) => {
+                            return (
+                                <div key={item.id} className="flex gap-x-2" onClick={() => handleEmployeeIdClick(item)}>
+                                    <p >{item.employeeId}</p>
+                                    <p>{item.employeeName}</p>
+                                </div>
+                            )
+                        })
+                    }
+                </ScrollArea>
                 <div className="flex"><Label className="w-2/4">User Name</Label>
                     <Input className="w-2/4 " placeholder="User Name" /> </div>
 
