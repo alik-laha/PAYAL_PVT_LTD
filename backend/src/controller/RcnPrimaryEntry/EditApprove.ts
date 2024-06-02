@@ -30,14 +30,14 @@ const EditApprove = async (req: Request, res: Response) => {
             editStatus: "Approved",
             rcnStatus: rcn.rcnStatus,
             receivedBy: rcn.editedBy,
-            approvedBy
+            approvedBy:approvedBy
         }, {
             where: {
                 id
             }
         });
         if (!rcnEdit) {
-            return res.status(400).json({ message: "Rcn Entry not found" });
+            return res.status(400).json({ message: "Rcn Entry is not found" });
         }
         const rcnEditDelete = await RcnEdit.destroy({
             where: {
@@ -45,9 +45,9 @@ const EditApprove = async (req: Request, res: Response) => {
             }
         });
         if (!rcnEditDelete) {
-            return res.status(400).json({ message: "Rcn Entry not found" });
+            return res.status(400).json({ message: "Rcn Entry is not found" });
         }
-        return res.status(200).json({ message: "Rcn Entry approved successfully" });
+        return res.status(200).json({ message: "Edit Request of Rcn Entry is Approved Successfully" });
 
     } catch (err) {
         console.log(err);

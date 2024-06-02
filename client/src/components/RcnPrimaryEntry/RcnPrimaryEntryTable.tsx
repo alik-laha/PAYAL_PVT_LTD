@@ -17,6 +17,8 @@ import { RcnPrimaryEntryData } from "@/type/type";
 import { ExcelRcnPrimaryEntryData } from "@/type/type";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 
 
 import {
@@ -73,10 +75,33 @@ const RcnPrimaryEntryTable = () => {
     const limit = 10
     const { editPendingData } = useContext(Context);
     const [blockpagen,setblockpagen] = useState('flex')
-
+    const currDate = new Date().toLocaleDateString();
+    const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
+    const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
+    const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialog') as HTMLInputElement;
+    const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialog') as HTMLInputElement;
     const [transformedData, setTransformedData] = useState<ExcelRcnPrimaryEntryData[]>([]);
     
-
+    if(rejectcloseDialogButton){
+        rejectcloseDialogButton.addEventListener('click', () => {
+            if(rejectsuccessdialog!=null){
+                (rejectsuccessdialog as any).close();
+               // window.location.reload()
+            }
+            
+            
+          });
+    }
+    if(approvecloseDialogButton){
+        approvecloseDialogButton.addEventListener('click', () => {
+            if(approvesuccessdialog!=null){
+                (approvesuccessdialog as any).close();
+                window.location.reload()
+            }
+            
+          });
+    }
+  
     useEffect(() => {
         if (editPendingData) {
             console.log(editPendingData)
@@ -157,7 +182,7 @@ const RcnPrimaryEntryTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'data.xlsx');
+        saveAs(blob, 'RCN_Primary_Entry_'+currDate+'.xlsx');
       };
 
     const handleRejection = async (item: RcnPrimaryEntryData) => {
@@ -170,8 +195,11 @@ const RcnPrimaryEntryTable = () => {
     const handleApprove = async (item: RcnPrimaryEntryData) => {
         const response = await axios.put(`/api/rcnprimary/approveeditrcn/${item.id}`)
         const data = await response.data
-        if (data.message === "Rcn Entry Approved successfully") {
-            handleSearch()
+        if (data.message === "Edit Request of Rcn Entry is Approved Successfully") {
+            console.log('entered approved')
+            if(approvesuccessdialog!=null){
+                (approvesuccessdialog as any).showModal();
+            }
         }
     }
     function handletimezone(date: string  | Date) {
@@ -414,8 +442,24 @@ const RcnPrimaryEntryTable = () => {
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
+            <dialog id="rcneditapproveScsDialog" className="dashboard-modal">
+                <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
+                <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Modify request has Been Approved</p></span>
+                
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+
+            <dialog id="rejectsuccessdialog" className="dashboard-modal">
+                <button id="rejectcloseDialogButton" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
+                <p id="modal-text" className="pl-3 mt-1 text-base font-medium">RCN Entry Modify request has rejected</p></span>
+                
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
         </div>
     )
 
 }
 export default RcnPrimaryEntryTable;
+
