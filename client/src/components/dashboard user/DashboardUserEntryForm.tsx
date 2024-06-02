@@ -31,7 +31,7 @@ const DashboardUserEntryForm = () => {
 
     const fetchemployeeId = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmployeeId(e.target.value)
-        axios.post('/api/employee/searchemployee', { searchData: e.target.value })
+        axios.post('/api/employee/get/employeefor/user', { searchData: e.target.value })
             .then((res) => {
                 console.log(res.data)
                 setEmployeeData(res.data.Employees)
