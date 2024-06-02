@@ -152,32 +152,55 @@ const RcnPrimaryEntryTable = () => {
         const data1 = await response.data
         //console.log(data1)
        // Transform the data
-        const transformed = data1.rcnEntries.map((item:RcnPrimaryEntryData,idx: number) => ({
-            SL_No:idx+1,
-           
-            Origin: item.origin,
-            Bl_No: item.blNo,
-            Con_No: item.conNo,
-            RCN_QC_Status: item.rcnStatus,
-            Date: handletimezone(item.date),
-            No_Of_Bags: item.noOfBags,
-            Truck_No: item.truckNo,
-            Bl_Weight: item.blWeight,
-            Net_Weight: item.netWeight,
-            Difference: item.difference,
-            Edit_Status: item.editStatus,
-            Created_by: item.receivedBy, 
-            Approved_or_Rejected_By: item.approvedBy
-      }));
+      
+        
   
-        setTransformedData(transformed);
+        
         //console.log(transformedData)
         
         let ws
+        let transformed
         if(EditData.length > 0 ){
-             ws = XLSX.utils.json_to_sheet(EditData);
+            transformed = EditData.map((item:EditPendingData,idx: number) => ({
+                SL_No:idx+1,
+                Date: handletimezone(item.date),
+                Origin: item.origin,
+                Bl_No: item.blNo,
+                Con_No: item.conNo,
+                RCN_QC_Status: item.rcnStatus,
+                No_Of_Bags: item.noOfBags,
+                Truck_No: item.truckNo,
+                Bl_Weight: item.blWeight,
+                Net_Weight: item.netWeight,
+                Difference: item.difference,
+                Edit_Status: item.editStatus,
+                Created_by: item.receivedBy, 
+                Approved_or_Rejected_By: item.editedBy
+                
+          }));
+            
+             ws = XLSX.utils.json_to_sheet(transformedData);
         }
         else{
+                transformed = data1.rcnEntries.map((item:RcnPrimaryEntryData,idx: number) => ({
+                SL_No:idx+1,
+                
+                Origin: item.origin,
+                Bl_No: item.blNo,
+                Con_No: item.conNo,
+                RCN_QC_Status: item.rcnStatus,
+                Date: handletimezone(item.date),
+                No_Of_Bags: item.noOfBags,
+                Truck_No: item.truckNo,
+                Bl_Weight: item.blWeight,
+                Net_Weight: item.netWeight,
+                Difference: item.difference,
+                Edit_Status: item.editStatus,
+                Created_by: item.receivedBy, 
+                Approved_or_Rejected_By: item.approvedBy
+                
+          }));
+            setTransformedData(transformed);
             ws = XLSX.utils.json_to_sheet(transformedData);
         }
         const wb = XLSX.utils.book_new();
@@ -306,13 +329,13 @@ const RcnPrimaryEntryTable = () => {
                 </TableHeader>
                 <TableBody>
                     {EditData.length > 0 ? (
-                        EditData.map((item: RcnPrimaryEntryData, idx) => {
+                        EditData.map((item: EditPendingData, idx) => {
                          
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{idx + 1}</TableCell>
                                     <TableCell className="text-center">{item.origin}</TableCell>
-                                    <TableCell className="text-center">{handletimezone(item.createdAt)}</TableCell>
+                                    <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center">{item.blNo}</TableCell>
                                     <TableCell className="text-center">{item.conNo}</TableCell>
                                     <TableCell className="text-center">{item.truckNo}</TableCell>

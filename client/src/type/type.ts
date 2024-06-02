@@ -24,6 +24,7 @@ export interface RcnPrimaryEntryData {
 
 export interface ExcelRcnPrimaryEntryData {
     SL_No:string;
+    date: string;
     Approved_or_Rejected_By: string; 
     Origin: string;
     Bl_No: string;
