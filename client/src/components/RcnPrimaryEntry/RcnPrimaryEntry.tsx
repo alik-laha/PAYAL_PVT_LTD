@@ -14,14 +14,25 @@ import {
 import UseQueryData from "../common/dataFetcher";
 import { SumofAllCuntryData } from "@/type/type";
 import { Skeleton } from "@/components/ui/skeleton"
+import { useContext } from 'react';
+import Context from '../context/context';
+import axios from 'axios';
 
 const RcnPrimaryEntry = () => {
-    const { data, error, isLoading } = UseQueryData('/api/rcnprimary/sum', 'GET', 'sumData')
+    const { setEditPendingData } = useContext(Context);
+
+    const handleEditFetch = async () => {
+        const Data = await axios.get('/api/rcnprimary/geteditpending');
+        console.log(Data)
+        setEditPendingData(Data.data);
+    };
+    const { data, isLoading, error } = UseQueryData('/api/rcnprimary/sum', 'GET', 'AllOriginRcnPrimary');
     if (isLoading) {
-        return <Skeleton className="w-[100px] h-[20px] rounded-full" />
+        return <Skeleton className="w-[100px] h-[20px] rounded-full" />;
     }
+
     if (error) {
-        return <div>Error</div>
+        return <div>Error</div>;
     }
     return (
         <div>
@@ -54,7 +65,7 @@ const RcnPrimaryEntry = () => {
                         <RcnPrimaryEntryForm />
                     </DialogContent>
                 </Dialog>
-                <Button className="bg-orange-400 mb-2 mt-5 ml-8"> Pending Edit ({data.CountPendingEdit})</Button>
+                <Button className="bg-orange-400 mb-2 mt-5 ml-8" onClick={handleEditFetch}> Pending Edit ({data.CountPendingEdit})</Button>
 
                 <div>
 

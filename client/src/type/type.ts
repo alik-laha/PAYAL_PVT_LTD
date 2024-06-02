@@ -18,6 +18,7 @@ export interface RcnPrimaryEntryData {
     difference: string;
     editStatus: string;
     receivedBy: string;
+    createdAt: string;
 }
 
 export interface SumofAllCuntryData {
@@ -45,4 +46,21 @@ export interface EmployeeData {
     emergencyMobNo: string;
     pfNo: string;
     pincode: string;
+}
+export interface EditPendingData {
+    id: number;
+    origin: string;
+    blNo: string;
+    conNo: string;
+    rcnStatus: string;
+    date: string;
+    noOfBags: string;
+    truckNo: string;
+    blWeight: string;
+    netWeight: string;
+    difference: string;
+    editStatus: string;
+    receivedBy: string;
+    editedBy: string;
+    createdAt: string;
 }
