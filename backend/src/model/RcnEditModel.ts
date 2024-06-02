@@ -36,7 +36,7 @@ const RcnEdit = sequelize.define('rcnEdit', {
     },
     rcnStatus: {
         type: DataTypes.STRING,
-        defaultValue: 'QC pending'
+        defaultValue: 'QC Pending'
     },
     editStatus: {
         type: DataTypes.STRING,
