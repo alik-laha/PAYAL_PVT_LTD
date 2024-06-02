@@ -21,11 +21,14 @@ export interface RcnPrimaryEntryData {
     receivedBy: string;
     createdAt: string;
 }
+export interface EditPendingData extends RcnPrimaryEntryData {
+    approvedBy: string;
+}
 
 export interface ExcelRcnPrimaryEntryData {
-    SL_No:string;
+    SL_No: string;
     date: string;
-    Approved_or_Rejected_By: string; 
+    Approved_or_Rejected_By: string;
     Origin: string;
     Bl_No: string;
     Con_No: string;
@@ -38,7 +41,7 @@ export interface ExcelRcnPrimaryEntryData {
     Difference: string;
     Edit_Status: string;
     Created_by: string;
-    
+
 }
 
 export interface SumofAllCuntryData {
@@ -83,6 +86,7 @@ export interface EditPendingData {
     receivedBy: string;
     editedBy: string;
     createdAt: string;
+
 }
 
 export interface User {
