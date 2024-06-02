@@ -84,3 +84,13 @@ export interface EditPendingData {
     editedBy: string;
     createdAt: string;
 }
+
+export interface User {
+    id: number;
+    employeeId: string;
+    employeeName: string;
+    userName: string;
+    dept: string;
+    role: string;
+    createdBy: string;
+}

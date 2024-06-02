@@ -3,7 +3,7 @@ import createEmployee from "../controller/employeeController/createEmployee";
 import employeeMiddleWare from "../middleWare/employeeMiddleWare";
 import updateEmployee from "../controller/employeeController/updateEmployee";
 import searchEmployee from "../controller/employeeController/searchEmployee";
-import getAllEmployee from "../controller/employeeController/getAllEmployee";
+import getAllEmployee from "../controller/employeeController/getEmployeeforUser";
 import DeleteEmployee from "../controller/employeeController/deleteEmployee";
 import releseEmployee from "../controller/employeeController/releseEmployee";
 import activeEmployeeCount from "../controller/employeeController/activeEmployeeCount";
@@ -16,7 +16,7 @@ router.put("/updateemployee/:id", employeeMiddleWare, updateEmployee)
 
 router.post("/searchemployee", searchEmployee)
 
-router.get("/getallemployee", getAllEmployee)
+router.post("/get/employeefor/user", getAllEmployee)
 
 router.delete("/deleteemployee/:id", DeleteEmployee)
 

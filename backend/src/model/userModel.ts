@@ -15,7 +15,11 @@ const User = sequelize.define('user', {
             key: 'employeeId'
         }
     },
-    username: {
+    employeeName: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    userName: {
         type: DataTypes.STRING,
         allowNull: false
     },
