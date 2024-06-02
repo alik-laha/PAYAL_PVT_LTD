@@ -5,13 +5,14 @@ import Employee from "../model/employeeModel";
 const UserMiddleWare = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { userName, password, dept, role, employeeId, confirmPassword } = req.body;
-        const createdBy = req.cookies.user;
+        // const createdBy = req.cookies.user;
+        const createdBy = "Admin";
         const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
         if (!userName || !password || !dept || !role || !employeeId || !confirmPassword) {
             return res.status(400).json({ message: "All fields are required" })
         }
         if (!createdBy) {
-            return res.status(401).json({ message: "Unauthorized" })
+            return res.status(401).json({ message: "Unauthorized", createdBy })
         }
         if (specialCharRegex.test(userName)) {
             return res.status(400).json({ message: "User Name should not contain special characters" })
