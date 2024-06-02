@@ -22,6 +22,24 @@ export interface RcnPrimaryEntryData {
     createdAt: string;
 }
 
+export interface ExcelRcnPrimaryEntryData {
+    SL_No:string;
+    Approved_or_Rejected_By: string; 
+    Origin: string;
+    Bl_No: string;
+    Con_No: string;
+    RCN_QC_Status: string;
+    Date: string;
+    No_Of_Bags: string;
+    Truck_No: string;
+    Bl_Weight: string;
+    Net_Weight: string;
+    Difference: string;
+    Edit_Status: string;
+    Created_by: string;
+    
+}
+
 export interface SumofAllCuntryData {
     origin: string;
     totalBags: number;

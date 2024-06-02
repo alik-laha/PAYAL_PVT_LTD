@@ -5,8 +5,8 @@ import { Op } from "sequelize";
 const SearchRcnPrimary = async (req: Request, res: Response) => {
     try {
         const { blConNo, fromDate, toDate, origin } = req.body;
-        const page = parseInt(req.query.page as string, 10) || 1;
-        const size = parseInt(req.query.limit as string, 10) || 10;
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
 
         const offset = (page - 1) * size;
         const limit = size;
@@ -41,12 +41,23 @@ const SearchRcnPrimary = async (req: Request, res: Response) => {
 
         // Convert the array to an object for the where condition
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
-        const rcnEntries = await RcnPrimary.findAll({
-            where,
-            order: [['createdAt', 'DESC']], // Order by date descending
-            limit: limit,
-            offset: offset
-        });
+        let rcnEntries
+        if(limit===0 && offset===0){
+             rcnEntries = await RcnPrimary.findAll({
+                where,
+                order: [['createdAt', 'DESC']], // Order by date descending
+                
+            });
+        }
+        else{
+             rcnEntries = await RcnPrimary.findAll({
+                where,
+                order: [['createdAt', 'DESC']], // Order by date descending
+                limit: limit,
+                offset: offset
+            });
+        }
+       
         return res.status(200).json({ msg: 'Rcn Entry found', rcnEntries })
     }
     catch (err) {
