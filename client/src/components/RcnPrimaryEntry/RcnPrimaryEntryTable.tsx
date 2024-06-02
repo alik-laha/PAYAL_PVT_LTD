@@ -330,36 +330,6 @@ const RcnPrimaryEntryTable = () => {
                                                         <RcnPrimaryModify data={item} />
                                                     </DialogContent>
                                                 </Dialog>
-
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger>
-                                                        <button className="bg-transparent text-left pb-2">Approve</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger>
-                                                        <button className="bg-transparent text-left">Reject</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
                                             </PopoverContent>
                                         </Popover>
                                     </TableCell>
