@@ -8,9 +8,10 @@ interface ContextProviderProps {
 }
 const ContextProvider = ({ children }: ContextProviderProps) => {
     const [editPendingData, setEditPendingData] = useState<EditPendingData[]>([])
+    const [count, setCount] = useState<number>(0)
 
     return (
-        <Context.Provider value={{ editPendingData, setEditPendingData }}>
+        <Context.Provider value={{ editPendingData, setEditPendingData, count, setCount }}>
             {children}
         </Context.Provider>
     )
