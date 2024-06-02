@@ -9,6 +9,7 @@ export interface RcnPrimaryModifyProps {
     netWeight: string;
     rcnStatus: string;
     editedBy: string;
+    date:Date
 
 }
 

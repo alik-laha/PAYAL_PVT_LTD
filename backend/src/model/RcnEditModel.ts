@@ -46,6 +46,10 @@ const RcnEdit = sequelize.define('rcnEdit', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    date: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
     origin: {
         type: DataTypes.STRING,
         allowNull: false

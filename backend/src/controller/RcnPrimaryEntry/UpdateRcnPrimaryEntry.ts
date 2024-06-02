@@ -42,6 +42,7 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
             origin,
             id,
             editedBy,
+            date,
             rcnStatus: rcnData?.rcnStatus,
             
 
