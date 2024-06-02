@@ -42,9 +42,9 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
             origin,
             id,
             editedBy,
-            date,
+            date: rcnData?.date,
             rcnStatus: rcnData?.rcnStatus,
-            
+
 
         });
         return res.status(200).json({ message: "Rcn Entry updated successfully Wait for approve" });
