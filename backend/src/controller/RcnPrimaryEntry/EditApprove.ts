@@ -7,7 +7,7 @@ const EditApprove = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         // const approvedBy = req.cookies.user;
-        const approvedBy = "admin";
+        const approvedBy = "RC Admin 1";
         if (!id || !approvedBy) {
             return res.status(400).json({ message: "Please provide the id or approved by" });
         }
