@@ -78,8 +78,10 @@ const RcnPrimaryEntryTable = () => {
     const currDate = new Date().toLocaleDateString();
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
+
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialog') as HTMLInputElement;
     const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialog') as HTMLInputElement;
+
     const [transformedData, setTransformedData] = useState<ExcelRcnPrimaryEntryData[]>([]);
     
     if(rejectcloseDialogButton){
@@ -165,7 +167,7 @@ const RcnPrimaryEntryTable = () => {
             Difference: item.difference,
             Edit_Status: item.editStatus,
             Created_by: item.receivedBy, 
-            Approved_or_Rejected_By: item.editedBy
+            Approved_or_Rejected_By: item.approvedBy
       }));
   
         setTransformedData(transformed);
@@ -188,15 +190,19 @@ const RcnPrimaryEntryTable = () => {
     const handleRejection = async (item: RcnPrimaryEntryData) => {
         const response = await axios.delete(`/api/rcnprimary/rejectededitrcn/${item.id}`)
         const data = await response.data
-        if (data.message === "Rcn Entry Rejected successfully") {
-            handleSearch()
+        console.log(data)
+        if (data.message === "Rcn Entry rejected successfully") {
+            console.log('rejected enter')
+            if(rejectsuccessdialog!=null){
+                (rejectsuccessdialog as any).showModal();
+            }
         }
     }
     const handleApprove = async (item: RcnPrimaryEntryData) => {
         const response = await axios.put(`/api/rcnprimary/approveeditrcn/${item.id}`)
         const data = await response.data
         if (data.message === "Edit Request of Rcn Entry is Approved Successfully") {
-            console.log('entered approved')
+            
             if(approvesuccessdialog!=null){
                 (approvesuccessdialog as any).showModal();
             }
@@ -450,10 +456,10 @@ const RcnPrimaryEntryTable = () => {
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="rejectsuccessdialog" className="dashboard-modal">
-                <button id="rejectcloseDialogButton" className="dashboard-modal-close-btn ">X </button>
+            <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
+                <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
-                <p id="modal-text" className="pl-3 mt-1 text-base font-medium">RCN Entry Modify request has Been Rejected</p></span>
+                <p id="modal-text" className="pl-3 mt-1 text-base font-medium">RCN Entry Modify Request Has Been Rejected</p></span>
                 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
