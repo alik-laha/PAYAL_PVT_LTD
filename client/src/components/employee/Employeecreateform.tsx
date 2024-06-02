@@ -180,8 +180,8 @@ const Employeecreateform = () => {
                 </div>
 
                 <div className='flex'>
-                    <Label className="w-2/4 pt-1 ">Date Of Birth </Label>
-                    <span className="w-/3"><DatePicker buttonName="D.O.B" value={date} setValue={setDate} /></span>
+                    <Label className="w-2/4 pt-1 ">Date Of Joining </Label>
+                    <span className="w-/3 h-8"><DatePicker buttonName="D.O.J." value={date} setValue={setDate} /></span>
                 </div>
 
                 <div className="flex">
