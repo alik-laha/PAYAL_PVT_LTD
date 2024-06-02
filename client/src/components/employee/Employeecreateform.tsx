@@ -2,14 +2,16 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import DatePicker from "../common/DatePicker";
-import { useRef } from "react"
+import { useRef ,useState} from "react"
 import React from "react"
 import axios from "axios"
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 
 
 const Employeecreateform = () => {
     const [date, setDate] = React.useState<Date | undefined>()
-
+    const [errortext, setErrorText] = useState<string>("")
 
     const nameref = useRef<HTMLInputElement>(null)
     const emailref = useRef<HTMLInputElement>(null)
@@ -27,7 +29,29 @@ const Employeecreateform = () => {
     const pincoderef = useRef<HTMLInputElement>(null)
     const addressref = useRef<HTMLInputElement>(null)
 
-
+    const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
+    const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
+    // const dialog = document.getElementById('myDialog');
+    const closeDialogButton = document.getElementById('empcloseDialog') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('errorempcloseDialog') as HTMLInputElement;
+    
+    if(closeDialogButton){
+        closeDialogButton.addEventListener('click', () => {
+            if(successdialog!=null){
+                (successdialog as any).close();
+            }
+            
+            
+          });
+    }
+    if(errorcloseDialogButton){
+        errorcloseDialogButton.addEventListener('click', () => {
+            if(errordialog!=null){
+                (errordialog as any).close();
+            }
+            
+          });
+    }
 
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -69,8 +93,70 @@ const Employeecreateform = () => {
             address
         }).then((res) => {
             console.log(res)
+            if(successdialog!=null){
+                (successdialog as any).showModal();
+            }
+            if(nameref.current!=null){
+                nameref.current.value='';
+            }
+            if(emailref.current!=null){
+                emailref.current.value='';
+            }
+            if(desgref.current!=null){
+                desgref.current.value='';
+            }
+            if(dobref.current!=null){
+                dobref.current.value='';
+            }
+            if(contactNoref.current!=null){
+                contactNoref.current.value='';
+            }
+            if(bloodgpref.current!=null){
+                bloodgpref.current.value='';
+            }
+            if(studyref.current!=null){
+                studyref.current.value='';
+            }
+            if(altcontactref.current!=null){
+                altcontactref.current.value='';
+            }
+            if(adharref.current!=null){
+                adharref.current.value='';
+            }
+            if(panref.current!=null){
+                panref.current.value='';
+            }
+            if(emgNameref.current!=null){
+                emgNameref.current.value='';
+            }
+            if(emgContactref.current!=null){
+                emgContactref.current.value='';
+            }
+            if(pfref.current!=null){
+                pfref.current.value='';
+            }
+            if(pincoderef.current!=null){
+                pincoderef.current.value='';
+            }
+            if(addressref.current!=null){
+                addressref.current.value='';
+            }
+            setDate(null)
+            
         }).catch((err) => {
             console.log(err)
+            // if(err.response.data.error.original.errno===1062)
+            //     {
+            //         setErrorText('Duplicate Entry is Not Allowed')
+            //         if(errordialog!=null){
+            //             (errordialog as any).showModal();
+            //         }
+            //         return
+            //     }
+            setErrorText(err.response.data.message)
+            if(errordialog!=null){
+                (errordialog as any).showModal();
+            }
 
         })
     }
@@ -94,8 +180,8 @@ const Employeecreateform = () => {
                 </div>
 
                 <div className='flex'>
-                    <Label className="w-2/4 pt-1 ">Date Of Birth </Label>
-                    <span className="w-/3"><DatePicker buttonName="D.O.B" value={date} setValue={setDate} /></span>
+                    <Label className="w-2/4 pt-1 ">Date Of Joining </Label>
+                    <span className="w-/3 h-8"><DatePicker buttonName="D.O.J." value={date} setValue={setDate} /></span>
                 </div>
 
                 <div className="flex">
@@ -157,6 +243,21 @@ const Employeecreateform = () => {
 
                 <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
             </form>
+            <dialog id="successemployeedialog" className="dashboard-modal">
+                <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
+                <p id="modal-text" className="pl-3 mt-1 font-medium">Employee Created Successfully</p></span>
+                
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+
+            <dialog id="erroremployeedialog" className="dashboard-modal">
+                <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
+                <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
 
 
 
