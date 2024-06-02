@@ -9,7 +9,7 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
         const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin } = req.body;
         const difference = blWeight - netWeight;
         // const editedBy = req.cookies.user
-        const editedBy = "RcnRecevinguser"
+        const editedBy = "RC User 2"
         if (!id) {
             return res.status(400).json({ message: "Please provide the id" });
         }
@@ -43,6 +43,7 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
             id,
             editedBy,
             rcnStatus: rcnData?.rcnStatus,
+            
 
         });
         return res.status(200).json({ message: "Rcn Entry updated successfully Wait for approve" });

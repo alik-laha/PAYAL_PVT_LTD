@@ -5,6 +5,7 @@ export interface DatePickerProps {
 }
 
 export interface RcnPrimaryEntryData {
+    editedBy: string;
     id: number;
     origin: string;
     blNo: string;

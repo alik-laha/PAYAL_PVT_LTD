@@ -235,7 +235,7 @@ const RcnPrimaryEntryTable = () => {
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
-                                    <TableCell className="text-center">{item.receivedBy}</TableCell>
+                                    <TableCell className="text-center">{item.editedBy}</TableCell>
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
@@ -309,7 +309,7 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
-                                                <button className={`bg-cyan-500 p-2 text-white rounded ${item.editStatus==='Pending'? 'bg-cyan-300' : 'bg-cyan-500'}`} disabled={item.editStatus==='Pending'?true:false}>Action</button>
+                                                <button className={`bg-cyan-500 p-2 text-white rounded ${item.editStatus==='Pending'? 'bg-cyan-300' : 'bg-cyan-00'}`} disabled={item.editStatus==='Pending'?true:false}>Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <Dialog>
