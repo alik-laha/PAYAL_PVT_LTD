@@ -45,6 +45,8 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { EmployeeData } from "@/type/type";
+import { LuDownload } from "react-icons/lu";
+import { Button } from "@/components/ui/button";
 
 const EmployeeTable = () => {
     const [Data, setData] = useState<EmployeeData[]>([])
@@ -78,6 +80,8 @@ const EmployeeTable = () => {
             }
         })
     }
+
+    const exportToExcel = async () => {}
   
     useEffect(() => {
         axios.post('/api/employee/searchemployee',{
@@ -121,11 +125,11 @@ const EmployeeTable = () => {
         <div className="ml-5 mt-5">
             <div className="flex ">
 
-                <Input className="w-60 mb-10" placeholder="Search By Employee ID/ Name" onChange={handleSearch} />
+                <Input className="w-60 mb-2" placeholder="Search By Employee ID/ Name" onChange={handleSearch} />
 
             </div>
 
-
+            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
 
             <Table className="mt-1">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -163,9 +167,9 @@ const EmployeeTable = () => {
 
                                                 <Dialog>
                                                     <DialogTrigger>   <button className="bg-transparent pb-2 text-left">Modify</button></DialogTrigger>
-                                                    <DialogContent className='max-w-6xl'>
+                                                    <DialogContent className='max-w-2xl'>
                                                         <DialogHeader>
-                                                            <DialogTitle><p className='text-1xl pb-1 text-center mt-3 mb-5'>Modify Employee</p></DialogTitle>
+                                                            <DialogTitle><p className='text-1xl text-center mt-2'>Modify Employee</p></DialogTitle>
                                                         </DialogHeader>
                                                         <EmployeeModifyForm
                                                             data={item}

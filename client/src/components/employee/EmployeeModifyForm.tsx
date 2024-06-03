@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import DatePicker from "../common/DatePicker";
-import { Textarea } from "@/components/ui/textarea"
+
 import React, { useEffect } from "react"
 import axios from "axios";
 
@@ -82,56 +82,89 @@ const EmployeeModifyForm = (props: Props) => {
 
 
     return (
-        <div >
-            <form className='flex flex-col gap-4 text-center' onSubmit={handleSubmit}>
-                <div className="flex"><Label className="w-1/4 pl-5 pt-2 mr-2 ">Name</Label>
-                    <Input className="w-3/4 mr-2" placeholder="Name" value={employeeName} onChange={(e) => setEmployeeName(e.target.value)} /><Label className="w-1/4 pl-2 pt-2 mr-2">Desg.</Label>
-                    <Input className="w-3/4 mr-2" placeholder="Designation" value={designation} onChange={(e) => setDesignation(e.target.value)} />  </div>
+        <div className="pl-10 pr-10 ">
+            <form className='flex flex-col gap-0.5 text-xs' onSubmit={handleSubmit}>
+                <div className="flex">
+                <Label className="w-2/4 pt-1">Name</Label>
+                <Input className="w-2/4 " placeholder="Name"  value={employeeName} onChange={(e) => setEmployeeName(e.target.value)}  />
+                </div>
 
-                <div className="flex"><Label className="w-1/4 pl-5 pt-2 mr-2">Email </Label>
-                    <Input className="w-3/4 mr-2" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    <Label className="w-1/4 pl-3 pt-2 mr-2">Date Of Joining </Label>
-                    <DatePicker buttonName="D.O.B" value={date} setValue={setDate} />
+                <div className="flex">
+                     <Label className="w-2/4 pt-1">Designation</Label>
+                    <Input className="w-2/4" placeholder="Designation" value={designation} onChange={(e) => setDesignation(e.target.value)} /> 
+                     </div>
+
+                     <div className="flex">
+                <Label className="w-2/4 pt-1">Email</Label>
+                <Input className="w-2/4" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                </div>
+
+                <div className="flex">
+                <Label className="w-2/4 pt-1 ">Date Of Joining </Label>
+                <span className=""><DatePicker buttonName="Date Of Joining." value={date} setValue={setDate} /></span>
+                
+                </div>
+
+                <div className="flex">
+                <Label className="w-2/4 pt-1" >Contact No.</Label>
+                <Input className="w-2/4" placeholder="Contact No." value={mobNo} onChange={(e) => setMobNo(e.target.value)} />
+                </div>
+
+                <div className="flex">
+                   
+                  
+                <Label className="w-2/4 pt-1" >Blood Group</Label>
+                    <Input className="w-2/4" placeholder="Blood Group" value={bloodGroup} onChange={(e) => setBloodGroup(e.target.value)} />
 
                 </div>
 
                 <div className="flex">
-                    <Label className="w-1/4 pl-2 pt-2 mr-2" >Contact No.</Label>
-                    <Input className="w-3/4 mr-2" placeholder="Contact No." value={mobNo} onChange={(e) => setMobNo(e.target.value)} />
-                    <Label className="w-1/4 pl-2 pt-2 mr-2">Blood Gp.</Label>
-                    <Input className="w-3/4 mr-2" placeholder="Blood Group" value={bloodGroup} onChange={(e) => setBloodGroup(e.target.value)} />
-
+                <Label className="w-2/4 pt-1" >Contact No.(Alt)</Label>
+                
+                <Input className="w-2/4" placeholder="Alt No." value={alternateMobNo} onChange={(e) => setAlternateMobNo(e.target.value)} />
                 </div>
 
                 <div className="flex">
-                    <Label className="w-1/4 pl-5 pt-2 mr-2">Contact No.(Alt)</Label>
-                    <Input className="w-3/4 mr-2" placeholder="Alt No." value={alternateMobNo} onChange={(e) => setAlternateMobNo(e.target.value)} />
-                    <Label className="w-1/4 pl-2 pt-2 mr-2">Highest Study </Label>
-                    <Input className="w-3/4 mr-2" placeholder=" Quaification" value={heighstQualification} onChange={(e) => setHeighstQualification(e.target.value)} />
+              
+                    
+                    <Label className="w-2/4 pt-1">Highest Study </Label>
+                    <Input className="w-2/4" placeholder=" Quaification" value={heighstQualification} onChange={(e) => setHeighstQualification(e.target.value)} />
+                </div>
+                <div className="flex">
+              
+                <Label className="w-2/4 pt-1">Aadhar No.</Label>
+                    <Input className="w-2/4" placeholder=" Aadhar No." value={aadhaarNo} onChange={(e) => setAadhaarNo(e.target.value)} />
                 </div>
 
 
                 <div className="flex">
-                    <Label className="w-1/4 pl-2 pt-2 mr-2">Aadhar No.</Label>
-                    <Input className="w-3/4 mr-2" placeholder=" Aadhar No." value={aadhaarNo} onChange={(e) => setAadhaarNo(e.target.value)} />
-                    <Label className="w-1/4 pl-3 pt-2 mr-2">Pan No.</Label>
-                    <Input className="w-3/4 mr-2" placeholder="Pan No." value={panNo} onChange={(e) => setPanNo(e.target.value)} />  </div>
+                  
+                    <Label className="w-2/4 pt-1">Pan No.</Label>
+                    <Input className="w-2/4" placeholder="Pan No." value={panNo} onChange={(e) => setPanNo(e.target.value)} /> 
+                     </div>
+
+                     <div className="flex">
+                  
+                     <Label className="w-2/4 pt-1">Emergency Contact Name </Label>
+                    <Input className="w-2/4" placeholder=" Contact Name " value={emergencyContact} onChange={(e) => setEmergencyContact(e.target.value)} />
+                   </div>
 
                 <div className="flex">
-                    <Label className="w-1/4 pl-2 pt-2 mr-2">Emergency Contact Name </Label>
-                    <Input className="w-3/4 mr-2" placeholder=" Contact Name " value={emergencyContact} onChange={(e) => setEmergencyContact(e.target.value)} />
-                    <Label className="w-1/4 pl-3 pt-2 mr-2">Emergency Contact No. </Label>
-                    <Input className="w-3/4 mr-2" placeholder="Contact No." value={emergencyMobNo} onChange={(e) => setEmergencyMobNo(e.target.value)} />  </div>
+                    
+                    <Label className="w-2/4 pt-1">Emergency Contact No. </Label>
+                    <Input className="w-2/4" placeholder="Contact No." value={emergencyMobNo} onChange={(e) => setEmergencyMobNo(e.target.value)} />  </div>
 
                 <div className="flex">
-                    <Label className="w-1/4 pl-3 pt-2 mr-2">PF No.(Optional) </Label>
-                    <Input className="w-3/4 mr-2" placeholder="PF No. " value={pfNo} onChange={(e) => setPfNo(e.target.value)} />
-
-                    <Label className="w-1/4 pl-2 pt-2 mr-2"> Pincode</Label>
-                    <Input className="w-3/4 mr-2" placeholder=" Pincode " value={pincode} onChange={(e) => setPincode(e.target.value)} />  </div>
+                    <Label className="w-2/4 pt-1">PF No.(Optional) </Label>
+                    <Input className="w-2/4" placeholder="PF No. " value={pfNo} onChange={(e) => setPfNo(e.target.value)} />
+                </div>
                 <div className="flex">
-                    <Label className="w-1/4 pl-3 pt-2 mr-2">Address </Label>
-                    <Textarea className="w-2/4 mr-2" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)} />
+                    <Label className="w-2/4 pt-1"> Pincode</Label>
+                    <Input className="w-2/4" placeholder=" Pincode " value={pincode} onChange={(e) => setPincode(e.target.value)} />  </div>
+                
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">Address </Label>
+                    <Input className="w-2/4" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)} />
 
                 </div>
 
@@ -139,7 +172,7 @@ const EmployeeModifyForm = (props: Props) => {
 
 
 
-                <Button className="bg-orange-500 mb-2 w-1/6  text-center items-center justify-center">Submit</Button>
+                <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
             </form>
 
 
