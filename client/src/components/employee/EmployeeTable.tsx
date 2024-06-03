@@ -49,16 +49,18 @@ import { EmployeeData } from "@/type/type";
 import { LuDownload } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { pageNo,pagelimit } from "../common/exportData"
+import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
 
 const EmployeeTable = () => {
     const [Data, setData] = useState<EmployeeData[]>([])
     const [Error, setError] = useState<string>("")
     const [releaseDate, setReleaseDate] = useState<string>("")
-
-    // const currDate = new Date().toLocaleDateString();
+    const [transformedData, setTransformedData] = useState<EmployeeData[]>([]);
+    const currDate = new Date().toLocaleDateString();
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
-
+    
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchData = e.target.value
@@ -83,7 +85,43 @@ const EmployeeTable = () => {
         })
     }
 
-    const exportToExcel = async () => { }
+    const exportToExcel = async () => { 
+
+        const response = await axios.post('/api/employee/searchemployee', {}, {})
+        const data1 = await response.data
+        const transformed = data1.Employees.map((item: EmployeeData, idx: number) => ({
+                        id: idx+1,
+                employeeId: item.employeeId,
+                employeeName: item.employeeName,
+                designation: item.designation,
+                email: item.email,
+                mobNo: item.mobNo,
+                alternateMobNo: item.alternateMobNo,
+                aadhaarNo: item.aadhaarNo,
+                panNo: item.panNo,
+                heighstQualification: item.heighstQualification,
+                bloodGroup: item.bloodGroup,
+                dateOfJoining:handletimezone(item.dateOfJoining) ,
+                releaseDate: item.releaseDate===null?'':handletimezone(item.dateOfJoining),
+                status: item.status=='true'?'Active':'Resigned',
+                address: item.address,
+                emergencyContact: item.emergencyContact,
+                emergencyMobNo: item.emergencyMobNo,
+                pfNo: item.pfNo,
+                pincode: item.pincode
+
+        }));
+        setTransformedData(transformed);
+        const ws = XLSX.utils.json_to_sheet(transformedData);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'Employee_Details_' + currDate + '.xlsx');
+       
+
+
+    }
 
     useEffect(() => {
         axios.post('/api/employee/searchemployee', {}, {
@@ -143,7 +181,7 @@ const EmployeeTable = () => {
             <Table className="mt-1">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                    <TableHead className="text-center" >Id</TableHead>
+                    <TableHead className="text-center" >Sl No.</TableHead>
                     <TableHead className="text-center" >Employee name</TableHead>
                     <TableHead className="text-center" >Employee ID </TableHead>
                     <TableHead className="text-center" >Status </TableHead>
@@ -226,11 +264,12 @@ const EmployeeTable = () => {
                                                     </AlertDialogContent>
                                                 </AlertDialog>
 
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger><button className="bg-transparent text-left"><button className="bg-transparent pb-2 text-left">Resign</button></button></AlertDialogTrigger>
+                                                <AlertDialog >
+                                                    <AlertDialogTrigger><button className="bg-transparent text-left"><button className={`bg-transparent pb-2 text-left ${item.releaseDate === ''  ? 'hidden' : ''}`}
+                                                     >Resign</button></button></AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
-                                                            <AlertDialogTitle>Are you sure want to Resign?</AlertDialogTitle>
+                                                            <AlertDialogTitle>Are you sure want to Resign This Employee?</AlertDialogTitle>
                                                             <AlertDialogDescription>
                                                                 This action can't be undone. This will remove User profile Linked to It.
                                                                 <input type="date" placeholder="Release Date" value={releaseDate} onChange={(e) => setReleaseDate(e.target.value)} required />
