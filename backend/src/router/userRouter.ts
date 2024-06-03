@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post("/createuser", UserMiddleWare, CreateUser)
 
-router.post("/login", UserMiddleWare, LoginUser)
+router.post("/login", LoginUser)
 
 router.post("/searchuser", SearchUser)
 

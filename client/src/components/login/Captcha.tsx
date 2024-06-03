@@ -1,10 +1,12 @@
 import React, { useRef, useEffect } from 'react';
 import { HiRefresh } from "react-icons/hi";
 import { Input } from "@/components/ui/input"
+import { useContext } from 'react';
+import Context from '../context/context';
 
 const Captcha: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  // const [captchaText, setCaptchaText] = useState('');
+  const { setGenerateCaptcha, typedCaptcha, setTypedCaptcha } = useContext(Context);
 
 
   const generateCaptcha = () => {
@@ -62,7 +64,7 @@ const Captcha: React.FC = () => {
     }
 
     // Store the CAPTCHA text for validation (you would need to implement the validation logic)
-    // setCaptchaText(generatedText);
+    setGenerateCaptcha(generatedText);
   };
 
   useEffect(() => {
@@ -75,7 +77,7 @@ const Captcha: React.FC = () => {
       <canvas id="captchaCanvas" ref={canvasRef} width="110" height="40" style={{ border: '1px solid #ccc', marginRight: '3%' }}></canvas>
 
       <button type="button" onClick={generateCaptcha}><HiRefresh /></button>
-      <Input height={40} type="text" placeholder="Captcha Text" className=' ml-2 h-11' />
+      <Input height={40} type="text" placeholder="Captcha Text" className=' ml-2 h-11' value={typedCaptcha} onChange={(e) => setTypedCaptcha(e.target.value)} />
       {/* <p>CAPTCHA Text: {captchaText}</p> */}
     </div>
   );
