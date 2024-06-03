@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import img from '../../assets/Static_Images/Company Logo.jpeg'
 import './login.css'
-import Captcha from './Captcha.tsx';
+// import Captcha from './Captcha.tsx';
 import { useNavigate } from "react-router-dom";
 import {
     Select,
@@ -28,17 +28,13 @@ export const Login = () => {
         e.preventDefault();
         const username = usernameRef.current?.value;
         const password = passwordRef.current?.value;
-        if (!username || !password) {
-            setErrMsg('Please provide username and password');
-            setErrView('block');
-            return;
-        }
         setErrView('none');
         axios.post('/api/user/login', { userName: username, password })
             .then(res => {
                 console.log(res.data);
                 navigate('/dashboard');
             }).catch(err => {
+                console.log(err)
                 setErrMsg(err.response.data.message);
                 setErrView('block');
             })
@@ -68,7 +64,7 @@ export const Login = () => {
                     <Input type="text" placeholder="Username" ref={usernameRef} />
                     <Input type="password" placeholder="Password" ref={passwordRef} />
 
-                    <Captcha />
+                    {/* <Captcha /> */}
                     <Button className="bg-orange-500 mb-5 mt-5" type="submit">Login</Button>
                     <p style={{ display: errView }}>{errMsg}</p>
                 </form>
