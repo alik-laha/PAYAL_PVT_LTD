@@ -124,7 +124,7 @@ const EmployeeTable = () => {
 
                                                         </DialogHeader>
 
-                                                        <DashboardUserModifyForm />
+                                                        <DashboardUserModifyForm Data={item} />
                                                     </DialogContent>
                                                 </Dialog>
 
