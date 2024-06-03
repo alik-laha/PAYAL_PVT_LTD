@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import User from "../../model/userModel";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { UserData } from "../../type/type";
 
 
 const LoginUser = async (req: Request, res: Response) => {
@@ -12,13 +11,12 @@ const LoginUser = async (req: Request, res: Response) => {
         if (!user) {
             return res.status(404).json({ error: 'User Name is not registered' });
         }
-        // console.log(user)
+
         const validPass = await bcrypt.compare(password, user.password);
         if (!validPass) {
             return res.status(401).json({ error: 'Invalid password please check' });
         }
         const token = await jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY!, { expiresIn: process.env.JWT_EXPIRE! });
-        console.log(token)
         res.cookie('token', token, { httpOnly: true, secure: true })
         res.cookie("user", user.userName, { httpOnly: true, secure: true });
         res.cookie("role", user.role, { httpOnly: true, secure: true })
