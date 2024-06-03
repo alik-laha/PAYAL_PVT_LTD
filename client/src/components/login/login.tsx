@@ -12,15 +12,42 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-
+import { useRef, useState, useContext } from 'react'
+import axios from 'axios'
+import Context from '../context/context';
 
 
 export const Login = () => {
     const navigate = useNavigate();
+    const usernameRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
+    const [errMsg, setErrMsg] = useState<string>('');
+    const [errView, setErrView] = useState<string>("none");
+    const { typedCaptcha, generateCaptcha, setTypedCaptcha } = useContext(Context);
+
+
+
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        navigate('/dashboard');
-        console.log('Form submitted');
+        const username = usernameRef.current?.value;
+        const password = passwordRef.current?.value;
+        if (typedCaptcha !== generateCaptcha) {
+            setErrMsg('Captcha is incorrect');
+            setTypedCaptcha('');
+            setErrView('block');
+            return;
+        }
+        setErrView('none');
+        axios.post('/api/user/login', { userName: username, password })
+            .then(res => {
+                console.log(res.data);
+                navigate('/dashboard');
+            }).catch(err => {
+                console.log(err)
+                setErrMsg(err.response.data.message);
+                setErrView('block');
+            })
     }
 
     return (
@@ -44,11 +71,12 @@ export const Login = () => {
                 <h3 className="text-sm font-sans mb-3 font-semibold pb-1 pt-2 text-cyan-700">Provide Username & Password</h3>
                 <form className="flex flex-col gap-4 w-64" onSubmit={handleSubmit}>
 
-                    <Input type="text" placeholder="Username" />
-                    <Input type="password" placeholder="Password" />
+                    <Input type="text" placeholder="Username" ref={usernameRef} />
+                    <Input type="password" placeholder="Password" ref={passwordRef} />
 
                     <Captcha />
                     <Button className="bg-orange-500 mb-5 mt-5" type="submit">Login</Button>
+                    <p style={{ display: errView }}>{errMsg}</p>
                 </form>
             </div>
         </div>
