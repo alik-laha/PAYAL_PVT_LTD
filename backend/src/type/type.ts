@@ -9,7 +9,7 @@ export interface RcnPrimaryModifyProps {
     netWeight: string;
     rcnStatus: string;
     editedBy: string;
-    date:Date
+    date: Date
 
 }
 
@@ -37,4 +37,11 @@ export interface EmployeeData {
     dateOfJoining: string;
     address: string;
     pincode: string;
+}
+
+export interface TokenVerify {
+    employeeId: string;
+    role: string;
+    dept: string;
+    exp: number;
 }
