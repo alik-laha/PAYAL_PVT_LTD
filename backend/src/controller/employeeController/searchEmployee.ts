@@ -5,9 +5,8 @@ import { Op } from "sequelize";
 
 const searchEmployee = async (req: Request, res: Response) => {
     try {
-        console.log(req.query)
-        const page = parseInt(req.params.page as string, 10) || 1;
-        const size = parseInt(req.params.limit as string, 10) || 10;
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
         const { searchData } = req.body;
         const offset = (page - 1) * size;
         const limit = size;
@@ -26,7 +25,22 @@ const searchEmployee = async (req: Request, res: Response) => {
                 ]
             }
         }
-        const Employees = await Employee.findAll({
+        let Employees
+        if (page === 0 && size === 0) {
+            console.log(req.query, req.params)
+            Employees = await Employee.findAll({
+                where,
+                order: [['createdAt', 'DESC']], // Order by date descending
+
+            });
+            console.log(page, size, "Alik")
+            if (Employees.length === 0) {
+                return res.status(404).json({ msg: 'No Employee found' })
+            }
+            return res.status(200).json({ msg: 'Employee found', Employees })
+
+        }
+        Employees = await Employee.findAll({
             where,
             order: [['createdAt', 'DESC']], // Order by date descending
             limit: limit,

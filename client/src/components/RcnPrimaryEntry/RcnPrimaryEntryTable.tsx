@@ -19,6 +19,7 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
+import { pageNo,pagelimit } from "../common/exportData"
 
 
 import {
@@ -70,9 +71,9 @@ const RcnPrimaryEntryTable = () => {
     const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [blConNo, setBlConNo] = useState<string>("")
     const [Data, setData] = useState<RcnPrimaryEntryData[]>([])
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(pageNo)
     const [EditData, setEditData] = useState<EditPendingData[]>([])
-    const limit = 10
+    const limit = pagelimit
     const { editPendingData } = useContext(Context);
     const [blockpagen, setblockpagen] = useState('flex')
     const currDate = new Date().toLocaleDateString();
@@ -169,8 +170,8 @@ const RcnPrimaryEntryTable = () => {
                 Difference: item.difference,
                 Edit_Status: item.editStatus,
                 Created_by: item.editedBy,
-                 // received by is updated as editedby in edit rcn table
-                Approved_or_Rejected_By: item.approvedBy 
+                // received by is updated as editedby in edit rcn table
+                Approved_or_Rejected_By: item.approvedBy
                 // approvedBy is not there in edit rcn table
             }));
             setTransformedData(transformed);
@@ -349,7 +350,7 @@ const RcnPrimaryEntryTable = () => {
                                                 <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                            <AlertDialog>
+                                                <AlertDialog>
                                                     <AlertDialogTrigger>
                                                         <button className="bg-transparent text-left pb-2">Approve</button>
                                                     </AlertDialogTrigger>
