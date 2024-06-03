@@ -169,8 +169,8 @@ const RcnPrimaryEntryTable = () => {
                 Difference: item.difference,
                 Edit_Status: item.editStatus,
                 Created_by: item.editedBy,
-                 // received by is updated as editedby in edit rcn table
-                Approved_or_Rejected_By: item.approvedBy 
+                // received by is updated as editedby in edit rcn table
+                Approved_or_Rejected_By: item.approvedBy
                 // approvedBy is not there in edit rcn table
             }));
             setTransformedData(transformed);
@@ -349,7 +349,7 @@ const RcnPrimaryEntryTable = () => {
                                                 <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                            <AlertDialog>
+                                                <AlertDialog>
                                                     <AlertDialogTrigger>
                                                         <button className="bg-transparent text-left pb-2">Approve</button>
                                                     </AlertDialogTrigger>

@@ -27,6 +27,7 @@ const searchEmployee = async (req: Request, res: Response) => {
         }
         let Employees
         if (page === 0 && size === 0) {
+            console.log(req.query, req.params)
             Employees = await Employee.findAll({
                 where,
                 order: [['createdAt', 'DESC']], // Order by date descending

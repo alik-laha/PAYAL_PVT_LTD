@@ -55,7 +55,7 @@ const EmployeeTable = () => {
     const [releaseDate, setReleaseDate] = useState<string>("")
 
     // const currDate = new Date().toLocaleDateString();
-    const limit = 10
+    const limit = 2
     const [page, setPage] = useState(1)
 
 
@@ -67,7 +67,7 @@ const EmployeeTable = () => {
                 limit: limit
             }
         }).then((res) => {
-            // console.log(res.data.Employees)
+            console.log(res.data.Employees)
             if (res.data.Employees === 0 && page > 1) {
                 setPage((prev) => prev - 1)
 
@@ -85,7 +85,7 @@ const EmployeeTable = () => {
     const exportToExcel = async () => { }
 
     useEffect(() => {
-        axios.post('/api/employee/searchemployee', {
+        axios.post('/api/employee/searchemployee', {}, {
             params: {
                 page: page,
                 limit: limit
@@ -101,6 +101,7 @@ const EmployeeTable = () => {
             if (err.response.data.msg === 'No Employee found') {
                 setData([])
                 setError(err.response.data.msg)
+                setPage(prev => prev - 1)
             }
         })
     }, [page])
@@ -149,32 +150,32 @@ const EmployeeTable = () => {
                     <TableHead className="text-center" >Date of Joining</TableHead>
                     <TableHead className="text-center" >Contact No.</TableHead>
                     <TableHead className="text-center" >Email</TableHead>
-                   
+
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>
                 <TableBody>
                     {Error ? <p >{Error}</p> : null}
                     {
-                        Data.map((item,idx) => {
+                        Data.map((item, idx) => {
                             return (
                                 <TableRow key={item.id}>
-                                    <TableCell className="text-center" >{idx+1}</TableCell>
+                                    <TableCell className="text-center" >{idx + 1}</TableCell>
                                     <TableCell className="text-center" >{item.employeeName}</TableCell>
                                     <TableCell className="text-center" >{item.employeeId}</TableCell>
                                     <TableCell className="text-center" >
-                                    {item.status  ? (
+                                        {item.status ? (
                                             <button className="bg-green-500 p-1 text-white rounded">Active</button>
                                         ) : (
                                             <button className="bg-red-500 p-1 text-white rounded">Resigned</button>
                                         )}
-                                        
-                                      </TableCell>
+
+                                    </TableCell>
                                     <TableCell className="text-center" >{item.designation}</TableCell>
                                     <TableCell className="text-center" >{handletimezone(item.dateOfJoining)}</TableCell>
                                     <TableCell className="text-center" >{item.mobNo}</TableCell>
                                     <TableCell className="text-center" >{item.email}</TableCell>
-                                  
+
                                     <TableCell className="text-center" >
                                         <Popover>
                                             <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
