@@ -6,6 +6,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { format, toZonedTime } from 'date-fns-tz'
 import {
     Pagination,
     PaginationContent,
@@ -104,6 +105,12 @@ const EmployeeTable = () => {
         })
     }, [page])
 
+    function handletimezone(date: string | Date) {
+        const apidate = new Date(date);
+        const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
+        const finaldate = format(localdate, 'dd-MM-yyyy', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })
+        return finaldate;
+    }
     const handleDelete = (data: EmployeeData) => {
         axios.delete(`/api/employee/deleteemployee/${data.employeeId}`).then((res) => {
             console.log(res.data)
@@ -135,33 +142,42 @@ const EmployeeTable = () => {
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Id</TableHead>
-                    <TableHead className="text-center" >Emp name</TableHead>
-                    <TableHead className="text-center" >Emp ID </TableHead>
-                    <TableHead className="text-center" >Desg.</TableHead>
+                    <TableHead className="text-center" >Employee name</TableHead>
+                    <TableHead className="text-center" >Employee ID </TableHead>
+                    <TableHead className="text-center" >Status </TableHead>
+                    <TableHead className="text-center" >Designation</TableHead>
                     <TableHead className="text-center" >Date of Joining</TableHead>
                     <TableHead className="text-center" >Contact No.</TableHead>
                     <TableHead className="text-center" >Email</TableHead>
-                    <TableHead className="text-center" >Emp Status </TableHead>
+                   
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>
                 <TableBody>
                     {Error ? <p >{Error}</p> : null}
                     {
-                        Data.map((item) => {
+                        Data.map((item,idx) => {
                             return (
                                 <TableRow key={item.id}>
-                                    <TableCell className="text-center" >{item.id}</TableCell>
+                                    <TableCell className="text-center" >{idx+1}</TableCell>
                                     <TableCell className="text-center" >{item.employeeName}</TableCell>
                                     <TableCell className="text-center" >{item.employeeId}</TableCell>
+                                    <TableCell className="text-center" >
+                                    {item.status  ? (
+                                            <button className="bg-green-500 p-1 text-white rounded">Active</button>
+                                        ) : (
+                                            <button className="bg-red-500 p-1 text-white rounded">Resigned</button>
+                                        )}
+                                        
+                                      </TableCell>
                                     <TableCell className="text-center" >{item.designation}</TableCell>
-                                    <TableCell className="text-center" >{item.dateOfJoining}</TableCell>
+                                    <TableCell className="text-center" >{handletimezone(item.dateOfJoining)}</TableCell>
                                     <TableCell className="text-center" >{item.mobNo}</TableCell>
                                     <TableCell className="text-center" >{item.email}</TableCell>
-                                    <TableCell className="text-center" >{item.status ? "Active" : "Resgined"}</TableCell>
+                                  
                                     <TableCell className="text-center" >
                                         <Popover>
-                                            <PopoverTrigger><button className="bg-green-500 p-2 text-white rounded">Action</button>
+                                            <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
