@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import User from "../../model/userModel";
 import jwt from "jsonwebtoken";
+import { TokenVerify } from "../../type/type";
 
 const VerifyUser = async (req: Request, res: Response) => {
     try {
@@ -17,7 +18,7 @@ const VerifyUser = async (req: Request, res: Response) => {
         if (!token) {
             return res.status(401).json({ error: 'please provide the token' });
         }
-        const compareToken = await jwt.verify(token, process.env.JWT_SECRET_KEY!);
+        const compareToken: TokenVerify = await jwt.verify(token, process.env.JWT_SECRET_KEY!) as TokenVerify;
         if (!compareToken) {
             return res.status(401).json({ error: 'Invalid token' });
         }
@@ -25,6 +26,19 @@ const VerifyUser = async (req: Request, res: Response) => {
         if (!user) {
             return res.status(404).json({ error: 'User is not registered' });
         }
+        if (compareToken.exp < Date.now().valueOf() / 1000) {
+            return res.status(401).json({ error: 'Token has expired' });
+        }
+        if (compareToken.employeeId !== employeeId) {
+            return res.status(401).json({ error: 'Invalid employee' });
+        }
+        if (compareToken.role !== role) {
+            return res.status(401).json({ error: 'Invalid role' });
+        }
+        if (compareToken.dept !== dept) {
+            return res.status(401).json({ error: 'Invalid dept' });
+        }
+        return res.status(200).json({ role: compareToken.role, dept: compareToken.dept })
 
 
     }
