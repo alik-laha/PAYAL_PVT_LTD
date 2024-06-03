@@ -8,8 +8,10 @@ import axios from "axios";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 
+
 interface Props {
     data: {
+        status: string;
         employeeName: string;
         designation: string;
         email: string;
@@ -48,7 +50,7 @@ const EmployeeModifyForm = (props: Props) => {
     // const [releaseDate, setReleaseDate] = React.useState<string>('')
     const [address, setAddress] = React.useState<string>('')
     const [pincode, setPincode] = React.useState<string>('')
-
+  
     const [errortext, setErrorText] = React.useState<string>("")
 
     const successdialog = document.getElementById('modifysuccessemployeedialog') as HTMLInputElement;
@@ -108,6 +110,8 @@ const EmployeeModifyForm = (props: Props) => {
         setEmergencyMobNo(props.data.emergencyMobNo)
         setPfNo(props.data.pfNo)
         setDate(new Date(props.data.dateOfJoining))
+        
+        
     }, [props.data])
 
 
@@ -198,6 +202,9 @@ const EmployeeModifyForm = (props: Props) => {
                     <Input className="w-2/4" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)} />
 
                 </div>
+               
+                
+                
 
 
 

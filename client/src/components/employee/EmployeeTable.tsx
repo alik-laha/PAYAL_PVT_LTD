@@ -45,7 +45,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { EmployeeData } from "@/type/type";
+import {  EmployeeData } from "@/type/type";
 import { LuDownload } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { pageNo, pagelimit } from "../common/exportData"
@@ -134,7 +134,9 @@ const EmployeeTable = () => {
                 setPage((prev) => prev - 1)
 
             }
+            // console.log(res.data.Employees)
             setData(res.data.Employees)
+           
             setError("")
         }).catch((err) => {
             if (err.response.data.msg === 'No Employee found') {
@@ -172,7 +174,7 @@ const EmployeeTable = () => {
         <div className="ml-5 mt-5">
             <div className="flex ">
 
-                <Input className="w-60 mb-2" placeholder="Search By Employee ID/ Name" onChange={handleSearch} />
+                <Input className="w-60 mb-2" placeholder="Search By Emp ID/ Name" onChange={handleSearch} />
 
             </div>
 
@@ -212,6 +214,7 @@ const EmployeeTable = () => {
                         : null}
                     {
                         Data.map((item, idx) => {
+                           
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
@@ -264,8 +267,9 @@ const EmployeeTable = () => {
                                                     </AlertDialogContent>
                                                 </AlertDialog>
 
-                                                <AlertDialog >
-                                                    <AlertDialogTrigger><button className="bg-transparent text-left"><button className={`bg-transparent pb-2 text-left ${item.releaseDate === '' ? 'hidden' : ''}`}
+                                               {item.status && <AlertDialog >
+                                                    
+                                                    <AlertDialogTrigger><button className="bg-transparent text-left"><button className='bg-transparent text-left'
                                                     >Resign</button></button></AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
@@ -280,7 +284,7 @@ const EmployeeTable = () => {
                                                             <AlertDialogAction onClick={() => handleRelese(item)}>Continue</AlertDialogAction>
                                                         </AlertDialogFooter>
                                                     </AlertDialogContent>
-                                                </AlertDialog>
+                                                </AlertDialog>} 
                                             </PopoverContent>
                                         </Popover>
                                     </TableCell>

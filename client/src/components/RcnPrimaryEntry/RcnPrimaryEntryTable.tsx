@@ -352,7 +352,7 @@ const RcnPrimaryEntryTable = () => {
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <AlertDialog>
                                                     <AlertDialogTrigger>
-                                                        <button className="bg-transparent text-left pb-2">Approve</button>
+                                                        <button className="bg-transparent text-black text-left hover:font-bold hover:text-base hover:text-green-600">Approve</button>
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
@@ -366,7 +366,7 @@ const RcnPrimaryEntryTable = () => {
                                                 </AlertDialog>
                                                 <AlertDialog>
                                                     <AlertDialogTrigger>
-                                                        <button className="bg-transparent text-left">Reject</button>
+                                                        <button className="bg-transparent pt-2 text-black text-left hover:font-bold hover:text-base hover:text-red-600">Reject</button>
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
