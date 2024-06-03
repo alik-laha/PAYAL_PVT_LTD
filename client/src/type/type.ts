@@ -27,7 +27,7 @@ export interface EditPendingData extends RcnPrimaryEntryData {
 }
 
 export interface ExcelRcnPrimaryEntryData {
-    SL_No: string;
+    SL_No: number;
     Approved_or_Rejected_By: string;
     Origin: string;
     Bl_No: string;

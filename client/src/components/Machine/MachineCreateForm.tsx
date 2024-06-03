@@ -1,5 +1,6 @@
-
-const MachineCreateForm = () => {
-
+const MachineCreateForm = () =>{
+    return (
+        <></>
+    )
 }
 export default MachineCreateForm

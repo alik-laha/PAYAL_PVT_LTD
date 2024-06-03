@@ -8,7 +8,7 @@ import RcnGrading from './components/Rcn Grading/RCNGrading'
 import Employee from './components/employee/Employee'
 import DashboardUser from './components/dashboard user/DashboardUser'
 import Machine from './components/Machine/Machine'
-import MachineCreateForm from './components/Machine/machineCreateForm'
+
 function App() {
 
   return (
@@ -21,7 +21,7 @@ function App() {
         <Route path='/dashboard/employee' element={<Employee/>} />
         <Route path='/dashboard/user' element={<DashboardUser/>} />
         <Route path='/dashboard/rcnGrading' element={<RcnGrading/>} />
-        <Route path='/dashboard/machine' element={<MachineCreateForm/>} />
+        <Route path='/dashboard/machine' element={<Machine/>} />
       </Routes>
     </>
   )

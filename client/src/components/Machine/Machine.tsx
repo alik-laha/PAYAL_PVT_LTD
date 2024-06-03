@@ -2,9 +2,9 @@
 import DashboardHeader from '../dashboard/DashboardHeader'
 import DashboardSidebar from '../dashboard/DashboardSidebar'
 
-import MachineCreateForm from './machineCreateForm';
+
 import { Button } from "@/components/ui/button";
-import MachineTable from './MachineTable'
+
 import {
     Dialog,
     DialogContent,
@@ -13,6 +13,8 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import MachineTable from './MachineTable';
+import MachineCreateForm from './MachineCreateForm'
 
 
 
@@ -60,4 +62,4 @@ const Machine = () => {
 
     )
 }
-export default machine;
+export default Machine;

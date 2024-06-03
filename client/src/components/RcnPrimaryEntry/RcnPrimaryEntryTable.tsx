@@ -155,7 +155,7 @@ const RcnPrimaryEntryTable = () => {
         let ws
         let transformed
         if (EditData.length > 0) {
-            console.log('Hi')
+            
             transformed = EditData.map((item: EditPendingData, idx: number) => ({
                 SL_No: idx + 1,
                 Date: handletimezone(item.date),

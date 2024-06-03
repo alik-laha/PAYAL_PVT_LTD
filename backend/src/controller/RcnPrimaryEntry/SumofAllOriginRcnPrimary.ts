@@ -10,12 +10,14 @@ const SumOfAllOriginRcnPrimary = async (req: Request, res: Response): Promise<Re
         let Year = today.getFullYear()
 
         const compareDate = new Date(`${Year}-04-01`);
+        compareDate.setHours(0,0,0,0)
         let targetDate
         if (today < compareDate) {
             targetDate = new Date(`${Year - 1}-04-01`);
         }
 
         targetDate = new Date(`${Year}-04-01`);
+        targetDate.setHours(0,0,0,0)
         const AllOriginRcnPrimary = await RcnPrimary.findAll({
             attributes: [
                 'origin',
