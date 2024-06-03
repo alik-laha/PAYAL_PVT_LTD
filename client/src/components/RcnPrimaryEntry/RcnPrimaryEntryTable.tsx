@@ -214,16 +214,16 @@ const RcnPrimaryEntryTable = () => {
             }
         }
     }
-    const handleApprove = async (item: RcnPrimaryEntryData) => {
-        const response = await axios.put(`/api/rcnprimary/approveeditrcn/${item.id}`)
-        const data = await response.data
-        if (data.message === "Edit Request of Rcn Entry is Approved Successfully") {
+    // const handleApprove = async (item: RcnPrimaryEntryData) => {
+    //     const response = await axios.put(`/api/rcnprimary/approveeditrcn/${item.id}`)
+    //     const data = await response.data
+    //     if (data.message === "Edit Request of Rcn Entry is Approved Successfully") {
 
-            if (approvesuccessdialog != null) {
-                (approvesuccessdialog as any).showModal();
-            }
-        }
-    }
+    //         if (approvesuccessdialog != null) {
+    //             (approvesuccessdialog as any).showModal();
+    //         }
+    //     }
+    // }
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
         const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
