@@ -48,6 +48,7 @@ import { useEffect, useState } from "react";
 import { EmployeeData } from "@/type/type";
 import { LuDownload } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
+import { pageNo,pagelimit } from "../common/exportData"
 
 const EmployeeTable = () => {
     const [Data, setData] = useState<EmployeeData[]>([])
@@ -55,8 +56,8 @@ const EmployeeTable = () => {
     const [releaseDate, setReleaseDate] = useState<string>("")
 
     // const currDate = new Date().toLocaleDateString();
-    const limit = 2
-    const [page, setPage] = useState(1)
+    const limit = pagelimit
+    const [page, setPage] = useState(pageNo)
 
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -160,7 +161,7 @@ const EmployeeTable = () => {
                         Data.map((item, idx) => {
                             return (
                                 <TableRow key={item.id}>
-                                    <TableCell className="text-center" >{idx + 1}</TableCell>
+                                    <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center" >{item.employeeName}</TableCell>
                                     <TableCell className="text-center" >{item.employeeId}</TableCell>
                                     <TableCell className="text-center" >

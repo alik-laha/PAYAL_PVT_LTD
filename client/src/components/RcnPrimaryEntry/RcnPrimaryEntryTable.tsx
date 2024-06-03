@@ -19,6 +19,7 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
+import { pageNo,pagelimit } from "../common/exportData"
 
 
 import {
@@ -70,9 +71,9 @@ const RcnPrimaryEntryTable = () => {
     const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [blConNo, setBlConNo] = useState<string>("")
     const [Data, setData] = useState<RcnPrimaryEntryData[]>([])
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(pageNo)
     const [EditData, setEditData] = useState<EditPendingData[]>([])
-    const limit = 10
+    const limit = pagelimit
     const { editPendingData } = useContext(Context);
     const [blockpagen, setblockpagen] = useState('flex')
     const currDate = new Date().toLocaleDateString();
