@@ -11,8 +11,10 @@ const SearchUser = async (req: Request, res: Response) => {
         const offset = (page - 1) * size;
         const limit = size;
         let user
+        const count = await User.count()
+
         if (page === 0 || size === 0) {
-            user = await User.findAndCountAll({
+            user = await User.findAll({
                 attributes: ['employeeName', 'userName', 'dept', 'role', 'createdBy', 'employeeId'],
                 where: {
                     [Op.or]: [
@@ -44,9 +46,9 @@ const SearchUser = async (req: Request, res: Response) => {
                     ]
                 }
             })
-            return res.status(200).json({ msg: 'User found', user })
+            return res.status(200).json({ msg: 'User found', user, count })
         }
-        user = await User.findAndCountAll({
+        user = await User.findAll({
             where: {
                 limit: limit,
                 offset: offset

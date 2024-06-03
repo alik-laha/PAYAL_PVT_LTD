@@ -6,6 +6,16 @@ import { Op } from "sequelize";
 
 const SumOfAllOriginRcnPrimary = async (req: Request, res: Response): Promise<Response> => {
     try {
+        const today = new Date();
+        let Year = today.getFullYear()
+
+        const compareDate = new Date(`${Year}-04-01`);
+        let targetDate
+        if (today < compareDate) {
+            targetDate = new Date(`${Year - 1}-04-01`);
+        }
+
+        targetDate = new Date(`${Year}-04-01`);
         const AllOriginRcnPrimary = await RcnPrimary.findAll({
             attributes: [
                 'origin',
@@ -13,14 +23,17 @@ const SumOfAllOriginRcnPrimary = async (req: Request, res: Response): Promise<Re
             ],
             where: {
                 rcnStatus: 'QC Approved',
-                
                 [Op.or]: [
                     { editStatus: 'Approved' },
                     { editStatus: 'Created' }
-                ]
+                ],
+                date: {
+                    [Op.between]: [targetDate, today]
+                }
             },
             group: ['origin']
         });
+
         const CountPendingEdit = await RcnEdit.count();
 
         // Send the result as a response

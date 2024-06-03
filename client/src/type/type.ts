@@ -28,7 +28,6 @@ export interface EditPendingData extends RcnPrimaryEntryData {
 
 export interface ExcelRcnPrimaryEntryData {
     SL_No: string;
-    
     Approved_or_Rejected_By: string;
     Origin: string;
     Bl_No: string;
@@ -81,4 +80,16 @@ export interface User {
     dept: string;
     role: string;
     createdBy: string;
+}
+
+export interface UserProps {
+    Data: {
+        id: number;
+        employeeId: string;
+        employeeName: string;
+        userName: string;
+        dept: string;
+        role: string;
+        createdBy: string;
+    }
 }

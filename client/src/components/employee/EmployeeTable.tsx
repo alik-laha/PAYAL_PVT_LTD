@@ -48,7 +48,7 @@ import { useEffect, useState } from "react";
 import { EmployeeData } from "@/type/type";
 import { LuDownload } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
-import { pageNo,pagelimit } from "../common/exportData"
+import { pageNo, pagelimit } from "../common/exportData"
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 
@@ -60,7 +60,7 @@ const EmployeeTable = () => {
     const currDate = new Date().toLocaleDateString();
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
-    
+
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchData = e.target.value
@@ -85,30 +85,30 @@ const EmployeeTable = () => {
         })
     }
 
-    const exportToExcel = async () => { 
+    const exportToExcel = async () => {
 
         const response = await axios.post('/api/employee/searchemployee', {}, {})
         const data1 = await response.data
         const transformed = data1.Employees.map((item: EmployeeData, idx: number) => ({
-                        id: idx+1,
-                employeeId: item.employeeId,
-                employeeName: item.employeeName,
-                designation: item.designation,
-                email: item.email,
-                mobNo: item.mobNo,
-                alternateMobNo: item.alternateMobNo,
-                aadhaarNo: item.aadhaarNo,
-                panNo: item.panNo,
-                heighstQualification: item.heighstQualification,
-                bloodGroup: item.bloodGroup,
-                dateOfJoining:handletimezone(item.dateOfJoining) ,
-                releaseDate: item.releaseDate===null?'':handletimezone(item.dateOfJoining),
-                status: item.status=='true'?'Active':'Resigned',
-                address: item.address,
-                emergencyContact: item.emergencyContact,
-                emergencyMobNo: item.emergencyMobNo,
-                pfNo: item.pfNo,
-                pincode: item.pincode
+            id: idx + 1,
+            employeeId: item.employeeId,
+            employeeName: item.employeeName,
+            designation: item.designation,
+            email: item.email,
+            mobNo: item.mobNo,
+            alternateMobNo: item.alternateMobNo,
+            aadhaarNo: item.aadhaarNo,
+            panNo: item.panNo,
+            heighstQualification: item.heighstQualification,
+            bloodGroup: item.bloodGroup,
+            dateOfJoining: handletimezone(item.dateOfJoining),
+            releaseDate: item.releaseDate == null ? '' : handletimezone(item.dateOfJoining),
+            status: item.status ? 'Active' : 'Resigned',
+            address: item.address,
+            emergencyContact: item.emergencyContact,
+            emergencyMobNo: item.emergencyMobNo,
+            pfNo: item.pfNo,
+            pincode: item.pincode
 
         }));
         setTransformedData(transformed);
@@ -118,7 +118,7 @@ const EmployeeTable = () => {
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
         saveAs(blob, 'Employee_Details_' + currDate + '.xlsx');
-       
+
 
 
     }
@@ -194,22 +194,22 @@ const EmployeeTable = () => {
 
                 </TableHeader>
                 <TableBody>
-                    {Error ? 
-             
-             <TableRow>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">{Error}</p></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
+                    {Error ?
+
+                        <TableRow>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">{Error}</p></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
 
 
-             </TableRow>
-                     : null}
+                        </TableRow>
+                        : null}
                     {
                         Data.map((item, idx) => {
                             return (
@@ -265,8 +265,8 @@ const EmployeeTable = () => {
                                                 </AlertDialog>
 
                                                 <AlertDialog >
-                                                    <AlertDialogTrigger><button className="bg-transparent text-left"><button className={`bg-transparent pb-2 text-left ${item.releaseDate === ''  ? 'hidden' : ''}`}
-                                                     >Resign</button></button></AlertDialogTrigger>
+                                                    <AlertDialogTrigger><button className="bg-transparent text-left"><button className={`bg-transparent pb-2 text-left ${item.releaseDate === '' ? 'hidden' : ''}`}
+                                                    >Resign</button></button></AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
                                                             <AlertDialogTitle>Are you sure want to Resign This Employee?</AlertDialogTitle>

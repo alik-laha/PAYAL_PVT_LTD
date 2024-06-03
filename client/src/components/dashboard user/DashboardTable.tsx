@@ -11,7 +11,6 @@ import {
     PaginationContent,
     PaginationEllipsis,
     PaginationItem,
-
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
@@ -58,8 +57,8 @@ const EmployeeTable = () => {
         axios.post('/api/user/searchuser', { SearchUser: e.target.value })
             .then((res) => {
                 console.log(res.data)
-                setUserData(res.data.user.rows)
-                setCount(res.data.user.count)
+                setUserData(res.data.user)
+                setCount(res.data.count)
             })
             .catch((err) => {
                 console.log(err)
@@ -70,13 +69,23 @@ const EmployeeTable = () => {
         axios.post('/api/user/searchuser', { SearchUser: '' })
             .then((res) => {
                 console.log(res.data)
-                setUserData(res.data.user.rows)
-                setCount(res.data.user.count)
+                setUserData(res.data.user)
+                setCount(res.data.count)
             })
             .catch((err) => {
                 console.log(err)
             })
     }, [])
+    const handleDelete = (item: User) => {
+        axios.delete(`/api/user/deleteuser/${item.employeeId}`)
+            .then((res) => {
+                console.log(res.data)
+                setUserData(UserData.filter((data) => data.employeeId !== item.employeeId))
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
     return (
         <div className="ml-5 mt-5">
             <div className="flex ">
@@ -124,7 +133,7 @@ const EmployeeTable = () => {
 
                                                         </DialogHeader>
 
-                                                        <DashboardUserModifyForm />
+                                                        <DashboardUserModifyForm Data={item} />
                                                     </DialogContent>
                                                 </Dialog>
 
@@ -139,7 +148,7 @@ const EmployeeTable = () => {
                                                         </AlertDialogHeader>
                                                         <AlertDialogFooter>
                                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction>Continue</AlertDialogAction>
+                                                            <AlertDialogAction onClick={() => handleDelete(item)}>Continue</AlertDialogAction>
                                                         </AlertDialogFooter>
                                                     </AlertDialogContent>
                                                 </AlertDialog>
