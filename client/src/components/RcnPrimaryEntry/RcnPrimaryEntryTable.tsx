@@ -7,7 +7,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { LuDownload } from "react-icons/lu";
-import {format,toZonedTime} from 'date-fns-tz'
+import { format, toZonedTime } from 'date-fns-tz'
 import { FaSearch } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import React, { useEffect } from "react"
@@ -74,7 +74,7 @@ const RcnPrimaryEntryTable = () => {
     const [EditData, setEditData] = useState<EditPendingData[]>([])
     const limit = 10
     const { editPendingData } = useContext(Context);
-    const [blockpagen,setblockpagen] = useState('flex')
+    const [blockpagen, setblockpagen] = useState('flex')
     const currDate = new Date().toLocaleDateString();
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
@@ -83,27 +83,27 @@ const RcnPrimaryEntryTable = () => {
     const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialog') as HTMLInputElement;
 
     const [transformedData, setTransformedData] = useState<ExcelRcnPrimaryEntryData[]>([]);
-    
-    if(rejectcloseDialogButton){
+
+    if (rejectcloseDialogButton) {
         rejectcloseDialogButton.addEventListener('click', () => {
-            if(rejectsuccessdialog!=null){
+            if (rejectsuccessdialog != null) {
                 (rejectsuccessdialog as any).close();
                 window.location.reload()
             }
-            
-            
-          });
+
+
+        });
     }
-    if(approvecloseDialogButton){
+    if (approvecloseDialogButton) {
         approvecloseDialogButton.addEventListener('click', () => {
-            if(approvesuccessdialog!=null){
+            if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).close();
                 window.location.reload()
             }
-            
-          });
+
+        });
     }
-  
+
     useEffect(() => {
         if (editPendingData) {
             console.log(editPendingData)
@@ -136,7 +136,7 @@ const RcnPrimaryEntryTable = () => {
 
     }
 
-   
+
 
     useEffect(() => {
         handleSearch()
@@ -150,19 +150,12 @@ const RcnPrimaryEntryTable = () => {
             toDate: todate
         })
         const data1 = await response.data
-        //console.log(data1)
-       // Transform the data
-      
-        
-  
-        
-        //console.log(transformedData)
-        
+
         let ws
         let transformed
-        if(EditData.length > 0 ){
-            transformed = EditData.map((item:EditPendingData,idx: number) => ({
-                SL_No:idx+1,
+        if (EditData.length > 0) {
+            transformed = EditData.map((item: EditPendingData, idx: number) => ({
+                SL_No: idx + 1,
                 Date: handletimezone(item.date),
                 Origin: item.origin,
                 Bl_No: item.blNo,
@@ -174,17 +167,17 @@ const RcnPrimaryEntryTable = () => {
                 Net_Weight: item.netWeight,
                 Difference: item.difference,
                 Edit_Status: item.editStatus,
-                Created_by: item.receivedBy, 
+                Created_by: item.receivedBy,
                 Approved_or_Rejected_By: item.editedBy
-                
-          }));
-            
-             ws = XLSX.utils.json_to_sheet(transformedData);
+
+            }));
+
+            ws = XLSX.utils.json_to_sheet(transformedData);
         }
-        else{
-                transformed = data1.rcnEntries.map((item:RcnPrimaryEntryData,idx: number) => ({
-                SL_No:idx+1,
-                
+        else {
+            transformed = data1.rcnEntries.map((item: RcnPrimaryEntryData, idx: number) => ({
+                SL_No: idx + 1,
+
                 Origin: item.origin,
                 Bl_No: item.blNo,
                 Con_No: item.conNo,
@@ -196,10 +189,10 @@ const RcnPrimaryEntryTable = () => {
                 Net_Weight: item.netWeight,
                 Difference: item.difference,
                 Edit_Status: item.editStatus,
-                Created_by: item.receivedBy, 
+                Created_by: item.receivedBy,
                 Approved_or_Rejected_By: item.approvedBy
-                
-          }));
+
+            }));
             setTransformedData(transformed);
             ws = XLSX.utils.json_to_sheet(transformedData);
         }
@@ -207,8 +200,8 @@ const RcnPrimaryEntryTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'RCN_Primary_Entry_'+currDate+'.xlsx');
-      };
+        saveAs(blob, 'RCN_Primary_Entry_' + currDate + '.xlsx');
+    };
 
     const handleRejection = async (item: RcnPrimaryEntryData) => {
         const response = await axios.delete(`/api/rcnprimary/rejectededitrcn/${item.id}`)
@@ -216,28 +209,28 @@ const RcnPrimaryEntryTable = () => {
         console.log(data)
         if (data.message === "Rcn Entry rejected successfully") {
             console.log('rejected enter')
-            if(rejectsuccessdialog!=null){
+            if (rejectsuccessdialog != null) {
                 (rejectsuccessdialog as any).showModal();
             }
         }
     }
-    const handleApprove = async (item: RcnPrimaryEntryData) => {
-        const response = await axios.put(`/api/rcnprimary/approveeditrcn/${item.id}`)
-        const data = await response.data
-        if (data.message === "Edit Request of Rcn Entry is Approved Successfully") {
-            
-            if(approvesuccessdialog!=null){
-                (approvesuccessdialog as any).showModal();
-            }
-        }
-    }
-    function handletimezone(date: string  | Date) {
+    // const handleApprove = async (item: RcnPrimaryEntryData) => {
+    //     const response = await axios.put(`/api/rcnprimary/approveeditrcn/${item.id}`)
+    //     const data = await response.data
+    //     if (data.message === "Edit Request of Rcn Entry is Approved Successfully") {
+
+    //         if (approvesuccessdialog != null) {
+    //             (approvesuccessdialog as any).showModal();
+    //         }
+    //     }
+    // }
+    function handletimezone(date: string | Date) {
         const apidate = new Date(date);
         const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
-        const finaldate=format(localdate, 'dd-MM-yyyy',{ timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })
+        const finaldate = format(localdate, 'dd-MM-yyyy', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })
         return finaldate;
-      }
-  
+    }
+
 
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -260,7 +253,7 @@ const RcnPrimaryEntryTable = () => {
 
     return (
         <div className="ml-5 mt-5 ">
-            
+
             <div className="flex flexbox-search">
 
                 <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" BL No. / Con No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
@@ -286,26 +279,22 @@ const RcnPrimaryEntryTable = () => {
                     placeholder="From Date"
 
                 />
-                {/* <DatePicker buttonName="From Date" value={fromdate} setValue={setfromDate} /> */}
-
-
-                {/* <DatePicker buttonName="To Date" value={todate} setValue={settoDate} /> */}
                 <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
                 <Input className="w-1/6 flexbox-search-width-calender"
-                        type="date"
-                        value={hidetodate}
-                        onChange={handleTodate}
-                        placeholder="To Date"
-                       
-                    />
-            
-                
-                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
-             
-            </div>
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18}/></Button>  </span>
+                    type="date"
+                    value={hidetodate}
+                    onChange={handleTodate}
+                    placeholder="To Date"
 
-                   
+                />
+
+
+                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+
+            </div>
+            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
+
+
 
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -330,7 +319,7 @@ const RcnPrimaryEntryTable = () => {
                 <TableBody>
                     {EditData.length > 0 ? (
                         EditData.map((item: EditPendingData, idx) => {
-                         
+
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{idx + 1}</TableCell>
@@ -359,22 +348,6 @@ const RcnPrimaryEntryTable = () => {
                                                 <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                              
-
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger>
-                                                        <button className="bg-transparent text-left pb-2">Approve</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
 
                                                 <AlertDialog>
                                                     <AlertDialogTrigger>
@@ -398,7 +371,7 @@ const RcnPrimaryEntryTable = () => {
                         })
                     ) : (
                         Data.map((item: RcnPrimaryEntryData, idx) => {
-                  
+
 
                             return (
                                 <TableRow key={item.id}>
@@ -425,7 +398,7 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
-                                                <button className={`bg-cyan-500 p-2 text-white rounded ${item.editStatus==='Pending'? 'bg-cyan-300' : 'bg-cyan-00'}`} disabled={item.editStatus==='Pending'?true:false}>Action</button>
+                                                <button className={`bg-cyan-500 p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-300' : 'bg-cyan-00'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <Dialog>
@@ -450,7 +423,7 @@ const RcnPrimaryEntryTable = () => {
                     )}
                 </TableBody>
             </Table>
-            <Pagination style={{display:blockpagen}} className="pt-5 ">
+            <Pagination style={{ display: blockpagen }} className="pt-5 ">
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious onClick={() => setPage((prev) => {
@@ -473,17 +446,17 @@ const RcnPrimaryEntryTable = () => {
             </Pagination>
             <dialog id="rcneditapproveScsDialog" className="dashboard-modal">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
-                <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Modify request has Been Approved</p></span>
-                
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Modify request has Been Approved</p></span>
+
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
             <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
                 <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
-                <p id="modal-text" className="pl-3 mt-1 text-base font-medium">RCN Entry Modify Request Has Been Rejected</p></span>
-                
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">RCN Entry Modify Request Has Been Rejected</p></span>
+
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
         </div>
