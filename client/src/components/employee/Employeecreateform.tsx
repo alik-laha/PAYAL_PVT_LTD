@@ -39,6 +39,7 @@ const Employeecreateform = () => {
         closeDialogButton.addEventListener('click', () => {
             if (successdialog != null) {
                 (successdialog as any).close();
+                window.location.reload();
             }
 
 
@@ -93,6 +94,7 @@ const Employeecreateform = () => {
             address
         }).then((res) => {
             console.log(res)
+            setErrorText(res.data.msg)
             if (successdialog != null) {
                 (successdialog as any).showModal();
             }
@@ -142,6 +144,7 @@ const Employeecreateform = () => {
                 addressref.current.value = '';
             }
             setDate(undefined);
+            
 
         }).catch((err) => {
             console.log(err)
@@ -153,7 +156,7 @@ const Employeecreateform = () => {
             //         }
             //         return
             //     }
-            setErrorText(err.response.data.message)
+            setErrorText(err.response.data.msg)
             if (errordialog != null) {
                 (errordialog as any).showModal();
             }
@@ -181,7 +184,7 @@ const Employeecreateform = () => {
 
                 <div className='flex'>
                     <Label className="w-2/4 pt-1 ">Date Of Joining </Label>
-                    <span className="w-/3 h-8"><DatePicker buttonName="D.O.J." value={date} setValue={setDate} /></span>
+                    <span className=""><DatePicker buttonName="Date Of Joining." value={date} setValue={setDate} /></span>
                 </div>
 
                 <div className="flex">
@@ -246,7 +249,7 @@ const Employeecreateform = () => {
             <dialog id="successemployeedialog" className="dashboard-modal">
                 <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Employee Created Successfully</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

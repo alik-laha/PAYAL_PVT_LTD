@@ -8,7 +8,7 @@ const createEmployee = async (req: Request, res: Response) => {
 
         let oldEmployee = await Employee.findOne({ where: { aadhaarNo } });
         if (oldEmployee) {
-            return res.status(400).json({ msg: 'Employee already exist with this aadhaarNo' })
+            return res.status(400).json({ msg: 'Employee Already Exists with this Aadhaar No.' })
         }
         oldEmployee = await Employee.findOne({ where: { panNo } });
         const LastUserId: EmployeeData | null = await Employee.findOne({ order: [['id', 'DESC']] }) as EmployeeData | null;
@@ -55,16 +55,16 @@ const createEmployee = async (req: Request, res: Response) => {
                 heighstQualification,
                 pfNo
             }).then((data) => {
-                return res.status(201).json({ msg: `New Employee has Created successfully with Emp ID ${employeeId}`, data })
+                return res.status(201).json({ msg: `New Employee has Created Successfully with Emp ID ${employeeId}`, data })
             }).catch((err) => {
                 console.log(err)
-                return res.status(500).json({ msg: 'error While Creating', error: err })
+                return res.status(500).json({ msg: 'Error While Creating', error: err })
             })
         }
 
     } catch (err) {
         console.log(err)
-        return res.status(500).json({ msg: 'Internal server error', error: err })
+        return res.status(500).json({ msg: 'Internal Server Error', error: err })
     }
 }
 export default createEmployee;
