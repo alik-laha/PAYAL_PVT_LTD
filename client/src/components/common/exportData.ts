@@ -4,3 +4,4 @@ export const Dept:string[] = ['Admin', 'Receiving', 'Maintainance', 'Quality-Con
 export const Role:string[] = ['Admin-Supervisor', 'Admin-Manager', 'Receiving-Supervisor', 'Receiving-Manager', 'Production']
 export const pageNo =1
 export const pagelimit=10
+export const section =['Boiling','Grading','Scooping']
