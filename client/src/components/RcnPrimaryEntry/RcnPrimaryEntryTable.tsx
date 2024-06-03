@@ -154,6 +154,7 @@ const RcnPrimaryEntryTable = () => {
         let ws
         let transformed
         if (EditData.length > 0) {
+            console.log('Hi')
             transformed = EditData.map((item: EditPendingData, idx: number) => ({
                 SL_No: idx + 1,
                 Date: handletimezone(item.date),
@@ -167,17 +168,17 @@ const RcnPrimaryEntryTable = () => {
                 Net_Weight: item.netWeight,
                 Difference: item.difference,
                 Edit_Status: item.editStatus,
-                Created_by: item.receivedBy,
-                Approved_or_Rejected_By: item.editedBy
-
+                Created_by: item.editedBy,
+                 // received by is updated as editedby in edit rcn table
+                Approved_or_Rejected_By: item.approvedBy 
+                // approvedBy is not there in edit rcn table
             }));
-
+            setTransformedData(transformed);
             ws = XLSX.utils.json_to_sheet(transformedData);
         }
         else {
             transformed = data1.rcnEntries.map((item: RcnPrimaryEntryData, idx: number) => ({
                 SL_No: idx + 1,
-
                 Origin: item.origin,
                 Bl_No: item.blNo,
                 Con_No: item.conNo,
@@ -214,16 +215,16 @@ const RcnPrimaryEntryTable = () => {
             }
         }
     }
-    // const handleApprove = async (item: RcnPrimaryEntryData) => {
-    //     const response = await axios.put(`/api/rcnprimary/approveeditrcn/${item.id}`)
-    //     const data = await response.data
-    //     if (data.message === "Edit Request of Rcn Entry is Approved Successfully") {
+    const handleApprove = async (item: RcnPrimaryEntryData) => {
+        const response = await axios.put(`/api/rcnprimary/approveeditrcn/${item.id}`)
+        const data = await response.data
+        if (data.message === "Edit Request of Rcn Entry is Approved Successfully") {
 
-    //         if (approvesuccessdialog != null) {
-    //             (approvesuccessdialog as any).showModal();
-    //         }
-    //     }
-    // }
+            if (approvesuccessdialog != null) {
+                (approvesuccessdialog as any).showModal();
+            }
+        }
+    }
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
         const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -348,7 +349,20 @@ const RcnPrimaryEntryTable = () => {
                                                 <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-
+                                            <AlertDialog>
+                                                    <AlertDialogTrigger>
+                                                        <button className="bg-transparent text-left pb-2">Approve</button>
+                                                    </AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>
                                                 <AlertDialog>
                                                     <AlertDialogTrigger>
                                                         <button className="bg-transparent text-left">Reject</button>
@@ -398,7 +412,7 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
-                                                <button className={`bg-cyan-500 p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-300' : 'bg-cyan-00'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                <button className={`bg-cyan-500 p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-300'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <Dialog>

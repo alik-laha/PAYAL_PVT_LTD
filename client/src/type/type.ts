@@ -22,12 +22,13 @@ export interface RcnPrimaryEntryData {
     createdAt: string;
 }
 export interface EditPendingData extends RcnPrimaryEntryData {
-    approvedBy: string;
+    editedBy: string;
+
 }
 
 export interface ExcelRcnPrimaryEntryData {
-    SL_No: string;
-    date: string;
+    SL_No: number;
+    
     Approved_or_Rejected_By: string;
     Origin: string;
     Bl_No: string;
@@ -70,24 +71,7 @@ export interface EmployeeData {
     pfNo: string;
     pincode: string;
 }
-export interface EditPendingData {
-    id: number;
-    origin: string;
-    blNo: string;
-    conNo: string;
-    rcnStatus: string;
-    date: string;
-    noOfBags: string;
-    truckNo: string;
-    blWeight: string;
-    netWeight: string;
-    difference: string;
-    editStatus: string;
-    receivedBy: string;
-    editedBy: string;
-    createdAt: string;
 
-}
 
 export interface User {
     id: number;
