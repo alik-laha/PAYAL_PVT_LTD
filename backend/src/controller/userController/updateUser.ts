@@ -26,6 +26,7 @@ const UpdateUser = async (req: Request, res: Response) => {
         }
         const pass = await bcrypt.hash(password, 10);
         await User.update({ userName, password: pass, role, dept }, { where: { employeeId } });
+        return res.status(200).json({ message: 'User updated successfully' });
     }
     catch (err) {
         return res.status(500).json({ message: 'Internal server error' });

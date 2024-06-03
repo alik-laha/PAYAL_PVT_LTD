@@ -14,6 +14,7 @@ import {
 import { Dept, Role } from "../common/exportData"
 import { useState } from "react"
 import { UserProps } from "@/type/type"
+import axios from "axios"
 
 const DashboardUserModifyForm = (props: UserProps) => {
 
@@ -25,9 +26,13 @@ const DashboardUserModifyForm = (props: UserProps) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        console.log('button pressed')
-
-
+        axios.put('/api/user/updateuser', { userName, password, role, dept, employeeId: props.Data.employeeId, confirmPassword })
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
     useEffect(() => {
         setDept(props.Data.dept)
