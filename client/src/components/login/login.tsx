@@ -23,7 +23,7 @@ export const Login = () => {
     const passwordRef = useRef<HTMLInputElement>(null);
     const [errMsg, setErrMsg] = useState<string>('');
     const [errView, setErrView] = useState<string>("none");
-    const { typedCaptcha, generateCaptcha } = useContext(Context);
+    const { typedCaptcha, generateCaptcha, setTypedCaptcha } = useContext(Context);
 
 
 
@@ -34,6 +34,7 @@ export const Login = () => {
         const password = passwordRef.current?.value;
         if (typedCaptcha !== generateCaptcha) {
             setErrMsg('Captcha is incorrect');
+            setTypedCaptcha('');
             setErrView('block');
             return;
         }
