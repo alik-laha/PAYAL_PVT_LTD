@@ -52,15 +52,15 @@ const EmployeeTable = () => {
     const [Data, setData] = useState<EmployeeData[]>([])
     const [Error, setError] = useState<string>("")
     const [releaseDate, setReleaseDate] = useState<string>("")
-    
-    const currDate = new Date().toLocaleDateString();
+
+    // const currDate = new Date().toLocaleDateString();
     const limit = 10
     const [page, setPage] = useState(1)
 
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchData = e.target.value
-        axios.post('/api/employee/searchemployee', { searchData},{
+        axios.post('/api/employee/searchemployee', { searchData }, {
             params: {
                 page: page,
                 limit: limit
@@ -69,7 +69,7 @@ const EmployeeTable = () => {
             // console.log(res.data.Employees)
             if (res.data.Employees === 0 && page > 1) {
                 setPage((prev) => prev - 1)
-    
+
             }
             setData(res.data.Employees)
             setError("")
@@ -81,10 +81,10 @@ const EmployeeTable = () => {
         })
     }
 
-    const exportToExcel = async () => {}
-  
+    const exportToExcel = async () => { }
+
     useEffect(() => {
-        axios.post('/api/employee/searchemployee',{
+        axios.post('/api/employee/searchemployee', {
             params: {
                 page: page,
                 limit: limit
@@ -92,7 +92,7 @@ const EmployeeTable = () => {
         }).then((res) => {
             if (res.data.Employees === 0 && page > 1) {
                 setPage((prev) => prev - 1)
-    
+
             }
             setData(res.data.Employees)
             setError("")
@@ -218,7 +218,7 @@ const EmployeeTable = () => {
 
                 </TableBody>
             </Table>
-            <Pagination  className="pt-5 ">
+            <Pagination className="pt-5 ">
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious onClick={() => setPage((prev) => {
