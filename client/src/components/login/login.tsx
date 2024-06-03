@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import img from '../../assets/Static_Images/Company Logo.jpeg'
 import './login.css'
-// import Captcha from './Captcha.tsx';
+import Captcha from './Captcha.tsx';
 import { useNavigate } from "react-router-dom";
 import {
     Select,
@@ -12,8 +12,9 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useRef, useState } from 'react'
+import { useRef, useState, useContext } from 'react'
 import axios from 'axios'
+import Context from '../context/context';
 
 
 export const Login = () => {
@@ -22,12 +23,20 @@ export const Login = () => {
     const passwordRef = useRef<HTMLInputElement>(null);
     const [errMsg, setErrMsg] = useState<string>('');
     const [errView, setErrView] = useState<string>("none");
+    const { typedCaptcha, generateCaptcha } = useContext(Context);
+
+
 
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const username = usernameRef.current?.value;
         const password = passwordRef.current?.value;
+        if (typedCaptcha !== generateCaptcha) {
+            setErrMsg('Captcha is incorrect');
+            setErrView('block');
+            return;
+        }
         setErrView('none');
         axios.post('/api/user/login', { userName: username, password })
             .then(res => {
@@ -64,7 +73,7 @@ export const Login = () => {
                     <Input type="text" placeholder="Username" ref={usernameRef} />
                     <Input type="password" placeholder="Password" ref={passwordRef} />
 
-                    {/* <Captcha /> */}
+                    <Captcha />
                     <Button className="bg-orange-500 mb-5 mt-5" type="submit">Login</Button>
                     <p style={{ display: errView }}>{errMsg}</p>
                 </form>

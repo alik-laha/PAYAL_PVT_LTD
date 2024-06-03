@@ -6,7 +6,10 @@ interface ContextType {
     setEditPendingData: (data: EditPendingData[]) => void;
     count: number;
     setCount: (count: number) => void;
-
+    setGenerateCaptcha: (captcha: string) => void;
+    generateCaptcha: string;
+    typedCaptcha: string;
+    setTypedCaptcha: (captcha: string) => void;
 
 }
 
@@ -14,7 +17,11 @@ const Context = createContext<ContextType>({
     editPendingData: [],
     setEditPendingData: () => { },
     count: 0,
-    setCount: () => { }
+    setCount: () => { },
+    generateCaptcha: '',
+    setGenerateCaptcha: () => { },
+    typedCaptcha: '',
+    setTypedCaptcha: () => { }
 
 });
 
