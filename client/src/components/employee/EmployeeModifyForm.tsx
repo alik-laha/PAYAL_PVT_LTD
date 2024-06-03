@@ -5,6 +5,8 @@ import DatePicker from "../common/DatePicker";
 
 import React, { useEffect } from "react"
 import axios from "axios";
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 
 interface Props {
     data: {
@@ -47,12 +49,41 @@ const EmployeeModifyForm = (props: Props) => {
     const [address, setAddress] = React.useState<string>('')
     const [pincode, setPincode] = React.useState<string>('')
 
+    const [errortext, setErrorText] = React.useState<string>("")
 
+    const successdialog = document.getElementById('modifysuccessemployeedialog') as HTMLInputElement;
+    const errordialog = document.getElementById('modifyerroremployeedialog') as HTMLInputElement;
+    // const dialog = document.getElementById('myDialog');
+    const closeDialogButton = document.getElementById('modifyempcloseDialog') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('modifyerrorempcloseDialog') as HTMLInputElement;
+
+    if (closeDialogButton) {
+        closeDialogButton.addEventListener('click', () => {
+            if (successdialog != null) {
+                (successdialog as any).close();
+                window.location.reload();
+            }
+
+
+        });
+    }
+    if (errorcloseDialogButton) {
+        errorcloseDialogButton.addEventListener('click', () => {
+            if (errordialog != null) {
+                (errordialog as any).close();
+            }
+
+        });
+    }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         axios.put(`/api/employee/updateemployee/${props.data.employeeId}`, { employeeName, designation, email, mobNo, alternateMobNo, aadhaarNo, panNo, heighstQualification, bloodGroup, dateOfJoining: date, address, pincode, emergencyContact, emergencyMobNo, pfNo, props }).then((res) => {
             console.log(res.data)
+            setErrorText(res.data.msg)
+            if (successdialog != null) {
+                (successdialog as any).showModal();
+            }
         }).catch((err) => {
             console.log(err)
         }
@@ -175,7 +206,21 @@ const EmployeeModifyForm = (props: Props) => {
                 <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
             </form>
 
+            <dialog id="modifysuccessemployeedialog" className="dashboard-modal">
+                <button id="modifyempcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
 
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+
+            <dialog id="modifyerroremployeedialog" className="dashboard-modal">
+                <button id="modifyerrorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
 
 
         </div>

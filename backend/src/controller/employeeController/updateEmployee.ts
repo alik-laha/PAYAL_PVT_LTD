@@ -8,7 +8,7 @@ const updateEmployee = async (req: Request, res: Response) => {
         const employeeId = req.params.id
         const oldEmployee = await Employee.findOne({ where: { employeeId: employeeId } });
         if (!oldEmployee) {
-            return res.status(400).json({ msg: 'Employee does not exist with this employeeId' })
+            return res.status(400).json({ msg: 'Employee does not exist with employeeId' })
         }
         Employee.update({
             employeeName,
@@ -31,15 +31,15 @@ const updateEmployee = async (req: Request, res: Response) => {
                 employeeId: employeeId
             }
         }).then((data) => {
-            return res.status(201).json({ msg: 'Employee updated successfully', data })
+            return res.status(201).json({ msg: 'Employee Updated Successfully', data })
         }).catch((err) => {
             console.log(err)
-            return res.status(500).json({ msg: 'error While updating', error: err })
+            return res.status(500).json({ msg: 'Error While Updating', error: err })
         })
 
     } catch (err) {
         console.log(err)
-        return res.status(500).json({ msg: 'Internal server error', error: err })
+        return res.status(500).json({ msg: 'Internal Server Error', error: err })
     }
 }
 export default updateEmployee;

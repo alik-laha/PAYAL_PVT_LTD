@@ -199,7 +199,7 @@ const EmployeeTable = () => {
                                                         <AlertDialogHeader>
                                                             <AlertDialogTitle>Are you sure want to Resign?</AlertDialogTitle>
                                                             <AlertDialogDescription>
-                                                                This action cannot be undone. This will remove user profile Linked to It.
+                                                                This action can't be undone. This will remove User profile Linked to It.
                                                                 <input type="date" placeholder="Release Date" value={releaseDate} onChange={(e) => setReleaseDate(e.target.value)} required />
                                                             </AlertDialogDescription>
                                                         </AlertDialogHeader>
