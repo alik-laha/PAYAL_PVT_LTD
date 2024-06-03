@@ -237,10 +237,10 @@ const EmployeeTable = () => {
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
                                                 <Dialog>
-                                                    <DialogTrigger>   <button className="bg-transparent pb-2 text-left">Modify</button></DialogTrigger>
+                                                    <DialogTrigger>   <button className="bg-transparent pb-2 text-left">View/Modify</button></DialogTrigger>
                                                     <DialogContent className='max-w-2xl'>
                                                         <DialogHeader>
-                                                            <DialogTitle><p className='text-1xl text-center mt-2'>Modify Employee</p></DialogTitle>
+                                                            <DialogTitle><p className='text-1xl text-center mt-2'>View Employee</p></DialogTitle>
                                                         </DialogHeader>
                                                         <EmployeeModifyForm
                                                             data={item}
