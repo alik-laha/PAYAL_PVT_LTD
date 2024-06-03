@@ -58,8 +58,8 @@ const EmployeeTable = () => {
         axios.post('/api/user/searchuser', { SearchUser: e.target.value })
             .then((res) => {
                 console.log(res.data)
-                setUserData(res.data.user.rows)
-                setCount(res.data.user.count)
+                setUserData(res.data.user)
+                setCount(res.data.count)
             })
             .catch((err) => {
                 console.log(err)
@@ -70,8 +70,8 @@ const EmployeeTable = () => {
         axios.post('/api/user/searchuser', { SearchUser: '' })
             .then((res) => {
                 console.log(res.data)
-                setUserData(res.data.user.rows)
-                setCount(res.data.user.count)
+                setUserData(res.data.user)
+                setCount(res.data.count)
             })
             .catch((err) => {
                 console.log(err)
