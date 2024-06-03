@@ -6,7 +6,15 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination"
 import { Input } from "../ui/input";
 import {
     Popover,
@@ -42,12 +50,25 @@ const EmployeeTable = () => {
     const [Data, setData] = useState<EmployeeData[]>([])
     const [Error, setError] = useState<string>("")
     const [releaseDate, setReleaseDate] = useState<string>("")
+    
+    const currDate = new Date().toLocaleDateString();
+    const limit = 10
+    const [page, setPage] = useState(1)
 
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchData = e.target.value
-        axios.post('/api/employee/searchemployee', { searchData }).then((res) => {
+        axios.post('/api/employee/searchemployee', { searchData},{
+            params: {
+                page: page,
+                limit: limit
+            }
+        }).then((res) => {
             // console.log(res.data.Employees)
+            if (res.data.Employees === 0 && page > 1) {
+                setPage((prev) => prev - 1)
+    
+            }
             setData(res.data.Employees)
             setError("")
         }).catch((err) => {
@@ -57,9 +78,18 @@ const EmployeeTable = () => {
             }
         })
     }
-
+  
     useEffect(() => {
-        axios.post('/api/employee/searchemployee').then((res) => {
+        axios.post('/api/employee/searchemployee',{
+            params: {
+                page: page,
+                limit: limit
+            }
+        }).then((res) => {
+            if (res.data.Employees === 0 && page > 1) {
+                setPage((prev) => prev - 1)
+    
+            }
             setData(res.data.Employees)
             setError("")
         }).catch((err) => {
@@ -68,7 +98,7 @@ const EmployeeTable = () => {
                 setError(err.response.data.msg)
             }
         })
-    }, [])
+    }, [page])
 
     const handleDelete = (data: EmployeeData) => {
         axios.delete(`/api/employee/deleteemployee/${data.employeeId}`).then((res) => {
@@ -184,6 +214,27 @@ const EmployeeTable = () => {
 
                 </TableBody>
             </Table>
+            <Pagination  className="pt-5 ">
+                <PaginationContent>
+                    <PaginationItem>
+                        <PaginationPrevious onClick={() => setPage((prev) => {
+                            if (prev === 1) {
+                                return prev
+                            }
+                            return prev - 1
+                        })} />
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationLink href="#">{page}</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationEllipsis />
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                    </PaginationItem>
+                </PaginationContent>
+            </Pagination>
         </div>
     )
 

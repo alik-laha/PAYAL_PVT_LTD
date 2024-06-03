@@ -5,8 +5,9 @@ import { Op } from "sequelize";
 
 const searchEmployee = async (req: Request, res: Response) => {
     try {
-        const page = parseInt(req.query.page as string, 10) || 1;
-        const size = parseInt(req.query.limit as string, 10) || 10;
+        console.log(req.query)
+        const page = parseInt(req.params.page as string, 10) || 1;
+        const size = parseInt(req.params.limit as string, 10) || 10;
         const { searchData } = req.body;
         const offset = (page - 1) * size;
         const limit = size;

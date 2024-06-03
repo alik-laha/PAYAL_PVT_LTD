@@ -113,7 +113,7 @@ const RcnPrimaryEntryTable = () => {
     }, [editPendingData])
 
     const handleSearch = async () => {
-        console.log('search button pressed')
+        //console.log('search button pressed')
         setEditData([])
         setblockpagen('flex')
         const response = await axios.put('/api/rcnprimary/rcnprimarysearch', {
