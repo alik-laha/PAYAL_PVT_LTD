@@ -95,12 +95,16 @@ export interface UserProps {
 }
 
 export interface AssetData {
-    id:number;
-    machineID:string;
-    machineName:string;
-    description:string;
-    status:string;
-    section:string;
-    createdBy:string;
-    modifiedBy:string;
+    id: number;
+    machineID: string;
+    machineName: string;
+    description: string;
+    status: string;
+    section: string;
+    createdBy: string;
+    modifiedBy: string;
+}
+
+export interface PermissionRole {
+    Admin_Manager: string[];
 }
