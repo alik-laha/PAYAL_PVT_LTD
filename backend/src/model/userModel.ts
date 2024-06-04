@@ -39,6 +39,10 @@ const User = sequelize.define('user', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    modifyedBy: {
+        type: DataTypes.STRING,
+        allowNull: true
+    }
 
 }, {
     indexes: [

@@ -90,6 +90,14 @@ const Employee = sequelize.define('employee', {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: true
+    },
+    createdBy: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    modifyedBy: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
 
 });
