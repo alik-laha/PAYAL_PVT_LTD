@@ -38,7 +38,7 @@ const VerifyUser = async (req: Request, res: Response) => {
         if (compareToken.dept !== dept) {
             return res.status(401).json({ error: 'Invalid dept' });
         }
-        return res.status(200).json({ role: compareToken.role, dept: compareToken.dept })
+        return res.status(200).json({ role: compareToken.role, dept: compareToken.dept, user: user.userName })
 
 
     }

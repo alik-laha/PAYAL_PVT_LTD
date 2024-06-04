@@ -19,6 +19,7 @@ const Private: React.FC<PrivateProps> = ({ allowedRoles }) => {
                 setDept(res.data.dept);
                 localStorage.setItem('role', res.data.role);
                 localStorage.setItem('dept', res.data.dept);
+                localStorage.setItem('user', res.data.user);
             }
             ).catch(err => {
                 console.log(err)

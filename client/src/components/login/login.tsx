@@ -32,8 +32,8 @@ export const Login = () => {
         e.preventDefault();
         const username = usernameRef.current?.value;
         const password = passwordRef.current?.value;
-       
-        if(username ==='' || password===''){
+
+        if (username === '' || password === '') {
             setErrMsg('Username or Password Not Given');
             setErrView('block');
             return
@@ -53,6 +53,7 @@ export const Login = () => {
                 setDept(res.data.dept);
                 localStorage.setItem('role', res.data.role);
                 localStorage.setItem('dept', res.data.dept);
+                localStorage.setItem('user', res.data.user);
             }).catch(err => {
                 console.log(err)
                 setErrMsg(err.response.data.error);
@@ -94,7 +95,7 @@ export const Login = () => {
                     <Captcha />
                     <span style={{ display: errView }} className="text-red-600 text-sm font-sans font-semibold w-100 text-center">{errMsg}</span>
                     <Button className="bg-orange-500 mb-5 mt-8" type="submit">Login</Button>
-                   
+
                 </form>
             </div>
         </div>

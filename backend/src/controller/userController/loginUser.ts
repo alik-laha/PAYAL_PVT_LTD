@@ -16,15 +16,15 @@ const LoginUser = async (req: Request, res: Response) => {
         if (!validPass) {
             return res.status(401).json({ error: 'Password is Not Matching' });
         }
-        
+
         const token = await jwt.sign({ employeeId: user.employeeId, role: user.role, dept: user.dept }, process.env.JWT_SECRET_KEY!, { expiresIn: process.env.JWT_EXPIRE! });
-        
+
         res.cookie('token', token, { httpOnly: true, secure: true })
         res.cookie("user", user.userName, { httpOnly: true, secure: true });
         res.cookie("role", user.role, { httpOnly: true, secure: true })
         res.cookie("dept", user.dept, { httpOnly: true, secure: true })
         res.cookie("id", user.employeeId, { httpOnly: true, secure: true })
-        return res.status(200).json({ role: user.role, dept: user.dept })
+        return res.status(200).json({ role: user.role, dept: user.dept, user: user.userName })
     }
     catch (err) {
         return res.status(500).json({ error: 'Internal Server Error', err });
