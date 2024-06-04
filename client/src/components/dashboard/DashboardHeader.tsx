@@ -34,7 +34,7 @@ const DashboardHeader = () => {
 
         <span className='operator-hide' onClick={logoutVisiblity}><p className="logo-lg"> USERNAME</p><img src={icon}></img></span>
         <span className='navbar-custom-menu'>
-          <ul className="dropdown-menu" style={{ display: dashbvisi }}>
+          <ul className="dropdown-menu" style={{ display: dashbvisi ,position:'fixed'}}>
             <li className="user-header">
               <span className="flex flex-col items-center justify-center items-center"><img src={icon2} alt='Operator Icon' className="img-header"></img></span>
               <p className="text-logout">Welcome, Name</p>
