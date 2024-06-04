@@ -12,7 +12,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useRef, useState, useContext } from 'react'
+import { useRef, useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 import Context from '../context/context';
 
@@ -53,6 +53,13 @@ export const Login = () => {
                 setErrView('block');
             })
     }
+    useEffect(() => {
+        const role = localStorage.getItem('role');
+        const dept = localStorage.getItem('dept');
+        if (role && dept) {
+            navigate('/dashboard');
+        }
+    }, [])
 
     return (
         <div className="flex flex-col items-center justify-center h-screen items-center w-screen login-container">
