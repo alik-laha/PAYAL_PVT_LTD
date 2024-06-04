@@ -10,6 +10,10 @@ interface ContextType {
     generateCaptcha: string;
     typedCaptcha: string;
     setTypedCaptcha: (captcha: string) => void;
+    role: string;
+    setRole: (role: string) => void;
+    dept: string;
+    setDept: (dept: string) => void;
 
 }
 
@@ -21,7 +25,11 @@ const Context = createContext<ContextType>({
     generateCaptcha: '',
     setGenerateCaptcha: () => { },
     typedCaptcha: '',
-    setTypedCaptcha: () => { }
+    setTypedCaptcha: () => { },
+    role: '',
+    setRole: () => { },
+    dept: '',
+    setDept: () => { },
 
 });
 
