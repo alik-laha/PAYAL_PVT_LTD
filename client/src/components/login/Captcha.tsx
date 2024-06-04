@@ -72,7 +72,7 @@ const Captcha: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'row', marginBottom: '10px' }} >
+    <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'row' }} >
 
       <canvas id="captchaCanvas" ref={canvasRef} width="110" height="40" style={{ border: '1px solid #ccc', marginRight: '3%' }}></canvas>
 

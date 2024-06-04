@@ -32,8 +32,14 @@ export const Login = () => {
         e.preventDefault();
         const username = usernameRef.current?.value;
         const password = passwordRef.current?.value;
+       
+        if(username ==='' || password===''){
+            setErrMsg('Username or Password Not Given');
+            setErrView('block');
+            return
+        }
         if (typedCaptcha !== generateCaptcha) {
-            setErrMsg('Captcha is incorrect');
+            setErrMsg('Incorrect Captcha');
             setTypedCaptcha('');
             setErrView('block');
             return;
@@ -49,7 +55,7 @@ export const Login = () => {
                 localStorage.setItem('dept', res.data.dept);
             }).catch(err => {
                 console.log(err)
-                setErrMsg(err.response.data.message);
+                setErrMsg(err.response.data.error);
                 setErrView('block');
             })
     }
@@ -86,8 +92,9 @@ export const Login = () => {
                     <Input type="password" placeholder="Password" ref={passwordRef} />
 
                     <Captcha />
-                    <Button className="bg-orange-500 mb-5 mt-5" type="submit">Login</Button>
-                    <p style={{ display: errView }}>{errMsg}</p>
+                    <span style={{ display: errView }} className="text-red-600 text-sm font-sans font-semibold w-100 text-center">{errMsg}</span>
+                    <Button className="bg-orange-500 mb-5 mt-8" type="submit">Login</Button>
+                   
                 </form>
             </div>
         </div>

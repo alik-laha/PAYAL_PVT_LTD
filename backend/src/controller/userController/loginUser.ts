@@ -9,12 +9,12 @@ const LoginUser = async (req: Request, res: Response) => {
         const { userName, password } = req.body;
         const user: any = await User.findOne({ where: { userName: userName } });
         if (!user) {
-            return res.status(404).json({ error: 'User Name is not registered' });
+            return res.status(404).json({ error: 'Invalid Username' });
         }
 
         const validPass = await bcrypt.compare(password, user.password);
         if (!validPass) {
-            return res.status(401).json({ error: 'Invalid password please check' });
+            return res.status(401).json({ error: 'Password is Not Matching' });
         }
         
         const token = await jwt.sign({ employeeId: user.employeeId, role: user.role, dept: user.dept }, process.env.JWT_SECRET_KEY!, { expiresIn: process.env.JWT_EXPIRE! });
