@@ -15,9 +15,15 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { pageNo, pagelimit } from "../common/exportData"
+import ModifymachineForm from './ModifyMachineForm'
 //import { saveAs } from 'file-saver';
 //import * as XLSX from 'xlsx';
 import { useEffect, useState } from "react"
@@ -26,6 +32,27 @@ import { Section } from "../common/exportData"
 import { FaSearch } from "react-icons/fa"
 import axios from "axios"
 import { AssetData } from "@/type/type"
+import {
+    Dialog,
+    DialogContent,
+    // DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+
+    AlertDialogDescription,
+
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 const MachineTable = () => {
     //const currDate = new Date().toLocaleDateString();
@@ -96,42 +123,82 @@ return(
                 <TableHead className="text-center" >Sl No.</TableHead>
                     <TableHead className="text-center" >Asset ID</TableHead>
                     <TableHead className="text-center" >Asset Name </TableHead>
-                    <TableHead className="text-center" >Status </TableHead>
                     <TableHead className="text-center" >Section </TableHead>
+                    <TableHead className="text-center" >Status </TableHead>
+                   
                   
                     <TableHead className="text-center" >Created By</TableHead>
+                    
                     <TableHead className="text-center" >Action</TableHead>
                 </TableHeader>
 
                 <TableBody>{
-                Data.map((item, idx) => {
-                           
-                           return (
+                    Data.map((item, idx) => {
+
+                        return (
                             <TableRow key={item.id}>
-        <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-        <TableCell className="text-center">{item.machineID}</TableCell>
-        <TableCell className="text-center">{item.machineName}</TableCell>
-        <TableCell className="text-center">{item.status=='Active'? (
-                                            <button className="bg-green-500 p-1 text-white rounded">Active</button>
-                                        ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded">{item.status}</button>
-                                        )}</TableCell>
-        <TableCell className="text-center">{item.section}</TableCell>
-        
-
-        <TableCell className="text-center">{item.createdBy}</TableCell>
-       
-        <TableCell className="text-center">
-           
-        </TableCell>
-    </TableRow>
-
-                           )})  }
-
-    
+                                <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                <TableCell className="text-center">{item.machineID}</TableCell>
+                                <TableCell className="text-center">{item.machineName}</TableCell>
+                                <TableCell className="text-center">{item.section}</TableCell>
 
 
-</TableBody>
+                                <TableCell className="text-center">{item.status == 'Active' ? (
+                                    <button className="bg-green-500 p-1 text-white rounded">Active</button>
+                                ) : (
+                                    <button className="bg-red-500 p-1 text-white rounded">{item.status}</button>
+                                )}</TableCell>
+
+
+                                <TableCell className="text-center">{item.createdBy}</TableCell>
+                                <TableCell className="text-center">
+                                    <Popover>
+                                        <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+
+                                            <Dialog>
+                                                <DialogTrigger>   <button className="bg-transparent pb-2 text-left">View/Modify</button></DialogTrigger>
+                                                <DialogContent className='max-w-2xl'>
+                                                    <DialogHeader>
+                                                        <DialogTitle><p className='text-1xl text-center mt-2'>Modify Asset</p></DialogTitle>
+                                                    </DialogHeader>
+                                                    <ModifymachineForm
+                                                        data={item}
+                                                    />
+                                                </DialogContent>
+                                            </Dialog>
+
+
+
+                                            <AlertDialog>
+                                                <AlertDialogTrigger><button className="bg-transparent pb-2 text-left">Delete</button></AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                                        <AlertDialogDescription>
+                                                            This action cannot be undone. This will permanently delete Asset Data
+                                                        </AlertDialogDescription>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleDelete(item)}>Continue</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                        </PopoverContent>
+                                    </Popover>
+
+                                </TableCell>
+                            </TableRow>
+
+                        )
+                    })}
+
+
+
+
+                </TableBody>
               
                    
                   
