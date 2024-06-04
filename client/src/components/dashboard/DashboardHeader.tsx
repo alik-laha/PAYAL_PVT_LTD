@@ -32,14 +32,14 @@ const DashboardHeader = () => {
       <div className='dashoboard-main-header'>
         <span className="logo-lg dashboard-text" ></span>
 
-        <span className='operator-hide' onClick={logoutVisiblity}><p className="logo-lg"> USERNAME</p><img src={icon}></img></span>
+        <span className='operator-hide' onClick={logoutVisiblity}><p className="logo-lg"> {(localStorage.getItem('user'))?.toUpperCase()}</p><img src={icon}></img></span>
         <span className='navbar-custom-menu'>
           <ul className="dropdown-menu" style={{ display: dashbvisi ,position:'fixed'}}>
             <li className="user-header">
               <span className="flex flex-col items-center justify-center items-center"><img src={icon2} alt='Operator Icon' className="img-header"></img></span>
-              <p className="text-logout">Welcome, Name</p>
-              <p className="text-logout-2"> Dept: Store</p>
-              <p className="text-logout-2"> Role: Operator</p>
+              <p className="text-logout">Welcome, {localStorage.getItem('user')}</p>
+              <p className="text-logout-2"> Dept: {localStorage.getItem('dept')}</p>
+              <p className="text-logout-2"> Role: {localStorage.getItem('role')}</p>
             </li>
 
             <li className="user-footer">
