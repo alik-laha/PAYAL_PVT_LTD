@@ -5,6 +5,7 @@ import { UserData } from '../../type/type';
 
 const UpdateUser = async (req: Request, res: Response) => {
     try {
+        const modifyedBy = req.cookies.user;
         const { userName, password, role, dept, employeeId, confirmPassword } = req.body;
         const user: UserData | null = await User.findOne({ where: { employeeId } }) as UserData | null;
         if (!user) {
@@ -25,7 +26,7 @@ const UpdateUser = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'Password and Confirm Password do not match' });
         }
         const pass = await bcrypt.hash(password, 10);
-        await User.update({ userName, password: pass, role, dept }, { where: { employeeId } });
+        await User.update({ userName, password: pass, role, dept, modifyedBy }, { where: { employeeId } });
         return res.status(200).json({ message: 'User updated successfully' });
     }
     catch (err) {

@@ -6,6 +6,7 @@ const updateEmployee = async (req: Request, res: Response) => {
     try {
         const { employeeName, designation, email, mobNo, aadhaarNo, panNo, dateOfJoining, address, pincode, emergencyContact, emergencyMobNo, alternateMobNo, bloodGroup, heighstQualification, pfNo } = req.body;
         const employeeId = req.params.id
+        const modifyedBy = req.cookies.user
         const oldEmployee = await Employee.findOne({ where: { employeeId: employeeId } });
         if (!oldEmployee) {
             return res.status(400).json({ msg: 'Employee does not exist with employeeId' })
@@ -26,6 +27,7 @@ const updateEmployee = async (req: Request, res: Response) => {
             bloodGroup,
             heighstQualification,
             pfNo,
+            modifyedBy
         }, {
             where: {
                 employeeId: employeeId
