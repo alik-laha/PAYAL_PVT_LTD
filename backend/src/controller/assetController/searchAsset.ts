@@ -35,28 +35,29 @@ const SearchAsset = async (req: Request, res: Response) => {
 
         // Convert the array to an object for the where condition
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
-        let rcnEntries
+        let assetEntries
         if(limit===0 && offset===0){
-             rcnEntries = await Asset.findAll({
+            assetEntries = await Asset.findAll({
                 where,
                 order: [['createdAt', 'DESC']], // Order by date descending
                 
             });
         }
         else{
-             rcnEntries = await Asset.findAll({
+            assetEntries = await Asset.findAll({
                 where,
-                order: [['createdAt', 'DESC']], // Order by date descending
+                order: [['machineID','ASC'],['createdAt', 'DESC']], // Order by date descending
                 limit: limit,
-                offset: offset
+                offset: offset,
+              
             });
         }
        
-        return res.status(200).json({ msg: 'Rcn Entry found', rcnEntries })
+        return res.status(200).json({ msg: 'Asset Entries found', assetEntries })
     }
     catch (err) {
         console.log(err)
-        return res.status(500).json({ msg: 'Internal server error', error: err })
+        return res.status(500).json({ msg: 'Internal Server error', error: err })
     }
 }
 export default SearchAsset

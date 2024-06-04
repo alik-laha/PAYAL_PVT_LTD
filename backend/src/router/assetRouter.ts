@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.post("/createmachine", createAsset)
 router.get("/activemachinecount", getTotalActiveAsset)
-router.get("/assetSearch", SearchAsset)
+router.put("/assetSearch", SearchAsset)
 
 export default router;

@@ -42,7 +42,7 @@ const MachineCreateForm = () =>{
             closeDialogButton.addEventListener('click', () => {
                 if(successdialog!=null){
                     (successdialog as any).close();
-                    window.location.reload()
+                   // window.location.reload()
                 }
                 
                 

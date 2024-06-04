@@ -20,7 +20,7 @@ import { Button } from "../ui/button"
 import { pageNo, pagelimit } from "../common/exportData"
 //import { saveAs } from 'file-saver';
 //import * as XLSX from 'xlsx';
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { LuDownload } from "react-icons/lu";
 import { Section } from "../common/exportData"
 import { FaSearch } from "react-icons/fa"
@@ -33,13 +33,12 @@ const MachineTable = () => {
     const [page, setPage] = useState(pageNo)
     const [section, setSection] = useState<string>("")
     const [assetidname, setassetidname] = useState<string>("")
-    const [
-        , setData] = useState<AssetData[]>([])
+    const [Data, setData] = useState<AssetData[]>([])
     
     
     const handleSearch = async () => {
 
-        const response = await axios.put('/asset/assetSearch', {
+        const response = await axios.put('/api/asset/assetSearch', {
             assetidname: assetidname,
             section: section,
             
@@ -50,14 +49,22 @@ const MachineTable = () => {
             }
         })
         const data = await response.data
-        if (data.rcnEntries.length === 0 && page > 1) {
+        if (data.assetEntries.length === 0 && page > 1) {
             setPage((prev) => prev - 1)
 
         }
 
-        setData(data.rcnEntries)
+        setData(data.assetEntries)
       
     }
+
+    useEffect(() => {
+        handleSearch()
+    }, [page])
+        
+
+
+
     const exportToExcel = async () => {}
     
 return(
@@ -91,21 +98,43 @@ return(
                     <TableHead className="text-center" >Asset Name </TableHead>
                     <TableHead className="text-center" >Status </TableHead>
                     <TableHead className="text-center" >Section </TableHead>
-                    <TableHead className="text-center" >Description</TableHead>
+                  
                     <TableHead className="text-center" >Created By</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
-
-
-
-
                 </TableHeader>
 
-                <TableBody>
-                <TableRow>
-                <TableCell></TableCell>
-                </TableRow>
+                <TableBody>{
+                Data.map((item, idx) => {
+                           
+                           return (
+                            <TableRow key={item.id}>
+        <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+        <TableCell className="text-center">{item.machineID}</TableCell>
+        <TableCell className="text-center">{item.machineName}</TableCell>
+        <TableCell className="text-center">{item.status=='Active'? (
+                                            <button className="bg-green-500 p-1 text-white rounded">Active</button>
+                                        ) : (
+                                            <button className="bg-red-500 p-1 text-white rounded">{item.status}</button>
+                                        )}</TableCell>
+        <TableCell className="text-center">{item.section}</TableCell>
+        
+
+        <TableCell className="text-center">{item.createdBy}</TableCell>
+       
+        <TableCell className="text-center">
+           
+        </TableCell>
+    </TableRow>
+
+                           )})  }
+
+    
+
+
+</TableBody>
+              
                    
-                    </TableBody>
+                  
                 </Table>
                 <Pagination className="pt-5 ">
                 <PaginationContent>
