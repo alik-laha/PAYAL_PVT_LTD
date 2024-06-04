@@ -23,7 +23,7 @@ export const Login = () => {
     const passwordRef = useRef<HTMLInputElement>(null);
     const [errMsg, setErrMsg] = useState<string>('');
     const [errView, setErrView] = useState<string>("none");
-    const { typedCaptcha, generateCaptcha, setTypedCaptcha } = useContext(Context);
+    const { typedCaptcha, generateCaptcha, setTypedCaptcha, setRole, setDept } = useContext(Context);
 
 
 
@@ -43,6 +43,8 @@ export const Login = () => {
             .then(res => {
                 console.log(res.data);
                 navigate('/dashboard');
+                setRole(res.data.role);
+                setDept(res.data.dept);
             }).catch(err => {
                 console.log(err)
                 setErrMsg(err.response.data.message);
