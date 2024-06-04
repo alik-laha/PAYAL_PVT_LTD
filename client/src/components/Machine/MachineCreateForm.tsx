@@ -59,7 +59,7 @@ const MachineCreateForm = () =>{
         }
        
         console.log({ machineId,machinename,section, machinestatus,description })
-        axios.post('/api/machine/create', { machineId,machinename,section, machinestatus,description})
+        axios.post('/api/asset/createmachine', { machineId,machinename,section, machinestatus,description})
         .then((res) => {
             console.log(res)
             if(successdialog!=null){
