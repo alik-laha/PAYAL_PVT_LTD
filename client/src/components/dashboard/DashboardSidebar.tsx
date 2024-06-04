@@ -54,7 +54,9 @@ const DashboardSidebar = () => {
                             </NavLink>
                         </CollapsibleContent>
                         <CollapsibleContent className="Items-pvt" >
-                            Machine
+                        <NavLink to="/dashboard/machine" >
+                       Asset
+                            </NavLink>
                         </CollapsibleContent >
 
 

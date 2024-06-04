@@ -27,7 +27,7 @@ const Machine = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-green-500 hover:bg-red-600">
-                        Machine<br /><p>70</p>
+                        Asset<br /><p>70</p>
                     </div>
 
 
@@ -38,7 +38,7 @@ const Machine = () => {
 
 
                 <Dialog>
-                    <DialogTrigger>   <Button className="bg-orange-400 mb-2 mt-5 ml-4">+ Add New Machine</Button></DialogTrigger>
+                    <DialogTrigger>   <Button className="bg-orange-400 mb-2 mt-5 ml-4">+ Add New Asset</Button></DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
                             <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>New Machine Creation</p></DialogTitle>
