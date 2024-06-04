@@ -45,6 +45,8 @@ export const Login = () => {
                 navigate('/dashboard');
                 setRole(res.data.role);
                 setDept(res.data.dept);
+                localStorage.setItem('role', res.data.role);
+                localStorage.setItem('dept', res.data.dept);
             }).catch(err => {
                 console.log(err)
                 setErrMsg(err.response.data.message);

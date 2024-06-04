@@ -8,15 +8,17 @@ interface PrivateProps {
 }
 
 const Private: React.FC<PrivateProps> = ({ allowedRoles }) => {
-    const { role, setRole, setDept } = useContext(Context);
+    const { setRole, setDept } = useContext(Context);
     const location = useLocation();
-
+    const ROLE = localStorage.getItem('role');
     useEffect(() => {
         axios.get('/api/user/verify')
             .then(res => {
                 console.log(res.data);
                 setRole(res.data.role);
                 setDept(res.data.dept);
+                localStorage.setItem('role', res.data.role);
+                localStorage.setItem('dept', res.data.dept);
             }
             ).catch(err => {
                 console.log(err)
@@ -24,7 +26,7 @@ const Private: React.FC<PrivateProps> = ({ allowedRoles }) => {
 
     }, [])
 
-    if (allowedRoles.includes(role)) {
+    if (allowedRoles.includes(ROLE!)) {
         return <Outlet />;
     }
 
