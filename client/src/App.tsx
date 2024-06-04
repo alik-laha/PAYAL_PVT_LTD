@@ -17,7 +17,7 @@ function App() {
 
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route element={<Private allowedRoles={['Admin-Supervisor', 'Admin-Manager', 'Receiving-Supervisor', 'Receiving-Manager', 'Production']} />}>
+        <Route element={<Private allowedRoles={['Admin-Supervisor', 'Admin_Manager', 'Receiving-Supervisor', 'Receiving-Manager', 'Production']} />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
         <Route path='/dashboard/rcnprimaryentry' element={<RcnPrimaryEntry />} />

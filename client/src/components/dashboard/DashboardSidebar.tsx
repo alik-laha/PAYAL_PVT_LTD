@@ -11,6 +11,8 @@ import { MdCallReceived } from "react-icons/md";
 import { MdOutlineFactory } from "react-icons/md";
 import { LuBadgeCheck, LuServerCrash } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
+import { Permission } from "../common/exportData";
+import { PermissionRole } from "@/type/type";
 
 
 
@@ -28,6 +30,19 @@ const DashboardSidebar = () => {
         setSidebarOpen(false);
     };
 
+    const renderlink = (path: string, button: string) => {
+        const Role = localStorage.getItem('role') as keyof PermissionRole
+        if (Permission[Role].includes(button)) {
+            return (
+                <NavLink to={path} key={button}>
+                    <button>{button}</button>
+                </NavLink>
+            );
+        }
+        return null;
+
+    }
+
 
     return (
         <>
@@ -42,21 +57,15 @@ const DashboardSidebar = () => {
                         <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25} />
                             <p>Admin & HR</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
-                        <NavLink to="/dashboard/employee" >
-                        Employee
-                            </NavLink>
-                            
+                            {renderlink('/dashboard/employee', 'Employee')}
+
                         </CollapsibleContent >
-                     
+
                         <CollapsibleContent className="Items-pvt">
-                        <NavLink to="/dashboard/user" >
-                       Dashboard user
-                            </NavLink>
+                            {renderlink('/dashboard/user', 'Dashboard User')}
                         </CollapsibleContent>
                         <CollapsibleContent className="Items-pvt" >
-                        <NavLink to="/dashboard/machine" >
-                       Asset
-                            </NavLink>
+                            {renderlink('/dashboard/machine', 'Asset')}
                         </CollapsibleContent >
 
 
@@ -66,8 +75,8 @@ const DashboardSidebar = () => {
                         <CollapsibleTrigger className="user-pvt"><MdOutlineFactory size={25} />
                             <p>Production</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
-                        <NavLink to="/dashboard/RcnGrading" >
-                       RCN Grading
+                            <NavLink to="/dashboard/RcnGrading" >
+                                RCN Grading
                             </NavLink>
                         </CollapsibleContent>
                         <CollapsibleContent className="Items-pvt">
