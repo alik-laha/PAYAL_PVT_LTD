@@ -8,12 +8,14 @@ const createAsset = async (req: Request, res: Response) => {
         // const createdBy = req.cookies.user;
         const createdBy = "Admin-M";
        
-        const user = await Asset.create({ machineID:machineId, machineName:machinename,
+        const asset = await Asset.create({ machineID:machineId, machineName:machinename,
             description, status:machinestatus, section,  createdBy });
-        if (user) {
+        if (asset) {
             return res.status(201).json({ message: "New Asset has been Created" });
         }
     } catch (err) {
+        console.log(err)
+        
         return res.status(500).json({ message: "Internal Server Error", error: err });
     }
 }

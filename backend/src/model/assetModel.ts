@@ -42,7 +42,7 @@ const Asset = sequelize.define('asset', {
     indexes: [
         {
             unique: true,
-            fields: ['machineID']
+            fields: ['machineID','section']
         }
     ]
 })

@@ -80,14 +80,14 @@ const MachineCreateForm = () =>{
               
 }).catch((err) => {
     console.log(err)
-    // if(err.response.data.error.original.errno===1062)
-    //     {
-    //         setErrorText('Duplicate Entry is Not Allowed')
-    //         if(errordialog!=null){
-    //             (errordialog as any).showModal();
-    //         }
-    //         return
-    //     }
+    if(err.response.data.error.original.errno===1062)
+        {
+            setErrorText('Duplicate Entry is Not Allowed')
+            if(errordialog!=null){
+                (errordialog as any).showModal();
+            }
+            return
+        }
     setErrorText(err.response.data.message)
     if(errordialog!=null){
         (errordialog as any).showModal();
