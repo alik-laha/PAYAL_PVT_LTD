@@ -35,6 +35,7 @@ import { AssetData } from "@/type/type"
 import {
     Dialog,
     DialogContent,
+    DialogDescription,
     // DialogDescription,
     DialogHeader,
     DialogTitle,
@@ -90,7 +91,15 @@ const MachineTable = () => {
     }, [page])
         
 
-
+    const handleDelete = (data: AssetData) => {
+        axios.delete(`/api/asset/deleteAsset/${data.id}`).then((res) => {
+            console.log(res.data)
+            setData(Data.filter((item) => item.id !== data.id))
+        }
+        ).catch((err) => {
+            console.log(err)
+        })
+    }
 
     const exportToExcel = async () => {}
     
@@ -159,9 +168,12 @@ return(
 
                                             <Dialog>
                                                 <DialogTrigger>   <button className="bg-transparent pb-2 text-left">View/Modify</button></DialogTrigger>
-                                                <DialogContent className='max-w-2xl'>
+                                                <DialogContent>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-2'>Modify Asset</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>View/Modify Asset</p></DialogTitle>
+                                                        <DialogDescription>
+                                                            <p className='text-1xl text-center pb-5'>To Be Actioned Up By Admin</p>
+                                                        </DialogDescription>
                                                     </DialogHeader>
                                                     <ModifymachineForm
                                                         data={item}
@@ -172,7 +184,7 @@ return(
 
 
                                             <AlertDialog>
-                                                <AlertDialogTrigger><button className="bg-transparent pb-2 text-left">Delete</button></AlertDialogTrigger>
+                                                <AlertDialogTrigger><button className="bg-transparent text-left">Delete</button></AlertDialogTrigger>
                                                 <AlertDialogContent>
                                                     <AlertDialogHeader>
                                                         <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>

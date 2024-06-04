@@ -20,7 +20,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Section,MachineStatus } from "../common/exportData"
-import { useState, useRef } from "react"
+import {  useEffect } from "react"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
@@ -28,29 +28,29 @@ import { Textarea } from "../ui/textarea"
 import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
+import React from "react";
 
 
 
 const ModifymachineForm = (props: Props) => {
-    const [section, setSection] =useState<string>('')
-    const [machinestatus, setMachineStatus] = useState<string>("")
-    const [errortext, setErrorText] = useState<string>("")
 
-    const machineIdref = useRef<HTMLInputElement>(null)
-    const machinenameref = useRef<HTMLInputElement>(null)
-    const descriptionref = useRef<HTMLTextAreaElement>(null)
+    const [machineid, setmachineid] = React.useState<string>("")
     
-    const successdialog = document.getElementById('machinescs') as HTMLInputElement;
-    const errordialog = document.getElementById('machineerror') as HTMLInputElement;
-    // const dialog = document.getElementById('myDialog');
-    const closeDialogButton = document.getElementById('machinescsbtn') as HTMLInputElement;
-    const errorcloseDialogButton = document.getElementById('machineerrorbtn') as HTMLInputElement;
+    const [description, setDescription] = React.useState<string>("")
+    const [section, setSection] = React.useState<string>("")
+    const [machinename, setMachinename] = React.useState<string>("")
+    const [status, setStatus] = React.useState<string>("")
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        const machineId = machineIdref.current?.value
-        const machinename = machinenameref.current?.value
-        const description = descriptionref.current?.value
+
+    const [errortext, setErrorText] = React.useState<string>("")
+    
+    const successdialog = document.getElementById('modifymachinescs') as HTMLInputElement;
+    const errordialog = document.getElementById('modifymachineerror') as HTMLInputElement;
+    // const dialog = document.getElementById('myDialog');
+    const closeDialogButton = document.getElementById('modifymachinescsbtn') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('modifymachineerrorbtn') as HTMLInputElement;
+
+  
 
         if(closeDialogButton){
             closeDialogButton.addEventListener('click', () => {
@@ -71,45 +71,19 @@ const ModifymachineForm = (props: Props) => {
                 
               });
         }
-       
-        console.log({ machineId,machinename,section, machinestatus,description })
-        axios.post('/api/asset/createmachine', { machineId,machinename,section, machinestatus,description})
-        .then((res) => {
-            console.log(res)
-            if(successdialog!=null){
-                (successdialog as any).showModal();
-            }
-            if(machineIdref.current!=null){
-                machineIdref.current.value='';
-            }
-            if(machinenameref.current!=null){
-                machinenameref.current.value='';
-            }
-            if(descriptionref.current!=null){
-                descriptionref.current.value='';
-            }
-            setSection('')
-            setMachineStatus('')
-           
-              
-}).catch((err) => {
-    console.log(err)
-    if(err.response.data.error.original.errno===1062)
-        {
-            setErrorText('Duplicate Entry is Not Allowed')
-            if(errordialog!=null){
-                (errordialog as any).showModal();
-            }
-            return
+
+        useEffect(() => {
+            setmachineid(props.data.machineID)
+            setMachinename(props.data.machineName)
+            setStatus(props.data.status)
+            setDescription(props.data.description)
+            setSection(props.data.section)     
+        }, [props.data])
+
+        const handleSubmit = (e: React.FormEvent) => {
+            e.preventDefault()
         }
-    setErrorText(err.response.data.message)
-    if(errordialog!=null){
-        (errordialog as any).showModal();
-    }
     
-})
-      
-    }
    
     return (
         <>
@@ -117,9 +91,9 @@ const ModifymachineForm = (props: Props) => {
             <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
 
             <div className="flex"><Label className="w-2/4  pt-1">Machine ID</Label>
-                    <Input className="w-2/4 " placeholder="Machine Id" ref={machineIdref} required/> </div>
+                    <Input className="w-2/4 " placeholder="Machine Id" value={machineid} onChange={(e) => setmachineid(e.target.value)}  required/> </div>
                 <div className="flex"><Label className="w-2/4 pt-1">Machine Name</Label>
-                    <Input className="w-2/4 " placeholder="Machine Name" ref={machinenameref} required/> </div>
+                    <Input className="w-2/4 " placeholder="Machine Name" value={machinename} onChange={(e) => setMachinename(e.target.value)}required/> </div>
                 
 
                 <div className="flex"><Label className="w-2/4  pt-1">Section</Label>
@@ -144,7 +118,7 @@ const ModifymachineForm = (props: Props) => {
                     {/* <Input   placeholder="Section"/>  */}
                     </div>
                     <div className="flex"><Label className="w-2/4  pt-1">Machine Status</Label>
-                    <Select value={machinestatus} onValueChange={(value) => setMachineStatus(value)} required={true}>
+                    <Select value={status} onValueChange={(value) => setStatus(value)} required={true}>
                         <SelectTrigger className="w-2/4">
                             <SelectValue placeholder="Status" />
                         </SelectTrigger>
@@ -164,7 +138,7 @@ const ModifymachineForm = (props: Props) => {
                     </Select>
                     {/* <Input   placeholder="Section"/>  */}</div>
                     <div className="flex"><Label className="w-2/4 pt-1" > Description</Label>
-                    <Textarea className="w-2/4 " placeholder="Description" ref={descriptionref}  />
+                    <Textarea className="w-2/4 " placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)}    />
                 </div>
                 
                 <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
@@ -172,16 +146,16 @@ const ModifymachineForm = (props: Props) => {
 
             
         </div>
-        <dialog id="machinescs" className="dashboard-modal">
-        <button id="machinescsbtn" className="dashboard-modal-close-btn ">X </button>
+        <dialog id="modifymachinescs" className="dashboard-modal">
+        <button id="modifymachinescsbtn" className="dashboard-modal-close-btn ">X </button>
         <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
-        <p id="modal-text" className="pl-3 mt-1 font-medium">New Asset has created Successfully</p></span>
+        <p id="modal-text" className="pl-3 mt-1 font-medium"> Asset has Modified Successfully</p></span>
         
         {/* <!-- Add more elements as needed --> */}
     </dialog>
 
-    <dialog id="machineerror" className="dashboard-modal">
-        <button id="machineerrorbtn" className="dashboard-modal-close-btn ">X </button>
+    <dialog id="modifymachineerror" className="dashboard-modal">
+        <button id="modifymachineerrorbtn" className="dashboard-modal-close-btn ">X </button>
         <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
         <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
         

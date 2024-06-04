@@ -31,6 +31,26 @@ const MachineCreateForm = () =>{
     // const dialog = document.getElementById('myDialog');
     const closeDialogButton = document.getElementById('machinescsbtn') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('machineerrorbtn') as HTMLInputElement;
+    
+    if(closeDialogButton){
+        closeDialogButton.addEventListener('click', () => {
+            if(successdialog!=null){
+                (successdialog as any).close();
+               // window.location.reload()
+            }
+            
+            
+          });
+    }
+    if(errorcloseDialogButton){
+        errorcloseDialogButton.addEventListener('click', () => {
+            if(errordialog!=null){
+                (errordialog as any).close();
+               
+            }
+            
+          });
+    }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -38,25 +58,7 @@ const MachineCreateForm = () =>{
         const machinename = machinenameref.current?.value
         const description = descriptionref.current?.value
 
-        if(closeDialogButton){
-            closeDialogButton.addEventListener('click', () => {
-                if(successdialog!=null){
-                    (successdialog as any).close();
-                   // window.location.reload()
-                }
-                
-                
-              });
-        }
-        if(errorcloseDialogButton){
-            errorcloseDialogButton.addEventListener('click', () => {
-                if(errordialog!=null){
-                    (errordialog as any).close();
-                   
-                }
-                
-              });
-        }
+      
        
         console.log({ machineId,machinename,section, machinestatus,description })
         axios.post('/api/asset/createmachine', { machineId,machinename,section, machinestatus,description})

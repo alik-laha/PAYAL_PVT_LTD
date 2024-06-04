@@ -210,7 +210,7 @@ const EmployeeModifyForm = (props: Props) => {
 
 
 
-                <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
+                <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Modify</Button>
             </form>
 
             <dialog id="modifysuccessemployeedialog" className="dashboard-modal">
