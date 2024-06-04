@@ -93,3 +93,14 @@ export interface UserProps {
         createdBy: string;
     }
 }
+
+export interface AssetData {
+    id:number;
+    machineID:string;
+    machineName:string;
+    description:string;
+    status:string;
+    section:string;
+    createdBy:string;
+    modifiedBy:string;
+}
