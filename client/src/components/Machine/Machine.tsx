@@ -4,7 +4,7 @@ import DashboardSidebar from '../dashboard/DashboardSidebar'
 
 
 import { Button } from "@/components/ui/button";
-
+import Loader from '../common/Loader';
 import {
     Dialog,
     DialogContent,
@@ -15,11 +15,19 @@ import {
 } from "@/components/ui/dialog"
 import MachineTable from './MachineTable';
 import MachineCreateForm from './MachineCreateForm'
+import UseQueryData from '../common/dataFetcher';
+
 
 
 
 const Machine = () => {
-    
+    const { data, error, isLoading } = UseQueryData('/api/asset/activemachinecount', 'GET', 'getTotalActiveAsset')
+    if (isLoading) {
+        return <Loader/>
+    }
+    if (error) {
+        return <div>Error</div>
+    }
     return (
         <div>
             <DashboardHeader />
@@ -27,7 +35,7 @@ const Machine = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-green-500 hover:bg-red-600">
-                        Asset<br /><p>70</p>
+                        Asset<br /><p>{data.Data}</p>
                     </div>
 
 
