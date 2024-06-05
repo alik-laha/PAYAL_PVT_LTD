@@ -17,10 +17,11 @@ function App() {
 
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route element={<Private allowedRoles={['Director', 'Factory_Manager', 'Receiving_Supervisor', 'Receiving_Manager']} />}>
-          
-        </Route>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager','MaintainanceSupervisor'
+,'QCSupervisor', 'QCManager','ProductionManager']} />}>
         <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+        
         <Route path='/dashboard/rcnprimaryentry' element={<RcnPrimaryEntry />} />
         <Route path='/dashboard/employee' element={<Employee />} />
         <Route path='/dashboard/user' element={<DashboardUser />} />
