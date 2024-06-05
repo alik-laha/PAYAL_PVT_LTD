@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig";
 
-const RcnGrading = sequelize.define('rcnGrading', {
+const RcnGrading = sequelize.define('rcnGradingEdit', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

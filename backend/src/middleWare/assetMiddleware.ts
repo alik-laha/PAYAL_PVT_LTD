@@ -6,6 +6,7 @@ const assetMiddleWare = (req: Request, res: Response, next: NextFunction) => {
         if (!machineId || !machinename || !section || !machinestatus || !id) {
             return res.status(400).json({ message: "All field are required" })
         }
+        next();
     }
     catch (err) {
         return res.status(500).json({ message: "Internal Server Error" })
