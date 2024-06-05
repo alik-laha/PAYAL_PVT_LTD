@@ -61,13 +61,25 @@ const DashboardTable = () => {
 
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        axios.post('/api/user/searchuser', { SearchUser: e.target.value })
+        axios.post('/api/user/searchuser', { SearchUser: e.target.value }, {
+            params: {
+                page: page,
+                limit: limit
+            }})
             .then((res) => {
                 console.log(res.data)
+                if (res.data.user === 0 && page > 1) {
+                    setPage((prev) => prev - 1)
+    
+                }
                 setUserData(res.data.user) 
             })
             .catch((err) => {
                 console.log(err)
+                if (err.response.data.msg === 'No User found') {
+                    setUserData([])
+                   // setError(err.response.data.msg)
+                }
             })
     }
 
@@ -89,9 +101,13 @@ const DashboardTable = () => {
             })
             .catch((err) => {
                 console.log(err)
-                setPage(prev => prev - 1)
+                if (err.response.data.msg === 'No User found') {
+                    setUserData([])
+                    //setError(err.response.data.msg)
+                    setPage(prev => prev - 1)
+                }
             })
-    }, [])
+    }, [page])
 
     const exportToExcel = async () => {
 
