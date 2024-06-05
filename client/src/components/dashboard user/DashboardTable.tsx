@@ -11,6 +11,7 @@ import {
     PaginationContent,
     PaginationEllipsis,
     PaginationItem,
+    PaginationLink,
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
@@ -45,22 +46,25 @@ import {
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { User } from "@/type/type";
+import { LuDownload } from "react-icons/lu";
+import { Button } from "../ui/button";
+import { pageNo, pagelimit } from "../common/exportData";
 
 
 
 const DashboardTable = () => {
     const [UserData, setUserData] = useState<User[]>([])
-  
+    const limit = pagelimit
+    const [page, setPage] = useState(pageNo)
+    const [transformedData, setTransformedData] = useState<User[]>([]);
+    const currDate = new Date().toLocaleDateString();
 
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-        
         axios.post('/api/user/searchuser', { SearchUser: e.target.value })
             .then((res) => {
                 console.log(res.data)
-                setUserData(res.data.user)
-               
+                setUserData(res.data.user) 
             })
             .catch((err) => {
                 console.log(err)
@@ -68,16 +72,46 @@ const DashboardTable = () => {
     }
 
     useEffect(() => {
-        axios.post('/api/user/searchuser', { SearchUser: '' })
+        axios.post('/api/user/searchuser', { SearchUser: '' },{
+            params: {
+                page: page,
+                limit: limit
+            }
+        })
             .then((res) => {
+                if (res.data.user === 0 && page > 1) {
+                    setPage((prev) => prev - 1)
+    
+                }
                 console.log(res.data)
                 setUserData(res.data.user)
                 
             })
             .catch((err) => {
                 console.log(err)
+                setPage(prev => prev - 1)
             })
     }, [])
+
+    const exportToExcel = async () => {
+
+        const response = await axios.post('/api/user/searchuser', {}, {})
+        const data1 = await response.data
+        const transformed = data1.Employees.map((item: User, idx: number) => ({
+            
+
+        }));
+        setTransformedData(transformed);
+        const ws = XLSX.utils.json_to_sheet(transformedData);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'User_Details_' + currDate + '.xlsx');
+
+
+
+    }
     const handleDelete = (item: User) => {
         axios.delete(`/api/user/deleteuser/${item.employeeId}`)
             .then((res) => {
@@ -89,13 +123,14 @@ const DashboardTable = () => {
             })
     }
     return (
+        
         <div className="ml-5 mt-5">
             <div className="flex ">
 
                 <Input className="w-80 mb-10" placeholder="Search By Emp Id/ Name/ Role/ Dept" onChange={handleSearch} />
 
             </div>
-
+            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4 " onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
 
 
             <Table className="mt-1">
@@ -169,14 +204,21 @@ const DashboardTable = () => {
             <Pagination className="pt-5 ">
                 <PaginationContent>
                     <PaginationItem>
-                        <PaginationPrevious href="#" />
+                        <PaginationPrevious onClick={() => setPage((prev) => {
+                            if (prev === 1) {
+                                return prev
+                            }
+                            return prev - 1
+                        })} />
                     </PaginationItem>
-
+                    <PaginationItem>
+                        <PaginationLink href="#">{page}</PaginationLink>
+                    </PaginationItem>
                     <PaginationItem>
                         <PaginationEllipsis />
                     </PaginationItem>
                     <PaginationItem>
-                        <PaginationNext href="#" />
+                        <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
