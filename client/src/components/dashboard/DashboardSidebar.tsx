@@ -33,7 +33,7 @@ const DashboardSidebar = () => {
     };
 
     const renderlink = ( button: string) => { 
-        console.log(Role)
+        //console.log(Role)
         if (PermissionRol[Role].includes(button)) {
             return true
         }

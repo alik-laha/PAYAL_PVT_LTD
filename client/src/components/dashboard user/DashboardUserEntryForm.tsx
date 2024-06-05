@@ -16,6 +16,8 @@ import { useState, useRef } from "react"
 import axios from "axios"
 import { EmployeeData } from "@/type/type"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 
 const DashboardUserEntryForm = () => {
 
@@ -29,7 +31,32 @@ const DashboardUserEntryForm = () => {
     const [employeeName, setEmployeeName] = useState<string>("")
     const confirmPasswordRef = useRef<HTMLInputElement>(null)
 
+    const successdialog = document.getElementById('userscs') as HTMLInputElement;
+    const errordialog = document.getElementById('usererror') as HTMLInputElement;
+    // const dialog = document.getElementById('myDialog');
+    const closeDialogButton = document.getElementById('userscsbtn') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('usererrorbtn') as HTMLInputElement;
+    const [errortext, setErrorText] = useState<string>("")
 
+    if(closeDialogButton){
+        closeDialogButton.addEventListener('click', () => {
+            if(successdialog!=null){
+                (successdialog as any).close();
+                //window.location.reload()
+            }
+            
+            
+          });
+    }
+    if(errorcloseDialogButton){
+        errorcloseDialogButton.addEventListener('click', () => {
+            if(errordialog!=null){
+                (errordialog as any).close();
+               
+            }
+            
+          });
+    }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -39,9 +66,37 @@ const DashboardUserEntryForm = () => {
         axios.post('/api/user/createuser', { userName, password, dept, role, employeeId, confirmPassword, employeeName })
             .then((res) => {
                 console.log(res.data)
+                if(successdialog!=null){
+                    (successdialog as any).showModal();
+                }
+                if(userNameRef.current!=null){
+                    userNameRef.current.value='';
+                }
+                if(passwordRef.current!=null){
+                    passwordRef.current.value='';
+                }
+                if(confirmPasswordRef.current!=null){
+                    confirmPasswordRef.current.value='';
+                }
+                setRole('')
+                setDept('')
+                setEmployeeName('')
+                setEmployeeData([])
             })
             .catch((err) => {
                 console.log(err.response.data.message)
+                // if(err.response.data.error.original.errno===1062)
+                //     {
+                //         setErrorText('Duplicate Entry is Not Allowed')
+                //         if(errordialog!=null){
+                //             (errordialog as any).showModal();
+                //         }
+                //         return
+                //     }
+                setErrorText(err.response.data.message)
+                if(errordialog!=null){
+                    (errordialog as any).showModal();
+                }
             })
     }
 
@@ -78,6 +133,7 @@ const DashboardUserEntryForm = () => {
 
 
     return (
+        <>
         <div className="pl-10 pr-10">
             <form className='flex flex-col gap-4 mt-5' onSubmit={handleSubmit}>
                 <div className="flex"><Label className="w-2/4 mt-1">Employee Id</Label>
@@ -86,7 +142,7 @@ const DashboardUserEntryForm = () => {
                     {
                         employeeData.map((item) => {
                             return (
-                                <div key={item.id} className="flex gap-x-3 hover:bg-gray-300 " onClick={() => handleEmployeeIdClick(item)}>
+                                <div key={item.id} className="flex gap-x-5 hover:bg-gray-300 " onClick={() => handleEmployeeIdClick(item)}>
                                     <p className="font-medium text-sm text-blue-900">{item.employeeId}</p>
                                     <p className="text-sm">{item.employeeName}</p>
                                 </div>
@@ -152,6 +208,22 @@ const DashboardUserEntryForm = () => {
 
 
         </div>
+              <dialog id="userscs" className="dashboard-modal">
+              <button id="userscsbtn" className="dashboard-modal-close-btn ">X </button>
+              <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
+              <p id="modal-text" className="pl-3 mt-1 font-medium">New User has Created Successfully</p></span>
+              
+              {/* <!-- Add more elements as needed --> */}
+          </dialog>
+      
+          <dialog id="usererror" className="dashboard-modal">
+              <button id="usererrorbtn" className="dashboard-modal-close-btn ">X </button>
+              <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
+              <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+              
+              {/* <!-- Add more elements as needed --> */}
+          </dialog>
+          </>
     )
 
 
