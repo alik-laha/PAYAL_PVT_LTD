@@ -11,13 +11,15 @@ import { MdCallReceived } from "react-icons/md";
 import { MdOutlineFactory } from "react-icons/md";
 import { LuBadgeCheck, LuServerCrash } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
-import { Permission } from "../common/exportData";
-import { PermissionRole } from "@/type/type";
+import { Permission,PermissionDep } from "../common/exportData";
+import { PermissionRole,PermissionDept } from "@/type/type";
 
 
 
 const DashboardSidebar = () => {
     // const navigate = useNavigate()
+    const Role = localStorage.getItem('role') as keyof PermissionRole
+    const Dept = localStorage.getItem('dept') as keyof PermissionDept
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
 
@@ -30,17 +32,25 @@ const DashboardSidebar = () => {
         setSidebarOpen(false);
     };
 
-    const renderlink = (path: string, button: string) => {
-        const Role = localStorage.getItem('role') as keyof PermissionRole
+    const renderlink = ( button: string) => { 
+        console.log(Role)
         if (Permission[Role].includes(button)) {
-            return (
-                <NavLink to={path} key={button}>
-                    <button>{button}</button>
-                </NavLink>
-            );
+            return true
         }
-        return null;
+        else{
+            return false;
+        }
+       
+    }
 
+    const rendersection = ( tab: string) => {
+        // console.log(Dept)
+        if (PermissionDep[Dept].includes(tab)) {
+            return true
+        }
+        else{
+            return false;
+        }
     }
 
 
@@ -53,30 +63,37 @@ const DashboardSidebar = () => {
             <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
                 <a href="#" className="closebtn" onClick={closeSidebar}>&times;</a>
                 <a>
-                    <Collapsible >
+                {rendersection('HR & Admin') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25} />
                             <p>Admin & HR</p></CollapsibleTrigger>
-                        <CollapsibleContent className="Items-pvt">
-                            {/* {renderlink('/dashboard/employee', 'Employee')} */}
-                            <NavLink to="/dashboard/employee" >
+
+                            {renderlink('Employee')
+                            &&    <CollapsibleContent className="Items-pvt">
+                             <NavLink to="/dashboard/employee" >
                                 Employee
-                            </NavLink>
-                        </CollapsibleContent >
+                            </NavLink> 
+                        </CollapsibleContent > }
 
-                        <CollapsibleContent className="Items-pvt">
-                            {/* {renderlink('/dashboard/user', 'Dashboard User')} */}
+                        {renderlink('Dashboard User')
+                            && <CollapsibleContent className="Items-pvt">
+                            {renderlink('Dashboard User')}
                             <NavLink to="/dashboard/user" >
-                               User
+                              Dashboard User
                             </NavLink>
-                        </CollapsibleContent>
-                        <CollapsibleContent className="Items-pvt" >
-                            {/* {renderlink('/dashboard/machine', 'Asset')} */}
-                        </CollapsibleContent >
+                        </CollapsibleContent> }
+
+                        {renderlink('Asset')
+                       && <CollapsibleContent className="Items-pvt" >
+                            && <NavLink to="/dashboard/machine" >
+                              Asset
+                            </NavLink>
+                        </CollapsibleContent >}
 
 
 
-                    </Collapsible>
-                    <Collapsible >
+                    </Collapsible>}
+
+                    {rendersection('Production') &&  <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineFactory size={25} />
                             <p>Production</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
@@ -87,9 +104,9 @@ const DashboardSidebar = () => {
                         <CollapsibleContent className="Items-pvt">
                             RCN Boiling
                         </CollapsibleContent>
-                    </Collapsible>
+                    </Collapsible>}
 
-                    <Collapsible >
+                    {rendersection('Receiving') &&  <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25} />
                             <p>Receiving</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
@@ -99,22 +116,22 @@ const DashboardSidebar = () => {
 
                         </CollapsibleContent>
 
-                    </Collapsible>
+                    </Collapsible>}
 
-                    <Collapsible >
+                    {rendersection('Quality') &&  <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><LuBadgeCheck size={25} />
                             <p>Quality</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
                             RCN Primary QC
-                        </CollapsibleContent>
+                        </CollapsibleContent> 
 
 
-                    </Collapsible>
-                    <Collapsible >
+                        </Collapsible>}
+                        {rendersection('Maintainance') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><LuServerCrash size={25} />
                             <p>Maintainance</p></CollapsibleTrigger>
 
-                    </Collapsible>
+                    </Collapsible>}
 
 
                 </a>
