@@ -12,6 +12,7 @@ export const Permission = {
 }
 
 export const roleDataonDept = {
+    Admin:['Director','Factory-Manager'],
     Receiving: ['Receiving-Supervisor', 'Receiving-Manager'],
     Maintainance: ['Maintainance-Supervisor'],
     Quality_Control: ['QC-Supervisor', 'QC-Manager'],

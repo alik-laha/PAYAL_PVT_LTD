@@ -57,15 +57,20 @@ const DashboardSidebar = () => {
                         <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25} />
                             <p>Admin & HR</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
-                            {renderlink('/dashboard/employee', 'Employee')}
-
+                            {/* {renderlink('/dashboard/employee', 'Employee')} */}
+                            <NavLink to="/dashboard/employee" >
+                                Employee
+                            </NavLink>
                         </CollapsibleContent >
 
                         <CollapsibleContent className="Items-pvt">
-                            {renderlink('/dashboard/user', 'Dashboard User')}
+                            {/* {renderlink('/dashboard/user', 'Dashboard User')} */}
+                            <NavLink to="/dashboard/user" >
+                               User
+                            </NavLink>
                         </CollapsibleContent>
                         <CollapsibleContent className="Items-pvt" >
-                            {renderlink('/dashboard/machine', 'Asset')}
+                            {/* {renderlink('/dashboard/machine', 'Asset')} */}
                         </CollapsibleContent >
 
 
