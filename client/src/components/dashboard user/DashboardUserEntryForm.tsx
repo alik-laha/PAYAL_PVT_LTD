@@ -80,6 +80,7 @@ const DashboardUserEntryForm = () => {
                 }
                 setRole('')
                 setDept('')
+                setEmployeeId('')
                 setEmployeeName('')
                 setEmployeeData([])
             })
