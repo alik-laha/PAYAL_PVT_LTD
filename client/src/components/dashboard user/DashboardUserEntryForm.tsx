@@ -11,7 +11,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Dept, Role } from "../common/exportData"
+import { Dept, roleDataonDept } from "../common/exportData"
 import { useState, useRef } from "react"
 import axios from "axios"
 import { EmployeeData } from "@/type/type"
@@ -130,15 +130,11 @@ const DashboardUserEntryForm = () => {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                {
-                                    Role.map((item) => {
-                                        return (
-                                            <SelectItem key={item} value={item}>
-                                                {item}
-                                            </SelectItem>
-                                        )
-                                    })
-                                }
+                                {dept ? (roleDataonDept[dept as keyof typeof roleDataonDept].map((item) => (
+                                    <SelectItem key={item} value={item}>
+                                        {item}
+                                    </SelectItem>
+                                ))) : (null)}
                             </SelectGroup>
                         </SelectContent>
                     </Select>

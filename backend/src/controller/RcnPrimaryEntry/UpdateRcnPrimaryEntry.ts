@@ -6,7 +6,7 @@ import { RcnPrimaryModifyProps } from "../../type/type";
 const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
-        const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin } = req.body;
+        const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin, date } = req.body;
         const difference = blWeight - netWeight;
         // const editedBy = req.cookies.user
         const editedBy = "RC User 2"
@@ -42,8 +42,8 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
             origin,
             id,
             editedBy,
-            date: rcnData?.date,
             rcnStatus: rcnData?.rcnStatus,
+            date
 
 
         });

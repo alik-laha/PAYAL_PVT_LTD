@@ -25,6 +25,7 @@ interface RcnPrimaryModifyProps {
         noOfBags: string;
         blWeight: string;
         netWeight: string;
+        date: Date;
     }
 }
 
@@ -39,58 +40,61 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
     const [blWeight, setBlWeight] = useState<string>("")
     const [netWeight, setNetWeight] = useState<string>("")
     const [errortext, setErrorText] = useState<string>("")
+    const [date, setDate] = useState<Date>()
 
     const successdialog = document.getElementById('rcneditscsDialog') as HTMLInputElement;
     const errordialog = document.getElementById('rcnediterrDialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
     const closeDialogButton = document.getElementById('rcnscscloseDialog') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('rcnerrorcloseDialog') as HTMLInputElement;
-    
-    if(closeDialogButton){
+
+    if (closeDialogButton) {
         closeDialogButton.addEventListener('click', () => {
-            if(successdialog!=null){
+            if (successdialog != null) {
                 (successdialog as any).close();
                 window.location.reload()
             }
-            
-            
-          });
+
+
+        });
     }
-    if(errorcloseDialogButton){
+    if (errorcloseDialogButton) {
         errorcloseDialogButton.addEventListener('click', () => {
-            if(errordialog!=null){
+            if (errordialog != null) {
                 (errordialog as any).close();
             }
-            
-          });
+
+        });
     }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        axios.put(`/api/rcnprimary/update/${props.data.id}`, { origin, blNo, conNo, truckNo, noOfBags, blWeight, netWeight })
+        axios.put(`/api/rcnprimary/update/${props.data.id}`, { origin, blNo, conNo, truckNo, noOfBags, blWeight, netWeight, date })
             .then((res) => {
                 console.log(res)
-                if(successdialog!=null){
+                if (successdialog != null) {
                     (successdialog as any).showModal();
                 }
-               setBlNo('')
-               setConNo('')
-               setTruckNo('')
-               setBlWeight('')
-               setNetWeight('')
-               setNoOfBags('')
-            setOrigin('')
+                setBlNo('')
+                setConNo('')
+                setTruckNo('')
+                setBlWeight('')
+                setNetWeight('')
+                setNoOfBags('')
+                setOrigin('')
 
             }).catch((err) => {
                 console.log(err)
                 setErrorText(err.response.data.message)
-                if(errordialog!=null){
+                if (errordialog != null) {
                     (errordialog as any).showModal();
                 }
             })
     }
 
     useEffect(() => {
+        console.log(typeof (props.data.date))
+        console.log(props.data.date)
         setOrigin(props.data.origin)
         setBlNo(props.data.blNo)
         setConNo(props.data.conNo)
@@ -98,6 +102,7 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
         setNoOfBags(props.data.noOfBags)
         setBlWeight(props.data.blWeight)
         setNetWeight(props.data.netWeight)
+        setDate(new Date(props.data.date))
     }, [])
 
 
@@ -132,6 +137,10 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
                     <Input className="w-2/4 " placeholder="Truck No." value={truckNo} onChange={(e) => setTruckNo(e.target.value)} />
                 </div>
                 <div className="flex">
+                    <Label className="w-2/4 ">Date of Reciving</Label>
+                    <Input className="w-2/4 " placeholder="Total Bags" type="date" value={date ? date.toISOString().split('T')[0] : ''} onChange={(e) => setDate(new Date(e.target.value))} />
+                </div>
+                <div className="flex">
                     <Label className="w-2/4 ">Total Bags</Label>
                     <Input className="w-2/4 " placeholder="Total Bags" type="number" value={noOfBags} onChange={(e) => setNoOfBags(e.target.value)} />
                 </div>
@@ -147,17 +156,17 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
 
             <dialog id="rcneditscsDialog" className="dashboard-modal">
                 <button id="rcnscscloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
-                <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Primary Entry Modify request has created Successfully</p></span>
-                
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Primary Entry Modify request has created Successfully</p></span>
+
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
             <dialog id="rcnediterrDialog" className="dashboard-modal">
                 <button id="rcnerrorcloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
-                <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
-                
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
