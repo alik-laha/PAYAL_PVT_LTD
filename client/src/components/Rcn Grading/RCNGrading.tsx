@@ -14,6 +14,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import RcnGradingTable from './RCNGradingTable';
 
 
 const RcnGrading = () => {
@@ -67,7 +68,7 @@ const RcnGrading = () => {
                 <div>
 
                 </div>
-                {/* <EmployeeTable/> */}
+                <RcnGradingTable />
 
             </div>
         </div>
