@@ -58,6 +58,7 @@ const DashboardTable = () => {
     const [page, setPage] = useState(pageNo)
     const [transformedData, setTransformedData] = useState<User[]>([]);
     const currDate = new Date().toLocaleDateString();
+    const [Error, setError] = useState<string>("")
 
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,12 +74,13 @@ const DashboardTable = () => {
     
                 }
                 setUserData(res.data.user) 
+                setError("")
             })
             .catch((err) => {
                 console.log(err)
                 if (err.response.data.msg === 'No User found') {
                     setUserData([])
-                   // setError(err.response.data.msg)
+                    setError(err.response.data.msg)
                 }
             })
     }
@@ -97,13 +99,13 @@ const DashboardTable = () => {
                 }
                 console.log(res.data)
                 setUserData(res.data.user)
-                
+                setError("")
             })
             .catch((err) => {
                 console.log(err)
                 if (err.response.data.msg === 'No User found') {
                     setUserData([])
-                    //setError(err.response.data.msg)
+                    setError(err.response.data.msg)
                     setPage(prev => prev - 1)
                 }
             })
@@ -143,7 +145,7 @@ const DashboardTable = () => {
         <div className="ml-5 mt-5">
             <div className="flex ">
 
-                <Input className="w-80 mb-10" placeholder="Search By Emp Id/ Name/ Role/ Dept" onChange={handleSearch} />
+                <Input className="w-80 mb-10" placeholder="Search By Emp Id/ Name/ Dept/ Role" onChange={handleSearch} />
 
             </div>
             <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4 " onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
@@ -162,12 +164,28 @@ const DashboardTable = () => {
 
                 </TableHeader>
                 <TableBody>
+                {Error ?
+
+<TableRow>
+    <TableCell></TableCell>
+    <TableCell></TableCell>
+    <TableCell></TableCell>
+    
+    <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">{Error}</p></TableCell>
+    <TableCell></TableCell>
+    <TableCell></TableCell>
+    <TableCell></TableCell>
+  
+
+
+</TableRow>
+: null}
 
                     {
                         UserData.map((item, idx) => {
                             return (
                                 <TableRow key={idx}>
-                                    <TableCell className="text-center" >{idx + 1}</TableCell>
+                                    <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center" >{item.employeeName}</TableCell>
                                     <TableCell className="text-center" >{item.userName}</TableCell>
                                     <TableCell className="text-center" >{item.dept}</TableCell>
