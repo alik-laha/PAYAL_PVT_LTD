@@ -92,7 +92,7 @@ const DashboardTable = () => {
         <div className="ml-5 mt-5">
             <div className="flex ">
 
-                <Input className="w-60 mb-10" placeholder="Search By User Name" onChange={handleSearch} />
+                <Input className="w-80 mb-10" placeholder="Search By Emp Id/ Name/ Role/ Dept" onChange={handleSearch} />
 
             </div>
 
@@ -106,6 +106,7 @@ const DashboardTable = () => {
                     <TableHead className="text-center" >User Name </TableHead>
                     <TableHead className="text-center" >Department </TableHead>
                     <TableHead className="text-center" >Role </TableHead>
+                    <TableHead className="text-center" >Created By </TableHead>
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>
@@ -120,6 +121,7 @@ const DashboardTable = () => {
                                     <TableCell className="text-center" >{item.userName}</TableCell>
                                     <TableCell className="text-center" >{item.dept}</TableCell>
                                     <TableCell className="text-center" >{item.role}</TableCell>
+                                    <TableCell className="text-center" >{item.createdBy}</TableCell>
                                     <TableCell className="text-center" >
 
                                         <Popover>

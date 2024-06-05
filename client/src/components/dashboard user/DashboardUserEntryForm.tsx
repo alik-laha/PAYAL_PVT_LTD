@@ -142,9 +142,9 @@ const DashboardUserEntryForm = () => {
                     {
                         employeeData.map((item) => {
                             return (
-                                <div key={item.id} className="flex gap-x-5 hover:bg-gray-300 " onClick={() => handleEmployeeIdClick(item)}>
-                                    <p className="font-medium text-sm text-blue-900">{item.employeeId}</p>
-                                    <p className="text-sm">{item.employeeName}</p>
+                                <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleEmployeeIdClick(item)}>
+                                    <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.employeeId}</p>
+                                    <p className="text-sm py-1 focus:text-base ">{item.employeeName}</p>
                                 </div>
                             )
                         })

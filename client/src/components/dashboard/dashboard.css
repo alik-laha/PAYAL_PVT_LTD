@@ -338,7 +338,7 @@
 
 
 .dashboard-modal {
-    position: relative;
+    position: fixed;
     max-width: 90%;
     padding: 2rem;
     border: 0;
