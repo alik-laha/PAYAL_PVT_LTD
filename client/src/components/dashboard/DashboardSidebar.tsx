@@ -84,7 +84,7 @@ const DashboardSidebar = () => {
 
                         {renderlink('Asset')
                        && <CollapsibleContent className="Items-pvt" >
-                            && <NavLink to="/dashboard/machine" >
+                           <NavLink to="/dashboard/machine" >
                               Asset
                             </NavLink>
                         </CollapsibleContent >}
@@ -109,12 +109,13 @@ const DashboardSidebar = () => {
                     {rendersection('Receiving') &&  <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25} />
                             <p>Receiving</p></CollapsibleTrigger>
-                        <CollapsibleContent className="Items-pvt">
+                            {renderlink('RCN Primary Entry')
+                       && <CollapsibleContent className="Items-pvt">
                             <NavLink to="/dashboard/rcnprimaryentry" >
                                 RCN Primary Entry
                             </NavLink>
 
-                        </CollapsibleContent>
+                        </CollapsibleContent>}
 
                     </Collapsible>}
 
