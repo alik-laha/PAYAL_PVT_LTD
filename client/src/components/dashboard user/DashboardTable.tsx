@@ -144,6 +144,8 @@ const DashboardTable = () => {
             .then((res) => {
                 console.log(res.data)
                 setUserData(UserData.filter((data) => data.employeeId !== item.employeeId))
+                window.location.reload();
+
             })
             .catch((err) => {
                 console.log(err)
