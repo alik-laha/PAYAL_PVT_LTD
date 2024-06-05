@@ -9,7 +9,7 @@ export const pagelimit = 10
 export const Section = ['Boiling', 'Grading', 'Scooping']
 export const MachineStatus = ['Active', 'Inactive', 'Discarded']
 
-export const Permission = {
+export const PermissionRol = {
     Director: ['Employee', 'Dashboard User', 'Asset','RCN Primary Entry'],
     FactoryManager: ['Employee', 'Asset','RCN Primary Entry'],
     ReceivingSupervisor: ['RCN Primary Entry'],

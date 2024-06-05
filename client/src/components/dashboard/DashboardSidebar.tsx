@@ -11,7 +11,7 @@ import { MdCallReceived } from "react-icons/md";
 import { MdOutlineFactory } from "react-icons/md";
 import { LuBadgeCheck, LuServerCrash } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
-import { Permission,PermissionDep } from "../common/exportData";
+import { PermissionRol,PermissionDep } from "../common/exportData";
 import { PermissionRole,PermissionDept } from "@/type/type";
 
 
@@ -34,7 +34,7 @@ const DashboardSidebar = () => {
 
     const renderlink = ( button: string) => { 
         console.log(Role)
-        if (Permission[Role].includes(button)) {
+        if (PermissionRol[Role].includes(button)) {
             return true
         }
         else{
