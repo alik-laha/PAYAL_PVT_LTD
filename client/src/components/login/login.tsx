@@ -69,7 +69,7 @@ export const Login = () => {
     }, [])
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen items-center w-screen login-container">
+        <div className="flex flex-col items-center justify-center h-screen  w-screen login-container">
             <div className="p-8 border-2 flex justify-center items-center flex-col rounded-xl login">
                 <img src={img} width={60} height={100}></img>
                 <h1 className="text-2xl font-bold mb-3 pb-7 mt-2 text-center text-blue-950 drop-shadow-md ">PAYAL DEALERS PVT. LTD</h1>

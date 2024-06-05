@@ -80,30 +80,30 @@ const DashboardUserEntryForm = () => {
     return (
         <div className="pl-10 pr-10">
             <form className='flex flex-col gap-4 mt-5' onSubmit={handleSubmit}>
-                <div className="flex"><Label className="w-2/4">Employee Id</Label>
-                    <Input className="w-2/4 " placeholder="Employee Id" value={employeeId} onChange={fetchemployeeId} /> </div>
-                <ScrollArea className="h-30 w-30" style={{ display: scrollView }}>
+                <div className="flex"><Label className="w-2/4 mt-1">Employee Id</Label>
+                    <Input className="w-2/4 " placeholder="Search " value={employeeId} onChange={fetchemployeeId} /> </div>
+                <ScrollArea className="h-30 w-30 dropdown-content " style={{ display: scrollView }}>
                     {
                         employeeData.map((item) => {
                             return (
-                                <div key={item.id} className="flex gap-x-2" onClick={() => handleEmployeeIdClick(item)}>
-                                    <p >{item.employeeId}</p>
-                                    <p>{item.employeeName}</p>
+                                <div key={item.id} className="flex gap-x-3 hover:bg-gray-300 " onClick={() => handleEmployeeIdClick(item)}>
+                                    <p className="font-medium text-sm text-blue-900">{item.employeeId}</p>
+                                    <p className="text-sm">{item.employeeName}</p>
                                 </div>
                             )
                         })
                     }
                 </ScrollArea>
-                <div className="flex"><Label className="w-2/4">User Name</Label>
+                <div className="flex"><Label className="w-2/4 mt-1">User Name</Label>
                     <Input className="w-2/4 " placeholder="User Name" ref={userNameRef} /> </div>
 
-                <div className="flex"><Label className="w-2/4">Password</Label>
+                <div className="flex"><Label className="w-2/4 mt-1">Password</Label>
                     <Input type="password" className="w-2/4 " placeholder="Password" ref={passwordRef} /> </div>
 
 
-                <div className="flex"><Label className="w-2/4 ">Confirm Password</Label>
+                <div className="flex"><Label className="w-2/4 mt-1">Confirm Password</Label>
                     <Input type="password" className="w-2/4" placeholder="Confirm Password" ref={confirmPasswordRef} /> </div>
-                <div className="flex"><Label className="w-2/4">Department</Label>
+                <div className="flex"><Label className="w-2/4 mt-1">Department</Label>
                     <Select value={dept} onValueChange={(value) => setDept(value)}>
                         <SelectTrigger className="w-2/4">
                             <SelectValue placeholder="Department" />
@@ -123,7 +123,7 @@ const DashboardUserEntryForm = () => {
                         </SelectContent>
                     </Select>
                     {/* <Input   placeholder="Origin"/>  */}</div>
-                <div className="flex"><Label className="w-2/4 ">Role</Label>
+                <div className="flex"><Label className="w-2/4 mt-1">Role</Label>
                     <Select value={role} onValueChange={(value) => setRole(value)}>
                         <SelectTrigger className="w-2/4 ">
                             <SelectValue placeholder="Role" />
