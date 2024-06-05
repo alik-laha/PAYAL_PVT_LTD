@@ -3,8 +3,8 @@ import RcnPrimary from "../../model/RcnEntryModel";
 
 const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
     try {
-        const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin } = req.body;
-        const date = new Date();
+        const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin, date } = req.body;
+        // const date = new Date();
         // const receivedBy = req.cookies.user;
         const receivedBy = "RC User 1";
         const difference = blWeight - netWeight;
