@@ -49,6 +49,8 @@ import { User } from "@/type/type";
 import { LuDownload } from "react-icons/lu";
 import { Button } from "../ui/button";
 import { pageNo, pagelimit } from "../common/exportData";
+import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
 
 
 
@@ -115,8 +117,15 @@ const DashboardTable = () => {
 
         const response = await axios.post('/api/user/searchuser', {}, {})
         const data1 = await response.data
-        const transformed = data1.Employees.map((item: User, idx: number) => ({
-            
+        const transformed = data1.user.map((item: User, idx: number) => ({
+            id: idx+1,
+    employeeId: item.employeeId,
+    employeeName: item.employeeName,
+    userName: item.userName,
+    dept: item.dept,
+    role: item.role,
+    createdBy: item.createdBy,
+    modifyedBy:item.modifyedBy
 
         }));
         setTransformedData(transformed);

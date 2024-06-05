@@ -80,6 +80,7 @@ export interface User {
     dept: string;
     role: string;
     createdBy: string;
+    modifyedBy:string;
 }
 
 export interface UserProps {
