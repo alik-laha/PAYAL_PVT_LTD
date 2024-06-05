@@ -17,16 +17,37 @@ function App() {
 
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager','MaintainanceSupervisor'
-,'QCSupervisor', 'QCManager','ProductionManager']} />}>
+
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 
+        'ReceivingSupervisor', 'ReceivingManager',
+        'MaintainanceSupervisor'
+          , 'QCManager','ProductionManager']} />}>
         <Route path="/dashboard" element={<Dashboard />} />
         </Route>
+
+        <Route element={<Private allowedRoles={['Director']} />}>
+        <Route path="/dashboard/user" element={<DashboardUser />} />
+        </Route>
+
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager']} />}>
+        <Route path="/dashboard/employee" element={<Employee />} />
+        </Route>
+
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager']} />}>
+        <Route path="/dashboard/machine" element={<Machine />} />
+        </Route>
+
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+        'ReceivingSupervisor', 'ReceivingManager',]} />}>
+        <Route path="/dashboard/rcnprimaryentry" element={<RcnPrimaryEntry />} />
+        </Route>
         
-        <Route path='/dashboard/rcnprimaryentry' element={<RcnPrimaryEntry />} />
-        <Route path='/dashboard/employee' element={<Employee />} />
-        <Route path='/dashboard/user' element={<DashboardUser />} />
+        
+        
+        
+       
         <Route path='/dashboard/rcnGrading' element={<RcnGrading />} />
-        <Route path='/dashboard/machine' element={<Machine />} />
+       
       </Routes>
     </>
   )
