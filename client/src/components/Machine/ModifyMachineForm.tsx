@@ -42,7 +42,7 @@ const ModifymachineForm = (props: Props) => {
     const [status, setStatus] = React.useState<string>("")
 
 
-    const [errortext, setErrorText] = React.useState<string>("")
+    // const [errortext, setErrorText] = React.useState<string>("")
 
     const successdialog = document.getElementById('modifymachinescs') as HTMLInputElement;
     const errordialog = document.getElementById('modifymachineerror') as HTMLInputElement;
@@ -82,6 +82,20 @@ const ModifymachineForm = (props: Props) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        axios.put("/api/asset/assetupdate", { machineId: machineid, machinename: machinename, section: section, machinestatus: status, description: description, id: props.data.id })
+            .then((res) => {
+                if (res.status === 200) {
+                    if (successdialog != null) {
+                        (successdialog as any).showModal()
+                    }
+                }
+            }
+            )
+            .catch((err) => {
+                if (errordialog != null) {
+                    (errordialog as any).showModal()
+                }
+            })
     }
 
 
@@ -157,7 +171,8 @@ const ModifymachineForm = (props: Props) => {
             <dialog id="modifymachineerror" className="dashboard-modal">
                 <button id="modifymachineerrorbtn" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    {/* <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p> */}
+                </span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
