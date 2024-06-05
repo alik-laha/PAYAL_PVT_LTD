@@ -7,6 +7,7 @@ import VerifyUser from '../controller/userController/verifyUser';
 import UpdateUser from '../controller/userController/updateUser';
 import DeleteUser from '../controller/userController/DeleteUser';
 import logoutUser from '../controller/userController/logoutUser';
+import totaluserCount from '../controller/userController/totaluserCount';
 const router = express.Router();
 
 router.post("/createuser", UserMiddleWare, CreateUser)
@@ -14,6 +15,7 @@ router.post("/createuser", UserMiddleWare, CreateUser)
 router.post("/login", LoginUser)
 
 router.post("/searchuser", SearchUser)
+router.get("/totaluserCount", totaluserCount)
 
 router.get("/verify", VerifyUser)
 

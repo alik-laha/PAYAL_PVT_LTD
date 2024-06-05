@@ -11,7 +11,7 @@ const SearchUser = async (req: Request, res: Response) => {
         const offset = (page - 1) * size;
         const limit = size;
         let user
-        const count = await User.count()
+        
 
         if (page === 0 || size === 0) {
             user = await User.findAll({
@@ -46,7 +46,7 @@ const SearchUser = async (req: Request, res: Response) => {
                     ]
                 }
             })
-            return res.status(200).json({ msg: 'User found', user, count })
+            return res.status(200).json({ msg: 'User found', user })
         }
         user = await User.findAll({
             where: {

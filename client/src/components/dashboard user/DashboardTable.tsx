@@ -43,22 +43,24 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import axios from "axios";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { User } from "@/type/type";
-import Context from "../context/context";
 
 
-const EmployeeTable = () => {
+
+const DashboardTable = () => {
     const [UserData, setUserData] = useState<User[]>([])
-    const { setCount } = useContext(Context)
+  
 
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        
         axios.post('/api/user/searchuser', { SearchUser: e.target.value })
             .then((res) => {
                 console.log(res.data)
                 setUserData(res.data.user)
-                setCount(res.data.count)
+               
             })
             .catch((err) => {
                 console.log(err)
@@ -70,7 +72,7 @@ const EmployeeTable = () => {
             .then((res) => {
                 console.log(res.data)
                 setUserData(res.data.user)
-                setCount(res.data.count)
+                
             })
             .catch((err) => {
                 console.log(err)
@@ -180,4 +182,4 @@ const EmployeeTable = () => {
     )
 
 }
-export default EmployeeTable;
+export default DashboardTable;
