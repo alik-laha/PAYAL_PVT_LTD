@@ -27,6 +27,8 @@ import {
     Dialog,
     DialogContent,
 
+    DialogDescription,
+
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -51,6 +53,7 @@ import { Button } from "../ui/button";
 import { pageNo, pagelimit } from "../common/exportData";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+
 
 
 
@@ -151,6 +154,7 @@ const DashboardTable = () => {
                 console.log(err)
             })
     }
+
     return (
         
         <div className="ml-5 mt-5">
@@ -170,6 +174,7 @@ const DashboardTable = () => {
                     <TableHead className="text-center" >User Name </TableHead>
                     <TableHead className="text-center" >Department </TableHead>
                     <TableHead className="text-center" >Role </TableHead>
+                  
                     <TableHead className="text-center" >Created By </TableHead>
                     <TableHead className="text-center" >Action</TableHead>
 
@@ -202,6 +207,7 @@ const DashboardTable = () => {
                                     <TableCell className="text-center" >{item.dept}</TableCell>
                                     <TableCell className="text-center" >{item.role}</TableCell>
                                     <TableCell className="text-center" >{item.createdBy}</TableCell>
+                                   
                                     <TableCell className="text-center" >
 
                                         <Popover>
@@ -214,7 +220,9 @@ const DashboardTable = () => {
                                                     <DialogContent>
                                                         <DialogHeader>
                                                             <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>User Modification</p></DialogTitle>
-
+                                                            <DialogDescription>
+                                <p className='text-1xl text-center'>To Be Modified Up By Director</p>
+                            </DialogDescription>
                                                         </DialogHeader>
 
                                                         <DashboardUserModifyForm Data={item} />

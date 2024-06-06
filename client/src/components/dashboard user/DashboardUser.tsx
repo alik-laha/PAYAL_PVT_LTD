@@ -50,7 +50,7 @@ const DashboardUser = () => {
                         <DialogHeader>
                             <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>New User Creation</p></DialogTitle>
                             <DialogDescription>
-                                <p className='text-1xl text-center'>To Be Filled Up By Admin</p>
+                                <p className='text-1xl text-center'>To Be Filled Up By Director</p>
                             </DialogDescription>
                         </DialogHeader>
 
