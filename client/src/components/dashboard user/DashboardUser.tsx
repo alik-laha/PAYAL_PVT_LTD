@@ -14,12 +14,19 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { useContext } from 'react'
-import Context from '../context/context'
+import UseQueryData from '../common/dataFetcher';
+
+import Loader from '../common/Loader';
 
 
-const Employee = () => {
-    const { count } = useContext(Context)
+const DashboardUser = () => {
+    const { data, error, isLoading } = UseQueryData('/api/user/totaluserCount', 'GET', 'totaluserCount')
+    if (isLoading) {
+        return <Loader/>
+    }
+    if (error) {
+        return <div>Error</div>
+    }
     return (
         <div>
             <DashboardHeader />
@@ -27,7 +34,7 @@ const Employee = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-red-500 hover:bg-red-600">
-                        User<br /><p>{count}</p>
+                        User<br /><p>{data.count}</p>
                     </div>
 
 
@@ -62,4 +69,4 @@ const Employee = () => {
 
     )
 }
-export default Employee;
+export default DashboardUser;

@@ -80,6 +80,7 @@ export interface User {
     dept: string;
     role: string;
     createdBy: string;
+    modifyedBy:string;
 }
 
 export interface UserProps {
@@ -106,5 +107,21 @@ export interface AssetData {
 }
 
 export interface PermissionRole {
-    Admin_Manager: string[];
+
+    Director: string[];
+    ReceivingManager:string[];
+    FactoryManager:string[];
+    ReceivingSupervisor:string[];
+    
+
 }
+
+export interface PermissionDept {
+    Admin:string[];
+    Receiving:string[];
+    Maintainance:string[];
+    Production:string[];
+    QualityControl:string[];
+    
+}
+

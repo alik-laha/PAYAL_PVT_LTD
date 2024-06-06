@@ -15,6 +15,8 @@ import { Dept, Role } from "../common/exportData"
 import { useState } from "react"
 import { UserProps } from "@/type/type"
 import axios from "axios"
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 
 const DashboardUserModifyForm = (props: UserProps) => {
 
@@ -23,22 +25,56 @@ const DashboardUserModifyForm = (props: UserProps) => {
     const [userName, setUserName] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const [confirmPassword, setConfirmPassword] = useState<string>("")
+    const [errortext, setErrorText] = React.useState<string>("")
+
+    const successdialog = document.getElementById('modifysuccessuserdialog') as HTMLInputElement;
+    const errordialog = document.getElementById('modifyerroruserdialog') as HTMLInputElement;
+    // const dialog = document.getElementById('myDialog');
+    const closeDialogButton = document.getElementById('modifyusrcloseDialog') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('modifyerrorusrcloseDialog') as HTMLInputElement;
+
+    if (closeDialogButton) {
+        closeDialogButton.addEventListener('click', () => {
+            if (successdialog != null) {
+                (successdialog as any).close();
+                window.location.reload();
+            }
+
+
+        });
+    }
+    if (errorcloseDialogButton) {
+        errorcloseDialogButton.addEventListener('click', () => {
+            if (errordialog != null) {
+                (errordialog as any).close();
+            }
+
+        });
+    }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         axios.put('/api/user/updateuser', { userName, password, role, dept, employeeId: props.Data.employeeId, confirmPassword })
             .then((res) => {
                 console.log(res.data)
+                setErrorText(res.data.message)
+                if (successdialog != null) {
+                    (successdialog as any).showModal();
+                }
             })
             .catch((err) => {
                 console.log(err)
+                setErrorText(err.response.data.message)
+                if(errordialog!=null){
+                    (errordialog as any).showModal();
+                }
             })
     }
     useEffect(() => {
         setDept(props.Data.dept)
         setRole(props.Data.role)
         setUserName(props.Data.userName)
-    }, [])
+    }, [props.Data])
 
 
     return (
@@ -98,6 +134,21 @@ const DashboardUserModifyForm = (props: UserProps) => {
 
                 <Button className="bg-orange-500 mb-2 mt-8 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
             </form>
+            <dialog id="modifysuccessuserdialog" className="dashboard-modal">
+                <button id="modifyusrcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+
+            <dialog id="modifyerroruserdialog" className="dashboard-modal">
+                <button id="modifyerrorusrcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
 
 
 

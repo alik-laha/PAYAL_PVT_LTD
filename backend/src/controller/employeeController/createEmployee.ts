@@ -14,7 +14,7 @@ const createEmployee = async (req: Request, res: Response) => {
         const LastUserId: EmployeeData | null = await Employee.findOne({ order: [['id', 'DESC']] }) as EmployeeData | null;
         let Id: number;
         let employeeId: string;
-
+        const createdBy = req.cookies.user;
         if (!LastUserId) {
             Id = 1;
         }
@@ -53,7 +53,7 @@ const createEmployee = async (req: Request, res: Response) => {
                 alternateMobNo,
                 bloodGroup,
                 heighstQualification,
-                pfNo
+                pfNo,createdBy
             }).then((data) => {
                 return res.status(201).json({ msg: `New Employee has Created Successfully with Emp ID ${employeeId}`, data })
             }).catch((err) => {

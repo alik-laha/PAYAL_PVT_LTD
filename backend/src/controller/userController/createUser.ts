@@ -9,7 +9,7 @@ const CreateUser = async (req: Request, res: Response) => {
         const pass = await bcrypt.hash(password, 10);
         const user = await User.create({ userName, password: pass, dept, role, employeeId, createdBy, employeeName });
         if (user) {
-            return res.status(201).json({ message: "User Created" });
+            return res.status(201).json({ message: "A New User Has Been Created" });
         }
     } catch (err) {
         return res.status(500).json({ message: "Internal Server Error", error: err });

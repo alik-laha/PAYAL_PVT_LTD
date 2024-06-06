@@ -16,6 +16,8 @@ import { useState, useRef } from "react"
 import axios from "axios"
 import { EmployeeData } from "@/type/type"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 
 const DashboardUserEntryForm = () => {
 
@@ -29,7 +31,32 @@ const DashboardUserEntryForm = () => {
     const [employeeName, setEmployeeName] = useState<string>("")
     const confirmPasswordRef = useRef<HTMLInputElement>(null)
 
+    const successdialog = document.getElementById('userscs') as HTMLInputElement;
+    const errordialog = document.getElementById('usererror') as HTMLInputElement;
+    // const dialog = document.getElementById('myDialog');
+    const closeDialogButton = document.getElementById('userscsbtn') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('usererrorbtn') as HTMLInputElement;
+    const [errortext, setErrorText] = useState<string>("")
 
+    if(closeDialogButton){
+        closeDialogButton.addEventListener('click', () => {
+            if(successdialog!=null){
+                (successdialog as any).close();
+                window.location.reload()
+            }
+            
+            
+          });
+    }
+    if(errorcloseDialogButton){
+        errorcloseDialogButton.addEventListener('click', () => {
+            if(errordialog!=null){
+                (errordialog as any).close();
+               
+            }
+            
+          });
+    }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -39,9 +66,38 @@ const DashboardUserEntryForm = () => {
         axios.post('/api/user/createuser', { userName, password, dept, role, employeeId, confirmPassword, employeeName })
             .then((res) => {
                 console.log(res.data)
+                if(successdialog!=null){
+                    (successdialog as any).showModal();
+                }
+                if(userNameRef.current!=null){
+                    userNameRef.current.value='';
+                }
+                if(passwordRef.current!=null){
+                    passwordRef.current.value='';
+                }
+                if(confirmPasswordRef.current!=null){
+                    confirmPasswordRef.current.value='';
+                }
+                setRole('')
+                setDept('')
+                setEmployeeId('')
+                setEmployeeName('')
+                setEmployeeData([])
             })
             .catch((err) => {
                 console.log(err.response.data.message)
+                // if(err.response.data.error.original.errno===1062)
+                //     {
+                //         setErrorText('Duplicate Entry is Not Allowed')
+                //         if(errordialog!=null){
+                //             (errordialog as any).showModal();
+                //         }
+                //         return
+                //     }
+                setErrorText(err.response.data.message)
+                if(errordialog!=null){
+                    (errordialog as any).showModal();
+                }
             })
     }
 
@@ -78,32 +134,33 @@ const DashboardUserEntryForm = () => {
 
 
     return (
+        <>
         <div className="pl-10 pr-10">
             <form className='flex flex-col gap-4 mt-5' onSubmit={handleSubmit}>
-                <div className="flex"><Label className="w-2/4">Employee Id</Label>
-                    <Input className="w-2/4 " placeholder="Employee Id" value={employeeId} onChange={fetchemployeeId} /> </div>
-                <ScrollArea className="h-30 w-30" style={{ display: scrollView }}>
+                <div className="flex"><Label className="w-2/4 mt-1">Employee Id</Label>
+                    <Input className="w-2/4 " placeholder="Search " value={employeeId} onChange={fetchemployeeId} /> </div>
+                <ScrollArea className="h-30 w-30 dropdown-content " style={{ display: scrollView }}>
                     {
                         employeeData.map((item) => {
                             return (
-                                <div key={item.id} className="flex gap-x-2" onClick={() => handleEmployeeIdClick(item)}>
-                                    <p >{item.employeeId}</p>
-                                    <p>{item.employeeName}</p>
+                                <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleEmployeeIdClick(item)}>
+                                    <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.employeeId}</p>
+                                    <p className="text-sm py-1 focus:text-base ">{item.employeeName}</p>
                                 </div>
                             )
                         })
                     }
                 </ScrollArea>
-                <div className="flex"><Label className="w-2/4">User Name</Label>
+                <div className="flex"><Label className="w-2/4 mt-1">User Name</Label>
                     <Input className="w-2/4 " placeholder="User Name" ref={userNameRef} /> </div>
 
-                <div className="flex"><Label className="w-2/4">Password</Label>
+                <div className="flex"><Label className="w-2/4 mt-1">Password</Label>
                     <Input type="password" className="w-2/4 " placeholder="Password" ref={passwordRef} /> </div>
 
 
-                <div className="flex"><Label className="w-2/4 ">Confirm Password</Label>
+                <div className="flex"><Label className="w-2/4 mt-1">Confirm Password</Label>
                     <Input type="password" className="w-2/4" placeholder="Confirm Password" ref={confirmPasswordRef} /> </div>
-                <div className="flex"><Label className="w-2/4">Department</Label>
+                <div className="flex"><Label className="w-2/4 mt-1">Department</Label>
                     <Select value={dept} onValueChange={(value) => setDept(value)}>
                         <SelectTrigger className="w-2/4">
                             <SelectValue placeholder="Department" />
@@ -123,7 +180,7 @@ const DashboardUserEntryForm = () => {
                         </SelectContent>
                     </Select>
                     {/* <Input   placeholder="Origin"/>  */}</div>
-                <div className="flex"><Label className="w-2/4 ">Role</Label>
+                <div className="flex"><Label className="w-2/4 mt-1">Role</Label>
                     <Select value={role} onValueChange={(value) => setRole(value)}>
                         <SelectTrigger className="w-2/4 ">
                             <SelectValue placeholder="Role" />
@@ -152,6 +209,22 @@ const DashboardUserEntryForm = () => {
 
 
         </div>
+              <dialog id="userscs" className="dashboard-modal">
+              <button id="userscsbtn" className="dashboard-modal-close-btn ">X </button>
+              <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
+              <p id="modal-text" className="pl-3 mt-1 font-medium">New User has Created Successfully</p></span>
+              
+              {/* <!-- Add more elements as needed --> */}
+          </dialog>
+      
+          <dialog id="usererror" className="dashboard-modal">
+              <button id="usererrorbtn" className="dashboard-modal-close-btn ">X </button>
+              <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
+              <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+              
+              {/* <!-- Add more elements as needed --> */}
+          </dialog>
+          </>
     )
 
 
