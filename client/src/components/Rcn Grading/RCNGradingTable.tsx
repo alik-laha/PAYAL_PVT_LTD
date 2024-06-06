@@ -45,6 +45,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { LuDownload } from 'react-icons/lu'
+import RcnGradingCreateForm from "./RcnGradingCreateForm";
 
 const RcnGradingTable = () => {
     const [page, setPage] = useState(1)
@@ -139,7 +140,7 @@ const RcnGradingTable = () => {
                                                 <DialogHeader>
                                                     <DialogTitle><p className='text-1xl text-center mt-2'>View/Modify Employee</p></DialogTitle>
                                                 </DialogHeader>
-                                                {/* <EmployeeModifyForm /> */}
+                                                {/* <RcnGradingCreateForm /> */}
                                             </DialogContent>
                                         </Dialog>
                                     </PopoverContent>

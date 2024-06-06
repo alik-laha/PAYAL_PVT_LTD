@@ -15,6 +15,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import RcnGradingTable from './RCNGradingTable';
+import RcnGradingCreateForm from './RcnGradingCreateForm';
 
 
 const RcnGrading = () => {
@@ -61,7 +62,7 @@ const RcnGrading = () => {
 
                         </DialogHeader>
 
-                        {/* <Employeecreateform/> */}
+                        <RcnGradingCreateForm />
                     </DialogContent>
                 </Dialog>
 
