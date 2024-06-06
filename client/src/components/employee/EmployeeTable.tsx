@@ -51,6 +51,9 @@ import { Button } from "@/components/ui/button";
 import { pageNo, pagelimit } from "../common/exportData"
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import { CiEdit } from "react-icons/ci";
+import { MdDelete } from "react-icons/md";
+import { IoLockClosedOutline  } from "react-icons/io5";
 
 const EmployeeTable = () => {
     const [Data, setData] = useState<EmployeeData[]>([])
@@ -235,12 +238,12 @@ const EmployeeTable = () => {
 
                                     <TableCell className="text-center" >
                                         <Popover>
-                                            <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                            <PopoverTrigger >  <button className="bg-cyan-500 p-2 text-white rounded hover:bg-cyan-700">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
                                                 <Dialog>
-                                                    <DialogTrigger>   <button className="bg-transparent pb-2 text-left">View/Modify</button></DialogTrigger>
+                                                    <DialogTrigger className="flex">    <CiEdit size={20}/> <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500 ">Modify</button></DialogTrigger>
                                                     <DialogContent className='max-w-2xl'>
                                                         <DialogHeader>
                                                             <DialogTitle><p className='text-1xl text-center mt-2'>View/Modify Employee</p></DialogTitle>
@@ -250,27 +253,10 @@ const EmployeeTable = () => {
                                                         />
                                                     </DialogContent>
                                                 </Dialog>
-
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger><button className="bg-transparent pb-2 text-left">Delete</button></AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                                                            <AlertDialogDescription>
-                                                                This action cannot be undone. This will permanently delete employee Data
-                                                            </AlertDialogDescription>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleDelete(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-
-                                               {item.status && <AlertDialog >
+                                                {item.status && <AlertDialog >
                                                     
-                                                    <AlertDialogTrigger><button className="bg-transparent text-left"><button className='bg-transparent text-left'
-                                                    >Resign</button></button></AlertDialogTrigger>
+                                                    <AlertDialogTrigger className="flex"><IoLockClosedOutline size={20}/><button className='bg-transparent pl-2 pb-2 text-left hover:text-yellow-500'
+                                                    >Resign</button></AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
                                                             <AlertDialogTitle>Are you sure want to Resign This Employee?</AlertDialogTitle>
@@ -285,6 +271,24 @@ const EmployeeTable = () => {
                                                         </AlertDialogFooter>
                                                     </AlertDialogContent>
                                                 </AlertDialog>} 
+
+                                                <AlertDialog>
+                                                    <AlertDialogTrigger className="flex"><MdDelete size={20}/><button className="bg-transparent pl-2 text-left hover:text-red-500 ">Delete</button></AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                                            <AlertDialogDescription>
+                                                                This action cannot be undone. This will permanently delete employee Data
+                                                            </AlertDialogDescription>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction onClick={() => handleDelete(item)}>Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>
+
+                                              
                                             </PopoverContent>
                                         </Popover>
                                     </TableCell>

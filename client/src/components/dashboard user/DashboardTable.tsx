@@ -15,7 +15,8 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
-
+import { CiEdit } from "react-icons/ci";
+import { MdDelete } from "react-icons/md";
 import { Input } from "../ui/input";
 import {
     Popover,
@@ -211,12 +212,12 @@ const DashboardTable = () => {
                                     <TableCell className="text-center" >
 
                                         <Popover>
-                                            <PopoverTrigger><button className="bg-green-500 p-2 text-white rounded">Action</button>
+                                            <PopoverTrigger><button className="bg-cyan-500 p-2 text-white rounded hover:bg-cyan-700">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
                                                 <Dialog>
-                                                    <DialogTrigger>   <button className="bg-transparent pb-2 text-left">Modify</button></DialogTrigger>
+                                                    <DialogTrigger className="flex"> <CiEdit size={20}/>  <button className="bg-transparent pb-2 pl-2 text-left  hover:text-green-600 ">Modify</button></DialogTrigger>
                                                     <DialogContent>
                                                         <DialogHeader>
                                                             <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>User Modification</p></DialogTitle>
@@ -230,7 +231,8 @@ const DashboardTable = () => {
                                                 </Dialog>
 
                                                 <AlertDialog>
-                                                    <AlertDialogTrigger><button className="bg-transparent text-left">Delete</button></AlertDialogTrigger>
+                                                    <AlertDialogTrigger className="flex"><MdDelete size={20}/><button className="bg-transparent pl-2
+                                                    text-left hover:text-red-600">Delete</button></AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
                                                             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
