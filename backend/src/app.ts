@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser"
 import RcnPrimary from "./router/RcnPrimaryRouter";
 import userRouter from "./router/userRouter";
 import assetRouter from './router/assetRouter'
+import GraddingRouter from './router/GraddingRouter'
 
 app.use(cookieParser());
 app.use(cors());
@@ -18,5 +19,6 @@ app.get("/api", (req, res) => {
 app.use("/api/employee", employeeRouter)
 app.use("/api/rcnprimary", RcnPrimary)
 app.use('/api/user', userRouter)
-app.use('/api/asset',assetRouter)
+app.use('/api/asset', assetRouter)
+app.use('/api/gradding', GraddingRouter)
 export default app

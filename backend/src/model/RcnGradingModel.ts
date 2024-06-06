@@ -65,11 +65,11 @@ const RcnGrading = sequelize.define('rcnGrading', {
     },
     Mc_breakdown: {
         type: DataTypes.TIME,
-        allowNull: false
+        allowNull: true
     },
     otherTime: {
         type: DataTypes.TIME,
-        allowNull: false
+        allowNull: true
     },
     feeledBy: {
         type: DataTypes.STRING,
