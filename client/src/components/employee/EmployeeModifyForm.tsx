@@ -130,17 +130,17 @@ const EmployeeModifyForm = (props: Props) => {
             <form className='flex flex-col gap-0.5 text-xs' onSubmit={handleSubmit}>
                 <div className="flex">
                 <Label className="w-2/4 pt-1">Name</Label>
-                <Input className="w-2/4 " placeholder="Name"  value={employeeName} onChange={(e) => setEmployeeName(e.target.value)}  />
+                <Input className="w-2/4 " placeholder="Name"  value={employeeName} onChange={(e) => setEmployeeName(e.target.value)}  readOnly={props.data.releseDate!==null}/>
                 </div>
 
                 <div className="flex">
                      <Label className="w-2/4 pt-1">Designation</Label>
-                    <Input className="w-2/4" placeholder="Designation" value={designation} onChange={(e) => setDesignation(e.target.value)} /> 
+                    <Input className="w-2/4" placeholder="Designation" value={designation} onChange={(e) => setDesignation(e.target.value)} readOnly={props.data.releseDate!==null} /> 
                      </div>
 
                      <div className="flex">
                 <Label className="w-2/4 pt-1">Email</Label>
-                <Input className="w-2/4" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input className="w-2/4" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} readOnly={props.data.releseDate!==null} />
                 </div>
 
                 <div className="flex">
@@ -152,64 +152,64 @@ const EmployeeModifyForm = (props: Props) => {
 
                 <div className="flex">
                 <Label className="w-2/4 pt-1" >Contact No.</Label>
-                <Input className="w-2/4" placeholder="Contact No." value={mobNo} onChange={(e) => setMobNo(e.target.value)} />
+                <Input className="w-2/4" placeholder="Contact No." value={mobNo} onChange={(e) => setMobNo(e.target.value)} readOnly={props.data.releseDate!==null}/>
                 </div>
 
                 <div className="flex">
                    
                   
                 <Label className="w-2/4 pt-1" >Blood Group</Label>
-                    <Input className="w-2/4" placeholder="Blood Group" value={bloodGroup} onChange={(e) => setBloodGroup(e.target.value)} />
+                    <Input className="w-2/4" placeholder="Blood Group" value={bloodGroup} onChange={(e) => setBloodGroup(e.target.value)}  readOnly={props.data.releseDate!==null}/>
 
                 </div>
 
                 <div className="flex">
                 <Label className="w-2/4 pt-1" >Contact No.(Alt)</Label>
                 
-                <Input className="w-2/4" placeholder="Alt No." value={alternateMobNo} onChange={(e) => setAlternateMobNo(e.target.value)} />
+                <Input className="w-2/4" placeholder="Alt No." value={alternateMobNo} onChange={(e) => setAlternateMobNo(e.target.value)}  readOnly={props.data.releseDate!==null}/>
                 </div>
 
                 <div className="flex">
               
                     
                     <Label className="w-2/4 pt-1">Highest Study </Label>
-                    <Input className="w-2/4" placeholder=" Quaification" value={heighstQualification} onChange={(e) => setHeighstQualification(e.target.value)} />
+                    <Input className="w-2/4" placeholder=" Quaification" value={heighstQualification} onChange={(e) => setHeighstQualification(e.target.value)}  readOnly={props.data.releseDate!==null}/>
                 </div>
                 <div className="flex">
               
                 <Label className="w-2/4 pt-1">Aadhar No.</Label>
-                    <Input className="w-2/4" placeholder=" Aadhar No." value={aadhaarNo} onChange={(e) => setAadhaarNo(e.target.value)} />
+                    <Input className="w-2/4" placeholder=" Aadhar No." value={aadhaarNo} onChange={(e) => setAadhaarNo(e.target.value)}  readOnly={props.data.releseDate!==null}/>
                 </div>
 
 
                 <div className="flex">
                   
                     <Label className="w-2/4 pt-1">Pan No.</Label>
-                    <Input className="w-2/4" placeholder="Pan No." value={panNo} onChange={(e) => setPanNo(e.target.value)} /> 
+                    <Input className="w-2/4" placeholder="Pan No." value={panNo} onChange={(e) => setPanNo(e.target.value)}  readOnly={props.data.releseDate!==null}/> 
                      </div>
 
                      <div className="flex">
                   
                      <Label className="w-2/4 pt-1">Emergency Contact Name </Label>
-                    <Input className="w-2/4" placeholder=" Contact Name " value={emergencyContact} onChange={(e) => setEmergencyContact(e.target.value)} />
+                    <Input className="w-2/4" placeholder=" Contact Name " value={emergencyContact} onChange={(e) => setEmergencyContact(e.target.value)}  readOnly={props.data.releseDate!==null}/>
                    </div>
 
                 <div className="flex">
                     
                     <Label className="w-2/4 pt-1">Emergency Contact No. </Label>
-                    <Input className="w-2/4" placeholder="Contact No." value={emergencyMobNo} onChange={(e) => setEmergencyMobNo(e.target.value)} />  </div>
+                    <Input className="w-2/4" placeholder="Contact No." value={emergencyMobNo} onChange={(e) => setEmergencyMobNo(e.target.value)}  readOnly={props.data.releseDate!==null}/>  </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">PF No.(Optional) </Label>
-                    <Input className="w-2/4" placeholder="PF No. " value={pfNo} onChange={(e) => setPfNo(e.target.value)} />
+                    <Input className="w-2/4" placeholder="PF No. " value={pfNo} onChange={(e) => setPfNo(e.target.value)}  readOnly={props.data.releseDate!==null}/>
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1"> Pincode</Label>
-                    <Input className="w-2/4" placeholder=" Pincode " value={pincode} onChange={(e) => setPincode(e.target.value)} />  </div>
+                    <Input className="w-2/4" placeholder=" Pincode " value={pincode} onChange={(e) => setPincode(e.target.value)}  readOnly={props.data.releseDate!==null}/>  </div>
                 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Address </Label>
-                    <Input className="w-2/4" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)} />
+                    <Input className="w-2/4" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)}  readOnly={props.data.releseDate!==null}/>
 
                 </div>
                
@@ -223,8 +223,8 @@ const EmployeeModifyForm = (props: Props) => {
 
 
                  {releaseDate ?<div className="flex pt-4 pb-2">
-                <Label className="w-2/4 pt-1 font-bold text-red-500">Date Of Release </Label>
-                <span className=""><DatePicker buttonName="Date Of Release" value={releaseDate} setValue={setReleaseDate} /></span>
+                <Label className="w-2/4 pt-2 font-bold text-red-500">Date Of Release </Label>
+                <span className=""><DatePicker buttonName="Date Of Release" value={releaseDate} setValue={setReleaseDate}/></span>
                 
                 </div>: <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Modify</Button>}
             </form>
