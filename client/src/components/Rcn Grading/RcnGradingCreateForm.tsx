@@ -29,6 +29,7 @@ const RcnGradingCreateForm = () => {
     const mc_breakdownRef = useRef<HTMLInputElement>(null)
     const [errortext, setErrortext] = useState('')
     const otherRef = useRef<HTMLInputElement>(null)
+    const grading_lotNoRef = useRef<HTMLInputElement>(null)
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -47,7 +48,7 @@ const RcnGradingCreateForm = () => {
     }, [])
     return (
         <div className="pl-10 pr-10 ">
-            <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
+            <form className='flex flex-col  text-xs' onSubmit={handleSubmit}>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Date</Label>
@@ -75,37 +76,39 @@ const RcnGradingCreateForm = () => {
                     </Select>
                 </div>
 
+
                 <div className="flex">
                     <Label className="w-2/4 pt-1">A</Label>
-                    <Input className="w-2/4 " placeholder="A" ref={aRef} /> </div>
+                    <Input className="w-2/4 " placeholder="A" ref={aRef} type='number' /> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">B</Label>
-                    <Input className="w-2/4 " placeholder="B" ref={bRef} /> </div>
+                    <Input className="w-2/4 " placeholder="B" ref={bRef} type='number' /> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">C</Label>
-                    <Input className="w-2/4 " placeholder="C" ref={cRef} /> </div>
+                    <Input className="w-2/4 " placeholder="C" ref={cRef} type='number' /> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">D</Label>
-                    <Input className="w-2/4 " placeholder="D" ref={dRef} /> </div>
+                    <Input className="w-2/4 " placeholder="D" ref={dRef} type='number' /> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">E</Label>
-                    <Input className="w-2/4 " placeholder="E" ref={eRef} /> </div>
+                    <Input className="w-2/4 " placeholder="E" ref={eRef} type='number' /> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">F</Label>
-                    <Input className="w-2/4 " placeholder="F" ref={fRef} /> </div>
+                    <Input className="w-2/4 " placeholder="F" ref={fRef} type='number' /> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">G</Label>
-                    <Input className="w-2/4 " placeholder="G" ref={gRef} /> </div>
+                    <Input className="w-2/4 " placeholder="G" ref={gRef} type='number' /> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Dust</Label>
-                    <Input className="w-2/4 " placeholder="Dust" ref={dustRef} /> </div>
+                    <Input className="w-2/4 " placeholder="Dust" ref={dustRef} type='number' /> </div>
+
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Mechine Name</Label>
@@ -151,20 +154,28 @@ const RcnGradingCreateForm = () => {
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">No of Employee</Label>
-                    <Input className="w-2/4 " placeholder="MC ON Time" ref={noofEmployeeRef} type='time' />
+                    <Input className="w-2/4 " placeholder="No of Employee" ref={noofEmployeeRef} type='number' />
+                </div>
+
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">Grading Lot No</Label>
+                    <Input className="w-2/4 " placeholder="Graddimng lot No" ref={grading_lotNoRef} type='number' />
                 </div>
 
 
 
 
-                <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
+                <div>
+                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
+                </div>
+
             </form>
             <dialog id="successemployeedialog" className="dashboard-modal">
                 <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
                     <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
 
-                {/* <!-- Add more elements as needed --> */}
+
             </dialog>
 
             <dialog id="erroremployeedialog" className="dashboard-modal">
@@ -172,7 +183,7 @@ const RcnGradingCreateForm = () => {
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
                     <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
 
-                {/* <!-- Add more elements as needed --> */}
+
             </dialog>
 
 
