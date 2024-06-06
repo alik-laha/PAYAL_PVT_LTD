@@ -22,7 +22,7 @@ interface Props {
         heighstQualification: string;
         bloodGroup: string;
         dateOfJoining: string;
-        releaseDate: string;
+        releseDate: string;
         address: string;
         pincode: string;
         emergencyContact: string;
@@ -47,10 +47,10 @@ const EmployeeModifyForm = (props: Props) => {
     const [emergencyContact, setEmergencyContact] = React.useState<string>('')
     const [emergencyMobNo, setEmergencyMobNo] = React.useState<string>('')
     const [pfNo, setPfNo] = React.useState<string>('')
-    // const [releaseDate, setReleaseDate] = React.useState<string>('')
+     const [releaseDate, setReleaseDate] = React.useState<Date | undefined>()
     const [address, setAddress] = React.useState<string>('')
     const [pincode, setPincode] = React.useState<string>('')
-  
+   
     const [errortext, setErrorText] = React.useState<string>("")
 
     const successdialog = document.getElementById('modifysuccessemployeedialog') as HTMLInputElement;
@@ -115,6 +115,10 @@ const EmployeeModifyForm = (props: Props) => {
         setEmergencyMobNo(props.data.emergencyMobNo)
         setPfNo(props.data.pfNo)
         setDate(new Date(props.data.dateOfJoining))
+        if(props.data.releseDate)
+            {setReleaseDate(new Date(props.data.releseDate))}
+        
+        console.log(releaseDate)
         
         
     }, [props.data])
@@ -144,6 +148,7 @@ const EmployeeModifyForm = (props: Props) => {
                 <span className=""><DatePicker buttonName="Date Of Joining." value={date} setValue={setDate} /></span>
                 
                 </div>
+               
 
                 <div className="flex">
                 <Label className="w-2/4 pt-1" >Contact No.</Label>
@@ -209,13 +214,19 @@ const EmployeeModifyForm = (props: Props) => {
                 </div>
                
                 
+               
+                
                 
 
 
 
 
 
-                <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Modify</Button>
+                 {releaseDate ?<div className="flex pt-4 pb-2">
+                <Label className="w-2/4 pt-1 font-bold text-red-500">Date Of Release </Label>
+                <span className=""><DatePicker buttonName="Date Of Release" value={releaseDate} setValue={setReleaseDate} /></span>
+                
+                </div>: <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Modify</Button>}
             </form>
 
             <dialog id="modifysuccessemployeedialog" className="dashboard-modal">
