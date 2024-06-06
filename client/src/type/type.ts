@@ -107,6 +107,7 @@ export interface AssetData {
 }
 
 export interface PermissionRole {
+
     Director: string[];
     ReceivingManager:string[];
     FactoryManager:string[];
@@ -123,3 +124,4 @@ export interface PermissionDept {
     QualityControl:string[];
     
 }
+
