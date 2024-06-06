@@ -26,8 +26,9 @@ const RcnGradingCreateForm = () => {
     const mc_onRef = useRef<HTMLInputElement>(null)
     const mc_offRef = useRef<HTMLInputElement>(null)
     const noofEmployeeRef = useRef<HTMLInputElement>(null)
-    const mc_breakdown = useRef<HTMLInputElement>(null)
+    const mc_breakdownRef = useRef<HTMLInputElement>(null)
     const [errortext, setErrortext] = useState('')
+    const otherRef = useRef<HTMLInputElement>(null)
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -46,7 +47,7 @@ const RcnGradingCreateForm = () => {
     }, [])
     return (
         <div className="pl-10 pr-10 ">
-            <form className='flex flex-col gap-0.5 text-xs' onSubmit={handleSubmit}>
+            <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Date</Label>
@@ -110,7 +111,7 @@ const RcnGradingCreateForm = () => {
                     <Label className="w-2/4 pt-1">Mechine Name</Label>
                     <Select value={mc_name} onValueChange={(value) => setMc_name(value)}>
                         <SelectTrigger className="w-2/4">
-                            <SelectValue placeholder="Origin" />
+                            <SelectValue placeholder="Machine" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
@@ -126,6 +127,31 @@ const RcnGradingCreateForm = () => {
                             </SelectGroup>
                         </SelectContent>
                     </Select>
+                </div>
+
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">MC ON Time</Label>
+                    <Input className="w-2/4 " placeholder="MC ON Time" ref={mc_onRef} type='time' />
+                </div>
+
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">MC Off Time</Label>
+                    <Input className="w-2/4 " placeholder="MC ON Time" ref={mc_offRef} type='time' />
+                </div>
+
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">MC Breek Down</Label>
+                    <Input className="w-2/4 " placeholder="MC ON Time" ref={mc_breakdownRef} type='time' />
+                </div>
+
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">Other Time</Label>
+                    <Input className="w-2/4 " placeholder="MC ON Time" ref={otherRef} type='time' />
+                </div>
+
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">No of Employee</Label>
+                    <Input className="w-2/4 " placeholder="MC ON Time" ref={noofEmployeeRef} type='time' />
                 </div>
 
 
