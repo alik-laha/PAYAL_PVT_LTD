@@ -105,13 +105,16 @@ const EmployeeTable = () => {
             heighstQualification: item.heighstQualification,
             bloodGroup: item.bloodGroup,
             dateOfJoining: handletimezone(item.dateOfJoining),
-            releaseDate: item.releaseDate == null ? '' : handletimezone(item.dateOfJoining),
+            releseDate: item.releseDate == null ? '' : handletimezone(item.dateOfJoining),
             status: item.status ? 'Active' : 'Resigned',
             address: item.address,
             emergencyContact: item.emergencyContact,
             emergencyMobNo: item.emergencyMobNo,
             pfNo: item.pfNo,
-            pincode: item.pincode
+            pincode: item.pincode,
+            createdBy:item.createdBy,
+            modifyedBy:item.modifyedBy
+
 
         }));
         setTransformedData(transformed);
@@ -243,10 +246,11 @@ const EmployeeTable = () => {
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
                                                 <Dialog>
-                                                    <DialogTrigger className="flex">    <CiEdit size={20}/> <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500 ">Modify</button></DialogTrigger>
+                                                    <DialogTrigger className="flex">    <CiEdit size={20}/> <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500 ">
+                                                        {item.releseDate===null?'Modify':'View'}</button></DialogTrigger>
                                                     <DialogContent className='max-w-2xl'>
                                                         <DialogHeader>
-                                                            <DialogTitle><p className='text-1xl text-center mt-2'>View/Modify Employee</p></DialogTitle>
+                                                            <DialogTitle><p className='text-1xl text-center mt-2'>View Employee</p></DialogTitle>
                                                         </DialogHeader>
                                                         <EmployeeModifyForm
                                                             data={item}

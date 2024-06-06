@@ -63,13 +63,15 @@ export interface EmployeeData {
     heighstQualification: string;
     bloodGroup: string;
     dateOfJoining: string;
-    releaseDate: string;
+    releseDate: string;
     status: string;
     address: string;
     emergencyContact: string;
     emergencyMobNo: string;
     pfNo: string;
     pincode: string;
+    createdBy:string;
+    modifyedBy:string;
 }
 
 

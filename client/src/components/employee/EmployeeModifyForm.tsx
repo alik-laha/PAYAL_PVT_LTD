@@ -29,6 +29,7 @@ interface Props {
         emergencyMobNo: string;
         pfNo: string;
         employeeId: string;
+        
     }
 }
 
@@ -212,15 +213,7 @@ const EmployeeModifyForm = (props: Props) => {
                     <Input className="w-2/4" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)}  readOnly={props.data.releseDate!==null}/>
 
                 </div>
-               
-                
-               
-                
-                
-
-
-
-
+            
 
                  {releaseDate ?<div className="flex pt-4 pb-2">
                 <Label className="w-2/4 pt-2 font-bold text-red-500">Date Of Release </Label>
