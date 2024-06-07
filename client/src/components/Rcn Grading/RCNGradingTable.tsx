@@ -45,7 +45,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { LuDownload } from 'react-icons/lu'
-import RcnGraddingModifyForm from "./RCNModify";
+import RcnGraddingModifyForm from "./RCNGradingModify";
 import { GradingData } from "@/type/type";
 
 const RcnGradingTable = () => {
