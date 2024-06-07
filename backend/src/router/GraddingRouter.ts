@@ -3,6 +3,7 @@ import CreateGrading from "../controller/GradingController/CreateGrading";
 import SearchGrading from "../controller/GradingController/SearchGrading";
 import UpdateGradding from "../controller/GradingController/UpdateGradding";
 import GetAllEditPendingData from "../controller/GradingController/GetAllEditPendingData";
+import sumOfallGrade from "../controller/GradingController/sumOfallGrade";
 
 const router = express()
 
@@ -13,5 +14,7 @@ router.post("/searchgrading", SearchGrading)
 router.put("/updateGrading/:id", UpdateGradding)
 
 router.get("/getPendingData", GetAllEditPendingData)
+
+router.get("/sumofallgrade", sumOfallGrade)
 
 export default router
