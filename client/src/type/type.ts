@@ -143,7 +143,6 @@ export interface GradingData {
     Mc_breakdown: string;
     otherTime: string;
     grading_lotNo: string;
-    feeledBy: string;
     Mc_runTime: string;
     editStatus: string;
     feeledBy: string;

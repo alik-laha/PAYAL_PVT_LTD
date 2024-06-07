@@ -55,6 +55,19 @@ const RcnGradingTable = () => {
     const limit = 3
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e.target.value)
+        axios.post('/api/gradding/searchGrading', { searchData: e.target.value }, {
+            params: {
+                page: page,
+                limit: limit
+            }
+        })
+            .then(res => {
+                console.log(res.data)
+                setData(res.data)
+            })
+            .catch(err => {
+                setError(err.data.message)
+            })
     }
     useEffect(() => {
         axios.post('/api/gradding/searchGrading', {}, {
@@ -147,7 +160,11 @@ const RcnGradingTable = () => {
                                 <TableCell>{item.Mc_off}</TableCell>
                                 <TableCell>{item.noOfEmployees}</TableCell>
                                 <TableCell>{item.grading_lotNo}</TableCell>
-                                <TableCell>{item.editStatus}</TableCell>
+                                <TableCell>{item.editStatus === 'Pending' ? (
+                                    <button className="bg-red-500 p-1 text-white rounded">{item.editStatus}</button>
+                                ) : (
+                                    <button className="bg-green-500 p-1 text-white rounded">{item.editStatus}</button>
+                                )}</TableCell>
                                 <TableCell>{item.feeledBy}</TableCell>
                                 <TableCell className="text-center" >
                                     <Popover>
