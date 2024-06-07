@@ -86,6 +86,10 @@ const RcnGrading = sequelize.define('rcnGradingEdit', {
         type: DataTypes.TIME,
         allowNull: false
     },
+    modifiedBy: {
+        type: DataTypes.STRING,
+        allowNull: true
+    }
 
 
 });

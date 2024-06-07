@@ -50,7 +50,7 @@ const SearchGrading = async (req: Request, res: Response) => {
 
 
     catch (err) {
-        return res.status(500).json({ message: "internal server Error" });
+        return res.status(500).json({ message: "internal server Error", err });
     }
 }
 export default SearchGrading;

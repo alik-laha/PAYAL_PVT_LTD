@@ -45,3 +45,26 @@ export interface TokenVerify {
     dept: string;
     exp: number;
 }
+
+export interface RcnGradingData {
+    id: number;
+    date: Date;
+    A: string;
+    B: string;
+    C: string;
+    D: string;
+    E: string;
+    F: string;
+    G: string;
+    dust: string;
+    Mc_on: string;
+    Mc_off: string;
+    Mc_breakdown: string;
+    noOfEmployees: string;
+    grading_lotNo: string;
+    Mc_name: string;
+    origin: string;
+    otherTime: string;
+    feeledBy: string;
+    Mc_runTime: string;
+}
