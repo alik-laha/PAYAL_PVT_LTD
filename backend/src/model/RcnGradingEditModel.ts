@@ -5,7 +5,6 @@ const RcnGrading = sequelize.define('rcnGradingEdit', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
     },
     date: {
         type: DataTypes.DATE,
@@ -77,7 +76,7 @@ const RcnGrading = sequelize.define('rcnGradingEdit', {
     },
     grading_lotNo: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     editStatus: {
         type: DataTypes.STRING,

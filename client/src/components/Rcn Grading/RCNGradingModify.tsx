@@ -4,12 +4,12 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
-// import axios from 'axios'
 import { Origin } from '../common/exportData'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { AssetData } from '@/type/type'
 import Context from '../context/context'
 import { useContext } from 'react'
+import axios from 'axios'
 interface RcnGraddingModifyFormProps {
     data: {
         id: number;
@@ -35,7 +35,7 @@ interface RcnGraddingModifyFormProps {
 
 const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     const [origin, setOrigin] = useState<string>('')
-    const [mc_name, setMc_name] = useState('')
+    const [Mc_name, setMc_name] = useState('')
     const [errortext, setErrortext] = useState('')
     const [date, setDate] = useState('')
     const [A, setA] = useState<number>()
@@ -46,16 +46,23 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     const [F, setF] = useState<number>()
     const [G, setG] = useState<number>()
     const [dust, setDust] = useState<number>()
-    const [mc_on, setMc_on] = useState('')
-    const [mc_off, setMc_off] = useState('')
+    const [Mc_on, setMc_on] = useState('')
+    const [Mc_off, setMc_off] = useState('')
     const [noOfEmployees, setNoOfEmployees] = useState<number>()
-    const [mc_breakdown, setMc_breakdown] = useState('')
+    const [Mc_breakdown, setMc_breakdown] = useState('')
     const [otherTime, setOtherTime] = useState('')
     const [grading_lotNo, setGrading_lotNo] = useState('')
 
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        axios.put(`/api/gradding/updateGrading/${props.data.id}`, { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, otherTime, grading_lotNo, Mc_breakdown })
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
 
     }
     useEffect(() => {
@@ -144,7 +151,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Mechine Name</Label>
-                    <Select value={mc_name} onValueChange={(value) => setMc_name(value)}>
+                    <Select value={Mc_name} onValueChange={(value) => setMc_name(value)}>
                         <SelectTrigger className="w-2/4">
                             <SelectValue placeholder="Machine" />
                         </SelectTrigger>
@@ -166,17 +173,17 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">MC ON Time</Label>
-                    <Input className="w-2/4 " placeholder="MC ON Time" value={mc_on} onChange={(e) => setMc_on(e.target.value)} type='time' />
+                    <Input className="w-2/4 " placeholder="MC ON Time" value={Mc_on} onChange={(e) => setMc_on(e.target.value)} type='time' />
                 </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">MC Off Time</Label>
-                    <Input className="w-2/4 " placeholder="MC ON Time" value={mc_off} onChange={(e) => setMc_off(e.target.value)} type='time' />
+                    <Input className="w-2/4 " placeholder="MC ON Time" value={Mc_off} onChange={(e) => setMc_off(e.target.value)} type='time' />
                 </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">MC Breek Down</Label>
-                    <Input className="w-2/4 " placeholder="MC BreakDown" value={mc_breakdown} onChange={(e) => setMc_breakdown(e.target.value)} type='time' />
+                    <Input className="w-2/4 " placeholder="MC BreakDown" value={Mc_breakdown} onChange={(e) => setMc_breakdown(e.target.value)} type='time' />
                 </div>
 
                 <div className="flex">
