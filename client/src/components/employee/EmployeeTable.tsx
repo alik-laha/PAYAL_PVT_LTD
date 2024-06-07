@@ -32,6 +32,9 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import EmployeeModifyForm from './EmployeeModifyForm'
+
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 import {
     AlertDialog,
     AlertDialogAction,
@@ -63,7 +66,7 @@ const EmployeeTable = () => {
     const currDate = new Date().toLocaleDateString();
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
-
+    const [errortext, setErrorText] = React.useState<string>("")
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchData = e.target.value
@@ -171,6 +174,7 @@ const EmployeeTable = () => {
     const handleRelese = (data: EmployeeData) => {
         axios.put(`/api/employee/releseemployee/${data.employeeId}`, { releseDate: releaseDate }).then((res) => {
             console.log(res.data)
+            window.location.reload()
         }).catch((err) => {
             console.log(err)
         })
@@ -263,12 +267,13 @@ const EmployeeTable = () => {
                                                     >Resign</button></AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
-                                                            <AlertDialogTitle>Are you sure want to Resign This Employee?</AlertDialogTitle>
+                                                            <AlertDialogTitle> Resign This Employee?</AlertDialogTitle>
                                                             <AlertDialogDescription>
                                                                 This action can't be undone. This will remove User profile Linked to It.
-                                                                <input type="date" placeholder="Release Date" value={releaseDate} onChange={(e) => setReleaseDate(e.target.value)} required />
+                                                                <Input type="date" placeholder="Release Date" className='mt-3 w-100 text-center justify-center items-center' value={releaseDate} onChange={(e) => setReleaseDate(e.target.value)} required />
                                                             </AlertDialogDescription>
                                                         </AlertDialogHeader>
+
                                                         <AlertDialogFooter>
                                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
                                                             <AlertDialogAction onClick={() => handleRelese(item)}>Continue</AlertDialogAction>
@@ -302,6 +307,21 @@ const EmployeeTable = () => {
 
                 </TableBody>
             </Table>
+            <dialog id="deletesuccessemployeedialog" className="dashboard-modal">
+                <button id="deleteempcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+
+            <dialog id="resignerroremployeedialog" className="dashboard-modal">
+                <button id="resignerrorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
             <Pagination className="pt-5 ">
                 <PaginationContent>
                     <PaginationItem>

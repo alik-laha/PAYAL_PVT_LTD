@@ -35,9 +35,9 @@ const UserMiddleWare = async (req: Request, res: Response, next: NextFunction) =
             return res.status(400).json({ message: "User Name already Exists" })
         }
         const oldUserByEmployeeId = await User.findOne({ where: { employeeId } });
-        if (oldUserByEmployeeId) {
-            return res.status(400).json({ message: "Employee already has a User" })
-        }
+        // if (oldUserByEmployeeId) {
+        //     return res.status(400).json({ message: "Employee already has a User" })
+        // }
         next();
     }
     catch (err) {

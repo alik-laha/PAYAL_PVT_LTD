@@ -129,6 +129,7 @@ const EmployeeModifyForm = (props: Props) => {
     return (
         <div className="pl-10 pr-10 ">
             <form className='flex flex-col gap-0.5 text-xs' onSubmit={handleSubmit}>
+       
                 <div className="flex">
                 <Label className="w-2/4 pt-1">Name</Label>
                 <Input className="w-2/4 " placeholder="Name"  value={employeeName} onChange={(e) => setEmployeeName(e.target.value)}  readOnly={props.data.releseDate!==null}/>
@@ -213,13 +214,13 @@ const EmployeeModifyForm = (props: Props) => {
                     <Input className="w-2/4" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)}  readOnly={props.data.releseDate!==null}/>
 
                 </div>
-            
-
-                 {releaseDate ?<div className="flex pt-4 pb-2">
-                <Label className="w-2/4 pt-2 font-bold text-red-500">Date Of Release </Label>
+                {releaseDate ?<div className="flex pt-4 pb-2">
+                <Label className="w-2/4 pt-1 font-bold text-red-500">Date Of Release </Label>
                 <span className=""><DatePicker buttonName="Date Of Release" value={releaseDate} setValue={setReleaseDate}/></span>
                 
                 </div>: <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Modify</Button>}
+
+               
             </form>
 
             <dialog id="modifysuccessemployeedialog" className="dashboard-modal">
