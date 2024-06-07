@@ -63,6 +63,10 @@ const RcnGradingTable = () => {
         })
             .then(res => {
                 console.log(res.data)
+                if (res.data.length === 0 && page > 1) {
+                    setPage((prev) => prev - 1)
+
+                }
                 setData(res.data)
             })
             .catch(err => {
