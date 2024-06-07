@@ -20,6 +20,8 @@ import Context from '../context/context';
 import { useContext } from 'react';
 import { useEffect } from 'react'
 import axios from 'axios'
+import UseQueryData from '../common/dataFetcher';
+import Loader from '../common/Loader';
 
 
 const RcnGrading = () => {
@@ -36,6 +38,7 @@ const RcnGrading = () => {
                 console.log(err)
             })
     }, [])
+    const { data, isLoading, error } = UseQueryData('/api/gradding/sumofallgrade', 'GET', 'AllGradingSum');
     const handleEditFetch = async () => {
         axios.get('/api/gradding/getPendingData')
             .then(res => {
@@ -45,6 +48,14 @@ const RcnGrading = () => {
                 console.log(err)
             })
     }
+    if (isLoading) {
+        return <Loader />
+    }
+
+    if (error) {
+        return <div>Error</div>;
+    }
+    console.log(data)
     return (
         <div>
             <DashboardHeader />
@@ -52,25 +63,28 @@ const RcnGrading = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
-                        A <br /><p>11000 Bag</p>
+                        A <br /><p>{data.data[0].totalA} Bag</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                        B <br /><p>11000 Bag</p>
+                        B <br /><p>{data.data[0].totalB} Bag</p>
                     </div>
                     <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
-                        C <br /><p>1000 Bag</p>
+                        C <br /><p>{data.data[0].totalC} Bag</p>
                     </div>
                     <div className="flexbox-tile bg-sky-500 hover:bg-orange-400">
-                        D <br /><p>9000 Bag</p>
+                        D <br /><p>{data.data[0].totalD} Bag</p>
                     </div>
                     <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
-                        E <br /><p>9000 Bag</p>
+                        E <br /><p>{data.data[0].totalE} Bag</p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
-                        F <br /><p>9000 Bag</p>
+                        F <br /><p>{data.data[0].totalF} Bag</p>
                     </div>
                     <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
-                        G <br /><p>9000 Bag</p>
+                        G <br /><p>{data.data[0].totalG} Bag</p>
+                    </div>
+                    <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
+                        Dust <br /><p>{data.data[0].totalDust} Bag</p>
                     </div>
 
 
