@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { AssetData } from '@/type/type'
 
 
-const RcnGradingCreateForm = () => {
+const RcnGraddingModifyForm = () => {
     const [origin, setOrigin] = useState<string>('')
     const [AllMachine, setAllMachine] = useState([])
     const [mc_name, setMc_name] = useState('')
@@ -192,4 +192,4 @@ const RcnGradingCreateForm = () => {
         </div>
     )
 }
-export default RcnGradingCreateForm;
+export default RcnGraddingModifyForm;
