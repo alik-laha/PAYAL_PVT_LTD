@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { AssetData, EditPendingData } from '../../type/type';
+import { AssetData, EditPendingData, GradingData } from '../../type/type';
 
 interface ContextType {
     editPendingData: EditPendingData[];
@@ -16,6 +16,8 @@ interface ContextType {
     setDept: (dept: string) => void;
     AllMachines: AssetData[];
     setAllMachines: (data: AssetData[]) => void;
+    editPendiningGrinderData: GradingData[];
+    setEditPendiningGrinderData: (data: GradingData[]) => void;
 
 }
 
@@ -34,6 +36,8 @@ const Context = createContext<ContextType>({
     setRole: () => { },
     dept: '',
     setDept: () => { },
+    editPendiningGrinderData: [],
+    setEditPendiningGrinderData: () => { },
 
 });
 

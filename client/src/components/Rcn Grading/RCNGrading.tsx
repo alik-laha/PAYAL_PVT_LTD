@@ -24,7 +24,7 @@ import axios from 'axios'
 
 const RcnGrading = () => {
 
-    const { setAllMachines } = useContext(Context)
+    const { setAllMachines, setEditPendiningGrinderData } = useContext(Context)
 
     useEffect(() => {
         axios.get('/api/asset/getMachineByType/Grading')
@@ -36,6 +36,15 @@ const RcnGrading = () => {
                 console.log(err)
             })
     }, [])
+    const handleEditFetch = async () => {
+        axios.get('/api/gradding/getPendingData')
+            .then(res => {
+                setEditPendiningGrinderData(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
     return (
         <div>
             <DashboardHeader />
@@ -70,20 +79,21 @@ const RcnGrading = () => {
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
 
+                <div className="lex justify-center items-center">
+                    <Dialog>
+                        <DialogTrigger>   <Button className="bg-red-400 mb-2 mt-5 ml-4">+ Grading Entry</Button></DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Grading Entry</p></DialogTitle>
 
-                <Dialog>
-                    <DialogTrigger>   <Button className="bg-red-400 mb-2 mt-5 ml-4">+ Grading Entry</Button></DialogTrigger>
-                    <DialogContent>
-                        <DialogHeader>
-                            <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Grading Entry</p></DialogTitle>
+                            </DialogHeader>
 
-                        </DialogHeader>
+                            <RcnGradingCreateForm />
+                        </DialogContent>
+                    </Dialog>
 
-                        <RcnGradingCreateForm />
-                    </DialogContent>
-                </Dialog>
 
-                <div>
+                    <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit 0</Button>
 
                 </div>
                 <RcnGradingTable />
