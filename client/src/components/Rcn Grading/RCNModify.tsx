@@ -8,25 +8,47 @@ import axios from 'axios'
 import { Origin } from '../common/exportData'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { AssetData } from '@/type/type'
+import { set } from 'date-fns'
+interface RcnGraddingModifyFormProps {
+    data: {
+        id: number;
+        origin: string;
+        A: number;
+        B: number;
+        C: number;
+        D: number;
+        E: number;
+        F: number;
+        G: number;
+        dust: number;
+        Mc_name: string;
+        Mc_on: string;
+        Mc_off: string;
+        noOfEmployees: number;
+        Mc_breakdown: string;
+        otherTime: string;
+        date: string;
+        grading_lotNo: string;
+    }
+}
 
-
-const RcnGraddingModifyForm = () => {
+const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     const [origin, setOrigin] = useState<string>('')
     const [AllMachine, setAllMachine] = useState([])
     const [mc_name, setMc_name] = useState('')
     const [errortext, setErrortext] = useState('')
     const [date, setDate] = useState('')
-    const [A, setA] = useState('')
-    const [B, setB] = useState('')
-    const [C, setC] = useState('')
-    const [D, setD] = useState('')
-    const [E, setE] = useState('')
-    const [F, setF] = useState('')
-    const [G, setG] = useState('')
-    const [dust, setDust] = useState('')
+    const [A, setA] = useState<number>()
+    const [B, setB] = useState<number>()
+    const [C, setC] = useState<number>()
+    const [D, setD] = useState<number>()
+    const [E, setE] = useState<number>()
+    const [F, setF] = useState<number>()
+    const [G, setG] = useState<number>()
+    const [dust, setDust] = useState<number>()
     const [mc_on, setMc_on] = useState('')
     const [mc_off, setMc_off] = useState('')
-    const [noOfEmployees, setNoOfEmployees] = useState('')
+    const [noOfEmployees, setNoOfEmployees] = useState<number>()
     const [mc_breakdown, setMc_breakdown] = useState('')
     const [otherTime, setOtherTime] = useState('')
     const [grading_lotNo, setGrading_lotNo] = useState('')
@@ -37,14 +59,24 @@ const RcnGraddingModifyForm = () => {
 
     }
     useEffect(() => {
-        axios.get('/api/asset/getMachineByType/Grading')
-            .then(res => {
-                console.log(res.data)
-                setAllMachine(res.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        setOrigin(props.data.origin)
+        setDate(new Date(props.data.date).toISOString().slice(0, 10))
+        setA(props.data.A)
+        setB(props.data.B)
+        setC(props.data.C)
+        setD(props.data.D)
+        setE(props.data.E)
+        setF(props.data.F)
+        setG(props.data.G)
+        setDust(props.data.dust)
+        setMc_name(props.data.Mc_name)
+        setMc_on(props.data.Mc_on)
+        setMc_off(props.data.Mc_off)
+        setNoOfEmployees(props.data.noOfEmployees)
+        setMc_breakdown(props.data.Mc_breakdown)
+        setOtherTime(props.data.otherTime)
+        setGrading_lotNo(props.data.grading_lotNo)
+
     }, [])
     return (
         <div className="pl-10 pr-10 ">
@@ -79,35 +111,35 @@ const RcnGraddingModifyForm = () => {
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">A</Label>
-                    <Input className="w-2/4 " placeholder="A" value={A} onChange={(e) => setA(e.target.value)} type='number' step="0.01" /> </div>
+                    <Input className="w-2/4 " placeholder="A" value={A} onChange={(e) => setA(Number(e.target.value))} type='number' step="0.01" /> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">B</Label>
-                    <Input className="w-2/4 " placeholder="B" value={B} onChange={(e) => setB(e.target.value)} type='number' step="0.01" /> </div>
+                    <Input className="w-2/4 " placeholder="B" value={B} onChange={(e) => setB(Number(e.target.value))} type='number' step="0.01" /> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">C</Label>
-                    <Input className="w-2/4 " placeholder="C" value={C} onChange={(e) => setC(e.target.value)} type='number' step="0.01" /> </div>
+                    <Input className="w-2/4 " placeholder="C" value={C} onChange={(e) => setC(Number(e.target.value))} type='number' step="0.01" /> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">D</Label>
-                    <Input className="w-2/4 " placeholder="D" value={D} onChange={(e) => setD(e.target.value)} type='number' step="0.01" /> </div>
+                    <Input className="w-2/4 " placeholder="D" value={D} onChange={(e) => setD(Number(e.target.value))} type='number' step="0.01" /> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">E</Label>
-                    <Input className="w-2/4 " placeholder="E" value={E} onChange={(e) => setE(e.target.value)} type='number' step="0.01" /> </div>
+                    <Input className="w-2/4 " placeholder="E" value={E} onChange={(e) => setE(Number(e.target.value))} type='number' step="0.01" /> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">F</Label>
-                    <Input className="w-2/4 " placeholder="F" value={F} onChange={(e) => setF(e.target.value)} type='number' step="0.01" /> </div>
+                    <Input className="w-2/4 " placeholder="F" value={F} onChange={(e) => setF(Number(e.target.value))} type='number' step="0.01" /> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">G</Label>
-                    <Input className="w-2/4 " placeholder="G" value={G} onChange={(e) => setG(e.target.value)} type='number' step="0.01" /> </div>
+                    <Input className="w-2/4 " placeholder="G" value={G} onChange={(e) => setG(Number(e.target.value))} type='number' step="0.01" /> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Dust</Label>
-                    <Input className="w-2/4 " placeholder="Dust" value={dust} onChange={(e) => setDust(e.target.value)} type='number' step="0.01" /> </div>
+                    <Input className="w-2/4 " placeholder="Dust" value={dust} onChange={(e) => setDust(Number(e.target.value))} type='number' step="0.01" /> </div>
 
 
                 <div className="flex">
@@ -154,7 +186,7 @@ const RcnGraddingModifyForm = () => {
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">No of Employee</Label>
-                    <Input className="w-2/4 " placeholder="No of Employee" value={noOfEmployees} onChange={(e) => setNoOfEmployees(e.target.value)} type='number' />
+                    <Input className="w-2/4 " placeholder="No of Employee" value={noOfEmployees} onChange={(e) => setNoOfEmployees(Number(e.target.value))} type='number' />
                 </div>
 
                 <div className="flex">

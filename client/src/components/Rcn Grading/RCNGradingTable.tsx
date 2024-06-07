@@ -178,7 +178,7 @@ const RcnGradingTable = () => {
                                                     <DialogHeader>
                                                         <DialogTitle><p className='text-1xl text-center mt-2'>View/Modify Employee</p></DialogTitle>
                                                     </DialogHeader>
-                                                    <RcnGraddingModifyForm />
+                                                    <RcnGraddingModifyForm data={item} />
                                                 </DialogContent>
                                             </Dialog>
                                         </PopoverContent>
