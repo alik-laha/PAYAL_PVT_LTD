@@ -127,7 +127,8 @@ const RcnGradingTable = () => {
                     <TableHead className="text-center" >No of Employees</TableHead>
                     <TableHead className="text-center" >Grading Lot No</TableHead>
                     <TableHead className="text-center" >Edit Status</TableHead>
-                    <TableHead className="text-center" >Machine Run time </TableHead>
+                    <TableHead className="text-center" >Feeled By</TableHead>
+                    <TableHead className="text-center" >Machine Run Time</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>
@@ -175,6 +176,7 @@ const RcnGradingTable = () => {
                                     <button className="bg-green-500 p-1 text-white rounded">{item.editStatus}</button>
                                 )}</TableCell>
                                 <TableCell>{item.feeledBy}</TableCell>
+                                <TableCell>{item.Mc_runTime}</TableCell>
                                 <TableCell className="text-center" >
                                     <Popover>
                                         <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
