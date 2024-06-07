@@ -5,10 +5,23 @@ const CreateGrading = async (req: Request, res: Response) => {
     try {
         const { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, Mc_breakdown, otherTime, grading_lotNo } = req.body;
         const feeledBy = req.cookies.user;
-        const Mc_runTime = (Mc_off - Mc_on) - (Mc_breakdown + otherTime)
+        const timeToMilliseconds = (time: string) => {
+            const [hours, minutes] = time.split(':').map(Number);
+            return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
+        };
+
+        // Helper function to convert milliseconds to "HH:MM"
+        const millisecondsToTime = (milliseconds: number) => {
+            const totalMinutes = Math.floor(milliseconds / 60000);
+            const hours = Math.floor(totalMinutes / 60);
+            const minutes = totalMinutes % 60;
+            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+        };
+        const Mc_runTime = millisecondsToTime((timeToMilliseconds(Mc_off) - timeToMilliseconds(Mc_on)) - ((timeToMilliseconds(Mc_breakdown) + timeToMilliseconds(otherTime))));
         const graddingEntry = await Grading.create({
             date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, Mc_breakdown, otherTime, grading_lotNo, feeledBy, Mc_runTime
         });
+
         if (graddingEntry) {
             return res.status(200).json({ message: "Gradding Entry Created Successfully" });
         }

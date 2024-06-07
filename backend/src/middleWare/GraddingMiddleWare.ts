@@ -7,10 +7,24 @@ const GradingMiddleWare = async (req: Request, res: Response, next: NextFunction
         if (!date || !origin || !A || !B || !C || !D || !E || !F || !G || !dust || !Mc_name || !Mc_on || !Mc_off || !noOfEmployees) {
             return res.status(400).json({ message: "All field are required" })
         }
-        const checkMachinerun = (Mc_off - Mc_on) - (Mc_breakdown + otherTime)
-        if (checkMachinerun < 0) {
-            return res.status(400).json({ message: "Machine run time is less than 0" })
+        const timeToMilliseconds = (time: string) => {
+            const [hours, minutes] = time.split(':').map(Number);
+            return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
+        };
+
+        // Helper function to convert milliseconds to "HH:MM"
+        const millisecondsToTime = (milliseconds: number) => {
+            const totalMinutes = Math.floor(milliseconds / 60000);
+            const hours = Math.floor(totalMinutes / 60);
+            const minutes = totalMinutes % 60;
+            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+        };
+        const Mc_runTime = timeToMilliseconds(Mc_off) - timeToMilliseconds(Mc_on) - (timeToMilliseconds(Mc_breakdown) + timeToMilliseconds(otherTime));
+        if (Mc_runTime < 0) {
+            return res.status(400).json({ message: "Machine Run Time can not be negative" });
         }
+        const Runtime = millisecondsToTime(Mc_runTime);
+
         next();
 
     } catch (err) {

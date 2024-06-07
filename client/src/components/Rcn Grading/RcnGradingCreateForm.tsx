@@ -49,6 +49,7 @@ const RcnGradingCreateForm = () => {
         const otherTime = otherRef.current?.value
         const grading_lotNo = grading_lotNoRef.current?.value
         const Mc_name = mc_name
+        console.log(Mc_off)
         axios.post('/api/gradding/createGrading', { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, Mc_breakdown, otherTime, grading_lotNo })
             .then(res => {
                 if (res.status === 200) {
