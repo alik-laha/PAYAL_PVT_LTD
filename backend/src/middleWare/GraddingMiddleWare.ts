@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import Grading from "../model/RcnGradingModel";
 
 const GradingMiddleWare = async (req: Request, res: Response, next: NextFunction) => {
     try {

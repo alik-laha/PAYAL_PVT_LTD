@@ -80,7 +80,7 @@ export interface User {
     dept: string;
     role: string;
     createdBy: string;
-    modifyedBy:string;
+    modifyedBy: string;
 }
 
 export interface UserProps {
@@ -109,19 +109,43 @@ export interface AssetData {
 export interface PermissionRole {
 
     Director: string[];
-    ReceivingManager:string[];
-    FactoryManager:string[];
-    ReceivingSupervisor:string[];
-    
+    ReceivingManager: string[];
+    FactoryManager: string[];
+    ReceivingSupervisor: string[];
+
 
 }
 
 export interface PermissionDept {
-    Admin:string[];
-    Receiving:string[];
-    Maintainance:string[];
-    Production:string[];
-    QualityControl:string[];
-    
+    Admin: string[];
+    Receiving: string[];
+    Maintainance: string[];
+    Production: string[];
+    QualityControl: string[];
+
+}
+export interface GradingData {
+    id: number;
+    date: string;
+    origin: string;
+    A: number;
+    B: number;
+    C: number;
+    D: number;
+    E: number;
+    F: number;
+    G: number;
+    dust: number;
+    Mc_name: string;
+    Mc_on: string;
+    Mc_off: string;
+    noOfEmployees: number;
+    Mc_breakdown: string;
+    otherTime: string;
+    grading_lotNo: string;
+    feeledBy: string;
+    Mc_runTime: string;
+    editStatus: string;
+    feeledBy: string;
 }
 
