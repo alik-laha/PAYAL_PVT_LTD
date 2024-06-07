@@ -16,9 +16,26 @@ import {
 } from "@/components/ui/dialog"
 import RcnGradingTable from './RCNGradingTable';
 import RcnGradingCreateForm from './RcnGradingCreateForm';
+import Context from '../context/context';
+import { useContext } from 'react';
+import { useEffect } from 'react'
+import axios from 'axios'
 
 
 const RcnGrading = () => {
+
+    const { setAllMachines } = useContext(Context)
+
+    useEffect(() => {
+        axios.get('/api/asset/getMachineByType/Grading')
+            .then(res => {
+                console.log(res.data)
+                setAllMachines(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
     return (
         <div>
             <DashboardHeader />

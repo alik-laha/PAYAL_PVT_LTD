@@ -4,11 +4,12 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
-import axios from 'axios'
+// import axios from 'axios'
 import { Origin } from '../common/exportData'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { AssetData } from '@/type/type'
-import { set } from 'date-fns'
+import Context from '../context/context'
+import { useContext } from 'react'
 interface RcnGraddingModifyFormProps {
     data: {
         id: number;
@@ -34,7 +35,6 @@ interface RcnGraddingModifyFormProps {
 
 const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     const [origin, setOrigin] = useState<string>('')
-    const [AllMachine, setAllMachine] = useState([])
     const [mc_name, setMc_name] = useState('')
     const [errortext, setErrortext] = useState('')
     const [date, setDate] = useState('')
@@ -76,8 +76,8 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
         setMc_breakdown(props.data.Mc_breakdown)
         setOtherTime(props.data.otherTime)
         setGrading_lotNo(props.data.grading_lotNo)
-
     }, [])
+    const { AllMachines } = useContext(Context)
     return (
         <div className="pl-10 pr-10 ">
             <form className='flex flex-col  text-xs' onSubmit={handleSubmit}>
@@ -151,7 +151,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
                         <SelectContent>
                             <SelectGroup>
                                 {
-                                    AllMachine.map((item: AssetData, indx) => {
+                                    AllMachines.map((item: AssetData, indx) => {
                                         return (
                                             <SelectItem key={indx} value={item.machineName}>
                                                 {item.machineName}

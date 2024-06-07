@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
@@ -8,12 +8,12 @@ import axios from 'axios'
 import { Origin } from '../common/exportData'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { AssetData } from '@/type/type'
+import Context from '../context/context'
 
 
 const RcnGradingCreateForm = () => {
     const DateRef = useRef<HTMLInputElement>(null)
     const [origin, setOrigin] = useState<string>('')
-    const [AllMachine, setAllMachine] = useState([])
     const aRef = useRef<HTMLInputElement>(null)
     const bRef = useRef<HTMLInputElement>(null)
     const cRef = useRef<HTMLInputElement>(null)
@@ -64,16 +64,7 @@ const RcnGradingCreateForm = () => {
                 setErrortext(err.data.message)
             })
     }
-    useEffect(() => {
-        axios.get('/api/asset/getMachineByType/Grading')
-            .then(res => {
-                console.log(res.data)
-                setAllMachine(res.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [])
+    const { AllMachines } = useContext(Context)
     return (
         <div className="pl-10 pr-10 ">
             <form className='flex flex-col  text-xs' onSubmit={handleSubmit}>
@@ -147,7 +138,7 @@ const RcnGradingCreateForm = () => {
                         <SelectContent>
                             <SelectGroup>
                                 {
-                                    AllMachine.map((item: AssetData, indx) => {
+                                    AllMachines.map((item: AssetData, indx) => {
                                         return (
                                             <SelectItem key={indx} value={item.machineName}>
                                                 {item.machineName}
