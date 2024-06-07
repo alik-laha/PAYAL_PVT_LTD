@@ -17,6 +17,7 @@ const ApproveEditStatus = async (req: Request, res: Response) => {
             if (RcnGradingData) {
                 const RcnGradingEditData = await RcnGrading.update({ date, A, B, C, D, E, F, G, dust, Mc_on, Mc_off, Mc_breakdown, noOfEmployees, grading_lotNo, Mc_name, origin, otherTime, feeledBy, Mc_runTime, modifiedBy }, { where: { id } });
                 if (RcnGradingEditData) {
+                    await RcnGradingEdit.destroy({ where: { id } });
                     return res.status(200).json({ message: "Data Updated Successfully" });
                 }
                 else {
