@@ -27,6 +27,32 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import {
+    Dialog,
+    DialogContent,
+    // DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { FcApprove, FcDisapprove } from "react-icons/fc"
 
 const QCRcnTable = () => {
     const [origin, setOrigin] = useState<string>("")
@@ -141,18 +167,17 @@ const QCRcnTable = () => {
 
                     <TableHead className="text-center" >Id</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Date of Receiving </TableHead>
+                    <TableHead className="text-center" > Incoming Date </TableHead>
+                    <TableHead className="text-center" >QC Status</TableHead>
                     <TableHead className="text-center" >BL No.</TableHead>
                     <TableHead className="text-center" >Con No.</TableHead>
                     <TableHead className="text-center" >Truck No.</TableHead>
 
                     <TableHead className="text-center" >BL Weight</TableHead>
-                    <TableHead className="text-center" >Net Weight</TableHead>
-                    <TableHead className="text-center" >Difference</TableHead>
+                  
                     <TableHead className="text-center" >Bag Count</TableHead>
-                    <TableHead className="text-center" >QC Status</TableHead>
-                    <TableHead className="text-center" >Edit Status </TableHead>
-                    <TableHead className="text-center" >Entried By </TableHead>
+                    
+                    
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>
@@ -163,14 +188,6 @@ const QCRcnTable = () => {
                                 <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                 <TableCell className="text-center">{item.origin}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                <TableCell className="text-center">{item.blNo}</TableCell>
-                                <TableCell className="text-center">{item.conNo}</TableCell>
-                                <TableCell className="text-center">{item.truckNo}</TableCell>
-
-                                <TableCell className="text-center">{item.blWeight}</TableCell>
-                                <TableCell className="text-center">{item.netWeight}</TableCell>
-                                <TableCell className="text-center font-semibold text-red-600">{item.difference}</TableCell>
-                                <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
                                 <TableCell className="text-center">
                                     {item.rcnStatus === 'QC Pending' ? (
                                         <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
@@ -178,11 +195,65 @@ const QCRcnTable = () => {
                                         <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>
                                     )}
                                 </TableCell>
-                                <TableCell className="text-center">{item.editStatus == 'Created' ?
-                                    'NA' : item.editStatus}</TableCell>
-                                <TableCell className="text-center">{item.receivedBy}</TableCell>
-                                <TableCell className="text-center">
+                                <TableCell className="text-center">{item.blNo}</TableCell>
+                                <TableCell className="text-center">{item.conNo}</TableCell>
+                                <TableCell className="text-center">{item.truckNo}</TableCell>
 
+                                <TableCell className="text-center">{item.blWeight}</TableCell>
+                              
+                               
+                                <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
+                               
+                            
+                                <TableCell className="text-center">
+                                <Popover>
+                                            <PopoverTrigger>
+                                                <button className='bg-cyan-500 p-2 text-white rounded'>Action</button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                            <AlertDialog>
+                                                    <AlertDialogTrigger className="flex">
+                                                    <FcApprove size={25}/> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">QC Approve</button>
+                                                    </AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>Approve the RCN Incoming Entry?</AlertDialogTitle>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction >Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>
+                                                <AlertDialog>
+                                                    <AlertDialogTrigger className="flex mt-2">
+                                                    <FcDisapprove size={25}/> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">QC Reject</button>
+                                                    </AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>Decline the RCN Entry?</AlertDialogTitle>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction >Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>
+                                                <Dialog>
+                                                    <DialogTrigger className="flex py-2">+
+                                                        <button className="bg-transparent pl-2 text-left hover:text-green-500" >Report Upload</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent>
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                <p className='text-1xl pb-1 text-center mt-5'>QC Incoming Report </p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        
+                                                    </DialogContent>
+                                                </Dialog>
+                                            </PopoverContent>
+                                        </Popover>
                                 </TableCell>
                             </TableRow>
                         );
