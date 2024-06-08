@@ -1,0 +1,24 @@
+import { Request, Response } from "express";
+import QcRCN from "../../model/qcRCNmodel";
+
+const qcInitialEntry = async (req: Request, res: Response) => {
+
+    try {
+        const { blNo, conNo, origin, date } = req.body;
+        
+        const qcRcnInitial = await QcRCN.create({
+            date,
+            blNo,
+            conNo,
+            origin, 
+        });
+        res.status(201).json({ message: "QC Initial Entry Made Successfully", qcRcnInitial });
+
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+  
+}
+export default qcInitialEntry;

@@ -7,6 +7,7 @@ import RcnPrimary from "./router/RcnPrimaryRouter";
 import userRouter from "./router/userRouter";
 import assetRouter from './router/assetRouter'
 import GraddingRouter from './router/GraddingRouter'
+import qcRcnRouter from './router/qcRcnRouter'
 
 app.use(cookieParser());
 app.use(cors());
@@ -21,5 +22,6 @@ app.use("/api/rcnprimary", RcnPrimary)
 app.use('/api/user', userRouter)
 app.use('/api/asset', assetRouter)
 app.use('/api/gradding', GraddingRouter)
+app.use('/api/qcRcn', qcRcnRouter)
 
 export default app

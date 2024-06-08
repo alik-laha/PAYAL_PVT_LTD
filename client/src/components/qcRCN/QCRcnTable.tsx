@@ -53,6 +53,9 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { FcApprove, FcDisapprove } from "react-icons/fc"
+import { MdOutlineDriveFolderUpload } from "react-icons/md";
+import { LiaEdit } from "react-icons/lia";
+
 
 const QCRcnTable = () => {
     const [origin, setOrigin] = useState<string>("")
@@ -240,8 +243,8 @@ const QCRcnTable = () => {
                                                     </AlertDialogContent>
                                                 </AlertDialog>
                                                 <Dialog>
-                                                    <DialogTrigger className="flex py-1">+
-                                                        <button className="bg-transparent pl-2 text-left hover:text-green-500" >Report Upload</button>
+                                                    <DialogTrigger className="flex py-1">
+                                                    <MdOutlineDriveFolderUpload size={20} color="green"/>  <button className="bg-transparent pl-2 text-left hover:text-green-500" >Report Upload</button>
                                                     </DialogTrigger>
                                                     <DialogContent>
                                                         <DialogHeader>
@@ -253,8 +256,8 @@ const QCRcnTable = () => {
                                                     </DialogContent>
                                                 </Dialog>
                                                 <Dialog>
-                                                    <DialogTrigger className="flex py-1">+
-                                                        <button className="bg-transparent pl-2 text-left hover:text-green-500" >Report Modify</button>
+                                                    <DialogTrigger className="flex py-1">
+                                                    <LiaEdit size={20}/><button className="bg-transparent pl-2 text-left hover:text-green-500" >Report Modify</button>
                                                     </DialogTrigger>
                                                     <DialogContent>
                                                         <DialogHeader>
