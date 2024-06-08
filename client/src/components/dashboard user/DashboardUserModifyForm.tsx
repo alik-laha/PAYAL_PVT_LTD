@@ -114,11 +114,11 @@ const DashboardUserModifyForm = (props: UserProps) => {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                            {dept ? (roleDataonDept[dept as keyof typeof roleDataonDept].map((item) => (
+                            {dept && (roleDataonDept[dept as keyof typeof roleDataonDept].map((item) => (
                                     <SelectItem key={item} value={item}>
                                         {item}
                                     </SelectItem>
-                                ))) : (null)}
+                                )) )}
                             </SelectGroup>
                         </SelectContent>
                     </Select>

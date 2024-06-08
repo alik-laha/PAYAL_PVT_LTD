@@ -57,6 +57,7 @@ import * as XLSX from 'xlsx';
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { IoLockClosedOutline  } from "react-icons/io5";
+import React from "react";
 
 const EmployeeTable = () => {
     const [Data, setData] = useState<EmployeeData[]>([])
@@ -165,7 +166,9 @@ const EmployeeTable = () => {
     const handleDelete = (data: EmployeeData) => {
         axios.delete(`/api/employee/deleteemployee/${data.employeeId}`).then((res) => {
             console.log(res.data)
+            
             setData(Data.filter((item) => item.id !== data.id))
+            
         }
         ).catch((err) => {
             console.log(err)
