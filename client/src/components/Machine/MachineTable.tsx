@@ -135,8 +135,7 @@ return(
                     <TableHead className="text-center" >Section </TableHead>
                     <TableHead className="text-center" >Status </TableHead>
                    
-                  
-                    <TableHead className="text-center" >Created By</TableHead>
+                
                     
                     <TableHead className="text-center" >Action</TableHead>
                 </TableHeader>
@@ -159,7 +158,7 @@ return(
                                 )}</TableCell>
 
 
-                                <TableCell className="text-center">{item.createdBy}</TableCell>
+                               
                                 <TableCell className="text-center">
                                     <Popover>
                                         <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
