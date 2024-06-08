@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Employee from "../../model/employeeModel";
-import User from "../../model/userModel";
+import user from "../../model/userModel";
 
 const releseEmployee = async (req: Request, res: Response) => {
     try {
@@ -9,11 +9,11 @@ const releseEmployee = async (req: Request, res: Response) => {
         const oldEmployee = await Employee.findOne({ where: { employeeId: employeeId } });
         
         if (!oldEmployee) {
-            return res.status(400).json({ msg: 'Employee does not exist with this employeeId' })
+            return res.status(400).json({ msg: 'Invalid EmployeeId' })
         }
-        const userExist = await User.findAll({ where: { employeeId: employeeId } });
+        const userExist = await user.findAll({ where: { employeeId: employeeId } });
         if (userExist) {
-            User.destroy({ where: { employeeId: employeeId } });
+            user.destroy({ where: { employeeId: employeeId } });
         }
         Employee.update({
             releseDate,
