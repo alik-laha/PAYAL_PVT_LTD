@@ -9,6 +9,7 @@ import Employee from './components/employee/Employee'
 import DashboardUser from './components/dashboard user/DashboardUser'
 import Machine from './components/Machine/Machine'
 import Private from './components/private/private'
+import QCRcn from './components/qcRCN/QCRcn'
 
 function App() {
 
@@ -38,12 +39,14 @@ function App() {
         </Route>
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-        'ReceivingSupervisor', 'ReceivingManager',]} />}>
+        'ReceivingSupervisor', 'ReceivingManager']} />}>
         <Route path="/dashboard/rcnprimaryentry" element={<RcnPrimaryEntry />} />
         </Route>
         
-        
-        
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+        'QCSupervisor', 'QCManager']} />}>
+        <Route path="/dashboard/qcRCN" element={<QCRcn />} />
+        </Route>
         
        
         <Route path='/dashboard/rcnGrading' element={<RcnGrading />} />
