@@ -25,7 +25,7 @@ interface RcnPrimaryModifyProps {
         noOfBags: string;
         blWeight: string;
         netWeight: string;
-        date: Date;
+        date: string;
     }
 }
 

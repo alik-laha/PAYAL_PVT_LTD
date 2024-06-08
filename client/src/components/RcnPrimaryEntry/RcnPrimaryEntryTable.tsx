@@ -20,6 +20,7 @@ import * as XLSX from 'xlsx';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { pageNo,pagelimit } from "../common/exportData"
+import { FcApprove , FcDisapprove } from "react-icons/fc";
 
 
 import {
@@ -63,6 +64,7 @@ import {
 import { useContext } from "react";
 import Context from "../context/context";
 import { EditPendingData } from "@/type/type";
+import { CiEdit } from "react-icons/ci";
 
 const RcnPrimaryEntryTable = () => {
     const [origin, setOrigin] = useState<string>("")
@@ -303,7 +305,7 @@ const RcnPrimaryEntryTable = () => {
 
                     <TableHead className="text-center" >Id</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Date </TableHead>
+                    <TableHead className="text-center" >Date of Receiving </TableHead>
                     <TableHead className="text-center" >BL No.</TableHead>
                     <TableHead className="text-center" >Con No.</TableHead>
                     <TableHead className="text-center" >Truck No.</TableHead>
@@ -312,8 +314,8 @@ const RcnPrimaryEntryTable = () => {
                     <TableHead className="text-center" >Net Weight</TableHead>
                     <TableHead className="text-center" >Difference</TableHead>
                     <TableHead className="text-center" >Bag Count</TableHead>
-                    <TableHead className="text-center" >QC </TableHead>
-                    <TableHead className="text-center" >Status </TableHead>
+                    <TableHead className="text-center" >QC Status</TableHead>
+                    <TableHead className="text-center" >Edit Status </TableHead>
                     <TableHead className="text-center" >Entried By </TableHead>
                     <TableHead className="text-center" >Action</TableHead>
 
@@ -342,7 +344,8 @@ const RcnPrimaryEntryTable = () => {
                                             <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>
                                         )}
                                     </TableCell>
-                                    <TableCell className="text-center">{item.editStatus}</TableCell>
+                                    <TableCell className="text-center">{item.editStatus == 'Created' ?
+                                    'NA':item.editStatus}</TableCell>
                                     <TableCell className="text-center">{item.editedBy}</TableCell>
                                     <TableCell className="text-center">
                                         <Popover>
@@ -351,8 +354,8 @@ const RcnPrimaryEntryTable = () => {
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <AlertDialog>
-                                                    <AlertDialogTrigger>
-                                                        <button className="bg-transparent text-black text-left hover:font-bold hover:text-base hover:text-green-600">Approve</button>
+                                                    <AlertDialogTrigger className="flex">
+                                                    <FcApprove size={25}/> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
@@ -365,8 +368,8 @@ const RcnPrimaryEntryTable = () => {
                                                     </AlertDialogContent>
                                                 </AlertDialog>
                                                 <AlertDialog>
-                                                    <AlertDialogTrigger>
-                                                        <button className="bg-transparent pt-2 text-black text-left hover:font-bold hover:text-base hover:text-red-600">Reject</button>
+                                                    <AlertDialogTrigger className="flex mt-2">
+                                                    <FcDisapprove size={25}/> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Reject</button>
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
@@ -408,17 +411,18 @@ const RcnPrimaryEntryTable = () => {
                                             <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>
                                         )}
                                     </TableCell>
-                                    <TableCell className="text-center">{item.editStatus}</TableCell>
+                                    <TableCell className="text-center">{item.editStatus == 'Created' ?
+                                    'NA':item.editStatus}</TableCell>
                                     <TableCell className="text-center">{item.receivedBy}</TableCell>
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
-                                                <button className={`bg-cyan-500 p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-300'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                <button className={`bg-cyan-500 p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-blue-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <Dialog>
-                                                    <DialogTrigger>
-                                                        <button className="bg-transparent text-black text-left hover:font-bold hover:text-sm " >Modify</button>
+                                                    <DialogTrigger className="flex"><CiEdit size={20}/>
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                     </DialogTrigger>
                                                     <DialogContent>
                                                         <DialogHeader>
