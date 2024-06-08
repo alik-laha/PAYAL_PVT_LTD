@@ -172,7 +172,7 @@ const EmployeeTable = () => {
         }
         ).catch((err) => {
             console.log(err)
-        })
+        }).finally(()=>{window.location.reload()})
     }
     const handleRelese = (data: EmployeeData) => {
         axios.put(`/api/employee/releseemployee/${data.employeeId}`, { releseDate: releaseDate }).then((res) => {
