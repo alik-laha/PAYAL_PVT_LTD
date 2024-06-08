@@ -31,3 +31,7 @@ export const roleDataonDept = {
     QualityControl: ['QCSupervisor', 'QCManager'],
     Production: ['ProductionManager']
 }
+
+export const pendingCheckRole = {
+    RCNPrimary:['Director','FactoryManager','ReceivingManager']
+}

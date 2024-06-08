@@ -12,22 +12,34 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import UseQueryData from "../common/dataFetcher";
-import { SumofAllCuntryData } from "@/type/type";
+import { PermissionRole, SumofAllCuntryData } from "@/type/type";
 
 import { useContext } from 'react';
 import Context from '../context/context';
 import axios from 'axios';
 import Loader from '../common/Loader';
-
+import { pendingCheckRole } from '../common/exportData';
+import {pendingCheckRoles} from  "@/type/type";
 
 const RcnPrimaryEntry = () => {
     const { setEditPendingData } = useContext(Context);
-
+    const Role = localStorage.getItem('role') as keyof PermissionRole
     const handleEditFetch = async () => {
         const Data = await axios.get('/api/rcnprimary/geteditpending');
         console.log(Data)
         setEditPendingData(Data.data);
     };
+
+    const checkpending = ( tab: string ) => { 
+        //console.log(Role)
+        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+            return true
+        }
+        else{
+            return false;
+        }
+       
+    }
     const { data, isLoading, error } = UseQueryData('/api/rcnprimary/sum', 'GET', 'AllOriginRcnPrimary');
     if (isLoading) {
         return <Loader/>
@@ -72,7 +84,8 @@ const RcnPrimaryEntry = () => {
                     </DialogContent>
                 </Dialog>
 
-                <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.CountPendingEdit})</Button>
+                {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> 
+                Pending Edit ({data.CountPendingEdit})</Button>}
                   
                 </div>
                 <RcnPrimaryEntryTable />

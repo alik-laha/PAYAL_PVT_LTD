@@ -128,3 +128,7 @@ export interface PermissionDept {
     
 }
 
+export interface pendingCheckRoles  {
+    RCNPrimary:string[];
+}
+
