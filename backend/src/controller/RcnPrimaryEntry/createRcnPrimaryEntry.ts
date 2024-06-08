@@ -5,8 +5,8 @@ const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
     try {
         const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin, date } = req.body;
         // const date = new Date();
-        // const receivedBy = req.cookies.user;
-        const receivedBy = "RC User 1";
+         const receivedBy = req.cookies.user;
+       // const receivedBy = "RC User 1";
         const difference = blWeight - netWeight;
         const rcnPrimary = await RcnPrimary.create({
             date,

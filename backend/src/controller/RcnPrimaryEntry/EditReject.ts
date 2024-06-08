@@ -7,8 +7,8 @@ const EditReject = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
 
-        // const rejectedBy = req.cookies.user;
-        const rejectedBy = "RC Admin 2";
+         const rejectedBy = req.cookies.user;
+        //const rejectedBy = "RC Admin 2";
         if (!id || !rejectedBy) {
             return res.status(400).json({ message: "Please provide the id or rejected By" });
         }
