@@ -213,7 +213,7 @@ const QCRcnTable = () => {
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                             <AlertDialog>
                                                     <AlertDialogTrigger className="flex">
-                                                    <FcApprove size={25}/> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">QC Approve</button>
+                                                    <FcApprove size={25}/> <button className="bg-transparent  pl-1 text-left hover:text-green-500">QC Approve</button>
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
@@ -226,7 +226,7 @@ const QCRcnTable = () => {
                                                     </AlertDialogContent>
                                                 </AlertDialog>
                                                 <AlertDialog>
-                                                    <AlertDialogTrigger className="flex mt-2">
+                                                    <AlertDialogTrigger className="flex mt-1">
                                                     <FcDisapprove size={25}/> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">QC Reject</button>
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
@@ -240,8 +240,21 @@ const QCRcnTable = () => {
                                                     </AlertDialogContent>
                                                 </AlertDialog>
                                                 <Dialog>
-                                                    <DialogTrigger className="flex py-2">+
+                                                    <DialogTrigger className="flex py-1">+
                                                         <button className="bg-transparent pl-2 text-left hover:text-green-500" >Report Upload</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent>
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                <p className='text-1xl pb-1 text-center mt-5'>QC Incoming Report </p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        
+                                                    </DialogContent>
+                                                </Dialog>
+                                                <Dialog>
+                                                    <DialogTrigger className="flex py-1">+
+                                                        <button className="bg-transparent pl-2 text-left hover:text-green-500" >Report Modify</button>
                                                     </DialogTrigger>
                                                     <DialogContent>
                                                         <DialogHeader>
