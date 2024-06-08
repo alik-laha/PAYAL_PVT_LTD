@@ -56,7 +56,7 @@ const ModifymachineForm = (props: Props) => {
         closeDialogButton.addEventListener('click', () => {
             if (successdialog != null) {
                 (successdialog as any).close();
-                // window.location.reload()
+                 window.location.reload()
             }
 
 
@@ -92,6 +92,7 @@ const ModifymachineForm = (props: Props) => {
             }
             )
             .catch((err) => {
+                console.log(err)
                 if (errordialog != null) {
                     (errordialog as any).showModal()
                 }

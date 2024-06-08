@@ -4,9 +4,10 @@ import Asset from "../../model/assetModel";
 const UpdateAsset = async (req: Request, res: Response) => {
     try {
         const { machineId, machinename, section, machinestatus, description, id } = req.body;
+        const modifyedBy = req.cookies.user
         await Asset.update({
             machineID: machineId, machineName: machinename,
-            description, status: machinestatus, section
+            description, status: machinestatus, section,modifiedBy:modifyedBy
         }, {
             where: {
                 id: id
