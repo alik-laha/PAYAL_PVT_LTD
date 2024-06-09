@@ -58,7 +58,7 @@ const RcnGradingTable = () => {
     const limit = 3
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e.target.value)
-        axios.post('/api/gradding/searchGrading', { searchData: e.target.value }, {
+        axios.post('/api/grading/searchGrading', { searchData: e.target.value }, {
             params: {
                 page: page,
                 limit: limit
@@ -77,7 +77,7 @@ const RcnGradingTable = () => {
             })
     }
     useEffect(() => {
-        axios.post('/api/gradding/searchGrading', {}, {
+        axios.post('/api/grading/searchGrading', {}, {
             params: {
                 page: page,
                 limit: limit

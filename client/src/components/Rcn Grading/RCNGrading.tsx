@@ -38,9 +38,9 @@ const RcnGrading = () => {
                 console.log(err)
             })
     }, [])
-    const { data, isLoading, error } = UseQueryData('/api/gradding/sumofallgrade', 'GET', 'AllGradingSum');
+    const { data, isLoading, error } = UseQueryData('/api/grading/sumofallgrade', 'GET', 'AllGradingSum');
     const handleEditFetch = async () => {
-        axios.get('/api/gradding/getPendingData')
+        axios.get('/api/grading/getPendingData')
             .then(res => {
                 setEditPendiningGrinderData(res.data)
             })
