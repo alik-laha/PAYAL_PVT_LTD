@@ -73,7 +73,7 @@ const QCRcnTable = () => {
         //console.log('search button pressed')
         //setEditData([])
         setblockpagen('flex')
-        const response = await axios.put('/api/rcnprimary/rcnprimarysearch', {
+        const response = await axios.put('/api/qcRcn/searchqcRcn', {
             blConNo: blConNo,
             origin: origin,
             fromDate: fromdate,

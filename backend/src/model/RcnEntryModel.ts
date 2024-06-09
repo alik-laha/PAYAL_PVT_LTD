@@ -63,7 +63,14 @@ const RcnPrimary = sequelize.define('rcnEntry', {
         type: DataTypes.STRING,
         allowNull: true
     }
-}
-  );
+},
+    {
+        indexes: [
+            {
+                unique: true,
+                fields: ['blNo', 'conNo']
+            }
+        ]
+    });
 
 export default RcnPrimary;

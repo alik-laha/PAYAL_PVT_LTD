@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
+import QcRCN from "../../model/qcRCNmodel";
 import RcnPrimary from "../../model/RcnEntryModel";
-import qcInitialEntry from "./qcInitialEntry";
 import { Op } from "sequelize";
 
 const SearchQcRCN = async (req: Request, res: Response) => {
@@ -44,18 +44,26 @@ const SearchQcRCN = async (req: Request, res: Response) => {
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let rcnEntries
         if(limit===0 && offset===0){
-             rcnEntries = await RcnPrimary.findAll({
+             rcnEntries = await QcRCN.findAll({
                 where,
                 order: [['date', 'DESC']], // Order by date descending
+                include: [{
+                    model: RcnPrimary,
+                    required: false 
+                  }]
                 
             });
         }
         else{
-             rcnEntries = await RcnPrimary.findAll({
+             rcnEntries = await QcRCN.findAll({
                 where,
                 order: [['date', 'DESC']], // Order by date descending
                 limit: limit,
-                offset: offset
+                offset: offset,
+                include: [{
+                    model: RcnPrimary,
+                    required: false // this is optional since 'required: false' is the default behavior for LEFT JOIN
+                  }]
             });
         }
        

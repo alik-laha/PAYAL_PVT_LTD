@@ -7,7 +7,11 @@ const QcRCN = sequelize.define('QcRCN', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull:false
+        allowNull:false,
+        references:{
+            model:RcnPrimary,
+            key:'id'
+        }
     },blNo: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -15,10 +19,7 @@ const QcRCN = sequelize.define('QcRCN', {
     },conNo: {
         type: DataTypes.STRING,
         allowNull: false,
-        references:{
-            model:RcnPrimary,
-            key:'conNo'
-        }
+      
     },date: {
         type: DataTypes.DATE,
         allowNull: false
@@ -94,14 +95,14 @@ const QcRCN = sequelize.define('QcRCN', {
     indexes: [
         {
             unique: true,
-            fields: ['conNo',]
+            fields: ['conNo']
         }
     ]
 })
 
 
-RcnPrimary.hasOne(QcRCN,{foreignKey:{name:'conNo'}})
+RcnPrimary.hasOne(QcRCN,{foreignKey:{name:'id'}})
 
-QcRCN.belongsTo(RcnPrimary,{foreignKey:{name:'conNo'}})
+QcRCN.belongsTo(RcnPrimary,{foreignKey:{name:'id'}})
 
 export default QcRCN;
