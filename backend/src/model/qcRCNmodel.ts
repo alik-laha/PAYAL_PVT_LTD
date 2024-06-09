@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig"
-
+import RcnPrimary from "./RcnEntryModel";
 
 const QcRCN = sequelize.define('QcRCN', {
     
@@ -10,10 +10,15 @@ const QcRCN = sequelize.define('QcRCN', {
         allowNull:false
     },blNo: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+       
     },conNo: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        references:{
+            model:RcnPrimary,
+            key:'conNo'
+        }
     },date: {
         type: DataTypes.DATE,
         allowNull: false
@@ -23,41 +28,41 @@ const QcRCN = sequelize.define('QcRCN', {
     },sampling: {
         type: DataTypes.FLOAT,
         allowNull: true,
-        defaultValue:0
+        defaultValue:null
     },moisture: {
         type: DataTypes.FLOAT,
         allowNull: true,
-        defaultValue:0
+        defaultValue:null
     },nutCount: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        defaultValue:0
+        defaultValue:null
     },fluteRate: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        defaultValue:0
+        defaultValue:null
     },goodKernel: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        defaultValue:0
+        defaultValue:null
     },spIm: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        defaultValue:0
+        defaultValue:null
     },reject: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        defaultValue:0
+        defaultValue:null
     },
     shell: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        defaultValue:0
+        defaultValue:null
     },
     outTurn: {
         type: DataTypes.FLOAT,
         allowNull: true,
-        defaultValue:0
+        defaultValue:null
     },
     Remarks: {
         type: DataTypes.STRING,
@@ -89,11 +94,14 @@ const QcRCN = sequelize.define('QcRCN', {
     indexes: [
         {
             unique: true,
-            fields: ['blNo','conNo']
+            fields: ['conNo',]
         }
     ]
 })
 
 
+RcnPrimary.hasOne(QcRCN,{foreignKey:{name:'conNo'}})
+
+QcRCN.belongsTo(RcnPrimary,{foreignKey:{name:'conNo'}})
 
 export default QcRCN;

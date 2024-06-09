@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import RcnPrimary from "../../model/RcnEntryModel";
+import qcInitialEntry from "./qcInitialEntry";
 import { Op } from "sequelize";
 
-
-const SearchRcnPrimary = async (req: Request, res: Response) => {
+const SearchQcRCN = async (req: Request, res: Response) => {
     try {
         const { blConNo, fromDate, toDate, origin } = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
@@ -39,7 +39,7 @@ const SearchRcnPrimary = async (req: Request, res: Response) => {
                 }
             });
         }
-  
+
         // Convert the array to an object for the where condition
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let rcnEntries
@@ -65,6 +65,5 @@ const SearchRcnPrimary = async (req: Request, res: Response) => {
         console.log(err)
         return res.status(500).json({ msg: 'Internal server error', error: err })
     }
- 
 }
-export default SearchRcnPrimary
+export default SearchQcRCN

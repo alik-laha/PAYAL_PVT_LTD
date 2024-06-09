@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import QcRCN from "../../model/qcRCNmodel";
+import {QcRCN} from "../../model/indexmapping";
 
 const qcInitialEntry = async (req: Request, res: Response) => {
 
@@ -20,6 +20,7 @@ const qcInitialEntry = async (req: Request, res: Response) => {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error", error: err });
     }
+
   
 }
 export default qcInitialEntry;

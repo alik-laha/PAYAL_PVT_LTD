@@ -56,13 +56,15 @@ const RcnPrimaryEntry = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     {
-                        data.AllOriginRcnPrimary.map((item: SumofAllCuntryData) => {
-                            return (
-                                <div className="flexbox-tile bg-red-400 " key={item.origin}>
-                                    {item.origin} <br /><p>{item.totalBags} Bag</p>
-                                </div>
-                            )
-                        })
+                        
+                        data.AllOriginRcnPrimary &&  data.AllOriginRcnPrimary.map((item: SumofAllCuntryData) => {
+                                return (
+                                    <div className="flexbox-tile bg-red-400 " key={item.origin}>
+                                        {item.origin} <br /><p>{item.totalBags} Bag</p>
+                                    </div>
+                                )
+                            })
+                        
                     }
 
                 </div>

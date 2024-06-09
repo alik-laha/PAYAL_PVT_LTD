@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import RcnPrimary from "../../model/RcnEntryModel";
+import {RcnPrimary} from "../../model/indexmapping";
 
 const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
     try {
@@ -8,6 +8,7 @@ const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
          const receivedBy = req.cookies.user;
        // const receivedBy = "RC User 1";
         const difference = blWeight - netWeight;
+     
         const rcnPrimary = await RcnPrimary.create({
             date,
             blNo,
@@ -27,6 +28,7 @@ const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error", error: err });
     }
+    
 }
 export default CreateRcnPrimaryEntry;
 

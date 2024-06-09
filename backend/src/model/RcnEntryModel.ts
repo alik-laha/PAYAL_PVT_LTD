@@ -11,10 +11,12 @@ const RcnPrimary = sequelize.define('rcnEntry', {
     date: {
         type: DataTypes.DATE,
         allowNull: false
+       
     },
     blNo: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+       
     },
     truckNo: {
         type: DataTypes.STRING,
@@ -22,7 +24,8 @@ const RcnPrimary = sequelize.define('rcnEntry', {
     },
     conNo: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique:true
     },
     blWeight: {
         type: DataTypes.FLOAT,
@@ -60,14 +63,7 @@ const RcnPrimary = sequelize.define('rcnEntry', {
         type: DataTypes.STRING,
         allowNull: true
     }
-},
-    {
-        indexes: [
-            {
-                unique: true,
-                fields: ['blNo', 'conNo']
-            }
-        ]
-    });
+}
+  );
 
 export default RcnPrimary;
