@@ -30,7 +30,8 @@ const EditApprove = async (req: Request, res: Response) => {
             editStatus: "Approved",
             rcnStatus: rcn.rcnStatus,
             receivedBy: rcn.editedBy,
-            approvedBy:approvedBy
+            approvedBy:approvedBy,
+            date:rcn.date
         }, {
             where: {
                 id

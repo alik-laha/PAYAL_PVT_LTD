@@ -13,6 +13,13 @@ export interface RcnPrimaryModifyProps {
 
 }
 
+export interface qcapproveprops {
+   
+    rcnStatus: string;
+}
+
+
+
 export interface UserData {
     id: number;
     userName: string;

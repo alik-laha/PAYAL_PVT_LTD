@@ -96,6 +96,12 @@ const QCRcnTable = () => {
         handleSearch()
     }, [page])
 
+    const handleQCApprove = async (item: QcRcnEntryData) => {
+        const response = await axios.put(`/api/qcRcn/qcRcnApprove//${item.id}`)
+        const data = await response.data
+       
+    }
+
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
         const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -220,7 +226,7 @@ const QCRcnTable = () => {
                                         <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                         {item.rcnEntry.rcnStatus === 'QC Pending' &&   <AlertDialog>
                                                 <AlertDialogTrigger className="flex">
-                                                    <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500">QC Approve</button>
+                                                    <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" onClick={handleQCApprove(item)}>QC Approve</button>
                                                 </AlertDialogTrigger>
                                                 <AlertDialogContent>
                                                     <AlertDialogHeader>
