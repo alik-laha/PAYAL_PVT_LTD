@@ -1,3 +1,5 @@
+import { Interface } from "readline";
+
 export interface DatePickerProps {
     buttonName: string;
     value: Date | undefined;
@@ -26,6 +28,30 @@ export interface EditPendingData extends RcnPrimaryEntryData {
     editedBy: string;
 
 }
+export interface QcRcnEntryData {
+    
+    id:number;
+    blNo: string;
+    conNo: string;
+    date: string;
+    origin: string;
+    sampling:Float32Array;
+    moisture:Float32Array;
+    nutCount:number;
+    fluteRate:number;
+    goodKernel:number;
+    spim:number;
+    reject:number;
+    shell:number;
+    outTurn:Float32Array;
+    Remarks:string;
+    qcapprovedBy:string;
+    reportStatus:number;
+    createdBy:string;
+    rcnEntry:RcnPrimaryEntryData;
+}
+
+
 
 export interface ExcelRcnPrimaryEntryData {
     SL_No: number;

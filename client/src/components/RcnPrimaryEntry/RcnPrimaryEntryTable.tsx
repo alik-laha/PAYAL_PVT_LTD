@@ -338,10 +338,10 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center font-semibold text-red-600">{item.difference}</TableCell>
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
                                     <TableCell className="text-center">
-                                        {item.rcnStatus === 'QC Pending' ? (
-                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
-                                        ) : (
+                                        {item.rcnStatus === 'QC Approved' ? (
                                             <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>
+                                        ) : (
+                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center">{item.editStatus == 'Created' ?
@@ -405,10 +405,10 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center font-semibold text-red-600">{item.difference}</TableCell>
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
                                     <TableCell className="text-center">
-                                        {item.rcnStatus === 'QC Pending' ? (
-                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
-                                        ) : (
+                                        {item.rcnStatus === 'QC Approved' ? (
                                             <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>
+                                        ) : (
+                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center">{item.editStatus == 'Created' ?
