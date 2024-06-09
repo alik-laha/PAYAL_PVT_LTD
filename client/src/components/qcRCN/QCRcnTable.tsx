@@ -55,6 +55,7 @@ import {
 import { FcApprove, FcDisapprove } from "react-icons/fc"
 import { MdOutlineDriveFolderUpload } from "react-icons/md";
 import { LiaEdit } from "react-icons/lia";
+import QCreportForm from "./QCreportForm"
 
 
 const QCRcnTable = () => {
@@ -226,7 +227,7 @@ const QCRcnTable = () => {
                                         <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                         {item.rcnEntry.rcnStatus === 'QC Pending' &&   <AlertDialog>
                                                 <AlertDialogTrigger className="flex">
-                                                    <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" onClick={handleQCApprove(item)}>QC Approve</button>
+                                                    <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >QC Approve</button>
                                                 </AlertDialogTrigger>
                                                 <AlertDialogContent>
                                                     <AlertDialogHeader>
@@ -234,7 +235,7 @@ const QCRcnTable = () => {
                                                     </AlertDialogHeader>
                                                     <AlertDialogFooter>
                                                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <AlertDialogAction >Continue</AlertDialogAction>
+                                                        <AlertDialogAction onClick={() => handleQCApprove(item)}>Continue</AlertDialogAction>
                                                     </AlertDialogFooter>
                                                 </AlertDialogContent>
                                             </AlertDialog>}
@@ -262,7 +263,7 @@ const QCRcnTable = () => {
                                                             <p className='text-1xl pb-1 text-center mt-5'>QC Incoming Report </p>
                                                         </DialogTitle>
                                                     </DialogHeader>
-
+                                                    <QCreportForm data={item} />
                                                 </DialogContent>
                                             </Dialog>}
                                             {item.rcnEntry.rcnStatus === 'QC Approved' &&  <Dialog>
