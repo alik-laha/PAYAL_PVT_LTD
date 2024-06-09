@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig";
 
+
 const RcnPrimary = sequelize.define('rcnEntry', {
     id: {
         type: DataTypes.INTEGER,

@@ -4,9 +4,10 @@ import QcRCN from "../../model/qcRCNmodel";
 const qcInitialEntry = async (req: Request, res: Response) => {
 
     try {
-        const { blNo, conNo, origin, date } = req.body;
+        const { g_id,blNo, conNo, origin, date } = req.body;
         
         const qcRcnInitial = await QcRCN.create({
+            id:g_id,
             date,
             blNo,
             conNo,

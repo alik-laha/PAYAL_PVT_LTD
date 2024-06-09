@@ -7,7 +7,7 @@ const QcRCN = sequelize.define('QcRCN', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        
+        allowNull:false
     },blNo: {
         type: DataTypes.STRING,
         allowNull: false
@@ -22,47 +22,60 @@ const QcRCN = sequelize.define('QcRCN', {
         allowNull: false
     },sampling: {
         type: DataTypes.FLOAT,
-        allowNull: true
+        allowNull: true,
+        defaultValue:0
     },moisture: {
         type: DataTypes.FLOAT,
-        allowNull: true
+        allowNull: true,
+        defaultValue:0
     },nutCount: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: true,
+        defaultValue:0
     },fluteRate: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: true,
+        defaultValue:0
     },goodKernel: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: true,
+        defaultValue:0
     },spIm: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: true,
+        defaultValue:0
     },reject: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: true,
+        defaultValue:0
     },
     shell: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: true,
+        defaultValue:0
     },
     outTurn: {
         type: DataTypes.FLOAT,
-        allowNull: false
+        allowNull: true,
+        defaultValue:0
     },
     Remarks: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
+        defaultValue:''
     },
     editapprovedBy: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        defaultValue:''
     },qcapprovedBy: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
+        defaultValue:''
     },createdBy: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
+        defaultValue:''
     },editStatus:{
         type:DataTypes.STRING,
         defaultValue: "NA"
@@ -80,4 +93,7 @@ const QcRCN = sequelize.define('QcRCN', {
         }
     ]
 })
+
+
+
 export default QcRCN;
