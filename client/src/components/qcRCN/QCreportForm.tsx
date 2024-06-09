@@ -3,6 +3,7 @@ import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { RcnPrimaryEntryData } from "@/type/type";
 import { Textarea } from "../ui/textarea";
+import { Button } from "../ui/button";
 
 
 interface QcRcnEntryDataprops{
@@ -78,25 +79,26 @@ const QCreportForm = (props: QcRcnEntryDataprops) => {
             <div className="flex"><Label className="w-2/4 pt-1" >Container No.</Label>
             <Input className="w-2/4 bg-yellow-100" placeholder="Container No." value={conNo} onChange={(e) => setConNo(e.target.value)} readOnly/> </div>
             <div className="flex"><Label className="w-2/4 pt-1" >Sampling (%)</Label>
-            <Input type='number'className="w-2/4 " placeholder="Sampling" value={sampling} onChange={(e) => setSampling(e.target.value)} /> </div>
+            <Input type='number'className="w-2/4 " placeholder="Sampling" value={sampling} onChange={(e) => setSampling(e.target.value)} required/> </div>
             <div className="flex"><Label className="w-2/4 pt-1" >Moisture (%)</Label>
-            <Input className="w-2/4 " placeholder="Moisture" value={moisture} onChange={(e) => setMoisture(e.target.value)} /> </div>
+            <Input className="w-2/4 " placeholder="Moisture" value={moisture} onChange={(e) => setMoisture(e.target.value)} required/> </div>
             <div className="flex"><Label className="w-2/4 pt-1" >Nut Count (PCs)</Label>
-            <Input className="w-2/4 " placeholder="Nut Count" value={nutCount} onChange={(e) => setNutCount(e.target.value)} /> </div>
+            <Input className="w-2/4 " placeholder="Nut Count" value={nutCount} onChange={(e) => setNutCount(e.target.value)} required/> </div>
             <div className="flex"><Label className="w-2/4 pt-1" >Flute Rate (gm/Kg)</Label>
-            <Input className="w-2/4 " placeholder="Flute Rate" value={fluteRate} onChange={(e) => setFluteRate(e.target.value)} /> </div>
+            <Input className="w-2/4 " placeholder="Flute Rate" value={fluteRate} onChange={(e) => setFluteRate(e.target.value)} required/> </div>
             <div className="flex"><Label className="w-2/4 pt-1" >Total Good Kernel (gm)</Label>
-            <Input className="w-2/4 " placeholder="Good Kernel" value={goodKernel} onChange={(e) => setGoodKernel(e.target.value)} /> </div>
-            <div className="flex"><Label className="w-2/4 pt-1" >SP+IM</Label>
-            <Input className="w-2/4 " placeholder="SP+IM" value={spim} onChange={(e) => setSpim(e.target.value)} /> </div>
-            <div className="flex"><Label className="w-2/4 pt-1" >Reject</Label>
-            <Input className="w-2/4 " placeholder="Reject" value={reject} onChange={(e) => setReject(e.target.value)} /> </div>
+            <Input className="w-2/4 " placeholder="Good Kernel" value={goodKernel} onChange={(e) => setGoodKernel(e.target.value)} required/> </div>
+            <div className="flex"><Label className="w-2/4 pt-1" >SP+IM (gm)</Label>
+            <Input className="w-2/4 " placeholder="SP+IM" value={spim} onChange={(e) => setSpim(e.target.value)} required/> </div>
+            <div className="flex"><Label className="w-2/4 pt-1" >Reject(With Shell) (gm)</Label>
+            <Input className="w-2/4 " placeholder="Reject" value={reject} onChange={(e) => setReject(e.target.value)} required/> </div>
             <div className="flex"><Label className="w-2/4 pt-1" >Shell</Label>
-            <Input className="w-2/4 " placeholder="Shell" value={shell} onChange={(e) => setShell(e.target.value)} /> </div>
-            <div className="flex"><Label className="w-2/4 pt-1" >Out Turn</Label>
-            <Input className="w-2/4 " placeholder="Out Turn" value={outturn} onChange={(e) => setOutTurn(e.target.value)} /> </div>
+            <Input className="w-2/4 " placeholder="Shell" value={shell} onChange={(e) => setShell(e.target.value)} required/> </div>
+            <div className="flex"><Label className="w-2/4 pt-1" >Out Turn (Lbs)</Label>
+            <Input className="w-2/4 " placeholder="Out Turn" value={outturn} onChange={(e) => setOutTurn(e.target.value)} required/> </div>
             <div className="flex"><Label className="w-2/4 pt-1" >Remarks</Label>
             <Textarea className="w-2/4 " placeholder="Remarks" value={remarks} onChange={(e) => setRemarks(e.target.value)} /> </div>
+            <Button className="bg-orange-500 mt-1 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
             </form>
                 </div></>)
 }

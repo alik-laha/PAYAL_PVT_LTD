@@ -179,16 +179,18 @@ const QCRcnTable = () => {
                     <TableHead className="text-center" >Origin</TableHead>
                     <TableHead className="text-center" >Incoming Date </TableHead>
                     <TableHead className="text-center" >QC Status</TableHead>
-
+                    <TableHead className="text-center" >QC Checked By </TableHead>
                     <TableHead className="text-center" >BL No.</TableHead>
                     <TableHead className="text-center" >Con No.</TableHead>
                     <TableHead className="text-center" >Truck No.</TableHead>
                     <TableHead className="text-center" >BL Weight</TableHead>
                     <TableHead className="text-center" >Bag Count</TableHead>
 
-                    <TableHead className="text-center" >QC Checked By </TableHead>
+                    
+                    <TableHead className="text-center" >Edit Status</TableHead>
                     <TableHead className="text-center" >Report Uploaded </TableHead>
                     <TableHead className="text-center" >Report Entried By</TableHead>
+                    
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>
@@ -206,19 +208,21 @@ const QCRcnTable = () => {
                                         <button className="bg-red-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
                                     )}
                                 </TableCell>
-
+                                <TableCell className="text-center">{item.qcapprovedBy}</TableCell>
                                 <TableCell className="text-center">{item.blNo}</TableCell>
                                 <TableCell className="text-center">{item.conNo}</TableCell>
                                 <TableCell className="text-center">{item.rcnEntry.truckNo}</TableCell>
                                 <TableCell className="text-center">{item.rcnEntry.blWeight}</TableCell>
                                 <TableCell className="text-center font-semibold">{item.rcnEntry.noOfBags}</TableCell>
 
-                                <TableCell className="text-center">{item.qcapprovedBy}</TableCell>
+                                
+                                <TableCell className="text-center">{item.editStatus}</TableCell>
                                 <TableCell className="text-center">
 
                                     <input type='checkbox' checked={item.reportStatus === 1 ? true : false} />
                                 </TableCell>
                                 <TableCell className="text-center">{item.createdBy}</TableCell>
+                                
                                 <TableCell className="text-center">
                                     <Popover>
                                         <PopoverTrigger>
@@ -260,7 +264,7 @@ const QCRcnTable = () => {
                                                 <DialogContent>
                                                     <DialogHeader>
                                                         <DialogTitle>
-                                                            <p className='text-1xl pb-1 text-center mt-5'>QC Incoming Report </p>
+                                                            <p className='text-1xl pb-1 text-center mt-5'>QC Incoming RCN Report </p>
                                                         </DialogTitle>
                                                     </DialogHeader>
                                                     <QCreportForm data={item} />

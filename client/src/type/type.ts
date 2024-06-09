@@ -49,6 +49,7 @@ export interface QcRcnEntryData {
     reportStatus:number;
     createdBy:string;
     rcnEntry:RcnPrimaryEntryData;
+    editStatus:string;
 }
 
 
