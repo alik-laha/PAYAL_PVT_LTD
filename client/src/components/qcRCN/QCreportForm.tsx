@@ -4,6 +4,9 @@ import { Label } from "../ui/label"
 import { RcnPrimaryEntryData } from "@/type/type";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
+import axios from "axios";
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 
 
 interface QcRcnEntryDataprops{
@@ -24,8 +27,7 @@ interface QcRcnEntryDataprops{
         shell:string;
         outTurn:string;
         Remarks:string;
-        qcapprovedBy:string;
-        
+        qcapprovedBy:string;   
         createdBy:string;
         rcnEntry:RcnPrimaryEntryData;
     }
@@ -46,7 +48,63 @@ const QCreportForm = (props: QcRcnEntryDataprops) => {
     const [shell, setShell] = useState<string>('')
     const [outturn, setOutTurn] = useState<string>('')
     const [remarks, setRemarks] = useState<string>("")
-  
+    const [errortext, setErrorText] = useState<string>("")
+
+    const successdialog = document.getElementById('qcrcnscsDialog') as HTMLInputElement;
+    const errordialog = document.getElementById('qcrcnerrDialog') as HTMLInputElement;
+    // const dialog = document.getElementById('myDialog');
+    const closeDialogButton = document.getElementById('qcrcncloseDialog') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('qcrcnerrorcloseDialog') as HTMLInputElement;
+
+
+    if (closeDialogButton) {
+        closeDialogButton.addEventListener('click', () => {
+            if (successdialog != null) {
+                (successdialog as any).close();
+                window.location.reload()
+            }
+
+
+        });
+    }
+    if (errorcloseDialogButton) {
+        errorcloseDialogButton.addEventListener('click', () => {
+            if (errordialog != null) {
+                (errordialog as any).close();
+            }
+
+        });
+    }
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        axios.put(`/api/qcRcn/createQcRcn/${props.data.id}`, { sampling,moisture,nutCount ,fluteRate,goodKernel,spim,reject,shell
+            ,outturn,remarks
+        })
+            .then((res) => {
+                console.log(res)
+                if (successdialog != null) {
+                    (successdialog as any).showModal();
+                }
+                setSampling('')
+                setMoisture('')
+                setNutCount('')
+                setSpim('')
+                setShell('')
+                setGoodKernel('')
+                setReject('')
+                setFluteRate('')
+                setOutTurn('')
+                setRemarks('')
+
+            }).catch((err) => {
+                console.log(err)
+                setErrorText(err.response.data.message)
+                if (errordialog != null) {
+                    (errordialog as any).showModal();
+                }
+            })
+    }
 
     useEffect(() => {
        
@@ -71,7 +129,7 @@ const QCreportForm = (props: QcRcnEntryDataprops) => {
 
 
        
-            <form className='flex flex-col gap-1 ' >
+            <form className='flex flex-col gap-1 ' onSubmit={handleSubmit}>
             <div className="flex"><Label className="w-2/4 pt-1" >Origin</Label>
                     <Input className="w-2/4 bg-yellow-100" placeholder="Container No." value={origin} onChange={(e) => setOrigin(e.target.value)} /> </div>
             <div className="flex"><Label className="w-2/4 pt-1">BL No.</Label>
@@ -100,7 +158,26 @@ const QCreportForm = (props: QcRcnEntryDataprops) => {
             <Textarea className="w-2/4 " placeholder="Remarks" value={remarks} onChange={(e) => setRemarks(e.target.value)} /> </div>
             <Button className="bg-orange-500 mt-1 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
             </form>
+
+            <dialog id="qcrcnscsDialog" className="dashboard-modal">
+                <button id="qcrcncloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">RCN QC Incoming Report Uploaded Successfully</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+
+            <dialog id="qcrcnerrDialog" className="dashboard-modal">
+                <button id="qcrcnerrorcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+
                 </div></>)
 }
+
+
 
 export default QCreportForm

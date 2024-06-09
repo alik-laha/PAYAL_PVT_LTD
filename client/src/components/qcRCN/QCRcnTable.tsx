@@ -185,11 +185,12 @@ const QCRcnTable = () => {
                     <TableHead className="text-center" >Truck No.</TableHead>
                     <TableHead className="text-center" >BL Weight</TableHead>
                     <TableHead className="text-center" >Bag Count</TableHead>
-
+                    <TableHead className="text-center" >Report </TableHead>
+                    <TableHead className="text-center" >KOR</TableHead>
                     
+                    
+                    <TableHead className="text-center" >Report By</TableHead>
                     <TableHead className="text-center" >Edit Status</TableHead>
-                    <TableHead className="text-center" >Report Uploaded </TableHead>
-                    <TableHead className="text-center" >Report Entried By</TableHead>
                     
                     <TableHead className="text-center" >Action</TableHead>
 
@@ -213,16 +214,17 @@ const QCRcnTable = () => {
                                 <TableCell className="text-center">{item.conNo}</TableCell>
                                 <TableCell className="text-center">{item.rcnEntry.truckNo}</TableCell>
                                 <TableCell className="text-center">{item.rcnEntry.blWeight}</TableCell>
-                                <TableCell className="text-center font-semibold">{item.rcnEntry.noOfBags}</TableCell>
-
+                                <TableCell className="text-center">{item.rcnEntry.noOfBags}</TableCell>
                                 
-                                <TableCell className="text-center">{item.editStatus}</TableCell>
+                                
+                               
                                 <TableCell className="text-center">
 
-                                    <input type='checkbox' checked={item.reportStatus === 1 ? true : false} />
+                                    <input type='checkbox'  checked={item.reportStatus === 1 ? true : false} />
                                 </TableCell>
+                                <TableCell className="text-center font-semibold">{item.outTurn}</TableCell>
                                 <TableCell className="text-center">{item.createdBy}</TableCell>
-                                
+                                <TableCell className="text-center">{item.editStatus}</TableCell>
                                 <TableCell className="text-center">
                                     <Popover>
                                         <PopoverTrigger>
@@ -257,9 +259,10 @@ const QCRcnTable = () => {
                                                     </AlertDialogFooter>
                                                 </AlertDialogContent>
                                             </AlertDialog>}
-                                            {item.rcnEntry.rcnStatus === 'QC Approved' &&  <Dialog>
+                                            {item.rcnEntry.rcnStatus === 'QC Approved' &&  item.reportStatus===0 && <Dialog>
                                             <DialogTrigger className="flex py-1">
-                                                    <MdOutlineDriveFolderUpload size={20} color="green" />  <button className="bg-transparent pl-2 text-left hover:text-green-500" >Report Upload</button>
+                                                    <MdOutlineDriveFolderUpload size={20} color="green" />  <button className="bg-transparent pl-2 text-left hover:text-green-500" >
+                                                        Report Entry</button>
                                                 </DialogTrigger>
                                                 <DialogContent>
                                                     <DialogHeader>
@@ -270,7 +273,7 @@ const QCRcnTable = () => {
                                                     <QCreportForm data={item} />
                                                 </DialogContent>
                                             </Dialog>}
-                                            {item.rcnEntry.rcnStatus === 'QC Approved' &&  <Dialog>
+                                            {item.rcnEntry.rcnStatus === 'QC Approved' &&  item.reportStatus===1 && <Dialog>
                                                 <DialogTrigger className="flex py-1">
                                                     <LiaEdit size={20} /><button className="bg-transparent pl-2 text-left hover:text-green-500" >Report Modify</button>
                                                 </DialogTrigger>
