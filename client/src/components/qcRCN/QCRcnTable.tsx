@@ -56,6 +56,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc"
 import { MdOutlineDriveFolderUpload } from "react-icons/md";
 import { LiaEdit } from "react-icons/lia";
 import QCreportForm from "./QCreportForm"
+import QCmodifyreportForm from './QCmodifyreportForm'
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 
@@ -327,10 +328,10 @@ const QCRcnTable = () => {
                                                 <DialogContent>
                                                     <DialogHeader>
                                                         <DialogTitle>
-                                                            <p className='text-1xl pb-1 text-center mt-5'>QC Incoming Report </p>
+                                                            <p className='text-1xl pb-1 text-center mt-5'>View/ Modify QC Incoming Report </p>
                                                         </DialogTitle>
                                                     </DialogHeader>
-
+                                                    <QCmodifyreportForm data={item} />
                                                 </DialogContent>
                                             </Dialog>}
                                         </PopoverContent>
