@@ -137,6 +137,19 @@ const QCRcnTable = () => {
        
     }
 
+    const handleQCReject = async (item: QcRcnEntryData) => {
+        const response = await axios.put(`/api/qcRcn/qcRcnReject/${item.id}`)
+        const data = await response.data
+       
+        if (data.message === "QC Approval of Rcn Entry is Rejected Successfully") {
+
+            if (rejectsuccessdialog != null) {
+                (rejectsuccessdialog as any).showModal();
+            }
+        }
+       
+    }
+
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
         const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -271,7 +284,7 @@ const QCRcnTable = () => {
                                                 </AlertDialogTrigger>
                                                 <AlertDialogContent>
                                                     <AlertDialogHeader>
-                                                        <AlertDialogTitle>Approve the RCN Incoming Entry?</AlertDialogTitle>
+                                                        <AlertDialogTitle>Do you want to Approve the RCN Incoming Entry?</AlertDialogTitle>
                                                     </AlertDialogHeader>
                                                     <AlertDialogFooter>
                                                         <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -285,11 +298,11 @@ const QCRcnTable = () => {
                                                 </AlertDialogTrigger>
                                                 <AlertDialogContent>
                                                     <AlertDialogHeader>
-                                                        <AlertDialogTitle>Decline the RCN Entry?</AlertDialogTitle>
+                                                        <AlertDialogTitle>Do you want to Reject the RCN Incoming Entry?</AlertDialogTitle>
                                                     </AlertDialogHeader>
                                                     <AlertDialogFooter>
                                                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <AlertDialogAction >Continue</AlertDialogAction>
+                                                        <AlertDialogAction onClick={() => handleQCReject(item)}>Continue</AlertDialogAction>
                                                     </AlertDialogFooter>
                                                 </AlertDialogContent>
                                             </AlertDialog>}
@@ -356,7 +369,7 @@ const QCRcnTable = () => {
             <dialog id="qcapproveScsDialog" className="dashboard-modal">
                 <button id="qcapproveScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">QC of RCN Imcoming Entry is Approved</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">QC Approval of RCN Imcoming Entry is Accepted</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
@@ -364,7 +377,7 @@ const QCRcnTable = () => {
             <dialog id="qcRejectDialog" className="dashboard-modal">
                 <button id="qcrejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">QC of RCN Imcoming Entry is Rejected</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">QC Approval of RCN Imcoming Entry is Rejected</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
