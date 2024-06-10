@@ -269,13 +269,13 @@ const QCRcnTable = () => {
 
                                     <input type='checkbox'  checked={item.reportStatus === 1 ? true : false} />
                                 </TableCell>
-                                <TableCell className="text-center font-semibold">{item.outTurn}</TableCell>
+                                <TableCell className="text-center font-bold text-red-500">{item.outTurn}</TableCell>
                                 <TableCell className="text-center">{item.createdBy}</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
                                 <TableCell className="text-center">
                                     <Popover>
                                         <PopoverTrigger>
-                                            <button className='bg-cyan-500 p-2 text-white rounded'>Action</button>
+                                            <button className={`p-2 text-white rounded ${(item.editStatus === 'Pending' ||  item.rcnEntry.rcnStatus === 'QC Rejected') ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.editStatus === 'Pending' ||  item.rcnEntry.rcnStatus === 'QC Rejected')? true : false}>Action</button>
                                         </PopoverTrigger>
                                         <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                         {item.rcnEntry.rcnStatus === 'QC Pending' &&   <AlertDialog>
