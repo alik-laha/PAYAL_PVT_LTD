@@ -56,6 +56,8 @@ import { FcApprove, FcDisapprove } from "react-icons/fc"
 import { MdOutlineDriveFolderUpload } from "react-icons/md";
 import { LiaEdit } from "react-icons/lia";
 import QCreportForm from "./QCreportForm"
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 
 
 const QCRcnTable = () => {
@@ -69,7 +71,32 @@ const QCRcnTable = () => {
     //const [EditData, setEditData] = useState<EditPendingData[]>([])
     const limit = pagelimit
     const [blockpagen, setblockpagen] = useState('flex')
+    const approvesuccessdialog = document.getElementById('qcapproveScsDialog') as HTMLInputElement;
+    const approvecloseDialogButton = document.getElementById('qcapproveScscloseDialog') as HTMLInputElement;
 
+    const rejectsuccessdialog = document.getElementById('qcRejectDialog') as HTMLInputElement;
+    const rejectcloseDialogButton = document.getElementById('qcrejectcloseDialog') as HTMLInputElement;
+
+    if (approvecloseDialogButton) {
+        approvecloseDialogButton.addEventListener('click', () => {
+            if (approvesuccessdialog != null) {
+                (approvesuccessdialog as any).close();
+                window.location.reload()
+            }
+
+        });
+    }
+
+    if (rejectcloseDialogButton) {
+        rejectcloseDialogButton.addEventListener('click', () => {
+            if (rejectsuccessdialog != null) {
+                (rejectsuccessdialog as any).close();
+                window.location.reload()
+            }
+
+
+        });
+    }
     const handleSearch = async () => {
         //console.log('search button pressed')
         //setEditData([])
@@ -100,6 +127,13 @@ const QCRcnTable = () => {
     const handleQCApprove = async (item: QcRcnEntryData) => {
         const response = await axios.put(`/api/qcRcn/qcRcnApprove//${item.id}`)
         const data = await response.data
+       
+        if (data.message === "QC Approval of Rcn Entry is made Successfully") {
+
+            if (approvesuccessdialog != null) {
+                (approvesuccessdialog as any).showModal();
+            }
+        }
        
     }
 
@@ -319,6 +353,21 @@ const QCRcnTable = () => {
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
+            <dialog id="qcapproveScsDialog" className="dashboard-modal">
+                <button id="qcapproveScscloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">QC of RCN Imcoming Entry is Approved</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+
+            <dialog id="qcRejectDialog" className="dashboard-modal">
+                <button id="qcrejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">QC of RCN Imcoming Entry is Rejected</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
         </div>
     )
 
