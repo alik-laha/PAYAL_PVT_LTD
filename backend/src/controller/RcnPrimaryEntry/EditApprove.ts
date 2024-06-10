@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import RcnPrimary from "../../model/RcnEntryModel";
 import RcnEdit from "../../model/RcnEditModel";
 import { RcnPrimaryModifyProps } from "../../type/type";
+import QcRCN from "../../model/qcRCNmodel";
 
 const EditApprove = async (req: Request, res: Response) => {
     try {
@@ -48,6 +49,22 @@ const EditApprove = async (req: Request, res: Response) => {
         if (!rcnEditDelete) {
             return res.status(400).json({ message: "Rcn Entry is not found" });
         }
+
+        const qcRcn = await QcRCN.update({
+            origin: rcn.origin,
+            blNo: rcn.blNo,
+            conNo: rcn.conNo,
+            date:rcn.date
+        }, {
+            where: {
+                id
+            }
+        });
+
+        if (!qcRcn) {
+            return res.status(400).json({ message: "qcRCN Update is not Done" });
+        }
+
         return res.status(200).json({ message: "Edit Request of Rcn Entry is Approved Successfully" });
 
     } catch (err) {
