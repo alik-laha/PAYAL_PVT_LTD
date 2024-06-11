@@ -50,6 +50,7 @@ const QCmodifyreportForm = (props: QcRcnEntryDataprops) => {
     const [outturn, setOutTurn] = useState<string>('')
     const [remarks, setRemarks] = useState<string>("")
     const [errortext, setErrorText] = useState<string>("")
+    const [qcapprvBy,setQcapprvBy]=useState<string>('')
 
     const successdialog = document.getElementById('qcrcnscsDialog') as HTMLInputElement;
     const errordialog = document.getElementById('qcrcnerrDialog') as HTMLInputElement;
@@ -79,7 +80,7 @@ const QCmodifyreportForm = (props: QcRcnEntryDataprops) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        axios.put(`/api/qcRcn/modifyQcRcn/${props.data.id}`, { origin,blNo,conNo,date,sampling,moisture,nutCount,fluteRate,goodKernel,spim,reject,shell
+        axios.put(`/api/qcRcn/modifyQcRcn/${props.data.id}`, { origin,blNo,conNo,date,qcapprvBy,sampling,moisture,nutCount,fluteRate,goodKernel,spim,reject,shell
             ,outturn,remarks
         })
             .then((res) => {
@@ -124,7 +125,7 @@ const QCmodifyreportForm = (props: QcRcnEntryDataprops) => {
         setOutTurn(props.data.outTurn)
         setRemarks(props.data.Remarks)
         setDate(props.data.date)
-       
+       setQcapprvBy(props.data.qcapprovedBy)
     }, [])
     return (
         <>

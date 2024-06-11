@@ -7,7 +7,7 @@ import QcRCN from "../../model/qcRCNmodel";
 const modifyrcnReport = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
-        const { origin,date,blNo,conNo, sampling,moisture,nutCount ,fluteRate,goodKernel,spim,reject,shell
+        const { origin,date,blNo,conNo,qcapprvBy, sampling,moisture,nutCount ,fluteRate,goodKernel,spim,reject,shell
             ,outturn,remarks } = req.body;
         
          const createdBy = req.cookies.user
@@ -15,7 +15,7 @@ const modifyrcnReport = async (req: Request, res: Response) => {
         if (!id) {
             return res.status(400).json({ message: "Please Provide the id" });
         }
-        const rcnedit = await QceditRCN.update(
+        const rcnedit = await QceditRCN.create(
             {   
                 id:id,
                 origin:origin,
@@ -33,14 +33,14 @@ const modifyrcnReport = async (req: Request, res: Response) => {
                 outTurn:outturn,
                 Remarks:remarks,
                 createdBy:createdBy,
-                reportStatus:1
+                reportStatus:1,
+                qcapprovedBy:qcapprvBy
             },
-            {
-                where: {
-                    id,
-                },
-            }
+           
         );
+        if (!rcnedit) {
+            return res.status(400).json({ message: " QC Rcn Edit Entry is not found" });
+        }
 
         const rcn = await QcRCN.update(
             {   
