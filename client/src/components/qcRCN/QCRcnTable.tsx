@@ -115,8 +115,11 @@ const QCRcnTable = () => {
             setPage((prev) => prev - 1)
 
         }
+      
         setData(data.rcnEntries)
+
         setblockpagen('none')
+        
     }
  
     const handleSearch = async () => {
