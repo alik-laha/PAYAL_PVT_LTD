@@ -5,13 +5,13 @@ import { Op } from "sequelize";
 
 const SearchQcRCN = async (req: Request, res: Response) => {
     try {
-        const { blConNo, fromDate, toDate, origin } = req.body;
+        const { reportStatus,blConNo, fromDate, toDate, origin } = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
         const size = parseInt(req.query.limit as string, 10) || 0;
 
         const offset = (page - 1) * size;
         const limit = size;
-
+        console.log(reportStatus)
         let whereClause = [];
 
         // Conditionally add parameters to the whereClause
@@ -36,6 +36,14 @@ const SearchQcRCN = async (req: Request, res: Response) => {
             whereClause.push({
                 origin: {
                     [Op.like]: `%${origin}%`
+                }
+            });
+        }
+
+        if (reportStatus!==undefined) {
+            whereClause.push({
+                reportStatus: {
+                    [Op.eq]: `%${reportStatus}%`
                 }
             });
         }

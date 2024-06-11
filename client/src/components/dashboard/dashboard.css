@@ -387,10 +387,15 @@
 
 @media screen and (max-width: 999px) {
 
+    .responsive-no-margin{
+        margin-left: 0!important;
+    }
+
     .responsive-button-adjust{
         height: 5vh!important;
         font-size: 13px!important;
         padding: 5px 8px 5px 8px!important;
+        
 
     }
 

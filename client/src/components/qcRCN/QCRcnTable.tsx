@@ -98,6 +98,27 @@ const QCRcnTable = () => {
 
         });
     }
+
+    const handleSearchPendingQC = async () => {
+        
+    }
+
+    const handleSearchPendingReport = async () => {
+        //console.log('search button pressed')
+        //setEditData([])
+        setblockpagen('flex')
+        const response = await axios.put('/api/qcRcn/searchqcRcn', {
+            reportStatus:0
+        })
+        const data = await response.data
+        if (data.rcnEntries.length === 0 && page > 1) {
+            setPage((prev) => prev - 1)
+
+        }
+        setData(data.rcnEntries)
+        setblockpagen('none')
+    }
+ 
     const handleSearch = async () => {
         //console.log('search button pressed')
         //setEditData([])
@@ -177,7 +198,11 @@ const QCRcnTable = () => {
     }
     return (
         <div className="ml-5 mt-5 ">
-
+            <Button className="bg-lime-500 mb-5 mt-5 max-w-52 responsive-button-adjust" onClick={handleSearchPendingQC}>Pending QC</Button>
+            <Button className="bg-blue-500 mb-5 ml-4 max-w-52 responsive-button-adjust" onClick={handleSearchPendingReport}>Pending Report</Button>
+                <Button className="bg-orange-400 mb-5 ml-4 max-w-52 responsive-button-adjust responsive-no-margin" > 
+                Pending Edit (2)</Button>
+                
             <div className="flex flexbox-search">
 
 

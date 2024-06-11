@@ -22,7 +22,7 @@ interface QcRcnEntryDataprops{
         nutCount:string;
         fluteRate:string;
         goodKernel:string;
-        spim:string;
+        spIm:string;
         reject:string;
         shell:string;
         outTurn:string;
@@ -119,7 +119,7 @@ const QCmodifyreportForm = (props: QcRcnEntryDataprops) => {
         setNutCount(props.data.nutCount)
         setFluteRate(props.data.fluteRate)
         setGoodKernel(props.data.goodKernel)
-        setSpim(props.data.spim)
+        setSpim(props.data.spIm)
         setReject(props.data.reject)
         setShell(props.data.shell)
         setOutTurn(props.data.outTurn)

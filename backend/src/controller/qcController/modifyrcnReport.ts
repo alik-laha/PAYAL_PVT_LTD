@@ -33,7 +33,7 @@ const modifyrcnReport = async (req: Request, res: Response) => {
                 outTurn:outturn,
                 Remarks:remarks,
                 createdBy:createdBy,
-                reportStatus:1,
+                reportStatus:0,
                 qcapprovedBy:qcapprvBy
             },
            

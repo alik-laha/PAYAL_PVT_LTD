@@ -29,9 +29,7 @@ const QCRcn = () => {
 
                 <div>
 
-                <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust">Pending QC</Button>
-                <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" > 
-                Pending Edit (2)</Button>
+                
                 </div>
 
 
