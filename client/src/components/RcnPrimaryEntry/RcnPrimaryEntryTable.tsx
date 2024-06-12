@@ -173,7 +173,7 @@ const RcnPrimaryEntryTable = () => {
                 Edit_Status: item.editStatus,
                 Created_by: item.editedBy,
                 // received by is updated as editedby in edit rcn table
-                Approved_or_Rejected_By: item.approvedBy
+                Approved_or_Reverted_By: item.approvedBy
                 // approvedBy is not there in edit rcn table
             }));
             setTransformedData(transformed);
@@ -212,7 +212,7 @@ const RcnPrimaryEntryTable = () => {
         const data = await response.data
         console.log(data)
         if (data.message === "Rcn Entry rejected successfully") {
-            console.log('rejected enter')
+            //console.log('rejected enter')
             if (rejectsuccessdialog != null) {
                 (rejectsuccessdialog as any).showModal();
             }
@@ -369,7 +369,7 @@ const RcnPrimaryEntryTable = () => {
                                                 </AlertDialog>
                                                 <AlertDialog>
                                                     <AlertDialogTrigger className="flex mt-2">
-                                                    <FcDisapprove size={25}/> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Reject</button>
+                                                    <FcDisapprove size={25}/> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
@@ -474,7 +474,7 @@ const RcnPrimaryEntryTable = () => {
             <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
                 <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">RCN Entry Modify Request Has Been Rejected</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">RCN Entry Modify Request Has Been Reverted</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
