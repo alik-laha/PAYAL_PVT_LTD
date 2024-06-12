@@ -87,6 +87,9 @@ const EmployeeTable = () => {
             if (err.response.data.msg === 'No Employee found') {
                 setData([])
                 setError(err.response.data.msg)
+                if(page>1){
+                    setPage(prev => prev - 1)
+                }
             }
         })
     }
@@ -151,7 +154,11 @@ const EmployeeTable = () => {
             if (err.response.data.msg === 'No Employee found') {
                 setData([])
                 setError(err.response.data.msg)
-                //setPage(prev => prev - 1)
+
+                if(page>1){
+                    setPage(prev => prev - 1)
+                }
+                
             }
         })
     }, [page])

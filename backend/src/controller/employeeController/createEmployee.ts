@@ -14,10 +14,10 @@ const createEmployee = async (req: Request, res: Response) => {
         if (oldpanEmployee) {
             return res.status(400).json({ msg: 'Employee Already Exists with this Pan No.' })
         }
-console.log('Reached Here')
+
 
         const LastUserId: EmployeeData | null = await Employee.findOne({ order: [['id', 'DESC']] }) as EmployeeData | null;
-        console.log(LastUserId)
+       
         let Id: number;
         let employeeId: string;
         const createdBy = req.cookies.user;
