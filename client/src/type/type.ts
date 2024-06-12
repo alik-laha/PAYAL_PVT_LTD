@@ -40,7 +40,7 @@ export interface QcRcnEntryData {
     nutCount:string;
     fluteRate:string;
     goodKernel:string;
-    spim:string;
+    spIm:string;
     reject:string;
     shell:string;
     outTurn:string;
