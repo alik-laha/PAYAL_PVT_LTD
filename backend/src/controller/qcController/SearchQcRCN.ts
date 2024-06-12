@@ -5,7 +5,7 @@ import { Op } from "sequelize";
 
 const SearchQcRCN = async (req: Request, res: Response) => {
     try {
-        const { reportStatus,blConNo, fromDate, toDate, origin } = req.body;
+        const { qcStatus,reportStatus,blConNo, fromDate, toDate, origin } = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
         const size = parseInt(req.query.limit as string, 10) || 0;
 
@@ -52,15 +52,37 @@ const SearchQcRCN = async (req: Request, res: Response) => {
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let rcnEntries
         if(limit===0 && offset===0){
-             rcnEntries = await QcRCN.findAll({
-                where,
-                order: [['date', 'DESC']], // Order by date descending
-                include: [{
-                    model: RcnPrimary,
-                    required: false 
-                  }]
-                
-            });
+            if(qcStatus){
+                rcnEntries = await QcRCN.findAll({
+                    where,
+                    order: [['date', 'DESC']], // Order by date descending
+                    include: [{
+                        model: RcnPrimary,
+                        required: false,
+                        where:{
+                            rcnStatus:{
+                                [Op.eq]: `%${qcStatus}%`
+                            }
+                        } 
+                      }]
+                    
+                });
+
+
+            }
+            else{
+                rcnEntries = await QcRCN.findAll({
+                    where,
+                    order: [['date', 'DESC']], // Order by date descending
+                    include: [{
+                        model: RcnPrimary,
+                        required: false 
+                      }]
+                    
+                });
+
+            }
+             
         }
         else{
              rcnEntries = await QcRCN.findAll({

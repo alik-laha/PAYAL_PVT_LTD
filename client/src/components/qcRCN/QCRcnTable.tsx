@@ -100,16 +100,31 @@ const QCRcnTable = () => {
         });
     }
 
-    const handleSearchPendingQC = async () => {
-        
-    }
+   
 
     const handleSearchPendingReport = async () => {
         //console.log('search button pressed')
         //setEditData([])
-        setblockpagen('flex')
+        //setblockpagen('flex')
         const response = await axios.put('/api/qcRcn/searchqcRcn', {
             reportStatus:0
+        })
+        const data = await response.data
+        if (data.rcnEntries.length === 0 && page > 1) {
+            setPage((prev) => prev - 1)
+
+        }   
+        setPendingData(data.rcnEntries)
+        setblockpagen('none')
+        
+    }
+
+    const handleSearchPendingQC = async () => {
+        //console.log('search button pressed')
+        //setEditData([])
+        //setblockpagen('flex')
+        const response = await axios.put('/api/qcRcn/searchqcRcn', {
+            qcStatus:'QC Pending'
         })
         const data = await response.data
         if (data.rcnEntries.length === 0 && page > 1) {
