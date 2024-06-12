@@ -1,9 +1,19 @@
+import Loader from "../common/Loader"
 import DashboardHeader from "../dashboard/DashboardHeader"
 import DashboardSidebar from "../dashboard/DashboardSidebar"
-import { Button } from "../ui/button"
+import UseQueryData from '../common/dataFetcher';
 import QCRcnTable from "./QCRcnTable"
-const QCRcn = () => {
 
+
+
+const QCRcn = () => {
+    const { Data, error, isLoading } = UseQueryData('/api/qcRcn/getTotalQCCount', 'GET', 'getTotalQcCount')
+    if (isLoading) {
+        return <Loader/>
+    }
+    if (error) {
+        return <div>Error</div>
+    }
     return (
         <div>
             <DashboardHeader />
@@ -11,25 +21,20 @@ const QCRcn = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                 <div className="flexbox-tile bg-blue-500 hover:bg-red-600">
-                        Approved<br /><p>50</p>
+                        Approved<br /><p>{Data.approvedQC}</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-red-600">
-                        Report Uploaded<br /><p>300</p>
+                        Report Uploaded<br /><p>{Data.completereport}</p>
                     </div>
                 <div className="flexbox-tile bg-green-500 hover:bg-red-600">
-                        Pending Approval<br /><p>100</p>
+                        Pending Approval<br/><p>{Data.pendingQC}</p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-red-600">
-                        Pending Report<br /><p>200</p>
+                        Pending Report<br /><p>{Data.pendingReport}</p>
                     </div>
                     
 
 
-                </div>
-
-                <div>
-
-                
                 </div>
 
 
