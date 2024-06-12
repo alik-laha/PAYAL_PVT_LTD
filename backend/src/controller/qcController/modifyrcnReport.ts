@@ -34,7 +34,8 @@ const modifyrcnReport = async (req: Request, res: Response) => {
                 Remarks:remarks,
                 createdBy:createdBy,
                 reportStatus:0,
-                qcapprovedBy:qcapprvBy
+                qcapprovedBy:qcapprvBy,
+                editStatus:'Pending'
             },
            
         );

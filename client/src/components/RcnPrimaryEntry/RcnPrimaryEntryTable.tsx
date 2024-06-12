@@ -390,7 +390,7 @@ const RcnPrimaryEntryTable = () => {
                             );
                         })
                     ) : (
-                        Data.map((item: RcnPrimaryEntryData, idx) => {
+                        Data.length>0 ? (Data.map((item: RcnPrimaryEntryData, idx) => {
 
 
                             return (
@@ -442,7 +442,17 @@ const RcnPrimaryEntryTable = () => {
                                     </TableCell>
                                 </TableRow>
                             );
-                        })
+                        })):(<TableRow>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">No Result </p></TableCell>
+                          
+                            </TableRow>)
                     )}
                 </TableBody>
             </Table>

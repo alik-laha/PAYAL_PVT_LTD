@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import QcRCN from "../../model/qcRCNmodel";
 import RcnPrimary from "../../model/RcnEntryModel";
 import { Op } from "sequelize";
+import QceditRCN from "../../model/qcRCNeditmodel";
 
 const SearchQcRCN = async (req: Request, res: Response) => {
     try {
@@ -112,8 +113,9 @@ const SearchQcRCN = async (req: Request, res: Response) => {
            
 
         }
+        const CountPendingEdit = await QceditRCN.count();
        
-        return res.status(200).json({ msg: 'Rcn Entry found', rcnEntries })
+        return res.status(200).json({ msg: 'Rcn Entry found', rcnEntries,CountPendingEdit })
     }
     catch (err) {
         console.log(err)

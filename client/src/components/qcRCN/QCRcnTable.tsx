@@ -73,6 +73,8 @@ const QCRcnTable = () => {
     const limit = pagelimit
     const [blockpagen, setblockpagen] = useState('flex')
     const [pendingData,setPendingData]=useState<QcRcnEntryData[]>([])
+    const [counteditpending,setcounteditpending]=useState<number>(0)
+   
     const approvesuccessdialog = document.getElementById('qcapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('qcapproveScscloseDialog') as HTMLInputElement;
 
@@ -106,6 +108,8 @@ const QCRcnTable = () => {
         //console.log('search button pressed')
         //setEditData([])
         //setblockpagen('flex')
+        setData([])
+      
         const response = await axios.put('/api/qcRcn/searchqcRcn', {
             reportStatus:0
         })
@@ -118,10 +122,14 @@ const QCRcnTable = () => {
         setblockpagen('none')
         
     }
+    
 
     const handleSearchPendingQC = async () => {
+        //setData([])
         // //console.log('search button pressed')
         // //setEditData([])
+        setData([])
+       
         //setblockpagen('flex')
         const response = await axios.put('/api/qcRcn/searchqcRcn', {
             qcStatus:'QC Pending'
@@ -135,10 +143,32 @@ const QCRcnTable = () => {
         setblockpagen('none')
         
     }
+  
+    const handleSearchPendingEdit = async () => {
+        
+        // //console.log('search button pressed')
+        // //setEditData([])
+        setData([])
+        
+        //setblockpagen('flex')
+        const response = await axios.get('/api/qcRcn/getTotalEditQC')
+        const data = await response.data
+        // if (data.rcnEntries.length === 0 && page > 1) {
+        //     setPage((prev) => prev - 1)
+
+        // }   
+      
+        setPendingData(data.rcnEdit)
+     
+        setblockpagen('none')
+        
+    }
+   
  
     const handleSearch = async () => {
         //console.log('search button pressed')
         setPendingData([])
+        
         setblockpagen('flex')
         const response = await axios.put('/api/qcRcn/searchqcRcn', {
             blConNo: blConNo,
@@ -157,6 +187,7 @@ const QCRcnTable = () => {
 
         }
         setData(data.rcnEntries)
+        setcounteditpending(data.CountPendingEdit)
 
     }
     useEffect(() => {
@@ -217,8 +248,8 @@ const QCRcnTable = () => {
         <div className="ml-5 mt-5 ">
             <Button className="bg-lime-500 mb-5 mt-5 max-w-52 responsive-button-adjust" onClick={handleSearchPendingQC}>Pending QC</Button>
             <Button className="bg-blue-500 mb-5 ml-4 max-w-52 responsive-button-adjust" onClick={handleSearchPendingReport}>Pending Report</Button>
-                <Button className="bg-orange-400 mb-5 ml-4 max-w-52 responsive-button-adjust responsive-no-margin" > 
-                Pending Edit (2)</Button>
+                <Button className="bg-orange-400 mb-5 ml-4 max-w-52 responsive-button-adjust responsive-no-margin" onClick={handleSearchPendingEdit}> 
+                Pending Edit ({counteditpending})</Button>
                 
             <div className="flex flexbox-search">
 
@@ -386,7 +417,7 @@ const QCRcnTable = () => {
                         })
                     ) : (
 
-                        Data.map((item: QcRcnEntryData, idx) => {
+                       Data.length>0 ? ( Data.map((item: QcRcnEntryData, idx) => {
                         return (
                             <TableRow key={item.id}>
                                 <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
@@ -481,7 +512,20 @@ const QCRcnTable = () => {
                                 </TableCell>
                             </TableRow>
                          );
-                        })
+                        })):(<TableRow>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">No Result </p></TableCell>
+                           
+                    
+
+
+                        </TableRow>)
                     )}
                 </TableBody>
             </Table>
