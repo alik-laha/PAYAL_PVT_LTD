@@ -45,7 +45,9 @@ const modifyrcnReport = async (req: Request, res: Response) => {
 
         const rcn = await QcRCN.update(
             {   
-               editStatus:'Pending'
+               editStatus:'Pending',
+               reportStatus:0
+
             },
             {
                 where: {

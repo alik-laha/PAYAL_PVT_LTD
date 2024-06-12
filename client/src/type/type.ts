@@ -142,7 +142,8 @@ export interface PermissionRole {
     ReceivingManager:string[];
     FactoryManager:string[];
     ReceivingSupervisor:string[];
-    
+    QCSupervisor:string[];
+    QCManager:string[];
 
 }
 
@@ -157,5 +158,6 @@ export interface PermissionDept {
 
 export interface pendingCheckRoles  {
     RCNPrimary:string[];
+    QCManager:string[]
 }
 

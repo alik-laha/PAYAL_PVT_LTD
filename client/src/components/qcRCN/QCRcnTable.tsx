@@ -59,6 +59,8 @@ import QCreportForm from "./QCreportForm"
 import QCmodifyreportForm from './QCmodifyreportForm'
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
+import { pendingCheckRole } from '../common/exportData';
+import {PermissionRole,pendingCheckRoles} from  "@/type/type";
 
 
 const QCRcnTable = () => {
@@ -80,6 +82,8 @@ const QCRcnTable = () => {
 
     const rejectsuccessdialog = document.getElementById('qcRejectDialog') as HTMLInputElement;
     const rejectcloseDialogButton = document.getElementById('qcrejectcloseDialog') as HTMLInputElement;
+
+    const Role = localStorage.getItem('role') as keyof PermissionRole
 
     if (approvecloseDialogButton) {
         approvecloseDialogButton.addEventListener('click', () => {
@@ -219,6 +223,16 @@ const QCRcnTable = () => {
         }
        
     }
+    const checkpending = ( tab: string ) => { 
+        //console.log(Role)
+        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+            return true
+        }
+        else{
+            return false;
+        }
+       
+    }
 
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
@@ -248,8 +262,8 @@ const QCRcnTable = () => {
         <div className="ml-5 mt-5 ">
             <Button className="bg-lime-500 mb-5 mt-5 max-w-52 responsive-button-adjust" onClick={handleSearchPendingQC}>Pending QC</Button>
             <Button className="bg-blue-500 mb-5 ml-4 max-w-52 responsive-button-adjust" onClick={handleSearchPendingReport}>Pending Report</Button>
-                <Button className="bg-orange-400 mb-5 ml-4 max-w-52 responsive-button-adjust responsive-no-margin" onClick={handleSearchPendingEdit}> 
-                Pending Edit ({counteditpending})</Button>
+            {checkpending('QCRCN') && <Button className="bg-orange-400 mb-5 ml-4 max-w-52 responsive-button-adjust responsive-no-margin" onClick={handleSearchPendingEdit}> 
+                Pending Edit ({counteditpending})</Button>}
                 
             <div className="flex flexbox-search">
 

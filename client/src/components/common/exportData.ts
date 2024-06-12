@@ -26,14 +26,14 @@ export const PermissionDep = {
     QualityControl:['Quality']
 }
 
+export const pendingCheckRole = {
+    RCNPrimary:['Director','FactoryManager','ReceivingManager'],
+    QCRCN:['Director','FactoryManager','QCManager']
+}
 export const roleDataonDept = {
     Admin:['Director','FactoryManager'],
     Receiving: ['ReceivingSupervisor', 'ReceivingManager'],
     Maintainance: ['MaintainanceSupervisor'],
     QualityControl: ['QCSupervisor', 'QCManager'],
     Production: ['ProductionManager']
-}
-
-export const pendingCheckRole = {
-    RCNPrimary:['Director','FactoryManager','ReceivingManager']
 }

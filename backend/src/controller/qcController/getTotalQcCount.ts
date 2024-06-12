@@ -25,7 +25,10 @@ const getTotalQcCount = async (req: Request, res: Response) => {
         });
        
         const completereport = await QcRCN.count({
-            where: { reportStatus: 1 },
+            where: { [Op.and]: [
+                { reportStatus: { [Op.eq]: 1 } },
+                { editStatus: { [Op.notLike]: `Pending` } }
+            ]},
             include: [{
                 model: RcnPrimary,
                 required: true, 
