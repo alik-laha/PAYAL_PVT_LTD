@@ -77,7 +77,7 @@ const EmployeeTable = () => {
             }
         }).then((res) => {
             console.log(res.data.Employees)
-            if (res.data.Employees === 0 && page > 1) {
+            if (res.data.Employees.length === 0 && page > 1) {
                 setPage((prev) => prev - 1)
 
             }
@@ -139,7 +139,7 @@ const EmployeeTable = () => {
                 limit: limit
             }
         }).then((res) => {
-            if (res.data.Employees === 0 && page > 1) {
+            if (res.data.Employees.length === 0 && page > 1) {
                 setPage((prev) => prev - 1)
 
             }
@@ -151,7 +151,7 @@ const EmployeeTable = () => {
             if (err.response.data.msg === 'No Employee found') {
                 setData([])
                 setError(err.response.data.msg)
-                setPage(prev => prev - 1)
+                //setPage(prev => prev - 1)
             }
         })
     }, [page])

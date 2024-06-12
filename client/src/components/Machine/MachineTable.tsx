@@ -165,14 +165,14 @@ return(
                     <TableHead className="text-center" >Asset Name </TableHead>
                     <TableHead className="text-center" >Section </TableHead>
                    
-                   
+                    <TableHead className="text-center" >Description </TableHead>
                 
                     
                     <TableHead className="text-center" >Action</TableHead>
                 </TableHeader>
 
                 <TableBody>{
-                    Data.map((item, idx) => {
+                    Data.length >0 ? (Data.map((item, idx) => {
 
                         return (
                             <TableRow key={item.id}>
@@ -189,7 +189,7 @@ return(
                                 )}</TableCell>
                                   <TableCell className="text-center">{item.machineName}</TableCell>
                                 <TableCell className="text-center">{item.section}</TableCell>
-
+                                <TableCell className="text-center">{item.description}</TableCell>
 
                                
                                 <TableCell className="text-center">
@@ -237,7 +237,21 @@ return(
                             </TableRow>
 
                         )
-                    })}
+                    })):(<TableRow>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                        
+                        <TableCell></TableCell>
+                        <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">No Result Found</p></TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+
+                   </TableRow>)
+                    
+                    
+                    
+                    }
 
 
 

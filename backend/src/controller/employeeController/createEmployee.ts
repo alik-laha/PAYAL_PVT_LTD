@@ -14,15 +14,19 @@ const createEmployee = async (req: Request, res: Response) => {
         if (oldpanEmployee) {
             return res.status(400).json({ msg: 'Employee Already Exists with this Pan No.' })
         }
+console.log('Reached Here')
+
         const LastUserId: EmployeeData | null = await Employee.findOne({ order: [['id', 'DESC']] }) as EmployeeData | null;
+        console.log(LastUserId)
         let Id: number;
         let employeeId: string;
         const createdBy = req.cookies.user;
-        if (!LastUserId) {
+        if (LastUserId===null ) {
             Id = 1;
         }
         else {
             Id = LastUserId.id + 1;
+        }
             let id = "";
             const schoolName = "PAYC";
             const year = new Date().getFullYear().toString();
@@ -39,6 +43,7 @@ const createEmployee = async (req: Request, res: Response) => {
                 id = ID;
             }
             employeeId = schoolName + year + id;
+            console.log(employeeId)
 
             Employee.create({
                 employeeName,
@@ -63,7 +68,7 @@ const createEmployee = async (req: Request, res: Response) => {
                 console.log(err)
                 return res.status(500).json({ msg: 'Error While Creating', error: err })
             })
-        }
+        
 
     } catch (err) {
         console.log(err)

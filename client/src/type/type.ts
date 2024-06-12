@@ -158,6 +158,6 @@ export interface PermissionDept {
 
 export interface pendingCheckRoles  {
     RCNPrimary:string[];
-    QCManager:string[]
+    QCRCN:string[];
 }
 
