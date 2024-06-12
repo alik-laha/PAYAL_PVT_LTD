@@ -50,6 +50,7 @@ const SearchQcRCN = async (req: Request, res: Response) => {
 
         // Convert the array to an object for the where condition
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+        
         let rcnEntries
         if(limit===0 && offset===0){
             if(qcStatus){
@@ -92,9 +93,16 @@ const SearchQcRCN = async (req: Request, res: Response) => {
                 offset: offset,
                 include: [{
                     model: RcnPrimary,
-                    required: false // this is optional since 'required: false' is the default behavior for LEFT JOIN
+                    required: true, // this is optional since 'required: false' is the default behavior for LEFT JOIN
+                    where:{
+                        editStatus: {
+                            [Op.notLike]: `%Pending%`
+                        }
+                    }
                   }]
             });
+           
+
         }
        
         return res.status(200).json({ msg: 'Rcn Entry found', rcnEntries })

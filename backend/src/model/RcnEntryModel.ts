@@ -49,7 +49,7 @@ const RcnPrimary = sequelize.define('rcnEntry', {
     },
     editStatus: {
         type: DataTypes.STRING,
-        defaultValue: "Created"
+        defaultValue: "NA"
     },
     rcnStatus: {
         type: DataTypes.STRING,

@@ -7,7 +7,7 @@ import QCRcnTable from "./QCRcnTable"
 
 
 const QCRcn = () => {
-    const { Data, error, isLoading } = UseQueryData('/api/qcRcn/getTotalQCCount', 'GET', 'getTotalQcCount')
+    const { data, error, isLoading } = UseQueryData('/api/qcRcn/getTotalQCCount', 'GET', 'getTotalQcCount')
     if (isLoading) {
         return <Loader/>
     }
@@ -21,16 +21,16 @@ const QCRcn = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                 <div className="flexbox-tile bg-blue-500 hover:bg-red-600">
-                        Approved<br /><p>{Data.approvedQC}</p>
+                        Approved<br /><p>{data.approvedQC}</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-red-600">
-                        Report Uploaded<br /><p>{Data.completereport}</p>
+                        Report Uploaded<br /><p>{data.completereport}</p>
                     </div>
                 <div className="flexbox-tile bg-green-500 hover:bg-red-600">
-                        Pending Approval<br/><p>{Data.pendingQC}</p>
+                        Pending Approval<br/><p>{data.pendingQC}</p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-red-600">
-                        Pending Report<br /><p>{Data.pendingReport}</p>
+                        Pending Report<br /><p>{data.pendingReport}</p>
                     </div>
                     
 

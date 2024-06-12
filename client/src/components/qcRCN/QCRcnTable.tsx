@@ -103,25 +103,25 @@ const QCRcnTable = () => {
    
 
     const handleSearchPendingReport = async () => {
-        //console.log('search button pressed')
-        //setEditData([])
-        //setblockpagen('flex')
-        const response = await axios.put('/api/qcRcn/searchqcRcn', {
-            reportStatus:0
-        })
-        const data = await response.data
-        if (data.rcnEntries.length === 0 && page > 1) {
-            setPage((prev) => prev - 1)
+        // //console.log('search button pressed')
+        // //setEditData([])
+        // //setblockpagen('flex')
+        // const response = await axios.put('/api/qcRcn/searchqcRcn', {
+        //     reportStatus:0
+        // })
+        // const data = await response.data
+        // if (data.rcnEntries.length === 0 && page > 1) {
+        //     setPage((prev) => prev - 1)
 
-        }   
-        setPendingData(data.rcnEntries)
-        setblockpagen('none')
+        // }   
+        // setPendingData(data.rcnEntries)
+        // setblockpagen('none')
         
     }
 
     const handleSearchPendingQC = async () => {
-        //console.log('search button pressed')
-        //setEditData([])
+        // //console.log('search button pressed')
+        // //setEditData([])
         //setblockpagen('flex')
         const response = await axios.put('/api/qcRcn/searchqcRcn', {
             qcStatus:'QC Pending'
@@ -418,7 +418,7 @@ const QCRcnTable = () => {
                                 <TableCell className="text-center">
                                     <Popover>
                                         <PopoverTrigger>
-                                            <button className={`p-2 text-white rounded ${(item.editStatus === 'Pending' ||  item.rcnEntry.rcnStatus === 'QC Rejected') ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.editStatus === 'Pending' ||  item.rcnEntry.rcnStatus === 'QC Rejected')? true : false}>Action</button>
+                                            <button className={`p-2 text-white rounded ${(item.editStatus === 'Pending' ||  item.rcnEntry.rcnStatus === 'QC Rejected') ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.editStatus === 'Pending' ||  item.rcnEntry.rcnStatus === 'QC Rejected' || item.rcnEntry.editStatus === 'Pending')? true : false}>Action</button>
                                         </PopoverTrigger>
                                         <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                         {item.rcnEntry.rcnStatus === 'QC Pending' &&   <AlertDialog>
