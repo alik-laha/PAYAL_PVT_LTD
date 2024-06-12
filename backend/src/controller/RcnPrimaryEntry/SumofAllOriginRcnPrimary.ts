@@ -28,7 +28,7 @@ const SumOfAllOriginRcnPrimary = async (req: Request, res: Response): Promise<Re
                 rcnStatus: 'QC Approved',
                 [Op.or]: [
                     { editStatus: 'Approved' },
-                    { editStatus: 'Created' }
+                    { editStatus: 'NA' }
                 ],
                 date: {
                     [Op.between]: [targetDate, today]

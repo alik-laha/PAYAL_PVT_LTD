@@ -410,7 +410,7 @@ const RcnPrimaryEntryTable = () => {
                                     {item.rcnStatus === 'QC Approved' ? (
                                             <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>
                                         ) : item.rcnStatus === 'QC Pending' ? (
-                                            <button className="bg-yellow-500 p-1 text-white rounded">{item.rcnStatus}</button>
+                                            <button className="bg-orange-500 p-1 text-white rounded">{item.rcnStatus}</button>
                                         ) : (
                                             <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
                                         )}
