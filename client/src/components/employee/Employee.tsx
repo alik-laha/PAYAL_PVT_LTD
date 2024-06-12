@@ -31,7 +31,7 @@ const Employee = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                    <div className="flexbox-tile bg-yellow-400 hover:bg-yellow-500">
+                    <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-300">
                         Active <br /><p>{data.Data}</p>
                     </div>
 
