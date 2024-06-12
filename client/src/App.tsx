@@ -22,7 +22,7 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 
         'ReceivingSupervisor', 'ReceivingManager',
         'MaintainanceSupervisor'
-          , 'QCManager','ProductionManager']} />}>
+          , 'QCManager','ProductionManager','QCSupervisor']} />}>
         <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 

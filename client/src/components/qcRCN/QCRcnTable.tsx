@@ -561,6 +561,11 @@ const QCRcnTable = () => {
                              <TableCell></TableCell>
                              <TableCell></TableCell>
                              <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                    
                              <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">No Result </p></TableCell>
                            
                     
