@@ -53,18 +53,20 @@ const SearchQcRCN = async (req: Request, res: Response) => {
         
         let rcnEntries
         if(limit===0 && offset===0){
-            if(qcStatus){
+            if(qcStatus)
+            {
                 rcnEntries = await QcRCN.findAll({
                     where,
                     order: [['date', 'DESC']], // Order by date descending
                     include: [{
                         model: RcnPrimary,
-                        required: false,
-                        where:{
-                            rcnStatus:{
-                                [Op.eq]: `%${qcStatus}%`
-                            }
-                        } 
+                        required: true,
+                        where: {
+                            [Op.and]: [
+                                { rcnStatus: { [Op.like]: `QC Pending` } },
+                                { editStatus: { [Op.notLike]: `Pending` } }
+                            ]
+                        }
                       }]
                     
                 });
@@ -77,7 +79,13 @@ const SearchQcRCN = async (req: Request, res: Response) => {
                     order: [['date', 'DESC']], // Order by date descending
                     include: [{
                         model: RcnPrimary,
-                        required: false 
+                        required: true, // this is optional since 'required: false' is the default behavior for LEFT JOIN
+                        where:{
+                            [Op.and]: [
+                                { rcnStatus: { [Op.notLike]: `QC Rejected` } },
+                                { editStatus: { [Op.notLike]: `Pending` } }
+                            ]
+                        }
                       }]
                     
                 });
