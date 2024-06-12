@@ -56,7 +56,7 @@ export interface QcRcnEntryData {
 
 export interface ExcelRcnPrimaryEntryData {
     SL_No: number;
-    Approved_or_Rejected_By: string;
+    Approved_or_Reverted_By: string;
     Origin: string;
     Bl_No: string;
     Con_No: string;
