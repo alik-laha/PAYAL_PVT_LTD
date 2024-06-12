@@ -197,6 +197,30 @@ const QCRcnTable = () => {
     useEffect(() => {
         handleSearch()
     }, [page])
+    const handleEditApprove = async (item: QcRcnEntryData) => {
+        const response = await axios.put(`/api/qcRcn/qcRcnApprove//${item.id}`)
+        const data = await response.data
+       
+        if (data.message === "QC Approval of Rcn Entry is made Successfully") {
+
+            if (approvesuccessdialog != null) {
+                (approvesuccessdialog as any).showModal();
+            }
+        }
+       
+    }
+    const handleEditReject = async (item: QcRcnEntryData) => {
+        const response = await axios.put(`/api/qcRcn/qcRcnApprove//${item.id}`)
+        const data = await response.data
+       
+        if (data.message === "QC Approval of Rcn Entry is made Successfully") {
+
+            if (approvesuccessdialog != null) {
+                (approvesuccessdialog as any).showModal();
+            }
+        }
+       
+    }
 
     const handleQCApprove = async (item: QcRcnEntryData) => {
         const response = await axios.put(`/api/qcRcn/qcRcnApprove//${item.id}`)
@@ -384,10 +408,10 @@ const QCRcnTable = () => {
                                 <TableCell className="text-center">
                                     <Popover>
                                         <PopoverTrigger>
-                                            <button className={`p-2 text-white rounded ${(item.editStatus === 'Pending' ||  item.rcnEntry.rcnStatus === 'QC Rejected') ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.editStatus === 'Pending' ||  item.rcnEntry.rcnStatus === 'QC Rejected')? true : false}>Action</button>
+                                            <button className={`p-2 text-white rounded ${(  item.rcnEntry.rcnStatus === 'QC Rejected') ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(  item.rcnEntry.rcnStatus === 'QC Rejected')? true : false}>Action</button>
                                         </PopoverTrigger>
                                         <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                        {item.rcnEntry.rcnStatus === 'QC Pending' &&   <AlertDialog>
+                                        {item.rcnEntry.rcnStatus === 'QC Pending' &&  item.editStatus!=='Pending' &&  <AlertDialog>
                                                 <AlertDialogTrigger className="flex">
                                                     <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >QC Approve</button>
                                                 </AlertDialogTrigger>
@@ -401,7 +425,7 @@ const QCRcnTable = () => {
                                                     </AlertDialogFooter>
                                                 </AlertDialogContent>
                                             </AlertDialog>}
-                                            {item.rcnEntry.rcnStatus === 'QC Pending' &&  <AlertDialog>
+                                            {item.rcnEntry.rcnStatus === 'QC Pending' &&  item.editStatus!=='Pending' && <AlertDialog>
                                                 <AlertDialogTrigger className="flex mt-1">
                                                     <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">QC Reject</button>
                                                 </AlertDialogTrigger>
@@ -415,7 +439,7 @@ const QCRcnTable = () => {
                                                     </AlertDialogFooter>
                                                 </AlertDialogContent>
                                             </AlertDialog>}
-                                            {item.rcnEntry.rcnStatus === 'QC Approved' &&  item.reportStatus===0 && <Dialog>
+                                            {item.rcnEntry.rcnStatus === 'QC Approved' &&  item.reportStatus===0 && item.editStatus!=='Pending' && <Dialog>
                                             <DialogTrigger className="flex py-1">
                                                     <MdOutlineDriveFolderUpload size={20} color="green" />  <button className="bg-transparent pl-2 text-left hover:text-green-500" >
                                                         Report Entry</button>
@@ -429,7 +453,7 @@ const QCRcnTable = () => {
                                                     <QCreportForm data={item} />
                                                 </DialogContent>
                                             </Dialog>}
-                                            {item.rcnEntry.rcnStatus === 'QC Approved' &&  item.reportStatus===1 && <Dialog>
+                                            {item.rcnEntry.rcnStatus === 'QC Approved' &&  item.reportStatus===1 && item.editStatus!=='Pending' && <Dialog>
                                                 <DialogTrigger className="flex py-1">
                                                     <LiaEdit size={20} /><button className="bg-transparent pl-2 text-left hover:text-green-500" >Report Modify</button>
                                                 </DialogTrigger>
@@ -442,6 +466,34 @@ const QCRcnTable = () => {
                                                     <QCmodifyreportForm data={item} />
                                                 </DialogContent>
                                             </Dialog>}
+                                            {item.editStatus === 'Pending' &&   <AlertDialog>
+                                                <AlertDialogTrigger className="flex">
+                                                    <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >Edit Approve</button>
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Do you want to Approve the Edit Request ?</AlertDialogTitle>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleEditApprove(item)}>Continue</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>}
+                                            {item.editStatus === 'Pending' && <AlertDialog>
+                                                <AlertDialogTrigger className="flex mt-1">
+                                                    <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Edit Revert</button>
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Do you want to Revert the Edit Request of QC Incoming Entry?</AlertDialogTitle>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleEditReject(item)}>Continue</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>}
                                         </PopoverContent>
                                     </Popover>
                                 </TableCell>
