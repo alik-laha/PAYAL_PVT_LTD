@@ -299,14 +299,25 @@ const QCRcnTable = () => {
                     <TableHead className="text-center" >Id</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
                     <TableHead className="text-center" >Incoming Date </TableHead>
-                    <TableHead className="text-center" >QC Status</TableHead>
-                    <TableHead className="text-center" >QC Checked By </TableHead>
+                
                     <TableHead className="text-center" >BL No.</TableHead>
                     <TableHead className="text-center" >Con No.</TableHead>
                     <TableHead className="text-center" >Truck No.</TableHead>
                     <TableHead className="text-center" >BL Weight</TableHead>
                     <TableHead className="text-center" >Bag Count</TableHead>
+                    <TableHead className="text-center" >QC Status</TableHead>
+                    <TableHead className="text-center" >QC Checked By </TableHead>
                     <TableHead className="text-center" >Report </TableHead>
+
+                    <TableHead className="text-center" >Sampling</TableHead>
+                    <TableHead className="text-center" >Moisture</TableHead>
+                    <TableHead className="text-center" >Nut Count</TableHead>
+                    <TableHead className="text-center" >Flute Rate</TableHead>
+                    <TableHead className="text-center" >Good Kernel</TableHead>
+                    <TableHead className="text-center" >SP+IM</TableHead>
+                    <TableHead className="text-center" >Reject</TableHead>
+                    <TableHead className="text-center" >Shell</TableHead>
+                   
                     <TableHead className="text-center" >KOR</TableHead>
                     
                     
@@ -325,6 +336,12 @@ const QCRcnTable = () => {
                                 <TableCell className="text-center">{idx + 1}</TableCell>
                                 <TableCell className="text-center">{item.origin}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
+                             
+                                <TableCell className="text-center">{item.blNo}</TableCell>
+                                <TableCell className="text-center">{item.conNo}</TableCell>
+                                <TableCell className="text-center">{item.rcnEntry.truckNo}</TableCell>
+                                <TableCell className="text-center">{item.rcnEntry.blWeight}</TableCell>
+                                <TableCell className="text-center">{item.rcnEntry.noOfBags}</TableCell>
                                 <TableCell className="text-center">
                                     {item.rcnEntry.rcnStatus === 'QC Approved' ? (
                                         <button className="bg-green-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
@@ -333,18 +350,20 @@ const QCRcnTable = () => {
                                     )}
                                 </TableCell>
                                 <TableCell className="text-center">{item.qcapprovedBy}</TableCell>
-                                <TableCell className="text-center">{item.blNo}</TableCell>
-                                <TableCell className="text-center">{item.conNo}</TableCell>
-                                <TableCell className="text-center">{item.rcnEntry.truckNo}</TableCell>
-                                <TableCell className="text-center">{item.rcnEntry.blWeight}</TableCell>
-                                <TableCell className="text-center">{item.rcnEntry.noOfBags}</TableCell>
-                                
                                 
                                
                                 <TableCell className="text-center">
 
                                     <input type='checkbox'  checked={item.reportStatus === 1 ? true : false} />
                                 </TableCell>
+                                <TableCell className="text-center font-bold">{item.sampling}</TableCell>
+                                <TableCell className="text-center font-bold">{item.moisture}</TableCell>
+                                <TableCell className="text-center font-bold">{item.nutCount}</TableCell>
+                                <TableCell className="text-center font-bold">{item.fluteRate}</TableCell>
+                                <TableCell className="text-center font-bold">{item.goodKernel}</TableCell>
+                                <TableCell className="text-center font-bold">{item.spIm}</TableCell>
+                                <TableCell className="text-center font-bold">{item.reject}</TableCell>
+                                <TableCell className="text-center font-bold">{item.shell}</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{item.outTurn}</TableCell>
                                 <TableCell className="text-center">{item.createdBy}</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
@@ -423,6 +442,12 @@ const QCRcnTable = () => {
                                 <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                 <TableCell className="text-center">{item.origin}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
+                               
+                                <TableCell className="text-center">{item.blNo}</TableCell>
+                                <TableCell className="text-center">{item.conNo}</TableCell>
+                                <TableCell className="text-center">{item.rcnEntry.truckNo}</TableCell>
+                                <TableCell className="text-center">{item.rcnEntry.blWeight}</TableCell>
+                                <TableCell className="text-center">{item.rcnEntry.noOfBags}</TableCell>
                                 <TableCell className="text-center">
                                     {item.rcnEntry.rcnStatus === 'QC Approved' ? (
                                         <button className="bg-green-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
@@ -431,18 +456,20 @@ const QCRcnTable = () => {
                                     )}
                                 </TableCell>
                                 <TableCell className="text-center">{item.qcapprovedBy}</TableCell>
-                                <TableCell className="text-center">{item.blNo}</TableCell>
-                                <TableCell className="text-center">{item.conNo}</TableCell>
-                                <TableCell className="text-center">{item.rcnEntry.truckNo}</TableCell>
-                                <TableCell className="text-center">{item.rcnEntry.blWeight}</TableCell>
-                                <TableCell className="text-center">{item.rcnEntry.noOfBags}</TableCell>
-                                
                                 
                                
                                 <TableCell className="text-center">
 
                                     <input type='checkbox'  checked={item.reportStatus === 1 ? true : false} />
                                 </TableCell>
+                                <TableCell className="text-center font-bold">{item.sampling}</TableCell>
+                                <TableCell className="text-center font-bold">{item.moisture}</TableCell>
+                                <TableCell className="text-center font-bold">{item.nutCount}</TableCell>
+                                <TableCell className="text-center font-bold">{item.fluteRate}</TableCell>
+                                <TableCell className="text-center font-bold">{item.goodKernel}</TableCell>
+                                <TableCell className="text-center font-bold">{item.spIm}</TableCell>
+                                <TableCell className="text-center font-bold">{item.reject}</TableCell>
+                                <TableCell className="text-center font-bold">{item.shell}</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{item.outTurn}</TableCell>
                                 <TableCell className="text-center">{item.createdBy}</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
