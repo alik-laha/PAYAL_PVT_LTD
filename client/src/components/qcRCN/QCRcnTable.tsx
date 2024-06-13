@@ -60,7 +60,9 @@ import QCmodifyreportForm from './QCmodifyreportForm'
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { pendingCheckRole } from '../common/exportData';
-import {PermissionRole,pendingCheckRoles} from  "@/type/type";
+import {QcRcnEntryExcelData,PermissionRole,pendingCheckRoles} from  "@/type/type";
+import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
 
 
 const QCRcnTable = () => {
@@ -84,8 +86,90 @@ const QCRcnTable = () => {
     const rejectcloseDialogButton = document.getElementById('qcrejectcloseDialog') as HTMLInputElement;
     const [successtext, setSuccessText] = React.useState<string>('');
     const [errortext, seterrorText] = React.useState<string>('');
-
+    const [transformedData, setTransformedData] = useState<QcRcnEntryExcelData[]>([]);
     const Role = localStorage.getItem('role') as keyof PermissionRole
+    const currDate = new Date().toLocaleDateString();
+
+    const exportToExcel = async () => {
+        const response = await axios.put('/api/qcRcn/searchqcRcn', {
+            blConNo: blConNo,
+            origin: origin,
+            fromDate: fromdate,
+            toDate: todate
+        })
+        const data1 = await response.data
+
+        let ws
+        let transformed
+        if (pendingData.length > 0) {
+            
+            transformed = pendingData.map((item: QcRcnEntryData, idx: number) => ({
+                id: idx+1,
+                blNo: item.blNo,
+                conNo: item.conNo,
+                date: item.date,
+                origin: item.origin,
+                truckNo:item.rcnEntry.truckNo,
+                BLWeight:item.rcnEntry.blWeight,
+                NoOfBags:item.rcnEntry.noOfBags,
+                QCStatus:item.rcnEntry.rcnStatus,
+                sampling: item.sampling,
+                moisture: item.moisture,
+                nutCount: item.nutCount,
+                fluteRate: item.fluteRate,
+                goodKernel: item.goodKernel,
+                spIm: item.spIm,
+                reject: item.reject,
+                shell: item.shell,
+                outTurn: item.outTurn,
+                Remarks: item.Remarks,
+                qcapprovedBy: item.qcapprovedBy,
+                reportStatus: item.reportStatus===1 ? 'Done':'Pending',
+                EntriedBy: item.createdBy,
+                editStatus: item.editStatus,
+                editapprovedorRejectedBy: item.editapprovedBy,
+
+            }));
+            setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformedData);
+        }
+        else {
+            transformed = data1.rcnEntries.map((item: QcRcnEntryData, idx: number) => ({
+                id: idx+1,
+                blNo: item.blNo,
+                conNo: item.conNo,
+                date: item.date,
+                origin: item.origin,
+                truckNo:item.rcnEntry.truckNo,
+                BLWeight:item.rcnEntry.blWeight,
+                NoOfBags:item.rcnEntry.noOfBags,
+                QCStatus:item.rcnEntry.rcnStatus,
+                sampling: item.sampling,
+                moisture: item.moisture,
+                nutCount: item.nutCount,
+                fluteRate: item.fluteRate,
+                goodKernel: item.goodKernel,
+                spIm: item.spIm,
+                reject: item.reject,
+                shell: item.shell,
+                outTurn: item.outTurn,
+                Remarks: item.Remarks,
+                qcapprovedBy: item.qcapprovedBy,
+                reportStatus: item.reportStatus===1 ? 'Done':'Pending',
+                EntriedBy: item.createdBy,
+                editStatus: item.editStatus,
+                editapprovedorRejectedBy: item.editapprovedBy,
+
+            }));
+            setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformedData);
+        }
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'QC_RCN_Entry_' + currDate + '.xlsx');
+    };
 
     if (approvecloseDialogButton) {
         approvecloseDialogButton.addEventListener('click', () => {
@@ -335,7 +419,7 @@ const QCRcnTable = () => {
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
             </div>
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" ><LuDownload size={18} /></Button>  </span>
+            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
 
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">

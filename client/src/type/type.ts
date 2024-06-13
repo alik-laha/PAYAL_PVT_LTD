@@ -28,6 +28,36 @@ export interface EditPendingData extends RcnPrimaryEntryData {
     editedBy: string;
 
 }
+
+export interface QcRcnEntryExcelData {
+    id:number;
+    blNo: string;
+    conNo: string;
+    date: string;
+    origin: string;
+    truckNo: string;
+    BLWeight:string;
+    NoOfBags:string;
+    QCStatus:string;
+    sampling:string;
+    moisture:string;
+    nutCount:string;
+    fluteRate:string;
+    goodKernel:string;
+    spIm:string;
+    reject:string;
+    shell:string;
+    outTurn:string;
+    Remarks:string;
+    qcapprovedBy:string;
+    reportStatus:string;
+    EntriedBy:string;
+
+    editStatus:string;
+    editapprovedorRejectedBy:string;
+
+
+}
 export interface QcRcnEntryData {
     
     id:number;
