@@ -218,8 +218,8 @@ const QCRcnTable = () => {
        
         if (data.message === "QC Report Edit Request is Reverted successfully") {
             seterrorText(data.message)
-            if (approvesuccessdialog != null) {
-                (approvesuccessdialog as any).showModal();
+            if (rejectsuccessdialog != null) {
+                (rejectsuccessdialog as any).showModal();
             }
         }
        
