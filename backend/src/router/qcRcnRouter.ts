@@ -7,6 +7,8 @@ import rejectQCinitial from '../controller/qcController/rejectQCinitial';
 import modifyrcnReport from '../controller/qcController/modifyrcnReport';
 import getTotalQcCount from '../controller/qcController/getTotalQcCount';
 import searchEditQCRCN from '../controller/qcController/searcheditqcrcn';
+import ApproveEditQCRcn from '../controller/qcController/approveEditQCRcn';
+import rejectEditQCRcn from '../controller/qcController/rejectEditQCRcn';
 const router = express.Router();
 
 router.post("/qcInitialEntry", qcInitialEntry)
@@ -19,4 +21,7 @@ router.put("/createQcRcn/:id", creatercnReport);
 router.put("/modifyQcRcn/:id", modifyrcnReport);
 router.get("/getTotalQCCount", getTotalQcCount);
 router.get("/getTotalEditQC", searchEditQCRCN);
+router.put("/approveEditQcReport/:id", ApproveEditQCRcn);
+router.delete("/rejectEditQcReport/:id", rejectEditQCRcn);
+
 export default router;

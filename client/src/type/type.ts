@@ -50,6 +50,7 @@ export interface QcRcnEntryData {
     createdBy:string;
     rcnEntry:RcnPrimaryEntryData;
     editStatus:string;
+    editapprovedBy:string;
 }
 
 

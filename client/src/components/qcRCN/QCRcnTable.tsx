@@ -82,6 +82,8 @@ const QCRcnTable = () => {
 
     const rejectsuccessdialog = document.getElementById('qcRejectDialog') as HTMLInputElement;
     const rejectcloseDialogButton = document.getElementById('qcrejectcloseDialog') as HTMLInputElement;
+    const [successtext, setSuccessText] = React.useState<string>('');
+    const [errortext, seterrorText] = React.useState<string>('');
 
     const Role = localStorage.getItem('role') as keyof PermissionRole
 
@@ -197,12 +199,13 @@ const QCRcnTable = () => {
     useEffect(() => {
         handleSearch()
     }, [page])
+
     const handleEditApprove = async (item: QcRcnEntryData) => {
-        const response = await axios.put(`/api/qcRcn/qcRcnApprove//${item.id}`)
+        const response = await axios.put(`/api/qcRcn/approveEditQcReport/${item.id}`)
         const data = await response.data
        
-        if (data.message === "QC Approval of Rcn Entry is made Successfully") {
-
+        if (data.message === "Edit Request of QC Report is Approved Successfully") {
+            setSuccessText(data.message)
             if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).showModal();
             }
@@ -210,11 +213,11 @@ const QCRcnTable = () => {
        
     }
     const handleEditReject = async (item: QcRcnEntryData) => {
-        const response = await axios.put(`/api/qcRcn/qcRcnApprove//${item.id}`)
+        const response = await axios.delete(`/api/qcRcn/rejectEditQcReport//${item.id}`)
         const data = await response.data
        
-        if (data.message === "QC Approval of Rcn Entry is made Successfully") {
-
+        if (data.message === "QC Report Edit Request is Reverted successfully") {
+            seterrorText(data.message)
             if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).showModal();
             }
@@ -227,10 +230,13 @@ const QCRcnTable = () => {
         const data = await response.data
        
         if (data.message === "QC Approval of Rcn Entry is made Successfully") {
-
+            setSuccessText(data.message)
             if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).showModal();
             }
+
+
+            
         }
        
     }
@@ -240,7 +246,7 @@ const QCRcnTable = () => {
         const data = await response.data
        
         if (data.message === "QC Approval of Rcn Entry is Rejected Successfully") {
-
+            seterrorText(data.message)
             if (rejectsuccessdialog != null) {
                 (rejectsuccessdialog as any).showModal();
             }
@@ -381,11 +387,13 @@ const QCRcnTable = () => {
                                 <TableCell className="text-center">{item.rcnEntry.blWeight}</TableCell>
                                 <TableCell className="text-center">{item.rcnEntry.noOfBags}</TableCell>
                                 <TableCell className="text-center">
-                                    {item.rcnEntry.rcnStatus === 'QC Approved' ? (
-                                        <button className="bg-green-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
-                                    ) : (
-                                        <button className="bg-red-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
-                                    )}
+                                {item.rcnEntry.rcnStatus === 'QC Approved' ? (
+                                            <button className="bg-green-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
+                                        ) : item.rcnEntry.rcnStatus === 'QC Pending' ? (
+                                            <button className="bg-orange-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
+                                        ) : (
+                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
+                                        )}
                                 </TableCell>
                                 <TableCell className="text-center">{item.qcapprovedBy}</TableCell>
                                 
@@ -515,11 +523,13 @@ const QCRcnTable = () => {
                                 <TableCell className="text-center">{item.rcnEntry.blWeight}</TableCell>
                                 <TableCell className="text-center">{item.rcnEntry.noOfBags}</TableCell>
                                 <TableCell className="text-center">
-                                    {item.rcnEntry.rcnStatus === 'QC Approved' ? (
-                                        <button className="bg-green-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
-                                    ) : (
-                                        <button className="bg-red-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
-                                    )}
+                                {item.rcnEntry.rcnStatus === 'QC Approved' ? (
+                                            <button className="bg-green-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
+                                        ) : item.rcnEntry.rcnStatus === 'QC Pending' ? (
+                                            <button className="bg-orange-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
+                                        ) : (
+                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
+                                        )}
                                 </TableCell>
                                 <TableCell className="text-center">{item.qcapprovedBy}</TableCell>
                                 
@@ -653,7 +663,7 @@ const QCRcnTable = () => {
             <dialog id="qcapproveScsDialog" className="dashboard-modal">
                 <button id="qcapproveScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">QC Approval of RCN Imcoming Entry is Accepted</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">{successtext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
@@ -661,7 +671,7 @@ const QCRcnTable = () => {
             <dialog id="qcRejectDialog" className="dashboard-modal">
                 <button id="qcrejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">QC Approval of RCN Imcoming Entry is Rejected</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
