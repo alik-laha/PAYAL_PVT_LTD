@@ -50,7 +50,7 @@ const RcnGradingCreateForm = () => {
         const grading_lotNo = grading_lotNoRef.current?.value
         const Mc_name = mc_name
         console.log(Mc_off)
-        axios.post('/api/gradding/createGrading', { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, Mc_breakdown, otherTime, grading_lotNo })
+        axios.post('/api/grading/createGrading', { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, Mc_breakdown, otherTime, grading_lotNo })
             .then(res => {
                 if (res.status === 200) {
                     const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
@@ -71,7 +71,7 @@ const RcnGradingCreateForm = () => {
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Date</Label>
-                    <Input className="w-2/4 " placeholder="Date" ref={DateRef} type='date' /> </div>
+                    <Input className="w-2/4 " placeholder="Date" ref={DateRef} type='date' required/> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Origin</Label>
@@ -97,40 +97,40 @@ const RcnGradingCreateForm = () => {
 
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">A</Label>
+                    <Label className="w-2/4 pt-1">A (Bag)</Label>
                     <Input className="w-2/4 " placeholder="A" ref={aRef} type='number' step="0.01" /> </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">B</Label>
+                    <Label className="w-2/4 pt-1">B (Bag)</Label>
                     <Input className="w-2/4 " placeholder="B" ref={bRef} type='number' step="0.01" /> </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">C</Label>
+                    <Label className="w-2/4 pt-1">C (Bag)</Label>
                     <Input className="w-2/4 " placeholder="C" ref={cRef} type='number' step="0.01" /> </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">D</Label>
+                    <Label className="w-2/4 pt-1">D (Bag)</Label>
                     <Input className="w-2/4 " placeholder="D" ref={dRef} type='number' step="0.01" /> </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">E</Label>
+                    <Label className="w-2/4 pt-1">E (Bag)</Label>
                     <Input className="w-2/4 " placeholder="E" ref={eRef} type='number' step="0.01" /> </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">F</Label>
+                    <Label className="w-2/4 pt-1">F (Bag)</Label>
                     <Input className="w-2/4 " placeholder="F" ref={fRef} type='number' step="0.01" /> </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">G</Label>
+                    <Label className="w-2/4 pt-1">G (Bag)</Label>
                     <Input className="w-2/4 " placeholder="G" ref={gRef} type='number' step="0.01" /> </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Dust</Label>
+                    <Label className="w-2/4 pt-1">Dust (Bag)</Label>
                     <Input className="w-2/4 " placeholder="Dust" ref={dustRef} type='number' step="0.01" /> </div>
 
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Mechine Name</Label>
+                    <Label className="w-2/4 pt-1">Machine Name</Label>
                     <Select value={mc_name} onValueChange={(value) => setMc_name(value)}>
                         <SelectTrigger className="w-2/4">
                             <SelectValue placeholder="Machine" />
@@ -162,23 +162,23 @@ const RcnGradingCreateForm = () => {
                 </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">MC Breek Down</Label>
+                    <Label className="w-2/4 pt-1">Break Down Duration </Label>
                     <Input className="w-2/4 " placeholder="MC BreakDown" ref={mc_breakdownRef} type='time' />
                 </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Other Time</Label>
+                    <Label className="w-2/4 pt-1">Other Duration(Any)</Label>
                     <Input className="w-2/4 " placeholder="Other Time" ref={otherRef} type='time' />
                 </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">No of Employee</Label>
-                    <Input className="w-2/4 " placeholder="No of Employee" ref={noofEmployeeRef} type='number' />
+                    <Label className="w-2/4 pt-1">No of Labours</Label>
+                    <Input className="w-2/4 " placeholder="No of Labours" ref={noofEmployeeRef} type='number' />
                 </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Grading Lot No</Label>
-                    <Input className="w-2/4 " placeholder="Graddimng lot No" ref={grading_lotNoRef} />
+                    <Label className="w-2/4 pt-1">Lot No.(Grading)</Label>
+                    <Input className="w-2/4 " placeholder="Grading lot No." ref={grading_lotNoRef} />
                 </div>
 
 
