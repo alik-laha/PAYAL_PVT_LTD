@@ -21,7 +21,7 @@ app.use("/api/employee", employeeRouter)
 app.use("/api/rcnprimary", RcnPrimary)
 app.use('/api/user', userRouter)
 app.use('/api/asset', assetRouter)
-app.use('/api/gradding', GraddingRouter)
 app.use('/api/qcRcn', qcRcnRouter)
+app.use('/api/grading', GraddingRouter)
 
 export default app

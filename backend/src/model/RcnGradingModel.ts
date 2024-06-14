@@ -77,7 +77,7 @@ const RcnGrading = sequelize.define('rcnGrading', {
     },
     grading_lotNo: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     editStatus: {
         type: DataTypes.STRING,
@@ -87,6 +87,10 @@ const RcnGrading = sequelize.define('rcnGrading', {
         type: DataTypes.TIME,
         allowNull: false
     },
+    modifiedBy: {
+        type: DataTypes.STRING,
+        allowNull: true
+    }
 
 
 });
