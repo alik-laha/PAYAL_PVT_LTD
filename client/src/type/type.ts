@@ -1,4 +1,4 @@
-import { Interface } from "readline";
+
 
 export interface DatePickerProps {
     buttonName: string;

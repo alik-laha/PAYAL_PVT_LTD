@@ -36,7 +36,7 @@ interface RcnGraddingModifyFormProps {
 const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     const [origin, setOrigin] = useState<string>('')
     const [Mc_name, setMc_name] = useState('')
-    const [errortext, setErrortext] = useState('')
+    //const [errortext, setErrortext] = useState('')
     const [date, setDate] = useState('')
     const [A, setA] = useState<number>()
     const [B, setB] = useState<number>()

@@ -54,7 +54,7 @@ const RcnGradingTable = () => {
     const [page, setPage] = useState(1)
     const [Error, setError] = useState('')
     const [data, setData] = useState<GradingData[]>([])
-    const { editPendiningGrinderData } = useContext(Context)
+  //  const { editPendiningGrinderData } = useContext(Context)
     const limit = 3
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e.target.value)

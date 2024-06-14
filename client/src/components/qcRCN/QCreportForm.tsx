@@ -116,7 +116,7 @@ const QCreportForm = (props: QcRcnEntryDataprops) => {
         setNutCount(props.data.nutCount)
         setFluteRate(props.data.fluteRate)
         setGoodKernel(props.data.goodKernel)
-        setSpim(props.data.spim)
+        setSpim(props.data.spIm)
         setReject(props.data.reject)
         setShell(props.data.shell)
         setOutTurn(props.data.outTurn)
