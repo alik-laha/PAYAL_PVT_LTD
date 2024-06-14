@@ -10,8 +10,8 @@ export const Section = ['Boiling', 'Grading', 'Scooping']
 export const MachineStatus = ['Active', 'Inactive', 'Discarded']
 
 export const PermissionRol = {
-    Director: ['Employee', 'Dashboard User', 'Asset','RCN Primary Entry','RCN Incoming QC'],
-    FactoryManager: ['Employee', 'Asset','RCN Primary Entry','RCN Incoming QC'],
+    Director: ['Employee', 'Dashboard User', 'Asset','RCN Primary Entry','RCN Incoming QC','Grading'],
+    FactoryManager: ['Employee', 'Asset','RCN Primary Entry','RCN Incoming QC','Grading'],
     ReceivingSupervisor: ['RCN Primary Entry'],
     ReceivingManager: ['RCN Primary Entry'],
     QCSupervisor:['RCN Incoming QC'],
