@@ -27,7 +27,7 @@ const RcnGradingCreateForm = () => {
     const mc_offRef = useRef<HTMLInputElement>(null)
     const noofEmployeeRef = useRef<HTMLInputElement>(null)
     const mc_breakdownRef = useRef<HTMLInputElement>(null)
-   const [errortext, setErrortext] = useState('')
+    //    const [errortext, setErrortext] = useState('')
     const otherRef = useRef<HTMLInputElement>(null)
     const grading_lotNoRef = useRef<HTMLInputElement>(null)
 
@@ -62,7 +62,7 @@ const RcnGradingCreateForm = () => {
             })
             .catch(err => {
                 console.log(err)
-               // setErrortext(err)
+                // setErrortext(err)
             })
     }
     const { AllMachines } = useContext(Context)
@@ -70,39 +70,39 @@ const RcnGradingCreateForm = () => {
         <div className="pl-5 pr-5 ">
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
 
-               
+
 
 
                 <div className="flex mt-2">
                     <Label className="w-1/4 pt-2 ">A </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="A" ref={aRef} type='number' step="0.01 " required/>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="A" ref={aRef} type='number' step="0.01 " required />
                     <Label className="w-2/4 pt-2 text-center">B </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="B" ref={bRef} type='number' step="0.01" required/> </div> 
+                    <Input className="w-2/4 bg-cyan-100" placeholder="B" ref={bRef} type='number' step="0.01" required /> </div>
 
                 <div className="flex">
-                <Label className="w-1/4 pt-2">C </Label>
-                <Input className="w-2/4 bg-cyan-100" placeholder="C" ref={cRef} type='number' step="0.01" required/> 
-                <Label className="text-center w-2/4 pt-2">D </Label>
-                <Input className="w-2/4 bg-cyan-100" placeholder="D" ref={dRef} type='number' step="0.01" required/> </div>
-                
-                    
+                    <Label className="w-1/4 pt-2">C </Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="C" ref={cRef} type='number' step="0.01" required />
+                    <Label className="text-center w-2/4 pt-2">D </Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="D" ref={dRef} type='number' step="0.01" required /> </div>
+
+
 
                 <div className="flex">
-                <Label className="w-1/4 pt-2">E </Label>
-                <Input className="w-2/4 bg-cyan-100" placeholder="E" ref={eRef} type='number' step="0.01" required/>
-                <Label className="w-2/4 pt-2 text-center">F </Label>
-                <Input className="w-2/4 bg-cyan-100" placeholder="F" ref={fRef} type='number' step="0.01" required/>
+                    <Label className="w-1/4 pt-2">E </Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="E" ref={eRef} type='number' step="0.01" required />
+                    <Label className="w-2/4 pt-2 text-center">F </Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="F" ref={fRef} type='number' step="0.01" required />
                 </div>
 
                 <div className="flex">
-                <Label className="w-1/4 pt-2">G </Label>
-                <Input className="w-2/4 bg-cyan-100" placeholder="G" ref={gRef} type='number' step="0.01" required/> 
-                <Label className="w-2/4 pt-2 text-center">Dust </Label>
-                <Input className="w-2/4 bg-cyan-100" placeholder="Dust" ref={dustRef} type='number' step="0.01" required/>
-                    </div>
-             
+                    <Label className="w-1/4 pt-2">G </Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="G" ref={gRef} type='number' step="0.01" required />
+                    <Label className="w-2/4 pt-2 text-center">Dust </Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Dust" ref={dustRef} type='number' step="0.01" required />
+                </div>
 
-           
+
+
 
                 <div className="flex mt-5">
                     <Label className="w-2/4 pt-1 text-center">Machine Name</Label>
@@ -128,9 +128,9 @@ const RcnGradingCreateForm = () => {
 
                 <div className="flex mt-2">
                     <Label className="w-2/4  pt-2">On </Label>
-                    <Input className="w-3/5  bg-cyan-100" placeholder="MC ON Time" ref={mc_onRef} type='time' required/>
+                    <Input className="w-3/5  bg-cyan-100" placeholder="MC ON Time" ref={mc_onRef} type='time' required />
                     <Label className="w-2/4 text-center pt-2">Off </Label>
-                    <Input className="w-3/5  bg-cyan-100" placeholder="MC OFF Time" ref={mc_offRef} type='time' required/>
+                    <Input className="w-3/5  bg-cyan-100" placeholder="MC OFF Time" ref={mc_offRef} type='time' required />
                 </div>
                 <div className="flex mt-2">
                     <Label className="w-2/4 pt-2">Break Down Duration </Label>
@@ -142,10 +142,10 @@ const RcnGradingCreateForm = () => {
                     <Input className="w-2/4 pl-12 bg-cyan-100" placeholder="Other Time" ref={otherRef} type='time' />
                 </div>
 
-                
+
                 <div className="flex mt-5">
                     <Label className="w-2/4 pt-1">Date</Label>
-                    <Input className="w-2/4 " placeholder="Date" ref={DateRef} type='date' required/> </div>
+                    <Input className="w-2/4 " placeholder="Date" ref={DateRef} type='date' required /> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Origin</Label>
@@ -169,11 +169,11 @@ const RcnGradingCreateForm = () => {
                     </Select>
                 </div>
 
-                
+
 
                 <div className="flex">
                     <Label className="w-2/4 pt-2">No of Labours</Label>
-                    <Input className="w-2/4 " placeholder="No of Labours" ref={noofEmployeeRef} type='number' required/>
+                    <Input className="w-2/4 " placeholder="No of Labours" ref={noofEmployeeRef} type='number' required />
                 </div>
 
                 <div className="flex">
@@ -192,7 +192,8 @@ const RcnGradingCreateForm = () => {
             <dialog id="successemployeedialog" className="dashboard-modal">
                 <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
+                    {/* <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p> */}
+                </span>
 
 
             </dialog>
@@ -200,7 +201,8 @@ const RcnGradingCreateForm = () => {
             <dialog id="erroremployeedialog" className="dashboard-modal">
                 <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    {/* <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p> */}
+                </span>
 
 
             </dialog>
