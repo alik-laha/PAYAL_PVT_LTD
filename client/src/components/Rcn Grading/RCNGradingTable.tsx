@@ -54,7 +54,7 @@ const RcnGradingTable = () => {
     const [page, setPage] = useState(1)
     const [Error, setError] = useState('')
     const [data, setData] = useState<GradingData[]>([])
-  //  const { editPendiningGrinderData } = useContext(Context)
+    //  const { editPendiningGrinderData } = useContext(Context)
     const limit = 3
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e.target.value)
@@ -161,13 +161,13 @@ const RcnGradingTable = () => {
                                 <TableCell>{item.B} </TableCell>
                                 <TableCell>{item.C} </TableCell>
                                 <TableCell>{item.D} </TableCell>
-                                <TableCell>{item.E} </TableCell>
                                 <TableCell>{item.E}</TableCell>
                                 <TableCell>{item.F} </TableCell>
                                 <TableCell>{item.G} </TableCell>
                                 <TableCell>{item.dust}</TableCell>
                                 <TableCell>{item.Mc_on}</TableCell>
                                 <TableCell>{item.Mc_off}</TableCell>
+                                <TableCell>{item.Mc_breakdown}</TableCell>
                                 <TableCell>{item.noOfEmployees}</TableCell>
                                 <TableCell>{item.grading_lotNo}</TableCell>
                                 <TableCell>{item.editStatus === 'Pending' ? (

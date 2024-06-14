@@ -86,9 +86,77 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     }, [])
     const { AllMachines } = useContext(Context)
     return (
-        <div className="pl-10 pr-10 ">
-            <form className='flex flex-col  text-xs' onSubmit={handleSubmit}>
+        <div className="pl-5 pr-5  ">
+            <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
+                <div className="flex mt-2">
+                    <Label className="w-1/4 pt-2">A</Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="A" value={A} onChange={(e) => setA(Number(e.target.value))} type='number' step="0.01" />
+                    <Label className="w-2/4 pt-2 text-center">B</Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="B" value={B} onChange={(e) => setB(Number(e.target.value))} type='number' step="0.01" />
+                </div>
 
+                <div className="flex">
+                    <Label className="w-1/4 pt-2">C</Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="C" value={C} onChange={(e) => setC(Number(e.target.value))} type='number' step="0.01" />
+                    <Label className="w-2/4 pt-2 text-center">D</Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="D" value={D} onChange={(e) => setD(Number(e.target.value))} type='number' step="0.01" />
+                </div>
+
+                <div className="flex">
+                    <Label className="w-1/4 pt-2">E</Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="E" value={E} onChange={(e) => setE(Number(e.target.value))} type='number' step="0.01" />
+                    <Label className="w-2/4 pt-2 text-center">F</Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="F" value={F} onChange={(e) => setF(Number(e.target.value))} type='number' step="0.01" />
+                </div>
+
+                <div className="flex">
+                    <Label className="w-1/4 pt-2">G</Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="G" value={G} onChange={(e) => setG(Number(e.target.value))} type='number' step="0.01" />
+                    <Label className="w-2/4 pt-2 text-center">Dust</Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Dust" value={dust} onChange={(e) => setDust(Number(e.target.value))} type='number' step="0.01" />
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">Mechine Name</Label>
+                    <Select value={Mc_name} onValueChange={(value) => setMc_name(value)}>
+                        <SelectTrigger className="w-2/4">
+                            <SelectValue placeholder="Machine" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {
+                                    AllMachines.map((item: AssetData, indx) => {
+                                        return (
+                                            <SelectItem key={indx} value={item.machineName}>
+                                                {item.machineName}
+                                            </SelectItem>
+                                        )
+                                    })
+                                }
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
+
+                <div className="flex">
+                    <Label className="w-1/4 pt-2">ON</Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="MC ON Time" value={Mc_on} onChange={(e) => setMc_on(e.target.value)} type='time' />
+                    <Label className="w-2/4 pt-2 text-center">Off</Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="MC ON Time" value={Mc_off} onChange={(e) => setMc_off(e.target.value)} type='time' />
+                </div>
+
+                <div className="flex">
+
+                </div>
+
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">MC Breek Down</Label>
+                    <Input className="w-2/4 " placeholder="MC BreakDown" value={Mc_breakdown} onChange={(e) => setMc_breakdown(e.target.value)} type='time' />
+                </div>
+
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">Other Time</Label>
+                    <Input className="w-2/4 " placeholder="Other Time" value={otherTime} onChange={(e) => setOtherTime(e.target.value)} type='time' />
+                </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Date</Label>
                     <Input className="w-2/4 " placeholder="Date" value={date} onChange={(e) => setDate(e.target.value)} type='date' /> </div>
@@ -115,82 +183,6 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
                     </Select>
                 </div>
 
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">A</Label>
-                    <Input className="w-2/4 " placeholder="A" value={A} onChange={(e) => setA(Number(e.target.value))} type='number' step="0.01" /> </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">B</Label>
-                    <Input className="w-2/4 " placeholder="B" value={B} onChange={(e) => setB(Number(e.target.value))} type='number' step="0.01" /> </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">C</Label>
-                    <Input className="w-2/4 " placeholder="C" value={C} onChange={(e) => setC(Number(e.target.value))} type='number' step="0.01" /> </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">D</Label>
-                    <Input className="w-2/4 " placeholder="D" value={D} onChange={(e) => setD(Number(e.target.value))} type='number' step="0.01" /> </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">E</Label>
-                    <Input className="w-2/4 " placeholder="E" value={E} onChange={(e) => setE(Number(e.target.value))} type='number' step="0.01" /> </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">F</Label>
-                    <Input className="w-2/4 " placeholder="F" value={F} onChange={(e) => setF(Number(e.target.value))} type='number' step="0.01" /> </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">G</Label>
-                    <Input className="w-2/4 " placeholder="G" value={G} onChange={(e) => setG(Number(e.target.value))} type='number' step="0.01" /> </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">Dust</Label>
-                    <Input className="w-2/4 " placeholder="Dust" value={dust} onChange={(e) => setDust(Number(e.target.value))} type='number' step="0.01" /> </div>
-
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">Mechine Name</Label>
-                    <Select value={Mc_name} onValueChange={(value) => setMc_name(value)}>
-                        <SelectTrigger className="w-2/4">
-                            <SelectValue placeholder="Machine" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                {
-                                    AllMachines.map((item: AssetData, indx) => {
-                                        return (
-                                            <SelectItem key={indx} value={item.machineName}>
-                                                {item.machineName}
-                                            </SelectItem>
-                                        )
-                                    })
-                                }
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">MC ON Time</Label>
-                    <Input className="w-2/4 " placeholder="MC ON Time" value={Mc_on} onChange={(e) => setMc_on(e.target.value)} type='time' />
-                </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">MC Off Time</Label>
-                    <Input className="w-2/4 " placeholder="MC ON Time" value={Mc_off} onChange={(e) => setMc_off(e.target.value)} type='time' />
-                </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">MC Breek Down</Label>
-                    <Input className="w-2/4 " placeholder="MC BreakDown" value={Mc_breakdown} onChange={(e) => setMc_breakdown(e.target.value)} type='time' />
-                </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">Other Time</Label>
-                    <Input className="w-2/4 " placeholder="Other Time" value={otherTime} onChange={(e) => setOtherTime(e.target.value)} type='time' />
-                </div>
-
                 <div className="flex">
                     <Label className="w-2/4 pt-1">No of Employee</Label>
                     <Input className="w-2/4 " placeholder="No of Employee" value={noOfEmployees} onChange={(e) => setNoOfEmployees(Number(e.target.value))} type='number' />
@@ -213,7 +205,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
                 <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
                     {/* <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p> */}
-                    </span>
+                </span>
 
 
             </dialog>
@@ -222,8 +214,8 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
                 <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
                     {/* <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p> */}
-                    
-                    </span>
+
+                </span>
 
 
             </dialog>
