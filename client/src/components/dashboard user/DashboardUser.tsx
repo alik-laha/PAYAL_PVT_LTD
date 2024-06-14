@@ -45,12 +45,12 @@ const DashboardUser = () => {
 
 
                 <Dialog>
-                    <DialogTrigger>   <Button className="bg-orange-400 mb-2 mt-5 ml-4">+ Add New User</Button></DialogTrigger>
+                    <DialogTrigger>   <Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust">+ Add New User</Button></DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
                             <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>New User Creation</p></DialogTitle>
                             <DialogDescription>
-                                <p className='text-1xl text-center'>To Be Filled Up By Admin</p>
+                                <p className='text-1xl text-center'>To Be Filled Up By Director</p>
                             </DialogDescription>
                         </DialogHeader>
 

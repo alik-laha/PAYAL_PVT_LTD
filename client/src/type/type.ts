@@ -1,7 +1,10 @@
+import { Interface } from "readline";
+
 export interface DatePickerProps {
     buttonName: string;
     value: Date | undefined;
     setValue: (value: Date | undefined) => void;
+   
 }
 
 export interface RcnPrimaryEntryData {
@@ -26,9 +29,65 @@ export interface EditPendingData extends RcnPrimaryEntryData {
 
 }
 
+export interface QcRcnEntryExcelData {
+    id:number;
+    blNo: string;
+    conNo: string;
+    date: string;
+    origin: string;
+    truckNo: string;
+    BLWeight:string;
+    NoOfBags:string;
+    QCStatus:string;
+    sampling:string;
+    moisture:string;
+    nutCount:string;
+    fluteRate:string;
+    goodKernel:string;
+    spIm:string;
+    reject:string;
+    shell:string;
+    outTurn:string;
+    Remarks:string;
+    qcapprovedBy:string;
+    reportStatus:string;
+    EntriedBy:string;
+
+    editStatus:string;
+    editapprovedorRejectedBy:string;
+
+
+}
+export interface QcRcnEntryData {
+    
+    id:number;
+    blNo: string;
+    conNo: string;
+    date: string;
+    origin: string;
+    sampling:string;
+    moisture:string;
+    nutCount:string;
+    fluteRate:string;
+    goodKernel:string;
+    spIm:string;
+    reject:string;
+    shell:string;
+    outTurn:string;
+    Remarks:string;
+    qcapprovedBy:string;
+    reportStatus:number;
+    createdBy:string;
+    rcnEntry:RcnPrimaryEntryData;
+    editStatus:string;
+    editapprovedBy:string;
+}
+
+
+
 export interface ExcelRcnPrimaryEntryData {
     SL_No: number;
-    Approved_or_Rejected_By: string;
+    Approved_or_Reverted_By: string;
     Origin: string;
     Bl_No: string;
     Con_No: string;
@@ -62,13 +121,15 @@ export interface EmployeeData {
     heighstQualification: string;
     bloodGroup: string;
     dateOfJoining: string;
-    releaseDate: string;
+    releseDate: string;
     status: string;
     address: string;
     emergencyContact: string;
     emergencyMobNo: string;
     pfNo: string;
     pincode: string;
+    createdBy:string;
+    modifyedBy:string;
 }
 
 
@@ -109,9 +170,11 @@ export interface AssetData {
 export interface PermissionRole {
 
     Director: string[];
-    ReceivingManager: string[];
-    FactoryManager: string[];
-    ReceivingSupervisor: string[];
+    ReceivingManager:string[];
+    FactoryManager:string[];
+    ReceivingSupervisor:string[];
+    QCSupervisor:string[];
+    QCManager:string[];
 
 
 }
@@ -146,5 +209,10 @@ export interface GradingData {
     Mc_runTime: string;
     editStatus: string;
     feeledBy: string;
+}
+
+export interface pendingCheckRoles  {
+    RCNPrimary:string[];
+    QCRCN:string[];
 }
 

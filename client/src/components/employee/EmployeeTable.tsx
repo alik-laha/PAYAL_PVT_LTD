@@ -32,6 +32,8 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import EmployeeModifyForm from './EmployeeModifyForm'
+
+
 import {
     AlertDialog,
     AlertDialogAction,
@@ -51,6 +53,10 @@ import { Button } from "@/components/ui/button";
 import { pageNo, pagelimit } from "../common/exportData"
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import { CiEdit } from "react-icons/ci";
+import { MdDelete } from "react-icons/md";
+import { IoLockClosedOutline  } from "react-icons/io5";
+import React from "react";
 
 const EmployeeTable = () => {
     const [Data, setData] = useState<EmployeeData[]>([])
@@ -60,7 +66,7 @@ const EmployeeTable = () => {
     const currDate = new Date().toLocaleDateString();
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
-
+    
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchData = e.target.value
@@ -71,7 +77,7 @@ const EmployeeTable = () => {
             }
         }).then((res) => {
             console.log(res.data.Employees)
-            if (res.data.Employees === 0 && page > 1) {
+            if (res.data.Employees.length === 0 && page > 1) {
                 setPage((prev) => prev - 1)
 
             }
@@ -81,6 +87,9 @@ const EmployeeTable = () => {
             if (err.response.data.msg === 'No Employee found') {
                 setData([])
                 setError(err.response.data.msg)
+                if(page>1){
+                    setPage(prev => prev - 1)
+                }
             }
         })
     }
@@ -102,13 +111,16 @@ const EmployeeTable = () => {
             heighstQualification: item.heighstQualification,
             bloodGroup: item.bloodGroup,
             dateOfJoining: handletimezone(item.dateOfJoining),
-            releaseDate: item.releaseDate == null ? '' : handletimezone(item.dateOfJoining),
+            releseDate: item.releseDate == null ? '' : handletimezone(item.dateOfJoining),
             status: item.status ? 'Active' : 'Resigned',
             address: item.address,
             emergencyContact: item.emergencyContact,
             emergencyMobNo: item.emergencyMobNo,
             pfNo: item.pfNo,
-            pincode: item.pincode
+            pincode: item.pincode,
+            createdBy:item.createdBy,
+            modifyedBy:item.modifyedBy
+
 
         }));
         setTransformedData(transformed);
@@ -130,7 +142,7 @@ const EmployeeTable = () => {
                 limit: limit
             }
         }).then((res) => {
-            if (res.data.Employees === 0 && page > 1) {
+            if (res.data.Employees.length === 0 && page > 1) {
                 setPage((prev) => prev - 1)
 
             }
@@ -142,7 +154,11 @@ const EmployeeTable = () => {
             if (err.response.data.msg === 'No Employee found') {
                 setData([])
                 setError(err.response.data.msg)
-                setPage(prev => prev - 1)
+
+                if(page>1){
+                    setPage(prev => prev - 1)
+                }
+                
             }
         })
     }, [page])
@@ -156,15 +172,19 @@ const EmployeeTable = () => {
     const handleDelete = (data: EmployeeData) => {
         axios.delete(`/api/employee/deleteemployee/${data.employeeId}`).then((res) => {
             console.log(res.data)
+            
             setData(Data.filter((item) => item.id !== data.id))
+            
         }
         ).catch((err) => {
             console.log(err)
-        })
+        }).finally(()=>{window.location.reload()})
     }
     const handleRelese = (data: EmployeeData) => {
         axios.put(`/api/employee/releseemployee/${data.employeeId}`, { releseDate: releaseDate }).then((res) => {
+            setReleaseDate('')
             console.log(res.data)
+            window.location.reload()
         }).catch((err) => {
             console.log(err)
         })
@@ -235,24 +255,44 @@ const EmployeeTable = () => {
 
                                     <TableCell className="text-center" >
                                         <Popover>
-                                            <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                            <PopoverTrigger >  <button className="bg-cyan-500 p-2 text-white rounded hover:bg-cyan-700">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
                                                 <Dialog>
-                                                    <DialogTrigger>   <button className="bg-transparent pb-2 text-left">View/Modify</button></DialogTrigger>
+                                                    <DialogTrigger className="flex">    <CiEdit size={20}/> <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500 ">
+                                                        {item.releseDate===null?'Modify':'View'}</button></DialogTrigger>
                                                     <DialogContent className='max-w-2xl'>
                                                         <DialogHeader>
-                                                            <DialogTitle><p className='text-1xl text-center mt-2'>View/Modify Employee</p></DialogTitle>
+                                                            <DialogTitle><p className='text-1xl text-center mt-2'>View Employee</p></DialogTitle>
                                                         </DialogHeader>
                                                         <EmployeeModifyForm
                                                             data={item}
                                                         />
                                                     </DialogContent>
                                                 </Dialog>
+                                                {item.status && <AlertDialog >
+                                                    
+                                                    <AlertDialogTrigger className="flex"><IoLockClosedOutline size={20}/><button className='bg-transparent pl-2 pb-2 text-left hover:text-yellow-500'
+                                                    >Resign</button></AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle> Resign This Employee?</AlertDialogTitle>
+                                                            <AlertDialogDescription>
+                                                                This action can't be undone. This will remove User profile Linked to It.
+                                                                <Input type="date" placeholder="Release Date" className='mt-3 w-100 text-center justify-center items-center' value={releaseDate} onChange={(e) => setReleaseDate(e.target.value)} required={true} />
+                                                            </AlertDialogDescription>
+                                                        </AlertDialogHeader>
+
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction onClick={() => handleRelese(item)}>Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>} 
 
                                                 <AlertDialog>
-                                                    <AlertDialogTrigger><button className="bg-transparent pb-2 text-left">Delete</button></AlertDialogTrigger>
+                                                    <AlertDialogTrigger className="flex"><MdDelete size={20}/><button className="bg-transparent pl-2 text-left hover:text-red-500 ">Delete</button></AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
                                                             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -267,24 +307,7 @@ const EmployeeTable = () => {
                                                     </AlertDialogContent>
                                                 </AlertDialog>
 
-                                               {item.status && <AlertDialog >
-                                                    
-                                                    <AlertDialogTrigger><button className="bg-transparent text-left"><button className='bg-transparent text-left'
-                                                    >Resign</button></button></AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Are you sure want to Resign This Employee?</AlertDialogTitle>
-                                                            <AlertDialogDescription>
-                                                                This action can't be undone. This will remove User profile Linked to It.
-                                                                <input type="date" placeholder="Release Date" value={releaseDate} onChange={(e) => setReleaseDate(e.target.value)} required />
-                                                            </AlertDialogDescription>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleRelese(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>} 
+                                              
                                             </PopoverContent>
                                         </Popover>
                                     </TableCell>
@@ -294,6 +317,8 @@ const EmployeeTable = () => {
 
                 </TableBody>
             </Table>
+          
+
             <Pagination className="pt-5 ">
                 <PaginationContent>
                     <PaginationItem>

@@ -11,12 +11,13 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Dept, Role } from "../common/exportData"
+
 import { useState } from "react"
 import { UserProps } from "@/type/type"
 import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
+import { Dept, roleDataonDept } from "../common/exportData"
 
 const DashboardUserModifyForm = (props: UserProps) => {
 
@@ -106,22 +107,18 @@ const DashboardUserModifyForm = (props: UserProps) => {
                         </SelectContent>
                     </Select>
                     {/* <Input   placeholder="Origin"/>  */}</div>
-                <div className="flex"><Label className="w-2/4 ">Role</Label>
+                <div className="flex"><Label className="w-2/4 mt-1">Role</Label>
                     <Select value={role} onValueChange={(value) => setRole(value)}>
                         <SelectTrigger className="w-2/4 ">
                             <SelectValue placeholder="Role" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                {
-                                    Role.map((item) => {
-                                        return (
-                                            <SelectItem key={item} value={item}>
-                                                {item}
-                                            </SelectItem>
-                                        )
-                                    })
-                                }
+                            {dept && (roleDataonDept[dept as keyof typeof roleDataonDept].map((item) => (
+                                    <SelectItem key={item} value={item}>
+                                        {item}
+                                    </SelectItem>
+                                )) )}
                             </SelectGroup>
                         </SelectContent>
                     </Select>

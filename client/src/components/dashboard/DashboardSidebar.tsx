@@ -109,6 +109,7 @@ const DashboardSidebar = () => {
                     {rendersection('Receiving') &&  <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25} />
                             <p>Receiving</p></CollapsibleTrigger>
+                            
                             {renderlink('RCN Primary Entry')
                        && <CollapsibleContent className="Items-pvt">
                             <NavLink to="/dashboard/rcnprimaryentry" >
@@ -122,9 +123,12 @@ const DashboardSidebar = () => {
                     {rendersection('Quality') &&  <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><LuBadgeCheck size={25} />
                             <p>Quality</p></CollapsibleTrigger>
-                        <CollapsibleContent className="Items-pvt">
-                            RCN Primary QC
-                        </CollapsibleContent> 
+                            {renderlink('RCN Incoming QC')
+                       &&  <CollapsibleContent className="Items-pvt">
+                        <NavLink to="/dashboard/qcRCN" >
+                                RCN Incoming QC
+                            </NavLink>
+                        </CollapsibleContent>} 
 
 
                         </Collapsible>}

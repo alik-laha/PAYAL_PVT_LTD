@@ -54,6 +54,10 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { CiEdit } from "react-icons/ci"
+import { MdDelete } from "react-icons/md"
+import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
 
 const MachineTable = () => {
     //const currDate = new Date().toLocaleDateString();
@@ -62,7 +66,8 @@ const MachineTable = () => {
     const [section, setSection] = useState<string>("")
     const [assetidname, setassetidname] = useState<string>("")
     const [Data, setData] = useState<AssetData[]>([])
-    
+    const [transformedData, setTransformedData] = useState<AssetData[]>([]);
+    const currDate = new Date().toLocaleDateString();
     
     const handleSearch = async () => {
 
@@ -89,7 +94,30 @@ const MachineTable = () => {
     useEffect(() => {
         handleSearch()
     }, [page])
+
+    const exportToExcel = async () => {
+
+        const response = await axios.put('/api/asset/assetSearch', {}, {})
+        const data1 = await response.data
+        const transformed = data1.assetEntries.map((item: AssetData, idx: number) => ({
+            id: idx+1,
+            machineID: item.machineID,
+            machineName: item.machineName,
+            description: item.description,
+            status: item.status,
+            section: item.section,
+            createdBy: item.createdBy,
+            modifiedBy: item.modifiedBy
+        }))
+        setTransformedData(transformed);
+        const ws = XLSX.utils.json_to_sheet(transformedData);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'Asset_Details_' + currDate + '.xlsx');
         
+    }
 
     const handleDelete = (data: AssetData) => {
         axios.delete(`/api/asset/deleteAsset/${data.id}`).then((res) => {
@@ -98,10 +126,11 @@ const MachineTable = () => {
         }
         ).catch((err) => {
             console.log(err)
-        })
+
+        }).finally(()=>{window.location.reload()})
     }
 
-    const exportToExcel = async () => {}
+   
     
 return(
     <>
@@ -131,25 +160,26 @@ return(
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
                 <TableHead className="text-center" >Sl No.</TableHead>
                     <TableHead className="text-center" >Asset ID</TableHead>
+                   
+                    <TableHead className="text-center" >Status </TableHead>
                     <TableHead className="text-center" >Asset Name </TableHead>
                     <TableHead className="text-center" >Section </TableHead>
-                    <TableHead className="text-center" >Status </TableHead>
                    
-                  
-                    <TableHead className="text-center" >Created By</TableHead>
+                    <TableHead className="text-center" >Description </TableHead>
+                
                     
                     <TableHead className="text-center" >Action</TableHead>
                 </TableHeader>
 
                 <TableBody>{
-                    Data.map((item, idx) => {
+                    Data.length >0 ? (Data.map((item, idx) => {
 
                         return (
                             <TableRow key={item.id}>
                                 <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                 <TableCell className="text-center">{item.machineID}</TableCell>
-                                <TableCell className="text-center">{item.machineName}</TableCell>
-                                <TableCell className="text-center">{item.section}</TableCell>
+                              
+                                
 
 
                                 <TableCell className="text-center">{item.status == 'Active' ? (
@@ -157,9 +187,11 @@ return(
                                 ) : (
                                     <button className="bg-red-500 p-1 text-white rounded">{item.status}</button>
                                 )}</TableCell>
+                                  <TableCell className="text-center">{item.machineName}</TableCell>
+                                <TableCell className="text-center">{item.section}</TableCell>
+                                <TableCell className="text-center">{item.description}</TableCell>
 
-
-                                <TableCell className="text-center">{item.createdBy}</TableCell>
+                               
                                 <TableCell className="text-center">
                                     <Popover>
                                         <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
@@ -167,10 +199,10 @@ return(
                                         <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
                                             <Dialog>
-                                                <DialogTrigger>   <button className="bg-transparent pb-2 text-left">View/Modify</button></DialogTrigger>
+                                                <DialogTrigger  className="flex">  <CiEdit size={20}/> <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button></DialogTrigger>
                                                 <DialogContent>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>View/Modify Asset</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>View Asset</p></DialogTitle>
                                                         <DialogDescription>
                                                             <p className='text-1xl text-center pb-5'>To Be Actioned Up By Admin</p>
                                                         </DialogDescription>
@@ -184,7 +216,7 @@ return(
 
 
                                             <AlertDialog>
-                                                <AlertDialogTrigger><button className="bg-transparent text-left">Delete</button></AlertDialogTrigger>
+                                                <AlertDialogTrigger  className="flex"><MdDelete size={20}/><button className="bg-transparent pl-2 text-left hover:text-red-500 ">Delete</button></AlertDialogTrigger>
                                                 <AlertDialogContent>
                                                     <AlertDialogHeader>
                                                         <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -205,7 +237,21 @@ return(
                             </TableRow>
 
                         )
-                    })}
+                    })):(<TableRow>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                        
+                        <TableCell></TableCell>
+                        <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">No Result Found</p></TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+
+                   </TableRow>)
+                    
+                    
+                    
+                    }
 
 
 

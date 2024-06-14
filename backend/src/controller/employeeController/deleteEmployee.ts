@@ -7,9 +7,9 @@ const DeleteEmployee = async (req: Request, res: Response) => {
         const employeeId = req.params.id;
         const oldEmployee = await Employee.findOne({ where: { employeeId: employeeId } });
         if (!oldEmployee) {
-            return res.status(400).json({ message: 'Employee does not exist with this employeeId' })
+            return res.status(400).json({ msg: 'Invalid Employee ID' })
         }
-        const userExist = await user.findOne({ where: { employeeId: employeeId } });
+        const userExist = await user.findAll({ where: { employeeId: employeeId } });
         if (userExist) {
             user.destroy({ where: { employeeId: employeeId } });
         }
@@ -18,15 +18,15 @@ const DeleteEmployee = async (req: Request, res: Response) => {
                 employeeId: employeeId
             }
         }).then((data) => {
-            return res.status(201).json({ message: 'Employee Deleted successfully', data })
+            return res.status(201).json({ msg: 'Employee has Deleted Successfully', data })
         }).catch((err) => {
             console.log(err)
-            return res.status(500).json({ message: 'error While Deleting', error: err })
+            return res.status(500).json({ msg: 'Error While Deleting', error: err })
         })
 
     } catch (err) {
         console.log(err)
-        return res.status(500).json({ message: 'Internal server error', error: err })
+        return res.status(500).json({ msg: 'Internal server error', error: err })
     }
 }
 export default DeleteEmployee;

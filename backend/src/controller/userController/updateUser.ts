@@ -19,7 +19,7 @@ const UpdateUser = async (req: Request, res: Response) => {
         }
         if (!password && !confirmPassword) {
 
-            await User.update({ userName, role, dept }, { where: { employeeId } });
+            await User.update({ userName, role, dept ,modifyedBy}, { where: { employeeId } });
             return res.status(200).json({ message: 'User has been Updated successfully' });
         }
         if (password !== confirmPassword) {

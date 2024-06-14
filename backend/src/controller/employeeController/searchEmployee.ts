@@ -40,15 +40,19 @@ const searchEmployee = async (req: Request, res: Response) => {
             return res.status(200).json({ msg: 'Employee found', Employees })
 
         }
-        Employees = await Employee.findAll({
-            where,
-            order: [['createdAt', 'DESC']], // Order by date descending
-            limit: limit,
-            offset: offset
-        });
-        if (Employees.length === 0) {
-            return res.status(404).json({ msg: 'No Employee found' })
+        else{
+            Employees = await Employee.findAll({
+                where,
+                order: [['createdAt', 'DESC']], // Order by date descending
+                limit: limit,
+                offset: offset
+            });
+            if (Employees.length === 0) {
+                return res.status(404).json({ msg: 'No Employee found' })
+            }
         }
+      
+        
         return res.status(200).json({ msg: 'Employee found', Employees })
     }
     catch (err) {

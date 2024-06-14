@@ -20,6 +20,7 @@ const DatePicker = (props: DatePickerProps) => {
                     className={cn(
                         "w-[280px] justify-start text-left font-normal w-100 mr-2 h-7",
                         !props.value && "text-muted-foreground"
+                        
                     )}
                 >
                     <CalendarIcon className="mr-2 h-4 w-8" />

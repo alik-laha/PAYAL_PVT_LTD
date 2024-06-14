@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import RcnPrimary from "../../model/RcnEntryModel";
 import { Op } from "sequelize";
 
+
 const SearchRcnPrimary = async (req: Request, res: Response) => {
     try {
         const { blConNo, fromDate, toDate, origin } = req.body;
@@ -38,21 +39,21 @@ const SearchRcnPrimary = async (req: Request, res: Response) => {
                 }
             });
         }
-
+  
         // Convert the array to an object for the where condition
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let rcnEntries
         if(limit===0 && offset===0){
              rcnEntries = await RcnPrimary.findAll({
                 where,
-                order: [['createdAt', 'DESC']], // Order by date descending
+                order: [['date', 'DESC']], // Order by date descending
                 
             });
         }
         else{
              rcnEntries = await RcnPrimary.findAll({
                 where,
-                order: [['createdAt', 'DESC']], // Order by date descending
+                order: [['date', 'DESC']], // Order by date descending
                 limit: limit,
                 offset: offset
             });
@@ -64,5 +65,6 @@ const SearchRcnPrimary = async (req: Request, res: Response) => {
         console.log(err)
         return res.status(500).json({ msg: 'Internal server error', error: err })
     }
+ 
 }
 export default SearchRcnPrimary

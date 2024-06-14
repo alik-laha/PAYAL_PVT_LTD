@@ -13,6 +13,29 @@ export interface RcnPrimaryModifyProps {
 
 }
 
+export interface qcapproveprops {
+    rcnStatus: string;
+}
+
+export interface qcRCNModifyProps {
+    id: number;
+    sampling:string;
+    moisture:string;
+    nutCount:string;
+    fluteRate:string;
+    goodKernel:string;
+    spIm:string;
+    reject:string;
+    shell:string;
+    outTurn:string;
+    Remarks:string;
+    qcapprovedBy:string;
+    reportStatus:number;
+    createdBy:string;
+    editStatus:string;
+    editapprovedBy:string;
+}
+
 export interface UserData {
     id: number;
     userName: string;

@@ -25,7 +25,7 @@ interface RcnPrimaryModifyProps {
         noOfBags: string;
         blWeight: string;
         netWeight: string;
-        date: Date;
+        date: string;
     }
 }
 
@@ -138,7 +138,7 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 ">Date of Reciving</Label>
-                    <Input className="w-2/4 " placeholder="Total Bags" type="date" value={date ? date.toISOString().split('T')[0] : ''} onChange={(e) => setDate(new Date(e.target.value))} />
+                    <Input className="w-2/4 " placeholder="Date Of Receiving" type="date" value={date ? date.toISOString().split('T')[0] : ''} onChange={(e) => setDate(new Date(e.target.value))} />
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 ">Total Bags</Label>

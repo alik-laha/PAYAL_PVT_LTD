@@ -1,48 +1,42 @@
 import { Request, Response } from "express";
-import RcnPrimary from "../../model/RcnEntryModel";
-import RcnEdit from "../../model/RcnEditModel";
+import QcRCN from "../../model/qcRCNmodel";
+import QceditRCN from "../../model/qcRCNeditmodel";
 
 
-const EditReject = async (req: Request, res: Response) => {
+const rejectEditQCRcn = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
 
-
          const rejectedBy = req.cookies.user;
-
-        // const rejectedBy = req.cookies.user;
-  
-
+        //const rejectedBy = "RC Admin 2";
         if (!id || !rejectedBy) {
             return res.status(400).json({ message: "Please provide the id or rejected By" });
         }
-        const rcn = await RcnPrimary.update({
-
+        const rcn = await QcRCN.update({
             editStatus: "NA",
-            approvedBy:rejectedBy
-
-          
+            editapprovedBy:rejectedBy,
+            reportStatus:1
         }, {
             where: {
                 id
             }
         });
         if (!rcn) {
-            return res.status(400).json({ message: "Rcn Entry not found" });
+            return res.status(400).json({ message: "QC Entry not found" });
         }
-        const rcnEdit = await RcnEdit.destroy({
+        const rcnEdit = await QceditRCN.destroy({
             where: {
                 id
             }
         });
         if (!rcnEdit) {
-            return res.status(400).json({ message: "Rcn Entry not found" });
+            return res.status(400).json({ message: "QC Entry not found" });
         }
-        return res.status(200).json({ message: "Rcn Entry rejected successfully" });
+        return res.status(200).json({ message: "QC Report Edit Request is Reverted successfully" });
     }
     catch (err) {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error", error: err });
     }
 }
-export default EditReject;
+export default rejectEditQCRcn;

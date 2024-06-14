@@ -1,0 +1,27 @@
+import express from 'express';
+import qcInitialEntry from '../controller/qcController/qcInitialEntry';
+import SearchQcRCN from '../controller/qcController/SearchQcRCN';
+import approveQCinitial from '../controller/qcController/approveQCinitial';
+import creatercnReport from '../controller/qcController/creatercnReport';
+import rejectQCinitial from '../controller/qcController/rejectQCinitial';
+import modifyrcnReport from '../controller/qcController/modifyrcnReport';
+import getTotalQcCount from '../controller/qcController/getTotalQcCount';
+import searchEditQCRCN from '../controller/qcController/searcheditqcrcn';
+import ApproveEditQCRcn from '../controller/qcController/approveEditQCRcn';
+import rejectEditQCRcn from '../controller/qcController/rejectEditQCRcn';
+const router = express.Router();
+
+router.post("/qcInitialEntry", qcInitialEntry)
+//search Rcn Entry by ConBlNo, fromDate, toDate, origin
+router.put('/searchqcRcn', SearchQcRCN);
+//Edit Approve Rcn Entry by Id
+router.put("/qcRcnApprove/:id", approveQCinitial);
+router.put("/qcRcnReject/:id", rejectQCinitial);
+router.put("/createQcRcn/:id", creatercnReport);
+router.put("/modifyQcRcn/:id", modifyrcnReport);
+router.get("/getTotalQCCount", getTotalQcCount);
+router.get("/getTotalEditQC", searchEditQCRCN);
+router.put("/approveEditQcReport/:id", ApproveEditQCRcn);
+router.delete("/rejectEditQcReport/:id", rejectEditQCRcn);
+
+export default router;

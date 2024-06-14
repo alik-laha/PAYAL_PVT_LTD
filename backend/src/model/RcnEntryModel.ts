@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig";
 
+
 const RcnPrimary = sequelize.define('rcnEntry', {
     id: {
         type: DataTypes.INTEGER,
@@ -10,10 +11,12 @@ const RcnPrimary = sequelize.define('rcnEntry', {
     date: {
         type: DataTypes.DATE,
         allowNull: false
+       
     },
     blNo: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+       
     },
     truckNo: {
         type: DataTypes.STRING,
@@ -21,7 +24,8 @@ const RcnPrimary = sequelize.define('rcnEntry', {
     },
     conNo: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique:true
     },
     blWeight: {
         type: DataTypes.FLOAT,
@@ -45,7 +49,7 @@ const RcnPrimary = sequelize.define('rcnEntry', {
     },
     editStatus: {
         type: DataTypes.STRING,
-        defaultValue: "Created"
+        defaultValue: "NA"
     },
     rcnStatus: {
         type: DataTypes.STRING,

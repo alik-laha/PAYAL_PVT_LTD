@@ -18,6 +18,7 @@ const SumOfAllOriginRcnPrimary = async (req: Request, res: Response): Promise<Re
 
         targetDate = new Date(`${Year}-04-01`);
         targetDate.setHours(0,0,0,0)
+      
         const AllOriginRcnPrimary = await RcnPrimary.findAll({
             attributes: [
                 'origin',
@@ -27,7 +28,7 @@ const SumOfAllOriginRcnPrimary = async (req: Request, res: Response): Promise<Re
                 rcnStatus: 'QC Approved',
                 [Op.or]: [
                     { editStatus: 'Approved' },
-                    { editStatus: 'Created' }
+                    { editStatus: 'NA' }
                 ],
                 date: {
                     [Op.between]: [targetDate, today]
@@ -44,5 +45,6 @@ const SumOfAllOriginRcnPrimary = async (req: Request, res: Response): Promise<Re
         console.error(err);
         return res.status(500).json({ msg: 'Internal server error', error: err });
     }
+   
 };
 export default SumOfAllOriginRcnPrimary

@@ -20,6 +20,7 @@ import * as XLSX from 'xlsx';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { pageNo,pagelimit } from "../common/exportData"
+import { FcApprove , FcDisapprove } from "react-icons/fc";
 
 
 import {
@@ -63,6 +64,7 @@ import {
 import { useContext } from "react";
 import Context from "../context/context";
 import { EditPendingData } from "@/type/type";
+import { CiEdit } from "react-icons/ci";
 
 const RcnPrimaryEntryTable = () => {
     const [origin, setOrigin] = useState<string>("")
@@ -171,7 +173,7 @@ const RcnPrimaryEntryTable = () => {
                 Edit_Status: item.editStatus,
                 Created_by: item.editedBy,
                 // received by is updated as editedby in edit rcn table
-                Approved_or_Rejected_By: item.approvedBy
+                Approved_or_Reverted_By: item.approvedBy
                 // approvedBy is not there in edit rcn table
             }));
             setTransformedData(transformed);
@@ -210,7 +212,7 @@ const RcnPrimaryEntryTable = () => {
         const data = await response.data
         console.log(data)
         if (data.message === "Rcn Entry rejected successfully") {
-            console.log('rejected enter')
+            //console.log('rejected enter')
             if (rejectsuccessdialog != null) {
                 (rejectsuccessdialog as any).showModal();
             }
@@ -303,7 +305,7 @@ const RcnPrimaryEntryTable = () => {
 
                     <TableHead className="text-center" >Id</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Date </TableHead>
+                    <TableHead className="text-center" >Date of Receiving </TableHead>
                     <TableHead className="text-center" >BL No.</TableHead>
                     <TableHead className="text-center" >Con No.</TableHead>
                     <TableHead className="text-center" >Truck No.</TableHead>
@@ -312,8 +314,8 @@ const RcnPrimaryEntryTable = () => {
                     <TableHead className="text-center" >Net Weight</TableHead>
                     <TableHead className="text-center" >Difference</TableHead>
                     <TableHead className="text-center" >Bag Count</TableHead>
-                    <TableHead className="text-center" >QC </TableHead>
-                    <TableHead className="text-center" >Status </TableHead>
+                    <TableHead className="text-center" >QC Status</TableHead>
+                    <TableHead className="text-center" >Edit Status </TableHead>
                     <TableHead className="text-center" >Entried By </TableHead>
                     <TableHead className="text-center" >Action</TableHead>
 
@@ -336,13 +338,16 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center font-semibold text-red-600">{item.difference}</TableCell>
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
                                     <TableCell className="text-center">
-                                        {item.rcnStatus === 'QC Pending' ? (
-                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
-                                        ) : (
+                                        {item.rcnStatus === 'QC Approved' ? (
                                             <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>
+                                        ) : item.rcnStatus === 'QC Pending' ? (
+                                            <button className="bg-orange-500 p-1 text-white rounded">{item.rcnStatus}</button>
+                                        ) : (
+                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
                                         )}
                                     </TableCell>
-                                    <TableCell className="text-center">{item.editStatus}</TableCell>
+                                    <TableCell className="text-center">{item.editStatus == 'Created' ?
+                                    'NA':item.editStatus}</TableCell>
                                     <TableCell className="text-center">{item.editedBy}</TableCell>
                                     <TableCell className="text-center">
                                         <Popover>
@@ -351,8 +356,8 @@ const RcnPrimaryEntryTable = () => {
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <AlertDialog>
-                                                    <AlertDialogTrigger>
-                                                        <button className="bg-transparent text-black text-left hover:font-bold hover:text-base hover:text-green-600">Approve</button>
+                                                    <AlertDialogTrigger className="flex">
+                                                    <FcApprove size={25}/> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
@@ -365,8 +370,8 @@ const RcnPrimaryEntryTable = () => {
                                                     </AlertDialogContent>
                                                 </AlertDialog>
                                                 <AlertDialog>
-                                                    <AlertDialogTrigger>
-                                                        <button className="bg-transparent pt-2 text-black text-left hover:font-bold hover:text-base hover:text-red-600">Reject</button>
+                                                    <AlertDialogTrigger className="flex mt-2">
+                                                    <FcDisapprove size={25}/> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
@@ -385,7 +390,7 @@ const RcnPrimaryEntryTable = () => {
                             );
                         })
                     ) : (
-                        Data.map((item: RcnPrimaryEntryData, idx) => {
+                        Data.length>0 ? (Data.map((item: RcnPrimaryEntryData, idx) => {
 
 
                             return (
@@ -402,23 +407,26 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center font-semibold text-red-600">{item.difference}</TableCell>
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
                                     <TableCell className="text-center">
-                                        {item.rcnStatus === 'QC Pending' ? (
-                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
-                                        ) : (
+                                    {item.rcnStatus === 'QC Approved' ? (
                                             <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>
+                                        ) : item.rcnStatus === 'QC Pending' ? (
+                                            <button className="bg-orange-500 p-1 text-white rounded">{item.rcnStatus}</button>
+                                        ) : (
+                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
                                         )}
                                     </TableCell>
-                                    <TableCell className="text-center">{item.editStatus}</TableCell>
+                                    <TableCell className="text-center">{item.editStatus == 'Created' ?
+                                    'NA':item.editStatus}</TableCell>
                                     <TableCell className="text-center">{item.receivedBy}</TableCell>
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
-                                                <button className={`bg-cyan-500 p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-300'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <Dialog>
-                                                    <DialogTrigger>
-                                                        <button className="bg-transparent text-black text-left hover:font-bold hover:text-sm " >Modify</button>
+                                                    <DialogTrigger className="flex"><CiEdit size={20}/>
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                     </DialogTrigger>
                                                     <DialogContent>
                                                         <DialogHeader>
@@ -434,7 +442,17 @@ const RcnPrimaryEntryTable = () => {
                                     </TableCell>
                                 </TableRow>
                             );
-                        })
+                        })):(<TableRow>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">No Result </p></TableCell>
+                          
+                            </TableRow>)
                     )}
                 </TableBody>
             </Table>
@@ -470,7 +488,7 @@ const RcnPrimaryEntryTable = () => {
             <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
                 <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">RCN Entry Modify Request Has Been Rejected</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">RCN Entry Modify Request Has Been Reverted</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

@@ -15,7 +15,8 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
-
+import { CiEdit } from "react-icons/ci";
+import { MdDelete } from "react-icons/md";
 import { Input } from "../ui/input";
 import {
     Popover,
@@ -26,6 +27,8 @@ import {
 import {
     Dialog,
     DialogContent,
+
+    DialogDescription,
 
     DialogHeader,
     DialogTitle,
@@ -51,6 +54,7 @@ import { Button } from "../ui/button";
 import { pageNo, pagelimit } from "../common/exportData";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+
 
 
 
@@ -151,6 +155,7 @@ const DashboardTable = () => {
                 console.log(err)
             })
     }
+
     return (
         
         <div className="ml-5 mt-5">
@@ -170,6 +175,7 @@ const DashboardTable = () => {
                     <TableHead className="text-center" >User Name </TableHead>
                     <TableHead className="text-center" >Department </TableHead>
                     <TableHead className="text-center" >Role </TableHead>
+                  
                     <TableHead className="text-center" >Created By </TableHead>
                     <TableHead className="text-center" >Action</TableHead>
 
@@ -202,19 +208,22 @@ const DashboardTable = () => {
                                     <TableCell className="text-center" >{item.dept}</TableCell>
                                     <TableCell className="text-center" >{item.role}</TableCell>
                                     <TableCell className="text-center" >{item.createdBy}</TableCell>
+                                   
                                     <TableCell className="text-center" >
 
                                         <Popover>
-                                            <PopoverTrigger><button className="bg-green-500 p-2 text-white rounded">Action</button>
+                                            <PopoverTrigger><button className="bg-cyan-500 p-2 text-white rounded hover:bg-cyan-700">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
                                                 <Dialog>
-                                                    <DialogTrigger>   <button className="bg-transparent pb-2 text-left">Modify</button></DialogTrigger>
+                                                    <DialogTrigger className="flex"> <CiEdit size={20}/>  <button className="bg-transparent pb-2 pl-2 text-left  hover:text-green-600 ">Modify</button></DialogTrigger>
                                                     <DialogContent>
                                                         <DialogHeader>
                                                             <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>User Modification</p></DialogTitle>
-
+                                                            <DialogDescription>
+                                <p className='text-1xl text-center'>To Be Modified Up By Director</p>
+                            </DialogDescription>
                                                         </DialogHeader>
 
                                                         <DashboardUserModifyForm Data={item} />
@@ -222,7 +231,8 @@ const DashboardTable = () => {
                                                 </Dialog>
 
                                                 <AlertDialog>
-                                                    <AlertDialogTrigger><button className="bg-transparent text-left">Delete</button></AlertDialogTrigger>
+                                                    <AlertDialogTrigger className="flex"><MdDelete size={20}/><button className="bg-transparent pl-2
+                                                    text-left hover:text-red-600">Delete</button></AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
                                                             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
