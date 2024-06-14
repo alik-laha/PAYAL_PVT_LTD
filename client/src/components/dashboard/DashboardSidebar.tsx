@@ -96,11 +96,12 @@ const DashboardSidebar = () => {
                     {rendersection('Production') &&  <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineFactory size={25} />
                             <p>Production</p></CollapsibleTrigger>
-                        <CollapsibleContent className="Items-pvt">
+                            {renderlink('Grading')
+                            &&   <CollapsibleContent className="Items-pvt">
                             <NavLink to="/dashboard/RcnGrading" >
                                 RCN Grading
                             </NavLink>
-                        </CollapsibleContent>
+                        </CollapsibleContent>}
                         <CollapsibleContent className="Items-pvt">
                             RCN Boiling
                         </CollapsibleContent>

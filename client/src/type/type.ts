@@ -175,6 +175,7 @@ export interface PermissionRole {
     ReceivingSupervisor:string[];
     QCSupervisor:string[];
     QCManager:string[];
+    GradingSupervisor:string[];
 
 
 }
@@ -185,6 +186,7 @@ export interface PermissionDept {
     Maintainance: string[];
     Production: string[];
     QualityControl: string[];
+    Grading:string[];
 
 }
 export interface GradingData {
@@ -214,5 +216,6 @@ export interface GradingData {
 export interface pendingCheckRoles  {
     RCNPrimary:string[];
     QCRCN:string[];
+    Grading:string[];
 }
 
