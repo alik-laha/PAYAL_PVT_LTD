@@ -27,7 +27,7 @@ const RcnGradingCreateForm = () => {
     const mc_offRef = useRef<HTMLInputElement>(null)
     const noofEmployeeRef = useRef<HTMLInputElement>(null)
     const mc_breakdownRef = useRef<HTMLInputElement>(null)
-    const [errortext, setErrortext] = useState('')
+   const [errortext, setErrortext] = useState('')
     const otherRef = useRef<HTMLInputElement>(null)
     const grading_lotNoRef = useRef<HTMLInputElement>(null)
 
@@ -61,21 +61,95 @@ const RcnGradingCreateForm = () => {
                 }
             })
             .catch(err => {
-                setErrortext(err.data.message)
+                console.log(err)
+               // setErrortext(err)
             })
     }
     const { AllMachines } = useContext(Context)
     return (
-        <div className="pl-10 pr-10 ">
-            <form className='flex flex-col  text-xs' onSubmit={handleSubmit}>
+        <div className="pl-5 pr-5 ">
+            <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
+
+               
+
+
+                <div className="flex mt-2">
+                    <Label className="w-1/4 pt-2 ">A </Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="A" ref={aRef} type='number' step="0.01 " required/>
+                    <Label className="w-2/4 pt-2 text-center">B </Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="B" ref={bRef} type='number' step="0.01" required/> </div> 
 
                 <div className="flex">
+                <Label className="w-1/4 pt-2">C </Label>
+                <Input className="w-2/4 bg-cyan-100" placeholder="C" ref={cRef} type='number' step="0.01" required/> 
+                <Label className="text-center w-2/4 pt-2">D </Label>
+                <Input className="w-2/4 bg-cyan-100" placeholder="D" ref={dRef} type='number' step="0.01" required/> </div>
+                
+                    
+
+                <div className="flex">
+                <Label className="w-1/4 pt-2">E </Label>
+                <Input className="w-2/4 bg-cyan-100" placeholder="E" ref={eRef} type='number' step="0.01" required/>
+                <Label className="w-2/4 pt-2 text-center">F </Label>
+                <Input className="w-2/4 bg-cyan-100" placeholder="F" ref={fRef} type='number' step="0.01" required/>
+                </div>
+
+                <div className="flex">
+                <Label className="w-1/4 pt-2">G </Label>
+                <Input className="w-2/4 bg-cyan-100" placeholder="G" ref={gRef} type='number' step="0.01" required/> 
+                <Label className="w-2/4 pt-2 text-center">Dust </Label>
+                <Input className="w-2/4 bg-cyan-100" placeholder="Dust" ref={dustRef} type='number' step="0.01" required/>
+                    </div>
+             
+
+           
+
+                <div className="flex mt-5">
+                    <Label className="w-2/4 pt-1 text-center">Machine Name</Label>
+                    <Select value={mc_name} onValueChange={(value) => setMc_name(value)} required={true}>
+                        <SelectTrigger className="w-2/4">
+                            <SelectValue placeholder="Machine Name" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {
+                                    AllMachines.map((item: AssetData, indx) => {
+                                        return (
+                                            <SelectItem key={indx} value={item.machineName}>
+                                                {item.machineName}
+                                            </SelectItem>
+                                        )
+                                    })
+                                }
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
+
+                <div className="flex mt-2">
+                    <Label className="w-2/4  pt-2">On </Label>
+                    <Input className="w-3/5  bg-cyan-100" placeholder="MC ON Time" ref={mc_onRef} type='time' required/>
+                    <Label className="w-2/4 text-center pt-2">Off </Label>
+                    <Input className="w-3/5  bg-cyan-100" placeholder="MC OFF Time" ref={mc_offRef} type='time' required/>
+                </div>
+                <div className="flex mt-2">
+                    <Label className="w-2/4 pt-2">Break Down Duration </Label>
+                    <Input className="w-2/4 pl-12 bg-cyan-100" placeholder="MC BreakDown" ref={mc_breakdownRef} type='time' />
+                </div>
+
+                <div className="flex">
+                    <Label className="w-2/4 pt-2">Other Duration</Label>
+                    <Input className="w-2/4 pl-12 bg-cyan-100" placeholder="Other Time" ref={otherRef} type='time' />
+                </div>
+
+                
+                <div className="flex mt-5">
                     <Label className="w-2/4 pt-1">Date</Label>
                     <Input className="w-2/4 " placeholder="Date" ref={DateRef} type='date' required/> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Origin</Label>
-                    <Select value={origin} onValueChange={(value) => setOrigin(value)}>
+                    <Select value={origin} onValueChange={(value) => setOrigin(value)} required>
                         <SelectTrigger className="w-2/4">
                             <SelectValue placeholder="Origin" />
                         </SelectTrigger>
@@ -95,90 +169,16 @@ const RcnGradingCreateForm = () => {
                     </Select>
                 </div>
 
+                
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">A (Bag)</Label>
-                    <Input className="w-2/4 " placeholder="A" ref={aRef} type='number' step="0.01" /> </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">B (Bag)</Label>
-                    <Input className="w-2/4 " placeholder="B" ref={bRef} type='number' step="0.01" /> </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">C (Bag)</Label>
-                    <Input className="w-2/4 " placeholder="C" ref={cRef} type='number' step="0.01" /> </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">D (Bag)</Label>
-                    <Input className="w-2/4 " placeholder="D" ref={dRef} type='number' step="0.01" /> </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">E (Bag)</Label>
-                    <Input className="w-2/4 " placeholder="E" ref={eRef} type='number' step="0.01" /> </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">F (Bag)</Label>
-                    <Input className="w-2/4 " placeholder="F" ref={fRef} type='number' step="0.01" /> </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">G (Bag)</Label>
-                    <Input className="w-2/4 " placeholder="G" ref={gRef} type='number' step="0.01" /> </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">Dust (Bag)</Label>
-                    <Input className="w-2/4 " placeholder="Dust" ref={dustRef} type='number' step="0.01" /> </div>
-
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">Machine Name</Label>
-                    <Select value={mc_name} onValueChange={(value) => setMc_name(value)}>
-                        <SelectTrigger className="w-2/4">
-                            <SelectValue placeholder="Machine" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                {
-                                    AllMachines.map((item: AssetData, indx) => {
-                                        return (
-                                            <SelectItem key={indx} value={item.machineName}>
-                                                {item.machineName}
-                                            </SelectItem>
-                                        )
-                                    })
-                                }
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
+                    <Label className="w-2/4 pt-2">No of Labours</Label>
+                    <Input className="w-2/4 " placeholder="No of Labours" ref={noofEmployeeRef} type='number' required/>
                 </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">MC ON Time</Label>
-                    <Input className="w-2/4 " placeholder="MC ON Time" ref={mc_onRef} type='time' />
-                </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">MC Off Time</Label>
-                    <Input className="w-2/4 " placeholder="MC ON Time" ref={mc_offRef} type='time' />
-                </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">Break Down Duration </Label>
-                    <Input className="w-2/4 " placeholder="MC BreakDown" ref={mc_breakdownRef} type='time' />
-                </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">Other Duration(Any)</Label>
-                    <Input className="w-2/4 " placeholder="Other Time" ref={otherRef} type='time' />
-                </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">No of Labours</Label>
-                    <Input className="w-2/4 " placeholder="No of Labours" ref={noofEmployeeRef} type='number' />
-                </div>
-
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">Lot No.(Grading)</Label>
-                    <Input className="w-2/4 " placeholder="Grading lot No." ref={grading_lotNoRef} />
+                    <Label className="w-2/4 pt-2">Lot No.(Grading)</Label>
+                    <Input className="w-2/4 " placeholder="Lot No.(Grading)" ref={grading_lotNoRef} />
                 </div>
 
 
