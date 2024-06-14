@@ -21,8 +21,8 @@ function App() {
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 
         'ReceivingSupervisor', 'ReceivingManager',
-        'MaintainanceSupervisor'
-          , 'QCManager','ProductionManager','QCSupervisor']} />}>
+        'MaintainanceSupervisor',
+        'GradingSupervisor' , 'QCManager','ProductionManager','QCSupervisor']} />}>
         <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
@@ -48,8 +48,12 @@ function App() {
         <Route path="/dashboard/qcRCN" element={<QCRcn />} />
         </Route>
         
-       
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+        'GradingSupervisor', 'ProductionManager']} />}>
         <Route path='/dashboard/rcnGrading' element={<RcnGrading />} />
+        </Route>
+       
+        
        
       </Routes>
     </>

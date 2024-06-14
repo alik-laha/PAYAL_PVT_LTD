@@ -2,7 +2,7 @@ export const Origin = ["India", "Ghana", "Usa", "Uk", "China"]
 export const Dept: string[] = ['Admin', 'Receiving', 'Maintainance', 'QualityControl', 'Production']
 //export const optionsMapping:Record<string, string[]> = {Admin :['AdminSupervisor','Admin-Manager'],Receiving:['Receiving-Supervisor', 'Receiving-Manager'],Maintainance:['Maintainance-Supervisor'],Quality-Control:['QC-Supervisor','QC-Manager'],Production:[Production Manager]}
 export const Role: string[] = ['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager','MaintainanceSupervisor'
-,'QCSupervisor', 'QCManager','ProductionManager'
+,'QCSupervisor', 'QCManager','GradingSupervisor','ProductionManager'
 ]
 export const pageNo = 1
 export const pagelimit =5
@@ -15,7 +15,8 @@ export const PermissionRol = {
     ReceivingSupervisor: ['RCN Primary Entry'],
     ReceivingManager: ['RCN Primary Entry'],
     QCSupervisor:['RCN Incoming QC'],
-    QCManager:['RCN Incoming QC']
+    QCManager:['RCN Incoming QC'],
+    GradingSupervisor:['Grading']
 }
 
 export const PermissionDep = {
@@ -23,17 +24,19 @@ export const PermissionDep = {
     Receiving:['Receiving'],
     Maintainance:['Maintainace'],
     Production:['Production'],
-    QualityControl:['Quality']
+    QualityControl:['Quality'],
+    Grading:['Production']
 }
 
 export const pendingCheckRole = {
     RCNPrimary:['Director','FactoryManager','ReceivingManager'],
-    QCRCN:['Director','FactoryManager','QCManager']
+    QCRCN:['Director','FactoryManager','QCManager'],
+    Grading:['Director','FactoryManager','ProductionManager']
 }
 export const roleDataonDept = {
     Admin:['Director','FactoryManager'],
     Receiving: ['ReceivingSupervisor', 'ReceivingManager'],
     Maintainance: ['MaintainanceSupervisor'],
     QualityControl: ['QCSupervisor', 'QCManager'],
-    Production: ['ProductionManager']
+    Production: ['ProductionManager','GradingSupervisor']
 }
