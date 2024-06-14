@@ -6,14 +6,15 @@ import GetAllEditPendingData from "../controller/GradingController/GetAllEditPen
 import sumOfallGrade from "../controller/GradingController/sumOfallGrade";
 import ApproveEditStatus from "../controller/GradingController/ApproveEditStatus";
 import rejectEditStatus from "../controller/GradingController/rejectEditStatus";
+import GradingMiddleWare from "../middleWare/GraddingMiddleWare";
 
 const router = express()
 
-router.post("/createGrading", CreateGrading)
+router.post("/createGrading", GradingMiddleWare, CreateGrading)
 
 router.post("/searchgrading", SearchGrading)
 
-router.put("/updateGrading/:id", UpdateGradding)
+router.put("/updateGrading/:id", GradingMiddleWare, UpdateGradding)
 
 router.get("/getPendingData", GetAllEditPendingData)
 

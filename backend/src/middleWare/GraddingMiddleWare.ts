@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 
 const GradingMiddleWare = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, Mc_breakdown, otherTime, grading_lotNo } = req.body;
+        const { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, Mc_breakdown, otherTime } = req.body;
         if (!date || !origin || !A || !B || !C || !D || !E || !F || !G || !dust || !Mc_name || !Mc_on || !Mc_off || !noOfEmployees) {
             return res.status(400).json({ message: "All field are required" })
         }
