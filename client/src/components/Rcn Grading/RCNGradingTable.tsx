@@ -47,8 +47,8 @@ import { Button } from "../ui/button";
 import { LuDownload } from 'react-icons/lu'
 import RcnGraddingModifyForm from "./RCNGradingModify";
 import { GradingData } from "@/type/type";
-import Context from '../context/context'
-import { useContext } from "react";
+//import Context from '../context/context'
+//import { useContext } from "react";
 
 const RcnGradingTable = () => {
     const [page, setPage] = useState(1)
