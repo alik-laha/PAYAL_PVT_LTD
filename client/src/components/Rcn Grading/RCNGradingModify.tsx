@@ -212,7 +212,8 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
             <dialog id="successemployeedialog" className="dashboard-modal">
                 <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
+                    {/* <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p> */}
+                    </span>
 
 
             </dialog>
@@ -220,7 +221,9 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
             <dialog id="erroremployeedialog" className="dashboard-modal">
                 <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    {/* <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p> */}
+                    
+                    </span>
 
 
             </dialog>
