@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Navigate, useLocation, Outlet } from "react-router-dom";
+import { Navigate, useLocation, Outlet, useNavigate } from "react-router-dom";
 import Context from "../context/context";
 import axios from "axios";
 
@@ -8,6 +8,7 @@ interface PrivateProps {
 }
 
 const Private: React.FC<PrivateProps> = ({ allowedRoles }) => {
+    const navigate = useNavigate();
     const { setRole, setDept } = useContext(Context);
     const location = useLocation();
     const ROLE = localStorage.getItem('role');
@@ -23,6 +24,14 @@ const Private: React.FC<PrivateProps> = ({ allowedRoles }) => {
             }
             ).catch(err => {
                 console.log(err)
+                axios.get('/api/user/logout').then(() => {
+                    localStorage.removeItem('role')
+                    localStorage.removeItem('dept')
+                    navigate('/login')
+                }).catch((err) => {
+                    console.log(err)
+                })
+
             })
 
     }, [])
