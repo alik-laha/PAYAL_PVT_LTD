@@ -30,7 +30,7 @@ const UpdateGradding = async (req: Request, res: Response) => {
         const Mc_runTime = millisecondsToTime(CalculatemachineOnOffTime(Mc_off, Mc_on) - ((timeToMilliseconds(Mc_breakdown) + timeToMilliseconds(otherTime))));
         const RcnGradingData = await RcnGrading.update({ editStatus }, { where: { id } })
         if (RcnGradingData) {
-            const RcnGradingEditData = await RcnGradingEdit.create({ id, date, A, B, C, D, E, F, G, dust, Mc_on, Mc_off, Mc_breakdown: Mc_breakdown, noOfEmployees, grading_lotNo, Mc_name, origin, otherTime, feeledBy, Mc_runTime, modifiedBy: feeledBy })
+            const RcnGradingEditData = await RcnGradingEdit.create({ id, date, A, B, C, D, E, F, G, dust, Mc_on, Mc_off, Mc_breakdown: Mc_breakdown, noOfEmployees, grading_lotNo, Mc_name, origin, otherTime, Mc_runTime, modifiedBy: feeledBy })
             if (RcnGradingEditData) {
                 return res.status(200).json({ message: "Data Updated Successfully" })
             }
