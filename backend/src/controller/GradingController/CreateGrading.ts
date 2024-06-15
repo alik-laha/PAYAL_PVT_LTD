@@ -25,7 +25,7 @@ const CreateGrading = async (req: Request, res: Response) => {
             }
             return time1InMilliseconds;
         }
-        const Mc_runTime = (CalculatemachineOnOffTime(Mc_off, Mc_on) - ((timeToMilliseconds(Mc_breakdown) + timeToMilliseconds(otherTime))));
+        const Mc_runTime = millisecondsToTime(CalculatemachineOnOffTime(Mc_off, Mc_on) - ((timeToMilliseconds(Mc_breakdown) + timeToMilliseconds(otherTime))));
         const graddingEntry = await Grading.create({
             date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, Mc_breakdown, otherTime, grading_lotNo, feeledBy, Mc_runTime
         });

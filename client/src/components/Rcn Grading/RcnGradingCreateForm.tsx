@@ -52,17 +52,24 @@ const RcnGradingCreateForm = () => {
         console.log(Mc_off)
         axios.post('/api/grading/createGrading', { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, Mc_breakdown, otherTime, grading_lotNo })
             .then(res => {
+                setErrortext(res.data.message)
                 if (res.status === 200) {
                     const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
                     dialog.showModal()
                     setTimeout(() => {
                         dialog.close()
+                        window.location.reload()
                     }, 2000)
                 }
             })
             .catch(err => {
                 console.log(err.response.data.message)
                 setErrortext(err.response.data.message)
+                const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                dialog.showModal()
+                setTimeout(() => {
+                    dialog.close()
+                }, 2000)
             })
     }
     const { AllMachines } = useContext(Context)
