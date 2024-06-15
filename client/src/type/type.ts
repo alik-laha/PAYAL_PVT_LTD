@@ -211,6 +211,7 @@ export interface GradingData {
     Mc_runTime: string;
     editStatus: string;
     feeledBy: string;
+    modifiedBy: string;
 }
 
 export interface pendingCheckRoles {

@@ -138,6 +138,26 @@ const RcnGradingTable = () => {
         sethidetoDate(selected)
         settoDate(nextday)
     }
+    const handleApprove = async (id: number) => {
+        axios.post(`/api/grading/approveEditStatus/${id}`)
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.log(err.data)
+            })
+
+    }
+    const handleReject = async (id: number) => {
+        axios.post(`/api/grading/rejectEditStatus/${id}`)
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.log(err.data)
+            })
+
+    }
     const handleExcellExport = async () => {
         const data = await axios.post('/api/grading/exportGrading', { fromDate: fromdate, toDate: todate, searchData, origin })
         const data1 = await data.data
@@ -379,7 +399,7 @@ const RcnGradingTable = () => {
                                     ) : (
                                         <button className="bg-green-500 p-1 text-white rounded">{item.editStatus}</button>
                                     )}</TableCell>
-                                    <TableCell>{item.feeledBy}</TableCell>
+                                    <TableCell>{item.modifiedBy}</TableCell>
 
                                     <TableCell className="text-center" >
                                         <Popover>
@@ -388,13 +408,10 @@ const RcnGradingTable = () => {
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
                                                 <Dialog>
-                                                    <DialogTrigger>   <button className="bg-transparent pb-2 text-left">Approve Edit</button></DialogTrigger>
-                                                    <DialogContent className='max-w-2xl'>
-                                                        <DialogHeader>
-                                                            <DialogTitle><p className='text-1xl text-center mt-2'>Approve Edit</p></DialogTitle>
-                                                        </DialogHeader>
-                                                        <RcnGraddingModifyForm data={item} />
-                                                    </DialogContent>
+                                                    <DialogTrigger onClick={() => handleApprove(item.id)}>   <button className="bg-transparent pb-2 text-left">Approve Edit</button></DialogTrigger>
+                                                </Dialog>
+                                                <Dialog>
+                                                    <DialogTrigger onClick={() => handleReject(item.id)}>   <button className="bg-transparent pb-2 text-left">Reject Edit</button></DialogTrigger>
                                                 </Dialog>
                                             </PopoverContent>
                                         </Popover>

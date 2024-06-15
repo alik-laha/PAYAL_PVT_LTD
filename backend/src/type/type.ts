@@ -19,21 +19,21 @@ export interface qcapproveprops {
 
 export interface qcRCNModifyProps {
     id: number;
-    sampling:string;
-    moisture:string;
-    nutCount:string;
-    fluteRate:string;
-    goodKernel:string;
-    spIm:string;
-    reject:string;
-    shell:string;
-    outTurn:string;
-    Remarks:string;
-    qcapprovedBy:string;
-    reportStatus:number;
-    createdBy:string;
-    editStatus:string;
-    editapprovedBy:string;
+    sampling: string;
+    moisture: string;
+    nutCount: string;
+    fluteRate: string;
+    goodKernel: string;
+    spIm: string;
+    reject: string;
+    shell: string;
+    outTurn: string;
+    Remarks: string;
+    qcapprovedBy: string;
+    reportStatus: number;
+    createdBy: string;
+    editStatus: string;
+    editapprovedBy: string;
 }
 
 export interface UserData {
@@ -90,4 +90,5 @@ export interface RcnGradingData {
     otherTime: string;
     feeledBy: string;
     Mc_runTime: string;
+    modifiedBy: string;
 }

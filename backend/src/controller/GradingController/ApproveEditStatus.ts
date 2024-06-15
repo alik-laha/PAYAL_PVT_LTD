@@ -11,7 +11,7 @@ const ApproveEditStatus = async (req: Request, res: Response) => {
         const feeledBy = data?.feeledBy;
         const modifiedBy = req.cookies.user;
         if (data) {
-            const { date, A, B, C, D, E, F, G, dust, Mc_on, Mc_off, Mc_breakdown, noOfEmployees, grading_lotNo, Mc_name, origin, otherTime } = data;
+            const { date, A, B, C, D, E, F, G, dust, Mc_on, Mc_off, Mc_breakdown, noOfEmployees, grading_lotNo, Mc_name, modifiedBy, origin, otherTime } = data;
             const Mc_runTime = data.Mc_runTime;
             const RcnGradingData = await RcnGrading.update({ editStatus }, { where: { id } });
             if (RcnGradingData) {
