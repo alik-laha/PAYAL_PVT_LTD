@@ -47,18 +47,29 @@ import { Button } from "../ui/button";
 import { LuDownload } from 'react-icons/lu'
 import RcnGraddingModifyForm from "./RCNGradingModify";
 import { GradingData } from "@/type/type";
+import { Origin } from "../common/exportData"
+import { pageNo, pagelimit } from "../common/exportData"
+import { format, toZonedTime } from 'date-fns-tz'
+import React from "react";
+import { FaSearch } from "react-icons/fa";
 //import Context from '../context/context'
 //import { useContext } from "react";
 
 const RcnGradingTable = () => {
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(pageNo)
+    const [origin, setOrigin] = useState<string>("")
     const [Error, setError] = useState('')
     const [data, setData] = useState<GradingData[]>([])
+    const [fromdate, setfromDate] = React.useState<string>('');
+    const [todate, settoDate] = React.useState<string>('');
+    const [hidetodate, sethidetoDate] = React.useState<string>('');
     //  const { editPendiningGrinderData } = useContext(Context)
-    const limit = 3
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value)
-        axios.post('/api/grading/searchGrading', { searchData: e.target.value }, {
+    const limit = pagelimit
+
+
+    const handleSearch = async () => {
+       // console.log(e.target.value)
+        axios.post('/api/grading/searchGrading', {  }, {
             params: {
                 page: page,
                 limit: limit
@@ -94,14 +105,67 @@ const RcnGradingTable = () => {
             })
     }, [page])
 
+    function handletimezone(date: string | Date) {
+        const apidate = new Date(date);
+        const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
+        const finaldate = format(localdate, 'dd-MM-yyyy', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })
+        return finaldate;
+    }
 
+    const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        const selected = e.target.value;
+        if (!selected) {
+            settoDate('')
+            sethidetoDate('')
+            return
+        }
+        //console.log(selected)
+        const date = new Date(selected)
+        date.setDate(date.getDate() + 1);
+        //console.log(date)
+        const nextday = date.toISOString().split('T')[0];
+        //console.log(nextday)
+        sethidetoDate(selected)
+        settoDate(nextday)
+    }
 
     return (
         <div className="ml-5 mt-5">
-            <div className="flex ">
+            <div className="flex flexbox-search">
 
-                <Input className="w-60 mb-2" placeholder="Search By Emp ID/ Name" onChange={handleSearch} />
+                <Input className="no-padding w-1/5 flexbox-search-width" placeholder="Lot No./ MC. Name" />
 
+                <select className='flexbox-search-width flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                    onChange={(e) => setOrigin(e.target.value)} value={origin}>
+                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
+                    {Origin.map((data, index) => (
+                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                            {data}
+                        </option>
+                    ))}
+                </select>
+
+                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
+                <Input className="w-1/6 flexbox-search-width-calender"
+                    type="date"
+                    value={fromdate}
+                    onChange={(e) => setfromDate(e.target.value)}
+                    placeholder="From Date"
+
+                />
+                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
+                <Input className="w-1/6 flexbox-search-width-calender"
+                    type="date"
+                    value={hidetodate}
+                    onChange={handleTodate}
+                    placeholder="To Date"
+
+                />
+                  <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
             </div>
 
             <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" ><LuDownload size={18} /></Button>  </span>
@@ -110,9 +174,8 @@ const RcnGradingTable = () => {
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Sl No.</TableHead>
-                    <TableHead className="text-center" >Date</TableHead>
+                    <TableHead className="text-center" >Entry Date</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Machine name</TableHead>
                     <TableHead className="text-center" >A</TableHead>
                     <TableHead className="text-center" >B</TableHead>
                     <TableHead className="text-center" >C</TableHead>
@@ -121,14 +184,19 @@ const RcnGradingTable = () => {
                     <TableHead className="text-center" >F</TableHead>
                     <TableHead className="text-center" >G</TableHead>
                     <TableHead className="text-center" >Dust</TableHead>
-                    <TableHead className="text-center" >Machine On</TableHead>
-                    <TableHead className="text-center" >Machine Off</TableHead>
+                   
+                    <TableHead className="text-center" >Machine</TableHead>
+                
+                    <TableHead className="text-center" >MC On</TableHead>
+                    <TableHead className="text-center" >MC Off</TableHead>
                     <TableHead className="text-center" >Breakdown</TableHead>
-                    <TableHead className="text-center" >No of Employees</TableHead>
-                    <TableHead className="text-center" >Grading Lot No</TableHead>
+                    <TableHead className="text-center" >Others</TableHead>
+                    <TableHead className="text-center" >Run Duration</TableHead>
+                    <TableHead className="text-center" >Labour No</TableHead>
+                    <TableHead className="text-center" >Lot No</TableHead>
                     <TableHead className="text-center" >Edit Status</TableHead>
-                    <TableHead className="text-center" >Feeled By</TableHead>
-                    <TableHead className="text-center" >Machine Run Time</TableHead>
+                    <TableHead className="text-center" >Entried By</TableHead>
+                    
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>
@@ -153,30 +221,33 @@ const RcnGradingTable = () => {
                         const Index = page * limit + index - limit + 1
                         return (
                             <TableRow key={index}>
-                                <TableCell>{Index}</TableCell>
-                                <TableCell>{item.date.slice(0, 10)}</TableCell>
-                                <TableCell>{item.origin}</TableCell>
-                                <TableCell>{item.Mc_name}</TableCell>
-                                <TableCell>{item.A} </TableCell>
-                                <TableCell>{item.B} </TableCell>
-                                <TableCell>{item.C} </TableCell>
-                                <TableCell>{item.D} </TableCell>
-                                <TableCell>{item.E}</TableCell>
-                                <TableCell>{item.F} </TableCell>
-                                <TableCell>{item.G} </TableCell>
-                                <TableCell>{item.dust}</TableCell>
-                                <TableCell>{item.Mc_on}</TableCell>
-                                <TableCell>{item.Mc_off}</TableCell>
-                                <TableCell>{item.Mc_breakdown}</TableCell>
-                                <TableCell>{item.noOfEmployees}</TableCell>
-                                <TableCell>{item.grading_lotNo}</TableCell>
-                                <TableCell>{item.editStatus === 'Pending' ? (
+                                <TableCell className="text-center">{Index}</TableCell>
+                                <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
+                                <TableCell className="text-center">{item.origin}</TableCell>
+                                <TableCell className="text-center">{item.A} </TableCell>
+                                <TableCell className="text-center">{item.B} </TableCell>
+                                <TableCell className="text-center">{item.C} </TableCell>
+                                <TableCell className="text-center">{item.D} </TableCell>
+                                <TableCell className="text-center">{item.E}</TableCell>
+                                <TableCell className="text-center">{item.F} </TableCell>
+                                <TableCell className="text-center">{item.G} </TableCell>
+                                <TableCell className="text-center">{item.dust}</TableCell>
+                               
+                                <TableCell className="text-center">{item.Mc_name}</TableCell>
+                                <TableCell className="text-center">{item.Mc_on.slice(0,5)}</TableCell>
+                                <TableCell className="text-center">{item.Mc_off.slice(0,5)}</TableCell>
+                                <TableCell className="text-center">{item.Mc_breakdown.slice(0,5)}</TableCell>
+                                <TableCell className="text-center">{item.otherTime.slice(0,5)}</TableCell>
+                                <TableCell className="text-center">{item.Mc_runTime.slice(0,5)}</TableCell>
+                                <TableCell className="text-center">{item.noOfEmployees}</TableCell>
+                                <TableCell className="text-center">{item.grading_lotNo}</TableCell>
+                                <TableCell className="text-center">{item.editStatus === 'Pending' ? (
                                     <button className="bg-red-500 p-1 text-white rounded">{item.editStatus}</button>
                                 ) : (
                                     <button className="bg-green-500 p-1 text-white rounded">{item.editStatus}</button>
                                 )}</TableCell>
                                 <TableCell>{item.feeledBy}</TableCell>
-                                <TableCell>{item.Mc_runTime}</TableCell>
+                               
                                 <TableCell className="text-center" >
                                     <Popover>
                                         <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>

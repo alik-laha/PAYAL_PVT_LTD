@@ -20,7 +20,7 @@ const SearchGrading = async (req: Request, res: Response) => {
         if (searchData) {
             whereClause.push({
                 [Op.or]: [
-                    { origin: { [Op.like]: `%${searchData}%` } },
+                    
                     { grading_lotNo: { [Op.like]: `%${searchData}%` } },
                     { Mc_name: { [Op.like]: `%${searchData}%` } }
                 ]
