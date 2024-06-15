@@ -27,7 +27,7 @@ const RcnGradingCreateForm = () => {
     const mc_offRef = useRef<HTMLInputElement>(null)
     const noofEmployeeRef = useRef<HTMLInputElement>(null)
     const mc_breakdownRef = useRef<HTMLInputElement>(null)
-    //    const [errortext, setErrortext] = useState('')
+    const [errortext, setErrortext] = useState('')
     const otherRef = useRef<HTMLInputElement>(null)
     const grading_lotNoRef = useRef<HTMLInputElement>(null)
 
@@ -61,8 +61,8 @@ const RcnGradingCreateForm = () => {
                 }
             })
             .catch(err => {
-                console.log(err)
-                // setErrortext(err)
+                console.log(err.response.data.message)
+                setErrortext(err.response.data.message)
             })
     }
     const { AllMachines } = useContext(Context)
@@ -75,30 +75,30 @@ const RcnGradingCreateForm = () => {
 
                 <div className="flex mt-2">
                     <Label className="w-1/4 pt-2 ">A </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="A" ref={aRef} type='number' step="0.01 " required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="A" ref={aRef} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">B </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="B" ref={bRef} type='number' step="0.01" required /> </div>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="B" ref={bRef} type='number' required /> </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">C </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="C" ref={cRef} type='number' step="0.01" required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="C" ref={cRef} type='number' required />
                     <Label className="text-center w-2/4 pt-2">D </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="D" ref={dRef} type='number' step="0.01" required /> </div>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="D" ref={dRef} type='number' required /> </div>
 
 
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">E </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="E" ref={eRef} type='number' step="0.01" required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="E" ref={eRef} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">F </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="F" ref={fRef} type='number' step="0.01" required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="F" ref={fRef} type='number' required />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">G </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="G" ref={gRef} type='number' step="0.01" required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="G" ref={gRef} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">Dust </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="Dust" ref={dustRef} type='number' step="0.01" required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Dust" ref={dustRef} type='number' required />
                 </div>
 
 
@@ -192,7 +192,7 @@ const RcnGradingCreateForm = () => {
             <dialog id="successemployeedialog" className="dashboard-modal">
                 <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    {/* <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p> */}
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
                 </span>
 
 
@@ -201,7 +201,7 @@ const RcnGradingCreateForm = () => {
             <dialog id="erroremployeedialog" className="dashboard-modal">
                 <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    {/* <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p> */}
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
                 </span>
 
 
