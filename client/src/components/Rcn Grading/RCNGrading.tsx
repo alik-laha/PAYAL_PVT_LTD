@@ -93,12 +93,12 @@ const RcnGrading = () => {
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
 
-                <div className="lex justify-center items-center">
+                <div>
                     <Dialog>
-                        <DialogTrigger>   <Button className="bg-red-400 mb-2 mt-5 ml-4">+ Add New Entry</Button></DialogTrigger>
-                        <DialogContent>
+                        <DialogTrigger>   <Button className="bg-red-500 mb-2 mt-5 ml-4">+ Add New Entry</Button></DialogTrigger>
+                        <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Grading Entry</p></DialogTitle>
+                                <DialogTitle><p className='text-2xl pb-1 text-center mt-5'>Grading Entry</p></DialogTitle>
 
                             </DialogHeader>
 
