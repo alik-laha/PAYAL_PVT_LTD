@@ -63,13 +63,14 @@ const RcnGradingTable = () => {
     const [fromdate, setfromDate] = React.useState<string>('');
     const [todate, settoDate] = React.useState<string>('');
     const [hidetodate, sethidetoDate] = React.useState<string>('');
+    const [searchData, setSearchData] = useState<string>('')
     //  const { editPendiningGrinderData } = useContext(Context)
     const limit = pagelimit
 
 
     const handleSearch = async () => {
-       // console.log(e.target.value)
-        axios.post('/api/grading/searchGrading', {  }, {
+        // console.log(e.target.value)
+        axios.post('/api/grading/searchGrading', { fromDate: fromdate, toDate: todate, searchData, origin }, {
             params: {
                 page: page,
                 limit: limit
@@ -134,7 +135,7 @@ const RcnGradingTable = () => {
         <div className="ml-5 mt-5">
             <div className="flex flexbox-search">
 
-                <Input className="no-padding w-1/5 flexbox-search-width" placeholder="Lot No./ MC. Name" />
+                <Input className="no-padding w-1/5 flexbox-search-width" placeholder="Lot No./ MC. Name" value={searchData} onChange={(e) => setSearchData(e.target.value)} />
 
                 <select className='flexbox-search-width flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
@@ -165,7 +166,7 @@ const RcnGradingTable = () => {
                     placeholder="To Date"
 
                 />
-                  <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
             </div>
 
             <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" ><LuDownload size={18} /></Button>  </span>
@@ -184,9 +185,9 @@ const RcnGradingTable = () => {
                     <TableHead className="text-center" >F</TableHead>
                     <TableHead className="text-center" >G</TableHead>
                     <TableHead className="text-center" >Dust</TableHead>
-                   
+
                     <TableHead className="text-center" >Machine</TableHead>
-                
+
                     <TableHead className="text-center" >MC On</TableHead>
                     <TableHead className="text-center" >MC Off</TableHead>
                     <TableHead className="text-center" >Breakdown</TableHead>
@@ -196,7 +197,7 @@ const RcnGradingTable = () => {
                     <TableHead className="text-center" >Lot No</TableHead>
                     <TableHead className="text-center" >Edit Status</TableHead>
                     <TableHead className="text-center" >Entried By</TableHead>
-                    
+
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>
@@ -232,13 +233,13 @@ const RcnGradingTable = () => {
                                 <TableCell className="text-center">{item.F} </TableCell>
                                 <TableCell className="text-center">{item.G} </TableCell>
                                 <TableCell className="text-center">{item.dust}</TableCell>
-                               
+
                                 <TableCell className="text-center">{item.Mc_name}</TableCell>
-                                <TableCell className="text-center">{item.Mc_on.slice(0,5)}</TableCell>
-                                <TableCell className="text-center">{item.Mc_off.slice(0,5)}</TableCell>
-                                <TableCell className="text-center">{item.Mc_breakdown.slice(0,5)}</TableCell>
-                                <TableCell className="text-center">{item.otherTime.slice(0,5)}</TableCell>
-                                <TableCell className="text-center">{item.Mc_runTime.slice(0,5)}</TableCell>
+                                <TableCell className="text-center">{item.Mc_on.slice(0, 5)}</TableCell>
+                                <TableCell className="text-center">{item.Mc_off.slice(0, 5)}</TableCell>
+                                <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5)}</TableCell>
+                                <TableCell className="text-center">{item.otherTime.slice(0, 5)}</TableCell>
+                                <TableCell className="text-center">{item.Mc_runTime.slice(0, 5)}</TableCell>
                                 <TableCell className="text-center">{item.noOfEmployees}</TableCell>
                                 <TableCell className="text-center">{item.grading_lotNo}</TableCell>
                                 <TableCell className="text-center">{item.editStatus === 'Pending' ? (
@@ -247,7 +248,7 @@ const RcnGradingTable = () => {
                                     <button className="bg-green-500 p-1 text-white rounded">{item.editStatus}</button>
                                 )}</TableCell>
                                 <TableCell>{item.feeledBy}</TableCell>
-                               
+
                                 <TableCell className="text-center" >
                                     <Popover>
                                         <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>

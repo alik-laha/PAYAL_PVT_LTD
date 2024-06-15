@@ -6,7 +6,7 @@ const SearchGrading = async (req: Request, res: Response) => {
     try {
         const page = parseInt(req.query.page as string, 10) || 0;
         const size = parseInt(req.query.limit as string, 10) || 0;
-        const { searchData, fromDate, toDate } = req.body;
+        const { searchData, fromDate, toDate, origin } = req.body;
         const offset = (page - 1) * size;
         const limit = size;
         let whereClause = []
@@ -20,11 +20,16 @@ const SearchGrading = async (req: Request, res: Response) => {
         if (searchData) {
             whereClause.push({
                 [Op.or]: [
-                    
+
                     { grading_lotNo: { [Op.like]: `%${searchData}%` } },
                     { Mc_name: { [Op.like]: `%${searchData}%` } }
                 ]
             });
+        }
+        if (origin) {
+            whereClause.push({
+                origin
+            })
         }
 
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
