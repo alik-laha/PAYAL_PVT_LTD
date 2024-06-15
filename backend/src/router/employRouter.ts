@@ -7,23 +7,24 @@ import getAllEmployee from "../controller/employeeController/getEmployeeforUser"
 import DeleteEmployee from "../controller/employeeController/deleteEmployee";
 import releseEmployee from "../controller/employeeController/releseEmployee";
 import activeEmployeeCount from "../controller/employeeController/activeEmployeeCount";
+import jwtVerify from "../middleWare/JwtAuthantication";
 
 const router = express.Router();
 
-router.post("/createemployee", employeeMiddleWare, createEmployee)
+router.post("/createemployee", employeeMiddleWare, jwtVerify, createEmployee)
 
-router.put("/updateemployee/:id", employeeMiddleWare, updateEmployee)
+router.put("/updateemployee/:id", employeeMiddleWare, jwtVerify, updateEmployee)
 
-router.post("/searchemployee", searchEmployee)
+router.post("/searchemployee", jwtVerify, searchEmployee)
 
-router.post("/get/employeefor/user", getAllEmployee)
+router.post("/get/employeefor/user", jwtVerify, getAllEmployee)
 
-router.delete("/deleteemployee/:id", DeleteEmployee)
+router.delete("/deleteemployee/:id", jwtVerify, DeleteEmployee)
 
-router.put("/releseemployee/:id", releseEmployee)
+router.put("/releseemployee/:id", jwtVerify, releseEmployee)
 
 //active Employee Count
-router.get("/activeEmployeeCount", activeEmployeeCount)
+router.get("/activeEmployeeCount", jwtVerify, activeEmployeeCount)
 
 
 

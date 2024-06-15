@@ -8,20 +8,21 @@ import UpdateUser from '../controller/userController/updateUser';
 import DeleteUser from '../controller/userController/DeleteUser';
 import logoutUser from '../controller/userController/logoutUser';
 import totaluserCount from '../controller/userController/totaluserCount';
+import jwtVerify from '../middleWare/JwtAuthantication';
 const router = express.Router();
 
-router.post("/createuser", UserMiddleWare, CreateUser)
+router.post("/createuser", jwtVerify, UserMiddleWare, CreateUser)
 
 router.post("/login", LoginUser)
 
-router.post("/searchuser", SearchUser)
-router.get("/totaluserCount", totaluserCount)
+router.post("/searchuser", jwtVerify, SearchUser)
+router.get("/totaluserCount", jwtVerify, totaluserCount)
 
 router.get("/verify", VerifyUser)
 
-router.put("/updateuser", UpdateUser)
+router.put("/updateuser", jwtVerify, UpdateUser)
 
-router.delete("/deleteuser/:id", DeleteUser)
+router.delete("/deleteuser/:id", jwtVerify, DeleteUser)
 
 router.get("/logout", logoutUser)
 

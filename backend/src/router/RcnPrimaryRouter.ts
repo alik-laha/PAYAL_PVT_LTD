@@ -8,33 +8,34 @@ import SumOfAllOriginRcnPrimary from '../controller/RcnPrimaryEntry/SumofAllOrig
 import EditReject from '../controller/RcnPrimaryEntry/EditReject';
 import EditApprove from '../controller/RcnPrimaryEntry/EditApprove';
 import getAllEditPending from '../controller/RcnPrimaryEntry/getAllEditPending';
+import jwtVerify from '../middleWare/JwtAuthantication';
 
 
 const router = express.Router();
 
 //Create Rcn Entry via user Cookies
-router.post('/create', RcnPrimaryMiddleWare, CreateRcnPrimaryEntry);
+router.post('/create', RcnPrimaryMiddleWare, jwtVerify, CreateRcnPrimaryEntry);
 
 //Update Rcn Entry by Id
-router.put('/update/:id', RcnPrimaryMiddleWare, UpdateRcnPrimaryEntry);
+router.put('/update/:id', RcnPrimaryMiddleWare, jwtVerify, UpdateRcnPrimaryEntry);
 
 //Delete Rcn Entry by Id
-router.delete('/delete/:id', DeleteRcnEntry);
+router.delete('/delete/:id', jwtVerify, DeleteRcnEntry);
 
 //search Rcn Entry by ConBlNo, fromDate, toDate, origin
-router.put('/rcnprimarysearch', SearchRcnPrimary);
+router.put('/rcnprimarysearch', jwtVerify, SearchRcnPrimary);
 
 //Get Sum of all Origin Rcn Primary
-router.get('/sum', SumOfAllOriginRcnPrimary);
+router.get('/sum', jwtVerify, SumOfAllOriginRcnPrimary);
 
 
 //Edit Reject Rcn Entry by Id
-router.delete('/rejectededitrcn/:id', EditReject);
+router.delete('/rejectededitrcn/:id', jwtVerify, EditReject);
 
 //Edit Approve Rcn Entry by Id
-router.put("/approveeditrcn/:id", EditApprove);
+router.put("/approveeditrcn/:id", jwtVerify, EditApprove);
 
-router.get('/geteditpending', getAllEditPending);
+router.get('/geteditpending', jwtVerify, getAllEditPending);
 
 
 

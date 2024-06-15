@@ -1,13 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-export function verifyToken(req: Request, res: Response, next: NextFunction) {
+function verifyToken(req: Request, res: Response, next: NextFunction) {
     try {
         const token = req.cookies.token
         if (!token) {
             return res.status(400).json({ msg: "No Token found Please logout and re-Login" })
         } else {
-            const decoded = Object(jwt.verify(token, process.env.JWT_SECRET!));
+            const decoded = Object(jwt.verify(token, process.env.JWT_SECRET_KEY!));
             if (decoded) {
                 next()
             } else {
@@ -21,3 +21,5 @@ export function verifyToken(req: Request, res: Response, next: NextFunction) {
         return res.status(500).json({ msg: "Server Error", err })
     }
 }
+
+export default verifyToken

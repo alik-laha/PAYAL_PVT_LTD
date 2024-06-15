@@ -6,20 +6,21 @@ import assetMiddleWare from '../middleWare/assetMiddleware'
 import UpdateAsset from '../controller/assetController/updateAsset';
 import deleteMachine from '../controller/assetController/deleteMachine';
 import getMechineByType from '../controller/assetController/getAllMachineBytype';
+import jwtVerify from '../middleWare/JwtAuthantication';
 
 const router = express.Router();
 
-router.post("/createmachine", assetMiddleWare, createAsset)
+router.post("/createmachine", assetMiddleWare, jwtVerify, createAsset)
 
-router.get("/activemachinecount", getTotalActiveAsset)
+router.get("/activemachinecount", jwtVerify, getTotalActiveAsset)
 
-router.put("/assetSearch", SearchAsset)
+router.put("/assetSearch", jwtVerify, SearchAsset)
 
-router.put('/assetupdate', UpdateAsset)
+router.put('/assetupdate', jwtVerify, UpdateAsset)
 
-router.delete('/deleteAsset/:id', deleteMachine)
+router.delete('/deleteAsset/:id', jwtVerify, deleteMachine)
 
-router.get('/getMachineByType/:type', getMechineByType)
+router.get('/getMachineByType/:type', jwtVerify, getMechineByType)
 
 
 export default router;
