@@ -4,6 +4,7 @@ import Grading from "../../model/RcnGradingModel";
 const CreateGrading = async (req: Request, res: Response) => {
     try {
         const { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, Mc_breakdown, otherTime, grading_lotNo } = req.body;
+
         const feeledBy = req.cookies.user;
         const timeToMilliseconds = (time: string) => {
             const [hours, minutes] = time.split(':').map(Number);
@@ -17,7 +18,14 @@ const CreateGrading = async (req: Request, res: Response) => {
             const minutes = totalMinutes % 60;
             return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
         };
-        const Mc_runTime = millisecondsToTime((timeToMilliseconds(Mc_off) - timeToMilliseconds(Mc_on)) - ((timeToMilliseconds(Mc_breakdown) + timeToMilliseconds(otherTime))));
+        const CalculatemachineOnOffTime = (time1: string, time2: string) => {
+            const time1InMilliseconds = timeToMilliseconds(time1) - timeToMilliseconds(time2);
+            if (time1InMilliseconds < 0) {
+                return timeToMilliseconds(time1) - timeToMilliseconds(time2) + 24 * 60 * 60 * 1000;
+            }
+            return time1InMilliseconds;
+        }
+        const Mc_runTime = (CalculatemachineOnOffTime(Mc_off, Mc_on) - ((timeToMilliseconds(Mc_breakdown) + timeToMilliseconds(otherTime))));
         const graddingEntry = await Grading.create({
             date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, Mc_breakdown, otherTime, grading_lotNo, feeledBy, Mc_runTime
         });

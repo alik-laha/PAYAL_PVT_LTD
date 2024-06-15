@@ -10,7 +10,6 @@ const GradingMiddleWare = async (req: Request, res: Response, next: NextFunction
             const [hours, minutes] = time.split(':').map(Number);
             return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
         };
-
         // Helper function to convert milliseconds to "HH:MM"
         const millisecondsToTime = (milliseconds: number) => {
             const totalMinutes = Math.floor(milliseconds / 60000);
@@ -18,7 +17,16 @@ const GradingMiddleWare = async (req: Request, res: Response, next: NextFunction
             const minutes = totalMinutes % 60;
             return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
         };
-        const Mc_runTime = timeToMilliseconds(Mc_off) - timeToMilliseconds(Mc_on) - (timeToMilliseconds(Mc_breakdown) + timeToMilliseconds(otherTime));
+
+        const CalculatemachineOnOffTime = (time1: string, time2: string) => {
+            const time1InMilliseconds = timeToMilliseconds(time1) - timeToMilliseconds(time2);
+            if (time1InMilliseconds < 0) {
+                return timeToMilliseconds(time1) - timeToMilliseconds(time2) + 24 * 60 * 60 * 1000;
+            }
+            return time1InMilliseconds;
+        }
+        console.log(CalculatemachineOnOffTime(Mc_off, Mc_on))
+        const Mc_runTime = CalculatemachineOnOffTime(Mc_off, Mc_on) - (timeToMilliseconds(Mc_breakdown) + timeToMilliseconds(otherTime));
         if (Mc_runTime < 0) {
             return res.status(400).json({ message: "Machine Run Time can not be negative" });
         }

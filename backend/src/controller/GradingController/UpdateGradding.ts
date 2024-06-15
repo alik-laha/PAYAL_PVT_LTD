@@ -20,7 +20,14 @@ const UpdateGradding = async (req: Request, res: Response) => {
             const minutes = totalMinutes % 60;
             return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
         };
-        const Mc_runTime = millisecondsToTime((timeToMilliseconds(Mc_off) - timeToMilliseconds(Mc_on)) - ((timeToMilliseconds(Mc_breakdown) + timeToMilliseconds(otherTime))));
+        const CalculatemachineOnOffTime = (time1: string, time2: string) => {
+            const time1InMilliseconds = timeToMilliseconds(time1) - timeToMilliseconds(time2);
+            if (time1InMilliseconds < 0) {
+                return timeToMilliseconds(time1) - timeToMilliseconds(time2) + 24 * 60 * 60 * 1000;
+            }
+            return time1InMilliseconds;
+        }
+        const Mc_runTime = millisecondsToTime(CalculatemachineOnOffTime(Mc_off, Mc_on) - ((timeToMilliseconds(Mc_breakdown) + timeToMilliseconds(otherTime))));
         const RcnGradingData = await RcnGrading.update({ editStatus }, { where: { id } })
         if (RcnGradingData) {
             const RcnGradingEditData = await RcnGradingEdit.create({ id, date, A, B, C, D, E, F, G, dust, Mc_on, Mc_off, Mc_breakdown: Mc_breakdown, noOfEmployees, grading_lotNo, Mc_name, origin, otherTime, feeledBy, Mc_runTime })

@@ -134,12 +134,12 @@ const RcnGradingCreateForm = () => {
                 </div>
                 <div className="flex mt-2">
                     <Label className="w-2/4 pt-2">Break Down Duration </Label>
-                    <Input className="w-2/4 pl-12 bg-cyan-100" placeholder="MC BreakDown" ref={mc_breakdownRef} type='time' />
+                    <Input className="w-2/4 pl-12 bg-cyan-100" placeholder="MC BreakDown" ref={mc_breakdownRef} type='time' value="00:00" />
                 </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-2">Other Duration</Label>
-                    <Input className="w-2/4 pl-12 bg-cyan-100" placeholder="Other Time" ref={otherRef} type='time' />
+                    <Input className="w-2/4 pl-12 bg-cyan-100" placeholder="Other Time" ref={otherRef} type='time' value="00:00" />
                 </div>
 
 
