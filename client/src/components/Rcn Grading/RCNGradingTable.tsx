@@ -46,7 +46,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { LuDownload } from 'react-icons/lu'
 import RcnGraddingModifyForm from "./RCNGradingModify";
-import { GradingData } from "@/type/type";
+import { GradingData, GradingExcelData } from "@/type/type";
 import { Origin } from "../common/exportData"
 import { pageNo, pagelimit } from "../common/exportData"
 import { format, toZonedTime } from 'date-fns-tz'
@@ -54,6 +54,8 @@ import React from "react";
 import { FaSearch } from "react-icons/fa";
 import Context from '../context/context'
 import { useContext } from "react";
+import XLSX from 'xlsx'
+import { saveAs } from 'file-saver'
 
 const RcnGradingTable = () => {
     const [page, setPage] = useState(pageNo)
@@ -64,6 +66,7 @@ const RcnGradingTable = () => {
     const [todate, settoDate] = React.useState<string>('');
     const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [searchData, setSearchData] = useState<string>('')
+    const [transformedData, setTransformedData] = useState<GradingExcelData[]>([])
     const { editPendiningGrinderData, setEditPendiningGrinderData } = useContext(Context)
     const limit = pagelimit
 
@@ -135,7 +138,79 @@ const RcnGradingTable = () => {
         sethidetoDate(selected)
         settoDate(nextday)
     }
+    const handleExcellExport = async () => {
+        const data = await axios.post('/api/grading/exportGrading', { fromDate: fromdate, toDate: todate, searchData, origin })
+        const data1 = await data.data
 
+        let ws
+        let transformed: GradingExcelData[] = []
+        if (editPendiningGrinderData.length === 0) {
+            transformed = data1.map((item: GradingData, index: number) => {
+                return {
+                    'Sl_No': index + 1,
+                    'Entry_Date': handletimezone(item.date),
+                    'Origin': item.origin,
+                    'A': item.A,
+                    'B': item.B,
+                    'C': item.C,
+                    'D': item.D,
+                    'E': item.E,
+                    'F': item.F,
+                    'G': item.G,
+                    'Dust': item.dust,
+                    'Machine': item.Mc_name,
+                    'MC_On': item.Mc_on.slice(0, 5),
+                    'MC_Off': item.Mc_off.slice(0, 5),
+                    'Breakdown': item.Mc_breakdown.slice(0, 5),
+                    'Other': item.otherTime.slice(0, 5),
+                    'Run_Duration': item.Mc_runTime.slice(0, 5),
+                    'Labour_No': item.noOfEmployees,
+                    'Lot_No': item.grading_lotNo,
+                    'Edit_Status': item.editStatus,
+                    'Feeled_By': item.feeledBy
+                }
+            })
+            setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformedData);
+        }
+        else {
+            transformed = editPendiningGrinderData.map((item: GradingData, index: number) => {
+                return {
+                    'Sl_No': index + 1,
+                    'Entry_Date': handletimezone(item.date),
+                    'Origin': item.origin,
+                    'A': item.A,
+                    'B': item.B,
+                    'C': item.C,
+                    'D': item.D,
+                    'E': item.E,
+                    'F': item.F,
+                    'G': item.G,
+                    'Dust': item.dust,
+                    'Machine': item.Mc_name,
+                    'MC_On': item.Mc_on.slice(0, 5),
+                    'MC_Off': item.Mc_off.slice(0, 5),
+                    'Breakdown': item.Mc_breakdown.slice(0, 5),
+                    'Other': item.otherTime.slice(0, 5),
+                    'Run_Duration': item.Mc_runTime.slice(0, 5),
+                    'Labour_No': item.noOfEmployees,
+                    'Lot_No': item.grading_lotNo,
+                    'Edit_Status': item.editStatus,
+                    'Feeled_By': item.feeledBy
+                }
+            })
+            setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformedData);
+        }
+        const currDate = new Date().toLocaleDateString();
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'QC_RCN_Entry_' + currDate + '.xlsx');
+
+
+    }
     return (
         <div className="ml-5 mt-5">
             <div className="flex flexbox-search">
@@ -174,7 +249,7 @@ const RcnGradingTable = () => {
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
             </div>
 
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" ><LuDownload size={18} /></Button>  </span>
+            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={handleExcellExport}><LuDownload size={18} /></Button>  </span>
 
             <Table className="mt-1">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">

@@ -4,7 +4,7 @@ export interface DatePickerProps {
     buttonName: string;
     value: Date | undefined;
     setValue: (value: Date | undefined) => void;
-   
+
 }
 
 export interface RcnPrimaryEntryData {
@@ -30,57 +30,57 @@ export interface EditPendingData extends RcnPrimaryEntryData {
 }
 
 export interface QcRcnEntryExcelData {
-    id:number;
+    id: number;
     blNo: string;
     conNo: string;
     date: string;
     origin: string;
     truckNo: string;
-    BLWeight:string;
-    NoOfBags:string;
-    QCStatus:string;
-    sampling:string;
-    moisture:string;
-    nutCount:string;
-    fluteRate:string;
-    goodKernel:string;
-    spIm:string;
-    reject:string;
-    shell:string;
-    outTurn:string;
-    Remarks:string;
-    qcapprovedBy:string;
-    reportStatus:string;
-    EntriedBy:string;
+    BLWeight: string;
+    NoOfBags: string;
+    QCStatus: string;
+    sampling: string;
+    moisture: string;
+    nutCount: string;
+    fluteRate: string;
+    goodKernel: string;
+    spIm: string;
+    reject: string;
+    shell: string;
+    outTurn: string;
+    Remarks: string;
+    qcapprovedBy: string;
+    reportStatus: string;
+    EntriedBy: string;
 
-    editStatus:string;
-    editapprovedorRejectedBy:string;
+    editStatus: string;
+    editapprovedorRejectedBy: string;
 
 
 }
 export interface QcRcnEntryData {
-    
-    id:number;
+
+    id: number;
     blNo: string;
     conNo: string;
     date: string;
     origin: string;
-    sampling:string;
-    moisture:string;
-    nutCount:string;
-    fluteRate:string;
-    goodKernel:string;
-    spIm:string;
-    reject:string;
-    shell:string;
-    outTurn:string;
-    Remarks:string;
-    qcapprovedBy:string;
-    reportStatus:number;
-    createdBy:string;
-    rcnEntry:RcnPrimaryEntryData;
-    editStatus:string;
-    editapprovedBy:string;
+    sampling: string;
+    moisture: string;
+    nutCount: string;
+    fluteRate: string;
+    goodKernel: string;
+    spIm: string;
+    reject: string;
+    shell: string;
+    outTurn: string;
+    Remarks: string;
+    qcapprovedBy: string;
+    reportStatus: number;
+    createdBy: string;
+    rcnEntry: RcnPrimaryEntryData;
+    editStatus: string;
+    editapprovedBy: string;
 }
 
 
@@ -128,8 +128,8 @@ export interface EmployeeData {
     emergencyMobNo: string;
     pfNo: string;
     pincode: string;
-    createdBy:string;
-    modifyedBy:string;
+    createdBy: string;
+    modifyedBy: string;
 }
 
 
@@ -170,12 +170,12 @@ export interface AssetData {
 export interface PermissionRole {
 
     Director: string[];
-    ReceivingManager:string[];
-    FactoryManager:string[];
-    ReceivingSupervisor:string[];
-    QCSupervisor:string[];
-    QCManager:string[];
-    GradingSupervisor:string[];
+    ReceivingManager: string[];
+    FactoryManager: string[];
+    ReceivingSupervisor: string[];
+    QCSupervisor: string[];
+    QCManager: string[];
+    GradingSupervisor: string[];
 
 
 }
@@ -186,7 +186,7 @@ export interface PermissionDept {
     Maintainance: string[];
     Production: string[];
     QualityControl: string[];
-    Grading:string[];
+    Grading: string[];
 
 }
 export interface GradingData {
@@ -213,9 +213,32 @@ export interface GradingData {
     feeledBy: string;
 }
 
-export interface pendingCheckRoles  {
-    RCNPrimary:string[];
-    QCRCN:string[];
-    Grading:string[];
+export interface pendingCheckRoles {
+    RCNPrimary: string[];
+    QCRCN: string[];
+    Grading: string[];
 }
 
+export interface GradingExcelData {
+    Sl_No: number;
+    Entry_Date: string;
+    Origin: string;
+    A: number;
+    B: number;
+    C: number;
+    D: number;
+    E: number;
+    F: number;
+    G: number;
+    Dust: number;
+    Machine: string;
+    MC_On: string;
+    MC_Off: string;
+    Labour_No: number;
+    Breakdown: string;
+    Other: string;
+    Lot_No: string;
+    Run_Duration: string;
+    Edit_Status: string;
+    Feeled_By: string;
+}
