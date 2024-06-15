@@ -42,7 +42,7 @@ const RcnGrading = () => {
     const handleEditFetch = async () => {
         axios.get('/api/grading/getPendingData')
             .then(res => {
-                setEditPendiningGrinderData(res.data)
+                setEditPendiningGrinderData(res.data.data)
             })
             .catch(err => {
                 console.log(err)

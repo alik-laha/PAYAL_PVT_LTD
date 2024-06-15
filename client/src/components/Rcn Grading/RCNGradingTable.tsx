@@ -52,8 +52,8 @@ import { pageNo, pagelimit } from "../common/exportData"
 import { format, toZonedTime } from 'date-fns-tz'
 import React from "react";
 import { FaSearch } from "react-icons/fa";
-//import Context from '../context/context'
-//import { useContext } from "react";
+import Context from '../context/context'
+import { useContext } from "react";
 
 const RcnGradingTable = () => {
     const [page, setPage] = useState(pageNo)
@@ -64,12 +64,13 @@ const RcnGradingTable = () => {
     const [todate, settoDate] = React.useState<string>('');
     const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [searchData, setSearchData] = useState<string>('')
-    //  const { editPendiningGrinderData } = useContext(Context)
+    const { editPendiningGrinderData, setEditPendiningGrinderData } = useContext(Context)
     const limit = pagelimit
 
 
     const handleSearch = async () => {
         // console.log(e.target.value)
+        setEditPendiningGrinderData([])
         axios.post('/api/grading/searchGrading', { fromDate: fromdate, toDate: todate, searchData, origin }, {
             params: {
                 page: page,
@@ -89,6 +90,10 @@ const RcnGradingTable = () => {
             })
     }
     useEffect(() => {
+        console.log(editPendiningGrinderData)
+    }, [editPendiningGrinderData])
+    useEffect(() => {
+        setEditPendiningGrinderData([])
         axios.post('/api/grading/searchGrading', {}, {
             params: {
                 page: page,
@@ -218,7 +223,7 @@ const RcnGradingTable = () => {
 
                         </TableRow>
                         : null}
-                    {data.map((item: GradingData, index: number) => {
+                    {!editPendiningGrinderData ? (data.map((item: GradingData, index: number) => {
                         const Index = page * limit + index - limit + 1
                         return (
                             <TableRow key={index}>
@@ -270,6 +275,59 @@ const RcnGradingTable = () => {
                             </TableRow>
                         )
                     })
+                    ) : (editPendiningGrinderData.map((item: GradingData, index: number) => {
+                        const Index = page * limit + index - limit + 1
+                        return (
+                            <TableRow key={index}>
+                                <TableCell className="text-center">{Index}</TableCell>
+                                <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
+                                <TableCell className="text-center">{item.origin}</TableCell>
+                                <TableCell className="text-center">{item.A} </TableCell>
+                                <TableCell className="text-center">{item.B} </TableCell>
+                                <TableCell className="text-center">{item.C} </TableCell>
+                                <TableCell className="text-center">{item.D} </TableCell>
+                                <TableCell className="text-center">{item.E}</TableCell>
+                                <TableCell className="text-center">{item.F} </TableCell>
+                                <TableCell className="text-center">{item.G} </TableCell>
+                                <TableCell className="text-center">{item.dust}</TableCell>
+
+                                <TableCell className="text-center">{item.Mc_name}</TableCell>
+                                <TableCell className="text-center">{item.Mc_on.slice(0, 5)}</TableCell>
+                                <TableCell className="text-center">{item.Mc_off.slice(0, 5)}</TableCell>
+                                <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5)}</TableCell>
+                                <TableCell className="text-center">{item.otherTime.slice(0, 5)}</TableCell>
+                                <TableCell className="text-center">{item.Mc_runTime.slice(0, 5)}</TableCell>
+                                <TableCell className="text-center">{item.noOfEmployees}</TableCell>
+                                <TableCell className="text-center">{item.grading_lotNo}</TableCell>
+                                <TableCell className="text-center">{item.editStatus === 'Pending' ? (
+                                    <button className="bg-red-500 p-1 text-white rounded">{item.editStatus}</button>
+                                ) : (
+                                    <button className="bg-green-500 p-1 text-white rounded">{item.editStatus}</button>
+                                )}</TableCell>
+                                <TableCell>{item.feeledBy}</TableCell>
+
+                                <TableCell className="text-center" >
+                                    <Popover>
+                                        <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+
+                                            <Dialog>
+                                                <DialogTrigger>   <button className="bg-transparent pb-2 text-left">Approve Edit</button></DialogTrigger>
+                                                <DialogContent className='max-w-2xl'>
+                                                    <DialogHeader>
+                                                        <DialogTitle><p className='text-1xl text-center mt-2'>Approve Edit</p></DialogTitle>
+                                                    </DialogHeader>
+                                                    <RcnGraddingModifyForm data={item} />
+                                                </DialogContent>
+                                            </Dialog>
+                                        </PopoverContent>
+                                    </Popover>
+                                </TableCell>
+                            </TableRow>
+                        )
+                    }
+                    ))
                     }
 
 
