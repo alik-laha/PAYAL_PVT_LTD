@@ -31,7 +31,14 @@ interface RowData{
     breakDown:string;
     other:string;
 }
-
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
 
 const RCNBoilingEntryForm = () => {
 
@@ -107,7 +114,7 @@ const RCNBoilingEntryForm = () => {
     return (
         <>
             <div>
-                <form className='flex flex-col gap-3 ' onSubmit={handleSubmit}>
+                <form className='flex flex-col gap-1 pt-4' onSubmit={handleSubmit}>
                    
                     <div className="flex"><Label className="w-2/4  pt-1">Date of Receving</Label>
                     <Input className="w-2/4 " placeholder="Date" ref={DateRef} type="date" required /> </div>
@@ -116,7 +123,7 @@ const RCNBoilingEntryForm = () => {
                     <div className="flex"><Label className="w-2/4  pt-1">No. Of Labours</Label>
                     <Input className="w-2/4 " placeholder="No. Of Labour" ref={noofEmployeeRef} required /> </div>
                     <div className="flex">
-                    <Label className="w-2/4">Machine Name</Label>
+                    <Label className="w-2/4 pt-1">Machine Name</Label>
                     <Select value={mc_name} onValueChange={(value) => setMc_name(value)} required={true}>
                         <SelectTrigger className="w-2/4">
                             <SelectValue placeholder="Machine Name" />
@@ -136,63 +143,108 @@ const RCNBoilingEntryForm = () => {
                         </SelectContent>
                     </Select>
                     </div>
-                    <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center"
-                    onClick={addRow}>+Add Row</Button>
-
+                    <button className="bg-blue-400 text-grey-700 w-8 h-8 text-primary-foreground rounded-md text-center items-center justify-center"
+                    onClick={addRow}>+</button>
+                    <Table className="mt-1">
+                             <TableHeader className="bg-neutral-100 text-stone-950" style={{height:'10px'}}>
+                             <TableHead className="text-center" >Sl. No.</TableHead>
+                             <TableHead className="text-center" >Origin</TableHead>
+                             <TableHead className="text-center" >Size Name</TableHead>
+                             <TableHead className="text-center" >Value</TableHead>
+                             <TableHead className="text-center" >Scooping Line</TableHead>
+                             <TableHead className="text-center" >MC On</TableHead>
+                             <TableHead className="text-center" >MC Off</TableHead>
+                             <TableHead className="text-center" >Breakdown</TableHead>
+                             <TableHead className="text-center" >Other</TableHead>
+                             </TableHeader>
                     {rows.map((row,index)=> {
                         return(
                             <>
-                            <div className="flex">
-                            <Label className="w-2/4 pt-1">Origin</Label>
-                            <Select value={row.origin} onValueChange={(val) => handleRowChange(index,'origin',val)} required={true}>
-                                <SelectTrigger className="w-2/4">
-                                    <SelectValue placeholder="Origin" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectGroup>
-                                        {
-                                            Origin.map((item) => {
-                                                return (
-                                                    <SelectItem key={item} value={item}>
-                                                        {item}
-                                                    </SelectItem>
-                                                )
-                                            })
-                                        }
-                                    </SelectGroup>
-                                </SelectContent>
-                            </Select>
-                        
-                        
-                        
-                        
-                        
-                        <Label className="w-2/4 pt-1">Size</Label>
-                            <Select value={row.sizeName} onValueChange={(val) => handleRowChange(index,'sizeName',val)} required={true}>
-                                <SelectTrigger className="w-2/4">
-                                    <SelectValue placeholder="Size Name" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectGroup>
-                                        {
-                                            Size.map((item) => {
-                                                return (
-                                                    <SelectItem key={item} value={item}>
-                                                        {item}
-                                                    </SelectItem>
-                                                )
-                                            })
-                                        }
-                                    </SelectGroup>
-                                </SelectContent>
-                            </Select>
-                         </div>
+                             
+                                 <TableBody>
+                                        <TableRow key={index} >
+                                        <TableCell>{index+1}</TableCell>
+                                        <TableCell className="text-center">
+                                            <Select value={row.origin} onValueChange={(val) => handleRowChange(index, 'origin', val)} required={true}>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Origin" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectGroup>
+                                                        {
+                                                            Origin.map((item) => {
+                                                                return (
+                                                                    <SelectItem key={item} value={item}>
+                                                                        {item}
+                                                                    </SelectItem>
+                                                                )
+                                                            })
+                                                        }
+                                                    </SelectGroup>
+                                                </SelectContent>
+                                            </Select>
+                                        </TableCell>
+                                        <TableCell className="text-center" >
+                                            <Select value={row.sizeName} onValueChange={(val) => handleRowChange(index, 'sizeName', val)} required={true}>
+                                                <SelectTrigger >
+                                                    <SelectValue placeholder="Name" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectGroup>
+                                                        {
+                                                            Size.map((item) => {
+                                                                return (
+                                                                    <SelectItem key={item} value={item}>
+                                                                        {item}
+                                                                    </SelectItem>
+                                                                )
+                                                            })
+                                                        }
+                                                    </SelectGroup>
+                                                </SelectContent>
+                                            </Select>
+
+                                        </TableCell>
+                                        <TableCell className="text-center" >
+                                            <Select value={row.sizeName} onValueChange={(val) => handleRowChange(index, 'sizeName', val)} required={true}>
+                                                <SelectTrigger >
+                                                    <SelectValue placeholder="Name" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectGroup>
+                                                        {
+                                                            Size.map((item) => {
+                                                                return (
+                                                                    <SelectItem key={item} value={item}>
+                                                                        {item}
+                                                                    </SelectItem>
+                                                                )
+                                                            })
+                                                        }
+                                                    </SelectGroup>
+                                                </SelectContent>
+                                            </Select>
+
+                                        </TableCell>
+                                        <TableCell >
+                                        <Input  value={row.size} placeholder="Bag" onChange={(e) => handleRowChange(index,'size',e.target.value)} required />
+                                        </TableCell>
+                                        <TableCell> <Input  value={row.cookingOn} placeholder="MC ON Time" onChange={(e) => handleRowChange(index,'cookingOn',e.target.value)} type='time' required /></TableCell>
+                                        <TableCell><Input  value={row.cookingOff} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'cookingOff',e.target.value)} type='time' required /></TableCell>
+
+                                          <TableCell><Input  value={row.breakDown} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'breakDown',e.target.value)} type='time' required /></TableCell>
+                                        </TableRow>
+
+                </TableBody>
+                            
                     </>
                         )
                    
                     })}
+
+                    </Table>
                    
-                    <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
+                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
                   
                    
                 </form>
