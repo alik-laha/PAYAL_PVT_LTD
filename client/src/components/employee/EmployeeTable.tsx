@@ -47,7 +47,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {  EmployeeData } from "@/type/type";
+import { EmployeeData } from "@/type/type";
 import { LuDownload } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { pageNo, pagelimit } from "../common/exportData"
@@ -55,7 +55,7 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
-import { IoLockClosedOutline  } from "react-icons/io5";
+import { IoLockClosedOutline } from "react-icons/io5";
 import React from "react";
 
 const EmployeeTable = () => {
@@ -64,9 +64,10 @@ const EmployeeTable = () => {
     const [releaseDate, setReleaseDate] = useState<string>("")
     const [transformedData, setTransformedData] = useState<EmployeeData[]>([]);
     const currDate = new Date().toLocaleDateString();
+    const [errview, setErrView] = useState<string>("hidden")
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
-    
+
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchData = e.target.value
@@ -87,7 +88,7 @@ const EmployeeTable = () => {
             if (err.response.data.msg === 'No Employee found') {
                 setData([])
                 setError(err.response.data.msg)
-                if(page>1){
+                if (page > 1) {
                     setPage(prev => prev - 1)
                 }
             }
@@ -118,8 +119,8 @@ const EmployeeTable = () => {
             emergencyMobNo: item.emergencyMobNo,
             pfNo: item.pfNo,
             pincode: item.pincode,
-            createdBy:item.createdBy,
-            modifyedBy:item.modifyedBy
+            createdBy: item.createdBy,
+            modifyedBy: item.modifyedBy
 
 
         }));
@@ -148,17 +149,17 @@ const EmployeeTable = () => {
             }
             // console.log(res.data.Employees)
             setData(res.data.Employees)
-           
+
             setError("")
         }).catch((err) => {
             if (err.response.data.msg === 'No Employee found') {
                 setData([])
                 setError(err.response.data.msg)
 
-                if(page>1){
+                if (page > 1) {
                     setPage(prev => prev - 1)
                 }
-                
+
             }
         })
     }, [page])
@@ -172,15 +173,19 @@ const EmployeeTable = () => {
     const handleDelete = (data: EmployeeData) => {
         axios.delete(`/api/employee/deleteemployee/${data.employeeId}`).then((res) => {
             console.log(res.data)
-            
+
             setData(Data.filter((item) => item.id !== data.id))
-            
+
         }
         ).catch((err) => {
             console.log(err)
-        }).finally(()=>{window.location.reload()})
+        }).finally(() => { window.location.reload() })
     }
     const handleRelese = (data: EmployeeData) => {
+        if (!releaseDate) {
+            setErrView('block')
+            return
+        }
         axios.put(`/api/employee/releseemployee/${data.employeeId}`, { releseDate: releaseDate }).then((res) => {
             setReleaseDate('')
             console.log(res.data)
@@ -234,7 +239,7 @@ const EmployeeTable = () => {
                         : null}
                     {
                         Data.map((item, idx) => {
-                           
+
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
@@ -260,8 +265,8 @@ const EmployeeTable = () => {
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
                                                 <Dialog>
-                                                    <DialogTrigger className="flex">    <CiEdit size={20}/> <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500 ">
-                                                        {item.releseDate===null?'Modify':'View'}</button></DialogTrigger>
+                                                    <DialogTrigger className="flex">    <CiEdit size={20} /> <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500 ">
+                                                        {item.releseDate === null ? 'Modify' : 'View'}</button></DialogTrigger>
                                                     <DialogContent className='max-w-2xl'>
                                                         <DialogHeader>
                                                             <DialogTitle><p className='text-1xl text-center mt-2'>View Employee</p></DialogTitle>
@@ -272,15 +277,17 @@ const EmployeeTable = () => {
                                                     </DialogContent>
                                                 </Dialog>
                                                 {item.status && <AlertDialog >
-                                                    
-                                                    <AlertDialogTrigger className="flex"><IoLockClosedOutline size={20}/><button className='bg-transparent pl-2 pb-2 text-left hover:text-yellow-500'
+
+                                                    <AlertDialogTrigger className="flex"><IoLockClosedOutline size={20} /><button className='bg-transparent pl-2 pb-2 text-left hover:text-yellow-500'
                                                     >Resign</button></AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
                                                             <AlertDialogTitle> Resign This Employee?</AlertDialogTitle>
                                                             <AlertDialogDescription>
+
                                                                 This action can't be undone. This will remove User profile Linked to It.
                                                                 <Input type="date" placeholder="Release Date" className='mt-3 w-100 text-center justify-center items-center' value={releaseDate} onChange={(e) => setReleaseDate(e.target.value)} required={true} />
+                                                                <span id="nameError" className={`text-red-500 ${errview}`}>Date is required for ReleaseDate</span>
                                                             </AlertDialogDescription>
                                                         </AlertDialogHeader>
 
@@ -289,10 +296,10 @@ const EmployeeTable = () => {
                                                             <AlertDialogAction onClick={() => handleRelese(item)}>Continue</AlertDialogAction>
                                                         </AlertDialogFooter>
                                                     </AlertDialogContent>
-                                                </AlertDialog>} 
+                                                </AlertDialog>}
 
                                                 <AlertDialog>
-                                                    <AlertDialogTrigger className="flex"><MdDelete size={20}/><button className="bg-transparent pl-2 text-left hover:text-red-500 ">Delete</button></AlertDialogTrigger>
+                                                    <AlertDialogTrigger className="flex"><MdDelete size={20} /><button className="bg-transparent pl-2 text-left hover:text-red-500 ">Delete</button></AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
                                                             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -307,7 +314,7 @@ const EmployeeTable = () => {
                                                     </AlertDialogContent>
                                                 </AlertDialog>
 
-                                              
+
                                             </PopoverContent>
                                         </Popover>
                                     </TableCell>
@@ -317,7 +324,7 @@ const EmployeeTable = () => {
 
                 </TableBody>
             </Table>
-          
+
 
             <Pagination className="pt-5 ">
                 <PaginationContent>

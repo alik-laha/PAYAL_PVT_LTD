@@ -17,7 +17,10 @@ const UseQueryData = (url: string, method: string, type: string) => {
         data,
         error,
         isLoading,
-    } = useQuery(type, () => FetchData(url, method));
+    } = useQuery(type, () => FetchData(url, method), {
+        staleTime: 15 * 60 * 1000,
+        cacheTime: 40 * 60 * 1000,
+    });
 
     return { data, error, isLoading }
 }
