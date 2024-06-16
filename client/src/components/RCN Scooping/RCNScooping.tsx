@@ -14,8 +14,8 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import RcnGradingTable from './RCNGradingTable';
-import RcnGradingCreateForm from './RcnGradingCreateForm';
+import RCNScoopingTable from './RCNScoopingTable';
+import RCNScoopingCreateForm from './RCNScoopingCreateForm';
 import Context from '../context/context';
 import { useContext } from 'react';
 import { useEffect } from 'react'
@@ -102,7 +102,7 @@ const RCNScooping = () => {
 
                             </DialogHeader>
 
-                            <RcnGradingCreateForm />
+                            <RCNScoopingCreateForm />
                         </DialogContent>
                     </Dialog>
 
@@ -110,7 +110,7 @@ const RCNScooping = () => {
                     <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button>
 
                 </div>
-                <RcnGradingTable />
+                <RCNScoopingTable />
 
             </div>
         </div>

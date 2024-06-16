@@ -38,7 +38,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import RCNBoilingModify from './RCNBoilingModify'
+import RCNScoopingModify from './RCNScoopingModify'
 import {
     AlertDialog,
     AlertDialogAction,
@@ -434,7 +434,7 @@ const RCNScoopingTable = () => {
                                                                 <p className='text-1xl pb-1 text-center mt-5'>RCN Primary Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        <RCNBoilingModify data={item} />
+                                                        <RCNScoopingModify data={item} />
                                                     </DialogContent>
                                                 </Dialog>
                                             </PopoverContent>
