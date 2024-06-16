@@ -9,24 +9,73 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useState, useRef } from "react"
-import { Origin } from "../common/exportData"
+import {useContext, useRef, useState } from "react"
+import { Origin ,Size} from "../common/exportData"
 import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
+import { machine } from "os"
+import Context from "../context/context"
+import { AssetData } from "@/type/type"
+
+
+interface RowData{
+    origin:string;
+    sizeName:string;
+    size:string;
+    ScoopingLine:string;
+    pressure:string;
+    cookingTime:string;
+    cookingOn:string;
+    cookingOff:string;
+    breakDown:string;
+    other:string;
+}
 
 
 const RCNBoilingEntryForm = () => {
-    const [origin, setOrigin] = useState<string>("")
-    const [errortext, setErrorText] = useState<string>("")
 
-    const blNoRef = useRef<HTMLInputElement>(null)
-    const conNoRef = useRef<HTMLInputElement>(null)
-    const truckNoRef = useRef<HTMLInputElement>(null)
-    const blWeightRef = useRef<HTMLInputElement>(null)
-    const netWeightRef = useRef<HTMLInputElement>(null)
-    const noOfBagsRef = useRef<HTMLInputElement>(null)
-    const dateRef = useRef<HTMLInputElement>(null)
+    const lotNoRef = useRef<HTMLInputElement>(null)
+    const DateRef = useRef<HTMLInputElement>(null)
+    const [mc_name, setMc_name] = useState('')
+    const noofEmployeeRef = useRef<HTMLInputElement>(null)
+
+    const [rows,setRows]=useState<RowData[]>([{origin:'',sizeName:'',
+        size:'',ScoopingLine:'',pressure:'',cookingTime:'',cookingOn:'',cookingOff:'',breakDown:'',other:''}
+    ]);
+
+    const [errortext, setErrortext] = useState('')
+
+    const handleRowChange = (index:number,field:string,fieldvalue:string) => {
+
+        const newRows=[...rows];
+        newRows[index]={...newRows[index],[field]:fieldvalue};
+        setRows(newRows)
+    }
+    const addRow = () => {
+        setRows([...rows,{origin:'',sizeName:'',
+        size:'',ScoopingLine:'',pressure:'',cookingTime:''
+        ,cookingOn:'',cookingOff:'',breakDown:'',other:''}])
+    }
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        const date = DateRef.current?.value  
+        const noOfEmployees = noofEmployeeRef.current?.value
+        const lotNo = lotNoRef.current?.value
+        const Mc_name = mc_name
+
+        const formData=rows.map( row=>({
+            columnLotNo:lotNo,
+            columnDate:date,
+            columnEmployee:noOfEmployees,
+            columnMC:Mc_name,...row
+
+        }))
+        console.log('Submitted Data:',formData);
+
+       
+    };
 
     const successdialog = document.getElementById('myDialog') as HTMLInputElement;
     const errordialog = document.getElementById('errorDialog') as HTMLInputElement;
@@ -54,135 +103,109 @@ const RCNBoilingEntryForm = () => {
         });
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        const blNo = blNoRef.current?.value
-        const conNo = conNoRef.current?.value
-        const truckNo = truckNoRef.current?.value
-        const blWeight = blWeightRef.current?.value
-        const netWeight = netWeightRef.current?.value
-        const noOfBags = noOfBagsRef.current?.value
-        const date = dateRef.current?.value
-        console.log({ origin, blNo, conNo, truckNo, blWeight, netWeight })
-        axios.post('/api/rcnprimary/create', { origin, blNo, conNo, truckNo, blWeight, netWeight, noOfBags, date })
-            .then((res) => {
-                console.log(res.data.rcnPrimary.id)
-                let g_id=res.data.rcnPrimary.id
-                axios.post('/api/qcRcn/qcInitialEntry', { g_id , origin, blNo, conNo, date })
-                .then((res) => {
-                    console.log(res)
-                    if (successdialog != null) {
-                        (successdialog as any).showModal();
-                    }
-                    if (blNoRef.current != null) {
-                        blNoRef.current.value = '';
-                    }
-                    if (conNoRef.current != null) {
-                        conNoRef.current.value = '';
-                    }
-                    if (truckNoRef.current != null) {
-                        truckNoRef.current.value = '';
-                    }
-                    if (blWeightRef.current != null) {
-                        blWeightRef.current.value = '';
-                    }
-                    if (netWeightRef.current != null) {
-                        netWeightRef.current.value = '';
-                    }
-                    if (noOfBagsRef.current != null) {
-                        noOfBagsRef.current.value = '';
-                    }
-                    setOrigin('')
-                }).catch((err) => {
-                    console.log(err)
-                })
-
-
-
-            }).catch((err) => {
-                console.log(err)
-                // if (err.response.data.error.original.errno === 1062) {
-                //     setErrorText('Duplicate Entry is Not Allowed')
-                //     if (errordialog != null) {
-                //         (errordialog as any).showModal();
-                //     }
-                //     return
-                // }
-                setErrorText(err.response.data.message)
-                if (errordialog != null) {
-                    (errordialog as any).showModal();
-                }
-
-            })
-
-    }
+    const { AllMachines } = useContext(Context)
     return (
         <>
-            <div className="pl-10 pr-10">
-                <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
-                    <div className="flex mt-8"><Label className="w-2/4  pt-1">Origin</Label>
-                        <Select value={origin} onValueChange={(value) => setOrigin(value)} required={true}>
-                            <SelectTrigger className="w-2/4">
-                                <SelectValue placeholder="Origin" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    {
-                                        Origin.map((item) => {
-                                            return (
-                                                <SelectItem key={item} value={item}>
-                                                    {item}
-                                                </SelectItem>
-                                            )
-                                        })
-                                    }
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                        {/* <Input   placeholder="Origin"/>  */}</div>
-                    <div className="flex"><Label className="w-2/4  pt-1">BL No.</Label>
-                        <Input className="w-2/4 " placeholder="BL No." ref={blNoRef} required /> </div>
-
+            <div>
+                <form className='flex flex-col gap-3 ' onSubmit={handleSubmit}>
+                   
                     <div className="flex"><Label className="w-2/4  pt-1">Date of Receving</Label>
-                        <Input className="w-2/4 " placeholder="BL No." ref={dateRef} type="date" required /> </div>
-
-                    <div className="flex"><Label className="w-2/4 pt-1">Container No.</Label>
-                        <Input className="w-2/4 " placeholder="Container No." ref={conNoRef} required /> </div>
-
-                    <div className="flex"><Label className="w-2/4 pt-1" > Truck No.</Label>
-                        <Input className="w-2/4 " placeholder="Truck No." ref={truckNoRef} required />
-                    </div>
+                    <Input className="w-2/4 " placeholder="Date" ref={DateRef} type="date" required /> </div>
+                    <div className="flex"><Label className="w-2/4  pt-1">Lot No.</Label>
+                    <Input className="w-2/4 " placeholder="Lot No." ref={lotNoRef} required /> </div>
+                    <div className="flex"><Label className="w-2/4  pt-1">No. Of Labours</Label>
+                    <Input className="w-2/4 " placeholder="No. Of Labour" ref={noofEmployeeRef} required /> </div>
                     <div className="flex">
-                        <Label className="w-2/4 pt-1">Total Bags</Label>
-                        <Input className="w-2/4 " placeholder="Total Bags" ref={noOfBagsRef} type="number" required />
+                    <Label className="w-2/4">Machine Name</Label>
+                    <Select value={mc_name} onValueChange={(value) => setMc_name(value)} required={true}>
+                        <SelectTrigger className="w-2/4">
+                            <SelectValue placeholder="Machine Name" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {
+                                    AllMachines.map((item: AssetData, indx) => {
+                                        return (
+                                            <SelectItem key={indx} value={item.machineName}>
+                                                {item.machineName}
+                                            </SelectItem>
+                                        )
+                                    })
+                                }
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
                     </div>
-                    <div className="flex">
-                        <Label className="w-2/4 pt-1"> BL Weight</Label>
-                        <Input className="w-2/4 " placeholder="BL Weight" ref={blWeightRef} type="number" step="0.01" required />
-                    </div>
-                    <div className="flex"><Label className="w-2/4 pt-1"> Net Weight</Label>
-                        <Input className="w-2/4 " placeholder="Net Weight" ref={netWeightRef} type="number" step="0.01" required />
-                    </div>
+                    <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center"
+                    onClick={addRow}>+Add Row</Button>
+
+                    {rows.map((row,index)=> {
+                        return(
+                            <>
+                            <div className="flex">
+                            <Label className="w-2/4 pt-1">Origin</Label>
+                            <Select value={row.origin} onValueChange={(val) => handleRowChange(index,'origin',val)} required={true}>
+                                <SelectTrigger className="w-2/4">
+                                    <SelectValue placeholder="Origin" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        {
+                                            Origin.map((item) => {
+                                                return (
+                                                    <SelectItem key={item} value={item}>
+                                                        {item}
+                                                    </SelectItem>
+                                                )
+                                            })
+                                        }
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        
+                        
+                        
+                        
+                        
+                        <Label className="w-2/4 pt-1">Size</Label>
+                            <Select value={row.sizeName} onValueChange={(val) => handleRowChange(index,'sizeName',val)} required={true}>
+                                <SelectTrigger className="w-2/4">
+                                    <SelectValue placeholder="Size Name" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        {
+                                            Size.map((item) => {
+                                                return (
+                                                    <SelectItem key={item} value={item}>
+                                                        {item}
+                                                    </SelectItem>
+                                                )
+                                            })
+                                        }
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                         </div>
+                    </>
+                        )
+                   
+                    })}
+                   
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
+                  
+                   
                 </form>
-
-
+                
             </div>
-            <dialog id="myDialog" className="dashboard-modal">
-                <button id="closeDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Primary Entry Submitted Successfully</p></span>
+                        
+  
 
-                {/* <!-- Add more elements as needed --> */}
-            </dialog>
+                    
+                   
 
-            <dialog id="errorDialog" className="dashboard-modal">
-                <button id="errorcloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
 
-                {/* <!-- Add more elements as needed --> */}
-            </dialog>
+          
         </>
     )
 

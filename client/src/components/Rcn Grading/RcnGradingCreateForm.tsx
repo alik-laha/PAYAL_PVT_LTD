@@ -76,10 +76,6 @@ const RcnGradingCreateForm = () => {
     return (
         <div className="pl-5 pr-5 ">
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
-
-
-
-
                 <div className="flex mt-2">
                     <Label className="w-1/4 pt-2 ">A </Label>
                     <Input className="w-2/4 bg-cyan-100" placeholder="A" ref={aRef} type='number' required />
