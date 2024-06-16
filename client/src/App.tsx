@@ -10,6 +10,7 @@ import DashboardUser from './components/dashboard user/DashboardUser'
 import Machine from './components/Machine/Machine'
 import Private from './components/private/private'
 import QCRcn from './components/qcRCN/QCRcn'
+import RCNBoiling from './components/RCN Boiling/RCNBoiling'
 
 function App() {
 
@@ -51,6 +52,11 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
         'GradingSupervisor', 'ProductionManager']} />}>
         <Route path='/dashboard/rcnGrading' element={<RcnGrading />} />
+        </Route>
+
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+        'BoilingSupervisor', 'ProductionManager']} />}>
+        <Route path='/dashboard/rcnBoiling' element={<RCNBoiling />} />
         </Route>
        
         
