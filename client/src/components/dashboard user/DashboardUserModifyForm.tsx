@@ -66,11 +66,12 @@ const DashboardUserModifyForm = (props: UserProps) => {
             .catch((err) => {
                 console.log(err)
                 setErrorText(err.response.data.message)
-                if(errordialog!=null){
+                if (errordialog != null) {
                     (errordialog as any).showModal();
                 }
             })
     }
+    console.log(props.Data)
     useEffect(() => {
         setDept(props.Data.dept)
         setRole(props.Data.role)
@@ -114,11 +115,11 @@ const DashboardUserModifyForm = (props: UserProps) => {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                            {dept && (roleDataonDept[dept as keyof typeof roleDataonDept].map((item) => (
+                                {props.Data.dept && (roleDataonDept[props.Data.dept as keyof typeof roleDataonDept].map((item) => (
                                     <SelectItem key={item} value={item}>
                                         {item}
                                     </SelectItem>
-                                )) )}
+                                )))}
                             </SelectGroup>
                         </SelectContent>
                     </Select>
