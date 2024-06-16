@@ -81,7 +81,15 @@ const RCNBoilingEntryForm = () => {
         }))
         console.log('Submitted Data:',formData);
 
-       
+       try{
+        for (const data of formData){
+             axios.post('/api/boiling/createBoiling', { data })
+
+        }
+       }
+       catch (err){
+        console.log(err)
+       }
     };
 
     const successdialog = document.getElementById('myDialog') as HTMLInputElement;
@@ -150,10 +158,11 @@ const RCNBoilingEntryForm = () => {
                              <TableHead className="text-center" >Sl. No.</TableHead>
                              <TableHead className="text-center" >Origin</TableHead>
                              <TableHead className="text-center" >Size Name</TableHead>
-                             <TableHead className="text-center" >Value</TableHead>
+                             <TableHead className="text-center" >Boiling Quantity</TableHead>
                              <TableHead className="text-center" >Scooping Line</TableHead>
-                             <TableHead className="text-center" >MC On</TableHead>
-                             <TableHead className="text-center" >MC Off</TableHead>
+                             <TableHead className="text-center" >Pressure</TableHead>
+                             <TableHead className="text-center" >Cooking On</TableHead>
+                             <TableHead className="text-center" >Cooking Off</TableHead>
                              <TableHead className="text-center" >Breakdown</TableHead>
                              <TableHead className="text-center" >Other</TableHead>
                              </TableHeader>
@@ -205,6 +214,9 @@ const RCNBoilingEntryForm = () => {
                                             </Select>
 
                                         </TableCell>
+                                        <TableCell >
+                                        <Input  value={row.size} placeholder="Bag" onChange={(e) => handleRowChange(index,'size',e.target.value)} required />
+                                        </TableCell>
                                         <TableCell className="text-center" >
                                             <Select value={row.sizeName} onValueChange={(val) => handleRowChange(index, 'sizeName', val)} required={true}>
                                                 <SelectTrigger >
@@ -226,13 +238,13 @@ const RCNBoilingEntryForm = () => {
                                             </Select>
 
                                         </TableCell>
-                                        <TableCell >
-                                        <Input  value={row.size} placeholder="Bag" onChange={(e) => handleRowChange(index,'size',e.target.value)} required />
-                                        </TableCell>
+                                        <TableCell><Input  value={row.pressure} placeholder="Pr." onChange={(e) => handleRowChange(index,'pressure',e.target.value)} required /></TableCell>
+                                        
                                         <TableCell> <Input  value={row.cookingOn} placeholder="MC ON Time" onChange={(e) => handleRowChange(index,'cookingOn',e.target.value)} type='time' required /></TableCell>
                                         <TableCell><Input  value={row.cookingOff} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'cookingOff',e.target.value)} type='time' required /></TableCell>
 
-                                          <TableCell><Input  value={row.breakDown} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'breakDown',e.target.value)} type='time' required /></TableCell>
+                                          <TableCell><Input  value={row.breakDown} placeholder="Break Down Time" onChange={(e) => handleRowChange(index,'breakDown',e.target.value)} type='time'  /></TableCell>
+                                          <TableCell><Input  value={row.other} placeholder="Other" onChange={(e) => handleRowChange(index,'other',e.target.value)} type='time'  /></TableCell>
                                         </TableRow>
 
                 </TableBody>

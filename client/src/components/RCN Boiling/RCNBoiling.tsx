@@ -6,7 +6,7 @@ import RCNBoilingTable from "./RCNBoilingTable";
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
+
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -14,7 +14,7 @@ import {
 import UseQueryData from "../common/dataFetcher";
 import { PermissionRole, SumofAllCuntryData } from "@/type/type";
 
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import Context from '../context/context';
 import axios from 'axios';
 import Loader from '../common/Loader';
@@ -40,6 +40,20 @@ const RCNBoiling = () => {
         }
        
     }
+
+
+    const { setAllMachines } = useContext(Context)
+
+    useEffect(() => {
+        axios.get('/api/asset/getMachineByType/Boiling')
+            .then(res => {
+                console.log(res.data)
+                setAllMachines(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
     const { data, isLoading, error } = UseQueryData('/api/rcnprimary/sum', 'GET', 'AllOriginRcnPrimary');
     if (isLoading) {
         return <Loader/>
