@@ -187,7 +187,7 @@ const RcnGradingTable = () => {
                     'Labour_No': item.noOfEmployees,
                     'Lot_No': item.grading_lotNo,
                     'Edit_Status': item.editStatus,
-                    'Feeled_By': item.feeledBy
+                    'Field_By': item.feeledBy
                 }
             })
             setTransformedData(transformed);
