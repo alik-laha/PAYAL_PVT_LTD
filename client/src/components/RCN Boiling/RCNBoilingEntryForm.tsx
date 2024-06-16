@@ -39,7 +39,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-
+import { MdDelete } from "react-icons/md";
 const RCNBoilingEntryForm = () => {
 
     const lotNoRef = useRef<HTMLInputElement>(null)
@@ -63,6 +63,11 @@ const RCNBoilingEntryForm = () => {
         setRows([...rows,{origin:'',sizeName:'',
         size:'',ScoopingLine:'',pressure:'',cookingTime:''
         ,cookingOn:'',cookingOff:'',breakDown:'',other:''}])
+    }
+
+    const deleteRow = (index:number) =>{
+        const newRows =rows.filter((_,i)=> i!==index);
+        setRows(newRows)
     }
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -121,7 +126,7 @@ const RCNBoilingEntryForm = () => {
     const { AllMachines } = useContext(Context)
     return (
         <>
-            <div>
+            <div className="px-5">
                 <form className='flex flex-col gap-1 pt-4' onSubmit={handleSubmit}>
                    
                     <div className="flex"><Label className="w-2/4  pt-1">Date of Receving</Label>
@@ -165,6 +170,7 @@ const RCNBoilingEntryForm = () => {
                              <TableHead className="text-center" >Cooking Off</TableHead>
                              <TableHead className="text-center" >Breakdown</TableHead>
                              <TableHead className="text-center" >Other</TableHead>
+                             <TableHead className="text-center" >Action</TableHead>
                              </TableHeader>
                     {rows.map((row,index)=> {
                         return(
@@ -245,6 +251,12 @@ const RCNBoilingEntryForm = () => {
 
                                           <TableCell><Input  value={row.breakDown} placeholder="Break Down Time" onChange={(e) => handleRowChange(index,'breakDown',e.target.value)} type='time'  /></TableCell>
                                           <TableCell><Input  value={row.other} placeholder="Other" onChange={(e) => handleRowChange(index,'other',e.target.value)} type='time'  /></TableCell>
+                                          <TableCell>
+                                          <button className="bg-red-400 text-grey-700 w-8 h-8 px-2 text-primary-foreground rounded-md text-center items-center justify-center"
+                    onClick={()=>deleteRow(index)}><MdDelete size={15}/></button>
+                                          </TableCell>
+                                        
+                                         
                                         </TableRow>
 
                 </TableBody>
