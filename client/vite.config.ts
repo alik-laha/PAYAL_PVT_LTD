@@ -17,5 +17,10 @@ export default defineConfig({
         secure: true
       }
     }
-  }
+  },
+  build: {
+    rollupOptions: {
+      external: ['lodash'],
+    },
+  },
 })
