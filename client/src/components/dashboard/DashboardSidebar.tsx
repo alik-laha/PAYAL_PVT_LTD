@@ -102,9 +102,12 @@ const DashboardSidebar = () => {
                                 RCN Grading
                             </NavLink>
                         </CollapsibleContent>}
-                        <CollapsibleContent className="Items-pvt">
-                            RCN Boiling
-                        </CollapsibleContent>
+                        {renderlink('Boiling')
+                            &&  <CollapsibleContent className="Items-pvt">
+                             <NavLink to="/dashboard/RcnBoiling" >
+                                RCN Boiling
+                            </NavLink>
+                        </CollapsibleContent>}
                     </Collapsible>}
 
                     {rendersection('Receiving') &&  <Collapsible >
