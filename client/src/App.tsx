@@ -11,6 +11,7 @@ import Machine from './components/Machine/Machine'
 import Private from './components/private/private'
 import QCRcn from './components/qcRCN/QCRcn'
 import RCNBoiling from './components/RCN Boiling/RCNBoiling'
+import RCNScooping from './components/RCN Scooping/RCNScooping'
 
 function App() {
 
@@ -57,6 +58,10 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
         'BoilingSupervisor', 'ProductionManager']} />}>
         <Route path='/dashboard/rcnBoiling' element={<RCNBoiling />} />
+        </Route>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+        'ScoopingSupervisor', 'ProductionManager']} />}>
+        <Route path='/dashboard/rcnScooping' element={<RCNScooping />} />
         </Route>
        
         

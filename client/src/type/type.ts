@@ -176,6 +176,8 @@ export interface PermissionRole {
     QCSupervisor: string[];
     QCManager: string[];
     GradingSupervisor: string[];
+    ScoopingSupervisor:string[];
+    BoilingSupervisor:string[];
 
 
 }
@@ -187,6 +189,7 @@ export interface PermissionDept {
     Production: string[];
     QualityControl: string[];
     Grading: string[];
+    Boiling:string[];
 
 }
 export interface GradingData {
