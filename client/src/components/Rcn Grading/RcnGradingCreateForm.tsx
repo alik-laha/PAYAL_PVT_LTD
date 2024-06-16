@@ -26,9 +26,9 @@ const RcnGradingCreateForm = () => {
     const mc_onRef = useRef<HTMLInputElement>(null)
     const mc_offRef = useRef<HTMLInputElement>(null)
     const noofEmployeeRef = useRef<HTMLInputElement>(null)
-    const mc_breakdownRef = useRef<HTMLInputElement>(null)
+    const [Mc_breakdown, setMc_breakdown] = useState<string>("00:00")
+    const [otherTime, setOtherTime] = useState<string>("00:00")
     const [errortext, setErrortext] = useState('')
-    const otherRef = useRef<HTMLInputElement>(null)
     const grading_lotNoRef = useRef<HTMLInputElement>(null)
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -44,9 +44,7 @@ const RcnGradingCreateForm = () => {
         const dust = dustRef.current?.value
         const Mc_on = mc_onRef.current?.value
         const Mc_off = mc_offRef.current?.value
-        const Mc_breakdown = mc_breakdownRef.current?.value
         const noOfEmployees = noofEmployeeRef.current?.value
-        const otherTime = otherRef.current?.value
         const grading_lotNo = grading_lotNoRef.current?.value
         const Mc_name = mc_name
         console.log(Mc_off)
@@ -141,12 +139,12 @@ const RcnGradingCreateForm = () => {
                 </div>
                 <div className="flex mt-2">
                     <Label className="w-2/4 pt-2">Break Down Duration </Label>
-                    <Input className="w-2/4 pl-12 bg-cyan-100" placeholder="MC BreakDown" ref={mc_breakdownRef} type='time' value="00:00" />
+                    <Input className="w-2/4 pl-12 bg-cyan-100" placeholder="MC BreakDown" value={Mc_breakdown} type='time' onChange={(e) => setMc_breakdown(e.target.value)} />
                 </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-2">Other Duration</Label>
-                    <Input className="w-2/4 pl-12 bg-cyan-100" placeholder="Other Time" ref={otherRef} type='time' value="00:00" />
+                    <Input className="w-2/4 pl-12 bg-cyan-100" placeholder="Other Time" value={otherTime} type='time' onChange={(e) => setOtherTime(e.target.value)} />
                 </div>
 
 

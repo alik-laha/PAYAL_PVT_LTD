@@ -49,8 +49,8 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     const [Mc_on, setMc_on] = useState('')
     const [Mc_off, setMc_off] = useState('')
     const [noOfEmployees, setNoOfEmployees] = useState<number>()
-    const [Mc_breakdown, setMc_breakdown] = useState('')
-    const [otherTime, setOtherTime] = useState('')
+    const [Mc_breakdown, setMc_breakdown] = useState('00:00')
+    const [otherTime, setOtherTime] = useState('00:00')
     const [grading_lotNo, setGrading_lotNo] = useState('')
 
 
