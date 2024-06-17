@@ -1,16 +1,38 @@
-import twilio from "twilio"
-
-const accountSid = process.env.WP_ACOUNT_SID
-const authToken = process.env.WP_AUTH_TOKEN
-const client = twilio(accountSid, authToken)
+import axios from 'axios'
 
 const WhatsappMsg = async (msg: string) => {
-    const send = await client.messages.create({
-        body: msg,
-        from: process.env.WP_FROM_NUMBER,
-        to: "+918610808251"
-    })
-    return send
-}
+    const data = {
+        messaging_product: "whatsapp",
+        to: "+918610808251",
+        type: "template",
+        template: {
+            name: "hello_world",
+            language: {
+                code: "en_US"
+            }
+        }
+    };
 
+    try {
+        axios.post(`https://graph.facebook.com/v19.0/355921810932791/messages`, data, {
+            headers: {
+                'Authorization': `Bearer ${process.env.WP_API_TOKEN}`,
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            console.log(response)
+            return response
+        }).catch((err) => {
+            console.log(err)
+            return err
+        })
+
+    }
+    catch {
+        (err: any) => {
+            console.log(err)
+            return err
+        }
+    }
+}
 export default WhatsappMsg
