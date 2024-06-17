@@ -247,9 +247,9 @@ const EmployeeTable = () => {
                                     <TableCell className="text-center" >{item.employeeId}</TableCell>
                                     <TableCell className="text-center" >
                                         {item.status ? (
-                                            <button className="bg-green-500 p-1 text-white rounded">Active</button>
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width">Active</button>
                                         ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded">Resigned</button>
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width" >Resigned</button>
                                         )}
 
                                     </TableCell>
@@ -287,7 +287,7 @@ const EmployeeTable = () => {
 
                                                                 This action can't be undone. This will remove User profile Linked to It.
                                                                 <Input type="date" placeholder="Release Date" className='mt-3 w-100 text-center justify-center items-center' value={releaseDate} onChange={(e) => setReleaseDate(e.target.value)} required={true} />
-                                                                <span id="nameError" className={`text-red-500 ${errview}`}>Date is required for ReleaseDate</span>
+                                                                <span id="nameError" className={`text-red-500 pt-2 font-bold ${errview}`}>Date is Required for Release</span>
                                                             </AlertDialogDescription>
                                                         </AlertDialogHeader>
 

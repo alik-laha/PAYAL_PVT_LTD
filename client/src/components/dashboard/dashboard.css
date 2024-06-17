@@ -393,6 +393,12 @@
     z-index: 1;
   }
 
+  .fix-button-width{
+
+    width: 70px!important;
+    height: 30px!important;
+  }
+
 @media screen and (max-width: 999px) {
 
     .responsive-no-margin{
@@ -506,6 +512,8 @@
     .no-margin-left{
         margin-left:0!important;
     }
+
+    
   
 
 }
