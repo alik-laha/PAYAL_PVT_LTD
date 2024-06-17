@@ -205,17 +205,26 @@ const EmployeeTable = () => {
 
             <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
 
-            <Table className="mt-1">
+            <Table className="mt-1 ml-2">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Sl No.</TableHead>
                     <TableHead className="text-center" >Employee name</TableHead>
                     <TableHead className="text-center" >Employee ID </TableHead>
-                    <TableHead className="text-center" >Status </TableHead>
+                    
                     <TableHead className="text-center" >Designation</TableHead>
-                    <TableHead className="text-center" >Date of Joining</TableHead>
+                    <TableHead className="text-center" >Status </TableHead>
+                    <TableHead className="text-center" >Joining Date</TableHead>
                     <TableHead className="text-center" >Contact No.</TableHead>
                     <TableHead className="text-center" >Email</TableHead>
+                    <TableHead className="text-center" >Qualification</TableHead>
+                    <TableHead className="text-center" >Blood Group</TableHead>
+                    <TableHead className="text-center" >Adhar No.</TableHead>
+                    <TableHead className="text-center" >Pan No.</TableHead>
+                   
+                    <TableHead className="text-center" >Pincode</TableHead>
+                    <TableHead className="text-center" >Emg. Name</TableHead>
+                    <TableHead className="text-center" >Emg. Contact No.</TableHead>
 
                     <TableHead className="text-center" >Action</TableHead>
 
@@ -245,6 +254,7 @@ const EmployeeTable = () => {
                                     <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center" >{item.employeeName}</TableCell>
                                     <TableCell className="text-center" >{item.employeeId}</TableCell>
+                                    <TableCell className="text-center" >{item.designation}</TableCell>
                                     <TableCell className="text-center" >
                                         {item.status ? (
                                             <button className="bg-green-500 p-1 text-white rounded fix-button-width">Active</button>
@@ -253,10 +263,19 @@ const EmployeeTable = () => {
                                         )}
 
                                     </TableCell>
-                                    <TableCell className="text-center" >{item.designation}</TableCell>
+                                    
                                     <TableCell className="text-center" >{handletimezone(item.dateOfJoining)}</TableCell>
                                     <TableCell className="text-center" >{item.mobNo}</TableCell>
                                     <TableCell className="text-center" >{item.email}</TableCell>
+                                    <TableHead className="text-center" >{item.heighstQualification}</TableHead>
+                                    <TableHead className="text-center" >{item.bloodGroup}</TableHead>
+                                    <TableHead className="text-center" >xxxxxxxx{item.aadhaarNo.slice(-4)}</TableHead>
+                                    <TableHead className="text-center" >{item.panNo}</TableHead>
+                                    
+                                    <TableHead className="text-center" >{item.pincode}</TableHead>
+                                    <TableHead className="text-center" >{item.emergencyContact}</TableHead>
+                                    <TableHead className="text-center" >{item.emergencyMobNo}</TableHead>
+                  
 
                                     <TableCell className="text-center" >
                                         <Popover>
