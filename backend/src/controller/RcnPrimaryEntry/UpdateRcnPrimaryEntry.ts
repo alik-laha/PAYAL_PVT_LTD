@@ -2,14 +2,14 @@ import { Request, Response } from "express";
 import RcnPrimary from "../../model/RcnEntryModel";
 import RcnEdit from "../../model/RcnEditModel";
 import { RcnPrimaryModifyProps } from "../../type/type";
+import WhatsappMsg from "../../helper/WhatsappMsg";
 
 const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin, date } = req.body;
         const difference = blWeight - netWeight;
-         const editedBy = req.cookies.user
-        //const editedBy = "RC User 2"
+        const editedBy = req.cookies.user
         if (!id) {
             return res.status(400).json({ message: "Please provide the id" });
         }
@@ -29,6 +29,9 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
                 id,
             },
         })) as RcnPrimaryModifyProps | null;
+        const msg = `User: ${editedBy} has forwarded data modify request for Prinary Rcn Receving`
+        const data = WhatsappMsg(msg)
+
 
         console.log(rcn);
         const rcnEdit = await RcnEdit.create({
