@@ -13,7 +13,9 @@ const CreateUser = async (req: Request, res: Response) => {
         const pass = await bcrypt.hash(password, 10);
         const user = await User.create({ userName, password: pass, dept, role, employeeId, createdBy, employeeName });
         const EmployeeData: EmployeeData = await Employee.findOne({ where: { employeeId } }) as unknown as EmployeeData
+       
         const Msg = await userCreatedMail(EmployeeData.email, userName, password)
+        console.log(Msg)
 
         if (Msg) {
             return res.status(201).json({ message: "A New User Has Been Created" });
