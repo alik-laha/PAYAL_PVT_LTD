@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import User from "../../model/userModel";
 import bcrypt from "bcryptjs";
 import Employee from "../../model/employeeModel";
-import { Where } from "sequelize/types/utils";
+
 import { EmployeeData } from "../../type/type";
 import { userCreatedMail } from "../../helper/userCreateMail";
 
@@ -18,7 +18,7 @@ const CreateUser = async (req: Request, res: Response) => {
         console.log(Msg)
 
         if (Msg) {
-            return res.status(201).json({ message: "A New User Has Been Created" });
+            return res.status(201).json({ message: "New User Along with Credential Has Been Sent Over Mail" });
         }
     } catch (err) {
         return res.status(500).json({ message: "Internal Server Error", error: err });

@@ -2,6 +2,9 @@ import bcrypt from 'bcryptjs';
 import { Request, Response } from 'express';
 import User from '../../model/userModel';
 import { UserData } from '../../type/type';
+import { EmployeeData } from "../../type/type";
+import { userModifiedMail } from "../../helper/userCreateMail";
+import Employee from "../../model/employeeModel";
 
 const UpdateUser = async (req: Request, res: Response) => {
     try {
@@ -27,6 +30,15 @@ const UpdateUser = async (req: Request, res: Response) => {
         }
         const pass = await bcrypt.hash(password, 10);
         await User.update({ userName, password: pass, role, dept, modifyedBy }, { where: { employeeId } });
+
+        const EmployeeData: EmployeeData = await Employee.findOne({ where: { employeeId } }) as unknown as EmployeeData
+       
+        const Msg = await userModifiedMail(EmployeeData.email, userName, password)
+        console.log(Msg)
+
+        if (Msg) {
+            return res.status(201).json({ message: "User Modification Mail Has been Sent" });
+        }
         return res.status(200).json({ message: 'User has been updated successfully' });
     }
     catch (err) {
