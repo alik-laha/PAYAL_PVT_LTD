@@ -267,14 +267,14 @@ const EmployeeTable = () => {
                                     <TableCell className="text-center" >{handletimezone(item.dateOfJoining)}</TableCell>
                                     <TableCell className="text-center" >{item.mobNo}</TableCell>
                                     <TableCell className="text-center" >{item.email}</TableCell>
-                                    <TableHead className="text-center" >{item.heighstQualification}</TableHead>
-                                    <TableHead className="text-center" >{item.bloodGroup}</TableHead>
-                                    <TableHead className="text-center" >xxxxxxxx{item.aadhaarNo.slice(-4)}</TableHead>
-                                    <TableHead className="text-center" >{item.panNo}</TableHead>
+                                    <TableCell className="text-center" >{item.heighstQualification}</TableCell>
+                                    <TableCell className="text-center" >{item.bloodGroup}</TableCell>
+                                    <TableCell className="text-center" >xxxxxxxx{item.aadhaarNo.slice(-4)}</TableCell>
+                                    <TableCell className="text-center" >{item.panNo}</TableCell>
                                     
-                                    <TableHead className="text-center" >{item.pincode}</TableHead>
-                                    <TableHead className="text-center" >{item.emergencyContact}</TableHead>
-                                    <TableHead className="text-center" >{item.emergencyMobNo}</TableHead>
+                                    <TableCell className="text-center" >{item.pincode}</TableCell>
+                                    <TableCell className="text-center" >{item.emergencyContact}</TableCell>
+                                    <TableCell className="text-center" >{item.emergencyMobNo}</TableCell>
                   
 
                                     <TableCell className="text-center" >

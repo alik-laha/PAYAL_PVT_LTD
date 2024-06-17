@@ -398,6 +398,9 @@
     width: 70px!important;
     height: 30px!important;
   }
+  p#modal-text{
+    text-align: center;
+  }
 
 @media screen and (max-width: 999px) {
 
