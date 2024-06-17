@@ -227,6 +227,12 @@
   
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.1);
 }
+
+.sidebar.open ~ .dashoboard-main-header .navbar-custom-menu .dropdown-menu {
+
+    display: none!important;
+
+}
 .dashboard-btn{
     Display: inline-block;
     padding: 6px 12px;
@@ -400,10 +406,7 @@
         
 
     }
-    .dashoboard-main-header .navbar-custom-menu .dropdown-menu{
-     
-
-    }
+   
     .sidebar a {
         font-size: 25px;
   
