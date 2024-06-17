@@ -13,10 +13,16 @@
         overflow-x: hidden;
         margin: 0;
         padding: 0;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      *,
+      *::before,*::after{
+        box-sizing: border-box;
       }
      </style>
   </head>
-  <body>
+  <body style="width:100vw">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

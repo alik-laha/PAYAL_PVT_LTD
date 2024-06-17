@@ -224,6 +224,8 @@
     padding: 1px 0 0 0;
     border-top-width: 0;
     width: 250px;
+  
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.1);
 }
 .dashboard-btn{
     Display: inline-block;
@@ -398,7 +400,10 @@
         
 
     }
+    .dashoboard-main-header .navbar-custom-menu .dropdown-menu{
+     
 
+    }
     .sidebar a {
         font-size: 25px;
   
