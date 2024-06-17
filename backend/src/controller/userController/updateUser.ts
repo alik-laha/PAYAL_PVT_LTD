@@ -17,12 +17,18 @@ const UpdateUser = async (req: Request, res: Response) => {
         if (userName !== user.userName) {
             const userExist = await User.findOne({ where: { userName } });
             if (userExist) {
+
                 return res.status(400).json({ message: 'User Already Exists' });
             }
         }
         if (!password && !confirmPassword) {
 
-            await User.update({ userName, role, dept ,modifyedBy}, { where: { employeeId } });
+            await User.update({ userName, role, dept, modifyedBy }, { where: { employeeId } });
+
+            const EmployeeData: EmployeeData = await Employee.findOne({ where: { employeeId } }) as unknown as EmployeeData
+
+            const Msg = await userModifiedMail(EmployeeData.email, userName, password)
+
             return res.status(200).json({ message: 'User has been Updated successfully' });
         }
         if (password !== confirmPassword) {
@@ -31,15 +37,16 @@ const UpdateUser = async (req: Request, res: Response) => {
         const pass = await bcrypt.hash(password, 10);
         await User.update({ userName, password: pass, role, dept, modifyedBy }, { where: { employeeId } });
 
+        if (user.userName === userName && !password) {
+            return res.status(200).json({ message: "User modified Sucessfully" })
+        }
         const EmployeeData: EmployeeData = await Employee.findOne({ where: { employeeId } }) as unknown as EmployeeData
-       
         const Msg = await userModifiedMail(EmployeeData.email, userName, password)
         console.log(Msg)
 
         if (Msg) {
             return res.status(201).json({ message: "User Modification Mail Has been Sent" });
         }
-        return res.status(200).json({ message: 'User has been updated successfully' });
     }
     catch (err) {
         return res.status(500).json({ message: 'Internal server error' });
