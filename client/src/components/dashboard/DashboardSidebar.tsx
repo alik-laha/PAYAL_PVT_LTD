@@ -9,7 +9,8 @@ import { useState } from "react"
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { MdCallReceived } from "react-icons/md";
 import { MdOutlineFactory } from "react-icons/md";
-import { LuBadgeCheck, LuServerCrash } from "react-icons/lu";
+import { LuBadgeCheck  } from "react-icons/lu";
+//import {  LuServerCrash } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
 import { PermissionRol,PermissionDep } from "../common/exportData";
 import { PermissionRole,PermissionDept } from "@/type/type";
@@ -102,9 +103,9 @@ const DashboardSidebar = () => {
                                 RCN Grading
                             </NavLink>
                         </CollapsibleContent>}
-                        <CollapsibleContent className="Items-pvt">
+                        {/* <CollapsibleContent className="Items-pvt">
                             RCN Boiling
-                        </CollapsibleContent>
+                        </CollapsibleContent> */}
                     </Collapsible>}
 
                     {rendersection('Receiving') &&  <Collapsible >
@@ -133,11 +134,12 @@ const DashboardSidebar = () => {
 
 
                         </Collapsible>}
-                        {rendersection('Maintainance') && <Collapsible >
+                        
+                        {/* {rendersection('Maintainance') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><LuServerCrash size={25} />
                             <p>Maintainance</p></CollapsibleTrigger>
 
-                    </Collapsible>}
+                    </Collapsible>} */}
 
 
                 </a>

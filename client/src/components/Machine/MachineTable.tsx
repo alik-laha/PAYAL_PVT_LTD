@@ -134,7 +134,7 @@ const MachineTable = () => {
     
 return(
     <>
-        <div className="ml-5 mt-5">
+        <div className=" mt-5">
             <div className="flex ">
 
                 <Input className="w-1/3 mb-2" placeholder="Asset Id"  value={assetidname} onChange={(e) => setassetidname(e.target.value)} />
