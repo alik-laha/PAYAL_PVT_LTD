@@ -196,7 +196,7 @@ const EmployeeTable = () => {
     }
 
     return (
-        <div className="ml-5 mt-5">
+        <div className="mt-5">
             <div className="flex ">
 
                 <Input className="w-60 mb-2" placeholder="Search By Emp ID/ Name" onChange={handleSearch} />
