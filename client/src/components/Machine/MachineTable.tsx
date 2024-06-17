@@ -163,6 +163,7 @@ return(
                    
                     <TableHead className="text-center" >Status </TableHead>
                     <TableHead className="text-center" >Asset Name </TableHead>
+                    <TableHead className="text-center" >Primary </TableHead>
                     <TableHead className="text-center" >Section </TableHead>
                    
                     <TableHead className="text-center" >Description </TableHead>
@@ -188,6 +189,8 @@ return(
                                     <button className="bg-red-500 p-1 text-white rounded">{item.status}</button>
                                 )}</TableCell>
                                   <TableCell className="text-center">{item.machineName}</TableCell>
+                                  
+                                  <TableCell className="text-center"><Input type='checkbox' className='h-4' checked={item.primaryAsset === 1 ? true : false}/></TableCell>
                                 <TableCell className="text-center">{item.section}</TableCell>
                                 <TableCell className="text-center">{item.description}</TableCell>
 

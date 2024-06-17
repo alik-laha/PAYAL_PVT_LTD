@@ -44,7 +44,7 @@ const Machine = () => {
                         Discarded<br /><p>{data.Dicarded}</p>
                     </div>
                 </div>
-                <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button>
+              
 
 
                 <Dialog>

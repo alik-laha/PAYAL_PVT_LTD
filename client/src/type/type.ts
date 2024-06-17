@@ -157,6 +157,7 @@ export interface UserProps {
 }
 
 export interface AssetData {
+    primaryAsset: number;
     id: number;
     machineID: string;
     machineName: string;

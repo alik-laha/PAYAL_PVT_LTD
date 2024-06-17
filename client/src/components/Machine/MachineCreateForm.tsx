@@ -8,7 +8,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Section,MachineStatus } from "../common/exportData"
-import { useState, useRef } from "react"
+import { useState, useRef, ChangeEvent } from "react"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
@@ -21,7 +21,8 @@ const MachineCreateForm = () =>{
     const [section, setSection] =useState<string>('')
     const [machinestatus, setMachineStatus] = useState<string>("")
     const [errortext, setErrorText] = useState<string>("")
-
+    const [primary, setPrimary] = useState<number>(0);
+    const [primarybool, setprimaryBool] = useState<boolean>(false);
     const machineIdref = useRef<HTMLInputElement>(null)
     const machinenameref = useRef<HTMLInputElement>(null)
     const descriptionref = useRef<HTMLTextAreaElement>(null)
@@ -60,8 +61,8 @@ const MachineCreateForm = () =>{
 
       
        
-        console.log({ machineId,machinename,section, machinestatus,description })
-        axios.post('/api/asset/createmachine', { machineId,machinename,section, machinestatus,description})
+        console.log({ machineId,machinename,section, machinestatus,description,primary })
+        axios.post('/api/asset/createmachine', { machineId,machinename,section, machinestatus,description,primary})
         .then((res) => {
             console.log(res)
             if(successdialog!=null){
@@ -98,6 +99,16 @@ const MachineCreateForm = () =>{
 })
       
     }
+
+    const handleprimary = (e: ChangeEvent<HTMLInputElement>) => {
+        // e.preventDefault();
+        setprimaryBool(!primarybool)
+        
+        e.target.checked === true ? setPrimary(1) : setPrimary(0)
+        console.log(primary)
+        console.log(primarybool)
+
+    }
    
     return (
         <>
@@ -108,7 +119,14 @@ const MachineCreateForm = () =>{
                     <Input className="w-2/4 " placeholder="Machine Id" ref={machineIdref} required/> </div>
                 <div className="flex"><Label className="w-2/4 pt-1">Machine Name</Label>
                     <Input className="w-2/4 " placeholder="Machine Name" ref={machinenameref} required/> </div>
-                
+                    <div className="flex"><Label className="w-2/4 pt-1">Primary</Label>
+                    <Input 
+                        type="checkbox"
+                        placeholder="physically challenged"
+                        className="h-5 mt-2"
+                        onChange={handleprimary}
+                        
+                        checked={primary === 1 ? true : false}/> </div>
 
                 <div className="flex"><Label className="w-2/4  pt-1">Section</Label>
                     <Select value={section} onValueChange={(value) => setSection(value)} required={true}>
