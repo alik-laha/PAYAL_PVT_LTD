@@ -44,10 +44,10 @@ const Machine = () => {
                         Discarded<br /><p>{data.Dicarded}</p>
                     </div>
                 </div>
-                {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
+                <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button>
 
 
-                {/* <Dialog>
+                <Dialog>
                     <DialogTrigger>   <Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust">+ Add New Asset</Button></DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
@@ -59,7 +59,7 @@ const Machine = () => {
 
                         <MachineCreateForm/>
                     </DialogContent>
-                </Dialog> */}
+                </Dialog>
 
                
                <MachineTable/>
