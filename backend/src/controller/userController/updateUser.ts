@@ -25,6 +25,9 @@ const UpdateUser = async (req: Request, res: Response) => {
 
             await User.update({ userName, role, dept, modifyedBy }, { where: { employeeId } });
 
+            if (user.userName === userName && !password) {
+                return res.status(200).json({ message: "User modified Sucessfully" })
+            }
             const EmployeeData: EmployeeData = await Employee.findOne({ where: { employeeId } }) as unknown as EmployeeData
 
             const Msg = await userModifiedMail(EmployeeData.email, userName, password)
