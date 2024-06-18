@@ -120,7 +120,7 @@ const RcnPrimaryEntryForm = () => {
         <>
             <div className="pl-10 pr-10">
                 <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
-                    <div className="flex mt-8"><Label className="w-2/4  pt-1">Origin</Label>
+                    <div className="flex mt-2"><Label className="w-2/4  pt-1">Origin</Label>
                         <Select value={origin} onValueChange={(value) => setOrigin(value)} required={true}>
                             <SelectTrigger className="w-2/4">
                                 <SelectValue placeholder="Origin" />
@@ -163,7 +163,7 @@ const RcnPrimaryEntryForm = () => {
                     <div className="flex"><Label className="w-2/4 pt-1"> Net Weight</Label>
                         <Input className="w-2/4 " placeholder="Net Weight" ref={netWeightRef} type="number" step="0.01" required />
                     </div>
-                    <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
+                    <Button className="bg-orange-500 mb-2 mt-4 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
                 </form>
 
 
