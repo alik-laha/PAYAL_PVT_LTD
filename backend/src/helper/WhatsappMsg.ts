@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const Number = ["+918610808251", "+917362926736"]
+const Number = ["+918610808251"]
 const template1 = "modify_request"
 const WhatsappMsg = async (msg: string) => {
 
@@ -14,25 +14,25 @@ const WhatsappMsg = async (msg: string) => {
                 language: {
                     code: "en_US"
                 },
-                components:[
+                components: [
                     {
                         type: "body",
-        parameters: [
-          {
-            type: "text",
-            text: "QC RCN Entry"
-          },
-          {
-            type: "text",
-            text: " ALik"
-          }
-        ]
+                        parameters: [
+                            {
+                                type: "text",
+                                text: "QC RCN Entry"
+                            },
+                            {
+                                type: "text",
+                                text: " ALik"
+                            }
+                        ]
 
                     }
                 ]
 
-                
-            
+
+
             }
         };
         try {
