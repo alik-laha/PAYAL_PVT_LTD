@@ -10,15 +10,15 @@ import DashboardUser from './components/dashboard user/DashboardUser'
 import Machine from './components/Machine/Machine'
 import Private from './components/private/private'
 import QCRcn from './components/qcRCN/QCRcn'
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 function App() {
-  const navigate = useNavigate()
+
   return (
     <>
 
       <Routes>
-        <Route path='/' element={<>{navigate("/dashboard")}</>} />
+        <Route path='/' element={<Navigate to={"/dashboard"} replace />} />
         <Route path="/login" element={<Login />} />
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
