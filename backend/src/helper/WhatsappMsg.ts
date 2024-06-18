@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const Number = ["+918610808251", "+917362926736"]
-const tamplete = "hello_world"
+const template1 = "modify_request"
 const WhatsappMsg = async (msg: string) => {
 
     Number.map((num) => {
@@ -10,10 +10,29 @@ const WhatsappMsg = async (msg: string) => {
             to: num,
             type: "template",
             template: {
-                name: tamplete,
+                name: template1,
                 language: {
                     code: "en_US"
-                }
+                },
+                components:[
+                    {
+                        type: "body",
+        parameters: [
+          {
+            type: "text",
+            text: "QC RCN Entry"
+          },
+          {
+            type: "text",
+            text: " ALik"
+          }
+        ]
+
+                    }
+                ]
+
+                
+            
             }
         };
         try {
