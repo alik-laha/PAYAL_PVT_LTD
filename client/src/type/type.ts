@@ -167,6 +167,17 @@ export interface AssetData {
     createdBy: string;
     modifiedBy: string;
 }
+export interface AssetDataExcel {
+    primaryAsset: string;
+    id: number;
+    machineID: string;
+    machineName: string;
+    description: string;
+    status: string;
+    section: string;
+    createdBy: string;
+    modifiedBy: string;
+}
 
 export interface PermissionRole {
 

@@ -31,7 +31,7 @@ import { LuDownload } from "react-icons/lu";
 import { Section } from "../common/exportData"
 import { FaSearch } from "react-icons/fa"
 import axios from "axios"
-import { AssetData } from "@/type/type"
+import { AssetData, AssetDataExcel } from "@/type/type"
 import {
     Dialog,
     DialogContent,
@@ -66,7 +66,7 @@ const MachineTable = () => {
     const [section, setSection] = useState<string>("")
     const [assetidname, setassetidname] = useState<string>("")
     const [Data, setData] = useState<AssetData[]>([])
-    const [transformedData, setTransformedData] = useState<AssetData[]>([]);
+    const [transformedData, setTransformedData] = useState<AssetDataExcel[]>([]);
     const currDate = new Date().toLocaleDateString();
     
     const handleSearch = async () => {
@@ -104,6 +104,7 @@ const MachineTable = () => {
             machineID: item.machineID,
             machineName: item.machineName,
             description: item.description,
+            primary:item.primaryAsset===1?'yes':'no',
             status: item.status,
             section: item.section,
             createdBy: item.createdBy,

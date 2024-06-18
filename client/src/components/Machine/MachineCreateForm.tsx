@@ -122,7 +122,7 @@ const MachineCreateForm = () =>{
                     <div className="flex"><Label className="w-2/4 pt-1">Primary</Label>
                     <Input 
                         type="checkbox"
-                        placeholder="physically challenged"
+                        placeholder="Primary "
                         className="h-5 mt-2"
                         onChange={handleprimary}
                         
