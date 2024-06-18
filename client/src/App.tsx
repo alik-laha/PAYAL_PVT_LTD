@@ -18,7 +18,7 @@ function App() {
     <>
 
       <Routes>
-        <Route path='/' element={<>{navigate("/login")}</>} />
+        <Route path='/' element={<>{navigate("/dashboard")}</>} />
         <Route path="/login" element={<Login />} />
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
