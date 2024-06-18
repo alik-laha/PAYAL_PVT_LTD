@@ -18,7 +18,7 @@ const UpdateUser = async (req: Request, res: Response) => {
             const userExist = await User.findOne({ where: { userName } });
             if (userExist) {
 
-                return res.status(400).json({ message: 'User Already Exists' });
+                return res.status(400).json({ message: 'UserName Already Exists' });
             }
         }
         if (!password && !confirmPassword) {

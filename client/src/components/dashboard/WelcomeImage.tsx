@@ -6,7 +6,7 @@ const WelcomeImage: React.FC = () => {
   return (
     <div className="welcome-container">
       <div className="welcome-content">
-        <h1>Welcome to Our Dashboard</h1>
+        <h1>Welcome to Dashboard</h1>
         <p>We're glad to have you here. Let's get started!</p>
       </div>
       <div className="welcome-image">
