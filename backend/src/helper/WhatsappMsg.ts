@@ -14,7 +14,7 @@ const WhatsappMsg = async (msg: string) => {
     };
 
     try {
-        axios.post(`https://graph.facebook.com/v19.0/355921810932791/messages`, data, {
+        axios.post(process.env.WP_API_URL!, data, {
             headers: {
                 'Authorization': `Bearer ${process.env.WP_API_TOKEN}`,
                 'Content-Type': 'application/json'
