@@ -157,6 +157,18 @@ export interface UserProps {
 }
 
 export interface AssetData {
+    primaryAsset: number;
+    id: number;
+    machineID: string;
+    machineName: string;
+    description: string;
+    status: string;
+    section: string;
+    createdBy: string;
+    modifiedBy: string;
+}
+export interface AssetDataExcel {
+    primaryAsset: string;
     id: number;
     machineID: string;
     machineName: string;

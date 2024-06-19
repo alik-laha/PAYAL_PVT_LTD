@@ -275,7 +275,7 @@ const RcnPrimaryEntryTable = () => {
                     ))}
                 </select>
 
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
+                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
                 <Input className="w-1/6 flexbox-search-width-calender"
                     type="date"
                     value={fromdate}
@@ -337,13 +337,13 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center">{item.netWeight}</TableCell>
                                     <TableCell className="text-center font-semibold text-red-600">{item.difference}</TableCell>
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
-                                    <TableCell className="text-center">
+                                    <TableCell className="text-center ">
                                         {item.rcnStatus === 'QC Approved' ? (
-                                            <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
                                         ) : item.rcnStatus === 'QC Pending' ? (
-                                            <button className="bg-orange-500 p-1 text-white rounded">{item.rcnStatus}</button>
+                                            <button className="bg-yellow-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
                                         ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center">{item.editStatus == 'Created' ?
@@ -408,11 +408,11 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
                                     <TableCell className="text-center">
                                     {item.rcnStatus === 'QC Approved' ? (
-                                            <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
                                         ) : item.rcnStatus === 'QC Pending' ? (
-                                            <button className="bg-orange-500 p-1 text-white rounded">{item.rcnStatus}</button>
+                                            <button className="bg-yellow-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
                                         ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center">{item.editStatus == 'Created' ?
@@ -480,7 +480,7 @@ const RcnPrimaryEntryTable = () => {
             <dialog id="rcneditapproveScsDialog" className="dashboard-modal">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Modify request has Been Approved</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification Request has Been Approved</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
@@ -488,7 +488,7 @@ const RcnPrimaryEntryTable = () => {
             <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
                 <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">RCN Entry Modify Request Has Been Reverted</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Modification Request has Been Reverted</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

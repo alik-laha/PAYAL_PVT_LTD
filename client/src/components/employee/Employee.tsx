@@ -34,16 +34,12 @@ const Employee = () => {
                     <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-300">
                         Active <br /><p>{data.Data}</p>
                     </div>
-
-
-
-
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
 
 
                 <Dialog >
-                    <DialogTrigger>   <Button className="bg-blue-400 mb-2 mt-5 ml-4 responsive-button-adjust">+ Add New Employee</Button></DialogTrigger>
+                    <DialogTrigger>   <Button className="bg-blue-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+ Add New Employee</Button></DialogTrigger>
                     <DialogContent className='max-w-2xl'>
                         <DialogHeader>
                             <DialogTitle><p className='text-1xl text-center mt-2'>Employee Details</p></DialogTitle>

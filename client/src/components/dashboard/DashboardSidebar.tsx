@@ -8,8 +8,9 @@ import "./dashboard.css"
 import { useState } from "react"
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { MdCallReceived } from "react-icons/md";
-import { MdOutlineFactory } from "react-icons/md";
-import { LuBadgeCheck, LuServerCrash } from "react-icons/lu";
+//import { MdOutlineFactory } from "react-icons/md";
+import { LuBadgeCheck  } from "react-icons/lu";
+//import {  LuServerCrash } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
 import { PermissionRol,PermissionDep } from "../common/exportData";
 import { PermissionRole,PermissionDept } from "@/type/type";
@@ -78,7 +79,7 @@ const DashboardSidebar = () => {
                             && <CollapsibleContent className="Items-pvt">
                             {renderlink('Dashboard User')}
                             <NavLink to="/dashboard/user" >
-                              Dashboard User
+                              User
                             </NavLink>
                         </CollapsibleContent> }
 
@@ -93,7 +94,7 @@ const DashboardSidebar = () => {
 
                     </Collapsible>}
 
-                    {rendersection('Production') &&  <Collapsible >
+                    {/* {rendersection('Production') &&  <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineFactory size={25} />
                             <p>Production</p></CollapsibleTrigger>
                             {renderlink('Grading')
@@ -105,7 +106,7 @@ const DashboardSidebar = () => {
                         <CollapsibleContent className="Items-pvt">
                             RCN Boiling
                         </CollapsibleContent>
-                    </Collapsible>}
+                    </Collapsible>} */}
 
                     {rendersection('Receiving') &&  <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25} />
@@ -133,11 +134,12 @@ const DashboardSidebar = () => {
 
 
                         </Collapsible>}
-                        {rendersection('Maintainance') && <Collapsible >
+                        
+                        {/* {rendersection('Maintainance') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><LuServerCrash size={25} />
                             <p>Maintainance</p></CollapsibleTrigger>
 
-                    </Collapsible>}
+                    </Collapsible>} */}
 
 
                 </a>

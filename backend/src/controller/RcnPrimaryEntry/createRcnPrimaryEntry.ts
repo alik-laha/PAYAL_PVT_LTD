@@ -7,10 +7,16 @@ const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
         // const date = new Date();
         const receivedBy = req.cookies.user;
         // const receivedBy = "RC User 1";
-        const difference = blWeight - netWeight;
+        let difference
+        if (blWeight >= netWeight) {
+            difference = blWeight - netWeight;
+        }
+        if (netWeight >= blWeight) {
+            difference = netWeight - blWeight
+        }
         const rcnPrimaryExists = await RcnPrimary.findOne({ where: { blNo, conNo } });
         if (rcnPrimaryExists) {
-            return res.status(400).json({ message: "Rcn Primary Entry Already Exists With this Bl-No and Con-No" });
+            return res.status(400).json({ message: "Entry Already Exists With this Bl-No and Con-No" });
         }
 
         const rcnPrimary = await RcnPrimary.create({
@@ -25,7 +31,7 @@ const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
             origin,
             receivedBy
         });
-        res.status(201).json({ message: "Rcn Primary Entry Created Successfully", rcnPrimary });
+        res.status(201).json({ message: "Rcn Primary Entry is Created Successfully", rcnPrimary });
 
     }
     catch (err) {

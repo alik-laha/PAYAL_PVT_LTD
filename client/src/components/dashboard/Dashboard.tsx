@@ -2,6 +2,7 @@
 
 import DashboardSidebar from './DashboardSidebar'
 import DashboardHeader from './DashboardHeader'
+import WelcomeImage from './WelcomeImage'
 
 
 export const Dashboard = () => {
@@ -11,7 +12,7 @@ export const Dashboard = () => {
         <DashboardHeader/>
         <DashboardSidebar/>
         <div className='dashboard-main-container'>
-            Main Content
+            <WelcomeImage/>
         </div>
         </div>
         

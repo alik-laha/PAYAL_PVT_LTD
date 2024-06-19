@@ -39,14 +39,14 @@ const SearchAsset = async (req: Request, res: Response) => {
         if(limit===0 && offset===0){
             assetEntries = await Asset.findAll({
                 where,
-                order: [['createdAt', 'DESC']], // Order by date descending
+                order: [['section','ASC'],['machineID','ASC'],['createdAt', 'DESC']], // Order by date descending
                 
             });
         }
         else{
             assetEntries = await Asset.findAll({
                 where,
-                order: [['machineID','ASC'],['createdAt', 'DESC']], // Order by date descending
+                order: [['section','ASC'],['machineID','ASC'],['createdAt', 'DESC']], // Order by date descending
                 limit: limit,
                 offset: offset,
               
