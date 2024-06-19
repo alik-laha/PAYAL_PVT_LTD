@@ -484,16 +484,16 @@
     .flexbox-search-width-calender{
    
         width: 33%!important;
-        margin-left: 0%!important;
+        margin-left: 3%!important;
         padding: 0!important;
 
     }
     .flexbox-search-width-label-right{
    
         width: 10%!important;
-        margin-left: 10px!important;
+        margin-left: 2%!important;
         padding: 0!important;
-        margin-right: 5px!important;
+        margin-right: 1%!important;
         text-align: center;
 
     }
@@ -502,7 +502,7 @@
         width: 10%!important;
         margin-left: 0!important;
         padding: 0!important;
-        margin-right: 5px!important;
+        margin-right: 2%!important;
 
     }
     .no-padding{

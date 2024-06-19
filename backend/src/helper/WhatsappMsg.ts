@@ -1,8 +1,10 @@
 import axios from 'axios'
 
 const Number = ["+918610808251"]
-const template1 = "modify_request"
-const WhatsappMsg = async (tablename: string, modifyBy: string) => {
+//const template1 = "modify_request"
+const WhatsappMsg = async (tablename: string, modifyBy: string,template:string) => {
+
+if(template==='modify_request')   {
 
     Number.map((num) => {
         const data = {
@@ -10,7 +12,7 @@ const WhatsappMsg = async (tablename: string, modifyBy: string) => {
             to: num,
             type: "template",
             template: {
-                name: template1,
+                name: template,
                 language: {
                     code: "en_US"
                 },
@@ -54,6 +56,10 @@ const WhatsappMsg = async (tablename: string, modifyBy: string) => {
         }
 
     })
+
+
+}
+    
 
 
 
