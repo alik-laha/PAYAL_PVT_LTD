@@ -8,7 +8,7 @@ import "./dashboard.css"
 import { useState } from "react"
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { MdCallReceived } from "react-icons/md";
-import { MdOutlineFactory } from "react-icons/md";
+//import { MdOutlineFactory } from "react-icons/md";
 import { LuBadgeCheck  } from "react-icons/lu";
 //import {  LuServerCrash } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
@@ -79,7 +79,7 @@ const DashboardSidebar = () => {
                             && <CollapsibleContent className="Items-pvt">
                             {renderlink('Dashboard User')}
                             <NavLink to="/dashboard/user" >
-                              Dashboard User
+                              User
                             </NavLink>
                         </CollapsibleContent> }
 
@@ -94,7 +94,7 @@ const DashboardSidebar = () => {
 
                     </Collapsible>}
 
-                    {rendersection('Production') &&  <Collapsible >
+                    {/* {rendersection('Production') &&  <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineFactory size={25} />
                             <p>Production</p></CollapsibleTrigger>
                             {renderlink('Grading')
@@ -103,10 +103,10 @@ const DashboardSidebar = () => {
                                 RCN Grading
                             </NavLink>
                         </CollapsibleContent>}
-                        {/* <CollapsibleContent className="Items-pvt">
+                        <CollapsibleContent className="Items-pvt">
                             RCN Boiling
-                        </CollapsibleContent> */}
-                    </Collapsible>}
+                        </CollapsibleContent>
+                    </Collapsible>} */}
 
                     {rendersection('Receiving') &&  <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25} />

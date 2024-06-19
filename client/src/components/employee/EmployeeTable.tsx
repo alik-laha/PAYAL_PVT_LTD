@@ -203,7 +203,7 @@ const EmployeeTable = () => {
 
             </div>
 
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
+            <span className="w-1/8"><Button className="bg-green-700 h-8 my-2 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
 
             <Table className="mt-1 ml-2">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">

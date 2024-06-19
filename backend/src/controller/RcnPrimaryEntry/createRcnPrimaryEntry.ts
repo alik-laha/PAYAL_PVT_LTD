@@ -16,7 +16,7 @@ const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
         }
         const rcnPrimaryExists = await RcnPrimary.findOne({ where: { blNo, conNo } });
         if (rcnPrimaryExists) {
-            return res.status(400).json({ message: "Rcn Primary Entry Already Exists With this Bl-No and Con-No" });
+            return res.status(400).json({ message: "Entry Already Exists With this Bl-No and Con-No" });
         }
 
         const rcnPrimary = await RcnPrimary.create({

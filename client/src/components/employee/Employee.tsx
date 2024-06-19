@@ -34,10 +34,6 @@ const Employee = () => {
                     <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-300">
                         Active <br /><p>{data.Data}</p>
                     </div>
-
-
-
-
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
 

@@ -154,7 +154,7 @@ return(
                 <span className="w-1/3 pl-5 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
             </div>
 
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}>
+            <span className="w-1/8 pb-2"><Button className="bg-green-700 h-8 my-2 w-30 text-sm float-right mr-4" onClick={exportToExcel}>
                 <LuDownload size={18} /></Button>  </span>
 
             <Table className="mt-1">

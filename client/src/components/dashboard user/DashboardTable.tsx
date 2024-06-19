@@ -164,7 +164,7 @@ const DashboardTable = () => {
                 <Input className="w-80 mb-10" placeholder="Search By Emp Id/ Name/ Dept/ Role" onChange={handleSearch} />
 
             </div>
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4 " onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
+            <span className="w-1/8 "><Button className="bg-green-700 h-8 my-2 w-30 text-sm float-right mr-4 " onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
 
 
             <Table className="mt-1">
