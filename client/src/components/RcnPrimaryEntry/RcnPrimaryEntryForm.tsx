@@ -171,7 +171,7 @@ const RcnPrimaryEntryForm = () => {
             <dialog id="myDialog" className="dashboard-modal">
                 <button id="closeDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Primary Entry Submitted Successfully</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Primary Entry is Created Successfully</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

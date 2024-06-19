@@ -31,7 +31,7 @@ const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
             origin,
             receivedBy
         });
-        res.status(201).json({ message: "Rcn Primary Entry Created Successfully", rcnPrimary });
+        res.status(201).json({ message: "Rcn Primary Entry is Created Successfully", rcnPrimary });
 
     }
     catch (err) {

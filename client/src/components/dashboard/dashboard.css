@@ -402,6 +402,13 @@
     text-align: center;
   }
 
+  .fix-button-width-rcnprimary{
+
+    width: 95px!important;
+    height: 33px!important;
+    
+  }
+
 @media screen and (max-width: 999px) {
 
     .responsive-no-margin{
