@@ -8,10 +8,10 @@ const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
         const receivedBy = req.cookies.user;
         // const receivedBy = "RC User 1";
         let difference
-        if (blWeight > netWeight) {
+        if (blWeight >= netWeight) {
             difference = blWeight - netWeight;
         }
-        if (netWeight > blWeight) {
+        if (netWeight >= blWeight) {
             difference = netWeight - blWeight
         }
         const rcnPrimaryExists = await RcnPrimary.findOne({ where: { blNo, conNo } });

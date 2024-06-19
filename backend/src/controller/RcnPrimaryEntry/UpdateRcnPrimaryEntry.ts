@@ -37,7 +37,7 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
             },
         })) as RcnPrimaryModifyProps | null;
 
-        const data = await WhatsappMsg("RcnPrimary", editedBy,"modify_request")
+        const data = await WhatsappMsg("RCN Primary Receiving", editedBy,"modify_request")
         console.log(data)
 
 

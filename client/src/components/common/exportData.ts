@@ -1,4 +1,4 @@
-export const Origin = ["India", "Ghana", "Usa", "Uk", "China","Nigeria"]
+export const Origin = ["India", "Ghana", "IVC", "Benin", "Tanzania","Nigeria","Togo"]
 export const Dept: string[] = ['Admin', 'Receiving', 'Maintainance', 'QualityControl', 'Production']
 //export const optionsMapping:Record<string, string[]> = {Admin :['AdminSupervisor','Admin-Manager'],Receiving:['Receiving-Supervisor', 'Receiving-Manager'],Maintainance:['Maintainance-Supervisor'],Quality-Control:['QC-Supervisor','QC-Manager'],Production:[Production Manager]}
 export const Role: string[] = ['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager','MaintainanceSupervisor'
