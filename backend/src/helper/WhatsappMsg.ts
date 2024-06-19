@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const Number = ["+918610808251"]
 const template1 = "modify_request"
-const WhatsappMsg = async (msg: string) => {
+const WhatsappMsg = async (tablename: string, modifyBy: string) => {
 
     Number.map((num) => {
         const data = {
@@ -20,21 +20,17 @@ const WhatsappMsg = async (msg: string) => {
                         parameters: [
                             {
                                 type: "text",
-                                text: "QC RCN Entry"
+                                text: tablename // This replaces {{1}}
                             },
                             {
                                 type: "text",
-                                text: " ALik"
+                                text: modifyBy // This replaces {{2}}
                             }
                         ]
-
                     }
                 ]
-
-
-
             }
-        };
+        }
         try {
             axios.post(process.env.WP_API_URL!, data, {
                 headers: {

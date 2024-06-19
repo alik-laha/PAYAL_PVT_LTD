@@ -29,8 +29,8 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
                 id,
             },
         })) as RcnPrimaryModifyProps | null;
-        const msg = `User: ${editedBy} has forwarded data modify request for Prinary Rcn Receving`
-        const data = await WhatsappMsg(msg)
+
+        const data = await WhatsappMsg("RcnPrimary", editedBy)
         console.log(data)
 
 
