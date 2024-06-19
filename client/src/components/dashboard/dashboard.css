@@ -522,7 +522,9 @@
     .no-margin-left{
         margin-left:10px!important;
     }
-
+    .qc-responsive-right{
+        margin-right: 4vw;
+    }
     
   
 

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import QceditRCN from "../../model/qcRCNeditmodel";
 import QcRCN from "../../model/qcRCNmodel";
+import WhatsappMsg from "../../helper/WhatsappMsg";
 
 
 
@@ -56,7 +57,8 @@ const modifyrcnReport = async (req: Request, res: Response) => {
             }
         );
 
-       
+        const data = await WhatsappMsg("RCN Incoming QC", createdBy,"modify_request")
+        console.log(data)
         return res.status(200).json({ message: "RCN QC Report Edit Requested",rcn });
     }
 
