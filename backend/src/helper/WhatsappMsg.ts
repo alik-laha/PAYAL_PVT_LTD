@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const Number = ["+918610808251"]
+const Number = ["+918610808251","+919836444448","+919630909730"]
 //const template1 = "modify_request"
 const WhatsappMsg = async (tablename: string, modifyBy: string,template:string) => {
 
