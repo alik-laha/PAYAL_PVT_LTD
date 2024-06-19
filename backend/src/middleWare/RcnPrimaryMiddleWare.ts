@@ -5,7 +5,6 @@ const RcnPrimaryMiddleWare = (req: Request, res: Response, next: NextFunction) =
         const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin } = req.body;
         // const receivedBy = req.cookies.user;
         const receivedBy = "alik";
-        const difference =  blWeight-netWeight;
 
         if (!blNo || !truckNo || !conNo || !blWeight || !netWeight || !noOfBags || !origin) {
             console.log(blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin);
@@ -13,9 +12,6 @@ const RcnPrimaryMiddleWare = (req: Request, res: Response, next: NextFunction) =
         }
         if (!receivedBy) {
             return res.status(400).json({ message: "User Not found" });
-        }
-        if (difference < 0) {
-            return res.status(400).json({ message: "Net weight Can't be Greater than BL weight" });
         }
         next();
     }
