@@ -34,7 +34,7 @@ const DashboardUser = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-red-500 hover:bg-red-600">
-                        User<br /><p>{data.count}</p>
+                        Dashboard User<br /><p>{data.count}</p>
                     </div>
 
 

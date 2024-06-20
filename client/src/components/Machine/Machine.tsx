@@ -35,13 +35,13 @@ const Machine = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-green-500 hover:bg-green-600">
-                        Active<br /><p>{data.Data}</p>
+                        Active Asset<br /><p>{data.Data}</p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-600">
-                        Inactive<br /><p>{data.inactive}</p>
+                        Inactive Asset<br /><p>{data.inactive}</p>
                     </div>
                     <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-600">
-                        Discarded<br /><p>{data.Dicarded}</p>
+                        Discarded <br /><p>{data.Dicarded}</p>
                     </div>
                 </div>
               
