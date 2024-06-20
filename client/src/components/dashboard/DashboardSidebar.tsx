@@ -79,7 +79,7 @@ const DashboardSidebar = () => {
                             && <CollapsibleContent className="Items-pvt">
                             {renderlink('Dashboard User')}
                             <NavLink to="/dashboard/user" >
-                              User
+                              User Profile
                             </NavLink>
                         </CollapsibleContent> }
 
