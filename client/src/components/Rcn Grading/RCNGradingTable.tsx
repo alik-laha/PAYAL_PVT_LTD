@@ -294,7 +294,7 @@ const RcnGradingTable = () => {
                     <TableHead className="text-center" >Others</TableHead>
                     <TableHead className="text-center" >Run Duration</TableHead>
                     <TableHead className="text-center" >Labour No</TableHead>
-                    <TableHead className="text-center" >Lot No</TableHead>
+                    {/* <TableHead className="text-center" >Lot No</TableHead> */}
                     <TableHead className="text-center" >Edit Status</TableHead>
                     <TableHead className="text-center" >Entried By</TableHead>
 
@@ -302,23 +302,8 @@ const RcnGradingTable = () => {
 
                 </TableHeader>
                 <TableBody>
-                    {Error ?
-
-                        <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">{Error}</p></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-
-
-                        </TableRow>
-                        : null}
-                    {editPendiningGrinderData.length === 0 ? data.map((item: GradingData, index: number) => {
+                   
+                    {editPendiningGrinderData.length === 0 ? (data.length>0 ?data.map((item: GradingData, index: number) => {
                         const Index = page * limit + index - limit + 1
                         return (
                             <TableRow key={index}>
@@ -341,7 +326,7 @@ const RcnGradingTable = () => {
                                 <TableCell className="text-center">{item.otherTime.slice(0, 5)}</TableCell>
                                 <TableCell className="text-center">{item.Mc_runTime.slice(0, 5)}</TableCell>
                                 <TableCell className="text-center">{item.noOfEmployees}</TableCell>
-                                <TableCell className="text-center">{item.grading_lotNo}</TableCell>
+                                {/* <TableCell className="text-center">{item.grading_lotNo}</TableCell> */}
                                 <TableCell className="text-center">{item.editStatus} </TableCell>
                                 <TableCell>{item.feeledBy}</TableCell>
 
@@ -366,6 +351,26 @@ const RcnGradingTable = () => {
                             </TableRow>
                         )
                     })
+               :   <TableRow>
+               <TableCell></TableCell>
+               <TableCell></TableCell>
+               <TableCell></TableCell>
+               <TableCell></TableCell>
+               <TableCell></TableCell>
+               <TableCell></TableCell>
+               <TableCell></TableCell>
+               <TableCell></TableCell>
+               <TableCell></TableCell>
+               <TableCell></TableCell>
+              
+               <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">No Result</p></TableCell>
+               <TableCell></TableCell>
+               <TableCell></TableCell>
+               <TableCell></TableCell>
+               <TableCell></TableCell>
+
+
+           </TableRow>)
                         : editPendiningGrinderData.map((item: GradingData, index: number) => {
                             const Index = page * limit + index - limit + 1
                             return (
