@@ -286,14 +286,14 @@ const RcnGradingTable = () => {
                     <TableHead className="text-center" >G</TableHead>
                     <TableHead className="text-center" >Dust</TableHead>
 
-                    <TableHead className="text-center" >Machine</TableHead>
+                    <TableHead className="text-center" >Name of Machine</TableHead>
 
-                    <TableHead className="text-center" >MC On</TableHead>
-                    <TableHead className="text-center" >MC Off</TableHead>
-                    <TableHead className="text-center" >Breakdown</TableHead>
-                    <TableHead className="text-center" >Others</TableHead>
+                    <TableHead className="text-center" >Machine On</TableHead>
+                    <TableHead className="text-center" >Machine Off</TableHead>
+                    <TableHead className="text-center" >Breakdown Duration</TableHead>
+                    <TableHead className="text-center" >Other Duration</TableHead>
                     <TableHead className="text-center" >Run Duration</TableHead>
-                    <TableHead className="text-center" >Labour No</TableHead>
+                    <TableHead className="text-center" >No. Of Labour</TableHead>
                     {/* <TableHead className="text-center" >Lot No</TableHead> */}
                     <TableHead className="text-center" >Edit Status</TableHead>
                     <TableHead className="text-center" >Entried By</TableHead>
@@ -362,7 +362,8 @@ const RcnGradingTable = () => {
                <TableCell></TableCell>
                <TableCell></TableCell>
                <TableCell></TableCell>
-              
+               <TableCell></TableCell>
+               <TableCell></TableCell>
                <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">No Result</p></TableCell>
                <TableCell></TableCell>
                <TableCell></TableCell>
@@ -394,12 +395,8 @@ const RcnGradingTable = () => {
                                     <TableCell className="text-center">{item.otherTime.slice(0, 5)}</TableCell>
                                     <TableCell className="text-center">{item.Mc_runTime.slice(0, 5)}</TableCell>
                                     <TableCell className="text-center">{item.noOfEmployees}</TableCell>
-                                    <TableCell className="text-center">{item.grading_lotNo}</TableCell>
-                                    <TableCell className="text-center">{item.editStatus === 'Pending' ? (
-                                        <button className="bg-red-500 p-1 text-white rounded">{item.editStatus}</button>
-                                    ) : (
-                                        <button className="bg-green-500 p-1 text-white rounded">{item.editStatus}</button>
-                                    )}</TableCell>
+                                    {/* <TableCell className="text-center">{item.grading_lotNo}</TableCell> */}
+                                    <TableCell className="text-center">{item.editStatus}</TableCell>
                                     <TableCell>{item.modifiedBy}</TableCell>
 
                                     <TableCell className="text-center" >
