@@ -46,7 +46,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { LuDownload } from 'react-icons/lu'
 import RcnGraddingModifyForm from "./RCNGradingModify";
-import { GradingData, GradingExcelData } from "@/type/type";
+import { GradingData, GradingExcelData, TimePeriodProps } from "@/type/type";
 import { Origin } from "../common/exportData"
 import { pageNo, pagelimit } from "../common/exportData"
 import { format, toZonedTime } from 'date-fns-tz'
@@ -231,6 +231,27 @@ const RcnGradingTable = () => {
 
 
     }
+    const handleAMPM = (time: string) => {
+     
+        let [hours, minutes] = time.split(':').map(Number);
+        let period = ' AM';
+
+        if (hours === 0) {
+            hours = 12;
+        } else if (hours === 12) {
+            period = ' PM';
+        } else if (hours > 12) {
+            hours -= 12;
+            period = ' PM';
+        }
+        const finalTime=hours.toString().padStart(2, '0')+ ':'+minutes.toString().padStart(2, '0')+ period.toString()
+
+       // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
+       return finalTime;
+    }
+    
+      
+    
     return (
         <div className="ml-5 mt-5">
             <div className="flex flexbox-search">
@@ -275,7 +296,7 @@ const RcnGradingTable = () => {
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Sl No.</TableHead>
-                    <TableHead className="text-center" >Entry Date</TableHead>
+                    <TableHead className="text-center" >Grading Entry Date</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
                     <TableHead className="text-center" >A</TableHead>
                     <TableHead className="text-center" >B</TableHead>
@@ -310,37 +331,37 @@ const RcnGradingTable = () => {
                                 <TableCell className="text-center">{Index}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                 <TableCell className="text-center">{item.origin}</TableCell>
-                                <TableCell className="text-center">{item.A} </TableCell>
-                                <TableCell className="text-center">{item.B} </TableCell>
-                                <TableCell className="text-center">{item.C} </TableCell>
-                                <TableCell className="text-center">{item.D} </TableCell>
-                                <TableCell className="text-center">{item.E}</TableCell>
-                                <TableCell className="text-center">{item.F} </TableCell>
-                                <TableCell className="text-center">{item.G} </TableCell>
-                                <TableCell className="text-center">{item.dust}</TableCell>
+                                <TableCell className="text-center font-semibold">{item.A} </TableCell>
+                                <TableCell className="text-center font-semibold">{item.B} </TableCell>
+                                <TableCell className="text-center font-semibold">{item.C} </TableCell>
+                                <TableCell className="text-center font-semibold">{item.D} </TableCell>
+                                <TableCell className="text-center font-semibold">{item.E}</TableCell>
+                                <TableCell className="text-center font-semibold">{item.F} </TableCell>
+                                <TableCell className="text-center font-semibold">{item.G} </TableCell>
+                                <TableCell className="text-center font-semibold">{item.dust}</TableCell>
 
                                 <TableCell className="text-center">{item.Mc_name}</TableCell>
-                                <TableCell className="text-center">{item.Mc_on.slice(0, 5)}</TableCell>
-                                <TableCell className="text-center">{item.Mc_off.slice(0, 5)}</TableCell>
-                                <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5)}</TableCell>
-                                <TableCell className="text-center">{item.otherTime.slice(0, 5)}</TableCell>
-                                <TableCell className="text-center">{item.Mc_runTime.slice(0, 5)}</TableCell>
+                                <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
+                                <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
+                                <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5)} hr.</TableCell>
+                                <TableCell className="text-center">{item.otherTime.slice(0, 5)} hr.</TableCell>
+                                <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5)} hr.</TableCell>
                                 <TableCell className="text-center">{item.noOfEmployees}</TableCell>
                                 {/* <TableCell className="text-center">{item.grading_lotNo}</TableCell> */}
                                 <TableCell className="text-center">{item.editStatus} </TableCell>
-                                <TableCell>{item.feeledBy}</TableCell>
+                                <TableCell className="text-center">{item.feeledBy}</TableCell>
 
                                 <TableCell className="text-center" >
                                     <Popover>
-                                        <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                        <PopoverTrigger>  <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
                                         </PopoverTrigger>
                                         <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
                                             <Dialog>
-                                                <DialogTrigger>   <button className="bg-transparent pb-2 text-left">View/Modify</button></DialogTrigger>
+                                                <DialogTrigger>   <button className="bg-transparent pb-2 text-left">Modify</button></DialogTrigger>
                                                 <DialogContent className='max-w-2xl'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-2'>View/Modify Employee</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl text-center mt-2'>Modify RCN Grading</p></DialogTitle>
                                                     </DialogHeader>
                                                     <RcnGraddingModifyForm data={item} />
                                                 </DialogContent>
@@ -377,27 +398,27 @@ const RcnGradingTable = () => {
                             return (
                                 <TableRow key={index}>
                                     <TableCell className="text-center">{Index}</TableCell>
-                                    <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center">{item.origin}</TableCell>
-                                    <TableCell className="text-center">{item.A} </TableCell>
-                                    <TableCell className="text-center">{item.B} </TableCell>
-                                    <TableCell className="text-center">{item.C} </TableCell>
-                                    <TableCell className="text-center">{item.D} </TableCell>
-                                    <TableCell className="text-center">{item.E}</TableCell>
-                                    <TableCell className="text-center">{item.F} </TableCell>
-                                    <TableCell className="text-center">{item.G} </TableCell>
-                                    <TableCell className="text-center">{item.dust}</TableCell>
+                                    <TableCell className="text-center ">{handletimezone(item.date)}</TableCell>
+                                    <TableCell className="text-center ">{item.origin}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.A} </TableCell>
+                                    <TableCell className="text-center font-semibold">{item.B} </TableCell>
+                                    <TableCell className="text-center font-semibold">{item.C} </TableCell>
+                                    <TableCell className="text-center font-semibold">{item.D} </TableCell>
+                                    <TableCell className="text-center font-semibold">{item.E}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.F} </TableCell>
+                                    <TableCell className="text-center font-semibold">{item.G} </TableCell>
+                                    <TableCell className="text-center font-semibold">{item.dust}</TableCell>
 
                                     <TableCell className="text-center">{item.Mc_name}</TableCell>
-                                    <TableCell className="text-center">{item.Mc_on.slice(0, 5)}</TableCell>
-                                    <TableCell className="text-center">{item.Mc_off.slice(0, 5)}</TableCell>
-                                    <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5)}</TableCell>
-                                    <TableCell className="text-center">{item.otherTime.slice(0, 5)}</TableCell>
-                                    <TableCell className="text-center">{item.Mc_runTime.slice(0, 5)}</TableCell>
-                                    <TableCell className="text-center">{item.noOfEmployees}</TableCell>
+                                    <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
+                                    <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
+                                    <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5)} hr.</TableCell>
+                                    <TableCell className="text-center">{item.otherTime.slice(0, 5)} hr.</TableCell>
+                                    <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5)} hr.</TableCell>
+                                    <TableCell className="text-center">{item.noOfEmployees} </TableCell>
                                     {/* <TableCell className="text-center">{item.grading_lotNo}</TableCell> */}
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
-                                    <TableCell>{item.modifiedBy}</TableCell>
+                                    <TableCell className="text-center">{item.feeledBy}</TableCell>
 
                                     <TableCell className="text-center" >
                                         <Popover>

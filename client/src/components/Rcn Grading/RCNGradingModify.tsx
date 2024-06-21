@@ -149,12 +149,12 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
                 </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">MC Breek Down</Label>
+                    <Label className="w-2/4 pt-1">Break Down Duration(Total)</Label>
                     <Input className="w-2/4 " placeholder="MC BreakDown" value={Mc_breakdown} onChange={(e) => setMc_breakdown(e.target.value)} type='time' />
                 </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Other Time</Label>
+                    <Label className="w-2/4 pt-1">Other Duration(Total)</Label>
                     <Input className="w-2/4 " placeholder="Other Time" value={otherTime} onChange={(e) => setOtherTime(e.target.value)} type='time' />
                 </div>
                 <div className="flex">
@@ -190,7 +190,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Grading Lot No</Label>
-                    <Input className="w-2/4 " placeholder="Graddimng lot No" value={grading_lotNo} onChange={(e) => setGrading_lotNo(e.target.value)} />
+                    <Input className="w-2/4 " placeholder="Grading lot No" value={grading_lotNo} onChange={(e) => setGrading_lotNo(e.target.value)} />
                 </div>
 
 

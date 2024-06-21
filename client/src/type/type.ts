@@ -255,3 +255,8 @@ export interface GradingExcelData {
     Edit_Status: string;
     Feeled_By: string;
 }
+
+export interface TimePeriodProps {
+
+    timeString:string
+}

@@ -76,7 +76,13 @@ const RcnGradingCreateForm = () => {
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
 
 
-
+            <div className="flex">
+                    <Label className="w-2/4 bg-green-500 text-center rounded-md pt-2 mr-1 text-primary-foreground">MC ON  </Label>
+                    <Input className="w-3/5  justify-center bg-green-100 mr-1" placeholder="MC ON Time" ref={mc_onRef} type='time' required />
+                    <Input className="w-3/5 justify-center bg-red-100 ml-1" placeholder="MC OFF Time" ref={mc_offRef} type='time' required />
+                    <Label className="w-2/4 bg-red-500 rounded-md text-white-600 text-center pt-2 ml-1 text-primary-foreground">MC OFF</Label>
+                   
+                </div> 
 
                 <div className="flex mt-2">
                     <Label className="w-1/4 pt-2 ">A </Label>
@@ -110,13 +116,7 @@ const RcnGradingCreateForm = () => {
 
 
                
-                <div className="flex mt-5">
-                    <Label className="w-2/4 text-center text-red-600 pt-2">MC ON </Label>
-                    <Input className="w-3/5  justify-center bg-cyan-100 mr-1" placeholder="MC ON Time" ref={mc_onRef} type='time' required />
-                    <Input className="w-3/5 justify-center bg-cyan-100 ml-1" placeholder="MC OFF Time" ref={mc_offRef} type='time' required />
-                    <Label className="w-2/4 text-red-600 text-center pt-2">MC OFF </Label>
-                   
-                </div>    
+                  
                 <div className="flex mt-2">
                     <Label className="w-2/4 pt-1 ">Machine Name</Label>
                     <Select value={mc_name} onValueChange={(value) => setMc_name(value)} required={true}>
@@ -144,14 +144,14 @@ const RcnGradingCreateForm = () => {
                     <Input className="w-2/4 justify-center " placeholder="MC BreakDown" value={Mc_breakdown} type='time' onChange={(e) => setMc_breakdown(e.target.value)} />
                 </div>
 
-                <div className="flex">
+                <div className="flex ">
                     <Label className="w-2/4 pt-2">Other Duration  (Total)</Label>
                     <Input className="w-2/4 justify-center " placeholder="Other Time" value={otherTime} type='time' onChange={(e) => setOtherTime(e.target.value)} />
                 </div>
             
                 
 
-                <div className="flex mt-2">
+                <div className="flex ">
                     <Label className="w-2/4 pt-1">Date</Label>
                     <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type='date' required /> </div>
 
