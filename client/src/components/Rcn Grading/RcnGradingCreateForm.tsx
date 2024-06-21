@@ -111,10 +111,10 @@ const RcnGradingCreateForm = () => {
 
                
                 <div className="flex mt-5">
-                    <Label className="w-2/4 text-red-600 pt-2">MC ON </Label>
+                    <Label className="w-2/4 text-center text-red-600 pt-2">MC ON </Label>
                     <Input className="w-3/5  justify-center bg-cyan-100 mr-1" placeholder="MC ON Time" ref={mc_onRef} type='time' required />
                     <Input className="w-3/5 justify-center bg-cyan-100 ml-1" placeholder="MC OFF Time" ref={mc_offRef} type='time' required />
-                    <Label className="w-2/4 text-red-600 text-right pt-2">MC OFF </Label>
+                    <Label className="w-2/4 text-red-600 text-center pt-2">MC OFF </Label>
                    
                 </div>    
                 <div className="flex mt-2">
@@ -151,7 +151,7 @@ const RcnGradingCreateForm = () => {
             
                 
 
-                <div className="flex mt-5">
+                <div className="flex mt-2">
                     <Label className="w-2/4 pt-1">Date</Label>
                     <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type='date' required /> </div>
 

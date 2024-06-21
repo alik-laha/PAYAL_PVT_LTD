@@ -342,11 +342,7 @@ const RcnGradingTable = () => {
                                 <TableCell className="text-center">{item.Mc_runTime.slice(0, 5)}</TableCell>
                                 <TableCell className="text-center">{item.noOfEmployees}</TableCell>
                                 <TableCell className="text-center">{item.grading_lotNo}</TableCell>
-                                <TableCell className="text-center">{item.editStatus === 'Pending' ? (
-                                    <button className="bg-red-500 p-1 text-white rounded">{item.editStatus}</button>
-                                ) : (
-                                    <button className="bg-green-500 p-1 text-white rounded">{item.editStatus}</button>
-                                )}</TableCell>
+                                <TableCell className="text-center">{item.editStatus} </TableCell>
                                 <TableCell>{item.feeledBy}</TableCell>
 
                                 <TableCell className="text-center" >
