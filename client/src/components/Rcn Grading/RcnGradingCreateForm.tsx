@@ -84,7 +84,7 @@ const RcnGradingCreateForm = () => {
                    
                 </div> 
 
-                <div className="flex mt-2">
+                <div className="flex mt-5">
                     <Label className="w-1/4 pt-2 ">A </Label>
                     <Input className="w-2/4 justify-center bg-cyan-100" placeholder="A" ref={aRef} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">B </Label>
