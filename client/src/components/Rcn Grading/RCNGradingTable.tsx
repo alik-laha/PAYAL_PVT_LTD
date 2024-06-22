@@ -182,7 +182,7 @@ const RcnGradingTable = () => {
 
     }
     const handleExcellExport = async () => {
-        const data = await axios.post('/api/grading/exportGrading', { fromDate: fromdate, toDate: todate, searchData, origin })
+        const data = await axios.post('/api/grading/searchGrading', { fromDate: fromdate, toDate: todate, searchData, origin })
         const data1 = await data.data
 
         let ws
@@ -204,9 +204,9 @@ const RcnGradingTable = () => {
                     'Machine': item.Mc_name,
                     'MC_On': handleAMPM(item.Mc_on.slice(0, 5)),
                     'MC_Off': handleAMPM(item.Mc_off.slice(0, 5)),
-                    'Breakdown_Duration': item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1'),
-                    'Other_Duration': item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1'),
-                    'Run_Duration': item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, ''),
+                    'Breakdown_Duration': item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')+' Hr.',
+                    'Other_Duration': item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')+' Hr.',
+                    'Run_Duration': item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')+' Hr.',
                     'Labour_No': item.noOfEmployees,
                     'Grading_Lot_No': item.grading_lotNo,
                     'Edit_Status': item.editStatus,
@@ -252,7 +252,7 @@ const RcnGradingTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'QC_RCN_Entry_' + currDate + '.xlsx');
+        saveAs(blob, 'RCN_Grading_Entry_' + currDate + '.xlsx');
 
 
     }
@@ -357,7 +357,7 @@ const RcnGradingTable = () => {
 
             {checkpending('Grading') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={handleExcellExport}><LuDownload size={18} /></Button>  </span>}
 
-            <Table className="mt-1">
+            <Table className="mt-5">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Sl No.</TableHead>
