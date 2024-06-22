@@ -57,6 +57,7 @@ import Context from '../context/context'
 import { useContext } from "react";
 import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
+import { FcApprove, FcDisapprove } from "react-icons/fc";
 
 const RcnGradingTable = () => {
     const [page, setPage] = useState(pageNo)
@@ -437,10 +438,10 @@ const RcnGradingTable = () => {
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
                                                 <Dialog>
-                                                    <DialogTrigger onClick={() => handleApprove(item.id)}>   <button className="bg-transparent pb-2 text-left">Approve Edit</button></DialogTrigger>
+                                                    <DialogTrigger className="flex" onClick={() => handleApprove(item.id)}>  <FcApprove size={25}/>  <button className="bg-transparent  pl-1 text-left hover:text-green-500">Approve Edit</button></DialogTrigger>
                                                 </Dialog>
                                                 <Dialog>
-                                                    <DialogTrigger onClick={() => handleReject(item.id)}>   <button className="bg-transparent pb-2 text-left">Reject Edit</button></DialogTrigger>
+                                                    <DialogTrigger  className="flex" onClick={() => handleReject(item.id)}>    <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert Edit</button></DialogTrigger>
                                                 </Dialog>
                                             </PopoverContent>
                                         </Popover>
