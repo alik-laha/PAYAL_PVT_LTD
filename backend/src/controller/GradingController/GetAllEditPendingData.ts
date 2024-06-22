@@ -3,7 +3,7 @@ import RcnEditGrading from "../../model/RcnGradingEditModel";
 
 const GetAllEditPendingData = async (req: Request, res: Response) => {
     try {
-        const data = await RcnEditGrading.findAll({ order: [['createdAt', 'DESC']]}
+        const data = await RcnEditGrading.findAll({ order: [['date', 'DESC']]}
            
 
         )
