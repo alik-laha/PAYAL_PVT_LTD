@@ -27,7 +27,7 @@ const DashboardUserModifyForm = (props: UserProps) => {
     const [password, setPassword] = useState<string>("")
     const [confirmPassword, setConfirmPassword] = useState<string>("")
     const [errortext, setErrorText] = React.useState<string>("")
-    const [AvailableRoles, setAvailableRoles] = useState<string[]>([])
+  
 
     const successdialog = document.getElementById('modifysuccessuserdialog') as HTMLInputElement;
     const errordialog = document.getElementById('modifyerroruserdialog') as HTMLInputElement;

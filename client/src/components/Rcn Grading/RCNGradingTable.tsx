@@ -65,7 +65,7 @@ import cross from '../../assets/Static_Images/error_img.png'
 const RcnGradingTable = () => {
     const [page, setPage] = useState(pageNo)
     const [origin, setOrigin] = useState<string>("")
-    const [Error, setError] = useState('')
+    //const [Error, setError] = useState('')
     const [data, setData] = useState<GradingData[]>([])
     const [fromdate, setfromDate] = React.useState<string>('');
     const [todate, settoDate] = React.useState<string>('');
@@ -94,7 +94,8 @@ const RcnGradingTable = () => {
                 setData(res.data)
             })
             .catch(err => {
-                setError(err.data.message)
+                //setError(err.data.message)
+                console.log(err)
             })
     }
     useEffect(() => {
@@ -115,7 +116,8 @@ const RcnGradingTable = () => {
                 setData(res.data)
             })
             .catch(err => {
-                setError(err.data.message)
+                //setError(err.data.message)
+                console.log(err)
             })
     }, [page])
 
@@ -357,7 +359,7 @@ const RcnGradingTable = () => {
 
             {checkpending('Grading') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={handleExcellExport}><LuDownload size={18} /></Button>  </span>}
 
-            <Table className="mt-5">
+            <Table className="mt-2">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Sl No.</TableHead>
