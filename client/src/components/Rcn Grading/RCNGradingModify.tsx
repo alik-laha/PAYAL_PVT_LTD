@@ -90,30 +90,30 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
                 <div className="flex mt-2">
                     <Label className="w-1/4 pt-2">A</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="A" value={A} onChange={(e) => setA(Number(e.target.value))} type='number' step="0.01" />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="A" value={A} onChange={(e) => setA(Number(e.target.value))} type='number' />
                     <Label className="w-2/4 pt-2 text-center">B</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="B" value={B} onChange={(e) => setB(Number(e.target.value))} type='number' step="0.01" />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="B" value={B} onChange={(e) => setB(Number(e.target.value))} type='number' />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">C</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="C" value={C} onChange={(e) => setC(Number(e.target.value))} type='number' step="0.01" />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="C" value={C} onChange={(e) => setC(Number(e.target.value))} type='number' />
                     <Label className="w-2/4 pt-2 text-center">D</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="D" value={D} onChange={(e) => setD(Number(e.target.value))} type='number' step="0.01" />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="D" value={D} onChange={(e) => setD(Number(e.target.value))} type='number' />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">E</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="E" value={E} onChange={(e) => setE(Number(e.target.value))} type='number' step="0.01" />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="E" value={E} onChange={(e) => setE(Number(e.target.value))} type='number' />
                     <Label className="w-2/4 pt-2 text-center">F</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="F" value={F} onChange={(e) => setF(Number(e.target.value))} type='number' step="0.01" />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="F" value={F} onChange={(e) => setF(Number(e.target.value))} type='number' />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">G</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="G" value={G} onChange={(e) => setG(Number(e.target.value))} type='number' step="0.01" />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="G" value={G} onChange={(e) => setG(Number(e.target.value))} type='number' />
                     <Label className="w-2/4 pt-2 text-center">Dust</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="Dust" value={dust} onChange={(e) => setDust(Number(e.target.value))} type='number' step="0.01" />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Dust" value={dust} onChange={(e) => setDust(Number(e.target.value))} type='number' />
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Mechine Name</Label>
