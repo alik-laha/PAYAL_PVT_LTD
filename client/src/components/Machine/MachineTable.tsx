@@ -31,7 +31,7 @@ import { LuDownload } from "react-icons/lu";
 import { Section } from "../common/exportData"
 import { FaSearch } from "react-icons/fa"
 import axios from "axios"
-import { AssetData } from "@/type/type"
+import { AssetData, AssetDataExcel } from "@/type/type"
 import {
     Dialog,
     DialogContent,
@@ -66,7 +66,7 @@ const MachineTable = () => {
     const [section, setSection] = useState<string>("")
     const [assetidname, setassetidname] = useState<string>("")
     const [Data, setData] = useState<AssetData[]>([])
-    const [transformedData, setTransformedData] = useState<AssetData[]>([]);
+    const [transformedData, setTransformedData] = useState<AssetDataExcel[]>([]);
     const currDate = new Date().toLocaleDateString();
     
     const handleSearch = async () => {
@@ -104,6 +104,7 @@ const MachineTable = () => {
             machineID: item.machineID,
             machineName: item.machineName,
             description: item.description,
+            primary:item.primaryAsset===1?'yes':'no',
             status: item.status,
             section: item.section,
             createdBy: item.createdBy,
@@ -134,7 +135,7 @@ const MachineTable = () => {
     
 return(
     <>
-        <div className="ml-5 mt-5">
+        <div className=" mt-5">
             <div className="flex ">
 
                 <Input className="w-1/3 mb-2" placeholder="Asset Id"  value={assetidname} onChange={(e) => setassetidname(e.target.value)} />
@@ -153,7 +154,7 @@ return(
                 <span className="w-1/3 pl-5 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
             </div>
 
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}>
+            <span className="w-1/8 pb-2"><Button className="bg-green-700 h-8 my-2 w-30 text-sm float-right mr-4" onClick={exportToExcel}>
                 <LuDownload size={18} /></Button>  </span>
 
             <Table className="mt-1">
@@ -163,6 +164,7 @@ return(
                    
                     <TableHead className="text-center" >Status </TableHead>
                     <TableHead className="text-center" >Asset Name </TableHead>
+                    <TableHead className="text-center" >Primary </TableHead>
                     <TableHead className="text-center" >Section </TableHead>
                    
                     <TableHead className="text-center" >Description </TableHead>
@@ -188,6 +190,8 @@ return(
                                     <button className="bg-red-500 p-1 text-white rounded">{item.status}</button>
                                 )}</TableCell>
                                   <TableCell className="text-center">{item.machineName}</TableCell>
+                                  
+                                  <TableCell className="text-center"><Input type='checkbox' className='h-4' checked={item.primaryAsset === 1 ? true : false}/></TableCell>
                                 <TableCell className="text-center">{item.section}</TableCell>
                                 <TableCell className="text-center">{item.description}</TableCell>
 

@@ -8,6 +8,7 @@ interface Props {
         section: string;
         createdBy: string;
         modifiedBy: string;
+        primaryAsset:number;
     }
 }
 
@@ -20,7 +21,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Section, MachineStatus } from "../common/exportData"
-import { useEffect } from "react"
+import { ChangeEvent, useEffect } from "react"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
@@ -40,7 +41,8 @@ const ModifymachineForm = (props: Props) => {
     const [section, setSection] = React.useState<string>("")
     const [machinename, setMachinename] = React.useState<string>("")
     const [status, setStatus] = React.useState<string>("")
-
+    const [primary, setPrimary] = React.useState<number>();
+    const [primarybool, setprimaryBool] = React.useState<boolean>();
 
     // const [errortext, setErrorText] = React.useState<string>("")
 
@@ -78,11 +80,18 @@ const ModifymachineForm = (props: Props) => {
         setStatus(props.data.status)
         setDescription(props.data.description)
         setSection(props.data.section)
+        setPrimary(props.data.primaryAsset)
+        if(props.data.primaryAsset===1){
+            setprimaryBool(true)
+        }
+        else{
+            setprimaryBool(false)
+        }
     }, [props.data])
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        axios.put("/api/asset/assetupdate", { machineId: machineid, machinename: machinename, section: section, machinestatus: status, description: description, id: props.data.id })
+        axios.put("/api/asset/assetupdate", { machineId: machineid, machinename: machinename, section: section,primary, machinestatus: status, description: description, id: props.data.id })
             .then((res) => {
                 if (res.status === 200) {
                     if (successdialog != null) {
@@ -99,6 +108,16 @@ const ModifymachineForm = (props: Props) => {
             })
     }
 
+    const handleprimary = (e: ChangeEvent<HTMLInputElement>) => {
+        // e.preventDefault();
+        setprimaryBool(!primarybool)
+        
+        e.target.checked === true ? setPrimary(1) : setPrimary(0)
+        console.log(primary)
+        console.log(primarybool)
+
+    }
+
 
     return (
         <>
@@ -109,7 +128,16 @@ const ModifymachineForm = (props: Props) => {
                         <Input className="w-2/4 " placeholder="Machine Id" value={machineid} onChange={(e) => setmachineid(e.target.value)} required /> </div>
                     <div className="flex"><Label className="w-2/4 pt-1">Machine Name</Label>
                         <Input className="w-2/4 " placeholder="Machine Name" value={machinename} onChange={(e) => setMachinename(e.target.value)} required /> </div>
+                    
 
+                    <div className="flex"><Label className="w-2/4 pt-1">Primary</Label>
+                    <Input 
+                        type="checkbox"
+                        placeholder="Primary"
+                        className="h-5 mt-2"
+                        onChange={handleprimary}
+                        
+                        checked={primary === 1 ? true : false}/> </div>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Section</Label>
                         <Select value={section} onValueChange={(value) => setSection(value)} required={true}>

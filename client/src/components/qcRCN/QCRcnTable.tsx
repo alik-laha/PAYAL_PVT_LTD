@@ -375,7 +375,7 @@ const QCRcnTable = () => {
     return (
         <div className="ml-5 mt-5 ">
             <Button className="bg-lime-500 mb-5 mt-5 max-w-52 responsive-button-adjust" onClick={handleSearchPendingQC}>Pending QC</Button>
-            <Button className="bg-blue-500 mb-5 ml-4 max-w-52 responsive-button-adjust" onClick={handleSearchPendingReport}>Pending Report</Button>
+            <Button className="bg-blue-500 mb-5 ml-4 max-w-52 responsive-button-adjust qc-responsive-right" onClick={handleSearchPendingReport}>Pending Report</Button>
             {checkpending('QCRCN') && <Button className="bg-orange-400 mb-5 ml-4 max-w-52 responsive-button-adjust responsive-no-margin" onClick={handleSearchPendingEdit}> 
                 Pending Edit ({counteditpending})</Button>}
                 
@@ -419,7 +419,7 @@ const QCRcnTable = () => {
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
             </div>
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
+            {checkpending('QCRCN') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
 
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -472,11 +472,11 @@ const QCRcnTable = () => {
                                 <TableCell className="text-center">{item.rcnEntry.noOfBags}</TableCell>
                                 <TableCell className="text-center">
                                 {item.rcnEntry.rcnStatus === 'QC Approved' ? (
-                                            <button className="bg-green-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnEntry.rcnStatus}</button>
                                         ) : item.rcnEntry.rcnStatus === 'QC Pending' ? (
-                                            <button className="bg-orange-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
+                                            <button className="bg-yellow-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnEntry.rcnStatus}</button>
                                         ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnEntry.rcnStatus}</button>
                                         )}
                                 </TableCell>
                                 <TableCell className="text-center">{item.qcapprovedBy}</TableCell>
@@ -608,11 +608,11 @@ const QCRcnTable = () => {
                                 <TableCell className="text-center">{item.rcnEntry.noOfBags}</TableCell>
                                 <TableCell className="text-center">
                                 {item.rcnEntry.rcnStatus === 'QC Approved' ? (
-                                            <button className="bg-green-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnEntry.rcnStatus}</button>
                                         ) : item.rcnEntry.rcnStatus === 'QC Pending' ? (
-                                            <button className="bg-orange-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
+                                            <button className="bg-yellow-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnEntry.rcnStatus}</button>
                                         ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnEntry.rcnStatus}</button>
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnEntry.rcnStatus}</button>
                                         )}
                                 </TableCell>
                                 <TableCell className="text-center">{item.qcapprovedBy}</TableCell>

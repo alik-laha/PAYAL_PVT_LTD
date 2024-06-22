@@ -27,6 +27,7 @@ const DashboardUserModifyForm = (props: UserProps) => {
     const [password, setPassword] = useState<string>("")
     const [confirmPassword, setConfirmPassword] = useState<string>("")
     const [errortext, setErrorText] = React.useState<string>("")
+  
 
     const successdialog = document.getElementById('modifysuccessuserdialog') as HTMLInputElement;
     const errordialog = document.getElementById('modifyerroruserdialog') as HTMLInputElement;
@@ -78,6 +79,21 @@ const DashboardUserModifyForm = (props: UserProps) => {
         setUserName(props.Data.userName)
     }, [props.Data])
 
+    useEffect(() => {
+        if (dept) {
+            roleDataonDept[dept as keyof typeof roleDataonDept].find((item) => {
+                if (item === props.Data.role) {
+                    setRole(item)
+                    return
+                }
+                else {
+                    setRole(roleDataonDept[(!dept ? props.Data.dept : dept) as keyof typeof roleDataonDept][0])
+                }
+            })
+        }
+
+    }, [dept, props.Data.role, props.Data.dept])
+
 
     return (
         <div className="pl-10 pr-10">
@@ -115,7 +131,7 @@ const DashboardUserModifyForm = (props: UserProps) => {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                {props.Data.dept && (roleDataonDept[props.Data.dept as keyof typeof roleDataonDept].map((item) => (
+                                {props.Data.dept && (roleDataonDept[(!dept ? props.Data.dept : dept) as keyof typeof roleDataonDept].map((item) => (
                                     <SelectItem key={item} value={item}>
                                         {item}
                                     </SelectItem>

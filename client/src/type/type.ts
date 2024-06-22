@@ -157,6 +157,18 @@ export interface UserProps {
 }
 
 export interface AssetData {
+    primaryAsset: number;
+    id: number;
+    machineID: string;
+    machineName: string;
+    description: string;
+    status: string;
+    section: string;
+    createdBy: string;
+    modifiedBy: string;
+}
+export interface AssetDataExcel {
+    primaryAsset: string;
     id: number;
     machineID: string;
     machineName: string;
@@ -239,10 +251,16 @@ export interface GradingExcelData {
     MC_On: string;
     MC_Off: string;
     Labour_No: number;
-    Breakdown: string;
-    Other: string;
-    Lot_No: string;
+    Breakdown_Duration: string;
+    Other_Duration: string;
+    Grading_Lot_No: string;
     Run_Duration: string;
     Edit_Status: string;
-    Feeled_By: string;
+    Entried_By: string;
+    ApprovedOrRejectedBy:string;
+}
+
+export interface TimePeriodProps {
+
+    timeString:string
 }

@@ -1,4 +1,4 @@
-export const Origin = ["India", "Ghana", "Usa", "Uk", "China","Nigeria"]
+export const Origin = ["India", "Ghana", "IVC", "Benin", "Tanzania","Nigeria","Togo"]
 export const Dept: string[] = ['Admin', 'Receiving', 'Maintainance', 'QualityControl', 'Production']
 //export const optionsMapping:Record<string, string[]> = {Admin :['AdminSupervisor','Admin-Manager'],Receiving:['Receiving-Supervisor', 'Receiving-Manager'],Maintainance:['Maintainance-Supervisor'],Quality-Control:['QC-Supervisor','QC-Manager'],Production:[Production Manager]}
 export const Role: string[] = ['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager','MaintainanceSupervisor',
@@ -6,7 +6,7 @@ export const Role: string[] = ['Director', 'FactoryManager', 'ReceivingSuperviso
 ,'QCSupervisor', 'QCManager','GradingSupervisor','BoilingSupervisor','ScoopingSupervisor','ProductionManager'
 ]
 export const pageNo = 1
-export const pagelimit =5
+export const pagelimit =8
 export const Section = ['Boiling', 'Grading', 'Scooping']
 export const MachineStatus = ['Active', 'Inactive', 'Discarded']
 export const Size=['A','B','C','D','E','F','G']

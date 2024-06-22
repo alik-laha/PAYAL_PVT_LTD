@@ -34,7 +34,7 @@ const DashboardUser = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-red-500 hover:bg-red-600">
-                        User<br /><p>{data.count}</p>
+                        Dashboard User<br /><p>{data.count}</p>
                     </div>
 
 
@@ -45,7 +45,7 @@ const DashboardUser = () => {
 
 
                 <Dialog>
-                    <DialogTrigger>   <Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust">+ Add New User</Button></DialogTrigger>
+                    <DialogTrigger>   <Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+ Add New User</Button></DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
                             <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>New User Creation</p></DialogTitle>

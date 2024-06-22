@@ -196,26 +196,35 @@ const EmployeeTable = () => {
     }
 
     return (
-        <div className="ml-5 mt-5">
+        <div className="mt-5">
             <div className="flex ">
 
                 <Input className="w-60 mb-2" placeholder="Search By Emp ID/ Name" onChange={handleSearch} />
 
             </div>
 
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
+            <span className="w-1/8"><Button className="bg-green-700 h-8 my-2 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
 
-            <Table className="mt-1">
+            <Table className="mt-1 ml-2">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Sl No.</TableHead>
                     <TableHead className="text-center" >Employee name</TableHead>
                     <TableHead className="text-center" >Employee ID </TableHead>
-                    <TableHead className="text-center" >Status </TableHead>
+                    
                     <TableHead className="text-center" >Designation</TableHead>
-                    <TableHead className="text-center" >Date of Joining</TableHead>
+                    <TableHead className="text-center" >Status </TableHead>
+                    <TableHead className="text-center" >Joining Date</TableHead>
                     <TableHead className="text-center" >Contact No.</TableHead>
                     <TableHead className="text-center" >Email</TableHead>
+                    <TableHead className="text-center" >Qualification</TableHead>
+                    <TableHead className="text-center" >Blood Group</TableHead>
+                    <TableHead className="text-center" >Adhar No.</TableHead>
+                    <TableHead className="text-center" >Pan No.</TableHead>
+                   
+                    <TableHead className="text-center" >Pincode</TableHead>
+                    <TableHead className="text-center" >Emg. Name</TableHead>
+                    <TableHead className="text-center" >Emg. Contact No.</TableHead>
 
                     <TableHead className="text-center" >Action</TableHead>
 
@@ -245,18 +254,28 @@ const EmployeeTable = () => {
                                     <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center" >{item.employeeName}</TableCell>
                                     <TableCell className="text-center" >{item.employeeId}</TableCell>
+                                    <TableCell className="text-center" >{item.designation}</TableCell>
                                     <TableCell className="text-center" >
                                         {item.status ? (
-                                            <button className="bg-green-500 p-1 text-white rounded">Active</button>
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width">Active</button>
                                         ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded">Resigned</button>
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width" >Resigned</button>
                                         )}
 
                                     </TableCell>
-                                    <TableCell className="text-center" >{item.designation}</TableCell>
+                                    
                                     <TableCell className="text-center" >{handletimezone(item.dateOfJoining)}</TableCell>
                                     <TableCell className="text-center" >{item.mobNo}</TableCell>
                                     <TableCell className="text-center" >{item.email}</TableCell>
+                                    <TableCell className="text-center" >{item.heighstQualification}</TableCell>
+                                    <TableCell className="text-center" >{item.bloodGroup}</TableCell>
+                                    <TableCell className="text-center" >xxxxxxxx{item.aadhaarNo.slice(-4)}</TableCell>
+                                    <TableCell className="text-center" >{item.panNo}</TableCell>
+                                    
+                                    <TableCell className="text-center" >{item.pincode}</TableCell>
+                                    <TableCell className="text-center" >{item.emergencyContact}</TableCell>
+                                    <TableCell className="text-center" >{item.emergencyMobNo}</TableCell>
+                  
 
                                     <TableCell className="text-center" >
                                         <Popover>
@@ -287,7 +306,7 @@ const EmployeeTable = () => {
 
                                                                 This action can't be undone. This will remove User profile Linked to It.
                                                                 <Input type="date" placeholder="Release Date" className='mt-3 w-100 text-center justify-center items-center' value={releaseDate} onChange={(e) => setReleaseDate(e.target.value)} required={true} />
-                                                                <span id="nameError" className={`text-red-500 ${errview}`}>Date is required for ReleaseDate</span>
+                                                                <span id="nameError" className={`text-red-500 pt-2 font-bold ${errview}`}>Date is Required for Release</span>
                                                             </AlertDialogDescription>
                                                         </AlertDialogHeader>
 

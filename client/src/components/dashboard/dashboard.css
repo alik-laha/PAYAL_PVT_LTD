@@ -224,6 +224,14 @@
     padding: 1px 0 0 0;
     border-top-width: 0;
     width: 250px;
+  
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.open ~ .dashoboard-main-header .navbar-custom-menu .dropdown-menu {
+
+    display: none!important;
+
 }
 .dashboard-btn{
     Display: inline-block;
@@ -311,9 +319,9 @@
     content: '';
     position: absolute;
     top: -10px;
-    left: 50%;
+   
     transform: translateX(-50%);
-    width: 120%;
+  
     height: 20px;
     background: rgba(0, 0, 0, 0.1);
     filter: blur(10px);
@@ -385,6 +393,22 @@
     z-index: 1;
   }
 
+  .fix-button-width{
+
+    width: 70px!important;
+    height: 30px!important;
+  }
+  p#modal-text{
+    text-align: center;
+  }
+
+  .fix-button-width-rcnprimary{
+
+    width: 95px!important;
+    height: 33px!important;
+    
+  }
+
 @media screen and (max-width: 999px) {
 
     .responsive-no-margin{
@@ -398,7 +422,7 @@
         
 
     }
-
+   
     .sidebar a {
         font-size: 25px;
   
@@ -437,7 +461,7 @@
     }
    
 
-    .flexbox-tile{
+   .flexbox-tile{
         flex: 1 1 25% ;
        
         padding: 20px 15px 20px 15px;
@@ -445,16 +469,14 @@
         font-size: 12px;
         max-width:30%!important;
         border-radius: 5px;
-        
-      
-       
-       
-    }
+    
+    } 
     .flexbox-header{
         gap: 15px;
         padding: 12px 10px 5px 10px;
 
     }
+     
     .flexbox-tile p{
         font-size: 14px;
     }
@@ -469,16 +491,16 @@
     .flexbox-search-width-calender{
    
         width: 33%!important;
-        margin-left: 0%!important;
+        margin-left: 3%!important;
         padding: 0!important;
 
     }
     .flexbox-search-width-label-right{
    
         width: 10%!important;
-        margin-left: 10px!important;
+        margin-left: 2%!important;
         padding: 0!important;
-        margin-right: 5px!important;
+        margin-right: 1%!important;
         text-align: center;
 
     }
@@ -487,7 +509,7 @@
         width: 10%!important;
         margin-left: 0!important;
         padding: 0!important;
-        margin-right: 5px!important;
+        margin-right: 2%!important;
 
     }
     .no-padding{
@@ -496,6 +518,14 @@
     .no-margin{
         margin:0!important;
     }
+
+    .no-margin-left{
+        margin-left:10px!important;
+    }
+    .qc-responsive-right{
+        margin-right: 4vw;
+    }
+    
   
 
 }

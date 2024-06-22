@@ -26,9 +26,9 @@ const RcnGradingCreateForm = () => {
     const mc_onRef = useRef<HTMLInputElement>(null)
     const mc_offRef = useRef<HTMLInputElement>(null)
     const noofEmployeeRef = useRef<HTMLInputElement>(null)
-    const mc_breakdownRef = useRef<HTMLInputElement>(null)
+    const [Mc_breakdown, setMc_breakdown] = useState<string>("00:00")
+    const [otherTime, setOtherTime] = useState<string>("00:00")
     const [errortext, setErrortext] = useState('')
-    const otherRef = useRef<HTMLInputElement>(null)
     const grading_lotNoRef = useRef<HTMLInputElement>(null)
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -44,9 +44,7 @@ const RcnGradingCreateForm = () => {
         const dust = dustRef.current?.value
         const Mc_on = mc_onRef.current?.value
         const Mc_off = mc_offRef.current?.value
-        const Mc_breakdown = mc_breakdownRef.current?.value
         const noOfEmployees = noofEmployeeRef.current?.value
-        const otherTime = otherRef.current?.value
         const grading_lotNo = grading_lotNoRef.current?.value
         const Mc_name = mc_name
         console.log(Mc_off)
@@ -76,9 +74,21 @@ const RcnGradingCreateForm = () => {
     return (
         <div className="pl-5 pr-5 ">
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
-                <div className="flex mt-2">
+
+
+
+            <div className="flex">
+                    <Label className="w-2/4 bg-green-500 text-center rounded-md pt-2 mr-1 text-primary-foreground">MC ON  </Label>
+                    <Input className="w-3/5  justify-center bg-green-100 mr-1" placeholder="MC ON Time" ref={mc_onRef} type='time' required />
+                    <Input className="w-3/5 justify-center bg-red-100 ml-1" placeholder="MC OFF Time" ref={mc_offRef} type='time' required />
+                    <Label className="w-2/4 bg-red-500 rounded-md text-white-600 text-center pt-2 ml-1 text-primary-foreground">MC OFF</Label>
+                   
+                </div> 
+
+                <div className="flex mt-5">
+
                     <Label className="w-1/4 pt-2 ">A </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="A" ref={aRef} type='number' required />
+                    <Input className="w-2/4 justify-center bg-cyan-100" placeholder="A" ref={aRef} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">B </Label>
                     <Input className="w-2/4 bg-cyan-100" placeholder="B" ref={bRef} type='number' required /> </div>
 
@@ -107,8 +117,10 @@ const RcnGradingCreateForm = () => {
 
 
 
-                <div className="flex mt-5">
-                    <Label className="w-2/4 pt-1 text-center">Machine Name</Label>
+               
+                  
+                <div className="flex mt-2">
+                    <Label className="w-2/4 pt-1 ">Machine Name</Label>
                     <Select value={mc_name} onValueChange={(value) => setMc_name(value)} required={true}>
                         <SelectTrigger className="w-2/4">
                             <SelectValue placeholder="Machine Name" />
@@ -127,28 +139,23 @@ const RcnGradingCreateForm = () => {
                             </SelectGroup>
                         </SelectContent>
                     </Select>
-                </div>
-
-                <div className="flex mt-2">
-                    <Label className="w-2/4  pt-2">On </Label>
-                    <Input className="w-3/5  bg-cyan-100" placeholder="MC ON Time" ref={mc_onRef} type='time' required />
-                    <Label className="w-2/4 text-center pt-2">Off </Label>
-                    <Input className="w-3/5  bg-cyan-100" placeholder="MC OFF Time" ref={mc_offRef} type='time' required />
-                </div>
-                <div className="flex mt-2">
-                    <Label className="w-2/4 pt-2">Break Down Duration </Label>
-                    <Input className="w-2/4 pl-12 bg-cyan-100" placeholder="MC BreakDown" ref={mc_breakdownRef} type='time' value="00:00" />
-                </div>
-
+                </div>          
+               
                 <div className="flex">
-                    <Label className="w-2/4 pt-2">Other Duration</Label>
-                    <Input className="w-2/4 pl-12 bg-cyan-100" placeholder="Other Time" ref={otherRef} type='time' value="00:00" />
+                    <Label className="w-2/4 pt-2">MC Breakdown (Total) </Label>
+                    <Input className="w-2/4 justify-center " placeholder="MC BreakDown" value={Mc_breakdown} type='time' onChange={(e) => setMc_breakdown(e.target.value)} />
                 </div>
 
+                <div className="flex ">
+                    <Label className="w-2/4 pt-2">Other Duration  (Total)</Label>
+                    <Input className="w-2/4 justify-center " placeholder="Other Time" value={otherTime} type='time' onChange={(e) => setOtherTime(e.target.value)} />
+                </div>
+            
+                
 
-                <div className="flex mt-5">
+                <div className="flex ">
                     <Label className="w-2/4 pt-1">Date</Label>
-                    <Input className="w-2/4 " placeholder="Date" ref={DateRef} type='date' required /> </div>
+                    <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type='date' required /> </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Origin</Label>

@@ -28,6 +28,11 @@ const Asset = sequelize.define('asset', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    primaryAsset: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue:0
+    },
 
     createdBy: {
         type: DataTypes.STRING,
