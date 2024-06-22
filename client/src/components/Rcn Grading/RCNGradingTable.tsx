@@ -31,17 +31,16 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { CiEdit } from "react-icons/ci";
-// import {
-//     AlertDialog,
-//     AlertDialogAction,
-//     AlertDialogCancel,
-//     AlertDialogContent,
-//     AlertDialogDescription,
-//     AlertDialogFooter,
-//     AlertDialogHeader,
-//     AlertDialogTitle,
-//     AlertDialogTrigger,
-// } from "@/components/ui/alert-dialog"
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
@@ -58,6 +57,10 @@ import { useContext } from "react";
 import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
 import { FcApprove, FcDisapprove } from "react-icons/fc";
+import { PermissionRole, pendingCheckRoles } from "@/type/type";
+import { pendingCheckRole } from "../common/exportData";
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 
 const RcnGradingTable = () => {
     const [page, setPage] = useState(pageNo)
@@ -141,13 +144,22 @@ const RcnGradingTable = () => {
         settoDate(nextday)
     }
     const handleApprove = async (id: number) => {
+        let data
         axios.post(`/api/grading/approveEditStatus/${id}`)
-            .then(res => {
+            .then((res) => {
                 console.log(res.data)
+                data = res.data
             })
             .catch(err => {
                 console.log(err.data)
             })
+
+        if (data === "Data Updated Successfully") {
+
+            if (approvesuccessdialog != null) {
+                (approvesuccessdialog as any).showModal();
+            }
+        }
 
     }
     const handleReject = async (id: number) => {
@@ -234,7 +246,7 @@ const RcnGradingTable = () => {
 
     }
     const handleAMPM = (time: string) => {
-     
+
         let [hours, minutes] = time.split(':').map(Number);
         let period = ' AM';
 
@@ -246,11 +258,23 @@ const RcnGradingTable = () => {
             hours -= 12;
             period = ' PM';
         }
-        const finalTime=hours.toString().padStart(2, '0')+ ':'+minutes.toString().padStart(2, '0')+ period.toString()
+        const finalTime = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + period.toString()
 
-       // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
-       return finalTime;
+        // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
+        return finalTime;
     }
+    const checkpending = (tab: string) => {
+        const Role = localStorage.getItem('role') as keyof PermissionRole
+        //console.log(Role)
+        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+            return true
+        }
+        else {
+            return false;
+        }
+
+    }
+
 
     const approvesuccessdialog = document.getElementById('qcapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('qcapproveScscloseDialog') as HTMLInputElement;
@@ -260,9 +284,9 @@ const RcnGradingTable = () => {
 
     const [successtext, setSuccessText] = React.useState<string>('');
     const [errortext, seterrorText] = React.useState<string>('');
-    
-      
-    
+
+
+
     return (
         <div className="ml-5 mt-5">
             <div className="flex flexbox-search">
@@ -301,7 +325,7 @@ const RcnGradingTable = () => {
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
             </div>
 
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={handleExcellExport}><LuDownload size={18} /></Button>  </span>
+            {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={handleExcellExport}><LuDownload size={18} /></Button>  </span>}
 
             <Table className="mt-1">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -334,8 +358,8 @@ const RcnGradingTable = () => {
 
                 </TableHeader>
                 <TableBody>
-                   
-                    {editPendiningGrinderData.length === 0 ? (data.length>0 ?data.map((item: GradingData, index: number) => {
+
+                    {editPendiningGrinderData.length === 0 ? (data.length > 0 ? data.map((item: GradingData, index: number) => {
                         const Index = page * limit + index - limit + 1
                         return (
                             <TableRow key={index}>
@@ -354,9 +378,9 @@ const RcnGradingTable = () => {
                                 <TableCell className="text-center">{item.Mc_name}</TableCell>
                                 <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                 <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
-                                <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g,'0').replace(/:00/g,'').replace(/00./g,'0.').replace(/^0(\d)$/,'$1')} hr</TableCell>
-                                <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g,'0').replace(/:00/g,'').replace(/00./g,'0.').replace(/^0(\d)$/,'$1')} hr</TableCell>
-                                <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g,'0').replace(/:00/g,'').replace(/00./g,'0.').replace(/^0/,'')} hr</TableCell>
+                                <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')} hr</TableCell>
                                 <TableCell className="text-center">{item.noOfEmployees}</TableCell>
                                 {/* <TableCell className="text-center">{item.grading_lotNo}</TableCell> */}
                                 <TableCell className="text-center">{item.editStatus} </TableCell>
@@ -369,7 +393,7 @@ const RcnGradingTable = () => {
                                         <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
                                             <Dialog>
-                                                <DialogTrigger className="flex">   <CiEdit size={20}/><button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button></DialogTrigger>
+                                                <DialogTrigger className="flex">   <CiEdit size={20} /><button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button></DialogTrigger>
                                                 <DialogContent className='max-w-2xl'>
                                                     <DialogHeader>
                                                         <DialogTitle><p className='text-1xl text-center mt-2'>Modify RCN Grading</p></DialogTitle>
@@ -383,27 +407,27 @@ const RcnGradingTable = () => {
                             </TableRow>
                         )
                     })
-               :   <TableRow>
-               <TableCell></TableCell>
-               <TableCell></TableCell>
-               <TableCell></TableCell>
-               <TableCell></TableCell>
-               <TableCell></TableCell>
-               <TableCell></TableCell>
-               <TableCell></TableCell>
-               <TableCell></TableCell>
-               <TableCell></TableCell>
-               <TableCell></TableCell>
-               <TableCell></TableCell>
-               <TableCell></TableCell>
-               <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">No Result</p></TableCell>
-               <TableCell></TableCell>
-               <TableCell></TableCell>
-               <TableCell></TableCell>
-               <TableCell></TableCell>
+                        : <TableRow>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">No Result</p></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
 
 
-           </TableRow>)
+                        </TableRow>)
                         : editPendiningGrinderData.map((item: GradingData, index: number) => {
                             const Index = page * limit + index - limit + 1
                             return (
@@ -423,9 +447,9 @@ const RcnGradingTable = () => {
                                     <TableCell className="text-center">{item.Mc_name}</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
-                                    <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g,'0').replace(/:00/g,'').replace(/00./g,'0.').replace(/^0(\d)$/,'$1')} hr</TableCell>
-                                    <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g,'0').replace(/:00/g,'').replace(/00./g,'0.').replace(/^0(\d)$/,'$1')} hr</TableCell>
-                                    <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g,'0').replace(/:00/g,'').replace(/00./g,'0.').replace(/^0/,'')} hr</TableCell>
+                                    <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                    <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                    <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')} hr</TableCell>
                                     <TableCell className="text-center">{item.noOfEmployees} </TableCell>
                                     {/* <TableCell className="text-center">{item.grading_lotNo}</TableCell> */}
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
@@ -433,16 +457,38 @@ const RcnGradingTable = () => {
 
                                     <TableCell className="text-center" >
                                         <Popover>
-                                            <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                            <PopoverTrigger>
+                                                <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-
-                                                <Dialog>
-                                                    <DialogTrigger className="flex" onClick={() => handleApprove(item.id)}>  <FcApprove size={25}/>  <button className="bg-transparent  pl-1 text-left hover:text-green-500">Approve Edit</button></DialogTrigger>
-                                                </Dialog>
-                                                <Dialog>
-                                                    <DialogTrigger  className="flex" onClick={() => handleReject(item.id)}>    <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert Edit</button></DialogTrigger>
-                                                </Dialog>
+                                                <AlertDialog>
+                                                    <AlertDialogTrigger className="flex">
+                                                        <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
+                                                    </AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction onClick={() => handleApprove(item.id)}>Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>
+                                                <AlertDialog>
+                                                    <AlertDialogTrigger className="flex mt-2">
+                                                        <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
+                                                    </AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction onClick={() => handleReject(item.id)}>Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>
                                             </PopoverContent>
                                         </Popover>
                                     </TableCell>
@@ -476,6 +522,21 @@ const RcnGradingTable = () => {
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
+            <dialog id="rcneditapproveScsDialog" className="dashboard-modal">
+                <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification Request has Been Approved</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+
+            <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
+                <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Modification Request has Been Reverted</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
         </div>
     )
 }
