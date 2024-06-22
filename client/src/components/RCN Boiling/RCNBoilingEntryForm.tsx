@@ -136,7 +136,7 @@ const RCNBoilingEntryForm = () => {
                     <div className="flex"><Label className="w-2/4  pt-1">No. Of Labours</Label>
                     <Input className="w-2/4 " placeholder="No. Of Labour" ref={noofEmployeeRef} required /> </div>
                     <div className="flex">
-                    <Label className="w-2/4 pt-1">Machine Name</Label>
+                    <Label className="w-2/4 pt-1">Boiling Machine Name</Label>
                     <Select value={mc_name} onValueChange={(value) => setMc_name(value)} required={true}>
                         <SelectTrigger className="w-2/4">
                             <SelectValue placeholder="Machine Name" />
@@ -177,7 +177,7 @@ const RCNBoilingEntryForm = () => {
                             <>
                              
                                  <TableBody>
-                                        <TableRow key={index} >
+                                        <TableRow key={index} className="boiling-row-height">
                                         <TableCell>{index+1}</TableCell>
                                         <TableCell className="text-center">
                                             <Select value={row.origin} onValueChange={(val) => handleRowChange(index, 'origin', val)} required={true}>
@@ -220,9 +220,6 @@ const RCNBoilingEntryForm = () => {
                                             </Select>
 
                                         </TableCell>
-                                        <TableCell >
-                                        <Input  value={row.size} placeholder="Bag" onChange={(e) => handleRowChange(index,'size',e.target.value)} required />
-                                        </TableCell>
                                         <TableCell className="text-center" >
                                             <Select value={row.sizeName} onValueChange={(val) => handleRowChange(index, 'sizeName', val)} required={true}>
                                                 <SelectTrigger >
@@ -244,14 +241,19 @@ const RCNBoilingEntryForm = () => {
                                             </Select>
 
                                         </TableCell>
-                                        <TableCell><Input  value={row.pressure} placeholder="Pr." onChange={(e) => handleRowChange(index,'pressure',e.target.value)} required /></TableCell>
                                         
-                                        <TableCell> <Input  value={row.cookingOn} placeholder="MC ON Time" onChange={(e) => handleRowChange(index,'cookingOn',e.target.value)} type='time' required /></TableCell>
-                                        <TableCell><Input  value={row.cookingOff} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'cookingOff',e.target.value)} type='time' required /></TableCell>
+                                        <TableCell >
+                                        <Input  value={row.size} placeholder="Bag" onChange={(e) => handleRowChange(index,'size',e.target.value)} required />
+                                        </TableCell>
+                                     
+                                        <TableCell className="text-center"><Input  value={row.pressure} placeholder="Pr." onChange={(e) => handleRowChange(index,'pressure',e.target.value)} required /></TableCell>
+                                        
+                                        <TableCell className="text-center"> <Input  value={row.cookingOn} placeholder="MC ON Time" onChange={(e) => handleRowChange(index,'cookingOn',e.target.value)} type='time' required /></TableCell>
+                                        <TableCell className="text-center"><Input  value={row.cookingOff} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'cookingOff',e.target.value)} type='time' required /></TableCell>
 
-                                          <TableCell><Input  value={row.breakDown} placeholder="Break Down Time" onChange={(e) => handleRowChange(index,'breakDown',e.target.value)} type='time'  /></TableCell>
-                                          <TableCell><Input  value={row.other} placeholder="Other" onChange={(e) => handleRowChange(index,'other',e.target.value)} type='time'  /></TableCell>
-                                          <TableCell>
+                                          <TableCell className="text-center"><Input  value={row.breakDown} placeholder="Break Down Time" onChange={(e) => handleRowChange(index,'breakDown',e.target.value)} type='time'  /></TableCell>
+                                          <TableCell className="text-center"><Input  value={row.other} placeholder="Other" onChange={(e) => handleRowChange(index,'other',e.target.value)} type='time'  /></TableCell>
+                                          <TableCell className="text-center">
                                           <button className="bg-red-400 text-grey-700 w-8 h-8 px-2 text-primary-foreground rounded-md text-center items-center justify-center"
                     onClick={()=>deleteRow(index)}><MdDelete size={15}/></button>
                                           </TableCell>

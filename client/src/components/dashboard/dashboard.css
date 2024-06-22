@@ -408,6 +408,16 @@
     height: 33px!important;
     
   }
+  .boiling-row-height{
+
+  }
+  .boiling-row-height *{
+
+    padding:3px 2px 3px 2px !important;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
 
 @media screen and (max-width: 999px) {
 
