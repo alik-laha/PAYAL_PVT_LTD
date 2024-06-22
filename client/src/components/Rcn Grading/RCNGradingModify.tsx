@@ -52,16 +52,31 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     const [Mc_breakdown, setMc_breakdown] = useState('00:00')
     const [otherTime, setOtherTime] = useState('00:00')
     const [grading_lotNo, setGrading_lotNo] = useState('')
+    const [errortext, setErrortext] = useState('')
 
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         axios.put(`/api/grading/updateGrading/${props.data.id}`, { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, otherTime, grading_lotNo, Mc_breakdown })
-            .then((res) => {
-                console.log(res)
+            .then(res => {
+                setErrortext(res.data.message)
+                if (res.status === 200) {
+                    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                    dialog.showModal()
+                    setTimeout(() => {
+                        dialog.close()
+                        window.location.reload()
+                    }, 2000)
+                }
             })
-            .catch((err) => {
-                console.log(err)
+            .catch(err => {
+                console.log(err.response.data.message)
+                setErrortext(err.response.data.message)
+                const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                dialog.showModal()
+                setTimeout(() => {
+                    dialog.close()
+                }, 2000)
             })
 
     }
@@ -90,33 +105,33 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
                 <div className="flex mt-2">
                     <Label className="w-1/4 pt-2">A</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="A" value={A} onChange={(e) => setA(Number(e.target.value))} type='number' step="0.01" />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="A" value={A} onChange={(e) => setA(Number(e.target.value))} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">B</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="B" value={B} onChange={(e) => setB(Number(e.target.value))} type='number' step="0.01" />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="B" value={B} onChange={(e) => setB(Number(e.target.value))} type='number' required />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">C</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="C" value={C} onChange={(e) => setC(Number(e.target.value))} type='number' step="0.01" />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="C" value={C} onChange={(e) => setC(Number(e.target.value))} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">D</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="D" value={D} onChange={(e) => setD(Number(e.target.value))} type='number' step="0.01" />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="D" value={D} onChange={(e) => setD(Number(e.target.value))} type='number' required />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">E</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="E" value={E} onChange={(e) => setE(Number(e.target.value))} type='number' step="0.01" />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="E" value={E} onChange={(e) => setE(Number(e.target.value))} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">F</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="F" value={F} onChange={(e) => setF(Number(e.target.value))} type='number' step="0.01" />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="F" value={F} onChange={(e) => setF(Number(e.target.value))} type='number' required />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">G</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="G" value={G} onChange={(e) => setG(Number(e.target.value))} type='number' step="0.01" />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="G" value={G} onChange={(e) => setG(Number(e.target.value))} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">Dust</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="Dust" value={dust} onChange={(e) => setDust(Number(e.target.value))} type='number' step="0.01" />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Dust" value={dust} onChange={(e) => setDust(Number(e.target.value))} type='number' required />
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Mechine Name</Label>
+                    <Label className="w-2/4 pt-1">Machine Name</Label>
                     <Select value={Mc_name} onValueChange={(value) => setMc_name(value)}>
                         <SelectTrigger className="w-2/4">
                             <SelectValue placeholder="Machine" />
@@ -140,7 +155,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
                 <div className="flex">
                     <Label className="w-1/4 pt-2">ON</Label>
                     <Input className="w-2/4 bg-cyan-100" placeholder="MC ON Time" value={Mc_on} onChange={(e) => setMc_on(e.target.value)} type='time' />
-                    <Label className="w-2/4 pt-2 text-center">Off</Label>
+                    <Label className="w-2/4 pt-2 text-center">OFF</Label>
                     <Input className="w-2/4 bg-cyan-100" placeholder="MC ON Time" value={Mc_off} onChange={(e) => setMc_off(e.target.value)} type='time' />
                 </div>
 
@@ -149,12 +164,12 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
                 </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">MC Breek Down</Label>
+                    <Label className="w-2/4 pt-1">Break Down Duration(Total)</Label>
                     <Input className="w-2/4 " placeholder="MC BreakDown" value={Mc_breakdown} onChange={(e) => setMc_breakdown(e.target.value)} type='time' />
                 </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Other Time</Label>
+                    <Label className="w-2/4 pt-1">Other Duration(Total)</Label>
                     <Input className="w-2/4 " placeholder="Other Time" value={otherTime} onChange={(e) => setOtherTime(e.target.value)} type='time' />
                 </div>
                 <div className="flex">
@@ -190,7 +205,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Grading Lot No</Label>
-                    <Input className="w-2/4 " placeholder="Graddimng lot No" value={grading_lotNo} onChange={(e) => setGrading_lotNo(e.target.value)} />
+                    <Input className="w-2/4 " placeholder="Grading lot No" value={grading_lotNo} onChange={(e) => setGrading_lotNo(e.target.value)} />
                 </div>
 
 
@@ -204,7 +219,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
             <dialog id="successemployeedialog" className="dashboard-modal">
                 <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    {/* <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p> */}
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
                 </span>
 
 
@@ -213,7 +228,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
             <dialog id="erroremployeedialog" className="dashboard-modal">
                 <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    {/* <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p> */}
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
 
                 </span>
 

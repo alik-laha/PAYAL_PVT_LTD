@@ -22,9 +22,22 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
+import { PermissionRole, pendingCheckRoles } from '@/type/type';
+import { pendingCheckRole } from '../common/exportData';
 
 
 const RcnGrading = () => {
+    const checkpending = (tab: string) => {
+        const Role = localStorage.getItem('role') as keyof PermissionRole
+        //console.log(Role)
+        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+            return true
+        }
+        else {
+            return false;
+        }
+
+    }
 
     const { setAllMachines, setEditPendiningGrinderData } = useContext(Context)
 
@@ -107,7 +120,7 @@ const RcnGrading = () => {
                     </Dialog>
 
 
-                    <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button>
+                    {checkpending('Grading') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button>}
 
                 </div>
                 <RcnGradingTable />

@@ -37,14 +37,14 @@ const SearchGrading = async (req: Request, res: Response) => {
         if (limit === 0 && offset === 0) {
             GradingEntries = await Grading.findAll({
                 where,
-                order: [['createdAt', 'DESC']], // Order by date descending
+                order: [['date', 'DESC']], // Order by date descending
 
             });
         }
         else {
             GradingEntries = await Grading.findAll({
                 where,
-                order: [['createdAt', 'DESC']], // Order by date descending
+                order: [['date', 'DESC']], // Order by date descending
                 limit,
                 offset
             });

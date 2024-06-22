@@ -13,13 +13,13 @@ import { Button } from "@/components/ui/button";
 import React, { useEffect } from "react"
 import { Input } from "../ui/input";
 // import DatePicker from "../common/DatePicker";
-import { RcnPrimaryEntryData } from "@/type/type";
+import { PermissionRole, RcnPrimaryEntryData, pendingCheckRoles } from "@/type/type";
 import { ExcelRcnPrimaryEntryData } from "@/type/type";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
-import { pageNo,pagelimit } from "../common/exportData"
+import { pageNo,pagelimit, pendingCheckRole } from "../common/exportData"
 import { FcApprove , FcDisapprove } from "react-icons/fc";
 
 
@@ -234,6 +234,17 @@ const RcnPrimaryEntryTable = () => {
         const finaldate = format(localdate, 'dd-MM-yyyy', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })
         return finaldate;
     }
+    const Role = localStorage.getItem('role') as keyof PermissionRole
+    const checkpending = ( tab: string ) => { 
+        //console.log(Role)
+        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+            return true
+        }
+        else{
+            return false;
+        }
+       
+    }
 
 
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -296,7 +307,7 @@ const RcnPrimaryEntryTable = () => {
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
             </div>
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
+            {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
 
 
 

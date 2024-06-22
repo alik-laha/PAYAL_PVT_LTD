@@ -80,7 +80,7 @@ const RcnGrading = sequelize.define('rcnGradingEdit', {
     },
     editStatus: {
         type: DataTypes.STRING,
-        defaultValue: "Created"
+        defaultValue: "Pending"
     },
     Mc_runTime: {
         type: DataTypes.TIME,
