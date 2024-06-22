@@ -30,6 +30,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { CiEdit } from "react-icons/ci";
 // import {
 //     AlertDialog,
 //     AlertDialogAction,
@@ -358,7 +359,7 @@ const RcnGradingTable = () => {
                                         <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
                                             <Dialog>
-                                                <DialogTrigger>   <button className="bg-transparent pb-2 text-left">Modify</button></DialogTrigger>
+                                                <DialogTrigger className="flex">   <CiEdit size={20}/><button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button></DialogTrigger>
                                                 <DialogContent className='max-w-2xl'>
                                                     <DialogHeader>
                                                         <DialogTitle><p className='text-1xl text-center mt-2'>Modify RCN Grading</p></DialogTitle>

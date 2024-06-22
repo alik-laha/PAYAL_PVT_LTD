@@ -31,7 +31,7 @@ const CreateGrading = async (req: Request, res: Response) => {
         });
 
         if (graddingEntry) {
-            return res.status(200).json({ message: "Gradding Entry Created Successfully" });
+            return res.status(200).json({ message: "Grading Entry Created Successfully" });
         }
 
     } catch (err) {

@@ -139,7 +139,7 @@ const RcnGradingCreateForm = () => {
                     </Select>
                 </div>          
                
-                <div className="flex mt-2">
+                <div className="flex">
                     <Label className="w-2/4 pt-2">MC Breakdown (Total) </Label>
                     <Input className="w-2/4 justify-center " placeholder="MC BreakDown" value={Mc_breakdown} type='time' onChange={(e) => setMc_breakdown(e.target.value)} />
                 </div>
