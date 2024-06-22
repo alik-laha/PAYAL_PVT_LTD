@@ -46,7 +46,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { LuDownload } from 'react-icons/lu'
 import RcnGraddingModifyForm from "./RCNGradingModify";
-import { GradingData, GradingExcelData, TimePeriodProps } from "@/type/type";
+import { GradingData, GradingExcelData } from "@/type/type";
 import { Origin } from "../common/exportData"
 import { pageNo, pagelimit } from "../common/exportData"
 import { format, toZonedTime } from 'date-fns-tz'
@@ -149,23 +149,32 @@ const RcnGradingTable = () => {
             .then((res) => {
                 console.log(res.data)
                 data = res.data
+                if (data.message === "Modify Request Approved Successfully") {
+                    setSuccessText(data.message)
+                    if (approvesuccessdialog != null) {
+                        (approvesuccessdialog as any).showModal();
+                    }
+                }
             })
             .catch(err => {
                 console.log(err.data)
             })
 
-        if (data === "Data Updated Successfully") {
-
-            if (approvesuccessdialog != null) {
-                (approvesuccessdialog as any).showModal();
-            }
-        }
+      
 
     }
     const handleReject = async (id: number) => {
+        let data
         axios.post(`/api/grading/rejectEditStatus/${id}`)
             .then(res => {
                 console.log(res.data)
+                data = res.data
+                if (data.message === "Modify Request Reverted Successfully") {
+                    seterrorText(data.message)
+                    if (rejectsuccessdialog != null) {
+                        (rejectsuccessdialog as any).showModal();
+                    }
+                }
             })
             .catch(err => {
                 console.log(err.data)
@@ -193,15 +202,16 @@ const RcnGradingTable = () => {
                     'G': item.G,
                     'Dust': item.dust,
                     'Machine': item.Mc_name,
-                    'MC_On': item.Mc_on.slice(0, 5),
-                    'MC_Off': item.Mc_off.slice(0, 5),
-                    'Breakdown': item.Mc_breakdown.slice(0, 5),
-                    'Other': item.otherTime.slice(0, 5),
-                    'Run_Duration': item.Mc_runTime.slice(0, 5),
+                    'MC_On': handleAMPM(item.Mc_on.slice(0, 5)),
+                    'MC_Off': handleAMPM(item.Mc_off.slice(0, 5)),
+                    'Breakdown_Duration': item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1'),
+                    'Other_Duration': item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1'),
+                    'Run_Duration': item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, ''),
                     'Labour_No': item.noOfEmployees,
-                    'Lot_No': item.grading_lotNo,
+                    'Grading_Lot_No': item.grading_lotNo,
                     'Edit_Status': item.editStatus,
-                    'Field_By': item.feeledBy
+                    'Entried_By': item.feeledBy,
+                    'ApprovedOrRejectedBy':item.modifiedBy
                 }
             })
             setTransformedData(transformed);
@@ -222,15 +232,16 @@ const RcnGradingTable = () => {
                     'G': item.G,
                     'Dust': item.dust,
                     'Machine': item.Mc_name,
-                    'MC_On': item.Mc_on.slice(0, 5),
-                    'MC_Off': item.Mc_off.slice(0, 5),
-                    'Breakdown': item.Mc_breakdown.slice(0, 5),
-                    'Other': item.otherTime.slice(0, 5),
-                    'Run_Duration': item.Mc_runTime.slice(0, 5),
+                    'MC_On': handleAMPM(item.Mc_on.slice(0, 5)),
+                    'MC_Off': handleAMPM(item.Mc_off.slice(0, 5)),
+                    'Breakdown_Duration': item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1') +' Hr.',
+                    'Other_Duration': item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1') +' Hr.',
+                    'Run_Duration': item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')+' Hr.',
                     'Labour_No': item.noOfEmployees,
-                    'Lot_No': item.grading_lotNo,
+                    'Grading_Lot_No': item.grading_lotNo,
                     'Edit_Status': item.editStatus,
-                    'Feeled_By': item.feeledBy
+                    'Entried_By': item.feeledBy,
+                    'ApprovedOrRejectedBy':''
                 }
             })
             setTransformedData(transformed);
@@ -285,7 +296,26 @@ const RcnGradingTable = () => {
     const [successtext, setSuccessText] = React.useState<string>('');
     const [errortext, seterrorText] = React.useState<string>('');
 
+    if (approvecloseDialogButton) {
+        approvecloseDialogButton.addEventListener('click', () => {
+            if (approvesuccessdialog != null) {
+                (approvesuccessdialog as any).close();
+                window.location.reload()
+            }
 
+        });
+    }
+
+    if (rejectcloseDialogButton) {
+        rejectcloseDialogButton.addEventListener('click', () => {
+            if (rejectsuccessdialog != null) {
+                (rejectsuccessdialog as any).close();
+                window.location.reload()
+            }
+
+
+        });
+    }
 
     return (
         <div className="ml-5 mt-5">
@@ -325,7 +355,7 @@ const RcnGradingTable = () => {
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
             </div>
 
-            {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={handleExcellExport}><LuDownload size={18} /></Button>  </span>}
+            {checkpending('Grading') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={handleExcellExport}><LuDownload size={18} /></Button>  </span>}
 
             <Table className="mt-1">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -522,18 +552,18 @@ const RcnGradingTable = () => {
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
-            <dialog id="rcneditapproveScsDialog" className="dashboard-modal">
-                <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
+            <dialog id="qcapproveScsDialog" className="dashboard-modal">
+                <button id="qcapproveScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification Request has Been Approved</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">{successtext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
-                <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
+            <dialog id="qcRejectDialog" className="dashboard-modal">
+                <button id="qcrejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Modification Request has Been Reverted</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
@@ -541,3 +571,4 @@ const RcnGradingTable = () => {
     )
 }
 export default RcnGradingTable
+
