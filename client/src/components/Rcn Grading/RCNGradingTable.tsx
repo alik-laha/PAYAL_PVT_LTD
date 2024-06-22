@@ -250,6 +250,15 @@ const RcnGradingTable = () => {
        // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
        return finalTime;
     }
+
+    const approvesuccessdialog = document.getElementById('qcapproveScsDialog') as HTMLInputElement;
+    const approvecloseDialogButton = document.getElementById('qcapproveScscloseDialog') as HTMLInputElement;
+
+    const rejectsuccessdialog = document.getElementById('qcRejectDialog') as HTMLInputElement;
+    const rejectcloseDialogButton = document.getElementById('qcrejectcloseDialog') as HTMLInputElement;
+
+    const [successtext, setSuccessText] = React.useState<string>('');
+    const [errortext, seterrorText] = React.useState<string>('');
     
       
     
@@ -344,9 +353,9 @@ const RcnGradingTable = () => {
                                 <TableCell className="text-center">{item.Mc_name}</TableCell>
                                 <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                 <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
-                                <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5)} hr.</TableCell>
-                                <TableCell className="text-center">{item.otherTime.slice(0, 5)} hr.</TableCell>
-                                <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5)} hr.</TableCell>
+                                <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g,'0').replace(/:00/g,'').replace(/00./g,'0.').replace(/^0(\d)$/,'$1')} hr</TableCell>
+                                <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g,'0').replace(/:00/g,'').replace(/00./g,'0.').replace(/^0(\d)$/,'$1')} hr</TableCell>
+                                <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g,'0').replace(/:00/g,'').replace(/00./g,'0.').replace(/^0/,'')} hr</TableCell>
                                 <TableCell className="text-center">{item.noOfEmployees}</TableCell>
                                 {/* <TableCell className="text-center">{item.grading_lotNo}</TableCell> */}
                                 <TableCell className="text-center">{item.editStatus} </TableCell>
@@ -413,9 +422,9 @@ const RcnGradingTable = () => {
                                     <TableCell className="text-center">{item.Mc_name}</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
-                                    <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5)} hr.</TableCell>
-                                    <TableCell className="text-center">{item.otherTime.slice(0, 5)} hr.</TableCell>
-                                    <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5)} hr.</TableCell>
+                                    <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g,'0').replace(/:00/g,'').replace(/00./g,'0.').replace(/^0(\d)$/,'$1')} hr</TableCell>
+                                    <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g,'0').replace(/:00/g,'').replace(/00./g,'0.').replace(/^0(\d)$/,'$1')} hr</TableCell>
+                                    <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g,'0').replace(/:00/g,'').replace(/00./g,'0.').replace(/^0/,'')} hr</TableCell>
                                     <TableCell className="text-center">{item.noOfEmployees} </TableCell>
                                     {/* <TableCell className="text-center">{item.grading_lotNo}</TableCell> */}
                                     <TableCell className="text-center">{item.editStatus}</TableCell>

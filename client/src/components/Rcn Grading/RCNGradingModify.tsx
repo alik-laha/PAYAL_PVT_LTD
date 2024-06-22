@@ -52,16 +52,31 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     const [Mc_breakdown, setMc_breakdown] = useState('00:00')
     const [otherTime, setOtherTime] = useState('00:00')
     const [grading_lotNo, setGrading_lotNo] = useState('')
+    const [errortext, setErrortext] = useState('')
 
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         axios.put(`/api/grading/updateGrading/${props.data.id}`, { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, otherTime, grading_lotNo, Mc_breakdown })
-            .then((res) => {
-                console.log(res)
+            .then(res => {
+                setErrortext(res.data.message)
+                if (res.status === 200) {
+                    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                    dialog.showModal()
+                    setTimeout(() => {
+                        dialog.close()
+                        window.location.reload()
+                    }, 2000)
+                }
             })
-            .catch((err) => {
-                console.log(err)
+            .catch(err => {
+                console.log(err.response.data.message)
+                setErrortext(err.response.data.message)
+                const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                dialog.showModal()
+                setTimeout(() => {
+                    dialog.close()
+                }, 2000)
             })
 
     }
@@ -116,7 +131,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
                     <Input className="w-2/4 bg-cyan-100" placeholder="Dust" value={dust} onChange={(e) => setDust(Number(e.target.value))} type='number' step="0.01" />
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Mechine Name</Label>
+                    <Label className="w-2/4 pt-1">Machine Name</Label>
                     <Select value={Mc_name} onValueChange={(value) => setMc_name(value)}>
                         <SelectTrigger className="w-2/4">
                             <SelectValue placeholder="Machine" />
@@ -140,7 +155,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
                 <div className="flex">
                     <Label className="w-1/4 pt-2">ON</Label>
                     <Input className="w-2/4 bg-cyan-100" placeholder="MC ON Time" value={Mc_on} onChange={(e) => setMc_on(e.target.value)} type='time' />
-                    <Label className="w-2/4 pt-2 text-center">Off</Label>
+                    <Label className="w-2/4 pt-2 text-center">OFF</Label>
                     <Input className="w-2/4 bg-cyan-100" placeholder="MC ON Time" value={Mc_off} onChange={(e) => setMc_off(e.target.value)} type='time' />
                 </div>
 
@@ -204,7 +219,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
             <dialog id="successemployeedialog" className="dashboard-modal">
                 <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    {/* <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p> */}
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
                 </span>
 
 
@@ -213,7 +228,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
             <dialog id="erroremployeedialog" className="dashboard-modal">
                 <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    {/* <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p> */}
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
 
                 </span>
 
