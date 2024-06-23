@@ -9,7 +9,7 @@ const RcnBoiling = sequelize.define('rcnBoiling', {
     },
     LotNo:{
         type: DataTypes.INTEGER,
-        
+        allowNull: false
         
     },
     date: {

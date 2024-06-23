@@ -14,7 +14,7 @@ import { Origin ,Size} from "../common/exportData"
 import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
-import { machine } from "os"
+
 import Context from "../context/context"
 import { AssetData } from "@/type/type"
 
@@ -24,8 +24,7 @@ interface RowData{
     sizeName:string;
     size:string;
     ScoopingLine:string;
-    pressure:string;
-    
+    pressure:string;  
     cookingOn:string;
     cookingOff:string;
     breakDown:string;
@@ -49,7 +48,7 @@ const RCNBoilingEntryForm = () => {
     const noofEmployeeRef = useRef<HTMLInputElement>(null)
 
     const [rows,setRows]=useState<RowData[]>([{origin:'',sizeName:'',
-        size:'',ScoopingLine:'',pressure:'',cookingOn:'',cookingOff:'',breakDown:'',other:''}
+        size:'',ScoopingLine:'',pressure:'',cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00'}
     ]);
 
     const [errortext, setErrortext] = useState('')
@@ -63,7 +62,7 @@ const RCNBoilingEntryForm = () => {
     const addRow = () => {
         setRows([...rows,{origin:'',sizeName:'',
         size:'',ScoopingLine:'',pressure:'',
-        cookingOn:'',cookingOff:'',breakDown:'',other:''}])
+        cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00'}])
     }
 
     const deleteRow = (index:number) =>{
@@ -85,11 +84,30 @@ const RCNBoilingEntryForm = () => {
             columnMC:Mc_name,...row
 
         }))
-        console.log('Submitted Data:',formData);
+        //console.log('Submitted Data:',formData);
 
        try{
         for (const data of formData){
-             axios.post('/api/boiling/createBoiling', { data })
+             axios.post('/api/boiling/createBoiling', { data }) .then(res => {
+                setErrortext(res.data.message)
+                if (res.status === 200) {
+                    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                    dialog.showModal()
+                    setTimeout(() => {
+                        dialog.close()
+                        window.location.reload()
+                    }, 2000)
+                }
+            })
+            .catch(err => {
+                console.log(err.response.data.message)
+                setErrortext(err.response.data.message)
+                const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                dialog.showModal()
+                setTimeout(() => {
+                    dialog.close()
+                }, 2000)
+            })
 
         }
        }
@@ -130,17 +148,17 @@ const RCNBoilingEntryForm = () => {
         <>
             <div className="px-5">
                 <form className='flex flex-col gap-1 pt-4' onSubmit={handleSubmit}>
-                   
-                    <div className="flex"><Label className="w-2/4  pt-1">Date of Receving</Label>
-                    <Input className="w-2/4 " placeholder="Date" ref={DateRef} type="date" required /> </div>
+                   <div className="mx-8 flex flex-col gap-1"> 
+                    <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
+                    <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
                     <div className="flex"><Label className="w-2/4  pt-1">Lot No.</Label>
                     <Input className="w-2/4 " placeholder="Lot No." ref={lotNoRef} required /> </div>
-                    <div className="flex"><Label className="w-2/4  pt-1">No. Of Labours</Label>
-                    <Input className="w-2/4 " placeholder="No. Of Labour" ref={noofEmployeeRef} required /> </div>
+                    <div className="flex"><Label className="w-2/4  pt-1">Labours</Label>
+                    <Input className="w-2/4 " placeholder="No. of Labours" ref={noofEmployeeRef} required /> </div>
                     <div className="flex">
-                    <Label className="w-2/4 pt-1">Boiling Machine Name</Label>
+                    <Label className="w-2/4 pt-1">Machine Name</Label>
                     <Select value={mc_name} onValueChange={(value) => setMc_name(value)} required={true}>
-                        <SelectTrigger className="w-2/4">
+                        <SelectTrigger className="w-2/4 justify-center">
                             <SelectValue placeholder="Machine Name" />
                         </SelectTrigger>
                         <SelectContent>
@@ -158,7 +176,8 @@ const RCNBoilingEntryForm = () => {
                         </SelectContent>
                     </Select>
                     </div>
-                    <button className="bg-blue-400 text-grey-700 w-8 h-8 text-primary-foreground rounded-md text-center items-center justify-center"
+                    </div>
+                    <button className="bg-blue-400 font-bold text-grey-700 w-8 h-8 text-primary-foreground rounded-md text-center items-center justify-center"
                     onClick={addRow}>+</button>
                     <Table className="mt-1">
                              <TableHeader className="bg-neutral-100 text-stone-950" >
@@ -251,14 +270,14 @@ const RCNBoilingEntryForm = () => {
                                      
                                         <TableCell className="text-center"><Input  value={row.pressure} placeholder="Pr." onChange={(e) => handleRowChange(index,'pressure',e.target.value)} required /></TableCell>
                                         
-                                        <TableCell className="text-center"> <Input  value={row.cookingOn} placeholder="MC ON Time" onChange={(e) => handleRowChange(index,'cookingOn',e.target.value)} type='time' required /></TableCell>
-                                        <TableCell className="text-center"><Input  value={row.cookingOff} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'cookingOff',e.target.value)} type='time' required /></TableCell>
+                                        <TableCell className="text-center "> <Input className="bg-green-100"  value={row.cookingOn} placeholder="MC ON Time" onChange={(e) => handleRowChange(index,'cookingOn',e.target.value)} type='time' required /></TableCell>
+                                        <TableCell className="text-center"><Input className="bg-red-100" value={row.cookingOff} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'cookingOff',e.target.value)} type='time' required /></TableCell>
 
                                           <TableCell className="text-center"><Input  value={row.breakDown} defaultValue='00:00' placeholder="Break Down Time" onChange={(e) => handleRowChange(index,'breakDown',e.target.value)} type='time'  /></TableCell>
                                           <TableCell className="text-center"><Input  value={row.other} defaultValue='00:00' placeholder="Other" onChange={(e) => handleRowChange(index,'other',e.target.value)} type='time'  /></TableCell>
                                           <TableCell className="text-center">
-                                          <button className="bg-red-400 text-grey-700 w-8 h-8 px-2 text-primary-foreground rounded-md text-center items-center justify-center"
-                    onClick={()=>deleteRow(index)}><MdDelete  size={20}/></button>
+                                          <button className="bg-red-400 text-grey-700 w-7 h-7  text-primary-foreground rounded-md text-center items-center justify-center"
+                    onClick={()=>deleteRow(index)}><MdDelete size={20}/></button>
                                           </TableCell>
                                         
                                          
@@ -277,6 +296,23 @@ const RCNBoilingEntryForm = () => {
                   
                    
                 </form>
+                <dialog id="successemployeedialog" className="dashboard-modal">
+                <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
+                </span>
+
+
+            </dialog>
+
+            <dialog id="erroremployeedialog" className="dashboard-modal">
+                <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
+                </span>
+
+
+            </dialog>
                 
             </div>
                         

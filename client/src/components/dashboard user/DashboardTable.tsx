@@ -188,7 +188,7 @@ const DashboardTable = () => {
     <TableCell></TableCell>
     <TableCell></TableCell>
     
-    <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">{Error}</p></TableCell>
+    <TableCell><p className="w-100 font-medium text-center text-red-500 pt-3 pb-10">{Error}</p></TableCell>
     <TableCell></TableCell>
     <TableCell></TableCell>
     <TableCell></TableCell>

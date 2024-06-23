@@ -119,7 +119,7 @@ const RCNBoilingTable = () => {
         //console.log('search button pressed')
         setEditData([])
         setblockpagen('flex')
-        const response = await axios.put('/api/rcnprimary/rcnprimarysearch', {
+        const response = await axios.put('/api/rcnprimary/searchBoiling', {
             blConNo: blConNo,
             origin: origin,
             fromDate: fromdate,
@@ -260,7 +260,7 @@ const RCNBoilingTable = () => {
 
             <div className="flex flexbox-search">
 
-                <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" BL No. / Con No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
 
                 <select className='flexbox-search-width flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
