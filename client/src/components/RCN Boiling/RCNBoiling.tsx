@@ -131,8 +131,8 @@ const RCNBoiling = () => {
                     </DialogContent>
                 </Dialog>
 
-                {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> 
-                Pending Edit ({data.CountPendingEdit})</Button>}
+                {/* {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> 
+                Pending Edit ({data.CountPendingEdit})</Button>} */}
                   
                 </div>
                 <RCNBoilingTable />

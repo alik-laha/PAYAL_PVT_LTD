@@ -1,13 +1,15 @@
-import { Request, Response } from "express";
-import RcnBoiling from "../../model/RcnBoilingModel";
+import { Request, Response, NextFunction } from "express";
 
-const CreateBoiling = async (req: Request, res: Response) => {
+const BoilingMiddleWare = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { columnMC, columnDate,columnLotNo,columnEmployee,
+        
+        const {  columnMC, 
             ScoopingLine, breakDown, cookingOff,cookingOn, origin,other,
-            size,pressure,sizeName } = req.body.data;
-
-        const feeledBy = req.cookies.user;
+            size
+         } = req.body.data;
+        if (!columnMC || !origin  || !size || !ScoopingLine ) {
+            return res.status(400).json({ message: "All Fields Are Required" })
+        }
         const timeToMilliseconds = (time: string) => {
             const [hours, minutes] = time.split(':').map(Number);
             return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
@@ -33,33 +35,11 @@ const CreateBoiling = async (req: Request, res: Response) => {
             return res.status(400).json({ message: "Machine Run Time can not be negative" });
         }
         const CookingTime = millisecondsToTime(Mc_runTime);
-        const boilingEntry = await RcnBoiling.create({
-            LotNo:columnLotNo,
-            date:columnDate,
-            origin:origin,
-            SizeName:sizeName,
-            Size:size,
-            Scooping_Line_Mc:ScoopingLine,
-            Pressure:pressure,
-            CookingTime:CookingTime,
-            MCName:columnMC,
-            Mc_on:cookingOn,
-            Mc_off:cookingOff,
-            noOfEmployees:columnEmployee,
-            Mc_breakdown:breakDown,
-            Mc_runTime:CookingTime,
-            otherTime:other,
-            CreatedBy:feeledBy
-          
 
-        });
-
-        if (boilingEntry) {
-            return res.status(200).json({ message: "Boiling Entry Created Successfully" });
-        }
+        next();
 
     } catch (err) {
-        return res.status(500).json({ message: "internal server Error", err });
+        return res.status(500).json({ message: "internal server Error" });
     }
 }
-export default CreateBoiling;
+export default BoilingMiddleWare;

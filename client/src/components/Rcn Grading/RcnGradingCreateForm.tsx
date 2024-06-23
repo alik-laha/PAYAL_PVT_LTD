@@ -147,7 +147,7 @@ const RcnGradingCreateForm = () => {
                 </div>
 
                 <div className="flex ">
-                    <Label className="w-2/4 pt-2">Other Duration  (Total)</Label>
+                    <Label className="w-2/4 pt-2">Other Duration (Total)</Label>
                     <Input className="w-2/4 justify-center " placeholder="Other Time" value={otherTime} type='time' onChange={(e) => setOtherTime(e.target.value)} />
                 </div>
             

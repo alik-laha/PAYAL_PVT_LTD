@@ -4,12 +4,13 @@ import sequelize from "../config/databaseConfig";
 const RcnBoiling = sequelize.define('rcnBoiling', {
     id: {
         type: DataTypes.INTEGER,
-        autoIncrement: true
+        autoIncrement: true,
+        primaryKey: true,
     },
     LotNo:{
         type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
+        
+        
     },
     date: {
         type: DataTypes.DATE,
