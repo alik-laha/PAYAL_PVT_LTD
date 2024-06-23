@@ -16,10 +16,12 @@ const sumOfallGrade = async (req: Request, res: Response) => {
         if (today < compareDate) {
             targetDate = new Date(`${Year - 1}-04-01`);
         }
-
-        targetDate = new Date(`${Year}-04-01`);
+        else{
+            targetDate = new Date(`${Year}-04-01`);
+        }
+        
         targetDate.setHours(0,0,0,0)
-
+      
 
         const data = await RcnGrading.findAll({
             attributes: [
@@ -28,7 +30,7 @@ const sumOfallGrade = async (req: Request, res: Response) => {
                 [sequelize.fn('sum', sequelize.col('C')), 'totalC'],
                 [sequelize.fn('sum', sequelize.col('D')), 'totalD'],
                 [sequelize.fn('sum', sequelize.col('E')), 'totalE'],
-                [sequelize.fn('sum', sequelize.col('E')), 'totalF'],
+                [sequelize.fn('sum', sequelize.col('F')), 'totalF'],
                 [sequelize.fn('sum', sequelize.col('G')), 'totalG'],
                 [sequelize.fn('sum', sequelize.col('dust')), 'totalDust']
             ],

@@ -76,7 +76,7 @@ const RCNBoiling = () => {
     }, [])
 
  
-    const { data, isLoading, error } = UseQueryData('/api/grading/sumofallgrade', 'GET', 'AllGradingSum');
+    const { data, isLoading, error } = UseQueryData('/api/boiling/sumofallboil', 'GET', 'sumOfallBoil');
     // const handleEditFetch = async () => {
     //     axios.get('/api/grading/getPendingData')
     //         .then(res => {
