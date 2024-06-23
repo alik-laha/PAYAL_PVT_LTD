@@ -76,14 +76,24 @@ const RCNBoiling = () => {
     }, [])
 
  
-    const { data, isLoading, error } = UseQueryData('/api/rcnprimary/sum', 'GET', 'AllOriginRcnPrimary');
+    const { data, isLoading, error } = UseQueryData('/api/grading/sumofallgrade', 'GET', 'AllGradingSum');
+    // const handleEditFetch = async () => {
+    //     axios.get('/api/grading/getPendingData')
+    //         .then(res => {
+    //             setEditPendiningGrinderData(res.data.data)
+    //         })
+    //         .catch(err => {
+    //             console.log(err)
+    //         })
+    // }
     if (isLoading) {
-        return <Loader/>
+        return <Loader />
     }
 
     if (error) {
         return <div>Error</div>;
     }
+    console.log(data)
     return (
         <div>
             <DashboardHeader />
@@ -91,7 +101,7 @@ const RCNBoiling = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                {/* <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+                <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
                         A <br /><p>{data.data[0].totalA ? data.data[0].totalA : 0} Bag</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
@@ -112,7 +122,7 @@ const RCNBoiling = () => {
                     <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
                         G <br /><p>{data.data[0].totalG ? data.data[0].totalG : 0} Bag</p>
                     </div>
-                     */}
+                    
 
                 </div>
 

@@ -65,7 +65,7 @@ import { useContext } from "react";
 import Context from "../context/context";
 import { EditPendingData } from "@/type/type";
 import { CiEdit } from "react-icons/ci";
-import { DatabaseZapIcon } from "lucide-react";
+
 
 const RCNBoilingTable = () => {
     const [origin, setOrigin] = useState<string>("")

@@ -7,7 +7,7 @@ const SearchBoiling = async (req: Request, res: Response) => {
     try {
         const page = parseInt(req.query.page as string, 10) || 0;
         const size = parseInt(req.query.limit as string, 10) || 0;
-        const { searchData, fromDate, toDate, origin,SizeName } = req.body;
+        const { blConNo, fromDate, toDate, origin,SizeName } = req.body;
         const offset = (page - 1) * size;
         const limit = size;
         let whereClause = []
@@ -18,12 +18,12 @@ const SearchBoiling = async (req: Request, res: Response) => {
                 }
             });
         }
-        if (searchData) {
+        if (blConNo) {
             whereClause.push({
                 [Op.or]: [
 
-                    { LotNo: { [Op.like]: `%${searchData}%` } },
-                    { Scooping_Line_Mc: { [Op.like]: `%${searchData}%` } }
+                    { LotNo: { [Op.like]: `%${blConNo}%` } },
+                    { Scooping_Line_Mc: { [Op.like]: `%${blConNo}%` } }
                 ]
             });
         }
