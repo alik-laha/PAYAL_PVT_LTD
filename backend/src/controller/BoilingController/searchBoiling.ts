@@ -7,7 +7,7 @@ const SearchBoiling = async (req: Request, res: Response) => {
     try {
         const page = parseInt(req.query.page as string, 10) || 0;
         const size = parseInt(req.query.limit as string, 10) || 0;
-        const { searchData, fromDate, toDate, origin } = req.body;
+        const { searchData, fromDate, toDate, origin,SizeName } = req.body;
         const offset = (page - 1) * size;
         const limit = size;
         let whereClause = []
@@ -30,6 +30,11 @@ const SearchBoiling = async (req: Request, res: Response) => {
         if (origin) {
             whereClause.push({
                 origin
+            })
+        }
+        if (SizeName) {
+            whereClause.push({
+                SizeName
             })
         }
 

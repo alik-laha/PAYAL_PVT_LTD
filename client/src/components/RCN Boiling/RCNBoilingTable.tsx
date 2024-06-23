@@ -19,7 +19,7 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
-import { pageNo,pagelimit } from "../common/exportData"
+import { Size, pageNo,pagelimit } from "../common/exportData"
 import { FcApprove , FcDisapprove } from "react-icons/fc";
 
 
@@ -68,6 +68,7 @@ import { CiEdit } from "react-icons/ci";
 
 const RCNBoilingTable = () => {
     const [origin, setOrigin] = useState<string>("")
+    const [size, setSize] = useState<string>("")
     const [fromdate, setfromDate] = React.useState<string>('');
     const [todate, settoDate] = React.useState<string>('');
     const [hidetodate, sethidetoDate] = React.useState<string>('');
@@ -119,11 +120,12 @@ const RCNBoilingTable = () => {
         //console.log('search button pressed')
         setEditData([])
         setblockpagen('flex')
-        const response = await axios.put('/api/rcnprimary/searchBoiling', {
+        const response = await axios.post('/api/boiling/searchBoiling', {
             blConNo: blConNo,
             origin: origin,
             fromDate: fromdate,
-            toDate: todate
+            toDate: todate,
+            SizeName:size,
         }, {
             params: {
                 page: page,
@@ -260,9 +262,9 @@ const RCNBoilingTable = () => {
 
             <div className="flex flexbox-search">
 
-                <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No./ Line Name" value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
 
-                <select className='flexbox-search-width flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className='flexbox-search-width flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                     onChange={(e) => setOrigin(e.target.value)} value={origin}>
                     <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
@@ -274,9 +276,9 @@ const RCNBoilingTable = () => {
                         </option>
                     ))}
                 </select>
-
+              
                 <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
-                <Input className="w-1/6 flexbox-search-width-calender"
+                <Input className="w-1/7 flexbox-search-width-calender"
                     type="date"
                     value={fromdate}
                     onChange={(e) => setfromDate(e.target.value)}
@@ -284,13 +286,25 @@ const RCNBoilingTable = () => {
 
                 />
                 <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                <Input className="w-1/6 flexbox-search-width-calender"
+                <Input className="w-1/7 flexbox-search-width-calender"
                     type="date"
                     value={hidetodate}
                     onChange={handleTodate}
                     placeholder="To Date"
 
                 />
+                  <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                    onChange={(e) => setSize(e.target.value)} value={size}>
+                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Size (All)</option>
+                    {Size.map((data, index) => (
+                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                            {data}
+                        </option>
+                    ))}
+                </select>
 
 
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
@@ -305,18 +319,21 @@ const RCNBoilingTable = () => {
 
                     <TableHead className="text-center" >Id</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Date of Receiving </TableHead>
-                    <TableHead className="text-center" >BL No.</TableHead>
-                    <TableHead className="text-center" >Con No.</TableHead>
-                    <TableHead className="text-center" >Truck No.</TableHead>
-
-                    <TableHead className="text-center" >BL Weight</TableHead>
-                    <TableHead className="text-center" >Net Weight</TableHead>
-                    <TableHead className="text-center" >Difference</TableHead>
-                    <TableHead className="text-center" >Bag Count</TableHead>
-                    <TableHead className="text-center" >QC Status</TableHead>
-                    <TableHead className="text-center" >Edit Status </TableHead>
+                    <TableHead className="text-center" >Entry Date </TableHead>
+                    <TableHead className="text-center" >Lot No.</TableHead>
+                    <TableHead className="text-center" >Machine Name</TableHead>
+                    <TableHead className="text-center" >Scooping Line</TableHead>
+                    <TableHead className="text-center" >Size</TableHead>
+                    <TableHead className="text-center" >Qty</TableHead>
+                    <TableHead className="text-center" >Pressure</TableHead>
+                    <TableHead className="text-center" >MC ON</TableHead>
+                    <TableHead className="text-center" >MC OFF</TableHead>
+                    <TableHead className="text-center" >Breakdown Duration</TableHead>
+                    <TableHead className="text-center" >Other Duration </TableHead>
+                    <TableHead className="text-center" >Run Duration </TableHead>
+                    <TableHead className="text-center" >Labour </TableHead>
                     <TableHead className="text-center" >Entried By </TableHead>
+                    <TableHead className="text-center" >Edit Status </TableHead>
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>
@@ -398,12 +415,17 @@ const RCNBoilingTable = () => {
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center">{item.blNo}</TableCell>
-                                    <TableCell className="text-center">{item.conNo}</TableCell>
-                                    <TableCell className="text-center">{item.truckNo}</TableCell>
+                                    <TableCell className="text-center">{item.LotNo}</TableCell>
+                                    <TableCell className="text-center">{item.MCName}</TableCell>
+                                    <TableCell className="text-center">{item.Scooping_Line_Mc}</TableCell>
 
-                                    <TableCell className="text-center">{item.blWeight}</TableCell>
-                                    <TableCell className="text-center">{item.netWeight}</TableCell>
+                                    <TableCell className="text-center">{item.SizeName}</TableCell>
+                                    <TableCell className="text-center">{item.Size}</TableCell>
+                                    <TableCell className="text-center">{item.Pressure}</TableCell>
+                                    <TableCell className="text-center">{item.Size}</TableCell>
+                                    <TableCell className="text-center">{item.Size}</TableCell>
+
+
                                     <TableCell className="text-center font-semibold text-red-600">{item.difference}</TableCell>
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
                                     <TableCell className="text-center">

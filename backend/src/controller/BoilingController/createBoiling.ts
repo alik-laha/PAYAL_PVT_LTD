@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import RcnBoiling from "../../model/RcnBoilingModel";
+import LotNo from "../../model/lotNomodel";
 
 const CreateBoiling = async (req: Request, res: Response) => {
     try {
@@ -33,6 +34,17 @@ const CreateBoiling = async (req: Request, res: Response) => {
             return res.status(400).json({ message: "Machine Run Time can not be negative" });
         }
         const CookingTime = millisecondsToTime(Mc_runTime);
+
+        try{
+            const Lot= await LotNo.create({
+                lotNo:columnLotNo,
+                createdBy:feeledBy
+            });
+        }
+        catch (err) {
+            return res.status(500).json({ message: "Error in Creating Lot No.", err });
+        }
+    
         const boilingEntry = await RcnBoiling.create({
             LotNo:columnLotNo,
             date:columnDate,
