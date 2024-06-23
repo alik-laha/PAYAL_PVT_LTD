@@ -7,5 +7,6 @@ const router = express.Router();
 
 router.post("/createBoiling", jwtVerify,BoilingMiddleWare, CreateBoiling)
 router.post("/searchBoiling", jwtVerify, SearchBoiling)
+router.get("/sumofallboil", jwtVerify, sumOfallGrade)
 
 export default router;
