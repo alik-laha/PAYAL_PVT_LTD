@@ -204,6 +204,30 @@ export interface PermissionDept {
     Boiling:string[];
 
 }
+export interface BoilingEntryData{
+    id: number;
+        LotNo: string;
+        date: string;
+        origin: string;
+        SizeName: string;
+        Size: string;
+        Scooping_Line_Mc: string;
+        Pressure: 56;
+        CookingTime: string;
+        MCName: string;
+        Mc_on: string;
+        Mc_off: string;
+        noOfEmployees: string;
+        Mc_breakdown: string;
+        otherTime: string;
+        CreatedBy: string;
+        editStatus: string;
+        Mc_runTime: string;
+        modifiedBy: string;
+       
+
+}
+
 export interface GradingData {
     id: number;
     date: string;

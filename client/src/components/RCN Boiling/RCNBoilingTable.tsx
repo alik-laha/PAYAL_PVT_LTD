@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import React, { useEffect } from "react"
 import { Input } from "../ui/input";
 // import DatePicker from "../common/DatePicker";
-import { RcnPrimaryEntryData } from "@/type/type";
+import { BoilingEntryData, RcnPrimaryEntryData } from "@/type/type";
 import { ExcelRcnPrimaryEntryData } from "@/type/type";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -65,6 +65,7 @@ import { useContext } from "react";
 import Context from "../context/context";
 import { EditPendingData } from "@/type/type";
 import { CiEdit } from "react-icons/ci";
+import { DatabaseZapIcon } from "lucide-react";
 
 const RCNBoilingTable = () => {
     const [origin, setOrigin] = useState<string>("")
@@ -133,11 +134,12 @@ const RCNBoilingTable = () => {
             }
         })
         const data = await response.data
-        if (data.rcnEntries.length === 0 && page > 1) {
+        console.log(data)
+        if (data.length === 0 && page > 1) {
             setPage((prev) => prev - 1)
 
         }
-        setData(data.rcnEntries)
+        setData(data)
 
     }
 
@@ -407,7 +409,7 @@ const RCNBoilingTable = () => {
                             );
                         })
                     ) : (
-                        Data.length>0 ? (Data.map((item: RcnPrimaryEntryData, idx) => {
+                        Data.length>0 ? (Data.map((item: BoilingEntryData, idx) => {
 
 
                             return (
@@ -422,24 +424,21 @@ const RCNBoilingTable = () => {
                                     <TableCell className="text-center">{item.SizeName}</TableCell>
                                     <TableCell className="text-center">{item.Size}</TableCell>
                                     <TableCell className="text-center">{item.Pressure}</TableCell>
-                                    <TableCell className="text-center">{item.Size}</TableCell>
-                                    <TableCell className="text-center">{item.Size}</TableCell>
+                                    <TableCell className="text-center">{item.Mc_on}</TableCell>
+                                    <TableCell className="text-center">{item.Mc_off}</TableCell>
+                                    <TableCell className="text-center">{item.Mc_breakdown}</TableCell>
+                                    <TableCell className="text-center">{item.otherTime}</TableCell>
+                                    <TableCell className="text-center">{item.Mc_runTime}</TableCell>
+                                    <TableCell className="text-center">{item.noOfEmployees}</TableCell>
+                                    <TableCell className="text-center">{item.CreatedBy}</TableCell>
+                                    <TableCell className="text-center">{item.editStatus}</TableCell>
 
 
-                                    <TableCell className="text-center font-semibold text-red-600">{item.difference}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
-                                    <TableCell className="text-center">
-                                    {item.rcnStatus === 'QC Approved' ? (
-                                            <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>
-                                        ) : item.rcnStatus === 'QC Pending' ? (
-                                            <button className="bg-orange-500 p-1 text-white rounded">{item.rcnStatus}</button>
-                                        ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
-                                        )}
-                                    </TableCell>
-                                    <TableCell className="text-center">{item.editStatus == 'Created' ?
-                                    'NA':item.editStatus}</TableCell>
-                                    <TableCell className="text-center">{item.receivedBy}</TableCell>
+                                 
+                                  
+                                   
+                                 
+                                
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>

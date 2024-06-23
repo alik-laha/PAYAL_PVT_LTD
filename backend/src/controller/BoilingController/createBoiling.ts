@@ -42,7 +42,7 @@ const CreateBoiling = async (req: Request, res: Response) => {
             });
         }
         catch (err) {
-            return res.status(500).json({ message: "Error in Creating Lot No.", err });
+            return res.status(500).json({ message: "Duplicate Lot No. or Error in Creating Lot No.", err });
         }
     
         const boilingEntry = await RcnBoiling.create({
