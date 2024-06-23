@@ -42,7 +42,8 @@ const RCNBoiling = () => {
     }
 
 
-    const { setAllMachines } = useContext(Context)
+    const { setAllMachines} = useContext(Context)
+   
 
     useEffect(() => {
         axios.get('/api/asset/getMachineByType/Boiling')
@@ -53,7 +54,28 @@ const RCNBoiling = () => {
             .catch(err => {
                 console.log(err)
             })
+
+      
+           
+           
     }, [])
+    
+    const { setAllNewMachines} = useContext(Context)
+
+    useEffect(() => {
+        
+        axios.get('/api/asset/getMachineByType/Scooping')
+        .then(res => {
+            console.log(res.data)
+            setAllNewMachines(res.data)
+          
+        })
+        .catch(err => {
+            console.log(err)
+        })   
+    }, [])
+
+ 
     const { data, isLoading, error } = UseQueryData('/api/rcnprimary/sum', 'GET', 'AllOriginRcnPrimary');
     if (isLoading) {
         return <Loader/>

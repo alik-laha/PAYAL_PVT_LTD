@@ -45,6 +45,7 @@ const RCNBoilingEntryForm = () => {
     const lotNoRef = useRef<HTMLInputElement>(null)
     const DateRef = useRef<HTMLInputElement>(null)
     const [mc_name, setMc_name] = useState('')
+    const [mc2_name, setMc2_name] = useState('')
     const noofEmployeeRef = useRef<HTMLInputElement>(null)
 
     const [rows,setRows]=useState<RowData[]>([{origin:'',sizeName:'',
@@ -124,6 +125,7 @@ const RCNBoilingEntryForm = () => {
     }
 
     const { AllMachines } = useContext(Context)
+    const { AllNewMachines } = useContext(Context)
     return (
         <>
             <div className="px-5">
@@ -137,7 +139,7 @@ const RCNBoilingEntryForm = () => {
                     <Input className="w-2/4 " placeholder="No. Of Labour" ref={noofEmployeeRef} required /> </div>
                     <div className="flex">
                     <Label className="w-2/4 pt-1">Boiling Machine Name</Label>
-                    <Select value={mc_name} onValueChange={(value) => setMc_name(value)} required={true}>
+                    <Select value={mc2_name} onValueChange={(value) => setMc2_name(value)} required={true}>
                         <SelectTrigger className="w-2/4">
                             <SelectValue placeholder="Machine Name" />
                         </SelectTrigger>
@@ -159,10 +161,10 @@ const RCNBoilingEntryForm = () => {
                     <button className="bg-blue-400 text-grey-700 w-8 h-8 text-primary-foreground rounded-md text-center items-center justify-center"
                     onClick={addRow}>+</button>
                     <Table className="mt-1">
-                             <TableHeader className="bg-neutral-100 text-stone-950" style={{height:'10px'}}>
+                             <TableHeader className="bg-neutral-100 text-stone-950" >
                              <TableHead className="text-center" >Sl. No.</TableHead>
                              <TableHead className="text-center" >Origin</TableHead>
-                             <TableHead className="text-center" >Size Name</TableHead>
+                             <TableHead className="text-center" >Size</TableHead>
                              <TableHead className="text-center" >Boiling Quantity</TableHead>
                              <TableHead className="text-center" >Scooping Line</TableHead>
                              <TableHead className="text-center" >Pressure</TableHead>
@@ -181,7 +183,7 @@ const RCNBoilingEntryForm = () => {
                                         <TableCell>{index+1}</TableCell>
                                         <TableCell className="text-center">
                                             <Select value={row.origin} onValueChange={(val) => handleRowChange(index, 'origin', val)} required={true}>
-                                                <SelectTrigger>
+                                                <SelectTrigger className="justify-center w-20">
                                                     <SelectValue placeholder="Origin" />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -201,8 +203,8 @@ const RCNBoilingEntryForm = () => {
                                         </TableCell>
                                         <TableCell className="text-center" >
                                             <Select value={row.sizeName} onValueChange={(val) => handleRowChange(index, 'sizeName', val)} required={true}>
-                                                <SelectTrigger >
-                                                    <SelectValue placeholder="Name" />
+                                                <SelectTrigger className="justify-center w-20" >
+                                                    <SelectValue placeholder="Size" />
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     <SelectGroup>
@@ -220,30 +222,31 @@ const RCNBoilingEntryForm = () => {
                                             </Select>
 
                                         </TableCell>
-                                        <TableCell className="text-center" >
-                                            <Select value={row.sizeName} onValueChange={(val) => handleRowChange(index, 'sizeName', val)} required={true}>
-                                                <SelectTrigger >
-                                                    <SelectValue placeholder="Name" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectGroup>
-                                                        {
-                                                            Size.map((item) => {
-                                                                return (
-                                                                    <SelectItem key={item} value={item}>
-                                                                        {item}
-                                                                    </SelectItem>
-                                                                )
-                                                            })
-                                                        }
-                                                    </SelectGroup>
-                                                </SelectContent>
-                                            </Select>
-
-                                        </TableCell>
+                                    
                                         
-                                        <TableCell >
+                                        <TableCell className="text-center">
                                         <Input  value={row.size} placeholder="Bag" onChange={(e) => handleRowChange(index,'size',e.target.value)} required />
+                                        </TableCell>
+                                            <TableCell className="text-center" >
+                                            <Select value={row.ScoopingLine} onValueChange={(val) => handleRowChange(index, 'ScoopingLine', val)} required={true}>
+                                                <SelectTrigger  className="justify-center w-40">
+                                                    <SelectValue placeholder="Line No." />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectGroup>
+                                                        {
+                                                           AllNewMachines &&  AllNewMachines.map((item) => {
+                                                                return (
+                                                                    <SelectItem key={item.machineID} value={item.machineName}>
+                                                                        {item.machineName}
+                                                                    </SelectItem>
+                                                                )
+                                                            })
+                                                        }
+                                                    </SelectGroup>
+                                                </SelectContent>
+                                            </Select>
+
                                         </TableCell>
                                      
                                         <TableCell className="text-center"><Input  value={row.pressure} placeholder="Pr." onChange={(e) => handleRowChange(index,'pressure',e.target.value)} required /></TableCell>
@@ -255,7 +258,7 @@ const RCNBoilingEntryForm = () => {
                                           <TableCell className="text-center"><Input  value={row.other} placeholder="Other" onChange={(e) => handleRowChange(index,'other',e.target.value)} type='time'  /></TableCell>
                                           <TableCell className="text-center">
                                           <button className="bg-red-400 text-grey-700 w-8 h-8 px-2 text-primary-foreground rounded-md text-center items-center justify-center"
-                    onClick={()=>deleteRow(index)}><MdDelete size={15}/></button>
+                    onClick={()=>deleteRow(index)}><MdDelete  size={20}/></button>
                                           </TableCell>
                                         
                                          

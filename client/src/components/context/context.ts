@@ -15,7 +15,9 @@ interface ContextType {
     dept: string;
     setDept: (dept: string) => void;
     AllMachines: AssetData[];
+    AllNewMachines:AssetData[];
     setAllMachines: (data: AssetData[]) => void;
+    setAllNewMachines: (data: AssetData[]) => void;
     editPendiningGrinderData: GradingData[];
     setEditPendiningGrinderData: (data: GradingData[]) => void;
 
@@ -24,7 +26,9 @@ interface ContextType {
 const Context = createContext<ContextType>({
     editPendingData: [],
     AllMachines: [],
+    AllNewMachines:[],
     setAllMachines: () => { },
+    setAllNewMachines: () => { },
     setEditPendingData: () => { },
     count: 0,
     setCount: () => { },
