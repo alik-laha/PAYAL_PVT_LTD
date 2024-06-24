@@ -21,7 +21,10 @@ const SumOfAllOriginRcnPrimary = async (req: Request, res: Response): Promise<Re
 
         
         targetDate.setHours(0,0,0,0)
-      
+        if(today.getHours()<5 || (today.getHours()===5 && today.getMinutes()<=30)){
+            today.setHours(today.getHours()+5);
+            today.setMinutes(today.getMinutes()+30);
+        }
         const AllOriginRcnPrimary = await RcnPrimary.findAll({
             attributes: [
                 'origin',
