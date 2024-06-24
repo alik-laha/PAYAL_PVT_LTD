@@ -17,6 +17,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png';
 import cross from '../../assets/Static_Images/error_img.png';
 import { debounce } from "lodash"
+import { hashPassword } from "@/Utils/hashPassword";
 
 const DashboardUserEntryForm = () => {
     const [dept, setDept] = useState<string>("");
@@ -25,10 +26,12 @@ const DashboardUserEntryForm = () => {
     const [employeeId, setEmployeeId] = useState<string>("");
     const [scrollView, setScrollView] = useState<string>("none");
     const userNameRef = useRef<HTMLInputElement>(null);
-    const passwordRef = useRef<HTMLInputElement>(null);
+    //const passwordRef = useRef<HTMLInputElement>(null);
     const [employeeName, setEmployeeName] = useState<string>("");
-    const confirmPasswordRef = useRef<HTMLInputElement>(null);
+   // const confirmPasswordRef = useRef<HTMLInputElement>(null);
     const [errortext, setErrorText] = useState<string>("");
+    const [pssword,SetPssword]=useState<string>('');
+    const [confirmpassword,SetconfirmPassword]=useState<string>('');
 
     const successdialog = document.getElementById('userscs') as HTMLInputElement;
     const errordialog = document.getElementById('usererror') as HTMLInputElement;
@@ -54,12 +57,21 @@ const DashboardUserEntryForm = () => {
         }
     }, [closeDialogButton, successdialog, errorcloseDialogButton, errordialog]);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const userName = userNameRef.current?.value;
-        const password = passwordRef.current?.value;
-        const confirmPassword = confirmPasswordRef.current?.value;
-        axios.post('/api/user/createuser', { userName, password, dept, role, employeeId, confirmPassword, employeeName })
+       // const oldpassword = passwordRef.current?.value;
+       // const oldconfirmPassword = confirmPasswordRef.current?.value;
+        if (pssword !== confirmpassword) {
+            setErrorText('Password and Confirm Password does not Match');
+            (errordialog as any).showModal();
+            return
+        }
+          
+        const password = await hashPassword(pssword)
+        //const confirmPassword =  hashPassword(confirmpassword);
+
+        axios.post('/api/user/createuser', { userName, password, dept, role, employeeId, employeeName })
             .then((res) => {
                 console.log(res.data);
                 if (successdialog != null) {
@@ -68,14 +80,16 @@ const DashboardUserEntryForm = () => {
                 if (userNameRef.current != null) {
                     userNameRef.current.value = '';
                 }
-                if (passwordRef.current != null) {
-                    passwordRef.current.value = '';
-                }
-                if (confirmPasswordRef.current != null) {
-                    confirmPasswordRef.current.value = '';
-                }
+                // if (passwordRef.current != null) {
+                //     passwordRef.current.value = '';
+                // }
+                // if (confirmPasswordRef.current != null) {
+                //     confirmPasswordRef.current.value = '';
+                // }
                 setRole('');
                 setDept('');
+                SetPssword('')
+                SetconfirmPassword('')
                 setEmployeeId('');
                 setEmployeeName('');
                 setEmployeeData([]); // Clear the employeeData list
@@ -146,11 +160,13 @@ const DashboardUserEntryForm = () => {
                     </div>
                     <div className="flex">
                         <Label className="w-2/4 mt-1">Password</Label>
-                        <Input type="password" className="w-2/4" placeholder="Password" ref={passwordRef} />
+                        <Input type="password" className="w-2/4" placeholder="Password" value={pssword} 
+                        onChange={(e)=> SetPssword(e.target.value)}/>
                     </div>
                     <div className="flex">
                         <Label className="w-2/4 mt-1">Confirm Password</Label>
-                        <Input type="password" className="w-2/4" placeholder="Confirm Password" ref={confirmPasswordRef} />
+                        <Input type="password" className="w-2/4" placeholder="Confirm Password" value={confirmpassword} 
+                        onChange={(e)=> SetconfirmPassword(e.target.value)}/>
                     </div>
                     <div className="flex">
                         <Label className="w-2/4 mt-1">Department</Label>

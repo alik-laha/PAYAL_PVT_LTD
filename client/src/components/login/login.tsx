@@ -15,12 +15,14 @@ import {
 import { useRef, useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 import Context from '../context/context';
+import { hashPassword } from "@/Utils/hashPassword.ts";
 
 
 export const Login = () => {
     const navigate = useNavigate();
     const usernameRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
+    //const [pssword,SetPssword]=useState<string>('');
     const [errMsg, setErrMsg] = useState<string>('');
     const [errView, setErrView] = useState<string>("none");
     const { typedCaptcha, generateCaptcha, setTypedCaptcha, setRole, setDept } = useContext(Context);
@@ -28,11 +30,12 @@ export const Login = () => {
 
 
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit =async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const username = usernameRef.current?.value;
         const password = passwordRef.current?.value;
-
+        //const password = await hashPassword(pssword)
+        console.log(password)
         if (username === '' || password === '') {
             setErrMsg('Username or Password Not Given');
             setErrView('block');
