@@ -76,9 +76,9 @@ const RCNBoilingTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const [Data, setData] = useState<BoilingEntryData[]>([])
     const [page, setPage] = useState(pageNo)
-    const [EditData, setEditData] = useState<EditPendingData[]>([])
+    const [EditData, setEditData] = useState<BoilingEntryData[]>([])
     const limit = pagelimit
-    const { editPendingData } = useContext(Context);
+    const { editPendingBoilingData } = useContext(Context);
     const [blockpagen, setblockpagen] = useState('flex')
     const currDate = new Date().toLocaleDateString();
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
@@ -110,12 +110,12 @@ const RCNBoilingTable = () => {
     }
 
     useEffect(() => {
-        if (editPendingData) {
-            console.log(editPendingData)
-            setEditData(editPendingData)
+        if (editPendingBoilingData) {
+            console.log(editPendingBoilingData)
+            setEditData(editPendingBoilingData)
             setblockpagen('none')
         }
-    }, [editPendingData])
+    }, [editPendingBoilingData])
 
     const handleSearch = async () => {
         //console.log('search button pressed')
@@ -211,7 +211,7 @@ const RCNBoilingTable = () => {
         saveAs(blob, 'RCN_Primary_Entry_' + currDate + '.xlsx');
     };
 
-    const handleRejection = async (item: RcnPrimaryEntryData) => {
+    const handleRejection = async (item: BoilingEntryData) => {
         const response = await axios.delete(`/api/rcnprimary/rejectededitrcn/${item.id}`)
         const data = await response.data
         console.log(data)
@@ -222,7 +222,7 @@ const RCNBoilingTable = () => {
             }
         }
     }
-    const handleApprove = async (item: RcnPrimaryEntryData) => {
+    const handleApprove = async (item: BoilingEntryData) => {
         const response = await axios.put(`/api/rcnprimary/approveeditrcn/${item.id}`)
         const data = await response.data
         if (data.message === "Edit Request of Rcn Entry is Approved Successfully") {
@@ -367,26 +367,22 @@ const RCNBoilingTable = () => {
                                     <TableCell className="text-center">{idx + 1}</TableCell>
                                     <TableCell className="text-center">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center">{item.blNo}</TableCell>
-                                    <TableCell className="text-center">{item.conNo}</TableCell>
-                                    <TableCell className="text-center">{item.truckNo}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.LotNo}</TableCell>
+                                  
+                                    <TableCell className="text-center font-semibold">{item.Scooping_Line_Mc}</TableCell>
 
-                                    <TableCell className="text-center">{item.blWeight}</TableCell>
-                                    <TableCell className="text-center">{item.netWeight}</TableCell>
-                                    <TableCell className="text-center font-semibold text-red-600">{item.difference}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
-                                    <TableCell className="text-center">
-                                        {item.rcnStatus === 'QC Approved' ? (
-                                            <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>
-                                        ) : item.rcnStatus === 'QC Pending' ? (
-                                            <button className="bg-orange-500 p-1 text-white rounded">{item.rcnStatus}</button>
-                                        ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
-                                        )}
-                                    </TableCell>
-                                    <TableCell className="text-center">{item.editStatus == 'Created' ?
-                                    'NA':item.editStatus}</TableCell>
-                                    <TableCell className="text-center">{item.editedBy}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.SizeName}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.Size}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.Pressure}</TableCell>
+                                    <TableCell className="text-center">{item.MCName}</TableCell>
+                                    <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
+                                    <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
+                                    <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                    <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                    <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')} hr</TableCell>
+                                    <TableCell className="text-center">{item.noOfEmployees}</TableCell>
+                                    <TableCell className="text-center">{item.CreatedBy}</TableCell>
+                                    <TableCell className="text-center">{item.editStatus}</TableCell>
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>

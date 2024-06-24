@@ -72,6 +72,8 @@ const RcnGradingTable = () => {
     const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [searchData, setSearchData] = useState<string>('')
     const [transformedData, setTransformedData] = useState<GradingExcelData[]>([])
+    const [blockpagen, setblockpagen] = useState('flex')
+    const [EditData, setEditData] = useState<GradingData[]>([])
     const { editPendiningGrinderData, setEditPendiningGrinderData } = useContext(Context)
     const limit = pagelimit
 
@@ -99,10 +101,18 @@ const RcnGradingTable = () => {
             })
     }
     useEffect(() => {
-        console.log(editPendiningGrinderData)
+        if(editPendiningGrinderData.length>0){
+            console.log(editPendiningGrinderData)
+        setEditData(editPendiningGrinderData)
+        setblockpagen('none')
+        }
+        
     }, [editPendiningGrinderData])
+
     useEffect(() => {
-        setEditPendiningGrinderData([])
+
+        setEditData([])
+        setblockpagen('flex')
         axios.post('/api/grading/searchGrading', {}, {
             params: {
                 page: page,
@@ -391,7 +401,7 @@ const RcnGradingTable = () => {
                 </TableHeader>
                 <TableBody>
 
-                    {editPendiningGrinderData.length === 0 ? (data.length > 0 ? data.map((item: GradingData, index: number) => {
+                    {EditData.length === 0 ? (data.length > 0 ? data.map((item: GradingData, index: number) => {
                         const Index = page * limit + index - limit + 1
                         return (
                             <TableRow key={index}>
@@ -465,7 +475,7 @@ const RcnGradingTable = () => {
 
 
                         </TableRow>)
-                        : editPendiningGrinderData.map((item: GradingData, index: number) => {
+                        : EditData.map((item: GradingData, index: number) => {
                             const Index = page * limit + index - limit + 1
                             return (
                                 <TableRow key={index}>
@@ -538,7 +548,7 @@ const RcnGradingTable = () => {
 
                 </TableBody>
             </Table>
-            <Pagination className="pt-5 ">
+            <Pagination style={{ display: blockpagen }} className="pt-5 ">
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious onClick={() => setPage((prev) => {
