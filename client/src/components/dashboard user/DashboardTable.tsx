@@ -172,6 +172,7 @@ const DashboardTable = () => {
 
                     <TableHead className="text-center" >Id</TableHead>
                     <TableHead className="text-center" >Emp name</TableHead>
+                    <TableHead className="text-center" >Emp ID </TableHead>
                     <TableHead className="text-center" >User Name </TableHead>
                     <TableHead className="text-center" >Department </TableHead>
                     <TableHead className="text-center" >Role </TableHead>
@@ -204,6 +205,7 @@ const DashboardTable = () => {
                                 <TableRow key={idx}>
                                     <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center" >{item.employeeName}</TableCell>
+                                    <TableCell className="text-center" >{item.employeeId}</TableCell>
                                     <TableCell className="text-center" >{item.userName}</TableCell>
                                     <TableCell className="text-center" >{item.dept}</TableCell>
                                     <TableCell className="text-center" >{item.role}</TableCell>

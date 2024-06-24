@@ -59,13 +59,25 @@ const DashboardUserEntryForm = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
         const userName = userNameRef.current?.value;
        // const oldpassword = passwordRef.current?.value;
        // const oldconfirmPassword = confirmPasswordRef.current?.value;
-        if (pssword !== confirmpassword) {
+        if (pssword !== confirmpassword  ) {
             setErrorText('Password and Confirm Password does not Match');
             (errordialog as any).showModal();
             return
+        }
+        if (!specialCharRegex.test(pssword)) {
+            setErrorText('Password Should Contain One special Character');
+            (errordialog as any).showModal();
+            return
+        }
+        if (pssword.length < 6){
+            setErrorText('Password Length should Be greater than 6 Characters');
+            (errordialog as any).showModal();
+            return
+
         }
           
         const password = await hashPassword(pssword)
@@ -156,17 +168,17 @@ const DashboardUserEntryForm = () => {
                     </ScrollArea>
                     <div className="flex">
                         <Label className="w-2/4 mt-1">User Name</Label>
-                        <Input className="w-2/4" placeholder="User Name" ref={userNameRef} />
+                        <Input className="w-2/4" placeholder="User Name" ref={userNameRef} required/>
                     </div>
                     <div className="flex">
                         <Label className="w-2/4 mt-1">Password</Label>
                         <Input type="password" className="w-2/4" placeholder="Password" value={pssword} 
-                        onChange={(e)=> SetPssword(e.target.value)}/>
+                        onChange={(e)=> SetPssword(e.target.value)} required/>
                     </div>
                     <div className="flex">
                         <Label className="w-2/4 mt-1">Confirm Password</Label>
                         <Input type="password" className="w-2/4" placeholder="Confirm Password" value={confirmpassword} 
-                        onChange={(e)=> SetconfirmPassword(e.target.value)}/>
+                        onChange={(e)=> SetconfirmPassword(e.target.value)} required/>
                     </div>
                     <div className="flex">
                         <Label className="w-2/4 mt-1">Department</Label>

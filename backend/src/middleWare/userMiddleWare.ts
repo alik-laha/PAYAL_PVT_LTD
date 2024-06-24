@@ -18,15 +18,7 @@ const UserMiddleWare = async (req: Request, res: Response, next: NextFunction) =
         if (specialCharRegex.test(userName)) {
             return res.status(400).json({ message: "User Name Should Not Contain Special Characters" })
         }
-        // if (!specialCharRegex.test(password)) {
-        //     return res.status(400).json({ message: "Password Should Contain Atleast One Special Character" })
-        // }
-        // if (password !== confirmPassword) {
-        //     return res.status(400).json({ message: "Password and Confirm Password does not Match" })
-        // }
-        // if (password.length < 6) {
-        //     return res.status(400).json({ message: "Password Must be atleast of 6 characters" })
-        // }
+    
         const employee = await Employee.findOne({ where: { employeeId } });
         if (!employee) {
             return res.status(404).json({ message: "Employee not found" })
