@@ -6,14 +6,12 @@ import RCNBoilingTable from "./RCNBoilingTable";
 import {
     Dialog,
     DialogContent,
-
     DialogHeader,
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
 import UseQueryData from "../common/dataFetcher";
-import { PermissionRole, SumofAllCuntryData } from "@/type/type";
-
+import { PermissionRole } from "@/type/type";
 import { useContext, useEffect } from 'react';
 import Context from '../context/context';
 import axios from 'axios';
@@ -22,12 +20,13 @@ import { pendingCheckRole } from '../common/exportData';
 import {pendingCheckRoles} from  "@/type/type";
 
 const RCNBoiling = () => {
-    const { setEditPendingData } = useContext(Context);
+    const { setEditPendingBoilingData } = useContext(Context);
     const Role = localStorage.getItem('role') as keyof PermissionRole
+
     const handleEditFetch = async () => {
-        const Data = await axios.get('/api/rcnprimary/geteditpending');
+        const Data = await axios.get('/api/boiling/geteditpendingboiling');
         console.log(Data)
-        setEditPendingData(Data.data);
+        setEditPendingBoilingData(Data.data);
     };
 
     const checkpending = ( tab: string ) => { 
@@ -41,10 +40,8 @@ const RCNBoiling = () => {
        
     }
 
-
     const { setAllMachines} = useContext(Context)
-   
-
+    const { setAllNewMachines} = useContext(Context)
     useEffect(() => {
         axios.get('/api/asset/getMachineByType/Boiling')
             .then(res => {
@@ -53,17 +50,10 @@ const RCNBoiling = () => {
             })
             .catch(err => {
                 console.log(err)
-            })
-
-      
-           
-           
+            })            
     }, [])
     
-    const { setAllNewMachines} = useContext(Context)
-
     useEffect(() => {
-        
         axios.get('/api/asset/getMachineByType/Scooping')
         .then(res => {
             console.log(res.data)
@@ -77,19 +67,10 @@ const RCNBoiling = () => {
 
  
     const { data, isLoading, error } = UseQueryData('/api/boiling/sumofallboil', 'GET', 'sumOfallBoil');
-    // const handleEditFetch = async () => {
-    //     axios.get('/api/grading/getPendingData')
-    //         .then(res => {
-    //             setEditPendiningGrinderData(res.data.data)
-    //         })
-    //         .catch(err => {
-    //             console.log(err)
-    //         })
-    // }
+
     if (isLoading) {
         return <Loader />
     }
-
     if (error) {
         return <div>Error</div>;
     }
@@ -141,8 +122,8 @@ const RCNBoiling = () => {
                     </DialogContent>
                 </Dialog>
 
-                {/* {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> 
-                Pending Edit ({data.CountPendingEdit})</Button>} */}
+                {checkpending('Boiling') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> 
+                Pending Edit ({data.CountPendingEdit})</Button>}
                   
                 </div>
                 <RCNBoilingTable />

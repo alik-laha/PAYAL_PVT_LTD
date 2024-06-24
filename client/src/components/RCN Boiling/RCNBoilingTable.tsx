@@ -360,7 +360,7 @@ const RCNBoilingTable = () => {
                 </TableHeader>
                 <TableBody>
                     {EditData.length > 0 ? (
-                        EditData.map((item: EditPendingData, idx) => {
+                        EditData.map((item: BoilingEntryData, idx) => {
 
                             return (
                                 <TableRow key={item.id}>
@@ -456,9 +456,7 @@ const RCNBoilingTable = () => {
 
                                  
                                   
-                                   
-                                 
-                                
+        
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
@@ -472,7 +470,7 @@ const RCNBoilingTable = () => {
                                                     <DialogContent>
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-5'>RCN Primary Entry Modification</p>
+                                                                <p className='text-1xl pb-1 text-center mt-5'>RCN Boiling Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <RCNBoilingModify data={item} />

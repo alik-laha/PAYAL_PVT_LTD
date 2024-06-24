@@ -18,14 +18,24 @@ import axios from "axios"
 interface RcnPrimaryModifyProps {
     data: {
         id: number;
-        origin: string;
-        blNo: string;
-        conNo: string;
-        truckNo: string;
-        noOfBags: string;
-        blWeight: string;
-        netWeight: string;
+        LotNo: string;
         date: string;
+        origin: string;
+        SizeName: string;
+        Size: string;
+        Scooping_Line_Mc: string;
+        Pressure: 56;
+        CookingTime: string;
+        MCName: string;
+        Mc_on: string;
+        Mc_off: string;
+        noOfEmployees: string;
+        Mc_breakdown: string;
+        otherTime: string;
+        CreatedBy: string;
+        editStatus: string;
+        Mc_runTime: string;
+        modifiedBy: string;
     }
 }
 
@@ -33,14 +43,20 @@ interface RcnPrimaryModifyProps {
 const RCNBoilingModify = (props: RcnPrimaryModifyProps) => {
 
     const [origin, setOrigin] = useState<string>("")
-    const [blNo, setBlNo] = useState<string>("")
-    const [conNo, setConNo] = useState<string>("")
-    const [truckNo, setTruckNo] = useState<string>("")
-    const [noOfBags, setNoOfBags] = useState<string>("")
-    const [blWeight, setBlWeight] = useState<string>("")
-    const [netWeight, setNetWeight] = useState<string>("")
-    const [errortext, setErrorText] = useState<string>("")
-    const [date, setDate] = useState<Date>()
+    const [LotNo, setLotNo] = useState<string>("")
+    const [date, setDate] = useState('')
+    const [sizename, setsizename] = useState<string>("")
+    const [size, setsize] = useState<string>("")
+    const [scopline, setscopline] = useState<string>("")
+    const [presr, setpresr] = useState<string>("")
+   
+    const [Mc_on, setMc_on] = useState('')
+    const [Mc_off, setMc_off] = useState('')
+    const [noOfEmployees, setNoOfEmployees] = useState<number>()
+    const [Mc_breakdown, setMc_breakdown] = useState('00:00')
+    const [otherTime, setOtherTime] = useState('00:00')
+    const [errortext, setErrortext] = useState<string>('')
+
 
     const successdialog = document.getElementById('rcneditscsDialog') as HTMLInputElement;
     const errordialog = document.getElementById('rcnediterrDialog') as HTMLInputElement;
@@ -93,16 +109,16 @@ const RCNBoilingModify = (props: RcnPrimaryModifyProps) => {
     }
 
     useEffect(() => {
-        console.log(typeof (props.data.date))
-        console.log(props.data.date)
         setOrigin(props.data.origin)
-        setBlNo(props.data.blNo)
-        setConNo(props.data.conNo)
-        setTruckNo(props.data.truckNo)
-        setNoOfBags(props.data.noOfBags)
-        setBlWeight(props.data.blWeight)
-        setNetWeight(props.data.netWeight)
-        setDate(new Date(props.data.date))
+        setDate(new Date(props.data.date).toISOString().slice(0, 10))
+        
+        setMc_name(props.data.Mc_name)
+        setMc_on(props.data.Mc_on)
+        setMc_off(props.data.Mc_off)
+        setNoOfEmployees(props.data.noOfEmployees)
+        setMc_breakdown(props.data.Mc_breakdown)
+        setOtherTime(props.data.otherTime)
+        setLotNo(props.data.LotNo)
     }, [])
 
 
