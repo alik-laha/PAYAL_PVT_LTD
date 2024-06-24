@@ -54,6 +54,7 @@ const RcnPrimaryEntry = () => {
             
             <DashboardSidebar />
             <div className='dashboard-main-container'>
+               {/* <div className='dashboard-flex-head bg-gradient-to-r from-green-500 to-red-600 text-white'> Origin Wise RCN Received In Current Financial Year</div> */}
                 <div className="flexbox-header">
                     {
                         

@@ -74,7 +74,7 @@ const RCNBoilingTable = () => {
     const [todate, settoDate] = React.useState<string>('');
     const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [blConNo, setBlConNo] = useState<string>("")
-    const [Data, setData] = useState<RcnPrimaryEntryData[]>([])
+    const [Data, setData] = useState<BoilingEntryData[]>([])
     const [page, setPage] = useState(pageNo)
     const [EditData, setEditData] = useState<EditPendingData[]>([])
     const limit = pagelimit
@@ -257,6 +257,24 @@ const RCNBoilingTable = () => {
         sethidetoDate(selected)
         settoDate(nextday)
     }
+    const handleAMPM = (time: string) => {
+
+        let [hours, minutes] = time.split(':').map(Number);
+        let period = ' AM';
+
+        if (hours === 0) {
+            hours = 12;
+        } else if (hours === 12) {
+            period = ' PM';
+        } else if (hours > 12) {
+            hours -= 12;
+            period = ' PM';
+        }
+        const finalTime = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + period.toString()
+
+        // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
+        return finalTime;
+    }
 
 
     return (
@@ -321,15 +339,16 @@ const RCNBoilingTable = () => {
 
                     <TableHead className="text-center" >Id</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Entry Date </TableHead>
-                    <TableHead className="text-center" >Lot No.</TableHead>
-                    <TableHead className="text-center" >Machine Name</TableHead>
+                    <TableHead className="text-center" >Boiling Date </TableHead>
+                    <TableHead className="text-center " >Lot No.</TableHead>
+                    
                     <TableHead className="text-center" >Scooping Line</TableHead>
                     <TableHead className="text-center" >Size</TableHead>
                     <TableHead className="text-center" >Qty</TableHead>
                     <TableHead className="text-center" >Pressure</TableHead>
-                    <TableHead className="text-center" >MC ON</TableHead>
-                    <TableHead className="text-center" >MC OFF</TableHead>
+                    <TableHead className="text-center" >Machine Name</TableHead>
+                    <TableHead className="text-center" >Machine ON</TableHead>
+                    <TableHead className="text-center" >Machine OFF</TableHead>
                     <TableHead className="text-center" >Breakdown Duration</TableHead>
                     <TableHead className="text-center" >Other Duration </TableHead>
                     <TableHead className="text-center" >Run Duration </TableHead>
@@ -417,18 +436,19 @@ const RCNBoilingTable = () => {
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center">{item.LotNo}</TableCell>
-                                    <TableCell className="text-center">{item.MCName}</TableCell>
-                                    <TableCell className="text-center">{item.Scooping_Line_Mc}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.LotNo}</TableCell>
+                                  
+                                    <TableCell className="text-center font-semibold">{item.Scooping_Line_Mc}</TableCell>
 
-                                    <TableCell className="text-center">{item.SizeName}</TableCell>
-                                    <TableCell className="text-center">{item.Size}</TableCell>
-                                    <TableCell className="text-center">{item.Pressure}</TableCell>
-                                    <TableCell className="text-center">{item.Mc_on}</TableCell>
-                                    <TableCell className="text-center">{item.Mc_off}</TableCell>
-                                    <TableCell className="text-center">{item.Mc_breakdown}</TableCell>
-                                    <TableCell className="text-center">{item.otherTime}</TableCell>
-                                    <TableCell className="text-center">{item.Mc_runTime}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.SizeName}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.Size}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.Pressure}</TableCell>
+                                    <TableCell className="text-center">{item.MCName}</TableCell>
+                                    <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
+                                    <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
+                                    <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                    <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                    <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')} hr</TableCell>
                                     <TableCell className="text-center">{item.noOfEmployees}</TableCell>
                                     <TableCell className="text-center">{item.CreatedBy}</TableCell>
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
