@@ -4,7 +4,6 @@ import sequelize from "../config/databaseConfig";
 const RcnBoilingEdit = sequelize.define('rcnBoilingEdit', {
     id: {
         type: DataTypes.INTEGER,
-     
         primaryKey: true,
     },
     LotNo:{

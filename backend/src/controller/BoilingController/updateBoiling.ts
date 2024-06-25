@@ -33,10 +33,13 @@ const UpdateBoiling = async (req: Request, res: Response) => {
             return time1InMilliseconds;
         }
         const Mc_runTime = millisecondsToTime(CalculatemachineOnOffTime(Mc_off, Mc_on) - ((timeToMilliseconds(Mc_breakdown) + timeToMilliseconds(otherTime))));
-         const RcnBoilingData = await RcnBoiling.update({ editStatus }, { where: { id } })
+         
+        const RcnBoilingData = await RcnBoiling.update({ editStatus }, { where: { id } })
+         
          if (RcnBoilingData) {
             const RcnBoilingEditData = await RcnBoilingEdit.create({ 
-                LotNo:LotNo,
+                id,
+                LotNo,
             date:date,
             origin:origin,
             SizeName:sizename,
