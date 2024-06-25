@@ -121,7 +121,7 @@ const RCNBoilingTable = () => {
     const handleSearch = async () => {
         //console.log('search button pressed')
         setEditPendingBoilingData([])
-        setEditData([])
+        //setEditData([])
         
         const response = await axios.post('/api/boiling/searchBoiling', {
             blConNo: blConNo,
@@ -148,7 +148,7 @@ const RCNBoilingTable = () => {
 
     useEffect(() => {
         setEditData([])
-        setEditPendingBoilingData([])
+        //setEditPendingBoilingData([])
         setblockpagen('flex')
         handleSearch()
     }, [page])
@@ -284,7 +284,7 @@ const RCNBoilingTable = () => {
     return (
         <div className="ml-5 mt-5 ">
 
-            <div className="flex flexbox-search">
+            <div className="flex flexbox-search" >
 
                 <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No./ Line Name" value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
 
@@ -342,15 +342,16 @@ const RCNBoilingTable = () => {
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Id</TableHead>
-                    <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Boiling Date </TableHead>
                     <TableHead className="text-center " >Lot No.</TableHead>
-                    
+                    <TableHead className="text-center" >Origin</TableHead>
+                  
+                   
+                    <TableHead className="text-center" >Boiling-Date </TableHead>
                     <TableHead className="text-center" >Scooping Line</TableHead>
                     <TableHead className="text-center" >Size</TableHead>
                     <TableHead className="text-center" >Qty</TableHead>
                     <TableHead className="text-center" >Pressure</TableHead>
-                    <TableHead className="text-center" >Machine Name</TableHead>
+                    {/* <TableHead className="text-center" >Machine Name</TableHead> */}
                     <TableHead className="text-center" >Machine ON</TableHead>
                     <TableHead className="text-center" >Machine OFF</TableHead>
                     <TableHead className="text-center" >Breakdown Duration</TableHead>
@@ -369,16 +370,17 @@ const RCNBoilingTable = () => {
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{idx + 1}</TableCell>
+                                    <TableCell className="text-center font-bold text-orange-600">{item.LotNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
+                                    
+                                    
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.LotNo}</TableCell>
-                                  
-                                    <TableCell className="text-center">{item.Scooping_Line_Mc}</TableCell>
+                                    <TableCell className="text-center ">{item.Scooping_Line_Mc}</TableCell>
 
                                     <TableCell className="text-center font-semibold">{item.SizeName}</TableCell>
                                     <TableCell className="text-center font-semibold">{item.Size}</TableCell>
                                     <TableCell className="text-center font-semibold">{item.Pressure}</TableCell>
-                                    <TableCell className="text-center">{item.MCName}</TableCell>
+                                    {/* <TableCell className="text-center">{item.MCName}</TableCell> */}
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
@@ -434,16 +436,17 @@ const RCNBoilingTable = () => {
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                    <TableCell className="text-center font-bold text-orange-600">{item.LotNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
+                                    
+                                    
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.LotNo}</TableCell>
-                                  
-                                    <TableCell className="text-center">{item.Scooping_Line_Mc}</TableCell>
+                                    <TableCell className="text-center ">{item.Scooping_Line_Mc}</TableCell>
 
-                                    <TableCell className="text-center font-semibold">{item.SizeName}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.Size}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.Pressure}</TableCell>
-                                    <TableCell className="text-center">{item.MCName}</TableCell>
+                                    <TableCell className="text-center font-bold">{item.SizeName}</TableCell>
+                                    <TableCell className="text-center font-bold">{item.Size}</TableCell>
+                                    <TableCell className="text-center font-bold">{item.Pressure}</TableCell>
+                                    {/* <TableCell className="text-center">{item.MCName}</TableCell> */}
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>

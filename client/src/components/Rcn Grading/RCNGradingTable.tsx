@@ -385,7 +385,7 @@ const RcnGradingTable = () => {
                     <TableHead className="text-center" >G</TableHead>
                     <TableHead className="text-center" >Dust</TableHead>
 
-                    <TableHead className="text-center" >Name of Machine</TableHead>
+                    {/* <TableHead className="text-center" >Name of Machine</TableHead> */}
 
                     <TableHead className="text-center" >Machine On</TableHead>
                     <TableHead className="text-center" >Machine Off</TableHead>
@@ -419,7 +419,7 @@ const RcnGradingTable = () => {
                                 <TableCell className="text-center font-semibold">{item.G} </TableCell>
                                 <TableCell className="text-center font-semibold">{item.dust}</TableCell>
 
-                                <TableCell className="text-center">{item.Mc_name}</TableCell>
+                                {/* <TableCell className="text-center">{item.Mc_name}</TableCell> */}
                                 <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                 <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
                                 <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
@@ -494,7 +494,7 @@ const RcnGradingTable = () => {
                                     <TableCell className="text-center font-semibold">{item.G} </TableCell>
                                     <TableCell className="text-center font-semibold">{item.dust}</TableCell>
 
-                                    <TableCell className="text-center">{item.Mc_name}</TableCell>
+                                    {/* <TableCell className="text-center">{item.Mc_name}</TableCell> */}
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>

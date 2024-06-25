@@ -6,7 +6,7 @@ export const Role: string[] = ['Director', 'FactoryManager', 'ReceivingSuperviso
 ,'QCSupervisor', 'QCManager','GradingSupervisor','BoilingSupervisor','ScoopingSupervisor','ProductionManager'
 ]
 export const pageNo = 1
-export const pagelimit =3
+export const pagelimit =8
 export const Section = ['Boiling', 'Grading', 'Scooping']
 export const MachineStatus = ['Active', 'Inactive', 'Discarded']
 export const Size=['A','B','C','D','E','F','G']

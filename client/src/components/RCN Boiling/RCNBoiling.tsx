@@ -123,7 +123,7 @@ const RCNBoiling = () => {
                     </DialogContent>
                 </Dialog>
 
-                {checkpending('Boiling') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button>}
+                {checkpending('Boiling') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button>}
                
                   
                 </div>
