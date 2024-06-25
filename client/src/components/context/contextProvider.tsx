@@ -17,12 +17,15 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [dept, setDept] = useState<string>('')
     const [editPendiningGrinderData, setEditPendiningGrinderData] = useState<GradingData[]>([])
     const [editPendingBoilingData, setEditPendingBoilingData] = useState<BoilingEntryData[]>([])
+    const [pendingqccount, setpendingqcCount] = useState<number>(0)
+    const [pendingreportcount, setpendingreportCount] = useState<number>(0)
 
     return (
         <Context.Provider value={{ editPendingData, setEditPendingData, count, setCount, 
             generateCaptcha, setGenerateCaptcha, typedCaptcha, setTypedCaptcha, role, setRole, dept, setDept, AllMachines, setAllMachines,
          AllNewMachines, setAllNewMachines,editPendiningGrinderData, setEditPendiningGrinderData,
-         editPendingBoilingData,setEditPendingBoilingData }}>
+         editPendingBoilingData,setEditPendingBoilingData,pendingqccount,setpendingqcCount,pendingreportcount,
+         setpendingreportCount }}>
             {children}
         </Context.Provider>
     )

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { Origin } from "../common/exportData"
@@ -63,6 +63,7 @@ import { pendingCheckRole } from '../common/exportData';
 import {QcRcnEntryExcelData,PermissionRole,pendingCheckRoles} from  "@/type/type";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import Context from "../context/context"
 
 
 const QCRcnTable = () => {
@@ -78,6 +79,7 @@ const QCRcnTable = () => {
     const [blockpagen, setblockpagen] = useState('flex')
     const [pendingData,setPendingData]=useState<QcRcnEntryData[]>([])
     const [counteditpending,setcounteditpending]=useState<number>(0)
+    const { pendingqccount,pendingreportcount } = useContext(Context);
    
     const approvesuccessdialog = document.getElementById('qcapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('qcapproveScscloseDialog') as HTMLInputElement;
@@ -374,9 +376,9 @@ const QCRcnTable = () => {
     }
     return (
         <div className="ml-5 mt-5 ">
-            <Button className="bg-lime-500 mb-5 mt-5 max-w-52 responsive-button-adjust" onClick={handleSearchPendingQC}>Pending QC</Button>
-            <Button className="bg-blue-500 mb-5 ml-4 max-w-52 responsive-button-adjust qc-responsive-right" onClick={handleSearchPendingReport}>Pending Report</Button>
-            {checkpending('QCRCN') && <Button className="bg-orange-400 mb-5 ml-4 max-w-52 responsive-button-adjust responsive-no-margin" onClick={handleSearchPendingEdit}> 
+            <Button className="bg-lime-500 mb-5 mt-5 max-w-52 responsive-button-adjust" onClick={handleSearchPendingQC} disabled={pendingqccount===0?true:false}>Pending QC ({pendingqccount})</Button>
+            <Button className="bg-blue-500 mb-5 ml-4 max-w-52 responsive-button-adjust qc-responsive-right" onClick={handleSearchPendingReport} disabled={pendingreportcount===0?true:false}>Pending Report ({pendingreportcount})</Button>
+            {checkpending('QCRCN') && <Button className="bg-orange-400 mb-5 ml-4 max-w-52 responsive-button-adjust responsive-no-margin" onClick={handleSearchPendingEdit} disabled={counteditpending===0?true:false}> 
                 Pending Edit ({counteditpending})</Button>}
                 
             <div className="flex flexbox-search">

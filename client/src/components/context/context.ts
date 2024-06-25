@@ -22,6 +22,10 @@ interface ContextType {
     editPendingBoilingData: BoilingEntryData[];
     setEditPendiningGrinderData: (data: GradingData[]) => void;
     setEditPendingBoilingData: (data: BoilingEntryData[]) => void;
+    pendingqccount: number;
+    setpendingqcCount: (pendingqccount: number) => void;
+    pendingreportcount: number;
+    setpendingreportCount: (pendingreportcount: number) => void;
 }
 
 const Context = createContext<ContextType>({
@@ -33,6 +37,10 @@ const Context = createContext<ContextType>({
     setEditPendingData: () => { },
     count: 0,
     setCount: () => { },
+    pendingqccount:0,
+    setpendingqcCount:()=>{},
+    pendingreportcount:0,
+    setpendingreportCount:()=>{},
     generateCaptcha: '',
     setGenerateCaptcha: () => { },
     typedCaptcha: '',
