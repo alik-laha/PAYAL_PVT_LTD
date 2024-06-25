@@ -212,7 +212,7 @@ export interface BoilingEntryData{
         SizeName: string;
         Size: string;
         Scooping_Line_Mc: string;
-        Pressure: 56;
+        Pressure: string;
         CookingTime: string;
         MCName: string;
         Mc_on: string;
