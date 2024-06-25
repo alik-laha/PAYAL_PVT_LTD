@@ -88,6 +88,8 @@ const RCNBoilingTable = () => {
     const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialog') as HTMLInputElement;
 
     const [transformedData, setTransformedData] = useState<ExcelRcnPrimaryEntryData[]>([]);
+    const [successtext, setSuccessText] = React.useState<string>('');
+    const [errortext, seterrorText] = React.useState<string>('');
 
     if (rejectcloseDialogButton) {
         rejectcloseDialogButton.addEventListener('click', () => {
@@ -111,9 +113,9 @@ const RCNBoilingTable = () => {
 
     useEffect(() => {
         if (editPendingBoilingData.length>0) {
-            console.log(editPendingBoilingData)
+           // console.log(editPendingBoilingData)
             setEditData(editPendingBoilingData)
-            console.log(EditData)
+           // console.log(EditData)
             setblockpagen('none')
         }
     }, [editPendingBoilingData])
@@ -216,10 +218,11 @@ const RCNBoilingTable = () => {
     };
 
     const handleRejection = async (item: BoilingEntryData) => {
-        const response = await axios.delete(`/api/rcnprimary/rejectededitrcn/${item.id}`)
+        const response = await axios.post(`/api/boiling/rejectededitrcnboiling/${item.id}`)
         const data = await response.data
         console.log(data)
-        if (data.message === "Rcn Entry rejected successfully") {
+        if (data.message === "RCN Boiling Modify Request is Reverted Successfully") {
+            seterrorText(data.message)
             //console.log('rejected enter')
             if (rejectsuccessdialog != null) {
                 (rejectsuccessdialog as any).showModal();
@@ -230,7 +233,7 @@ const RCNBoilingTable = () => {
         const response = await axios.put(`/api/rcnprimary/approveeditrcn/${item.id}`)
         const data = await response.data
         if (data.message === "Edit Request of Rcn Entry is Approved Successfully") {
-
+            setSuccessText(data.message)
             if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).showModal();
             }
@@ -530,7 +533,7 @@ const RCNBoilingTable = () => {
             <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
                 <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">RCN Entry Modify Request Has Been Reverted</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

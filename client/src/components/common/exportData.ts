@@ -44,7 +44,7 @@ export const pendingCheckRole = {
 export const roleDataonDept = {
     Admin:['Director','FactoryManager'],
     Receiving: ['ReceivingSupervisor', 'ReceivingManager'],
-    Maintainance: ['MaintainanceSupervisor'],
+    Maintainance: ['MaintainanceSupervisor','MaintainanceManager'],
     QualityControl: ['QCSupervisor', 'QCManager'],
     Production: ['ProductionManager','GradingSupervisor','BoilingSupervisor','ScoopingSupervisor']
 }

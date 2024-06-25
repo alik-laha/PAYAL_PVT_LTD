@@ -273,7 +273,7 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
             <dialog id="rcneditscsDialog" className="dashboard-modal">
                 <button id="rcnscscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Primary Entry Modify request has created Successfully</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Boiling  Modify request has Created</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
