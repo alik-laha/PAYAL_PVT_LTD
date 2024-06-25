@@ -230,7 +230,7 @@ const RCNBoilingTable = () => {
         }
     }
     const handleApprove = async (item: BoilingEntryData) => {
-        const response = await axios.put(`/api/rcnprimary/approveeditrcn/${item.id}`)
+        const response = await axios.post(`/api/boiling/approveEEditrcnBoiling/${item.id}`)
         const data = await response.data
         if (data.message === "Edit Request of Rcn Entry is Approved Successfully") {
             setSuccessText(data.message)

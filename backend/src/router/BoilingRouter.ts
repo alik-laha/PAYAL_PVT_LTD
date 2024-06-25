@@ -8,6 +8,7 @@ import GetAllEditPendingData from "../controller/BoilingController/getAllEditPen
 import BoilingEditMiddleWare from "../middleWare/BoilingEditMiddleware";
 import UpdateBoiling from "../controller/BoilingController/updateBoiling";
 import rejectEditBoiling from "../controller/BoilingController/rejectEditBoiling";
+import approveEditBoiling from "../controller/BoilingController/approveEditBoilig";
 const router = express.Router();
 
 router.post("/createBoiling", jwtVerify,BoilingMiddleWare, CreateBoiling)
@@ -16,5 +17,6 @@ router.get("/sumofallboil", jwtVerify, sumOfallBoil)
 router.get("/geteditpendingboiling", jwtVerify, GetAllEditPendingData)
 router.put("/updateBoiling/:id", jwtVerify, BoilingEditMiddleWare,UpdateBoiling)
 router.post("/rejectededitrcnboiling/:id", jwtVerify, rejectEditBoiling)
+router.post("/approveEEditrcnBoiling/:id", jwtVerify, approveEditBoiling)
 
 export default router;
