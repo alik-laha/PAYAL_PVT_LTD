@@ -78,7 +78,7 @@ const RCNBoilingTable = () => {
     const [page, setPage] = useState(pageNo)
     const [EditData, setEditData] = useState<BoilingEntryData[]>([])
     const limit = pagelimit
-    const { editPendingBoilingData } = useContext(Context);
+    const { editPendingBoilingData,setEditPendingBoilingData } = useContext(Context);
     const [blockpagen, setblockpagen] = useState('flex')
     const currDate = new Date().toLocaleDateString();
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
@@ -113,14 +113,15 @@ const RCNBoilingTable = () => {
         if (editPendingBoilingData) {
             console.log(editPendingBoilingData)
             setEditData(editPendingBoilingData)
+            console.log(EditData)
             setblockpagen('none')
         }
     }, [editPendingBoilingData])
 
     const handleSearch = async () => {
         //console.log('search button pressed')
-        setEditData([])
-        setblockpagen('flex')
+        setEditPendingBoilingData([])
+        
         const response = await axios.post('/api/boiling/searchBoiling', {
             blConNo: blConNo,
             origin: origin,
@@ -144,8 +145,9 @@ const RCNBoilingTable = () => {
     }
 
 
-
     useEffect(() => {
+        setEditData([])
+        setblockpagen('flex')
         handleSearch()
     }, [page])
 
@@ -361,7 +363,7 @@ const RCNBoilingTable = () => {
                 <TableBody>
                     {EditData.length > 0 ? (
                         EditData.map((item: BoilingEntryData, idx) => {
-
+                                console.log(item)
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{idx + 1}</TableCell>
