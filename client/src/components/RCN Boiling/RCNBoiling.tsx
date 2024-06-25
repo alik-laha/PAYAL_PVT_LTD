@@ -26,7 +26,8 @@ const RCNBoiling = () => {
     const handleEditFetch = async () => {
         const Data = await axios.get('/api/boiling/geteditpendingboiling');
         console.log(Data)
-        setEditPendingBoilingData(Data.data);
+        setEditPendingBoilingData(Data.data.data);
+        //console.log(editPendingBoilingData)
     };
 
     const checkpending = ( tab: string ) => { 

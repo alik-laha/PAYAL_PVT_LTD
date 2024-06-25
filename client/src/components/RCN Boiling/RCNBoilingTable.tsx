@@ -110,7 +110,7 @@ const RCNBoilingTable = () => {
     }
 
     useEffect(() => {
-        if (editPendingBoilingData) {
+        if (editPendingBoilingData.length>0) {
             console.log(editPendingBoilingData)
             setEditData(editPendingBoilingData)
             console.log(EditData)
@@ -121,6 +121,7 @@ const RCNBoilingTable = () => {
     const handleSearch = async () => {
         //console.log('search button pressed')
         setEditPendingBoilingData([])
+        setEditData([])
         
         const response = await axios.post('/api/boiling/searchBoiling', {
             blConNo: blConNo,
@@ -147,6 +148,7 @@ const RCNBoilingTable = () => {
 
     useEffect(() => {
         setEditData([])
+        setEditPendingBoilingData([])
         setblockpagen('flex')
         handleSearch()
     }, [page])
@@ -361,8 +363,8 @@ const RCNBoilingTable = () => {
 
                 </TableHeader>
                 <TableBody>
-                    {EditData.length > 0 ? (
-                        EditData.map((item: BoilingEntryData, idx) => {
+                    {editPendingBoilingData.length > 0 ? (
+                        editPendingBoilingData.map((item: BoilingEntryData, idx) => {
                                 console.log(item)
                             return (
                                 <TableRow key={item.id}>

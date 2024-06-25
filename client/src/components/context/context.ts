@@ -52,7 +52,7 @@ const Context = createContext<ContextType>({
     editPendiningGrinderData: [],
     setEditPendiningGrinderData: () => { },
     editPendingBoilingData: [],
-    setEditPendingBoilingData: () => {}
+    setEditPendingBoilingData: () => { }
 
 });
 
