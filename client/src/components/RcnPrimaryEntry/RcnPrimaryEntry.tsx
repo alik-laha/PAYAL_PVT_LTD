@@ -87,7 +87,7 @@ const RcnPrimaryEntry = () => {
                     </DialogContent>
                 </Dialog>
 
-                {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> 
+                {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.CountPendingEdit===0 ? true : false}> 
                 Pending Edit ({data.CountPendingEdit})</Button>}
                   
                 </div>

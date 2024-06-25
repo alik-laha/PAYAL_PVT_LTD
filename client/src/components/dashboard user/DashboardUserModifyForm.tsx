@@ -70,7 +70,7 @@ const DashboardUserModifyForm = (props: UserProps) => {
             (errordialog as any).showModal();
             return
         }
-        if (pssword && pssword.length < 6){
+        if (pssword && pssword.length <= 6){
             setErrorText('Password Length should Be greater than 6 Characters');
             (errordialog as any).showModal();
             return
