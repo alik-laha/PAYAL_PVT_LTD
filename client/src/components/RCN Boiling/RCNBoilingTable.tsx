@@ -463,7 +463,7 @@ const RCNBoilingTable = () => {
                                                     <DialogTrigger className="flex"><CiEdit size={20}/>
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                     </DialogTrigger>
-                                                    <DialogContent>
+                                                    <DialogContent className="max-w-2xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 <p className='text-1xl pb-1 text-center mt-5'>RCN Boiling Entry Modification</p>

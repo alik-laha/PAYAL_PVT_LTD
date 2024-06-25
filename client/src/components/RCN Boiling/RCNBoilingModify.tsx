@@ -91,7 +91,7 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        axios.put(`/api/rcnprimary/update/${props.data.id}`, { 
+        axios.put(`/api/boiling/updateBoiling/${props.data.id}`, { 
             origin,
             LotNo,
             date,
@@ -132,7 +132,7 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
     useEffect(() => {
         setOrigin(props.data.origin)
         //setDate(new Date(props.data.date).toISOString().slice(0, 10))
-        setDate(props.data.date)
+        setDate(props.data.date.slice(0, 10))
         setLotNo(props.data.LotNo)
         setMc_name(props.data.MCName)
         setMc_on(props.data.Mc_on)
@@ -151,7 +151,21 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
     return (
         <div className="pl-10 pr-10">
             <form className='flex flex-col gap-2 ' onSubmit={handleSubmit}>
-                <div className="flex mt-8"><Label className="w-2/4 ">Origin</Label>
+                <div className="flex mt-4">
+                <Label className="w-2/4 pt-2 bg-green-500 rounded-md text-white text-center">MC ON</Label>
+            <Input className="w-2/4 justify-center bg-green-100 " placeholder="MC ON Time" value={Mc_on} onChange={(e) => setMc_on(e.target.value)} type='time' />
+            
+            <Input className="w-2/4 ml-1 justify-center bg-red-100" placeholder="MC OFF Time" value={Mc_off} onChange={(e) => setMc_off(e.target.value)} type='time' />
+            <Label className="w-2/4 pt-2 text-end bg-red-500 text-white rounded-md text-center">MC OFF</Label>
+            
+            </div>
+
+            <div className="flex mt-2"><Label className="w-2/4 pt-1" >Lot No.</Label>
+            <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Lot No." value={LotNo} onChange={(e) => setLotNo(e.target.value)} readOnly/> </div>
+            <div className="flex">
+                    <Label className="w-2/4 pt-1">Date Of Boiling</Label>
+                    <Input className="w-2/4 justify-center" placeholder="Date" value={date} onChange={(e) => setDate(e.target.value)} type='date' /> </div>
+                <div className="flex"><Label className="w-2/4 ">Origin</Label>
                     <Select value={origin} onValueChange={(value) => setOrigin(value)}>
                         <SelectTrigger className="w-2/4 ">
                             <SelectValue placeholder="Origin" />
@@ -174,11 +188,10 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
 
     
 
-                setDate('')
-             
-                setOtherTime('')
-            <div className="flex"><Label className="w-2/4 pt-1" >Lot No.</Label>
-            <Input className="w-2/4 bg-yellow-100" placeholder="Lot No." value={LotNo} onChange={(e) => setLotNo(e.target.value)} readOnly/> </div>
+              
+           
+            
+            
             <div className="flex"><Label className="w-2/4 pt-1">Pressure</Label>
             <Input className="w-2/4" placeholder="Pressure" value={presr} onChange={(e) => setpresr(e.target.value)} /> </div>
             <div className="flex"><Label className="w-2/4 ">Size</Label>
@@ -203,9 +216,11 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
             </div>
             <div className="flex"><Label className="w-2/4 pt-1">Boiling Qty</Label>
             <Input className="w-2/4" placeholder="Boiling Qty." value={size} onChange={(e) => setsize(e.target.value)} /> </div>
-            <div className="flex"><Label className="w-2/4 ">Scooping Line</Label>
+             <div className="flex"><Label className="w-2/4 pt-1">No. Of Labour</Label>
+            <Input className="w-2/4" placeholder="No. Of Employees" value={noOfEmployees} onChange={(e) => setNoOfEmployees(e.target.value)} /> </div>
+            <div className="flex"><Label className="w-2/4 pt-1">Scooping Line</Label>
                     <Select value={scopline} onValueChange={(value) => setscopline(value)}>
-                        <SelectTrigger className="w-2/4 ">
+                        <SelectTrigger className="w-2/4 justify-center">
                             <SelectValue placeholder="Scooping Line" />
                         </SelectTrigger>
                         <SelectContent>
@@ -223,9 +238,9 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
                         </SelectContent>
                     </Select>
             </div>
-            <div className="flex"><Label className="w-2/4 ">Machine Name</Label>
+            <div className="flex"><Label className="w-2/4 pt-1">Machine Name</Label>
                     <Select value={Mc_name} onValueChange={(value) => setMc_name(value)}>
-                        <SelectTrigger className="w-2/4 ">
+                        <SelectTrigger className="w-2/4 justify-center">
                             <SelectValue placeholder="Scooping Line" />
                         </SelectTrigger>
                         <SelectContent>
@@ -243,19 +258,14 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
                         </SelectContent>
                     </Select>
             </div>
-            <div className="flex">
-                <Label className="w-1/4 pt-2 bg-green-500 rounded-md text-white text-center">ON</Label>
-            <Input className="w-2/4 justify-center bg-green-100 " placeholder="MC ON Time" value={Mc_on} onChange={(e) => setMc_on(e.target.value)} type='time' />
             
-            <Input className="w-2/4 ml-1 justify-center bg-red-100" placeholder="MC OFF Time" value={Mc_off} onChange={(e) => setMc_off(e.target.value)} type='time' />
-            <Label className="w-1/4 pt-2 text-end bg-red-500 text-white rounded-md text-center">OFF</Label>
-            
-            </div>
            
-            <div className="flex"><Label className="w-2/4 ">BreakDown Duration</Label>
-            <Input className="w-2/4 justify-center bg-cyan-100 ml-1" placeholder="Breakdown Duration" value={Mc_breakdown} onChange={(e) => setMc_breakdown(e.target.value)} type='time' /></div>
-            <div className="flex"><Label className="w-2/4 pt-1">Labour Qty.</Label>
-            <Input className="w-2/4" placeholder="No. Of Employees" value={noOfEmployees} onChange={(e) => setNoOfEmployees(e.target.value)} /> </div>
+            <div className="flex"><Label className="w-2/4 mt-1">BreakDown Duration</Label>
+            <Input className="w-2/4 justify-center" placeholder="Breakdown Duration" value={Mc_breakdown} onChange={(e) => setMc_breakdown(e.target.value)} type='time' /></div>
+            <div className="flex"><Label className="w-2/4 mt-1">Other Duration</Label>
+            <Input className="w-2/4 justify-center" placeholder="Other Duration" value={otherTime} onChange={(e) => setOtherTime(e.target.value)} type='time' /></div>
+            
+           
             
             <Button className="bg-orange-500 mt-1 ml-20 mr-20 text-center items-center justify-center">Modify</Button>
             </form>
