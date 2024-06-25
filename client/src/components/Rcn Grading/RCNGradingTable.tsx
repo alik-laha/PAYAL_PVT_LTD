@@ -373,8 +373,9 @@ const RcnGradingTable = () => {
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Sl No.</TableHead>
-                    <TableHead className="text-center" >Grading Entry Date</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
+                    <TableHead className="text-center" >Grading Entry Date</TableHead>
+                  
                     <TableHead className="text-center" >A</TableHead>
                     <TableHead className="text-center" >B</TableHead>
                     <TableHead className="text-center" >C</TableHead>
@@ -406,8 +407,9 @@ const RcnGradingTable = () => {
                         return (
                             <TableRow key={index}>
                                 <TableCell className="text-center">{Index}</TableCell>
+                                
+                                <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                <TableCell className="text-center">{item.origin}</TableCell>
                                 <TableCell className="text-center font-semibold">{item.A} </TableCell>
                                 <TableCell className="text-center font-semibold">{item.B} </TableCell>
                                 <TableCell className="text-center font-semibold">{item.C} </TableCell>
@@ -480,8 +482,9 @@ const RcnGradingTable = () => {
                             return (
                                 <TableRow key={index}>
                                     <TableCell className="text-center">{Index}</TableCell>
-                                    <TableCell className="text-center ">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center ">{item.origin}</TableCell>
+                                    
+                                    <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
+                                    <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center font-semibold">{item.A} </TableCell>
                                     <TableCell className="text-center font-semibold">{item.B} </TableCell>
                                     <TableCell className="text-center font-semibold">{item.C} </TableCell>
