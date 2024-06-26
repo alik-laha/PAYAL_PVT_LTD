@@ -22,7 +22,7 @@ const Captcha: React.FC = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Generate random background color
-    ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
+    ///ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
     //ctx.fillStyle='white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -55,13 +55,13 @@ const Captcha: React.FC = () => {
     }
 
     // Draw some random lines for added security
-    for (let i = 0; i < 5; i++) {
-      ctx.strokeStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
-      ctx.beginPath();
-      ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
-      ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
-      ctx.stroke();
-    }
+    // for (let i = 0; i < 5; i++) {
+    //   ctx.strokeStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
+    //   ctx.beginPath();
+    //   ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+    //   ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+    //   ctx.stroke();
+    // }
 
     // Store the CAPTCHA text for validation (you would need to implement the validation logic)
     setGenerateCaptcha(generatedText);

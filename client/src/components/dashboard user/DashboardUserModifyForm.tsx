@@ -18,15 +18,18 @@ import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { Dept, roleDataonDept } from "../common/exportData"
+//import { hashPassword } from "@/Utils/hashPassword"
 
 const DashboardUserModifyForm = (props: UserProps) => {
 
     const [dept, setDept] = useState<string>("")
     const [role, setRole] = useState<string>("")
     const [userName, setUserName] = useState<string>("")
-    const [password, setPassword] = useState<string>("")
-    const [confirmPassword, setConfirmPassword] = useState<string>("")
+    //const [password, setPassword] = useState<string>("")
+    //const [confirmPassword, setConfirmPassword] = useState<string>("")
     const [errortext, setErrorText] = React.useState<string>("")
+    const [pssword,SetPssword]=useState<string>('');
+    const [confirmpassword,SetconfirmPassword]=useState<string>('');
   
 
     const successdialog = document.getElementById('modifysuccessuserdialog') as HTMLInputElement;
@@ -54,9 +57,32 @@ const DashboardUserModifyForm = (props: UserProps) => {
         });
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        axios.put('/api/user/updateuser', { userName, password, role, dept, employeeId: props.Data.employeeId, confirmPassword })
+        const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+        if (pssword && confirmpassword && pssword !== confirmpassword  ) {
+            setErrorText('Password and Confirm Password does not Match');
+            (errordialog as any).showModal();
+            return
+        }
+        if (pssword && !specialCharRegex.test(pssword)) {
+            setErrorText('Password Should Contain One special Character');
+            (errordialog as any).showModal();
+            return
+        }
+        if (pssword && pssword.length <= 6){
+            setErrorText('Password Length should Be greater than 6 Characters');
+            (errordialog as any).showModal();
+            return
+
+        }
+        let password
+        if(pssword){
+             //password = await hashPassword(pssword)
+             password = pssword
+        }
+        
+        axios.put('/api/user/updateuser', { userName, password, role, dept, employeeId: props.Data.employeeId })
             .then((res) => {
                 console.log(res.data)
                 setErrorText(res.data.message)
@@ -101,9 +127,9 @@ const DashboardUserModifyForm = (props: UserProps) => {
                 <div className="flex"><Label className="w-2/4 ">User Name</Label>
                     <Input className="w-2/4 " placeholder="User Name" value={userName} onChange={(e) => setUserName(e.target.value)} /> </div>
                 <div className="flex"><Label className="w-2/4 "  >Password</Label>
-                    <Input type="password" className="w-2/4 " placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} /> </div>
+                    <Input type="password" className="w-2/4 " placeholder="Password" value={pssword} onChange={(e) => SetPssword(e.target.value)} /> </div>
                 <div className="flex"><Label className="w-2/4 ">Confirm Password</Label>
-                    <Input type="password" className="w-2/4 " placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /> </div>
+                    <Input type="password" className="w-2/4 " placeholder="Confirm Password" value={confirmpassword} onChange={(e) => SetconfirmPassword(e.target.value)} /> </div>
                 <div className="flex"><Label className="w-2/4 ">Department</Label>
                     <Select value={dept} onValueChange={(value) => setDept(value)}>
                         <SelectTrigger className="w-2/4">

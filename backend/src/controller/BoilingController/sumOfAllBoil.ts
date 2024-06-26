@@ -1,15 +1,16 @@
 import { Request, Response } from "express";
-import RcnGrading from "../../model/RcnGradingModel";
-import RcnGradingEdit from "../../model/RcnGradingEditModel";
-import sequelize from "../../config/databaseConfig";
-import { Op } from "sequelize";
 
-const sumOfallGrade = async (req: Request, res: Response) => {
+import sequelize from "../../config/databaseConfig";
+import { Op, where } from "sequelize";
+import RcnBoiling from "../../model/RcnBoilingModel";
+import RcnBoilingEdit from "../../model/RcnBoilingEditModel";
+
+const sumOfallBoil = async (req: Request, res: Response) => {
     try {
 
         const today = new Date();
         let Year = today.getFullYear()
-
+        console.log(today)
         const compareDate = new Date(`${Year}-04-01`);
         compareDate.setHours(0,0,0,0)
         let targetDate
@@ -26,16 +27,16 @@ const sumOfallGrade = async (req: Request, res: Response) => {
             today.setMinutes(today.getMinutes()+30);
         }
 
-        const data = await RcnGrading.findAll({
+        const data = await RcnBoiling.findAll({
             attributes: [
-                [sequelize.fn('sum', sequelize.col('A')), 'totalA'],
-                [sequelize.fn('sum', sequelize.col('B')), 'totalB'],
-                [sequelize.fn('sum', sequelize.col('C')), 'totalC'],
-                [sequelize.fn('sum', sequelize.col('D')), 'totalD'],
-                [sequelize.fn('sum', sequelize.col('E')), 'totalE'],
-                [sequelize.fn('sum', sequelize.col('F')), 'totalF'],
-                [sequelize.fn('sum', sequelize.col('G')), 'totalG'],
-                [sequelize.fn('sum', sequelize.col('dust')), 'totalDust']
+                [sequelize.literal(`SUM(CASE WHEN SizeName='A' THEN Size ELSE 0 end)`), 'totalA'],
+                [sequelize.literal(`SUM(CASE WHEN SizeName='B' THEN Size ELSE 0 end)`), 'totalB'],
+                [sequelize.literal(`SUM(CASE WHEN SizeName='C' THEN Size ELSE 0 end)`), 'totalC'],
+                [sequelize.literal(`SUM(CASE WHEN SizeName='D' THEN Size ELSE 0 end)`), 'totalD'],
+                [sequelize.literal(`SUM(CASE WHEN SizeName='E' THEN Size ELSE 0 end)`), 'totalE'],
+                [sequelize.literal(`SUM(CASE WHEN SizeName='F' THEN Size ELSE 0 end)`), 'totalF'],
+                [sequelize.literal(`SUM(CASE WHEN SizeName='G' THEN Size ELSE 0 end)`), 'totalG'],
+                
             ],
             where: {
                 [Op.or]: [
@@ -46,7 +47,7 @@ const sumOfallGrade = async (req: Request, res: Response) => {
                 }
             }
         });
-        const EditData = await RcnGradingEdit.count()
+        const EditData = await RcnBoilingEdit.count()
         if (data) {
             return res.status(200).json({ data, EditData });
         }
@@ -55,4 +56,4 @@ const sumOfallGrade = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "Internal Server Error", err });
     }
 }
-export default sumOfallGrade;
+export default sumOfallBoil;

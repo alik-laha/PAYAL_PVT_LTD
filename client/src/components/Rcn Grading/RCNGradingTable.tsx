@@ -72,6 +72,8 @@ const RcnGradingTable = () => {
     const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [searchData, setSearchData] = useState<string>('')
     const [transformedData, setTransformedData] = useState<GradingExcelData[]>([])
+    const [blockpagen, setblockpagen] = useState('flex')
+    const [EditData, setEditData] = useState<GradingData[]>([])
     const { editPendiningGrinderData, setEditPendiningGrinderData } = useContext(Context)
     const limit = pagelimit
 
@@ -99,10 +101,18 @@ const RcnGradingTable = () => {
             })
     }
     useEffect(() => {
-        console.log(editPendiningGrinderData)
+        if(editPendiningGrinderData.length>0){
+            console.log(editPendiningGrinderData)
+        setEditData(editPendiningGrinderData)
+        setblockpagen('none')
+        }
+        
     }, [editPendiningGrinderData])
+
     useEffect(() => {
-        setEditPendiningGrinderData([])
+
+        setEditData([])
+        setblockpagen('flex')
         axios.post('/api/grading/searchGrading', {}, {
             params: {
                 page: page,
@@ -363,8 +373,9 @@ const RcnGradingTable = () => {
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Sl No.</TableHead>
-                    <TableHead className="text-center" >Grading Entry Date</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
+                    <TableHead className="text-center" >Grading Entry Date</TableHead>
+                  
                     <TableHead className="text-center" >A</TableHead>
                     <TableHead className="text-center" >B</TableHead>
                     <TableHead className="text-center" >C</TableHead>
@@ -374,7 +385,7 @@ const RcnGradingTable = () => {
                     <TableHead className="text-center" >G</TableHead>
                     <TableHead className="text-center" >Dust</TableHead>
 
-                    <TableHead className="text-center" >Name of Machine</TableHead>
+                    {/* <TableHead className="text-center" >Name of Machine</TableHead> */}
 
                     <TableHead className="text-center" >Machine On</TableHead>
                     <TableHead className="text-center" >Machine Off</TableHead>
@@ -391,13 +402,14 @@ const RcnGradingTable = () => {
                 </TableHeader>
                 <TableBody>
 
-                    {editPendiningGrinderData.length === 0 ? (data.length > 0 ? data.map((item: GradingData, index: number) => {
+                    {EditData.length === 0 ? (data.length > 0 ? data.map((item: GradingData, index: number) => {
                         const Index = page * limit + index - limit + 1
                         return (
                             <TableRow key={index}>
                                 <TableCell className="text-center">{Index}</TableCell>
+                                
+                                <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                <TableCell className="text-center">{item.origin}</TableCell>
                                 <TableCell className="text-center font-semibold">{item.A} </TableCell>
                                 <TableCell className="text-center font-semibold">{item.B} </TableCell>
                                 <TableCell className="text-center font-semibold">{item.C} </TableCell>
@@ -407,7 +419,7 @@ const RcnGradingTable = () => {
                                 <TableCell className="text-center font-semibold">{item.G} </TableCell>
                                 <TableCell className="text-center font-semibold">{item.dust}</TableCell>
 
-                                <TableCell className="text-center">{item.Mc_name}</TableCell>
+                                {/* <TableCell className="text-center">{item.Mc_name}</TableCell> */}
                                 <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                 <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
                                 <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
@@ -452,21 +464,27 @@ const RcnGradingTable = () => {
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">No Result</p></TableCell>
+                            <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result</p></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            
 
 
                         </TableRow>)
-                        : editPendiningGrinderData.map((item: GradingData, index: number) => {
+                        : EditData.map((item: GradingData, index: number) => {
                             const Index = page * limit + index - limit + 1
                             return (
                                 <TableRow key={index}>
                                     <TableCell className="text-center">{Index}</TableCell>
-                                    <TableCell className="text-center ">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center ">{item.origin}</TableCell>
+                                    
+                                    <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
+                                    <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center font-semibold">{item.A} </TableCell>
                                     <TableCell className="text-center font-semibold">{item.B} </TableCell>
                                     <TableCell className="text-center font-semibold">{item.C} </TableCell>
@@ -476,7 +494,7 @@ const RcnGradingTable = () => {
                                     <TableCell className="text-center font-semibold">{item.G} </TableCell>
                                     <TableCell className="text-center font-semibold">{item.dust}</TableCell>
 
-                                    <TableCell className="text-center">{item.Mc_name}</TableCell>
+                                    {/* <TableCell className="text-center">{item.Mc_name}</TableCell> */}
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
@@ -533,7 +551,7 @@ const RcnGradingTable = () => {
 
                 </TableBody>
             </Table>
-            <Pagination className="pt-5 ">
+            <Pagination style={{ display: blockpagen }} className="pt-5 ">
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious onClick={() => setPage((prev) => {

@@ -11,7 +11,7 @@ const CreateUser = async (req: Request, res: Response) => {
         const { userName, password, dept, role, employeeId, employeeName } = req.body;
         const createdBy = req.cookies.user;
         const pass = await bcrypt.hash(password, 10);
-        const user = await User.create({ userName, password: pass, dept, role, employeeId, createdBy, employeeName });
+        const user = await User.create({ userName, password:pass, dept, role, employeeId, createdBy, employeeName });
         const EmployeeData: EmployeeData = await Employee.findOne({ where: { employeeId } }) as unknown as EmployeeData
        
         const Msg = await userCreatedMail(EmployeeData.email, userName, password)
