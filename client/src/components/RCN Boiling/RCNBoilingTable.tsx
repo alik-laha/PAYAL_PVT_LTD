@@ -221,7 +221,7 @@ const RCNBoilingTable = () => {
         const response = await axios.post(`/api/boiling/rejectededitrcnboiling/${item.id}`)
         const data = await response.data
         console.log(data)
-        if (data.message === "RCN Boiling Modify Request is Reverted Successfully") {
+        if (data.message === "RCN Boiling Modify Request is Reverted") {
             seterrorText(data.message)
             //console.log('rejected enter')
             if (rejectsuccessdialog != null) {
@@ -230,9 +230,9 @@ const RCNBoilingTable = () => {
         }
     }
     const handleApprove = async (item: BoilingEntryData) => {
-        const response = await axios.post(`/api/boiling/approveEEditrcnBoiling/${item.id}`)
+        const response = await axios.post(`/api/boiling/approveEditrcnBoiling/${item.id}`)
         const data = await response.data
-        if (data.message === "Edit Request of Rcn Entry is Approved Successfully") {
+        if (data.message === "RCN Boiling Modify Request is Approved") {
             setSuccessText(data.message)
             if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).showModal();
@@ -525,7 +525,7 @@ const RCNBoilingTable = () => {
             <dialog id="rcneditapproveScsDialog" className="dashboard-modal">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Modify request has Been Approved</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">{successtext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

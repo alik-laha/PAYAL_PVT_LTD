@@ -17,6 +17,6 @@ router.get("/sumofallboil", jwtVerify, sumOfallBoil)
 router.get("/geteditpendingboiling", jwtVerify, GetAllEditPendingData)
 router.put("/updateBoiling/:id", jwtVerify, BoilingEditMiddleWare,UpdateBoiling)
 router.post("/rejectededitrcnboiling/:id", jwtVerify, rejectEditBoiling)
-router.post("/approveEEditrcnBoiling/:id", jwtVerify, approveEditBoiling)
+router.post("/approveEditrcnBoiling/:id", jwtVerify, approveEditBoiling)
 
 export default router;

@@ -39,7 +39,7 @@ const rejectEditBoiling = async (req: Request, res: Response) => {
         if (!rcnEdit) {
             return res.status(400).json({ message: "Rcn Boiling Entry not found" });
         }
-        return res.status(200).json({ message: "RCN Boiling Modify Request is Reverted Successfully" });
+        return res.status(200).json({ message: "RCN Boiling Modify Request is Reverted" });
     }
     catch (err) {
         console.log(err);
