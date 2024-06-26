@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
-import RcnGrading from "../../model/RcnGradingModel";
-import RcnGradingEdit from "../../model/RcnGradingEditModel";
-import { RcnBoilingData, RcnGradingData } from "../../type/type";
+import { RcnBoilingData } from "../../type/type";
 import RcnBoilingEdit from "../../model/RcnBoilingEditModel";
 import RcnBoiling from "../../model/RcnBoilingModel";
 
