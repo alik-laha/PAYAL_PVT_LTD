@@ -288,3 +288,28 @@ export interface TimePeriodProps {
 
     timeString:string
 }
+export interface BoilingExcelData {
+    Sl_No: number;
+    Lot_No: string;
+    Entry_Date: string;
+    Origin: string;
+    Size: string;
+    Boiling_Qty: string;
+    Scooping_Line: string;
+    Pressure: string;
+    Machine: string;
+    MC_On: string;
+    MC_Off: string;
+    Labour_No: string;
+    Breakdown_Duration: string;
+    Other_Duration: string;
+    Cooking_Time:string;
+   // Run_Duration: string;
+    Edit_Status: string;
+    Entried_By: string;
+    ApprovedOrRejectedBy:string;
+
+
+   
+   
+}

@@ -13,8 +13,8 @@ import { Button } from "@/components/ui/button";
 import React, { useEffect } from "react"
 import { Input } from "../ui/input";
 // import DatePicker from "../common/DatePicker";
-import { BoilingEntryData, RcnPrimaryEntryData } from "@/type/type";
-import { ExcelRcnPrimaryEntryData } from "@/type/type";
+import { BoilingEntryData, BoilingExcelData } from "@/type/type";
+
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
@@ -63,7 +63,7 @@ import {
 } from "@/components/ui/pagination"
 import { useContext } from "react";
 import Context from "../context/context";
-import { EditPendingData } from "@/type/type";
+
 import { CiEdit } from "react-icons/ci";
 
 
@@ -87,7 +87,7 @@ const RCNBoilingTable = () => {
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialog') as HTMLInputElement;
     const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialog') as HTMLInputElement;
 
-    const [transformedData, setTransformedData] = useState<ExcelRcnPrimaryEntryData[]>([]);
+    const [transformedData, setTransformedData] = useState<BoilingExcelData[]>([]);
     const [successtext, setSuccessText] = React.useState<string>('');
     const [errortext, seterrorText] = React.useState<string>('');
 
@@ -156,11 +156,12 @@ const RCNBoilingTable = () => {
     }, [page])
 
     const exportToExcel = async () => {
-        const response = await axios.put('/api/rcnprimary/rcnprimarysearch', {
+        const response = await axios.post('/api/boiling/searchBoiling', {
             blConNo: blConNo,
             origin: origin,
             fromDate: fromdate,
-            toDate: todate
+            toDate: todate,
+            SizeName:size,
         })
         const data1 = await response.data
 
@@ -168,44 +169,51 @@ const RCNBoilingTable = () => {
         let transformed
         if (EditData.length > 0) {
             
-            transformed = EditData.map((item: EditPendingData, idx: number) => ({
-                SL_No: idx + 1,
-                Date: handletimezone(item.date),
+            transformed = EditData.map((item: BoilingEntryData, idx: number) => ({
+                Sl_No: idx+1,
+                Lot_No: item.LotNo,
+                Entry_Date: handletimezone(item.date),
                 Origin: item.origin,
-                Bl_No: item.blNo,
-                Con_No: item.conNo,
-                RCN_QC_Status: item.rcnStatus,
-                No_Of_Bags: item.noOfBags,
-                Truck_No: item.truckNo,
-                Bl_Weight: item.blWeight,
-                Net_Weight: item.netWeight,
-                Difference: item.difference,
+                Size: item.SizeName,
+                Boiling_Qty: item.Size,
+                Scooping_Line: item.Scooping_Line_Mc,
+                Pressure: item.Pressure,
+                Machine: item.MCName,
+                MC_On: handleAMPM(item.Mc_on.slice(0, 5)),
+                MC_Off: handleAMPM(item.Mc_off.slice(0, 5)),
+                Labour_No: item.noOfEmployees,
+                Breakdown_Duration: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')+' hr.' ,
+                Other_Duration: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')+' hr.',
+                Cooking_Time:item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')+' hr.',
                 Edit_Status: item.editStatus,
-                Created_by: item.editedBy,
-                // received by is updated as editedby in edit rcn table
-                Approved_or_Reverted_By: item.approvedBy
-                // approvedBy is not there in edit rcn table
+                Entried_By: item.CreatedBy,
+                ApprovedOrRejectedBy:item.modifiedBy
+            
             }));
             setTransformedData(transformed);
             ws = XLSX.utils.json_to_sheet(transformedData);
         }
         else {
-            transformed = data1.rcnEntries.map((item: RcnPrimaryEntryData, idx: number) => ({
-                SL_No: idx + 1,
+            transformed = data1.map((item: BoilingEntryData, idx: number) => ({
+               
+                Sl_No: idx+1,
+                Lot_No: item.LotNo,
+                Entry_Date: handletimezone(item.date),
                 Origin: item.origin,
-                Bl_No: item.blNo,
-                Con_No: item.conNo,
-                RCN_QC_Status: item.rcnStatus,
-                Date: handletimezone(item.date),
-                No_Of_Bags: item.noOfBags,
-                Truck_No: item.truckNo,
-                Bl_Weight: item.blWeight,
-                Net_Weight: item.netWeight,
-                Difference: item.difference,
+                Size: item.SizeName,
+                Boiling_Qty: item.Size,
+                Scooping_Line: item.Scooping_Line_Mc,
+                Pressure: item.Pressure,
+                Machine: item.MCName,
+                MC_On: handleAMPM(item.Mc_on.slice(0, 5)),
+                MC_Off: handleAMPM(item.Mc_off.slice(0, 5)),
+                Labour_No: item.noOfEmployees,
+                Breakdown_Duration: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')+' hr.' ,
+                Other_Duration: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')+' hr.',
+                Cooking_Time:item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')+' hr.',
                 Edit_Status: item.editStatus,
-                Created_by: item.receivedBy,
-                Approved_or_Rejected_By: item.approvedBy
-
+                Entried_By: item.CreatedBy,
+                ApprovedOrRejectedBy:item.modifiedBy
             }));
             setTransformedData(transformed);
             ws = XLSX.utils.json_to_sheet(transformedData);
@@ -214,7 +222,7 @@ const RCNBoilingTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'RCN_Primary_Entry_' + currDate + '.xlsx');
+        saveAs(blob, 'RCN_Boiling_Entry_' + currDate + '.xlsx');
     };
 
     const handleRejection = async (item: BoilingEntryData) => {
