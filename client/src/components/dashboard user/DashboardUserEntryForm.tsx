@@ -17,7 +17,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png';
 import cross from '../../assets/Static_Images/error_img.png';
 import { debounce } from "lodash"
-import { hashPassword } from "@/Utils/hashPassword";
+//import { hashPassword } from "@/Utils/hashPassword";
 
 const DashboardUserEntryForm = () => {
     const [dept, setDept] = useState<string>("");
@@ -79,8 +79,8 @@ const DashboardUserEntryForm = () => {
             return
 
         }
-          
-        const password = await hashPassword(pssword)
+        const password = pssword
+        //const password = await hashPassword(pssword)
         //const confirmPassword =  hashPassword(confirmpassword);
 
         axios.post('/api/user/createuser', { userName, password, dept, role, employeeId, employeeName })

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import User from "../../model/userModel";
-//import bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs";
 import Employee from "../../model/employeeModel";
 
 import { EmployeeData } from "../../type/type";
@@ -10,8 +10,8 @@ const CreateUser = async (req: Request, res: Response) => {
     try {
         const { userName, password, dept, role, employeeId, employeeName } = req.body;
         const createdBy = req.cookies.user;
-        //const pass = await bcrypt.hash(password, 10);
-        const user = await User.create({ userName, password, dept, role, employeeId, createdBy, employeeName });
+        const pass = await bcrypt.hash(password, 10);
+        const user = await User.create({ userName, password:pass, dept, role, employeeId, createdBy, employeeName });
         const EmployeeData: EmployeeData = await Employee.findOne({ where: { employeeId } }) as unknown as EmployeeData
        
         const Msg = await userCreatedMail(EmployeeData.email, userName, password)

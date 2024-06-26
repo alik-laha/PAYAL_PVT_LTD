@@ -18,7 +18,7 @@ import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { Dept, roleDataonDept } from "../common/exportData"
-import { hashPassword } from "@/Utils/hashPassword"
+//import { hashPassword } from "@/Utils/hashPassword"
 
 const DashboardUserModifyForm = (props: UserProps) => {
 
@@ -78,7 +78,8 @@ const DashboardUserModifyForm = (props: UserProps) => {
         }
         let password
         if(pssword){
-             password = await hashPassword(pssword)
+             //password = await hashPassword(pssword)
+             password = pssword
         }
         
         axios.put('/api/user/updateuser', { userName, password, role, dept, employeeId: props.Data.employeeId })

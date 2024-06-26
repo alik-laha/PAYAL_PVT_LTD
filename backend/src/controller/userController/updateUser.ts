@@ -1,4 +1,4 @@
-//import bcrypt from 'bcryptjs';
+import bcrypt from 'bcryptjs';
 import { Request, Response } from 'express';
 import User from '../../model/userModel';
 import { UserData } from '../../type/type';
@@ -34,8 +34,8 @@ const UpdateUser = async (req: Request, res: Response) => {
             return res.status(200).json({ message: "User modified Sucessfully" })
         }
       
-        //const pass = await bcrypt.hash(password, 10);
-        await User.update({ userName, password, role, dept, modifyedBy }, { where: { employeeId } });
+        const pass = await bcrypt.hash(password, 10);
+        await User.update({ userName, password: pass, role, dept, modifyedBy }, { where: { employeeId } });
 
         if (user.userName === userName && !password) {
             return res.status(200).json({ message: "User modified Sucessfully" })
