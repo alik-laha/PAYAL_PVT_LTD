@@ -312,7 +312,7 @@ const QCRcnTable = () => {
     }
 
     const handleQCApprove = async (item: QcRcnEntryData) => {
-        const response = await axios.put(`/api/qcRcn/qcRcnApprove//${item.id}`)
+        const response = await axios.put(`/api/qcRcn/qcRcnApprove/${item.id}`)
         const data = await response.data
        
         if (data.message === "QC Approval of Rcn Entry is made Successfully") {
