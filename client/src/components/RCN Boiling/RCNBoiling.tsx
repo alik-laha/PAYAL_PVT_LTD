@@ -67,7 +67,7 @@ const RCNBoiling = () => {
     }, [])
 
  
-    const { data, isLoading, error } = UseQueryData('/api/boiling/sumofallboil', 'GET', 'sumOfallBoil');
+    const { data, isLoading, error } = UseQueryData('/api/boiling/sumofallboil', 'GET', 'AllBoilingSum');
 
     if (isLoading) {
         return <Loader />
