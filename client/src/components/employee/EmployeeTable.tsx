@@ -211,7 +211,6 @@ const EmployeeTable = () => {
                     <TableHead className="text-center" >Sl No.</TableHead>
                     <TableHead className="text-center" >Employee name</TableHead>
                     <TableHead className="text-center" >Employee ID </TableHead>
-                    
                     <TableHead className="text-center" >Designation</TableHead>
                     <TableHead className="text-center" >Status </TableHead>
                     <TableHead className="text-center" >Joining Date</TableHead>
@@ -221,11 +220,9 @@ const EmployeeTable = () => {
                     <TableHead className="text-center" >Blood Group</TableHead>
                     <TableHead className="text-center" >Adhar No.</TableHead>
                     <TableHead className="text-center" >Pan No.</TableHead>
-                   
                     <TableHead className="text-center" >Pincode</TableHead>
                     <TableHead className="text-center" >Emg. Name</TableHead>
                     <TableHead className="text-center" >Emg. Contact No.</TableHead>
-
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>
@@ -237,13 +234,18 @@ const EmployeeTable = () => {
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">{Error}</p></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell><p className="w-100 font-semibold text-red-500 text-center pt-3 pb-10">{Error}</p></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-
-
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                         : null}
                     {

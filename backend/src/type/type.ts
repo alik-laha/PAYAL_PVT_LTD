@@ -92,3 +92,25 @@ export interface RcnGradingData {
     Mc_runTime: string;
     modifiedBy: string;
 }
+
+export interface RcnBoilingData {
+    id: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    SizeName: string;
+    Size: string;
+    Scooping_Line_Mc: string;
+    Pressure: string;
+    CookingTime: string;
+    MCName: string;
+    Mc_on: string;
+    Mc_off: string;
+    noOfEmployees: string;
+    Mc_breakdown: string;
+    otherTime: string;
+    CreatedBy: string;
+    editStatus: string;
+    Mc_runTime: string;
+    modifiedBy: string;
+}

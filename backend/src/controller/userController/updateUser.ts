@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs';
+//import bcrypt from 'bcryptjs';
 import { Request, Response } from 'express';
 import User from '../../model/userModel';
 import { UserData } from '../../type/type';
@@ -9,7 +9,7 @@ import Employee from "../../model/employeeModel";
 const UpdateUser = async (req: Request, res: Response) => {
     try {
         const modifyedBy = req.cookies.user;
-        const { userName, password, role, dept, employeeId, confirmPassword } = req.body;
+        const { userName, password, role, dept, employeeId } = req.body;
         const user: UserData | null = await User.findOne({ where: { employeeId } }) as UserData | null;
         if (!user) {
             return res.status(404).json({ message: 'User Not Found' });
@@ -21,7 +21,7 @@ const UpdateUser = async (req: Request, res: Response) => {
                 return res.status(400).json({ message: 'UserName Already Exists' });
             }
         }
-        if (!password && !confirmPassword) {
+        if (!password ) {
             await User.update({ userName, role, dept, modifyedBy }, { where: { employeeId } });
             //if only user name changed
             if (user.userName != userName) {
@@ -33,11 +33,9 @@ const UpdateUser = async (req: Request, res: Response) => {
             }
             return res.status(200).json({ message: "User modified Sucessfully" })
         }
-        if (password !== confirmPassword) {
-            return res.status(400).json({ message: 'Password and Confirm Password does not match' });
-        }
-        const pass = await bcrypt.hash(password, 10);
-        await User.update({ userName, password: pass, role, dept, modifyedBy }, { where: { employeeId } });
+      
+        //const pass = await bcrypt.hash(password, 10);
+        await User.update({ userName, password, role, dept, modifyedBy }, { where: { employeeId } });
 
         if (user.userName === userName && !password) {
             return res.status(200).json({ message: "User modified Sucessfully" })

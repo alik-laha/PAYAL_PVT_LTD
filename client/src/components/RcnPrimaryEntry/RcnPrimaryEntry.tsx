@@ -54,6 +54,7 @@ const RcnPrimaryEntry = () => {
             
             <DashboardSidebar />
             <div className='dashboard-main-container'>
+               {/* <div className='dashboard-flex-head bg-gradient-to-r from-green-500 to-red-600 text-white'> Origin Wise RCN Received In Current Financial Year</div> */}
                 <div className="flexbox-header">
                     {
                         
@@ -86,7 +87,7 @@ const RcnPrimaryEntry = () => {
                     </DialogContent>
                 </Dialog>
 
-                {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> 
+                {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.CountPendingEdit===0 ? true : false}> 
                 Pending Edit ({data.CountPendingEdit})</Button>}
                   
                 </div>

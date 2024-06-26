@@ -76,6 +76,7 @@ const RcnGradingCreateForm = () => {
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
 
 
+
             <div className="flex">
                     <Label className="w-2/4 bg-green-500 text-center rounded-md pt-2 mr-1 text-primary-foreground">MC ON  </Label>
                     <Input className="w-3/5  justify-center bg-green-100 mr-1" placeholder="MC ON Time" ref={mc_onRef} type='time' required />
@@ -85,6 +86,7 @@ const RcnGradingCreateForm = () => {
                 </div> 
 
                 <div className="flex mt-5">
+
                     <Label className="w-1/4 pt-2 ">A </Label>
                     <Input className="w-2/4 justify-center bg-cyan-100" placeholder="A" ref={aRef} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">B </Label>
@@ -145,7 +147,7 @@ const RcnGradingCreateForm = () => {
                 </div>
 
                 <div className="flex ">
-                    <Label className="w-2/4 pt-2">Other Duration  (Total)</Label>
+                    <Label className="w-2/4 pt-2">Other Duration (Total)</Label>
                     <Input className="w-2/4 justify-center " placeholder="Other Time" value={otherTime} type='time' onChange={(e) => setOtherTime(e.target.value)} />
                 </div>
             

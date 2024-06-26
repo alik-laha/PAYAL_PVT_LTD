@@ -8,6 +8,7 @@ import userRouter from "./router/userRouter";
 import assetRouter from './router/assetRouter'
 import GraddingRouter from './router/GraddingRouter'
 import qcRcnRouter from './router/qcRcnRouter'
+import BoilingRouter from './router/BoilingRouter' 
 
 app.use(cookieParser());
 app.use(cors());
@@ -23,5 +24,6 @@ app.use('/api/user', userRouter)
 app.use('/api/asset', assetRouter)
 app.use('/api/qcRcn', qcRcnRouter)
 app.use('/api/grading', GraddingRouter)
+app.use('/api/boiling', BoilingRouter)
 
 export default app

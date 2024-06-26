@@ -172,6 +172,7 @@ const DashboardTable = () => {
 
                     <TableHead className="text-center" >Id</TableHead>
                     <TableHead className="text-center" >Emp name</TableHead>
+                    <TableHead className="text-center" >Emp ID </TableHead>
                     <TableHead className="text-center" >User Name </TableHead>
                     <TableHead className="text-center" >Department </TableHead>
                     <TableHead className="text-center" >Role </TableHead>
@@ -188,7 +189,7 @@ const DashboardTable = () => {
     <TableCell></TableCell>
     <TableCell></TableCell>
     
-    <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">{Error}</p></TableCell>
+    <TableCell><p className="w-100 font-medium text-center text-red-500 pt-3 pb-10">{Error}</p></TableCell>
     <TableCell></TableCell>
     <TableCell></TableCell>
     <TableCell></TableCell>
@@ -203,10 +204,11 @@ const DashboardTable = () => {
                             return (
                                 <TableRow key={idx}>
                                     <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className="text-center" >{item.employeeName}</TableCell>
-                                    <TableCell className="text-center" >{item.userName}</TableCell>
-                                    <TableCell className="text-center" >{item.dept}</TableCell>
-                                    <TableCell className="text-center" >{item.role}</TableCell>
+                                    <TableCell className="text-center font-semibold" >{item.employeeName}</TableCell>
+                                    <TableCell className="text-center " >{item.employeeId}</TableCell>
+                                    <TableCell className="text-center font-semibold text-purple-600" >{item.userName}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-600" >{item.dept}</TableCell>
+                                    <TableCell className="text-center font-semibold text-cyan-600" >{item.role}</TableCell>
                                     <TableCell className="text-center" >{item.createdBy}</TableCell>
                                    
                                     <TableCell className="text-center" >

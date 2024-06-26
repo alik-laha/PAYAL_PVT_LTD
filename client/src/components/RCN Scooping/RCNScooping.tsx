@@ -9,34 +9,22 @@ import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogContent,
+
     DialogHeader,
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import RcnGradingTable from './RCNGradingTable';
-import RcnGradingCreateForm from './RcnGradingCreateForm';
+import RCNScoopingTable from './RCNScoopingTable';
+import RCNScoopingCreateForm from './RCNScoopingCreateForm';
 import Context from '../context/context';
 import { useContext } from 'react';
 import { useEffect } from 'react'
 import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
-import { PermissionRole, pendingCheckRoles } from '@/type/type';
-import { pendingCheckRole } from '../common/exportData';
 
 
-const RcnGrading = () => {
-    const checkpending = (tab: string) => {
-        const Role = localStorage.getItem('role') as keyof PermissionRole
-        //console.log(Role)
-        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
-            return true
-        }
-        else {
-            return false;
-        }
-
-    }
+const RCNScooping = () => {
 
     const { setAllMachines, setEditPendiningGrinderData } = useContext(Context)
 
@@ -114,15 +102,15 @@ const RcnGrading = () => {
 
                             </DialogHeader>
 
-                            <RcnGradingCreateForm />
+                            <RCNScoopingCreateForm />
                         </DialogContent>
                     </Dialog>
 
 
-                    {checkpending('Grading') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button>}
+                    <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button>
 
                 </div>
-                <RcnGradingTable />
+                <RCNScoopingTable />
 
             </div>
         </div>
@@ -130,4 +118,4 @@ const RcnGrading = () => {
 
     )
 }
-export default RcnGrading;
+export default RCNScooping;
