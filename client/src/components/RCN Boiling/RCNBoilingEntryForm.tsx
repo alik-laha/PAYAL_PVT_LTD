@@ -104,36 +104,39 @@ const RCNBoilingEntryForm = () => {
 
         }))
         let boilingcount=0
-
-        for (const data of formData){
-             axios.post('/api/boiling/createBoiling', { data }) .then(res => {
-                boilingcount++;
-                if(formData.length===boilingcount){
-                    setErrortext(res.data.message)
-
-                    // if (res.status === 200) {
-                    //     const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                    //     dialog.showModal()
-                    //     setTimeout(() => {
-                    //         dialog.close()
-                    //         window.location.reload()
-                    //     }, 2000)
-                    // }
-
-                }
-               
-            })
-            .catch(err => {
-                console.log(err.response.data.message)
-                setErrortext(err.response.data.message)
-                const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
-                dialog.showModal()
-                setTimeout(() => {
-                    dialog.close()
-                }, 2000)
-            })
+        if(lotNo){
+            for (const data of formData){
+                axios.post('/api/boiling/createBoiling', { data }) .then(res => {
+                   boilingcount++;
+                   if(formData.length===boilingcount){
+                       setErrortext(res.data.message)
+   
+                       // if (res.status === 200) {
+                       //     const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                       //     dialog.showModal()
+                       //     setTimeout(() => {
+                       //         dialog.close()
+                       //         window.location.reload()
+                       //     }, 2000)
+                       // }
+   
+                   }
+                  
+               })
+               .catch(err => {
+                   console.log(err.response.data.message)
+                   setErrortext(err.response.data.message)
+                   const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                   dialog.showModal()
+                   setTimeout(() => {
+                       dialog.close()
+                   }, 2000)
+               })
+   
+           }
 
         }
+        
        }
 
        catch (err){
