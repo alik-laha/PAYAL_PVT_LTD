@@ -111,9 +111,27 @@ const RCNBoilingEntryForm = () => {
 
         }
        }
+
+
+
        catch (err){
         console.log(err)
        }
+
+
+
+
+       axios.post('/api/boiling/createLotNo', { data }) .then(res => {
+        setErrortext(res.data.message)
+        if (res.status === 200) {
+            const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+            dialog.showModal()
+            setTimeout(() => {
+                dialog.close()
+                window.location.reload()
+            }, 2000)
+        }
+    })
     };
 
     const successdialog = document.getElementById('myDialog') as HTMLInputElement;

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import RcnBoiling from "../../model/RcnBoilingModel";
-import LotNo from "../../model/lotNomodel";
+
 
 const CreateBoiling = async (req: Request, res: Response) => {
     try {
@@ -8,7 +8,7 @@ const CreateBoiling = async (req: Request, res: Response) => {
             ScoopingLine, breakDown, cookingOff,cookingOn, origin,other,
             size,pressure,sizeName } = req.body.data;
 
-        const feeledBy = req.cookies.user;
+            const feeledBy = req.cookies.user;
         const timeToMilliseconds = (time: string) => {
             const [hours, minutes] = time.split(':').map(Number);
             return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
@@ -35,15 +35,7 @@ const CreateBoiling = async (req: Request, res: Response) => {
         }
         const CookingTime = millisecondsToTime(Mc_runTime);
 
-        try{
-            const Lot= await LotNo.create({
-                lotNo:columnLotNo,
-                createdBy:feeledBy
-            });
-        }
-        catch (err) {
-            return res.status(500).json({ message: "Duplicate Lot No. or Error in Creating Lot No.", err });
-        }
+       
     
         const boilingEntry = await RcnBoiling.create({
             LotNo:columnLotNo,

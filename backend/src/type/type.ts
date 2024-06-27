@@ -61,6 +61,10 @@ export interface EmployeeData {
     address: string;
     pincode: string;
 }
+export interface lotNoData {
+    id: number;
+    lotNo:string;
+}
 
 export interface TokenVerify {
     employeeId: string;

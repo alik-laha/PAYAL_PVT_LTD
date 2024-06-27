@@ -354,7 +354,10 @@ const RcnPrimaryEntryTable = () => {
 
                                     <TableCell className="text-center">{item.blWeight}</TableCell>
                                     <TableCell className="text-center">{item.netWeight}</TableCell>
-                                    <TableCell className="text-center font-semibold text-red-600">{item.difference}</TableCell>
+
+                                    {Number(item.difference)<0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)
+                                    : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)}
+                                    
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
                                     <TableCell className="text-center ">
                                         {item.rcnStatus === 'QC Approved' ? (
@@ -423,7 +426,8 @@ const RcnPrimaryEntryTable = () => {
 
                                     <TableCell className="text-center">{item.blWeight}</TableCell>
                                     <TableCell className="text-center">{item.netWeight}</TableCell>
-                                    <TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))}</TableCell>
+                                    {Number(item.difference)<0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)
+                                    : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)}
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
                                     <TableCell className="text-center">
                                         {item.rcnStatus === 'QC Approved' ? (
