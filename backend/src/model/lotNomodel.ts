@@ -19,7 +19,8 @@ const LotNo = sequelize.define('lotNo', {
     },
     modifiedBy: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
+        
        
     }
 }, {

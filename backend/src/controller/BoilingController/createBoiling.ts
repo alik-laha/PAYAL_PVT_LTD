@@ -5,7 +5,7 @@ import RcnBoiling from "../../model/RcnBoilingModel";
 const CreateBoiling = async (req: Request, res: Response) => {
     try {
         const { columnMC, columnDate,columnLotNo,columnEmployee,
-            ScoopingLine, breakDown, cookingOff,cookingOn, origin,other,
+            ScoopingLine, breakDown, cookingOff,cookingOn, CookingTime,origin,other,
             size,pressure,sizeName } = req.body.data;
 
             const feeledBy = req.cookies.user;
@@ -33,10 +33,7 @@ const CreateBoiling = async (req: Request, res: Response) => {
         if (Mc_runTime < 0) {
             return res.status(400).json({ message: "Machine Run Time can not be negative" });
         }
-        const CookingTime = millisecondsToTime(Mc_runTime);
-
        
-    
         const boilingEntry = await RcnBoiling.create({
             LotNo:columnLotNo,
             date:columnDate,
@@ -51,7 +48,7 @@ const CreateBoiling = async (req: Request, res: Response) => {
             Mc_off:cookingOff,
             noOfEmployees:columnEmployee,
             Mc_breakdown:breakDown,
-            Mc_runTime:CookingTime,
+            Mc_runTime:Mc_runTime,
             otherTime:other,
             CreatedBy:feeledBy
           

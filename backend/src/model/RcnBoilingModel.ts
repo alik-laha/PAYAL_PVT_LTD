@@ -8,7 +8,7 @@ const RcnBoiling = sequelize.define('rcnBoiling', {
         primaryKey: true,
     },
     LotNo:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
         
     },

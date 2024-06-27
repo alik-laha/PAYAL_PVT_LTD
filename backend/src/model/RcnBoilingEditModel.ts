@@ -7,7 +7,7 @@ const RcnBoilingEdit = sequelize.define('rcnBoilingEdit', {
         primaryKey: true,
     },
     LotNo:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
         
     },
