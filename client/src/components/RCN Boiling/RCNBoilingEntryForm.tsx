@@ -79,13 +79,13 @@ const RCNBoilingEntryForm = () => {
        // const lotNo = lotNoRef.current?.value
         const Mc_name = mc_name
 
-        const formData=rows.map( row=>({
-            columnLotNo:lotNo,
-            columnDate:date,
-            columnEmployee:noOfEmployees,
-            columnMC:Mc_name,...row
+        // const formData=rows.map( row=>({
+        //     columnLotNo:lotNo,
+        //     columnDate:date,
+        //     columnEmployee:noOfEmployees,
+        //     columnMC:Mc_name,...row
 
-        }))
+        // }))
         //console.log('Submitted Data:',formData);
   
        try{
@@ -96,7 +96,13 @@ const RCNBoilingEntryForm = () => {
             console.log(err)
             
         })
-        
+        const formData=rows.map( row=>({
+            columnLotNo:lotNo,
+            columnDate:date,
+            columnEmployee:noOfEmployees,
+            columnMC:Mc_name,...row
+
+        }))
         let boilingcount=0
 
         for (const data of formData){
@@ -105,14 +111,14 @@ const RCNBoilingEntryForm = () => {
                 if(formData.length===boilingcount){
                     setErrortext(res.data.message)
 
-                    if (res.status === 200) {
-                        const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                        dialog.showModal()
-                        setTimeout(() => {
-                            dialog.close()
-                            window.location.reload()
-                        }, 2000)
-                    }
+                    // if (res.status === 200) {
+                    //     const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                    //     dialog.showModal()
+                    //     setTimeout(() => {
+                    //         dialog.close()
+                    //         window.location.reload()
+                    //     }, 2000)
+                    // }
 
                 }
                
