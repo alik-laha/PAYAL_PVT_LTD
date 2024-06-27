@@ -19,8 +19,8 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
-import { pageNo,pagelimit, pendingCheckRole } from "../common/exportData"
-import { FcApprove , FcDisapprove } from "react-icons/fc";
+import { pageNo, pagelimit, pendingCheckRole } from "../common/exportData"
+import { FcApprove, FcDisapprove } from "react-icons/fc";
 
 
 import {
@@ -107,6 +107,14 @@ const RcnPrimaryEntryTable = () => {
         });
     }
 
+    const formatNumberWithSign = (number: number) => {
+        if (number > 0) {
+            return `+${number}`;
+        } else {
+            return `${number}`;
+        }
+    };
+
     useEffect(() => {
         if (editPendingData) {
             console.log(editPendingData)
@@ -157,7 +165,7 @@ const RcnPrimaryEntryTable = () => {
         let ws
         let transformed
         if (EditData.length > 0) {
-            
+
             transformed = EditData.map((item: EditPendingData, idx: number) => ({
                 SL_No: idx + 1,
                 Date: handletimezone(item.date),
@@ -235,15 +243,15 @@ const RcnPrimaryEntryTable = () => {
         return finaldate;
     }
     const Role = localStorage.getItem('role') as keyof PermissionRole
-    const checkpending = ( tab: string ) => { 
+    const checkpending = (tab: string) => {
         //console.log(Role)
         if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
             return true
         }
-        else{
+        else {
             return false;
         }
-       
+
     }
 
 
@@ -358,7 +366,7 @@ const RcnPrimaryEntryTable = () => {
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center">{item.editStatus == 'Created' ?
-                                    'NA':item.editStatus}</TableCell>
+                                        'NA' : item.editStatus}</TableCell>
                                     <TableCell className="text-center">{item.editedBy}</TableCell>
                                     <TableCell className="text-center">
                                         <Popover>
@@ -368,7 +376,7 @@ const RcnPrimaryEntryTable = () => {
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <AlertDialog>
                                                     <AlertDialogTrigger className="flex">
-                                                    <FcApprove size={25}/> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
+                                                        <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
@@ -382,7 +390,7 @@ const RcnPrimaryEntryTable = () => {
                                                 </AlertDialog>
                                                 <AlertDialog>
                                                     <AlertDialogTrigger className="flex mt-2">
-                                                    <FcDisapprove size={25}/> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
+                                                        <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
@@ -401,7 +409,7 @@ const RcnPrimaryEntryTable = () => {
                             );
                         })
                     ) : (
-                        Data.length>0 ? (Data.map((item: RcnPrimaryEntryData, idx) => {
+                        Data.length > 0 ? (Data.map((item: RcnPrimaryEntryData, idx) => {
 
 
                             return (
@@ -415,10 +423,10 @@ const RcnPrimaryEntryTable = () => {
 
                                     <TableCell className="text-center">{item.blWeight}</TableCell>
                                     <TableCell className="text-center">{item.netWeight}</TableCell>
-                                    <TableCell className="text-center font-semibold text-red-600">{item.difference}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))}</TableCell>
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
                                     <TableCell className="text-center">
-                                    {item.rcnStatus === 'QC Approved' ? (
+                                        {item.rcnStatus === 'QC Approved' ? (
                                             <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
                                         ) : item.rcnStatus === 'QC Pending' ? (
                                             <button className="bg-yellow-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
@@ -427,7 +435,7 @@ const RcnPrimaryEntryTable = () => {
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center">{item.editStatus == 'Created' ?
-                                    'NA':item.editStatus}</TableCell>
+                                        'NA' : item.editStatus}</TableCell>
                                     <TableCell className="text-center">{item.receivedBy}</TableCell>
                                     <TableCell className="text-center">
                                         <Popover>
@@ -436,7 +444,7 @@ const RcnPrimaryEntryTable = () => {
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <Dialog>
-                                                    <DialogTrigger className="flex"><CiEdit size={20}/>
+                                                    <DialogTrigger className="flex"><CiEdit size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                     </DialogTrigger>
                                                     <DialogContent>
@@ -453,7 +461,7 @@ const RcnPrimaryEntryTable = () => {
                                     </TableCell>
                                 </TableRow>
                             );
-                        })):(<TableRow>
+                        })) : (<TableRow>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
@@ -468,7 +476,7 @@ const RcnPrimaryEntryTable = () => {
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            </TableRow>)
+                        </TableRow>)
                     )}
                 </TableBody>
             </Table>
