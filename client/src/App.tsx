@@ -25,6 +25,8 @@ function App() {
     axios.get('/api/user/logout').then(() => {
       localStorage.removeItem('role')
       localStorage.removeItem('dept')
+      localStorage.removeItem('countdownStartTime')
+      localStorage.removeItem('user')
       navigate('/login')
     }).catch((err) => {
       console.log(err)
@@ -46,6 +48,7 @@ function App() {
     <>
 
       <Routes>
+        <Route path='/forgotpass' element={<h1>Alik laha</h1>} />
         <Route path='/' element={<Navigate to={"/dashboard"} replace />} />
         <Route path="/login" element={<Login />} />
 

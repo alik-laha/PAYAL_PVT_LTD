@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import img from '../../assets/Static_Images/Company Logo.jpeg'
 import './login.css'
 import Captcha from './Captcha.tsx';
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
     Select,
     SelectContent,
@@ -105,6 +105,7 @@ export const Login = () => {
                     <Button className="bg-orange-500 mb-5 mt-8" type="submit">Login</Button>
 
                 </form>
+                <p><NavLink to="/forgotpass">forgot password</NavLink></p>
             </div>
         </div>
     )
