@@ -88,7 +88,7 @@ const QCRcnTable = () => {
     const rejectcloseDialogButton = document.getElementById('qcrejectcloseDialog') as HTMLInputElement;
     const [successtext, setSuccessText] = React.useState<string>('');
     const [errortext, seterrorText] = React.useState<string>('');
-    const [transformedData, setTransformedData] = useState<QcRcnEntryExcelData[]>([]);
+    //const [transformedData, setTransformedData] = useState<QcRcnEntryExcelData[]>([]);
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const currDate = new Date().toLocaleDateString();
 
@@ -102,7 +102,7 @@ const QCRcnTable = () => {
         const data1 = await response.data
 
         let ws
-        let transformed
+        let transformed:QcRcnEntryExcelData[] = [];
         if (pendingData.length > 0) {
             
             transformed = pendingData.map((item: QcRcnEntryData, idx: number) => ({
@@ -132,8 +132,8 @@ const QCRcnTable = () => {
                 editapprovedorRejectedBy: item.editapprovedBy,
 
             }));
-            setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformedData);
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
             transformed = data1.rcnEntries.map((item: QcRcnEntryData, idx: number) => ({
@@ -163,8 +163,8 @@ const QCRcnTable = () => {
                 editapprovedorRejectedBy: item.editapprovedBy,
 
             }));
-            setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformedData);
+           // setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
         }
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');

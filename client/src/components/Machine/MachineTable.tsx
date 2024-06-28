@@ -66,7 +66,7 @@ const MachineTable = () => {
     const [section, setSection] = useState<string>("")
     const [assetidname, setassetidname] = useState<string>("")
     const [Data, setData] = useState<AssetData[]>([])
-    const [transformedData, setTransformedData] = useState<AssetDataExcel[]>([]);
+    //const [transformedData, setTransformedData] = useState<AssetDataExcel[]>([]);
     const currDate = new Date().toLocaleDateString();
     
     const handleSearch = async () => {
@@ -99,7 +99,8 @@ const MachineTable = () => {
 
         const response = await axios.put('/api/asset/assetSearch', {}, {})
         const data1 = await response.data
-        const transformed = data1.assetEntries.map((item: AssetData, idx: number) => ({
+        let transformed:AssetDataExcel[] = [];
+        transformed= data1.assetEntries.map((item: AssetData, idx: number) => ({
             id: idx+1,
             machineID: item.machineID,
             machineName: item.machineName,
@@ -110,8 +111,8 @@ const MachineTable = () => {
             createdBy: item.createdBy,
             modifiedBy: item.modifiedBy
         }))
-        setTransformedData(transformed);
-        const ws = XLSX.utils.json_to_sheet(transformedData);
+        //setTransformedData(transformed);
+        const ws = XLSX.utils.json_to_sheet(transformed);
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });

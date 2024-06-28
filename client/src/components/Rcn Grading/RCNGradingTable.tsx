@@ -71,7 +71,7 @@ const RcnGradingTable = () => {
     const [todate, settoDate] = React.useState<string>('');
     const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [searchData, setSearchData] = useState<string>('')
-    const [transformedData, setTransformedData] = useState<GradingExcelData[]>([])
+    //const [transformedData, setTransformedData] = useState<GradingExcelData[]>([])
     const [blockpagen, setblockpagen] = useState('flex')
     const [EditData, setEditData] = useState<GradingData[]>([])
     const { editPendiningGrinderData, setEditPendiningGrinderData } = useContext(Context)
@@ -227,8 +227,8 @@ const RcnGradingTable = () => {
                     'ApprovedOrRejectedBy': item.modifiedBy
                 }
             })
-            setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformedData);
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
             transformed = editPendiningGrinderData.map((item: GradingData, index: number) => {
@@ -257,8 +257,8 @@ const RcnGradingTable = () => {
                     'ApprovedOrRejectedBy': ''
                 }
             })
-            setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformedData);
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
         }
         const currDate = new Date().toLocaleDateString();
         const wb = XLSX.utils.book_new();
