@@ -27,6 +27,7 @@ interface RCnBoilingModifyProps {
         Scooping_Line_Mc: string;
         Pressure: string;
         CookingTime: string;
+        moisture:string;
         MCName: string;
         Mc_on: string;
         Mc_off: string;
@@ -51,6 +52,8 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
     const [size, setsize] = useState<string>("")
     const [scopline, setscopline] = useState<string>("")
     const [presr, setpresr] = useState<string>("")
+    const [cookingtime, setCookingTime] = useState('')
+    const [moist, setMoist] = useState<string>("")
     const [Mc_name, setMc_name] = useState<string>("")
     const [Mc_on, setMc_on] = useState('')
     const [Mc_off, setMc_off] = useState('')
@@ -94,7 +97,7 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
         axios.put(`/api/boiling/updateBoiling/${props.data.id}`, { 
             origin,
             LotNo,
-            date,
+            date,moisture:moist,cookingTime:cookingtime,
             size,sizename,scopline,presr,Mc_name,Mc_on,Mc_off,noOfEmployees,Mc_breakdown,otherTime
 
 
@@ -117,6 +120,8 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
                 setNoOfEmployees('')
                 setMc_breakdown('')
                 setOtherTime('')
+                setCookingTime('')
+                setMoist('')
              
             
 
@@ -145,12 +150,14 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
         setsizename(props.data.SizeName)
         setscopline(props.data.Scooping_Line_Mc)
         setpresr(props.data.Pressure)
+        setMoist(props.data.moisture)
+        setCookingTime(props.data.CookingTime)
     }, [])
 
 
     return (
         <div className="pl-10 pr-10">
-            <form className='flex flex-col gap-2 ' onSubmit={handleSubmit}>
+            <form className='flex flex-col gap-1 ' onSubmit={handleSubmit}>
                 <div className="flex mt-4">
                 <Label className="w-2/4 pt-2 bg-green-500 rounded-md text-white text-center">MC ON</Label>
             <Input className="w-2/4 justify-center bg-green-100 " placeholder="MC ON Time" value={Mc_on} onChange={(e) => setMc_on(e.target.value)} type='time' />
@@ -167,7 +174,7 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
                     <Input className="w-2/4 justify-center" placeholder="Date" value={date} onChange={(e) => setDate(e.target.value)} type='date' /> </div>
                 <div className="flex"><Label className="w-2/4 ">Origin</Label>
                     <Select value={origin} onValueChange={(value) => setOrigin(value)}>
-                        <SelectTrigger className="w-2/4 ">
+                        <SelectTrigger className="w-2/4 justify-center">
                             <SelectValue placeholder="Origin" />
                         </SelectTrigger>
                         <SelectContent>
@@ -192,11 +199,13 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
            
             
             
-            <div className="flex"><Label className="w-2/4 pt-1">Pressure</Label>
-            <Input className="w-2/4" placeholder="Pressure" value={presr} onChange={(e) => setpresr(e.target.value)} /> </div>
+            <div className="flex"><Label className="w-2/4 pt-1">Pressure (psi)</Label>
+            <Input className="w-2/4 text-center" placeholder="Pressure" value={presr} onChange={(e) => setpresr(e.target.value)} required /> </div>
+            <div className="flex"><Label className="w-2/4 pt-1">Moisture (%)</Label>
+            <Input className="w-2/4 text-center" placeholder="Moisture (%)" value={moist} onChange={(e) => setMoist(e.target.value)} required/></div>
             <div className="flex"><Label className="w-2/4 ">Size</Label>
                     <Select value={sizename} onValueChange={(value) => setsizename(value)}>
-                        <SelectTrigger className="w-2/4 ">
+                        <SelectTrigger className="w-2/4 justify-center">
                             <SelectValue placeholder="Size Name" />
                         </SelectTrigger>
                         <SelectContent>
@@ -215,9 +224,9 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
                     </Select>
             </div>
             <div className="flex"><Label className="w-2/4 pt-1">Boiling Qty</Label>
-            <Input className="w-2/4" placeholder="Boiling Qty." value={size} onChange={(e) => setsize(e.target.value)} /> </div>
+            <Input className="w-2/4 text-center" placeholder="Boiling Qty." value={size} onChange={(e) => setsize(e.target.value)} required/> </div>
              <div className="flex"><Label className="w-2/4 pt-1">No. Of Labour</Label>
-            <Input className="w-2/4" placeholder="No. Of Employees" value={noOfEmployees} onChange={(e) => setNoOfEmployees(e.target.value)} /> </div>
+            <Input className="w-2/4 text-center" placeholder="No. Of Employees" value={noOfEmployees} onChange={(e) => setNoOfEmployees(e.target.value)} required/> </div>
             <div className="flex"><Label className="w-2/4 pt-1">Scooping Line</Label>
                     <Select value={scopline} onValueChange={(value) => setscopline(value)}>
                         <SelectTrigger className="w-2/4 justify-center">
@@ -259,7 +268,8 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
                     </Select>
             </div>
             
-           
+            <div className="flex"><Label className="w-2/4 mt-1">Cooking Time</Label>
+            <Input className="w-2/4 justify-center" placeholder="Cooking Time" value={cookingtime} onChange={(e) => setCookingTime(e.target.value)} type='time' required/></div>
             <div className="flex"><Label className="w-2/4 mt-1">BreakDown Duration</Label>
             <Input className="w-2/4 justify-center" placeholder="Breakdown Duration" value={Mc_breakdown} onChange={(e) => setMc_breakdown(e.target.value)} type='time' /></div>
             <div className="flex"><Label className="w-2/4 mt-1">Other Duration</Label>

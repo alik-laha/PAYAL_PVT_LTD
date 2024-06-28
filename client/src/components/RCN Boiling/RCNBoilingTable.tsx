@@ -399,20 +399,24 @@ const RCNBoilingTable = () => {
                                     
                                     
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center ">{item.Scooping_Line_Mc}</TableCell>
+                                    <TableCell className="text-center">{item.MCName}</TableCell>
+                                    <TableCell className="text-center font-semibold text-purple-500">{item.Scooping_Line_Mc}</TableCell>
 
-                                    <TableCell className="text-center font-semibold">{item.SizeName}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.Size}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.Pressure}</TableCell>
-                                    {/* <TableCell className="text-center">{item.MCName}</TableCell> */}
+                                    <TableCell className="text-center font-bold">{item.SizeName}</TableCell>
+                                    <TableCell className="text-center font-bold">{item.Size} </TableCell>
+                                    <TableCell className="text-center font-bold">{item.Pressure} psi</TableCell>
+                                    <TableCell className="text-center font-bold">{item.moisture}%</TableCell>
+                                    <TableCell className="text-center">{item.CookingTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+ 
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
-                                    <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                    <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
                                     <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
                                     <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')} hr</TableCell>
                                     <TableCell className="text-center">{item.noOfEmployees}</TableCell>
                                     <TableCell className="text-center">{item.CreatedBy}</TableCell>
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
+
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
@@ -466,7 +470,7 @@ const RCNBoilingTable = () => {
                                     
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center">{item.MCName}</TableCell>
-                                    <TableCell className="text-center ">{item.Scooping_Line_Mc}</TableCell>
+                                    <TableCell className="text-center font-semibold text-purple-500">{item.Scooping_Line_Mc}</TableCell>
 
                                     <TableCell className="text-center font-bold">{item.SizeName}</TableCell>
                                     <TableCell className="text-center font-bold">{item.Size} </TableCell>
