@@ -371,7 +371,7 @@ const RCNBoilingTable = () => {
                      <TableHead className="text-center" >Machine Name</TableHead>
                     <TableHead className="text-center" >Scooping Line</TableHead>
                     <TableHead className="text-center" >Size</TableHead>
-                    <TableHead className="text-center" >Qty</TableHead>
+                    <TableHead className="text-center" >Qty (Bag)</TableHead>
                     <TableHead className="text-center" >Pressure</TableHead>
                     <TableHead className="text-center" >Moisture</TableHead>
                     <TableHead className="text-center" >Cooking Time</TableHead>
@@ -469,9 +469,9 @@ const RCNBoilingTable = () => {
                                     <TableCell className="text-center ">{item.Scooping_Line_Mc}</TableCell>
 
                                     <TableCell className="text-center font-bold">{item.SizeName}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.Size} Bag</TableCell>
+                                    <TableCell className="text-center font-bold">{item.Size} </TableCell>
                                     <TableCell className="text-center font-bold">{item.Pressure} psi</TableCell>
-                                    <TableCell className="text-center font-bold">{item.moisture} %</TableCell>
+                                    <TableCell className="text-center font-bold">{item.moisture}%</TableCell>
                                     <TableCell className="text-center">{item.CookingTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
  
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
