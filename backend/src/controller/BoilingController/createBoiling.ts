@@ -8,6 +8,8 @@ const CreateBoiling = async (req: Request, res: Response) => {
             ScoopingLine, breakDown, cookingOff, cookingOn, CookingTime, moisture,origin, other,
             size, pressure, sizeName } = req.body.data;
 
+        console.log(req.body.data)    
+
         const feeledBy = req.cookies.user;
         const timeToMilliseconds = (time: string) => {
             const [hours, minutes] = time.split(':').map(Number);
@@ -33,6 +35,7 @@ const CreateBoiling = async (req: Request, res: Response) => {
             return res.status(400).json({ message: "Machine Run Time can not be negative" });
         }
         const Mc_runTime = millisecondsToTime(CalculatemachineOnOffTime(cookingOff, cookingOn) - (timeToMilliseconds(breakDown) + timeToMilliseconds(other)));
+
 
 
         const boilingEntry = await RcnBoiling.create({

@@ -121,7 +121,7 @@ const RCNBoilingEntryForm = () => {
                       
                    })
                    .catch(err => {
-                       console.log(err.response.data.message)
+                       console.log(err)
                        setErrortext(err.response.data.message)
                        const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
                        dialog.showModal()
