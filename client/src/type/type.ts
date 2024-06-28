@@ -205,6 +205,7 @@ export interface PermissionDept {
 
 }
 export interface BoilingEntryData{
+        moisture: string;
         id: number;
         LotNo: string;
         date: string;
