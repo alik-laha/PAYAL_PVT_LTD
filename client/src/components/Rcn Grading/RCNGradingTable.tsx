@@ -217,9 +217,9 @@ const RcnGradingTable = () => {
                     'Machine': item.Mc_name,
                     'MC_On': handleAMPM(item.Mc_on.slice(0, 5)),
                     'MC_Off': handleAMPM(item.Mc_off.slice(0, 5)),
-                    'Breakdown_Duration': item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1') + ' Hr.',
-                    'Other_Duration': item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1') + ' Hr.',
-                    'Run_Duration': item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '') + ' Hr.',
+                    'Breakdown_Duration': item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' Hr.',
+                    'Other_Duration': item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' Hr.',
+                    'Run_Duration': item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0/, '') + ' Hr.',
                     'Labour_No': item.noOfEmployees,
                     'Grading_Lot_No': item.grading_lotNo,
                     'Edit_Status': item.editStatus,
@@ -247,9 +247,9 @@ const RcnGradingTable = () => {
                     'Machine': item.Mc_name,
                     'MC_On': handleAMPM(item.Mc_on.slice(0, 5)),
                     'MC_Off': handleAMPM(item.Mc_off.slice(0, 5)),
-                    'Breakdown_Duration': item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1') + ' Hr.',
-                    'Other_Duration': item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1') + ' Hr.',
-                    'Run_Duration': item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '') + ' Hr.',
+                    'Breakdown_Duration': item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' Hr.',
+                    'Other_Duration': item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' Hr.',
+                    'Run_Duration': item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0/, '') + ' Hr.',
                     'Labour_No': item.noOfEmployees,
                     'Grading_Lot_No': item.grading_lotNo,
                     'Edit_Status': item.editStatus,
@@ -423,8 +423,8 @@ const RcnGradingTable = () => {
                                 {/* <TableCell className="text-center">{item.Mc_name}</TableCell> */}
                                 <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                 <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
-                                <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                                <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
                                 <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')} hr</TableCell>
                                 <TableCell className="text-center">{item.noOfEmployees}</TableCell>
                                 {/* <TableCell className="text-center">{item.grading_lotNo}</TableCell> */}
@@ -498,8 +498,8 @@ const RcnGradingTable = () => {
                                     {/* <TableCell className="text-center">{item.Mc_name}</TableCell> */}
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
-                                    <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                                    <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                    <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                    <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
                                     <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')} hr</TableCell>
                                     <TableCell className="text-center">{item.noOfEmployees} </TableCell>
                                     {/* <TableCell className="text-center">{item.grading_lotNo}</TableCell> */}
