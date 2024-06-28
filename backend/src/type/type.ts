@@ -106,6 +106,7 @@ export interface RcnBoilingData {
     Size: string;
     Scooping_Line_Mc: string;
     Pressure: string;
+    moisture:string;
     CookingTime: string;
     MCName: string;
     Mc_on: string;
@@ -117,4 +118,5 @@ export interface RcnBoilingData {
     editStatus: string;
     Mc_runTime: string;
     modifiedBy: string;
+
 }

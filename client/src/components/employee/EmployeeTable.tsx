@@ -254,8 +254,8 @@ const EmployeeTable = () => {
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className="text-center" >{item.employeeName}</TableCell>
-                                    <TableCell className="text-center" >{item.employeeId}</TableCell>
+                                    <TableCell className="text-center font-semibold text-cyan-600" >{item.employeeName}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-400" >{item.employeeId}</TableCell>
                                     <TableCell className="text-center" >{item.designation}</TableCell>
                                     <TableCell className="text-center" >
                                         {item.status ? (

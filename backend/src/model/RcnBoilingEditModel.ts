@@ -42,6 +42,11 @@ const RcnBoilingEdit = sequelize.define('rcnBoilingEdit', {
         type: DataTypes.TIME,
         allowNull: false
     },
+    moisture: 
+    {
+        type: DataTypes.FLOAT,
+        allowNull: false
+    },
     
     MCName: {
         type: DataTypes.STRING,
@@ -73,7 +78,7 @@ const RcnBoilingEdit = sequelize.define('rcnBoilingEdit', {
     },
     editStatus: {
         type: DataTypes.STRING,
-        defaultValue: "NA"
+        defaultValue: "Pending"
     },
     Mc_runTime: {
         type: DataTypes.TIME,

@@ -204,11 +204,11 @@ const DashboardTable = () => {
                             return (
                                 <TableRow key={idx}>
                                     <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className="text-center font-semibold" >{item.employeeName}</TableCell>
-                                    <TableCell className="text-center " >{item.employeeId}</TableCell>
-                                    <TableCell className="text-center font-semibold text-purple-600" >{item.userName}</TableCell>
+                                    <TableCell className="text-center font-semibold text-cyan-600" >{item.employeeName}</TableCell>
+                                    <TableCell className="text-center font-semibold " >{item.employeeId}</TableCell>
+                                    <TableCell className="text-center font-semibold text-purple-700" >{item.userName}</TableCell>
                                     <TableCell className="text-center font-semibold text-red-600" >{item.dept}</TableCell>
-                                    <TableCell className="text-center font-semibold text-cyan-600" >{item.role}</TableCell>
+                                    <TableCell className="text-center font-semibold text-green-600" >{item.role}</TableCell>
                                     <TableCell className="text-center" >{item.createdBy}</TableCell>
                                    
                                     <TableCell className="text-center" >
