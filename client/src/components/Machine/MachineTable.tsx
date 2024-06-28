@@ -160,7 +160,7 @@ return(
             <Table className="mt-1">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
                 <TableHead className="text-center" >Sl No.</TableHead>
-                    <TableHead className="text-center" >Asset ID</TableHead>
+                    <TableHead className="text-center " >Asset ID</TableHead>
                    
                     <TableHead className="text-center" >Status </TableHead>
                     <TableHead className="text-center" >Asset Name </TableHead>
@@ -179,7 +179,7 @@ return(
                         return (
                             <TableRow key={item.id}>
                                 <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                <TableCell className="text-center">{item.machineID}</TableCell>
+                                <TableCell className="text-center font-semibold text-purple-700">{item.machineID}</TableCell>
                               
                                 
 
@@ -189,10 +189,10 @@ return(
                                 ) : (
                                     <button className="bg-red-500 p-1 text-white rounded">{item.status}</button>
                                 )}</TableCell>
-                                  <TableCell className="text-center">{item.machineName}</TableCell>
+                                  <TableCell className="text-center font-semibold text-yellow-700">{item.machineName}</TableCell>
                                   
                                   <TableCell className="text-center"><Input type='checkbox' className='h-4' checked={item.primaryAsset === 1 ? true : false}/></TableCell>
-                                <TableCell className="text-center">{item.section}</TableCell>
+                                <TableCell className="text-center font-semibold text-pink-500">{item.section}</TableCell>
                                 <TableCell className="text-center">{item.description}</TableCell>
 
                                

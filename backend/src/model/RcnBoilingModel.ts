@@ -8,7 +8,7 @@ const RcnBoiling = sequelize.define('rcnBoiling', {
         primaryKey: true,
     },
     LotNo:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
         
     },
@@ -41,6 +41,11 @@ const RcnBoiling = sequelize.define('rcnBoiling', {
     CookingTime: 
     {
         type: DataTypes.TIME,
+        allowNull: false
+    },
+    moisture: 
+    {
+        type: DataTypes.FLOAT,
         allowNull: false
     },
     

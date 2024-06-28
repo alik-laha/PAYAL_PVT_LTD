@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import sequelize from "../../config/databaseConfig";
-import { Op, where } from "sequelize";
+import { Op } from "sequelize";
 import RcnBoiling from "../../model/RcnBoilingModel";
 import RcnBoilingEdit from "../../model/RcnBoilingEditModel";
 

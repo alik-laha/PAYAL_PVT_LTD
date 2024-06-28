@@ -81,6 +81,7 @@ const RcnGradingTable = () => {
     const handleSearch = async () => {
         // console.log(e.target.value)
         setEditPendiningGrinderData([])
+        setEditData([])
         axios.post('/api/grading/searchGrading', { fromDate: fromdate, toDate: todate, searchData, origin }, {
             params: {
                 page: page,
@@ -101,12 +102,12 @@ const RcnGradingTable = () => {
             })
     }
     useEffect(() => {
-        if(editPendiningGrinderData.length>0){
+        if (editPendiningGrinderData.length > 0) {
             console.log(editPendiningGrinderData)
-        setEditData(editPendiningGrinderData)
-        setblockpagen('none')
+            setEditData(editPendiningGrinderData)
+            setblockpagen('none')
         }
-        
+
     }, [editPendiningGrinderData])
 
     useEffect(() => {
@@ -172,7 +173,7 @@ const RcnGradingTable = () => {
                 console.log(err.data)
             })
 
-      
+
 
     }
     const handleReject = async (id: number) => {
@@ -216,14 +217,14 @@ const RcnGradingTable = () => {
                     'Machine': item.Mc_name,
                     'MC_On': handleAMPM(item.Mc_on.slice(0, 5)),
                     'MC_Off': handleAMPM(item.Mc_off.slice(0, 5)),
-                    'Breakdown_Duration': item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')+' Hr.',
-                    'Other_Duration': item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')+' Hr.',
-                    'Run_Duration': item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')+' Hr.',
+                    'Breakdown_Duration': item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' Hr.',
+                    'Other_Duration': item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' Hr.',
+                    'Run_Duration': item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0/, '') + ' Hr.',
                     'Labour_No': item.noOfEmployees,
                     'Grading_Lot_No': item.grading_lotNo,
                     'Edit_Status': item.editStatus,
                     'Entried_By': item.feeledBy,
-                    'ApprovedOrRejectedBy':item.modifiedBy
+                    'ApprovedOrRejectedBy': item.modifiedBy
                 }
             })
             setTransformedData(transformed);
@@ -246,14 +247,14 @@ const RcnGradingTable = () => {
                     'Machine': item.Mc_name,
                     'MC_On': handleAMPM(item.Mc_on.slice(0, 5)),
                     'MC_Off': handleAMPM(item.Mc_off.slice(0, 5)),
-                    'Breakdown_Duration': item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1') +' Hr.',
-                    'Other_Duration': item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1') +' Hr.',
-                    'Run_Duration': item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')+' Hr.',
+                    'Breakdown_Duration': item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' Hr.',
+                    'Other_Duration': item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' Hr.',
+                    'Run_Duration': item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0/, '') + ' Hr.',
                     'Labour_No': item.noOfEmployees,
                     'Grading_Lot_No': item.grading_lotNo,
                     'Edit_Status': item.editStatus,
                     'Entried_By': item.feeledBy,
-                    'ApprovedOrRejectedBy':''
+                    'ApprovedOrRejectedBy': ''
                 }
             })
             setTransformedData(transformed);
@@ -375,7 +376,7 @@ const RcnGradingTable = () => {
                     <TableHead className="text-center" >Sl No.</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
                     <TableHead className="text-center" >Grading Entry Date</TableHead>
-                  
+
                     <TableHead className="text-center" >A</TableHead>
                     <TableHead className="text-center" >B</TableHead>
                     <TableHead className="text-center" >C</TableHead>
@@ -402,12 +403,12 @@ const RcnGradingTable = () => {
                 </TableHeader>
                 <TableBody>
 
-                    {EditData.length === 0 ? (data.length > 0 ? data.map((item: GradingData, index: number) => {
+                    {EditData.length <= 0 ? (data.length > 0 ? data.map((item: GradingData, index: number) => {
                         const Index = page * limit + index - limit + 1
                         return (
                             <TableRow key={index}>
                                 <TableCell className="text-center">{Index}</TableCell>
-                                
+
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                 <TableCell className="text-center font-semibold">{item.A} </TableCell>
@@ -422,8 +423,8 @@ const RcnGradingTable = () => {
                                 {/* <TableCell className="text-center">{item.Mc_name}</TableCell> */}
                                 <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                 <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
-                                <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                                <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
                                 <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')} hr</TableCell>
                                 <TableCell className="text-center">{item.noOfEmployees}</TableCell>
                                 {/* <TableCell className="text-center">{item.grading_lotNo}</TableCell> */}
@@ -473,7 +474,7 @@ const RcnGradingTable = () => {
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            
+
 
 
                         </TableRow>)
@@ -482,7 +483,7 @@ const RcnGradingTable = () => {
                             return (
                                 <TableRow key={index}>
                                     <TableCell className="text-center">{Index}</TableCell>
-                                    
+
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center font-semibold">{item.A} </TableCell>
@@ -497,8 +498,8 @@ const RcnGradingTable = () => {
                                     {/* <TableCell className="text-center">{item.Mc_name}</TableCell> */}
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
-                                    <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                                    <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                    <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                    <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
                                     <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')} hr</TableCell>
                                     <TableCell className="text-center">{item.noOfEmployees} </TableCell>
                                     {/* <TableCell className="text-center">{item.grading_lotNo}</TableCell> */}

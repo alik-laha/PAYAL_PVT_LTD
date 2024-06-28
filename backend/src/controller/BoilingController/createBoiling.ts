@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
 import RcnBoiling from "../../model/RcnBoilingModel";
-import LotNo from "../../model/lotNomodel";
+
 
 const CreateBoiling = async (req: Request, res: Response) => {
     try {
-        const { columnMC, columnDate,columnLotNo,columnEmployee,
-            ScoopingLine, breakDown, cookingOff,cookingOn, origin,other,
-            size,pressure,sizeName } = req.body.data;
+        const { columnMC, columnDate, columnLotNo, columnEmployee,
+            ScoopingLine, breakDown, cookingOff, cookingOn, CookingTime, moisture,origin, other,
+            size, pressure, sizeName } = req.body.data;
+
+        console.log(req.body.data)    
 
         const feeledBy = req.cookies.user;
         const timeToMilliseconds = (time: string) => {
@@ -29,40 +31,32 @@ const CreateBoiling = async (req: Request, res: Response) => {
             return time1InMilliseconds;
         }
         console.log(CalculatemachineOnOffTime(cookingOff, cookingOn))
-        const Mc_runTime = CalculatemachineOnOffTime(cookingOff, cookingOn) - (timeToMilliseconds(breakDown) + timeToMilliseconds(other));
-        if (Mc_runTime < 0) {
+        if (CalculatemachineOnOffTime(cookingOff, cookingOn) - (timeToMilliseconds(breakDown) + timeToMilliseconds(other)) < 0) {
             return res.status(400).json({ message: "Machine Run Time can not be negative" });
         }
-        const CookingTime = millisecondsToTime(Mc_runTime);
+        const Mc_runTime = millisecondsToTime(CalculatemachineOnOffTime(cookingOff, cookingOn) - (timeToMilliseconds(breakDown) + timeToMilliseconds(other)));
 
-        try{
-            const Lot= await LotNo.create({
-                lotNo:columnLotNo,
-                createdBy:feeledBy
-            });
-        }
-        catch (err) {
-            return res.status(500).json({ message: "Duplicate Lot No. or Error in Creating Lot No.", err });
-        }
-    
+
+
         const boilingEntry = await RcnBoiling.create({
-            LotNo:columnLotNo,
-            date:columnDate,
-            origin:origin,
-            SizeName:sizeName,
-            Size:size,
-            Scooping_Line_Mc:ScoopingLine,
-            Pressure:pressure,
-            CookingTime:CookingTime,
-            MCName:columnMC,
-            Mc_on:cookingOn,
-            Mc_off:cookingOff,
-            noOfEmployees:columnEmployee,
-            Mc_breakdown:breakDown,
-            Mc_runTime:CookingTime,
-            otherTime:other,
-            CreatedBy:feeledBy
-          
+            LotNo: columnLotNo,
+            date: columnDate,
+            origin: origin,
+            SizeName: sizeName,
+            Size: size,
+            Scooping_Line_Mc: ScoopingLine,
+            Pressure: pressure,
+            CookingTime: CookingTime,
+            moisture:moisture,
+            MCName: columnMC,
+            Mc_on: cookingOn,
+            Mc_off: cookingOff,
+            noOfEmployees: columnEmployee,
+            Mc_breakdown: breakDown,
+            Mc_runTime: Mc_runTime,
+            otherTime: other,
+            CreatedBy: feeledBy
+
 
         });
 

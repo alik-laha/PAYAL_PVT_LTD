@@ -24,6 +24,8 @@ interface RowData{
     sizeName:string;
     size:string;
     ScoopingLine:string;
+    CookingTime:string;
+    moisture:string;
     pressure:string;  
     cookingOn:string;
     cookingOff:string;
@@ -41,14 +43,15 @@ import {
 import { MdDelete } from "react-icons/md";
 const RCNBoilingEntryForm = () => {
 
-    const lotNoRef = useRef<HTMLInputElement>(null)
+    //const lotNoRef = useRef<HTMLInputElement>(null)
     const DateRef = useRef<HTMLInputElement>(null)
     const [mc_name, setMc_name] = useState('')
+  //  const [lotNo, setLotNO] = useState<string>('')
     //const [mc2_name, setMc2_name] = useState('')
     const noofEmployeeRef = useRef<HTMLInputElement>(null)
 
     const [rows,setRows]=useState<RowData[]>([{origin:'',sizeName:'',
-        size:'',ScoopingLine:'',pressure:'',cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00'}
+        size:'',ScoopingLine:'',pressure:'',moisture:'',CookingTime:'',cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00'}
     ]);
 
     const [errortext, setErrortext] = useState('')
@@ -61,7 +64,7 @@ const RCNBoilingEntryForm = () => {
     }
     const addRow = () => {
         setRows([...rows,{origin:'',sizeName:'',
-        size:'',ScoopingLine:'',pressure:'',
+        size:'',ScoopingLine:'',pressure:'',moisture:'',CookingTime:'',
         cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00'}])
     }
 
@@ -74,46 +77,74 @@ const RCNBoilingEntryForm = () => {
         e.preventDefault()
         const date = DateRef.current?.value  
         const noOfEmployees = noofEmployeeRef.current?.value
-        const lotNo = lotNoRef.current?.value
+       // const lotNo = lotNoRef.current?.value
         const Mc_name = mc_name
 
-        const formData=rows.map( row=>({
-            columnLotNo:lotNo,
-            columnDate:date,
-            columnEmployee:noOfEmployees,
-            columnMC:Mc_name,...row
+        // const formData=rows.map( row=>({
+        //     columnLotNo:lotNo,
+        //     columnDate:date,
+        //     columnEmployee:noOfEmployees,
+        //     columnMC:Mc_name,...row
 
-        }))
+        // }))
         //console.log('Submitted Data:',formData);
-
+  
        try{
-        for (const data of formData){
-             axios.post('/api/boiling/createBoiling', { data }) .then(res => {
-                setErrortext(res.data.message)
-                if (res.status === 200) {
-                    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                    dialog.showModal()
-                    setTimeout(() => {
-                        dialog.close()
-                        window.location.reload()
-                    }, 2000)
-                }
-            })
-            .catch(err => {
-                console.log(err.response.data.message)
-                setErrortext(err.response.data.message)
-                const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
-                dialog.showModal()
-                setTimeout(() => {
-                    dialog.close()
-                }, 2000)
-            })
-
-        }
+        axios.post('/api/boiling/createLotNo', { }) .then(res => {
+            console.log(res)
+            //setLotNO(res.data.newSequence)  
+            const formData=rows.map( row=>({
+                columnLotNo:res.data.newSequence,
+                columnDate:date,
+                columnEmployee:noOfEmployees,
+                columnMC:Mc_name,...row
+    
+            }))
+            let boilingcount=0
+           
+                for (const data of formData){
+                    axios.post('/api/boiling/createBoiling', { data }) .then(res => {
+                       boilingcount++;
+                       if(formData.length===boilingcount){
+                           setErrortext(res.data.message)
+                            
+                           if (res.status === 200) {
+                               const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                               dialog.showModal()
+                               setTimeout(() => {
+                                   dialog.close()
+                                   window.location.reload()
+                               }, 2000)
+                           }
+       
+                       }
+                      
+                   })
+                   .catch(err => {
+                       console.log(err)
+                       setErrortext(err.response.data.message)
+                       const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                       dialog.showModal()
+                       setTimeout(() => {
+                           dialog.close()
+                       }, 2000)
+                   })
+       
+               
+    
+            }
+        }).catch(err => {
+            console.log(err)
+            
+        })
+        
+        
        }
+
        catch (err){
         console.log(err)
        }
+
     };
 
     const successdialog = document.getElementById('myDialog') as HTMLInputElement;
@@ -151,8 +182,7 @@ const RCNBoilingEntryForm = () => {
                    <div className="mx-8 flex flex-col gap-1"> 
                     <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
                     <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
-                    <div className="flex"><Label className="w-2/4  pt-1">Lot No.</Label>
-                    <Input className="w-2/4 " placeholder="Lot No." ref={lotNoRef} required /> </div>
+                   
                     <div className="flex"><Label className="w-2/4  pt-1">Labours</Label>
                     <Input className="w-2/4 " placeholder="No. of Labours" ref={noofEmployeeRef} required /> </div>
                     <div className="flex">
@@ -187,8 +217,10 @@ const RCNBoilingEntryForm = () => {
                              <TableHead className="text-center" >Boiling Quantity</TableHead>
                              <TableHead className="text-center" >Scooping Line No.</TableHead>
                              <TableHead className="text-center" >Pressure</TableHead>
+                             <TableHead className="text-center" >Moisture</TableHead>
                              <TableHead className="text-center" >Cooking On</TableHead>
                              <TableHead className="text-center" >Cooking Off</TableHead>
+                             <TableHead className="text-center" >Cooking Time</TableHead>
                              <TableHead className="text-center" >Breakdown Duration</TableHead>
                              <TableHead className="text-center" >Other Duration</TableHead>
                              <TableHead className="text-center" >Action</TableHead>
@@ -268,11 +300,12 @@ const RCNBoilingEntryForm = () => {
 
                                         </TableCell>
                                      
-                                        <TableCell className="text-center"><Input  value={row.pressure} placeholder="Pr." onChange={(e) => handleRowChange(index,'pressure',e.target.value)} required /></TableCell>
-                                        
+                                        <TableCell className="text-center"><Input  value={row.pressure} placeholder="psi" onChange={(e) => handleRowChange(index,'pressure',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"><Input  value={row.moisture} placeholder="%" onChange={(e) => handleRowChange(index,'moisture',e.target.value)} required /></TableCell>
+
                                         <TableCell className="text-center "> <Input className="bg-green-100"  value={row.cookingOn} placeholder="MC ON Time" onChange={(e) => handleRowChange(index,'cookingOn',e.target.value)} type='time' required /></TableCell>
                                         <TableCell className="text-center"><Input className="bg-red-100" value={row.cookingOff} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'cookingOff',e.target.value)} type='time' required /></TableCell>
-
+                                        <TableCell className="text-center"><Input  value={row.CookingTime}  placeholder="CookingTime" onChange={(e) => handleRowChange(index,'CookingTime',e.target.value)} type='time' required /></TableCell>
                                           <TableCell className="text-center"><Input  value={row.breakDown} defaultValue='00:00' placeholder="Break Down Time" onChange={(e) => handleRowChange(index,'breakDown',e.target.value)} type='time'  /></TableCell>
                                           <TableCell className="text-center"><Input  value={row.other} defaultValue='00:00' placeholder="Other" onChange={(e) => handleRowChange(index,'other',e.target.value)} type='time'  /></TableCell>
                                           <TableCell className="text-center">

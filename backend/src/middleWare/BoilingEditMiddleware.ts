@@ -5,7 +5,7 @@ const BoilingEditMiddleWare = async (req: Request, res: Response, next: NextFunc
         
         const {  Mc_name, 
             scopline, Mc_breakdown, Mc_off,Mc_on, origin,otherTime,
-            size
+            size,cookingTime
          } = req.body;
         if (!Mc_name || !origin  || !size || !scopline ) {
             return res.status(400).json({ message: "All Fields Are Required" })
@@ -15,12 +15,7 @@ const BoilingEditMiddleWare = async (req: Request, res: Response, next: NextFunc
             return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
         };
         // Helper function to convert milliseconds to "HH:MM"
-        const millisecondsToTime = (milliseconds: number) => {
-            const totalMinutes = Math.floor(milliseconds / 60000);
-            const hours = Math.floor(totalMinutes / 60);
-            const minutes = totalMinutes % 60;
-            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-        };
+      
 
         const CalculatemachineOnOffTime = (time1: string, time2: string) => {
             const time1InMilliseconds = timeToMilliseconds(time1) - timeToMilliseconds(time2);
@@ -34,7 +29,10 @@ const BoilingEditMiddleWare = async (req: Request, res: Response, next: NextFunc
         if (Mc_runTime < 0) {
             return res.status(400).json({ message: "Machine Run Time can not be negative" });
         }
-        const CookingTime = millisecondsToTime(Mc_runTime);
+       // const CookingTime = millisecondsToTime(Mc_runTime);
+       if (cookingTime > Mc_runTime) {
+        return res.status(400).json({ message: "Cooking Time Can't Be Greater Than MC Run time" });
+    }
 
         next();
 

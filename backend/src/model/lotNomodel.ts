@@ -16,6 +16,12 @@ const LotNo = sequelize.define('lotNo', {
         type: DataTypes.STRING,
         allowNull: false,
        
+    },
+    modifiedBy: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        
+       
     }
 }, {
         indexes: [

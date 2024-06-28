@@ -4,9 +4,11 @@ const BoilingMiddleWare = async (req: Request, res: Response, next: NextFunction
     try {
         
         const {  columnMC, 
-            ScoopingLine, breakDown, cookingOff,cookingOn, origin,other,
+            ScoopingLine, breakDown, cookingOff,cookingOn, origin,other,cookingTime,
             size
          } = req.body.data;
+         console.log('middlware')
+         console.log(req.body.data)
         if (!columnMC || !origin  || !size || !ScoopingLine ) {
             return res.status(400).json({ message: "All Fields Are Required" })
         }
@@ -15,12 +17,7 @@ const BoilingMiddleWare = async (req: Request, res: Response, next: NextFunction
             return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
         };
         // Helper function to convert milliseconds to "HH:MM"
-        const millisecondsToTime = (milliseconds: number) => {
-            const totalMinutes = Math.floor(milliseconds / 60000);
-            const hours = Math.floor(totalMinutes / 60);
-            const minutes = totalMinutes % 60;
-            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-        };
+      
 
         const CalculatemachineOnOffTime = (time1: string, time2: string) => {
             const time1InMilliseconds = timeToMilliseconds(time1) - timeToMilliseconds(time2);
@@ -34,11 +31,15 @@ const BoilingMiddleWare = async (req: Request, res: Response, next: NextFunction
         if (Mc_runTime < 0) {
             return res.status(400).json({ message: "Machine Run Time can not be negative" });
         }
-        const CookingTime = millisecondsToTime(Mc_runTime);
+        //const CookingTime = millisecondsToTime(Mc_runTime);
+        if (cookingTime > Mc_runTime) {
+            return res.status(400).json({ message: "Cooking Time Can't Be Greater Than MC Run time" });
+        }
 
         next();
 
     } catch (err) {
+        console.log('catch in middleware')
         return res.status(500).json({ message: "internal server Error" });
     }
 }

@@ -12,7 +12,7 @@ const UpdateBoiling = async (req: Request, res: Response) => {
         const {  origin,
             LotNo,
             date,
-            size,sizename,scopline,presr,Mc_name,Mc_on,Mc_off,noOfEmployees,Mc_breakdown,otherTime } = req.body
+            size,sizename,scopline,presr,Mc_name,Mc_on,Mc_off,noOfEmployees,Mc_breakdown,otherTime,cookingTime,moisture } = req.body
         const timeToMilliseconds = (time: string) => {
             const [hours, minutes] = time.split(':').map(Number);
             return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
@@ -46,10 +46,11 @@ const UpdateBoiling = async (req: Request, res: Response) => {
             Size:size,
             Scooping_Line_Mc:scopline,
             Pressure:presr,
-            CookingTime:Mc_runTime,
+            CookingTime:cookingTime,
             MCName:Mc_name,
             Mc_on:Mc_on,
             Mc_off:Mc_off,
+            moisture:moisture,
             noOfEmployees:noOfEmployees,
             Mc_breakdown:Mc_breakdown,
             Mc_runTime:Mc_runTime,

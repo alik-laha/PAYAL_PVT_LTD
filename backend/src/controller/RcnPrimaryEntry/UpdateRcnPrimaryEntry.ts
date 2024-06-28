@@ -8,13 +8,7 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin, date } = req.body;
-        let difference
-        if (blWeight > netWeight) {
-            difference = blWeight - netWeight;
-        }
-        if (netWeight > blWeight) {
-            difference = netWeight - blWeight
-        }
+        let difference = blWeight - netWeight;
 
         const editedBy = req.cookies.user
         if (!id) {
@@ -37,7 +31,7 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
             },
         })) as RcnPrimaryModifyProps | null;
 
-        const data = await WhatsappMsg("RCN Primary Receiving", editedBy,"modify_request")
+        const data = await WhatsappMsg("RCN Primary Receiving", editedBy, "modify_request")
         console.log(data)
 
 
