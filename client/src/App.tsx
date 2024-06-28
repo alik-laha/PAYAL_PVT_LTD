@@ -14,6 +14,7 @@ import RCNBoiling from './components/RCN Boiling/RCNBoiling'
 import RCNScooping from './components/RCN Scooping/RCNScooping'
 
 import { Navigate } from 'react-router-dom'
+import Maintenance from './components/Maintenance/GraddingMaintenance/Graddingmaintenance'
 
 
 function App() {
@@ -61,16 +62,19 @@ function App() {
 
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-        'BoilingSupervisor', 'ProductionManager']} />}>
-        <Route path='/dashboard/rcnBoiling' element={<RCNBoiling />} />
+          'BoilingSupervisor', 'ProductionManager']} />}>
+          <Route path='/dashboard/rcnBoiling' element={<RCNBoiling />} />
         </Route>
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-        'ScoopingSupervisor', 'ProductionManager']} />}>
-        <Route path='/dashboard/rcnScooping' element={<RCNScooping />} />
+          'ScoopingSupervisor', 'ProductionManager']} />}>
+          <Route path='/dashboard/rcnScooping' element={<RCNScooping />} />
         </Route>
-       
-        
-       
+
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'ScoopingSupervisor', 'ProductionManager']} />}>
+          <Route path='/dashboard/machineMaintainance' element={<Maintenance />} />
+        </Route>
+
 
       </Routes>
     </>
