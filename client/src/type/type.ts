@@ -298,6 +298,7 @@ export interface BoilingExcelData {
     Boiling_Qty: string;
     Scooping_Line: string;
     Pressure: string;
+    Moisture:string;
     Machine: string;
     MC_On: string;
     MC_Off: string;
@@ -305,7 +306,7 @@ export interface BoilingExcelData {
     Breakdown_Duration: string;
     Other_Duration: string;
     Cooking_Time:string;
-   // Run_Duration: string;
+    Run_Duration: string;
     Edit_Status: string;
     Entried_By: string;
     ApprovedOrRejectedBy:string;

@@ -179,13 +179,16 @@ const RCNBoilingTable = () => {
                 Boiling_Qty: item.Size,
                 Scooping_Line: item.Scooping_Line_Mc,
                 Pressure: item.Pressure,
+                Moisture:item.moisture,
+                Cooking_Time:item.CookingTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')+' hr.' ,
                 Machine: item.MCName,
                 MC_On: handleAMPM(item.Mc_on.slice(0, 5)),
                 MC_Off: handleAMPM(item.Mc_off.slice(0, 5)),
                 Labour_No: item.noOfEmployees,
-                Breakdown_Duration: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')+' hr.' ,
-                Other_Duration: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')+' hr.',
-                Cooking_Time:item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')+' hr.',
+                Breakdown_Duration: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')+' hr.' ,
+                Other_Duration: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')+' hr.',
+                Run_Duration:item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0/, '')+' hr.',
+
                 Edit_Status: item.editStatus,
                 Entried_By: item.CreatedBy,
                 ApprovedOrRejectedBy:item.modifiedBy
@@ -205,13 +208,14 @@ const RCNBoilingTable = () => {
                 Boiling_Qty: item.Size,
                 Scooping_Line: item.Scooping_Line_Mc,
                 Pressure: item.Pressure,
+                Cooking_Time:item.CookingTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')+' hr.' ,
                 Machine: item.MCName,
                 MC_On: handleAMPM(item.Mc_on.slice(0, 5)),
                 MC_Off: handleAMPM(item.Mc_off.slice(0, 5)),
                 Labour_No: item.noOfEmployees,
-                Breakdown_Duration: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')+' hr.' ,
-                Other_Duration: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')+' hr.',
-                Cooking_Time:item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')+' hr.',
+                Breakdown_Duration: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')+' hr.' ,
+                Other_Duration: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')+' hr.',
+                Run_Duration:item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0/, '')+' hr.',
                 Edit_Status: item.editStatus,
                 Entried_By: item.CreatedBy,
                 ApprovedOrRejectedBy:item.modifiedBy
@@ -411,7 +415,7 @@ const RCNBoilingTable = () => {
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                                    <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                    <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
                                     <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')} hr</TableCell>
                                     <TableCell className="text-center">{item.noOfEmployees}</TableCell>
                                     <TableCell className="text-center">{item.CreatedBy}</TableCell>
@@ -481,7 +485,7 @@ const RCNBoilingTable = () => {
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                                    <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                    <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
                                     <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')} hr</TableCell>
                                     <TableCell className="text-center">{item.noOfEmployees}</TableCell>
                                     <TableCell className="text-center">{item.CreatedBy}</TableCell>
