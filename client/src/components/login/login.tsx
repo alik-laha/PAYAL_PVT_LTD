@@ -30,7 +30,7 @@ export const Login = () => {
 
 
 
-    const handleSubmit =async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const username = usernameRef.current?.value;
         const password = passwordRef.current?.value;
@@ -47,6 +47,8 @@ export const Login = () => {
             setErrView('block');
             return;
         }
+        const countdownStartTime = localStorage.getItem('countdownStartTime');
+
         setErrView('none');
         axios.post('/api/user/login', { userName: username, password })
             .then(res => {
@@ -57,6 +59,9 @@ export const Login = () => {
                 localStorage.setItem('role', res.data.role);
                 localStorage.setItem('dept', res.data.dept);
                 localStorage.setItem('user', res.data.user);
+                if (!countdownStartTime) {
+                    localStorage.setItem('countdownStartTime', String(new Date().getTime()));
+                }
             }).catch(err => {
                 console.log(err)
                 setErrMsg(err.response.data.error);
@@ -74,7 +79,7 @@ export const Login = () => {
     return (
         <div className="flex flex-col items-center justify-center h-screen  w-screen login-container">
             <div className="p-8 border-2 flex justify-center items-center flex-col rounded-xl login">
-                <img src={img} width={60} height={100}></img>
+                <img src={img} width={"60"} height={100}></img>
                 <h1 className="text-2xl font-bold mb-3 pb-7 mt-2 text-center text-blue-950 drop-shadow-md ">PAYAL DEALERS PVT. LTD</h1>
 
                 <Select>

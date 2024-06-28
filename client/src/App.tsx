@@ -12,11 +12,35 @@ import Private from './components/private/private'
 import QCRcn from './components/qcRCN/QCRcn'
 import RCNBoiling from './components/RCN Boiling/RCNBoiling'
 import RCNScooping from './components/RCN Scooping/RCNScooping'
+import { Time } from './components/common/exportData'
 
 import { Navigate } from 'react-router-dom'
-
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function App() {
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    axios.get('/api/user/logout').then(() => {
+      localStorage.removeItem('role')
+      localStorage.removeItem('dept')
+      navigate('/login')
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+  const countdownStartTime = localStorage.getItem('countdownStartTime');
+  let elapsedTime = 0;
+  const durationInMillis = Time * 60 * 60 * 1000;
+  if (countdownStartTime) {
+    const currentTime = new Date().getTime();
+    elapsedTime = currentTime - parseInt(countdownStartTime);
+  }
+  const remainingTime = durationInMillis - elapsedTime;
+  setTimeout(function () {
+    handleLogout()
+  }, remainingTime);
 
   return (
     <>
@@ -61,16 +85,16 @@ function App() {
 
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-        'BoilingSupervisor', 'ProductionManager']} />}>
-        <Route path='/dashboard/rcnBoiling' element={<RCNBoiling />} />
+          'BoilingSupervisor', 'ProductionManager']} />}>
+          <Route path='/dashboard/rcnBoiling' element={<RCNBoiling />} />
         </Route>
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-        'ScoopingSupervisor', 'ProductionManager']} />}>
-        <Route path='/dashboard/rcnScooping' element={<RCNScooping />} />
+          'ScoopingSupervisor', 'ProductionManager']} />}>
+          <Route path='/dashboard/rcnScooping' element={<RCNScooping />} />
         </Route>
-       
-        
-       
+
+
+
 
       </Routes>
     </>
