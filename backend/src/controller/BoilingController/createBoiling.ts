@@ -5,7 +5,7 @@ import RcnBoiling from "../../model/RcnBoilingModel";
 const CreateBoiling = async (req: Request, res: Response) => {
     try {
         const { columnMC, columnDate, columnLotNo, columnEmployee,
-            ScoopingLine, breakDown, cookingOff, cookingOn, CookingTime, origin, other,
+            ScoopingLine, breakDown, cookingOff, cookingOn, CookingTime, moisture,origin, other,
             size, pressure, sizeName } = req.body.data;
 
         const feeledBy = req.cookies.user;
@@ -44,6 +44,7 @@ const CreateBoiling = async (req: Request, res: Response) => {
             Scooping_Line_Mc: ScoopingLine,
             Pressure: pressure,
             CookingTime: CookingTime,
+            moisture:moisture,
             MCName: columnMC,
             Mc_on: cookingOn,
             Mc_off: cookingOff,

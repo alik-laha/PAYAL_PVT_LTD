@@ -43,6 +43,11 @@ const RcnBoiling = sequelize.define('rcnBoiling', {
         type: DataTypes.TIME,
         allowNull: false
     },
+    moisture: 
+    {
+        type: DataTypes.FLOAT,
+        allowNull: false
+    },
     
     MCName: {
         type: DataTypes.STRING,

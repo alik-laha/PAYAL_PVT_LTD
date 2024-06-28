@@ -25,6 +25,7 @@ interface RowData{
     size:string;
     ScoopingLine:string;
     CookingTime:string;
+    moisture:string;
     pressure:string;  
     cookingOn:string;
     cookingOff:string;
@@ -50,7 +51,7 @@ const RCNBoilingEntryForm = () => {
     const noofEmployeeRef = useRef<HTMLInputElement>(null)
 
     const [rows,setRows]=useState<RowData[]>([{origin:'',sizeName:'',
-        size:'',ScoopingLine:'',pressure:'',CookingTime:'',cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00'}
+        size:'',ScoopingLine:'',pressure:'',moisture:'',CookingTime:'',cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00'}
     ]);
 
     const [errortext, setErrortext] = useState('')
@@ -63,7 +64,7 @@ const RCNBoilingEntryForm = () => {
     }
     const addRow = () => {
         setRows([...rows,{origin:'',sizeName:'',
-        size:'',ScoopingLine:'',pressure:'',CookingTime:'',
+        size:'',ScoopingLine:'',pressure:'',moisture:'',CookingTime:'',
         cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00'}])
     }
 
@@ -107,14 +108,14 @@ const RCNBoilingEntryForm = () => {
                        if(formData.length===boilingcount){
                            setErrortext(res.data.message)
                             
-                           // if (res.status === 200) {
-                           //     const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                           //     dialog.showModal()
-                           //     setTimeout(() => {
-                           //         dialog.close()
-                           //         window.location.reload()
-                           //     }, 2000)
-                           // }
+                           if (res.status === 200) {
+                               const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                               dialog.showModal()
+                               setTimeout(() => {
+                                   dialog.close()
+                                   window.location.reload()
+                               }, 2000)
+                           }
        
                        }
                       
@@ -216,6 +217,7 @@ const RCNBoilingEntryForm = () => {
                              <TableHead className="text-center" >Boiling Quantity</TableHead>
                              <TableHead className="text-center" >Scooping Line No.</TableHead>
                              <TableHead className="text-center" >Pressure</TableHead>
+                             <TableHead className="text-center" >Moisture</TableHead>
                              <TableHead className="text-center" >Cooking On</TableHead>
                              <TableHead className="text-center" >Cooking Off</TableHead>
                              <TableHead className="text-center" >Cooking Time</TableHead>
@@ -299,7 +301,8 @@ const RCNBoilingEntryForm = () => {
                                         </TableCell>
                                      
                                         <TableCell className="text-center"><Input  value={row.pressure} placeholder="psi" onChange={(e) => handleRowChange(index,'pressure',e.target.value)} required /></TableCell>
-                                        
+                                        <TableCell className="text-center"><Input  value={row.moisture} placeholder="%" onChange={(e) => handleRowChange(index,'moisture',e.target.value)} required /></TableCell>
+
                                         <TableCell className="text-center "> <Input className="bg-green-100"  value={row.cookingOn} placeholder="MC ON Time" onChange={(e) => handleRowChange(index,'cookingOn',e.target.value)} type='time' required /></TableCell>
                                         <TableCell className="text-center"><Input className="bg-red-100" value={row.cookingOff} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'cookingOff',e.target.value)} type='time' required /></TableCell>
                                         <TableCell className="text-center"><Input  value={row.CookingTime}  placeholder="CookingTime" onChange={(e) => handleRowChange(index,'CookingTime',e.target.value)} type='time' required /></TableCell>

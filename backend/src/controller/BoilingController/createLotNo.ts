@@ -9,7 +9,7 @@ try{
     //const { columnLotNo} = req.body.data;
       const feeledBy = req.cookies.user;
 
-      const currentDate = new Date(`2025-03-31`);
+      const currentDate = new Date();
       //console.log(currentDate);
       const currentYear = currentDate.getMonth() >= 3 ? currentDate.getFullYear() : currentDate.getFullYear() - 1;
     
@@ -32,7 +32,7 @@ try{
     
       // Save the new sequence to the database
       await LotNo.create({ lotNo: newSequence ,createdBy:feeledBy})
-      console.log('New sequence generated and saved:', newSequence);
+      //console.log('New sequence generated and saved:', newSequence);
       return res.status(201).json({ msg: `Lot No ${newSequence} is Created`, newSequence });
     
      
