@@ -18,8 +18,8 @@ try{
         order: [['id', 'DESC']] ,
       }) as lotNoData | null;
     
-      let sequenceId = 0;
-    
+      //let sequenceId = 0;
+      let sequenceId=Number(process.env.START_LOTNO)
       if (latestSequence) {
         const latestYear = parseInt(latestSequence.lotNo.split('-')[0], 10);
         if (latestYear === currentYear) {

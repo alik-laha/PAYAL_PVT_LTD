@@ -62,7 +62,7 @@ const EmployeeTable = () => {
     const [Data, setData] = useState<EmployeeData[]>([])
     const [Error, setError] = useState<string>("")
     const [releaseDate, setReleaseDate] = useState<string>("")
-    const [transformedData, setTransformedData] = useState<EmployeeData[]>([]);
+    // const [transformedData, setTransformedData] = useState<EmployeeData[]>([]);
     const currDate = new Date().toLocaleDateString();
     const [errview, setErrView] = useState<string>("hidden")
     const limit = pagelimit
@@ -99,7 +99,8 @@ const EmployeeTable = () => {
 
         const response = await axios.post('/api/employee/searchemployee', {}, {})
         const data1 = await response.data
-        const transformed = data1.Employees.map((item: EmployeeData, idx: number) => ({
+        let transformed:EmployeeData[] = [];
+        transformed= data1.Employees.map((item: EmployeeData, idx: number) => ({
             id: idx + 1,
             employeeId: item.employeeId,
             employeeName: item.employeeName,
@@ -124,8 +125,8 @@ const EmployeeTable = () => {
 
 
         }));
-        setTransformedData(transformed);
-        const ws = XLSX.utils.json_to_sheet(transformedData);
+        //setTransformedData(transformed);
+        const ws = XLSX.utils.json_to_sheet(transformed);
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });

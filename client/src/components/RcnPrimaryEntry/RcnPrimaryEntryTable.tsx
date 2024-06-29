@@ -85,7 +85,7 @@ const RcnPrimaryEntryTable = () => {
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialog') as HTMLInputElement;
     const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialog') as HTMLInputElement;
 
-    const [transformedData, setTransformedData] = useState<ExcelRcnPrimaryEntryData[]>([]);
+    //const [transformedData, setTransformedData] = useState<ExcelRcnPrimaryEntryData[]>([]);
 
     if (rejectcloseDialogButton) {
         rejectcloseDialogButton.addEventListener('click', () => {
@@ -163,7 +163,7 @@ const RcnPrimaryEntryTable = () => {
         const data1 = await response.data
 
         let ws
-        let transformed
+        let transformed:ExcelRcnPrimaryEntryData[] = [];
         if (EditData.length > 0) {
 
             transformed = EditData.map((item: EditPendingData, idx: number) => ({
@@ -184,8 +184,8 @@ const RcnPrimaryEntryTable = () => {
                 Approved_or_Reverted_By: item.approvedBy
                 // approvedBy is not there in edit rcn table
             }));
-            setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformedData);
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
             transformed = data1.rcnEntries.map((item: RcnPrimaryEntryData, idx: number) => ({
@@ -205,8 +205,8 @@ const RcnPrimaryEntryTable = () => {
                 Approved_or_Rejected_By: item.approvedBy
 
             }));
-            setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformedData);
+           // setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
         }
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
