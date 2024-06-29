@@ -50,10 +50,6 @@ const getGradingStockByOrigin = async (req: Request, res: Response) => {
             ],
             where: {
                 
-                [Op.or]: [
-                    { editStatus: 'Approved' },
-                    { editStatus: 'NA' }
-                ],
                 origin: {
                     [Op.like]: `%${originName}%`
                 }

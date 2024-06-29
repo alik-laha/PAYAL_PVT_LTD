@@ -66,12 +66,8 @@ const RcnGradingCreateForm = () => {
         if (sumGrade > originStock)
              {
             setErrortext('Total Bag Entry Cannot Exceed Stock Left')
-           
             dialog.showModal()
             return
-            
-
-
         }
 
         axios.post('/api/grading/createGrading', { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, Mc_breakdown, otherTime, grading_lotNo })
@@ -97,12 +93,15 @@ const RcnGradingCreateForm = () => {
             })
     }
     const handleoriginStock = (value:string) => {
-        setOriginStock(0)
+        //setOriginStock(0)
         setOrigin(value)
         axios.get(`/api/grading/getGradeStockByOrigin/${value}`)
         .then(res => {
           if(res.data.finalSum){
             setOriginStock(res.data.finalSum)
+          }  
+          else{
+            setOriginStock(0)
           }           
         })
         .catch(err => {
@@ -146,7 +145,7 @@ const RcnGradingCreateForm = () => {
                             </SelectGroup>
                         </SelectContent>
                     </Select>
-                    <Label className="w-1/3 pt-1 ml-2 text-center text-red-500">Stock  : {originStock} Bag</Label>
+                    <Label className="w-1/3 pt-1 ml-2 text-center font-semibold text-red-500">Stock  : {originStock} Bag</Label>
                 </div>
 
                 <div className="flex mt-3">
