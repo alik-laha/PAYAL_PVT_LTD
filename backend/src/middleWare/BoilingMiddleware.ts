@@ -32,9 +32,9 @@ const BoilingMiddleWare = async (req: Request, res: Response, next: NextFunction
             return res.status(400).json({ message: "Machine Run Time can not be negative" });
         }
         //const CookingTime = millisecondsToTime(Mc_runTime);
-        if (cookingTime > Mc_runTime) {
-            return res.status(400).json({ message: "Cooking Time Can't Be Greater Than MC Run time" });
-        }
+        // if (Number(timeToMilliseconds(cookingTime)) > Number(Mc_runTime)) {
+        //     return res.status(400).json({ message: "Cooking Time Can't Be Greater Than MC Run time" });
+        // }
 
         next();
 
