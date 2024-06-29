@@ -17,6 +17,7 @@ import { Time } from './components/common/exportData'
 import { Navigate } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import EmailEntryforResetpassword from './components/forgotPassword/EmailEntryforResetpassword'
 
 function App() {
   const navigate = useNavigate()
@@ -48,7 +49,7 @@ function App() {
     <>
 
       <Routes>
-        <Route path='/forgotpass' element={<h1>Alik laha</h1>} />
+        <Route path='/forgotpass' element={<EmailEntryforResetpassword />} />
         <Route path='/' element={<Navigate to={"/dashboard"} replace />} />
         <Route path="/login" element={<Login />} />
 

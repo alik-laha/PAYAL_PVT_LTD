@@ -14,25 +14,17 @@ const forgotPasswordModel = sequelize.define('forgotPassword', {
         allowNull: false
     },
     EmployeeId: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Employee,
-            key: 'employeeId'
-        }
+        type: DataTypes.STRING,
     },
     userId: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: User,
-            key: 'id'
-        }
+        type: DataTypes.BIGINT,
     },
     verificationCode: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
     verificationCodeTime: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         allowNull: false
     }
 });
