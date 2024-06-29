@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
 
-import LotNo from "../../model/lotNomodel";
+import RcnBoiling from "../../model/RcnBoilingModel";
 
 
 const deleteBoilingByLot= async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
-        await LotNo.destroy({
+        await RcnBoiling.destroy({
             where: {
-                lotNo: id
+                LotNo: id
             }
         });
-        return res.status(200).json({ message: "Lot No. has deleted successfully" })
+        return res.status(200).json({ message: "boiling Entry Is deleted successfully" })
     }
     catch (err) {
         return res.status(500).json({ message: "Internal Server Error" })
