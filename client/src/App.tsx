@@ -18,6 +18,7 @@ import { Navigate } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import EmailEntryforResetpassword from './components/forgotPassword/EmailEntryforResetpassword'
+import VerifyCodeAndResetPassword from './components/forgotPassword/VerifyCodeAndResetPassword'
 
 function App() {
   const navigate = useNavigate()
@@ -47,16 +48,13 @@ function App() {
 
   return (
     <>
-
       <Routes>
         <Route path='/forgotpass' element={<EmailEntryforResetpassword />} />
+        <Route path='/changePassword' element={<VerifyCodeAndResetPassword />} />
         <Route path='/' element={<Navigate to={"/dashboard"} replace />} />
         <Route path="/login" element={<Login />} />
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'ReceivingSupervisor', 'ReceivingManager',
-          'MaintainanceSupervisor',
-          'GradingSupervisor', 'QCManager', 'ProductionManager', 'QCSupervisor']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager', 'MaintainanceSupervisor', 'GradingSupervisor', 'QCManager', 'ProductionManager', 'QCSupervisor']} />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
@@ -72,34 +70,25 @@ function App() {
           <Route path="/dashboard/machine" element={<Machine />} />
         </Route>
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'ReceivingSupervisor', 'ReceivingManager']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager']} />}>
           <Route path="/dashboard/rcnprimaryentry" element={<RcnPrimaryEntry />} />
         </Route>
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'QCSupervisor', 'QCManager']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>
           <Route path="/dashboard/qcRCN" element={<QCRcn />} />
         </Route>
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'GradingSupervisor', 'ProductionManager']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'GradingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/rcnGrading' element={<RcnGrading />} />
         </Route>
 
-
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'BoilingSupervisor', 'ProductionManager']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'BoilingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/rcnBoiling' element={<RCNBoiling />} />
         </Route>
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'ScoopingSupervisor', 'ProductionManager']} />}>
+
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ScoopingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/rcnScooping' element={<RCNScooping />} />
         </Route>
-
-
-
-
       </Routes>
     </>
   )

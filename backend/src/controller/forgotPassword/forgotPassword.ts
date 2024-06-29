@@ -24,6 +24,10 @@ export default async function forgotPassword(req: Request, res: Response) {
         console.log(verificationCode)
         const verificationCodeTime = Date.now() + 5 * 60 * 1000;
         const userData: any = await User.findOne({ where: { employeeId: employee.employeeId } })
+        const forgotData: any = await forgotPasswordModel.findOne({ where: { userId: userData.id } });
+        if (forgotData) {
+            await forgotData.destroy();
+        }
         console.log(verificationCodeTime)
         if (!userData) {
             return res.status(404).json({ error: "Check the email this email is not Registered" });
@@ -34,7 +38,6 @@ export default async function forgotPassword(req: Request, res: Response) {
         }
         const Mail = await ResetPassword(email, verificationCode);
         if (Mail) {
-            res.cookie('verificationCode', verificationCode, { httpOnly: true });
             return res.status(200).json({ message: "Verification Code Sent to your Email" });
         }
         return res.status(500).json({ error: "Internal Server Error" });

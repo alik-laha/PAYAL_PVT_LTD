@@ -1,14 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig";
-import Employee from "./employeeModel";
-import User from "./userModel";
 
 const forgotPasswordModel = sequelize.define('forgotPassword', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
     email: {
         type: DataTypes.STRING,
         allowNull: false
@@ -17,7 +10,8 @@ const forgotPasswordModel = sequelize.define('forgotPassword', {
         type: DataTypes.STRING,
     },
     userId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
+        primaryKey: true,
     },
     verificationCode: {
         type: DataTypes.INTEGER,
