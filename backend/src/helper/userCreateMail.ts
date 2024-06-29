@@ -72,7 +72,7 @@ export const userPasswordModifiedMail = async (email: string, password: string) 
     return await transport.sendMail(mail)
 }
 
-export const ResetPassword = async (email: string, id: number) => {
+export const ResetPassword = async (email: string, id: string) => {
     console.log(email, id)
     const mail = {
         from: {
@@ -81,10 +81,11 @@ export const ResetPassword = async (email: string, id: number) => {
         },
         to: email,
         subject: "Reset Password",
-        text: `Your Verification code is ${id}`,
+        text: `Your Verification code Url is : ${process.env.RESET_PASSWORD_URL}/${id}`,
         html: `<h4>Hi User,</h4>,<br/><br/>
-       <h4> Your Verification code is : <b>${id}</b> for Resetting Password.</h4><br/><br/>
-                <b>Website :</b><a href="${process.env.DOMAIN}">Click Here</a>`,
+       <h4> You Have Requsted for Resetting Password.</h4><br/><br/>
+         <h4>Go To This Link</h4><br/><br/>
+                <b>Website :</b><a href="${process.env.RESET_PASSWORD_URL}/${id}">Click Here</a>`,
 
     }
     return await transport.sendMail(mail)

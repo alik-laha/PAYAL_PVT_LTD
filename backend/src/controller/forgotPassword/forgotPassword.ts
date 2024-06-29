@@ -1,33 +1,34 @@
 import { Request, Response } from 'express'
-import User from '../../model/userModel';
+import Employee from '../../model/userModel';
 import crypto from 'crypto';
 import { ResetPassword } from '../../helper/userCreateMail';
+import forgotPasswordModel from '../../model/forgotPasswordModel';
+import User from '../../model/userModel';
 
 
 
 export default async function forgotPassword(req: Request, res: Response) {
     try {
         const { email } = req.body;
-        const user: any = await User.findOne({ where: { email } });
+        const employee: any = await Employee.findOne({ where: { email } });
+        if (!employee) {
+            return res.status(404).json({ error: "Check the email this email is not Registered" });
+        }
+        let verificationCode = crypto.randomBytes(8).toString('hex');
+        const verificationCodeTime = Date.now() + 5 * 60 * 1000;
+        const user: any = await User.findOne({ where: { employeeId: employee.employeeId } })
         if (!user) {
             return res.status(404).json({ error: "Check the email this email is not Registered" });
         }
-        let verificationCode = 0;
-        crypto.randomInt(100000, 999999, (err, n) => {
-            if (err) throw err;
-            verificationCode = n;
-        });
+        const forgot = await forgotPasswordModel.create({ email, EmployeeId: employee.id, verificationCode, verificationCodeTime, userId: user.id });
+        if (!forgot) {
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
         const Mail = await ResetPassword(email, verificationCode);
-        const currentTime = String(new Date().getTime() + 5 * 60 * 1000);
         if (Mail) {
-            res.cookie('reset', verificationCode, { httpOnly: true })
-            res.cookie('userId', user.id, { httpOnly: true });
-            res.cookie('verifyExpResetPass', new Date().getTime() + 5 * 60 * 1000, { httpOnly: true });
-            return res.status(200).json({ message: "Verification code sent to your email" });
+            return res.status(200).json({ message: "Verification Code Sent to your Email" });
         }
-        else {
-            return res.status(400).json({ error: "Verification code not sent" });
-        }
+        return res.status(500).json({ error: "Internal Server Error" });
 
     }
     catch (err) {
