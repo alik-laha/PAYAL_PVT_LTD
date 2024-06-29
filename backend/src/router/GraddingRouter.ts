@@ -8,6 +8,7 @@ import ApproveEditStatus from "../controller/GradingController/ApproveEditStatus
 import rejectEditStatus from "../controller/GradingController/rejectEditStatus";
 import GradingMiddleWare from "../middleWare/GraddingMiddleWare";
 import jwtVerify from "../middleWare/JwtAuthantication";
+import getGradingStockByOrigin from "../controller/GradingController/getGradingStockbyOrigin";
 
 const router = express()
 
@@ -24,5 +25,7 @@ router.get("/sumofallgrade", jwtVerify, sumOfallGrade)
 router.post("/approveEditStatus/:id", jwtVerify, ApproveEditStatus)
 
 router.post("/rejectEditStatus/:id", jwtVerify, rejectEditStatus)
+
+router.get('/getGradeStockByOrigin/:origin', jwtVerify, getGradingStockByOrigin)
 
 export default router

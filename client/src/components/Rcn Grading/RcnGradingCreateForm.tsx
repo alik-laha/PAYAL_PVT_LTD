@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useContext, useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
@@ -30,11 +30,19 @@ const RcnGradingCreateForm = () => {
     const [otherTime, setOtherTime] = useState<string>("00:00")
     const [errortext, setErrortext] = useState('')
     const grading_lotNoRef = useRef<HTMLInputElement>(null)
-    const [originStock, setOriginStock] = useState(0)
-
-
-
-   
+    const [originStock, setOriginStock] = useState<number>(0)
+    const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+    const rejectcloseDialogButton = document.getElementById('errorempcloseDialog') as HTMLInputElement;
+    const successdialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+            if (rejectcloseDialogButton) {
+                rejectcloseDialogButton.addEventListener('click', () => {
+                    if (dialog != null) {
+                        (dialog as any).close();
+                        return
+                    }
+                });
+            }
+    
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -47,20 +55,33 @@ const RcnGradingCreateForm = () => {
         const F = fRef.current?.value
         const G = gRef.current?.value
         const dust = dustRef.current?.value
+        const sumGrade=(A?Number(A):0)+(B?Number(B):0)+(C?Number(C):0)+(D?Number(D):0)+(E?Number(E):0)
+        +(F?Number(F):0)+(G?Number(G):0)+(dust?Number(dust):0)
         const Mc_on = mc_onRef.current?.value
         const Mc_off = mc_offRef.current?.value
         const noOfEmployees = noofEmployeeRef.current?.value
         const grading_lotNo = grading_lotNoRef.current?.value
         const Mc_name = mc_name
-        console.log(Mc_off)
+        //console.log(Mc_off)
+        if (sumGrade > originStock)
+             {
+            setErrortext('Total Bag Entry Cannot Exceed Stock Left')
+           
+            dialog.showModal()
+            return
+            
+
+
+        }
+
         axios.post('/api/grading/createGrading', { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, Mc_breakdown, otherTime, grading_lotNo })
             .then(res => {
                 setErrortext(res.data.message)
                 if (res.status === 200) {
-                    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                    dialog.showModal()
+                   
+                    successdialog.showModal()
                     setTimeout(() => {
-                        dialog.close()
+                        successdialog.close()
                         window.location.reload()
                     }, 2000)
                 }
@@ -68,7 +89,7 @@ const RcnGradingCreateForm = () => {
             .catch(err => {
                 console.log(err.response.data.message)
                 setErrortext(err.response.data.message)
-                const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+     
                 dialog.showModal()
                 setTimeout(() => {
                     dialog.close()
@@ -76,20 +97,19 @@ const RcnGradingCreateForm = () => {
             })
     }
     const handleoriginStock = (value:string) => {
-        //e.preventDefault();
         setOriginStock(0)
         setOrigin(value)
-        axios.get(`/api/rcnprimary/getStockByOrigin/${value}`)
+        axios.get(`/api/grading/getGradeStockByOrigin/${value}`)
         .then(res => {
-            console.log(res.data.AllOriginRcnPrimary[0].totalBags)
-            if(res.data.AllOriginRcnPrimary){
-                setOriginStock(res.data.AllOriginRcnPrimary[0].totalBags)
-            }
-            
+          if(res.data.finalSum){
+            setOriginStock(res.data.finalSum)
+          }           
         })
         .catch(err => {
             console.log(err)
         })
+
+      
     
     }
     const { AllMachines } = useContext(Context)
@@ -107,7 +127,7 @@ const RcnGradingCreateForm = () => {
                    
                 </div> 
                 <div className="flex mt-3">
-                    <Label className="w-1/3 pt-2 text-center">Origin</Label>
+                    <Label className="w-1/5 pt-1 ">Origin</Label>
                     <Select value={origin} onValueChange={(value) => handleoriginStock(value)} required>
                         <SelectTrigger className="w-1/3">
                             <SelectValue placeholder="Origin" />
@@ -126,7 +146,7 @@ const RcnGradingCreateForm = () => {
                             </SelectGroup>
                         </SelectContent>
                     </Select>
-                    <Label className="w-1/3 pt-2 text-center text-red-500">Stock  : {originStock} Bag</Label>
+                    <Label className="w-1/3 pt-1 ml-2 text-center text-red-500">Stock  : {originStock} Bag</Label>
                 </div>
 
                 <div className="flex mt-3">
@@ -198,7 +218,7 @@ const RcnGradingCreateForm = () => {
                 
 
                 <div className="flex ">
-                    <Label className="w-2/4 pt-1">Date</Label>
+                    <Label className="w-2/4 pt-2">Date</Label>
                     <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type='date' required /> </div>
 
                 
@@ -211,7 +231,7 @@ const RcnGradingCreateForm = () => {
                 </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-2">Garding Lot (Optional)</Label>
+                    <Label className="w-2/4 pt-2">Grading Lot (Optional)</Label>
                     <Input className="w-2/4 text-center" placeholder="Lot No." ref={grading_lotNoRef} />
                 </div>
 
