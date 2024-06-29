@@ -7,8 +7,8 @@ const BoilingMiddleWare = async (req: Request, res: Response, next: NextFunction
             ScoopingLine, breakDown, cookingOff,cookingOn, origin,other,cookingTime,
             size
          } = req.body.data;
-         console.log('middlware')
-         console.log(req.body.data)
+        // console.log('middlware')
+        // console.log(req.body.data)
         if (!columnMC || !origin  || !size || !ScoopingLine ) {
             return res.status(400).json({ message: "All Fields Are Required" })
         }
