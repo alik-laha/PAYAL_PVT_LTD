@@ -43,7 +43,7 @@ const RcnGrading = () => {
     useEffect(() => {
         axios.get('/api/asset/getMachineByType/Grading')
             .then(res => {
-                console.log(res.data)
+                //console.log(res.data)
                 setAllMachines(res.data)
             })
             .catch(err => {
@@ -67,7 +67,7 @@ const RcnGrading = () => {
     if (error) {
         return <div>Error</div>;
     }
-    console.log(data)
+     console.log(data)
     return (
         <div>
             <DashboardHeader />

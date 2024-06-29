@@ -15,7 +15,7 @@ const Private: React.FC<PrivateProps> = ({ allowedRoles }) => {
     useEffect(() => {
         axios.get('/api/user/verify')
             .then(res => {
-                console.log(res.data);
+                //console.log(res.data);
                 setRole(res.data.role);
                 setDept(res.data.dept);
                 localStorage.setItem('role', res.data.role);

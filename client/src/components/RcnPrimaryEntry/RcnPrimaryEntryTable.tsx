@@ -117,7 +117,7 @@ const RcnPrimaryEntryTable = () => {
 
     useEffect(() => {
         if (editPendingData) {
-            console.log(editPendingData)
+           //console.log(editPendingData)
             setEditData(editPendingData)
             setblockpagen('none')
         }

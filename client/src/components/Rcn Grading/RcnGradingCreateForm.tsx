@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useContext, useRef, useState } from 'react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
@@ -30,6 +30,11 @@ const RcnGradingCreateForm = () => {
     const [otherTime, setOtherTime] = useState<string>("00:00")
     const [errortext, setErrortext] = useState('')
     const grading_lotNoRef = useRef<HTMLInputElement>(null)
+    const [originStock, setOriginStock] = useState(0)
+
+
+
+   
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -70,13 +75,30 @@ const RcnGradingCreateForm = () => {
                 }, 2000)
             })
     }
+    const handleoriginStock = (value:string) => {
+        //e.preventDefault();
+        setOriginStock(0)
+        setOrigin(value)
+        axios.get(`/api/rcnprimary/getStockByOrigin/${value}`)
+        .then(res => {
+            console.log(res.data.AllOriginRcnPrimary[0].totalBags)
+            if(res.data.AllOriginRcnPrimary){
+                setOriginStock(res.data.AllOriginRcnPrimary[0].totalBags)
+            }
+            
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    
+    }
     const { AllMachines } = useContext(Context)
     return (
         <div className="pl-5 pr-5 ">
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
 
 
-
+            
             <div className="flex">
                     <Label className="w-2/4 bg-green-500 text-center rounded-md pt-2 mr-1 text-primary-foreground">MC ON  </Label>
                     <Input className="w-3/5  justify-center bg-green-100 mr-1" placeholder="MC ON Time" ref={mc_onRef} type='time' required />
@@ -84,34 +106,56 @@ const RcnGradingCreateForm = () => {
                     <Label className="w-2/4 bg-red-500 rounded-md text-white-600 text-center pt-2 ml-1 text-primary-foreground">MC OFF</Label>
                    
                 </div> 
+                <div className="flex mt-3">
+                    <Label className="w-1/3 pt-2 text-center">Origin</Label>
+                    <Select value={origin} onValueChange={(value) => handleoriginStock(value)} required>
+                        <SelectTrigger className="w-1/3">
+                            <SelectValue placeholder="Origin" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {
+                                    Origin.map((item) => {
+                                        return (
+                                            <SelectItem key={item} value={item}>
+                                                {item}
+                                            </SelectItem>
+                                        )
+                                    })
+                                }
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    <Label className="w-1/3 pt-2 text-center text-red-500">Stock  : {originStock} Bag</Label>
+                </div>
 
-                <div className="flex mt-5">
+                <div className="flex mt-3">
 
                     <Label className="w-1/4 pt-2 ">A </Label>
-                    <Input className="w-2/4 justify-center bg-cyan-100" placeholder="A" ref={aRef} type='number' required />
+                    <Input className="w-2/4 justify-center bg-cyan-100 text-center" placeholder="Bag" ref={aRef} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">B </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="B" ref={bRef} type='number' required /> </div>
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={bRef} type='number' required /> </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">C </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="C" ref={cRef} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={cRef} type='number' required />
                     <Label className="text-center w-2/4 pt-2">D </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="D" ref={dRef} type='number' required /> </div>
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={dRef} type='number' required /> </div>
 
 
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">E </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="E" ref={eRef} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={eRef} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">F </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="F" ref={fRef} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={fRef} type='number' required />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">G </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="G" ref={gRef} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={gRef} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">Dust </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="Dust" ref={dustRef} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={dustRef} type='number' required />
                 </div>
 
 
@@ -157,38 +201,18 @@ const RcnGradingCreateForm = () => {
                     <Label className="w-2/4 pt-1">Date</Label>
                     <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type='date' required /> </div>
 
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">Origin</Label>
-                    <Select value={origin} onValueChange={(value) => setOrigin(value)} required>
-                        <SelectTrigger className="w-2/4">
-                            <SelectValue placeholder="Origin" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                {
-                                    Origin.map((item) => {
-                                        return (
-                                            <SelectItem key={item} value={item}>
-                                                {item}
-                                            </SelectItem>
-                                        )
-                                    })
-                                }
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </div>
+                
 
 
 
                 <div className="flex">
                     <Label className="w-2/4 pt-2">No of Labours</Label>
-                    <Input className="w-2/4 " placeholder="No of Labours" ref={noofEmployeeRef} type='number' required />
+                    <Input className="w-2/4 text-center" placeholder="No of Labours" ref={noofEmployeeRef} type='number' required />
                 </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-2">Lot No.(Grading)</Label>
-                    <Input className="w-2/4 " placeholder="Lot No.(Grading)" ref={grading_lotNoRef} />
+                    <Label className="w-2/4 pt-2">Garding Lot (Optional)</Label>
+                    <Input className="w-2/4 text-center" placeholder="Lot No." ref={grading_lotNoRef} />
                 </div>
 
 
