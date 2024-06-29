@@ -21,6 +21,8 @@ const VerifyCode = async (req: Request, res: Response) => {
         if (!user) {
             return res.status(400).json({ error: "User Not Found" });
         }
+        res.clearCookie('reset');
+        res.clearCookie('verifyExpResetPass');
         return res.status(200).json({ message: "Verification Code Verified" });
 
     } catch (err) {
