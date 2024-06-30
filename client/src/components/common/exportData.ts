@@ -12,6 +12,7 @@ export const MachineStatus = ['Active', 'Inactive', 'Discarded']
 export const Size = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 export const Time = 2
 
+
 export const PermissionRol = {
     Director: ['Employee', 'Dashboard User', 'Asset', 'RCN Primary Entry', 'RCN Incoming QC', 'Grading', 'Boiling', 'Scooping'],
     FactoryManager: ['Employee', 'Asset', 'RCN Primary Entry', 'RCN Incoming QC', 'Grading', 'Boiling', 'Scooping'],

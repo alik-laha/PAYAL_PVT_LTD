@@ -87,7 +87,7 @@ const RCNBoilingTable = () => {
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialog') as HTMLInputElement;
     const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialog') as HTMLInputElement;
 
-    const [transformedData, setTransformedData] = useState<BoilingExcelData[]>([]);
+    //const [transformedData, setTransformedData] = useState<BoilingExcelData[]>([]);
     const [successtext, setSuccessText] = React.useState<string>('');
     const [errortext, seterrorText] = React.useState<string>('');
     const Role = localStorage.getItem('role') as keyof PermissionRole
@@ -167,7 +167,7 @@ const RCNBoilingTable = () => {
         const data1 = await response.data
 
         let ws
-        let transformed
+        let transformed:BoilingExcelData[]=[]
         if (EditData.length > 0) {
             
             transformed = EditData.map((item: BoilingEntryData, idx: number) => ({
@@ -194,8 +194,8 @@ const RCNBoilingTable = () => {
                 ApprovedOrRejectedBy:item.modifiedBy
             
             }));
-            setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformedData);
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
             transformed = data1.map((item: BoilingEntryData, idx: number) => ({
@@ -220,8 +220,8 @@ const RCNBoilingTable = () => {
                 Entried_By: item.CreatedBy,
                 ApprovedOrRejectedBy:item.modifiedBy
             }));
-            setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformedData);
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
         }
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');

@@ -35,7 +35,7 @@ export const Login = () => {
         const username = usernameRef.current?.value;
         const password = passwordRef.current?.value;
         //const password = await hashPassword(pssword)
-        console.log(password)
+        //console.log(password)
         if (username === '' || password === '') {
             setErrMsg('Username or Password Not Given');
             setErrView('block');

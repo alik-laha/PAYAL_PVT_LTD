@@ -10,6 +10,8 @@ import UpdateBoiling from "../controller/BoilingController/updateBoiling";
 import rejectEditBoiling from "../controller/BoilingController/rejectEditBoiling";
 import approveEditBoiling from "../controller/BoilingController/approveEditBoilig";
 import CreateLotNo from "../controller/BoilingController/createLotNo";
+import deleteLotNo from "../controller/BoilingController/deleteLotNo";
+import deleteBoilingByLot from "../controller/BoilingController/deleteBoilingByLot";
 const router = express.Router();
 
 router.post("/createBoiling", jwtVerify,BoilingMiddleWare, CreateBoiling)
@@ -20,4 +22,6 @@ router.put("/updateBoiling/:id", jwtVerify, BoilingEditMiddleWare,UpdateBoiling)
 router.post("/rejectededitrcnboiling/:id", jwtVerify, rejectEditBoiling)
 router.post("/approveEditrcnBoiling/:id", jwtVerify, approveEditBoiling)
 router.post("/createLotNo", jwtVerify, CreateLotNo)
+router.delete('/deleteLotNo/:id', jwtVerify, deleteLotNo)
+router.delete('/deleteBoilingByLotNo/:id', jwtVerify, deleteBoilingByLot)
 export default router;

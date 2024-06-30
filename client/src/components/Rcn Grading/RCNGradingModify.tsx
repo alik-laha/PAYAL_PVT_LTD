@@ -53,10 +53,62 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     const [otherTime, setOtherTime] = useState('00:00')
     const [grading_lotNo, setGrading_lotNo] = useState('')
     const [errortext, setErrortext] = useState('')
+    const [originStock, setOriginStock] = useState<number>(0)
+    //const [originoldStock, setOriginoldStock] = useState<number>(0)
+    const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+    const rejectcloseDialogButton = document.getElementById('errorempcloseDialog') as HTMLInputElement;
+    if (rejectcloseDialogButton) {
+        rejectcloseDialogButton.addEventListener('click', () => {
+            if (dialog != null) {
+                (dialog as any).close();
+                return
+            }
+        });
+    }
+    const handleoriginStock = (value:string) => {
+      
+        setOrigin(value)
+        axios.get(`/api/grading/getGradeStockByOrigin/${value}`)
+        .then(res => {
+          if(res.data.finalSum){
+
+            if(value===props.data.origin){
+                setOriginStock(res.data.finalSum+props.data.A+props.data.B+props.data.C+
+                    props.data.D+props.data.E+props.data.F+props.data.G+
+                    props.data.dust)
+            }
+            else{
+                setOriginStock(res.data.finalSum)
+            }
+            
+          }
+          else{
+            setOriginStock(0)
+          }           
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+      
+    
+    }
 
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        const sumGrade=(A?Number(A):0)+(B?Number(B):0)+(C?Number(C):0)+(D?Number(D):0)+(E?Number(E):0)
+        +(F?Number(F):0)+(G?Number(G):0)+(dust?Number(dust):0)
+        if (sumGrade > originStock)
+            {
+           setErrortext('Total Bag Cannot Exceed Stock Left')
+          
+           dialog.showModal()
+           return
+           
+
+
+       }
         axios.put(`/api/grading/updateGrading/${props.data.id}`, { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, otherTime, grading_lotNo, Mc_breakdown })
             .then(res => {
                 setErrortext(res.data.message)
@@ -98,12 +150,47 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
         setMc_breakdown(props.data.Mc_breakdown)
         setOtherTime(props.data.otherTime)
         setGrading_lotNo(props.data.grading_lotNo)
+  
+        axios.get(`/api/grading/getGradeStockByOrigin/${props.data.origin}`)
+        .then(res => {
+          if(res.data.finalSum){
+            setOriginStock(res.data.finalSum+props.data.A+props.data.B+props.data.C+
+                props.data.D+props.data.E+props.data.F+props.data.G+
+                props.data.dust)
+          }           
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }, [])
     const { AllMachines } = useContext(Context)
     return (
         <div className="pl-5 pr-5  ">
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
+            <div className="flex">
+                    <Label className="w-1/6 pt-1">Origin</Label>
+                    <Select value={origin} onValueChange={(value) => handleoriginStock(value)}>
+                        <SelectTrigger className="w-1/3">
+                            <SelectValue placeholder="Origin" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {
+                                    Origin.map((item) => {
+                                        return (
+                                            <SelectItem key={item} value={item}>
+                                                {item}
+                                            </SelectItem>
+                                        )
+                                    })
+                                }
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    <Label className="w-1/3 pt-1 ml-2 text-center font-semibold text-red-500">Stock  : {originStock} Bag</Label>
+                </div>
                 <div className="flex mt-2">
+                    
                     <Label className="w-1/4 pt-2">A</Label>
                     <Input className="w-2/4 bg-cyan-100" placeholder="A" value={A} onChange={(e) => setA(Number(e.target.value))} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">B</Label>
@@ -164,47 +251,27 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
                 </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Break Down Duration(Total)</Label>
+                    <Label className="w-2/4 pt-2">Break Down Duration(Total)</Label>
                     <Input className="w-2/4 " placeholder="MC BreakDown" value={Mc_breakdown} onChange={(e) => setMc_breakdown(e.target.value)} type='time' />
                 </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Other Duration(Total)</Label>
+                    <Label className="w-2/4 pt-2">Other Duration(Total)</Label>
                     <Input className="w-2/4 " placeholder="Other Time" value={otherTime} onChange={(e) => setOtherTime(e.target.value)} type='time' />
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Date</Label>
+                    <Label className="w-2/4 pt-2">Date</Label>
                     <Input className="w-2/4 " placeholder="Date" value={date} onChange={(e) => setDate(e.target.value)} type='date' /> </div>
 
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">Origin</Label>
-                    <Select value={origin} onValueChange={(value) => setOrigin(value)}>
-                        <SelectTrigger className="w-2/4">
-                            <SelectValue placeholder="Origin" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                {
-                                    Origin.map((item) => {
-                                        return (
-                                            <SelectItem key={item} value={item}>
-                                                {item}
-                                            </SelectItem>
-                                        )
-                                    })
-                                }
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </div>
+              
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">No of Employee</Label>
+                    <Label className="w-2/4 pt-2">No of Employee</Label>
                     <Input className="w-2/4 " placeholder="No of Employee" value={noOfEmployees} onChange={(e) => setNoOfEmployees(Number(e.target.value))} type='number' />
                 </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Grading Lot No</Label>
+                    <Label className="w-2/4 pt-2">Grading Lot No</Label>
                     <Input className="w-2/4 " placeholder="Grading lot No" value={grading_lotNo} onChange={(e) => setGrading_lotNo(e.target.value)} />
                 </div>
 

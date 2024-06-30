@@ -30,6 +30,19 @@ const RcnGradingCreateForm = () => {
     const [otherTime, setOtherTime] = useState<string>("00:00")
     const [errortext, setErrortext] = useState('')
     const grading_lotNoRef = useRef<HTMLInputElement>(null)
+    const [originStock, setOriginStock] = useState<number>(0)
+    const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+    const rejectcloseDialogButton = document.getElementById('errorempcloseDialog') as HTMLInputElement;
+    const successdialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+            if (rejectcloseDialogButton) {
+                rejectcloseDialogButton.addEventListener('click', () => {
+                    if (dialog != null) {
+                        (dialog as any).close();
+                        return
+                    }
+                });
+            }
+    
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -42,20 +55,29 @@ const RcnGradingCreateForm = () => {
         const F = fRef.current?.value
         const G = gRef.current?.value
         const dust = dustRef.current?.value
+        const sumGrade=(A?Number(A):0)+(B?Number(B):0)+(C?Number(C):0)+(D?Number(D):0)+(E?Number(E):0)
+        +(F?Number(F):0)+(G?Number(G):0)+(dust?Number(dust):0)
         const Mc_on = mc_onRef.current?.value
         const Mc_off = mc_offRef.current?.value
         const noOfEmployees = noofEmployeeRef.current?.value
         const grading_lotNo = grading_lotNoRef.current?.value
         const Mc_name = mc_name
-        console.log(Mc_off)
+        //console.log(Mc_off)
+        if (sumGrade > originStock)
+             {
+            setErrortext('Total Bag Entry Cannot Exceed Stock Left')
+            dialog.showModal()
+            return
+        }
+
         axios.post('/api/grading/createGrading', { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, Mc_breakdown, otherTime, grading_lotNo })
             .then(res => {
                 setErrortext(res.data.message)
                 if (res.status === 200) {
-                    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                    dialog.showModal()
+                   
+                    successdialog.showModal()
                     setTimeout(() => {
-                        dialog.close()
+                        successdialog.close()
                         window.location.reload()
                     }, 2000)
                 }
@@ -63,12 +85,31 @@ const RcnGradingCreateForm = () => {
             .catch(err => {
                 console.log(err.response.data.message)
                 setErrortext(err.response.data.message)
-                const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+     
                 dialog.showModal()
                 setTimeout(() => {
                     dialog.close()
                 }, 2000)
             })
+    }
+    const handleoriginStock = (value:string) => {
+        //setOriginStock(0)
+        setOrigin(value)
+        axios.get(`/api/grading/getGradeStockByOrigin/${value}`)
+        .then(res => {
+          if(res.data.finalSum){
+            setOriginStock(res.data.finalSum)
+          }  
+          else{
+            setOriginStock(0)
+          }           
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+      
+    
     }
     const { AllMachines } = useContext(Context)
     return (
@@ -76,7 +117,7 @@ const RcnGradingCreateForm = () => {
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
 
 
-
+            
             <div className="flex">
                     <Label className="w-2/4 bg-green-500 text-center rounded-md pt-2 mr-1 text-primary-foreground">MC ON  </Label>
                     <Input className="w-3/5  justify-center bg-green-100 mr-1" placeholder="MC ON Time" ref={mc_onRef} type='time' required />
@@ -84,34 +125,56 @@ const RcnGradingCreateForm = () => {
                     <Label className="w-2/4 bg-red-500 rounded-md text-white-600 text-center pt-2 ml-1 text-primary-foreground">MC OFF</Label>
                    
                 </div> 
+                <div className="flex mt-3">
+                    <Label className="w-1/5 pt-1 ">Origin</Label>
+                    <Select value={origin} onValueChange={(value) => handleoriginStock(value)} required>
+                        <SelectTrigger className="w-1/3">
+                            <SelectValue placeholder="Origin" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {
+                                    Origin.map((item) => {
+                                        return (
+                                            <SelectItem key={item} value={item}>
+                                                {item}
+                                            </SelectItem>
+                                        )
+                                    })
+                                }
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    <Label className="w-1/3 pt-1 ml-2 text-center font-semibold text-red-500">Stock  : {originStock} Bag</Label>
+                </div>
 
-                <div className="flex mt-5">
+                <div className="flex mt-3">
 
                     <Label className="w-1/4 pt-2 ">A </Label>
-                    <Input className="w-2/4 justify-center bg-cyan-100" placeholder="A" ref={aRef} type='number' required />
+                    <Input className="w-2/4 justify-center bg-cyan-100 text-center" placeholder="Bag" ref={aRef} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">B </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="B" ref={bRef} type='number' required /> </div>
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={bRef} type='number' required /> </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">C </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="C" ref={cRef} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={cRef} type='number' required />
                     <Label className="text-center w-2/4 pt-2">D </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="D" ref={dRef} type='number' required /> </div>
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={dRef} type='number' required /> </div>
 
 
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">E </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="E" ref={eRef} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={eRef} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">F </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="F" ref={fRef} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={fRef} type='number' required />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">G </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="G" ref={gRef} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={gRef} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">Dust </Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="Dust" ref={dustRef} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={dustRef} type='number' required />
                 </div>
 
 
@@ -154,41 +217,21 @@ const RcnGradingCreateForm = () => {
                 
 
                 <div className="flex ">
-                    <Label className="w-2/4 pt-1">Date</Label>
+                    <Label className="w-2/4 pt-2">Date</Label>
                     <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type='date' required /> </div>
 
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">Origin</Label>
-                    <Select value={origin} onValueChange={(value) => setOrigin(value)} required>
-                        <SelectTrigger className="w-2/4">
-                            <SelectValue placeholder="Origin" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                {
-                                    Origin.map((item) => {
-                                        return (
-                                            <SelectItem key={item} value={item}>
-                                                {item}
-                                            </SelectItem>
-                                        )
-                                    })
-                                }
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </div>
+                
 
 
 
                 <div className="flex">
                     <Label className="w-2/4 pt-2">No of Labours</Label>
-                    <Input className="w-2/4 " placeholder="No of Labours" ref={noofEmployeeRef} type='number' required />
+                    <Input className="w-2/4 text-center" placeholder="No of Labours" ref={noofEmployeeRef} type='number' required />
                 </div>
 
                 <div className="flex">
-                    <Label className="w-2/4 pt-2">Lot No.(Grading)</Label>
-                    <Input className="w-2/4 " placeholder="Lot No.(Grading)" ref={grading_lotNoRef} />
+                    <Label className="w-2/4 pt-2">Grading Lot (Optional)</Label>
+                    <Input className="w-2/4 text-center" placeholder="Lot No." ref={grading_lotNoRef} />
                 </div>
 
 
