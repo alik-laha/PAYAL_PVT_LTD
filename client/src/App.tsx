@@ -14,7 +14,7 @@ import RCNBoiling from './components/RCN Boiling/RCNBoiling'
 import RCNScooping from './components/RCN Scooping/RCNScooping'
 
 import { Navigate } from 'react-router-dom'
-import Maintenance from './components/Maintenance/GraddingMaintenance/Graddingmaintenance'
+import Maintenance from './components/Maintenance/Maintenance'
 
 
 function App() {
