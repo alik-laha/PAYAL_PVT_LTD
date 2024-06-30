@@ -13,7 +13,7 @@ export default async function forgotPassword(req: Request, res: Response) {
         console.log(email)
         const employee: any = await Employee.findOne({ where: { email } });
         if (!employee) {
-            return res.status(404).json({ error: "Check the email this email is not Registered" });
+            return res.status(404).json({ error: "No Employee Found With This Email ID" });
         }
         let verificationCode = 0;
         crypto.randomInt(100000, 999999, (err, n) => {
