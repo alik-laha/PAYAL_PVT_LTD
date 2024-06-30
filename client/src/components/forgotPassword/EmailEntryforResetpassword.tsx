@@ -40,6 +40,7 @@ const EmailEntryforResetpassword = () => {
             if(err.response.data.error==='No User Found with Email ID'){
                 setErrView('block');
                 setErrMsg(err.response.data.error)
+                return
             }
             if(err.response.data.error==='Employee is Not Registered as a User'){
                 setErrView('block');
