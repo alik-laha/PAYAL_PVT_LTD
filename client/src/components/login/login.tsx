@@ -80,7 +80,7 @@ export const Login = () => {
         <div className="flex flex-col items-center justify-center h-screen  w-screen login-container">
             <div className="p-8 border-2 flex justify-center items-center flex-col rounded-xl login">
                 <img src={img} width={"60"} height={100}></img>
-                <h1 className="text-2xl font-bold mb-3 pb-7 mt-2 text-center text-blue-950 drop-shadow-md ">PAYAL DEALERS PVT. LTD</h1>
+                <h1 className="text-2xl font-bold mb-3 pb-2 mt-2 text-center text-blue-950 drop-shadow-md ">PAYAL DEALERS PVT. LTD</h1>
 
                 <Select>
                     <SelectTrigger>
@@ -101,11 +101,12 @@ export const Login = () => {
                     <Input type="password" placeholder="Password" ref={passwordRef} />
 
                     <Captcha />
+                    <p><NavLink to="/forgotpass" className='text-sm font-semibold text-purple-500 float-right underline'>Forgot/Reset password</NavLink></p>
                     <span style={{ display: errView }} className="text-red-600 text-sm font-sans font-semibold w-100 text-center">{errMsg}</span>
-                    <Button className="bg-orange-500 mb-5 mt-8" type="submit">Login</Button>
+                    <Button className="bg-orange-500 mb-1 mt-3 mb-4" type="submit">Login</Button>
 
                 </form>
-                <p><NavLink to="/forgotpass">forgot password</NavLink></p>
+                
             </div>
         </div>
     )
