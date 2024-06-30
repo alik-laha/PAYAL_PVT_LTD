@@ -5,6 +5,7 @@ import { Label } from '../../ui/label'
 import { Input } from '../../ui/input'
 import { Button } from '../../ui/button'
 import { Switch } from "@/components/ui/switch"
+import { Progress } from "@/components/ui/progress"
 
 
 
@@ -14,14 +15,14 @@ const GraddingMaintenanceCreate = () => {
     const [mc_name, setMc_name] = useState("")
     const Date = useRef<HTMLInputElement>(null)
     const [dustTable, setDustTable] = useState<boolean>(false)
-    // const [dustTable, setDustTable] = useState<string>("Not Clean")
-    // const [hopper, setHopper] = useState<string>("Not Clean")
-    // const [elevatorCups, setElevatorCups] = useState<string>("Not Clean")
-    // const [elevatorMotorByAir, setElevatorMotorByAir] = useState<string>("Not Clean")
-    // const [m_cAllPartsClean, setM_cAllPartsClean] = useState<string>("Not Clean")
-    // const [binClean, setBinClean] = useState<string>("Not Clean")
-    // const [callibrationRollerHoles, setCallibrationRollerHoles] = useState<string>("Not Clean")
-    // const [CheckAnyPartDamage, setCheckAnyPartDamage] = useState<boolean>(false)
+    const [hopper, setHopper] = useState<boolean>(false)
+    const [elevetorCups, setElevetorCups] = useState<boolean>(false)
+    const [elevetorMotorCleanByAir, setElevetorMotorCleanByAir] = useState<boolean>(false)
+    const [McAllPartsClean, setMcAllPartsClean] = useState<boolean>(false)
+    const [binClean, setBinClean] = useState<boolean>(false)
+    const [CallibrationRollerHolesClean, setCallibrationRollerHolesClean] = useState<boolean>(false)
+    // const [anyPartDamage, setAnyPartDamage] = useState<boolean>(false)
+    // const [damagedPart, setDamagedPart] = useState<string>("")
 
     useEffect(() => {
         axios.get('/api/asset/getMachineByType/Grading')
@@ -38,7 +39,11 @@ const GraddingMaintenanceCreate = () => {
         console.log(mc_name)
     }
     return (
+
+
         <div className="pl-5 pr-5  ">
+            <Progress value={100} max={100} className="bg-primary mb-2.5" />
+
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Machine Name</Label>
@@ -63,12 +68,48 @@ const GraddingMaintenanceCreate = () => {
                     <Label className="w-2/4 pt-1">DustTable Clean</Label>
                     <div className="flex items-center space-x-2">
                         <Switch id="airplane-mode" checked={dustTable} onCheckedChange={(checked) => setDustTable(checked)} />
-                        <Label htmlFor="airplane-mode">Airplane Mode</Label>
+
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Other Duration(Total)</Label>
-                    <Input className="w-2/4 " placeholder="Other Time" type='time' />
+                    <Label className="w-2/4 pt-1">Hopper Clean</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch id="airplane-mode" checked={hopper} onCheckedChange={(checked) => setHopper(checked)} />
+
+                    </div>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">Elevetor Cup Clean</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch id="airplane-mode" checked={elevetorCups} onCheckedChange={(checked) => setElevetorCups(checked)} />
+
+                    </div>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">Elevetor Motor Clean</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch id="airplane-mode" checked={elevetorMotorCleanByAir} onCheckedChange={(checked) => setElevetorMotorCleanByAir(checked)} />
+
+                    </div>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">Mc all Parts Clean</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch id="airplane-mode" checked={McAllPartsClean} onCheckedChange={(checked) => setMcAllPartsClean(checked)} />
+
+                    </div>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">Bin CLean</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch id="airplane-mode" checked={binClean} onCheckedChange={(checked) => setBinClean(checked)} />
+                    </div>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">Callibration Roller Holes Clean</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch id="airplane-mode" checked={CallibrationRollerHolesClean} onCheckedChange={(checked) => setCallibrationRollerHolesClean(checked)} />
+                    </div>
                 </div>
                 <div>
                     <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
