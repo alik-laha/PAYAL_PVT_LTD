@@ -9,6 +9,7 @@ import EditReject from '../controller/RcnPrimaryEntry/EditReject';
 import EditApprove from '../controller/RcnPrimaryEntry/EditApprove';
 import getAllEditPending from '../controller/RcnPrimaryEntry/getAllEditPending';
 import jwtVerify from '../middleWare/JwtAuthantication';
+import getStockByOrigin from '../controller/RcnPrimaryEntry/getStockByOrigin';
 
 
 const router = express.Router();
@@ -36,6 +37,8 @@ router.delete('/rejectededitrcn/:id', jwtVerify, EditReject);
 router.put("/approveeditrcn/:id", jwtVerify, EditApprove);
 
 router.get('/geteditpending', jwtVerify, getAllEditPending);
+
+router.get('/getStockByOrigin/:origin', jwtVerify, getStockByOrigin)
 
 
 

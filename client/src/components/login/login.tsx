@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import img from '../../assets/Static_Images/Company Logo.jpeg'
 import './login.css'
 import Captcha from './Captcha.tsx';
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
     Select,
     SelectContent,
@@ -30,12 +30,12 @@ export const Login = () => {
 
 
 
-    const handleSubmit =async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const username = usernameRef.current?.value;
         const password = passwordRef.current?.value;
         //const password = await hashPassword(pssword)
-        console.log(password)
+        //console.log(password)
         if (username === '' || password === '') {
             setErrMsg('Username or Password Not Given');
             setErrView('block');
@@ -47,6 +47,8 @@ export const Login = () => {
             setErrView('block');
             return;
         }
+        const countdownStartTime = localStorage.getItem('countdownStartTime');
+
         setErrView('none');
         axios.post('/api/user/login', { userName: username, password })
             .then(res => {
@@ -57,6 +59,9 @@ export const Login = () => {
                 localStorage.setItem('role', res.data.role);
                 localStorage.setItem('dept', res.data.dept);
                 localStorage.setItem('user', res.data.user);
+                if (!countdownStartTime) {
+                    localStorage.setItem('countdownStartTime', String(new Date().getTime()));
+                }
             }).catch(err => {
                 console.log(err)
                 setErrMsg(err.response.data.error);
@@ -74,8 +79,8 @@ export const Login = () => {
     return (
         <div className="flex flex-col items-center justify-center h-screen  w-screen login-container">
             <div className="p-8 border-2 flex justify-center items-center flex-col rounded-xl login">
-                <img src={img} width={60} height={100}></img>
-                <h1 className="text-2xl font-bold mb-3 pb-7 mt-2 text-center text-blue-950 drop-shadow-md ">PAYAL DEALERS PVT. LTD</h1>
+                <img src={img} width={"60"} height={100}></img>
+                <h1 className="text-2xl font-bold mb-3 pb-2 mt-2 text-center text-blue-950 drop-shadow-md ">PAYAL DEALERS PVT. LTD</h1>
 
                 <Select>
                     <SelectTrigger>
@@ -96,10 +101,12 @@ export const Login = () => {
                     <Input type="password" placeholder="Password" ref={passwordRef} />
 
                     <Captcha />
+                    <p><NavLink to="/forgotpass" className='text-sm font-semibold text-purple-500 float-right underline'>Forgot/Reset password</NavLink></p>
                     <span style={{ display: errView }} className="text-red-600 text-sm font-sans font-semibold w-100 text-center">{errMsg}</span>
-                    <Button className="bg-orange-500 mb-5 mt-8" type="submit">Login</Button>
+                    <Button className="bg-orange-500 mb-1 mt-3 mb-4" type="submit">Login</Button>
 
                 </form>
+                
             </div>
         </div>
     )
