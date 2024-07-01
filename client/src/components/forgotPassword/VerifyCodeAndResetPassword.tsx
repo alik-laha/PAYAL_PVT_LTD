@@ -128,13 +128,13 @@ const VerifyCodeAndResetPassword = () => {
                     <div className="p-8 border-2 flex justify-center items-center flex-col rounded-xl login">
                         <img src={img} width={"60"} height={100}></img>
                         <h1 className="text-2xl font-bold mb-3 pb-2 mt-5 text-center text-blue-950 drop-shadow-md ">PAYAL DEALERS PVT. LTD</h1>
-                        <h3 className="text-sm font-sans mb-8 font-semibold pb-1 pt-2 text-cyan-700">Create New Password</h3>
+                        <h3 className="text-sm font-sans mb-8 font-semibold pb-1 pt-2 text-cyan-700">Update Password</h3>
 
 
                         <form className="flex flex-col gap-4 w-64"onSubmit={handleSubmit}>
-                        <Input type="password" placeholder="New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                        <Input type="password" placeholder="Create New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
                         <Input type="password" placeholder="Confirm New Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                        <button type="submit">Submit</button>
+                        <Button className="bg-orange-500 mb-1 mt-7 mb-4" type="submit">Submit</Button>
                     </form>
                     </div>
                 </div>

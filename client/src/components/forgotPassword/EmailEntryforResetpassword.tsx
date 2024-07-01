@@ -12,6 +12,7 @@ const EmailEntryforResetpassword = () => {
     const navigate = useNavigate();
     const [errView, setErrView] = useState<string>("none");
     const [errMsg, setErrMsg] = useState<string>('');
+    const [btnDisable, setBtnDisable] = useState<boolean>(false);
     const successdialog = document.getElementById('userscs') as HTMLInputElement;
     const closeDialogButton = document.getElementById('userscsbtn') as HTMLInputElement;
 
@@ -28,6 +29,10 @@ const EmailEntryforResetpassword = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const email = emailRef.current?.value;
+        if(!btnDisable){
+            setBtnDisable(true)
+        }
+        
         axios.post('/api/resetPassword/forgotPassword', { email }).then(res => {
             console.log(res.data);
             (successdialog as any).showModal();
@@ -40,15 +45,18 @@ const EmailEntryforResetpassword = () => {
             // localStorage.setItem('autherized', 'true')
         }).catch(err => {
             console.log(err)
-            if (err.response.data.error === 'No User Found with Email ID') {
-                setErrView('block');
-                setErrMsg(err.response.data.error)
-                return
-            }
-            if (err.response.data.error === 'Employee is Not Registered as a User') {
-                setErrView('block');
-                setErrMsg(err.response.data.error)
-            }
+            setBtnDisable(false)
+            setErrView('block');
+            setErrMsg(err.response.data.error)
+            // if (err.response.data.error === 'No User Found with Email ID') {
+            //     setErrView('block');
+            //     setErrMsg(err.response.data.error)
+            //     return
+            // }
+            // if (err.response.data.error === 'Employee is Not Registered as a User') {
+            //     setErrView('block');
+            //     setErrMsg(err.response.data.error)
+            // }
         })
     }
     return (
@@ -62,7 +70,7 @@ const EmailEntryforResetpassword = () => {
                     <form className="flex flex-col gap-4 w-64" onSubmit={handleSubmit}>
                         <Input type="email" placeholder="Email" ref={emailRef} />
                         <span style={{ display: errView }} className="text-red-600 text-sm font-sans font-semibold w-100 text-center">{errMsg}</span>
-                        <Button className="bg-orange-500 mb-1 mt-7 mb-4" type="submit">Submit</Button>
+                        <Button className="bg-orange-500 mb-1 mt-7 mb-4" type="submit" disabled={btnDisable}>Submit</Button>
 
                     </form>
                 </div>
