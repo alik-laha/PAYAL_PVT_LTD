@@ -22,7 +22,8 @@ export const PermissionRol = {
     QCManager: ['RCN Incoming QC'],
     GradingSupervisor: ['Grading'],
     BoilingSupervisor: ['Boiling'],
-    ScoopingSupervisor: ['Scooping']
+    ScoopingSupervisor: ['Scooping'],
+    ProductionManager:['Grading','Boiling','Scooping']
 }
 
 export const PermissionDep = {

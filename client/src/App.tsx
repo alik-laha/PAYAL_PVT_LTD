@@ -54,7 +54,10 @@ function App() {
         <Route path='/' element={<Navigate to={"/dashboard"} replace />} />
         <Route path="/login" element={<Login />} />
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager', 'MaintainanceSupervisor', 'GradingSupervisor', 'QCManager', 'ProductionManager', 'QCSupervisor']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 
+          'ReceivingSupervisor', 'ReceivingManager', 'QCManager','QCSupervisor',
+           'ProductionManager','GradingSupervisor', 'BoilingSupervisor','ScoopingSupervisor',
+           'MaintainanceSupervisor','MaintainanceManager']} />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
