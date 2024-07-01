@@ -14,14 +14,14 @@ interface RcnGraddingModifyFormProps {
     data: {
         id: number;
         origin: string;
-        A: number;
-        B: number;
-        C: number;
-        D: number;
-        E: number;
-        F: number;
-        G: number;
-        dust: number;
+        A: string;
+        B: string;
+        C: string;
+        D: string;
+        E: string;
+        F: string;
+        G: string;
+        dust: string;
         Mc_name: string;
         Mc_on: string;
         Mc_off: string;
@@ -38,15 +38,15 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     const [Mc_name, setMc_name] = useState('')
     //const [errortext, setErrortext] = useState('')
     const [date, setDate] = useState('')
-    const [A, setA] = useState<number>()
-    const [B, setB] = useState<number>()
-    const [C, setC] = useState<number>()
-    const [D, setD] = useState<number>()
-    const [E, setE] = useState<number>()
-    const [F, setF] = useState<number>()
-    const [G, setG] = useState<number>()
-    const [dust, setDust] = useState<number>()
-    const [dustkg, setDustkg] = useState<number>()
+    const [A, setA] = useState<string>()
+    const [B, setB] = useState<string>()
+    const [C, setC] = useState<string>()
+    const [D, setD] = useState<string>()
+    const [E, setE] = useState<string>()
+    const [F, setF] = useState<string>()
+    const [G, setG] = useState<string>()
+    const [dust, setDust] = useState<string>()
+    const [dustkg, setDustkg] = useState<string>()
     const [Mc_on, setMc_on] = useState('')
     const [Mc_off, setMc_off] = useState('')
     const [noOfEmployees, setNoOfEmployees] = useState<number>()
@@ -66,6 +66,10 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
             }
         });
     }
+
+    function formatNumber(num:any) {
+        return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
+    }
     const handleoriginStock = (value:string) => {
       
         setOrigin(value)
@@ -74,9 +78,12 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
           if(res.data.finalSum){
 
             if(value===props.data.origin){
-                setOriginStock(res.data.finalSum+props.data.A+props.data.B+props.data.C+
-                    props.data.D+props.data.E+props.data.F+props.data.G+
-                    props.data.dust)
+                setOriginStock(formatNumber(parseFloat(res.data.finalSum))+
+                formatNumber(parseFloat(props.data.A))+formatNumber(parseFloat(props.data.B))
+                +formatNumber(parseFloat(props.data.C))+formatNumber(parseFloat(props.data.D))
+                    +formatNumber(parseFloat(props.data.E))+formatNumber(parseFloat(props.data.F))
+                    +formatNumber(parseFloat(props.data.G))+formatNumber(parseFloat(props.data.dust)))
+                    
             }
             else{
                 setOriginStock(res.data.finalSum)
