@@ -102,9 +102,9 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     
     }
     const handleDustChange = (e: ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault()
+        //e.preventDefault()
         setDustkg((e.target.value))
-        setDust(((formatNumber(parseFloat(props.data.dust)))/80).toString())
+        setDust((parseFloat(e.target.value)/80).toString())
         console.log(dust)
 
     }
@@ -149,7 +149,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     useEffect(() => {
         setOrigin(props.data.origin)
         setDate(new Date(props.data.date).toISOString().slice(0, 10))
-        setA(props.data.A)
+        setA(formatNumber(props.data.A))
         setB(props.data.B)
         setC(props.data.C)
         setD(props.data.D)
