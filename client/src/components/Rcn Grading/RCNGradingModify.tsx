@@ -79,10 +79,10 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
 
             if(value===props.data.origin){
                 setOriginStock(formatNumber(parseFloat(res.data.finalSum))+
-                formatNumber(parseFloat(props.data.A))+formatNumber(parseFloat(props.data.B))
-                +formatNumber(parseFloat(props.data.C))+formatNumber(parseFloat(props.data.D))
-                    +formatNumber(parseFloat(props.data.E))+formatNumber(parseFloat(props.data.F))
-                    +formatNumber(parseFloat(props.data.G))+formatNumber(parseFloat(props.data.dust)))
+                parseFloat(props.data.A)+parseFloat(props.data.B)
+                +parseFloat(props.data.C)+parseFloat(props.data.D)
+                    +parseFloat(props.data.E)+parseFloat(props.data.F)
+                    +parseFloat(props.data.G)+parseFloat(props.data.dust))
                     
             }
             else{
@@ -103,8 +103,8 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     }
     const handleDustChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
-        setDustkg(Number(e.target.value))
-        setDust((Number(dustkg))/80)
+        setDustkg((e.target.value))
+        setDust((formatNumber(parseFloat(props.data.dust))/80).toString())
 
     }
 
@@ -163,15 +163,17 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
         setMc_breakdown(props.data.Mc_breakdown)
         setOtherTime(props.data.otherTime)
         setGrading_lotNo(props.data.grading_lotNo)
-        setDustkg(Number(props.data.dust)*80)
+        setDustkg((formatNumber(parseFloat(props.data.dust))*80).toString())
   
         axios.get(`/api/grading/getGradeStockByOrigin/${props.data.origin}`)
         .then(res => {
           if(res.data.finalSum){
-            setOriginStock(res.data.finalSum+props.data.A+props.data.B+props.data.C+
-                props.data.D+props.data.E+props.data.F+props.data.G+
-                props.data.dust)
-          }           
+            setOriginStock(parseFloat(res.data.finalSum)+
+                parseFloat(props.data.A)+parseFloat(props.data.B)
+                +parseFloat(props.data.C)+parseFloat(props.data.D)
+                    +parseFloat(props.data.E)+parseFloat(props.data.F)
+                    +parseFloat(props.data.G)+parseFloat(props.data.dust))
+          }        
         })
         .catch(err => {
             console.log(err)
@@ -206,28 +208,28 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
                 <div className="flex mt-2">
                     
                     <Label className="w-1/4 pt-2">A</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={A} onChange={(e) => setA(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={A} onChange={(e) => setA(e.target.value)} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">B</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={B} onChange={(e) => setB(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={B} onChange={(e) => setB(e.target.value)} type='number' required />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">C</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={C} onChange={(e) => setC(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={C} onChange={(e) => setC(e.target.value)} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">D</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="bag" value={D} onChange={(e) => setD(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="bag" value={D} onChange={(e) => setD(e.target.value)} type='number' required />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">E</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={E} onChange={(e) => setE(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={E} onChange={(e) => setE(e.target.value)} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">F</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={F} onChange={(e) => setF(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={F} onChange={(e) => setF(e.target.value)} type='number' required />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">G</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={G} onChange={(e) => setG(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={G} onChange={(e) => setG(e.target.value)} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">Dust (kg)</Label>
                     <Input className="w-2/4 bg-cyan-100" placeholder="Kg" value={dustkg} onChange={(e) => handleDustChange(e)} type='number' required />
                 </div>
