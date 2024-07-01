@@ -26,7 +26,7 @@ export default async function forgotPassword(req: Request, res: Response) {
         });
 
         console.log(verificationCode)
-        const verificationCodeTime = Date.now() + Number(process.env.ForgotpwdTokenExpireTime) * 60 * 1000;
+        const verificationCodeTime = Date.now() + Number(process.env.FORGOT_PWD_TOKEN_EXPIRE_MIN) * 60 * 1000;
        
         const forgotData: any = await forgotPasswordModel.findOne({ where: { userId: userData.id } });
         if (forgotData) {
