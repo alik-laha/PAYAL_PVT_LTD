@@ -51,7 +51,13 @@ const VerifyCodeAndResetPassword = () => {
             if(err.response.data.error==='Invalid Token'){
                 setErrView('block');
                 setErrMsg('Incorrect Code Entered')
+                return
             }
+            if(err.response.data.error==='Token Expired'){
+                setErrView('block');
+                setErrMsg('Token Has Expired')
+            }
+
         }
     };
 

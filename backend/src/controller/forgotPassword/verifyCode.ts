@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
-import User from "../../model/userModel";
+
 import forgotPasswordModel from "../../model/forgotPasswordModel";
-import becrypt from 'bcryptjs';
-import { ResetPassword } from "../../helper/userCreateMail";
+
 
 
 const VerifyCode = async (req: Request, res: Response) => {
