@@ -47,16 +47,9 @@ const VerifyCodeAndResetPassword = () => {
             setIsVerified(true);
         } catch (err:any) {
             console.error(err);
+            setErrView('block');
+            setErrMsg(err.response.data.error)
            
-            if(err.response.data.error==='Invalid Token'){
-                setErrView('block');
-                setErrMsg('Incorrect Code Entered')
-                return
-            }
-            if(err.response.data.error==='Token Expired'){
-                setErrView('block');
-                setErrMsg('Token Has Expired')
-            }
 
         }
     };
@@ -115,7 +108,7 @@ const VerifyCodeAndResetPassword = () => {
 
 
                             <form className="flex flex-col gap-4 w-64" onSubmit={handleVerify}>
-                                <Input type="text" className='text-center' placeholder="Code" value={code} onChange={(e) => setCode(e.target.value)} />
+                                <Input type="text" className='text-center' placeholder="Code" value={code} onChange={(e) => setCode(e.target.value)} required/>
                                 <span style={{ display: errView }} className="text-red-600 text-sm font-sans font-semibold w-100 text-center">{errMsg}</span>
                                 
                                 <Button className="bg-orange-500 mb-1 mt-7 mb-4" type="submit">Verify</Button>

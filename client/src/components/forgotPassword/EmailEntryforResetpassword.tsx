@@ -29,12 +29,13 @@ const EmailEntryforResetpassword = () => {
         e.preventDefault();
         const email = emailRef.current?.value;
         axios.post('/api/resetPassword/forgotPassword', { email }).then(res => {
-            console.log(res.data)
-            if (successdialog != null) {
-                const dialog = document.getElementById("userscs") as HTMLDialogElement
-                dialog.showModal();
-                // (successdialog as any).showModal();
-            }
+            console.log(res.data);
+            (successdialog as any).showModal();
+            // if (successdialog != null) {
+            //     const dialog = document.getElementById("userscs") as HTMLDialogElement
+            //     dialog.showModal();
+            //     (successdialog as any).showModal();
+            // }
             // navigate('/changePassword')
             // localStorage.setItem('autherized', 'true')
         }).catch(err => {

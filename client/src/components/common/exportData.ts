@@ -10,7 +10,7 @@ export const pagelimit = 8
 export const Section = ['Boiling', 'Grading', 'Scooping']
 export const MachineStatus = ['Active', 'Inactive', 'Discarded']
 export const Size = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
-export const Time = 2
+export const Session_LogoutTime_Hr = 2
 
 
 export const PermissionRol = {

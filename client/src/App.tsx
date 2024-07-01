@@ -12,7 +12,7 @@ import Private from './components/private/private'
 import QCRcn from './components/qcRCN/QCRcn'
 import RCNBoiling from './components/RCN Boiling/RCNBoiling'
 import RCNScooping from './components/RCN Scooping/RCNScooping'
-import { Time } from './components/common/exportData'
+import { Session_LogoutTime_Hr } from './components/common/exportData'
 
 import { Navigate } from 'react-router-dom'
 import axios from 'axios'
@@ -36,7 +36,7 @@ function App() {
   }
   const countdownStartTime = localStorage.getItem('countdownStartTime');
   let elapsedTime = 0;
-  const durationInMillis = Time * 60 * 60 * 1000;
+  const durationInMillis = Session_LogoutTime_Hr * 60 * 60 * 1000;
   if (countdownStartTime) {
     const currentTime = new Date().getTime();
     elapsedTime = currentTime - parseInt(countdownStartTime);

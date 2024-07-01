@@ -19,7 +19,7 @@ export default async function forgotPassword(req: Request, res: Response) {
         if (!userData) {
             return res.status(404).json({ error: "Employee is Not Registered as a User" });
         }
-        const verificationCode = crypto.randomBytes(6).toString('hex');
+        const verificationCode = crypto.randomBytes(3).toString('hex');
 
         console.log(verificationCode)
         const verificationCodeTime = Date.now() + Number(process.env.FORGOT_PWD_TOKEN_EXPIRE_MIN) * 60 * 1000;
