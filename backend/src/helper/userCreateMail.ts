@@ -72,7 +72,7 @@ export const userPasswordModifiedMail = async (email: string, password: string) 
     return await transport.sendMail(mail)
 }
 
-export const ResetPassword = async (email: string, id: number) => {
+export const ResetPassword = async (email: string, id: string) => {
     console.log(email, id)
     const mail = {
         from: {

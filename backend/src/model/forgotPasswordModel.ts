@@ -14,7 +14,7 @@ const forgotPasswordModel = sequelize.define('forgotPassword', {
         primaryKey: true,
     },
     verificationCode: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     verificationCodeTime: {

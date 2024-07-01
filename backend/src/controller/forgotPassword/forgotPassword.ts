@@ -19,21 +19,17 @@ export default async function forgotPassword(req: Request, res: Response) {
         if (!userData) {
             return res.status(404).json({ error: "Employee is Not Registered as a User" });
         }
-        let verificationCode = 0;
-        crypto.randomInt(100000, 999999, (err, n) => {
-            if (err) throw err;
-            verificationCode = n;
-        });
+        const verificationCode = crypto.randomBytes(6).toString('hex');
 
         console.log(verificationCode)
         const verificationCodeTime = Date.now() + Number(process.env.FORGOT_PWD_TOKEN_EXPIRE_MIN) * 60 * 1000;
-       
+
         const forgotData: any = await forgotPasswordModel.findOne({ where: { userId: userData.id } });
         if (forgotData) {
             await forgotData.destroy();
         }
         console.log(verificationCodeTime)
-     
+
         const forgot = await forgotPasswordModel.create({ email, EmployeeId: employee.employeeId, verificationCode, verificationCodeTime, userId: userData.id });
         if (!forgot) {
             return res.status(500).json({ error: "Internal Server Error" });
