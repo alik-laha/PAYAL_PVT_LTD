@@ -36,12 +36,17 @@ const getGradingStockByOrigin = async (req: Request, res: Response) => {
 
         if(AllOriginRcnPrimary && AllOriginRcnPrimary.length>0){
             if(AllOriginRcnPrimary[0].dataValues.totalBags){
-                stockSum=AllOriginRcnPrimary[0].dataValues.totalBags;
+                //stockSum=AllOriginRcnPrimary[0].dataValues.totalBags;
+                //const formattedstockSum=formatNumber(parseFloat(AllOriginRcnPrimary[0].dataValues.totalBags));
+                
+                stockSum = Number(parseFloat(AllOriginRcnPrimary[0].dataValues.totalBags).toFixed(2));
+                
             }
             
         }
+        
         //console.log(AllOriginRcnPrimary)
-        //console.log(stockSum)
+        console.log(stockSum)
         const AllOriginGrading = await RcnGrading.findAll({
             attributes: [
                 
@@ -84,9 +89,9 @@ const getGradingStockByOrigin = async (req: Request, res: Response) => {
         }
         
         const formattedFinalConsumedSum = formatNumber(finalconsumedSum);
-        //console.log(formattedFinalConsumedSum);
+        console.log(formattedFinalConsumedSum);
         
-         finalSum = stockSum - formattedFinalConsumedSum;
+         finalSum = formatNumber(stockSum - formattedFinalConsumedSum);
 
         // Send the result as a response
         return res.status(200).json({ finalSum});

@@ -78,7 +78,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
           if(res.data.finalSum){
 
             if(value===props.data.origin){
-                setOriginStock(formatNumber(parseFloat(res.data.finalSum))+
+                setOriginStock(parseFloat(res.data.finalSum)+
                 parseFloat(props.data.A)+parseFloat(props.data.B)
                 +parseFloat(props.data.C)+parseFloat(props.data.D)
                     +parseFloat(props.data.E)+parseFloat(props.data.F)
@@ -104,7 +104,8 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     const handleDustChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         setDustkg((e.target.value))
-        setDust((formatNumber(parseFloat(props.data.dust))/80).toString())
+        setDust(((formatNumber(parseFloat(props.data.dust)))/80).toString())
+        console.log(dust)
 
     }
 
