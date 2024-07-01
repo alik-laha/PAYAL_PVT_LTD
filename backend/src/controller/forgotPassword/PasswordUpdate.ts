@@ -7,7 +7,7 @@ const PasswordUpdate = async (req: Request, res: Response) => {
         const { password } = req.body;
         const userId = req.cookies.userId;
         if (!password) {
-            return res.status(400).json({ error: 'Password is required' });
+            return res.status(400).json({ error: 'Password is Required' });
         }
         const user: any = await User.findOne({ where: { id: userId } });
         if (!user) {
