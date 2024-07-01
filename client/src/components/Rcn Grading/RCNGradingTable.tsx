@@ -377,14 +377,14 @@ const RcnGradingTable = () => {
                     <TableHead className="text-center" >Origin</TableHead>
                     <TableHead className="text-center" >Grading Entry Date</TableHead>
 
-                    <TableHead className="text-center" >A</TableHead>
-                    <TableHead className="text-center" >B</TableHead>
-                    <TableHead className="text-center" >C</TableHead>
-                    <TableHead className="text-center" >D</TableHead>
-                    <TableHead className="text-center" >E</TableHead>
-                    <TableHead className="text-center" >F</TableHead>
-                    <TableHead className="text-center" >G</TableHead>
-                    <TableHead className="text-center" >Dust</TableHead>
+                    <TableHead className="text-center" >A(Bag)</TableHead>
+                    <TableHead className="text-center" >B(Bag)</TableHead>
+                    <TableHead className="text-center" >C(Bag)</TableHead>
+                    <TableHead className="text-center" >D(Bag)</TableHead>
+                    <TableHead className="text-center" >E(Bag)</TableHead>
+                    <TableHead className="text-center" >F(Bag)</TableHead>
+                    <TableHead className="text-center" >G(Bag)</TableHead>
+                    <TableHead className="text-center" >Dust(Bag)</TableHead>
 
                     {/* <TableHead className="text-center" >Name of Machine</TableHead> */}
 
@@ -411,14 +411,14 @@ const RcnGradingTable = () => {
 
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                <TableCell className="text-center font-semibold">{item.A} </TableCell>
-                                <TableCell className="text-center font-semibold">{item.B} </TableCell>
-                                <TableCell className="text-center font-semibold">{item.C} </TableCell>
-                                <TableCell className="text-center font-semibold">{item.D} </TableCell>
-                                <TableCell className="text-center font-semibold">{item.E}</TableCell>
-                                <TableCell className="text-center font-semibold">{item.F} </TableCell>
-                                <TableCell className="text-center font-semibold">{item.G} </TableCell>
-                                <TableCell className="text-center font-semibold">{item.dust}</TableCell>
+                                <TableCell className="text-center font-semibold">{item.A} bag</TableCell>
+                                <TableCell className="text-center font-semibold">{item.B} bag</TableCell>
+                                <TableCell className="text-center font-semibold">{item.C} bag</TableCell>
+                                <TableCell className="text-center font-semibold">{item.D} bag</TableCell>
+                                <TableCell className="text-center font-semibold">{item.E} bag</TableCell>
+                                <TableCell className="text-center font-semibold">{item.F} bag</TableCell>
+                                <TableCell className="text-center font-semibold">{item.G} bag</TableCell>
+                                <TableCell className="text-center font-semibold">{item.dust} bag</TableCell>
 
                                 {/* <TableCell className="text-center">{item.Mc_name}</TableCell> */}
                                 <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>

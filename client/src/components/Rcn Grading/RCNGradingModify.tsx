@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
@@ -46,6 +46,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     const [F, setF] = useState<number>()
     const [G, setG] = useState<number>()
     const [dust, setDust] = useState<number>()
+    const [dustkg, setDustkg] = useState<number>()
     const [Mc_on, setMc_on] = useState('')
     const [Mc_off, setMc_off] = useState('')
     const [noOfEmployees, setNoOfEmployees] = useState<number>()
@@ -93,7 +94,12 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
       
     
     }
+    const handleDustChange = (e: ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        setDustkg(Number(e.target.value))
+        setDust((Number(dustkg))/80)
 
+    }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -150,6 +156,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
         setMc_breakdown(props.data.Mc_breakdown)
         setOtherTime(props.data.otherTime)
         setGrading_lotNo(props.data.grading_lotNo)
+        setDustkg(Number(props.data.dust)*80)
   
         axios.get(`/api/grading/getGradeStockByOrigin/${props.data.origin}`)
         .then(res => {
@@ -192,30 +199,30 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
                 <div className="flex mt-2">
                     
                     <Label className="w-1/4 pt-2">A</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="A" value={A} onChange={(e) => setA(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={A} onChange={(e) => setA(Number(e.target.value))} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">B</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="B" value={B} onChange={(e) => setB(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={B} onChange={(e) => setB(Number(e.target.value))} type='number' required />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">C</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="C" value={C} onChange={(e) => setC(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={C} onChange={(e) => setC(Number(e.target.value))} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">D</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="D" value={D} onChange={(e) => setD(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="bag" value={D} onChange={(e) => setD(Number(e.target.value))} type='number' required />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">E</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="E" value={E} onChange={(e) => setE(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={E} onChange={(e) => setE(Number(e.target.value))} type='number' required />
                     <Label className="w-2/4 pt-2 text-center">F</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="F" value={F} onChange={(e) => setF(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={F} onChange={(e) => setF(Number(e.target.value))} type='number' required />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">G</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="G" value={G} onChange={(e) => setG(Number(e.target.value))} type='number' required />
-                    <Label className="w-2/4 pt-2 text-center">Dust</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="Dust" value={dust} onChange={(e) => setDust(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={G} onChange={(e) => setG(Number(e.target.value))} type='number' required />
+                    <Label className="w-2/4 pt-2 text-center">Dust (kg)</Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Kg" value={dustkg} onChange={(e) => handleDustChange(e)} type='number' required />
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Machine Name</Label>
