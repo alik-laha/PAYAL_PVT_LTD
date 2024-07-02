@@ -10,6 +10,7 @@ import GraddingRouter from './router/GraddingRouter'
 import qcRcnRouter from './router/qcRcnRouter'
 import BoilingRouter from './router/BoilingRouter'
 import ResetPassword from "./router/resetPasswordRouter";
+import Maintenence from "./router/maintenence";
 
 app.use(cookieParser());
 app.use(cors());
@@ -27,5 +28,6 @@ app.use('/api/qcRcn', qcRcnRouter)
 app.use('/api/grading', GraddingRouter)
 app.use('/api/boiling', BoilingRouter)
 app.use('/api/resetPassword', ResetPassword)
+app.use('/api/maintenence', Maintenence)
 
 export default app
