@@ -21,6 +21,7 @@ const BoillingMaintenanceCreate = () => {
     const [progress, setProgress] = useState<number>(0);
     const [damage, setDamage] = useState<boolean>(false);
     const [partsName, setPartsName] = useState<string>("");
+    const [files, setFiles] = useState<FileList | null>(null);
 
     useEffect(() => {
         axios.get('/api/asset/getMachineByType/Boilling')
@@ -57,8 +58,41 @@ const BoillingMaintenanceCreate = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(mc_name);
+        if (!files || files.length === 0) {
+            console.log("submit called")
+            return;
+        }
+        const formData = new FormData();
+        formData.append('mc_name', mc_name);
+        formData.append('date', Date.current!.value);
+        formData.append('motorClean', motorClean.toString());
+        formData.append('insideWashBystream', insideWashBystream.toString());
+        formData.append('drainCleaning', drainCleaning.toString());
+        formData.append('waterChamberCleaning', waterChamberCleaning.toString());
+        formData.append('pressureGageClean', pressureGageClean.toString());
+        formData.append('hopperClean', hopperClean.toString());
+        formData.append('elevetorCup', elevetorCup.toString());
+        formData.append('damage', damage.toString());
+        formData.append('partsName', partsName);
+        for (let i = 0; i < files.length; i++) {
+            formData.append('files', files[i]);
+        }
+        axios.post('/api/maintenence/boillingcleancreate', formData)
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.error(err);
+            });
+
     };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setFiles(e.target.files);
+            console.log(e.target.files)
+        }
+    }
 
     return (
         <div className="pl-5 pr-5">
@@ -66,7 +100,7 @@ const BoillingMaintenanceCreate = () => {
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Cooker</Label>
-                    <select className="w-2/4 flex h-8 rounded-md border border-input bg-background px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => setMc_name(e.target.value)}>
+                    <select className="w-2/4 flex h-8 rounded-md border border-input bg-background px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => setMc_name(e.target.value)} value={mc_name}>
                         <option value="">Select Cooker</option>
                         {GraddingMachine.map((item: AssetData) => (
                             <option key={item.id} value={item.machineName}>{item.machineName}</option>
@@ -122,7 +156,7 @@ const BoillingMaintenanceCreate = () => {
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Cleaned Parts Image </Label>
                     <div className="flex items-center space-x-2">
-                        <input type="file" />
+                        <input type="file" multiple onChange={handleFileChange} />
                     </div>
                 </div>
                 <div className="flex">
@@ -140,7 +174,7 @@ const BoillingMaintenanceCreate = () => {
                 <div className={damage === true ? "flex" : "hidden"}>
                     <Label className="w-2/4 pt-1">Damaged Parts Image upload</Label>
                     <div className="flex items-center space-x-2">
-                        <input type="file" />
+                        <input type="file" multiple />
                     </div>
                 </div>
                 <div>
