@@ -13,17 +13,14 @@ import QCRcn from './components/qcRCN/QCRcn'
 import RCNBoiling from './components/RCN Boiling/RCNBoiling'
 import RCNScooping from './components/RCN Scooping/RCNScooping'
 import { Session_LogoutTime_Hr } from './components/common/exportData'
-
 import { Navigate } from 'react-router-dom'
-<<<<<<< HEAD
+
 import Maintenance from './components/Maintenance/Maintenance'
 
-=======
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import EmailEntryforResetpassword from './components/forgotPassword/EmailEntryforResetpassword'
 import VerifyCodeAndResetPassword from './components/forgotPassword/VerifyCodeAndResetPassword'
->>>>>>> main
 
 function App() {
   const navigate = useNavigate()
