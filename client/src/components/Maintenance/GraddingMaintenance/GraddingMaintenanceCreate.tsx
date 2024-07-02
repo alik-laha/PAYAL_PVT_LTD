@@ -60,7 +60,7 @@ const GraddingMaintenanceCreate = () => {
 
     return (
         <div className="pl-5 pr-5">
-            <Progress value={progress} max={100} className="bg-primary mb-2.5" />
+            <Progress value={progress} max={100} className="mb-4" />
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Machine Name</Label>

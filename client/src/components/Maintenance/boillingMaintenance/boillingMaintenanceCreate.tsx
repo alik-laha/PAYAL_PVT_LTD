@@ -11,7 +11,7 @@ const BoillingMaintenanceCreate = () => {
     const [GraddingMachine, setGraddingMachine] = useState([]);
     const [mc_name, setMc_name] = useState("");
     const Date = useRef<HTMLInputElement>(null);
-    const [dustTable, setDustTable] = useState<boolean>(false);
+    const [motorClean, setMotorClean] = useState<boolean>(false);
     const [hopper, setHopper] = useState<boolean>(false);
     const [elevetorCups, setElevetorCups] = useState<boolean>(false);
     const [elevetorMotorCleanByAir, setElevetorMotorCleanByAir] = useState<boolean>(false);
@@ -34,7 +34,7 @@ const BoillingMaintenanceCreate = () => {
     useEffect(() => {
         const totalSteps = 7;
         const completedSteps = [
-            dustTable,
+            motorClean,
             hopper,
             elevetorCups,
             elevetorMotorCleanByAir,
@@ -44,7 +44,7 @@ const BoillingMaintenanceCreate = () => {
         ].filter(Boolean).length;
         setProgress((completedSteps / totalSteps) * 100);
     }, [
-        dustTable,
+        motorClean,
         hopper,
         elevetorCups,
         elevetorMotorCleanByAir,
@@ -60,12 +60,12 @@ const BoillingMaintenanceCreate = () => {
 
     return (
         <div className="pl-5 pr-5">
-            <Progress value={progress} max={100} className="bg-primary mb-2.5" />
+            <Progress value={progress} max={100} className="mb-4" />
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Machine Name</Label>
+                    <Label className="w-2/4 pt-1">Cooker</Label>
                     <select className="w-2/4 flex h-8 rounded-md border border-input bg-background px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => setMc_name(e.target.value)}>
-                        <option value="">Select Machine</option>
+                        <option value="">Select Cooker</option>
                         {GraddingMachine.map((item: AssetData) => (
                             <option key={item.id} value={item.machineName}>{item.machineName}</option>
                         ))}
@@ -76,9 +76,9 @@ const BoillingMaintenanceCreate = () => {
                     <Input className="w-2/4" placeholder="Date" ref={Date} type='date' />
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">DustTable Clean</Label>
+                    <Label className="w-2/4 pt-1">MOTOR  AND OTHER PARTS CLEANING</Label>
                     <div className="flex items-center space-x-2">
-                        <Switch id="dustTable" checked={dustTable} onCheckedChange={setDustTable} />
+                        <Switch id="dustTable" checked={motorClean} onCheckedChange={setMotorClean} />
                     </div>
                 </div>
                 <div className="flex">
