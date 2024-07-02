@@ -12,12 +12,12 @@ const BoillingMaintenanceCreate = () => {
     const [mc_name, setMc_name] = useState("");
     const Date = useRef<HTMLInputElement>(null);
     const [motorClean, setMotorClean] = useState<boolean>(false);
-    const [hopper, setHopper] = useState<boolean>(false);
-    const [elevetorCups, setElevetorCups] = useState<boolean>(false);
-    const [elevetorMotorCleanByAir, setElevetorMotorCleanByAir] = useState<boolean>(false);
-    const [McAllPartsClean, setMcAllPartsClean] = useState<boolean>(false);
-    const [binClean, setBinClean] = useState<boolean>(false);
-    const [CallibrationRollerHolesClean, setCallibrationRollerHolesClean] = useState<boolean>(false);
+    const [insideWashBystream, setInsideWashByStream] = useState<boolean>(false);
+    const [drainCleaning, setDrainCleaning] = useState<boolean>(false);
+    const [waterChamberCleaning, setWatterChamberCleaning] = useState<boolean>(false);
+    const [pressureGageClean, setPressureGageClean] = useState<boolean>(false);
+    const [hopperClean, setHopperClean] = useState<boolean>(false);
+    const [elevetorCup, setElevetorCup] = useState<boolean>(false);
     const [progress, setProgress] = useState<number>(0);
 
     useEffect(() => {
@@ -35,22 +35,22 @@ const BoillingMaintenanceCreate = () => {
         const totalSteps = 7;
         const completedSteps = [
             motorClean,
-            hopper,
-            elevetorCups,
-            elevetorMotorCleanByAir,
-            McAllPartsClean,
-            binClean,
-            CallibrationRollerHolesClean
+            insideWashBystream,
+            drainCleaning,
+            waterChamberCleaning,
+            pressureGageClean,
+            hopperClean,
+            elevetorCup
         ].filter(Boolean).length;
         setProgress((completedSteps / totalSteps) * 100);
     }, [
         motorClean,
-        hopper,
-        elevetorCups,
-        elevetorMotorCleanByAir,
-        McAllPartsClean,
-        binClean,
-        CallibrationRollerHolesClean
+        insideWashBystream,
+        drainCleaning,
+        waterChamberCleaning,
+        pressureGageClean,
+        hopperClean,
+        elevetorCup
     ]);
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -82,39 +82,39 @@ const BoillingMaintenanceCreate = () => {
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Hopper Clean</Label>
+                    <Label className="w-2/4 pt-1">COOKING INSIDE WASH BY STREAM</Label>
                     <div className="flex items-center space-x-2">
-                        <Switch id="hopper" checked={hopper} onCheckedChange={setHopper} />
+                        <Switch id="hopper" checked={insideWashBystream} onCheckedChange={setInsideWashByStream} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Elevetor Cup Clean</Label>
+                    <Label className="w-2/4 pt-1">DRAIN LINE CLEANING</Label>
                     <div className="flex items-center space-x-2">
-                        <Switch id="elevetorCups" checked={elevetorCups} onCheckedChange={setElevetorCups} />
+                        <Switch id="elevetorCups" checked={drainCleaning} onCheckedChange={setDrainCleaning} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Elevetor Motor Clean</Label>
+                    <Label className="w-2/4 pt-1">WATER WASH CHAMBER CLEANING </Label>
                     <div className="flex items-center space-x-2">
-                        <Switch id="elevetorMotorCleanByAir" checked={elevetorMotorCleanByAir} onCheckedChange={setElevetorMotorCleanByAir} />
+                        <Switch id="elevetorMotorCleanByAir" checked={waterChamberCleaning} onCheckedChange={setWatterChamberCleaning} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Mc all Parts Clean</Label>
+                    <Label className="w-2/4 pt-1">PRESSURE GAGE CLEANING</Label>
                     <div className="flex items-center space-x-2">
-                        <Switch id="McAllPartsClean" checked={McAllPartsClean} onCheckedChange={setMcAllPartsClean} />
+                        <Switch id="McAllPartsClean" checked={pressureGageClean} onCheckedChange={setPressureGageClean} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Bin Clean</Label>
+                    <Label className="w-2/4 pt-1">HOPPER</Label>
                     <div className="flex items-center space-x-2">
-                        <Switch id="binClean" checked={binClean} onCheckedChange={setBinClean} />
+                        <Switch id="binClean" checked={hopperClean} onCheckedChange={setHopperClean} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Callibration Roller Holes Clean</Label>
+                    <Label className="w-2/4 pt-1">ELEVATOR CUP</Label>
                     <div className="flex items-center space-x-2">
-                        <Switch id="CallibrationRollerHolesClean" checked={CallibrationRollerHolesClean} onCheckedChange={setCallibrationRollerHolesClean} />
+                        <Switch id="CallibrationRollerHolesClean" checked={elevetorCup} onCheckedChange={setElevetorCup} />
                     </div>
                 </div>
                 <div>
