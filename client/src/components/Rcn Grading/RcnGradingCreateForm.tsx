@@ -54,14 +54,15 @@ const RcnGradingCreateForm = () => {
         const E = eRef.current?.value
         const F = fRef.current?.value
         const G = gRef.current?.value
-        const dust = dustRef.current?.value
+        const dustkg = dustRef.current?.value
         const sumGrade=(A?Number(A):0)+(B?Number(B):0)+(C?Number(C):0)+(D?Number(D):0)+(E?Number(E):0)
-        +(F?Number(F):0)+(G?Number(G):0)+(dust?Number(dust):0)
+        +(F?Number(F):0)+(G?Number(G):0)+(dustkg?(Number(dustkg)/80):0)
         const Mc_on = mc_onRef.current?.value
         const Mc_off = mc_offRef.current?.value
         const noOfEmployees = noofEmployeeRef.current?.value
         const grading_lotNo = grading_lotNoRef.current?.value
         const Mc_name = mc_name
+        const dust = Number(dustkg)/80
         //console.log(Mc_off)
         if (sumGrade > originStock)
              {
@@ -151,30 +152,30 @@ const RcnGradingCreateForm = () => {
                 <div className="flex mt-3">
 
                     <Label className="w-1/4 pt-2 ">A </Label>
-                    <Input className="w-2/4 justify-center bg-cyan-100 text-center" placeholder="Bag" ref={aRef} type='number' required />
+                    <Input className="w-2/4 justify-center bg-cyan-100 text-center" placeholder="Bag" ref={aRef} type='number' step="0.01" required />
                     <Label className="w-2/4 pt-2 text-center">B </Label>
-                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={bRef} type='number' required /> </div>
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={bRef} type='number' step="0.01" required /> </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">C </Label>
-                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={cRef} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={cRef} type='number' step="0.01" required />
                     <Label className="text-center w-2/4 pt-2">D </Label>
-                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={dRef} type='number' required /> </div>
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={dRef} type='number' step="0.01" required /> </div>
 
 
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">E </Label>
-                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={eRef} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={eRef} type='number' step="0.01" required />
                     <Label className="w-2/4 pt-2 text-center">F </Label>
-                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={fRef} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={fRef} type='number' step="0.01" required />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">G </Label>
-                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={gRef} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={gRef} type='number' step="0.01" required />
                     <Label className="w-2/4 pt-2 text-center">Dust </Label>
-                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Bag" ref={dustRef} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100 text-center" placeholder="Kg" ref={dustRef} type='number' required />
                 </div>
 
 

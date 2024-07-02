@@ -15,35 +15,35 @@ const RcnGrading = sequelize.define('rcnGradingEdit', {
         allowNull: false
     },
     A: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false
     },
     B: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false
     },
     C: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false
     },
     D: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false
     },
     E: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false
     },
     F: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false
     },
     G: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false
     },
     dust: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false
     },
     Mc_name: {

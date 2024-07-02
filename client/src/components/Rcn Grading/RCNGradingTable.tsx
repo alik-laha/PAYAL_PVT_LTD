@@ -206,14 +206,14 @@ const RcnGradingTable = () => {
                     'Sl_No': index + 1,
                     'Entry_Date': handletimezone(item.date),
                     'Origin': item.origin,
-                    'A': item.A,
-                    'B': item.B,
-                    'C': item.C,
-                    'D': item.D,
-                    'E': item.E,
-                    'F': item.F,
-                    'G': item.G,
-                    'Dust': item.dust,
+                    'A': formatNumber(parseFloat(item.A)),
+                    'B': formatNumber(parseFloat(item.B)),
+                    'C': formatNumber(parseFloat(item.C)),
+                    'D': formatNumber(parseFloat(item.D)),
+                    'E': formatNumber(parseFloat(item.E)),
+                    'F': formatNumber(parseFloat(item.F)),
+                    'G': formatNumber(parseFloat(item.G)),
+                    'Dust': formatNumber(parseFloat(item.dust)),
                     'Machine': item.Mc_name,
                     'MC_On': handleAMPM(item.Mc_on.slice(0, 5)),
                     'MC_Off': handleAMPM(item.Mc_off.slice(0, 5)),
@@ -236,14 +236,14 @@ const RcnGradingTable = () => {
                     'Sl_No': index + 1,
                     'Entry_Date': handletimezone(item.date),
                     'Origin': item.origin,
-                    'A': item.A,
-                    'B': item.B,
-                    'C': item.C,
-                    'D': item.D,
-                    'E': item.E,
-                    'F': item.F,
-                    'G': item.G,
-                    'Dust': item.dust,
+                    'A': formatNumber(parseFloat(item.A)),
+                    'B': formatNumber(parseFloat(item.B)),
+                    'C': formatNumber(parseFloat(item.C)),
+                    'D': formatNumber(parseFloat(item.D)),
+                    'E': formatNumber(parseFloat(item.E)),
+                    'F': formatNumber(parseFloat(item.F)),
+                    'G': formatNumber(parseFloat(item.G)),
+                    'Dust': formatNumber(parseFloat(item.dust)),
                     'Machine': item.Mc_name,
                     'MC_On': handleAMPM(item.Mc_on.slice(0, 5)),
                     'MC_Off': handleAMPM(item.Mc_off.slice(0, 5)),
@@ -329,6 +329,9 @@ const RcnGradingTable = () => {
 
         });
     }
+    function formatNumber(num:any) {
+        return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
+    }
 
     return (
         <div className="ml-5 mt-5">
@@ -377,14 +380,14 @@ const RcnGradingTable = () => {
                     <TableHead className="text-center" >Origin</TableHead>
                     <TableHead className="text-center" >Grading Entry Date</TableHead>
 
-                    <TableHead className="text-center" >A</TableHead>
-                    <TableHead className="text-center" >B</TableHead>
-                    <TableHead className="text-center" >C</TableHead>
-                    <TableHead className="text-center" >D</TableHead>
-                    <TableHead className="text-center" >E</TableHead>
-                    <TableHead className="text-center" >F</TableHead>
-                    <TableHead className="text-center" >G</TableHead>
-                    <TableHead className="text-center" >Dust</TableHead>
+                    <TableHead className="text-center" >A(Bag)</TableHead>
+                    <TableHead className="text-center" >B(Bag)</TableHead>
+                    <TableHead className="text-center" >C(Bag)</TableHead>
+                    <TableHead className="text-center" >D(Bag)</TableHead>
+                    <TableHead className="text-center" >E(Bag)</TableHead>
+                    <TableHead className="text-center" >F(Bag)</TableHead>
+                    <TableHead className="text-center" >G(Bag)</TableHead>
+                    <TableHead className="text-center" >Dust(Bag)</TableHead>
 
                     {/* <TableHead className="text-center" >Name of Machine</TableHead> */}
 
@@ -411,14 +414,14 @@ const RcnGradingTable = () => {
 
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                <TableCell className="text-center font-semibold">{item.A} </TableCell>
-                                <TableCell className="text-center font-semibold">{item.B} </TableCell>
-                                <TableCell className="text-center font-semibold">{item.C} </TableCell>
-                                <TableCell className="text-center font-semibold">{item.D} </TableCell>
-                                <TableCell className="text-center font-semibold">{item.E}</TableCell>
-                                <TableCell className="text-center font-semibold">{item.F} </TableCell>
-                                <TableCell className="text-center font-semibold">{item.G} </TableCell>
-                                <TableCell className="text-center font-semibold">{item.dust}</TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.A))}</TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.B))} </TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.C))} </TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.D))} </TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.E))} </TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.F))} </TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.G))} </TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.dust))} </TableCell>
 
                                 {/* <TableCell className="text-center">{item.Mc_name}</TableCell> */}
                                 <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
@@ -486,14 +489,14 @@ const RcnGradingTable = () => {
 
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.A} </TableCell>
-                                    <TableCell className="text-center font-semibold">{item.B} </TableCell>
-                                    <TableCell className="text-center font-semibold">{item.C} </TableCell>
-                                    <TableCell className="text-center font-semibold">{item.D} </TableCell>
-                                    <TableCell className="text-center font-semibold">{item.E}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.F} </TableCell>
-                                    <TableCell className="text-center font-semibold">{item.G} </TableCell>
-                                    <TableCell className="text-center font-semibold">{item.dust}</TableCell>
+                                    <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.A))}</TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.B))} </TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.C))} </TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.D))} </TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.E))} </TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.F))} </TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.G))} </TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.dust))} </TableCell>
 
                                     {/* <TableCell className="text-center">{item.Mc_name}</TableCell> */}
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>

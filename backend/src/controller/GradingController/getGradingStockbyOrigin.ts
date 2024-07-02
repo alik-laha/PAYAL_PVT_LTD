@@ -5,8 +5,13 @@ import { Op } from "sequelize";
 import RcnGrading from "../../model/RcnGradingModel";
 import RcnPrimary from "../../model/RcnEntryModel";
 
+function formatNumber(num:any) {
+    return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
+}
+
 const getGradingStockByOrigin = async (req: Request, res: Response) => {
     try {
+       
         let finalSum=0;
         let stockSum=0;
         let finalconsumedSum=0;
@@ -31,11 +36,17 @@ const getGradingStockByOrigin = async (req: Request, res: Response) => {
 
         if(AllOriginRcnPrimary && AllOriginRcnPrimary.length>0){
             if(AllOriginRcnPrimary[0].dataValues.totalBags){
-                stockSum=AllOriginRcnPrimary[0].dataValues.totalBags;
+                //stockSum=AllOriginRcnPrimary[0].dataValues.totalBags;
+                //const formattedstockSum=formatNumber(parseFloat(AllOriginRcnPrimary[0].dataValues.totalBags));
+                
+                stockSum = Number(parseFloat(AllOriginRcnPrimary[0].dataValues.totalBags).toFixed(2));
+                
             }
             
         }
-
+        
+        //console.log(AllOriginRcnPrimary)
+        console.log(stockSum)
         const AllOriginGrading = await RcnGrading.findAll({
             attributes: [
                 
@@ -56,20 +67,31 @@ const getGradingStockByOrigin = async (req: Request, res: Response) => {
             },
             group: ['origin']
         });
+        //console.log(AllOriginGrading)
        
-        if(AllOriginGrading.length>0){
-          
-            finalconsumedSum=(AllOriginGrading[0].dataValues.totalA ? AllOriginGrading[0].dataValues.totalA : 0)
-                +(AllOriginGrading[0].dataValues.totalB ?AllOriginGrading[0].dataValues.totalB:0)
-                +(AllOriginGrading[0].dataValues.totalC ?AllOriginGrading[0].dataValues.totalC:0)
-                +(AllOriginGrading[0].dataValues.totalD ?AllOriginGrading[0].dataValues.totalD:0)
-                +(AllOriginGrading[0].dataValues.totalE ?AllOriginGrading[0].dataValues.totalE:0)
-                +(AllOriginGrading[0].dataValues.totalF ? AllOriginGrading[0].dataValues.totalF:0)
-                +(AllOriginGrading[0].dataValues.totalG? AllOriginGrading[0].dataValues.totalG:0)
-                +(AllOriginGrading[0].dataValues.totalDust ? AllOriginGrading[0].dataValues.totalDust:0)
-        }
+   
 
-        finalSum=stockSum-finalconsumedSum
+        if (AllOriginGrading.length > 0) {
+            const dataValues = AllOriginGrading[0].dataValues;
+            finalconsumedSum = [
+                'totalA',
+                'totalB',
+                'totalC',
+                'totalD',
+                'totalE',
+                'totalF',
+                'totalG',
+                'totalDust'
+            ].reduce((sum, key) => {
+                const value = dataValues[key] ? parseFloat(dataValues[key]) : 0;
+                return sum + value;
+            }, 0);
+        }
+        
+        const formattedFinalConsumedSum = formatNumber(finalconsumedSum);
+        console.log(formattedFinalConsumedSum);
+        
+         finalSum = formatNumber(stockSum - formattedFinalConsumedSum);
 
         // Send the result as a response
         return res.status(200).json({ finalSum});

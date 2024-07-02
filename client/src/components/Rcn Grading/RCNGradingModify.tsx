@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
@@ -14,14 +14,14 @@ interface RcnGraddingModifyFormProps {
     data: {
         id: number;
         origin: string;
-        A: number;
-        B: number;
-        C: number;
-        D: number;
-        E: number;
-        F: number;
-        G: number;
-        dust: number;
+        A: string;
+        B: string;
+        C: string;
+        D: string;
+        E: string;
+        F: string;
+        G: string;
+        dust: string;
         Mc_name: string;
         Mc_on: string;
         Mc_off: string;
@@ -46,6 +46,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     const [F, setF] = useState<number>()
     const [G, setG] = useState<number>()
     const [dust, setDust] = useState<number>()
+    const [dustkg, setDustkg] = useState<number>()
     const [Mc_on, setMc_on] = useState('')
     const [Mc_off, setMc_off] = useState('')
     const [noOfEmployees, setNoOfEmployees] = useState<number>()
@@ -54,6 +55,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     const [grading_lotNo, setGrading_lotNo] = useState('')
     const [errortext, setErrortext] = useState('')
     const [originStock, setOriginStock] = useState<number>(0)
+    const [actoriginStock, setActOriginStock] = useState<number>(0)
     //const [originoldStock, setOriginoldStock] = useState<number>(0)
     const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
     const rejectcloseDialogButton = document.getElementById('errorempcloseDialog') as HTMLInputElement;
@@ -65,21 +67,17 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
             }
         });
     }
+
+    // function formatNumber(num:any) {
+    //     return Number.isInteger(num) ? parseInt(num) : parseFloat(num).toFixed(2);
+    // }
     const handleoriginStock = (value:string) => {
       
         setOrigin(value)
         axios.get(`/api/grading/getGradeStockByOrigin/${value}`)
         .then(res => {
           if(res.data.finalSum){
-
-            if(value===props.data.origin){
-                setOriginStock(res.data.finalSum+props.data.A+props.data.B+props.data.C+
-                    props.data.D+props.data.E+props.data.F+props.data.G+
-                    props.data.dust)
-            }
-            else{
-                setOriginStock(res.data.finalSum)
-            }
+            setOriginStock(parseFloat(res.data.finalSum))
             
           }
           else{
@@ -93,13 +91,29 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
       
     
     }
+    const handleDustChange = (e: ChangeEvent<HTMLInputElement>) => {
+        //e.preventDefault()
+        setDustkg((parseFloat(e.target.value)))
+        setDust((parseInt(e.target.value))/80)
+        //console.log((parseInt(e.target.value))/80)
+       // console.log(dust))
 
+    }
+
+    function formatNumber(num:any) {
+        return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
+    }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        const sumGrade=(A?Number(A):0)+(B?Number(B):0)+(C?Number(C):0)+(D?Number(D):0)+(E?Number(E):0)
-        +(F?Number(F):0)+(G?Number(G):0)+(dust?Number(dust):0)
-        if (sumGrade > originStock)
+        
+        const sumGrade=(A?
+            (A):0)+(B?(B):0)+(C?(C):0)+(D?(D):0)+(E?(E):0)
+        +(F?(F):0)+(G?(G):0)+(dust?(dust):0)
+        console.log(sumGrade)
+        console.log(formatNumber(sumGrade-actoriginStock))
+        console.log(sumGrade-actoriginStock)
+        if (formatNumber(sumGrade- actoriginStock)> originStock)
             {
            setErrortext('Total Bag Cannot Exceed Stock Left')
           
@@ -135,14 +149,14 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     useEffect(() => {
         setOrigin(props.data.origin)
         setDate(new Date(props.data.date).toISOString().slice(0, 10))
-        setA(props.data.A)
-        setB(props.data.B)
-        setC(props.data.C)
-        setD(props.data.D)
-        setE(props.data.E)
-        setF(props.data.F)
-        setG(props.data.G)
-        setDust(props.data.dust)
+        setA(parseFloat(props.data.A))
+        setB((parseFloat(props.data.B)))
+        setC((parseFloat(props.data.C)))
+        setD((parseFloat(props.data.D)))
+        setE((parseFloat(props.data.E)))
+        setF((parseFloat(props.data.F)))
+        setG((parseFloat(props.data.G)))
+        setDust((parseFloat(props.data.dust)))
         setMc_name(props.data.Mc_name)
         setMc_on(props.data.Mc_on)
         setMc_off(props.data.Mc_off)
@@ -150,14 +164,20 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
         setMc_breakdown(props.data.Mc_breakdown)
         setOtherTime(props.data.otherTime)
         setGrading_lotNo(props.data.grading_lotNo)
+        setDustkg(((parseFloat(props.data.dust))*80))
   
         axios.get(`/api/grading/getGradeStockByOrigin/${props.data.origin}`)
         .then(res => {
           if(res.data.finalSum){
-            setOriginStock(res.data.finalSum+props.data.A+props.data.B+props.data.C+
-                props.data.D+props.data.E+props.data.F+props.data.G+
-                props.data.dust)
-          }           
+            //setActOriginStock(parseFloat(res.data.finalSum))
+            setOriginStock(parseFloat(res.data.finalSum))
+            setActOriginStock(
+            parseFloat(props.data.A)+parseFloat(props.data.B)
+            +parseFloat(props.data.C)+parseFloat(props.data.D)
+                +parseFloat(props.data.E)+parseFloat(props.data.F)
+                +parseFloat(props.data.G)+parseFloat(props.data.dust))
+        
+          }        
         })
         .catch(err => {
             console.log(err)
@@ -192,30 +212,30 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
                 <div className="flex mt-2">
                     
                     <Label className="w-1/4 pt-2">A</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="A" value={A} onChange={(e) => setA(Number(e.target.value))} type='number' required />
+                    <Input type='number' className="w-2/4 bg-cyan-100" placeholder="Bag" value={A} onChange={(e) => setA((parseFloat(e.target.value)))} step="0.01" required />
                     <Label className="w-2/4 pt-2 text-center">B</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="B" value={B} onChange={(e) => setB(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={B} onChange={(e) => setB((parseFloat(e.target.value)))} type='number' step="0.01" required />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">C</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="C" value={C} onChange={(e) => setC(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={C} onChange={(e) => setC((parseFloat(e.target.value)))} type='number' step="0.01" required />
                     <Label className="w-2/4 pt-2 text-center">D</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="D" value={D} onChange={(e) => setD(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="bag" value={D} onChange={(e) => setD(parseFloat(e.target.value))} type='number' step="0.01" required />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">E</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="E" value={E} onChange={(e) => setE(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={E} onChange={(e) => setE(parseFloat(e.target.value))} type='number' step="0.01" required />
                     <Label className="w-2/4 pt-2 text-center">F</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="F" value={F} onChange={(e) => setF(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={F} onChange={(e) => setF(parseFloat(e.target.value))} type='number' step="0.01" required />
                 </div>
 
                 <div className="flex">
                     <Label className="w-1/4 pt-2">G</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="G" value={G} onChange={(e) => setG(Number(e.target.value))} type='number' required />
-                    <Label className="w-2/4 pt-2 text-center">Dust</Label>
-                    <Input className="w-2/4 bg-cyan-100" placeholder="Dust" value={dust} onChange={(e) => setDust(Number(e.target.value))} type='number' required />
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Bag" value={G} onChange={(e) => setG(parseFloat(e.target.value))} type='number' step="0.01" required />
+                    <Label className="w-2/4 pt-2 text-center">Dust (kg)</Label>
+                    <Input className="w-2/4 bg-cyan-100" placeholder="Kg" value={dustkg} onChange={(e) => handleDustChange(e)} type='number' step="0.01" required />
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Machine Name</Label>
