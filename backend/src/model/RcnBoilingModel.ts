@@ -25,7 +25,7 @@ const RcnBoiling = sequelize.define('rcnBoiling', {
         allowNull: false
     },
     Size: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.FLOAT,
         allowNull: false
     },
     Scooping_Line_Mc:
