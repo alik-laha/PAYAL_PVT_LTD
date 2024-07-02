@@ -28,6 +28,7 @@ const Maintenance = () => {
         else {
             setBoillingView("block")
             setGraddingView("none")
+            console.log(BoillingView)
         }
 
     }
@@ -39,8 +40,8 @@ const Maintenance = () => {
                 <Separator className="my-4" />
                 <div className="flex h-5 items-center space-x-4 text-sm">
                     <div onClick={handleGraddingView}>Gradding</div>
-                    <Separator orientation="vertical" onClick={handleBoillingView} />
-                    <div>Boilling</div>
+                    <Separator orientation="vertical" />
+                    <div onClick={handleBoillingView} >Boilling</div>
                 </div>
                 <div style={{ display: GraddingView }}>
                     <GraddingMaintenance />
