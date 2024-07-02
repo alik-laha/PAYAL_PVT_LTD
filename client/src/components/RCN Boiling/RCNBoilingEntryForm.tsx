@@ -46,7 +46,7 @@ import { MdDelete } from "react-icons/md";
 interface MergedData {
     ScoopingLine: string;
     sizeName: string;
-    size: string;
+    size: number;
     origin:string;
   }
 
@@ -73,10 +73,10 @@ const RCNBoilingEntryForm = () => {
             origin,
             ScoopingLine,
             sizeName,
-            size
+            size:parseFloat(size)
           }));
     
-          const merged = filteredData.reduce<Record<string, { ScoopingLine: string, sizeName: string[], size: string,origin:string }>>((acc, row) => {
+          const merged = filteredData.reduce<Record<string, { ScoopingLine: string, sizeName: string[], size: number,origin:string }>>((acc, row) => {
             const { ScoopingLine, sizeName, size, origin} = row;
             if (!acc[ScoopingLine]) {
               acc[ScoopingLine] = { ScoopingLine, sizeName: [sizeName], size: size,origin:origin };
@@ -142,8 +142,8 @@ const RCNBoilingEntryForm = () => {
                             setErrortext(res.data.message)
 
                             if (res.status === 200) {
-                                const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                                dialog.showModal()
+                               // const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                               // dialog.showModal()
                                 // setTimeout(() => {
                                 //     dialog.close()
                                 //     window.location.reload()
@@ -170,27 +170,24 @@ const RCNBoilingEntryForm = () => {
                         })
 
                 }
-
-
                 const formscoopData = newFormData.map(row => ({
                     columnLotNo: res.data.newSequence,
                     ...row
-
                 }))
                 for (const data of formscoopData) 
                     {
-                        axios.post('/api/boiling/createBoiling', { data }).then(res => {
+                        axios.post('/api/scooping/createInitialScooping', { data }).then(res => {
                             boilingcount++;
                             if (formData.length === boilingcount) {
                                 setErrortext(res.data.message)
     
                                 if (res.status === 200) {
-                                    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                                    dialog.showModal()
-                                    setTimeout(() => {
-                                        dialog.close()
-                                        window.location.reload()
-                                    }, 2000)
+                                    // const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                                    // dialog.showModal()
+                                    // setTimeout(() => {
+                                    //     dialog.close()
+                                    //     window.location.reload()
+                                    // }, 2000)
                                 }
     
                             }
