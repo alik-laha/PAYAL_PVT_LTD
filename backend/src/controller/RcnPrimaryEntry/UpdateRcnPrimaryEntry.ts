@@ -8,7 +8,7 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin, date } = req.body;
-        let difference = blWeight - netWeight;
+        let difference = netWeight -blWeight ;
 
         const editedBy = req.cookies.user
         if (!id) {

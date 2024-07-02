@@ -71,3 +71,22 @@ export const userPasswordModifiedMail = async (email: string, password: string) 
     }
     return await transport.sendMail(mail)
 }
+
+export const ResetPassword = async (email: string, id: string) => {
+    console.log(email, id)
+    const mail = {
+        from: {
+            name: "Payal Dealers Pvt Ltd",
+            address: process.env.EMAIL_USER!
+        },
+        to: email,
+        subject: "Reset Password",
+        text: `Your password has been reset.`,
+        html: `<h4>Hi User,</h4>,<br/><br/>
+       <h4> Your Password Change Request is Received. Please use the below Verification Code to reset your password.</h4><br/><br/>
+                <h4> Verification Code  : <b>${id}</b></h4><br/><br/>
+                <h3>Type the Verification Code in the Verification Code Field and Reset your Password</h3><br/><br/>
+                <b>Website :</b><a href="${process.env.RESET_PASSWORD_URL}">Click Here</a>`,
+    }
+    return await transport.sendMail(mail)
+}

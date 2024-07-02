@@ -62,7 +62,7 @@ const DashboardTable = () => {
     const [UserData, setUserData] = useState<User[]>([])
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
-    const [transformedData, setTransformedData] = useState<User[]>([]);
+    //const [transformedData, setTransformedData] = useState<User[]>([]);
     const currDate = new Date().toLocaleDateString();
     const [Error, setError] = useState<string>("")
 
@@ -121,7 +121,9 @@ const DashboardTable = () => {
 
         const response = await axios.post('/api/user/searchuser', {}, {})
         const data1 = await response.data
-        const transformed = data1.user.map((item: User, idx: number) => ({
+        let transformed:User[] = [];
+        
+        transformed= data1.user.map((item: User, idx: number) => ({
             id: idx+1,
     employeeId: item.employeeId,
     employeeName: item.employeeName,
@@ -132,8 +134,8 @@ const DashboardTable = () => {
     modifyedBy:item.modifyedBy
 
         }));
-        setTransformedData(transformed);
-        const ws = XLSX.utils.json_to_sheet(transformedData);
+        //setTransformedData(transformed);
+        const ws = XLSX.utils.json_to_sheet(transformed);
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });

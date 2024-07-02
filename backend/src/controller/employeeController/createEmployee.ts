@@ -14,6 +14,10 @@ const createEmployee = async (req: Request, res: Response) => {
         if (oldpanEmployee) {
             return res.status(400).json({ msg: 'Employee Already Exists with this Pan No.' })
         }
+        let oldemailEmployee = await Employee.findOne({ where: { email } });
+        if (oldemailEmployee) {
+            return res.status(400).json({ msg: 'Employee Already Exists with this Email Id' })
+        }
 
 
         const LastUserId: EmployeeData | null = await Employee.findOne({ order: [['id', 'DESC']] }) as EmployeeData | null;

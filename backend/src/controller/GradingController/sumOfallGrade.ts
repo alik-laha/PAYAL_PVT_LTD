@@ -5,6 +5,8 @@ import sequelize from "../../config/databaseConfig";
 import { Op } from "sequelize";
 
 const sumOfallGrade = async (req: Request, res: Response) => {
+
+    
     try {
 
         const today = new Date();

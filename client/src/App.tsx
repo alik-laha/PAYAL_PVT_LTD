@@ -12,24 +12,57 @@ import Private from './components/private/private'
 import QCRcn from './components/qcRCN/QCRcn'
 import RCNBoiling from './components/RCN Boiling/RCNBoiling'
 import RCNScooping from './components/RCN Scooping/RCNScooping'
+import { Session_LogoutTime_Hr } from './components/common/exportData'
 
 import { Navigate } from 'react-router-dom'
+<<<<<<< HEAD
 import Maintenance from './components/Maintenance/Maintenance'
 
+=======
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import EmailEntryforResetpassword from './components/forgotPassword/EmailEntryforResetpassword'
+import VerifyCodeAndResetPassword from './components/forgotPassword/VerifyCodeAndResetPassword'
+>>>>>>> main
 
 function App() {
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    axios.get('/api/user/logout').then(() => {
+      localStorage.removeItem('role')
+      localStorage.removeItem('dept')
+      localStorage.removeItem('countdownStartTime')
+      localStorage.removeItem('user')
+      navigate('/login')
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+  const countdownStartTime = localStorage.getItem('countdownStartTime');
+  let elapsedTime = 0;
+  const durationInMillis = Session_LogoutTime_Hr * 60 * 60 * 1000;
+  if (countdownStartTime) {
+    const currentTime = new Date().getTime();
+    elapsedTime = currentTime - parseInt(countdownStartTime);
+  }
+  const remainingTime = durationInMillis - elapsedTime;
+  setTimeout(function () {
+    handleLogout()
+  }, remainingTime);
 
   return (
     <>
-
       <Routes>
+        <Route path='/forgotpass' element={<EmailEntryforResetpassword />} />
+        <Route path='/changePassword' element={<VerifyCodeAndResetPassword />} />
         <Route path='/' element={<Navigate to={"/dashboard"} replace />} />
         <Route path="/login" element={<Login />} />
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'ReceivingSupervisor', 'ReceivingManager',
-          'MaintainanceSupervisor',
-          'GradingSupervisor', 'QCManager', 'ProductionManager', 'QCSupervisor']} />}>
+          'ReceivingSupervisor', 'ReceivingManager', 'QCManager', 'QCSupervisor',
+          'ProductionManager', 'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor',
+          'MaintainanceSupervisor', 'MaintainanceManager']} />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
@@ -45,21 +78,17 @@ function App() {
           <Route path="/dashboard/machine" element={<Machine />} />
         </Route>
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'ReceivingSupervisor', 'ReceivingManager']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager']} />}>
           <Route path="/dashboard/rcnprimaryentry" element={<RcnPrimaryEntry />} />
         </Route>
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'QCSupervisor', 'QCManager']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>
           <Route path="/dashboard/qcRCN" element={<QCRcn />} />
         </Route>
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'GradingSupervisor', 'ProductionManager']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'GradingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/rcnGrading' element={<RcnGrading />} />
         </Route>
-
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'BoilingSupervisor', 'ProductionManager']} />}>
@@ -74,8 +103,6 @@ function App() {
           'ScoopingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/machineMaintainance' element={<Maintenance />} />
         </Route>
-
-
       </Routes>
     </>
   )

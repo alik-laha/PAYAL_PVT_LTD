@@ -24,7 +24,7 @@ const RcnBoilingEdit = sequelize.define('rcnBoilingEdit', {
         allowNull: false
     },
     Size: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false
     },
     Scooping_Line_Mc:

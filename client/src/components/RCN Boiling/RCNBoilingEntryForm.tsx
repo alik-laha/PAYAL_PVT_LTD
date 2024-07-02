@@ -123,6 +123,12 @@ const RCNBoilingEntryForm = () => {
                    .catch(err => {
                        console.log(err)
                        setErrortext(err.response.data.message)
+                       axios.delete(`/api/boiling/deleteLotNo/${data.columnLotNo}`).then((res) => {
+                        console.log(res.data)
+                        })
+                        axios.delete(`/api/boiling/deleteBoilingByLotNo/${data.columnLotNo}`).then((res) => {
+                            console.log(res.data)
+                            })
                        const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
                        dialog.showModal()
                        setTimeout(() => {
