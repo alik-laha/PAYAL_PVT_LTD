@@ -19,6 +19,8 @@ const BoillingMaintenanceCreate = () => {
     const [hopperClean, setHopperClean] = useState<boolean>(false);
     const [elevetorCup, setElevetorCup] = useState<boolean>(false);
     const [progress, setProgress] = useState<number>(0);
+    const [damage, setDamage] = useState<boolean>(false);
+    const [partsName, setPartsName] = useState<string>("");
 
     useEffect(() => {
         axios.get('/api/asset/getMachineByType/Boilling')
@@ -115,6 +117,30 @@ const BoillingMaintenanceCreate = () => {
                     <Label className="w-2/4 pt-1">ELEVATOR CUP</Label>
                     <div className="flex items-center space-x-2">
                         <Switch id="CallibrationRollerHolesClean" checked={elevetorCup} onCheckedChange={setElevetorCup} />
+                    </div>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">Cleaned Parts Image </Label>
+                    <div className="flex items-center space-x-2">
+                        <input type="file" />
+                    </div>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">Check if any Parts is Damage </Label>
+                    <div className="flex items-center space-x-2">
+                        <input type="checkbox" checked={damage} onChange={(e) => setDamage(e.target.checked)} className="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground" />
+                    </div>
+                </div>
+                <div className={damage === true ? "flex" : "hidden"}>
+                    <Label className="w-2/4 pt-1">Name Of the Parts</Label>
+                    <div className="flex items-center space-x-2">
+                        <Input className="w-4/4" placeholder="Name Of the Parts" value={partsName} onChange={(e) => setPartsName(e.target.value)} />
+                    </div>
+                </div>
+                <div className={damage === true ? "flex" : "hidden"}>
+                    <Label className="w-2/4 pt-1">Damaged Parts Image upload</Label>
+                    <div className="flex items-center space-x-2">
+                        <input type="file" />
                     </div>
                 </div>
                 <div>
