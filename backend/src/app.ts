@@ -26,6 +26,7 @@ app.use('/api/asset', assetRouter)
 app.use('/api/qcRcn', qcRcnRouter)
 app.use('/api/grading', GraddingRouter)
 app.use('/api/boiling', BoilingRouter)
+app.use('/api/scooping', BoilingRouter)
 app.use('/api/resetPassword', ResetPassword)
 
 export default app
