@@ -65,6 +65,17 @@ const GraddingMaintenanceCreate = () => {
         for (let i = 0; i < files.length; i++) {
             formData.append("files", files[i]);
         }
+        formData.append("mc_name", mc_name);
+        formData.append("date", Date.current?.value || "");
+        formData.append("dustTable", dustTable.toString());
+        formData.append("hopper", hopper.toString());
+        formData.append("elevetorCups", elevetorCups.toString());
+        formData.append("elevetorMotorCleanByAir", elevetorMotorCleanByAir.toString());
+        formData.append("McAllPartsClean", McAllPartsClean.toString());
+        formData.append("binClean", binClean.toString());
+        formData.append("CallibrationRollerHolesClean", CallibrationRollerHolesClean.toString());
+        formData.append("damage", damage.toString());
+        formData.append("partsName", partsName);
 
         // Make the API call to upload the files
         axios.post("/api/maintenence/graddingcleancreate", formData)

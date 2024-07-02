@@ -1,12 +1,11 @@
-import multer from "multer";
 import { Request, Response } from "express";
 
 
 const CreateGraddingMaintenence = async (req: Request, res: Response) => {
     try {
-        const body = req.body;
-        const file: any = req.files;
-        console.log(file);
+        const { mc_name, date, dustTable, hopper, elevetorCups, elevetorMotorCleanByAir, McAllPartsClean, binClean, CallibrationRollerHolesClean, damage, partsName } = req.body;
+        const files: any = req.files;
+        console.log(mc_name, date, dustTable, hopper, elevetorCups, elevetorMotorCleanByAir, McAllPartsClean, binClean, CallibrationRollerHolesClean, damage, partsName)
         res.send('Files uploaded successfully');
     }
     catch (error) {
