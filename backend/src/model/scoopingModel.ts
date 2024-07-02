@@ -14,7 +14,7 @@ const RcnScooping = sequelize.define('rcnScooping', {
     },
     date: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     },
     origin: {
         type: DataTypes.STRING,
@@ -48,65 +48,65 @@ const RcnScooping = sequelize.define('rcnScooping', {
     Wholes: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     Broken: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     Uncut: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     Unscoop: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     NonCut: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     Rejection: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     Dust: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     KOR: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     Trolley_Broken: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     Trolley_Small_JB: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     
     Mc_on: {
         type: DataTypes.TIME,
-        allowNull: false
+        allowNull: true
     },
     Mc_off: {
         type: DataTypes.TIME,
-        allowNull: false
+        allowNull: true
     },
     noOfEmployees: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     Mc_breakdown: {
         type: DataTypes.TIME,
@@ -122,31 +122,31 @@ const RcnScooping = sequelize.define('rcnScooping', {
     },
     noOfLadies:{
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     noOfGents:{
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     noOfSupervisors:{
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     noOfOperators:{
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     CreatedBy: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     editStatus: {
         type: DataTypes.STRING,
-        defaultValue: "NA"
+        allowNull: true
     },
     Mc_runTime: {
         type: DataTypes.TIME,
-        allowNull: false
+        allowNull: true
     },
     modifiedBy: {
         type: DataTypes.STRING,
