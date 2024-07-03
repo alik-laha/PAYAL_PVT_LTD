@@ -1,9 +1,9 @@
-import GraddingMaintenance from "./GraddingMaintenance/Graddingmaintenance"
+import GraddingMaintenance from "./GraddingCleaning/GraddingCleaning"
 import DashboardHeader from "../dashboard/DashboardHeader"
 import DashboardSidebar from "../dashboard/DashboardSidebar"
 import { Separator } from "@/components/ui/separator"
 import { useState } from "react"
-import BoillingMaintenance from "./boillingMaintenance/BoillingMaintenence"
+import BoillingMaintenance from "./boillingCleaning/BoillingCleaning"
 
 
 

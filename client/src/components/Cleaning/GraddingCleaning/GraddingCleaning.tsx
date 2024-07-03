@@ -13,14 +13,14 @@ import {
     DialogDescription
 } from "@/components/ui/dialog"
 
-import GraddingMaintenanceCreate from "./GraddingMaintenanceCreate"
+import GraddingMaintenanceCreate from "./GraddingCleaningCreate"
 import { Button } from "@/components/ui/button"
-import GraddingMaintenanceTable from "./GraddingMaintenanceTable"
+import GraddingMaintenanceTable from "./GraddingCleaningTable"
 
 
 const GraddingMaintenance = () => {
     return (
-        <div>
+        <div >
             <Dialog>
                 <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+ Add Gradding Clean Report</Button></DialogTrigger>
                 <DialogContent className='max-w-2xl'>

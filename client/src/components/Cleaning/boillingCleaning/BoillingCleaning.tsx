@@ -7,8 +7,8 @@ import {
     DialogDescription
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import BoillingMaintenanceCreate from "./boillingMaintenanceCreate"
-import BoillingMaintenanceTable from "./boillingMaintenanceTable"
+import BoillingMaintenanceCreate from "./boillingCleaningCreate"
+import BoillingMaintenanceTable from "./boillingCleaningTable"
 
 
 const BoillingMaintenance = () => {

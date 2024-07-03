@@ -153,7 +153,7 @@ const DashboardSidebar = () => {
 
                         <CollapsibleContent className="Items-pvt">
                             <NavLink to="/dashboard/machineMaintainance" >
-                                Machine Maintenance
+                                Machine Cleaning
                             </NavLink>
                         </CollapsibleContent>
 

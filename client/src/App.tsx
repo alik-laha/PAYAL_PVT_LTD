@@ -15,7 +15,7 @@ import RCNScooping from './components/RCN Scooping/RCNScooping'
 import { Session_LogoutTime_Hr } from './components/common/exportData'
 import { Navigate } from 'react-router-dom'
 
-import Maintenance from './components/Maintenance/Maintenance'
+import Maintenance from './components/Cleaning/Cleaning'
 
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
