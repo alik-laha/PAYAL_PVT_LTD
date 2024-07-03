@@ -6,11 +6,11 @@ import { lotNoData } from "../../type/type";
 const CreateLotNo = async (req: Request, res: Response) => {
 try{
 
-    //const { columnLotNo} = req.body.data;
+ 
       const feeledBy = req.cookies.user;
 
       const currentDate = new Date();
-      //console.log(currentDate);
+    
       const currentYear = currentDate.getMonth() >= 3 ? currentDate.getFullYear() : currentDate.getFullYear() - 1;
     
       // Get the latest sequence ID from the database

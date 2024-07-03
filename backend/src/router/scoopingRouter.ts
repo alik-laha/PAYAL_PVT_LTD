@@ -1,6 +1,6 @@
 import express from "express"
 import jwtVerify from "../middleWare/JwtAuthantication";
-import CreateInitialScooping from "../controller/scoopingController/createScooping";
+import CreateInitialScooping from "../controller/scoopingController/createInitialScooping";
 import getprevScoop from "../controller/scoopingController/getprevScoop";
 
 const router = express()

@@ -6,7 +6,7 @@ const CreateInitialScooping = async (req: Request, res: Response) => {
     try {
         const { ScoopingLine,columnLotNo,sizeName,size,origin,rcvQuantity,openQuantity } = req.body.data;
         
-        const qcRcnInitial = await RcnScooping.create({
+        const scoopingnInitial = await RcnScooping.create({
             Scooping_Line_Mc:ScoopingLine,
             Size:size,
             SizeName:sizeName,
@@ -16,7 +16,7 @@ const CreateInitialScooping = async (req: Request, res: Response) => {
             Receiving_Qty:rcvQuantity
 
         });
-        res.status(201).json({ message: "Scooping Initial Entry Made Successfully", qcRcnInitial });
+        res.status(201).json({ message: "Scooping Initial Entry Made Successfully", scoopingnInitial });
 
     }
     catch (err) {

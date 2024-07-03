@@ -95,6 +95,11 @@ const RcnScooping = sequelize.define('rcnScooping', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
+    Transfered_to: 
+    {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     
     Mc_on: {
         type: DataTypes.TIME,
