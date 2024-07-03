@@ -1,7 +1,7 @@
 import Express from "express";
 import { graddingCleanFunction, boilingCleanFunction } from "../helper/saveimagefromUpload";
-import CreateGraddingMaintenence from "../controller/maintenence/graddingMaintenence/createGraddingMaintenence";
-import CreateBoillingMaintenence from "../controller/maintenence/boillingMaintenence/createBoillingMaintenence";
+import CreateGraddingMaintenence from "../controller/cleaning/graddingClean/createGraddingClean";
+import CreateBoillingMaintenence from "../controller/cleaning/boillingClean/createBoillingClean";
 
 const router = Express.Router();
 const graddingCleanImageUpload = graddingCleanFunction();
