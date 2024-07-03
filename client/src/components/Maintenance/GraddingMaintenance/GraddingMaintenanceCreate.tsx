@@ -84,6 +84,7 @@ const GraddingMaintenanceCreate = () => {
         formData.append("CallibrationRollerHolesClean", CallibrationRollerHolesClean.toString());
         formData.append("damage", damage.toString());
         formData.append("partsName", partsName);
+        formData.append("percentage", progress.toString());
 
         axios.post("/api/maintenence/graddingcleancreate", formData)
             .then((res) => {
