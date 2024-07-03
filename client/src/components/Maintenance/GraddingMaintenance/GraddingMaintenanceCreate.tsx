@@ -112,7 +112,7 @@ const GraddingMaintenanceCreate = () => {
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Machine Name</Label>
-                    <select className="w-2/4 flex h-8 rounded-md border border-input bg-background px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => setMc_name(e.target.value)} value={mc_name}>
+                    <select className="w-2/4 flex h-8 rounded-md border border-input bg-background px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => setMc_name(e.target.value)} value={mc_name} required>
                         <option value="">Select Machine</option>
                         {GraddingMachine.map((item: AssetData) => (
                             <option key={item.id} value={item.machineName}>{item.machineName}</option>
@@ -121,7 +121,7 @@ const GraddingMaintenanceCreate = () => {
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Date Of Cleaning</Label>
-                    <Input className="w-2/4" placeholder="Date" ref={Date} type='date' />
+                    <Input className="w-2/4" placeholder="Date" ref={Date} type='date' required />
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">DustTable Clean</Label>
@@ -168,7 +168,7 @@ const GraddingMaintenanceCreate = () => {
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Cleaned Parts Image </Label>
                     <div className="flex items-center space-x-2">
-                        <input type="file" multiple onChange={handleCleaningFileChange} />
+                        <input type="file" multiple onChange={handleCleaningFileChange} required />
                     </div>
                 </div>
                 <div className="flex">
@@ -182,13 +182,13 @@ const GraddingMaintenanceCreate = () => {
                         <div className="flex">
                             <Label className="w-2/4 pt-1">Name Of the Parts</Label>
                             <div className="flex items-center space-x-2">
-                                <Input className="w-4/4" placeholder="Name Of the Parts" value={partsName} onChange={(e) => setPartsName(e.target.value)} />
+                                <Input className="w-4/4" placeholder="Name Of the Parts" value={partsName} onChange={(e) => setPartsName(e.target.value)} required={damage === true ? true : false} />
                             </div>
                         </div>
                         <div className="flex">
                             <Label className="w-2/4 pt-1">Damaged Parts Image upload</Label>
                             <div className="flex items-center space-x-2">
-                                <input type="file" multiple onChange={handleDamageFileChange} required />
+                                <input type="file" multiple onChange={handleDamageFileChange} required={damage === true ? true : false} />
                             </div>
                         </div>
                     </>
