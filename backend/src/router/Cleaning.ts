@@ -13,7 +13,7 @@ router.post("/graddingcleancreate", graddingCleanImageUpload, CreateGraddingMain
 
 router.post("/boillingcleancreate", boillingCleanImageUpload, CreateBoillingMaintenence)
 
-router.post("/graddingCleanReportView", ViewGraddingCleaning)
+router.post("/graddingcleanreportview", ViewGraddingCleaning)
 
 
 

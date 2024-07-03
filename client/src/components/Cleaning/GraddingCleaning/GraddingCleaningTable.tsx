@@ -12,6 +12,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { json } from "stream/consumers";
 
 
 const GraddingMaintenanceTable = () => {
@@ -21,6 +22,8 @@ const GraddingMaintenanceTable = () => {
     const [allMachine, setAllMachine] = React.useState<AssetData[]>([]);
     const [mc_name, setMc_name] = React.useState<string>('');
     const [CleanTable, setCleanTable] = React.useState([]);
+    // const [CleanReportImage, setCleanReportImage] = React.useState<string[]>([])
+    // const [DamageReportImage, setDamageReportImage] = React.useState<string[]>([])
 
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selected = e.target.value;
@@ -36,8 +39,15 @@ const GraddingMaintenanceTable = () => {
         settoDate(nextday)
     }
 
-    const handleSearch = () => {
-        console.log(fromdate, todate)
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        axios.post('/api/cleaning/graddingcleanreportview', { fromdate, todate, mc_name })
+            .then((res) => {
+                setCleanTable(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
     useEffect(() => {
         axios.get('/api/asset/getallActiveMachine')
@@ -51,15 +61,55 @@ const GraddingMaintenanceTable = () => {
 
     }, [])
     useEffect(() => {
-        axios.get('/api/cleaning/graddingCleanReportView')
+
+        axios.post('/api/cleaning/graddingcleanreportview')
             .then((res) => {
                 setCleanTable(res.data)
+                console.log(res.data)
             })
             .catch((err) => {
                 console.log(err)
             })
 
     }, [])
+
+    const CheackRate = (rate: number) => {
+        if (rate > 90) {
+            return 'Too Good'
+        } else if (rate > 80 && rate < 90) {
+            return 'Very Good'
+        } else if (rate > 60 && rate < 80) {
+            return 'Good'
+        }
+        else if (rate > 40 && rate < 60) {
+            return 'Average'
+        }
+        else if (rate > 20 && rate < 40) {
+            return 'Poor'
+        }
+        else if (rate < 20) {
+            return 'Very Poor'
+        }
+    }
+
+    const cheackRateColor = (rate: number) => {
+        if (rate > 90) {
+            return 'bg-green-500'
+        } else if (rate > 80 && rate < 90) {
+            return 'bg-green-300'
+        } else if (rate > 60 && rate < 80) {
+            return 'bg-yellow-500'
+        }
+        else if (rate > 40 && rate < 60) {
+            return 'bg-yellow-300'
+        }
+        else if (rate > 20 && rate < 40) {
+            return 'bg-red-300'
+        }
+        else if (rate < 20) {
+            return 'bg-red-500'
+        }
+    }
     return (
         <div className="ml-5 mt-5 ">
             <div className="flex flexbox-search">
@@ -109,7 +159,18 @@ const GraddingMaintenanceTable = () => {
                     <TableHead>View Clean Data</TableHead>
                 </TableHeader>
                 <TableBody>
-
+                    {CleanTable.map((data: any, index: number) => (
+                        <TableRow key={index}>
+                            <TableCell>{index + 1}</TableCell>
+                            <TableCell>{data.mc_name}</TableCell>
+                            <TableCell>{data.date.slice(0, 10)}</TableCell>
+                            <TableCell className={cheackRateColor(data.percentage)}>{CheackRate(data.percentage)}</TableCell>
+                            <TableCell>{data.damage === true ? "Yes" : "No"}</TableCell>
+                            {/* <TableCell><img src={data.cleanedPartsImages} alt="cleanedPartsImages" /></TableCell>
+                            <TableCell><img src={data.damagedPartsImages} alt="damagedPartsImages" /></TableCell>
+                            <TableCell><Button className="bg-slate-500 h-8">View</Button></TableCell> */}
+                        </TableRow>
+                    ))}
                 </TableBody>
             </Table>
 
