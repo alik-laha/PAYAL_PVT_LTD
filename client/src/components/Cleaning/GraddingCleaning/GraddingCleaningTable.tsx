@@ -4,6 +4,14 @@ import { FaSearch } from "react-icons/fa";
 import React, { useEffect } from "react";
 import axios from "axios";
 import { AssetData } from "@/type/type";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
 
 
 const GraddingMaintenanceTable = () => {
@@ -12,6 +20,7 @@ const GraddingMaintenanceTable = () => {
     const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [allMachine, setAllMachine] = React.useState<AssetData[]>([]);
     const [mc_name, setMc_name] = React.useState<string>('');
+    const [CleanTable, setCleanTable] = React.useState([]);
 
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selected = e.target.value;
@@ -35,6 +44,16 @@ const GraddingMaintenanceTable = () => {
             .then((res) => {
                 console.log(res)
                 setAllMachine(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
+    }, [])
+    useEffect(() => {
+        axios.get('/api/cleaning/graddingCleanReportView')
+            .then((res) => {
+                setCleanTable(res.data)
             })
             .catch((err) => {
                 console.log(err)
@@ -78,6 +97,22 @@ const GraddingMaintenanceTable = () => {
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
             </div>
+            <Table className="mt-5">
+                <TableHeader>
+                    <TableHead>Sl No</TableHead>
+                    <TableHead>MC Name</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Clean Rate</TableHead>
+                    <TableHead>Damage</TableHead>
+                    <TableHead>View Clean Image</TableHead>
+                    <TableHead>View Damage Image</TableHead>
+                    <TableHead>View Clean Data</TableHead>
+                </TableHeader>
+                <TableBody>
+
+                </TableBody>
+            </Table>
+
         </div>
     )
 }

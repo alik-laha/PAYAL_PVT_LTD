@@ -86,7 +86,7 @@ const GraddingMaintenanceCreate = () => {
         formData.append("partsName", partsName);
         formData.append("percentage", progress.toString());
 
-        axios.post("/api/maintenence/graddingcleancreate", formData)
+        axios.post("/api/cleaning/graddingcleancreate", formData)
             .then((res) => {
                 console.log("Files uploaded successfully", res);
                 alert("Notice has been Uploaded Successfully");

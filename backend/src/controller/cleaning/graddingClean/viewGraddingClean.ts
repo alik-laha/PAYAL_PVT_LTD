@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import GraddingMaintenence from "../../../model/cleaningGraddingModel";
 
 
-const ViewGraddingMaintenence = async (req: Request, res: Response) => {
+const ViewGraddingCleaning = async (req: Request, res: Response) => {
     try {
         const { fromDate, toDate, mc_name } = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
@@ -46,4 +46,4 @@ const ViewGraddingMaintenence = async (req: Request, res: Response) => {
     }
 }
 
-export default ViewGraddingMaintenence;
+export default ViewGraddingCleaning;
