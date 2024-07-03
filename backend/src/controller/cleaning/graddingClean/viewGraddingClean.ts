@@ -4,16 +4,16 @@ import GraddingMaintenence from "../../../model/cleaningGraddingModel";
 
 const ViewGraddingMaintenence = async (req: Request, res: Response) => {
     try {
-        const { startDate, endDate, mc_name } = req.body;
+        const { fromDate, toDate, mc_name } = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
         const size = parseInt(req.query.limit as string, 10) || 0;
         const offset = (page - 1) * size;
         const limit = size;
         const whereClause = [];
-        if (startDate && endDate) {
+        if (fromDate && toDate) {
             whereClause.push({
                 date: {
-                    $between: [startDate, endDate]
+                    $between: [fromDate, toDate]
                 }
             });
         }
