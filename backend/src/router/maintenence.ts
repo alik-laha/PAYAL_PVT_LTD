@@ -8,9 +8,9 @@ const graddingCleanImageUpload = graddingCleanFunction();
 const boillingCleanImageUpload = boilingCleanFunction();
 
 
-router.post("/graddingcleancreate", graddingCleanImageUpload.fields([{ name: 'files', maxCount: 10 }, { name: 'file', maxCount: 1 }]), CreateGraddingMaintenence)
+router.post("/graddingcleancreate", graddingCleanImageUpload, CreateGraddingMaintenence)
 
-router.post("/boillingcleancreate", boillingCleanImageUpload.fields([{ name: 'files', maxCount: 10 }, { name: 'file', maxCount: 1 }]), CreateBoillingMaintenence)
+router.post("/boillingcleancreate", boillingCleanImageUpload, CreateBoillingMaintenence)
 
 
 

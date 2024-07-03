@@ -21,7 +21,8 @@ const BoillingMaintenanceCreate = () => {
     const [progress, setProgress] = useState<number>(0);
     const [damage, setDamage] = useState<boolean>(false);
     const [partsName, setPartsName] = useState<string>("");
-    const [files, setFiles] = useState<FileList | null>(null);
+    const [CleangFiles, setCleaningFiles] = useState<FileList | null>(null);
+    const [damageFiles, setDamageFiles] = useState<FileList | null>(null);
 
     useEffect(() => {
         axios.get('/api/asset/getMachineByType/Boilling')
@@ -58,7 +59,7 @@ const BoillingMaintenanceCreate = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!files || files.length === 0) {
+        if (!CleangFiles || CleangFiles.length === 0) {
             console.log("submit called")
             return;
         }
@@ -74,8 +75,15 @@ const BoillingMaintenanceCreate = () => {
         formData.append('elevetorCup', elevetorCup.toString());
         formData.append('damage', damage.toString());
         formData.append('partsName', partsName);
-        for (let i = 0; i < files.length; i++) {
-            formData.append('files', files[i]);
+        for (let i = 0; i < CleangFiles.length; i++) {
+            formData.append('cleanedPartsImages', CleangFiles[i]);
+        }
+        if (damage) {
+            if (damageFiles && damageFiles.length > 0) {
+                for (let i = 0; i < damageFiles.length; i++) {
+                    formData.append("damagedPartsImages", damageFiles[i]);
+                }
+            }
         }
         axios.post('/api/maintenence/boillingcleancreate', formData)
             .then(res => {
@@ -87,9 +95,15 @@ const BoillingMaintenanceCreate = () => {
 
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleCleanFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
-            setFiles(e.target.files);
+            setCleaningFiles(e.target.files);
+            console.log(e.target.files)
+        }
+    }
+    const handleDamageFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setDamageFiles(e.target.files);
             console.log(e.target.files)
         }
     }
@@ -156,7 +170,7 @@ const BoillingMaintenanceCreate = () => {
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Cleaned Parts Image </Label>
                     <div className="flex items-center space-x-2">
-                        <input type="file" multiple onChange={handleFileChange} />
+                        <input type="file" multiple onChange={handleCleanFileChange} />
                     </div>
                 </div>
                 <div className="flex">
@@ -174,7 +188,7 @@ const BoillingMaintenanceCreate = () => {
                 <div className={damage === true ? "flex" : "hidden"}>
                     <Label className="w-2/4 pt-1">Damaged Parts Image upload</Label>
                     <div className="flex items-center space-x-2">
-                        <input type="file" multiple />
+                        <input type="file" multiple onChange={handleDamageFileChange} />
                     </div>
                 </div>
                 <div>

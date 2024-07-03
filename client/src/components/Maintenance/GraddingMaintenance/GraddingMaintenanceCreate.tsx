@@ -20,7 +20,8 @@ const GraddingMaintenanceCreate = () => {
     const [CallibrationRollerHolesClean, setCallibrationRollerHolesClean] = useState<boolean>(false);
     const [damage, setDamage] = useState<boolean>(false);
     const [partsName, setPartsName] = useState<string>("");
-    const [files, setFiles] = useState<FileList | null>(null);
+    const [cleanningFiles, setCleaningFiles] = useState<FileList | null>(null);
+    const [damageFiles, setDamageFiles] = useState<FileList | null>(null);
     const [progress, setProgress] = useState<number>(0);
 
     useEffect(() => {
@@ -57,13 +58,20 @@ const GraddingMaintenanceCreate = () => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!files || files.length === 0) {
+        if (!cleanningFiles || cleanningFiles.length === 0) {
             return;
         }
 
         const formData = new FormData();
-        for (let i = 0; i < files.length; i++) {
-            formData.append("files", files[i]);
+        for (let i = 0; i < cleanningFiles.length; i++) {
+            formData.append("cleanedPartsImages", cleanningFiles[i]);
+        }
+        if (damage) {
+            if (damageFiles && damageFiles.length > 0) {
+                for (let i = 0; i < damageFiles.length; i++) {
+                    formData.append("damagedPartsImages", damageFiles[i]);
+                }
+            }
         }
         formData.append("mc_name", mc_name);
         formData.append("date", Date.current?.value || "");
@@ -77,7 +85,6 @@ const GraddingMaintenanceCreate = () => {
         formData.append("damage", damage.toString());
         formData.append("partsName", partsName);
 
-        // Make the API call to upload the files
         axios.post("/api/maintenence/graddingcleancreate", formData)
             .then((res) => {
                 console.log("Files uploaded successfully", res);
@@ -88,11 +95,16 @@ const GraddingMaintenanceCreate = () => {
             });
     };
 
-    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleCleaningFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
-            setFiles(e.target.files);
+            setCleaningFiles(e.target.files);
         }
     };
+    const handleDamageFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setDamageFiles(e.target.files);
+        }
+    }
 
     return (
         <div className="pl-5 pr-5">
@@ -156,7 +168,7 @@ const GraddingMaintenanceCreate = () => {
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Cleaned Parts Image </Label>
                     <div className="flex items-center space-x-2">
-                        <input type="file" multiple onChange={handleFileChange} />
+                        <input type="file" multiple onChange={handleCleaningFileChange} />
                     </div>
                 </div>
                 <div className="flex">
@@ -176,7 +188,7 @@ const GraddingMaintenanceCreate = () => {
                         <div className="flex">
                             <Label className="w-2/4 pt-1">Damaged Parts Image upload</Label>
                             <div className="flex items-center space-x-2">
-                                <input type="file" multiple onChange={handleFileChange} required />
+                                <input type="file" multiple onChange={handleDamageFileChange} required />
                             </div>
                         </div>
                     </>
