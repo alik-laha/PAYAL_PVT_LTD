@@ -32,7 +32,7 @@ router.get('/view', function (req, res) {
 
 });
 
-cron.schedule('33 0 * * *', () => {
+cron.schedule('0 0 * * *', () => {
     autoDeleteGraddingCleanImage();
 })
 

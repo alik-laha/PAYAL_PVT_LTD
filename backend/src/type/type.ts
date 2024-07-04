@@ -138,6 +138,6 @@ export interface GraddingCleanData {
     createdAt: Date;
     updatedAt: Date;
     cleanedBy: string;
-    cleanedPartsImages: string[];
-    damagedPartsImages: string[];
+    cleanedPartsImages: string;
+    damagedPartsImages: string;
 }
