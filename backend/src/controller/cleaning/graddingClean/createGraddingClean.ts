@@ -36,8 +36,8 @@ const CreateGraddingMaintenence = async (req: Request, res: Response) => {
         let damagedPartsImages: string = ""
         if (damage === "true" && files.damagedPartsImages) {
             files.damagedPartsImages.map((file: any) => {
-                console.log(file)
-                DamagedImage.push(file.path)
+                CompressImage(file, "./compressUpload/clean/cleaningGradding/" + file.filename)
+                DamagedImage.push("./compressUpload/clean/cleaningGradding/" + file.filename)
             })
             const fileteredDamagedImage = DamagedImage.filter((image) => image !== "")
             damagedPartsImages = JSON.stringify(fileteredDamagedImage)
