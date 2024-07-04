@@ -1,9 +1,11 @@
 import Express from "express";
+import cron from 'node-cron';
 import { graddingCleanFunction, boilingCleanFunction } from "../helper/saveimagefromUpload";
 import CreateGraddingMaintenence from "../controller/cleaning/graddingClean/createGraddingClean";
 import CreateBoillingMaintenence from "../controller/cleaning/boillingClean/createBoillingClean";
 import ViewGraddingCleaning from "../controller/cleaning/graddingClean/viewGraddingClean";
 import path from 'path';
+import autoDeleteGraddingCleanImage from "../controller/cleaning/graddingClean/autoDeleteGraddingCleanImage";
 
 const router = Express.Router();
 const graddingCleanImageUpload = graddingCleanFunction();
@@ -19,7 +21,6 @@ router.post("/graddingcleanreportview", ViewGraddingCleaning)
 
 router.get('/view', function (req, res) {
     const filename = req.query.filename as string;
-    console.log(filename)
     if (!filename) {
         return res.status(400).send('Filename is required');
     }
@@ -30,6 +31,10 @@ router.get('/view', function (req, res) {
 
 
 });
+
+cron.schedule('33 0 * * *', () => {
+    autoDeleteGraddingCleanImage();
+})
 
 
 

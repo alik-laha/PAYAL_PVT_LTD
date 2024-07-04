@@ -63,7 +63,7 @@ export interface EmployeeData {
 }
 export interface lotNoData {
     id: number;
-    lotNo:string;
+    lotNo: string;
 }
 
 export interface TokenVerify {
@@ -106,7 +106,7 @@ export interface RcnBoilingData {
     Size: string;
     Scooping_Line_Mc: string;
     Pressure: string;
-    moisture:string;
+    moisture: string;
     CookingTime: string;
     MCName: string;
     Mc_on: string;
@@ -119,4 +119,25 @@ export interface RcnBoilingData {
     Mc_runTime: string;
     modifiedBy: string;
 
+}
+
+export interface GraddingCleanData {
+    id: number;
+    date: string;
+    mc_name: string;
+    dustTable: boolean;
+    hopper: boolean;
+    elevetorCups: boolean;
+    elevetorMotorCleanByAir: boolean;
+    McAllPartsClean: boolean;
+    binClean: boolean;
+    CallibrationRollerHolesClean: boolean;
+    percentage: number;
+    damage: boolean;
+    partsName: string;
+    createdAt: Date;
+    updatedAt: Date;
+    cleanedBy: string;
+    cleanedPartsImages: string[];
+    damagedPartsImages: string[];
 }
