@@ -1,6 +1,23 @@
 import { Request, Response } from "express";
 import GraddingMaintenence from "../../../model/cleaningGraddingModel";
+import { promises as fs } from 'fs';
+import sharp from 'sharp';
 
+const CompressImage = async (files: any, output: string) => {
+    try {
+        await sharp(files.path)
+            .resize(200, 200)
+            .jpeg({ quality: 90 })
+            .png({ quality: 90 })
+            .webp({ quality: 90 })
+            .toFile(output)
+
+        await fs.unlink(files.path)
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
 
 const CreateGraddingMaintenence = async (req: Request, res: Response) => {
     try {
@@ -9,8 +26,10 @@ const CreateGraddingMaintenence = async (req: Request, res: Response) => {
         let CleanedImage: [string] = [""];
         let DamagedImage: [string] = [""];
         const createdBy = req.cookies.user
-        files.cleanedPartsImages.map((file: any) => {
-            CleanedImage.push(file.path)
+        files.cleanedPartsImages.map(async (file: any) => {
+            CompressImage(file, "./compressUpload/clean/cleaningGradding/" + file.filename)
+
+            CleanedImage.push("./compressUpload/clean/cleaningGradding/" + file.filename)
         })
         const fileteredCleanImage = CleanedImage.filter((image) => image !== "")
         const cleanedPartsImages = JSON.stringify(fileteredCleanImage)
