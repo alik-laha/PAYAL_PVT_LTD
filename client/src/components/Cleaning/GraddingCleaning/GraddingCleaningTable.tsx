@@ -12,7 +12,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { json } from "stream/consumers";
+import ViewallImage from "../ViewallImage";
+
 
 
 const GraddingMaintenanceTable = () => {
@@ -22,8 +23,6 @@ const GraddingMaintenanceTable = () => {
     const [allMachine, setAllMachine] = React.useState<AssetData[]>([]);
     const [mc_name, setMc_name] = React.useState<string>('');
     const [CleanTable, setCleanTable] = React.useState([]);
-    // const [CleanReportImage, setCleanReportImage] = React.useState<string[]>([])
-    // const [DamageReportImage, setDamageReportImage] = React.useState<string[]>([])
 
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selected = e.target.value;
@@ -39,11 +38,12 @@ const GraddingMaintenanceTable = () => {
         settoDate(nextday)
     }
 
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSearch = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
         axios.post('/api/cleaning/graddingcleanreportview', { fromdate, todate, mc_name })
             .then((res) => {
                 setCleanTable(res.data)
+
             })
             .catch((err) => {
                 console.log(err)
@@ -166,13 +166,22 @@ const GraddingMaintenanceTable = () => {
                             <TableCell>{data.date.slice(0, 10)}</TableCell>
                             <TableCell className={cheackRateColor(data.percentage)}>{CheackRate(data.percentage)}</TableCell>
                             <TableCell>{data.damage === true ? "Yes" : "No"}</TableCell>
-                            {/* <TableCell><img src={data.cleanedPartsImages} alt="cleanedPartsImages" /></TableCell>
-                            <TableCell><img src={data.damagedPartsImages} alt="damagedPartsImages" /></TableCell>
-                            <TableCell><Button className="bg-slate-500 h-8">View</Button></TableCell> */}
+                            <TableCell><Button>View</Button></TableCell>
+                            <TableCell><Button>View</Button></TableCell>
+                            <TableCell><Button className="bg-slate-500 h-8">View</Button></TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
+            {
+                CleanTable.map((data: any, index: number) => {
+                    return (<ViewallImage url={JSON.parse(data.cleanedPartsImages)} key={index} />)
+
+                })
+            }
+            {/* {
+                DamageReportImage.length > 0 && <ViewallImage url={DamageReportImage} />
+            } */}
 
         </div>
     )

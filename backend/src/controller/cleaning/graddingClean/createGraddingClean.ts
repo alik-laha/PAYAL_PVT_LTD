@@ -10,7 +10,6 @@ const CreateGraddingMaintenence = async (req: Request, res: Response) => {
         let DamagedImage: [string] = [""];
         const createdBy = req.cookies.user
         files.cleanedPartsImages.map((file: any) => {
-
             CleanedImage.push(file.path)
         })
         const fileteredCleanImage = CleanedImage.filter((image) => image !== "")

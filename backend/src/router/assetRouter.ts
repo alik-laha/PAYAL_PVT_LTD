@@ -2,7 +2,7 @@ import express from 'express';
 import createAsset from '../controller/assetController/createAsset';
 import getTotalActiveAsset from '../controller/assetController/getTotalActiveAsset';
 import SearchAsset from '../controller/assetController/searchAsset';
-import assetMiddleWare from '../middleWare/assetMiddleware'
+import assetMiddleWare from '../middleWare/assetMiddleware';
 import UpdateAsset from '../controller/assetController/updateAsset';
 import deleteMachine from '../controller/assetController/deleteMachine';
 import getMechineByType from '../controller/assetController/getAllMachineBytype';
