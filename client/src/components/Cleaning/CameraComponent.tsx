@@ -1,18 +1,19 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const CameraComponent = () => {
     const [hasCameraPermission, setHasCameraPermission] = useState(false);
-    const videoRef = useRef<HTMLVideoElement>(null);
+    const [error, setError] = useState(null);
+    const videoRef = useRef(null);
 
     const getCameraPermission = async () => {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            if (videoRef.current) {
-                videoRef.current.srcObject = stream;
-            }
+            videoRef.current.srcObject = stream;
             setHasCameraPermission(true);
-        } catch (error) {
-            console.error("Error accessing camera: ", error);
+        } catch (err) {
+            console.error("Error accessing camera: ", err);
+            setError(err.message);
+            console.log(err)
             setHasCameraPermission(false);
         }
     };
@@ -24,9 +25,14 @@ const CameraComponent = () => {
     return (
         <div>
             {hasCameraPermission ? (
-                <video ref={videoRef} autoPlay />
+                <video
+                    ref={videoRef}
+                    autoPlay
+                    playsInline
+                    style={{ width: '100%', height: 'auto' }}
+                />
             ) : (
-                <p>Camera access denied or not available</p>
+                <p>{error ? `Error: ${error}` : "Camera access denied or not available"}</p>
             )}
         </div>
     );
