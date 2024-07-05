@@ -23,6 +23,20 @@ const GraddingMaintenanceTable = () => {
     const [allMachine, setAllMachine] = React.useState<AssetData[]>([]);
     const [mc_name, setMc_name] = React.useState<string>('');
     const [CleanTable, setCleanTable] = React.useState([]);
+    const [imageView, setImageView] = React.useState<string[]>([]);
+
+    const successdialog = document.getElementById('myDialog') as HTMLInputElement;
+    const closeDialogButton = document.getElementById('closeDialog') as HTMLInputElement;
+
+    if (closeDialogButton) {
+        closeDialogButton.addEventListener('click', () => {
+            if (successdialog != null) {
+                (successdialog as any).close();
+            }
+
+
+        });
+    }
 
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selected = e.target.value;
@@ -166,24 +180,33 @@ const GraddingMaintenanceTable = () => {
                             <TableCell>{data.date.slice(0, 10)}</TableCell>
                             <TableCell className={cheackRateColor(data.percentage)}>{CheackRate(data.percentage)}</TableCell>
                             <TableCell>{data.damage === true ? "Yes" : "No"}</TableCell>
-                            <TableCell><Button>View</Button></TableCell>
-                            <TableCell><Button>View</Button></TableCell>
+                            <TableCell><Button onClick={() => {
+                                setImageView(JSON.parse(data.cleanedPartsImages));
+                                (successdialog as any).showModal()
+                            }}>View</Button></TableCell>
+                            <TableCell><Button onClick={() => {
+                                setImageView(JSON.parse(data.damagedPartsImages));
+                                (successdialog as any).showModal()
+                            }}>View</Button></TableCell>
                             <TableCell><Button className="bg-slate-500 h-8">View</Button></TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
-            {
-                CleanTable.map((data: any, index: number) => {
-                    return (<ViewallImage url={JSON.parse(data.cleanedPartsImages)} key={index} />)
 
-                })
-            }
             {/* {
                 DamageReportImage.length > 0 && <ViewallImage url={DamageReportImage} />
             } */}
+            <dialog id="myDialog" className="dashboard-modal">
+                <button id="closeDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex">{
+                    <ViewallImage url={imageView} />
+                }
+                </span>
 
-        </div>
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+        </div >
     )
 }
 export default GraddingMaintenanceTable
