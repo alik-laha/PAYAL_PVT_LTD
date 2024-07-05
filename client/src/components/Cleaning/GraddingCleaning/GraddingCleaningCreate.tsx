@@ -169,7 +169,14 @@ const GraddingMaintenanceCreate = () => {
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Cleaned Parts Image </Label>
                     <div className="flex items-center space-x-2">
-                        <input type="file" multiple onChange={handleCleaningFileChange} required />
+                        <input
+                            type="file"
+                            multiple
+                            onChange={handleCleaningFileChange}
+                            capture="environment"
+                            accept="image/*"
+                            required
+                        />
                     </div>
                 </div>
                 <div className="flex">
