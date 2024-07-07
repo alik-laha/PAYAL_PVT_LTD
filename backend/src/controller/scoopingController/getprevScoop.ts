@@ -1,39 +1,70 @@
 import { Request, Response } from "express";
 import RcnScooping from "../../model/scoopingModel";
-import LotNo from "../../model/lotNomodel";
-import { lotNoData } from "../../type/type";
+
 import sequelize from "../../config/databaseConfig";
 import { Op } from "sequelize";
 
 const getprevScoop = async (req: Request, res: Response) => {
 
     try {
-        let finalSum=0;
+        //let finalSum=0;
+        const lineNo=req.body.data.ScoopingLine
+        const currentlotNo=req.body.data.columnLotNo
          // Get the latest sequence ID from the database
-        const latestSequence: lotNoData | null = await LotNo.findOne({
-        order: [['id', 'DESC']] ,
-        }) as lotNoData | null;
+        const latestEntry = await RcnScooping.findOne({
+            attributes: ['LotNo'],
+            where:{
+                
+                Scooping_Line_Mc:lineNo,
+                LotNo:{
+                    [Op.lt]:currentlotNo
+                }
 
-        const PrevData = await RcnScooping.findAll({
-            attributes: [
-                'LotNo',
-                [sequelize.fn('sum', sequelize.col('noOfBags')), 'totalBags']
-            ],
-            where: {
-                LotNo:  `%${latestSequence}%`,
-                [Op.or]: [
-                    { editStatus: 'Approved' },
-                    { editStatus: 'NA' }
-                ],
-               
             },
-            group: ['LotNo']
+        order: [['LotNo', 'DESC']] 
+       
         });
+        console.log(latestEntry)
+       
+        if(latestEntry){
+            const prevLot=latestEntry.dataValues.LotNo
+            const finalSum = await RcnScooping.findAll({
+                    attributes: [
+                        'Scooping_Line_Mc',
+                        [sequelize.fn('sum', sequelize.col('Uncut')), 'totalUncut'],
+                   
+                    ],
+                    where: {
+                        LotNo:  `${prevLot}`,
+                        Scooping_Line_Mc:lineNo,
+                            
+                    },
+                    group: ['Scooping_Line_Mc']
+                });
+                console.log(finalSum)
+                res.status(200).json({ message: "Previous Non Cutting",finalSum });
+        }
+
+        // const PrevData = await RcnScooping.findAll({
+        //     attributes: [
+        //         'LotNo',
+        //         [sequelize.fn('sum', sequelize.col('noOfBags')), 'totalBags']
+        //     ],
+        //     where: {
+        //         LotNo:  `%${latestSequence}%`,
+        //         [Op.or]: [
+        //             { editStatus: 'Approved' },
+        //             { editStatus: 'NA' }
+        //         ],
+               
+        //     },
+        //     group: ['LotNo']
+        // });
 
 
 
 
-        res.status(200).json({ message: "Scooping Initial Entry Made Successfully" });
+      
     }
     catch (err) {
         console.log(err);

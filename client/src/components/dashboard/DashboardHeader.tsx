@@ -32,7 +32,7 @@ const DashboardHeader = () => {
       <div className='dashoboard-main-header'>
         <span className="logo-lg dashboard-text" ></span>
 
-        <span className='operator-hide' onClick={logoutVisiblity}><p className="logo-lg"> {(localStorage.getItem('user'))?.toUpperCase()}</p><img src={icon}></img></span>
+        <span className='operator-hide' onClick={logoutVisiblity}><p className="logo-lg">User : {(localStorage.getItem('user'))}</p><img src={icon}></img></span>
         <div className='navbar-custom-menu'>
           <ul className="dropdown-menu" style={{ display: dashbvisi, background: 'white', position: 'fixed' }}>
             <li className="user-header mx-1 my-1">
