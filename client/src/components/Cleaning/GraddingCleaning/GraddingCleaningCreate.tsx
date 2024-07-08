@@ -145,14 +145,14 @@ const GraddingMaintenanceCreate = () => {
                     <div className="flex items-center space-x-2">
                         <Switch id="elevetorCups" checked={elevetorCups} onCheckedChange={setElevetorCups} />
                     </div>
-                    <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button>
+                    {elevetorCups ? <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button> : null}
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Elevetor Motor Clean</Label>
                     <div className="flex items-center space-x-2">
                         <Switch id="elevetorMotorCleanByAir" checked={elevetorMotorCleanByAir} onCheckedChange={setElevetorMotorCleanByAir} />
                     </div>
-                    <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button>
+                    {elevetorMotorCleanByAir ? <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button> : null}
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Mc all Parts Clean</Label>
@@ -171,7 +171,7 @@ const GraddingMaintenanceCreate = () => {
                     <div className="flex items-center space-x-2">
                         <Switch id="CallibrationRollerHolesClean" checked={CallibrationRollerHolesClean} onCheckedChange={setCallibrationRollerHolesClean} />
                     </div>
-                    <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button>
+                    {CallibrationRollerHolesClean ? <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button> : null}
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Check if any Parts is Damage </Label>
