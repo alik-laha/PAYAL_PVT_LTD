@@ -57,10 +57,24 @@ const CameraComponent = React.forwardRef(({ onSave }: { onSave: any }, ref: Reac
         }
     };
 
+    const stopVideo = () => {
+        const video = videoRef.current;
+        if (video) {
+            const stream = video.srcObject as MediaStream;
+            if (stream) {
+                const tracks = stream.getTracks();
+                tracks.forEach(track => track.stop());
+                video.srcObject = null;
+            }
+        }
+    };
+
+
     return (
         <div className="flex">
             <video ref={videoRef} style={{ width: "300px", height: "300px" }}></video>
             <button onClick={takePhoto}>Take Photo</button>
+            <button onClick={stopVideo}>Stop Video</button>
             {hasPhoto && (
                 <>
                     <button onClick={savePhoto}>Save Photo</button>
