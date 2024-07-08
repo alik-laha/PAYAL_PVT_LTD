@@ -100,6 +100,11 @@ const RcnScooping = sequelize.define('rcnScooping', {
         type: DataTypes.STRING,
         allowNull: true
     },
+    scoopStatus:{
+        type:DataTypes.INTEGER,
+        defaultValue: 0
+    },
+
     
     Mc_on: {
         type: DataTypes.TIME,
