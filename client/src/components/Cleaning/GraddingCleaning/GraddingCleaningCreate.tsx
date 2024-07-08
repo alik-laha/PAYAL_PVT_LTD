@@ -6,7 +6,7 @@ import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Progress } from "@/components/ui/progress";
-import CameraComponent from '../CameraComponent'; // Import your camera component
+import CameraComponent from '../CameraComponent';
 
 const GraddingMaintenanceCreate = () => {
     const [GraddingMachine, setGraddingMachine] = useState<AssetData[]>([]);
@@ -207,9 +207,7 @@ const GraddingMaintenanceCreate = () => {
                     <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20">Submit</Button>
                 </div>
             </form>
-
             <CameraComponent />
-
         </div>
     );
 }
