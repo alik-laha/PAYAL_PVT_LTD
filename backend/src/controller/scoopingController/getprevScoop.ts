@@ -8,8 +8,8 @@ const getprevScoop = async (req: Request, res: Response) => {
 
     try {
         //let finalSum=0;
-        const lineNo=req.body.data.ScoopingLine
-        const currentlotNo=req.body.data.columnLotNo
+        const lineNo=req.body.ScoopingLine
+        const currentlotNo=req.body.lotNO
          // Get the latest sequence ID from the database
         const latestEntry = await RcnScooping.findOne({
             attributes: ['LotNo'],

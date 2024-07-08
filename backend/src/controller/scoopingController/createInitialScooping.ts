@@ -4,7 +4,7 @@ import RcnScooping from "../../model/scoopingModel";
 const CreateInitialScooping = async (req: Request, res: Response) => {
 
     try {
-        const { ScoopingLine,columnLotNo,sizeName,size,origin,rcvQuantity,openQuantity } = req.body.data;
+        const { ScoopingLine,columnLotNo,sizeName,size,origin,rcvQuantity,openQuantity } = req.body.data2;
         
         const scoopingnInitial = await RcnScooping.create({
             Scooping_Line_Mc:ScoopingLine,
