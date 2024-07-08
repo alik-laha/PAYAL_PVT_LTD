@@ -1,17 +1,19 @@
 import { AssetData } from "@/type/type";
 import axios from "axios";
-import { useState, useEffect, useRef, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, useRef, FormEvent } from "react";
 import { Label } from "../../ui/label";
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Progress } from "@/components/ui/progress";
 import CameraComponent from '../CameraComponent';
+import { FaCamera } from "react-icons/fa";
 
 const GraddingMaintenanceCreate = () => {
     const [GraddingMachine, setGraddingMachine] = useState<AssetData[]>([]);
     const [mc_name, setMc_name] = useState<string>("");
     const Date = useRef<HTMLInputElement>(null);
+    const cameraRef = useRef<any>(null);
     const [dustTable, setDustTable] = useState<boolean>(false);
     const [hopper, setHopper] = useState<boolean>(false);
     const [elevetorCups, setElevetorCups] = useState<boolean>(false);
@@ -21,8 +23,8 @@ const GraddingMaintenanceCreate = () => {
     const [CallibrationRollerHolesClean, setCallibrationRollerHolesClean] = useState<boolean>(false);
     const [damage, setDamage] = useState<boolean>(false);
     const [partsName, setPartsName] = useState<string>("");
-    const [cleanningFiles, setCleaningFiles] = useState<FileList | null>(null);
-    const [damageFiles, setDamageFiles] = useState<FileList | null>(null);
+    const [cleanningFiles, setCleaningFiles] = useState<Blob[]>([]);
+    const [damageFiles, setDamageFiles] = useState<Blob[]>([]);
     const [progress, setProgress] = useState<number>(0);
 
     useEffect(() => {
@@ -96,18 +98,18 @@ const GraddingMaintenanceCreate = () => {
                 console.error(err);
             });
     };
+    const setCleaningImage = (photo: any) => {
+        photo.toBlob((blob: Blob) => {
+            setCleaningFiles([...cleanningFiles, blob]);
+        });
 
-    const handleCleaningFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setCleaningFiles(e.target.files);
+    }
+    const callChildGetVideo = () => {
+        if (cameraRef.current) {
+            cameraRef.current.getVideo();  // Call getVideo function from CameraComponent
         }
     };
 
-    const handleDamageFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setDamageFiles(e.target.files);
-        }
-    };
 
     return (
         <div className="pl-5 pr-5">
@@ -143,12 +145,14 @@ const GraddingMaintenanceCreate = () => {
                     <div className="flex items-center space-x-2">
                         <Switch id="elevetorCups" checked={elevetorCups} onCheckedChange={setElevetorCups} />
                     </div>
+                    <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button>
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Elevetor Motor Clean</Label>
                     <div className="flex items-center space-x-2">
                         <Switch id="elevetorMotorCleanByAir" checked={elevetorMotorCleanByAir} onCheckedChange={setElevetorMotorCleanByAir} />
                     </div>
+                    <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button>
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Mc all Parts Clean</Label>
@@ -167,19 +171,7 @@ const GraddingMaintenanceCreate = () => {
                     <div className="flex items-center space-x-2">
                         <Switch id="CallibrationRollerHolesClean" checked={CallibrationRollerHolesClean} onCheckedChange={setCallibrationRollerHolesClean} />
                     </div>
-                </div>
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">Cleaned Parts Image </Label>
-                    <div className="flex items-center space-x-2">
-                        <input
-                            type="file"
-                            multiple
-                            onChange={handleCleaningFileChange}
-                            capture="environment"
-                            accept="image/*"
-                            required
-                        />
-                    </div>
+                    <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button>
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Check if any Parts is Damage </Label>
@@ -195,19 +187,13 @@ const GraddingMaintenanceCreate = () => {
                                 <Input className="w-4/4" placeholder="Name Of the Parts" value={partsName} onChange={(e) => setPartsName(e.target.value)} required={damage === true ? true : false} />
                             </div>
                         </div>
-                        <div className="flex">
-                            <Label className="w-2/4 pt-1">Damaged Parts Image upload</Label>
-                            <div className="flex items-center space-x-2">
-                                <input type="file" multiple onChange={handleDamageFileChange} required={damage === true ? true : false} />
-                            </div>
-                        </div>
                     </>
                 )}
                 <div>
                     <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20">Submit</Button>
                 </div>
             </form>
-            <CameraComponent />
+            <CameraComponent onSave={(photo: any) => setCleaningImage(photo)} ref={cameraRef} />
         </div>
     );
 }
