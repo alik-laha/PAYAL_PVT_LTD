@@ -204,7 +204,6 @@ const RCNBoilingEntryForm = () =>
                     columnDate: date,
                     columnEmployee: noOfEmployees,
                     columnMC: Mc_name,
-                    //rcvQuantity: (parseFloat(row.size) * 80),
                      ...row
 
                 }))

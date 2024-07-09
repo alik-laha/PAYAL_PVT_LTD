@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { RcnBoilingData } from "../../type/type";
 import RcnBoilingEdit from "../../model/RcnBoilingEditModel";
 import RcnBoiling from "../../model/RcnBoilingModel";
+import RcnScooping from "../../model/scoopingModel";
+import { Op } from "sequelize";
 
 const approveEditBoiling = async (req: Request, res: Response) => {
     try {
@@ -45,6 +47,39 @@ const approveEditBoiling = async (req: Request, res: Response) => {
                 Mc_breakdown, 
                 otherTime,CreatedBy,Mc_runTime,
                  modifiedBy, editStatus }, { where: { id } });
+
+
+            let where  
+            where = {
+                [Op.and]: [
+                    {
+                        LotNo: {
+                            [Op.like]: `%${LotNo}%`
+                        }
+                    },
+                    {
+                        SizeName: {
+                            [Op.like]: `%${SizeName}%`
+                        }
+                    },
+                    {
+                        origin: {
+                            [Op.like]: `%${origin}%`
+                        }
+                    },
+                    {
+                        Scooping_Line_Mc: {
+                            [Op.like]: `%${Scooping_Line_Mc}%`
+                        }
+                    }
+                ]
+                
+            }   
+
+            const rcnscooping = await RcnScooping.update({   
+                Receiving_Qty:(parseFloat(Size) * 80)
+                  }, { where});
+
             if (RcnGradingEditData) {
                 await RcnBoilingEdit.destroy({ where: { id } });
                 return res.status(200).json({ message: "RCN Boiling Modify Request is Approved" });
