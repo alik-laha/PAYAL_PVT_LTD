@@ -256,7 +256,7 @@ const RCNBoilingEntryForm = () =>
                 for (var data2 of formData2) 
                     {
                         axios.post('/api/scooping/createInitialScooping', { data2 }).then(res => {
-                          //console.log(res)
+                          console.log(res)
                         })
                         .catch(err => {
                                 console.log(err)
