@@ -1,7 +1,7 @@
 import React, { useRef, useState, useImperativeHandle } from 'react';
 import { MdCamera } from "react-icons/md";
 
-const CameraComponent = React.forwardRef(({ onSave }: { onSave: any }, ref: React.Ref<any>) => {
+const CameraComponentBroken = React.forwardRef(({ onSave }: { onSave: any }, ref: React.Ref<any>) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const photoRef = useRef<HTMLCanvasElement>(null);
     const [hasPhoto, setHasPhoto] = useState(false);
@@ -111,4 +111,4 @@ const CameraComponent = React.forwardRef(({ onSave }: { onSave: any }, ref: Reac
     );
 });
 
-export default CameraComponent;
+export default CameraComponentBroken;

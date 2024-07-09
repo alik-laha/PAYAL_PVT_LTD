@@ -6,15 +6,17 @@ import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Progress } from "@/components/ui/progress";
-import CameraComponent from '../CameraComponent';
+import CameraComponentClean from '../CameraComponentClean';
 import { FaCamera } from "react-icons/fa";
 import BlobImageDisplay from "../ViewBlobimage";
+import CameraComponentBroken from "../CameraComponentBroken";
 
 const GraddingMaintenanceCreate = () => {
     const [GraddingMachine, setGraddingMachine] = useState<AssetData[]>([]);
     const [mc_name, setMc_name] = useState<string>("");
     const Date = useRef<HTMLInputElement>(null);
-    const cameraRef = useRef<any>(null);
+    const CleancameraRef = useRef<any>(null);
+    const DamageCameraRef = useRef<any>(null);
     const [dustTable, setDustTable] = useState<boolean>(false);
     const [hopper, setHopper] = useState<boolean>(false);
     const [elevetorCups, setElevetorCups] = useState<boolean>(false);
@@ -28,6 +30,7 @@ const GraddingMaintenanceCreate = () => {
     const [damageFiles, setDamageFiles] = useState<Blob[]>([]);
     const [progress, setProgress] = useState<number>(0);
     const [cleanImageUrl, setCleanImageUrl] = useState<string[]>([])
+    const [brokenImageUrl, setBrokenImageUrl] = useState<string[]>([])
 
     useEffect(() => {
         axios.get('/api/asset/getMachineByType/Grading')
@@ -43,6 +46,12 @@ const GraddingMaintenanceCreate = () => {
         for (let i = 0; i < blob.length; i++) {
             const url = URL.createObjectURL(blob[i]);
             setCleanImageUrl([...cleanImageUrl, url]);
+        }
+    }
+    const CreateurlFromBrokenblob = (blob: Blob[]) => {
+        for (let i = 0; i < blob.length; i++) {
+            const url = URL.createObjectURL(blob[i]);
+            setBrokenImageUrl([...cleanImageUrl, url]);
         }
     }
 
@@ -115,25 +124,29 @@ const GraddingMaintenanceCreate = () => {
             CreateurlFromblob(data)
         });
     }
+    const setBrokenImage = (photo: any) => {
+        let data: Blob[] = [];
+        photo.toBlob((blob: Blob) => {
+            data = [...cleanningFiles, blob]
+            setDamageFiles(data);
+            CreateurlFromBrokenblob(data)
+        });
+    }
     const callChildGetVideo = () => {
         (successdialog as any).showModal()
-        if (cameraRef.current) {
-            cameraRef.current.getVIdeo();  // Call getVideo function from CameraComponent
+        if (CleancameraRef.current) {
+            CleancameraRef.current.getVIdeo();  // Call getVideo function from CameraComponent
         }
     };
 
+    const callChildGetVideoBroken = () => {
+        (successdialog as any).showModal()
+        if (DamageCameraRef.current) {
+            DamageCameraRef.current.getVIdeo();  // Call getVideo function from CameraComponent
+        }
+    }
+
     const successdialog = document.getElementById('Photodailog') as HTMLInputElement;
-    // const closeDialogButton = document.getElementById('') as HTMLInputElement;
-
-    // if (closeDialogButton) {
-    //     closeDialogButton.addEventListener('click', () => {
-    //         if (successdialog != null) {
-    //             (successdialog as any).close();
-    //         }
-
-
-    //     });
-    // }
 
 
     return (
@@ -215,10 +228,25 @@ const GraddingMaintenanceCreate = () => {
                                 <Input className="w-4/4" placeholder="Name Of the Parts" value={partsName} onChange={(e) => setPartsName(e.target.value)} required={damage === true ? true : false} />
                             </div>
                         </div>
+                        <div className="flex">
+                            <Label className="w-2/4 pt-1">Name Of the Parts</Label>
+                            <div className="flex items-center space-x-2">
+                                <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideoBroken}><FaCamera /></Button>
+                            </div>
+                        </div>
                     </>
                 )}
-                <div className="flex">
-                    < BlobImageDisplay blob={cleanImageUrl} />
+                <div>
+                    <Label className="w-2/4 pt-1">Cleaned Parts Images</Label>
+                    <div className="flex">
+                        < BlobImageDisplay blob={cleanImageUrl} />
+                    </div>
+                </div>
+                <div>
+                    <Label className="w-2/4 pt-1">Damaged Parts Images</Label>
+                    <div className="flex">
+                        < BlobImageDisplay blob={brokenImageUrl} />
+                    </div>
                 </div>
                 <div>
                     <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20">Submit</Button>
@@ -226,9 +254,10 @@ const GraddingMaintenanceCreate = () => {
             </form>
             <dialog id="Photodailog" className="dashboard-modal">
                 {/* <button id="closePhoto" className="dashboard-modal-close-btn ">X </button> */}
-                <span className="flex">{
-                    <CameraComponent onSave={(photo: any) => setCleaningImage(photo)} ref={cameraRef} />
-                }
+                <span className="flex">
+                    <CameraComponentClean onSave={(photo: any) => setCleaningImage(photo)} ref={CleancameraRef} />
+                    <CameraComponentBroken onSave={(photo: any) => setBrokenImage(photo)} ref={DamageCameraRef} />
+
                 </span>
 
                 {/* <!-- Add more elements as needed --> */}
