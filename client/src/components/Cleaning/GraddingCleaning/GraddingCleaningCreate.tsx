@@ -51,7 +51,7 @@ const GraddingMaintenanceCreate = () => {
     const CreateurlFromBrokenblob = (blob: Blob[]) => {
         for (let i = 0; i < blob.length; i++) {
             const url = URL.createObjectURL(blob[i]);
-            setBrokenImageUrl([...cleanImageUrl, url]);
+            setBrokenImageUrl([...brokenImageUrl, url]);
         }
     }
 
@@ -127,7 +127,7 @@ const GraddingMaintenanceCreate = () => {
     const setBrokenImage = (photo: any) => {
         let data: Blob[] = [];
         photo.toBlob((blob: Blob) => {
-            data = [...cleanningFiles, blob]
+            data = [...damageFiles, blob]
             setDamageFiles(data);
             CreateurlFromBrokenblob(data)
         });
