@@ -7,6 +7,7 @@ const CameraComponent = React.forwardRef(({ onSave }: { onSave: any }, ref: Reac
     const [hasPhoto, setHasPhoto] = useState(false);
     const [videoView, setVideoView] = useState("");
     const [photoView, setPhotoView] = useState("hidden");
+    const successdialog = document.getElementById('Photodailog') as HTMLInputElement;
 
     const getVideo = () => {
         navigator.mediaDevices
@@ -55,12 +56,8 @@ const CameraComponent = React.forwardRef(({ onSave }: { onSave: any }, ref: Reac
 
     };
 
-    const savePhoto = () => {
-        if (!photoRef.current) return;
-        onSave(photoRef.current);
-    };
 
-    const closePhoto = () => {
+    const closePhoto = (): void => {
         getVideo();
         setVideoView("")
         setPhotoView("hidden")
@@ -71,6 +68,12 @@ const CameraComponent = React.forwardRef(({ onSave }: { onSave: any }, ref: Reac
             setHasPhoto(false);
 
         }
+    };
+    const savePhoto = () => {
+        if (!photoRef.current) return;
+        onSave(photoRef.current);
+        (successdialog as any).close();
+        closePhoto()
     };
 
     const stopVideo = () => {
@@ -84,25 +87,6 @@ const CameraComponent = React.forwardRef(({ onSave }: { onSave: any }, ref: Reac
             }
         }
     };
-
-
-    // return (
-    //     <div className={videoView}>
-    //         <video ref={videoRef} style={{ width: "84vw", height: "84vh" }}></video>
-    //         <button onClick={takePhoto}>Take Photo</button>
-    //         <button onClick={stopVideo}>Stop Video</button>
-    //         {hasPhoto && (
-    //             <>
-    //                 <button onClick={savePhoto}>Save Photo</button>
-    //                 <button onClick={closePhoto}>Close Photo</button>
-    //             </>
-    //         )}
-    //         <div className={photoView} >
-    //             <canvas ref={photoRef} style={{ width: "84vw", height: "84vh" }}></canvas>
-    //         </div>
-
-    //     </div>
-    // );
 
     return (
         <div>

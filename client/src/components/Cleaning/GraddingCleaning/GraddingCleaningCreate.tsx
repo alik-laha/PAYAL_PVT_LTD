@@ -8,6 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { Progress } from "@/components/ui/progress";
 import CameraComponent from '../CameraComponent';
 import { FaCamera } from "react-icons/fa";
+import BlobImageDisplay from "../ViewBlobimage";
 
 const GraddingMaintenanceCreate = () => {
     const [GraddingMachine, setGraddingMachine] = useState<AssetData[]>([]);
@@ -26,6 +27,7 @@ const GraddingMaintenanceCreate = () => {
     const [cleanningFiles, setCleaningFiles] = useState<Blob[]>([]);
     const [damageFiles, setDamageFiles] = useState<Blob[]>([]);
     const [progress, setProgress] = useState<number>(0);
+    const [cleanImageUrl, setCleanImageUrl] = useState<string[]>([])
 
     useEffect(() => {
         axios.get('/api/asset/getMachineByType/Grading')
@@ -36,6 +38,13 @@ const GraddingMaintenanceCreate = () => {
                 console.error(err);
             });
     }, []);
+
+    const CreateurlFromblob = (blob: Blob[]) => {
+        for (let i = 0; i < blob.length; i++) {
+            const url = URL.createObjectURL(blob[i]);
+            setCleanImageUrl([...cleanImageUrl, url]);
+        }
+    }
 
     useEffect(() => {
         const totalSteps = 7;
@@ -99,10 +108,12 @@ const GraddingMaintenanceCreate = () => {
             });
     };
     const setCleaningImage = (photo: any) => {
+        let data: Blob[] = [];
         photo.toBlob((blob: Blob) => {
-            setCleaningFiles([...cleanningFiles, blob]);
+            data = [...cleanningFiles, blob]
+            setCleaningFiles(data);
+            CreateurlFromblob(data)
         });
-
     }
     const callChildGetVideo = () => {
         (successdialog as any).showModal()
@@ -159,14 +170,12 @@ const GraddingMaintenanceCreate = () => {
                     <div className="flex items-center space-x-2">
                         <Switch id="elevetorCups" checked={elevetorCups} onCheckedChange={setElevetorCups} />
                     </div>
-                    {elevetorCups ? <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button> : null}
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Elevetor Motor Clean</Label>
                     <div className="flex items-center space-x-2">
                         <Switch id="elevetorMotorCleanByAir" checked={elevetorMotorCleanByAir} onCheckedChange={setElevetorMotorCleanByAir} />
                     </div>
-                    {elevetorMotorCleanByAir ? <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button> : null}
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Mc all Parts Clean</Label>
@@ -185,7 +194,12 @@ const GraddingMaintenanceCreate = () => {
                     <div className="flex items-center space-x-2">
                         <Switch id="CallibrationRollerHolesClean" checked={CallibrationRollerHolesClean} onCheckedChange={setCallibrationRollerHolesClean} />
                     </div>
-                    {CallibrationRollerHolesClean ? <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button> : null}
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">Callibration Roller Holes Clean</Label>
+                    <div className="flex items-center space-x-2">
+                        <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button>
+                    </div>
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Check if any Parts is Damage </Label>
@@ -203,6 +217,9 @@ const GraddingMaintenanceCreate = () => {
                         </div>
                     </>
                 )}
+                <div className="flex">
+                    < BlobImageDisplay blob={cleanImageUrl} />
+                </div>
                 <div>
                     <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20">Submit</Button>
                 </div>
