@@ -1,16 +1,22 @@
 import { AssetData } from "@/type/type";
 import axios from "axios";
-import { useState, useEffect, useRef, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, useRef, FormEvent } from "react";
 import { Label } from "../../ui/label";
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Progress } from "@/components/ui/progress";
+import CameraComponentClean from '../CameraComponentClean';
+import { FaCamera } from "react-icons/fa";
+import BlobImageDisplay from "../ViewBlobimage";
+import CameraComponentBroken from "../CameraComponentBroken";
 
 const GraddingMaintenanceCreate = () => {
     const [GraddingMachine, setGraddingMachine] = useState<AssetData[]>([]);
     const [mc_name, setMc_name] = useState<string>("");
     const Date = useRef<HTMLInputElement>(null);
+    const CleancameraRef = useRef<any>(null);
+    const DamageCameraRef = useRef<any>(null);
     const [dustTable, setDustTable] = useState<boolean>(false);
     const [hopper, setHopper] = useState<boolean>(false);
     const [elevetorCups, setElevetorCups] = useState<boolean>(false);
@@ -20,9 +26,11 @@ const GraddingMaintenanceCreate = () => {
     const [CallibrationRollerHolesClean, setCallibrationRollerHolesClean] = useState<boolean>(false);
     const [damage, setDamage] = useState<boolean>(false);
     const [partsName, setPartsName] = useState<string>("");
-    const [cleanningFiles, setCleaningFiles] = useState<FileList | null>(null);
-    const [damageFiles, setDamageFiles] = useState<FileList | null>(null);
+    const [cleanningFiles, setCleaningFiles] = useState<Blob[]>([]);
+    const [damageFiles, setDamageFiles] = useState<Blob[]>([]);
     const [progress, setProgress] = useState<number>(0);
+    const [cleanImageUrl, setCleanImageUrl] = useState<string[]>([])
+    const [brokenImageUrl, setBrokenImageUrl] = useState<string[]>([])
 
     useEffect(() => {
         axios.get('/api/asset/getMachineByType/Grading')
@@ -33,6 +41,19 @@ const GraddingMaintenanceCreate = () => {
                 console.error(err);
             });
     }, []);
+
+    const CreateurlFromblob = (blob: Blob[]) => {
+        for (let i = 0; i < blob.length; i++) {
+            const url = URL.createObjectURL(blob[i]);
+            setCleanImageUrl([...cleanImageUrl, url]);
+        }
+    }
+    const CreateurlFromBrokenblob = (blob: Blob[]) => {
+        for (let i = 0; i < blob.length; i++) {
+            const url = URL.createObjectURL(blob[i]);
+            setBrokenImageUrl([...brokenImageUrl, url]);
+        }
+    }
 
     useEffect(() => {
         const totalSteps = 7;
@@ -95,17 +116,38 @@ const GraddingMaintenanceCreate = () => {
                 console.error(err);
             });
     };
-
-    const handleCleaningFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setCleaningFiles(e.target.files);
+    const setCleaningImage = (photo: any) => {
+        let data: Blob[] = [];
+        photo.toBlob((blob: Blob) => {
+            data = [...cleanningFiles, blob]
+            setCleaningFiles(data);
+            CreateurlFromblob(data)
+        });
+    }
+    const setBrokenImage = (photo: any) => {
+        let data: Blob[] = [];
+        photo.toBlob((blob: Blob) => {
+            data = [...damageFiles, blob]
+            setDamageFiles(data);
+            CreateurlFromBrokenblob(data)
+        });
+    }
+    const callChildGetVideo = () => {
+        (successdialog as any).showModal()
+        if (CleancameraRef.current) {
+            CleancameraRef.current.getVIdeo();  // Call getVideo function from CameraComponent
         }
     };
-    const handleDamageFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setDamageFiles(e.target.files);
+
+    const callChildGetVideoBroken = () => {
+        (successdialog as any).showModal()
+        if (DamageCameraRef.current) {
+            DamageCameraRef.current.getVIdeo();  // Call getVideo function from CameraComponent
         }
     }
+
+    const successdialog = document.getElementById('Photodailog') as HTMLInputElement;
+
 
     return (
         <div className="pl-5 pr-5">
@@ -167,9 +209,9 @@ const GraddingMaintenanceCreate = () => {
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Cleaned Parts Image </Label>
+                    <Label className="w-2/4 pt-1">Callibration Roller Holes Clean</Label>
                     <div className="flex items-center space-x-2">
-                        <input type="file" multiple onChange={handleCleaningFileChange} required />
+                        <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button>
                     </div>
                 </div>
                 <div className="flex">
@@ -187,17 +229,41 @@ const GraddingMaintenanceCreate = () => {
                             </div>
                         </div>
                         <div className="flex">
-                            <Label className="w-2/4 pt-1">Damaged Parts Image upload</Label>
+                            <Label className="w-2/4 pt-1">Name Of the Parts</Label>
                             <div className="flex items-center space-x-2">
-                                <input type="file" multiple onChange={handleDamageFileChange} required={damage === true ? true : false} />
+                                <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideoBroken}><FaCamera /></Button>
                             </div>
                         </div>
                     </>
                 )}
                 <div>
+                    <Label className="w-2/4 pt-1">Cleaned Parts Images</Label>
+                    <div className="flex">
+                        < BlobImageDisplay blob={cleanImageUrl} />
+                    </div>
+                </div>
+                <div>
+                    <Label className="w-2/4 pt-1">Damaged Parts Images</Label>
+                    <div className="flex">
+                        < BlobImageDisplay blob={brokenImageUrl} />
+                    </div>
+                </div>
+                <div>
                     <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20">Submit</Button>
                 </div>
             </form>
+            <dialog id="Photodailog" className="dashboard-modal">
+                {/* <button id="closePhoto" className="dashboard-modal-close-btn ">X </button> */}
+                <span className="flex">
+                    <CameraComponentClean onSave={(photo: any) => setCleaningImage(photo)} ref={CleancameraRef} />
+                    <CameraComponentBroken onSave={(photo: any) => setBrokenImage(photo)} ref={DamageCameraRef} />
+
+                </span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+
+
         </div>
     );
 }

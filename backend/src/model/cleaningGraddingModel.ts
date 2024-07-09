@@ -63,11 +63,11 @@ const CleaningGrading = sequelize.define('cleaningGrading', {
         allowNull: true
     },
     cleanedPartsImages: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         allowNull: false
     },
     damagedPartsImages: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         allowNull: true
     },
     createdBy: {
