@@ -105,10 +105,24 @@ const GraddingMaintenanceCreate = () => {
 
     }
     const callChildGetVideo = () => {
+        (successdialog as any).showModal()
         if (cameraRef.current) {
-            cameraRef.current.getVideo();  // Call getVideo function from CameraComponent
+            cameraRef.current.getVIdeo();  // Call getVideo function from CameraComponent
         }
     };
+
+    const successdialog = document.getElementById('Photodailog') as HTMLInputElement;
+    // const closeDialogButton = document.getElementById('') as HTMLInputElement;
+
+    // if (closeDialogButton) {
+    //     closeDialogButton.addEventListener('click', () => {
+    //         if (successdialog != null) {
+    //             (successdialog as any).close();
+    //         }
+
+
+    //     });
+    // }
 
 
     return (
@@ -193,7 +207,17 @@ const GraddingMaintenanceCreate = () => {
                     <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20">Submit</Button>
                 </div>
             </form>
-            <CameraComponent onSave={(photo: any) => setCleaningImage(photo)} ref={cameraRef} />
+            <dialog id="Photodailog" className="dashboard-modal">
+                {/* <button id="closePhoto" className="dashboard-modal-close-btn ">X </button> */}
+                <span className="flex">{
+                    <CameraComponent onSave={(photo: any) => setCleaningImage(photo)} ref={cameraRef} />
+                }
+                </span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+
+
         </div>
     );
 }
