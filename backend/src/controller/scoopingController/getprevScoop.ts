@@ -32,6 +32,8 @@ const getprevScoop = async (req: Request, res: Response) => {
                     attributes: [
                         'Scooping_Line_Mc',
                         [sequelize.fn('sum', sequelize.col('Uncut')), 'totalUncut'],
+                        [sequelize.fn('sum', sequelize.col('Unscoop')), 'totalUnscoop'],
+                        [sequelize.fn('sum', sequelize.col('NonCut')), 'totalNonCut'],
                    
                     ],
                     where: {
@@ -42,28 +44,18 @@ const getprevScoop = async (req: Request, res: Response) => {
                     group: ['Scooping_Line_Mc']
                 });
                 console.log(finalSum)
-                res.status(200).json({ message: "Previous Non Cutting",finalSum });
+                if(finalSum){
+                    res.status(200).json({ message: "Previous Cutting",finalSum });
+                }
+                else{
+                    res.status(200).json({ message: "Previous Cutting Not Found" });
+                }
+                
         }
 
-        // const PrevData = await RcnScooping.findAll({
-        //     attributes: [
-        //         'LotNo',
-        //         [sequelize.fn('sum', sequelize.col('noOfBags')), 'totalBags']
-        //     ],
-        //     where: {
-        //         LotNo:  `%${latestSequence}%`,
-        //         [Op.or]: [
-        //             { editStatus: 'Approved' },
-        //             { editStatus: 'NA' }
-        //         ],
-               
-        //     },
-        //     group: ['LotNo']
-        // });
-
-
-
-
+        else{
+            res.status(200).json({ message: "Previous Cutting Not Found" });
+        }
       
     }
     catch (err) {

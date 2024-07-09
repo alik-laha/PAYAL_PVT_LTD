@@ -132,7 +132,22 @@ const RCNBoilingEntryForm = () =>
         try{
             const response= await axios.post('/api/scooping/getPrevScoop', { ScoopingLine,lotNO})
             console.log(response)
-            return response.data.finalSum[0].totalUncut
+
+            if(response.data.message==='Previous Cutting Not Found'){
+                return 0
+            }
+            if(response.data.finalSum[0])
+            {
+                const prevSum:number=parseFloat(response.data.finalSum[0].totalUncut)
+                +parseFloat(response.data.finalSum[0].totalNonCut)+
+                parseFloat(response.data.finalSum[0].totalUnscoop)
+                return prevSum
+            }
+            else{
+                return 0
+            }
+          
+            
         }
         catch(err){
             console.log(err);
@@ -183,7 +198,7 @@ const RCNBoilingEntryForm = () =>
             axios.post('/api/boiling/createLotNo', {}).then(async res => 
             {
                 console.log(res)
-                setLotNO(res.data.newSequence)  
+                //setLotNO(res.data.newSequence)  
                 const formData = rows.map(row => ({
                     columnLotNo: res.data.newSequence,
                     columnDate: date,
