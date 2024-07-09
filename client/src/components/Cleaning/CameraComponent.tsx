@@ -63,6 +63,7 @@ const CameraComponent = React.forwardRef(({ onSave }: { onSave: any }, ref: Reac
     const closePhoto = () => {
         getVideo();
         setVideoView("")
+        setPhotoView("hidden")
         if (!photoRef.current) return;
         const ctx = photoRef.current.getContext('2d');
         if (ctx) {
