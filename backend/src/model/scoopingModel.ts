@@ -152,7 +152,8 @@ const RcnScooping = sequelize.define('rcnScooping', {
     },
     editStatus: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        defaultValue:'NA'
     },
     Mc_runTime: {
         type: DataTypes.TIME,
