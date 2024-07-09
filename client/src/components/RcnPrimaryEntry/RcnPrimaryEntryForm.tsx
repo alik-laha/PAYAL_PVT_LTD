@@ -67,35 +67,35 @@ const RcnPrimaryEntryForm = () => {
         axios.post('/api/rcnprimary/create', { origin, blNo, conNo, truckNo, blWeight, netWeight, noOfBags, date })
             .then((res) => {
                 console.log(res.data.rcnPrimary.id)
-                let g_id=res.data.rcnPrimary.id
-                axios.post('/api/qcRcn/qcInitialEntry', { g_id , origin, blNo, conNo, date })
-                .then((res) => {
-                    console.log(res)
-                    if (successdialog != null) {
-                        (successdialog as any).showModal();
-                    }
-                    if (blNoRef.current != null) {
-                        blNoRef.current.value = '';
-                    }
-                    if (conNoRef.current != null) {
-                        conNoRef.current.value = '';
-                    }
-                    if (truckNoRef.current != null) {
-                        truckNoRef.current.value = '';
-                    }
-                    if (blWeightRef.current != null) {
-                        blWeightRef.current.value = '';
-                    }
-                    if (netWeightRef.current != null) {
-                        netWeightRef.current.value = '';
-                    }
-                    if (noOfBagsRef.current != null) {
-                        noOfBagsRef.current.value = '';
-                    }
-                    setOrigin('')
-                }).catch((err) => {
-                    console.log(err)
-                })
+                const g_id = res.data.rcnPrimary.id
+                axios.post('/api/qcRcn/qcInitialEntry', { g_id, origin, blNo, conNo, date })
+                    .then((res) => {
+                        console.log(res)
+                        if (successdialog != null) {
+                            (successdialog as any).showModal();
+                        }
+                        if (blNoRef.current != null) {
+                            blNoRef.current.value = '';
+                        }
+                        if (conNoRef.current != null) {
+                            conNoRef.current.value = '';
+                        }
+                        if (truckNoRef.current != null) {
+                            truckNoRef.current.value = '';
+                        }
+                        if (blWeightRef.current != null) {
+                            blWeightRef.current.value = '';
+                        }
+                        if (netWeightRef.current != null) {
+                            netWeightRef.current.value = '';
+                        }
+                        if (noOfBagsRef.current != null) {
+                            noOfBagsRef.current.value = '';
+                        }
+                        setOrigin('')
+                    }).catch((err) => {
+                        console.log(err)
+                    })
 
 
 
