@@ -139,7 +139,7 @@ const RCNBoilingTable = () => {
             }
         })
         const data = await response.data
-        console.log(data)
+        //console.log(data)
         if (data.length === 0 && page > 1) {
             setPage((prev) => prev - 1)
 
