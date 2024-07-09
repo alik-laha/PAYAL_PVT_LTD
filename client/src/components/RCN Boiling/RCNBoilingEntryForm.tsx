@@ -162,7 +162,7 @@ const RCNBoilingEntryForm = () =>
     const DateRef = useRef<HTMLInputElement>(null)
     const [mc_name, setMc_name] = useState('')
     const noofEmployeeRef = useRef<HTMLInputElement>(null)
-    const [lotNO, setLotNO] = useState('')
+    //const [lotNO, setLotNO] = useState('')
     const [rows,setRows]=useState<RowData[]>([{origin:'',sizeName:'',
         size:'',ScoopingLine:'',pressure:'',moisture:'',CookingTime:'',cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00',openQuantity:0}
     ]);
@@ -217,12 +217,12 @@ const RCNBoilingEntryForm = () =>
                             setErrortext(res.data.message)
 
                             if (res.status === 200) {
-                               // const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                               // dialog.showModal()
-                                // setTimeout(() => {
-                                //     dialog.close()
-                                //     window.location.reload()
-                                // }, 2000)
+                               const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                               dialog.showModal()
+                                setTimeout(() => {
+                                    dialog.close()
+                                    window.location.reload()
+                                }, 2000)
                             }
 
                         }
@@ -257,9 +257,7 @@ const RCNBoilingEntryForm = () =>
                 for (var data2 of formData2) 
                     {
                         axios.post('/api/scooping/createInitialScooping', { data2 }).then(res => {
-                       
-                          console.log(res)
-    
+                          //console.log(res)
                         })
                         .catch(err => {
                                 console.log(err)
@@ -270,6 +268,10 @@ const RCNBoilingEntryForm = () =>
                                 axios.delete(`/api/boiling/deleteBoilingByLotNo/${data.columnLotNo}`).then((res) => {
                                     console.log(res.data)
                                 })
+                                axios.delete(`/api/scooping/deleteScoopingByLotNo/${data.columnLotNo}`).then((res) => {
+                                    console.log(res.data)
+                                })
+                                
                                 const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
                                 dialog.showModal()
                                 setTimeout(() => {
@@ -277,10 +279,6 @@ const RCNBoilingEntryForm = () =>
                                 }, 2000)
                         })      
                     }
-
-
-
-
                 }).catch(err => {
                 console.log(err)
                 })
@@ -328,8 +326,8 @@ const RCNBoilingEntryForm = () =>
                     <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
                     <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
                    
-                    <div className="flex"><Label className="w-2/4  pt-1">Labours</Label>
-                    <Input className="w-2/4 " placeholder="No. of Labours" ref={noofEmployeeRef} required /> </div>
+                    <div className="flex"><Label className="w-2/4 pt-1">Labours</Label>
+                    <Input className="w-2/4 text-center" placeholder="No. of Labours" ref={noofEmployeeRef} required /> </div>
                     <div className="flex">
                     <Label className="w-2/4 pt-1">Machine Name</Label>
                     <Select value={mc_name} onValueChange={(value) => setMc_name(value)} required={true}>
