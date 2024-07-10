@@ -6,6 +6,7 @@ import CreateBoillingMaintenence from "../controller/cleaning/boillingClean/crea
 import ViewGraddingCleaning from "../controller/cleaning/graddingClean/viewGraddingClean";
 import path from 'path';
 import autoDeleteGraddingCleanImage from "../controller/cleaning/graddingClean/autoDeleteGraddingCleanImage";
+import autoDeleteBoillingCleanImage from "../controller/cleaning/boillingClean/autoDeleteBoillingCleanImage";
 
 const router = Express.Router();
 const graddingCleanImageUpload = graddingCleanFunction();
@@ -34,6 +35,7 @@ router.get('/view', function (req, res) {
 
 cron.schedule('0 0 * * *', () => {
     autoDeleteGraddingCleanImage();
+    autoDeleteBoillingCleanImage();
 })
 
 
