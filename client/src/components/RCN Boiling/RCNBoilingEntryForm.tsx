@@ -136,7 +136,9 @@ const RCNBoilingEntryForm = () =>
             if(response.data.message==='Previous Cutting Not Found'){
                 return 0
             }
-            if(response.data.finalSum[0])
+            if(response.data.finalSum[0].totalUncut!== null && response.data.finalSum[0].totalNonCut
+                && response.data.finalSum[0].totalUnscoop
+            )
             {
                 const prevSum:number=parseFloat(response.data.finalSum[0].totalUncut)
                 +parseFloat(response.data.finalSum[0].totalNonCut)+
@@ -217,11 +219,11 @@ const RCNBoilingEntryForm = () =>
 
                             if (res.status === 200) {
                                const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                               dialog.showModal()
-                                setTimeout(() => {
-                                    dialog.close()
-                                    window.location.reload()
-                                }, 2000)
+                            //    dialog.showModal()
+                            //     setTimeout(() => {
+                            //         dialog.close()
+                            //         window.location.reload()
+                            //     }, 2000)
                             }
 
                         }

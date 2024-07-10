@@ -1,19 +1,19 @@
-import { Input } from "@/components/ui/input"
+
 import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
 import { useState, useRef } from "react"
-import { Origin } from "../common/exportData"
+
 import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
+
 
 
 const RCNScoopingCreateForm = () => {
@@ -119,52 +119,21 @@ const RCNScoopingCreateForm = () => {
     return (
         <>
             <div className="pl-10 pr-10">
-                <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
-                    <div className="flex mt-8"><Label className="w-2/4  pt-1">Origin</Label>
-                        <Select value={origin} onValueChange={(value) => setOrigin(value)} required={true}>
-                            <SelectTrigger className="w-2/4">
-                                <SelectValue placeholder="Origin" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    {
-                                        Origin.map((item) => {
-                                            return (
-                                                <SelectItem key={item} value={item}>
-                                                    {item}
-                                                </SelectItem>
-                                            )
-                                        })
-                                    }
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                        {/* <Input   placeholder="Origin"/>  */}</div>
-                    <div className="flex"><Label className="w-2/4  pt-1">BL No.</Label>
-                        <Input className="w-2/4 " placeholder="BL No." ref={blNoRef} required /> </div>
+               
+                <Table className="mt-3">
+                <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                    <div className="flex"><Label className="w-2/4  pt-1">Date of Receving</Label>
-                        <Input className="w-2/4 " placeholder="BL No." ref={dateRef} type="date" required /> </div>
+                    <TableHead className="text-center" >Lot No</TableHead>
+                    <TableHead className="text-center" >Action</TableHead>
+                   
 
-                    <div className="flex"><Label className="w-2/4 pt-1">Container No.</Label>
-                        <Input className="w-2/4 " placeholder="Container No." ref={conNoRef} required /> </div>
-
-                    <div className="flex"><Label className="w-2/4 pt-1" > Truck No.</Label>
-                        <Input className="w-2/4 " placeholder="Truck No." ref={truckNoRef} required />
-                    </div>
-                    <div className="flex">
-                        <Label className="w-2/4 pt-1">Total Bags</Label>
-                        <Input className="w-2/4 " placeholder="Total Bags" ref={noOfBagsRef} type="number" required />
-                    </div>
-                    <div className="flex">
-                        <Label className="w-2/4 pt-1"> BL Weight</Label>
-                        <Input className="w-2/4 " placeholder="BL Weight" ref={blWeightRef} type="number" step="0.01" required />
-                    </div>
-                    <div className="flex"><Label className="w-2/4 pt-1"> Net Weight</Label>
-                        <Input className="w-2/4 " placeholder="Net Weight" ref={netWeightRef} type="number" step="0.01" required />
-                    </div>
-                    <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
-                </form>
+                </TableHeader>
+                <TableBody>
+                    
+                    </TableBody>
+                    </Table>
+                   
+               
 
 
             </div>

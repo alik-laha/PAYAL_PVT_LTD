@@ -17,7 +17,7 @@ import {
 import RCNScoopingTable from './RCNScoopingTable';
 import RCNScoopingCreateForm from './RCNScoopingCreateForm';
 import Context from '../context/context';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useEffect } from 'react'
 import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
@@ -27,6 +27,8 @@ import Loader from '../common/Loader';
 const RCNScooping = () => {
 
     const { setAllMachines, setEditPendiningGrinderData } = useContext(Context)
+    const { lotdata, setLotData } = useState([])
+
 
     useEffect(() => {
         axios.get('/api/asset/getMachineByType/Grading')
@@ -56,6 +58,16 @@ const RCNScooping = () => {
         return <div>Error</div>;
     }
     console.log(data)
+
+    const handleOpenLotNo = async () => {
+        axios.get('/api/scooping/getUnscoopedEntry').then(res=>{
+            setLotData(res.data.scoopingLot)
+        })
+
+            
+        
+
+    }
     return (
         <div>
             <DashboardHeader />
@@ -93,14 +105,14 @@ const RCNScooping = () => {
 
                 <div>
                     <Dialog>
-                        <DialogTrigger>   <Button className="bg-red-500 mb-2 mt-5 ml-4">+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-2xl pb-1 text-center mt-5'>Grading Entry</p></DialogTitle>
+                                <DialogTitle><p className='text-2xl pb-1 text-center mt-2'>Scooping Entry</p></DialogTitle>
 
                             </DialogHeader>
 
-                            <RCNScoopingCreateForm />
+                            <RCNScoopingCreateForm props={lotdata}/>
                         </DialogContent>
                     </Dialog>
 
