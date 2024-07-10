@@ -8,6 +8,15 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+
+import {
+    Dialog,
+    DialogContent,
+
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 import { useState, useRef } from "react"
 
 import axios from "axios"
@@ -16,17 +25,10 @@ import cross from '../../assets/Static_Images/error_img.png'
 
 
 
-const RCNScoopingCreateForm = () => {
-    const [origin, setOrigin] = useState<string>("")
-    const [errortext, setErrorText] = useState<string>("")
+const RCNScoopingCreateForm = (props: any) => {
 
-    const blNoRef = useRef<HTMLInputElement>(null)
-    const conNoRef = useRef<HTMLInputElement>(null)
-    const truckNoRef = useRef<HTMLInputElement>(null)
-    const blWeightRef = useRef<HTMLInputElement>(null)
-    const netWeightRef = useRef<HTMLInputElement>(null)
-    const noOfBagsRef = useRef<HTMLInputElement>(null)
-    const dateRef = useRef<HTMLInputElement>(null)
+    console.log(props)
+
 
     const successdialog = document.getElementById('myDialog') as HTMLInputElement;
     const errordialog = document.getElementById('errorDialog') as HTMLInputElement;
@@ -56,84 +58,73 @@ const RCNScoopingCreateForm = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        const blNo = blNoRef.current?.value
-        const conNo = conNoRef.current?.value
-        const truckNo = truckNoRef.current?.value
-        const blWeight = blWeightRef.current?.value
-        const netWeight = netWeightRef.current?.value
-        const noOfBags = noOfBagsRef.current?.value
-        const date = dateRef.current?.value
-        console.log({ origin, blNo, conNo, truckNo, blWeight, netWeight })
-        axios.post('/api/rcnprimary/create', { origin, blNo, conNo, truckNo, blWeight, netWeight, noOfBags, date })
-            .then((res) => {
-                console.log(res.data.rcnPrimary.id)
-                let g_id=res.data.rcnPrimary.id
-                axios.post('/api/qcRcn/qcInitialEntry', { g_id , origin, blNo, conNo, date })
-                .then((res) => {
-                    console.log(res)
-                    if (successdialog != null) {
-                        (successdialog as any).showModal();
-                    }
-                    if (blNoRef.current != null) {
-                        blNoRef.current.value = '';
-                    }
-                    if (conNoRef.current != null) {
-                        conNoRef.current.value = '';
-                    }
-                    if (truckNoRef.current != null) {
-                        truckNoRef.current.value = '';
-                    }
-                    if (blWeightRef.current != null) {
-                        blWeightRef.current.value = '';
-                    }
-                    if (netWeightRef.current != null) {
-                        netWeightRef.current.value = '';
-                    }
-                    if (noOfBagsRef.current != null) {
-                        noOfBagsRef.current.value = '';
-                    }
-                    setOrigin('')
-                }).catch((err) => {
-                    console.log(err)
-                })
 
 
 
-            }).catch((err) => {
-                console.log(err)
-                // if (err.response.data.error.original.errno === 1062) {
-                //     setErrorText('Duplicate Entry is Not Allowed')
-                //     if (errordialog != null) {
-                //         (errordialog as any).showModal();
-                //     }
-                //     return
-                // }
-                setErrorText(err.response.data.message)
-                if (errordialog != null) {
-                    (errordialog as any).showModal();
-                }
 
-            })
+
+
+
+
 
     }
     return (
         <>
             <div className="pl-10 pr-10">
-               
+
                 <Table className="mt-3">
-                <TableHeader className="bg-neutral-100 text-stone-950 ">
+                    <TableHeader className="bg-neutral-100 text-stone-950 ">
+                        <TableHead className="text-center" >Sl. No.</TableHead>
+                        <TableHead className="text-center" >Lot No</TableHead>
+                        <TableHead className="text-center" >Status</TableHead>
+                        <TableHead className="text-center" >Action</TableHead>
 
-                    <TableHead className="text-center" >Lot No</TableHead>
-                    <TableHead className="text-center" >Action</TableHead>
-                   
 
-                </TableHeader>
-                <TableBody>
-                    
+                    </TableHeader>
+                    <TableBody>
+                        {props.props.length > 0 ? (
+                            props.props.map((item: any, idx: number) => {
+
+                                return (
+                                    <TableRow key={item.id}>
+                                        <TableCell className="text-center">
+                                            {idx + 1}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold">
+                                            {item.LotNo}
+                                        </TableCell>
+
+                                        <TableCell className="text-center"><Button className="bg-orange-500 h-8 text-white rounded-md">Pending</Button></TableCell>
+                                        <TableCell className="text-center">
+                                            <Dialog>
+                                                <DialogTrigger>
+                                                    <Button className="bg-green-500 h-8 rounded-md" >+ Add </Button></DialogTrigger>
+                                                <DialogContent className='max-w-2xl'>
+                                                    <DialogHeader>
+                                                        <DialogTitle><p className='text-2xl pb-1 text-center mt-2'>Scooping Line Entry</p></DialogTitle>
+
+                                                    </DialogHeader>
+
+                                                    
+                                                </DialogContent>
+                                            </Dialog>
+
+
+
+
+                                        </TableCell>
+
+
+
+
+                                    </TableRow>
+                                );
+                            })
+                        ) : null}
                     </TableBody>
-                    </Table>
-                   
-               
+                </Table>
+
+
 
 
             </div>
@@ -148,7 +139,7 @@ const RCNScoopingCreateForm = () => {
             <dialog id="errorDialog" className="dashboard-modal">
                 <button id="errorcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium"></p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

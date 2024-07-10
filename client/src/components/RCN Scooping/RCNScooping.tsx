@@ -27,7 +27,7 @@ import Loader from '../common/Loader';
 const RCNScooping = () => {
 
     const { setAllMachines, setEditPendiningGrinderData } = useContext(Context)
-    const { lotdata, setLotData } = useState([])
+    const [lotdata, setLotData ]  = useState([])
 
 
     useEffect(() => {
@@ -61,6 +61,7 @@ const RCNScooping = () => {
 
     const handleOpenLotNo = async () => {
         axios.get('/api/scooping/getUnscoopedEntry').then(res=>{
+            console.log(res)
             setLotData(res.data.scoopingLot)
         })
 
@@ -108,7 +109,7 @@ const RCNScooping = () => {
                         <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-2xl pb-1 text-center mt-2'>Scooping Entry</p></DialogTitle>
+                                <DialogTitle><p className='text-2xl pb-1 text-center mt-2'>RCN Scooping Entry</p></DialogTitle>
 
                             </DialogHeader>
 
