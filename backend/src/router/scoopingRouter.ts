@@ -5,6 +5,7 @@ import getprevScoop from "../controller/scoopingController/getprevScoop";
 import deleteSccopingByLot from "../controller/scoopingController/deleteScoopingByLot";
 import sumOfAllScoop from "../controller/scoopingController/sumOfAllScoop";
 import getscoopLot from "../controller/scoopingController/getscoopLot";
+import getscoopByLot from "../controller/scoopingController/getscoopByLot";
 
 const router = express()
 
@@ -13,4 +14,5 @@ router.post("/getPrevScoop",jwtVerify,getprevScoop )
 router.delete('/deleteScoopingByLotNo/:id', jwtVerify, deleteSccopingByLot)
 router.get("/sumofallscoop", jwtVerify, sumOfAllScoop)
 router.get("/getUnscoopedEntry", jwtVerify, getscoopLot)
+router.get("/getScoopByLot/:lotNO", jwtVerify, getscoopByLot)
 export default router

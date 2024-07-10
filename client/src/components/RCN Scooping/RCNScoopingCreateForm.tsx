@@ -17,56 +17,26 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { useState, useRef } from "react"
+import RCNScoopingLineCreateForm from "./RCNScoopingLineCreateForm";
+import axios from "axios";
+import { useState } from "react";
+import { ScoopData } from "@/type/type";
 
-import axios from "axios"
-import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
-import cross from '../../assets/Static_Images/error_img.png'
 
 
+interface lotPropsdata{
+    LotNo:string;
+}
 
 const RCNScoopingCreateForm = (props: any) => {
-
+    const [scoopdata, setscoopdata ]  = useState<ScoopData[]>([])
     console.log(props)
-
-
-    const successdialog = document.getElementById('myDialog') as HTMLInputElement;
-    const errordialog = document.getElementById('errorDialog') as HTMLInputElement;
-    // const dialog = document.getElementById('myDialog');
-    const closeDialogButton = document.getElementById('closeDialog') as HTMLInputElement;
-    const errorcloseDialogButton = document.getElementById('errorcloseDialog') as HTMLInputElement;
-
-    if (closeDialogButton) {
-        closeDialogButton.addEventListener('click', () => {
-            if (successdialog != null) {
-                (successdialog as any).close();
-                window.location.reload()
-            }
-
-
-        });
-    }
-    if (errorcloseDialogButton) {
-        errorcloseDialogButton.addEventListener('click', () => {
-            if (errordialog != null) {
-                (errordialog as any).close();
-
-            }
-
-        });
-    }
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-
-
-
-
-
-
-
-
-
+    const handleLineEntry = async (lotNO:string) => {
+        axios.get(`/api/scooping/getScoopByLot/${lotNO}`).then(res=>{
+            console.log(res)
+            // setscoopdata(res)
+            //set(res.data.scoopingLot)
+        })
     }
     return (
         <>
@@ -83,10 +53,10 @@ const RCNScoopingCreateForm = (props: any) => {
                     </TableHeader>
                     <TableBody>
                         {props.props.length > 0 ? (
-                            props.props.map((item: any, idx: number) => {
+                            props.props.map((item: lotPropsdata, idx: number) => {
 
                                 return (
-                                    <TableRow key={item.id}>
+                                    <TableRow key={idx}>
                                         <TableCell className="text-center">
                                             {idx + 1}
                                         </TableCell>
@@ -98,13 +68,13 @@ const RCNScoopingCreateForm = (props: any) => {
                                         <TableCell className="text-center">
                                             <Dialog>
                                                 <DialogTrigger>
-                                                    <Button className="bg-green-500 h-8 rounded-md" >+ Add </Button></DialogTrigger>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={handleLineEntry}>+ Add </Button></DialogTrigger>
                                                 <DialogContent className='max-w-2xl'>
                                                     <DialogHeader>
                                                         <DialogTitle><p className='text-2xl pb-1 text-center mt-2'>Scooping Line Entry</p></DialogTitle>
 
                                                     </DialogHeader>
-
+                                                <RCNScoopingLineCreateForm/>
                                                     
                                                 </DialogContent>
                                             </Dialog>
@@ -128,21 +98,7 @@ const RCNScoopingCreateForm = (props: any) => {
 
 
             </div>
-            <dialog id="myDialog" className="dashboard-modal">
-                <button id="closeDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Primary Entry Submitted Successfully</p></span>
-
-                {/* <!-- Add more elements as needed --> */}
-            </dialog>
-
-            <dialog id="errorDialog" className="dashboard-modal">
-                <button id="errorcloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium"></p></span>
-
-                {/* <!-- Add more elements as needed --> */}
-            </dialog>
+        
         </>
     )
 

@@ -22,12 +22,13 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
+import { scoopingpendingLotData } from '@/type/type';
 
 
 const RCNScooping = () => {
 
     const { setAllMachines, setEditPendiningGrinderData } = useContext(Context)
-    const [lotdata, setLotData ]  = useState([])
+    const [lotdata, setLotData ]  = useState<scoopingpendingLotData[]>([])
 
 
     useEffect(() => {
@@ -109,7 +110,7 @@ const RCNScooping = () => {
                         <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-2xl pb-1 text-center mt-2'>RCN Scooping Entry</p></DialogTitle>
+                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>RCN Scooping Entry Form</p></DialogTitle>
 
                             </DialogHeader>
 

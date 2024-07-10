@@ -219,11 +219,11 @@ const RCNBoilingEntryForm = () =>
 
                             if (res.status === 200) {
                                const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                            //    dialog.showModal()
-                            //     setTimeout(() => {
-                            //         dialog.close()
-                            //         window.location.reload()
-                            //     }, 2000)
+                               dialog.showModal()
+                                setTimeout(() => {
+                                    dialog.close()
+                                    window.location.reload()
+                                }, 2000)
                             }
 
                         }

@@ -83,7 +83,12 @@ export interface QcRcnEntryData {
     editapprovedBy: string;
 }
 
-
+export interface scoopingpendingLotData {
+    LotNo:string
+}
+export interface ScoopData {
+    LotNo:string
+}
 
 export interface ExcelRcnPrimaryEntryData {
     SL_No: number;
