@@ -87,7 +87,41 @@ export interface scoopingpendingLotData {
     LotNo:string
 }
 export interface ScoopData {
-    LotNo:string
+    LotNo:string;
+    id: number;
+            date: string;
+            origin: string;
+            SizeName: string;
+            Size: string;
+            Scooping_Line_Mc: string;
+            Opening_Qty:string;
+            Receiving_Qty: string;
+            Wholes:string;
+            Broken: string;
+            Uncut: string;
+            Unscoop: string;
+            NonCut:string;
+            Rejection: string;
+            Dust:string;
+            KOR:string;
+            Trolley_Broken: string;
+            Trolley_Small_JB: string;
+            Transfered_to: string;
+            scoopStatus: string;
+            Mc_on: string;
+            Mc_off: string;
+            noOfEmployees: string;
+            Mc_breakdown: string;
+            otherTime: string;
+            Brkdwn_reason: string;
+            noOfLadies: string;
+            noOfGents: string;
+            noOfSupervisors: string;
+            noOfOperators: string;
+            CreatedBy: string;
+            editStatus: string;
+           
+            modifiedBy: string;
 }
 
 export interface ExcelRcnPrimaryEntryData {

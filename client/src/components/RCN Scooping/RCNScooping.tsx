@@ -18,7 +18,7 @@ import RCNScoopingTable from './RCNScoopingTable';
 import RCNScoopingCreateForm from './RCNScoopingCreateForm';
 import Context from '../context/context';
 import { useContext, useState } from 'react';
-import { useEffect } from 'react'
+
 import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
@@ -27,20 +27,11 @@ import { scoopingpendingLotData } from '@/type/type';
 
 const RCNScooping = () => {
 
-    const { setAllMachines, setEditPendiningGrinderData } = useContext(Context)
+    const {  setEditPendiningGrinderData } = useContext(Context)
     const [lotdata, setLotData ]  = useState<scoopingpendingLotData[]>([])
 
 
-    useEffect(() => {
-        axios.get('/api/asset/getMachineByType/Grading')
-            .then(res => {
-                console.log(res.data)
-                setAllMachines(res.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [])
+
     const { data, isLoading, error } = UseQueryData('/api/scooping/sumofallscoop', 'GET', 'AllScoopingSum');
     const handleEditFetch = async () => {
         axios.get('/api/grading/getPendingData')

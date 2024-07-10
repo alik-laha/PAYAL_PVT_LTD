@@ -33,8 +33,8 @@ const RCNScoopingCreateForm = (props: any) => {
     console.log(props)
     const handleLineEntry = async (lotNO:string) => {
         axios.get(`/api/scooping/getScoopByLot/${lotNO}`).then(res=>{
-            console.log(res)
-            // setscoopdata(res)
+           // console.log(res)
+             setscoopdata(res.data.scoopingLot)
             //set(res.data.scoopingLot)
         })
     }
@@ -68,29 +68,27 @@ const RCNScoopingCreateForm = (props: any) => {
                                         <TableCell className="text-center">
                                             <Dialog>
                                                 <DialogTrigger>
-                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={handleLineEntry}>+ Add </Button></DialogTrigger>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)}>+ Add </Button></DialogTrigger>
                                                 <DialogContent className='max-w-2xl'>
                                                     <DialogHeader>
                                                         <DialogTitle><p className='text-2xl pb-1 text-center mt-2'>Scooping Line Entry</p></DialogTitle>
 
                                                     </DialogHeader>
-                                                <RCNScoopingLineCreateForm/>
+                                                <RCNScoopingLineCreateForm scoop={scoopdata}/>
                                                     
                                                 </DialogContent>
                                             </Dialog>
-
-
-
-
                                         </TableCell>
-
-
-
 
                                     </TableRow>
                                 );
                             })
-                        ) : null}
+                        ) : <TableRow>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell>Nothing Pending</TableCell>
+                            <TableCell></TableCell>
+                            </TableRow>}
                     </TableBody>
                 </Table>
 
