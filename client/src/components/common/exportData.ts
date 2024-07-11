@@ -23,7 +23,10 @@ export const PermissionRol = {
     GradingSupervisor: ['Grading'],
     BoilingSupervisor: ['Boiling'],
     ScoopingSupervisor: ['Scooping'],
-    ProductionManager:['Grading','Boiling','Scooping']
+    ProductionManager:['Grading','Boiling','Scooping'],
+    MaintainanceManager:['Cleaning'],
+    CleaningSupervisor:['Cleaning']
+
 }
 
 export const PermissionDep = {
@@ -47,7 +50,7 @@ export const pendingCheckRole = {
 export const roleDataonDept = {
     Admin: ['Director', 'FactoryManager'],
     Receiving: ['ReceivingSupervisor', 'ReceivingManager'],
-    Maintainance: ['MaintainanceSupervisor', 'MaintainanceManager'],
+    Maintainance: ['CleaningSupervisor', 'MaintainanceManager'],
     QualityControl: ['QCSupervisor', 'QCManager'],
     Production: ['ProductionManager', 'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor']
 }

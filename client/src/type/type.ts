@@ -190,6 +190,8 @@ export interface PermissionRole {
     GradingSupervisor: string[];
     ScoopingSupervisor:string[];
     BoilingSupervisor:string[];
+    CleaningSupervisor:string[];
+    MaintainanceManager:string[];
 
 
 }

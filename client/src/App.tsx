@@ -14,13 +14,11 @@ import RCNBoiling from './components/RCN Boiling/RCNBoiling'
 import RCNScooping from './components/RCN Scooping/RCNScooping'
 import { Session_LogoutTime_Hr } from './components/common/exportData'
 import { Navigate } from 'react-router-dom'
-
-import Maintenance from './components/Cleaning/Cleaning'
-
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import EmailEntryforResetpassword from './components/forgotPassword/EmailEntryforResetpassword'
 import VerifyCodeAndResetPassword from './components/forgotPassword/VerifyCodeAndResetPassword'
+import Cleaning from './components/Cleaning/Cleaning'
 
 function App() {
   const navigate = useNavigate()
@@ -59,7 +57,7 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'ReceivingSupervisor', 'ReceivingManager', 'QCManager', 'QCSupervisor',
           'ProductionManager', 'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor',
-          'MaintainanceSupervisor', 'MaintainanceManager']} />}>
+          'CleaningSupervisor', 'MaintainanceManager']} />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
@@ -97,8 +95,8 @@ function App() {
         </Route>
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'ScoopingSupervisor', 'ProductionManager']} />}>
-          <Route path='/dashboard/machineMaintainance' element={<Maintenance />} />
+          'CleaningSupervisor', 'MaintainanceManager']} />}>
+          <Route path='/dashboard/cleaning' element={<Cleaning />} />
         </Route>
       </Routes>
     </>

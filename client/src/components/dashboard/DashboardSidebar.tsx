@@ -151,11 +151,11 @@ const DashboardSidebar = () => {
                         <CollapsibleTrigger className="user-pvt"><LuServerCrash size={25} />
                             <p>Maintainance</p></CollapsibleTrigger>
 
-                        <CollapsibleContent className="Items-pvt">
+                            {renderlink('Cleaning') &&  <CollapsibleContent className="Items-pvt">
                             <NavLink to="/dashboard/machineMaintainance" >
-                                Machine Cleaning
+                                Cleaning
                             </NavLink>
-                        </CollapsibleContent>
+                        </CollapsibleContent>}
 
                     </Collapsible>}
 

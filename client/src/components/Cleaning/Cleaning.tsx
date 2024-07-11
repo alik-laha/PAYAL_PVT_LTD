@@ -7,7 +7,7 @@ import BoillingMaintenance from "./boillingCleaning/BoillingCleaning"
 
 
 
-const Maintenance = () => {
+const Cleaning = () => {
     const [GraddingView, setGraddingView] = useState("none")
     const [GraddingBackground, setGraddingBackground] = useState("")
     const [BoillingView, setBoillingView] = useState("none")
@@ -63,4 +63,4 @@ const Maintenance = () => {
         </div>
     )
 }
-export default Maintenance
+export default Cleaning
