@@ -428,6 +428,15 @@
     justify-content: center;
   }
 
+  .boiling-row-height-scoop *{
+
+    padding:3px 2px 3px 2px !important;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: 6vh;
+  }
+
   @media screen and (max-width: 1024px) {
 
     .flexbox-tile{

@@ -41,7 +41,7 @@ const RCNScoopingCreateForm = (props: any) => {
     return (
         <>
             <div className="pl-10 pr-10">
-
+         
                 <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl. No.</TableHead>
@@ -69,11 +69,11 @@ const RCNScoopingCreateForm = (props: any) => {
                                             <Dialog>
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)}>+ Add </Button></DialogTrigger>
-                                                <DialogContent className='max-w-2xl'>
-                                                    <DialogHeader>
-                                                        <DialogTitle><p className='text-2xl pb-1 text-center mt-2'>Scooping Line Entry</p></DialogTitle>
+                                                <DialogContent className='max-w-3xl'>
+                                                    {/* <DialogHeader>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Scooping Line Entry</p></DialogTitle>
 
-                                                    </DialogHeader>
+                                                    </DialogHeader> */}
                                                 <RCNScoopingLineCreateForm scoop={scoopdata}/>
                                                     
                                                 </DialogContent>
