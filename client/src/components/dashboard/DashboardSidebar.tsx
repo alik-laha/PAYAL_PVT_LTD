@@ -152,7 +152,7 @@ const DashboardSidebar = () => {
                             <p>Maintainance</p></CollapsibleTrigger>
 
                             {renderlink('Cleaning') &&  <CollapsibleContent className="Items-pvt">
-                            <NavLink to="/dashboard/machineMaintainance" >
+                            <NavLink to="/dashboard/cleaning" >
                                 Cleaning
                             </NavLink>
                         </CollapsibleContent>}

@@ -32,12 +32,10 @@ export const PermissionRol = {
 export const PermissionDep = {
     Admin: ['HR & Admin', 'Receiving', 'Quality', 'Maintainance', 'Production'],
     Receiving: ['Receiving'],
-    Maintainance: ['Maintainace'],
+    Maintainance: ['Maintainance'],
     Production: ['Production'],
     QualityControl: ['Quality'],
-    Grading: ['Production'],
-    Boiling: ['Production'],
-    Scooping: ['Production']
+  
 }
 
 export const pendingCheckRole = {

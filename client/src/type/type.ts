@@ -202,8 +202,7 @@ export interface PermissionDept {
     Maintainance: string[];
     Production: string[];
     QualityControl: string[];
-    Grading: string[];
-    Boiling:string[];
+   
 
 }
 export interface BoilingEntryData{
