@@ -64,7 +64,7 @@ const GraddingMaintenanceTable = () => {
             })
     }
     useEffect(() => {
-        axios.get('/api/asset/getallActiveMachine')
+        axios.get('/api/asset/getMachineByType/Grading')
             .then((res) => {
                 console.log(res)
                 setAllMachine(res.data)
