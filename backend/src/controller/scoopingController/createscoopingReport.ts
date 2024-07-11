@@ -8,7 +8,7 @@ const createscoopingReport = async (req: Request, res: Response) => {
             const id = req.params.id;
    
             let {  Wholes,Broken,Uncut ,Unscoop,NonCut,Rejection,Dust,KOR
-                ,Trolley_Broken,Trolley_Small_JB,Mc_on,Mc_off,noOfEmployees,noOfOperators,male,female,date,supervisor,
+                ,Trolley_Broken,Trolley_Small_JB,Mc_on,Mc_off,noOfEmployees,noOfOperators,male,female,Date,supervisor,
                 Mc_breakdown,Transfered_to,otherTime,Brkdwn_reason } = req.body.data;
             
              const createdBy = req.cookies.user
@@ -51,7 +51,7 @@ const createscoopingReport = async (req: Request, res: Response) => {
             const Mc_runTime = millisecondsToTime(CalculatemachineOnOffTime(Mc_off, Mc_on) - (timeToMilliseconds(Mc_breakdown) + timeToMilliseconds(otherTime)));
             const scoop = await RcnScooping.update(
                 {
-                    date: date,
+                    date: Date,
                     Wholes:Wholes,
                     Broken:Broken,
                     Unscoop:Unscoop,
@@ -72,6 +72,8 @@ const createscoopingReport = async (req: Request, res: Response) => {
                     Mc_runTime:Mc_runTime,
                     Transfered_to:Transfered_to,
                     Brkdwn_reason:Brkdwn_reason,
+                    Mc_breakdown:Mc_breakdown,
+                    otherTime:otherTime,
                     Mc_on:Mc_on,
                     Mc_off:Mc_off
 
