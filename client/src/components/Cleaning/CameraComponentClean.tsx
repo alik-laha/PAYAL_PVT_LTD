@@ -69,11 +69,22 @@ const CameraComponentClean = React.forwardRef(({ onSave }: { onSave: any }, ref:
 
         }
     };
+    const closeAftersave = (): void => {
+        setVideoView("")
+        setPhotoView("hidden")
+        if (!photoRef.current) return;
+        const ctx = photoRef.current.getContext('2d');
+        if (ctx) {
+            ctx.clearRect(0, 0, photoRef.current.width, photoRef.current.height);
+            setHasPhoto(false);
+
+        }
+    };
     const savePhoto = () => {
         if (!photoRef.current) return;
         onSave(photoRef.current);
         (successdialog as any).close();
-        closePhoto()
+        closeAftersave()
     };
 
     const stopVideo = () => {
