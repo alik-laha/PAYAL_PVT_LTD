@@ -31,6 +31,7 @@ const GraddingMaintenanceCreate = () => {
     const [progress, setProgress] = useState<number>(0);
     const [cleanImageUrl, setCleanImageUrl] = useState<string[]>([])
     const [brokenImageUrl, setBrokenImageUrl] = useState<string[]>([])
+    const [colorprogress,setColorProgress]=useState<string>('')
 
     useEffect(() => {
         axios.get('/api/asset/getMachineByType/Grading')
@@ -54,6 +55,7 @@ const GraddingMaintenanceCreate = () => {
             setBrokenImageUrl([...brokenImageUrl, url]);
         }
     }
+    
 
     useEffect(() => {
         const totalSteps = 7;
@@ -67,6 +69,21 @@ const GraddingMaintenanceCreate = () => {
             CallibrationRollerHolesClean
         ].filter(Boolean).length;
         setProgress((completedSteps / totalSteps) * 100);
+        if(progress<=20){
+            setColorProgress('Worst')
+        }
+        if(progress>20 && progress <=40){
+            setColorProgress('Bad')
+        }
+        if(progress>40 && progress <=60){
+            setColorProgress('Nominal')
+        }
+        if(progress>60 && progress <=80){
+            setColorProgress('Better')
+        }
+        if(progress>80){
+            setColorProgress('Best')
+        }
     }, [
         dustTable,
         hopper,
@@ -151,7 +168,11 @@ const GraddingMaintenanceCreate = () => {
 
     return (
         <div className="pl-5 pr-5">
-            <Progress value={progress} max={100} className="mb-4" />
+            <div className="flex">
+            <Progress value={progress} max={100} className="mb-4 mt-1 w-3/4" />
+            <span className="w-1/4 text-center font-semibold text-cyan-700">{colorprogress}</span> 
+            </div>
+            
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Machine Name</Label>
@@ -210,7 +231,7 @@ const GraddingMaintenanceCreate = () => {
                 </div>
                 <div className="flex mt-2">
                     <Label style={{lineHeight:'3'}} className="w-1/4 pt-1 text-right text-gray-500 justify-center">Upload</Label>
-                    <div className="flex ml-10 items-center space-x-2">
+                    <div className="flex ml-5 items-center space-x-2">
                         <Button className="bg-blue-500 text-center items-center justify-center h-7 w-15" type="button" onClick={callChildGetVideo}><FaCamera /></Button>
                         < BlobImageDisplay blob={cleanImageUrl} />
                         
@@ -220,7 +241,7 @@ const GraddingMaintenanceCreate = () => {
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Check if any Parts is Damage </Label>
                     <div className="flex items-center space-x-2">
-                        <input type="checkbox" checked={damage} onChange={(e) => setDamage(e.target.checked)} className="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground" />
+                        <input type="checkbox" checked={damage} onChange={(e) => setDamage(e.target.checked)} className="peer ml-20 h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-red-500 data-[state=checked]:bg-green-500" />
                     </div>
                 </div>
                 {damage && (
@@ -232,23 +253,17 @@ const GraddingMaintenanceCreate = () => {
                             </div>
                         </div>
                         <div className="flex">
-                            <Label className="w-2/4 pt-1">Name Of the Parts</Label>
-                            <div className="flex items-center space-x-2">
-                                <Button className="bg-orange-500 text-center items-center text-center h-8 w-20" type="button" onClick={callChildGetVideoBroken}><FaCamera /></Button>
+                            <Label style={{lineHeight:'3'}}  className="w-1/4 pt-1 text-right text-gray-500 justify-center">Upload</Label>
+                            <div className="flex ml-5 items-center space-x-2">
+                                <Button className="bg-blue-500 text-center items-center text-center h-7 w-15" type="button" onClick={callChildGetVideoBroken}><FaCamera /></Button>
+                                < BlobImageDisplay blob={brokenImageUrl} />
+                            
                             </div>
                         </div>
                     </>
                 )}
-                <div>
-                    <Label className="w-2/4 pt-1">Cleaned Parts Images</Label>
-                    
-                </div>
-                <div>
-                    <Label className="w-2/4 pt-1">Damaged Parts Images</Label>
-                    <div className="flex">
-                        < BlobImageDisplay blob={brokenImageUrl} />
-                    </div>
-                </div>
+              
+                
                 <div>
                     <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20">Submit</Button>
                 </div>
