@@ -149,21 +149,45 @@ const GraddingMaintenanceCreate = () => {
             CreateurlFromBrokenblob(data)
         });
     }
+   
+    const successdialogclean = document.getElementById('Photodailogclean') as HTMLInputElement;
+    const successdialogcleandamage = document.getElementById('Photodailogcleandamage') as HTMLInputElement;
+    const closeDialogButton = document.getElementById('closePhotoclean') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('closePhotodamage') as HTMLInputElement;
+
+    if (closeDialogButton) {
+        closeDialogButton.addEventListener('click', () => {
+            if (successdialogclean != null) {
+                (successdialogclean as any).close();
+                //window.location.reload();
+            }
+
+
+        });
+    }
+    if (errorcloseDialogButton) {
+        errorcloseDialogButton.addEventListener('click', () => {
+            if (errorcloseDialogButton != null) {
+                (errorcloseDialogButton as any).close();
+            }
+
+        });
+    }
     const callChildGetVideo = () => {
-        (successdialog as any).showModal()
+        (successdialogclean as any).showModal()
         if (CleancameraRef.current) {
             CleancameraRef.current.getVIdeo();  // Call getVideo function from CameraComponent
         }
     };
 
     const callChildGetVideoBroken = () => {
-        (successdialog as any).showModal()
+        (successdialogcleandamage as any).showModal()
         if (DamageCameraRef.current) {
             DamageCameraRef.current.getVIdeo();  // Call getVideo function from CameraComponent
         }
     }
 
-    const successdialog = document.getElementById('Photodailog') as HTMLInputElement;
+
 
 
     return (
@@ -268,10 +292,20 @@ const GraddingMaintenanceCreate = () => {
                     <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20">Submit</Button>
                 </div>
             </form>
-            <dialog id="Photodailog" className="dashboard-modal">
-                {/* <button id="closePhoto" className="dashboard-modal-close-btn ">X </button> */}
+            <dialog id="Photodailogclean" className="dashboard-modal">
+                <button id="closePhotoclean" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex">
                     <CameraComponentClean onSave={(photo: any) => setCleaningImage(photo)} ref={CleancameraRef} />
+                    
+
+                </span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+            <dialog id="Photodailogcleandamage" className="dashboard-modal">
+                <button id="closePhotodamage" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex">
+                   
                     <CameraComponentBroken onSave={(photo: any) => setBrokenImage(photo)} ref={DamageCameraRef} />
 
                 </span>
