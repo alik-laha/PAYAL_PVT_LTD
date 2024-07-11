@@ -14,8 +14,12 @@ export const Session_LogoutTime_Hr = 2
 
 
 export const PermissionRol = {
-    Director: ['Employee', 'Dashboard User', 'Asset', 'RCN Primary Entry', 'RCN Incoming QC', 'Grading', 'Boiling', 'Scooping'],
-    FactoryManager: ['Employee', 'Asset', 'RCN Primary Entry', 'RCN Incoming QC', 'Grading', 'Boiling', 'Scooping'],
+    Director: ['Employee', 'Dashboard User', 'Asset', 'RCN Primary Entry', 'RCN Incoming QC', 'Grading', 'Boiling', 'Scooping',
+        'Cleaning'
+    ],
+    FactoryManager: ['Employee', 'Asset', 'RCN Primary Entry', 'RCN Incoming QC', 'Grading', 'Boiling', 'Scooping',
+        'Cleaning'
+    ],
     ReceivingSupervisor: ['RCN Primary Entry'],
     ReceivingManager: ['RCN Primary Entry'],
     QCSupervisor: ['RCN Incoming QC'],
