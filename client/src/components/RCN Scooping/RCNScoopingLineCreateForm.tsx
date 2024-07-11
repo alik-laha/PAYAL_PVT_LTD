@@ -35,10 +35,13 @@ import { ScoopData } from "@/type/type"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const RCNScoopingLineCreateForm = (props:any) => {
     console.log(props)
+   
+    const [open,setopen]=useState<number>('')
+    const [rcv,setrcv]=useState<number>('')
     const DateRef = useRef<HTMLInputElement>(null);
     const maleRef = useRef<HTMLInputElement>(null);
     const femaleRef = useRef<HTMLInputElement>(null);
@@ -57,10 +60,26 @@ const RCNScoopingLineCreateForm = (props:any) => {
         newRows[index]={...newRows[index],[field]:fieldvalue};
         setRows(newRows)
     }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        console.log(rows)
+    
+    }
+
+ 
+   const handleopen=()=>{
+
+   }
+   const handleclose=()=>{
+
+   }
+
+
     return (
         <>
         <div className="px-5 py-2 overflow-auto">
-            <form className='flex flex-col gap-1 pt-1' >
+            <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit}>
                <div className="mx-8 flex flex-col gap-0.5"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
@@ -93,12 +112,14 @@ const RCNScoopingLineCreateForm = (props:any) => {
                         <TableHead className="text-center" >Dust</TableHead>
                         <TableHead className="text-center" >KOR</TableHead>
                         <TableHead className="text-center" >Trolley Broken(%)</TableHead>
-                        <TableHead className="text-center" >Trolley Small JB(%)</TableHead>
+                        <TableHead className="text-center" >Trolley SmallJB(%)</TableHead>
                         <TableHead className="text-center" >Scooping On</TableHead>
                         <TableHead className="text-center" >Scooping Off</TableHead>
                         <TableHead className="text-center" >Breakdown Duration</TableHead>
                         <TableHead className="text-center" >Breakdown Reason</TableHead>
                         <TableHead className="text-center" >Other Duration</TableHead>
+                        <TableHead className="text-center" >No Of Ladies</TableHead>
+                        <TableHead className="text-center" >No Of Operator</TableHead>
                         <TableHead className="text-center" >Transfered To</TableHead>
                        
 
@@ -106,7 +127,7 @@ const RCNScoopingLineCreateForm = (props:any) => {
                     </TableHeader>
                     <TableBody>
                         {props.scoop.length > 0 ? (
-                            props.scoop.map((item: ScoopData, idx: number) => {
+                            props.scoop.map((item: ScoopData, idx: number,row:ScoopingRowData) => {
 
                                 return (
                                     <TableRow key={idx} className="boiling-row-height-scoop">
@@ -117,13 +138,23 @@ const RCNScoopingLineCreateForm = (props:any) => {
                                         <TableCell className="text-center">{item.SizeName}</TableCell>
                                         <TableCell className="text-center">{item.Opening_Qty} kg</TableCell>
                                         <TableCell className="text-center">{item.Receiving_Qty} kg</TableCell>
-                                        <TableCell className="text-center"> <Input  value={rows} placeholder="Bag" onChange={(e) => handleRowChange(index,'size',e.target.value)} required /></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Wholes} placeholder="Wholes" onChange={(e) => handleRowChange(idx,'Wholes',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Broken} placeholder="Broken" onChange={(e) => handleRowChange(idx,'Broken',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Uncut} placeholder="Uncut" onChange={(e) => handleRowChange(idx,'Uncut',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Unscoop} placeholder="Unscoop" onChange={(e) => handleRowChange(idx,'Unscoop',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.NonCut} placeholder="NonCut" onChange={(e) => handleRowChange(idx,'NonCut',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Rejection} placeholder="Rejection" onChange={(e) => handleRowChange(idx,'Rejection',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Dust} placeholder="Dust" onChange={(e) => handleRowChange(idx,'Dust',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.KOR} placeholder="KOR" onChange={(e) => handleRowChange(idx,'KOR',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Trolley_Broken} placeholder="Trolley Broken" onChange={(e) => handleRowChange(idx,'Trolley_Broken',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Trolley_Small_JB} placeholder="Trolley SmallJB" onChange={(e) => handleRowChange(idx,'Trolley_Small_JB',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center "> <Input className="bg-green-100"  value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx,'Mc_on',e.target.value)} type='time' required /></TableCell>
+                                        <TableCell className="text-center"><Input className="bg-red-100" value={row.Mc_off} placeholder="MC Off Time" onChange={(e) => handleRowChange(idx,'Mc_off',e.target.value)} type='time' required /></TableCell>
+                                        <TableCell className="text-center"><Input  value={row.Mc_breakdown} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Brkdwn_reason} placeholder="Reason" onChange={(e) => handleRowChange(idx,'Brkdwn_reason',e.target.value)}  /></TableCell>
+                                        <TableCell className="text-center"><Input  value={row.otherTime} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.noOfEmployees} placeholder="Ladies" onChange={(e) => handleRowChange(idx,'noOfEmployees',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.noOfOperators} placeholder="Operators" onChange={(e) => handleRowChange(idx,'noOfOperators',e.target.value)} required /></TableCell>
                                         <TableCell></TableCell>
                                         <TableCell></TableCell>
                                         <TableCell></TableCell>
