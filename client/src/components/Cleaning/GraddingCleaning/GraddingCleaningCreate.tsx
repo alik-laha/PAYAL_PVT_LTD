@@ -155,7 +155,7 @@ const GraddingMaintenanceCreate = () => {
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Machine Name</Label>
-                    <select className="w-2/4 flex h-8 rounded-md border border-input bg-background px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => setMc_name(e.target.value)} value={mc_name} required>
+                    <select className="w-2/4 text-center flex h-8 rounded-md border border-input bg-background px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => setMc_name(e.target.value)} value={mc_name} required>
                         <option value="">Select Machine</option>
                         {GraddingMachine.map((item: AssetData) => (
                             <option key={item.id} value={item.machineName}>{item.machineName}</option>
@@ -164,54 +164,57 @@ const GraddingMaintenanceCreate = () => {
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Date Of Cleaning</Label>
-                    <Input className="w-2/4" placeholder="Date" ref={Date} type='date' required />
+                    <Input className="w-2/4 justify-center" placeholder="Date" ref={Date} type='date' required />
                 </div>
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">DustTable Clean</Label>
-                    <div className="flex items-center space-x-2">
-                        <Switch id="dustTable" checked={dustTable} onCheckedChange={setDustTable} />
+                <div className="flex mt-2">
+                    <Label className="w-2/4 pt-1">1. DustTable Clean</Label>
+                    <div className="flex ml-20 items-center space-x-2">
+                        <Switch id="dustTable"  checked={dustTable} onCheckedChange={setDustTable} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Hopper Clean</Label>
-                    <div className="flex items-center space-x-2">
+                    <Label className="w-2/4 pt-1">2. Hopper Clean</Label>
+                    <div className="flex ml-20 items-center space-x-2">
                         <Switch id="hopper" checked={hopper} onCheckedChange={setHopper} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Elevetor Cup Clean</Label>
-                    <div className="flex items-center space-x-2">
+                    <Label className="w-2/4 pt-1">3. Elevetor Cup Clean</Label>
+                    <div className="flex ml-20 items-center space-x-2">
                         <Switch id="elevetorCups" checked={elevetorCups} onCheckedChange={setElevetorCups} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Elevetor Motor Clean</Label>
-                    <div className="flex items-center space-x-2">
+                    <Label className="w-2/4 pt-1">4. Elevetor Motor Clean</Label>
+                    <div className="flex ml-20 items-center space-x-2">
                         <Switch id="elevetorMotorCleanByAir" checked={elevetorMotorCleanByAir} onCheckedChange={setElevetorMotorCleanByAir} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Mc all Parts Clean</Label>
-                    <div className="flex items-center space-x-2">
+                    <Label className="w-2/4 pt-1">5. Mc All Parts Clean</Label>
+                    <div className="flex ml-20 items-center space-x-2">
                         <Switch id="McAllPartsClean" checked={McAllPartsClean} onCheckedChange={setMcAllPartsClean} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Bin Clean</Label>
-                    <div className="flex items-center space-x-2">
+                    <Label className="w-2/4 pt-1">6. Bin Clean</Label>
+                    <div className="flex  ml-20 items-center space-x-2">
                         <Switch id="binClean" checked={binClean} onCheckedChange={setBinClean} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Callibration Roller Holes Clean</Label>
-                    <div className="flex items-center space-x-2">
+                    <Label className="w-2/4 pt-1">7. Callibration Roller Holes Clean</Label>
+                    <div className="flex ml-20 items-center space-x-2">
                         <Switch id="CallibrationRollerHolesClean" checked={CallibrationRollerHolesClean} onCheckedChange={setCallibrationRollerHolesClean} />
                     </div>
                 </div>
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">Callibration Roller Holes Clean</Label>
-                    <div className="flex items-center space-x-2">
-                        <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button>
+                <div className="flex mt-2">
+                    <Label style={{lineHeight:'3'}} className="w-1/4 pt-1 text-right text-gray-500 justify-center">Upload</Label>
+                    <div className="flex ml-10 items-center space-x-2">
+                        <Button className="bg-blue-500 text-center items-center justify-center h-7 w-15" type="button" onClick={callChildGetVideo}><FaCamera /></Button>
+                        < BlobImageDisplay blob={cleanImageUrl} />
+                        
+                   
                     </div>
                 </div>
                 <div className="flex">
@@ -223,24 +226,22 @@ const GraddingMaintenanceCreate = () => {
                 {damage && (
                     <>
                         <div className="flex">
-                            <Label className="w-2/4 pt-1">Name Of the Parts</Label>
+                            <Label className="w-2/4 pt-2">Name Of the Parts</Label>
                             <div className="flex items-center space-x-2">
-                                <Input className="w-4/4" placeholder="Name Of the Parts" value={partsName} onChange={(e) => setPartsName(e.target.value)} required={damage === true ? true : false} />
+                                <Input className="w-100 text-center" placeholder="Name Of the Parts" value={partsName} onChange={(e) => setPartsName(e.target.value)} required={damage === true ? true : false} />
                             </div>
                         </div>
                         <div className="flex">
                             <Label className="w-2/4 pt-1">Name Of the Parts</Label>
                             <div className="flex items-center space-x-2">
-                                <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideoBroken}><FaCamera /></Button>
+                                <Button className="bg-orange-500 text-center items-center text-center h-8 w-20" type="button" onClick={callChildGetVideoBroken}><FaCamera /></Button>
                             </div>
                         </div>
                     </>
                 )}
                 <div>
                     <Label className="w-2/4 pt-1">Cleaned Parts Images</Label>
-                    <div className="flex">
-                        < BlobImageDisplay blob={cleanImageUrl} />
-                    </div>
+                    
                 </div>
                 <div>
                     <Label className="w-2/4 pt-1">Damaged Parts Images</Label>
