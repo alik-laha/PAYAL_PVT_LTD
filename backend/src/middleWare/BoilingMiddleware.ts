@@ -4,7 +4,7 @@ const BoilingMiddleWare = async (req: Request, res: Response, next: NextFunction
     try {
         
         const {  columnMC, 
-            ScoopingLine, breakDown, cookingOff,cookingOn, origin,other,cookingTime,
+            ScoopingLine, breakDown, cookingOff,cookingOn, origin,other,
             size
          } = req.body.data;
         // console.log('middlware')

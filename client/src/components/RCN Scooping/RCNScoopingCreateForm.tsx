@@ -90,7 +90,7 @@ const RCNScoopingCreateForm = (props: any) => {
                         ) : <TableRow>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell>Nothing Pending</TableCell>
+                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Scooping</TableCell>
                             <TableCell></TableCell>
                             </TableRow>}
                     </TableBody>

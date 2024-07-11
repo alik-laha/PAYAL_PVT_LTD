@@ -8,6 +8,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 interface ScoopingRowData{
+    id:number;
     Scooping_Line_Mc: string;
     Opening_Qty:string;
     Receiving_Qty: string;
@@ -35,26 +36,26 @@ import { ScoopData } from "@/type/type"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
-import { useEffect, useRef, useState } from "react"
+import {  useRef, useState } from "react"
+import axios from "axios";
 
 const RCNScoopingLineCreateForm = (props:any) => {
-    console.log(props)
+    //console.log(props)
    
-    const [open,setopen]=useState<number>('')
-    const [rcv,setrcv]=useState<number>('')
+   
     const DateRef = useRef<HTMLInputElement>(null);
     const maleRef = useRef<HTMLInputElement>(null);
     const femaleRef = useRef<HTMLInputElement>(null);
     const supervisorRef = useRef<HTMLInputElement>(null);
-    const [rows,setRows]=useState<ScoopingRowData[]>
-    ([{Scooping_Line_Mc:'',
+    const [rows,setRows]=useState<ScoopingRowData[]>([{id:0,Scooping_Line_Mc:'',
         Opening_Qty:'',Receiving_Qty:'',Wholes:'',Broken:'',Uncut:'',
         Unscoop:'',NonCut:'',Rejection:'',Dust:'',KOR:'',Trolley_Small_JB:'',Trolley_Broken:'',
         Mc_on:'',Mc_off:'',Brkdwn_reason:'',Transfered_to:'',Mc_breakdown:'00:00',otherTime:'00:00',noOfEmployees:'',
     noOfOperators:''}
     ]);
+    const [errortext, setErrortext] = useState('')
 
-    const handleRowChange = (index:number,field:string,fieldvalue:string) => {
+    const handleRowChange = (index:number,field:string,fieldvalue:string|number) => {
 
         const newRows=[...rows];
         newRows[index]={...newRows[index],[field]:fieldvalue};
@@ -63,8 +64,58 @@ const RCNScoopingLineCreateForm = (props:any) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        console.log(rows)
     
+        props.scoop.map((item: ScoopData, idx: number) => {
+            rows[idx].id=item.id
+            //rows[idx].Scooping_Line_Mc=item.Scooping_Line_Mc
+
+        })
+        console.log(rows)
+        const date = DateRef.current?.value  
+        const male = maleRef.current?.value
+        const female = femaleRef.current?.value
+        const supervisor = supervisorRef.current?.value
+        try {
+
+
+            const formData = rows.map((row: any) => ({
+                male: male,
+                Date: date,
+                female: female,
+                supervisor: supervisor,
+                 ...row
+
+            }))
+            let scoopingcount = 0
+                for (var data of formData) 
+                {
+                    axios.put(`/api/scooping/createScooping/${data.id}`, { data }).then(res => {
+                        scoopingcount++;
+                        if (formData.length === scoopingcount) {
+                            setErrortext(res.data.message)
+
+                            // if (res.status === 200) {
+                            //    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                            //    dialog.showModal()
+                            //     setTimeout(() => {
+                            //         dialog.close()
+                            //         window.location.reload()
+                            //     }, 2000)
+                            // }
+
+                        }
+
+                    })
+                    .catch(err => {
+                            console.log(err)
+                            setErrortext(err.response.data.message)
+                           
+                    }) 
+                }
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
 
  
@@ -128,11 +179,14 @@ const RCNScoopingLineCreateForm = (props:any) => {
                     <TableBody>
                         {props.scoop.length > 0 ? (
                             props.scoop.map((item: ScoopData, idx: number,row:ScoopingRowData) => {
-
+                                //rows[idx].id=item.id
+                                //  {handleRowChange(idx,'id',item.id)}
                                 return (
                                     <TableRow key={idx} className="boiling-row-height-scoop">
                                         <TableCell className="text-center">{idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{item.LotNo}</TableCell>
+                                        
+                                        {/* <TableCell className="text-center"><Input value={item.Scooping_Line_Mc} placeholder="Wholes" onChange={(value) => handleRowChange(idx,'Scooping_Line_Mc',value)} required /></TableCell> */}
                                         <TableCell className="text-center">{item.Scooping_Line_Mc}</TableCell>
                                         <TableCell className="text-center">{item.origin}</TableCell>
                                         <TableCell className="text-center">{item.SizeName}</TableCell>

@@ -6,7 +6,7 @@ const CreateBoiling = async (req: Request, res: Response) => {
     try {
         const { columnMC, columnDate, columnLotNo, columnEmployee,
             ScoopingLine, breakDown, cookingOff, cookingOn, CookingTime, moisture,origin, other,
-            size, pressure, sizeName } = req.body.data;
+            size, pressure, sizeName, } = req.body.data;
 
         console.log(req.body.data)    
 
