@@ -181,10 +181,16 @@ const GraddingMaintenanceTable = () => {
                             <TableCell className={cheackRateColor(data.percentage)}>{CheackRate(data.percentage)}</TableCell>
                             <TableCell>{data.damage === true ? "Yes" : "No"}</TableCell>
                             <TableCell><Button onClick={() => {
+                                if (JSON.parse(data.cleanedPartsImages).length === 0) {
+                                    return
+                                }
                                 setImageView(JSON.parse(data.cleanedPartsImages));
                                 (successdialog as any).showModal()
                             }}>View</Button></TableCell>
                             <TableCell><Button onClick={() => {
+                                if (JSON.parse(data.damagedPartsImages).length === 0) {
+                                    return
+                                }
                                 setImageView(JSON.parse(data.damagedPartsImages));
                                 (successdialog as any).showModal()
                             }}>View</Button></TableCell>
