@@ -7,7 +7,7 @@ import { Button } from "../../ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Progress } from "@/components/ui/progress";
 
-const BoillingMaintenanceCreate = () => {
+const BoillingCleanCreate = () => {
     const [GraddingMachine, setGraddingMachine] = useState([]);
     const [mc_name, setMc_name] = useState("");
     const Date = useRef<HTMLInputElement>(null);
@@ -75,6 +75,7 @@ const BoillingMaintenanceCreate = () => {
         formData.append('elevetorCup', elevetorCup.toString());
         formData.append('damage', damage.toString());
         formData.append('partsName', partsName);
+        formData.append('percentage', progress.toString());
         for (let i = 0; i < CleangFiles.length; i++) {
             formData.append('cleanedPartsImages', CleangFiles[i]);
         }
@@ -85,7 +86,7 @@ const BoillingMaintenanceCreate = () => {
                 }
             }
         }
-        axios.post('/api/maintenence/boillingcleancreate', formData)
+        axios.post('/api/cleaning/boillingcleancreate', formData)
             .then(res => {
                 console.log(res.data);
             })
@@ -199,4 +200,4 @@ const BoillingMaintenanceCreate = () => {
     );
 }
 
-export default BoillingMaintenanceCreate;
+export default BoillingCleanCreate;

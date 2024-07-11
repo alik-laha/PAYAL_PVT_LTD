@@ -7,6 +7,7 @@ import ViewGraddingCleaning from "../controller/cleaning/graddingClean/viewGradd
 import path from 'path';
 import autoDeleteGraddingCleanImage from "../controller/cleaning/graddingClean/autoDeleteGraddingCleanImage";
 import autoDeleteBoillingCleanImage from "../controller/cleaning/boillingClean/autoDeleteBoillingCleanImage";
+import BoillingCleanCreate from "../controller/cleaning/boillingClean/createBoillingClean";
 
 const router = Express.Router();
 const graddingCleanImageUpload = graddingCleanFunction();
@@ -19,6 +20,8 @@ router.post("/graddingcleancreate", graddingCleanImageUpload, CreateGraddingMain
 router.post("/boillingcleancreate", boillingCleanImageUpload, CreateBoillingMaintenence)
 
 router.post("/graddingcleanreportview", ViewGraddingCleaning)
+
+router.post("/boillingcleancreate", BoillingCleanCreate)
 
 router.get('/view', function (req, res) {
     const filename = req.query.filename as string;

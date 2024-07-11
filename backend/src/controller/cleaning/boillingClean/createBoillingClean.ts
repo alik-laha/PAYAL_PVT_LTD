@@ -22,7 +22,7 @@ const CompressImage = async (files: any, output: string) => {
 
 const BoillingMaintenenceImageUpload = async (req: Request, res: Response) => {
     try {
-        const { mc_name, date, motorAndOtherPartsCleaning, cookingInsideWashByStream, drainLineCleaning, waterWashChemberCleaning, pressureGageCleanning, hopper, elevetorCup, percentage, damage, partsName } = req.body;
+        const { mc_name, date, motorClean, insideWashByStream, drainCleaning, waterChamberCleaning, pressureGageClean, elevetorCup, damage, partsName, percentage, hopperClean } = req.body;
         const files: any = req.files;
         let CleanedImage: [string] = [""];
         let DamagedImage: [string] = [""];
@@ -47,12 +47,12 @@ const BoillingMaintenenceImageUpload = async (req: Request, res: Response) => {
             const BoillingCleanReport = await BoillingMaintenence.create({
                 mc_name,
                 date,
-                motorAndOtherPartsCleaning,
-                cookingInsideWashByStream,
-                drainLineCleaning,
-                waterWashChemberCleaning,
-                pressureGageCleanning,
-                hopper,
+                motorAndOtherPartsCleaning: motorClean,
+                cookingInsideWashByStream: insideWashByStream,
+                drainLineCleaning: drainCleaning,
+                waterWashChemberCleaning: waterChamberCleaning,
+                pressureGageCleanning: pressureGageClean,
+                hopper: hopperClean,
                 elevetorCup,
                 percentage,
                 damage,
