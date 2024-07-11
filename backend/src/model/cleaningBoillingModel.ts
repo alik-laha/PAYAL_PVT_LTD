@@ -32,7 +32,8 @@ const CleaningBoilling = sequelize.define('cleaningBoilling', {
     },
     waterWashChemberCleaning: {
         type: DataTypes.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        defaultValue: false
     },
     pressureGageCleanning: {
         type: DataTypes.BOOLEAN,
