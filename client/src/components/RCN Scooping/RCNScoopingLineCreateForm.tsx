@@ -7,46 +7,83 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-
+interface ScoopingRowData{
+    Scooping_Line_Mc: string;
+    Opening_Qty:string;
+    Receiving_Qty: string;
+    Wholes:string;
+    Broken: string;
+    Uncut: string;
+    Unscoop: string;
+    NonCut:string;
+    Rejection: string;
+    Dust:string;
+    KOR:string;
+    Trolley_Broken: string;
+    Trolley_Small_JB: string;
+    Transfered_to: string;
+    Mc_on: string;
+    Mc_off: string;
+    noOfEmployees: string;
+    Mc_breakdown: string;
+    otherTime: string;
+    Brkdwn_reason: string;
+    noOfOperators: string;
+}
 
 import { ScoopData } from "@/type/type"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 
 const RCNScoopingLineCreateForm = (props:any) => {
     console.log(props)
-    const DateRef = useRef<HTMLInputElement>(null)
-   
+    const DateRef = useRef<HTMLInputElement>(null);
+    const maleRef = useRef<HTMLInputElement>(null);
+    const femaleRef = useRef<HTMLInputElement>(null);
+    const supervisorRef = useRef<HTMLInputElement>(null);
+    const [rows,setRows]=useState<ScoopingRowData[]>
+    ([{Scooping_Line_Mc:'',
+        Opening_Qty:'',Receiving_Qty:'',Wholes:'',Broken:'',Uncut:'',
+        Unscoop:'',NonCut:'',Rejection:'',Dust:'',KOR:'',Trolley_Small_JB:'',Trolley_Broken:'',
+        Mc_on:'',Mc_off:'',Brkdwn_reason:'',Transfered_to:'',Mc_breakdown:'00:00',otherTime:'00:00',noOfEmployees:'',
+    noOfOperators:''}
+    ]);
+
+    const handleRowChange = (index:number,field:string,fieldvalue:string) => {
+
+        const newRows=[...rows];
+        newRows[index]={...newRows[index],[field]:fieldvalue};
+        setRows(newRows)
+    }
     return (
         <>
-        <div className="px-5 py-5 overflow-auto">
+        <div className="px-5 py-2 overflow-auto">
             <form className='flex flex-col gap-1 pt-1' >
-               <div className="mx-8 flex flex-col gap-1"> 
-               <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
-               <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div>
+               <div className="mx-8 flex flex-col gap-0.5"> 
+               {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
+               <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
                 <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
                 <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
-
-
+                <div className="flex"><Label className="w-2/4 pt-1">No. of Male</Label>
+                    <Input className="w-2/4 text-center" placeholder="No. of Male" ref={maleRef} required /> </div>
+                    <div className="flex"><Label className="w-2/4 pt-1">No. of Female</Label>
+                    <Input className="w-2/4 text-center" placeholder="No. of Female" ref={femaleRef} required /> </div>
+                    <div className="flex"><Label className="w-2/4 pt-1">No. Of Supervisors</Label>
+                    <Input className="w-2/4 text-center" placeholder="No. of Supervisor" ref={supervisorRef} required /> </div>
                 </div>
                    <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
            
-            {/* noOfEmployees: string;
-            noOfLadies: string;
-            noOfGents: string;
-            noOfSupervisors: string;
-            noOfOperators: string; */}
   
                         <TableHead className="text-center" >Sl. No.</TableHead>
-                       
+                        <TableHead className="text-center" >LotNo</TableHead>
                         <TableHead className="text-center" >Scooping Line</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Size Name</TableHead>
-                        <TableHead className="text-center" >Opening Qty(Kg)</TableHead>
-                        <TableHead className="text-center" >Receiving Qty (Kg)</TableHead>
+                        <TableHead className="text-center" >Opening Qty</TableHead>
+                        <TableHead className="text-center" >Receiving Qty</TableHead>
                         <TableHead className="text-center" >Wholes</TableHead>
                         <TableHead className="text-center" >Broken</TableHead>
                         <TableHead className="text-center" >Uncut</TableHead>
@@ -74,12 +111,13 @@ const RCNScoopingLineCreateForm = (props:any) => {
                                 return (
                                     <TableRow key={idx} className="boiling-row-height-scoop">
                                         <TableCell className="text-center">{idx + 1}</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{item.LotNo}</TableCell>
                                         <TableCell className="text-center">{item.Scooping_Line_Mc}</TableCell>
                                         <TableCell className="text-center">{item.origin}</TableCell>
                                         <TableCell className="text-center">{item.SizeName}</TableCell>
-                                        <TableCell className="text-center">{item.Opening_Qty}</TableCell>
-                                        <TableCell className="text-center">{item.Receiving_Qty}</TableCell>
-                                        <TableCell></TableCell>
+                                        <TableCell className="text-center">{item.Opening_Qty} kg</TableCell>
+                                        <TableCell className="text-center">{item.Receiving_Qty} kg</TableCell>
+                                        <TableCell className="text-center"> <Input  value={rows} placeholder="Bag" onChange={(e) => handleRowChange(index,'size',e.target.value)} required /></TableCell>
                                         <TableCell></TableCell>
                                         <TableCell></TableCell>
                                         <TableCell></TableCell>

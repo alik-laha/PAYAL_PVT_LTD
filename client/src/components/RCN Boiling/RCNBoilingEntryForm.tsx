@@ -181,7 +181,7 @@ const RCNBoilingEntryForm = () =>
     const addRow = () => {
         setRows([...rows,{origin:'',sizeName:'',
         size:'',ScoopingLine:'',pressure:'',moisture:'',CookingTime:'',
-        cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00'}])
+        cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00',openQuantity:0}])
     }
 
     const deleteRow = (index:number) =>{

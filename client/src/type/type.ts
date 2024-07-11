@@ -87,8 +87,8 @@ export interface scoopingpendingLotData {
     LotNo:string
 }
 export interface ScoopData {
-    LotNo:string;
-    id: number;
+            LotNo:string;
+            id: number;
             date: string;
             origin: string;
             SizeName: string;

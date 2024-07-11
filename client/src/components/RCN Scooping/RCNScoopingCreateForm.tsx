@@ -12,9 +12,6 @@ import {
 import {
     Dialog,
     DialogContent,
-
-    DialogHeader,
-    DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
 import RCNScoopingLineCreateForm from "./RCNScoopingLineCreateForm";
@@ -30,11 +27,18 @@ interface lotPropsdata{
 
 const RCNScoopingCreateForm = (props: any) => {
     const [scoopdata, setscoopdata ]  = useState<ScoopData[]>([])
+
+    //let scoopdata:ScoopData[]=[]
     console.log(props)
     const handleLineEntry = async (lotNO:string) => {
         axios.get(`/api/scooping/getScoopByLot/${lotNO}`).then(res=>{
-           // console.log(res)
-             setscoopdata(res.data.scoopingLot)
+           console.log(res)
+           if(Array.isArray(res.data.scoopingLot)){
+            //scoopdata=res.data.scoopingLot
+            setscoopdata(res.data.scoopingLot)
+             console.log(scoopdata)
+           }
+             
             //set(res.data.scoopingLot)
         })
     }
