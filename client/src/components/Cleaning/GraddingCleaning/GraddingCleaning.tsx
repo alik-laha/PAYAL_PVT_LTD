@@ -25,7 +25,7 @@ const GraddingMaintenance = () => {
                 <DialogTrigger>   <Button className="bg-red-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+ Add Clean Report</Button></DialogTrigger>
                 <DialogContent className='max-w-2xl'>
                     <DialogHeader>
-                        <DialogTitle><p className='text-1xl text-center mt-5'>Grading Cleaning Report</p></DialogTitle>
+                        {/* <DialogTitle><p className='text-1xl text-center mt-1'>Grading Cleaning Report</p></DialogTitle> */}
                         {/* <DialogDescription>
                             <p className='text-1xl text-center'>To Be Filled Up By Cleaning Supervisor</p>
                         </DialogDescription> */}

@@ -4,7 +4,7 @@ const BlobImageDisplay = ({ blob }: { blob: string[] }) => {
         <div>
             <div className="flex">
                 {blob.map((url: string, index: number) => (
-                    <img key={index} src={url} alt={`Blob ${index}`} style={{ width: '50px', height: '50px', margin: '5px' }} />
+                    <img key={index} src={url} alt={`Blob ${index}`} style={{ width: '70px', height: '70px', margin: '5px' }} />
                 ))}
             </div>
         </div>

@@ -7,7 +7,7 @@ const CameraComponentBroken = React.forwardRef(({ onSave }: { onSave: any }, ref
     const [hasPhoto, setHasPhoto] = useState(false);
     const [videoView, setVideoView] = useState("");
     const [photoView, setPhotoView] = useState("hidden");
-    const successdialog = document.getElementById('Photodailog') as HTMLInputElement;
+    const successdialog = document.getElementById('Photodailogcleandamage') as HTMLInputElement;
 
     const getVideo = () => {
         navigator.mediaDevices
