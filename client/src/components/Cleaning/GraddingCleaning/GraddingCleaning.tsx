@@ -22,12 +22,12 @@ const GraddingMaintenance = () => {
     return (
         <div >
             <Dialog>
-                <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+ Add Gradding Clean Report</Button></DialogTrigger>
+                <DialogTrigger>   <Button className="bg-red-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+ Add Clean Report</Button></DialogTrigger>
                 <DialogContent className='max-w-2xl'>
                     <DialogHeader>
-                        <DialogTitle><p className='text-1xl text-center mt-5'>Gradding Maintenance Entry Form</p></DialogTitle>
+                        <DialogTitle><p className='text-1xl text-center mt-5'>Grading Cleaning Report</p></DialogTitle>
                         <DialogDescription>
-                            <p className='text-1xl text-center'>To Be Filled Up By Maintenance Supervisor</p>
+                            <p className='text-1xl text-center'>To Be Filled Up By Cleaning Supervisor</p>
                         </DialogDescription>
                     </DialogHeader>
 
