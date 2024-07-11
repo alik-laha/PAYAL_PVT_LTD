@@ -7,7 +7,6 @@ const CameraComponentClean = React.forwardRef(({ onSave }: { onSave: any }, ref:
     const [hasPhoto, setHasPhoto] = useState(false);
     const [videoView, setVideoView] = useState("");
     const [photoView, setPhotoView] = useState("hidden");
-    const successdialog = document.getElementById('Photodailog') as HTMLInputElement;
 
     const getVideo = () => {
         navigator.mediaDevices
@@ -66,13 +65,11 @@ const CameraComponentClean = React.forwardRef(({ onSave }: { onSave: any }, ref:
         if (ctx) {
             ctx.clearRect(0, 0, photoRef.current.width, photoRef.current.height);
             setHasPhoto(false);
-
         }
     };
     const savePhoto = () => {
         if (!photoRef.current) return;
         onSave(photoRef.current);
-        (successdialog as any).close();
         closePhoto()
     };
 

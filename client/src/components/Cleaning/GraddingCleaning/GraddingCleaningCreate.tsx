@@ -123,6 +123,7 @@ const GraddingMaintenanceCreate = () => {
             setCleaningFiles(data);
             CreateurlFromblob(data)
         });
+        (successdialog as any).close();
     }
     const setBrokenImage = (photo: any) => {
         let data: Blob[] = [];
@@ -131,6 +132,7 @@ const GraddingMaintenanceCreate = () => {
             setDamageFiles(data);
             CreateurlFromBrokenblob(data)
         });
+        (successdialog as any).close();
     }
     const callChildGetVideo = () => {
         (successdialog as any).showModal()

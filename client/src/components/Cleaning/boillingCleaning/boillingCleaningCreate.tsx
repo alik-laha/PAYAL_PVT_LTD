@@ -6,11 +6,17 @@ import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Progress } from "@/components/ui/progress";
+import { FaCamera } from "react-icons/fa";
+import BlobImageDisplay from "../ViewBlobimage";
+import CameraComponentBroken from "../CameraComponentBroken";
+import CameraComponentClean from '../CameraComponentClean';
 
 const BoillingCleanCreate = () => {
     const [GraddingMachine, setGraddingMachine] = useState([]);
     const [mc_name, setMc_name] = useState("");
     const Date = useRef<HTMLInputElement>(null);
+    const CleancameraRef = useRef<any>(null);
+    const DamageCameraRef = useRef<any>(null);
     const [motorClean, setMotorClean] = useState<boolean>(false);
     const [insideWashBystream, setInsideWashByStream] = useState<boolean>(false);
     const [drainCleaning, setDrainCleaning] = useState<boolean>(false);
@@ -21,9 +27,11 @@ const BoillingCleanCreate = () => {
     const [progress, setProgress] = useState<number>(0);
     const [damage, setDamage] = useState<boolean>(false);
     const [partsName, setPartsName] = useState<string>("");
-    const [CleangFiles, setCleaningFiles] = useState<FileList | null>(null);
-    const [damageFiles, setDamageFiles] = useState<FileList | null>(null);
-
+    const [cleanningFiles, setCleaningFiles] = useState<Blob[]>([]);
+    const [damageFiles, setDamageFiles] = useState<Blob[]>([]);
+    const [cleanImageUrl, setCleanImageUrl] = useState<string[]>([])
+    const [brokenImageUrl, setBrokenImageUrl] = useState<string[]>([])
+    const successdialog = document.getElementById('PhotodailogBoilling') as HTMLInputElement;
     useEffect(() => {
         axios.get('/api/asset/getMachineByType/Boiling')
             .then(res => {
@@ -34,7 +42,18 @@ const BoillingCleanCreate = () => {
                 console.log(err);
             });
     }, []);
-
+    const CreateurlFromblob = (blob: Blob[]) => {
+        for (let i = 0; i < blob.length; i++) {
+            const url = URL.createObjectURL(blob[i]);
+            setCleanImageUrl([...cleanImageUrl, url]);
+        }
+    }
+    const CreateurlFromBrokenblob = (blob: Blob[]) => {
+        for (let i = 0; i < blob.length; i++) {
+            const url = URL.createObjectURL(blob[i]);
+            setBrokenImageUrl([...brokenImageUrl, url]);
+        }
+    }
     useEffect(() => {
         const totalSteps = 7;
         const completedSteps = [
@@ -59,7 +78,7 @@ const BoillingCleanCreate = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!CleangFiles || CleangFiles.length === 0) {
+        if (!cleanningFiles || cleanningFiles.length === 0) {
             console.log("submit called")
             return;
         }
@@ -76,8 +95,8 @@ const BoillingCleanCreate = () => {
         formData.append('damage', damage.toString());
         formData.append('partsName', partsName);
         formData.append('percentage', progress.toString());
-        for (let i = 0; i < CleangFiles.length; i++) {
-            formData.append('cleanedPartsImages', CleangFiles[i]);
+        for (let i = 0; i < cleanningFiles.length; i++) {
+            formData.append('cleanedPartsImages', cleanningFiles[i]);
         }
         if (damage) {
             if (damageFiles && damageFiles.length > 0) {
@@ -95,19 +114,37 @@ const BoillingCleanCreate = () => {
             });
 
     };
-
-    const handleCleanFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setCleaningFiles(e.target.files);
-            console.log(e.target.files)
+    const setCleaningImage = (photo: any) => {
+        console.log(photo)
+        let data: Blob[] = [];
+        photo.toBlob((blob: Blob) => {
+            data = [...(cleanningFiles), blob]
+            setCleaningFiles(data);
+            CreateurlFromblob(data)
+        });
+        (successdialog as any).close();
+    }
+    const setBrokenImage = (photo: any) => {
+        let data: Blob[] = [];
+        photo.toBlob((blob: Blob) => {
+            data = [...damageFiles, blob]
+            setDamageFiles(data);
+            CreateurlFromBrokenblob(data)
+        });
+        (successdialog as any).close();
+    }
+    const callChildGetVideoBroken = () => {
+        (successdialog as any).showModal()
+        if (DamageCameraRef.current) {
+            DamageCameraRef.current.getVIdeo();  // Call getVideo function from CameraComponent
         }
     }
-    const handleDamageFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setDamageFiles(e.target.files);
-            console.log(e.target.files)
+    const callChildGetVideo = () => {
+        (successdialog as any).showModal()
+        if (CleancameraRef.current) {
+            CleancameraRef.current.getVIdeo();  // Call getVideo function from CameraComponent
         }
-    }
+    };
 
     return (
         <div className="pl-5 pr-5">
@@ -171,7 +208,7 @@ const BoillingCleanCreate = () => {
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Cleaned Parts Image </Label>
                     <div className="flex items-center space-x-2">
-                        <input type="file" multiple onChange={handleCleanFileChange} />
+                        <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button>
                     </div>
                 </div>
                 <div className="flex">
@@ -189,13 +226,35 @@ const BoillingCleanCreate = () => {
                 <div className={damage === true ? "flex" : "hidden"}>
                     <Label className="w-2/4 pt-1">Damaged Parts Image upload</Label>
                     <div className="flex items-center space-x-2">
-                        <input type="file" multiple onChange={handleDamageFileChange} required={damage === true ? true : false} />
+                        <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideoBroken}><FaCamera /></Button>
+                    </div>
+                </div>
+                <div>
+                    <Label className="w-2/4 pt-1">Cleaned Parts Images</Label>
+                    <div className="flex">
+                        < BlobImageDisplay blob={cleanImageUrl} />
+                    </div>
+                </div>
+                <div>
+                    <Label className="w-2/4 pt-1">Damaged Parts Images</Label>
+                    <div className="flex">
+                        < BlobImageDisplay blob={brokenImageUrl} />
                     </div>
                 </div>
                 <div>
                     <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20">Submit</Button>
                 </div>
             </form>
+            <dialog id="PhotodailogBoilling" className="dashboard-modal">
+                {/* <button id="closePhoto" className="dashboard-modal-close-btn ">X </button> */}
+                <span className="flex">
+                    <CameraComponentClean onSave={(photo: any) => setCleaningImage(photo)} ref={CleancameraRef} />
+                    <CameraComponentBroken onSave={(photo: any) => setBrokenImage(photo)} ref={DamageCameraRef} />
+
+                </span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
         </div>
     );
 }
