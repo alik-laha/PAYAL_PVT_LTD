@@ -85,20 +85,20 @@ const createscoopingReport = async (req: Request, res: Response) => {
                     },
                 }
             );
-            const nextEntry = await RcnScooping.findOne({
-                attributes: ['LotNo'],
-                where: {
+            // const nextEntry = await RcnScooping.findOne({
+            //     attributes: ['LotNo'],
+            //     where: {
 
-                    Scooping_Line_Mc: Scooping_Line_Mc,
-                    LotNo: {
-                        [Op.gt]: LotNo
-                    }
+            //         Scooping_Line_Mc: Scooping_Line_Mc,
+            //         LotNo: {
+            //             [Op.gt]: LotNo
+            //         }
 
-                },
-                order: [['LotNo', 'ASC']]
+            //     },
+            //     order: [['LotNo', 'ASC']]
 
-            });
-            console.log(nextEntry)
+            // });
+            // console.log(nextEntry)
     
            
             return res.status(200).json({ message: "RCN Scooping Report Uploaded Successfully",scoop });
