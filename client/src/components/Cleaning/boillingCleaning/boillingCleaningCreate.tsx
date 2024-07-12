@@ -33,7 +33,7 @@ const BoillingCleanCreate = () => {
     const [brokenImageUrl, setBrokenImageUrl] = useState<string[]>([])
     const successdialog = document.getElementById('PhotodailogBoilling') as HTMLInputElement;
     useEffect(() => {
-        axios.get('/api/asset/getMachineByType/Boiling')
+        axios.get('/api/asset/getallActiveMachineforMaintenence/Boilling')
             .then(res => {
                 console.log(res.data);
                 setGraddingMachine(res.data);

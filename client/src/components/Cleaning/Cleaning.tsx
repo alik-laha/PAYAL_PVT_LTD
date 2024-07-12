@@ -7,7 +7,7 @@ import BoillingMaintenance from "./boillingCleaning/BoillingCleaning"
 
 
 
-const Maintenance = () => {
+const Cleaning = () => {
     const [GraddingView, setGraddingView] = useState("none")
     const [GraddingBackground, setGraddingBackground] = useState("")
     const [BoillingView, setBoillingView] = useState("none")
@@ -22,7 +22,7 @@ const Maintenance = () => {
             setGraddingView("block")
             setBoillingView("none")
             setBoillingBackground("")
-            setGraddingBackground("bg-blue-500")
+            setGraddingBackground("flexbox-tile-clean-select bg-blue-400")
         }
 
     }
@@ -37,7 +37,7 @@ const Maintenance = () => {
             setBoillingView("block")
             setGraddingView("none")
             setGraddingBackground("")
-            setBoillingBackground("bg-blue-500")
+            setBoillingBackground("flexbox-tile-clean-select bg-red-400")
             console.log(BoillingView)
         }
 
@@ -47,12 +47,14 @@ const Maintenance = () => {
             <DashboardHeader />
             <DashboardSidebar />
             <div className='dashboard-main-container cursor-pointer'>
+                
                 <Separator className="my-4" />
-                <div className="flex h-5 items-center space-x-4 text-sm">
-                    <div onClick={handleGraddingView} className={GraddingBackground}>Gradding</div>
-                    <Separator orientation="vertical" />
-                    <div onClick={handleBoillingView} className={BoillingBackground} >Boilling</div>
+                <div className="flex h-5 items-center space-x-2 text-sm ">
+                    <div onClick={handleGraddingView} className={`flexbox-tile-clean-notselect ${GraddingBackground}`}>Grading</div>
+                    
+                    <div onClick={handleBoillingView} className={`flexbox-tile-clean-notselect ${BoillingBackground}`} >Boilling</div>
                 </div>
+                <Separator className="my-4" />
                 <div style={{ display: GraddingView }}>
                     <GraddingMaintenance />
                 </div>
@@ -63,4 +65,4 @@ const Maintenance = () => {
         </div>
     )
 }
-export default Maintenance
+export default Cleaning

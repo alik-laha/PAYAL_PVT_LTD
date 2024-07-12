@@ -25,7 +25,8 @@ const CameraComponentBroken = React.forwardRef(({ onSave }: { onSave: any }, ref
     };
 
     useImperativeHandle(ref, () => ({
-        getVIdeo: () => getVideo()
+        getVIdeo: () => getVideo(),
+        stopVideo: () => stopVideo()
     }));
 
     const takePhoto = () => {
@@ -68,10 +69,21 @@ const CameraComponentBroken = React.forwardRef(({ onSave }: { onSave: any }, ref
 
         }
     };
+    const closeAftersave = (): void => {
+        setVideoView("")
+        setPhotoView("hidden")
+        if (!photoRef.current) return;
+        const ctx = photoRef.current.getContext('2d');
+        if (ctx) {
+            ctx.clearRect(0, 0, photoRef.current.width, photoRef.current.height);
+            setHasPhoto(false);
+
+        }
+    };
     const savePhoto = () => {
         if (!photoRef.current) return;
         onSave(photoRef.current);
-        closePhoto()
+        closeAftersave()
     };
 
     const stopVideo = () => {
@@ -93,6 +105,7 @@ const CameraComponentBroken = React.forwardRef(({ onSave }: { onSave: any }, ref
                 <div className='text-center mt-3'><button onClick={takePhoto} ><MdCamera className='w-10 h-10' /></button></div>
             </div>
             <div className={photoView}>
+                <canvas ref={photoRef} style={{ width: "70vw", height: "70vh" }}></canvas>
                 {
                     hasPhoto && (
 
@@ -102,7 +115,7 @@ const CameraComponentBroken = React.forwardRef(({ onSave }: { onSave: any }, ref
                         </div>
                     )
                 }
-                <canvas ref={photoRef} style={{ width: "70vw", height: "70vh" }}></canvas>
+
             </div>
 
         </div>

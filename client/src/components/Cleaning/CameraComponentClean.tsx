@@ -7,6 +7,7 @@ const CameraComponentClean = React.forwardRef(({ onSave }: { onSave: any }, ref:
     const [hasPhoto, setHasPhoto] = useState(false);
     const [videoView, setVideoView] = useState("");
     const [photoView, setPhotoView] = useState("hidden");
+    const successdialogclean = document.getElementById('Photodailogclean') as HTMLInputElement;
 
     const getVideo = () => {
         navigator.mediaDevices
@@ -25,7 +26,8 @@ const CameraComponentClean = React.forwardRef(({ onSave }: { onSave: any }, ref:
     };
 
     useImperativeHandle(ref, () => ({
-        getVIdeo: () => getVideo()
+        getVIdeo: () => getVideo(),
+        stopVideo: () => stopVideo()
     }));
 
     const takePhoto = () => {
@@ -65,12 +67,24 @@ const CameraComponentClean = React.forwardRef(({ onSave }: { onSave: any }, ref:
         if (ctx) {
             ctx.clearRect(0, 0, photoRef.current.width, photoRef.current.height);
             setHasPhoto(false);
+
+        }
+    };
+    const closeAftersave = (): void => {
+        setVideoView("")
+        setPhotoView("hidden")
+        if (!photoRef.current) return;
+        const ctx = photoRef.current.getContext('2d');
+        if (ctx) {
+            ctx.clearRect(0, 0, photoRef.current.width, photoRef.current.height);
+            setHasPhoto(false);
+
         }
     };
     const savePhoto = () => {
         if (!photoRef.current) return;
         onSave(photoRef.current);
-        closePhoto()
+        closeAftersave()
     };
 
     const stopVideo = () => {
@@ -92,16 +106,17 @@ const CameraComponentClean = React.forwardRef(({ onSave }: { onSave: any }, ref:
                 <div className='text-center mt-3'><button onClick={takePhoto} ><MdCamera className='w-10 h-10' /></button></div>
             </div>
             <div className={photoView}>
+                <canvas ref={photoRef} style={{ width: "70vw", height: "70vh" }}></canvas>
                 {
                     hasPhoto && (
 
                         <div className='text-center mt-3'>
-                            <button onClick={savePhoto} className='bg-green-500 text-white px-3 py-1 rounded-md'>Save Photo</button>
-                            <button onClick={closePhoto} className='bg-red-500 text-white px-3 py-1 rounded-md'>Close Photo</button>
+                            <button onClick={savePhoto} className='bg-green-500 text-white px-3 mx-1 my-1 py-1 '>Save </button>
+                            <button onClick={closePhoto} className='bg-red-500 text-white px-3 mx-1 my-1 py-1 '>Back </button>
                         </div>
                     )
                 }
-                <canvas ref={photoRef} style={{ width: "70vw", height: "70vh" }}></canvas>
+
             </div>
 
         </div>
