@@ -26,7 +26,8 @@ const CameraComponentClean = React.forwardRef(({ onSave }: { onSave: any }, ref:
     };
 
     useImperativeHandle(ref, () => ({
-        getVIdeo: () => getVideo()
+        getVIdeo: () => getVideo(),
+        stopVideo: () => stopVideo()
     }));
 
     const takePhoto = () => {
@@ -106,7 +107,7 @@ const CameraComponentClean = React.forwardRef(({ onSave }: { onSave: any }, ref:
                 <div className='text-center mt-3'><button onClick={takePhoto} ><MdCamera className='w-10 h-10' /></button></div>
             </div>
             <div className={photoView}>
-            <canvas ref={photoRef} style={{ width: "70vw", height: "70vh" }}></canvas>
+                <canvas ref={photoRef} style={{ width: "70vw", height: "70vh" }}></canvas>
                 {
                     hasPhoto && (
 
@@ -114,9 +115,9 @@ const CameraComponentClean = React.forwardRef(({ onSave }: { onSave: any }, ref:
                             <button onClick={savePhoto} className='bg-green-500 text-white px-3 mx-1 my-1 py-1 '>Save </button>
                             <button onClick={closePhoto} className='bg-red-500 text-white px-3 mx-1 my-1 py-1 '>Back </button>
                         </div>
-                    ) 
+                    )
                 }
-                
+
             </div>
 
         </div>

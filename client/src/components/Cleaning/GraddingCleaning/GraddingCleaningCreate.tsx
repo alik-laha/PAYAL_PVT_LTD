@@ -31,10 +31,10 @@ const GraddingMaintenanceCreate = () => {
     const [progress, setProgress] = useState<number>(0);
     const [cleanImageUrl, setCleanImageUrl] = useState<string[]>([])
     const [brokenImageUrl, setBrokenImageUrl] = useState<string[]>([])
-    const [colorprogress,setColorProgress]=useState<string>('')
+    const [colorprogress, setColorProgress] = useState<string>('')
 
     useEffect(() => {
-        axios.get('/api/asset/getMachineByType/Grading')
+        axios.get('/api/asset/getallActiveMachineforMaintenence/Grading')
             .then(res => {
                 setGraddingMachine(res.data);
             })
@@ -55,7 +55,7 @@ const GraddingMaintenanceCreate = () => {
             setBrokenImageUrl([...brokenImageUrl, url]);
         }
     }
-    
+
 
     useEffect(() => {
         const totalSteps = 7;
@@ -69,19 +69,19 @@ const GraddingMaintenanceCreate = () => {
             CallibrationRollerHolesClean
         ].filter(Boolean).length;
         setProgress((completedSteps / totalSteps) * 100);
-        if(progress<=20){
+        if (progress <= 20) {
             setColorProgress('Worst')
         }
-        if(progress>20 && progress <=40){
+        if (progress > 20 && progress <= 40) {
             setColorProgress('Bad')
         }
-        if(progress>40 && progress <=60){
+        if (progress > 40 && progress <= 60) {
             setColorProgress('Nominal')
         }
-        if(progress>60 && progress <=80){
+        if (progress > 60 && progress <= 80) {
             setColorProgress('Better')
         }
-        if(progress>80){
+        if (progress > 80) {
             setColorProgress('Best')
         }
     }, [
@@ -91,7 +91,8 @@ const GraddingMaintenanceCreate = () => {
         elevetorMotorCleanByAir,
         McAllPartsClean,
         binClean,
-        CallibrationRollerHolesClean
+        CallibrationRollerHolesClean,
+        progress
     ]);
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -149,7 +150,7 @@ const GraddingMaintenanceCreate = () => {
             CreateurlFromBrokenblob(data)
         });
     }
-   
+
     const successdialogclean = document.getElementById('Photodailogclean') as HTMLInputElement;
     const successdialogcleandamage = document.getElementById('Photodailogcleandamage') as HTMLInputElement;
     const closeDialogButton = document.getElementById('closePhotoclean') as HTMLInputElement;
@@ -159,7 +160,7 @@ const GraddingMaintenanceCreate = () => {
         closeDialogButton.addEventListener('click', () => {
             if (successdialogclean != null) {
                 (successdialogclean as any).close();
-                //window.location.reload();
+                CleancameraRef.current.stopVideo();
             }
 
 
@@ -168,7 +169,9 @@ const GraddingMaintenanceCreate = () => {
     if (errorcloseDialogButton) {
         errorcloseDialogButton.addEventListener('click', () => {
             if (errorcloseDialogButton != null) {
-                (errorcloseDialogButton as any).close();
+                (successdialogcleandamage as any).close();
+                DamageCameraRef.current.stopVideo();
+
             }
 
         });
@@ -193,10 +196,10 @@ const GraddingMaintenanceCreate = () => {
     return (
         <div className="pl-5 pr-5">
             <div className="flex">
-            <Progress value={progress} max={100} className="mb-4 mt-1 w-3/4" />
-            <span className="w-1/4 text-center font-semibold text-violet-700">{colorprogress}</span> 
+                <Progress value={progress} max={100} className="mb-4 mt-1 w-3/4" />
+                <span className="w-1/4 text-center font-semibold text-violet-700">{colorprogress}</span>
             </div>
-            
+
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Machine Name</Label>
@@ -214,7 +217,7 @@ const GraddingMaintenanceCreate = () => {
                 <div className="flex mt-2">
                     <Label className="w-2/4 pt-1">1. DustTable Clean</Label>
                     <div className="flex ml-20 items-center space-x-2">
-                       <Switch id="dustTable"  checked={dustTable} onCheckedChange={setDustTable} />
+                        <Switch id="dustTable" checked={dustTable} onCheckedChange={setDustTable} />
                     </div>
                 </div>
                 <div className="flex">
@@ -254,12 +257,12 @@ const GraddingMaintenanceCreate = () => {
                     </div>
                 </div>
                 <div className="flex mt-2">
-                    <Label style={{lineHeight:'5'}} className="w-1/8 pt-1 text-right text-gray-500 justify-center">Upload</Label>
+                    <Label style={{ lineHeight: '5' }} className="w-1/8 pt-1 text-right text-gray-500 justify-center">Upload</Label>
                     <div className="flex ml-5 items-center space-x-2">
                         <Button className="bg-blue-500 text-center items-center justify-center h-7 w-15" type="button" onClick={callChildGetVideo}><FaCamera /></Button>
                         < BlobImageDisplay blob={cleanImageUrl} />
-                        
-                   
+
+
                     </div>
                 </div>
                 <div className="flex">
@@ -277,17 +280,17 @@ const GraddingMaintenanceCreate = () => {
                             </div>
                         </div>
                         <div className="flex">
-                            <Label style={{lineHeight:'5'}}  className="w-1/8 pt-1 text-right text-gray-500 justify-center">Upload</Label>
+                            <Label style={{ lineHeight: '5' }} className="w-1/8 pt-1 text-right text-gray-500 justify-center">Upload</Label>
                             <div className="flex ml-5 items-center space-x-2">
                                 <Button className="bg-blue-500 text-center items-center text-center h-7 w-15" type="button" onClick={callChildGetVideoBroken}><FaCamera /></Button>
                                 < BlobImageDisplay blob={brokenImageUrl} />
-                            
+
                             </div>
                         </div>
                     </>
                 )}
-              
-                
+
+
                 <div>
                     <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20">Submit</Button>
                 </div>
@@ -296,7 +299,7 @@ const GraddingMaintenanceCreate = () => {
                 <button id="closePhotoclean" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex">
                     <CameraComponentClean onSave={(photo: any) => setCleaningImage(photo)} ref={CleancameraRef} />
-                    
+
 
                 </span>
 
@@ -305,7 +308,7 @@ const GraddingMaintenanceCreate = () => {
             <dialog id="Photodailogcleandamage" className="dashboard-modal">
                 <button id="closePhotodamage" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex">
-                   
+
                     <CameraComponentBroken onSave={(photo: any) => setBrokenImage(photo)} ref={DamageCameraRef} />
 
                 </span>

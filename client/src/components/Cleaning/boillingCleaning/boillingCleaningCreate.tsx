@@ -25,7 +25,7 @@ const BoillingMaintenanceCreate = () => {
     const [damageFiles, setDamageFiles] = useState<FileList | null>(null);
 
     useEffect(() => {
-        axios.get('/api/asset/getMachineByType/Boilling')
+        axios.get('/api/asset/getallActiveMachineforMaintenence/Boilling')
             .then(res => {
                 console.log(res.data);
                 setGraddingMachine(res.data);
