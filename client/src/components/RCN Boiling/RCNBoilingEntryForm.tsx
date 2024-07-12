@@ -217,14 +217,14 @@ const RCNBoilingEntryForm = () =>
                         if (formData.length === boilingcount) {
                             setErrortext(res.data.message)
 
-                            if (res.status === 200) {
-                               const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                               dialog.showModal()
-                                setTimeout(() => {
-                                    dialog.close()
-                                    window.location.reload()
-                                }, 2000)
-                            }
+                            // if (res.status === 200) {
+                            //    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                            //    dialog.showModal()
+                            //     setTimeout(() => {
+                            //         dialog.close()
+                            //         window.location.reload()
+                            //     }, 2000)
+                            // }
 
                         }
 

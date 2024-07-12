@@ -4,12 +4,15 @@ import RcnBoilingEdit from "../../model/RcnBoilingEditModel";
 import RcnBoiling from "../../model/RcnBoilingModel";
 import RcnScooping from "../../model/scoopingModel";
 import { Op } from "sequelize";
+import sequelize from "../../config/databaseConfig";
 
 const approveEditBoiling = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const editStatus = "Approved";
+        let openqty:number=0;
         const data: RcnBoilingData | null = await RcnBoilingEdit.findOne({ where: { id } }) as RcnBoilingData | null;
+        const prevdata: RcnBoilingData | null = await RcnBoiling.findOne({ where: { id } }) as RcnBoilingData | null;
         const CreatedBy = data?.CreatedBy;
         const modifiedBy = req.cookies.user;
         if (data) {
@@ -49,36 +52,103 @@ const approveEditBoiling = async (req: Request, res: Response) => {
                  modifiedBy, editStatus }, { where: { id } });
 
 
-            let where  
-            where = {
-                [Op.and]: [
-                    {
-                        LotNo: {
-                            [Op.like]: `%${LotNo}%`
+            let where 
+            if(prevdata){
+                let linecount=await RcnScooping.count({where:{ LotNo: LotNo,Scooping_Line_Mc:Scooping_Line_Mc }})
+                where = {
+                    [Op.and]: [
+                        {
+                            LotNo: {
+                                [Op.like]: `%${LotNo}%`
+                            }
+                        },
+                        {
+                            SizeName: {
+                                [Op.like]: `%${prevdata?.SizeName}%`
+                            }
+                        },
+                        {
+                            origin: {
+                                [Op.like]: `%${prevdata?.origin}%`
+                            }
+                        },
+                        {
+                            Scooping_Line_Mc: {
+                                [Op.like]: `%${prevdata?.Scooping_Line_Mc}%`
+                            }
                         }
-                    },
-                    {
-                        SizeName: {
-                            [Op.like]: `%${SizeName}%`
-                        }
-                    },
-                    {
-                        origin: {
-                            [Op.like]: `%${origin}%`
-                        }
-                    },
-                    {
-                        Scooping_Line_Mc: {
-                            [Op.like]: `%${Scooping_Line_Mc}%`
-                        }
-                    }
-                ]
+                    ]
+                    
+                }   
+                if(linecount>1){
+                    const rcnscooping = await RcnScooping.update({   
+                        Receiving_Qty:(parseFloat(Size) * 80),
+                        origin:origin,
+                        SizeName:SizeName,
+                        Size:Size,
+                        Scooping_Line_Mc:Scooping_Line_Mc,
+                        Opening_Qty:0
+                          }, { where});
+                }
+                else{
+                    const latestEntry = await RcnScooping.findOne({
+                        attributes: ['LotNo'],
+                        where:{
+                            
+                            Scooping_Line_Mc:Scooping_Line_Mc,
+                            LotNo:{
+                                [Op.lt]:LotNo
+                            }
+            
+                        },
+                    order: [['LotNo', 'DESC']] 
+                   
+                    });
+                    console.log(latestEntry)
+                   
+                    if(latestEntry){
+                        const prevLot=latestEntry.dataValues.LotNo
+                        const openqtySum = await RcnScooping.findAll({
+                                attributes: [
+                                    'Scooping_Line_Mc',
+                                    [sequelize.fn('sum', sequelize.col('Uncut')), 'totalUncut'],
+                                    [sequelize.fn('sum', sequelize.col('Unscoop')), 'totalUnscoop'],
+                                    [sequelize.fn('sum', sequelize.col('NonCut')), 'totalNonCut'],
+                               
+                                ],
+                                where: {
+                                    LotNo:  `${prevLot}`,
+                                    Scooping_Line_Mc:Scooping_Line_Mc,
+                                        
+                                },
+                                group: ['Scooping_Line_Mc']
+                            });
+                            console.log('openqty:'+openqtySum)
+                            if (openqtySum.length > 0) {
+                                const dataValues = openqtySum[0].dataValues;
+                                openqty = [
+                                    'totalUncut',
+                                    'totalUnscoop',
+                                    'totalNonCut'
+                                    
+                                ].reduce((sum, key) => {
+                                    const value = dataValues[key] ? parseFloat(dataValues[key]) : 0;
+                                    return sum + value;
+                                }, 0);
+                            }
+                            const rcnscooping = await RcnScooping.update({   
+                                Receiving_Qty:(parseFloat(Size) * 80),
+                                origin:origin,
+                                SizeName:SizeName,
+                                Size:Size,
+                                Scooping_Line_Mc:Scooping_Line_Mc,
+                                Opening_Qty:openqty
+                                  }, { where});
+                }
                 
-            }   
-
-            const rcnscooping = await RcnScooping.update({   
-                Receiving_Qty:(parseFloat(Size) * 80)
-                  }, { where});
+                    } 
+                }
+           
 
             if (RcnGradingEditData) {
                 await RcnBoilingEdit.destroy({ where: { id } });
@@ -88,6 +158,7 @@ const approveEditBoiling = async (req: Request, res: Response) => {
                 return res.status(500).json({ message: "Internal Server Error" });
             }
         }
+        
 
     } catch (err) {
         return res.status(500).json({ message: "Internal Server Error", err })
