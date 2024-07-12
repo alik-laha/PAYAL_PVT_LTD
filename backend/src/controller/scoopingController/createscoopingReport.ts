@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import RcnScooping from "../../model/scoopingModel";
+import { Op } from "sequelize";
 
 const createscoopingReport = async (req: Request, res: Response) => {
 
@@ -84,6 +85,20 @@ const createscoopingReport = async (req: Request, res: Response) => {
                     },
                 }
             );
+            const nextEntry = await RcnScooping.findOne({
+                attributes: ['LotNo'],
+                where: {
+
+                    Scooping_Line_Mc: Scooping_Line_Mc,
+                    LotNo: {
+                        [Op.gt]: LotNo
+                    }
+
+                },
+                order: [['LotNo', 'ASC']]
+
+            });
+            console.log(nextEntry)
     
            
             return res.status(200).json({ message: "RCN Scooping Report Uploaded Successfully",scoop });

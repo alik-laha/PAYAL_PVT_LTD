@@ -162,6 +162,26 @@ const approveEditBoiling = async (req: Request, res: Response) => {
                 }
             }
 
+            const nextEntry = await RcnScooping.findOne({
+                attributes: ['LotNo'],
+                where: {
+
+                    Scooping_Line_Mc: Scooping_Line_Mc,
+                    LotNo: {
+                        [Op.gt]: LotNo
+                    }
+
+                },
+                order: [['LotNo', 'ASC']]
+
+            });
+            console.log(nextEntry)
+            if(nextEntry){
+                
+
+
+            }
+
 
             if (RcnGradingEditData) {
                 await RcnBoilingEdit.destroy({ where: { id } });
