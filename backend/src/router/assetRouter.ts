@@ -26,7 +26,7 @@ router.get('/getMachineByType/:type', jwtVerify, getMechineByType)
 
 router.get('/getallActiveMachine', jwtVerify, getAllActiveMachineForDropDown)
 
-router.get('/getallActiveMachineforMaintenence', jwtVerify, getAllMachineForMaintenence)
+router.get('/getallmachineformaintenence/:type', jwtVerify, getAllMachineForMaintenence)
 
 
 export default router;

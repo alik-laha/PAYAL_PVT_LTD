@@ -34,7 +34,7 @@ const GraddingMaintenanceCreate = () => {
     const [colorprogress, setColorProgress] = useState<string>('')
 
     useEffect(() => {
-        axios.get('/api/asset/getallActiveMachineforMaintenence/Grading')
+        axios.get('/api/asset/getallmachineformaintenence/Grading')
             .then(res => {
                 setGraddingMachine(res.data);
             })
