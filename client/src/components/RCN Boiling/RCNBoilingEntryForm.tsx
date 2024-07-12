@@ -136,8 +136,8 @@ const RCNBoilingEntryForm = () =>
             if(response.data.message==='Previous Cutting Not Found'){
                 return 0
             }
-            if(response.data.finalSum[0].totalUncut!== null && response.data.finalSum[0].totalNonCut
-                && response.data.finalSum[0].totalUnscoop
+            if(response.data.finalSum[0].totalUncut!== null && response.data.finalSum[0].totalNonCut!== null
+                && response.data.finalSum[0].totalUnscoop!== null
             )
             {
                 const prevSum:number=parseFloat(response.data.finalSum[0].totalUncut)
