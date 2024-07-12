@@ -260,7 +260,21 @@ const GraddingMaintenanceCreate = () => {
                     <Label style={{ lineHeight: '5' }} className="w-1/8 pt-1 text-right text-gray-500 justify-center">Upload</Label>
                     <div className="flex ml-5 items-center space-x-2">
                         <Button className="bg-blue-500 text-center items-center justify-center h-7 w-15" type="button" onClick={callChildGetVideo}><FaCamera /></Button>
-                        < BlobImageDisplay blob={cleanImageUrl} />
+                        <div className="flex">
+                            {
+                                cleanImageUrl.map((url: string, index: number) => (
+                                    <div key={index} >
+                                        <img src={url} alt={`Blob ${index}`} style={{ width: '70px', height: '70px', margin: '5px' }} />
+
+                                        <Button className="bg-red-500 text-center items-center justify-center h-7 w-12" type="button" onClick={() => {
+                                            const data = cleanImageUrl.filter((url: string, i: number) => i !== index)
+                                            setCleanImageUrl(data)
+                                        }}>Clear</Button>
+                                    </div>
+                                ))
+                            }
+                        </div>
+
 
 
                     </div>
@@ -271,30 +285,44 @@ const GraddingMaintenanceCreate = () => {
                         <input type="checkbox" checked={damage} onChange={(e) => setDamage(e.target.checked)} className="peer ml-20 h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-red-500 data-[state=checked]:bg-green-500" />
                     </div>
                 </div>
-                {damage && (
-                    <>
-                        <div className="flex">
-                            <Label className="w-2/4 pt-2">Name Of the Parts</Label>
-                            <div className="flex items-center space-x-2">
-                                <Input className="w-100 text-center" placeholder="Name Of the Parts" value={partsName} onChange={(e) => setPartsName(e.target.value)} required={damage === true ? true : false} />
+                {
+                    damage && (
+                        <>
+                            <div className="flex">
+                                <Label className="w-2/4 pt-2">Name Of the Parts</Label>
+                                <div className="flex items-center space-x-2">
+                                    <Input className="w-100 text-center" placeholder="Name Of the Parts" value={partsName} onChange={(e) => setPartsName(e.target.value)} required={damage === true ? true : false} />
+                                </div>
                             </div>
-                        </div>
-                        <div className="flex">
-                            <Label style={{ lineHeight: '5' }} className="w-1/8 pt-1 text-right text-gray-500 justify-center">Upload</Label>
-                            <div className="flex ml-5 items-center space-x-2">
-                                <Button className="bg-blue-500 text-center items-center text-center h-7 w-15" type="button" onClick={callChildGetVideoBroken}><FaCamera /></Button>
-                                < BlobImageDisplay blob={brokenImageUrl} />
+                            <div className="flex">
+                                <Label style={{ lineHeight: '5' }} className="w-1/8 pt-1 text-right text-gray-500 justify-center">Upload</Label>
+                                <div className="flex ml-5 items-center space-x-2">
+                                    <Button className="bg-blue-500 text-center items-center text-center h-7 w-15" type="button" onClick={callChildGetVideoBroken}><FaCamera /></Button>
+                                    <div className="flex">
+                                        {
+                                            brokenImageUrl.map((url: string, index: number) => (
+                                                <div key={index} >
+                                                    <img src={url} alt={`Blob ${index}`} style={{ width: '70px', height: '70px', margin: '5px' }} />
 
+                                                    <Button className="bg-red-500 text-center items-center justify-center h-7 w-12" type="button" onClick={() => {
+                                                        const data = brokenImageUrl.filter((item, i) => i !== index)
+                                                        setBrokenImageUrl(data)
+                                                    }}>Clear</Button>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </>
-                )}
+                        </>
+                    )
+                }
 
 
                 <div>
                     <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20">Submit</Button>
                 </div>
-            </form>
+            </form >
             <dialog id="Photodailogclean" className="dashboard-modal">
                 <button id="closePhotoclean" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex">
@@ -317,7 +345,7 @@ const GraddingMaintenanceCreate = () => {
             </dialog>
 
 
-        </div>
+        </div >
     );
 }
 
