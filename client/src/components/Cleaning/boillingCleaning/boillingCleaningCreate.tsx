@@ -32,7 +32,7 @@ const BoillingCleanCreate = () => {
     const [cleanImageUrl, setCleanImageUrl] = useState<string[]>([])
     const [brokenImageUrl, setBrokenImageUrl] = useState<string[]>([])
     useEffect(() => {
-        axios.get('/api/asset/getallActiveMachineforMaintenence/Boilling')
+        axios.get('/api/asset/getallmachineformaintenence/Boiling')
             .then(res => {
                 console.log(res.data);
                 setGraddingMachine(res.data);
