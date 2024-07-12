@@ -130,12 +130,12 @@ const BoillingCleanCreate = () => {
             setDamageFiles(data);
             CreateurlFromBrokenblob(data)
         });
-        (successdialog as any).close();
+        (successdialogBroken as any).close();
     }
     const callChildGetVideoBroken = () => {
-        (successdialog as any).showModal()
+        (successdialogBroken as any).showModal()
         if (DamageCameraRef.current) {
-            DamageCameraRef.current.getVIdeo();  // Call getVideo function from CameraComponent
+            DamageCameraRef.current.getVIdeo();
         }
     }
     const callChildGetVideo = () => {
@@ -144,7 +144,26 @@ const BoillingCleanCreate = () => {
             CleancameraRef.current.getVIdeo();  // Call getVideo function from CameraComponent
         }
     };
-    const successdialog = document.getElementById('PhotodailogBoilling') as HTMLInputElement;
+    const successdialog = document.getElementById('PhotodailogCleanBoilling') as HTMLInputElement;
+    const successdialogBroken = document.getElementById('PhotodailogDamageBoilling') as HTMLInputElement;
+    const closeDialogButton = document.getElementById('closeBoillingCleanVideo') as HTMLInputElement;
+    const closeDialogButtonBroken = document.getElementById('closeBoilingDamageVideo') as HTMLInputElement;
+    if (closeDialogButton) {
+        closeDialogButton.addEventListener('click', () => {
+            if (successdialog != null) {
+                (successdialog as any).close();
+                CleancameraRef.current.stopVideo();
+            }
+        });
+    }
+    if (closeDialogButtonBroken) {
+        closeDialogButtonBroken.addEventListener('click', () => {
+            if (successdialogBroken != null) {
+                (successdialogBroken as any).close();
+                DamageCameraRef.current.stopVideo();
+            }
+        });
+    }
 
     return (
         <div className="pl-5 pr-5">
@@ -205,10 +224,27 @@ const BoillingCleanCreate = () => {
                         <Switch id="CallibrationRollerHolesClean" checked={elevetorCup} onCheckedChange={setElevetorCup} />
                     </div>
                 </div>
-                <div className="flex">
-                    <Label className="w-2/4 pt-1">Cleaned Parts Image </Label>
-                    <div className="flex items-center space-x-2">
-                        <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideo}><FaCamera /></Button>
+                <div className="flex mt-2">
+                    <Label style={{ lineHeight: '5' }} className="w-1/8 pt-1 text-right text-gray-500 justify-center">Upload</Label>
+                    <div className="flex ml-5 items-center space-x-2">
+                        <Button className="bg-blue-500 text-center items-center justify-center h-7 w-15" type="button" onClick={callChildGetVideo}><FaCamera /></Button>
+                        <div className="flex">
+                            {
+                                cleanImageUrl.map((url: string, index: number) => (
+                                    <div key={index} >
+                                        <img src={url} alt={`Blob ${index}`} style={{ width: '70px', height: '70px', margin: '5px' }} />
+
+                                        <Button className="bg-red-500 text-center items-center justify-center h-7 w-12" type="button" onClick={() => {
+                                            const data = cleanImageUrl.filter((url: string, i: number) => i !== index)
+                                            setCleanImageUrl(data)
+                                        }}>Clear</Button>
+                                    </div>
+                                ))
+                            }
+                        </div>
+
+
+
                     </div>
                 </div>
                 <div className="flex">
@@ -217,38 +253,54 @@ const BoillingCleanCreate = () => {
                         <input type="checkbox" checked={damage} onChange={(e) => setDamage(e.target.checked)} className="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground" required />
                     </div>
                 </div>
-                <div className={damage === true ? "flex" : "hidden"}>
-                    <Label className="w-2/4 pt-1">Name Of the Parts</Label>
-                    <div className="flex items-center space-x-2">
-                        <Input className="w-4/4" placeholder="Name Of the Parts" value={partsName} onChange={(e) => setPartsName(e.target.value)} required={damage === true ? true : false} />
-                    </div>
-                </div>
-                <div className={damage === true ? "flex" : "hidden"}>
-                    <Label className="w-2/4 pt-1">Damaged Parts Image upload</Label>
-                    <div className="flex items-center space-x-2">
-                        <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20" type="button" onClick={callChildGetVideoBroken}><FaCamera /></Button>
-                    </div>
-                </div>
-                <div>
-                    <Label className="w-2/4 pt-1">Cleaned Parts Images</Label>
-                    <div className="flex">
-                        < BlobImageDisplay blob={cleanImageUrl} />
-                    </div>
-                </div>
-                <div>
-                    <Label className="w-2/4 pt-1">Damaged Parts Images</Label>
-                    <div className="flex">
-                        < BlobImageDisplay blob={brokenImageUrl} />
-                    </div>
-                </div>
+                {
+                    damage && (
+                        <>
+                            <div className="flex">
+                                <Label className="w-2/4 pt-2">Name Of the Parts</Label>
+                                <div className="flex items-center space-x-2">
+                                    <Input className="w-100 text-center" placeholder="Name Of the Parts" value={partsName} onChange={(e) => setPartsName(e.target.value)} required={damage === true ? true : false} />
+                                </div>
+                            </div>
+                            <div className="flex">
+                                <Label style={{ lineHeight: '5' }} className="w-1/8 pt-1 text-right text-gray-500 justify-center">Upload</Label>
+                                <div className="flex ml-5 items-center space-x-2">
+                                    <Button className="bg-blue-500 text-center items-center text-center h-7 w-15" type="button" onClick={callChildGetVideoBroken}><FaCamera /></Button>
+                                    <div className="flex">
+                                        {
+                                            brokenImageUrl.map((url: string, index: number) => (
+                                                <div key={index} >
+                                                    <img src={url} alt={`Blob ${index}`} style={{ width: '70px', height: '70px', margin: '5px' }} />
+
+                                                    <Button className="bg-red-500 text-center items-center justify-center h-7 w-12" type="button" onClick={() => {
+                                                        const data = brokenImageUrl.filter((item, i) => i !== index)
+                                                        setBrokenImageUrl(data)
+                                                    }}>Clear</Button>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                    )
+                }
                 <div>
                     <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20">Submit</Button>
                 </div>
             </form>
-            <dialog id="PhotodailogBoilling" className="dashboard-modal">
-                {/* <button id="closePhoto" className="dashboard-modal-close-btn ">X </button> */}
+            <dialog id="PhotodailogCleanBoilling" className="dashboard-modal">
+                <button id="closeBoillingCleanVideo" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex">
                     <CameraComponentClean onSave={(photo: any) => setCleaningImage(photo)} ref={CleancameraRef} />
+                </span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+            <dialog id="PhotodailogDamageBoilling" className="dashboard-modal">
+                <button id="closeBoilingDamageVideo" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex">
+
                     <CameraComponentBroken onSave={(photo: any) => setBrokenImage(photo)} ref={DamageCameraRef} />
 
                 </span>
