@@ -8,7 +8,6 @@ import { Switch } from "@/components/ui/switch";
 import { Progress } from "@/components/ui/progress";
 import CameraComponentClean from '../CameraComponentClean';
 import { FaCamera } from "react-icons/fa";
-import BlobImageDisplay from "../ViewBlobimage";
 import CameraComponentBroken from "../CameraComponentBroken";
 
 const GraddingMaintenanceCreate = () => {
@@ -134,6 +133,12 @@ const GraddingMaintenanceCreate = () => {
                 console.error(err);
             });
     };
+
+
+    const successdialogclean = document.getElementById('Photodailogclean') as HTMLInputElement;
+    const successdialogcleandamage = document.getElementById('Photodailogcleandamage') as HTMLInputElement;
+    const closeDialogButton = document.getElementById('closePhotoclean') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('closePhotodamage') as HTMLInputElement;
     const setCleaningImage = (photo: any) => {
         let data: Blob[] = [];
         photo.toBlob((blob: Blob) => {
@@ -141,7 +146,7 @@ const GraddingMaintenanceCreate = () => {
             setCleaningFiles(data);
             CreateurlFromblob(data)
         });
-        (successdialog as any).close();
+        (successdialogclean as any).close();
     }
     const setBrokenImage = (photo: any) => {
         let data: Blob[] = [];
@@ -150,13 +155,8 @@ const GraddingMaintenanceCreate = () => {
             setDamageFiles(data);
             CreateurlFromBrokenblob(data)
         });
-        (successdialog as any).close();
+        (successdialogcleandamage as any).close();
     }
-
-    const successdialogclean = document.getElementById('Photodailogclean') as HTMLInputElement;
-    const successdialogcleandamage = document.getElementById('Photodailogcleandamage') as HTMLInputElement;
-    const closeDialogButton = document.getElementById('closePhotoclean') as HTMLInputElement;
-    const errorcloseDialogButton = document.getElementById('closePhotodamage') as HTMLInputElement;
 
     if (closeDialogButton) {
         closeDialogButton.addEventListener('click', () => {

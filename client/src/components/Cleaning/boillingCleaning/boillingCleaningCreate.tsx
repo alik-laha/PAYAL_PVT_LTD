@@ -31,7 +31,6 @@ const BoillingCleanCreate = () => {
     const [damageFiles, setDamageFiles] = useState<Blob[]>([]);
     const [cleanImageUrl, setCleanImageUrl] = useState<string[]>([])
     const [brokenImageUrl, setBrokenImageUrl] = useState<string[]>([])
-    const successdialog = document.getElementById('PhotodailogBoilling') as HTMLInputElement;
     useEffect(() => {
         axios.get('/api/asset/getallActiveMachineforMaintenence/Boilling')
             .then(res => {
@@ -145,6 +144,7 @@ const BoillingCleanCreate = () => {
             CleancameraRef.current.getVIdeo();  // Call getVideo function from CameraComponent
         }
     };
+    const successdialog = document.getElementById('PhotodailogBoilling') as HTMLInputElement;
 
     return (
         <div className="pl-5 pr-5">
