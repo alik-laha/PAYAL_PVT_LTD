@@ -14,7 +14,7 @@ router.post("/createInitialScooping",jwtVerify,CreateInitialScooping )
 router.post("/getPrevScoop",jwtVerify,getprevScoop )
 router.delete('/deleteScoopingByLotNo/:id', jwtVerify, deleteSccopingByLot)
 router.get("/sumofallscoop", jwtVerify, sumOfAllScoop)
-router.get("/getUnscoopedEntry", jwtVerify, getscoopLot)
+router.get("/getUnscoopedEntry/:status", jwtVerify, getscoopLot)
 router.get("/getScoopByLot/:lotNO", jwtVerify, getscoopByLot)
 router.put("/createScooping/:id", jwtVerify, createscoopingReport)
 export default router

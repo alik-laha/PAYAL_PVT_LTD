@@ -356,10 +356,11 @@ const RCNBoilingEntryForm = () =>
                     <Table className="mt-1">
                              <TableHeader className="bg-neutral-100 text-stone-950" >
                              <TableHead className="text-center" >Sl. No.</TableHead>
+                             <TableHead className="text-center" >ScoopingLine</TableHead>
                              <TableHead className="text-center" >Origin</TableHead>
                              <TableHead className="text-center" >Size</TableHead>
                              <TableHead className="text-center" >Boiling Quantity</TableHead>
-                             <TableHead className="text-center" >Scooping Line No.</TableHead>
+                            
                              <TableHead className="text-center" >Pressure</TableHead>
                              <TableHead className="text-center" >Moisture</TableHead>
                              <TableHead className="text-center" >Cooking On</TableHead>
@@ -376,6 +377,27 @@ const RCNBoilingEntryForm = () =>
                                  <TableBody>
                                         <TableRow key={index} className="boiling-row-height">
                                         <TableCell>{index+1}</TableCell>
+                                        <TableCell className="text-center" >
+                                            <Select value={row.ScoopingLine} onValueChange={(val) => handleRowChange(index, 'ScoopingLine', val)} required={true}>
+                                                <SelectTrigger  className="justify-center w-40">
+                                                    <SelectValue placeholder="Line Name" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectGroup>
+                                                        {
+                                                           AllNewMachines &&  AllNewMachines.map((item) => {
+                                                                return (
+                                                                    <SelectItem key={item.machineID} value={item.machineName}>
+                                                                        {item.machineName}
+                                                                    </SelectItem>
+                                                                )
+                                                            })
+                                                        }
+                                                    </SelectGroup>
+                                                </SelectContent>
+                                            </Select>
+
+                                        </TableCell>
                                         <TableCell className="text-center">
                                             <Select value={row.origin} onValueChange={(val) => handleRowChange(index, 'origin', val)} required={true}>
                                                 <SelectTrigger className="justify-center w-20">
@@ -422,27 +444,7 @@ const RCNBoilingEntryForm = () =>
                                         <TableCell className="text-center">
                                         <Input  value={row.size} placeholder="Bag" onChange={(e) => handleRowChange(index,'size',e.target.value)} required />
                                         </TableCell>
-                                            <TableCell className="text-center" >
-                                            <Select value={row.ScoopingLine} onValueChange={(val) => handleRowChange(index, 'ScoopingLine', val)} required={true}>
-                                                <SelectTrigger  className="justify-center w-40">
-                                                    <SelectValue placeholder="Line No." />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectGroup>
-                                                        {
-                                                           AllNewMachines &&  AllNewMachines.map((item) => {
-                                                                return (
-                                                                    <SelectItem key={item.machineID} value={item.machineName}>
-                                                                        {item.machineName}
-                                                                    </SelectItem>
-                                                                )
-                                                            })
-                                                        }
-                                                    </SelectGroup>
-                                                </SelectContent>
-                                            </Select>
-
-                                        </TableCell>
+                        
                                      
                                         <TableCell className="text-center"><Input  value={row.pressure} placeholder="psi" onChange={(e) => handleRowChange(index,'pressure',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"><Input  value={row.moisture} placeholder="%" onChange={(e) => handleRowChange(index,'moisture',e.target.value)} required /></TableCell>

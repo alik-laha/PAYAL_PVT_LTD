@@ -52,7 +52,7 @@ const RCNScooping = () => {
     console.log(data)
 
     const handleOpenLotNo = async () => {
-        axios.get('/api/scooping/getUnscoopedEntry').then(res=>{
+        axios.get('/api/scooping/getUnscoopedEntry/0').then(res=>{
             console.log(res)
             setLotData(res.data.scoopingLot)
         })

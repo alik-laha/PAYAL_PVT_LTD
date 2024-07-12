@@ -5,12 +5,12 @@ import sequelize from "../../config/databaseConfig";
 const getscoopLot = async (req: Request, res: Response) => {
 
     try {
-    
+        const status = req.params.status;
         const scoopingLot = await RcnScooping.findAll({
             
             attributes:[[sequelize.fn('DISTINCT',sequelize.col('LotNo')),'LotNo']],
             where: {
-                scoopStatus:0
+                scoopStatus:status
             }
 
         });

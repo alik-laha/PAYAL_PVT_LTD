@@ -22,7 +22,7 @@ interface ScoopingRowData{
     KOR:string;
     Trolley_Broken: string;
     Trolley_Small_JB: string;
-    Transfered_to: string;
+   
     Mc_on: string;
     Mc_off: string;
     noOfEmployees: string;
@@ -50,7 +50,7 @@ const RCNScoopingLineCreateForm = (props:any) => {
     const [rows,setRows]=useState<ScoopingRowData[]>([{id:0,Scooping_Line_Mc:'',
         Opening_Qty:'',Receiving_Qty:'',Wholes:'',Broken:'',Uncut:'',
         Unscoop:'',NonCut:'',Rejection:'',Dust:'',KOR:'',Trolley_Small_JB:'',Trolley_Broken:'',
-        Mc_on:'',Mc_off:'',Brkdwn_reason:'',Transfered_to:'',Mc_breakdown:'00:00',otherTime:'00:00',noOfEmployees:'',
+        Mc_on:'',Mc_off:'',Brkdwn_reason:'',Mc_breakdown:'00:00',otherTime:'00:00',noOfEmployees:'',
     noOfOperators:''}
     ]);
     const [errortext, setErrortext] = useState('')
@@ -171,7 +171,7 @@ const RCNScoopingLineCreateForm = (props:any) => {
                         <TableHead className="text-center" >Other Duration</TableHead>
                         <TableHead className="text-center" >No Of Ladies</TableHead>
                         <TableHead className="text-center" >No Of Operator</TableHead>
-                        <TableHead className="text-center" >Transfered To</TableHead>
+                      
                        
 
 
