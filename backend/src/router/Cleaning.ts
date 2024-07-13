@@ -22,7 +22,7 @@ router.post("/graddingcleancreate", graddingCleanImageUpload, CreateGraddingMain
 
 router.post("/boillingcleancreate", boillingCleanImageUpload, CreateBoillingMaintenence)
 
-router.post("/cuttingcleancreate", ScoopingSectionCuttingFunction, CreateScoopingSectionCutting)
+router.post("/cuttingcleancreate", graddingCleanImageUpload, CreateScoopingSectionCutting)
 
 router.post("/graddingcleanreportview", ViewGraddingCleaning)
 

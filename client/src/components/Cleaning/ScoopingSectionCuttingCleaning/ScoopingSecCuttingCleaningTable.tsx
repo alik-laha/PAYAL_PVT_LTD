@@ -25,8 +25,8 @@ const ScoopingSectionCuttingTable = () => {
     const [CleanTable, setCleanTable] = React.useState([]);
     const [imageView, setImageView] = React.useState<string[]>([]);
 
-    const successdialog = document.getElementById('myDialog') as HTMLInputElement;
-    const closeDialogButton = document.getElementById('closeDialog') as HTMLInputElement;
+    const successdialog = document.getElementById('cuttingCleanimage') as HTMLInputElement;
+    const closeDialogButton = document.getElementById('cuttingcleancloseDialog') as HTMLInputElement;
 
     if (closeDialogButton) {
         closeDialogButton.addEventListener('click', () => {
@@ -54,7 +54,7 @@ const ScoopingSectionCuttingTable = () => {
 
     const handleSearch = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
-        axios.post('/api/cleaning/graddingcleanreportview', { fromdate, todate, mc_name })
+        axios.post('/api/cleaning/cuttingcleanreportview', { fromdate, todate, mc_name })
             .then((res) => {
                 setCleanTable(res.data)
 
@@ -64,7 +64,7 @@ const ScoopingSectionCuttingTable = () => {
             })
     }
     useEffect(() => {
-        axios.get('/api/asset/getMachineByType/Grading')
+        axios.get('/api/asset/getallmachineformaintenence/Scooping')
             .then((res) => {
                 console.log(res)
                 setAllMachine(res.data)
@@ -76,7 +76,7 @@ const ScoopingSectionCuttingTable = () => {
     }, [])
     useEffect(() => {
 
-        axios.post('/api/cleaning/graddingcleanreportview')
+        axios.post('/api/cleaning/cuttingcleanreportview')
             .then((res) => {
                 setCleanTable(res.data)
                 console.log(res.data)
@@ -203,8 +203,8 @@ const ScoopingSectionCuttingTable = () => {
             {/* {
                 DamageReportImage.length > 0 && <ViewallImage url={DamageReportImage} />
             } */}
-            <dialog id="myDialog" className="dashboard-modal">
-                <button id="closeDialog" className="dashboard-modal-close-btn ">X </button>
+            <dialog id="cuttingCleanimage" className="dashboard-modal">
+                <button id="cuttingcleancloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex">{
                     <ViewallImage url={imageView} />
                 }
