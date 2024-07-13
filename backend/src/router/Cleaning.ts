@@ -11,6 +11,8 @@ import BoillingCleanCreate from "../controller/cleaning/boillingClean/createBoil
 import ViewBoillingCleaning from "../controller/cleaning/boillingClean/viewBoillingClean";
 import CreateScoopingSectionCutting from "../controller/cleaning/scoopingSectionCuttingClean/createScoopingSectionCuttingClean";
 import ViewScoopingSectionCuttingClean from "../controller/cleaning/scoopingSectionCuttingClean/viewScoopingSectionCuttingClean";
+import AbhayCleanCreate from "../controller/cleaning/AbhayMcClean/abhayMcCleanCreate"
+import AbhayMcCleanView from "../controller/cleaning/AbhayMcClean/viewAbhayMcClean"
 
 const router = Express.Router();
 const graddingCleanImageUpload = graddingCleanFunction();
@@ -23,6 +25,10 @@ router.post("/graddingcleancreate", graddingCleanImageUpload, CreateGraddingMain
 router.post("/boillingcleancreate", boillingCleanImageUpload, CreateBoillingMaintenence)
 
 router.post("/cuttingcleancreate", graddingCleanImageUpload, CreateScoopingSectionCutting)
+
+router.post("/abhayMcCleanCreate", boillingCleanImageUpload, AbhayCleanCreate)
+
+router.post("/abhaycleanview", AbhayMcCleanView)
 
 router.post("/graddingcleanreportview", ViewGraddingCleaning)
 

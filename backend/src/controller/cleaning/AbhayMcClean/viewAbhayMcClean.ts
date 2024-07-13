@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import AbhayMc from "../../../model/cleaningAbhayMcModel";
 
 
-const ViewBoillingCleaning = async (req: Request, res: Response) => {
+const AbhayMcCleanView = async (req: Request, res: Response) => {
     try {
         const { fromDate, toDate, mc_name } = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
@@ -44,4 +44,4 @@ const ViewBoillingCleaning = async (req: Request, res: Response) => {
         console.log(error);
     }
 }
-export default ViewBoillingCleaning;
+export default AbhayMcCleanView;
