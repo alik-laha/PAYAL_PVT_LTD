@@ -27,17 +27,17 @@ const CreateScoopingSectionCutting = async (req: Request, res: Response) => {
         let DamagedImage: [string] = [""];
         const createdBy = req.cookies.user
         files.cleanedPartsImages.map(async (file: any) => {
-            CompressImage(file, "./compressUpload/clean/cleaningGradding/" + file.filename)
+            CompressImage(file, "./compressUpload/clean/cleaningScoopingSectionCutting/" + file.filename)
 
-            CleanedImage.push("./compressUpload/clean/cleaningGradding/" + file.filename)
+            CleanedImage.push("./compressUpload/clean/cleaningScoopingSectionCutting/" + file.filename)
         })
         const fileteredCleanImage = CleanedImage.filter((image) => image !== "")
         const cleanedPartsImages = JSON.stringify(fileteredCleanImage)
         let damagedPartsImages: string = ""
         if (damage === "true" && files.damagedPartsImages) {
             files.damagedPartsImages.map((file: any) => {
-                CompressImage(file, "./compressUpload/clean/cleaningGradding/" + file.filename)
-                DamagedImage.push("./compressUpload/clean/cleaningGradding/" + file.filename)
+                CompressImage(file, "./compressUpload/clean/cleaningScoopingSectionCutting/" + file.filename)
+                DamagedImage.push("./compressUpload/clean/cleaningScoopingSectionCutting/" + file.filename)
             })
             const fileteredDamagedImage = DamagedImage.filter((image) => image !== "")
             damagedPartsImages = JSON.stringify(fileteredDamagedImage)
