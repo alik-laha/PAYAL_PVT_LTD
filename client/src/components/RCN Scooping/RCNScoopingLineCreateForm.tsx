@@ -135,32 +135,34 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                  ...row
 
             }))
-            let scoopingcount = 0
-                for (var data of formData) 
-                {
-                    axios.put(`/api/scooping/createScooping/${data.id}`, { data }).then(res => {
-                        scoopingcount++;
-                        if (formData.length === scoopingcount) {
-                            setErrortext(res.data.message)
 
-                            // if (res.status === 200) {
-                            //    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                            //    dialog.showModal()
-                            //     setTimeout(() => {
-                            //         dialog.close()
-                            //         window.location.reload()
-                            //     }, 2000)
-                            // }
+            console.log(formData)
+            // let scoopingcount = 0
+            //     for (var data of formData) 
+            //     {
+            //         axios.put(`/api/scooping/createScooping/${data.id}`, { data }).then(res => {
+            //             scoopingcount++;
+            //             if (formData.length === scoopingcount) {
+            //                 setErrortext(res.data.message)
 
-                        }
+            //                 // if (res.status === 200) {
+            //                 //    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+            //                 //    dialog.showModal()
+            //                 //     setTimeout(() => {
+            //                 //         dialog.close()
+            //                 //         window.location.reload()
+            //                 //     }, 2000)
+            //                 // }
 
-                    })
-                    .catch(err => {
-                            console.log(err)
-                            setErrortext(err.response.data.message)
+            //             }
+
+            //         })
+            //         .catch(err => {
+            //                 console.log(err)
+            //                 setErrortext(err.response.data.message)
                            
-                    }) 
-                }
+            //         }) 
+            //     }
         }
         catch (err) {
             console.log(err)
@@ -198,7 +200,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
   
                         <TableHead className="text-center" >Sl. No.</TableHead>
                         <TableHead className="text-center" >LotNo</TableHead>
-                        <TableHead className="text-center" >Scooping Line</TableHead>
+                        <TableHead className="text-center" >ScoopingLine</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Size Name</TableHead>
                         <TableHead className="text-center" >Opening Qty</TableHead>
