@@ -170,6 +170,7 @@ const RCNBoilingEntryForm = () =>
     ]);
 
     const [errortext, setErrortext] = useState('')
+   
   
 
     const handleRowChange = (index:number,field:string,fieldvalue:string) => {
@@ -213,24 +214,27 @@ const RCNBoilingEntryForm = () =>
                 for (var data of formData) 
                 {
                     axios.post('/api/boiling/createBoiling', { data }).then(res => {
+                        console.log(res)
                         boilingcount++;
                         if (formData.length === boilingcount) {
                             setErrortext(res.data.message)
-
-                            // if (res.status === 200) {
-                            //    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                            //    dialog.showModal()
-                            //     setTimeout(() => {
-                            //         dialog.close()
-                            //         window.location.reload()
-                            //     }, 2000)
-                            // }
+                            if (res.status === 200) {
+                              const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                              dialog.showModal()
+                               setTimeout(() => {
+                                   dialog.close()
+                                   window.location.reload()
+                               }, 2000)
+                           }
+                            
 
                         }
 
                     })
                     .catch(err => {
                             console.log(err)
+                            
+                            
                             setErrortext(err.response.data.message)
                             axios.delete(`/api/boiling/deleteLotNo/${data.columnLotNo}`).then((res) => {
                                 console.log(res.data)
@@ -245,6 +249,8 @@ const RCNBoilingEntryForm = () =>
                             }, 2000)
                     })      
                 }
+             
+                    
                 const updatedFormDataArray = await updateFormData(formData,res.data.newSequence);
                 const processedFormDataArray = processFormData(updatedFormDataArray);
 
@@ -259,6 +265,21 @@ const RCNBoilingEntryForm = () =>
                     {
                         axios.post('/api/scooping/createInitialScooping', { data2 }).then(res => {
                           console.log(res)
+                          boilingcount++;
+                          if (formData.length === boilingcount) {
+                              setErrortext(res.data.message)
+                              if (res.status === 200) {
+                                const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                                dialog.showModal()
+                                 setTimeout(() => {
+                                     dialog.close()
+                                     window.location.reload()
+                                 }, 2000)
+                             }
+                              
+  
+                          }
+                          
                         })
                         .catch(err => {
                                 console.log(err)
@@ -280,6 +301,9 @@ const RCNBoilingEntryForm = () =>
                                 }, 2000)
                         })      
                     }
+                    
+                
+                
                 }).catch(err => {
                 console.log(err)
                 })

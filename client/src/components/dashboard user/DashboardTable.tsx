@@ -173,7 +173,7 @@ const DashboardTable = () => {
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Id</TableHead>
-                    <TableHead className="text-center" >Emp name</TableHead>
+                    <TableHead className="text-center" >FullNameOfEmployee</TableHead>
                     <TableHead className="text-center" >Emp ID </TableHead>
                     <TableHead className="text-center" >User Name </TableHead>
                     <TableHead className="text-center" >Department </TableHead>

@@ -151,6 +151,12 @@ const RcnScooping = sequelize.define('rcnScooping', {
         allowNull: true,
         defaultValue:'NA'
     },
+    Transfered_To: {
+        type: DataTypes.STRING,
+    },
+    Transfered_Qty: {
+        type: DataTypes.DECIMAL(10,2),
+    },
     Mc_runTime: {
         type: DataTypes.TIME,
         allowNull: true
@@ -160,6 +166,13 @@ const RcnScooping = sequelize.define('rcnScooping', {
         allowNull: true
     }
 
-
+},
+{
+    indexes: [
+        {
+            unique: true,
+            fields: ['LotNo', 'origin','SizeName','Scooping_Line_Mc']
+        }
+    ]
 });
 export default RcnScooping;
