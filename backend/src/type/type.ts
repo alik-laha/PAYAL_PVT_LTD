@@ -162,3 +162,37 @@ export interface BoilingCleanData {
     cleanedPartsImages: string;
     damagedPartsImages: string;
 }
+
+export interface ScoopingSectionCuttingCleanData {
+    id: number;
+    date: string;
+    mc_name: string;
+    gear_m3_30ta: boolean;
+    gear_m3_40tb: boolean;
+    gear_m372ta_50_18r: boolean;
+    sap: boolean;
+    bladeUp: boolean;
+    bladeDown: boolean;
+    speaderDown: boolean;
+    brushBig: boolean;
+    brushSmall: boolean;
+    chainOneSmall: boolean;
+    chainTwoLarge: boolean;
+    chainThreeBig: boolean;
+    chainFourBigTwo: boolean;
+    bigChainPatti: boolean;
+    bigTwoChainPatti: boolean;
+    spring: boolean;
+    trayCup: boolean;
+    gear_m3_60ta: boolean;
+    motorPinionGear: boolean;
+    cuttingChain: boolean;
+    damage: boolean;
+    partsName: string;
+    percentage: number;
+    createdAt: Date;
+    updatedAt: Date;
+    cleanedBy: string;
+    cleanedPartsImages: string;
+    damagedPartsImages: string;
+}

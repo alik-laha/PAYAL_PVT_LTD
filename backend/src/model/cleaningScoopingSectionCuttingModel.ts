@@ -115,6 +115,10 @@ const CleaningScoopingSectionCutting = sequelize.define('cleaningScoopingSection
         allowNull: false,
         defaultValue: false
     },
+    percentage: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     damage: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
