@@ -23,8 +23,7 @@ export const graddingCleanFunction = () => {
 }
 
 export const ScoopingSectionCuttingFunction = () => {
-    //graddingMaintenence clean image upload
-    const graddingClean = multer.diskStorage({
+    const CuttingClean = multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, './uploads/clean/cleaningScoopingSectionCutting/');
         },
@@ -33,7 +32,7 @@ export const ScoopingSectionCuttingFunction = () => {
             cb(null, `${file.fieldname}-${uniqueSuffix}${path.extname(file.originalname)}`);
         }
     })
-    storage = graddingClean
+    storage = CuttingClean
     const upload = multer({ storage, }).fields([
         { name: 'cleanedPartsImages', maxCount: 10 },
         { name: 'damagedPartsImages', maxCount: 10 },

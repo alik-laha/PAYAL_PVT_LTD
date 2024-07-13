@@ -5,6 +5,7 @@ import sharp from 'sharp';
 
 const CompressImage = async (files: any, output: string) => {
     try {
+        console.log("compreseng image")
         await sharp(files.path)
             .resize(200, 200)
             .jpeg({ quality: 90 })
@@ -21,6 +22,7 @@ const CompressImage = async (files: any, output: string) => {
 
 const CreateScoopingSectionCutting = async (req: Request, res: Response) => {
     try {
+        console.log("saving data")
         const { mc_name, date, gear_m3_30ta, gear_m3_40tb, gear_m372ta_50_18r, sap, bladeUp, bladeDown, speaderDown, brushBig, brushSmall, chainOneSmall, chainTwoLarge, chainThreeBig, chainFourBigTwo, bigChainPatti, bigTwoChainPatti, spring, trayCup, gear_m3_60ta, motorPinionGear, cuttingChain, damage, partsName, percentage } = req.body;
         const files: any = req.files;
         let CleanedImage: [string] = [""];
@@ -47,7 +49,7 @@ const CreateScoopingSectionCutting = async (req: Request, res: Response) => {
 
         if (damagedPartsImages && damage) {
 
-            const GraddingCleanReport = await CleaningScoopingSectionCutting.create({
+            const CuttingClean = await CleaningScoopingSectionCutting.create({
                 mc_name,
                 date,
                 gear_m3_30ta,
@@ -77,11 +79,11 @@ const CreateScoopingSectionCutting = async (req: Request, res: Response) => {
                 damagedPartsImages,
                 createdBy
             })
-            if (!GraddingCleanReport) return res.status(400).send('Data not saved');
+            if (!CuttingClean) return res.status(400).send('Data not saved');
             return res.status(200).send('Data saved successfully');
         }
         else {
-            const GraddingCleanReport = await CleaningScoopingSectionCutting.create({
+            const CuttingClean = await CleaningScoopingSectionCutting.create({
                 mc_name,
                 date,
                 gear_m3_30ta,
@@ -109,7 +111,7 @@ const CreateScoopingSectionCutting = async (req: Request, res: Response) => {
                 cleanedPartsImages,
                 createdBy
             })
-            if (!GraddingCleanReport) return res.status(400).send('Data not saved');
+            if (!CuttingClean) return res.status(400).send('Data not saved');
             return res.status(200).send('Data saved successfully');
         }
     }

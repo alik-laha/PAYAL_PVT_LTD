@@ -235,7 +235,7 @@ const ScoopingSectionCuttingCreate = () => {
     const callChildGetVideo = () => {
         (successdialogclean as any).showModal()
         if (CleancameraRef.current) {
-            CleancameraRef.current.getVIdeo();  // Call getVideo function from CameraComponent
+            CleancameraRef.current.getVIdeo();
         }
     };
 
