@@ -6,13 +6,13 @@ import {
     DialogTrigger,
     DialogDescription
 } from "@/components/ui/dialog"
-
-
+import ScoopingSectionCuttingCreate from "./ScoopingSecCuttingCleaningCreate"
 import { Button } from "@/components/ui/button"
+import ScoopingSectionCuttingTable from "./ScoopingSecCuttingCleaningTable"
 
 
 
-const GraddingMaintenance = () => {
+const ScoopinSectionCuttingCleaning = () => {
     return (
         <div >
             <Dialog>
@@ -25,11 +25,11 @@ const GraddingMaintenance = () => {
                         </DialogDescription>
                     </DialogHeader>
 
-                    {/* <GraddingMaintenanceCreate /> */}
+                    <ScoopingSectionCuttingCreate />
                 </DialogContent>
             </Dialog>
-            {/* <GraddingMaintenanceTable /> */}
+            <ScoopingSectionCuttingTable />
         </div>
     )
 }
-export default GraddingMaintenance
+export default ScoopinSectionCuttingCleaning
