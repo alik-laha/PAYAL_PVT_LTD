@@ -16,13 +16,6 @@ const ScoopingSectionCuttingCreate = () => {
     const Date = useRef<HTMLInputElement>(null);
     const CleancameraRef = useRef<any>(null);
     const DamageCameraRef = useRef<any>(null);
-    const [dustTable, setDustTable] = useState<boolean>(false);
-    const [hopper, setHopper] = useState<boolean>(false);
-    const [elevetorCups, setElevetorCups] = useState<boolean>(false);
-    const [elevetorMotorCleanByAir, setElevetorMotorCleanByAir] = useState<boolean>(false);
-    const [McAllPartsClean, setMcAllPartsClean] = useState<boolean>(false);
-    const [binClean, setBinClean] = useState<boolean>(false);
-    const [CallibrationRollerHolesClean, setCallibrationRollerHolesClean] = useState<boolean>(false);
     const [damage, setDamage] = useState<boolean>(false);
     const [partsName, setPartsName] = useState<string>("");
     const [cleanningFiles, setCleaningFiles] = useState<Blob[]>([]);
@@ -32,8 +25,29 @@ const ScoopingSectionCuttingCreate = () => {
     const [brokenImageUrl, setBrokenImageUrl] = useState<string[]>([])
     const [colorprogress, setColorProgress] = useState<string>('')
 
+    const [gear_m3_30ta, setGear_m3_30ta] = useState<boolean>(false);
+    const [gear_m3_40tb, setGear_m3_40tb] = useState<boolean>(false);
+    const [gear_m372ta_50_18r, setGear_m372ta_50_18r] = useState<boolean>(false);
+    const [sap, setSap] = useState<boolean>(false);
+    const [bladeUp, setBladeUp] = useState<boolean>(false);
+    const [bladeDown, setBladeDown] = useState<boolean>(false);
+    const [speaderDown, setSpeaderDown] = useState<boolean>(false);
+    const [brushBig, setBrushBig] = useState<boolean>(false);
+    const [brushSmall, setBrushSmall] = useState<boolean>(false);
+    const [chainOneSmall, setChainOneSmall] = useState<boolean>(false);
+    const [chainTwoLarge, setChainTwoLarge] = useState<boolean>(false);
+    const [chainThreeBig, setChainThreeBig] = useState<boolean>(false);
+    const [chainFourBigTwo, setChainFourBigTwo] = useState<boolean>(false);
+    const [bigChainPatti, setBigChainPatti] = useState<boolean>(false);
+    const [bigTwoChainPatti, setBigTwoChainPatti] = useState<boolean>(false);
+    const [spring, setSpring] = useState<boolean>(false);
+    const [trayCup, setTrayCup] = useState<boolean>(false);
+    const [gear_m3_60ta, setGear_m3_60ta] = useState<boolean>(false);
+    const [motorPinionGear, setMotorPinionGear] = useState<boolean>(false);
+    const [cuttingChain, setCuttingChain] = useState<boolean>(false);
+
     useEffect(() => {
-        axios.get('/api/asset/getallmachineformaintenence/Grading')
+        axios.get('/api/asset/getallmachineformaintenence/Scooping')
             .then(res => {
                 setGraddingMachine(res.data);
             })
@@ -57,15 +71,29 @@ const ScoopingSectionCuttingCreate = () => {
 
 
     useEffect(() => {
-        const totalSteps = 7;
+        const totalSteps = 20;
         const completedSteps = [
-            dustTable,
-            hopper,
-            elevetorCups,
-            elevetorMotorCleanByAir,
-            McAllPartsClean,
-            binClean,
-            CallibrationRollerHolesClean
+            gear_m3_30ta,
+            gear_m3_40tb,
+            gear_m372ta_50_18r,
+            sap,
+            bladeUp,
+            bladeDown,
+            speaderDown,
+            brushBig,
+            brushSmall,
+            chainOneSmall,
+            chainTwoLarge,
+            chainThreeBig,
+            chainFourBigTwo,
+            bigChainPatti,
+            bigTwoChainPatti,
+            spring,
+            trayCup,
+            gear_m3_60ta,
+            motorPinionGear,
+            cuttingChain
+
         ].filter(Boolean).length;
         setProgress((completedSteps / totalSteps) * 100);
         if (progress <= 20) {
@@ -84,13 +112,26 @@ const ScoopingSectionCuttingCreate = () => {
             setColorProgress('Best')
         }
     }, [
-        dustTable,
-        hopper,
-        elevetorCups,
-        elevetorMotorCleanByAir,
-        McAllPartsClean,
-        binClean,
-        CallibrationRollerHolesClean,
+        gear_m3_30ta,
+        gear_m3_40tb,
+        gear_m372ta_50_18r,
+        sap,
+        bladeUp,
+        bladeDown,
+        speaderDown,
+        brushBig,
+        brushSmall,
+        chainOneSmall,
+        chainTwoLarge,
+        chainThreeBig,
+        chainFourBigTwo,
+        bigChainPatti,
+        bigTwoChainPatti,
+        spring,
+        trayCup,
+        gear_m3_60ta,
+        motorPinionGear,
+        cuttingChain,
         progress
     ]);
 
@@ -113,18 +154,31 @@ const ScoopingSectionCuttingCreate = () => {
         }
         formData.append("mc_name", mc_name);
         formData.append("date", Date.current?.value || "");
-        formData.append("dustTable", dustTable.toString());
-        formData.append("hopper", hopper.toString());
-        formData.append("elevetorCups", elevetorCups.toString());
-        formData.append("elevetorMotorCleanByAir", elevetorMotorCleanByAir.toString());
-        formData.append("McAllPartsClean", McAllPartsClean.toString());
-        formData.append("binClean", binClean.toString());
-        formData.append("CallibrationRollerHolesClean", CallibrationRollerHolesClean.toString());
         formData.append("damage", damage.toString());
         formData.append("partsName", partsName);
         formData.append("percentage", progress.toString());
+        formData.append("gear_m3_30ta", gear_m3_30ta.toString());
+        formData.append("gear_m3_40tb", gear_m3_40tb.toString());
+        formData.append("gear_m372ta_50_18r", gear_m372ta_50_18r.toString());
+        formData.append("sap", sap.toString());
+        formData.append("bladeUp", bladeUp.toString());
+        formData.append("bladeDown", bladeDown.toString());
+        formData.append("speaderDown", speaderDown.toString());
+        formData.append("brushBig", brushBig.toString());
+        formData.append("brushSmall", brushSmall.toString());
+        formData.append("chainOneSmall", chainOneSmall.toString());
+        formData.append("chainTwoLarge", chainTwoLarge.toString());
+        formData.append("chainThreeBig", chainThreeBig.toString());
+        formData.append("chainFourBigTwo", chainFourBigTwo.toString());
+        formData.append("bigChainPatti", bigChainPatti.toString());
+        formData.append("bigTwoChainPatti", bigTwoChainPatti.toString());
+        formData.append("spring", spring.toString());
+        formData.append("trayCup", trayCup.toString());
+        formData.append("gear_m3_60ta", gear_m3_60ta.toString());
+        formData.append("motorPinionGear", motorPinionGear.toString());
+        formData.append("cuttingChain", cuttingChain.toString());
 
-        axios.post("/api/cleaning/graddingcleancreate", formData)
+        axios.post("/api/cleaning/cuttingcleancreate", formData)
             .then((res) => {
                 console.log("Files uploaded successfully", res);
                 alert("Notice has been Uploaded Successfully");
@@ -135,10 +189,10 @@ const ScoopingSectionCuttingCreate = () => {
     };
 
 
-    const successdialogclean = document.getElementById('Photodailogclean') as HTMLInputElement;
-    const successdialogcleandamage = document.getElementById('Photodailogcleandamage') as HTMLInputElement;
-    const closeDialogButton = document.getElementById('closePhotoclean') as HTMLInputElement;
-    const errorcloseDialogButton = document.getElementById('closePhotodamage') as HTMLInputElement;
+    const successdialogclean = document.getElementById('CuttingPhotodailogclean') as HTMLInputElement;
+    const successdialogcleandamage = document.getElementById('CuttingPhotodailogcleandamage') as HTMLInputElement;
+    const closeDialogButton = document.getElementById('CuttingclosePhotoclean') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('CuttingclosePhotodamage') as HTMLInputElement;
     const setCleaningImage = (photo: any) => {
         let data: Blob[] = [];
         photo.toBlob((blob: Blob) => {
@@ -217,45 +271,103 @@ const ScoopingSectionCuttingCreate = () => {
                     <Input className="w-2/4 justify-center" placeholder="Date" ref={Date} type='date' required />
                 </div>
                 <div className="flex mt-2">
-                    <Label className="w-2/4 pt-1">1. DustTable Clean</Label>
+                    <Label className="w-2/4 pt-1">1. GEAR= M3-72TA 50-18R*</Label>
                     <div className="flex ml-20 items-center space-x-2">
-                        <Switch id="dustTable" checked={dustTable} onCheckedChange={setDustTable} />
+                        <Switch id="dustTable" checked={gear_m3_30ta} onCheckedChange={setGear_m3_30ta} />
+                    </div>
+                    <Label className="w-2/4 pt-1">2. GEAR= M3-40TB*</Label>
+                    <div className="flex ml-20 items-center space-x-2">
+                        <Switch id="dustTable" checked={gear_m3_40tb} onCheckedChange={setGear_m3_40tb} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">2. Hopper Clean</Label>
+                    <Label className="w-2/4 pt-1">3. GEAR= M3-72TA 50-18R*</Label>
                     <div className="flex ml-20 items-center space-x-2">
-                        <Switch id="hopper" checked={hopper} onCheckedChange={setHopper} />
+                        <Switch id="dustTable" checked={gear_m372ta_50_18r} onCheckedChange={setGear_m372ta_50_18r} />
+                    </div>
+                    <Label className="w-2/4 pt-1">4. SAP*</Label>
+                    <div className="flex ml-20 items-center space-x-2">
+                        <Switch id="dustTable" checked={sap} onCheckedChange={setSap} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">3. Elevetor Cup Clean</Label>
+                    <Label className="w-2/4 pt-1">5. BLADE UP*</Label>
                     <div className="flex ml-20 items-center space-x-2">
-                        <Switch id="elevetorCups" checked={elevetorCups} onCheckedChange={setElevetorCups} />
+                        <Switch id="dustTable" checked={bladeUp} onCheckedChange={setBladeUp} />
+                    </div>
+                    <Label className="w-2/4 pt-1">6. BLADE DOWN*</Label>
+                    <div className="flex ml-20 items-center space-x-2">
+                        <Switch id="dustTable" checked={bladeDown} onCheckedChange={setBladeDown} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">4. Elevetor Motor Clean</Label>
+                    <Label className="w-2/4 pt-1">7. SPREADER DOWN*</Label>
                     <div className="flex ml-20 items-center space-x-2">
-                        <Switch id="elevetorMotorCleanByAir" checked={elevetorMotorCleanByAir} onCheckedChange={setElevetorMotorCleanByAir} />
+                        <Switch id="dustTable" checked={speaderDown} onCheckedChange={setSpeaderDown} />
+                    </div>
+                    <Label className="w-2/4 pt-1">8. BRUSH BIG*</Label>
+                    <div className="flex ml-20 items-center space-x-2">
+                        <Switch id="dustTable" checked={brushBig} onCheckedChange={setBrushBig} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">5. Mc All Parts Clean</Label>
+                    <Label className="w-2/4 pt-1">9. BRUSH SMALL*</Label>
                     <div className="flex ml-20 items-center space-x-2">
-                        <Switch id="McAllPartsClean" checked={McAllPartsClean} onCheckedChange={setMcAllPartsClean} />
+                        <Switch id="dustTable" checked={brushSmall} onCheckedChange={setBrushSmall} />
+                    </div>
+                    <Label className="w-2/4 pt-1">10. CHAIN ONE SMALL*</Label>
+                    <div className="flex ml-20 items-center space-x-2">
+                        <Switch id="dustTable" checked={chainOneSmall} onCheckedChange={setChainOneSmall} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">6. Bin Clean</Label>
-                    <div className="flex  ml-20 items-center space-x-2">
-                        <Switch id="binClean" checked={binClean} onCheckedChange={setBinClean} />
+                    <Label className="w-2/4 pt-1">11. CHAIN TWO LARGE*</Label>
+                    <div className="flex ml-20 items-center space-x-2">
+                        <Switch id="dustTable" checked={chainTwoLarge} onCheckedChange={setChainTwoLarge} />
+                    </div>
+                    <Label className="w-2/4 pt-1">12. CHAIN THREE BIG*</Label>
+                    <div className="flex ml-20 items-center space-x-2">
+                        <Switch id="dustTable" checked={chainThreeBig} onCheckedChange={setChainThreeBig} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">7. Callibration Roller Holes Clean</Label>
+                    <Label className="w-2/4 pt-1">13. CHAIN FOUR BIG TWO*</Label>
                     <div className="flex ml-20 items-center space-x-2">
-                        <Switch id="CallibrationRollerHolesClean" checked={CallibrationRollerHolesClean} onCheckedChange={setCallibrationRollerHolesClean} />
+                        <Switch id="dustTable" checked={chainFourBigTwo} onCheckedChange={setChainFourBigTwo} />
+                    </div>
+                    <Label className="w-2/4 pt-1">14. BIG CHAIN PATTI*</Label>
+                    <div className="flex ml-20 items-center space-x-2">
+                        <Switch id="dustTable" checked={bigChainPatti} onCheckedChange={setBigChainPatti} />
+                    </div>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">15. BIG TWO CHAIN PATTI*</Label>
+                    <div className="flex ml-20 items-center space-x-2">
+                        <Switch id="dustTable" checked={bigTwoChainPatti} onCheckedChange={setBigTwoChainPatti} />
+                    </div>
+                    <Label className="w-2/4 pt-1">16. SPRING*</Label>
+                    <div className="flex ml-20 items-center space-x-2">
+                        <Switch id="dustTable" checked={spring} onCheckedChange={setSpring} />
+                    </div>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">17. TRAY CUP*</Label>
+                    <div className="flex ml-20 items-center space-x-2">
+                        <Switch id="dustTable" checked={trayCup} onCheckedChange={setTrayCup} />
+                    </div>
+                    <Label className="w-2/4 pt-1">18. GEAR= M3-60TA*</Label>
+                    <div className="flex ml-20 items-center space-x-2">
+                        <Switch id="dustTable" checked={gear_m3_60ta} onCheckedChange={setGear_m3_60ta} />
+                    </div>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-1">19. MOTOR PINION GEAR*</Label>
+                    <div className="flex ml-20 items-center space-x-2">
+                        <Switch id="dustTable" checked={motorPinionGear} onCheckedChange={setMotorPinionGear} />
+                    </div>
+                    <Label className="w-2/4 pt-1">20. CUTTING CHAIN*</Label>
+                    <div className="flex ml-20 items-center space-x-2">
+                        <Switch id="dustTable" checked={cuttingChain} onCheckedChange={setCuttingChain} />
                     </div>
                 </div>
                 <div className="flex mt-2">
@@ -325,8 +437,8 @@ const ScoopingSectionCuttingCreate = () => {
                     <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20">Submit</Button>
                 </div>
             </form >
-            <dialog id="Photodailogclean" className="dashboard-modal">
-                <button id="closePhotoclean" className="dashboard-modal-close-btn ">X </button>
+            <dialog id="CuttingPhotodailogclean" className="dashboard-modal">
+                <button id="CuttingclosePhotoclean" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex">
                     <CameraComponentClean onSave={(photo: any) => setCleaningImage(photo)} ref={CleancameraRef} />
 
@@ -335,8 +447,8 @@ const ScoopingSectionCuttingCreate = () => {
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
-            <dialog id="Photodailogcleandamage" className="dashboard-modal">
-                <button id="closePhotodamage" className="dashboard-modal-close-btn ">X </button>
+            <dialog id="CuttingPhotodailogcleandamage" className="dashboard-modal">
+                <button id="CuttingclosePhotodamage" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex">
 
                     <CameraComponentBroken onSave={(photo: any) => setBrokenImage(photo)} ref={DamageCameraRef} />
