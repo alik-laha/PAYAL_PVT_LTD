@@ -1,6 +1,6 @@
 import Express from "express";
 import cron from 'node-cron';
-import { graddingCleanFunction, boilingCleanFunction } from "../helper/saveimagefromUpload";
+import { graddingCleanFunction, boilingCleanFunction, ScoopingSectionCuttingFunction } from "../helper/saveimagefromUpload";
 import CreateGraddingMaintenence from "../controller/cleaning/graddingClean/createGraddingClean";
 import CreateBoillingMaintenence from "../controller/cleaning/boillingClean/createBoillingClean";
 import ViewGraddingCleaning from "../controller/cleaning/graddingClean/viewGraddingClean";
@@ -9,6 +9,8 @@ import autoDeleteGraddingCleanImage from "../controller/cleaning/graddingClean/a
 import autoDeleteBoillingCleanImage from "../controller/cleaning/boillingClean/autoDeleteBoillingCleanImage";
 import BoillingCleanCreate from "../controller/cleaning/boillingClean/createBoillingClean";
 import ViewBoillingCleaning from "../controller/cleaning/boillingClean/viewBoillingClean";
+import CreateScoopingSectionCutting from "../controller/cleaning/scoopingSectionCuttingClean/createScoopingSectionCuttingClean";
+import ViewScoopingSectionCuttingClean from "../controller/cleaning/scoopingSectionCuttingClean/viewScoopingSectionCuttingClean";
 
 const router = Express.Router();
 const graddingCleanImageUpload = graddingCleanFunction();
@@ -20,9 +22,13 @@ router.post("/graddingcleancreate", graddingCleanImageUpload, CreateGraddingMain
 
 router.post("/boillingcleancreate", boillingCleanImageUpload, CreateBoillingMaintenence)
 
+router.post("/cuttingcleancreate", ScoopingSectionCuttingFunction, CreateScoopingSectionCutting)
+
 router.post("/graddingcleanreportview", ViewGraddingCleaning)
 
 router.post("/boillingcleancreate", BoillingCleanCreate)
+
+router.post('/cuttingcleanreportview', ViewScoopingSectionCuttingClean)
 
 router.post("/boillingcleanreportview", ViewBoillingCleaning)
 
