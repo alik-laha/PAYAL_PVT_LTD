@@ -7,8 +7,19 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+
+
+interface Props {
+    scoop: ScoopData[]
+        
+}
 interface ScoopingRowData{
-    id:number;
+    LotNo:string;
+    id: number;
+  
+    origin: string;
+    SizeName: string;
+    Size: string;
     Scooping_Line_Mc: string;
     Opening_Qty:string;
     Receiving_Qty: string;
@@ -36,10 +47,10 @@ import { ScoopData } from "@/type/type"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
-import {  useRef, useState } from "react"
+import {  useEffect, useRef, useState } from "react"
 import axios from "axios";
 
-const RCNScoopingLineCreateForm = (props:any) => {
+const RCNScoopingLineCreateForm = (props:Props) => {
     //console.log(props)
    
    
@@ -47,12 +58,50 @@ const RCNScoopingLineCreateForm = (props:any) => {
     const maleRef = useRef<HTMLInputElement>(null);
     const femaleRef = useRef<HTMLInputElement>(null);
     const supervisorRef = useRef<HTMLInputElement>(null);
-    const [rows,setRows]=useState<ScoopingRowData[]>([{id:0,Scooping_Line_Mc:'',
-        Opening_Qty:'',Receiving_Qty:'',Wholes:'',Broken:'',Uncut:'',
-        Unscoop:'',NonCut:'',Rejection:'',Dust:'',KOR:'',Trolley_Small_JB:'',Trolley_Broken:'',
-        Mc_on:'',Mc_off:'',Brkdwn_reason:'',Mc_breakdown:'00:00',otherTime:'00:00',noOfEmployees:'',
-    noOfOperators:''}
-    ]);
+    // const [rows,setRows]=useState<ScoopingRowData[]>([{id:0,Scooping_Line_Mc:'',
+    //     Opening_Qty:'',Receiving_Qty:'',Wholes:'',Broken:'',Uncut:'',
+    //     Unscoop:'',NonCut:'',Rejection:'',Dust:'',KOR:'',Trolley_Small_JB:'',Trolley_Broken:'',
+    //     Mc_on:'',Mc_off:'',Brkdwn_reason:'',Mc_breakdown:'00:00',otherTime:'00:00',noOfEmployees:'',
+    // noOfOperators:''}
+    // ]);
+    const [rows,setRows]=useState<ScoopingRowData[]>([])
+
+
+    useEffect(() => { 
+        const initialform =  props.scoop.map((item: ScoopData) => ({
+           
+          
+            
+            origin: item.origin,
+            SizeName: item.SizeName,
+            Size: item.Size,
+            id:item.id,
+            LotNo:item.LotNo,
+            Scooping_Line_Mc:item.Scooping_Line_Mc,
+            Opening_Qty:item.Opening_Qty,
+            Receiving_Qty:item.Receiving_Qty,
+            Wholes:'',
+            Broken:'',
+            Uncut:'',
+            Unscoop:'',
+            NonCut:'',
+            Rejection:'',
+            Dust:'',
+            KOR:'',
+            Trolley_Small_JB:'',
+            Trolley_Broken:'',
+            Mc_on:'',Mc_off:'',Brkdwn_reason:'',Mc_breakdown:'00:00',otherTime:'00:00',noOfEmployees:'',
+            noOfOperators:''
+
+
+        }));
+        console.log(initialform)
+        setRows(initialform)
+        console.log(rows)
+    }, [props.scoop]);
+
+
+    
     const [errortext, setErrortext] = useState('')
 
     const handleRowChange = (index:number,field:string,fieldvalue:string|number) => {
@@ -178,20 +227,20 @@ const RCNScoopingLineCreateForm = (props:any) => {
                     </TableHeader>
                     <TableBody>
                         {props.scoop.length > 0 ? (
-                            props.scoop.map((item: ScoopData, idx: number,row:ScoopingRowData) => {
+                            rows.map(( row:ScoopingRowData,idx:number) => {
                                 //rows[idx].id=item.id
                                 //  {handleRowChange(idx,'id',item.id)}
                                 return (
                                     <TableRow key={idx} className="boiling-row-height-scoop">
                                         <TableCell className="text-center">{idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500">{item.LotNo}</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         
-                                        {/* <TableCell className="text-center"><Input value={item.Scooping_Line_Mc} placeholder="Wholes" onChange={(value) => handleRowChange(idx,'Scooping_Line_Mc',value)} required /></TableCell> */}
-                                        <TableCell className="text-center">{item.Scooping_Line_Mc}</TableCell>
-                                        <TableCell className="text-center">{item.origin}</TableCell>
-                                        <TableCell className="text-center">{item.SizeName}</TableCell>
-                                        <TableCell className="text-center">{item.Opening_Qty} kg</TableCell>
-                                        <TableCell className="text-center">{item.Receiving_Qty} kg</TableCell>
+                                        <TableCell className="text-center"><Input value={row.Scooping_Line_Mc} placeholder="Line" onChange={(e) => handleRowChange(idx,'Scooping_Line_Mc',e.target.value)} readOnly required /></TableCell>
+                                        {/* <TableCell className="text-center">{item.Scooping_Line_Mc}</TableCell> */}
+                                        <TableCell className="text-center">{row.origin}</TableCell>
+                                        <TableCell className="text-center">{row.SizeName}</TableCell>
+                                        <TableCell className="text-center">{row.Opening_Qty} kg</TableCell>
+                                        <TableCell className="text-center">{row.Receiving_Qty} kg</TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Wholes} placeholder="Wholes" onChange={(e) => handleRowChange(idx,'Wholes',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Broken} placeholder="Broken" onChange={(e) => handleRowChange(idx,'Broken',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Uncut} placeholder="Uncut" onChange={(e) => handleRowChange(idx,'Uncut',e.target.value)} required /></TableCell>
