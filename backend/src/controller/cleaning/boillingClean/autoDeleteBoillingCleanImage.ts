@@ -1,6 +1,6 @@
 import { promises as fs } from 'node:fs';
 import CleaningBoilling from '../../../model/cleaningBoillingModel';
-import { GraddingCleanData } from '../../../type/type';
+import { BoilingCleanData } from '../../../type/type';
 
 const DeleteImage = async (filepath: string[]) => {
 
@@ -22,9 +22,9 @@ const DeleteImage = async (filepath: string[]) => {
 
 const autoDeleteBoillingCleanImage = async () => {
 
-    const CleanData: GraddingCleanData[] = await CleaningBoilling.findAll() as unknown as GraddingCleanData[];
+    const CleanData: BoilingCleanData[] = await CleaningBoilling.findAll() as unknown as BoilingCleanData[];
     const nowDate = new Date();
-    CleanData.map(async (data: GraddingCleanData) => {
+    CleanData.map(async (data: BoilingCleanData) => {
 
         const date = new Date(data.createdAt);
         const diffTime = Math.abs(nowDate.getTime() - date.getTime());

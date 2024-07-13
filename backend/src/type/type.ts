@@ -141,3 +141,24 @@ export interface GraddingCleanData {
     cleanedPartsImages: string;
     damagedPartsImages: string;
 }
+
+export interface BoilingCleanData {
+    id: number;
+    date: string;
+    mc_name: string;
+    motorAndOtherPartsCleaning: boolean;
+    cookingInsideWashByStream: boolean;
+    drainLineCleaning: boolean;
+    waterWashChemberCleaning: boolean;
+    pressureGageCleanning: boolean;
+    hopper: boolean;
+    elevetorCup: boolean;
+    percentage: number;
+    damage: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+    partsName: string;
+    cleanedBy: string;
+    cleanedPartsImages: string;
+    damagedPartsImages: string;
+}

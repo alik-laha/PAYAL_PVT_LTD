@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig"
 
-const CleaningScooping = sequelize.define('cleaningScooping', {
+const CleaningScoopingSectionCutting = sequelize.define('cleaningScoopingSectionCutting', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -15,17 +15,17 @@ const CleaningScooping = sequelize.define('cleaningScooping', {
         type: DataTypes.DATE,
         allowNull: false,
     },
-    gearOne: {
+    gear_m3_30ta: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false
     },
-    gearTwo: {
+    gear_m3_40tb: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false
     },
-    gearThree: {
+    gear_m372ta_50_18r: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false
@@ -100,7 +100,7 @@ const CleaningScooping = sequelize.define('cleaningScooping', {
         allowNull: false,
         defaultValue: false
     },
-    gearFour: {
+    gear_m3_60ta: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false
@@ -115,7 +115,28 @@ const CleaningScooping = sequelize.define('cleaningScooping', {
         allowNull: false,
         defaultValue: false
     },
+    damage: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
+    partsName: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    cleanedPartsImages: {
+        type: DataTypes.STRING(1000),
+        allowNull: false
+    },
+    damagedPartsImages: {
+        type: DataTypes.STRING(1000),
+        allowNull: true
+    },
+    createdBy: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
 
 });
 
-export default CleaningScooping;
+export default CleaningScoopingSectionCutting;
