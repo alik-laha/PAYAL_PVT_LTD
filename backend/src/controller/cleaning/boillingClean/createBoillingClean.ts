@@ -43,7 +43,11 @@ const BoillingMaintenenceImageUpload = async (req: Request, res: Response) => {
             const fileteredDamagedImage = DamagedImage.filter((image) => image !== "")
             damagedPartsImages = JSON.stringify(fileteredDamagedImage)
         }
+
+
+
         if (damagedPartsImages && damage) {
+
             const BoillingCleanReport = await BoillingMaintenence.create({
                 mc_name,
                 date,
@@ -61,14 +65,30 @@ const BoillingMaintenenceImageUpload = async (req: Request, res: Response) => {
                 damagedPartsImages,
                 createdBy
             })
-            if (BoillingCleanReport) {
-                res.status(200).json({ message: "Boilling Clean Report Created Successfully" });
-            }
-            else {
-                res.status(400).json({ message: "Failed to Create Boilling Clean Report" });
-            }
+            if (!BoillingCleanReport) return res.status(400).send('Data not saved');
+            return res.status(200).send('Data saved successfully');
         }
-
+        else {
+            const BoillingCleanReport = await BoillingMaintenence.create({
+                mc_name,
+                date,
+                motorAndOtherPartsCleaning: motorClean,
+                cookingInsideWashByStream: insideWashByStream,
+                drainLineCleaning: drainCleaning,
+                waterWashChemberCleaning: waterChamberCleaning,
+                pressureGageCleanning: pressureGageClean,
+                hopper: hopperClean,
+                elevetorCup,
+                percentage,
+                damage,
+                partsName,
+                cleanedPartsImages,
+                damagedPartsImages,
+                createdBy
+            })
+            if (!BoillingCleanReport) return res.status(400).send('Data not saved');
+            return res.status(200).send('Data saved successfully');
+        }
     }
     catch (error) {
         console.log(error);
