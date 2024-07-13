@@ -196,3 +196,39 @@ export interface ScoopingSectionCuttingCleanData {
     cleanedPartsImages: string;
     damagedPartsImages: string;
 }
+
+export interface AbhayMcCleanData {
+    id: number;
+    date: string;
+    mc_name: string;
+    mainElevetorCup: boolean;
+    mainElevetorGearBox: boolean;
+    mainElevetorSpocket: boolean;
+    mainElevetorChain: boolean;
+    vibretor_1_scooperFan: boolean;
+    vibretor_1_clamSap: boolean;
+    vibretor_1_towerBlower: boolean;
+    vibretor_2_clamSap: boolean;
+    vibretor2_scooperFan: boolean;
+    vibretor_2_towerBlower: boolean;
+    wholesElevetorCup: boolean;
+    wholesElevetorSap: boolean;
+    wholesElevetorBlower: boolean;
+    wholesElevetorPully: boolean;
+    wholeElevetorSplitsAndBlower: boolean;
+    wholeElevetorGearBox: boolean;
+    sizerElevetor_1_cup: boolean;
+    sizerElevetor_2_cup: boolean;
+    shellHopper: boolean;
+    shelllBlower: boolean;
+    sizerElevetor_2toUnscoopTableScooperFan: boolean;
+    panaboardAllPartsCleanByHandBlower: boolean;
+    damage: boolean;
+    partsName: string;
+    percentage: number;
+    createdAt: Date;
+    updatedAt: Date;
+    cleanedBy: string;
+    cleanedPartsImages: string;
+    damagedPartsImages: string;
+}

@@ -121,6 +121,10 @@ const CleaningAbhayMc = sequelize.define('cleaningAbhayMc', {
         allowNull: false,
         defaultValue: false
     },
+    percentage: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     damage: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
