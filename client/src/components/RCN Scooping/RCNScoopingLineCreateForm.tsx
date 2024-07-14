@@ -7,7 +7,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 
 interface Props {
     scoop: ScoopData[]       
@@ -90,6 +91,31 @@ const RCNScoopingLineCreateForm = (props:Props) => {
    
     const [newFormData, setNewFormData] = useState<MergedData[]>([]);
     const [newFormupdateData, setNewFormupdateData] = useState<MergedUpdateData[]>([]);
+
+    const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
+    const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
+    // const dialog = document.getElementById('myDialog');
+    const closeDialogButton = document.getElementById('empcloseDialog') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('errorempcloseDialog') as HTMLInputElement;
+
+    if (closeDialogButton) {
+        closeDialogButton.addEventListener('click', () => {
+            if (successdialog != null) {
+                (successdialog as any).close();
+                window.location.reload();
+            }
+
+
+        });
+    }
+    if (errorcloseDialogButton) {
+        errorcloseDialogButton.addEventListener('click', () => {
+            if (errordialog != null) {
+                (errordialog as any).close();
+            }
+
+        });
+    }
    
     
     useEffect(() => {
@@ -267,14 +293,27 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         console.log(rows)
     }
 
-    const handletransfer = async (index:number,field:string,fieldvalue:string|number) => {
+    const handletransfer = async (index:number,field:string,fieldvalue:number) => {
+
+       
         const newRows = [...rows]
         newRows[index] = { ...newRows[index], [field]: fieldvalue };
         rows[index] = newRows[index]
-        rows[index].Receiving_Qty-= rows[index].Transfer_Qty
-     
-        handleRowChange(index,'Receiving_Qty',rows[index].Receiving_Qty)
+        if(fieldvalue>rows[index].Receiving_Qty)
+            {
+           
+            
     
+             
+                alert('Transfer Amount is greater Than Receiving AMount')
+                return
+            
+
+        }
+        rows[index].Receiving_Qty-= rows[index].Transfer_Qty
+        
+        handleRowChange(index,'Receiving_Qty',rows[index].Receiving_Qty)
+        
         rows[parseInt(rows[index].Transfer_To)-1].Receiving_Qty+=
         Number(rows[index].Transfer_Qty)
         handleRowChange(index,'Receiving_Qty',rows[index].Receiving_Qty)
@@ -518,18 +557,18 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                   </form>
                   <dialog id="successemployeedialog" className="dashboard-modal">
                   <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
-                  {/* <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                  <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
                       <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
-                  </span> */}
+                  </span>
   
   
               </dialog>
   
               <dialog id="erroremployeedialog" className="dashboard-modal">
                   <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
-                  {/* <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                  <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
                       <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
-                  </span> */}
+                  </span>
   
   
               </dialog>
