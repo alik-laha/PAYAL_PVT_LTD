@@ -43,6 +43,7 @@ interface ScoopingRowData{
     otherTime: string;
     Brkdwn_reason: string;
     noOfOperators: string;
+    Transfer_To_MC:string;
 }
 
 interface MergedData {
@@ -267,15 +268,15 @@ const RCNScoopingLineCreateForm = (props:Props) => {
             Trolley_Small_JB:'',
             Trolley_Broken:'',
             Mc_on:'',Mc_off:'',Brkdwn_reason:'',Mc_breakdown:'00:00',otherTime:'00:00',noOfEmployees:'',
-            noOfOperators:'',Transfer_To:'',Transfer_Qty:0
+            noOfOperators:'',Transfer_To:'',Transfer_Qty:0,Transfer_To_MC:''
 
 
 
         }));
       
-        console.log(initialform)
+        //console.log(initialform)
         setRows(initialform)
-        console.log(rows)
+        //console.log(rows)
     }, [props.scoop]);
 
 
@@ -286,27 +287,23 @@ const RCNScoopingLineCreateForm = (props:Props) => {
     
 
     const handleRowChange = (index:number,field:string,fieldvalue:string|number) => {
-
         const newRows=[...rows];
         newRows[index]={...newRows[index],[field]:fieldvalue};
         setRows(newRows)
         console.log(rows)
     }
 
-    const handletransfer = async (index:number,field:string,fieldvalue:number) => {
-
-       
+    const handletransfer = async (index:number,field:string,fieldvalue:number|string) => {
         const newRows = [...rows]
         newRows[index] = { ...newRows[index], [field]: fieldvalue };
         rows[index] = newRows[index]
-       
         rows[index].Receiving_Qty-= rows[index].Transfer_Qty
-        
         handleRowChange(index,'Receiving_Qty',rows[index].Receiving_Qty)
-        
         rows[parseInt(rows[index].Transfer_To)-1].Receiving_Qty+=
         Number(rows[index].Transfer_Qty)
         handleRowChange(index,'Receiving_Qty',rows[index].Receiving_Qty)
+        handleRowChange(index,'Transfer_To_MC',rows[parseInt(rows[index].Transfer_To)-1].Scooping_Line_Mc)
+      
       
 
 
@@ -455,7 +452,8 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                         <TableHead className="text-center" >No Of Ladies</TableHead>
                         <TableHead className="text-center" >No Of Operator</TableHead>
                         <TableHead className="text-center" >Transfer Qty</TableHead>
-                        <TableHead className="text-center" >Transfer To Line</TableHead>
+                        <TableHead className="text-center" >Transfer To No</TableHead>
+                        <TableHead className="text-center" >Transfer LineName</TableHead>
             
 
                       
@@ -526,8 +524,8 @@ const RCNScoopingLineCreateForm = (props:Props) => {
 
                                         </TableCell>
                                         <TableCell>
-                                        {/* <a className="bg-green-500  text-center items-center justify-center h-7 w-19" onClick={()=>handletransfer(idx)}>Transfer</a> */}
-
+                                        
+                                        <TableCell className="text-center font-semibold">{row.Transfer_To_MC}</TableCell>
                                         </TableCell>
                                         
                                         

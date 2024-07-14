@@ -91,7 +91,7 @@ const approveEditBoiling = async (req: Request, res: Response) => {
                 if(prevdata.Scooping_Line_Mc!=Scooping_Line_Mc){
                     let linecount = await RcnScooping.count({ where: { LotNo: LotNo, Scooping_Line_Mc: Scooping_Line_Mc } })
                    
-                    if (linecount > 1) {
+                    if (linecount > 0) {
                         const rcnscooping = await RcnScooping.update({
                             Receiving_Qty: (parseFloat(Size) * 80),
                             origin: origin,
