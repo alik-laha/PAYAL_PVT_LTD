@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator"
 import { useState } from "react"
 import BoillingMaintenance from "./boillingCleaning/BoillingCleaning"
 import ScoopinSectionCuttingCleaning from "./ScoopingSectionCuttingCleaning/ScoopingSecCuttingCleaning"
-import { set } from "lodash"
+import AbhayMcCleaning from "./AbhayMcCleaning/AbhayMcCleaning"
 
 
 
@@ -16,12 +16,15 @@ const Cleaning = () => {
     const [CuttingView, setCuttingView] = useState("none")
     const [BoillingView, setBoillingView] = useState("none")
     const [BoillingBackground, setBoillingBackground] = useState("")
+    const [AbhayMcView, setAbhayMcView] = useState("none")
+    const [AbhayMcBackground, setAbhayMcBackground] = useState("")
     const handleGraddingView = () => {
         if (GraddingView === "block") {
             setGraddingView("none")
             setGraddingBackground("")
             setBoillingBackground("")
             setCuttingBackground("")
+            setAbhayMcBackground("")
         }
         else {
             setGraddingView("block")
@@ -30,6 +33,8 @@ const Cleaning = () => {
             setCuttingBackground("")
             setBoillingBackground("")
             setGraddingBackground("flexbox-tile-clean-select bg-blue-400")
+            setAbhayMcBackground("")
+            setAbhayMcView("none")
         }
 
     }
@@ -39,7 +44,7 @@ const Cleaning = () => {
             setBoillingBackground("")
             setGraddingBackground("")
             setCuttingBackground("")
-
+            setAbhayMcBackground("")
         }
         else {
             setBoillingView("block")
@@ -48,7 +53,8 @@ const Cleaning = () => {
             setCuttingBackground("")
             setGraddingBackground("")
             setBoillingBackground("flexbox-tile-clean-select bg-red-400")
-            console.log(BoillingView)
+            setAbhayMcBackground("")
+            setAbhayMcView("none")
         }
 
     }
@@ -58,14 +64,37 @@ const Cleaning = () => {
             setCuttingBackground("")
             setGraddingBackground("")
             setBoillingBackground("")
+            setAbhayMcBackground("")
         }
         else {
             setCuttingView("block")
             setGraddingView("none")
             setBoillingView("none")
+            setAbhayMcView("none")
+            setAbhayMcBackground("")
             setGraddingBackground("")
             setBoillingBackground("")
             setCuttingBackground("flexbox-tile-clean-select bg-green-400")
+        }
+
+    }
+    const handleAbhayMcView = () => {
+        if (AbhayMcView === "block") {
+            setAbhayMcView("none")
+            setAbhayMcBackground("")
+            setGraddingBackground("")
+            setBoillingBackground("")
+            setCuttingBackground("")
+        }
+        else {
+            setAbhayMcView("block")
+            setGraddingView("none")
+            setBoillingView("none")
+            setGraddingBackground("")
+            setBoillingBackground("")
+            setAbhayMcBackground("flexbox-tile-clean-select bg-green-400")
+            setCuttingBackground("")
+            setCuttingView("none")
         }
 
     }
@@ -77,11 +106,13 @@ const Cleaning = () => {
 
                 <Separator className="my-4" />
                 <div className="flex h-5 items-center space-x-2 text-sm ">
-                    <div onClick={handleGraddingView} className={`flexbox-tile-clean-notselect ${GraddingBackground}`}>Grading</div>
+                    <div onClick={handleGraddingView} className={`flexbox-tile-clean-notselect ${GraddingBackground}`}>Rcn Grading</div>
 
-                    <div onClick={handleBoillingView} className={`flexbox-tile-clean-notselect ${BoillingBackground}`} >Boilling</div>
+                    <div onClick={handleBoillingView} className={`flexbox-tile-clean-notselect ${BoillingBackground}`} >Cooking</div>
 
-                    <div onClick={handleCuttingView} className={`flexbox-tile-clean-notselect ${CuttingBackground}`} >Cutting</div>
+                    <div onClick={handleCuttingView} className={`flexbox-tile-clean-notselect ${CuttingBackground}`} >Scooping Section Cutting M\c</div>
+
+                    <div onClick={handleAbhayMcView} className={`flexbox-tile-clean-notselect ${AbhayMcBackground}`} >Abhay M\c and Other Parts</div>
                 </div>
                 <Separator className="my-4" />
                 <div style={{ display: GraddingView }}>
@@ -92,6 +123,9 @@ const Cleaning = () => {
                 </div>
                 <div style={{ display: CuttingView }}>
                     <ScoopinSectionCuttingCleaning />
+                </div>
+                <div style={{ display: AbhayMcView }}>
+                    <AbhayMcCleaning />
                 </div>
             </div>
         </div>

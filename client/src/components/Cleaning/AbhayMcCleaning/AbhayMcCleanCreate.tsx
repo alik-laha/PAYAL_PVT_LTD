@@ -1,4 +1,3 @@
-import { AssetData } from "@/type/type";
 import axios from "axios";
 import { useState, useEffect, useRef, FormEvent } from "react";
 import { Label } from "../../ui/label";
@@ -11,7 +10,6 @@ import { FaCamera } from "react-icons/fa";
 import CameraComponentBroken from "../CameraComponentBroken";
 
 const AbhayMcCleaningCreate = () => {
-    const [GraddingMachine, setGraddingMachine] = useState<AssetData[]>([]);
     const Date = useRef<HTMLInputElement>(null);
     const CleancameraRef = useRef<any>(null);
     const DamageCameraRef = useRef<any>(null);
@@ -46,15 +44,6 @@ const AbhayMcCleaningCreate = () => {
     const [brokenImageUrl, setBrokenImageUrl] = useState<string[]>([])
     const [colorprogress, setColorProgress] = useState<string>('')
 
-    useEffect(() => {
-        axios.get('/api/asset/getallmachineformaintenence/Grading')
-            .then(res => {
-                setGraddingMachine(res.data);
-            })
-            .catch(err => {
-                console.error(err);
-            });
-    }, []);
 
     const CreateurlFromblob = (blob: Blob[]) => {
         for (let i = 0; i < blob.length; i++) {
@@ -71,7 +60,7 @@ const AbhayMcCleaningCreate = () => {
 
 
     useEffect(() => {
-        const totalSteps = 21;
+        const totalSteps = 22;
         const completedSteps = [
             mainElevetorCup,
             mainElevetorGearBox,
@@ -157,12 +146,33 @@ const AbhayMcCleaningCreate = () => {
             }
         }
         formData.append("date", Date.current?.value || "");
-
         formData.append("damage", damage.toString());
         formData.append("partsName", partsName);
         formData.append("percentage", progress.toString());
+        formData.append("mainElevetorCup", mainElevetorCup.toString());
+        formData.append("mainElevetorGearBox", mainElevetorGearBox.toString());
+        formData.append("mainElevetorSpocket", mainElevetorSpocket.toString());
+        formData.append("mainElevetorChain", mainElevetorChain.toString());
+        formData.append("vibretor_1_scooperFan", vibretor_1_scooperFan.toString());
+        formData.append("vibretor_1_clamSap", vibretor_1_clamSap.toString());
+        formData.append("vibretor_1_towerBlower", vibretor_1_towerBlower.toString());
+        formData.append("vibretor_2_clamSap", vibretor_2_clamSap.toString());
+        formData.append("vibretor2_scooperFan", vibretor2_scooperFan.toString());
+        formData.append("vibretor_2_towerBlower", vibretor_2_towerBlower.toString());
+        formData.append("wholesElevetorCup", wholesElevetorCup.toString());
+        formData.append("wholesElevetorSap", wholesElevetorSap.toString());
+        formData.append("wholesElevetorBlower", wholesElevetorBlower.toString());
+        formData.append("wholesElevetorPully", wholesElevetorPully.toString());
+        formData.append("wholeElevetorSplitsAndBlower", wholeElevetorSplitsAndBlower.toString());
+        formData.append("wholeElevetorGearBox", wholeElevetorGearBox.toString());
+        formData.append("sizerElevetor_1_cup", sizerElevetor_1_cup.toString());
+        formData.append("sizerElevetor_2_cup", sizerElevetor_2_cup.toString());
+        formData.append("shelllBlower", shelllBlower.toString());
+        formData.append("shellHopper", shellHopper.toString());
+        formData.append("sizerElevetor_2toUnscoopTableScooperFan", sizerElevetor_2toUnscoopTableScooperFan.toString());
+        formData.append("panaboardAllPartsCleanByHandBlower", panaboardAllPartsCleanByHandBlower.toString());
 
-        axios.post("/api/cleaning/graddingcleancreate", formData)
+        axios.post("/api/cleaning/abhayMcCleanCreate", formData)
             .then((res) => {
                 console.log("Files uploaded successfully", res);
                 alert("Notice has been Uploaded Successfully");
@@ -173,10 +183,10 @@ const AbhayMcCleaningCreate = () => {
     };
 
 
-    const successdialogclean = document.getElementById('Photodailogclean') as HTMLInputElement;
-    const successdialogcleandamage = document.getElementById('Photodailogcleandamage') as HTMLInputElement;
-    const closeDialogButton = document.getElementById('closePhotoclean') as HTMLInputElement;
-    const errorcloseDialogButton = document.getElementById('closePhotodamage') as HTMLInputElement;
+    const successdialogclean = document.getElementById('AbhayMcPhotodailogclean') as HTMLInputElement;
+    const successdialogcleandamage = document.getElementById('AbhayMcPhotodailogcleandamage') as HTMLInputElement;
+    const closeDialogButton = document.getElementById('AbhayMcclosePhotoclean') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('AbhayMcclosePhotodamage') as HTMLInputElement;
     const setCleaningImage = (photo: any) => {
         let data: Blob[] = [];
         photo.toBlob((blob: Blob) => {
@@ -242,58 +252,117 @@ const AbhayMcCleaningCreate = () => {
 
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">Machine Name</Label>
-                    <select className="w-2/4 text-center flex h-8 rounded-md border border-input bg-background px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => setMc_name(e.target.value)} value={mc_name} required>
-                        <option value="">Select Machine</option>
-                        {GraddingMachine.map((item: AssetData) => (
-                            <option key={item.id} value={item.machineName}>{item.machineName}</option>
-                        ))}
-                    </select>
-                </div>
-                <div className="flex">
                     <Label className="w-2/4 pt-1">Date Of Cleaning</Label>
                     <Input className="w-2/4 justify-center" placeholder="Date" ref={Date} type='date' required />
                 </div>
-                <div className="flex mt-2">
-                    <Label className="w-2/4 pt-1">1. DustTable Clean</Label>
-                    <div className="flex ml-20 items-center space-x-2">
-                        <Switch id="dustTable" checked={dustTable} onCheckedChange={setDustTable} />
+                <div className="flex">
+                    <Label className="w-2/4 pt-2">Main Elevetor Cup</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={mainElevetorCup} onCheckedChange={setMainElevetorCup} />
+                    </div>
+                    <Label className="w-2/4 pt-2">Main Elevetor Gear Box</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={mainElevetorGearBox} onCheckedChange={setMainElevetorGearBox} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">2. Hopper Clean</Label>
-                    <div className="flex ml-20 items-center space-x-2">
-                        <Switch id="hopper" checked={hopper} onCheckedChange={setHopper} />
+                    <Label className="w-2/4 pt-2">Main Elevetor Spocket</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={mainElevetorSpocket} onCheckedChange={setMainElevetorSpocket} />
+                    </div>
+                    <Label className="w-2/4 pt-2">Main Elevetor Chain</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={mainElevetorChain} onCheckedChange={setMainElevetorChain} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">3. Elevetor Cup Clean</Label>
-                    <div className="flex ml-20 items-center space-x-2">
-                        <Switch id="elevetorCups" checked={elevetorCups} onCheckedChange={setElevetorCups} />
+                    <Label className="w-2/4 pt-2">Vibretor 1 Scooper Fan</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={vibretor_1_scooperFan} onCheckedChange={setVibretor_1_scooperFan} />
+                    </div>
+                    <Label className="w-2/4 pt-2">Vibretor 1 Clam Sap</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={vibretor_1_clamSap} onCheckedChange={setVibretor_1_clamSap} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">4. Elevetor Motor Clean</Label>
-                    <div className="flex ml-20 items-center space-x-2">
-                        <Switch id="elevetorMotorCleanByAir" checked={elevetorMotorCleanByAir} onCheckedChange={setElevetorMotorCleanByAir} />
+                    <Label className="w-2/4 pt-2">Vibretor 1 Tower Blower</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={vibretor_1_towerBlower} onCheckedChange={setVibretor_1_towerBlower} />
+                    </div>
+                    <Label className="w-2/4 pt-2">Vibretor 2 Clam Sap</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={vibretor_2_clamSap} onCheckedChange={setVibretor_2_clamSap} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">5. Mc All Parts Clean</Label>
-                    <div className="flex ml-20 items-center space-x-2">
-                        <Switch id="McAllPartsClean" checked={McAllPartsClean} onCheckedChange={setMcAllPartsClean} />
+                    <Label className="w-2/4 pt-2">Vibretor 2 Scooper Fan</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={vibretor2_scooperFan} onCheckedChange={setVibretor2_scooperFan} />
+                    </div>
+                    <Label className="w-2/4 pt-2">Vibretor 2 Tower Blower</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={vibretor_2_towerBlower} onCheckedChange={setVibretor_2_towerBlower} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">6. Bin Clean</Label>
-                    <div className="flex  ml-20 items-center space-x-2">
-                        <Switch id="binClean" checked={binClean} onCheckedChange={setBinClean} />
+                    <Label className="w-2/4 pt-2">Wholes Elevetor Cup</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={wholesElevetorCup} onCheckedChange={setWholesElevetorCup} />
+                    </div>
+                    <Label className="w-2/4 pt-2">Wholes Elevetor Sap</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={wholesElevetorSap} onCheckedChange={setWholesElevetorSap} />
                     </div>
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 pt-1">7. Callibration Roller Holes Clean</Label>
-                    <div className="flex ml-20 items-center space-x-2">
-                        <Switch id="CallibrationRollerHolesClean" checked={CallibrationRollerHolesClean} onCheckedChange={setCallibrationRollerHolesClean} />
+                    <Label className="w-2/4 pt-2">Wholes Elevetor Blower</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={wholesElevetorBlower} onCheckedChange={setWholesElevetorBlower} />
+                    </div>
+                    <Label className="w-2/4 pt-2">Wholes Elevetor Pully</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={wholesElevetorPully} onCheckedChange={setWholesElevetorPully} />
+                    </div>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-2">Whole Elevetor Splits And Blower</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={wholeElevetorSplitsAndBlower} onCheckedChange={setWholeElevetorSplitsAndBlower} />
+                    </div>
+                    <Label className="w-2/4 pt-2">Whole Elevetor Gear Box</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={wholeElevetorGearBox} onCheckedChange={setWholeElevetorGearBox} />
+                    </div>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-2">Sizer Elevetor 1 Cup</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={sizerElevetor_1_cup} onCheckedChange={setSizerElevetor_1_cup} />
+                    </div>
+                    <Label className="w-2/4 pt-2">Sizer Elevetor 2 Cup</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={sizerElevetor_2_cup} onCheckedChange={setSizerElevetor_2_cup} />
+                    </div>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-2">Shell Hopper</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={shellHopper} onCheckedChange={setShellHopper} />
+                    </div>
+                    <Label className="w-2/4 pt-2">Shell Blower</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={shelllBlower} onCheckedChange={setShellBlower} />
+                    </div>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-2">Sizer Elevetor 2 to Unscoop Table Scooper Fan</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={sizerElevetor_2toUnscoopTableScooperFan} onCheckedChange={setSizerElevetor_2toUnscoopTableScooperFan} />
+                    </div>
+                    <Label className="w-2/4 pt-2">Panaboard All Parts Clean By Hand Blower</Label>
+                    <div className="flex items-center space-x-2">
+                        <Switch checked={panaboardAllPartsCleanByHandBlower} onCheckedChange={setPanaboardAllPartsCleanByHandBlower} />
                     </div>
                 </div>
                 <div className="flex mt-2">
@@ -363,8 +432,8 @@ const AbhayMcCleaningCreate = () => {
                     <Button className="bg-orange-500 text-center items-center justify-center h-8 w-20">Submit</Button>
                 </div>
             </form >
-            <dialog id="Photodailogclean" className="dashboard-modal">
-                <button id="closePhotoclean" className="dashboard-modal-close-btn ">X </button>
+            <dialog id="AbhayMcPhotodailogclean" className="dashboard-modal">
+                <button id="AbhayMcclosePhotoclean" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex">
                     <CameraComponentClean onSave={(photo: any) => setCleaningImage(photo)} ref={CleancameraRef} />
 
@@ -373,8 +442,8 @@ const AbhayMcCleaningCreate = () => {
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
-            <dialog id="Photodailogcleandamage" className="dashboard-modal">
-                <button id="closePhotodamage" className="dashboard-modal-close-btn ">X </button>
+            <dialog id="AbhayMcPhotodailogcleandamage" className="dashboard-modal">
+                <button id="AbhayMcclosePhotodamage" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex">
 
                     <CameraComponentBroken onSave={(photo: any) => setBrokenImage(photo)} ref={DamageCameraRef} />
