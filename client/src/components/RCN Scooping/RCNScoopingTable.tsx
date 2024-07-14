@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import React, { useEffect } from "react"
 import { Input } from "../ui/input";
 // import DatePicker from "../common/DatePicker";
-import { PermissionRole, RcnPrimaryEntryData, pendingCheckRoles, rcnScoopingData } from "@/type/type";
+import { PermissionRole, RcnPrimaryEntryData, ScoopData, pendingCheckRoles, rcnScoopingData } from "@/type/type";
 import { ExcelRcnPrimaryEntryData } from "@/type/type";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -65,6 +65,7 @@ import { useContext } from "react";
 import Context from "../context/context";
 import { EditPendingData } from "@/type/type";
 import { CiEdit } from "react-icons/ci";
+import RCNLineCreateEditForm from "./RCNLineCreateEditForm";
 
 const RCNScoopingTable = () => {
 
@@ -152,6 +153,22 @@ const RCNScoopingTable = () => {
         setblockpagen('flex')
         handleSearch()
     }, [page])
+    const [scoopdata, setscoopdata ]  = useState<ScoopData[]>([])
+
+    //let scoopdata:ScoopData[]=[]
+   
+    const handleLineEntry = async (lotNO:string) => {
+        axios.get(`/api/scooping/getScoopByLot/${lotNO}`).then(res=>{
+           console.log(res)
+           if(Array.isArray(res.data.scoopingLot)){
+            //scoopdata=res.data.scoopingLot
+            setscoopdata(res.data.scoopingLot)
+             console.log(scoopdata)
+           }
+             
+            //set(res.data.scoopingLot)
+        })
+    }
 
     const exportToExcel = async () => {
         const response = await axios.put('/api/rcnprimary/rcnprimarysearch', {
@@ -465,14 +482,15 @@ const RCNScoopingTable = () => {
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <Dialog>
                                                     <DialogTrigger className="flex"><CiEdit size={20} />
-                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >View/Modify</button>
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" onClick={()=>handleLineEntry(item.LotNo,item.origin)}>View/Modify</button>
                                                     </DialogTrigger>
-                                                    <DialogContent>
+                                                    <DialogContent className='max-w-3xl'>
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-5'>Scooping Modify</p>
+                                                                <p className='text-1xl pb-1 text-center mt-5'>Line Wise Scooping Modify</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
+                                                        <RCNLineCreateEditForm scoop={scoopdata}/>
                                                         {/* <RcnPrimaryModify data={item} /> */}
                                                     </DialogContent>
                                                 </Dialog>

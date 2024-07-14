@@ -21,5 +21,6 @@ router.get("/getScoopByLot/:lotNO", jwtVerify, getscoopByLot)
 router.put("/createScooping/:id", jwtVerify, createscoopingReport)
 router.post("/createScoopingall", jwtVerify, createscoopingAllReport)
 router.post("/searchScooping", jwtVerify, SearchScooping)
+router.post("/getScoopByLotOrigin", jwtVerify, getscoopByLot)
 
 export default router

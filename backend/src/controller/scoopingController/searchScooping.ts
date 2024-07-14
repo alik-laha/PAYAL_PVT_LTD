@@ -38,14 +38,14 @@ const SearchScooping = async (req: Request, res: Response) => {
         if (limit === 0 && offset === 0) {
             GradingEntries = await RcnAllScooping.findAll({
                 where,
-                order: [['date', 'DESC'],['LotNo','ASC']], // Order by date descending
+                order: [['LotNo','DESC'],['date', 'DESC']], // Order by date descending
 
             });
         }
         else {
             GradingEntries = await RcnAllScooping.findAll({
                 where,
-                order: [['date', 'DESC'],['LotNo','ASC']], // Order by date descending
+                order: [['LotNo','DESC'],['date', 'DESC']], // Order by date descending
                 limit,
                 offset
             });

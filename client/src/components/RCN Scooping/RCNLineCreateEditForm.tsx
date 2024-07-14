@@ -81,7 +81,7 @@ import {   useEffect, useRef, useState } from "react"
 import axios from "axios";
 
 
-const RCNScoopingLineCreateForm = (props:Props) => {
+const RCNLineCreateEditForm = (props:Props) => {
     //console.log(props)
     const DateRef = useRef<HTMLInputElement>(null);
     const maleRef = useRef<HTMLInputElement>(null);
@@ -256,18 +256,20 @@ const RCNScoopingLineCreateForm = (props:Props) => {
             Scooping_Line_Mc:item.Scooping_Line_Mc,
             Opening_Qty:item.Opening_Qty,
             Receiving_Qty:parseFloat(item.Receiving_Qty),
-            Wholes:'',
-            Broken:'',
-            Uncut:'',
-            Unscoop:'',
-            NonCut:'',
-            Rejection:'',
-            Dust:'',
-            KOR:'',
-            Trolley_Small_JB:'',
-            Trolley_Broken:'',
-            Mc_on:'',Mc_off:'',Brkdwn_reason:'',Mc_breakdown:'00:00',otherTime:'00:00',noOfEmployees:'',
-            noOfOperators:'',Transfer_To:'',Transfer_Qty:0
+            Wholes:item.Wholes,
+            Broken:item.Broken,
+            Uncut:item.Uncut,
+            Unscoop:item.Unscoop,
+            NonCut:item.NonCut,
+            Rejection:item.Rejection,
+            Dust:item.Dust,
+            KOR:item.KOR,
+            Trolley_Small_JB:item.Trolley_Small_JB,
+            Trolley_Broken:item.Trolley_Broken,
+            Mc_on:item.Mc_on,Mc_off:item.Mc_off,
+            Brkdwn_reason:item.Brkdwn_reason,Mc_breakdown:item.Mc_breakdown,otherTime:item.otherTime,
+            noOfEmployees:item.noOfEmployees,
+            noOfOperators:item.noOfOperators,Transfer_To:item.Transfered_to,Transfer_Qty:item.Transfered_Qty
 
 
 
@@ -575,4 +577,4 @@ const RCNScoopingLineCreateForm = (props:Props) => {
           </>
     )
 }
-export default RCNScoopingLineCreateForm;
+export default RCNLineCreateEditForm;

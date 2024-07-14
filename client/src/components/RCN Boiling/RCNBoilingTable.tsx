@@ -251,6 +251,12 @@ const RCNBoilingTable = () => {
                 (approvesuccessdialog as any).showModal();
             }
         }
+        if (data.message === "Can't Be approved/Scooping Done") {
+            seterrorText(data.message)
+            if (rejectsuccessdialog != null) {
+                (rejectsuccessdialog as any).showModal();
+            }
+        }
     }
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
