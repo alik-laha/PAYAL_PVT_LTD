@@ -3,7 +3,7 @@ import DashboardHeader from "../dashboard/DashboardHeader"
 import DashboardSidebar from "../dashboard/DashboardSidebar"
 import { Separator } from "@/components/ui/separator"
 import { useState } from "react"
-import BoillingMaintenance from "./boillingCleaning/BoillingCleaning"
+import CookingMaintenance from "./cookingCleaning/CookingingCleaning"
 import ScoopinSectionCuttingCleaning from "./ScoopingSectionCuttingCleaning/ScoopingSecCuttingCleaning"
 import AbhayMcCleaning from "./AbhayMcCleaning/AbhayMcCleaning"
 
@@ -119,7 +119,7 @@ const Cleaning = () => {
                     <GraddingMaintenance />
                 </div>
                 <div style={{ display: BoillingView }}>
-                    <BoillingMaintenance />
+                    <CookingMaintenance />
                 </div>
                 <div style={{ display: CuttingView }}>
                     <ScoopinSectionCuttingCleaning />

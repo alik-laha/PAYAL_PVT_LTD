@@ -16,7 +16,7 @@ import ViewallImage from "../ViewallImage";
 
 
 
-const BoillingCleanTable = () => {
+const CookingCleanTable = () => {
     const [fromdate, setfromDate] = React.useState<string>('');
     const [todate, settoDate] = React.useState<string>('');
     const [hidetodate, sethidetoDate] = React.useState<string>('');
@@ -54,7 +54,7 @@ const BoillingCleanTable = () => {
 
     const handleSearch = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
-        axios.post('/api/cleaning/boillingcleanreportview', { fromdate, todate, mc_name })
+        axios.post('/api/cleaning/cookingcleanreportview', { fromdate, todate, mc_name })
             .then((res) => {
                 setCleanTable(res.data)
 
@@ -76,7 +76,7 @@ const BoillingCleanTable = () => {
     }, [])
     useEffect(() => {
 
-        axios.post('/api/cleaning/boillingcleanreportview')
+        axios.post('/api/cleaning/cookingcleanreportview')
             .then((res) => {
                 setCleanTable(res.data)
                 console.log(res.data)
@@ -216,4 +216,4 @@ const BoillingCleanTable = () => {
         </div >
     )
 }
-export default BoillingCleanTable
+export default CookingCleanTable

@@ -2,16 +2,14 @@ import {
     Dialog,
     DialogContent,
     DialogHeader,
-    DialogTitle,
     DialogTrigger,
-    DialogDescription
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import BoillingMaintenanceCreate from "./boillingCleaningCreate"
-import BoillingMaintenanceTable from "./boillingCleaningTable"
+import CookingMaintenanceCreate from "./CookingingCleaningCreate"
+import CookingMaintenanceTable from "./CookingingCleaningTable"
 
 
-const BoillingMaintenance = () => {
+const CookingMaintenance = () => {
     return (
         <div>
             <Dialog>
@@ -24,11 +22,11 @@ const BoillingMaintenance = () => {
                         </DialogDescription> */}
                     </DialogHeader>
 
-                    <BoillingMaintenanceCreate />
+                    <CookingMaintenanceCreate />
                 </DialogContent>
             </Dialog>
-            <BoillingMaintenanceTable />
+            <CookingMaintenanceTable />
         </div>
     )
 }
-export default BoillingMaintenance
+export default CookingMaintenance

@@ -7,11 +7,10 @@ import { Button } from "../../ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Progress } from "@/components/ui/progress";
 import { FaCamera } from "react-icons/fa";
-import BlobImageDisplay from "../ViewBlobimage";
 import CameraComponentBroken from "../CameraComponentBroken";
 import CameraComponentClean from '../CameraComponentClean';
 
-const BoillingCleanCreate = () => {
+const CookingCleanCreate = () => {
     const [GraddingMachine, setGraddingMachine] = useState([]);
     const [mc_name, setMc_name] = useState("");
     const Date = useRef<HTMLInputElement>(null);
@@ -104,7 +103,7 @@ const BoillingCleanCreate = () => {
                 }
             }
         }
-        axios.post('/api/cleaning/boillingcleancreate', formData)
+        axios.post('/api/cleaning/cookingcleancreate', formData)
             .then(res => {
                 console.log(res.data);
             })
@@ -311,4 +310,4 @@ const BoillingCleanCreate = () => {
     );
 }
 
-export default BoillingCleanCreate;
+export default CookingCleanCreate;
