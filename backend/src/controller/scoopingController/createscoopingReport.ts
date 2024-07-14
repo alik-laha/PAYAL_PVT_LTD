@@ -10,7 +10,7 @@ const createscoopingReport = async (req: Request, res: Response) => {
    
             let {  Receiving_Qty, Wholes,Broken,Uncut ,Unscoop,NonCut,Rejection,Dust,KOR
                 ,Trolley_Broken,Trolley_Small_JB,Mc_on,Mc_off,noOfEmployees,noOfOperators,male,female,Date,supervisor,
-                Mc_breakdown,otherTime,Brkdwn_reason,Transfer_Qty,Transfer_To } = req.body.data;
+                Mc_breakdown,otherTime,Brkdwn_reason,Transfer_Qty,Transfer_To_MC } = req.body.data;
             
              const createdBy = req.cookies.user
 
@@ -79,7 +79,7 @@ const createscoopingReport = async (req: Request, res: Response) => {
                     Mc_on:Mc_on,
                     Mc_off:Mc_off,
                     Transfered_Qty:Transfer_Qty,
-                    Transfered_To:Transfer_To
+                    Transfered_To:Transfer_To_MC
 
                 },
                 {
