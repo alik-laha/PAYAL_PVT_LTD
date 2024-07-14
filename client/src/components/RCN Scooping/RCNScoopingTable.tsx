@@ -13,14 +13,14 @@ import { Button } from "@/components/ui/button";
 import React, { useEffect } from "react"
 import { Input } from "../ui/input";
 // import DatePicker from "../common/DatePicker";
-import { RcnPrimaryEntryData } from "@/type/type";
+import { PermissionRole, RcnPrimaryEntryData, pendingCheckRoles, rcnScoopingData } from "@/type/type";
 import { ExcelRcnPrimaryEntryData } from "@/type/type";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
-import { pageNo,pagelimit } from "../common/exportData"
-import { FcApprove , FcDisapprove } from "react-icons/fc";
+import { pageNo, pagelimit, pendingCheckRole } from "../common/exportData"
+import { FcApprove, FcDisapprove } from "react-icons/fc";
 
 
 import {
@@ -38,7 +38,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import RCNScoopingModify from './RCNScoopingModify'
+
 import {
     AlertDialog,
     AlertDialogAction,
@@ -67,6 +67,8 @@ import { EditPendingData } from "@/type/type";
 import { CiEdit } from "react-icons/ci";
 
 const RCNScoopingTable = () => {
+
+
     const [origin, setOrigin] = useState<string>("")
     const [fromdate, setfromDate] = React.useState<string>('');
     const [todate, settoDate] = React.useState<string>('');
@@ -85,7 +87,7 @@ const RCNScoopingTable = () => {
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialog') as HTMLInputElement;
     const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialog') as HTMLInputElement;
 
-    const [transformedData, setTransformedData] = useState<ExcelRcnPrimaryEntryData[]>([]);
+    //const [transformedData, setTransformedData] = useState<ExcelRcnPrimaryEntryData[]>([]);
 
     if (rejectcloseDialogButton) {
         rejectcloseDialogButton.addEventListener('click', () => {
@@ -107,9 +109,17 @@ const RCNScoopingTable = () => {
         });
     }
 
+    const formatNumberWithSign = (number: number) => {
+        if (number > 0) {
+            return `+${number}`;
+        } else {
+            return `${number}`;
+        }
+    };
+
     useEffect(() => {
         if (editPendingData) {
-            console.log(editPendingData)
+           //console.log(editPendingData)
             setEditData(editPendingData)
             setblockpagen('none')
         }
@@ -117,13 +127,15 @@ const RCNScoopingTable = () => {
 
     const handleSearch = async () => {
         //console.log('search button pressed')
-        setEditData([])
-        setblockpagen('flex')
-        const response = await axios.put('/api/rcnprimary/rcnprimarysearch', {
+        //setEditPendingBoilingData([])
+        //setEditData([])
+        
+        const response = await axios.post('/api/scooping/searchScooping', {
             blConNo: blConNo,
             origin: origin,
             fromDate: fromdate,
-            toDate: todate
+            toDate: todate,
+          
         }, {
             params: {
                 page: page,
@@ -131,17 +143,20 @@ const RCNScoopingTable = () => {
             }
         })
         const data = await response.data
-        if (data.rcnEntries.length === 0 && page > 1) {
+        //console.log(data)
+        if (data.length === 0 && page > 1) {
             setPage((prev) => prev - 1)
 
         }
-        setData(data.rcnEntries)
+        setData(data)
 
     }
 
 
-
     useEffect(() => {
+        setEditData([])
+        //setEditPendingBoilingData([])
+        setblockpagen('flex')
         handleSearch()
     }, [page])
 
@@ -155,9 +170,9 @@ const RCNScoopingTable = () => {
         const data1 = await response.data
 
         let ws
-        let transformed
+        let transformed:ExcelRcnPrimaryEntryData[] = [];
         if (EditData.length > 0) {
-            
+
             transformed = EditData.map((item: EditPendingData, idx: number) => ({
                 SL_No: idx + 1,
                 Date: handletimezone(item.date),
@@ -176,8 +191,8 @@ const RCNScoopingTable = () => {
                 Approved_or_Reverted_By: item.approvedBy
                 // approvedBy is not there in edit rcn table
             }));
-            setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformedData);
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
             transformed = data1.rcnEntries.map((item: RcnPrimaryEntryData, idx: number) => ({
@@ -197,8 +212,8 @@ const RCNScoopingTable = () => {
                 Approved_or_Rejected_By: item.approvedBy
 
             }));
-            setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformedData);
+           // setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
         }
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
@@ -234,6 +249,17 @@ const RCNScoopingTable = () => {
         const finaldate = format(localdate, 'dd-MM-yyyy', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })
         return finaldate;
     }
+    const Role = localStorage.getItem('role') as keyof PermissionRole
+    const checkpending = (tab: string) => {
+        //console.log(Role)
+        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+            return true
+        }
+        else {
+            return false;
+        }
+
+    }
 
 
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -258,45 +284,46 @@ const RCNScoopingTable = () => {
     return (
         <div className="ml-5 mt-5 ">
 
-            <div className="flex flexbox-search">
+<div className="flex flexbox-search" >
 
-                <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" BL No. / Con No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+<Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No./ Line Name" value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
 
-                <select className='flexbox-search-width flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setOrigin(e.target.value)} value={origin}>
-                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
-                    {Origin.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                            {data}
-                        </option>
-                    ))}
-                </select>
+<select className='flexbox-search-width flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+    onChange={(e) => setOrigin(e.target.value)} value={origin}>
+    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
+    {Origin.map((data, index) => (
+        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+            {data}
+        </option>
+    ))}
+</select>
 
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
-                <Input className="w-1/6 flexbox-search-width-calender"
-                    type="date"
-                    value={fromdate}
-                    onChange={(e) => setfromDate(e.target.value)}
-                    placeholder="From Date"
+<label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
+<Input className="w-1/7 flexbox-search-width-calender"
+    type="date"
+    value={fromdate}
+    onChange={(e) => setfromDate(e.target.value)}
+    placeholder="From Date"
 
-                />
-                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                <Input className="w-1/6 flexbox-search-width-calender"
-                    type="date"
-                    value={hidetodate}
-                    onChange={handleTodate}
-                    placeholder="To Date"
+/>
+<label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
+<Input className="w-1/7 flexbox-search-width-calender"
+    type="date"
+    value={hidetodate}
+    onChange={handleTodate}
+    placeholder="To Date"
 
-                />
+/>
+ 
 
 
-                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+<span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
-            </div>
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
+</div>
+{checkpending('Boiling') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
 
 
 
@@ -304,20 +331,29 @@ const RCNScoopingTable = () => {
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Id</TableHead>
+                    <TableHead className="text-center" >Lot No.</TableHead>
+                    <TableHead className="text-center" >DateofBoiling </TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Date of Receiving </TableHead>
-                    <TableHead className="text-center" >BL No.</TableHead>
-                    <TableHead className="text-center" >Con No.</TableHead>
-                    <TableHead className="text-center" >Truck No.</TableHead>
+                    <TableHead className="text-center" >Opening Qty(Kg)</TableHead>
+                    <TableHead className="text-center" >Receiving Qty(Kg)</TableHead>
 
-                    <TableHead className="text-center" >BL Weight</TableHead>
-                    <TableHead className="text-center" >Net Weight</TableHead>
-                    <TableHead className="text-center" >Difference</TableHead>
-                    <TableHead className="text-center" >Bag Count</TableHead>
-                    <TableHead className="text-center" >QC Status</TableHead>
-                    <TableHead className="text-center" >Edit Status </TableHead>
-                    <TableHead className="text-center" >Entried By </TableHead>
+                    <TableHead className="text-center" >Wholes</TableHead>
+                    <TableHead className="text-center" >Broken</TableHead>
+                    <TableHead className="text-center" >Uncut</TableHead>
+                    <TableHead className="text-center" >Unscoop</TableHead>
+                    <TableHead className="text-center" >NonCut</TableHead>
+                    <TableHead className="text-center" >Rejection </TableHead>
+                    <TableHead className="text-center" >Dust </TableHead>
+                    <TableHead className="text-center" >TotalBagCutting</TableHead>
+                    <TableHead className="text-center" >KOR</TableHead>
+                    <TableHead className="text-center" >Female(Common)</TableHead>
+                    <TableHead className="text-center" >Male(Common)</TableHead>
+                    <TableHead className="text-center" >SuperVisor(Common)</TableHead>
+                    <TableHead className="text-center" >LineWiseOperator</TableHead>
+                    <TableHead className="text-center" >LineWiseFemale</TableHead>
+                    <TableHead className="text-center" >EditStatus</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
+                    
 
                 </TableHeader>
                 <TableBody>
@@ -327,7 +363,7 @@ const RCNScoopingTable = () => {
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{idx + 1}</TableCell>
-                                    <TableCell className="text-center">{item.origin}</TableCell>
+                                    <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center">{item.blNo}</TableCell>
                                     <TableCell className="text-center">{item.conNo}</TableCell>
@@ -335,19 +371,22 @@ const RCNScoopingTable = () => {
 
                                     <TableCell className="text-center">{item.blWeight}</TableCell>
                                     <TableCell className="text-center">{item.netWeight}</TableCell>
-                                    <TableCell className="text-center font-semibold text-red-600">{item.difference}</TableCell>
+
+                                    {Number(item.difference)<0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)
+                                    : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)}
+                                    
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
-                                    <TableCell className="text-center">
+                                    <TableCell className="text-center ">
                                         {item.rcnStatus === 'QC Approved' ? (
-                                            <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
                                         ) : item.rcnStatus === 'QC Pending' ? (
-                                            <button className="bg-orange-500 p-1 text-white rounded">{item.rcnStatus}</button>
+                                            <button className="bg-yellow-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
                                         ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center">{item.editStatus == 'Created' ?
-                                    'NA':item.editStatus}</TableCell>
+                                        'NA' : item.editStatus}</TableCell>
                                     <TableCell className="text-center">{item.editedBy}</TableCell>
                                     <TableCell className="text-center">
                                         <Popover>
@@ -357,7 +396,7 @@ const RCNScoopingTable = () => {
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <AlertDialog>
                                                     <AlertDialogTrigger className="flex">
-                                                    <FcApprove size={25}/> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
+                                                        <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
@@ -371,7 +410,7 @@ const RCNScoopingTable = () => {
                                                 </AlertDialog>
                                                 <AlertDialog>
                                                     <AlertDialogTrigger className="flex mt-2">
-                                                    <FcDisapprove size={25}/> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
+                                                        <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
@@ -390,34 +429,50 @@ const RCNScoopingTable = () => {
                             );
                         })
                     ) : (
-                        Data.length>0 ? (Data.map((item: RcnPrimaryEntryData, idx) => {
+                        Data.length > 0 ? (Data.map((item: rcnScoopingData, idx) => {
 
-
+                         
+                       
+        
+                          
+                         
+                          
+                         
+                         
+                       
+                        
+                     
+                            <TableHead className="text-center" >EditStatus</TableHead>
+                            <TableHead className="text-center" >Action</TableHead>
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className="text-center">{item.origin}</TableCell>
+                                    <TableCell className="text-center font-semibold text-cyan-600">{item.LotNo}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center">{item.blNo}</TableCell>
-                                    <TableCell className="text-center">{item.conNo}</TableCell>
-                                    <TableCell className="text-center">{item.truckNo}</TableCell>
+                                    <TableCell className="text-center">{item.origin}</TableCell>
+                                    <TableCell className="text-center">{item.Opening_Qty}</TableCell>
+                                    <TableCell className="text-center">{item.Receiving_Qty}</TableCell>
 
-                                    <TableCell className="text-center">{item.blWeight}</TableCell>
-                                    <TableCell className="text-center">{item.netWeight}</TableCell>
-                                    <TableCell className="text-center font-semibold text-red-600">{item.difference}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
-                                    <TableCell className="text-center">
-                                    {item.rcnStatus === 'QC Approved' ? (
-                                            <button className="bg-green-500 p-1 text-white rounded">{item.rcnStatus}</button>
-                                        ) : item.rcnStatus === 'QC Pending' ? (
-                                            <button className="bg-orange-500 p-1 text-white rounded">{item.rcnStatus}</button>
-                                        ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded">{item.rcnStatus}</button>
-                                        )}
-                                    </TableCell>
-                                    <TableCell className="text-center">{item.editStatus == 'Created' ?
-                                    'NA':item.editStatus}</TableCell>
-                                    <TableCell className="text-center">{item.receivedBy}</TableCell>
+                                    <TableCell className="text-center">{item.Wholes}</TableCell>
+                                    <TableCell className="text-center">{item.Broken}</TableCell>
+                                   
+                                    <TableCell className="text-center font-semibold">{item.Uncut}</TableCell>
+                                   
+                                  
+                                    <TableCell className="text-center">{item.Unscoop}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.NonCut}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.Rejection}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.Dust}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.TotBagCutting}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.KOR}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.noOfLadies}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.noOfGents}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.noOfSupervisors}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.noOfGents}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.noOfOperators}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.noOfEmployees}</TableCell>
+
+
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
@@ -425,7 +480,7 @@ const RCNScoopingTable = () => {
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <Dialog>
-                                                    <DialogTrigger className="flex"><CiEdit size={20}/>
+                                                    <DialogTrigger className="flex"><CiEdit size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                     </DialogTrigger>
                                                     <DialogContent>
@@ -434,7 +489,7 @@ const RCNScoopingTable = () => {
                                                                 <p className='text-1xl pb-1 text-center mt-5'>RCN Primary Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        <RCNScoopingModify data={item} />
+                                                        {/* <RcnPrimaryModify data={item} /> */}
                                                     </DialogContent>
                                                 </Dialog>
                                             </PopoverContent>
@@ -442,7 +497,7 @@ const RCNScoopingTable = () => {
                                     </TableCell>
                                 </TableRow>
                             );
-                        })):(<TableRow>
+                        })) : (<TableRow>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
@@ -450,9 +505,14 @@ const RCNScoopingTable = () => {
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell><p className="w-100 font-medium text-center pt-3 pb-10">No Result </p></TableCell>
-                          
-                            </TableRow>)
+                            <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                        </TableRow>)
                     )}
                 </TableBody>
             </Table>
@@ -480,7 +540,7 @@ const RCNScoopingTable = () => {
             <dialog id="rcneditapproveScsDialog" className="dashboard-modal">
                 <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Modify request has Been Approved</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification Request has Been Approved</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
@@ -488,13 +548,12 @@ const RCNScoopingTable = () => {
             <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
                 <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">RCN Entry Modify Request Has Been Reverted</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Modification Request has Been Reverted</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
         </div>
     )
-
 }
 export default RCNScoopingTable;
 

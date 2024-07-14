@@ -24,6 +24,31 @@ export interface RcnPrimaryEntryData {
     receivedBy: string;
     createdAt: string;
 }
+export interface rcnScoopingData {
+        id: number;
+        LotNo: string;
+        date: string;
+        origin: string;
+        Opening_Qty: string;
+        Receiving_Qty: string;
+        Wholes: string;
+        Broken: string;
+        Uncut: string;
+        Unscoop: string;
+        NonCut: string;
+        Rejection: string;
+        Dust: string;
+        TotBagCutting: string;
+        KOR: string;
+        noOfEmployees: number;
+        noOfLadies:number;
+        noOfGents: number;
+        noOfSupervisors: number;
+    noOfOperators: 10,
+        CreatedBy: string;
+        editStatus: string;
+        modifiedBy: string;
+}
 export interface EditPendingData extends RcnPrimaryEntryData {
     editedBy: string;
 
