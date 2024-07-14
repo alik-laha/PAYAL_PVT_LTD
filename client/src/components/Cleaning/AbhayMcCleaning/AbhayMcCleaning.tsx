@@ -6,12 +6,12 @@ import {
 
 } from "@/components/ui/dialog"
 
-import GraddingMaintenanceCreate from "./GraddingCleaningCreate"
+
 import { Button } from "@/components/ui/button"
-import GraddingMaintenanceTable from "./GraddingCleaningTable"
 
 
-const GraddingMaintenance = () => {
+
+const AbhayMcCleaning = () => {
     return (
         <div >
             <Dialog>
@@ -20,11 +20,11 @@ const GraddingMaintenance = () => {
                     <DialogHeader>
                     </DialogHeader>
 
-                    <GraddingMaintenanceCreate />
+                    {/* <GraddingMaintenanceCreate /> */}
                 </DialogContent>
             </Dialog>
-            <GraddingMaintenanceTable />
+            {/* <GraddingMaintenanceTable /> */}
         </div>
     )
 }
-export default GraddingMaintenance
+export default AbhayMcCleaning

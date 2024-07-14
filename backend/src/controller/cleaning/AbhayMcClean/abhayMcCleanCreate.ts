@@ -21,7 +21,7 @@ const CompressImage = async (files: any, output: string) => {
 
 const AbhayCleanCreate = async (req: Request, res: Response) => {
     try {
-        const { mc_name, date, damage, partsName, percentage, mainElevetorCup,
+        const { date, damage, partsName, percentage, mainElevetorCup,
             mainElevetorGearBox,
             mainElevetorSpocket,
             mainElevetorChain,
@@ -69,7 +69,6 @@ const AbhayCleanCreate = async (req: Request, res: Response) => {
         if (damagedPartsImages && damage) {
 
             const aabhayMcCleanReport = await AbahayMc.create({
-                mc_name,
                 date,
                 mainElevetorCup,
                 mainElevetorGearBox,
@@ -105,7 +104,6 @@ const AbhayCleanCreate = async (req: Request, res: Response) => {
         }
         else {
             const aabhayMcCleanReport = await AbahayMc.create({
-                mc_name,
                 date,
                 mainElevetorCup,
                 mainElevetorGearBox,

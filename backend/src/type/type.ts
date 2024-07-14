@@ -200,7 +200,6 @@ export interface ScoopingSectionCuttingCleanData {
 export interface AbhayMcCleanData {
     id: number;
     date: string;
-    mc_name: string;
     mainElevetorCup: boolean;
     mainElevetorGearBox: boolean;
     mainElevetorSpocket: boolean;
