@@ -91,13 +91,6 @@ const RcnBoiling = sequelize.define('rcnBoiling', {
         type: DataTypes.STRING,
         allowNull: true
     }
-},
-    {
-        indexes: [
-            {
-                unique: true,
-                fields: ['LotNo', 'origin','SizeName','Scooping_Line_Mc']
-            }
-        ]
-    });
+}
+   );
 export default RcnBoiling;

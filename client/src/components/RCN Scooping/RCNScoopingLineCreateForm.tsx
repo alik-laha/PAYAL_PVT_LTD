@@ -22,7 +22,7 @@ interface ScoopingRowData{
     Size: string;
     Scooping_Line_Mc: string;
     Opening_Qty:string;
-    Receiving_Qty: string;
+    Receiving_Qty: number;
     Wholes:string;
     Broken: string;
     Uncut: string;
@@ -63,6 +63,15 @@ interface MergedData {
     noOfOperators: number;
   }
 
+
+  interface MergedUpdateData {
+    LotNo:string;
+    Scooping_Line_Mc: string;
+    Uncut: number;
+    Unscoop: number;
+    NonCut:number;
+  }
+
 import { ScoopData } from "@/type/type"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
@@ -80,6 +89,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
     const [rows,setRows]=useState<ScoopingRowData[]>([])
    
     const [newFormData, setNewFormData] = useState<MergedData[]>([]);
+    const [newFormupdateData, setNewFormupdateData] = useState<MergedUpdateData[]>([]);
    
     
     useEffect(() => {
@@ -166,6 +176,50 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         setNewFormData(mergeRows(rows));
       }, [rows]);
 
+
+
+      useEffect(() => {
+        const mergeRows = (data: ScoopingRowData[]): MergedUpdateData[] => {
+          const filteredData = data.map(({ LotNo ,Scooping_Line_Mc,
+           Uncut,Unscoop,NonCut}) => ({
+            LotNo,   
+            Scooping_Line_Mc,
+            Uncut:parseFloat(Uncut),
+            Unscoop:parseFloat(Unscoop),
+            NonCut:parseFloat(NonCut),
+          }));
+          const merged = filteredData.reduce<Record<string, { LotNo:string,Scooping_Line_Mc: string
+            ,Uncut: number,Unscoop: number,NonCut:number}>>((acc, row) => {
+            const { LotNo,
+                Scooping_Line_Mc,
+                Uncut,
+                Unscoop,
+                NonCut,
+              } = row;
+            if (!acc[Scooping_Line_Mc]) {
+              acc[Scooping_Line_Mc] = { LotNo, Scooping_Line_Mc,
+            Uncut,Unscoop,NonCut };
+            } else {
+                acc[Scooping_Line_Mc].LotNo = LotNo;
+              acc[Scooping_Line_Mc].Uncut += Uncut;
+              acc[Scooping_Line_Mc].Unscoop += Unscoop;
+              acc[Scooping_Line_Mc].NonCut += NonCut;
+            }
+            return acc;
+          }, {});
+    
+          return Object.values(merged).map(item => ({
+            LotNo:item.LotNo,
+            Scooping_Line_Mc:item.Scooping_Line_Mc,
+            Uncut:item.Uncut,
+            Unscoop:item.Unscoop,
+            NonCut:item.NonCut,
+          }));
+        };
+    
+        setNewFormupdateData(mergeRows(rows));
+      }, [rows]);
+
     useEffect(() => { 
         const initialform =  props.scoop.map((item: ScoopData) => ({
             origin: item.origin,
@@ -214,14 +268,17 @@ const RCNScoopingLineCreateForm = (props:Props) => {
     }
 
     const handletransfer = async (index:number,field:string,fieldvalue:string|number) => {
-        handleRowChange(index,field,fieldvalue)
-        console.log( rows[index].Transfer_To)
-        rows[index].Receiving_Qty= (parseFloat(rows[index].Receiving_Qty)-rows[index].Transfer_Qty).toString()
-        console.log( rows[index].Receiving_Qty)
+        const newRows = [...rows]
+        newRows[index] = { ...newRows[index], [field]: fieldvalue };
+        rows[index] = newRows[index]
+        rows[index].Receiving_Qty-= rows[index].Transfer_Qty
+     
         handleRowChange(index,'Receiving_Qty',rows[index].Receiving_Qty)
-    //    rows[parseInt(rows[index].Transfer_To)-1].Receiving_Qty=
-    //    rows[parseInt(rows[index].Transfer_To)-1].Receiving_Qty+rows[index].Transfer_Qty
-    //    handleRowChange(index,'Receiving_Qty',rows[parseInt(rows[index].Transfer_To)-1].Receiving_Qty)
+    
+        rows[parseInt(rows[index].Transfer_To)-1].Receiving_Qty+=
+        Number(rows[index].Transfer_Qty)
+        handleRowChange(index,'Receiving_Qty',rows[index].Receiving_Qty)
+      
 
 
     }

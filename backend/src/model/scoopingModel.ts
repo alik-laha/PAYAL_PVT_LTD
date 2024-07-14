@@ -166,13 +166,5 @@ const RcnScooping = sequelize.define('rcnScooping', {
         allowNull: true
     }
 
-},
-{
-    indexes: [
-        {
-            unique: true,
-            fields: ['LotNo', 'origin','SizeName','Scooping_Line_Mc']
-        }
-    ]
 });
 export default RcnScooping;

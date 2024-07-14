@@ -51,94 +51,47 @@ const createscoopingReport = async (req: Request, res: Response) => {
                 return res.status(400).json({ message: "Machine Run Time can not be negative" });
             }
             const Mc_runTime = millisecondsToTime(CalculatemachineOnOffTime(Mc_off, Mc_on) - (timeToMilliseconds(Mc_breakdown) + timeToMilliseconds(otherTime)));
-            // const scoop = await RcnScooping.update(
-            //     {
+            const scoop = await RcnScooping.update(
+                {
                 
-            //         Receiving_Qty:Receiving_Qty,
-            //         date: Date,
-            //         Wholes:Wholes,
-            //         Broken:Broken,
-            //         Unscoop:Unscoop,
-            //         Uncut:Uncut,
-            //         NonCut:NonCut,
-            //         Rejection:Rejection,
-            //         Dust:Dust,
-            //         KOR:KOR,
-            //         Trolley_Broken:Trolley_Broken,
-            //         Trolley_Small_JB:Trolley_Small_JB,
-            //         scoopStatus:1,
-            //         noOfGents:male,
-            //         noOfLadies:female,
-            //         noOfSupervisors:supervisor,
-            //         noOfEmployees:noOfEmployees,
-            //         noOfOperators:noOfOperators,
-            //         CreatedBy:createdBy,
-            //         Mc_runTime:Mc_runTime,
+                    Receiving_Qty:Receiving_Qty,
+                    date: Date,
+                    Wholes:Wholes,
+                    Broken:Broken,
+                    Unscoop:Unscoop,
+                    Uncut:Uncut,
+                    NonCut:NonCut,
+                    Rejection:Rejection,
+                    Dust:Dust,
+                    KOR:KOR,
+                    Trolley_Broken:Trolley_Broken,
+                    Trolley_Small_JB:Trolley_Small_JB,
+                    scoopStatus:1,
+                    noOfGents:male,
+                    noOfLadies:female,
+                    noOfSupervisors:supervisor,
+                    noOfEmployees:noOfEmployees,
+                    noOfOperators:noOfOperators,
+                    CreatedBy:createdBy,
+                    Mc_runTime:Mc_runTime,
                   
-            //         Brkdwn_reason:Brkdwn_reason,
-            //         Mc_breakdown:Mc_breakdown,
-            //         otherTime:otherTime,
-            //         Mc_on:Mc_on,
-            //         Mc_off:Mc_off
-
-            //     },
-            //     {
-            //         where: {
-            //             id,
-            //         },
-            //     }
-            // );
-            const nextEntry = await RcnScooping.findOne({
-                attributes: ['LotNo','scoopStatus'],
-                where: {
-
-                    Scooping_Line_Mc: Scooping_Line_Mc,
-                    LotNo: {
-                        [Op.gt]: LotNo
-                    }
+                    Brkdwn_reason:Brkdwn_reason,
+                    Mc_breakdown:Mc_breakdown,
+                    otherTime:otherTime,
+                    Mc_on:Mc_on,
+                    Mc_off:Mc_off
 
                 },
-                order: [['LotNo', 'ASC']]
-
-            });
-            console.log(nextEntry)
-            //console.log(nextEntry.dataValues.scoopStatus)
-
-            if(nextEntry && nextEntry.dataValues.scoopStatus==0)
                 {
-                    
-                    console.log(nextEntry.dataValues.scoopStatus)
-                    console.log(nextEntry.dataValues.LotNo)
-                    let linecount = await RcnScooping.count({ where: { LotNo: nextEntry.dataValues.LotNo, Scooping_Line_Mc: Scooping_Line_Mc } })
-                    console.log(linecount)
-                    if(linecount>1){
-
-                        const nextEntryid = await RcnScooping.findOne({
-                            attributes: ['id'],
-                            where: {
-            
-                                Scooping_Line_Mc: Scooping_Line_Mc,
-                                LotNo: nextEntry.dataValues.LotNo,
-                                Receiving_Qty: {
-                                    [Op.gt]: 0
-                                }
-            
-                            },
-                            order: [['LotNo', 'ASC']]
-            
-                        });
-                        if(nextEntryid)
-                        {
-                            // const nextentryupdate = RcnScooping.update{
-
-                            // }
-                        }
-                    }
-
+                    where: {
+                        id,
+                    },
                 }
+            );
+           
     
            
-            return res.status(200).json({ message: "RCN Scooping Report Uploaded Successfully" });
+            return res.status(200).json({ message: "RCN Scooping Report Uploaded Successfully" ,scoop});
         } catch (err) {
             return res.status(500).json({ message: "internal server Error", err });
         }
