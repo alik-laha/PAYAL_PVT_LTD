@@ -80,36 +80,12 @@ const RcnAllScooping = sequelize.define('rcnAllScooping', {
         allowNull: true
     },
 
-    scoopStatus:{
-        type:DataTypes.INTEGER,
-        defaultValue: 0
-    },
 
-    
-    Mc_on: {
-        type: DataTypes.TIME,
-        allowNull: true
-    },
-    Mc_off: {
-        type: DataTypes.TIME,
-        allowNull: true
-    },
     noOfEmployees: {
         type: DataTypes.INTEGER,
         allowNull: true
     },
-    Mc_breakdown: {
-        type: DataTypes.TIME,
-        allowNull: true
-    },
-    otherTime: {
-        type: DataTypes.TIME,
-        allowNull: true
-    },
-    Brkdwn_reason: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
+ 
     noOfLadies:{
         type: DataTypes.INTEGER,
         allowNull: true

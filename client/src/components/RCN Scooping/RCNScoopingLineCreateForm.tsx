@@ -43,6 +43,25 @@ interface ScoopingRowData{
     noOfOperators: string;
 }
 
+interface MergedData {
+    LotNo:string;
+    
+    origin: string;
+    Scooping_Line_Mc: string;
+    Opening_Qty:number;
+    Receiving_Qty: number;
+    Wholes:number;
+    Broken: number;
+    Uncut: number;
+    Unscoop: number;
+    NonCut:number;
+    Rejection: number;
+    Dust:number;
+    KOR:number;
+    noOfEmployees: number;
+    noOfOperators: number;
+  }
+
 import { ScoopData } from "@/type/type"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
@@ -58,14 +77,94 @@ const RCNScoopingLineCreateForm = (props:Props) => {
     const maleRef = useRef<HTMLInputElement>(null);
     const femaleRef = useRef<HTMLInputElement>(null);
     const supervisorRef = useRef<HTMLInputElement>(null);
-    // const [rows,setRows]=useState<ScoopingRowData[]>([{id:0,Scooping_Line_Mc:'',
-    //     Opening_Qty:'',Receiving_Qty:'',Wholes:'',Broken:'',Uncut:'',
-    //     Unscoop:'',NonCut:'',Rejection:'',Dust:'',KOR:'',Trolley_Small_JB:'',Trolley_Broken:'',
-    //     Mc_on:'',Mc_off:'',Brkdwn_reason:'',Mc_breakdown:'00:00',otherTime:'00:00',noOfEmployees:'',
-    // noOfOperators:''}
-    // ]);
+    
     const [rows,setRows]=useState<ScoopingRowData[]>([])
+    const [newFormData, setNewFormData] = useState<MergedData[]>([]);
+   
+    
+    useEffect(() => {
+        const mergeRows = (data: ScoopingRowData[]): MergedData[] => {
+          const filteredData = data.map(({ LotNo, origin, Scooping_Line_Mc,
+            Opening_Qty, Receiving_Qty, Wholes, Broken, Uncut,Unscoop,NonCut,Rejection,Dust,KOR,noOfEmployees,noOfOperators }) => ({
+            LotNo,  
+            origin,
+            Scooping_Line_Mc,
+            Opening_Qty:parseFloat(Opening_Qty),
+            Receiving_Qty:parseFloat(Receiving_Qty),
+            Wholes:parseFloat(Wholes),
+            Broken:parseFloat(Broken),
+            Uncut:parseFloat(Uncut),
+            Unscoop:parseFloat(Unscoop),
+            NonCut:parseFloat(NonCut),
+            Rejection:parseFloat(Rejection),
+            Dust:parseFloat(Dust),
+            KOR:parseFloat(KOR),
+            noOfEmployees:parseFloat(noOfEmployees),
+            noOfOperators:parseFloat(noOfOperators)
+          }));
+    
+          const merged = filteredData.reduce<Record<string, { LotNo:string,origin: string,Scooping_Line_Mc: string,Opening_Qty:number,
+            Receiving_Qty: number,Wholes:number,Broken: number,Uncut: number,Unscoop: number,NonCut:number,Rejection: number,
+            Dust:number,KOR:number;noOfEmployees: number,noOfOperators: number}>>((acc, row) => {
+            const { LotNo,
+                origin,
+                Scooping_Line_Mc,
+                Opening_Qty,
+                Receiving_Qty,
+                Wholes,
+                Broken,
+                Uncut,
+                Unscoop,
+                NonCut,
+                Rejection,
+                Dust,
+                KOR,
+                noOfEmployees,
+                noOfOperators} = row;
+            if (!acc[origin]) {
+              acc[origin] = { LotNo, origin, Scooping_Line_Mc,
+                Opening_Qty, Receiving_Qty, Wholes, Broken, Uncut,Unscoop,NonCut,Rejection,Dust,KOR,noOfEmployees,noOfOperators };
+            } else {
+                acc[origin].LotNo = LotNo;
+              acc[origin].Opening_Qty += Opening_Qty;
+              acc[origin].Receiving_Qty += Receiving_Qty;
+              acc[origin].Wholes += Wholes;
+              acc[origin].Broken += Broken;
+              acc[origin].Uncut += Uncut;
+              acc[origin].Unscoop += Unscoop;
+              acc[origin].NonCut += NonCut;
+              acc[origin].Rejection += Rejection;
+              acc[origin].Dust += Dust;
+              acc[origin].KOR += KOR;
+              acc[origin].noOfEmployees += noOfEmployees;
+              acc[origin].noOfOperators += noOfOperators;
+              
 
+            }
+            return acc;
+          }, {});
+    
+          return Object.values(merged).map(item => ({
+            LotNo:item.LotNo,
+            origin:item.origin,
+            Scooping_Line_Mc:item.Scooping_Line_Mc,
+            Opening_Qty:item.Opening_Qty,
+            Receiving_Qty:item.Receiving_Qty,
+            Wholes:item.Wholes,
+            Broken:item.Broken,
+            Uncut:item.Uncut,
+            Unscoop:item.Unscoop,
+            NonCut:item.NonCut,
+            Rejection:item.Rejection,
+            Dust:item.Dust,
+            KOR:item.KOR,
+            noOfEmployees:item.noOfEmployees,
+            noOfOperators:item.noOfOperators
+          }));
+        };
+    
+        setNewFormData(mergeRows(rows));
+      }, [rows]);
 
     useEffect(() => { 
         const initialform =  props.scoop.map((item: ScoopData) => ({
@@ -137,6 +236,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
             }))
 
             console.log(formData)
+            console.log(newFormData)
             // let scoopingcount = 0
             //     for (var data of formData) 
             //     {
@@ -237,13 +337,13 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                         <TableCell className="text-center">{idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         
-                                        <TableCell className="text-center"><Input value={row.Scooping_Line_Mc} placeholder="Line" onChange={(e) => handleRowChange(idx,'Scooping_Line_Mc',e.target.value)} readOnly required /></TableCell>
+                                        <TableCell className="text-center font-semibold"><Input value={row.Scooping_Line_Mc} placeholder="Line" onChange={(e) => handleRowChange(idx,'Scooping_Line_Mc',e.target.value)} readOnly required /></TableCell>
                                         {/* <TableCell className="text-center">{item.Scooping_Line_Mc}</TableCell> */}
-                                        <TableCell className="text-center">{row.origin}</TableCell>
-                                        <TableCell className="text-center">{row.SizeName}</TableCell>
-                                        <TableCell className="text-center">{row.Opening_Qty} kg</TableCell>
-                                        <TableCell className="text-center">{row.Receiving_Qty} kg</TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Wholes} placeholder="Wholes" onChange={(e) => handleRowChange(idx,'Wholes',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center font-semibold">{row.origin}</TableCell>
+                                        <TableCell className="text-center font-semibold">{row.SizeName}</TableCell>
+                                        <TableCell className="text-center font-semibold">{row.Opening_Qty} kg</TableCell>
+                                        <TableCell className="text-center font-semibold">{row.Receiving_Qty} kg</TableCell>
+                                        <TableCell className="text-center "> <Input  value={row.Wholes} placeholder="Wholes" onChange={(e) => handleRowChange(idx,'Wholes',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Broken} placeholder="Broken" onChange={(e) => handleRowChange(idx,'Broken',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Uncut} placeholder="Uncut" onChange={(e) => handleRowChange(idx,'Uncut',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Unscoop} placeholder="Unscoop" onChange={(e) => handleRowChange(idx,'Unscoop',e.target.value)} required /></TableCell>
