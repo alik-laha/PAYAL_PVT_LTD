@@ -1,7 +1,7 @@
 
 import { Request, Response } from 'express';
 import { promises as fs } from 'fs';
-import BoillingMaintenence from '../../../model/cleaningBoillingModel';
+import CookingCleanning from '../../../model/cleaningCookingModel';
 import sharp from 'sharp';
 
 const CompressImage = async (files: any, output: string) => {
@@ -48,7 +48,7 @@ const BoillingMaintenenceImageUpload = async (req: Request, res: Response) => {
 
         if (damagedPartsImages && damage) {
 
-            const BoillingCleanReport = await BoillingMaintenence.create({
+            const BoillingCleanReport = await CookingCleanning.create({
                 mc_name,
                 date,
                 motorAndOtherPartsCleaning: motorClean,
@@ -69,7 +69,7 @@ const BoillingMaintenenceImageUpload = async (req: Request, res: Response) => {
             return res.status(200).send('Data saved successfully');
         }
         else {
-            const BoillingCleanReport = await BoillingMaintenence.create({
+            const BoillingCleanReport = await CookingCleanning.create({
                 mc_name,
                 date,
                 motorAndOtherPartsCleaning: motorClean,

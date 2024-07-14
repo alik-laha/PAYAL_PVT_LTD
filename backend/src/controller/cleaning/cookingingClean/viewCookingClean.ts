@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import BoillingMaintenence from "../../../model/cleaningBoillingModel";
+import CookingCleaning from "../../../model/cleaningCookingModel";
 
 
 const ViewBoillingCleaning = async (req: Request, res: Response) => {
@@ -25,13 +25,13 @@ const ViewBoillingCleaning = async (req: Request, res: Response) => {
         const where = whereClause.length > 0 ? { $and: whereClause } : {};
         let BoillingCleanEntries;
         if (limit === 0 && offset === 0) {
-            BoillingCleanEntries = await BoillingMaintenence.findAll({
+            BoillingCleanEntries = await CookingCleaning.findAll({
                 where,
                 order: [['date', 'DESC']],
             });
         }
         else {
-            BoillingCleanEntries = await BoillingMaintenence.findAll({
+            BoillingCleanEntries = await CookingCleaning.findAll({
                 where,
                 order: [['date', 'DESC']],
                 limit,

@@ -1,5 +1,5 @@
 import { promises as fs } from 'node:fs';
-import CleaningBoilling from '../../../model/cleaningBoillingModel';
+import CleaningCooking from '../../../model/cleaningCookingModel';
 import { BoilingCleanData } from '../../../type/type';
 
 const DeleteImage = async (filepath: string[]) => {
@@ -22,7 +22,7 @@ const DeleteImage = async (filepath: string[]) => {
 
 const autoDeleteBoillingCleanImage = async () => {
 
-    const CleanData: BoilingCleanData[] = await CleaningBoilling.findAll() as unknown as BoilingCleanData[];
+    const CleanData: BoilingCleanData[] = await CleaningCooking.findAll() as unknown as BoilingCleanData[];
     const nowDate = new Date();
     CleanData.map(async (data: BoilingCleanData) => {
 
@@ -41,7 +41,7 @@ const autoDeleteBoillingCleanImage = async () => {
 
             if (deletflag === 1) {
 
-                await CleaningBoilling.destroy({
+                await CleaningCooking.destroy({
                     where: {
 
                         id: data.id
