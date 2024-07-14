@@ -339,12 +339,13 @@ const RCNScoopingLineCreateForm = (props:Props) => {
 
             console.log(formData)
             console.log(newFormData)
+            console.log(newFormupdateData)
             let scoopingcount = 0
                 for (var data of formData) 
                 {
                     axios.put(`/api/scooping/createScooping/${data.id}`, { data }).then(res => {
                         //scoopingcount++;
-                        if (formData.length === scoopingcount) {
+                       // if (formData.length === scoopingcount) {
                             setErrortext(res.data.message)
 
                             // if (res.status === 200) {
@@ -356,12 +357,13 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                             //     }, 2000)
                             // }
 
-                        }
+                     //   }
 
                     })
                     .catch(err => {
                             console.log(err)
                             setErrortext(err.response.data.message)
+                           
                            
                     }) 
                 }
@@ -399,6 +401,17 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                
                         }) 
                     }
+
+                    for (var data3 of newFormupdateData) 
+                        {
+                            axios.post('/api/scooping/updatenextopening', { data3 }).then(res => {
+                            })
+                            .catch(err => {
+                                    console.log(err)
+                                    setErrortext(err.response.data.message)
+                                   
+                            }) 
+                        }
         }
         catch (err) {
             console.log(err)

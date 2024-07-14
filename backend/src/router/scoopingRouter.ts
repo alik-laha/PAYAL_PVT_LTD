@@ -9,6 +9,7 @@ import getscoopByLot from "../controller/scoopingController/getscoopByLot";
 import createscoopingReport from "../controller/scoopingController/createscoopingReport";
 import createscoopingAllReport from "../controller/scoopingController/createscoopingAllreport";
 import SearchScooping from "../controller/scoopingController/searchScooping";
+import updateScoopingOpening from "../controller/scoopingController/updateScoopingOpening";
 
 const router = express()
 
@@ -22,5 +23,6 @@ router.put("/createScooping/:id", jwtVerify, createscoopingReport)
 router.post("/createScoopingall", jwtVerify, createscoopingAllReport)
 router.post("/searchScooping", jwtVerify, SearchScooping)
 router.post("/getScoopByLotOrigin", jwtVerify, getscoopByLot)
+router.post("/updatenextopening", jwtVerify, updateScoopingOpening)
 
 export default router

@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 
-import { Op } from "sequelize";
 import RcnAllScooping from "../../model/scoopingAllmodel";
 
 const createscoopingAllReport = async (req: Request, res: Response) => {
@@ -56,7 +55,7 @@ const createscoopingAllReport = async (req: Request, res: Response) => {
          
     
            
-            return res.status(200).json({ message: "RCN Scooping All Report Uploaded Successfully",scoop });
+            return res.status(200).json({ message: "RCN Scooping Entry is Uploaded Successfully",scoop });
         } catch (err) {
             return res.status(500).json({ message: "internal server Error", err });
         }
