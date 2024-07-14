@@ -299,17 +299,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         const newRows = [...rows]
         newRows[index] = { ...newRows[index], [field]: fieldvalue };
         rows[index] = newRows[index]
-        if(fieldvalue>rows[index].Receiving_Qty)
-            {
-           
-            
-    
-             
-                alert('Transfer Amount is greater Than Receiving AMount')
-                return
-            
-
-        }
+       
         rows[index].Receiving_Qty-= rows[index].Transfer_Qty
         
         handleRowChange(index,'Receiving_Qty',rows[index].Receiving_Qty)
@@ -387,31 +377,31 @@ const RCNScoopingLineCreateForm = (props:Props) => {
     
                 }))
                 
-                // for (var data2 of formall) 
-                //     {
-                //         axios.post('/api/scooping/createScoopingall', { data2 }).then(res => {
-                //             scoopingcount++;
-                //             if (formall.length === scoopingcount) {
-                //                 setErrortext(res.data.message)
+                for (var data2 of formall) 
+                    {
+                        axios.post('/api/scooping/createScoopingall', { data2 }).then(res => {
+                            scoopingcount++;
+                            if (formall.length === scoopingcount) {
+                                setErrortext(res.data.message)
     
-                //                 // if (res.status === 200) {
-                //                 //    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                //                 //    dialog.showModal()
-                //                 //     setTimeout(() => {
-                //                 //         dialog.close()
-                //                 //         window.location.reload()
-                //                 //     }, 2000)
-                //                 // }
+                                if (res.status === 200) {
+                                   const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                                   dialog.showModal()
+                                    setTimeout(() => {
+                                        dialog.close()
+                                        window.location.reload()
+                                    }, 2000)
+                                }
     
-                //             }
+                            }
     
-                //         })
-                //         .catch(err => {
-                //                 console.log(err)
-                //                 setErrortext(err.response.data.message)
+                        })
+                        .catch(err => {
+                                console.log(err)
+                                setErrortext(err.response.data.message)
                                
-                //         }) 
-                //     }
+                        }) 
+                    }
         }
         catch (err) {
             console.log(err)
