@@ -90,11 +90,12 @@ const Cleaning = () => {
             setAbhayMcView("block")
             setGraddingView("none")
             setBoillingView("none")
+            setCuttingView("none")
             setGraddingBackground("")
             setBoillingBackground("")
             setAbhayMcBackground("flexbox-tile-clean-select bg-green-400")
             setCuttingBackground("")
-            setCuttingView("none")
+
         }
 
     }
