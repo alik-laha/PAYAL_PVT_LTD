@@ -109,14 +109,7 @@ const RCNScoopingTable = () => {
         });
     }
 
-    const formatNumberWithSign = (number: number) => {
-        if (number > 0) {
-            return `+${number}`;
-        } else {
-            return `${number}`;
-        }
-    };
-
+ 
     useEffect(() => {
         if (editPendingData) {
            //console.log(editPendingData)
