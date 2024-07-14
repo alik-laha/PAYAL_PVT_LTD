@@ -8,9 +8,10 @@ const getscoopByLot = async (req: Request, res: Response) => {
         const scoopingLot = await RcnScooping.findAll({
             where: {
                 LotNo:lotNO
-            }
+            }, order: [['id', 'ASC']]
 
-        });
+        }
+        );
         if(scoopingLot){
             res.status(200).json({ message: "UnScooped Entry", scoopingLot });
         }

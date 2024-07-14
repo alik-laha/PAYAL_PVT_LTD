@@ -10,7 +10,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import {useContext, useRef, useState } from "react"
-import { Origin ,Size} from "../common/exportData"
+import { cookingTime, Origin ,Size} from "../common/exportData"
 import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
@@ -475,7 +475,31 @@ const RCNBoilingEntryForm = () =>
 
                                         <TableCell className="text-center "> <Input className="bg-green-100"  value={row.cookingOn} placeholder="MC ON Time" onChange={(e) => handleRowChange(index,'cookingOn',e.target.value)} type='time' required /></TableCell>
                                         <TableCell className="text-center"><Input className="bg-red-100" value={row.cookingOff} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'cookingOff',e.target.value)} type='time' required /></TableCell>
-                                        <TableCell className="text-center"><Input  value={row.CookingTime}  placeholder="CookingTime" onChange={(e) => handleRowChange(index,'CookingTime',e.target.value)} type='time' required /></TableCell>
+                                        <TableCell className="text-center" >
+                                            <Select value={row.CookingTime} onValueChange={(val) => handleRowChange(index, 'CookingTime', val)} required={true}>
+                                                <SelectTrigger className="justify-center w-20" >
+                                                    <SelectValue placeholder="Time" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectGroup>
+                                                        {
+                                                            cookingTime.map((item) => {
+                                                                return (
+                                                                    <SelectItem key={item} value={item}>
+                                                                        {item}
+                                                                    </SelectItem>
+                                                                )
+                                                            })
+                                                        }
+                                                    </SelectGroup>
+                                                </SelectContent>
+                                            </Select>
+
+                                        </TableCell>
+                                        
+                                        
+                                        
+                                        {/* <TableCell className="text-center"><Input  value={row.CookingTime}  placeholder="CookingTime" onChange={(e) => handleRowChange(index,'CookingTime',e.target.value)} type='time' required /></TableCell> */}
                                           <TableCell className="text-center"><Input  value={row.breakDown} defaultValue='00:00' placeholder="Break Down Time" onChange={(e) => handleRowChange(index,'breakDown',e.target.value)} type='time'  /></TableCell>
                                           <TableCell className="text-center"><Input  value={row.other} defaultValue='00:00' placeholder="Other" onChange={(e) => handleRowChange(index,'other',e.target.value)} type='time'  /></TableCell>
                                           <TableCell className="text-center">
