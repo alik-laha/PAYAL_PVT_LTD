@@ -287,12 +287,13 @@ const RCNBoilingEntryForm = () =>
                                 axios.delete(`/api/boiling/deleteLotNo/${data.columnLotNo}`).then((res) => {
                                     console.log(res.data)
                                 })
-                                axios.delete(`/api/boiling/deleteBoilingByLotNo/${data.columnLotNo}`).then((res) => {
-                                    console.log(res.data)
-                                })
                                 axios.delete(`/api/scooping/deleteScoopingByLotNo/${data.columnLotNo}`).then((res) => {
                                     console.log(res.data)
                                 })
+                                axios.delete(`/api/boiling/deleteBoilingByLotNo/${data.columnLotNo}`).then((res) => {
+                                    console.log(res.data)
+                                })
+                                
                                 
                                 const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
                                 dialog.showModal()
@@ -403,7 +404,7 @@ const RCNBoilingEntryForm = () =>
                                         <TableCell>{index+1}</TableCell>
                                         <TableCell className="text-center" >
                                             <Select value={row.ScoopingLine} onValueChange={(val) => handleRowChange(index, 'ScoopingLine', val)} required={true}>
-                                                <SelectTrigger  className="justify-center w-40">
+                                                <SelectTrigger className="justify-center w-40">
                                                     <SelectValue placeholder="Line Name" />
                                                 </SelectTrigger>
                                                 <SelectContent>

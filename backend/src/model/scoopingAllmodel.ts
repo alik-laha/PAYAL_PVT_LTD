@@ -20,9 +20,6 @@ const RcnAllScooping = sequelize.define('rcnAllScooping', {
         type: DataTypes.STRING,
         allowNull: false
     },
- 
-  
-
     Opening_Qty:
     {
         type: DataTypes.DECIMAL(10,2),

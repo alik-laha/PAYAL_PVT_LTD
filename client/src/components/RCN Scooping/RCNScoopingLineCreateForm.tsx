@@ -10,21 +10,19 @@ import {
 
 
 interface Props {
-    scoop: ScoopData[]
-        
+    scoop: ScoopData[]       
 }
 
 
 interface ScoopingRowData{
     LotNo:string;
     id: number;
-  
     origin: string;
     SizeName: string;
     Size: string;
     Scooping_Line_Mc: string;
     Opening_Qty:string;
-    Receiving_Qty: number;
+    Receiving_Qty: string;
     Wholes:string;
     Broken: string;
     Uncut: string;
@@ -69,8 +67,9 @@ import { ScoopData } from "@/type/type"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
-import {  useEffect, useRef, useState } from "react"
+import {   useEffect, useRef, useState } from "react"
 import axios from "axios";
+
 
 const RCNScoopingLineCreateForm = (props:Props) => {
     //console.log(props)
@@ -211,16 +210,20 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         const newRows=[...rows];
         newRows[index]={...newRows[index],[field]:fieldvalue};
         setRows(newRows)
+        console.log(rows)
     }
 
-    const handletransfer = (index:number,field:string,fieldvalue:string|number) => {
+    const handletransfer = async (index:number,field:string,fieldvalue:string|number) => {
         handleRowChange(index,field,fieldvalue)
-        rows[index].Receiving_Qty= rows[index].Receiving_Qty-rows[index].Transfer_Qty
+        console.log( rows[index].Transfer_To)
+        rows[index].Receiving_Qty= (parseFloat(rows[index].Receiving_Qty)-rows[index].Transfer_Qty).toString()
         console.log( rows[index].Receiving_Qty)
         handleRowChange(index,'Receiving_Qty',rows[index].Receiving_Qty)
     //    rows[parseInt(rows[index].Transfer_To)-1].Receiving_Qty=
     //    rows[parseInt(rows[index].Transfer_To)-1].Receiving_Qty+rows[index].Transfer_Qty
     //    handleRowChange(index,'Receiving_Qty',rows[parseInt(rows[index].Transfer_To)-1].Receiving_Qty)
+
+
     }
 
     
@@ -253,32 +256,66 @@ const RCNScoopingLineCreateForm = (props:Props) => {
 
             console.log(formData)
             console.log(newFormData)
-            // let scoopingcount = 0
-            //     for (var data of formData) 
-            //     {
-            //         axios.put(`/api/scooping/createScooping/${data.id}`, { data }).then(res => {
-            //             scoopingcount++;
-            //             if (formData.length === scoopingcount) {
-            //                 setErrortext(res.data.message)
+            let scoopingcount = 0
+                for (var data of formData) 
+                {
+                    axios.put(`/api/scooping/createScooping/${data.id}`, { data }).then(res => {
+                        //scoopingcount++;
+                        if (formData.length === scoopingcount) {
+                            setErrortext(res.data.message)
 
-            //                 // if (res.status === 200) {
-            //                 //    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-            //                 //    dialog.showModal()
-            //                 //     setTimeout(() => {
-            //                 //         dialog.close()
-            //                 //         window.location.reload()
-            //                 //     }, 2000)
-            //                 // }
+                            // if (res.status === 200) {
+                            //    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                            //    dialog.showModal()
+                            //     setTimeout(() => {
+                            //         dialog.close()
+                            //         window.location.reload()
+                            //     }, 2000)
+                            // }
 
-            //             }
+                        }
 
-            //         })
-            //         .catch(err => {
-            //                 console.log(err)
-            //                 setErrortext(err.response.data.message)
+                    })
+                    .catch(err => {
+                            console.log(err)
+                            setErrortext(err.response.data.message)
                            
-            //         }) 
-            //     }
+                    }) 
+                }
+                const formall = newFormData.map((row: any) => ({
+                    male: male,
+                    Date: date,
+                    female: female,
+                    supervisor: supervisor,
+                     ...row
+    
+                }))
+                
+                for (var data2 of formall) 
+                    {
+                        axios.post('/api/scooping/createScoopingall', { data2 }).then(res => {
+                            scoopingcount++;
+                            if (formall.length === scoopingcount) {
+                                setErrortext(res.data.message)
+    
+                                // if (res.status === 200) {
+                                //    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                                //    dialog.showModal()
+                                //     setTimeout(() => {
+                                //         dialog.close()
+                                //         window.location.reload()
+                                //     }, 2000)
+                                // }
+    
+                            }
+    
+                        })
+                        .catch(err => {
+                                console.log(err)
+                                setErrortext(err.response.data.message)
+                               
+                        }) 
+                    }
         }
         catch (err) {
             console.log(err)
@@ -333,7 +370,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                         <TableHead className="text-center" >No Of Operator</TableHead>
                         <TableHead className="text-center" >Transfer Qty</TableHead>
                         <TableHead className="text-center" >Transfer To Line</TableHead>
-                        <TableHead className="text-center" >Action</TableHead>
+            
 
                       
                       
@@ -380,13 +417,13 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                         <TableCell className="text-center"><Input  value={row.Transfer_Qty} placeholder="Kg" onChange={(e) => handleRowChange(idx,'Transfer_Qty',e.target.value)}  /></TableCell>
                                         
                                         <TableCell>
-
-                                            <select className=' flex h-8 w-20 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                                        
+                                             <select className=' flex h-8 w-20 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                                                onChange={(e) => handletransfer(idx,'Transfer_To',e.target.value)} value={row.Transfer_To}>
+                                                onChange={(e) => handleRowChange(idx,'Transfer_To',e.target.value)} value={row.Transfer_To}>
                                                 <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
         py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground 
-        data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>None</option>
+        data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>None</option>
                                                 {options.map((data, index) => (
                                                     <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
             py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground
@@ -394,8 +431,8 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                                         {data}
                                                     </option>
                                                 ))}
-                                            </select>
-
+                                            </select> 
+ 
 
 
 

@@ -7,6 +7,7 @@ import sumOfAllScoop from "../controller/scoopingController/sumOfAllScoop";
 import getscoopLot from "../controller/scoopingController/getscoopLot";
 import getscoopByLot from "../controller/scoopingController/getscoopByLot";
 import createscoopingReport from "../controller/scoopingController/createscoopingReport";
+import createscoopingAllReport from "../controller/scoopingController/createscoopingAllreport";
 
 const router = express()
 
@@ -17,4 +18,5 @@ router.get("/sumofallscoop", jwtVerify, sumOfAllScoop)
 router.get("/getUnscoopedEntry/:status", jwtVerify, getscoopLot)
 router.get("/getScoopByLot/:lotNO", jwtVerify, getscoopByLot)
 router.put("/createScooping/:id", jwtVerify, createscoopingReport)
+router.post("/createScoopingall", jwtVerify, createscoopingAllReport)
 export default router
