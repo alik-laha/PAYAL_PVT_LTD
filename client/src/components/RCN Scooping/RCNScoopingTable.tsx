@@ -74,7 +74,7 @@ const RCNScoopingTable = () => {
     const [todate, settoDate] = React.useState<string>('');
     const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [blConNo, setBlConNo] = useState<string>("")
-    const [Data, setData] = useState<RcnPrimaryEntryData[]>([])
+    const [Data, setData] = useState<rcnScoopingData[]>([])
     const [page, setPage] = useState(pageNo)
     const [EditData, setEditData] = useState<EditPendingData[]>([])
     const limit = pagelimit
@@ -323,7 +323,7 @@ const RCNScoopingTable = () => {
 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
 </div>
-{checkpending('Boiling') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+{checkpending('Scooping') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
 
 
 
@@ -352,6 +352,7 @@ const RCNScoopingTable = () => {
                     <TableHead className="text-center" >LineWiseOperator</TableHead>
                     <TableHead className="text-center" >LineWiseFemale</TableHead>
                     <TableHead className="text-center" >EditStatus</TableHead>
+                    <TableHead className="text-center" >Entried By </TableHead>
                     <TableHead className="text-center" >Action</TableHead>
                     
 
@@ -431,46 +432,36 @@ const RCNScoopingTable = () => {
                     ) : (
                         Data.length > 0 ? (Data.map((item: rcnScoopingData, idx) => {
 
-                         
-                       
-        
-                          
-                         
-                          
-                         
-                         
-                       
-                        
-                     
-                            <TableHead className="text-center" >EditStatus</TableHead>
-                            <TableHead className="text-center" >Action</TableHead>
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.LotNo}</TableCell>
-                                    <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center">{item.origin}</TableCell>
+                                    <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.origin}</TableCell>
                                     <TableCell className="text-center">{item.Opening_Qty}</TableCell>
                                     <TableCell className="text-center">{item.Receiving_Qty}</TableCell>
 
                                     <TableCell className="text-center">{item.Wholes}</TableCell>
                                     <TableCell className="text-center">{item.Broken}</TableCell>
                                    
-                                    <TableCell className="text-center font-semibold">{item.Uncut}</TableCell>
+                                    <TableCell className="text-center ">{item.Uncut}</TableCell>
                                    
                                   
                                     <TableCell className="text-center">{item.Unscoop}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.NonCut}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.Rejection}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.Dust}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.TotBagCutting}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.KOR}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.noOfLadies}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.noOfGents}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.noOfSupervisors}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.noOfGents}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.noOfOperators}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.noOfEmployees}</TableCell>
+                                    <TableCell className="text-center ">{item.NonCut}</TableCell>
+                                    <TableCell className="text-center">{item.Rejection}</TableCell>
+                                    <TableCell className="text-center ">{item.Dust}</TableCell>
+                                    <TableCell className="text-center ">{item.TotBagCutting}</TableCell>
+                                    <TableCell className="text-center ">{item.KOR}</TableCell>
+                                    <TableCell className="text-center ">{item.noOfLadies}</TableCell>
+                                    <TableCell className="text-center">{item.noOfGents}</TableCell>
+                                    <TableCell className="text-center ">{item.noOfSupervisors}</TableCell>
+                                  
+                                    <TableCell className="text-center ">{item.noOfOperators}</TableCell>
+                                    <TableCell className="text-center ">{item.noOfEmployees}</TableCell>
+                                    <TableCell className="text-center ">{item.editStatus}</TableCell>
+                                    <TableCell className="text-center ">{item.CreatedBy}</TableCell>
+                                   
 
 
                                     <TableCell className="text-center">
@@ -481,12 +472,12 @@ const RCNScoopingTable = () => {
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <Dialog>
                                                     <DialogTrigger className="flex"><CiEdit size={20} />
-                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >View/Modify</button>
                                                     </DialogTrigger>
                                                     <DialogContent>
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-5'>RCN Primary Entry Modification</p>
+                                                                <p className='text-1xl pb-1 text-center mt-5'>Scooping Modify</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         {/* <RcnPrimaryModify data={item} /> */}
