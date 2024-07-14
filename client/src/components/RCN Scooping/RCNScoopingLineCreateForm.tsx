@@ -13,6 +13,8 @@ interface Props {
     scoop: ScoopData[]
         
 }
+
+
 interface ScoopingRowData{
     LotNo:string;
     id: number;
@@ -22,7 +24,7 @@ interface ScoopingRowData{
     Size: string;
     Scooping_Line_Mc: string;
     Opening_Qty:string;
-    Receiving_Qty: string;
+    Receiving_Qty: number;
     Wholes:string;
     Broken: string;
     Uncut: string;
@@ -33,9 +35,10 @@ interface ScoopingRowData{
     KOR:string;
     Trolley_Broken: string;
     Trolley_Small_JB: string;
-   
+    Transfer_To:string;
     Mc_on: string;
     Mc_off: string;
+    Transfer_Qty:number;
     noOfEmployees: string;
     Mc_breakdown: string;
     otherTime: string;
@@ -71,14 +74,12 @@ import axios from "axios";
 
 const RCNScoopingLineCreateForm = (props:Props) => {
     //console.log(props)
-   
-   
     const DateRef = useRef<HTMLInputElement>(null);
     const maleRef = useRef<HTMLInputElement>(null);
     const femaleRef = useRef<HTMLInputElement>(null);
     const supervisorRef = useRef<HTMLInputElement>(null);
-    
     const [rows,setRows]=useState<ScoopingRowData[]>([])
+   
     const [newFormData, setNewFormData] = useState<MergedData[]>([]);
    
     
@@ -168,9 +169,6 @@ const RCNScoopingLineCreateForm = (props:Props) => {
 
     useEffect(() => { 
         const initialform =  props.scoop.map((item: ScoopData) => ({
-           
-          
-            
             origin: item.origin,
             SizeName: item.SizeName,
             Size: item.Size,
@@ -178,7 +176,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
             LotNo:item.LotNo,
             Scooping_Line_Mc:item.Scooping_Line_Mc,
             Opening_Qty:item.Opening_Qty,
-            Receiving_Qty:item.Receiving_Qty,
+            Receiving_Qty:parseFloat(item.Receiving_Qty),
             Wholes:'',
             Broken:'',
             Uncut:'',
@@ -190,10 +188,12 @@ const RCNScoopingLineCreateForm = (props:Props) => {
             Trolley_Small_JB:'',
             Trolley_Broken:'',
             Mc_on:'',Mc_off:'',Brkdwn_reason:'',Mc_breakdown:'00:00',otherTime:'00:00',noOfEmployees:'',
-            noOfOperators:''
+            noOfOperators:'',Transfer_To:'',Transfer_Qty:0
+
 
 
         }));
+      
         console.log(initialform)
         setRows(initialform)
         console.log(rows)
@@ -203,12 +203,28 @@ const RCNScoopingLineCreateForm = (props:Props) => {
     
     const [errortext, setErrortext] = useState('')
 
+    const options=Array.from({length:rows.length},(_,index)=>index+1)
+    
+
     const handleRowChange = (index:number,field:string,fieldvalue:string|number) => {
 
         const newRows=[...rows];
         newRows[index]={...newRows[index],[field]:fieldvalue};
         setRows(newRows)
     }
+
+    const handletransfer = (index:number,field:string,fieldvalue:string|number) => {
+        handleRowChange(index,field,fieldvalue)
+        rows[index].Receiving_Qty= rows[index].Receiving_Qty-rows[index].Transfer_Qty
+        console.log( rows[index].Receiving_Qty)
+        handleRowChange(index,'Receiving_Qty',rows[index].Receiving_Qty)
+    //    rows[parseInt(rows[index].Transfer_To)-1].Receiving_Qty=
+    //    rows[parseInt(rows[index].Transfer_To)-1].Receiving_Qty+rows[index].Transfer_Qty
+    //    handleRowChange(index,'Receiving_Qty',rows[parseInt(rows[index].Transfer_To)-1].Receiving_Qty)
+    }
+
+    
+    
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -270,14 +286,6 @@ const RCNScoopingLineCreateForm = (props:Props) => {
     }
 
  
-   const handleopen=()=>{
-
-   }
-   const handleclose=()=>{
-
-   }
-
-
     return (
         <>
         <div className="px-5 py-2 overflow-auto">
@@ -320,8 +328,14 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                         <TableHead className="text-center" >Breakdown Duration</TableHead>
                         <TableHead className="text-center" >Breakdown Reason</TableHead>
                         <TableHead className="text-center" >Other Duration</TableHead>
+                       
                         <TableHead className="text-center" >No Of Ladies</TableHead>
                         <TableHead className="text-center" >No Of Operator</TableHead>
+                        <TableHead className="text-center" >Transfer Qty</TableHead>
+                        <TableHead className="text-center" >Transfer To Line</TableHead>
+                        <TableHead className="text-center" >Action</TableHead>
+
+                      
                       
                        
 
@@ -354,15 +368,45 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                         <TableCell className="text-center"> <Input  value={row.Trolley_Broken} placeholder="Trolley Broken" onChange={(e) => handleRowChange(idx,'Trolley_Broken',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Trolley_Small_JB} placeholder="Trolley SmallJB" onChange={(e) => handleRowChange(idx,'Trolley_Small_JB',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center "> <Input className="bg-green-100"  value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx,'Mc_on',e.target.value)} type='time' required /></TableCell>
+                                        
                                         <TableCell className="text-center"><Input className="bg-red-100" value={row.Mc_off} placeholder="MC Off Time" onChange={(e) => handleRowChange(idx,'Mc_off',e.target.value)} type='time' required /></TableCell>
                                         <TableCell className="text-center"><Input  value={row.Mc_breakdown} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown',e.target.value)} type='time'  /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Brkdwn_reason} placeholder="Reason" onChange={(e) => handleRowChange(idx,'Brkdwn_reason',e.target.value)}  /></TableCell>
                                         <TableCell className="text-center"><Input  value={row.otherTime} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime',e.target.value)} type='time'  /></TableCell>
+                                      
+                                        
                                         <TableCell className="text-center"> <Input  value={row.noOfEmployees} placeholder="Ladies" onChange={(e) => handleRowChange(idx,'noOfEmployees',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.noOfOperators} placeholder="Operators" onChange={(e) => handleRowChange(idx,'noOfOperators',e.target.value)} required /></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
+                                        <TableCell className="text-center"><Input  value={row.Transfer_Qty} placeholder="Kg" onChange={(e) => handleRowChange(idx,'Transfer_Qty',e.target.value)}  /></TableCell>
+                                        
+                                        <TableCell>
+
+                                            <select className=' flex h-8 w-20 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                                                onChange={(e) => handletransfer(idx,'Transfer_To',e.target.value)} value={row.Transfer_To}>
+                                                <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground 
+        data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>None</option>
+                                                {options.map((data, index) => (
+                                                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground
+             data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                                        {data}
+                                                    </option>
+                                                ))}
+                                            </select>
+
+
+
+
+
+
+                                        </TableCell>
+                                        <TableCell>
+                                        {/* <a className="bg-green-500  text-center items-center justify-center h-7 w-19" onClick={()=>handletransfer(idx)}>Transfer</a> */}
+
+                                        </TableCell>
+                                        
                                         
 
 
