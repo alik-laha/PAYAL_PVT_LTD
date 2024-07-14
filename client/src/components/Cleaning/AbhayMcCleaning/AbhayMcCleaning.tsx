@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/dialog"
 
 import AbhayMcCleaningCreate from "./AbhayMcCleanCreate"
+import AbhayMcTable from "./AbhayMcCleanTable"
 import { Button } from "@/components/ui/button"
 
 
@@ -23,7 +24,7 @@ const AbhayMcCleaning = () => {
                     <AbhayMcCleaningCreate />
                 </DialogContent>
             </Dialog>
-            {/* <GraddingMaintenanceTable /> */}
+            <AbhayMcTable />
         </div>
     )
 }
