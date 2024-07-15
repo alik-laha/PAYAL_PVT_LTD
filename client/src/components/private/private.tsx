@@ -27,6 +27,7 @@ const Private: React.FC<PrivateProps> = ({ allowedRoles }) => {
                 axios.get('/api/user/logout').then(() => {
                     localStorage.removeItem('role')
                     localStorage.removeItem('dept')
+                    localStorage.removeItem('timeLeft');
                     navigate('/login')
                 }).catch((err) => {
                     console.log(err)
