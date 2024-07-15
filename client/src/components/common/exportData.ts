@@ -8,6 +8,7 @@ export const Role: string[] = ['Director', 'FactoryManager', 'ReceivingSuperviso
 ]
 export const pageNo = 1
 export const pagelimit = 8
+export const timerLogout = 7200
 export const Section = ['Boiling', 'Grading', 'Scooping']
 export const MachineStatus = ['Active', 'Inactive', 'Discarded']
 export const Size = ['A', 'B', 'C', 'D', 'E', 'F', 'G']

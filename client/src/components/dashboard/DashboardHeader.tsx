@@ -5,6 +5,7 @@ import "./dashboard.css"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
+import { timerLogout } from '../common/exportData'
 
 const DashboardHeader = () => {
   const navigate = useNavigate()
@@ -29,7 +30,7 @@ const DashboardHeader = () => {
       console.log(err)
     })
   }
-  const sessionDuration = 7200; // 2 hours in seconds
+  const sessionDuration = timerLogout; // 2 hours in seconds
   const [timeLeft, setTimeLeft] = useState<number>(() => {
     const savedTime = localStorage.getItem('timeLeft');
     return savedTime ? parseInt(savedTime, 10) : sessionDuration;
