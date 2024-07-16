@@ -9,7 +9,7 @@ const SearchScooping = async (req: Request, res: Response) => {
     try {
         const page = parseInt(req.query.page as string, 10) || 0;
         const size = parseInt(req.query.limit as string, 10) || 0;
-        const { blConNo, fromDate, toDate, origin,type } = req.body;
+        const { blConNo, fromDate, toDate, origin, type } = req.body;
         const offset = (page - 1) * size;
         const limit = size;
         let whereClause = []
@@ -23,61 +23,62 @@ const SearchScooping = async (req: Request, res: Response) => {
         if (blConNo) {
             whereClause.push({
                 LotNo: { [Op.like]: `%${blConNo}%` }
-               
+
             })
-           
+
         }
         if (origin) {
             whereClause.push({
                 origin
             })
         }
-        if (type=='LineWise') {
+        if (type == 'LineWise') {
             whereClause.push({
                 scoopStatus: { [Op.eq]: 1 }
             })
         }
-      
+
 
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let GradingEntries;
         if (limit === 0 && offset === 0) {
 
-            if(type=='LotWise'){
+            if (type == 'LotWise') {
                 GradingEntries = await RcnAllScooping.findAll({
                     where,
-                    order: [['LotNo','DESC'],['date', 'DESC']], // Order by date descending
-    
+                    order: [['LotNo', 'DESC'], ['date', 'DESC']], // Order by date descending
+
                 });
 
-            }else{
+            } else {
                 GradingEntries = await RcnScooping.findAll({
                     where,
-                    order: [['LotNo','DESC'],['date', 'DESC']], // Order by date descending
-    
+                    order: [['LotNo', 'DESC'], ['date', 'DESC']], // Order by date descending
+
                 });
 
             }
-           
+
         }
         else {
-            if(type=='LotWise'){
+            if (type == 'LotWise') {
                 GradingEntries = await RcnAllScooping.findAll({
                     where,
-                    order: [['LotNo','DESC'],['date', 'DESC']], // Order by date descending
+                    order: [['LotNo', 'DESC'], ['date', 'DESC']], // Order by date descending
                     limit,
                     offset
                 });
             }
-            else{
+            else {
                 GradingEntries = await RcnScooping.findAll({
                     where,
-                    order: [['LotNo','DESC'],['date', 'DESC']], // Order by date descending
-    
+                    order: [['LotNo', 'DESC'], ['date', 'DESC']], // Order by date descending
+                    limit,
+                    offset
                 });
 
             }
-            
+
         }
         return res.status(200).json(GradingEntries);
 
