@@ -26,22 +26,19 @@ const DashboardHeader = () => {
       console.log(err)
     })
   }
-  if (localStorage.getItem('image') != null) {
-    console.log(localStorage.getItem('image'))
-  }
-
+  const image = localStorage.getItem('image')
   return (
     <>
       <div className='dashoboard-main-header'>
         <span className="logo-lg dashboard-text" ></span>
 
-        <span className='operator-hide' onClick={logoutVisiblity}><p className="logo-lg"> {(localStorage.getItem('user'))?.toUpperCase()}</p><img
+        <span className='operator-hide' onClick={logoutVisiblity}><p className="logo-lg"> {(localStorage.getItem('user'))?.toUpperCase()}</p>{image != null ? <img
           src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`}
-        /></span>
+        /> : <img src={icon} />}</span>
         <div className='navbar-custom-menu'>
           <ul className="dropdown-menu" style={{ display: dashbvisi, background: 'white', position: 'fixed' }}>
             <li className="user-header mx-1 my-1">
-              <span className="flex flex-col items-center justify-center items-center"><img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} alt='Operator Icon' className="img-header"></img></span>
+              <span className="flex flex-col items-center justify-center items-center">{image != null ? <img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} alt='Operator Icon' className="img-header" /> : <img src={icon2} className="img-header" />}</span>
               <p className="text-logout">Welcome, {localStorage.getItem('user')}</p>
               <p className="text-logout-2"> Dept: {localStorage.getItem('dept')}</p>
               <p className="text-logout-2"> Role: {localStorage.getItem('role')}</p>
