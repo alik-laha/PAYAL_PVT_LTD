@@ -66,6 +66,7 @@ import Context from "../context/context";
 import { EditPendingData } from "@/type/type";
 import { CiEdit } from "react-icons/ci";
 import RCNLineCreateEditForm from "./RCNLineCreateEditForm";
+import RcnTableLineWise from "./RcnScoopingTableLineWise";
 
 const RCNScoopingTable = () => {
 
@@ -76,7 +77,9 @@ const RCNScoopingTable = () => {
     const [todate, settoDate] = React.useState<string>('');
     const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [blConNo, setBlConNo] = useState<string>("")
-    const [Data, setData] = useState<rcnScoopingData[]>([])
+    // const [Data, setData] = useState<rcnScoopingData[]>([])
+    const [LotWiseData, setLotWiseData] = useState<rcnScoopingData[]>([])
+    const [LineWiseData, setLineWiseData] = useState<rcnScoopingData[]>([])
     const [page, setPage] = useState(pageNo)
     const [EditData, setEditData] = useState<EditPendingData[]>([])
     const limit = pagelimit
@@ -111,10 +114,10 @@ const RCNScoopingTable = () => {
         });
     }
 
- 
+
     useEffect(() => {
         if (editPendingData) {
-           //console.log(editPendingData)
+            //console.log(editPendingData)
             setEditData(editPendingData)
             setblockpagen('none')
         }
@@ -124,14 +127,14 @@ const RCNScoopingTable = () => {
         //console.log('search button pressed')
         //setEditPendingBoilingData([])
         //setEditData([])
-        
+
         const response = await axios.post('/api/scooping/searchScooping', {
             blConNo: blConNo,
             origin: origin,
             fromDate: fromdate,
             toDate: todate,
-            type:selectType
-          
+            type: selectType
+
         }, {
             params: {
                 page: page,
@@ -144,7 +147,13 @@ const RCNScoopingTable = () => {
             setPage((prev) => prev - 1)
 
         }
-        setData(data)
+        if (selectType === 'LotWise') {
+            setLotWiseData(data)
+        }
+        else {
+            // setData(data)
+            setLineWiseData(data)
+        }
 
     }
 
@@ -155,19 +164,19 @@ const RCNScoopingTable = () => {
         setblockpagen('flex')
         handleSearch()
     }, [page])
-    const [scoopdata, setscoopdata ]  = useState<ScoopData[]>([])
+    const [scoopdata, setscoopdata] = useState<ScoopData[]>([])
 
     //let scoopdata:ScoopData[]=[]
-   
-    const handleLineEntry = async (lotNO:string) => {
-        axios.get(`/api/scooping/getScoopByLot/${lotNO}`).then(res=>{
-           console.log(res)
-           if(Array.isArray(res.data.scoopingLot)){
-            //scoopdata=res.data.scoopingLot
-            setscoopdata(res.data.scoopingLot)
-             console.log(scoopdata)
-           }
-             
+
+    const handleLineEntry = async (lotNO: string) => {
+        axios.get(`/api/scooping/getScoopByLot/${lotNO}`).then(res => {
+            console.log(res)
+            if (Array.isArray(res.data.scoopingLot)) {
+                //scoopdata=res.data.scoopingLot
+                setscoopdata(res.data.scoopingLot)
+                console.log(scoopdata)
+            }
+
             //set(res.data.scoopingLot)
         })
     }
@@ -182,7 +191,7 @@ const RCNScoopingTable = () => {
         const data1 = await response.data
 
         let ws
-        let transformed:ExcelRcnPrimaryEntryData[] = [];
+        let transformed: ExcelRcnPrimaryEntryData[] = [];
         if (EditData.length > 0) {
 
             transformed = EditData.map((item: EditPendingData, idx: number) => ({
@@ -224,7 +233,7 @@ const RCNScoopingTable = () => {
                 Approved_or_Rejected_By: item.approvedBy
 
             }));
-           // setTransformedData(transformed);
+            // setTransformedData(transformed);
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         const wb = XLSX.utils.book_new();
@@ -296,241 +305,236 @@ const RCNScoopingTable = () => {
     return (
         <div className="ml-5 mt-5 ">
 
-<div className="flex flexbox-search" >
+            <div className="flex flexbox-search" >
 
-<Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No./ Line Name" value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No./ Line Name" value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
 
-<select className='flexbox-search-width flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className='flexbox-search-width flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-    onChange={(e) => setOrigin(e.target.value)} value={origin}>
-    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                    onChange={(e) => setOrigin(e.target.value)} value={origin}>
+                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
         py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
-    {Origin.map((data, index) => (
-        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                    {Origin.map((data, index) => (
+                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
             py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-            {data}
-        </option>
-    ))}
-</select>
+                            {data}
+                        </option>
+                    ))}
+                </select>
 
 
-<label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
-<Input className="w-1/7 flexbox-search-width-calender"
-    type="date"
-    value={fromdate}
-    onChange={(e) => setfromDate(e.target.value)}
-    placeholder="From Date"
+                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
+                <Input className="w-1/7 flexbox-search-width-calender"
+                    type="date"
+                    value={fromdate}
+                    onChange={(e) => setfromDate(e.target.value)}
+                    placeholder="From Date"
 
-/>
-<label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-<Input className="w-1/7 flexbox-search-width-calender"
-    type="date"
-    value={hidetodate}
-    onChange={handleTodate}
-    placeholder="To Date"
+                />
+                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
+                <Input className="w-1/7 flexbox-search-width-calender"
+                    type="date"
+                    value={hidetodate}
+                    onChange={handleTodate}
+                    placeholder="To Date"
 
-/>
- 
-<select className='flexbox-search-width font-semibold flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                />
+
+                <select className='flexbox-search-width font-semibold flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-    onChange={(e) => setselectType(e.target.value)} value={selectType}>
-   
-    {SelectType.map((data, index) => (
-        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                    onChange={(e) => setselectType(e.target.value)} value={selectType}>
+
+                    {SelectType.map((data, index) => (
+                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
             py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-            {data}
-        </option>
-    ))}
-</select>
+                            {data}
+                        </option>
+                    ))}
+                </select>
 
-<span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
-</div>
-{checkpending('Scooping') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+            </div>
+            {checkpending('Scooping') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+            {selectType === "LotWise" ? (
+                <Table className="mt-4">
+                    <TableHeader className="bg-neutral-100 text-stone-950 ">
+                        <TableHead className="text-center" >Id</TableHead>
+                        <TableHead className="text-center" >Lot No.</TableHead>
+                        <TableHead className="text-center" >DateofBoiling </TableHead>
+                        <TableHead className="text-center" >Origin</TableHead>
+                        <TableHead className="text-center" >Opening Qty(Kg)</TableHead>
+                        <TableHead className="text-center" >Receiving Qty(Kg)</TableHead>
+                        <TableHead className="text-center" >Wholes</TableHead>
+                        <TableHead className="text-center" >Broken</TableHead>
+                        <TableHead className="text-center" >Uncut</TableHead>
+                        <TableHead className="text-center" >Unscoop</TableHead>
+                        <TableHead className="text-center" >NonCut</TableHead>
+                        <TableHead className="text-center" >Rejection </TableHead>
+                        <TableHead className="text-center" >Dust </TableHead>
+                        <TableHead className="text-center" >TotalBagCutting</TableHead>
+                        <TableHead className="text-center" >KOR</TableHead>
+                        <TableHead className="text-center" >Female(Common)</TableHead>
+                        <TableHead className="text-center" >Male(Common)</TableHead>
+                        <TableHead className="text-center" >SuperVisor(Common)</TableHead>
+                        <TableHead className="text-center" >LineWiseOperator</TableHead>
+                        <TableHead className="text-center" >LineWiseFemale</TableHead>
+                        <TableHead className="text-center" >EditStatus</TableHead>
+                        <TableHead className="text-center" >Entried By </TableHead>
+                        <TableHead className="text-center" >Action</TableHead>
+                    </TableHeader>
+                    <TableBody>
+                        {EditData.length > 0 ? (
+                            EditData.map((item: EditPendingData, idx) => {
 
+                                return (
+                                    <TableRow key={item.id}>
+                                        <TableCell className="text-center">{idx + 1}</TableCell>
+                                        <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
+                                        <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
+                                        <TableCell className="text-center">{item.blNo}</TableCell>
+                                        <TableCell className="text-center">{item.conNo}</TableCell>
+                                        <TableCell className="text-center">{item.truckNo}</TableCell>
 
+                                        <TableCell className="text-center">{item.blWeight}</TableCell>
+                                        <TableCell className="text-center">{item.netWeight}</TableCell>
 
-            <Table className="mt-4">
-                <TableHeader className="bg-neutral-100 text-stone-950 ">
+                                        {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)
+                                            : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)}
 
-                    <TableHead className="text-center" >Id</TableHead>
-                    <TableHead className="text-center" >Lot No.</TableHead>
-                    <TableHead className="text-center" >DateofBoiling </TableHead>
-                    <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Opening Qty(Kg)</TableHead>
-                    <TableHead className="text-center" >Receiving Qty(Kg)</TableHead>
+                                        <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
+                                        <TableCell className="text-center ">
+                                            {item.rcnStatus === 'QC Approved' ? (
+                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
+                                            ) : item.rcnStatus === 'QC Pending' ? (
+                                                <button className="bg-yellow-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
+                                            ) : (
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
+                                            )}
+                                        </TableCell>
+                                        <TableCell className="text-center">{item.editStatus == 'Created' ?
+                                            'NA' : item.editStatus}</TableCell>
+                                        <TableCell className="text-center">{item.editedBy}</TableCell>
+                                        <TableCell className="text-center">
+                                            <Popover>
+                                                <PopoverTrigger>
+                                                    <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger className="flex">
+                                                            <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent>
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger className="flex mt-2">
+                                                            <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent>
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+                                                </PopoverContent>
+                                            </Popover>
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })
+                        ) : (
+                            console.log(LotWiseData),
+                            LotWiseData.length > 0 ? (LotWiseData.map((item: rcnScoopingData, idx) => {
 
-                    <TableHead className="text-center" >Wholes</TableHead>
-                    <TableHead className="text-center" >Broken</TableHead>
-                    <TableHead className="text-center" >Uncut</TableHead>
-                    <TableHead className="text-center" >Unscoop</TableHead>
-                    <TableHead className="text-center" >NonCut</TableHead>
-                    <TableHead className="text-center" >Rejection </TableHead>
-                    <TableHead className="text-center" >Dust </TableHead>
-                    <TableHead className="text-center" >TotalBagCutting</TableHead>
-                    <TableHead className="text-center" >KOR</TableHead>
-                    <TableHead className="text-center" >Female(Common)</TableHead>
-                    <TableHead className="text-center" >Male(Common)</TableHead>
-                    <TableHead className="text-center" >SuperVisor(Common)</TableHead>
-                    <TableHead className="text-center" >LineWiseOperator</TableHead>
-                    <TableHead className="text-center" >LineWiseFemale</TableHead>
-                    <TableHead className="text-center" >EditStatus</TableHead>
-                    <TableHead className="text-center" >Entried By </TableHead>
-                    <TableHead className="text-center" >Action</TableHead>
-                    
+                                return (
+                                    <TableRow key={item.id}>
+                                        <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                        <TableCell className="text-center font-semibold text-cyan-600">{item.LotNo}</TableCell>
+                                        <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.origin}</TableCell>
+                                        <TableCell className="text-center">{item.Opening_Qty}</TableCell>
+                                        <TableCell className="text-center">{item.Receiving_Qty}</TableCell>
 
-                </TableHeader>
-                <TableBody>
-                    {EditData.length > 0 ? (
-                        EditData.map((item: EditPendingData, idx) => {
+                                        <TableCell className="text-center">{item.Wholes}</TableCell>
+                                        <TableCell className="text-center">{item.Broken}</TableCell>
 
-                            return (
-                                <TableRow key={item.id}>
-                                    <TableCell className="text-center">{idx + 1}</TableCell>
-                                    <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                    <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center">{item.blNo}</TableCell>
-                                    <TableCell className="text-center">{item.conNo}</TableCell>
-                                    <TableCell className="text-center">{item.truckNo}</TableCell>
-
-                                    <TableCell className="text-center">{item.blWeight}</TableCell>
-                                    <TableCell className="text-center">{item.netWeight}</TableCell>
-
-                                    {Number(item.difference)<0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)
-                                    : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)}
-                                    
-                                    <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
-                                    <TableCell className="text-center ">
-                                        {item.rcnStatus === 'QC Approved' ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
-                                        ) : item.rcnStatus === 'QC Pending' ? (
-                                            <button className="bg-yellow-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
-                                        ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
-                                        )}
-                                    </TableCell>
-                                    <TableCell className="text-center">{item.editStatus == 'Created' ?
-                                        'NA' : item.editStatus}</TableCell>
-                                    <TableCell className="text-center">{item.editedBy}</TableCell>
-                                    <TableCell className="text-center">
-                                        <Popover>
-                                            <PopoverTrigger>
-                                                <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex">
-                                                        <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex mt-2">
-                                                        <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                            </PopoverContent>
-                                        </Popover>
-                                    </TableCell>
-                                </TableRow>
-                            );
-                        })
-                    ) : (
-                        Data.length > 0 ? (Data.map((item: rcnScoopingData, idx) => {
-
-                            return (
-                                <TableRow key={item.id}>
-                                    <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className="text-center font-semibold text-cyan-600">{item.LotNo}</TableCell>
-                                    <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.origin}</TableCell>
-                                    <TableCell className="text-center">{item.Opening_Qty}</TableCell>
-                                    <TableCell className="text-center">{item.Receiving_Qty}</TableCell>
-
-                                    <TableCell className="text-center">{item.Wholes}</TableCell>
-                                    <TableCell className="text-center">{item.Broken}</TableCell>
-                                   
-                                    <TableCell className="text-center ">{item.Uncut}</TableCell>
-                                   
-                                  
-                                    <TableCell className="text-center">{item.Unscoop}</TableCell>
-                                    <TableCell className="text-center ">{item.NonCut}</TableCell>
-                                    <TableCell className="text-center">{item.Rejection}</TableCell>
-                                    <TableCell className="text-center ">{item.Dust}</TableCell>
-                                    <TableCell className="text-center ">{item.TotBagCutting}</TableCell>
-                                    <TableCell className="text-center ">{item.KOR}</TableCell>
-                                    <TableCell className="text-center ">{item.noOfLadies}</TableCell>
-                                    <TableCell className="text-center">{item.noOfGents}</TableCell>
-                                    <TableCell className="text-center ">{item.noOfSupervisors}</TableCell>
-                                  
-                                    <TableCell className="text-center ">{item.noOfOperators}</TableCell>
-                                    <TableCell className="text-center ">{item.noOfEmployees}</TableCell>
-                                    <TableCell className="text-center ">{item.editStatus}</TableCell>
-                                    <TableCell className="text-center ">{item.CreatedBy}</TableCell>
-                                   
+                                        <TableCell className="text-center ">{item.Uncut}</TableCell>
 
 
-                                    <TableCell className="text-center">
-                                        <Popover>
-                                            <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                <Dialog>
-                                                    <DialogTrigger className="flex"><CiEdit size={20} />
-                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" onClick={()=>handleLineEntry(item.LotNo,item.origin)}>View/Modify</button>
-                                                    </DialogTrigger>
-                                                    <DialogContent className='max-w-3xl'>
-                                                        <DialogHeader>
-                                                            <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-5'>Line Wise Scooping Modify</p>
-                                                            </DialogTitle>
-                                                        </DialogHeader>
-                                                        <RCNLineCreateEditForm scoop={scoopdata}/>
-                                                        {/* <RcnPrimaryModify data={item} /> */}
-                                                    </DialogContent>
-                                                </Dialog>
-                                            </PopoverContent>
-                                        </Popover>
-                                    </TableCell>
-                                </TableRow>
-                            );
-                        })) : (<TableRow>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                        </TableRow>)
-                    )}
-                </TableBody>
-            </Table>
+                                        <TableCell className="text-center">{item.Unscoop}</TableCell>
+                                        <TableCell className="text-center ">{item.NonCut}</TableCell>
+                                        <TableCell className="text-center">{item.Rejection}</TableCell>
+                                        <TableCell className="text-center ">{item.Dust}</TableCell>
+                                        <TableCell className="text-center ">{item.TotBagCutting}</TableCell>
+                                        <TableCell className="text-center ">{item.KOR}</TableCell>
+                                        <TableCell className="text-center ">{item.noOfLadies}</TableCell>
+                                        <TableCell className="text-center">{item.noOfGents}</TableCell>
+                                        <TableCell className="text-center ">{item.noOfSupervisors}</TableCell>
+                                        <TableCell className="text-center ">{item.noOfOperators}</TableCell>
+                                        <TableCell className="text-center ">{item.noOfEmployees}</TableCell>
+                                        <TableCell className="text-center ">{item.editStatus}</TableCell>
+                                        <TableCell className="text-center ">{item.CreatedBy}</TableCell>
+
+
+
+                                        <TableCell className="text-center">
+                                            <Popover>
+                                                <PopoverTrigger>
+                                                    <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                                    <Dialog>
+                                                        <DialogTrigger className="flex"><CiEdit size={20} />
+                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" onClick={() => handleLineEntry(item.LotNo, item.origin)}>View/Modify</button>
+                                                        </DialogTrigger>
+                                                        <DialogContent className='max-w-3xl'>
+                                                            <DialogHeader>
+                                                                <DialogTitle>
+                                                                    <p className='text-1xl pb-1 text-center mt-5'>Line Wise Scooping Modify</p>
+                                                                </DialogTitle>
+                                                            </DialogHeader>
+                                                            <RCNLineCreateEditForm scoop={scoopdata} />
+                                                            {/* <RcnPrimaryModify data={item} /> */}
+                                                        </DialogContent>
+                                                    </Dialog>
+                                                </PopoverContent>
+                                            </Popover>
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })) : (<TableRow>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                            </TableRow>)
+                        )}
+                    </TableBody>
+                </Table>) : (<RcnTableLineWise LineWise={LineWiseData} page={page} />)
+            }
             <Pagination style={{ display: blockpagen }} className="pt-5 ">
                 <PaginationContent>
                     <PaginationItem>

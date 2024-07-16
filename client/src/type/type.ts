@@ -25,29 +25,40 @@ export interface RcnPrimaryEntryData {
     createdAt: string;
 }
 export interface rcnScoopingData {
-        id: number;
-        LotNo: string;
-        date: string;
-        origin: string;
-        Opening_Qty: string;
-        Receiving_Qty: string;
-        Wholes: string;
-        Broken: string;
-        Uncut: string;
-        Unscoop: string;
-        NonCut: string;
-        Rejection: string;
-        Dust: string;
-        TotBagCutting: string;
-        KOR: string;
-        noOfEmployees: number;
-        noOfLadies:number;
-        noOfGents: number;
-        noOfSupervisors: number;
+    id: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    Opening_Qty: string;
+    Receiving_Qty: string;
+    Wholes: string;
+    Broken: string;
+    Uncut: string;
+    Unscoop: string;
+    NonCut: string;
+    Rejection: string;
+    Dust: string;
+    TotBagCutting: string;
+    KOR: string;
+    noOfEmployees: number;
+    noOfLadies: number;
+    noOfGents: number;
+    noOfSupervisors: number;
     noOfOperators: 10,
-        CreatedBy: string;
-        editStatus: string;
-        modifiedBy: string;
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string;
+    Mc_on?: string;
+    Mc_off?: string;
+    Trolley_Broken?: string;
+    Trolley_Small_JB?: string;
+    Transfered_to?: string;
+    Mc_breakdown?: string;
+    Brkdwn_reason?: string;
+    otherTime?: string;
+    scoopStatus?: string;
+    Mc_runTime?: string;
+    Size?: number;
 }
 export interface EditPendingData extends RcnPrimaryEntryData {
     editedBy: string;
@@ -109,44 +120,43 @@ export interface QcRcnEntryData {
 }
 
 export interface scoopingpendingLotData {
-    LotNo:string
+    LotNo: string
 }
 export interface ScoopData {
-            LotNo:string;
-            id: number;
-            date: string;
-            origin: string;
-            SizeName: string;
-            Size: string;
-            Scooping_Line_Mc: string;
-            Opening_Qty:string;
-            Receiving_Qty: string;
-            Wholes:string;
-            Broken: string;
-            Uncut: string;
-            Unscoop: string;
-            NonCut:string;
-            Rejection: string;
-            Dust:string;
-            KOR:string;
-            Trolley_Broken: string;
-            Trolley_Small_JB: string;
-            Transfered_to: string;
-            scoopStatus: string;
-            Mc_on: string;
-            Mc_off: string;
-            noOfEmployees: string;
-            Mc_breakdown: string;
-            otherTime: string;
-            Brkdwn_reason: string;
-            noOfLadies: string;
-            noOfGents: string;
-            noOfSupervisors: string;
-            noOfOperators: string;
-            CreatedBy: string;
-            editStatus: string;
-           
-            modifiedBy: string;
+    LotNo: string;
+    id: number;
+    date: string;
+    origin: string;
+    SizeName: string;
+    Size: string;
+    Scooping_Line_Mc: string;
+    Opening_Qty: string;
+    Receiving_Qty: string;
+    Wholes: string;
+    Broken: string;
+    Uncut: string;
+    Unscoop: string;
+    NonCut: string;
+    Rejection: string;
+    Dust: string;
+    KOR: string;
+    Trolley_Broken: string;
+    Trolley_Small_JB: string;
+    Transfered_to: string;
+    scoopStatus: string;
+    Mc_on: string;
+    Mc_off: string;
+    noOfEmployees: string;
+    Mc_breakdown: string;
+    otherTime: string;
+    Brkdwn_reason: string;
+    noOfLadies: string;
+    noOfGents: string;
+    noOfSupervisors: string;
+    noOfOperators: string;
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string;
 }
 
 export interface ExcelRcnPrimaryEntryData {
@@ -252,8 +262,8 @@ export interface PermissionRole {
     QCSupervisor: string[];
     QCManager: string[];
     GradingSupervisor: string[];
-    ScoopingSupervisor:string[];
-    BoilingSupervisor:string[];
+    ScoopingSupervisor: string[];
+    BoilingSupervisor: string[];
 
 
 }
@@ -265,31 +275,31 @@ export interface PermissionDept {
     Production: string[];
     QualityControl: string[];
     Grading: string[];
-    Boiling:string[];
+    Boiling: string[];
 
 }
-export interface BoilingEntryData{
-        moisture: string;
-        id: number;
-        LotNo: string;
-        date: string;
-        origin: string;
-        SizeName: string;
-        Size: string;
-        Scooping_Line_Mc: string;
-        Pressure: string;
-        CookingTime: string;
-        MCName: string;
-        Mc_on: string;
-        Mc_off: string;
-        noOfEmployees: string;
-        Mc_breakdown: string;
-        otherTime: string;
-        CreatedBy: string;
-        editStatus: string;
-        Mc_runTime: string;
-        modifiedBy: string;
-       
+export interface BoilingEntryData {
+    moisture: string;
+    id: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    SizeName: string;
+    Size: string;
+    Scooping_Line_Mc: string;
+    Pressure: string;
+    CookingTime: string;
+    MCName: string;
+    Mc_on: string;
+    Mc_off: string;
+    noOfEmployees: string;
+    Mc_breakdown: string;
+    otherTime: string;
+    CreatedBy: string;
+    editStatus: string;
+    Mc_runTime: string;
+    modifiedBy: string;
+
 
 }
 
@@ -346,12 +356,12 @@ export interface GradingExcelData {
     Run_Duration: string;
     Edit_Status: string;
     Entried_By: string;
-    ApprovedOrRejectedBy:string;
+    ApprovedOrRejectedBy: string;
 }
 
 export interface TimePeriodProps {
 
-    timeString:string
+    timeString: string
 }
 export interface BoilingExcelData {
     Sl_No: number;
@@ -362,20 +372,20 @@ export interface BoilingExcelData {
     Boiling_Qty: string;
     Scooping_Line: string;
     Pressure: string;
-    Moisture:string;
+    Moisture: string;
     Machine: string;
     MC_On: string;
     MC_Off: string;
     Labour_No: string;
     Breakdown_Duration: string;
     Other_Duration: string;
-    Cooking_Time:string;
+    Cooking_Time: string;
     Run_Duration: string;
     Edit_Status: string;
     Entried_By: string;
-    ApprovedOrRejectedBy:string;
+    ApprovedOrRejectedBy: string;
 
 
-   
-   
+
+
 }
