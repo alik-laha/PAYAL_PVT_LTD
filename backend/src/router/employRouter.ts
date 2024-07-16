@@ -8,10 +8,11 @@ import DeleteEmployee from "../controller/employeeController/deleteEmployee";
 import releseEmployee from "../controller/employeeController/releseEmployee";
 import activeEmployeeCount from "../controller/employeeController/activeEmployeeCount";
 import jwtVerify from "../middleWare/JwtAuthantication";
+import { EmployeeImageUpload } from "../helper/saveimagefromUpload";
 
 const router = express.Router();
 
-router.post("/createemployee", employeeMiddleWare, jwtVerify, createEmployee)
+router.post("/createemployee", EmployeeImageUpload, employeeMiddleWare, jwtVerify, createEmployee);
 
 router.put("/updateemployee/:id", employeeMiddleWare, jwtVerify, updateEmployee)
 
