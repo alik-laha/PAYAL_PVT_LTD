@@ -72,14 +72,15 @@ const DashboardTable = () => {
             params: {
                 page: page,
                 limit: limit
-            }})
+            }
+        })
             .then((res) => {
                 console.log(res.data)
                 if (res.data.user === 0 && page > 1) {
                     setPage((prev) => prev - 1)
-    
+
                 }
-                setUserData(res.data.user) 
+                setUserData(res.data.user)
                 setError("")
             })
             .catch((err) => {
@@ -92,7 +93,7 @@ const DashboardTable = () => {
     }
 
     useEffect(() => {
-        axios.post('/api/user/searchuser', { SearchUser: '' },{
+        axios.post('/api/user/searchuser', { SearchUser: '' }, {
             params: {
                 page: page,
                 limit: limit
@@ -101,7 +102,7 @@ const DashboardTable = () => {
             .then((res) => {
                 if (res.data.user === 0 && page > 1) {
                     setPage((prev) => prev - 1)
-    
+
                 }
                 //console.log(res.data)
                 setUserData(res.data.user)
@@ -121,17 +122,17 @@ const DashboardTable = () => {
 
         const response = await axios.post('/api/user/searchuser', {}, {})
         const data1 = await response.data
-        let transformed:User[] = [];
-        
-        transformed= data1.user.map((item: User, idx: number) => ({
-            id: idx+1,
-    employeeId: item.employeeId,
-    employeeName: item.employeeName,
-    userName: item.userName,
-    dept: item.dept,
-    role: item.role,
-    createdBy: item.createdBy,
-    modifyedBy:item.modifyedBy
+        let transformed: User[] = [];
+
+        transformed = data1.user.map((item: User, idx: number) => ({
+            id: idx + 1,
+            employeeId: item.employeeId,
+            employeeName: item.employeeName,
+            userName: item.userName,
+            dept: item.dept,
+            role: item.role,
+            createdBy: item.createdBy,
+            modifyedBy: item.modifyedBy
 
         }));
         //setTransformedData(transformed);
@@ -159,7 +160,7 @@ const DashboardTable = () => {
     }
 
     return (
-        
+
         <div className="ml-5 mt-5">
             <div className="flex ">
 
@@ -178,28 +179,28 @@ const DashboardTable = () => {
                     <TableHead className="text-center" >User Name </TableHead>
                     <TableHead className="text-center" >Department </TableHead>
                     <TableHead className="text-center" >Role </TableHead>
-                  
+
                     <TableHead className="text-center" >Created By </TableHead>
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>
                 <TableBody>
-                {Error ?
+                    {Error ?
 
-<TableRow>
-    <TableCell></TableCell>
-    <TableCell></TableCell>
-    <TableCell></TableCell>
-    
-    <TableCell><p className="w-100 font-medium text-center text-red-500 pt-3 pb-10">{Error}</p></TableCell>
-    <TableCell></TableCell>
-    <TableCell></TableCell>
-    <TableCell></TableCell>
-  
+                        <TableRow>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+
+                            <TableCell><p className="w-100 font-medium text-center text-red-500 pt-3 pb-10">{Error}</p></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
 
 
-</TableRow>
-: null}
+
+                        </TableRow>
+                        : null}
 
                     {
                         UserData.map((item, idx) => {
@@ -212,7 +213,7 @@ const DashboardTable = () => {
                                     <TableCell className="text-center font-semibold text-red-600" >{item.dept}</TableCell>
                                     <TableCell className="text-center font-semibold text-green-600" >{item.role}</TableCell>
                                     <TableCell className="text-center" >{item.createdBy}</TableCell>
-                                   
+
                                     <TableCell className="text-center" >
 
                                         <Popover>
@@ -221,13 +222,13 @@ const DashboardTable = () => {
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
                                                 <Dialog>
-                                                    <DialogTrigger className="flex"> <CiEdit size={20}/>  <button className="bg-transparent pb-2 pl-2 text-left  hover:text-green-600 ">Modify</button></DialogTrigger>
+                                                    <DialogTrigger className="flex"> <CiEdit size={20} />  <button className="bg-transparent pb-2 pl-2 text-left  hover:text-green-600 ">Modify</button></DialogTrigger>
                                                     <DialogContent>
                                                         <DialogHeader>
                                                             <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>User Modification</p></DialogTitle>
                                                             <DialogDescription>
-                                <p className='text-1xl text-center'>To Be Modified Up By Director</p>
-                            </DialogDescription>
+                                                                <p className='text-1xl text-center'>To Be Modified Up By Director</p>
+                                                            </DialogDescription>
                                                         </DialogHeader>
 
                                                         <DashboardUserModifyForm Data={item} />
@@ -235,7 +236,7 @@ const DashboardTable = () => {
                                                 </Dialog>
 
                                                 <AlertDialog>
-                                                    <AlertDialogTrigger className="flex"><MdDelete size={20}/><button className="bg-transparent pl-2
+                                                    <AlertDialogTrigger className="flex"><MdDelete size={20} /><button className="bg-transparent pl-2
                                                     text-left hover:text-red-600">Delete</button></AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
@@ -266,6 +267,9 @@ const DashboardTable = () => {
                         <PaginationPrevious onClick={() => setPage((prev) => {
                             if (prev === 1) {
                                 return prev
+                            }
+                            if (prev <= 0) {
+                                return prev + 1
                             }
                             return prev - 1
                         })} />
