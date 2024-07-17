@@ -42,56 +42,12 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { MdDelete } from "react-icons/md";
-//import { size } from "lodash"
-
-
-// interface MergedData {
-//     ScoopingLine: string;
-//     sizeName: string;
-//     size: number;
-//     origin:string;
-//   }
-
 
 
 
 const RCNBoilingEntryForm = () => 
     {
-       //const [newFormData, setNewFormData] = useState<MergedData[]>([]);
-   
     
-    // useEffect(() => {
-    //     const mergeRows = (data: RowData[]): MergedData[] => {
-    //       const filteredData = data.map(({ origin, ScoopingLine,sizeName,size }) => ({
-    //         origin,
-    //         ScoopingLine,
-    //         sizeName,
-    //         size:parseFloat(size)
-    //       }));
-    
-    //       const merged = filteredData.reduce<Record<string, { ScoopingLine: string, sizeName: string[], size: number,origin:string }>>((acc, row) => {
-    //         const { ScoopingLine, sizeName, size, origin} = row;
-    //         if (!acc[ScoopingLine]) {
-    //           acc[ScoopingLine] = { ScoopingLine, sizeName: [sizeName], size: size,origin:origin };
-    //         } else {
-    //           acc[ScoopingLine].sizeName.push(sizeName);
-    //           acc[ScoopingLine].size += size;
-    //         }
-    //         return acc;
-    //       }, {});
-    
-    //       return Object.values(merged).map(item => ({
-    //         ScoopingLine: item.ScoopingLine,
-    //         sizeName: item.sizeName.join(', '),
-    //         size: item.size,
-    //         origin:item.origin
-    //       }));
-    //     };
-    
-    //     setNewFormData(mergeRows(rows));
-    //   }, [rows]);
-
-
     function processFormData(formDataArray: RowData[]): RowData[] {
         const ScoopingLineCount: { [key: string]: number } = {};
       
@@ -164,7 +120,7 @@ const RCNBoilingEntryForm = () =>
     const DateRef = useRef<HTMLInputElement>(null)
     const [mc_name, setMc_name] = useState('')
     const noofEmployeeRef = useRef<HTMLInputElement>(null)
-    //const [lotNO, setLotNO] = useState('')
+    const [lotNO, setLotNO] = useState('')
     const [rows,setRows]=useState<RowData[]>([{origin:'',sizeName:'',
         size:'',ScoopingLine:'',pressure:'',moisture:'',CookingTime:'',cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00',openQuantity:0}
     ]);
@@ -201,7 +157,7 @@ const RCNBoilingEntryForm = () =>
             axios.post('/api/boiling/createLotNo', {}).then(async res => 
             {
                 console.log(res)
-                //setLotNO(res.data.newSequence)  
+                setLotNO(res.data.newSequence)  
                 const formData = rows.map(row => ({
                     columnLotNo: res.data.newSequence,
                     columnDate: date,
@@ -218,14 +174,14 @@ const RCNBoilingEntryForm = () =>
                         boilingcount++;
                         if (formData.length === boilingcount) {
                             setErrortext(res.data.message)
-                        //     if (res.status === 200) {
-                        //       const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                        //       dialog.showModal()
-                        //        setTimeout(() => {
-                        //            dialog.close()
-                        //            window.location.reload()
-                        //        }, 2000)
-                        //    }
+                            if (res.status === 200) {
+                              const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                              dialog.showModal()
+                               setTimeout(() => {
+                                   dialog.close()
+                                   window.location.reload()
+                               }, 2000)
+                           }
                            axios.post('/api/scooping/updateLotNo', { lotNo:data.columnLotNo,desc:'Boiling'}).then(res => {
                             console.log(res)})
                             .catch(err => {
@@ -255,59 +211,64 @@ const RCNBoilingEntryForm = () =>
                     })      
                 }
 
-                
-                   
                 const updatedFormDataArray = await updateFormData(formData,res.data.newSequence);
                 const processedFormDataArray = processFormData(updatedFormDataArray);
-
-                const formData2 = processedFormDataArray.map(row => ({
-                    columnLotNo: res.data.newSequence,
-                    rcvQuantity: (parseFloat(row.size) * 80),
-                     ...row
-
-                }))
-
-                for (var data2 of formData2) 
-                    {
-                        axios.post('/api/scooping/createInitialScooping', { data2 }).then(res => {
-                          console.log(res)
-                          boilingcount++;
-                          if (formData.length === boilingcount) {
-                              setErrortext(res.data.message)
-                              if (res.status === 200) {
-                                const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                                dialog.showModal()
-                                 setTimeout(() => {
-                                     dialog.close()
-                                     window.location.reload()
-                                 }, 2000)
-                             }
-                              
-  
-                          }
-                          
-                        })
-                        .catch(err => {
-                                console.log(err)
-                                setErrortext(err.response.data.message)
-                                axios.delete(`/api/boiling/deleteLotNo/${data.columnLotNo}`).then((res) => {
-                                    console.log(res.data)
+                axios.post('/api/boiling/getStatusBoiling', { lotNo:formData[0].columnLotNo}).then(res => {
+                    console.log(res)
+                    if(res.data.lotStatus.modifiedBy && res.data.lotStatus.modifiedBy==='Boiling'){
+                        const formData2 = processedFormDataArray.map(row => ({
+                            columnLotNo: res.data.newSequence,
+                            rcvQuantity: (parseFloat(row.size) * 80),
+                             ...row
+                        }))
+        
+                        for (var data2 of formData2) 
+                            {
+                                axios.post('/api/scooping/createInitialScooping', { data2 }).then(res => {
+                                  console.log(res)
+                                  boilingcount++;
+                                  if (formData.length === boilingcount) {
+                                      setErrortext(res.data.message)
+                                      if (res.status === 200) {
+                                        const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                                        dialog.showModal()
+                                         setTimeout(() => {
+                                             dialog.close()
+                                             window.location.reload()
+                                         }, 2000)
+                                     }
+                                      
+          
+                                  }
+                                  
                                 })
-                                axios.delete(`/api/scooping/deleteScoopingByLotNo/${data.columnLotNo}`).then((res) => {
-                                    console.log(res.data)
-                                })
-                                axios.delete(`/api/boiling/deleteBoilingByLotNo/${data.columnLotNo}`).then((res) => {
-                                    console.log(res.data)
-                                })
-                                
-                                
-                                const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
-                                dialog.showModal()
-                                setTimeout(() => {
-                                    dialog.close()
-                                }, 2000)
-                        })      
+                                .catch(err => {
+                                        console.log(err)
+                                        setErrortext(err.response.data.message)
+                                        axios.delete(`/api/boiling/deleteLotNo/${data.columnLotNo}`).then((res) => {
+                                            console.log(res.data)
+                                        })
+                                        axios.delete(`/api/scooping/deleteScoopingByLotNo/${data.columnLotNo}`).then((res) => {
+                                            console.log(res.data)
+                                        })
+                                        axios.delete(`/api/boiling/deleteBoilingByLotNo/${data.columnLotNo}`).then((res) => {
+                                            console.log(res.data)
+                                        })
+                                        
+                                        
+                                        const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                                        dialog.showModal()
+                                        setTimeout(() => {
+                                            dialog.close()
+                                        }, 2000)
+                                })      
+                            }
+
+
                     }
+                })
+
+                
                     
                 
                 

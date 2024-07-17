@@ -12,7 +12,7 @@ try{
     
       // Save the new sequence to the database
       const lotStatus = await LotNo.findOne(
-        ({ attributes: ['modifiedBy'],where: { lotNo:LOTId } })
+        ({ where: { lotNo:LOTId } })
       
         
     );
