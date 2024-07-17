@@ -526,7 +526,7 @@ const RCNLineCreateEditForm = (props: Props) => {
                             ) : null}
                         </TableBody>
                     </Table>
-                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
+                    {/* <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button> */}
 
 
                 </form>

@@ -120,7 +120,7 @@ const RCNBoilingEntryForm = () =>
     const DateRef = useRef<HTMLInputElement>(null)
     const [mc_name, setMc_name] = useState('')
     const noofEmployeeRef = useRef<HTMLInputElement>(null)
-    const [lotNO, setLotNO] = useState('')
+    //const [lotNO, setLotNO] = useState('')
     const [rows,setRows]=useState<RowData[]>([{origin:'',sizeName:'',
         size:'',ScoopingLine:'',pressure:'',moisture:'',CookingTime:'',cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00',openQuantity:0}
     ]);
@@ -157,7 +157,7 @@ const RCNBoilingEntryForm = () =>
             axios.post('/api/boiling/createLotNo', {}).then(async res => 
             {
                 console.log(res)
-                setLotNO(res.data.newSequence)  
+                //setLotNO(res.data.newSequence)  
                 const formData = rows.map(row => ({
                     columnLotNo: res.data.newSequence,
                     columnDate: date,
@@ -180,7 +180,7 @@ const RCNBoilingEntryForm = () =>
                                setTimeout(() => {
                                    dialog.close()
                                    window.location.reload()
-                               }, 2000)
+                               }, 3000)
                            }
                            axios.post('/api/scooping/updateLotNo', { lotNo:data.columnLotNo,desc:'Boiling'}).then(res => {
                             console.log(res)})
@@ -230,15 +230,14 @@ const RCNBoilingEntryForm = () =>
                                   if (formData.length === boilingcount) {
                                       setErrortext(res.data.message)
                                       if (res.status === 200) {
-                                        const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                                        dialog.showModal()
+                                        const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                                        dialog2.showModal()
                                          setTimeout(() => {
-                                             dialog.close()
+                                             dialog2.close()
                                              window.location.reload()
-                                         }, 2000)
+                                         }, 3000)
                                      }
                                       
-          
                                   }
                                   
                                 })
@@ -267,11 +266,6 @@ const RCNBoilingEntryForm = () =>
 
                     }
                 })
-
-                
-                    
-                
-                
                 }).catch(err => {
                 console.log(err)
                 })

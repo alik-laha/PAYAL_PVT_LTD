@@ -177,33 +177,33 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                                 <TableCell className="text-center">{item.SizeName}</TableCell>
                                 <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.Opening_Qty))} Kg</TableCell>
                                 <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.Receiving_Qty))} Kg</TableCell>
-                            
+
                                 <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                 <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
                                 <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                                    <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                                    <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')} hr</TableCell>
-                                   
+                                <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')} hr</TableCell>
+
                                 <TableCell className="text-center">{item.Trolley_Broken}%</TableCell>
                                 <TableCell className="text-center">{item.Trolley_Small_JB}%</TableCell>
-                               
+
 
                                 <TableCell className="text-center">{formatNumber(parseFloat(item.Wholes))} Kg</TableCell>
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.Broken))} Kg</TableCell>
+                                <TableCell className="text-center">{formatNumber(parseFloat(item.Broken))} Kg</TableCell>
 
-                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.Uncut))} Kg</TableCell>
+                                <TableCell className="text-center ">{formatNumber(parseFloat(item.Uncut))} Kg</TableCell>
 
 
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.Unscoop))} Kg</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.NonCut))} Kg</TableCell>
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.Rejection))} Kg</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.Dust))} Kg</TableCell>
-                                        <TableCell className="text-center ">{item.TotBagCutting}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.KOR))}</TableCell>
-                                        
-                                        <TableCell className="text-center ">{item.Transfered_Qty} Kg</TableCell>
-                                        <TableCell className="text-center ">{item.Transfered_To}</TableCell>
-                                     
+                                <TableCell className="text-center">{formatNumber(parseFloat(item.Unscoop))} Kg</TableCell>
+                                <TableCell className="text-center ">{formatNumber(parseFloat(item.NonCut))} Kg</TableCell>
+                                <TableCell className="text-center">{formatNumber(parseFloat(item.Rejection))} Kg</TableCell>
+                                <TableCell className="text-center ">{formatNumber(parseFloat(item.Dust))} Kg</TableCell>
+                                <TableCell className="text-center ">{item.TotBagCutting}</TableCell>
+                                <TableCell className="text-center ">{formatNumber(parseFloat(item.KOR))}</TableCell>
+
+                                <TableCell className="text-center ">{item.Transfered_Qty} Kg</TableCell>
+                                <TableCell className="text-center ">{item.Transfered_To}</TableCell>
+
                                 <TableCell className="text-center ">{item.noOfLadies}</TableCell>
                                 <TableCell className="text-center">{item.noOfGents}</TableCell>
                                 <TableCell className="text-center ">{item.noOfSupervisors}</TableCell>

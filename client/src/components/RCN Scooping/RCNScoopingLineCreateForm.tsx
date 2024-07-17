@@ -317,8 +317,6 @@ const RCNScoopingLineCreateForm = (props:Props) => {
     
         props.scoop.map((item: ScoopData, idx: number) => {
             rows[idx].id=item.id
-            //rows[idx].Scooping_Line_Mc=item.Scooping_Line_Mc
-
         })
         console.log(rows)
         const date = DateRef.current?.value  
@@ -337,34 +335,36 @@ const RCNScoopingLineCreateForm = (props:Props) => {
 
             }))
 
-           // console.log(formData)
-           // console.log(newFormData)
-           // console.log(newFormupdateData)
             let scoopingcount = 0
                 for (var data of formData) 
                 {
+                    
                     axios.put(`/api/scooping/createScooping/${data.id}`, { data }).then(res => {
-                        //scoopingcount++;
-                       // if (formData.length === scoopingcount) {
+                        scoopingcount++;
+                       if (formData.length === scoopingcount) {
                             setErrortext(res.data.message)
+                            axios.post('/api/scooping/updateLotNo', { lotNo:rows[0].LotNo,desc:'Scooping'}).then(res => {
+                                console.log(res)})
+                                .catch(err => {
+                                    console.log(err)
+                                    setErrortext(err.response.data.message)
+                                   
+                            }) 
+                            if (res.status === 200) {
+                               const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                               dialog.showModal()
+                                setTimeout(() => {
+                                    dialog.close()
+                                    window.location.reload()
+                                }, 2000)
+                            }
 
-                            // if (res.status === 200) {
-                            //    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                            //    dialog.showModal()
-                            //     setTimeout(() => {
-                            //         dialog.close()
-                            //         window.location.reload()
-                            //     }, 2000)
-                            // }
-
-                     //   }
+                       }
 
                     })
                     .catch(err => {
                             console.log(err)
                             setErrortext(err.response.data.message)
-                           
-                           
                     }) 
                 }
                 const formall = newFormData.map((row: any) => ({
@@ -377,8 +377,15 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                 }))
                 
                 for (var data2 of formall) 
-                    {
-                        
+                    {   
+                        axios.post('/api/scooping/createScoopingall', { data2 }).then(res => {
+                            console.log(res)
+                        })
+                        .catch(err => {
+                                console.log(err)
+                                setErrortext(err.response.data.message)
+                               
+                        }) 
                         axios.post('/api/scooping/createInitialBorma', { data2 }).then(res => {
                             console.log(res)
                         })
@@ -387,29 +394,6 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                             setErrortext(err.response.data.message)
                            
                          }) 
-                        
-                        axios.post('/api/scooping/createScoopingall', { data2 }).then(res => {
-                            scoopingcount++;
-                            // if (formall.length === scoopingcount) {
-                            //     setErrortext(res.data.message)
-    
-                            //     if (res.status === 200) {
-                            //        const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                            //        dialog.showModal()
-                            //         setTimeout(() => {
-                            //             dialog.close()
-                            //             window.location.reload()
-                            //         }, 2000)
-                            //     }
-    
-                            // }
-    
-                        })
-                        .catch(err => {
-                                console.log(err)
-                                setErrortext(err.response.data.message)
-                               
-                        }) 
                 }
 
                 for (var data3 of newFormupdateData) 
@@ -423,17 +407,6 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                    
                             }) 
                 }
-
-                axios.post('/api/scooping/updateLotNo', { lotNo:rows[0].LotNo,desc:'Scooping'}).then(res => {
-                    console.log(res)})
-                    .catch(err => {
-                        console.log(err)
-                        setErrortext(err.response.data.message)
-                       
-                }) 
-
-                
-
                      
         }
         catch (err) {
