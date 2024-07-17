@@ -368,11 +368,11 @@ const RCNScoopingTable = () => {
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Opening Qty(Kg)</TableHead>
                         <TableHead className="text-center" >Receiving Qty(Kg)</TableHead>
-                        <TableHead className="text-center" >Wholes (kg)</TableHead>
-                        <TableHead className="text-center" >Broken (Kg)</TableHead>
-                        <TableHead className="text-center" >Uncut (Kg)</TableHead>
-                        <TableHead className="text-center" >Unscoop (Kg)</TableHead>
-                        <TableHead className="text-center" >NonCut (Kg)</TableHead>
+                        <TableHead className="text-center" >Wholes(kg)</TableHead>
+                        <TableHead className="text-center" >Broken(Kg)</TableHead>
+                        <TableHead className="text-center" >Uncut(Kg)</TableHead>
+                        <TableHead className="text-center" >Unscoop(Kg)</TableHead>
+                        <TableHead className="text-center" >NonCut(Kg)</TableHead>
                         <TableHead className="text-center" >Rejection (Kg)</TableHead>
                         <TableHead className="text-center" >RCNDust (Kg) </TableHead>
                         <TableHead className="text-center" >Bag Cutting</TableHead>

@@ -8,11 +8,12 @@ try{
 
       // Generate the new sequence
       const newSequence = req.body.lotNo;
+      const desc = req.body.desc;
     
       // Save the new sequence to the database
       const lotupdate = await LotNo.update(
         { 
-          modifiedBy:'Boiling'
+          modifiedBy:desc
         },
         {
             where: {

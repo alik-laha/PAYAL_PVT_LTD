@@ -390,19 +390,19 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                         
                         axios.post('/api/scooping/createScoopingall', { data2 }).then(res => {
                             scoopingcount++;
-                            if (formall.length === scoopingcount) {
-                                setErrortext(res.data.message)
+                            // if (formall.length === scoopingcount) {
+                            //     setErrortext(res.data.message)
     
-                                if (res.status === 200) {
-                                   const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                                   dialog.showModal()
-                                    setTimeout(() => {
-                                        dialog.close()
-                                        window.location.reload()
-                                    }, 2000)
-                                }
+                            //     if (res.status === 200) {
+                            //        const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                            //        dialog.showModal()
+                            //         setTimeout(() => {
+                            //             dialog.close()
+                            //             window.location.reload()
+                            //         }, 2000)
+                            //     }
     
-                            }
+                            // }
     
                         })
                         .catch(err => {
@@ -424,7 +424,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                             }) 
                 }
 
-                axios.post('/api/scooping/updateLotNo', { lotNo:rows[0].LotNo}).then(res => {
+                axios.post('/api/scooping/updateLotNo', { lotNo:rows[0].LotNo,desc:'Scooping'}).then(res => {
                     console.log(res)})
                     .catch(err => {
                         console.log(err)

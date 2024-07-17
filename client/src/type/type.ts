@@ -52,7 +52,7 @@ export interface rcnScoopingData {
     Mc_off?: string;
     Trolley_Broken?: string;
     Trolley_Small_JB?: string;
-    Transfered_to?: string;
+    
     Mc_breakdown?: string;
     Brkdwn_reason?: string;
     otherTime?: string;
@@ -60,6 +60,8 @@ export interface rcnScoopingData {
     Mc_runTime?: string;
     SizeName?: string;
     Scooping_Line_Mc?:string;
+    Transfered_Qty:string;
+    Transfered_To:string;
 }
 export interface EditPendingData extends RcnPrimaryEntryData {
     editedBy: string;
