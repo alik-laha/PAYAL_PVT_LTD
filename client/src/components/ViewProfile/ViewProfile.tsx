@@ -1,12 +1,17 @@
 import axios from 'axios';
 import "./ViewProfile.css";
 import { NavLink } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { EmployeeData, User } from "../../type/type"
 
 const ViewProfile = () => {
+    const [EmployeeDetail, setEmployeeDetail] = useState<EmployeeData>()
+    const [UserDetail, setUserDetail] = useState<User>()
+
     useEffect(() => {
         axios.get("/api/user/profile").then((res) => {
-            console.log(res.data)
+            setEmployeeDetail(res.data.EmployeeDetail)
+            setUserDetail(res.data.UserDetail)
         }
         ).catch((err) => {
             console.log(err)
@@ -30,7 +35,7 @@ const ViewProfile = () => {
                             <div className="card">
                                 <div className="card-body">
                                     <div className="d-flex flex-column align-items-center text-center">
-                                        <div className='flex items-center justify-center'>{localStorage.getItem("image") == null ? <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width="150" /> : <img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} alt="Admin" className="rounded-circle" width="150" />}</div>
+                                        <div className='flex items-center justify-center'>{localStorage.getItem("image") == null ? <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-full" width="150" /> : <img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} alt="Admin" className="rounded-full" width="160" />}</div>
                                         <div className="mt-3">
                                             <h4>{localStorage.getItem("user")}  </h4>
                                         </div>
@@ -44,52 +49,67 @@ const ViewProfile = () => {
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <h6 className="mb-0">Full Name</h6>
+                                            <h6 className="mb-2">Employee Id</h6>
                                         </div>
                                         <div className="col-sm-9 ">
-                                            Kenneth Valdez
+                                            {EmployeeDetail?.employeeId}
                                         </div>
                                     </div>
                                     <hr />
+                                    <br />
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <h6 className="mb-0">Email</h6>
+                                            <h6 className="mb-2">Full Name</h6>
                                         </div>
-                                        <div className="col-sm-9 text-secondary">
-                                            fip@jukmuh.al
+                                        <div className="col-sm-9 ">
+                                            {EmployeeDetail?.employeeName}
                                         </div>
                                     </div>
                                     <hr />
+                                    <br />
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <h6 className="mb-0">Phone</h6>
+                                            <h6 className="mb-2">Email</h6>
                                         </div>
-                                        <div className="col-sm-9 text-secondary">
-                                            (239) 816-9029
+                                        <div className="col-sm-9 ">
+                                            {EmployeeDetail?.email}
                                         </div>
                                     </div>
                                     <hr />
+                                    <br />
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <h6 className="mb-0">Mobile</h6>
+                                            <h6 className="mb-2">Employee Phone No</h6>
                                         </div>
-                                        <div className="col-sm-9 text-secondary">
-                                            (320) 380-4539
+                                        <div className="col-sm-9 ">
+                                            {EmployeeDetail?.mobNo}
                                         </div>
                                     </div>
                                     <hr />
+                                    <br />
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <h6 className="mb-0">Address</h6>
+                                            <h6 className="mb-2">Emergency Number</h6>
                                         </div>
-                                        <div className="col-sm-9 text-secondary">
-                                            Bay Area, San Francisco, CA
+                                        <div className="col-sm-9 ">
+                                            {EmployeeDetail?.emergencyContact}
                                         </div>
                                     </div>
                                     <hr />
+                                    <br />
                                     <div className="row">
-                                        <div className="col-sm-12">
-                                            <a className="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+                                        <div className="col-sm-3">
+                                            <h6 className="mb-2">Address</h6>
+                                        </div>
+                                        <div className="col-sm-9 ">
+                                            {EmployeeDetail?.address}
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <br />
+                                    <div className="row">
+                                        <div className="col-sm-12 text-right ">
+                                            <button className='bg-teal-500 w-24 h-7 rounded-3xl'>Edit</button>
                                         </div>
                                     </div>
                                 </div>
