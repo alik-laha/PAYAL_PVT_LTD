@@ -2,21 +2,25 @@ import { Request, Response } from "express";
 
 import RcnBorma from "../../model/bormaModel";
 
-const CreateInitialScooping = async (req: Request, res: Response) => {
+const CreateInitialBorma = async (req: Request, res: Response) => {
 
     try {
-        const { Wholes,Broken,sizeName,size,origin,rcvQuantity,openQuantity } = req.body.data2;
+        const {  LotNo,
+            origin,
+            Wholes,
+            Broken } = req.body.data2;
+            const totalInput=Wholes+Broken
         
         const BormaInitial = await RcnBorma.create({
-            LotNo:ScoopingLine,
-            origin:size,
-            InputWholes:sizeName,
-            InputPieces, 
-            TotalInput:columnLotNo,
+            LotNo:LotNo,
+            origin:origin,
+            InputWholes:Wholes,
+            InputPieces:Broken, 
+            TotalInput:Wholes+totalInput,
            
 
         });
-        res.status(201).json({ message: "Scooping Initial Entry Made Successfully", BormaInitial });
+        res.status(201).json({ message: "Borma Initial Entry Made Successfully", BormaInitial });
 
     }
     catch (err) {
@@ -26,4 +30,4 @@ const CreateInitialScooping = async (req: Request, res: Response) => {
 
 }
 
-export default BormaInitial;
+export default CreateInitialBorma;

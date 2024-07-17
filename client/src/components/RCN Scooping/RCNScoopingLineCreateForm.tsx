@@ -184,7 +184,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
           return Object.values(merged).map(item => ({
             LotNo:item.LotNo,
             origin:item.origin,
-            Scooping_Line_Mc:item.Scooping_Line_Mc,
+         
             Opening_Qty:item.Opening_Qty,
             Receiving_Qty:item.Receiving_Qty,
             Wholes:item.Wholes,
@@ -337,9 +337,9 @@ const RCNScoopingLineCreateForm = (props:Props) => {
 
             }))
 
-            console.log(formData)
-            console.log(newFormData)
-            console.log(newFormupdateData)
+           // console.log(formData)
+           // console.log(newFormData)
+           // console.log(newFormupdateData)
             let scoopingcount = 0
                 for (var data of formData) 
                 {
@@ -378,6 +378,16 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                 
                 for (var data2 of formall) 
                     {
+                        
+                        axios.post('/api/scooping/createInitialBorma', { data2 }).then(res => {
+                            console.log(res)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            setErrortext(err.response.data.message)
+                           
+                         }) 
+                        
                         axios.post('/api/scooping/createScoopingall', { data2 }).then(res => {
                             scoopingcount++;
                             if (formall.length === scoopingcount) {
@@ -400,9 +410,9 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                 setErrortext(err.response.data.message)
                                
                         }) 
-                    }
+                }
 
-                    for (var data3 of newFormupdateData) 
+                for (var data3 of newFormupdateData) 
                         {
                             axios.post('/api/scooping/updatenextopening', { data3 }).then(res => {
                                 console.log(res)
@@ -412,12 +422,17 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                     setErrortext(err.response.data.message)
                                    
                             }) 
-                        }
+                }
 
-                    axios.post('/api/scooping/updateLotNo', { }).then(res => {
-                            console.log(res)
+                axios.post('/api/scooping/updateLotNo', { lotNo:rows[0].LotNo}).then(res => {
+                    console.log(res)})
+                    .catch(err => {
+                        console.log(err)
+                        setErrortext(err.response.data.message)
+                       
+                }) 
 
-                        })
+                
 
                      
         }
