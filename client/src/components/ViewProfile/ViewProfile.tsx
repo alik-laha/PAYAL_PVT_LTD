@@ -55,7 +55,9 @@ const ViewProfile = () => {
         formData.append("mobNo", mobNo)
         formData.append("emergencyMobNo", emergencyMobNo)
         formData.append("address", address)
-        formData.append("employeeImage", employeeImage[0])
+        if (employeeImage) {
+            formData.append("employeeImage", employeeImage[0])
+        }
         console.log(employeeImage)
         axios.post("/api/employee/profileEmployeeEdit", formData).then((res) => {
             if (res.data.image) {
@@ -192,6 +194,7 @@ const ViewProfile = () => {
                             <h1 className='text-center'>User Profile</h1>
                             <div className="card mb-3">
                                 <div className="card-body">
+                                    {UserEditMode ? <button className='bg-teal-500 w-24 h-7 rounded-3xl' onClick={() => setUserEditMode(false)}>cancel</button> : null}
                                     <div className="row">
                                         <div className="col-sm-3">
                                             <h6 className="mb-2">User Name</h6>
@@ -207,7 +210,7 @@ const ViewProfile = () => {
                                             <h6 className="mb-2">user Dept</h6>
                                         </div>
                                         <div className="col-sm-9 ">
-                                            {UserDetail?.dept}
+                                            {UserEditMode ? <Input value={dept} onChange={(e) => setDept(e.target.value)} /> : UserDetail?.dept}
                                         </div>
                                     </div>
                                     <hr />
