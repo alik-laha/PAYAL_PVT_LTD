@@ -343,7 +343,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                         scoopingcount++;
                        if (formData.length === scoopingcount) {
                             setErrortext(res.data.message)
-                            axios.post('/api/scooping/updateLotNo', { lotNo:rows[0].LotNo,desc:'Scooping'}).then(res => {
+                            axios.post('/api/scooping/updateLotNo', { lotNo:props.scoop[0].LotNo,desc:'Scooping'}).then(res => {
                                 console.log(res)})
                                 .catch(err => {
                                     console.log(err)
@@ -375,7 +375,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                      ...row
     
                 }))
-                
+               
                 for (var data2 of formall) 
                     {   
                         axios.post('/api/scooping/createScoopingall', { data2 }).then(res => {
