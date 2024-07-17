@@ -218,23 +218,28 @@ const RCNBoilingEntryForm = () =>
                         boilingcount++;
                         if (formData.length === boilingcount) {
                             setErrortext(res.data.message)
-                            if (res.status === 200) {
-                              const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                              dialog.showModal()
-                               setTimeout(() => {
-                                   dialog.close()
-                                   window.location.reload()
-                               }, 2000)
-                           }
+                        //     if (res.status === 200) {
+                        //       const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
+                        //       dialog.showModal()
+                        //        setTimeout(() => {
+                        //            dialog.close()
+                        //            window.location.reload()
+                        //        }, 2000)
+                        //    }
+                           axios.post('/api/scooping/updateLotNo', { lotNo:data.columnLotNo,desc:'Boiling'}).then(res => {
+                            console.log(res)})
+                            .catch(err => {
+                                console.log(err)
+                                setErrortext(err.response.data.message)
+                               
+                        }) 
                             
 
                          }
 
                     })
                     .catch(err => {
-                            console.log(err)
-                            
-                            
+                            console.log(err)   
                             setErrortext(err.response.data.message)
                             axios.delete(`/api/boiling/deleteLotNo/${data.columnLotNo}`).then((res) => {
                                 console.log(res.data)
@@ -249,8 +254,9 @@ const RCNBoilingEntryForm = () =>
                             }, 2000)
                     })      
                 }
-             
-                    
+
+                
+                   
                 const updatedFormDataArray = await updateFormData(formData,res.data.newSequence);
                 const processedFormDataArray = processFormData(updatedFormDataArray);
 

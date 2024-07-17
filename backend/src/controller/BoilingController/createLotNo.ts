@@ -31,7 +31,7 @@ try{
       const newSequence = currentYear+'-'+sequenceId.toString().padStart(3, '0');
     
       // Save the new sequence to the database
-      await LotNo.create({ lotNo: newSequence ,createdBy:feeledBy,modifiedBy:'Boiling'})
+      await LotNo.create({ lotNo: newSequence ,createdBy:feeledBy})
       //console.log('New sequence generated and saved:', newSequence);
       return res.status(201).json({ msg: `Lot No ${newSequence} is Created`, newSequence });
     
