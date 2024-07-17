@@ -9,7 +9,7 @@ import {
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { ScoopData } from "@/type/type"
-import { Button } from "../ui/button"
+
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { useEffect, useRef, useState } from "react"
@@ -268,6 +268,7 @@ const RCNLineCreateEditForm = (props: Props) => {
         };
 
         setNewFormupdateData(mergeRows(rows));
+        console.log(newFormupdateData)
     }, [rows]);
 
     useEffect(() => {
