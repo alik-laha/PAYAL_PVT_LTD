@@ -29,6 +29,24 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
     function formatNumber(num:any) {
         return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
     }
+    const handleAMPM = (time: string) => {
+
+        let [hours, minutes] = time.split(':').map(Number);
+        let period = ' AM';
+
+        if (hours === 0) {
+            hours = 12;
+        } else if (hours === 12) {
+            period = ' PM';
+        } else if (hours > 12) {
+            hours -= 12;
+            period = ' PM';
+        }
+        const finalTime = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + period.toString()
+
+        // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
+        return finalTime;
+    }
     return (
         console.log(LineWise),
         <Table className="mt-4">
@@ -42,9 +60,13 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                 <TableHead className="text-center" >Size Name</TableHead>
                 <TableHead className="text-center" >Opening_Qty</TableHead>
                 <TableHead className="text-center" >Receiving_Qty</TableHead>
-                <TableHead className="text-center" >M/c On</TableHead>
-                <TableHead className="text-center" >M/c Off</TableHead>
+                <TableHead className="text-center" >ScoopingOn</TableHead>
+                <TableHead className="text-center" >ScoopingOff</TableHead>
+                <TableHead className="text-center" >BreakDown</TableHead>
+                <TableHead className="text-center" >OtherTime</TableHead>
+                
                 <TableHead className="text-center" >M/c RunTime</TableHead>
+                
                 <TableHead className="text-center" >Trolley Broken</TableHead>
                 <TableHead className="text-center" >Trolley SmallJB</TableHead>
                 
@@ -66,6 +88,7 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                         <TableHead className="text-center" >Total Operator</TableHead>
                         <TableHead className="text-center" >Total Female</TableHead>
                         <TableHead className="text-center" >EditStatus</TableHead>
+                        <TableHead className="text-center" >BreakDown Reason</TableHead>
                         <TableHead className="text-center" >Entried By </TableHead>
 
             </TableHeader>
@@ -150,15 +173,19 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.LotNo}</TableCell>
                                 <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                 <TableCell className="text-center font-semibold">{item.origin}</TableCell>
-                                <TableCell className="text-center">{item.Scooping_Line_Mc}</TableCell>
+                                <TableCell className="text-center  font-semibold text-purple-500">{item.Scooping_Line_Mc}</TableCell>
                                 <TableCell className="text-center">{item.SizeName}</TableCell>
-                                <TableCell className="text-center">{formatNumber(parseFloat(item.Opening_Qty))} Kg</TableCell>
-                                <TableCell className="text-center">{formatNumber(parseFloat(item.Receiving_Qty))} Kg</TableCell>
-                                <TableCell className="text-center">{item.Mc_on?.slice(0, 5)}</TableCell>
-                                <TableCell className="text-center">{item.Mc_off?.slice(0, 5)}</TableCell>
-                                <TableCell className="text-center">{item.Mc_runTime?.slice(0, 5)}</TableCell>
-                                <TableCell className="text-center">{item.Trolley_Broken} %</TableCell>
-                                <TableCell className="text-center">{item.Trolley_Small_JB} %</TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.Opening_Qty))} Kg</TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.Receiving_Qty))} Kg</TableCell>
+                            
+                                <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
+                                <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
+                                <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                    <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                                    <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00./g, '0.').replace(/^0/, '')} hr</TableCell>
+                                   
+                                <TableCell className="text-center">{item.Trolley_Broken}%</TableCell>
+                                <TableCell className="text-center">{item.Trolley_Small_JB}%</TableCell>
                                
 
                                 <TableCell className="text-center">{formatNumber(parseFloat(item.Wholes))} Kg</TableCell>
@@ -171,7 +198,7 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                                         <TableCell className="text-center ">{formatNumber(parseFloat(item.NonCut))} Kg</TableCell>
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.Rejection))} Kg</TableCell>
                                         <TableCell className="text-center ">{formatNumber(parseFloat(item.Dust))} Kg</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.TotBagCutting))}</TableCell>
+                                        <TableCell className="text-center ">{item.TotBagCutting}</TableCell>
                                         <TableCell className="text-center ">{formatNumber(parseFloat(item.KOR))}</TableCell>
                                         
                                         <TableCell className="text-center ">{item.Transfered_Qty} Kg</TableCell>
@@ -183,29 +210,9 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                                 <TableCell className="text-center ">{item.noOfOperators}</TableCell>
                                 <TableCell className="text-center ">{item.noOfEmployees}</TableCell>
                                 <TableCell className="text-center ">{item.editStatus}</TableCell>
+                                <TableCell className="text-center">{item.Brkdwn_reason}</TableCell>
                                 <TableCell className="text-center ">{item.CreatedBy}</TableCell>
-                                {/* <TableCell className="text-center">
-                                    <Popover>
-                                        <PopoverTrigger>
-                                            <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                            <Dialog>
-                                                <DialogTrigger className="flex"><CiEdit size={20} />
-                                                    <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" onClick={() => handleLineEntry(item.LotNo, item.origin)}>View/Modify</button>
-                                                </DialogTrigger>
-                                                <DialogContent className='max-w-3xl'>
-                                                    <DialogHeader>
-                                                        <DialogTitle>
-                                                            <p className='text-1xl pb-1 text-center mt-5'>Line Wise Scooping Modify</p>
-                                                        </DialogTitle>
-                                                    </DialogHeader>
-                                                    <RCNLineCreateEditForm scoop={scoopdata} />
-                                                </DialogContent>
-                                            </Dialog>
-                                        </PopoverContent>
-                                    </Popover>
-                                </TableCell> */}
+                               
                             </TableRow>
                         );
                     })) : (<TableRow>

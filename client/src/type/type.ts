@@ -48,17 +48,17 @@ export interface rcnScoopingData {
     CreatedBy: string;
     editStatus: string;
     modifiedBy: string;
-    Mc_on?: string;
-    Mc_off?: string;
-    Trolley_Broken?: string;
-    Trolley_Small_JB?: string;
-    Mc_breakdown?: string;
-    Brkdwn_reason?: string;
-    otherTime?: string;
-    scoopStatus?: string;
-    Mc_runTime?: string;
-    SizeName?: string;
-    Scooping_Line_Mc?:string;
+    Mc_on: string;
+    Mc_off: string;
+    Trolley_Broken: string;
+    Trolley_Small_JB: string;
+    Mc_breakdown: string;
+    Brkdwn_reason: string;
+    otherTime: string;
+    scoopStatus: string;
+    Mc_runTime: string;
+    SizeName: string;
+    Scooping_Line_Mc:string;
     Transfered_Qty:string;
     Transfered_To:string;
 }
