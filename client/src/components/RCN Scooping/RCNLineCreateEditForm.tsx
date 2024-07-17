@@ -294,7 +294,7 @@ const RCNLineCreateEditForm = (props: Props) => {
             Mc_on: item.Mc_on, Mc_off: item.Mc_off,
             Brkdwn_reason: item.Brkdwn_reason, Mc_breakdown: item.Mc_breakdown, otherTime: item.otherTime,
             noOfEmployees: item.noOfEmployees,
-            noOfOperators: item.noOfOperators, Transfer_To: item.Transfered_to, Transfer_Qty: item.Transfered_Qty
+            noOfOperators: item.noOfOperators, Transfer_To: item.Transfered_To, Transfer_Qty: item.Transfered_Qty
 
 
 
@@ -525,31 +525,9 @@ const RCNLineCreateEditForm = (props: Props) => {
 
                                             <TableCell className="text-center"> <Input value={row.noOfEmployees} placeholder="Ladies" onChange={(e) => handleRowChange(idx, 'noOfEmployees', e.target.value)} required /></TableCell>
                                             <TableCell className="text-center"> <Input value={row.noOfOperators} placeholder="Operators" onChange={(e) => handleRowChange(idx, 'noOfOperators', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"><Input value={row.Transfer_Qty} placeholder="Kg" onChange={(e) => handleRowChange(idx, 'Transfer_Qty', e.target.value)} /></TableCell>
-
-                                            <TableCell>
-
-                                                <select className=' flex h-8 w-20 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                                                    onChange={(e) => handletransfer(idx, 'Transfer_To', e.target.value)} value={row.Transfer_To}>
-                                                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground 
-        data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>None</option>
-                                                    {options.map((data, index) => (
-                                                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground
-             data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                                                            {data}
-                                                        </option>
-                                                    ))}
-                                                </select>
-
-
-
-
-
-
-                                            </TableCell>
+                                            <TableCell className="text-center"><Input value={row.Transfer_Qty} placeholder="Kg"  /></TableCell>
+                                            <TableCell className="text-center"><Input value={row.Transfered_To} placeholder="Kg"  /></TableCell>
+                                            
                                             <TableCell>
                                                 {/* <a className="bg-green-500  text-center items-center justify-center h-7 w-19" onClick={()=>handletransfer(idx)}>Transfer</a> */}
 

@@ -145,7 +145,7 @@ export interface ScoopData {
     KOR: string;
     Trolley_Broken: string;
     Trolley_Small_JB: string;
-    Transfered_to: string;
+    Transfered_To: string;
     scoopStatus: string;
     Mc_on: string;
     Mc_off: string;
@@ -160,6 +160,7 @@ export interface ScoopData {
     CreatedBy: string;
     editStatus: string;
     modifiedBy: string;
+    Transfered_Qty:string;
 }
 
 export interface ExcelRcnPrimaryEntryData {
