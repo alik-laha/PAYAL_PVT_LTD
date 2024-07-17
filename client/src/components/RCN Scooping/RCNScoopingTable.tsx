@@ -180,6 +180,9 @@ const RCNScoopingTable = () => {
             //set(res.data.scoopingLot)
         })
     }
+    function formatNumber(num:any) {
+        return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
+    }
 
     const exportToExcel = async () => {
         const response = await axios.put('/api/rcnprimary/rcnprimarysearch', {
@@ -360,25 +363,25 @@ const RCNScoopingTable = () => {
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Id</TableHead>
-                        <TableHead className="text-center" >Lot No.</TableHead>
-                        <TableHead className="text-center" >DateofBoiling </TableHead>
+                        <TableHead className="text-center" >RCNLotNo</TableHead>
+                        <TableHead className="text-center" >DateofScooping</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Opening Qty(Kg)</TableHead>
                         <TableHead className="text-center" >Receiving Qty(Kg)</TableHead>
-                        <TableHead className="text-center" >Wholes</TableHead>
-                        <TableHead className="text-center" >Broken</TableHead>
-                        <TableHead className="text-center" >Uncut</TableHead>
-                        <TableHead className="text-center" >Unscoop</TableHead>
-                        <TableHead className="text-center" >NonCut</TableHead>
-                        <TableHead className="text-center" >Rejection </TableHead>
-                        <TableHead className="text-center" >Dust </TableHead>
-                        <TableHead className="text-center" >TotalBagCutting</TableHead>
+                        <TableHead className="text-center" >Wholes (kg)</TableHead>
+                        <TableHead className="text-center" >Broken (Kg)</TableHead>
+                        <TableHead className="text-center" >Uncut (Kg)</TableHead>
+                        <TableHead className="text-center" >Unscoop (Kg)</TableHead>
+                        <TableHead className="text-center" >NonCut (Kg)</TableHead>
+                        <TableHead className="text-center" >Rejection (Kg)</TableHead>
+                        <TableHead className="text-center" >RCNDust (Kg) </TableHead>
+                        <TableHead className="text-center" >Bag Cutting</TableHead>
                         <TableHead className="text-center" >KOR</TableHead>
-                        <TableHead className="text-center" >Female(Common)</TableHead>
-                        <TableHead className="text-center" >Male(Common)</TableHead>
-                        <TableHead className="text-center" >SuperVisor(Common)</TableHead>
-                        <TableHead className="text-center" >LineWiseOperator</TableHead>
-                        <TableHead className="text-center" >LineWiseFemale</TableHead>
+                        <TableHead className="text-center" >Female (Common)</TableHead>
+                        <TableHead className="text-center" >Male (Common)</TableHead>
+                        <TableHead className="text-center" >SuperVisor (Common)</TableHead>
+                        <TableHead className="text-center" >Total Operator</TableHead>
+                        <TableHead className="text-center" >Total Female</TableHead>
                         <TableHead className="text-center" >EditStatus</TableHead>
                         <TableHead className="text-center" >Entried By </TableHead>
                         <TableHead className="text-center" >Action</TableHead>
@@ -465,21 +468,21 @@ const RCNScoopingTable = () => {
                                         <TableCell className="text-center font-semibold text-cyan-600">{item.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.origin}</TableCell>
-                                        <TableCell className="text-center">{item.Opening_Qty}</TableCell>
-                                        <TableCell className="text-center">{item.Receiving_Qty}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.Opening_Qty))} Kg</TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.Receiving_Qty))} Kg</TableCell>
 
-                                        <TableCell className="text-center">{item.Wholes}</TableCell>
-                                        <TableCell className="text-center">{item.Broken}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.Wholes))} Kg</TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.Broken))} Kg</TableCell>
 
-                                        <TableCell className="text-center ">{item.Uncut}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.Uncut))} Kg</TableCell>
 
 
-                                        <TableCell className="text-center">{item.Unscoop}</TableCell>
-                                        <TableCell className="text-center ">{item.NonCut}</TableCell>
-                                        <TableCell className="text-center">{item.Rejection}</TableCell>
-                                        <TableCell className="text-center ">{item.Dust}</TableCell>
-                                        <TableCell className="text-center ">{item.TotBagCutting}</TableCell>
-                                        <TableCell className="text-center ">{item.KOR}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.Unscoop))} Kg</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.NonCut))} Kg</TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.Rejection))} Kg</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.Dust))} Kg</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.TotBagCutting))}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.KOR))}</TableCell>
                                         <TableCell className="text-center ">{item.noOfLadies}</TableCell>
                                         <TableCell className="text-center">{item.noOfGents}</TableCell>
                                         <TableCell className="text-center ">{item.noOfSupervisors}</TableCell>
@@ -498,7 +501,7 @@ const RCNScoopingTable = () => {
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                     <Dialog>
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" onClick={() => handleLineEntry(item.LotNo, item.origin)}>View/Modify</button>
+                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" onClick={() => handleLineEntry(item.LotNo)}>View/Modify</button>
                                                         </DialogTrigger>
                                                         <DialogContent className='max-w-3xl'>
                                                             <DialogHeader>

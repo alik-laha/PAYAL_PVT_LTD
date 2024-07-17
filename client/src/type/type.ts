@@ -58,7 +58,8 @@ export interface rcnScoopingData {
     otherTime?: string;
     scoopStatus?: string;
     Mc_runTime?: string;
-    Size?: number;
+    SizeName?: string;
+    Scooping_Line_Mc?:string;
 }
 export interface EditPendingData extends RcnPrimaryEntryData {
     editedBy: string;

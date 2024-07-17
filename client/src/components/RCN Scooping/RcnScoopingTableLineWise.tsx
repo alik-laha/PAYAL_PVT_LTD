@@ -26,15 +26,20 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
         const finaldate = format(localdate, 'dd-MM-yyyy', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })
         return finaldate;
     }
+    function formatNumber(num:any) {
+        return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
+    }
     return (
         console.log(LineWise),
         <Table className="mt-4">
             <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                 <TableHead className="text-center" >Id</TableHead>
-                <TableHead className="text-center" >Lot No.</TableHead>
-                <TableHead className="text-center" >DateofBoiling </TableHead>
+                <TableHead className="text-center" >RCNLotNo.</TableHead>
+                <TableHead className="text-center" >DateofScooping </TableHead>
                 <TableHead className="text-center" >Origin</TableHead>
+                <TableHead className="text-center" >ScoopingLineMC</TableHead>
+                <TableHead className="text-center" >Size Name</TableHead>
                 <TableHead className="text-center" >Opening Qty(Kg)</TableHead>
                 <TableHead className="text-center" >Receiving Qty(Kg)</TableHead>
                 <TableHead className="text-center" >M/c On</TableHead>
@@ -42,7 +47,7 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                 <TableHead className="text-center" >M/c RunTime</TableHead>
                 <TableHead className="text-center" >Trolley Broken</TableHead>
                 <TableHead className="text-center" >Trolley_Small_JB</TableHead>
-                <TableHead className="text-center" >Size</TableHead>
+                
 
                 <TableHead className="text-center" >Wholes</TableHead>
                 <TableHead className="text-center" >Broken</TableHead>
@@ -143,14 +148,16 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.LotNo}</TableCell>
                                 <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                 <TableCell className="text-center font-semibold">{item.origin}</TableCell>
-                                <TableCell className="text-center">{item.Opening_Qty}</TableCell>
-                                <TableCell className="text-center">{item.Receiving_Qty}</TableCell>
+                                <TableCell className="text-center">{item.Scooping_Line_Mc}</TableCell>
+                                <TableCell className="text-center">{item.SizeName}</TableCell>
+                                <TableCell className="text-center">{formatNumber(parseFloat(item.Opening_Qty))}</TableCell>
+                                <TableCell className="text-center">{formatNumber(parseFloat(item.Receiving_Qty))}</TableCell>
                                 <TableCell className="text-center">{item.Mc_on?.slice(0, 5)}</TableCell>
                                 <TableCell className="text-center">{item.Mc_off?.slice(0, 5)}</TableCell>
                                 <TableCell className="text-center">{item.Mc_runTime?.slice(0, 5)}</TableCell>
                                 <TableCell className="text-center">{item.Trolley_Broken}</TableCell>
                                 <TableCell className="text-center">{item.Trolley_Small_JB}</TableCell>
-                                <TableCell className="text-center">{item.Size}</TableCell>
+                               
 
                                 <TableCell className="text-center">{item.Wholes}</TableCell>
                                 <TableCell className="text-center">{item.Broken}</TableCell>
