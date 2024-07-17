@@ -21,6 +21,9 @@ const DashboardHeader = () => {
     axios.get('/api/user/logout').then(() => {
       localStorage.removeItem('role')
       localStorage.removeItem('dept')
+      localStorage.removeItem('countdownStartTime')
+      localStorage.removeItem('user')
+      localStorage.removeItem('image')
       navigate('/login')
     }).catch((err) => {
       console.log(err)

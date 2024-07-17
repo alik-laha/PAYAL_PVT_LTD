@@ -92,7 +92,7 @@ const ViewProfile = () => {
                                             <h6 className="mb-2">Emergency Number</h6>
                                         </div>
                                         <div className="col-sm-9 ">
-                                            {EmployeeDetail?.emergencyContact}
+                                            {EmployeeDetail?.emergencyMobNo}
                                         </div>
                                     </div>
                                     <hr />
@@ -108,37 +108,49 @@ const ViewProfile = () => {
                                     <hr />
                                     <br />
                                     <div className="row">
-                                        <div className="col-sm-12 text-right ">
+                                        <div className="col-sm-12 text-center ">
                                             <button className='bg-teal-500 w-24 h-7 rounded-3xl'>Edit</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <h1 className='text-center'>User Profile</h1>
-                            <div className="row gutters-sm">
-                                <div className="col-sm-6 mb-3">
-                                    <div className="card h-100">
-                                        <div className="card-body">
-                                            <h6 className="d-flex align-items-center mb-3"><i className="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                                            <small>Web Design</small>
-                                            <div className="progress mb-3" style={{ height: "5px" }}>
-                                                <div className="progress-bar bg-primary" role="progressbar" style={{ width: "80%" }} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100}></div>
+                            <div className="col-md-8">
+                                <h1 className='text-center'>User Profile</h1>
+                                <div className="card mb-3">
+                                    <div className="card-body">
+                                        <div className="row">
+                                            <div className="col-sm-3">
+                                                <h6 className="mb-2">User Name</h6>
                                             </div>
-                                            <small>Website Markup</small>
-                                            <div className="progress mb-3" style={{ height: "5px" }}>
-                                                <div className="progress-bar bg-primary" role="progressbar" style={{ width: "72%" }} aria-valuenow={72} aria-valuemin={0} aria-valuemax={100}></div>
+                                            <div className="col-sm-9 ">
+                                                {UserDetail?.userName}
                                             </div>
-                                            <small>One Page</small>
-                                            <div className="progress mb-3" style={{ height: "5px" }}>
-                                                <div className="progress-bar bg-primary" role="progressbar" style={{ width: "89%" }} aria-valuenow={89} aria-valuemin={0} aria-valuemax={100}></div>
+                                        </div>
+                                        <hr />
+                                        <br />
+                                        <div className="row">
+                                            <div className="col-sm-3">
+                                                <h6 className="mb-2">user Dept</h6>
                                             </div>
-                                            <small>Mobile Template</small>
-                                            <div className="progress mb-3" style={{ height: "5px" }}>
-                                                <div className="progress-bar bg-primary" role="progressbar" style={{ width: "55%" }} aria-valuenow={55} aria-valuemin={0} aria-valuemax={100}></div>
+                                            <div className="col-sm-9 ">
+                                                {UserDetail?.dept}
                                             </div>
-                                            <small>Backend API</small>
-                                            <div className="progress mb-3" style={{ height: "5px" }}>
-                                                <div className="progress-bar bg-primary" role="progressbar" style={{ width: "66%" }} aria-valuenow={66} aria-valuemin={0} aria-valuemax={100}></div>
+                                        </div>
+                                        <hr />
+                                        <br />
+                                        <div className="row">
+                                            <div className="col-sm-3">
+                                                <h6 className="mb-2">User Role</h6>
+                                            </div>
+                                            <div className="col-sm-9 ">
+                                                {UserDetail?.role}
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <br />
+                                        <div className="row">
+                                            <div className="col-sm-12 text-center ">
+                                                <button className='bg-teal-500 w-24 h-7 rounded-3xl'>Edit</button>
                                             </div>
                                         </div>
                                     </div>
