@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom'
 import EmailEntryforResetpassword from './components/forgotPassword/EmailEntryforResetpassword'
 import VerifyCodeAndResetPassword from './components/forgotPassword/VerifyCodeAndResetPassword'
 import Cleaning from './components/Cleaning/Cleaning'
+import ViewProfile from './components/ViewProfile/ViewProfile'
 
 function App() {
   const navigate = useNavigate()
@@ -98,6 +99,8 @@ function App() {
           'CleaningSupervisor', 'MaintainanceManager']} />}>
           <Route path='/dashboard/cleaning' element={<Cleaning />} />
         </Route>
+
+        <Route path="/dashboard/userprofile" element={<ViewProfile />} />
       </Routes>
     </>
   )

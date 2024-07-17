@@ -7,10 +7,10 @@ import sharp from 'sharp';
 const CompressImage = async (files: any, output: string) => {
     try {
         await sharp(files.path)
-            .resize(200, 200)
-            .jpeg({ quality: 90 })
-            .png({ quality: 90 })
-            .webp({ quality: 90 })
+            .resize(300, 300)
+            .jpeg({ quality: 100 })
+            .png({ quality: 100 })
+            .webp({ quality: 100 })
             .toFile(output)
 
         await fs.unlink(files.path)

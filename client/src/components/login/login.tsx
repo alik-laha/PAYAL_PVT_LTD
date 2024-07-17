@@ -59,7 +59,9 @@ export const Login = () => {
                 localStorage.setItem('role', res.data.role);
                 localStorage.setItem('dept', res.data.dept);
                 localStorage.setItem('user', res.data.user);
-                localStorage.setItem('image', res.data.image);
+                if (res.data.image) {
+                    localStorage.setItem('image', res.data.image);
+                }
                 if (!countdownStartTime) {
                     localStorage.setItem('countdownStartTime', String(new Date().getTime()));
                 }

@@ -3,7 +3,7 @@ import icon2 from '../../assets/Static_Images/OIP-2.webp'
 import { useState } from "react"
 import "./dashboard.css"
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, NavLink } from 'react-router-dom'
 
 const DashboardHeader = () => {
   const navigate = useNavigate()
@@ -38,7 +38,7 @@ const DashboardHeader = () => {
         <div className='navbar-custom-menu'>
           <ul className="dropdown-menu" style={{ display: dashbvisi, background: 'white', position: 'fixed' }}>
             <li className="user-header mx-1 my-1">
-              <span className="flex flex-col items-center justify-center items-center">{image != null ? <img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} alt='Operator Icon' className="img-header" /> : <img src={icon2} className="img-header" />}</span>
+              <NavLink to={"/dashboard/userprofile"}><span className="flex flex-col items-center justify-center items-center">{image != null ? <img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} alt='Operator Icon' className="img-header" /> : <img src={icon2} className="img-header" />}</span></NavLink>
               <p className="text-logout">Welcome, {localStorage.getItem('user')}</p>
               <p className="text-logout-2"> Dept: {localStorage.getItem('dept')}</p>
               <p className="text-logout-2"> Role: {localStorage.getItem('role')}</p>
