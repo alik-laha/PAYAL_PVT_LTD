@@ -34,6 +34,7 @@ const employeeEditProfile = async (req: Request, res: Response) => {
             return res.status(404).json({ message: "Employee Not Found" });
         }
         await Employee.update({ employeeName, email, mobNo, address, emergencyMobNo, employeeImage }, { where: { employeeId: id } });
+        return res.status(200).json({ message: "Employee Profile Updated Successfully", image: employeeImage });
     }
     catch (err) {
         return res.status(500).json({ message: "Internal Server Error" });

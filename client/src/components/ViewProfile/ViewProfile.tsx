@@ -58,7 +58,9 @@ const ViewProfile = () => {
         formData.append("employeeImage", employeeImage[0])
         console.log(employeeImage)
         axios.post("/api/employee/profileEmployeeEdit", formData).then((res) => {
-            console.log(res)
+            if (res.data.image) {
+                localStorage.setItem("image", res.data.image)
+            }
         }
         ).catch((err) => {
             console.log(err)
