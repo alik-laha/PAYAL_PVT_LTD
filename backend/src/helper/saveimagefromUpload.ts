@@ -15,6 +15,7 @@ export const EmployeeImageUpload = (req: any, res: any, next: NextFunction) => {
         }
     })
     storage = Employee
+    console.log(req)
     const upload = multer({ storage, }).fields([
         { name: 'employeeImage', maxCount: 10 },
     ])

@@ -16,6 +16,7 @@ const ViewProfile = () => {
     const [mobNo, setMobNo] = useState("")
     const [emergencyMobNo, setEmergencyMobNo] = useState("")
     const [address, setAddress] = useState("")
+    const [employeeImage, setEmployeeImage] = useState<any>()
     const [userName, setUserName] = useState("")
     const [dept, setDept] = useState("")
     const [role, setRole] = useState("")
@@ -48,8 +49,27 @@ const ViewProfile = () => {
     }
     const HandleSubmit = (e: React.FormEvent<HTMLElement>) => {
         e.preventDefault()
+        const formData = new FormData()
+        formData.append("employeeName", employeeName)
+        formData.append("email", email)
+        formData.append("mobNo", mobNo)
+        formData.append("emergencyMobNo", emergencyMobNo)
+        formData.append("address", address)
+        formData.append("employeeImage", employeeImage[0])
+        console.log(employeeImage)
+        axios.post("/api/employee/profileEmployeeEdit", formData).then((res) => {
+            console.log(res)
+        }
+        ).catch((err) => {
+            console.log(err)
+        })
         console.log("submit")
 
+    }
+    const handleCleanFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setEmployeeImage(e.target.files);
+        }
     }
 
 
@@ -72,7 +92,7 @@ const ViewProfile = () => {
                                     <div className="card-body">
                                         <div className="d-flex flex-column align-items-center text-center">
                                             <div className='flex items-center justify-center flex-col'>{localStorage.getItem("image") == null ? <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-full" width="150" /> : <img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} alt="Admin" className="rounded-full" width="160" />}{EmployeeEditMode ? <div className='text-right'><label htmlFor='fileInput'><IoMdCamera className='w-8 h-6' /></label></div> : null}</div>
-                                            <input type="file" className="hidden" id='fileInput' />
+                                            <input type="file" className="hidden" id='fileInput' multiple onChange={handleCleanFileChange} />
                                             <div className="mt-3">
                                                 <h4>{localStorage.getItem("user")}  </h4>
                                             </div>

@@ -7,6 +7,7 @@ import getAllEmployee from "../controller/employeeController/getEmployeeforUser"
 import DeleteEmployee from "../controller/employeeController/deleteEmployee";
 import releseEmployee from "../controller/employeeController/releseEmployee";
 import activeEmployeeCount from "../controller/employeeController/activeEmployeeCount";
+import updateEmployeeProfile from "../controller/employeeController/employeeEditProfile";
 import jwtVerify from "../middleWare/JwtAuthantication";
 import { EmployeeImageUpload } from "../helper/saveimagefromUpload";
 
@@ -26,6 +27,8 @@ router.put("/releseemployee/:id", jwtVerify, releseEmployee)
 
 //active Employee Count
 router.get("/activeEmployeeCount", jwtVerify, activeEmployeeCount)
+
+router.post("/profileEmployeeEdit", EmployeeImageUpload, jwtVerify, updateEmployeeProfile)
 
 
 
