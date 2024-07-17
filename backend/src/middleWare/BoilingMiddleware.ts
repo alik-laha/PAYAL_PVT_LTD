@@ -4,12 +4,12 @@ const BoilingMiddleWare = async (req: Request, res: Response, next: NextFunction
     try {
         
         const {  columnMC, 
-            ScoopingLine, breakDown, cookingOff,cookingOn, origin,other,cookingTime,
+            ScoopingLine, breakDown, cookingOff,cookingOn, origin,other,sizeName,
             size
          } = req.body.data;
         // console.log('middlware')
         // console.log(req.body.data)
-        if (!columnMC || !origin  || !size || !ScoopingLine ) {
+        if (!columnMC || !origin  || !size || !ScoopingLine || !sizeName ) {
             return res.status(400).json({ message: "All Fields Are Required" })
         }
         const timeToMilliseconds = (time: string) => {

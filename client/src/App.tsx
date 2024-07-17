@@ -29,6 +29,7 @@ function App() {
       localStorage.removeItem('dept')
       localStorage.removeItem('countdownStartTime')
       localStorage.removeItem('user')
+      localStorage.removeItem('timeLeft');
       navigate('/login')
     }).catch((err) => {
       console.log(err)

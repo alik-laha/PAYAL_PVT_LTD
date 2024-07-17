@@ -99,8 +99,8 @@ const EmployeeTable = () => {
 
         const response = await axios.post('/api/employee/searchemployee', {}, {})
         const data1 = await response.data
-        let transformed:EmployeeData[] = [];
-        transformed= data1.Employees.map((item: EmployeeData, idx: number) => ({
+        let transformed: EmployeeData[] = [];
+        transformed = data1.Employees.map((item: EmployeeData, idx: number) => ({
             id: idx + 1,
             employeeId: item.employeeId,
             employeeName: item.employeeName,
@@ -210,11 +210,11 @@ const EmployeeTable = () => {
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Sl No.</TableHead>
-                    <TableHead className="text-center" >Employee name</TableHead>
+                    <TableHead className="text-center" >FullNameOfEmployee</TableHead>
                     <TableHead className="text-center" >Employee ID </TableHead>
                     <TableHead className="text-center" >Designation</TableHead>
                     <TableHead className="text-center" >Status </TableHead>
-                    <TableHead className="text-center" >Joining Date</TableHead>
+                    <TableHead className="text-center" >JoiningDate</TableHead>
                     <TableHead className="text-center" >Contact No.</TableHead>
                     <TableHead className="text-center" >Email</TableHead>
                     <TableHead className="text-center" >Qualification</TableHead>
@@ -222,7 +222,7 @@ const EmployeeTable = () => {
                     <TableHead className="text-center" >Adhar No.</TableHead>
                     <TableHead className="text-center" >Pan No.</TableHead>
                     <TableHead className="text-center" >Pincode</TableHead>
-                    <TableHead className="text-center" >Emg. Name</TableHead>
+                    <TableHead className="text-center" >EmergencyContactName</TableHead>
                     <TableHead className="text-center" >Emg. Contact No.</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
 
@@ -266,7 +266,7 @@ const EmployeeTable = () => {
                                         )}
 
                                     </TableCell>
-                                    
+
                                     <TableCell className="text-center" >{handletimezone(item.dateOfJoining)}</TableCell>
                                     <TableCell className="text-center" >{item.mobNo}</TableCell>
                                     <TableCell className="text-center" >{item.email}</TableCell>
@@ -274,11 +274,11 @@ const EmployeeTable = () => {
                                     <TableCell className="text-center" >{item.bloodGroup}</TableCell>
                                     <TableCell className="text-center" >xxxxxxxx{item.aadhaarNo.slice(-4)}</TableCell>
                                     <TableCell className="text-center" >{item.panNo}</TableCell>
-                                    
+
                                     <TableCell className="text-center" >{item.pincode}</TableCell>
                                     <TableCell className="text-center" >{item.emergencyContact}</TableCell>
                                     <TableCell className="text-center" >{item.emergencyMobNo}</TableCell>
-                  
+
 
                                     <TableCell className="text-center" >
                                         <Popover>
@@ -354,6 +354,9 @@ const EmployeeTable = () => {
                         <PaginationPrevious onClick={() => setPage((prev) => {
                             if (prev === 1) {
                                 return prev
+                            }
+                            if (prev <= 0) {
+                                return prev + 1
                             }
                             return prev - 1
                         })} />

@@ -329,7 +329,7 @@ const RcnGradingTable = () => {
 
         });
     }
-    function formatNumber(num:any) {
+    function formatNumber(num: any) {
         return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
     }
 
@@ -378,7 +378,7 @@ const RcnGradingTable = () => {
 
                     <TableHead className="text-center" >Sl No.</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Grading Entry Date</TableHead>
+                    <TableHead className="text-center" >GradingDate</TableHead>
 
                     <TableHead className="text-center" >A(Bag)</TableHead>
                     <TableHead className="text-center" >B(Bag)</TableHead>
@@ -391,8 +391,8 @@ const RcnGradingTable = () => {
 
                     {/* <TableHead className="text-center" >Name of Machine</TableHead> */}
 
-                    <TableHead className="text-center" >Machine On</TableHead>
-                    <TableHead className="text-center" >Machine Off</TableHead>
+                    <TableHead className="text-center" >MachineOn</TableHead>
+                    <TableHead className="text-center" >MachineOff</TableHead>
                     <TableHead className="text-center" >Breakdown Duration</TableHead>
                     <TableHead className="text-center" >Other Duration</TableHead>
                     <TableHead className="text-center" >Run Duration</TableHead>
@@ -490,13 +490,13 @@ const RcnGradingTable = () => {
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.A))}</TableCell>
-                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.B))} </TableCell>
-                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.C))} </TableCell>
-                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.D))} </TableCell>
-                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.E))} </TableCell>
-                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.F))} </TableCell>
-                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.G))} </TableCell>
-                                <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.dust))} </TableCell>
+                                    <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.B))} </TableCell>
+                                    <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.C))} </TableCell>
+                                    <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.D))} </TableCell>
+                                    <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.E))} </TableCell>
+                                    <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.F))} </TableCell>
+                                    <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.G))} </TableCell>
+                                    <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.dust))} </TableCell>
 
                                     {/* <TableCell className="text-center">{item.Mc_name}</TableCell> */}
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
@@ -561,6 +561,9 @@ const RcnGradingTable = () => {
                         <PaginationPrevious onClick={() => setPage((prev) => {
                             if (prev === 1) {
                                 return prev
+                            }
+                            if (prev <= 0) {
+                                return prev + 1
                             }
                             return prev - 1
                         })} />

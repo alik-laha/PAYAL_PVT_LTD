@@ -428,7 +428,36 @@
     justify-content: center;
   }
 
-@media screen and (max-width: 999px) {
+  .boiling-row-height-scoop *{
+
+    padding:3px 2px 3px 2px !important;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: 6vh;
+  }
+
+  @media screen and (max-width: 1024px) {
+
+    .flexbox-tile{
+        flex: 1 1 25% ;
+       
+        padding: 20px 15px 20px 15px;
+        height:12vw;
+        font-size: 14px;
+        max-width:30%!important;
+        border-radius: 8px;
+    
+    } 
+
+    .sidebar.open {
+        /* width: 20%; */
+        padding-top: 8.5vw;
+    }
+   
+  }
+
+@media screen and (max-width: 768px) {
     .dashboard-flex-head{
       
         font-size: 16px;
