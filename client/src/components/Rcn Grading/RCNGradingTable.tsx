@@ -378,7 +378,7 @@ const RcnGradingTable = () => {
 
                     <TableHead className="text-center" >Sl No.</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Grading Entry Date</TableHead>
+                    <TableHead className="text-center" >GradingDate</TableHead>
 
                     <TableHead className="text-center" >A(Bag)</TableHead>
                     <TableHead className="text-center" >B(Bag)</TableHead>
@@ -391,8 +391,8 @@ const RcnGradingTable = () => {
 
                     {/* <TableHead className="text-center" >Name of Machine</TableHead> */}
 
-                    <TableHead className="text-center" >Machine On</TableHead>
-                    <TableHead className="text-center" >Machine Off</TableHead>
+                    <TableHead className="text-center" >MachineOn</TableHead>
+                    <TableHead className="text-center" >MachineOff</TableHead>
                     <TableHead className="text-center" >Breakdown Duration</TableHead>
                     <TableHead className="text-center" >Other Duration</TableHead>
                     <TableHead className="text-center" >Run Duration</TableHead>

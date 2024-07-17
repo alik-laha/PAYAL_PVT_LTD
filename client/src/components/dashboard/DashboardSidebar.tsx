@@ -110,12 +110,12 @@ const DashboardSidebar = () => {
                                 RCN Boiling
                             </NavLink>
                         </CollapsibleContent>}
-                        {/* {renderlink('Scooping')
+                        {renderlink('Scooping')
                             &&  <CollapsibleContent className="Items-pvt">
                              <NavLink to="/dashboard/RcnScooping" >
                                 RCN Scooping
                             </NavLink>
-                        </CollapsibleContent>} */}
+                        </CollapsibleContent>}
 
                     </Collapsible>}
 

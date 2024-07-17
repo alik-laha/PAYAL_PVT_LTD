@@ -1,188 +1,106 @@
-import { Input } from "@/components/ui/input"
+
 import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-import { useState, useRef } from "react"
-import { Origin } from "../common/exportData"
-import axios from "axios"
-import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
-import cross from '../../assets/Static_Images/error_img.png'
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
 
-
-const RCNScoopingCreateForm = () => {
-    const [origin, setOrigin] = useState<string>("")
-    const [errortext, setErrorText] = useState<string>("")
-
-    const blNoRef = useRef<HTMLInputElement>(null)
-    const conNoRef = useRef<HTMLInputElement>(null)
-    const truckNoRef = useRef<HTMLInputElement>(null)
-    const blWeightRef = useRef<HTMLInputElement>(null)
-    const netWeightRef = useRef<HTMLInputElement>(null)
-    const noOfBagsRef = useRef<HTMLInputElement>(null)
-    const dateRef = useRef<HTMLInputElement>(null)
-
-    const successdialog = document.getElementById('myDialog') as HTMLInputElement;
-    const errordialog = document.getElementById('errorDialog') as HTMLInputElement;
-    // const dialog = document.getElementById('myDialog');
-    const closeDialogButton = document.getElementById('closeDialog') as HTMLInputElement;
-    const errorcloseDialogButton = document.getElementById('errorcloseDialog') as HTMLInputElement;
-
-    if (closeDialogButton) {
-        closeDialogButton.addEventListener('click', () => {
-            if (successdialog != null) {
-                (successdialog as any).close();
-                window.location.reload()
-            }
-
-
-        });
-    }
-    if (errorcloseDialogButton) {
-        errorcloseDialogButton.addEventListener('click', () => {
-            if (errordialog != null) {
-                (errordialog as any).close();
-
-            }
-
-        });
-    }
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        const blNo = blNoRef.current?.value
-        const conNo = conNoRef.current?.value
-        const truckNo = truckNoRef.current?.value
-        const blWeight = blWeightRef.current?.value
-        const netWeight = netWeightRef.current?.value
-        const noOfBags = noOfBagsRef.current?.value
-        const date = dateRef.current?.value
-        console.log({ origin, blNo, conNo, truckNo, blWeight, netWeight })
-        axios.post('/api/rcnprimary/create', { origin, blNo, conNo, truckNo, blWeight, netWeight, noOfBags, date })
-            .then((res) => {
-                console.log(res.data.rcnPrimary.id)
-                let g_id=res.data.rcnPrimary.id
-                axios.post('/api/qcRcn/qcInitialEntry', { g_id , origin, blNo, conNo, date })
-                .then((res) => {
-                    console.log(res)
-                    if (successdialog != null) {
-                        (successdialog as any).showModal();
-                    }
-                    if (blNoRef.current != null) {
-                        blNoRef.current.value = '';
-                    }
-                    if (conNoRef.current != null) {
-                        conNoRef.current.value = '';
-                    }
-                    if (truckNoRef.current != null) {
-                        truckNoRef.current.value = '';
-                    }
-                    if (blWeightRef.current != null) {
-                        blWeightRef.current.value = '';
-                    }
-                    if (netWeightRef.current != null) {
-                        netWeightRef.current.value = '';
-                    }
-                    if (noOfBagsRef.current != null) {
-                        noOfBagsRef.current.value = '';
-                    }
-                    setOrigin('')
-                }).catch((err) => {
-                    console.log(err)
-                })
+import {
+    Dialog,
+    DialogContent,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import RCNScoopingLineCreateForm from "./RCNScoopingLineCreateForm";
+import axios from "axios";
+import { useState } from "react";
+import { ScoopData } from "@/type/type";
 
 
 
-            }).catch((err) => {
-                console.log(err)
-                // if (err.response.data.error.original.errno === 1062) {
-                //     setErrorText('Duplicate Entry is Not Allowed')
-                //     if (errordialog != null) {
-                //         (errordialog as any).showModal();
-                //     }
-                //     return
-                // }
-                setErrorText(err.response.data.message)
-                if (errordialog != null) {
-                    (errordialog as any).showModal();
-                }
+interface lotPropsdata{
+    LotNo:string;
+}
 
-            })
+const RCNScoopingCreateForm = (props: any) => {
+    const [scoopdata, setscoopdata ]  = useState<ScoopData[]>([])
 
+    //let scoopdata:ScoopData[]=[]
+    console.log(props)
+    const handleLineEntry = async (lotNO:string) => {
+        axios.get(`/api/scooping/getScoopByLot/${lotNO}`).then(res=>{
+           console.log(res)
+           if(Array.isArray(res.data.scoopingLot)){
+            //scoopdata=res.data.scoopingLot
+            setscoopdata(res.data.scoopingLot)
+             console.log(scoopdata)
+           }
+             
+            //set(res.data.scoopingLot)
+        })
     }
     return (
         <>
             <div className="pl-10 pr-10">
-                <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
-                    <div className="flex mt-8"><Label className="w-2/4  pt-1">Origin</Label>
-                        <Select value={origin} onValueChange={(value) => setOrigin(value)} required={true}>
-                            <SelectTrigger className="w-2/4">
-                                <SelectValue placeholder="Origin" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    {
-                                        Origin.map((item) => {
-                                            return (
-                                                <SelectItem key={item} value={item}>
-                                                    {item}
-                                                </SelectItem>
-                                            )
-                                        })
-                                    }
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                        {/* <Input   placeholder="Origin"/>  */}</div>
-                    <div className="flex"><Label className="w-2/4  pt-1">BL No.</Label>
-                        <Input className="w-2/4 " placeholder="BL No." ref={blNoRef} required /> </div>
+         
+                <Table className="mt-3">
+                    <TableHeader className="bg-neutral-100 text-stone-950 ">
+                        <TableHead className="text-center" >Sl. No.</TableHead>
+                        <TableHead className="text-center" >Lot No</TableHead>
+                        <TableHead className="text-center" >Status</TableHead>
+                        <TableHead className="text-center" >Action</TableHead>
 
-                    <div className="flex"><Label className="w-2/4  pt-1">Date of Receving</Label>
-                        <Input className="w-2/4 " placeholder="BL No." ref={dateRef} type="date" required /> </div>
 
-                    <div className="flex"><Label className="w-2/4 pt-1">Container No.</Label>
-                        <Input className="w-2/4 " placeholder="Container No." ref={conNoRef} required /> </div>
+                    </TableHeader>
+                    <TableBody>
+                        {props.props.length > 0 ? (
+                            props.props.map((item: lotPropsdata, idx: number) => {
 
-                    <div className="flex"><Label className="w-2/4 pt-1" > Truck No.</Label>
-                        <Input className="w-2/4 " placeholder="Truck No." ref={truckNoRef} required />
-                    </div>
-                    <div className="flex">
-                        <Label className="w-2/4 pt-1">Total Bags</Label>
-                        <Input className="w-2/4 " placeholder="Total Bags" ref={noOfBagsRef} type="number" required />
-                    </div>
-                    <div className="flex">
-                        <Label className="w-2/4 pt-1"> BL Weight</Label>
-                        <Input className="w-2/4 " placeholder="BL Weight" ref={blWeightRef} type="number" step="0.01" required />
-                    </div>
-                    <div className="flex"><Label className="w-2/4 pt-1"> Net Weight</Label>
-                        <Input className="w-2/4 " placeholder="Net Weight" ref={netWeightRef} type="number" step="0.01" required />
-                    </div>
-                    <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
-                </form>
+                                return (
+                                    <TableRow key={idx}>
+                                        <TableCell className="text-center">
+                                            {idx + 1}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold">
+                                            {item.LotNo}
+                                        </TableCell>
+
+                                        <TableCell className="text-center"><Button className="bg-orange-500 h-8 text-white rounded-md">Pending</Button></TableCell>
+                                        <TableCell className="text-center">
+                                            <Dialog>
+                                                <DialogTrigger>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger>
+                                            { idx==0 &&  <DialogContent className='max-w-3xl'>
+                                                    {/* <DialogHeader>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Scooping Line Entry</p></DialogTitle>
+
+                                                    </DialogHeader> */}
+                                                <RCNScoopingLineCreateForm scoop={scoopdata}/>
+                                                    
+                                                </DialogContent>}
+                                            </Dialog>
+                                        </TableCell>
+
+                                    </TableRow>
+                                );
+                            })
+                        ) : <TableRow>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Scooping</TableCell>
+                            <TableCell></TableCell>
+                            </TableRow>}
+                    </TableBody>
+                </Table>
+
+
 
 
             </div>
-            <dialog id="myDialog" className="dashboard-modal">
-                <button id="closeDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">RCN Primary Entry Submitted Successfully</p></span>
-
-                {/* <!-- Add more elements as needed --> */}
-            </dialog>
-
-            <dialog id="errorDialog" className="dashboard-modal">
-                <button id="errorcloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
-
-                {/* <!-- Add more elements as needed --> */}
-            </dialog>
+        
         </>
     )
 

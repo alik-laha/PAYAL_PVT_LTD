@@ -46,7 +46,7 @@ const RCNBoiling = () => {
     useEffect(() => {
         axios.get('/api/asset/getMachineByType/Boiling')
             .then(res => {
-                console.log(res.data)
+                //console.log(res.data)
                 setAllMachines(res.data)
             })
             .catch(err => {
@@ -57,7 +57,7 @@ const RCNBoiling = () => {
     useEffect(() => {
         axios.get('/api/asset/getMachineByType/Scooping')
         .then(res => {
-            console.log(res.data)
+            //console.log(res.data)
             setAllNewMachines(res.data)
           
         })
@@ -75,7 +75,7 @@ const RCNBoiling = () => {
     if (error) {
         return <div>Error</div>;
     }
-    console.log(data)
+    //console.log(data)
     return (
         <div>
             <DashboardHeader />

@@ -70,7 +70,7 @@ const RcnGrading = () => {
     if (error) {
         return <div>Error</div>;
     }
-     console.log(data)
+        // console.log(data)
     return (
         <div>
             <DashboardHeader />
@@ -113,7 +113,7 @@ const RcnGrading = () => {
                         <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-red-500 mb-2 mt-5 ml-4" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-2xl pb-1 text-center mt-5'>Grading Entry</p></DialogTitle>
+                                <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>RCN Grading Entry Form</p></DialogTitle>
 
                             </DialogHeader>
 
