@@ -153,7 +153,7 @@ const RcnPrimaryEntryTable = () => {
         handleSearch()
         setPage((prev) => {
             if (prev <= 0) {
-                return prev + 1
+                return 1
             }
             return prev
         })

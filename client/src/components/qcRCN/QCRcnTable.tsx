@@ -284,6 +284,12 @@ const QCRcnTable = () => {
     }
     useEffect(() => {
         handleSearch()
+        setPage((prev) => {
+            if (prev <= 0) {
+                return 1
+            }
+            return prev
+        })
     }, [page])
 
     const handleEditApprove = async (item: QcRcnEntryData) => {
