@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import RcnScooping from "../../model/scoopingModel";
 import { Op } from "sequelize";
 
+
 const createscoopingReport = async (req: Request, res: Response) => {
 
  
@@ -88,6 +89,7 @@ const createscoopingReport = async (req: Request, res: Response) => {
                     },
                 }
             );
+            
            
     
            

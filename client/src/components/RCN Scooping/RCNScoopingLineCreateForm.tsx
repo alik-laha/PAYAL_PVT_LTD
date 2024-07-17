@@ -50,7 +50,7 @@ interface MergedData {
     LotNo:string;
     
     origin: string;
-    Scooping_Line_Mc: string;
+    
     Opening_Qty:number;
     Receiving_Qty: number;
     Wholes:number;
@@ -121,11 +121,11 @@ const RCNScoopingLineCreateForm = (props:Props) => {
     
     useEffect(() => {
         const mergeRows = (data: ScoopingRowData[]): MergedData[] => {
-          const filteredData = data.map(({ LotNo, origin, Scooping_Line_Mc,
+          const filteredData = data.map(({ LotNo, origin,
             Opening_Qty, Receiving_Qty, Wholes, Broken, Uncut,Unscoop,NonCut,Rejection,Dust,KOR,noOfEmployees,noOfOperators }) => ({
             LotNo,  
             origin,
-            Scooping_Line_Mc,
+            
             Opening_Qty:parseFloat(Opening_Qty),
             Receiving_Qty:Receiving_Qty,
             Wholes:parseFloat(Wholes),
@@ -140,12 +140,12 @@ const RCNScoopingLineCreateForm = (props:Props) => {
             noOfOperators:parseFloat(noOfOperators)
           }));
     
-          const merged = filteredData.reduce<Record<string, { LotNo:string,origin: string,Scooping_Line_Mc: string,Opening_Qty:number,
+          const merged = filteredData.reduce<Record<string, { LotNo:string,origin: string,Opening_Qty:number,
             Receiving_Qty: number,Wholes:number,Broken: number,Uncut: number,Unscoop: number,NonCut:number,Rejection: number,
             Dust:number,KOR:number;noOfEmployees: number,noOfOperators: number}>>((acc, row) => {
             const { LotNo,
                 origin,
-                Scooping_Line_Mc,
+                
                 Opening_Qty,
                 Receiving_Qty,
                 Wholes,
@@ -159,7 +159,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                 noOfEmployees,
                 noOfOperators} = row;
             if (!acc[origin]) {
-              acc[origin] = { LotNo, origin, Scooping_Line_Mc,
+              acc[origin] = { LotNo, origin,
                 Opening_Qty, Receiving_Qty, Wholes, Broken, Uncut,Unscoop,NonCut,Rejection,Dust,KOR,noOfEmployees,noOfOperators };
             } else {
                 acc[origin].LotNo = LotNo;
@@ -405,6 +405,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                     for (var data3 of newFormupdateData) 
                         {
                             axios.post('/api/scooping/updatenextopening', { data3 }).then(res => {
+                                console.log(res)
                             })
                             .catch(err => {
                                     console.log(err)
@@ -412,6 +413,13 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                    
                             }) 
                         }
+
+                    axios.post('/api/scooping/updateLotNo', { }).then(res => {
+                            console.log(res)
+
+                        })
+
+                     
         }
         catch (err) {
             console.log(err)

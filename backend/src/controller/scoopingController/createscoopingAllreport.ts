@@ -10,7 +10,7 @@ const createscoopingAllReport = async (req: Request, res: Response) => {
    
             let { LotNo,
                 origin,
-                Scooping_Line_Mc,
+               
                 Opening_Qty,
                 Receiving_Qty,
                 Wholes,
@@ -30,7 +30,7 @@ const createscoopingAllReport = async (req: Request, res: Response) => {
                 {
                     LotNo:LotNo,
                 origin:origin,
-                Scooping_Line_Mc:Scooping_Line_Mc,
+                
                 Opening_Qty:Opening_Qty,
                 Receiving_Qty:Receiving_Qty,
                     date: Date,
