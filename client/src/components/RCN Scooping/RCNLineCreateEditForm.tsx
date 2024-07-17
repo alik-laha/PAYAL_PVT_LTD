@@ -39,10 +39,10 @@ interface ScoopingRowData {
     KOR: string;
     Trolley_Broken: string;
     Trolley_Small_JB: string;
-    Transfer_To: string;
+    Transfered_To: string;
     Mc_on: string;
     Mc_off: string;
-    Transfer_Qty: number;
+    Transfered_Qty: number;
     noOfEmployees: string;
     Mc_breakdown: string;
     otherTime: string;
@@ -52,7 +52,6 @@ interface ScoopingRowData {
 
 interface MergedData {
     LotNo: string;
-
     origin: string;
     Scooping_Line_Mc: string;
     Opening_Qty: number;
@@ -294,7 +293,7 @@ const RCNLineCreateEditForm = (props: Props) => {
             Mc_on: item.Mc_on, Mc_off: item.Mc_off,
             Brkdwn_reason: item.Brkdwn_reason, Mc_breakdown: item.Mc_breakdown, otherTime: item.otherTime,
             noOfEmployees: item.noOfEmployees,
-            noOfOperators: item.noOfOperators, Transfer_To: item.Transfered_To, Transfer_Qty: item.Transfered_Qty
+            noOfOperators: item.noOfOperators, Transfered_To: item.Transfered_To, Transfered_Qty: item.Transfered_Qty
 
 
 
@@ -309,7 +308,7 @@ const RCNLineCreateEditForm = (props: Props) => {
 
     const [errortext, setErrortext] = useState('')
 
-    const options = Array.from({ length: rows.length }, (_, index) => index + 1)
+    
 
 
     const handleRowChange = (index: number, field: string, fieldvalue: string | number) => {
@@ -320,24 +319,7 @@ const RCNLineCreateEditForm = (props: Props) => {
         console.log(rows)
     }
 
-    const handletransfer = async (index: number, field: string, fieldvalue: number) => {
-
-
-        const newRows = [...rows]
-        newRows[index] = { ...newRows[index], [field]: fieldvalue };
-        rows[index] = newRows[index]
-
-        rows[index].Receiving_Qty -= rows[index].Transfer_Qty
-
-        handleRowChange(index, 'Receiving_Qty', rows[index].Receiving_Qty)
-
-        rows[parseInt(rows[index].Transfer_To) - 1].Receiving_Qty +=
-            Number(rows[index].Transfer_Qty)
-        handleRowChange(index, 'Receiving_Qty', rows[index].Receiving_Qty)
-
-
-
-    }
+ 
 
 
 
@@ -479,8 +461,8 @@ const RCNLineCreateEditForm = (props: Props) => {
 
                             <TableHead className="text-center" >No Of Ladies</TableHead>
                             <TableHead className="text-center" >No Of Operator</TableHead>
-                            <TableHead className="text-center" >Transfer Qty</TableHead>
-                            <TableHead className="text-center" >Transfer To Line</TableHead>
+                            <TableHead className="text-center" >Transfered_Qty</TableHead>
+                            <TableHead className="text-center" >Transfered_Line</TableHead>
 
 
 
@@ -525,8 +507,8 @@ const RCNLineCreateEditForm = (props: Props) => {
 
                                             <TableCell className="text-center"> <Input value={row.noOfEmployees} placeholder="Ladies" onChange={(e) => handleRowChange(idx, 'noOfEmployees', e.target.value)} required /></TableCell>
                                             <TableCell className="text-center"> <Input value={row.noOfOperators} placeholder="Operators" onChange={(e) => handleRowChange(idx, 'noOfOperators', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"><Input value={row.Transfer_Qty} placeholder="Kg"  /></TableCell>
-                                            <TableCell className="text-center"><Input value={row.Transfered_To} placeholder="Kg"  /></TableCell>
+                                            <TableCell className="text-center"><Input value={row.Transfered_Qty} placeholder="Kg" readOnly/></TableCell>
+                                            <TableCell className="text-center"><Input value={row.Transfered_To} placeholder="Kg" readOnly /></TableCell>
                                             
                                             <TableCell>
                                                 {/* <a className="bg-green-500  text-center items-center justify-center h-7 w-19" onClick={()=>handletransfer(idx)}>Transfer</a> */}

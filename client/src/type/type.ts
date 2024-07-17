@@ -52,7 +52,6 @@ export interface rcnScoopingData {
     Mc_off?: string;
     Trolley_Broken?: string;
     Trolley_Small_JB?: string;
-    
     Mc_breakdown?: string;
     Brkdwn_reason?: string;
     otherTime?: string;
@@ -160,7 +159,7 @@ export interface ScoopData {
     CreatedBy: string;
     editStatus: string;
     modifiedBy: string;
-    Transfered_Qty:string;
+    Transfered_Qty:number;
 }
 
 export interface ExcelRcnPrimaryEntryData {
