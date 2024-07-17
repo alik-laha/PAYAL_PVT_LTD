@@ -151,6 +151,12 @@ const RcnPrimaryEntryTable = () => {
 
     useEffect(() => {
         handleSearch()
+        setPage((prev) => {
+            if (prev <= 0) {
+                return prev + 1
+            }
+            return prev
+        })
     }, [page])
 
     const exportToExcel = async () => {
