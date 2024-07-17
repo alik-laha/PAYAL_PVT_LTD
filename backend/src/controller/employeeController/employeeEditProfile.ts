@@ -33,7 +33,13 @@ const employeeEditProfile = async (req: Request, res: Response) => {
         if (!existingEmployee) {
             return res.status(404).json({ message: "Employee Not Found" });
         }
-        await Employee.update({ employeeName, email, mobNo, address, emergencyMobNo, employeeImage }, { where: { employeeId: id } });
+        if (employeeImage) {
+            await Employee.update({ employeeName, email, mobNo, address, emergencyMobNo, employeeImage }, { where: { employeeId: id } });
+        }
+        else {
+            await Employee.update({ employeeName, email, mobNo, address, emergencyMobNo }, { where: { employeeId: id } })
+        }
+
         return res.status(200).json({ message: "Employee Profile Updated Successfully", image: employeeImage });
     }
     catch (err) {
