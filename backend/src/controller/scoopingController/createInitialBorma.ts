@@ -16,7 +16,7 @@ const CreateInitialBorma = async (req: Request, res: Response) => {
             origin:origin,
             InputWholes:Wholes,
             InputPieces:Broken, 
-            TotalInput:Wholes+totalInput,
+            TotalInput:totalInput,
            
 
         });
