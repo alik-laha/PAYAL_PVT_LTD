@@ -10,17 +10,12 @@ const ViewProfile = () => {
     const [EmployeeDetail, setEmployeeDetail] = useState<EmployeeData>()
     const [UserDetail, setUserDetail] = useState<User>()
     const [EmployeeEditMode, setEmployeeEditMode] = useState(false)
-    const [UserEditMode, setUserEditMode] = useState(false)
     const [employeeName, setEmployeeName] = useState("")
     const [email, setEmail] = useState("")
     const [mobNo, setMobNo] = useState("")
     const [emergencyMobNo, setEmergencyMobNo] = useState("")
     const [address, setAddress] = useState("")
     const [employeeImage, setEmployeeImage] = useState<any>()
-    const [userName, setUserName] = useState("")
-    const [dept, setDept] = useState("")
-    const [role, setRole] = useState("")
-
 
     useEffect(() => {
         axios.get("/api/user/profile").then((res) => {
@@ -37,9 +32,6 @@ const ViewProfile = () => {
         setMobNo(EmployeeDetail?.mobNo || "")
         setEmergencyMobNo(EmployeeDetail?.emergencyMobNo || "")
         setAddress(EmployeeDetail?.address || "")
-        setUserName(UserDetail?.userName || "")
-        setDept(UserDetail?.dept || "")
-        setRole(UserDetail?.role || "")
     }, [EmployeeDetail, UserDetail])
     const handleemployeeEdit = () => {
         setEmployeeEditMode(true)
