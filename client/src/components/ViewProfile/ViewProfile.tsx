@@ -44,9 +44,6 @@ const ViewProfile = () => {
     const handleemployeeEdit = () => {
         setEmployeeEditMode(true)
     }
-    const handleUserEdit = () => {
-        setUserEditMode(true)
-    }
     const HandleSubmit = (e: React.FormEvent<HTMLElement>) => {
         e.preventDefault()
         const formData = new FormData()
@@ -194,7 +191,6 @@ const ViewProfile = () => {
                             <h1 className='text-center'>User Profile</h1>
                             <div className="card mb-3">
                                 <div className="card-body">
-                                    {UserEditMode ? <button className='bg-teal-500 w-24 h-7 rounded-3xl' onClick={() => setUserEditMode(false)}>cancel</button> : null}
                                     <div className="row">
                                         <div className="col-sm-3">
                                             <h6 className="mb-2">User Name</h6>
@@ -210,7 +206,7 @@ const ViewProfile = () => {
                                             <h6 className="mb-2">user Dept</h6>
                                         </div>
                                         <div className="col-sm-9 ">
-                                            {UserEditMode ? <Input value={dept} onChange={(e) => setDept(e.target.value)} /> : UserDetail?.dept}
+                                            {UserDetail?.dept}
                                         </div>
                                     </div>
                                     <hr />
@@ -225,11 +221,6 @@ const ViewProfile = () => {
                                     </div>
                                     <hr />
                                     <br />
-                                    <div className="row">
-                                        <div className="col-sm-12 text-center ">
-                                            {UserEditMode ? <button className='bg-teal-500 w-24 h-7 rounded-3xl' onClick={() => setEmployeeEditMode(false)}>Cancel</button> : <button className='bg-teal-500 w-24 h-7 rounded-3xl' onClick={handleUserEdit}>Edit</button>}
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 
