@@ -180,7 +180,7 @@ const RCNScoopingTable = () => {
             //set(res.data.scoopingLot)
         })
     }
-    function formatNumber(num:any) {
+    function formatNumber(num: any) {
         return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
     }
 
@@ -544,6 +544,9 @@ const RCNScoopingTable = () => {
                         <PaginationPrevious onClick={() => setPage((prev) => {
                             if (prev === 1) {
                                 return prev
+                            }
+                            if (prev <= 0) {
+                                return prev + 1
                             }
                             return prev - 1
                         })} />

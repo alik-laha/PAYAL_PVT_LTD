@@ -117,7 +117,7 @@ const RcnPrimaryEntryTable = () => {
 
     useEffect(() => {
         if (editPendingData) {
-           //console.log(editPendingData)
+            //console.log(editPendingData)
             setEditData(editPendingData)
             setblockpagen('none')
         }
@@ -151,6 +151,12 @@ const RcnPrimaryEntryTable = () => {
 
     useEffect(() => {
         handleSearch()
+        setPage((prev) => {
+            if (prev <= 0) {
+                return 1
+            }
+            return prev
+        })
     }, [page])
 
     const exportToExcel = async () => {
@@ -163,7 +169,7 @@ const RcnPrimaryEntryTable = () => {
         const data1 = await response.data
 
         let ws
-        let transformed:ExcelRcnPrimaryEntryData[] = [];
+        let transformed: ExcelRcnPrimaryEntryData[] = [];
         if (EditData.length > 0) {
 
             transformed = EditData.map((item: EditPendingData, idx: number) => ({
@@ -205,7 +211,7 @@ const RcnPrimaryEntryTable = () => {
                 Approved_or_Rejected_By: item.approvedBy
 
             }));
-           // setTransformedData(transformed);
+            // setTransformedData(transformed);
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         const wb = XLSX.utils.book_new();
@@ -355,9 +361,9 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center">{item.blWeight}</TableCell>
                                     <TableCell className="text-center">{item.netWeight}</TableCell>
 
-                                    {Number(item.difference)<0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)
-                                    : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)}
-                                    
+                                    {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)
+                                        : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)}
+
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
                                     <TableCell className="text-center ">
                                         {item.rcnStatus === 'QC Approved' ? (
@@ -426,8 +432,8 @@ const RcnPrimaryEntryTable = () => {
 
                                     <TableCell className="text-center">{item.blWeight}</TableCell>
                                     <TableCell className="text-center">{item.netWeight}</TableCell>
-                                    {Number(item.difference)<0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)
-                                    : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)}
+                                    {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)
+                                        : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)}
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
                                     <TableCell className="text-center">
                                         {item.rcnStatus === 'QC Approved' ? (
@@ -490,6 +496,9 @@ const RcnPrimaryEntryTable = () => {
                         <PaginationPrevious onClick={() => setPage((prev) => {
                             if (prev === 1) {
                                 return prev
+                            }
+                            if (prev <= 0) {
+                                return prev + 1
                             }
                             return prev - 1
                         })} />

@@ -19,8 +19,8 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
-import { Size, pageNo,pagelimit, pendingCheckRole } from "../common/exportData"
-import { FcApprove , FcDisapprove } from "react-icons/fc";
+import { Size, pageNo, pagelimit, pendingCheckRole } from "../common/exportData"
+import { FcApprove, FcDisapprove } from "react-icons/fc";
 
 
 import {
@@ -78,7 +78,7 @@ const RCNBoilingTable = () => {
     const [page, setPage] = useState(pageNo)
     const [EditData, setEditData] = useState<BoilingEntryData[]>([])
     const limit = pagelimit
-    const { editPendingBoilingData,setEditPendingBoilingData } = useContext(Context);
+    const { editPendingBoilingData, setEditPendingBoilingData } = useContext(Context);
     const [blockpagen, setblockpagen] = useState('flex')
     const currDate = new Date().toLocaleDateString();
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
@@ -113,10 +113,10 @@ const RCNBoilingTable = () => {
     }
 
     useEffect(() => {
-        if (editPendingBoilingData.length>0) {
-           // console.log(editPendingBoilingData)
+        if (editPendingBoilingData.length > 0) {
+            // console.log(editPendingBoilingData)
             setEditData(editPendingBoilingData)
-           // console.log(EditData)
+            // console.log(EditData)
             setblockpagen('none')
         }
     }, [editPendingBoilingData])
@@ -125,13 +125,13 @@ const RCNBoilingTable = () => {
         //console.log('search button pressed')
         setEditPendingBoilingData([])
         //setEditData([])
-        
+
         const response = await axios.post('/api/boiling/searchBoiling', {
             blConNo: blConNo,
             origin: origin,
             fromDate: fromdate,
             toDate: todate,
-            SizeName:size,
+            SizeName: size,
         }, {
             params: {
                 page: page,
@@ -162,16 +162,16 @@ const RCNBoilingTable = () => {
             origin: origin,
             fromDate: fromdate,
             toDate: todate,
-            SizeName:size,
+            SizeName: size,
         })
         const data1 = await response.data
 
         let ws
-        let transformed:BoilingExcelData[]=[]
+        let transformed: BoilingExcelData[] = []
         if (EditData.length > 0) {
-            
+
             transformed = EditData.map((item: BoilingEntryData, idx: number) => ({
-                Sl_No: idx+1,
+                Sl_No: idx + 1,
                 Lot_No: item.LotNo,
                 Entry_Date: handletimezone(item.date),
                 Origin: item.origin,
@@ -179,28 +179,28 @@ const RCNBoilingTable = () => {
                 Boiling_Qty: item.Size,
                 Scooping_Line: item.Scooping_Line_Mc,
                 Pressure: item.Pressure,
-                Moisture:item.moisture,
-                Cooking_Time:item.CookingTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')+' hr.' ,
+                Moisture: item.moisture,
+                Cooking_Time: item.CookingTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr.',
                 Machine: item.MCName,
                 MC_On: handleAMPM(item.Mc_on.slice(0, 5)),
                 MC_Off: handleAMPM(item.Mc_off.slice(0, 5)),
                 Labour_No: item.noOfEmployees,
-                Breakdown_Duration: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')+' hr.' ,
-                Other_Duration: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')+' hr.',
-                Run_Duration:item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0/, '')+' hr.',
+                Breakdown_Duration: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr.',
+                Other_Duration: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr.',
+                Run_Duration: item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0/, '') + ' hr.',
 
                 Edit_Status: item.editStatus,
                 Entried_By: item.CreatedBy,
-                ApprovedOrRejectedBy:item.modifiedBy
-            
+                ApprovedOrRejectedBy: item.modifiedBy
+
             }));
             //setTransformedData(transformed);
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
             transformed = data1.map((item: BoilingEntryData, idx: number) => ({
-               
-                Sl_No: idx+1,
+
+                Sl_No: idx + 1,
                 Lot_No: item.LotNo,
                 Entry_Date: handletimezone(item.date),
                 Origin: item.origin,
@@ -208,17 +208,17 @@ const RCNBoilingTable = () => {
                 Boiling_Qty: item.Size,
                 Scooping_Line: item.Scooping_Line_Mc,
                 Pressure: item.Pressure,
-                Cooking_Time:item.CookingTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')+' hr.' ,
+                Cooking_Time: item.CookingTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr.',
                 Machine: item.MCName,
                 MC_On: handleAMPM(item.Mc_on.slice(0, 5)),
                 MC_Off: handleAMPM(item.Mc_off.slice(0, 5)),
                 Labour_No: item.noOfEmployees,
-                Breakdown_Duration: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')+' hr.' ,
-                Other_Duration: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')+' hr.',
-                Run_Duration:item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0/, '')+' hr.',
+                Breakdown_Duration: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr.',
+                Other_Duration: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr.',
+                Run_Duration: item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0/, '') + ' hr.',
                 Edit_Status: item.editStatus,
                 Entried_By: item.CreatedBy,
-                ApprovedOrRejectedBy:item.modifiedBy
+                ApprovedOrRejectedBy: item.modifiedBy
             }));
             //setTransformedData(transformed);
             ws = XLSX.utils.json_to_sheet(transformed);
@@ -301,15 +301,15 @@ const RCNBoilingTable = () => {
         // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
         return finalTime;
     }
-    const checkpending = ( tab: string ) => { 
+    const checkpending = (tab: string) => {
         //console.log(Role)
         if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
             return true
         }
-        else{
+        else {
             return false;
         }
-       
+
     }
 
     return (
@@ -331,7 +331,7 @@ const RCNBoilingTable = () => {
                         </option>
                     ))}
                 </select>
-              
+
                 <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
                 <Input className="w-1/7 flexbox-search-width-calender"
                     type="date"
@@ -348,7 +348,7 @@ const RCNBoilingTable = () => {
                     placeholder="To Date"
 
                 />
-                  <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                     onChange={(e) => setSize(e.target.value)} value={size}>
                     <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
@@ -375,17 +375,17 @@ const RCNBoilingTable = () => {
                     <TableHead className="text-center" >Id</TableHead>
                     <TableHead className="text-center " >BoilingLot No</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
-                  
-                   
+
+
                     <TableHead className="text-center" >BoilingDate </TableHead>
-                     <TableHead className="text-center" >Machine Name</TableHead>
+                    <TableHead className="text-center" >Machine Name</TableHead>
                     <TableHead className="text-center" >ScoopingLineName</TableHead>
                     <TableHead className="text-center" >Size</TableHead>
                     <TableHead className="text-center" >Qty (Bag)</TableHead>
                     <TableHead className="text-center" >Pressure</TableHead>
                     <TableHead className="text-center" >Moisture</TableHead>
                     <TableHead className="text-center" >Cooking Time</TableHead>
-                   
+
                     <TableHead className="text-center" >MachineON</TableHead>
                     <TableHead className="text-center" >MachineOFF</TableHead>
                     <TableHead className="text-center" >Breakdown Duration</TableHead>
@@ -400,14 +400,14 @@ const RCNBoilingTable = () => {
                 <TableBody>
                     {editPendingBoilingData.length > 0 ? (
                         editPendingBoilingData.map((item: BoilingEntryData, idx) => {
-                                console.log(item)
+                            console.log(item)
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{idx + 1}</TableCell>
                                     <TableCell className="text-center font-bold text-orange-600">{item.LotNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                    
-                                    
+
+
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center">{item.MCName}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.Scooping_Line_Mc}</TableCell>
@@ -417,7 +417,7 @@ const RCNBoilingTable = () => {
                                     <TableCell className="text-center font-bold">{item.Pressure} psi</TableCell>
                                     <TableCell className="text-center font-bold">{item.moisture}%</TableCell>
                                     <TableCell className="text-center">{item.CookingTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
- 
+
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
@@ -435,7 +435,7 @@ const RCNBoilingTable = () => {
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <AlertDialog>
                                                     <AlertDialogTrigger className="flex">
-                                                    <FcApprove size={25}/> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
+                                                        <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
@@ -449,7 +449,7 @@ const RCNBoilingTable = () => {
                                                 </AlertDialog>
                                                 <AlertDialog>
                                                     <AlertDialogTrigger className="flex mt-2">
-                                                    <FcDisapprove size={25}/> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
+                                                        <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
@@ -468,7 +468,7 @@ const RCNBoilingTable = () => {
                             );
                         })
                     ) : (
-                        Data.length>0 ? (Data.map((item: BoilingEntryData, idx) => {
+                        Data.length > 0 ? (Data.map((item: BoilingEntryData, idx) => {
 
 
                             return (
@@ -476,8 +476,8 @@ const RCNBoilingTable = () => {
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center font-bold text-orange-600">{item.LotNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                    
-                                    
+
+
                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center">{item.MCName}</TableCell>
                                     <TableCell className="text-center font-semibold">{item.Scooping_Line_Mc}</TableCell>
@@ -487,7 +487,7 @@ const RCNBoilingTable = () => {
                                     <TableCell className="text-center ">{item.Pressure} psi</TableCell>
                                     <TableCell className="text-center ">{item.moisture}%</TableCell>
                                     <TableCell className="text-center">{item.CookingTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
- 
+
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
                                     <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
@@ -498,9 +498,9 @@ const RCNBoilingTable = () => {
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
 
 
-                                 
-                                  
-        
+
+
+
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
@@ -508,7 +508,7 @@ const RCNBoilingTable = () => {
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                 <Dialog>
-                                                    <DialogTrigger className="flex"><CiEdit size={20}/>
+                                                    <DialogTrigger className="flex"><CiEdit size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                     </DialogTrigger>
                                                     <DialogContent className="max-w-2xl">
@@ -525,7 +525,7 @@ const RCNBoilingTable = () => {
                                     </TableCell>
                                 </TableRow>
                             );
-                        })):(<TableRow>
+                        })) : (<TableRow>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
@@ -549,7 +549,7 @@ const RCNBoilingTable = () => {
 
 
 
-                            </TableRow>)
+                        </TableRow>)
                     )}
                 </TableBody>
             </Table>
@@ -559,6 +559,9 @@ const RCNBoilingTable = () => {
                         <PaginationPrevious onClick={() => setPage((prev) => {
                             if (prev === 1) {
                                 return prev
+                            }
+                            if (prev <= 0) {
+                                return prev + 1
                             }
                             return prev - 1
                         })} />
