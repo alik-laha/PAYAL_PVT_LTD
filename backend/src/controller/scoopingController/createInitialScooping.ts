@@ -16,7 +16,7 @@ const CreateInitialScooping = async (req: Request, res: Response) => {
             Receiving_Qty:rcvQuantity
 
         });
-        res.status(201).json({ message: "Scooping Initial Entry Made Successfully", scoopingnInitial });
+        res.status(200).json({ message: "Boiling Entry Made Successfully" });
 
     }
     catch (err) {
