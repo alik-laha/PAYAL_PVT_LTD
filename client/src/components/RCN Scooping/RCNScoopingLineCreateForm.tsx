@@ -372,7 +372,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                         if (newFormupdateData.length === scoopingallcount) 
                             {
                                 
-                                setErrortext(update.data.message)
+                                setErrortext('Scooping Entry Created Successfully')
                                 if (update.status === 200) 
                                 {
                                     const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
