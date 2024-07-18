@@ -9,6 +9,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
+import PackagingMetirialReceivingCreateForm from "./packagingMetirialReceivingCreateForm"
 
 const PackagingMetirialReceiving = () => {
     return (
@@ -38,7 +39,7 @@ const PackagingMetirialReceiving = () => {
                         </DialogDescription>
                     </DialogHeader>
 
-                    {/* <MachineCreateForm/> */}
+                    <PackagingMetirialReceivingCreateForm />
                 </DialogContent>
             </Dialog>
         </div>
