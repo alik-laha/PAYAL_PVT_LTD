@@ -170,11 +170,11 @@ const RCNBoilingEntryForm = () =>
         for (var data of formData) 
         {
             const boilres=await axios.post('/api/boiling/createBoiling', { data })
-            console.log(boilres)
+           
             boilingcount++;
             if (formData.length === boilingcount) 
             {
-                setErrortext(boilres.data.message)
+                
                 if (boilres.status === 200) 
                 {
                     await axios.post('/api/scooping/updateLotNo', 

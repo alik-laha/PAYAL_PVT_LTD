@@ -290,7 +290,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         const newRows=[...rows];
         newRows[index]={...newRows[index],[field]:fieldvalue};
         setRows(newRows)
-        console.log(rows)
+        //console.log(rows)
     }
 
     const handletransfer = async (index:number,field:string,fieldvalue:number|string) => {
@@ -303,10 +303,6 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         Number(rows[index].Transfer_Qty)
         handleRowChange(index,'Receiving_Qty',rows[index].Receiving_Qty)
         handleRowChange(index,'Transfer_To_MC',rows[parseInt(rows[index].Transfer_To)-1].Scooping_Line_Mc)
-      
-      
-
-
     }
 
     
@@ -323,9 +319,9 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         const male = maleRef.current?.value
         const female = femaleRef.current?.value
         const supervisor = supervisorRef.current?.value
-        try {
 
-
+        try 
+        {
             const formData = rows.map((row: any) => ({
                 male: male,
                 Date: date,
@@ -336,81 +332,73 @@ const RCNScoopingLineCreateForm = (props:Props) => {
             }))
 
             let scoopingcount = 0
+            let scoopingallcount=0
                 for (var data of formData) 
                 {
-                    
-                    axios.put(`/api/scooping/createScooping/${data.id}`, { data }).then(res => {
-                        scoopingcount++;
-                       if (formData.length === scoopingcount) {
-                            setErrortext(res.data.message)
-                            axios.post('/api/scooping/updateLotNo', { lotNo:props.scoop[0].LotNo,desc:'Scooping'}).then(res => {
-                                console.log(res)})
-                                .catch(err => {
-                                    console.log(err)
-                                    setErrortext(err.response.data.message)
-                                   
-                            }) 
-                            if (res.status === 200) {
-                               const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                               dialog.showModal()
-                                setTimeout(() => {
-                                    dialog.close()
-                                    window.location.reload()
-                                }, 2000)
-                            }
-
-                       }
-
-                    })
-                    .catch(err => {
-                            console.log(err)
-                            setErrortext(err.response.data.message)
-                    }) 
-                }
-                const formall = newFormData.map((row: any) => ({
-                    male: male,
-                    Date: date,
-                    female: female,
-                    supervisor: supervisor,
-                     ...row
-    
-                }))
-               
-                for (var data2 of formall) 
-                    {   
-                        axios.post('/api/scooping/createScoopingall', { data2 }).then(res => {
-                            console.log(res)
-                        })
-                        .catch(err => {
-                                console.log(err)
-                                setErrortext(err.response.data.message)
-                               
-                        }) 
-                        axios.post('/api/scooping/createInitialBorma', { data2 }).then(res => {
-                            console.log(res)
-                        })
-                        .catch(err => {
-                            console.log(err)
-                            setErrortext(err.response.data.message)
-                           
-                         }) 
-                }
-
-                for (var data3 of newFormupdateData) 
+                    const createscoop= await axios.put(`/api/scooping/createScooping/${data.id}`, { data })
+                    scoopingcount++;
+                    if (formData.length === scoopingcount) 
+                    {
+                        if (createscoop.status === 200) 
                         {
-                            axios.post('/api/scooping/updatenextopening', { data3 }).then(res => {
-                                console.log(res)
-                            })
-                            .catch(err => {
-                                    console.log(err)
-                                    setErrortext(err.response.data.message)
-                                   
-                            }) 
+                            await axios.post('/api/scooping/updateLotNo', { lotNo:props.scoop[0].LotNo,desc:'Scooping'}) 
+                        }
+                    }
                 }
-                     
+                
+                const resStatus=await axios.post('/api/boiling/getStatusBoiling', { lotNo:props.scoop[0].LotNo})
+                console.log(resStatus)
+
+                if(resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy==='Scooping')
+                {
+                    const formall = newFormData.map((row: any) => ({
+                        male: male,
+                        Date: date,
+                        female: female,
+                        supervisor: supervisor,
+                         ...row
+        
+                    }))
+                    for (var data2 of formall) 
+                    {   
+                        await axios.post('/api/scooping/createScoopingall', { data2 })
+                        await axios.post('/api/scooping/createInitialBorma', { data2 })
+                    }
+    
+                    for (var data3 of newFormupdateData) 
+                    {
+                        scoopingallcount++
+                        const update=await axios.post('/api/scooping/updatenextopening', { data3 })
+                        if (newFormupdateData.length === scoopingallcount) 
+                            {
+                                
+                                setErrortext(update.data.message)
+                                if (update.status === 200) 
+                                {
+                                    const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                            dialog2.showModal()
+                             setTimeout(() => {
+                                 dialog2.close()
+                                 window.location.reload()
+                             }, 3000)
+                                }
+                            }
+                    }
+                }          
         }
         catch (err) {
-            console.log(err)
+        console.log(err)
+        if(axios.isAxiosError(err)){
+            setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+        }
+        else{
+            setErrortext('An Unexpected Error Occured')
+        }
+        const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+        dialog.showModal()
+        setTimeout(() => {
+            dialog.close()
+        }, 2000)
         }
     }
 
