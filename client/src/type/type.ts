@@ -188,8 +188,8 @@ export interface PermissionRole {
     QCSupervisor: string[];
     QCManager: string[];
     GradingSupervisor: string[];
-    ScoopingSupervisor:string[];
-    BoilingSupervisor:string[];
+    ScoopingSupervisor: string[];
+    BoilingSupervisor: string[];
 
 
 }
@@ -201,31 +201,31 @@ export interface PermissionDept {
     Production: string[];
     QualityControl: string[];
     Grading: string[];
-    Boiling:string[];
+    Boiling: string[];
 
 }
-export interface BoilingEntryData{
-        moisture: string;
-        id: number;
-        LotNo: string;
-        date: string;
-        origin: string;
-        SizeName: string;
-        Size: string;
-        Scooping_Line_Mc: string;
-        Pressure: string;
-        CookingTime: string;
-        MCName: string;
-        Mc_on: string;
-        Mc_off: string;
-        noOfEmployees: string;
-        Mc_breakdown: string;
-        otherTime: string;
-        CreatedBy: string;
-        editStatus: string;
-        Mc_runTime: string;
-        modifiedBy: string;
-       
+export interface BoilingEntryData {
+    moisture: string;
+    id: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    SizeName: string;
+    Size: string;
+    Scooping_Line_Mc: string;
+    Pressure: string;
+    CookingTime: string;
+    MCName: string;
+    Mc_on: string;
+    Mc_off: string;
+    noOfEmployees: string;
+    Mc_breakdown: string;
+    otherTime: string;
+    CreatedBy: string;
+    editStatus: string;
+    Mc_runTime: string;
+    modifiedBy: string;
+
 
 }
 
@@ -282,12 +282,12 @@ export interface GradingExcelData {
     Run_Duration: string;
     Edit_Status: string;
     Entried_By: string;
-    ApprovedOrRejectedBy:string;
+    ApprovedOrRejectedBy: string;
 }
 
 export interface TimePeriodProps {
 
-    timeString:string
+    timeString: string
 }
 export interface BoilingExcelData {
     Sl_No: number;
@@ -298,20 +298,32 @@ export interface BoilingExcelData {
     Boiling_Qty: string;
     Scooping_Line: string;
     Pressure: string;
-    Moisture:string;
+    Moisture: string;
     Machine: string;
     MC_On: string;
     MC_Off: string;
     Labour_No: string;
     Breakdown_Duration: string;
     Other_Duration: string;
-    Cooking_Time:string;
+    Cooking_Time: string;
     Run_Duration: string;
     Edit_Status: string;
     Entried_By: string;
-    ApprovedOrRejectedBy:string;
+    ApprovedOrRejectedBy: string;
 
 
-   
-   
+
+
+}
+
+export interface SkuData {
+    id: number;
+    sku: string;
+    unit: string;
+    createdBy: string;
+}
+export interface VendorData {
+    id: number;
+    vendorName: string;
+    createdBy: string;
 }
