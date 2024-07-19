@@ -82,6 +82,18 @@ const PackagingMetirialReceivingCreateForm = () => {
         } else {
             setVendorNameView("none")
         }
+        axios.post("/api/quality/vendornamefind", { vendorName: e.target.value })
+            .then((res) => {
+                console.log(res)
+                if (res.status === 200) {
+                    setVendorData([res.data.vendorData])
+                }
+            })
+            .catch((err) => {
+                if (err.response.status === 404) {
+                    setVendorData([])
+                }
+            })
     }
     const handleSkuidClick = (item: SkuData) => {
         setSku(item.sku)
