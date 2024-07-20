@@ -327,3 +327,16 @@ export interface VendorData {
     vendorName: string;
     createdBy: string;
 }
+
+export interface PackageMaterialReceivingData {
+    id: number;
+    recevingDate: string;
+    sku: string;
+    vendorName: string;
+    quantity: string;
+    unit: string;
+    createdBy: string;
+    qualityStatus: string;
+    editStatus: string;
+    approvedBy: string;
+}

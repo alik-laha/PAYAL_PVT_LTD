@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import PackagingMetirialReceivingCreateForm from "./packagingMetirialReceivingCreateForm"
+import PackageMetrialRecivingTable from "./PackagingMetrialReceivingtable"
 
 const PackagingMetirialReceiving = () => {
     return (
@@ -42,6 +43,7 @@ const PackagingMetirialReceiving = () => {
                     <PackagingMetirialReceivingCreateForm />
                 </DialogContent>
             </Dialog>
+            <PackageMetrialRecivingTable />
         </div>
     )
 }

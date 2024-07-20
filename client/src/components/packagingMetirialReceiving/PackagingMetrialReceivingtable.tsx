@@ -34,7 +34,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { format, toZonedTime } from 'date-fns-tz'
 import { FaSearch } from "react-icons/fa";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
@@ -49,6 +49,8 @@ import {
 } from "@/components/ui/pagination"
 import { CiEdit } from "react-icons/ci";
 import { pagelimit } from "../common/exportData"
+import { PackageMaterialReceivingData } from '@/type/type'
+import axios from 'axios'
 
 
 const PackageMetrialRecivingTable = () => {
@@ -85,12 +87,23 @@ const PackageMetrialRecivingTable = () => {
     const handleSearch = () => {
 
     }
-    const handleApprove = (item: EditPendingData) => {
+    const handleApprove = (item: any) => {
         console.log(item)
     }
-    const handleRejection = (item: EditPendingData) => {
+    const handleRejection = (item: any) => {
         console.log(item)
     }
+    const searchData = () => {
+        axios.post('/api/quality/getreceivematerial', { fromdate, todate, searchdata }).then((res) => {
+            setData(res.data.PackageMaterials)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
+    useEffect(() => {
+        searchData()
+    }, [])
 
 
     return (
@@ -122,62 +135,44 @@ const PackageMetrialRecivingTable = () => {
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
             </div>
-            {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+            {/* {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>} */}
 
 
 
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                    <TableHead className="text-center" >Id</TableHead>
-                    <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Date of Receiving </TableHead>
-                    <TableHead className="text-center" >BL No.</TableHead>
-                    <TableHead className="text-center" >Con No.</TableHead>
-                    <TableHead className="text-center" >Truck No.</TableHead>
-
-                    <TableHead className="text-center" >BL Weight</TableHead>
-                    <TableHead className="text-center" >Net Weight</TableHead>
-                    <TableHead className="text-center" >Difference</TableHead>
-                    <TableHead className="text-center" >Bag Count</TableHead>
-                    <TableHead className="text-center" >QC Status</TableHead>
-                    <TableHead className="text-center" >Edit Status </TableHead>
-                    <TableHead className="text-center" >Entried By </TableHead>
+                    <TableHead className="text-center" >Slno</TableHead>
+                    <TableHead className="text-center" >Receiving Date</TableHead>
+                    <TableHead className="text-center" >Sku</TableHead>
+                    <TableHead className="text-center" >Vendor Name</TableHead>
+                    <TableHead className="text-center" >Quantity</TableHead>
+                    <TableHead className="text-center" >Unit</TableHead>
+                    <TableHead className="text-center" >Quality Status</TableHead>
+                    <TableHead className="text-center" >Edit Status</TableHead>
+                    <TableHead className="text-center" >Created By</TableHead>
+                    <TableHead className="text-center" >Approved By</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
 
                 </TableHeader>
                 <TableBody>
                     {EditData.length > 0 ? (
-                        EditData.map((item: EditPendingData, idx) => {
+                        EditData.map((item: PackageMaterialReceivingData) => {
 
                             return (
                                 <TableRow key={item.id}>
-                                    <TableCell className="text-center">{idx + 1}</TableCell>
-                                    <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                    <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center">{item.blNo}</TableCell>
-                                    <TableCell className="text-center">{item.conNo}</TableCell>
-                                    <TableCell className="text-center">{item.truckNo}</TableCell>
+                                    <TableCell className="text-center">{item.id}</TableCell>
+                                    <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
+                                    <TableCell className="text-center">{item.sku}</TableCell>
+                                    <TableCell className="text-center">{item.vendorName}</TableCell>
+                                    <TableCell className="text-center">{item.quantity}</TableCell>
 
-                                    <TableCell className="text-center">{item.blWeight}</TableCell>
-                                    <TableCell className="text-center">{item.netWeight}</TableCell>
-
-                                    {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{Number(item.difference)}</TableCell>)
-                                        : (<TableCell className="text-center font-semibold text-green-600">{Number(item.difference)}</TableCell>)}
-
-                                    <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
-                                    <TableCell className="text-center ">
-                                        {item.rcnStatus === 'QC Approved' ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
-                                        ) : item.rcnStatus === 'QC Pending' ? (
-                                            <button className="bg-yellow-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
-                                        ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
-                                        )}
-                                    </TableCell>
+                                    <TableCell className="text-center">{item.unit}</TableCell>
+                                    <TableCell className="text-center">{item.qualityStatus}</TableCell>
                                     <TableCell className="text-center">{item.editStatus == 'Created' ?
                                         'NA' : item.editStatus}</TableCell>
-                                    <TableCell className="text-center">{item.editedBy}</TableCell>
+                                    <TableCell className="text-center">{item.createdBy}</TableCell>
+                                    <TableCell className="text-center">{item.approvedBy}</TableCell>
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
@@ -219,35 +214,23 @@ const PackageMetrialRecivingTable = () => {
                             );
                         })
                     ) : (
-                        Data.length > 0 ? (Data.map((item: RcnPrimaryEntryData, idx) => {
+                        Data.length > 0 ? (Data.map((item: PackageMaterialReceivingData) => {
 
 
                             return (
                                 <TableRow key={item.id}>
-                                    <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                    <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center">{item.blNo}</TableCell>
-                                    <TableCell className="text-center">{item.conNo}</TableCell>
-                                    <TableCell className="text-center">{item.truckNo}</TableCell>
+                                    <TableCell className="text-center">{item.id}</TableCell>
+                                    <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
+                                    <TableCell className="text-center">{item.sku}</TableCell>
+                                    <TableCell className="text-center">{item.vendorName}</TableCell>
+                                    <TableCell className="text-center">{item.quantity}</TableCell>
 
-                                    <TableCell className="text-center">{item.blWeight}</TableCell>
-                                    <TableCell className="text-center">{item.netWeight}</TableCell>
-                                    {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{Number(item.difference)}</TableCell>)
-                                        : (<TableCell className="text-center font-semibold text-green-600">{Number(item.difference)}</TableCell>)}
-                                    <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
-                                    <TableCell className="text-center">
-                                        {item.rcnStatus === 'QC Approved' ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
-                                        ) : item.rcnStatus === 'QC Pending' ? (
-                                            <button className="bg-yellow-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
-                                        ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
-                                        )}
-                                    </TableCell>
-                                    <TableCell className="text-center">{item.editStatus == 'Created' ?
-                                        'NA' : item.editStatus}</TableCell>
-                                    <TableCell className="text-center">{item.receivedBy}</TableCell>
+                                    <TableCell className="text-center">{item.unit}</TableCell>
+                                    <TableCell className="text-center">{item.qualityStatus}</TableCell>
+                                    <TableCell className="text-center">{item.editStatus}</TableCell>
+                                    <TableCell className="text-center">{item.createdBy}</TableCell>
+                                    <TableCell className="text-center">{item.approvedBy}</TableCell>
+
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>

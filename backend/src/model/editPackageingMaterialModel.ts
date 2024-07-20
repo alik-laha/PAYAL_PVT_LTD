@@ -2,11 +2,10 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig"
 
 
-const PackagingMaterial = sequelize.define('packagingMaterialreceving', {
+const EditPackagingMaterial = sequelize.define('editpackagingMaterialreceving', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
     },
     recevingDate: {
         type: DataTypes.DATE,
@@ -26,12 +25,11 @@ const PackagingMaterial = sequelize.define('packagingMaterialreceving', {
     },
     unit: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
     },
     editStatus: {
         type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: "N/A"
+        allowNull: false
     },
     qualityStatus: {
         type: DataTypes.BOOLEAN,
@@ -49,4 +47,4 @@ const PackagingMaterial = sequelize.define('packagingMaterialreceving', {
     },
 
 })
-export default PackagingMaterial;
+export default EditPackagingMaterial;
