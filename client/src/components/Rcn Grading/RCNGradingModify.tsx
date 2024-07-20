@@ -10,6 +10,7 @@ import { AssetData } from '@/type/type'
 import Context from '../context/context'
 import { useContext } from 'react'
 import axios from 'axios'
+import TimePicker from '../common/TimePicker'
 interface RcnGraddingModifyFormProps {
     data: {
         id: number;
@@ -183,6 +184,17 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
             console.log(err)
         })
     }, [])
+
+    const handleonchangeon = (value:string) => {
+        console.log(value)
+        setMc_on(value)
+        
+    }
+    const handleonchangeoff = (value:string) => {
+        console.log(value)
+        setMc_off(value)
+        
+    }
     const { AllMachines } = useContext(Context)
     return (
         <div className="pl-5 pr-5  ">
@@ -259,16 +271,24 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
                     </Select>
                 </div>
 
-                <div className="flex">
+                {/* <div className="flex">
                     <Label className="w-1/4 pt-2">ON</Label>
                     <Input className="w-2/4 bg-cyan-100" placeholder="MC ON Time" value={Mc_on} onChange={(e) => setMc_on(e.target.value)} type='time' />
                     <Label className="w-2/4 pt-2 text-center">OFF</Label>
                     <Input className="w-2/4 bg-cyan-100" placeholder="MC ON Time" value={Mc_off} onChange={(e) => setMc_off(e.target.value)} type='time' />
+                </div> */}
+
+                <div className="flex pt-2">
+
+                    <Label className="w-2/4 pt-2 ">MC ON  </Label>
+                    <div className="w-2/4 text-center items-center justify-center" ><TimePicker onChange={handleonchangeon} value={Mc_on} /> </div>
                 </div>
 
-                <div className="flex">
+                <div className="flex pt-2">
 
-                </div>
+                    <Label className="w-2/4  pt-2 ">MC OFF</Label>
+                    <div className="w-2/4 " ><TimePicker onChange={handleonchangeoff} value={Mc_off} /></div>
+                </div> 
 
                 <div className="flex">
                     <Label className="w-2/4 pt-2">Break Down Duration(Total)</Label>
