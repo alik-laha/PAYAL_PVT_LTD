@@ -9,11 +9,14 @@ import { Origin } from '../common/exportData'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { AssetData } from '@/type/type'
 import Context from '../context/context'
+import TimePicker from '../common/TimePicker'
 
 
 const RcnGradingCreateForm = () => {
     const DateRef = useRef<HTMLInputElement>(null)
     const [origin, setOrigin] = useState<string>('')
+    const [mc_on, setmc_on] = useState<string>('12:00')
+    const [mc_off, setmc_off] = useState<string>('12:00')
     const aRef = useRef<HTMLInputElement>(null)
     const bRef = useRef<HTMLInputElement>(null)
     const cRef = useRef<HTMLInputElement>(null)
@@ -23,8 +26,8 @@ const RcnGradingCreateForm = () => {
     const gRef = useRef<HTMLInputElement>(null)
     const dustRef = useRef<HTMLInputElement>(null)
     const [mc_name, setMc_name] = useState('')
-    const mc_onRef = useRef<HTMLInputElement>(null)
-    const mc_offRef = useRef<HTMLInputElement>(null)
+   // const mc_onRef = useRef<HTMLInputElement>(null)
+   // const mc_offRef = useRef<HTMLInputElement>(null)
     const noofEmployeeRef = useRef<HTMLInputElement>(null)
     const [Mc_breakdown, setMc_breakdown] = useState<string>("00:00")
     const [otherTime, setOtherTime] = useState<string>("00:00")
@@ -57,8 +60,8 @@ const RcnGradingCreateForm = () => {
         const dustkg = dustRef.current?.value
         const sumGrade=(A?Number(A):0)+(B?Number(B):0)+(C?Number(C):0)+(D?Number(D):0)+(E?Number(E):0)
         +(F?Number(F):0)+(G?Number(G):0)+(dustkg?(Number(dustkg)/80):0)
-        const Mc_on = mc_onRef.current?.value
-        const Mc_off = mc_offRef.current?.value
+        //const Mc_on = mc_onRef.current?.value
+        //const Mc_off = mc_offRef.current?.value
         const noOfEmployees = noofEmployeeRef.current?.value
         const grading_lotNo = grading_lotNoRef.current?.value
         const Mc_name = mc_name
@@ -71,7 +74,7 @@ const RcnGradingCreateForm = () => {
             return
         }
 
-        axios.post('/api/grading/createGrading', { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, Mc_breakdown, otherTime, grading_lotNo })
+        axios.post('/api/grading/createGrading', { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on:mc_on, Mc_off:mc_off, noOfEmployees, Mc_breakdown, otherTime, grading_lotNo })
             .then(res => {
                 setErrortext(res.data.message)
                 if (res.status === 200) {
@@ -112,6 +115,17 @@ const RcnGradingCreateForm = () => {
       
     
     }
+    const handleonchangeon = (value:string) => {
+        console.log(value)
+        setmc_on(value)
+        
+    }
+    const handleonchangeoff = (value:string) => {
+        console.log(value)
+        setmc_off(value)
+        
+    }
+
     const { AllMachines } = useContext(Context)
     return (
         <div className="pl-5 pr-5 ">
@@ -119,13 +133,7 @@ const RcnGradingCreateForm = () => {
 
 
             
-            <div className="flex">
-                    <Label className="w-2/4 bg-green-500 text-center rounded-md pt-2 mr-1 text-primary-foreground">MC ON  </Label>
-                    <Input className="w-3/5  justify-center bg-green-100 mr-1" placeholder="MC ON Time" ref={mc_onRef} type='time' required />
-                    <Input className="w-3/5 justify-center bg-red-100 ml-1" placeholder="MC OFF Time" ref={mc_offRef} type='time' required />
-                    <Label className="w-2/4 bg-red-500 rounded-md text-white-600 text-center pt-2 ml-1 text-primary-foreground">MC OFF</Label>
-                   
-                </div> 
+            
                 <div className="flex mt-3">
                     <Label className="w-1/5 pt-1 ">Origin</Label>
                     <Select value={origin} onValueChange={(value) => handleoriginStock(value)} required>
@@ -204,7 +212,17 @@ const RcnGradingCreateForm = () => {
                         </SelectContent>
                     </Select>
                 </div>          
-               
+        <div className="flex pt-2">
+            
+            <Label className="w-2/4 pt-2 ">MC ON  </Label>
+            <div className="w-2/4 text-center items-center justify-center" ><TimePicker onChange={handleonchangeon} value={mc_on}/> </div>
+            </div> 
+            
+        <div className="flex pt-2">
+           
+            <Label className="w-2/4  pt-2 ">MC OFF</Label>
+            <div className="w-2/4 " ><TimePicker onChange={handleonchangeoff} value={mc_off}/></div>
+        </div> 
                 <div className="flex">
                     <Label className="w-2/4 pt-2">MC Breakdown (Total) </Label>
                     <Input className="w-2/4 justify-center " placeholder="MC BreakDown" value={Mc_breakdown} type='time' onChange={(e) => setMc_breakdown(e.target.value)} />
