@@ -94,7 +94,7 @@ const PackageMetrialRecivingTable = () => {
         console.log(item)
     }
     const searchData = () => {
-        axios.post('/api/quality/getreceivematerial', { fromdate, todate, searchdata }).then((res) => {
+        axios.post('/api/quality/getreceivematerial', { fromdate, todate, searchdata }, { headers: { page: page, limit: limit } }).then((res) => {
             setData(res.data.PackageMaterials)
         }).catch((err) => {
             console.log(err)
@@ -103,7 +103,7 @@ const PackageMetrialRecivingTable = () => {
 
     useEffect(() => {
         searchData()
-    }, [])
+    }, [page])
 
 
     return (
