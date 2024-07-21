@@ -71,6 +71,31 @@ const PackageMetrialRecivingTable = () => {
     const [page, setPage] = useState(1)
     const limit = pagelimit
 
+    const successdialog = document.getElementById('recevingeditapprove') as HTMLInputElement;
+    const closeDialogButton = document.getElementById('recevingeditapproveclose') as HTMLInputElement;
+    const errordialog = document.getElementById('packagingMetirialReciveError') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('packagigreciveerrorcross') as HTMLInputElement;
+
+    if (closeDialogButton) {
+        closeDialogButton.addEventListener('click', () => {
+            if (successdialog != null) {
+                (successdialog as any).close();
+                window.location.reload()
+            }
+
+
+        });
+    }
+    if (errorcloseDialogButton) {
+        errorcloseDialogButton.addEventListener('click', () => {
+            if (errordialog != null) {
+                (errordialog as any).close();
+
+            }
+
+        });
+    }
+
 
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -101,6 +126,9 @@ const PackageMetrialRecivingTable = () => {
         axios.get(`/api/quality/accepteditrecevingpackagematerial/${item}`)
             .then((res) => {
                 console.log(res)
+                if (res.status === 200) {
+                    (successdialog as any).showModal();
+                }
             })
             .catch((err) => {
                 console.log(err)
@@ -330,8 +358,8 @@ const PackageMetrialRecivingTable = () => {
                         </PaginationItem>
                     </PaginationContent>
                 </Pagination>
-                <dialog id="rcneditapproveScsDialog" className="dashboard-modal">
-                    <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <dialog id="recevingeditapprove" className="dashboard-modal">
+                    <button id="recevingeditapproveclose" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
                         <p id="modal-text" className="pl-3 mt-1 font-medium">Modification Request has Been Approved</p></span>
 
