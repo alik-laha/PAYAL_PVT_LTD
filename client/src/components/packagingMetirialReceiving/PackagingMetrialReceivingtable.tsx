@@ -62,7 +62,7 @@ const PackageMetrialRecivingTable = () => {
 
     const [Data, setData] = useState([])
     const [EditData, setEditData] = useState([])
-    const [EditPendingData, setEditPendingData] = useState()
+    // const [EditPendingData, setEditPendingData] = useState()
     const [EditSumData, setEditSumData] = useState<SumofpackageMetrialReceving>()
     const [fromdate, setfromDate] = useState('')
     const [searchdata, setSearchData] = useState('')
@@ -137,7 +137,7 @@ const PackageMetrialRecivingTable = () => {
             <div className="ml-5 mt-5 ">
                 <div className="flex flexbox-search">
 
-                    <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" BL No. / Con No." value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
+                    <Input className="no-padding w-1/5 flexbox-search-width" placeholder="ItemName/Vendor Name" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
 
 
                     <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>

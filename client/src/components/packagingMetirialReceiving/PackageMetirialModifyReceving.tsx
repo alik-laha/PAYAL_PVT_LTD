@@ -12,6 +12,8 @@ import { useState, useRef, useEffect } from "react"
 import { Button } from "../ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SkuData, VendorData, PackageMaterialReceivingData } from "@/type/type"
+import axios from "axios"
+import { set } from "lodash"
 
 interface Props {
     data: PackageMaterialReceivingData;
@@ -38,8 +40,10 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         console.log(data.recevingDate.slice(0, 10))
     }, [])
 
-    const handleSubmit = () => {
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
         console.log("submit")
+
     }
     const handleSkuchange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSku(e.target.value)
@@ -48,6 +52,18 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         } else {
             setSkuView("none")
         }
+        axios.post("/api/quality/skudatafind", { sku: e.target.value })
+            .then((res) => {
+                console.log(res)
+                if (res.status === 200) {
+                    setSkuData([res.data.skuData])
+                }
+            })
+            .catch((err) => {
+                if (err.response.status === 404) {
+                    setSkuData([])
+                }
+            })
 
     }
     const handleVendorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,9 +73,22 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         } else {
             setVendorNameView("none")
         }
+        axios.post("/api/quality/vendornamefind", { vendorName: e.target.value })
+            .then((res) => {
+                console.log(res)
+                if (res.status === 200) {
+                    setVendorData([res.data.vendorData])
+                }
+            })
+            .catch((err) => {
+                if (err.response.status === 404) {
+                    setVendorData([])
+                }
+            })
     }
     const handleSkuidClick = (item: SkuData) => {
         setSku(item.sku)
+        setUnit(item.unit)
         setSkuView("none")
     }
     const handleVendoridClick = (item: VendorData) => {

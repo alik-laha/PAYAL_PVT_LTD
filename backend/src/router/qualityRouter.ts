@@ -1,10 +1,10 @@
 import express from 'express';
-import RecivingPackageMaterial from '../controller/Quality/RecivingPackageMaterial';
-import SkudataFind from '../controller/Quality/SkudataFind';
-import vendorNameFind from '../controller/Quality/vendorNameFind';
-import viewReceivingPackageMetrial from '../controller/Quality/viewReceivingPackageMetrial';
-import editRecevingPackageMaterial from '../controller/Quality/editRecevingPackageMaterial';
-import sumOfAllRecenvingPackageMaterial from '../controller/Quality/sumOfAllPendingEditData';
+import RecivingPackageMaterial from '../controller/RecevingPackageingMetrial/RecivingPackageMaterial';
+import SkudataFind from '../controller/RecevingPackageingMetrial/SkudataFind';
+import vendorNameFind from '../controller/RecevingPackageingMetrial/vendorNameFind';
+import viewReceivingPackageMetrial from '../controller/RecevingPackageingMetrial/viewReceivingPackageMetrial';
+import editRecevingPackageMaterial from '../controller/RecevingPackageingMetrial/editedRecevingPackageMaterial';
+import sumOfAllRecenvingPackageMaterial from '../controller/RecevingPackageingMetrial/sumOfAllPendingEditData';
 const router = express.Router();
 
 
