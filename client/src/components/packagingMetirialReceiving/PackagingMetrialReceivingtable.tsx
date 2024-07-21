@@ -93,7 +93,8 @@ const PackageMetrialRecivingTable = () => {
         return finaldate;
     }
     const handleSearch = () => {
-
+        setEditData([])
+        searchData()
     }
     const handleApprove = (item: any) => {
         console.log(item)
@@ -112,6 +113,7 @@ const PackageMetrialRecivingTable = () => {
         // console.log("alik")
         const Data = await axios.get('/api/quality/geteditrecevingpackagematerial');
         console.log(Data)
+        setEditData(Data.data)
 
     }
     const getSumOfAllEdit = async () => {
