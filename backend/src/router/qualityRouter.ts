@@ -7,6 +7,7 @@ import editedRecevingPackageMaterial from '../controller/RecevingPackageingMetri
 import sumOfAllRecenvingPackageMaterial from '../controller/RecevingPackageingMetrial/sumOfAllPendingEditData';
 import editRecevingPackageMaterial from '../controller/RecevingPackageingMetrial/editRecevingPackageMetrial';
 import acceptRecevingPackageEdit from '../controller/RecevingPackageingMetrial/acceptrecevingPackageedit';
+import rejectRecevingPackageEdit from '../controller/RecevingPackageingMetrial/rejectrecevingPackageedit';
 const router = express.Router();
 
 
@@ -18,5 +19,6 @@ router.get("/geteditrecevingpackagematerial", editedRecevingPackageMaterial)
 router.get("/getsumofEditRecevingPackageMaterial", sumOfAllRecenvingPackageMaterial)
 router.post("/editrecevingpackagematerial/:id", editRecevingPackageMaterial)
 router.get('/accepteditrecevingpackagematerial/:id', acceptRecevingPackageEdit)
+router.get("/rejecteditrecevingpackagematerial/:id", rejectRecevingPackageEdit)
 
 export default router;

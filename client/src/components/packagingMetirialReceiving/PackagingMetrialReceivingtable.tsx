@@ -73,8 +73,8 @@ const PackageMetrialRecivingTable = () => {
 
     const successdialog = document.getElementById('recevingeditapprove') as HTMLInputElement;
     const closeDialogButton = document.getElementById('recevingeditapproveclose') as HTMLInputElement;
-    const errordialog = document.getElementById('packagingMetirialReciveError') as HTMLInputElement;
-    const errorcloseDialogButton = document.getElementById('packagigreciveerrorcross') as HTMLInputElement;
+    const errordialog = document.getElementById('recevingeditreject') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('recevingeditrejectclose') as HTMLInputElement;
 
     if (closeDialogButton) {
         closeDialogButton.addEventListener('click', () => {
@@ -90,7 +90,7 @@ const PackageMetrialRecivingTable = () => {
         errorcloseDialogButton.addEventListener('click', () => {
             if (errordialog != null) {
                 (errordialog as any).close();
-
+                window.location.reload()
             }
 
         });
@@ -134,8 +134,17 @@ const PackageMetrialRecivingTable = () => {
                 console.log(err)
             })
     }
-    const handleRejection = (item: any) => {
-        console.log(item)
+    const handleRejection = (item: number) => {
+        axios.get(`/api/quality/rejecteditrecevingpackagematerial/${item}`)
+            .then((res) => {
+                console.log(res)
+                if (res.status === 200) {
+                    (errordialog as any).showModal();
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
     const searchData = () => {
         axios.post('/api/quality/getreceivematerial', { fromdate, todate, searchdata }, { headers: { page: page, limit: limit } }).then((res) => {
@@ -266,7 +275,7 @@ const PackageMetrialRecivingTable = () => {
                                                             </AlertDialogHeader>
                                                             <AlertDialogFooter>
                                                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
+                                                                <AlertDialogAction onClick={() => handleRejection(item.id)}>Continue</AlertDialogAction>
                                                             </AlertDialogFooter>
                                                         </AlertDialogContent>
                                                     </AlertDialog>
@@ -366,8 +375,8 @@ const PackageMetrialRecivingTable = () => {
                     {/* <!-- Add more elements as needed --> */}
                 </dialog>
 
-                <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
-                    <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <dialog id="recevingeditreject" className="dashboard-modal">
+                    <button id="recevingeditrejectclose" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
                         <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Modification Request has Been Reverted</p></span>
 
