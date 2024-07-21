@@ -42,6 +42,8 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { MdDelete } from "react-icons/md";
+import TimePicker from "../common/TimePicker"
+import FormRow from "../common/FormRowTime"
 
 
 
@@ -152,7 +154,9 @@ const RCNBoilingEntryForm = () =>
         const noOfEmployees = noofEmployeeRef.current?.value
         const Mc_name = mc_name
         
-    try{const createLot=await axios.post('/api/boiling/createLotNo', {})            
+try
+{
+    const createLot=await axios.post('/api/boiling/createLotNo', {})            
     console.log(createLot)
     //setLotNO(createLot.data.newSequence) 
     //console.log(lotNO) 
@@ -291,6 +295,7 @@ catch(err){
 
     const { AllMachines } = useContext(Context)
     const { AllNewMachines } = useContext(Context)
+   
     return (
         <>
             <div className="px-5">
@@ -420,8 +425,8 @@ catch(err){
                                      
                                         <TableCell className="text-center"><Input  value={row.pressure} placeholder="psi" onChange={(e) => handleRowChange(index,'pressure',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"><Input  value={row.moisture} placeholder="%" onChange={(e) => handleRowChange(index,'moisture',e.target.value)} required /></TableCell>
-
-                                        <TableCell className="text-center "> <input className="bg-green-100"  value={row.cookingOn} placeholder="MC ON Time" onChange={(e) => handleRowChange(index,'cookingOn',e.target.value)} type='time' required /></TableCell>
+                                        <FormRow idx={index} row={row} column='cookingOn' handleRowChange={handleRowChange}/>
+                                        {/* <TableCell className="text-center "> <input className="bg-green-100"  value={row.cookingOn} placeholder="MC ON Time" onChange={(e) => handleRowChange(index,'cookingOn',e.target.value)} type='time' required /></TableCell> */}
                                         <TableCell className="text-center"><input className="bg-red-100" value={row.cookingOff} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'cookingOff',e.target.value)} type='time' required /></TableCell>
                                         <TableCell className="text-center" >
                                             <Select value={row.CookingTime} onValueChange={(val) => handleRowChange(index, 'CookingTime', val)} required={true}>
