@@ -96,8 +96,15 @@ const PackageMetrialRecivingTable = () => {
         setEditData([])
         searchData()
     }
-    const handleApprove = (item: any) => {
+    const handleApprove = (item: number) => {
         console.log(item)
+        axios.get(`/api/quality/accepteditrecevingpackagematerial/${item}`)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
     const handleRejection = (item: any) => {
         console.log(item)
@@ -217,7 +224,7 @@ const PackageMetrialRecivingTable = () => {
                                                             </AlertDialogHeader>
                                                             <AlertDialogFooter>
                                                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
+                                                                <AlertDialogAction onClick={() => handleApprove(item.id)}>Continue</AlertDialogAction>
                                                             </AlertDialogFooter>
                                                         </AlertDialogContent>
                                                     </AlertDialog>
