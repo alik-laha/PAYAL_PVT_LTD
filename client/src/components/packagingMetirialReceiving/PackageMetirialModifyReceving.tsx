@@ -42,7 +42,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         console.log("submit")
-        axios.put(`/api/quality/editrecevingpackagematerial/${data.id}`, { recevingDate: date, sku, vendorName, quantity: quantityRef.current?.value, unit })
+        axios.post(`/api/quality/editrecevingpackagematerial/${data.id}`, { recevingDate: date, sku, vendorName, quantity: quantityRef.current?.value, unit })
             .then((res) => {
                 console.log(res)
             }

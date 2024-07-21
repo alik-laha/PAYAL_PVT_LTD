@@ -23,6 +23,7 @@ const editRecevingPackageMaterial = async (req: Request, res: Response) => {
             qualityStatus: packageMaterialData.qualityStatus,
         });
         if (!editPackageMaterial) return res.status(500).json({ message: "internal error while editing package material" });
+        return res.status(201).json({ message: "package material edited successfully" });
 
     }
     catch (err) {
