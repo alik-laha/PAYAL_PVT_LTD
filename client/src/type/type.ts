@@ -340,3 +340,10 @@ export interface PackageMaterialReceivingData {
     editStatus: string;
     approvedBy: string;
 }
+
+export interface SumofpackageMetrialReceving {
+    sumOfAllRecenvingPackageMaterial: number;
+    vendorName: number;
+    skuData: number;
+    packagingMaterial: number;
+}
