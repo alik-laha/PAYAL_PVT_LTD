@@ -268,7 +268,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
             KOR:'',
             Trolley_Small_JB:'',
             Trolley_Broken:'',
-            Mc_on:'',Mc_off:'',Brkdwn_reason:'',Mc_breakdown:'00:00',otherTime:'00:00',noOfEmployees:'',
+            Mc_on:'00:00',Mc_off:'00:00',Brkdwn_reason:'',Mc_breakdown:'00:00',otherTime:'00:00',noOfEmployees:'',
             noOfOperators:'',Transfer_To:'',Transfer_Qty:0,Transfer_To_MC:''
 
 
@@ -296,11 +296,11 @@ const RCNScoopingLineCreateForm = (props:Props) => {
 
     const handletransfer = async (index:number,field:string,fieldvalue:number|string) => {
         if(rows[index].Transfer_Qty>rows[index].Receiving_Qty){
-            setErrortext('Transfer Amount is Greater')
+            setErrortext('Transfer Amount is Greater than Receiving Amount')
             rows[index].Transfer_Qty=0
             const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
             dialogerror.showModal()
-            console.log(rows)
+           // console.log(rows)
             return
 
         }
