@@ -340,21 +340,41 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                  ...row
 
             }))
-
-            let scoopingcount = 0
-            let scoopingallcount=0
+            try{
+                let scoopingcount = 0
                 for (var data of formData) 
-                {
-                    const createscoop= await axios.put(`/api/scooping/createScooping/${data.id}`, { data })
-                    scoopingcount++;
-                    if (formData.length === scoopingcount) 
                     {
-                        if (createscoop.status === 200) 
+                        const createscoop= await axios.put(`/api/scooping/createScooping/${data.id}`, { data })
+                        scoopingcount++;
+                        if (formData.length === scoopingcount) 
                         {
-                            await axios.post('/api/scooping/updateLotNo', { lotNo:props.scoop[0].LotNo,desc:'Scooping'}) 
+                            if (createscoop.status === 200) 
+                            {
+                                await axios.post('/api/scooping/updateLotNo', { lotNo:props.scoop[0].LotNo,desc:'Scooping'}) 
+                            }
                         }
                     }
+
+            }
+            catch (err) {
+                console.log(err)
+
+                if(axios.isAxiosError(err)){
+                    setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
                 }
+                else{
+                    setErrortext('An Unexpected Error Occured')
+                }
+                const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                dialog.showModal()
+                setTimeout(() => {
+                    dialog.close()
+                }, 2000)
+                await axios.post('/api/scooping/deleteScoopReportByLotNo',{ lotNo:props.scoop[0].LotNo})
+                }
+           
+            let scoopingallcount=0
+                
                 
                 const resStatus=await axios.post('/api/boiling/getStatusBoiling', { lotNo:props.scoop[0].LotNo})
                 console.log(resStatus)
@@ -442,9 +462,9 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                         <TableHead className="text-center" >Receiving Qty</TableHead>
                         <TableHead className="text-center" >Wholes</TableHead>
                         <TableHead className="text-center" >Broken</TableHead>
-                        <TableHead className="text-center" >Uncut</TableHead>
-                        <TableHead className="text-center" >Unscoop</TableHead>
-                        <TableHead className="text-center" >Non Cut</TableHead>
+                        <TableHead className="text-center" >UnCut</TableHead>
+                        <TableHead className="text-center" >UnScoop</TableHead>
+                        <TableHead className="text-center" >NonCut</TableHead>
                         <TableHead className="text-center" >Rejection</TableHead>
                         <TableHead className="text-center" >Dust</TableHead>
                         <TableHead className="text-center" >KOR</TableHead>
@@ -487,14 +507,14 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold">{row.Receiving_Qty} kg</TableCell>
                                         <TableCell className="text-center "> <Input  value={row.Wholes} placeholder="Wholes" onChange={(e) => handleRowChange(idx,'Wholes',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Broken} placeholder="Broken" onChange={(e) => handleRowChange(idx,'Broken',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Uncut} placeholder="Uncut" onChange={(e) => handleRowChange(idx,'Uncut',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Unscoop} placeholder="Unscoop" onChange={(e) => handleRowChange(idx,'Unscoop',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Uncut} placeholder="UnCut" onChange={(e) => handleRowChange(idx,'Uncut',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Unscoop} placeholder="UnScoop" onChange={(e) => handleRowChange(idx,'Unscoop',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.NonCut} placeholder="NonCut" onChange={(e) => handleRowChange(idx,'NonCut',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Rejection} placeholder="Rejection" onChange={(e) => handleRowChange(idx,'Rejection',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Dust} placeholder="Dust" onChange={(e) => handleRowChange(idx,'Dust',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.KOR} placeholder="KOR" onChange={(e) => handleRowChange(idx,'KOR',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Trolley_Broken} placeholder="Trolley Broken" onChange={(e) => handleRowChange(idx,'Trolley_Broken',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Trolley_Small_JB} placeholder="Trolley SmallJB" onChange={(e) => handleRowChange(idx,'Trolley_Small_JB',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Trolley_Broken} placeholder="Broken (%)" onChange={(e) => handleRowChange(idx,'Trolley_Broken',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Trolley_Small_JB} placeholder="Small JB (%)" onChange={(e) => handleRowChange(idx,'Trolley_Small_JB',e.target.value)} required /></TableCell>
                                         {/* <TableCell className="text-center "> <Input className="bg-green-100"  value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx,'Mc_on',e.target.value)} type='time' required /></TableCell> */}
                                         <FormRow idx={idx} row={row} column='Mc_on' handleRowChange={handleRowChange}/>
                                         <FormRow idx={idx} row={row} column='Mc_off' handleRowChange={handleRowChange}/>

@@ -4,7 +4,6 @@ import sequelize from "../config/databaseConfig";
 const RcnBorma = sequelize.define('rcnBorma', {
     id: {
         type: DataTypes.INTEGER,
-        autoIncrement: true,
         primaryKey: true,
     },
     LotNo:{

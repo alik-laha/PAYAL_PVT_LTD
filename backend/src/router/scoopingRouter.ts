@@ -13,6 +13,7 @@ import updateScoopingOpening from "../controller/scoopingController/updateScoopi
 import updateLotNo from "../controller/scoopingController/updateLotNo";
 import CreateInitialBorma from "../controller/scoopingController/createInitialBorma";
 import scoopingMiddleware from "../middleWare/scoopingMiddleware";
+import deleteScoopingReport from "../controller/scoopingController/deleteScoopingReport";
 
 const router = express()
 
@@ -29,5 +30,6 @@ router.post("/getScoopByLotOrigin", jwtVerify, getscoopByLot)
 router.post("/updatenextopening", jwtVerify, updateScoopingOpening)
 router.post("/updateLotNo", jwtVerify, updateLotNo)
 router.post("/createInitialBorma",jwtVerify,CreateInitialBorma )
+router.post('/deleteScoopReportByLotNo', jwtVerify, deleteScoopingReport)
 
 export default router
