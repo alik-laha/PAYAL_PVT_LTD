@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from "express";
 const scoopingMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
         
-        const {  Mc_on,Mc_off,Receiving_Qty,Transfer_Qty,
+        const {  Mc_on,Mc_off,
             Mc_breakdown,otherTime } = req.body.data;
         // console.log('middlware')
         // console.log(req.body.data)
@@ -13,9 +13,7 @@ const scoopingMiddleware = async (req: Request, res: Response, next: NextFunctio
             return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
         };
         // Helper function to convert milliseconds to "HH:MM"
-        if ((parseFloat(Receiving_Qty)-parseFloat(Transfer_Qty)) < 0) {
-            return res.status(400).json({ message: "Transfer Amount is greater Than Receiving Amount" });
-        }
+       
 
         const CalculatemachineOnOffTime = (time1: string, time2: string) => {
             const time1InMilliseconds = timeToMilliseconds(time1) - timeToMilliseconds(time2);

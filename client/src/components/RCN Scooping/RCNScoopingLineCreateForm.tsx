@@ -295,9 +295,20 @@ const RCNScoopingLineCreateForm = (props:Props) => {
     }
 
     const handletransfer = async (index:number,field:string,fieldvalue:number|string) => {
+        if(rows[index].Transfer_Qty>rows[index].Receiving_Qty){
+            setErrortext('Transfer Amount is Greater')
+            rows[index].Transfer_Qty=0
+            const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+            dialogerror.showModal()
+            console.log(rows)
+            return
+
+        }
+
         const newRows = [...rows]
         newRows[index] = { ...newRows[index], [field]: fieldvalue };
         rows[index] = newRows[index]
+       
         rows[index].Receiving_Qty-= rows[index].Transfer_Qty
         handleRowChange(index,'Receiving_Qty',rows[index].Receiving_Qty)
         rows[parseInt(rows[index].Transfer_To)-1].Receiving_Qty+=
@@ -496,40 +507,26 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                         <TableCell className="text-center"> <Input  value={row.noOfEmployees} placeholder="Ladies" onChange={(e) => handleRowChange(idx,'noOfEmployees',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.noOfOperators} placeholder="Operators" onChange={(e) => handleRowChange(idx,'noOfOperators',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"><Input  value={row.Transfer_Qty} placeholder="Kg" onChange={(e) => handleRowChange(idx,'Transfer_Qty',e.target.value)}  /></TableCell>
-                                        
                                         <TableCell>
-                                        
-                                             <select className=' flex h-8 w-20 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                                                onChange={(e) => handletransfer(idx,'Transfer_To',e.target.value)} value={row.Transfer_To}>
+
+                                            <select className=' flex h-8 w-20 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                                            ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                                                onChange={(e) => handletransfer(idx, 'Transfer_To', e.target.value)} value={row.Transfer_To}>
                                                 <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground 
-        data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>None</option>
+                                                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground 
+                                                data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>None</option>
                                                 {options.map((data, index) => (
                                                     <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground
-             data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                                    py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground
+                                                    data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
                                                         {data}
                                                     </option>
                                                 ))}
                                             </select> 
- 
-
-
-
-
-
                                         </TableCell>
-                                        <TableCell>
-                                        
+                                        <TableCell>       
                                         <TableCell className="text-center font-semibold">{row.Transfer_To_MC}</TableCell>
                                         </TableCell>
-                                        
-                                        
-
-
-
-
                                     </TableRow>
                                 );
                             })
