@@ -28,33 +28,43 @@ const PackagingMetirialReceivingCreateForm = () => {
     const dateRef = useRef<HTMLInputElement>(null)
     const quantityRef = useRef<HTMLInputElement>(null)
 
+    const successdialog = document.getElementById('packageMetrialReceve') as HTMLInputElement;
+    const errordialog = document.getElementById('packagingMetirialReciveError') as HTMLInputElement;
+    const closeDialogButton = document.getElementById('packageMetrialRecivecross') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('packagigreciveerrorcross') as HTMLInputElement;
 
+    if (closeDialogButton) {
+        closeDialogButton.addEventListener('click', () => {
+            if (successdialog != null) {
+                (successdialog as any).close();
+                window.location.reload()
+            }
+
+
+        });
+    }
+    if (errorcloseDialogButton) {
+        errorcloseDialogButton.addEventListener('click', () => {
+            if (errordialog != null) {
+                (errordialog as any).close();
+
+            }
+
+        });
+    }
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         const receivingDate = dateRef.current?.value
         const quantity = quantityRef.current?.value
         axios.post("/api/quality/createrecivingpackagematerial", { recevingDate: receivingDate, sku, vendorName, quantity, unit })
             .then((res) => {
-                if (res.status === 201) {
-                    const modal = document.getElementById('packageMetrialReceve') as HTMLDialogElement;
-                    modal.showModal()
-                    setTimeout(() => {
-                        modal.close()
-                    }, 2000)
-                }
+                (successdialog as any).showModel();
             })
             .catch((err) => {
-                if (err.response.status === 500) {
-                    const modal = document.getElementById('packagingMetirialReciveError') as HTMLDialogElement;
-                    setErrText(err.response.data.message)
-                    modal.showModal()
-                    setTimeout(() => {
-                        modal.close()
-                    }, 2000)
-                }
-
+                (errordialog as any).showModal();
             })
     }
+
     const handleSkuchange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSku(e.target.value)
         if (e.target.value.length > 0 && skudata.length > 0) {
@@ -168,7 +178,7 @@ const PackagingMetirialReceivingCreateForm = () => {
 
             </div>
             <dialog id="packageMetrialReceve" className="dashboard-modal">
-                <button id="machinescsbtn" className="dashboard-modal-close-btn ">X </button>
+                <button id="packageMetrialRecivecross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
                     <p id="modal-text" className="pl-3 mt-1 font-medium">New Asset has created Successfully</p></span>
 
@@ -176,7 +186,7 @@ const PackagingMetirialReceivingCreateForm = () => {
             </dialog>
 
             <dialog id="packagingMetirialReciveError" className="dashboard-modal">
-                <button id="machineerrorbtn" className="dashboard-modal-close-btn ">X </button>
+                <button id="packagigreciveerrorcross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
                     <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errText}</p></span>
 
