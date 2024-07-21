@@ -54,6 +54,8 @@ import axios from 'axios'
 import PackageMaterialReceivingModify from "./PackageMetirialModifyReceving"
 import { useContext } from 'react';
 import Context from '../context/context';
+import { LuDownload } from "react-icons/lu";
+import * as XLSX from 'xlsx';
 
 
 const PackageMetrialRecivingTable = () => {
@@ -175,6 +177,10 @@ const PackageMetrialRecivingTable = () => {
     useEffect(() => {
         getSumOfAllEdit()
     }, [])
+    const exportToExcel = () => {
+
+    }
+
 
 
     return (
@@ -207,7 +213,7 @@ const PackageMetrialRecivingTable = () => {
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
-                {/* {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>} */}
+                {<span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
 
 
 
@@ -223,7 +229,7 @@ const PackageMetrialRecivingTable = () => {
                         <TableHead className="text-center" >Quality Status</TableHead>
                         <TableHead className="text-center" >Edit Status</TableHead>
                         <TableHead className="text-center" >Created By</TableHead>
-                        <TableHead className="text-center" >Approved By</TableHead>
+                        <TableHead className="text-center" >Approved/Rejected By</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
 
                     </TableHeader>

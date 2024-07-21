@@ -28,7 +28,7 @@ const sumOfAllRecenvingPackageMaterial = async (req: Request, res: Response) => 
         }
         const sumOfAllRecenvingPackageMaterial = await EditPackagingMaterial.count({
             where: {
-                date: {
+                recevingDate: {
                     [Op.between]: [targetDate, today]
                 }
             }
