@@ -13,14 +13,22 @@ import { Button } from "../ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SkuData, VendorData, PackageMaterialReceivingData } from "@/type/type"
 import axios from "axios"
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 
 interface Props {
     data: PackageMaterialReceivingData;
 }
 
 const PackageMaterialReceivingModify = ({ data }: Props) => {
+
+    const successdialog = document.getElementById('packageMetrialReceveUpdate') as HTMLInputElement;
+    const errordialog = document.getElementById('packagingMetirialReciveErrorUpdate') as HTMLInputElement;
+    const closeDialogButton = document.getElementById('packageMetrialRecivecrossUpdate') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('packagigreciveerrorcrossUpdate') as HTMLInputElement;
+
     const [unit, setUnit] = useState("")
-    // const [errText, setErrText] = useState("")
+    const [errText, setErrText] = useState("")
     const [sku, setSku] = useState("")
     const [vendorName, setVendorName] = useState("")
     const [skuview, setSkuView] = useState("none")
@@ -39,16 +47,41 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         console.log(data.recevingDate.slice(0, 10))
     }, [])
 
+    if (closeDialogButton) {
+        closeDialogButton.addEventListener('click', () => {
+            if (successdialog != null) {
+                (successdialog as any).close();
+                window.location.reload()
+            }
+
+
+        });
+    }
+    if (errorcloseDialogButton) {
+        errorcloseDialogButton.addEventListener('click', () => {
+            if (errordialog != null) {
+                (errordialog as any).close();
+
+            }
+
+        });
+    }
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         console.log("submit")
         axios.post(`/api/quality/editrecevingpackagematerial/${data.id}`, { recevingDate: date, sku, vendorName, quantity: quantityRef.current?.value, unit })
             .then((res) => {
-                console.log(res)
+                if (res.status === 201) {
+                    (errordialog as any).showModal();
+                }
             }
             )
             .catch((err) => {
                 console.log(err)
+                const errorText = err.response.data.message;
+                setErrText(errorText);
+                (successdialog as any).showModal();
             })
 
     }
@@ -164,6 +197,21 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
                 </form>
             </div>
+            <dialog id="packagingMetirialReciveErrorUpdate" className="dashboard-modal">
+                <button id="packageMetrialRecivecrossUpdate" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">package Matrial Receive Updated Successfully</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+
+            <dialog id="packageMetrialReceveUpdate" className="dashboard-modal">
+                <button id="packagigreciveerrorcrossUpdate" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errText}</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
         </>
     )
 }

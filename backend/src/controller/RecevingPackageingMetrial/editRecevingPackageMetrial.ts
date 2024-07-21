@@ -29,11 +29,11 @@ const editRecevingPackageMaterial = async (req: Request, res: Response) => {
             quantity,
             unit,
             createdBy: packageMaterialData.createdBy,
-            editStatus: "pending",
+            editStatus: "Pending",
             qualityStatus: packageMaterialData.qualityStatus,
         });
         if (!editPackageMaterial) return res.status(500).json({ message: "internal error while editing package material" });
-        const updatePackageMaterial = await packageMaterial.update({ editStatus: "pending" }, { where: { id } });
+        const updatePackageMaterial = await packageMaterial.update({ editStatus: "Pending" }, { where: { id } });
         if (!updatePackageMaterial) return res.status(500).json({ message: "internal error while updating package material" });
         return res.status(201).json({ message: "package material edited successfully" });
 

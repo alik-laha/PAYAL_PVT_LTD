@@ -267,7 +267,7 @@ const PackageMetrialRecivingTable = () => {
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                     <Dialog>
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
+                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button>
                                                         </DialogTrigger>
                                                         <DialogContent>
                                                             <DialogHeader>
@@ -338,7 +338,7 @@ const PackageMetrialRecivingTable = () => {
 
                     {/* <!-- Add more elements as needed --> */}
                 </dialog>
-            </div>
+            </div >
         </>
     )
 }
