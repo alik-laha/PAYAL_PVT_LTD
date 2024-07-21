@@ -373,8 +373,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                 }
            
             let scoopingallcount=0
-                
-                
+
                 const resStatus=await axios.post('/api/boiling/getStatusBoiling', { lotNo:props.scoop[0].LotNo})
                 console.log(resStatus)
 
@@ -392,7 +391,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                     {   
                         const resp=await axios.post('/api/scooping/createScoopingall', { data2 })
                         console.log(resp.data.scoop.id)
-                        let p_id=resp.data.scoop.id
+                        let p_id=await resp.data.scoop.id
                         await axios.post('/api/scooping/createInitialBorma', {p_id, data2 })
                     }
     
