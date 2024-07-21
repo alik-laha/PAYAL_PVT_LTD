@@ -52,7 +52,6 @@ import { pagelimit } from "../common/exportData"
 import { PackageMaterialReceivingData } from '@/type/type'
 import axios from 'axios'
 import PackageMaterialReceivingModify from "./PackageMetirialModifyReceving"
-import { set } from "lodash"
 
 
 const PackageMetrialRecivingTable = () => {
@@ -267,7 +266,7 @@ const PackageMetrialRecivingTable = () => {
                                                                     <p className='text-1xl pb-1 text-center mt-5'>RCN Primary Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            <PackageMaterialReceivingModify />
+                                                            <PackageMaterialReceivingModify data={item} />
                                                         </DialogContent>
                                                     </Dialog>
                                                 </PopoverContent>

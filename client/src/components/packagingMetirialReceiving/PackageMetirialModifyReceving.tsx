@@ -8,12 +8,12 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Button } from "../ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { SkuData, VendorData } from "@/type/type"
+import { SkuData, VendorData, PackageMaterialReceivingData } from "@/type/type"
 
-const PackageMaterialReceivingModify = () => {
+const PackageMaterialReceivingModify = ({ data }: PackageMaterialReceivingData) => {
     const [unit, setUnit] = useState("")
     const [errText, setErrText] = useState("")
     const [sku, setSku] = useState("")
@@ -22,8 +22,17 @@ const PackageMaterialReceivingModify = () => {
     const [vendorNameView, setVendorNameView] = useState("none")
     const [skudata, setSkuData] = useState<SkuData[]>([])
     const [vendorData, setVendorData] = useState<VendorData[]>([])
-    const dateRef = useRef<HTMLInputElement>(null)
+    const [date, setDate] = useState("")
     const quantityRef = useRef<HTMLInputElement>(null)
+
+    useEffect(() => {
+        setUnit(data.unit)
+        setSku(data.sku)
+        setVendorName(data.vendorName)
+        quantityRef.current!.value = data.quantity.toString()
+        setDate(data.recevingDate.slice(0, 10))
+        console.log(data.recevingDate.slice(0, 10))
+    }, [])
 
     const handleSubmit = () => {
         console.log("submit")
@@ -35,6 +44,7 @@ const PackageMaterialReceivingModify = () => {
         } else {
             setSkuView("none")
         }
+
     }
     const handleVendorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setVendorName(e.target.value)
@@ -60,7 +70,7 @@ const PackageMaterialReceivingModify = () => {
                 <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Receiving Date</Label>
-                        <Input className="w-2/4 " placeholder="Receiving Date" required ref={dateRef} type="date" /> </div>
+                        <Input className="w-2/4 " placeholder="Receiving Date" required value={date} onChange={(e) => setDate(e.target.value)} type="date" /> </div>
 
                     <div className="flex"><Label className="w-2/4  pt-1">SKU</Label>
                         <Input className="w-2/4 " placeholder="SKU" required value={sku} onChange={handleSkuchange} /> </div>
