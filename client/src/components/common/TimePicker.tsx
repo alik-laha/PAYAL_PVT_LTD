@@ -54,7 +54,7 @@ const TimePicker: React.FC<TimePickerProps> = ({ onChange, value }) => {
 
   return (
     <div className='time-picker'>
-      <select className='bg-gray-100' value={hour} onChange={handleHourChange}>
+      <select className='bg-gray-100' value={hour} onChange={handleHourChange} required>
         {Array.from({ length: 12 }, (_, i) => (
           <option key={i + 1} value={(i + 1).toString().padStart(2, '0')}>
             {(i + 1).toString().padStart(2, '0')}
@@ -62,14 +62,14 @@ const TimePicker: React.FC<TimePickerProps> = ({ onChange, value }) => {
         ))}
       </select>
       :
-      <select className='bg-gray-100' value={minute} onChange={handleMinuteChange}>
+      <select className='bg-gray-100' value={minute} onChange={handleMinuteChange} required>
         {Array.from({ length: 60 }, (_, i) => (
           <option key={i} value={i.toString().padStart(2, '0')}>
             {i.toString().padStart(2, '0')}
           </option>
         ))}
       </select>
-      <select  value={period} onChange={handlePeriodChange}>
+      <select  value={period} onChange={handlePeriodChange} required>
         <option value="AM">AM</option>
         <option value="PM">PM</option>
       </select>

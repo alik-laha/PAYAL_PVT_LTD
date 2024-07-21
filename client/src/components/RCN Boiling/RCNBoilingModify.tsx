@@ -16,6 +16,7 @@ import {
 import { useState } from "react"
 import axios from "axios"
 import Context from "../context/context"
+import TimePicker from "../common/TimePicker"
 interface RCnBoilingModifyProps {
     data: {
         id: number;
@@ -133,6 +134,16 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
                 }
             })
     }
+    const handleonchangeon = (value:string) => {
+       // console.log(value)
+        setMc_on(value)
+        
+    }
+    const handleonchangeoff = (value:string) => {
+       // console.log(value)
+        setMc_off(value)
+        
+    }
 
     useEffect(() => {
         setOrigin(props.data.origin)
@@ -158,14 +169,14 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
     return (
         <div className="pl-10 pr-10">
             <form className='flex flex-col gap-1 ' onSubmit={handleSubmit}>
-                <div className="flex mt-4">
+                {/* <div className="flex mt-4">
                 <Label className="w-2/4 pt-2 bg-green-500 rounded-md text-white text-center">MC ON</Label>
             <Input className="w-2/4 justify-center bg-green-100 " placeholder="MC ON Time" value={Mc_on} onChange={(e) => setMc_on(e.target.value)} type='time' />
             
             <Input className="w-2/4 ml-1 justify-center bg-red-100" placeholder="MC OFF Time" value={Mc_off} onChange={(e) => setMc_off(e.target.value)} type='time' />
             <Label className="w-2/4 pt-2 text-end bg-red-500 text-white rounded-md text-center">MC OFF</Label>
             
-            </div>
+            </div> */}
 
             <div className="flex mt-2"><Label className="w-2/4 pt-1" >Lot No.</Label>
             <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Lot No." value={LotNo} onChange={(e) => setLotNo(e.target.value)} readOnly/> </div>
@@ -267,6 +278,16 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
                         </SelectContent>
                     </Select>
             </div>
+                <div className="flex pt-2">
+
+                    <Label className="w-2/4 pt-1 ">MC ON  </Label>
+                    <div className="w-2/4 text-center items-center justify-center" ><TimePicker onChange={handleonchangeon} value={Mc_on} /> </div>
+                </div>
+
+                <div className="flex pt-1">
+                    <Label className="w-2/4  pt-2 ">MC OFF</Label>
+                    <div className="w-2/4 " ><TimePicker onChange={handleonchangeoff} value={Mc_off} /></div>
+                </div> 
             
             <div className="flex"><Label className="w-2/4 mt-1">Cooking Time</Label>
             <Input className="w-2/4 justify-center" placeholder="Cooking Time" value={cookingtime} onChange={(e) => setCookingTime(e.target.value)} type='time' required/></div>

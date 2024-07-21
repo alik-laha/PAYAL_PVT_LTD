@@ -80,6 +80,7 @@ import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import {   useEffect, useRef, useState } from "react"
 import axios from "axios";
+import FormRow from "../common/FormRowTime";
 
 
 const RCNScoopingLineCreateForm = (props:Props) => {
@@ -485,9 +486,10 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                         <TableCell className="text-center"> <Input  value={row.KOR} placeholder="KOR" onChange={(e) => handleRowChange(idx,'KOR',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Trolley_Broken} placeholder="Trolley Broken" onChange={(e) => handleRowChange(idx,'Trolley_Broken',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Trolley_Small_JB} placeholder="Trolley SmallJB" onChange={(e) => handleRowChange(idx,'Trolley_Small_JB',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center "> <Input className="bg-green-100"  value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx,'Mc_on',e.target.value)} type='time' required /></TableCell>
-                                        
-                                        <TableCell className="text-center"><Input className="bg-red-100" value={row.Mc_off} placeholder="MC Off Time" onChange={(e) => handleRowChange(idx,'Mc_off',e.target.value)} type='time' required /></TableCell>
+                                        {/* <TableCell className="text-center "> <Input className="bg-green-100"  value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx,'Mc_on',e.target.value)} type='time' required /></TableCell> */}
+                                        <FormRow idx={idx} row={row} column='Mc_on' handleRowChange={handleRowChange}/>
+                                        <FormRow idx={idx} row={row} column='Mc_off' handleRowChange={handleRowChange}/>
+                                        {/* <TableCell className="text-center"><Input className="bg-red-100" value={row.Mc_off} placeholder="MC Off Time" onChange={(e) => handleRowChange(idx,'Mc_off',e.target.value)} type='time' required /></TableCell> */}
                                         <TableCell className="text-center"><Input  value={row.Mc_breakdown} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown',e.target.value)} type='time'  /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Brkdwn_reason} placeholder="Reason" onChange={(e) => handleRowChange(idx,'Brkdwn_reason',e.target.value)}  /></TableCell>
                                         <TableCell className="text-center"><Input  value={row.otherTime} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime',e.target.value)} type='time'  /></TableCell>

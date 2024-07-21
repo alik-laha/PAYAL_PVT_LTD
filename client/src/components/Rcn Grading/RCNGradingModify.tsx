@@ -186,12 +186,12 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     }, [])
 
     const handleonchangeon = (value:string) => {
-        console.log(value)
+        //console.log(value)
         setMc_on(value)
         
     }
     const handleonchangeoff = (value:string) => {
-        console.log(value)
+        //console.log(value)
         setMc_off(value)
         
     }
@@ -280,12 +280,11 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
 
                 <div className="flex pt-2">
 
-                    <Label className="w-2/4 pt-2 ">MC ON  </Label>
+                    <Label className="w-2/4 pt-1 ">MC ON  </Label>
                     <div className="w-2/4 text-center items-center justify-center" ><TimePicker onChange={handleonchangeon} value={Mc_on} /> </div>
                 </div>
 
-                <div className="flex pt-2">
-
+                <div className="flex pt-1">
                     <Label className="w-2/4  pt-2 ">MC OFF</Label>
                     <div className="w-2/4 " ><TimePicker onChange={handleonchangeoff} value={Mc_off} /></div>
                 </div> 

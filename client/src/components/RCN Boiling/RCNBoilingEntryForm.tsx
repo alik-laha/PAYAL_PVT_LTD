@@ -42,7 +42,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { MdDelete } from "react-icons/md";
-import TimePicker from "../common/TimePicker"
+
 import FormRow from "../common/FormRowTime"
 
 
@@ -426,8 +426,9 @@ catch(err){
                                         <TableCell className="text-center"><Input  value={row.pressure} placeholder="psi" onChange={(e) => handleRowChange(index,'pressure',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"><Input  value={row.moisture} placeholder="%" onChange={(e) => handleRowChange(index,'moisture',e.target.value)} required /></TableCell>
                                         <FormRow idx={index} row={row} column='cookingOn' handleRowChange={handleRowChange}/>
+                                        <FormRow idx={index} row={row} column='cookingOff' handleRowChange={handleRowChange}/>
                                         {/* <TableCell className="text-center "> <input className="bg-green-100"  value={row.cookingOn} placeholder="MC ON Time" onChange={(e) => handleRowChange(index,'cookingOn',e.target.value)} type='time' required /></TableCell> */}
-                                        <TableCell className="text-center"><input className="bg-red-100" value={row.cookingOff} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'cookingOff',e.target.value)} type='time' required /></TableCell>
+                                        {/* <TableCell className="text-center"><input className="bg-red-100" value={row.cookingOff} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'cookingOff',e.target.value)} type='time' required /></TableCell> */}
                                         <TableCell className="text-center" >
                                             <Select value={row.CookingTime} onValueChange={(val) => handleRowChange(index, 'CookingTime', val)} required={true}>
                                                 <SelectTrigger className="justify-center w-20" >
