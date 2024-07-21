@@ -13,7 +13,11 @@ import { Button } from "../ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SkuData, VendorData, PackageMaterialReceivingData } from "@/type/type"
 
-const PackageMaterialReceivingModify = ({ data }: PackageMaterialReceivingData) => {
+interface Props {
+    data: PackageMaterialReceivingData;
+}
+
+const PackageMaterialReceivingModify = ({ data }: Props) => {
     const [unit, setUnit] = useState("")
     const [errText, setErrText] = useState("")
     const [sku, setSku] = useState("")

@@ -11,8 +11,12 @@ import {
 import { Button } from "@/components/ui/button"
 import PackagingMetirialReceivingCreateForm from "./packagingMetirialReceivingCreateForm"
 import PackageMetrialRecivingTable from "./PackagingMetrialReceivingtable"
+import { useContext } from 'react';
+import Context from '../context/context';
 
 const PackagingMetirialReceiving = () => {
+    const { recevingPackagematerialOverView } = useContext(Context);
+    console.log(recevingPackagematerialOverView)
     return (
         <div>
             <DashboardHeader />
@@ -20,13 +24,13 @@ const PackagingMetirialReceiving = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-green-500 hover:bg-green-600">
-                        Active Asset<br /><p>new</p>
+                        Total Vendor<br /><p>{recevingPackagematerialOverView?.vendorName}</p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-600">
-                        Inactive Asset<br /><p>n2</p>
+                        Total Item<br /><p>{recevingPackagematerialOverView?.skuData}</p>
                     </div>
                     <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-600">
-                        Discarded <br /><p>n3</p>
+                        total Data entry <br /><p>{recevingPackagematerialOverView?.packagingMaterial}</p>
                     </div>
                 </div>
             </div>

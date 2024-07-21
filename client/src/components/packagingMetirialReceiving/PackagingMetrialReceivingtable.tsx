@@ -52,9 +52,14 @@ import { pagelimit } from "../common/exportData"
 import { PackageMaterialReceivingData, SumofpackageMetrialReceving } from '@/type/type'
 import axios from 'axios'
 import PackageMaterialReceivingModify from "./PackageMetirialModifyReceving"
+import { useContext } from 'react';
+import Context from '../context/context';
 
 
 const PackageMetrialRecivingTable = () => {
+
+    const { setRecevingPacakanMaterialOverView } = useContext(Context);
+
     const [Data, setData] = useState([])
     const [EditData, setEditData] = useState([])
     const [EditPendingData, setEditPendingData] = useState()
@@ -107,10 +112,12 @@ const PackageMetrialRecivingTable = () => {
         // console.log("alik")
         const Data = await axios.get('/api/quality/geteditrecevingpackagematerial');
         console.log(Data)
+
     }
     const getSumOfAllEdit = async () => {
         const Data = await axios.get('/api/quality/getsumofEditRecevingPackageMaterial');
         setEditSumData(Data.data)
+        setRecevingPacakanMaterialOverView(Data.data)
     }
 
     useEffect(() => {
