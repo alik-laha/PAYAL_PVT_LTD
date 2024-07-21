@@ -52,11 +52,14 @@ import { pagelimit } from "../common/exportData"
 import { PackageMaterialReceivingData } from '@/type/type'
 import axios from 'axios'
 import PackageMaterialReceivingModify from "./PackageMetirialModifyReceving"
+import { set } from "lodash"
 
 
 const PackageMetrialRecivingTable = () => {
     const [Data, setData] = useState([])
     const [EditData, setEditData] = useState([])
+    const [EditPendingData, setEditPendingData] = useState()
+    const [EditSumData, setEditSumData] = useState(0)
     const [fromdate, setfromDate] = useState('')
     const [searchdata, setSearchData] = useState('')
     const [hidetodate, sethidetoDate] = useState('')
@@ -106,17 +109,25 @@ const PackageMetrialRecivingTable = () => {
         const Data = await axios.get('/api/quality/geteditrecevingpackagematerial');
         console.log(Data)
     }
+    const getSumOfAllEdit = async () => {
+        const Data = await axios.get('/api/quality/getsumofEditRecevingPackageMaterial');
+        setEditSumData(Data.data)
+    }
 
     useEffect(() => {
         searchData()
-        GetPendingEdit()
+        // GetPendingEdit()
+
     }, [page])
 
+    useEffect(() => {
+        getSumOfAllEdit()
+    }, [])
 
 
     return (
         <>
-            <Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={GetPendingEdit}>Pending Edit</Button>
+            <Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={GetPendingEdit}>Pending Edit {EditSumData}</Button>
             <div className="ml-5 mt-5 ">
                 <div className="flex flexbox-search">
 
