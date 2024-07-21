@@ -209,7 +209,6 @@ export interface EmployeeData {
     modifyedBy: string;
 }
 
-
 export interface User {
     id: number;
     employeeId: string;
@@ -390,5 +389,41 @@ export interface BoilingExcelData {
 
 
 
+
+}
+
+export interface ScoopingExcelLineWiseData {
+    SL_No: number;
+    Approved_or_Reverted_By: string;
+    Origin: string;
+    Bl_No: string;
+    Con_No: string;
+    RCN_QC_Status: string;
+    Date: string;
+    No_Of_Bags: string;
+    Truck_No: string;
+    Bl_Weight: string;
+    Net_Weight: string;
+    Difference: string;
+    Edit_Status: string;
+    Created_by: string;
+
+}
+
+export interface ScoopingExcelLotWiseData {
+    SL_No: number;
+    Approved_or_Reverted_By: string;
+    Origin: string;
+    Bl_No: string;
+    Con_No: string;
+    RCN_QC_Status: string;
+    Date: string;
+    No_Of_Bags: string;
+    Truck_No: string;
+    Bl_Weight: string;
+    Net_Weight: string;
+    Difference: string;
+    Edit_Status: string;
+    Created_by: string;
 
 }

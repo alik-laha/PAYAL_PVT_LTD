@@ -185,11 +185,13 @@ const RCNScoopingTable = () => {
     }
 
     const exportToExcel = async () => {
-        const response = await axios.put('/api/rcnprimary/rcnprimarysearch', {
+        const response = await axios.post('/api/scooping/searchScooping', {
             blConNo: blConNo,
             origin: origin,
             fromDate: fromdate,
-            toDate: todate
+            toDate: todate,
+            type: selectType
+
         })
         const data1 = await response.data
 
