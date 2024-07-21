@@ -177,15 +177,15 @@ const PackagingMetirialReceivingCreateForm = () => {
 
 
             </div>
-            <dialog id="packageMetrialReceve" className="dashboard-modal">
+            <dialog id="packagingMetirialReciveError" className="dashboard-modal">
                 <button id="packageMetrialRecivecross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">New Asset has created Successfully</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">New package Matrial Receive Successfully created Successfully</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="packagingMetirialReciveError" className="dashboard-modal">
+            <dialog id="packageMetrialReceve" className="dashboard-modal">
                 <button id="packagigreciveerrorcross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
                     <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errText}</p></span>
