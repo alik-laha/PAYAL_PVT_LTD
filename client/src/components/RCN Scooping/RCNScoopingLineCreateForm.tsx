@@ -307,8 +307,6 @@ const RCNScoopingLineCreateForm = (props:Props) => {
     }
 
     
-    
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
     
