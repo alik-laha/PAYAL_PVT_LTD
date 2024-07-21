@@ -246,7 +246,7 @@ const PackageMetrialRecivingTable = () => {
                                         <TableCell className="text-center">{item.quantity}</TableCell>
 
                                         <TableCell className="text-center">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.qualityStatus}</TableCell>
+                                        <TableCell className="text-center">{!item.qualityStatus ? "Pending" : "Q/C Done"}</TableCell>
                                         <TableCell className="text-center">{item.editStatus == 'Created' ?
                                             'NA' : item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
@@ -304,7 +304,7 @@ const PackageMetrialRecivingTable = () => {
                                         <TableCell className="text-center">{item.quantity}</TableCell>
 
                                         <TableCell className="text-center">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.qualityStatus}</TableCell>
+                                        <TableCell className="text-center">{!item.qualityStatus ? "Pending" : "Q/C Done"}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.approvedBy}</TableCell>
