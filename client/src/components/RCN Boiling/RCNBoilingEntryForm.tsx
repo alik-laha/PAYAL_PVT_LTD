@@ -124,7 +124,7 @@ const RCNBoilingEntryForm = () =>
     const noofEmployeeRef = useRef<HTMLInputElement>(null)
     //const [lotNO, setLotNO] = useState('')
     const [rows,setRows]=useState<RowData[]>([{origin:'',sizeName:'',
-        size:'',ScoopingLine:'',pressure:'',moisture:'',CookingTime:'',cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00',openQuantity:0}
+        size:'',ScoopingLine:'',pressure:'',moisture:'',CookingTime:'',cookingOn:'00:00',cookingOff:'00:00',breakDown:'00:00',other:'00:00',openQuantity:0}
     ]);
 
     const [errortext, setErrortext] = useState('')

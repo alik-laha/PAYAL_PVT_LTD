@@ -15,8 +15,8 @@ import TimePicker from '../common/TimePicker'
 const RcnGradingCreateForm = () => {
     const DateRef = useRef<HTMLInputElement>(null)
     const [origin, setOrigin] = useState<string>('')
-    const [mc_on, setmc_on] = useState<string>('12:00')
-    const [mc_off, setmc_off] = useState<string>('12:00')
+    const [mc_on, setmc_on] = useState<string>('00:00')
+    const [mc_off, setmc_off] = useState<string>('00:00')
     const aRef = useRef<HTMLInputElement>(null)
     const bRef = useRef<HTMLInputElement>(null)
     const cRef = useRef<HTMLInputElement>(null)
@@ -192,7 +192,7 @@ const RcnGradingCreateForm = () => {
                
                   
                 <div className="flex mt-2">
-                    <Label className="w-2/4 pt-1 ">Machine Name</Label>
+                    <Label className="w-2/4 pt-1 ">MC Name</Label>
                     <Select value={mc_name} onValueChange={(value) => setMc_name(value)} required={true}>
                         <SelectTrigger className="w-2/4">
                             <SelectValue placeholder="Machine Name" />
@@ -212,13 +212,13 @@ const RcnGradingCreateForm = () => {
                         </SelectContent>
                     </Select>
                 </div>          
-        <div className="flex pt-2">
+         <div className="flex">
             
             <Label className="w-2/4 pt-2 ">MC ON  </Label>
             <div className="w-2/4 text-center items-center justify-center" ><TimePicker onChange={handleonchangeon} value={mc_on}/> </div>
             </div> 
             
-        <div className="flex pt-2">
+        <div className="flex">
            
             <Label className="w-2/4  pt-2 ">MC OFF</Label>
             <div className="w-2/4 " ><TimePicker onChange={handleonchangeoff} value={mc_off}/></div>
