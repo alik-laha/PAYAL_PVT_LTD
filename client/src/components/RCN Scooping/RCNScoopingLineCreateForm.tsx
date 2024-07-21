@@ -308,7 +308,6 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         const newRows = [...rows]
         newRows[index] = { ...newRows[index], [field]: fieldvalue };
         rows[index] = newRows[index]
-       
         rows[index].Receiving_Qty-= rows[index].Transfer_Qty
         handleRowChange(index,'Receiving_Qty',rows[index].Receiving_Qty)
         rows[parseInt(rows[index].Transfer_To)-1].Receiving_Qty+=
@@ -391,8 +390,10 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                     }))
                     for (var data2 of formall) 
                     {   
-                        await axios.post('/api/scooping/createScoopingall', { data2 })
-                        await axios.post('/api/scooping/createInitialBorma', { data2 })
+                        const resp=await axios.post('/api/scooping/createScoopingall', { data2 })
+                        console.log(resp.data.scoop.id)
+                        let p_id=resp.data.scoop.id
+                        await axios.post('/api/scooping/createInitialBorma', {p_id, data2 })
                     }
     
                     for (var data3 of newFormupdateData) 

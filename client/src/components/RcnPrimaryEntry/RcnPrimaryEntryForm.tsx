@@ -66,7 +66,7 @@ const RcnPrimaryEntryForm = () => {
         console.log({ origin, blNo, conNo, truckNo, blWeight, netWeight })
         axios.post('/api/rcnprimary/create', { origin, blNo, conNo, truckNo, blWeight, netWeight, noOfBags, date })
             .then((res) => {
-                console.log(res.data.rcnPrimary.id)
+                //console.log(res.data.rcnPrimary.id)
                 let g_id=res.data.rcnPrimary.id
                 axios.post('/api/qcRcn/qcInitialEntry', { g_id , origin, blNo, conNo, date })
                 .then((res) => {
