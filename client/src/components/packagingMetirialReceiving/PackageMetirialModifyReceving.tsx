@@ -13,7 +13,6 @@ import { Button } from "../ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SkuData, VendorData, PackageMaterialReceivingData } from "@/type/type"
 import axios from "axios"
-import { set } from "lodash"
 
 interface Props {
     data: PackageMaterialReceivingData;
@@ -21,7 +20,7 @@ interface Props {
 
 const PackageMaterialReceivingModify = ({ data }: Props) => {
     const [unit, setUnit] = useState("")
-    const [errText, setErrText] = useState("")
+    // const [errText, setErrText] = useState("")
     const [sku, setSku] = useState("")
     const [vendorName, setVendorName] = useState("")
     const [skuview, setSkuView] = useState("none")
@@ -43,6 +42,14 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         console.log("submit")
+        axios.put(`/api/quality/editrecevingpackagematerial/${data.id}`, { recevingDate: date, sku, vendorName, quantity: quantityRef.current?.value, unit })
+            .then((res) => {
+                console.log(res)
+            }
+            )
+            .catch((err) => {
+                console.log(err)
+            })
 
     }
     const handleSkuchange = (e: React.ChangeEvent<HTMLInputElement>) => {
