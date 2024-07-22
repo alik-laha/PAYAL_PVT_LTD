@@ -53,7 +53,7 @@ const viewReceivingPackageMetrial = async (req: Request, res: Response) => {
                 order: [['createdAt', 'DESC']], // Order by date descending
             });
             if (PackageMaterials.length === 0) {
-                return res.status(404).json({ msg: 'No Package Material found' })
+                return res.status(200).json({ msg: 'Package Material found', PackageMaterials })
             }
             return res.status(200).json({ msg: 'Package Material found', PackageMaterials })
         }
@@ -65,7 +65,7 @@ const viewReceivingPackageMetrial = async (req: Request, res: Response) => {
                 offset: offset
             });
             if (PackageMaterials.length === 0) {
-                return res.status(404).json({ msg: 'No Package Material found' })
+                return res.status(200).json({ msg: 'Package Material found', PackageMaterials })
             }
             return res.status(200).json({ msg: 'Package Material found', PackageMaterials })
         }

@@ -150,8 +150,12 @@ const PackageMetrialRecivingTable = () => {
             })
     }
     const searchData = () => {
-        axios.post('/api/quality/getreceivematerial', { fromdate, todate, searchdata }, { headers: { page: page, limit: limit } }).then((res) => {
+        axios.post('/api/quality/getreceivematerial', { fromdate, todate, searchdata }, { params: { page: page, limit: limit } }).then((res) => {
             setData(res.data.PackageMaterials)
+
+            if (res.data.PackageMaterials.length === 0) {
+                setPage((prev) => prev - 1)
+            }
         }).catch((err) => {
             console.log(err)
         })
@@ -248,7 +252,7 @@ const PackageMetrialRecivingTable = () => {
             <div className="ml-5 mt-5 ">
                 <div className="flex flexbox-search">
 
-                   
+
 
 
                     <label className="font-semibold mt-1  mr-5 flexbox-search-width-label-left ">From </label>
@@ -267,7 +271,7 @@ const PackageMetrialRecivingTable = () => {
                         placeholder="To Date"
 
                     />
-                     <Input className=" w-1/5 flexbox-search-width ml-5 pl-3 no-margin" placeholder="SKU/Vendor" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
+                    <Input className=" w-1/5 flexbox-search-width ml-5 pl-3 no-margin" placeholder="SKU/Vendor" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
 
 
                     <span className="w-1/8 ml-6"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
@@ -295,11 +299,11 @@ const PackageMetrialRecivingTable = () => {
                     </TableHeader>
                     <TableBody>
                         {EditData.length > 0 ? (
-                            EditData.map((item: PackageMaterialReceivingData,idx:number) => {
+                            EditData.map((item: PackageMaterialReceivingData, idx: number) => {
 
                                 return (
                                     <TableRow key={item.id}>
-                                        <TableCell className="text-center">{idx+1}</TableCell>
+                                        <TableCell className="text-center">{idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
                                         <TableCell className="text-center">{item.sku}</TableCell>
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
@@ -307,12 +311,12 @@ const PackageMetrialRecivingTable = () => {
 
                                         <TableCell className="text-center">{item.unit}</TableCell>
                                         <TableCell className="text-center ">
-                                        {item.qualityStatus ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Done</button>
-                                        ): (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Pending</button>
-                                        )}
-                                    </TableCell>
+                                            {item.qualityStatus ? (
+                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Done</button>
+                                            ) : (
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Pending</button>
+                                            )}
+                                        </TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.approvedBy}</TableCell>
@@ -357,7 +361,7 @@ const PackageMetrialRecivingTable = () => {
                                 );
                             })
                         ) : (
-                            Data.length > 0 ? (Data.map((item: PackageMaterialReceivingData,idx:number) => {
+                            Data.length > 0 ? (Data.map((item: PackageMaterialReceivingData, idx: number) => {
 
 
                                 return (
@@ -370,12 +374,12 @@ const PackageMetrialRecivingTable = () => {
 
                                         <TableCell className="text-center">{item.unit}</TableCell>
                                         <TableCell className="text-center ">
-                                        {item.qualityStatus ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Done</button>
-                                        ): (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Pending</button>
-                                        )}
-                                    </TableCell>
+                                            {item.qualityStatus ? (
+                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Done</button>
+                                            ) : (
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Pending</button>
+                                            )}
+                                        </TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.approvedBy}</TableCell>
@@ -396,8 +400,8 @@ const PackageMetrialRecivingTable = () => {
                                                                     <p className='text-1xl pb-1 text-center mt-5'>Packaging Receiving Modification</p>
                                                                 </DialogTitle>
                                                                 <DialogDescription>
-                            <p className='text-1xl text-center'>To Be Filled Up By Receving Supervisor</p>
-                        </DialogDescription>
+                                                                    <p className='text-1xl text-center'>To Be Filled Up By Receving Supervisor</p>
+                                                                </DialogDescription>
                                                             </DialogHeader>
                                                             <PackageMaterialReceivingModify data={item} />
                                                         </DialogContent>
