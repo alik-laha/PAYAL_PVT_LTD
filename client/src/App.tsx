@@ -19,6 +19,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import EmailEntryforResetpassword from './components/forgotPassword/EmailEntryforResetpassword'
 import VerifyCodeAndResetPassword from './components/forgotPassword/VerifyCodeAndResetPassword'
+import PackagingMetirialReceiving from './components/packagingMetirialReceiving/packagingMetirialReceiving'
 
 function App() {
   const navigate = useNavigate()
@@ -55,10 +56,10 @@ function App() {
         <Route path='/' element={<Navigate to={"/dashboard"} replace />} />
         <Route path="/login" element={<Login />} />
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 
-          'ReceivingSupervisor', 'ReceivingManager', 'QCManager','QCSupervisor',
-           'ProductionManager','GradingSupervisor', 'BoilingSupervisor','ScoopingSupervisor',
-           'MaintainanceSupervisor','MaintainanceManager']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'ReceivingSupervisor', 'ReceivingManager', 'QCManager', 'QCSupervisor',
+          'ProductionManager', 'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor',
+          'MaintainanceSupervisor', 'MaintainanceManager']} />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
@@ -76,6 +77,10 @@ function App() {
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager']} />}>
           <Route path="/dashboard/rcnprimaryentry" element={<RcnPrimaryEntry />} />
+        </Route>
+
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager']} />}>
+          <Route path="/dashboard/recevingpackagingMaterial" element={<PackagingMetirialReceiving />} />
         </Route>
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>

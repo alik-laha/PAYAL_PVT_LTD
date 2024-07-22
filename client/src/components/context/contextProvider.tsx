@@ -1,7 +1,7 @@
 import Context from "./context.ts";
 import { ReactNode } from "react";
 import { useState } from "react";
-import { AssetData, EditPendingData, GradingData,BoilingEntryData } from "../../type/type";
+import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving } from "../../type/type";
 
 interface ContextProviderProps {
     children: ReactNode;
@@ -19,13 +19,16 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [editPendingBoilingData, setEditPendingBoilingData] = useState<BoilingEntryData[]>([])
     const [pendingqccount, setpendingqcCount] = useState<number>(0)
     const [pendingreportcount, setpendingreportCount] = useState<number>(0)
+    const [recevingPackagematerialOverView, setRecevingPacakanMaterialOverView] = useState<SumofpackageMetrialReceving | null>(null)
 
     return (
-        <Context.Provider value={{ editPendingData, setEditPendingData, count, setCount, 
+        <Context.Provider value={{
+            editPendingData, setEditPendingData, count, setCount,
             generateCaptcha, setGenerateCaptcha, typedCaptcha, setTypedCaptcha, role, setRole, dept, setDept, AllMachines, setAllMachines,
-         AllNewMachines, setAllNewMachines,editPendiningGrinderData, setEditPendiningGrinderData,
-         editPendingBoilingData,setEditPendingBoilingData,pendingqccount,setpendingqcCount,pendingreportcount,
-         setpendingreportCount }}>
+            AllNewMachines, setAllNewMachines, editPendiningGrinderData, setEditPendiningGrinderData,
+            editPendingBoilingData, setEditPendingBoilingData, pendingqccount, setpendingqcCount, pendingreportcount,
+            setpendingreportCount, recevingPackagematerialOverView, setRecevingPacakanMaterialOverView
+        }}>
             {children}
         </Context.Provider>
     )

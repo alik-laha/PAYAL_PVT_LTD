@@ -392,6 +392,52 @@ export interface BoilingExcelData {
 
 }
 
+
+export interface SkuData {
+    id: number;
+    sku: string;
+    unit: string;
+    createdBy: string;
+}
+export interface VendorData {
+    id: number;
+    vendorName: string;
+    createdBy: string;
+}
+
+export interface PackageMaterialReceivingData {
+    id: number;
+    recevingDate: string;
+    sku: string;
+    vendorName: string;
+    quantity: string;
+    unit: string;
+    createdBy: string;
+    qualityStatus: string;
+    editStatus: string;
+    approvedBy: string;
+}
+
+export interface SumofpackageMetrialReceving {
+    sumOfAllRecenvingPackageMaterial: number;
+    vendorName: number;
+    skuData: number;
+    packagingMaterial: number;
+}
+
+export interface ExcelrecevingPackageMaterialData {
+    Sl_No: number;
+    Entry_Date: string;
+    SKU: string;
+    Vendor_Name: string;
+    Quantity: string;
+    Unit: string;
+    Quality_Status: string;
+    Edit_Status: string;
+    Approved_Or_Rejected_By: string;
+    Created_By: string;
+}
+
 export interface ScoopingExcelData {
     SL_No: number;
     LotNo: string;
@@ -431,4 +477,5 @@ export interface ScoopingExcelData {
     Transfered_To:string;
 
 }
+
 
