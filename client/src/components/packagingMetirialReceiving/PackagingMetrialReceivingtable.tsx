@@ -236,7 +236,7 @@ const PackageMetrialRecivingTable = () => {
             <div className="ml-5 mt-5 ">
                 <div className="flex flexbox-search">
 
-                    <Input className="no-padding w-1/5 flexbox-search-width" placeholder="ItemName/Vendor Name" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
+                   
 
 
                     <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
@@ -255,6 +255,7 @@ const PackageMetrialRecivingTable = () => {
                         placeholder="To Date"
 
                     />
+                     <Input className="no-padding w-1/5 flexbox-search-width ml-3" placeholder="SKU/Vendor" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
 
 
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>

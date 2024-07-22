@@ -121,7 +121,7 @@ const PackagingMetirialReceivingCreateForm = () => {
                 <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Receiving Date</Label>
-                        <Input className="w-2/4 " placeholder="Receiving Date" required ref={dateRef} type="date" /> </div>
+                        <Input className="w-2/4 justify-center" placeholder="Receiving Date" required ref={dateRef} type="date" /> </div>
 
                     <div className="flex"><Label className="w-2/4  pt-1">SKU</Label>
                         <Input className="w-2/4 " placeholder="SKU" required value={sku} onChange={handleSkuchange} /> </div>
