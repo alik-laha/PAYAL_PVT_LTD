@@ -80,6 +80,7 @@ import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import {   useEffect, useRef, useState } from "react"
 import axios from "axios";
+import FormRow from "../common/FormRowTime";
 
 
 const RCNScoopingLineCreateForm = (props:Props) => {
@@ -267,7 +268,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
             KOR:'',
             Trolley_Small_JB:'',
             Trolley_Broken:'',
-            Mc_on:'',Mc_off:'',Brkdwn_reason:'',Mc_breakdown:'00:00',otherTime:'00:00',noOfEmployees:'',
+            Mc_on:'00:00',Mc_off:'00:00',Brkdwn_reason:'',Mc_breakdown:'00:00',otherTime:'00:00',noOfEmployees:'',
             noOfOperators:'',Transfer_To:'',Transfer_Qty:0,Transfer_To_MC:''
 
 
@@ -290,10 +291,20 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         const newRows=[...rows];
         newRows[index]={...newRows[index],[field]:fieldvalue};
         setRows(newRows)
-        console.log(rows)
+        //console.log(rows)
     }
 
     const handletransfer = async (index:number,field:string,fieldvalue:number|string) => {
+        if(rows[index].Transfer_Qty>rows[index].Receiving_Qty){
+            setErrortext('Transfer Amount is Greater than Receiving Amount')
+            rows[index].Transfer_Qty=0
+            const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+            dialogerror.showModal()
+           // console.log(rows)
+            return
+
+        }
+
         const newRows = [...rows]
         newRows[index] = { ...newRows[index], [field]: fieldvalue };
         rows[index] = newRows[index]
@@ -303,15 +314,9 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         Number(rows[index].Transfer_Qty)
         handleRowChange(index,'Receiving_Qty',rows[index].Receiving_Qty)
         handleRowChange(index,'Transfer_To_MC',rows[parseInt(rows[index].Transfer_To)-1].Scooping_Line_Mc)
-      
-      
-
-
     }
 
     
-    
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
     
@@ -323,9 +328,9 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         const male = maleRef.current?.value
         const female = femaleRef.current?.value
         const supervisor = supervisorRef.current?.value
-        try {
 
-
+        try 
+        {
             const formData = rows.map((row: any) => ({
                 male: male,
                 Date: date,
@@ -334,83 +339,96 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                  ...row
 
             }))
-
-            let scoopingcount = 0
+            try{
+                let scoopingcount = 0
                 for (var data of formData) 
-                {
-                    
-                    axios.put(`/api/scooping/createScooping/${data.id}`, { data }).then(res => {
+                    {
+                        const createscoop= await axios.put(`/api/scooping/createScooping/${data.id}`, { data })
                         scoopingcount++;
-                       if (formData.length === scoopingcount) {
-                            setErrortext(res.data.message)
-                            axios.post('/api/scooping/updateLotNo', { lotNo:props.scoop[0].LotNo,desc:'Scooping'}).then(res => {
-                                console.log(res)})
-                                .catch(err => {
-                                    console.log(err)
-                                    setErrortext(err.response.data.message)
-                                   
-                            }) 
-                            if (res.status === 200) {
-                               const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                               dialog.showModal()
-                                setTimeout(() => {
-                                    dialog.close()
-                                    window.location.reload()
-                                }, 2000)
-                            }
-
-                       }
-
-                    })
-                    .catch(err => {
-                            console.log(err)
-                            setErrortext(err.response.data.message)
-                    }) 
-                }
-                const formall = newFormData.map((row: any) => ({
-                    male: male,
-                    Date: date,
-                    female: female,
-                    supervisor: supervisor,
-                     ...row
-    
-                }))
-               
-                for (var data2 of formall) 
-                    {   
-                        axios.post('/api/scooping/createScoopingall', { data2 }).then(res => {
-                            console.log(res)
-                        })
-                        .catch(err => {
-                                console.log(err)
-                                setErrortext(err.response.data.message)
-                               
-                        }) 
-                        axios.post('/api/scooping/createInitialBorma', { data2 }).then(res => {
-                            console.log(res)
-                        })
-                        .catch(err => {
-                            console.log(err)
-                            setErrortext(err.response.data.message)
-                           
-                         }) 
-                }
-
-                for (var data3 of newFormupdateData) 
+                        if (formData.length === scoopingcount) 
                         {
-                            axios.post('/api/scooping/updatenextopening', { data3 }).then(res => {
-                                console.log(res)
-                            })
-                            .catch(err => {
-                                    console.log(err)
-                                    setErrortext(err.response.data.message)
-                                   
-                            }) 
+                            if (createscoop.status === 200) 
+                            {
+                                await axios.post('/api/scooping/updateLotNo', { lotNo:props.scoop[0].LotNo,desc:'Scooping'}) 
+                            }
+                        }
+                    }
+
+            }
+            catch (err) {
+                console.log(err)
+
+                if(axios.isAxiosError(err)){
+                    setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
                 }
-                     
+                else{
+                    setErrortext('An Unexpected Error Occured')
+                }
+                const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                dialog.showModal()
+                setTimeout(() => {
+                    dialog.close()
+                }, 2000)
+                await axios.post('/api/scooping/deleteScoopReportByLotNo',{ lotNo:props.scoop[0].LotNo})
+                }
+           
+            let scoopingallcount=0
+
+                const resStatus=await axios.post('/api/boiling/getStatusBoiling', { lotNo:props.scoop[0].LotNo})
+                console.log(resStatus)
+
+                if(resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy==='Scooping')
+                {
+                    const formall = newFormData.map((row: any) => ({
+                        male: male,
+                        Date: date,
+                        female: female,
+                        supervisor: supervisor,
+                         ...row
+        
+                    }))
+                    for (var data2 of formall) 
+                    {   
+                        const resp=await axios.post('/api/scooping/createScoopingall', { data2 })
+                        console.log(resp.data.scoop.id)
+                        let p_id=await resp.data.scoop.id
+                        await axios.post('/api/scooping/createInitialBorma', {p_id, data2 })
+                    }
+    
+                    for (var data3 of newFormupdateData) 
+                    {
+                        scoopingallcount++
+                        const update=await axios.post('/api/scooping/updatenextopening', { data3 })
+                        if (newFormupdateData.length === scoopingallcount) 
+                            {
+                                
+                                setErrortext('Scooping Entry Created Successfully')
+                                if (update.status === 200) 
+                                {
+                                    const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                            dialog2.showModal()
+                             setTimeout(() => {
+                                 dialog2.close()
+                                 window.location.reload()
+                             }, 3000)
+                                }
+                            }
+                    }
+                }          
         }
         catch (err) {
-            console.log(err)
+        console.log(err)
+        if(axios.isAxiosError(err)){
+            setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+        }
+        else{
+            setErrortext('An Unexpected Error Occured')
+        }
+        const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+        dialog.showModal()
+        setTimeout(() => {
+            dialog.close()
+        }, 2000)
         }
     }
 
@@ -444,9 +462,9 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                         <TableHead className="text-center" >Receiving Qty</TableHead>
                         <TableHead className="text-center" >Wholes</TableHead>
                         <TableHead className="text-center" >Broken</TableHead>
-                        <TableHead className="text-center" >Uncut</TableHead>
-                        <TableHead className="text-center" >Unscoop</TableHead>
-                        <TableHead className="text-center" >Non Cut</TableHead>
+                        <TableHead className="text-center" >UnCut</TableHead>
+                        <TableHead className="text-center" >UnScoop</TableHead>
+                        <TableHead className="text-center" >NonCut</TableHead>
                         <TableHead className="text-center" >Rejection</TableHead>
                         <TableHead className="text-center" >Dust</TableHead>
                         <TableHead className="text-center" >KOR</TableHead>
@@ -489,17 +507,18 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold">{row.Receiving_Qty} kg</TableCell>
                                         <TableCell className="text-center "> <Input  value={row.Wholes} placeholder="Wholes" onChange={(e) => handleRowChange(idx,'Wholes',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Broken} placeholder="Broken" onChange={(e) => handleRowChange(idx,'Broken',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Uncut} placeholder="Uncut" onChange={(e) => handleRowChange(idx,'Uncut',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Unscoop} placeholder="Unscoop" onChange={(e) => handleRowChange(idx,'Unscoop',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Uncut} placeholder="UnCut" onChange={(e) => handleRowChange(idx,'Uncut',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Unscoop} placeholder="UnScoop" onChange={(e) => handleRowChange(idx,'Unscoop',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.NonCut} placeholder="NonCut" onChange={(e) => handleRowChange(idx,'NonCut',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Rejection} placeholder="Rejection" onChange={(e) => handleRowChange(idx,'Rejection',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Dust} placeholder="Dust" onChange={(e) => handleRowChange(idx,'Dust',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.KOR} placeholder="KOR" onChange={(e) => handleRowChange(idx,'KOR',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Trolley_Broken} placeholder="Trolley Broken" onChange={(e) => handleRowChange(idx,'Trolley_Broken',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Trolley_Small_JB} placeholder="Trolley SmallJB" onChange={(e) => handleRowChange(idx,'Trolley_Small_JB',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center "> <Input className="bg-green-100"  value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx,'Mc_on',e.target.value)} type='time' required /></TableCell>
-                                        
-                                        <TableCell className="text-center"><Input className="bg-red-100" value={row.Mc_off} placeholder="MC Off Time" onChange={(e) => handleRowChange(idx,'Mc_off',e.target.value)} type='time' required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Trolley_Broken} placeholder="Broken (%)" onChange={(e) => handleRowChange(idx,'Trolley_Broken',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Trolley_Small_JB} placeholder="Small JB (%)" onChange={(e) => handleRowChange(idx,'Trolley_Small_JB',e.target.value)} required /></TableCell>
+                                        {/* <TableCell className="text-center "> <Input className="bg-green-100"  value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx,'Mc_on',e.target.value)} type='time' required /></TableCell> */}
+                                        <FormRow idx={idx} row={row} column='Mc_on' handleRowChange={handleRowChange}/>
+                                        <FormRow idx={idx} row={row} column='Mc_off' handleRowChange={handleRowChange}/>
+                                        {/* <TableCell className="text-center"><Input className="bg-red-100" value={row.Mc_off} placeholder="MC Off Time" onChange={(e) => handleRowChange(idx,'Mc_off',e.target.value)} type='time' required /></TableCell> */}
                                         <TableCell className="text-center"><Input  value={row.Mc_breakdown} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown',e.target.value)} type='time'  /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Brkdwn_reason} placeholder="Reason" onChange={(e) => handleRowChange(idx,'Brkdwn_reason',e.target.value)}  /></TableCell>
                                         <TableCell className="text-center"><Input  value={row.otherTime} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime',e.target.value)} type='time'  /></TableCell>
@@ -508,40 +527,26 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                         <TableCell className="text-center"> <Input  value={row.noOfEmployees} placeholder="Ladies" onChange={(e) => handleRowChange(idx,'noOfEmployees',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.noOfOperators} placeholder="Operators" onChange={(e) => handleRowChange(idx,'noOfOperators',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"><Input  value={row.Transfer_Qty} placeholder="Kg" onChange={(e) => handleRowChange(idx,'Transfer_Qty',e.target.value)}  /></TableCell>
-                                        
                                         <TableCell>
-                                        
-                                             <select className=' flex h-8 w-20 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                                                onChange={(e) => handletransfer(idx,'Transfer_To',e.target.value)} value={row.Transfer_To}>
+
+                                            <select className=' flex h-8 w-20 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                                            ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                                                onChange={(e) => handletransfer(idx, 'Transfer_To', e.target.value)} value={row.Transfer_To}>
                                                 <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground 
-        data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>None</option>
+                                                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground 
+                                                data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>None</option>
                                                 {options.map((data, index) => (
                                                     <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground
-             data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                                    py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground
+                                                    data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
                                                         {data}
                                                     </option>
                                                 ))}
                                             </select> 
- 
-
-
-
-
-
                                         </TableCell>
-                                        <TableCell>
-                                        
+                                        <TableCell>       
                                         <TableCell className="text-center font-semibold">{row.Transfer_To_MC}</TableCell>
                                         </TableCell>
-                                        
-                                        
-
-
-
-
                                     </TableRow>
                                 );
                             })

@@ -13,8 +13,8 @@ import { Button } from "@/components/ui/button";
 import React, { useEffect } from "react"
 import { Input } from "../ui/input";
 // import DatePicker from "../common/DatePicker";
-import { PermissionRole, RcnPrimaryEntryData, ScoopData, pendingCheckRoles, rcnScoopingData } from "@/type/type";
-import { ExcelRcnPrimaryEntryData } from "@/type/type";
+import { PermissionRole, RcnPrimaryEntryData, ScoopData, ScoopingExcelData, pendingCheckRoles, rcnScoopingData } from "@/type/type";
+
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
@@ -183,67 +183,114 @@ const RCNScoopingTable = () => {
     function formatNumber(num: any) {
         return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
     }
+    const handleAMPM = (time: string) => {
+
+        let [hours, minutes] = time.split(':').map(Number);
+        let period = ' AM';
+
+        if (hours === 0) {
+            hours = 12;
+        } else if (hours === 12) {
+            period = ' PM';
+        } else if (hours > 12) {
+            hours -= 12;
+            period = ' PM';
+        }
+        const finalTime = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + period.toString()
+
+        // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
+        return finalTime;
+    }
 
     const exportToExcel = async () => {
-        const response = await axios.put('/api/rcnprimary/rcnprimarysearch', {
+        const response = await axios.post('/api/scooping/searchScooping', {
             blConNo: blConNo,
             origin: origin,
             fromDate: fromdate,
-            toDate: todate
+            toDate: todate,
+            type: selectType
         })
         const data1 = await response.data
-
         let ws
-        let transformed: ExcelRcnPrimaryEntryData[] = [];
-        if (EditData.length > 0) {
+        let transformed: ScoopingExcelData[] = [];
 
-            transformed = EditData.map((item: EditPendingData, idx: number) => ({
-                SL_No: idx + 1,
-                Date: handletimezone(item.date),
-                Origin: item.origin,
-                Bl_No: item.blNo,
-                Con_No: item.conNo,
-                RCN_QC_Status: item.rcnStatus,
-                No_Of_Bags: item.noOfBags,
-                Truck_No: item.truckNo,
-                Bl_Weight: item.blWeight,
-                Net_Weight: item.netWeight,
-                Difference: item.difference,
-                Edit_Status: item.editStatus,
-                Created_by: item.editedBy,
-                // received by is updated as editedby in edit rcn table
-                Approved_or_Reverted_By: item.approvedBy
-                // approvedBy is not there in edit rcn table
-            }));
-            //setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
+        if(selectType==='LotWise'){
+                transformed = data1.map((item: rcnScoopingData, idx: number) => ({
+                SL_No: idx+1,
+                LotNo: item.LotNo,
+                date: handletimezone(item.date),
+                origin: item.origin,
+                Opening_Qty: item.Opening_Qty,
+                Receiving_Qty: item.Receiving_Qty,
+                Wholes: item.Wholes,
+                Broken: item.Broken,
+                Uncut: item.Uncut,
+                Unscoop: item.Unscoop,
+                NonCut: item.NonCut,
+                Rejection: item.Rejection,
+                Dust: item.Dust,
+                TotBagCutting: item.TotBagCutting,
+                KOR: item.KOR,
+                LineWiseLadies: item.noOfEmployees,
+                Common_Ladies: item.noOfLadies,
+                Common_Gents: item.noOfGents,
+                Common_Supervisors: item.noOfSupervisors,
+                LineWiseOperator: item.noOfOperators,
+                CreatedBy: item.CreatedBy,
+                editStatus: item.editStatus,
+                modifiedBy: item.modifiedBy,
+                }));
         }
-        else {
-            transformed = data1.rcnEntries.map((item: RcnPrimaryEntryData, idx: number) => ({
-                SL_No: idx + 1,
-                Origin: item.origin,
-                Bl_No: item.blNo,
-                Con_No: item.conNo,
-                RCN_QC_Status: item.rcnStatus,
-                Date: handletimezone(item.date),
-                No_Of_Bags: item.noOfBags,
-                Truck_No: item.truckNo,
-                Bl_Weight: item.blWeight,
-                Net_Weight: item.netWeight,
-                Difference: item.difference,
-                Edit_Status: item.editStatus,
-                Created_by: item.receivedBy,
-                Approved_or_Rejected_By: item.approvedBy
-
+        else{
+            transformed = data1.map((item: rcnScoopingData, idx: number) => ({
+                SL_No: idx+1,
+                LotNo: item.LotNo,
+                Scooping_Line_Mc:item.Scooping_Line_Mc,
+                date: handletimezone(item.date),
+                origin: item.origin,
+                Opening_Qty: item.Opening_Qty,
+                Receiving_Qty: item.Receiving_Qty,
+                SizeName: item.SizeName,
+                Wholes: item.Wholes,
+                Broken: item.Broken,
+                Uncut: item.Uncut,
+                Unscoop: item.Unscoop,
+                NonCut: item.NonCut,
+                Rejection: item.Rejection,
+                Dust: item.Dust,
+                TotBagCutting: item.TotBagCutting,
+                KOR: item.KOR,
+                Trolley_Broken: item.Trolley_Broken,
+                Trolley_Small_JB: item.Trolley_Small_JB,
+                LineWiseLadies: item.noOfEmployees,
+                Common_Ladies: item.noOfLadies,
+                Common_Gents: item.noOfGents,
+                Common_Supervisors: item.noOfSupervisors,
+                LineWiseOperator: item.noOfOperators,
+                CreatedBy: item.CreatedBy,
+                editStatus: item.editStatus,
+                modifiedBy: item.modifiedBy,
+                Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
+                Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
+                Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
+                Brkdwn_reason: item.Brkdwn_reason,
+                otherTime: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
+                scoopStatus: item.scoopStatus?'Done':'Not-Done',
+                Mc_runTime:item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
+                Transfered_Qty:item.Transfered_Qty,
+                Transfered_To:item.Transfered_To
             }));
+    
+        }
+     
             // setTransformedData(transformed);
             ws = XLSX.utils.json_to_sheet(transformed);
-        }
+        
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'RCN_Primary_Entry_' + currDate + '.xlsx');
+        saveAs(blob, 'Scooping_' + currDate + '.xlsx');
     };
 
     const handleRejection = async (item: RcnPrimaryEntryData) => {

@@ -9,9 +9,13 @@ const CreateInitialBorma = async (req: Request, res: Response) => {
             origin,
             Wholes,
             Broken } = req.body.data2;
+
+            const id=req.body.p_id
+
             const totalInput=parseFloat(Wholes)+parseFloat(Broken)
         
         const BormaInitial = await RcnBorma.create({
+            id,
             LotNo:LotNo,
             origin:origin,
             InputWholes:Wholes,

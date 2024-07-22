@@ -44,7 +44,7 @@ export interface rcnScoopingData {
     noOfLadies: number;
     noOfGents: number;
     noOfSupervisors: number;
-    noOfOperators: 10,
+    noOfOperators: number,
     CreatedBy: string;
     editStatus: string;
     modifiedBy: string;
@@ -208,7 +208,6 @@ export interface EmployeeData {
     createdBy: string;
     modifyedBy: string;
 }
-
 
 export interface User {
     id: number;
@@ -392,3 +391,44 @@ export interface BoilingExcelData {
 
 
 }
+
+export interface ScoopingExcelData {
+    SL_No: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    Opening_Qty: string;
+    Receiving_Qty: string;
+    Wholes: string;
+    Broken: string;
+    Uncut: string;
+    Unscoop: string;
+    NonCut: string;
+    Rejection: string;
+    Dust: string;
+    TotBagCutting: string;
+    KOR: string;
+    LineWiseLadies: number;
+    Common_Ladies: number;
+    Common_Gents: number;
+    Common_Supervisors: number;
+    LineWiseOperator: number,
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string;
+    Mc_on: string;
+    Mc_off: string;
+    Trolley_Broken: string;
+    Trolley_Small_JB: string;
+    Mc_breakdown: string;
+    Brkdwn_reason: string;
+    otherTime: string;
+    scoopStatus: string;
+    Mc_runTime: string;
+    SizeName: string;
+    Scooping_Line_Mc:string;
+    Transfered_Qty:string;
+    Transfered_To:string;
+
+}
+
