@@ -32,9 +32,9 @@ const editRecevingPackageMaterial = async (req: Request, res: Response) => {
             editStatus: "Pending",
             qualityStatus: packageMaterialData.qualityStatus,
         });
-        if (!editPackageMaterial) return res.status(500).json({ message: "internal error while editing package material" });
+        if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Packaging material" });
         const updatePackageMaterial = await packageMaterial.update({ editStatus: "Pending" }, { where: { id } });
-        if (!updatePackageMaterial) return res.status(500).json({ message: "internal error while updating package material" });
+        if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Packaging material" });
         return res.status(201).json({ message: "package material edited successfully" });
 
     }

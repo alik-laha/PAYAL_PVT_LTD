@@ -1,13 +1,6 @@
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+
 import { useState, useRef, useEffect } from "react"
 import { Button } from "../ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -96,7 +89,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
-                    setSkuData([res.data.skuData])
+                    setSkuData(res.data.skuData)
                 }
             })
             .catch((err) => {
@@ -117,7 +110,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
-                    setVendorData([res.data.vendorData])
+                    setVendorData(res.data.vendorData)
                 }
             })
             .catch((err) => {
@@ -139,15 +132,15 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
 
     return (
         <>
-            <div className="pl-10 pr-10">
+             <div className="pl-10 pr-10 mt-6">
                 <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Receiving Date</Label>
-                        <Input className="w-2/4 " placeholder="Receiving Date" required value={date} onChange={(e) => setDate(e.target.value)} type="date" /> </div>
+                        <Input className="w-2/4 justify-center" placeholder="Receiving Date" value={date} onChange={(e)=>setDate(e.target.value)}required type="date" /> </div>
 
                     <div className="flex"><Label className="w-2/4  pt-1">SKU</Label>
                         <Input className="w-2/4 " placeholder="SKU" required value={sku} onChange={handleSkuchange} /> </div>
-                    <ScrollArea className="h-30 w-30 dropdown-content" style={{ display: skuview }}>
+                    <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: skuview }}>
                         {
                             skudata.map((item: SkuData) => (
                                 <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(item)}>
@@ -161,7 +154,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
                     <div className="flex"><Label className="w-2/4  pt-1">Vendor Name</Label>
                         <Input className="w-2/4 " placeholder="Vendor Name" required value={vendorName} onChange={handleVendorChange} /> </div>
 
-                    <ScrollArea className="h-30 w-30 dropdown-content" style={{ display: vendorNameView }}>
+                    <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: vendorNameView }}>
                         {
                             vendorData.map((item: VendorData) => (
                                 <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick(item)}>
@@ -175,37 +168,46 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
                         <Input className="w-2/4 " placeholder="Quantity" required type="number" ref={quantityRef} /> </div>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Unit</Label>
-                        <Select value={unit} onValueChange={(value) => setUnit(value)} required={true}>
-                            <SelectTrigger className="w-2/4">
-                                <SelectValue placeholder="Status" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
 
-                                    <SelectItem value="kg">
-                                        KG
-                                    </SelectItem>
-                                    <SelectItem value="pcs">
-                                        PCS
-                                    </SelectItem>
+                    <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
+                    disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                        onChange={(e) => setUnit(e.target.value)} value={unit} required>
+                        <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+                        focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>unit</option>
+                       
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                             value="Kg">
+                                Kg
+                            </option>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                             value="pcs">
+                                Pcs
+                            </option>
+                       
+                    </select>
 
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
+                        
                     </div>
 
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
                 </form>
+
+
             </div>
-            <dialog id="packagingMetirialReciveErrorUpdate" className="dashboard-modal">
+            
+            <dialog id="packageMetrialReceveUpdate" className="dashboard-modal">
                 <button id="packageMetrialRecivecrossUpdate" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">package Matrial Receive Updated Successfully</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification Request Raised Successfully</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="packageMetrialReceveUpdate" className="dashboard-modal">
+            <dialog id="packagingMetirialReciveErrorUpdate" className="dashboard-modal">
                 <button id="packagigreciveerrorcrossUpdate" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
                     <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errText}</p></span>
