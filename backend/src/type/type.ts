@@ -63,7 +63,7 @@ export interface EmployeeData {
 }
 export interface lotNoData {
     id: number;
-    lotNo:string;
+    lotNo: string;
 }
 
 export interface TokenVerify {
@@ -106,7 +106,7 @@ export interface RcnBoilingData {
     Size: string;
     Scooping_Line_Mc: string;
     Pressure: string;
-    moisture:string;
+    moisture: string;
     CookingTime: string;
     MCName: string;
     Mc_on: string;
@@ -118,5 +118,17 @@ export interface RcnBoilingData {
     editStatus: string;
     Mc_runTime: string;
     modifiedBy: string;
+}
 
+export interface PackageMaterialReceivingData {
+    id: number;
+    recevingDate: string;
+    sku: string;
+    vendorName: string;
+    quantity: string;
+    unit: string;
+    createdBy: string;
+    qualityStatus: string;
+    editStatus: string;
+    approvedBy: string;
 }

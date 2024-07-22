@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { AssetData, EditPendingData, GradingData ,BoilingEntryData} from '../../type/type';
+import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving } from '../../type/type';
 
 interface ContextType {
     editPendingData: EditPendingData[];
@@ -15,7 +15,7 @@ interface ContextType {
     dept: string;
     setDept: (dept: string) => void;
     AllMachines: AssetData[];
-    AllNewMachines:AssetData[];
+    AllNewMachines: AssetData[];
     setAllMachines: (data: AssetData[]) => void;
     setAllNewMachines: (data: AssetData[]) => void;
     editPendiningGrinderData: GradingData[];
@@ -26,21 +26,23 @@ interface ContextType {
     setpendingqcCount: (pendingqccount: number) => void;
     pendingreportcount: number;
     setpendingreportCount: (pendingreportcount: number) => void;
+    recevingPackagematerialOverView: SumofpackageMetrialReceving | null;
+    setRecevingPacakanMaterialOverView: (data: SumofpackageMetrialReceving | null) => void;
 }
 
 const Context = createContext<ContextType>({
     editPendingData: [],
     AllMachines: [],
-    AllNewMachines:[],
+    AllNewMachines: [],
     setAllMachines: () => { },
     setAllNewMachines: () => { },
     setEditPendingData: () => { },
     count: 0,
     setCount: () => { },
-    pendingqccount:0,
-    setpendingqcCount:()=>{},
-    pendingreportcount:0,
-    setpendingreportCount:()=>{},
+    pendingqccount: 0,
+    setpendingqcCount: () => { },
+    pendingreportcount: 0,
+    setpendingreportCount: () => { },
     generateCaptcha: '',
     setGenerateCaptcha: () => { },
     typedCaptcha: '',
@@ -52,7 +54,9 @@ const Context = createContext<ContextType>({
     editPendiningGrinderData: [],
     setEditPendiningGrinderData: () => { },
     editPendingBoilingData: [],
-    setEditPendingBoilingData: () => { }
+    setEditPendingBoilingData: () => { },
+    setRecevingPacakanMaterialOverView: () => { },
+    recevingPackagematerialOverView: (null)
 
 });
 
