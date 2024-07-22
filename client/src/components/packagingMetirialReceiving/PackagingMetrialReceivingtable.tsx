@@ -195,14 +195,14 @@ const PackageMetrialRecivingTable = () => {
         let transformed: ExcelrecevingPackageMaterialData[] = [];
         if (EditData.length > 0) {
 
-            transformed = EditData.map((item: PackageMaterialReceivingData) => ({
-                Sl_No: item.id,
+            transformed = EditData.map((item: PackageMaterialReceivingData,idx:number) => ({
+                Sl_No: idx+1,
                 Entry_Date: handletimezone(item.recevingDate),
                 SKU: item.sku,
                 Vendor_Name: item.vendorName,
                 Quantity: item.quantity,
                 Unit: item.unit,
-                Quality_Status: item.qualityStatus ? "Q/C Done" : "Pending",
+                Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
                 Created_By: item.createdBy,
                 Approved_Or_Rejected_By: item.approvedBy
@@ -210,14 +210,14 @@ const PackageMetrialRecivingTable = () => {
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
-            transformed = data1.map((item: PackageMaterialReceivingData) => ({
-                Sl_No: item.id,
+            transformed = data1.map((item: PackageMaterialReceivingData,idx:number) => ({
+                Sl_No: idx+1,
                 Entry_Date: handletimezone(item.recevingDate),
                 SKU: item.sku,
                 Vendor_Name: item.vendorName,
                 Quantity: item.quantity,
                 Unit: item.unit,
-                Quality_Status: item.qualityStatus ? "Q/C Done" : "Pending",
+                Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
                 Created_By: item.createdBy,
                 Approved_Or_Rejected_By: item.approvedBy
@@ -248,7 +248,7 @@ const PackageMetrialRecivingTable = () => {
 
     return (
         <>
-            <Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={GetPendingEdit}>Pending Edit ({EditSumData?.sumOfAllRecenvingPackageMaterial})</Button>
+            {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={GetPendingEdit}>Pending Edit ({EditSumData?.sumOfAllRecenvingPackageMaterial})</Button>}
             <div className="ml-5 mt-5 ">
                 <div className="flex flexbox-search">
 
@@ -293,7 +293,7 @@ const PackageMetrialRecivingTable = () => {
                         <TableHead className="text-center" >Quality Status</TableHead>
                         <TableHead className="text-center" >Edit Status</TableHead>
                         <TableHead className="text-center" >Entried By</TableHead>
-                        <TableHead className="text-center" >Approved By</TableHead>
+                        <TableHead className="text-center" >Actioned By</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
 
                     </TableHeader>

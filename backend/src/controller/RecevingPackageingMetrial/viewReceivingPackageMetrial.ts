@@ -50,7 +50,7 @@ const viewReceivingPackageMetrial = async (req: Request, res: Response) => {
         if (page === 0 && size === 0) {
             PackageMaterials = await PackageMaterial.findAll({
                 where,
-                order: [['createdAt', 'DESC']], // Order by date descending
+                order: [['recevingDate', 'DESC']], // Order by date descending
             });
             if (PackageMaterials.length === 0) {
                 return res.status(200).json({ msg: 'Package Material found', PackageMaterials })
@@ -60,7 +60,7 @@ const viewReceivingPackageMetrial = async (req: Request, res: Response) => {
         else {
             PackageMaterials = await PackageMaterial.findAll({
                 where,
-                order: [['createdAt', 'DESC']], // Order by date descending
+                order: [['recevingDate', 'DESC']], // Order by date descending
                 limit: limit,
                 offset: offset
             });

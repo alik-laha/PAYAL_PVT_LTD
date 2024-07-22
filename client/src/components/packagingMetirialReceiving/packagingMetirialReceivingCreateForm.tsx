@@ -51,7 +51,6 @@ const PackagingMetirialReceivingCreateForm = () => {
         const quantity = quantityRef.current?.value
         axios.post("/api/quality/createrecivingpackagematerial", { recevingDate: receivingDate, sku, vendorName, quantity, unit })
             .then(() => {
-               
                 (successdialog as any).showModal();
             })
             .catch((err) => {

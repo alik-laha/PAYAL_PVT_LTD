@@ -43,7 +43,6 @@ const EditPackagingMaterial = sequelize.define('editpackagingMaterialreceving', 
     approvedBy: {
         type: DataTypes.STRING,
         allowNull: true,
-        defaultValue: "N/A"
     },
 
 })
