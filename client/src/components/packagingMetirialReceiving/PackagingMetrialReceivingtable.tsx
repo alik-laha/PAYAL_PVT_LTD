@@ -11,6 +11,7 @@ import cross from '../../assets/Static_Images/error_img.png'
 import {
     Dialog,
     DialogContent,
+    DialogDescription,
     // DialogDescription,
     DialogHeader,
     DialogTitle,
@@ -250,7 +251,7 @@ const PackageMetrialRecivingTable = () => {
                    
 
 
-                    <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
+                    <label className="font-semibold mt-1  mr-5 flexbox-search-width-label-left ">From </label>
                     <Input className="w-1/6 flexbox-search-width-calender"
                         type="date"
                         value={fromdate}
@@ -266,10 +267,10 @@ const PackageMetrialRecivingTable = () => {
                         placeholder="To Date"
 
                     />
-                     <Input className="no-padding w-1/5 flexbox-search-width ml-3" placeholder="SKU/Vendor" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
+                     <Input className=" w-1/5 flexbox-search-width ml-5 pl-3 no-margin" placeholder="SKU/Vendor" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
 
 
-                    <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+                    <span className="w-1/8 ml-6"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
                 {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
@@ -279,35 +280,40 @@ const PackageMetrialRecivingTable = () => {
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                        <TableHead className="text-center" >Slno</TableHead>
+                        <TableHead className="text-center" >Sl No</TableHead>
                         <TableHead className="text-center" >Receiving Date</TableHead>
-                        <TableHead className="text-center" >Sku</TableHead>
+                        <TableHead className="text-center" >ItemCode (SKU)</TableHead>
                         <TableHead className="text-center" >Vendor Name</TableHead>
                         <TableHead className="text-center" >Quantity</TableHead>
                         <TableHead className="text-center" >Unit</TableHead>
                         <TableHead className="text-center" >Quality Status</TableHead>
                         <TableHead className="text-center" >Edit Status</TableHead>
-                        <TableHead className="text-center" >Created By</TableHead>
-                        <TableHead className="text-center" >Approved/Rejected By</TableHead>
+                        <TableHead className="text-center" >Entried By</TableHead>
+                        <TableHead className="text-center" >Approved By</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
 
                     </TableHeader>
                     <TableBody>
                         {EditData.length > 0 ? (
-                            EditData.map((item: PackageMaterialReceivingData) => {
+                            EditData.map((item: PackageMaterialReceivingData,idx:number) => {
 
                                 return (
                                     <TableRow key={item.id}>
-                                        <TableCell className="text-center">{item.id}</TableCell>
-                                        <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
+                                        <TableCell className="text-center">{idx+1}</TableCell>
+                                        <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
                                         <TableCell className="text-center">{item.sku}</TableCell>
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center">{item.quantity}</TableCell>
 
                                         <TableCell className="text-center">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{!item.qualityStatus ? "Pending" : "Q/C Done"}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus == 'Created' ?
-                                            'NA' : item.editStatus}</TableCell>
+                                        <TableCell className="text-center ">
+                                        {item.qualityStatus ? (
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Done</button>
+                                        ): (
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Pending</button>
+                                        )}
+                                    </TableCell>
+                                        <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.approvedBy}</TableCell>
                                         <TableCell className="text-center">
@@ -351,19 +357,25 @@ const PackageMetrialRecivingTable = () => {
                                 );
                             })
                         ) : (
-                            Data.length > 0 ? (Data.map((item: PackageMaterialReceivingData) => {
+                            Data.length > 0 ? (Data.map((item: PackageMaterialReceivingData,idx:number) => {
 
 
                                 return (
                                     <TableRow key={item.id}>
-                                        <TableCell className="text-center">{item.id}</TableCell>
+                                        <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
                                         <TableCell className="text-center">{item.sku}</TableCell>
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center">{item.quantity}</TableCell>
 
                                         <TableCell className="text-center">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{!item.qualityStatus ? "Pending" : "Q/C Done"}</TableCell>
+                                        <TableCell className="text-center ">
+                                        {item.qualityStatus ? (
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Done</button>
+                                        ): (
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Pending</button>
+                                        )}
+                                    </TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.approvedBy}</TableCell>
@@ -381,8 +393,11 @@ const PackageMetrialRecivingTable = () => {
                                                         <DialogContent>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>RCN Primary Entry Modification</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-5'>Packaging Receiving Modification</p>
                                                                 </DialogTitle>
+                                                                <DialogDescription>
+                            <p className='text-1xl text-center'>To Be Filled Up By Receving Supervisor</p>
+                        </DialogDescription>
                                                             </DialogHeader>
                                                             <PackageMaterialReceivingModify data={item} />
                                                         </DialogContent>

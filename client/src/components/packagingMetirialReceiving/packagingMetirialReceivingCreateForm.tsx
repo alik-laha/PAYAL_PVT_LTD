@@ -197,15 +197,16 @@ const PackagingMetirialReceivingCreateForm = () => {
 
 
             </div>
-            <dialog id="packagingMetirialReciveError" className="dashboard-modal">
+            
+            <dialog id="packageMetrialReceve" className="dashboard-modal">
                 <button id="packageMetrialRecivecross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Packaging material is Received Successfully</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">Packaging Material is Received Successfully</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="packageMetrialReceve" className="dashboard-modal">
+            <dialog id="packagingMetirialReciveError" className="dashboard-modal">
                 <button id="packagigreciveerrorcross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
                     <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Error In Receiving Packaging Material</p></span>
