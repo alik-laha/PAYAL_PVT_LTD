@@ -281,9 +281,9 @@ const PackageMetrialRecivingTable = () => {
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                         <TableHead className="text-center" >Sl No</TableHead>
-                        <TableHead className="text-center" >Receiving Date</TableHead>
-                        <TableHead className="text-center" >ItemCode (SKU)</TableHead>
-                        <TableHead className="text-center" >Vendor Name</TableHead>
+                        <TableHead className="text-center" >Receiving_Date</TableHead>
+                        <TableHead className="text-center" >ItemCode_(SKU)</TableHead>
+                        <TableHead className="text-center" >Vendor_Name</TableHead>
                         <TableHead className="text-center" >Quantity</TableHead>
                         <TableHead className="text-center" >Unit</TableHead>
                         <TableHead className="text-center" >Quality Status</TableHead>

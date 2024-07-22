@@ -15,14 +15,7 @@ const editRecevingPackageMaterial = async (req: Request, res: Response) => {
         if (!id) return res.status(400).json({ message: "id is required" });
         const packageMaterialData: PackageMaterialReceivingData = await packageMaterial.findOne({ where: { id } }) as unknown as PackageMaterialReceivingData;
         if (!packageMaterialData) return res.status(404).json({ message: "package material not found" });
-        const vendor = await VendorName.findOne({ where: { vendorName } });
-        if (!vendor) {
-            VendorName.create({ vendorName, createdBy: packageMaterialData.createdBy });
-        }
-        const skuData = await SkuModel.findOne({ where: { sku } });
-        if (!skuData) {
-            SkuModel.create({ sku, unit });
-        }
+      
         const editPackageMaterial = await EditPackagingMaterial.create({
             id: packageMaterialData.id,
             recevingDate,

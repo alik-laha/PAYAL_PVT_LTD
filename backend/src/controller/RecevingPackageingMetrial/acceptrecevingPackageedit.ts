@@ -19,7 +19,7 @@ const acceptRecevingPackageEdit = async (req: Request, res: Response) => {
         }
         const skuData = await SkuModel.findOne({ where: { sku:editPackageMaterial.sku } });
         if (!skuData) {
-            SkuModel.create({ sku:editPackageMaterial.sku, unit:editPackageMaterial.unit });
+            SkuModel.create({ sku:editPackageMaterial.sku, unit:editPackageMaterial.unit,createdBy: editPackageMaterial.createdBy });
         }
         
         
