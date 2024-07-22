@@ -49,14 +49,14 @@ import {
 } from "@/components/ui/pagination"
 import { CiEdit } from "react-icons/ci";
 import { pagelimit } from "../common/exportData"
-import { PackageMaterialReceivingData, SumofpackageMetrialReceving } from '@/type/type'
+import { PackageMaterialReceivingData, SumofpackageMetrialReceving, ExcelrecevingPackageMaterialData } from '@/type/type'
 import axios from 'axios'
 import PackageMaterialReceivingModify from "./PackageMetirialModifyReceving"
 import { useContext } from 'react';
 import Context from '../context/context';
 import { LuDownload } from "react-icons/lu";
 import * as XLSX from 'xlsx';
-
+import { saveAs } from 'file-saver';
 
 const PackageMetrialRecivingTable = () => {
 
@@ -72,7 +72,7 @@ const PackageMetrialRecivingTable = () => {
     const [todate, settoDate] = useState('')
     const [page, setPage] = useState(1)
     const limit = pagelimit
-
+    const currDate = new Date().toLocaleDateString();
     const successdialog = document.getElementById('recevingeditapprove') as HTMLInputElement;
     const closeDialogButton = document.getElementById('recevingeditapproveclose') as HTMLInputElement;
     const errordialog = document.getElementById('recevingeditreject') as HTMLInputElement;
@@ -177,8 +177,55 @@ const PackageMetrialRecivingTable = () => {
     useEffect(() => {
         getSumOfAllEdit()
     }, [])
-    const exportToExcel = () => {
+    const exportToExcel = async () => {
+        const response = await axios.post('/api/quality/getreceivematerial', {
+            searchData,
+            fromdate,
+            todate
+        })
+        const data1 = response.data.PackageMaterials
+        console.log(data1)
 
+        let ws
+        let transformed: ExcelrecevingPackageMaterialData[] = [];
+        if (EditData.length > 0) {
+
+            transformed = EditData.map((item: PackageMaterialReceivingData) => ({
+                Sl_No: item.id,
+                Entry_Date: handletimezone(item.recevingDate),
+                SKU: item.sku,
+                Vendor_Name: item.vendorName,
+                Quantity: item.quantity,
+                Unit: item.unit,
+                Quality_Status: item.qualityStatus ? "Q/C Done" : "Pending",
+                Edit_Status: item.editStatus,
+                Created_By: item.createdBy,
+                Approved_Or_Rejected_By: item.approvedBy
+            }));
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        else {
+            transformed = data1.map((item: PackageMaterialReceivingData) => ({
+                Sl_No: item.id,
+                Entry_Date: handletimezone(item.recevingDate),
+                SKU: item.sku,
+                Vendor_Name: item.vendorName,
+                Quantity: item.quantity,
+                Unit: item.unit,
+                Quality_Status: item.qualityStatus ? "Q/C Done" : "Pending",
+                Edit_Status: item.editStatus,
+                Created_By: item.createdBy,
+                Approved_Or_Rejected_By: item.approvedBy
+
+            }));
+            // setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'Receiving_Packaging_Material_' + currDate + '.xlsx');
     }
 
 

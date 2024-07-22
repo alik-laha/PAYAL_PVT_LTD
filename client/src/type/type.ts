@@ -347,3 +347,16 @@ export interface SumofpackageMetrialReceving {
     skuData: number;
     packagingMaterial: number;
 }
+
+export interface ExcelrecevingPackageMaterialData {
+    Sl_No: number;
+    Entry_Date: string;
+    SKU: string;
+    Vendor_Name: string;
+    Quantity: string;
+    Unit: string;
+    Quality_Status: string;
+    Edit_Status: string;
+    Approved_Or_Rejected_By: string;
+    Created_By: string;
+}
