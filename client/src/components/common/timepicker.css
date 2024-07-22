@@ -1,0 +1,26 @@
+.time-picker {
+    display: flex;
+    align-items: center;
+  }
+  
+  .time-picker select {
+    margin: 0 3px;
+    padding: 4px;
+    font-size: 14px;
+  }
+  @media screen and (max-width: 768px) {
+
+    .time-picker {
+        display: flex;
+        width: 28vw;
+        
+      }
+      
+      .time-picker select {
+        margin: 0 2px;
+        padding: 1px;
+        font-size: 14px;
+      }
+
+  }
+

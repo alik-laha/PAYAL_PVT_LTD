@@ -8,7 +8,8 @@ const getAllMachineBytype = async (req: Request, res: Response) => {
         const asset = await Asset.findAll({
             where: {
                 section: type,
-                status: "Active"
+                status: "Active",
+                primaryAsset:1
             }
         });
         if (asset.length > 0) {

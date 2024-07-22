@@ -10,7 +10,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import {useContext, useRef, useState } from "react"
-import { Origin ,Size} from "../common/exportData"
+import { cookingTime, Origin ,Size} from "../common/exportData"
 import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
@@ -31,6 +31,7 @@ interface RowData{
     cookingOff:string;
     breakDown:string;
     other:string;
+    openQuantity:number;
 }
 import {
     Table,
@@ -41,20 +42,94 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { MdDelete } from "react-icons/md";
-const RCNBoilingEntryForm = () => {
 
-    //const lotNoRef = useRef<HTMLInputElement>(null)
+import FormRow from "../common/FormRowTime"
+
+
+
+const RCNBoilingEntryForm = () => 
+    {
+    
+    function processFormData(formDataArray: RowData[]): RowData[] {
+        const ScoopingLineCount: { [key: string]: number } = {};
+      
+        // First pass: Count occurrences of each elementA
+        formDataArray.forEach(formData => {
+            ScoopingLineCount[formData.ScoopingLine] = (ScoopingLineCount[formData.ScoopingLine] || 0) + 1;
+        });
+      
+        // Second pass: Modify elementB based on the count
+        const seen: { [key: string]: number } = {};
+      
+        return formDataArray.map(formData => 
+        {
+          const count = ScoopingLineCount[formData.ScoopingLine];
+          if (count > 1) {
+            seen[formData.ScoopingLine] = (seen[formData.ScoopingLine] || 0) + 1;
+            if (seen[formData.ScoopingLine] > 1) {
+              formData.openQuantity = 0;
+            }
+          }
+          return formData;
+        });
+      }
+
+
+
+      async function updateFormData(formDataArray: RowData[],lotNO:string): Promise<RowData[]> 
+      {
+        for (let formData of formDataArray) {
+          formData.openQuantity = await fetchOpenQty(formData.ScoopingLine,lotNO);
+          console.log(formData.openQuantity)
+          //formData.openQuantity =  axios.post('/api/scooping/getPrevScoop', {formData.ScoopingLine,lotNO})
+        }
+        return formDataArray;
+      }
+
+      async function fetchOpenQty(ScoopingLine: string,lotNO:string): Promise<number> {
+        try{
+            const response= await axios.post('/api/scooping/getPrevScoop', { ScoopingLine,lotNO})
+            console.log(response)
+
+            if(response.data.message==='Previous Cutting Not Found'){
+                return 0
+            }
+            if(response.data.finalSum[0].totalUncut!== null && response.data.finalSum[0].totalNonCut!== null
+                && response.data.finalSum[0].totalUnscoop!== null
+            )
+            {
+                const prevSum:number=parseFloat(response.data.finalSum[0].totalUncut)
+                +parseFloat(response.data.finalSum[0].totalNonCut)+
+                parseFloat(response.data.finalSum[0].totalUnscoop)
+                return prevSum
+            }
+            else{
+                return 0
+            }
+          
+            
+        }
+        catch(err){
+            console.log(err);
+            throw err
+        }
+
+        
+        
+      }
+
+
     const DateRef = useRef<HTMLInputElement>(null)
     const [mc_name, setMc_name] = useState('')
-  //  const [lotNo, setLotNO] = useState<string>('')
-    //const [mc2_name, setMc2_name] = useState('')
     const noofEmployeeRef = useRef<HTMLInputElement>(null)
-
+    //const [lotNO, setLotNO] = useState('')
     const [rows,setRows]=useState<RowData[]>([{origin:'',sizeName:'',
-        size:'',ScoopingLine:'',pressure:'',moisture:'',CookingTime:'',cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00'}
+        size:'',ScoopingLine:'',pressure:'',moisture:'',CookingTime:'',cookingOn:'00:00',cookingOff:'00:00',breakDown:'00:00',other:'00:00',openQuantity:0}
     ]);
 
     const [errortext, setErrortext] = useState('')
+   
+  
 
     const handleRowChange = (index:number,field:string,fieldvalue:string) => {
 
@@ -65,7 +140,7 @@ const RCNBoilingEntryForm = () => {
     const addRow = () => {
         setRows([...rows,{origin:'',sizeName:'',
         size:'',ScoopingLine:'',pressure:'',moisture:'',CookingTime:'',
-        cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00'}])
+        cookingOn:'',cookingOff:'',breakDown:'00:00',other:'00:00',openQuantity:0}])
     }
 
     const deleteRow = (index:number) =>{
@@ -73,86 +148,125 @@ const RCNBoilingEntryForm = () => {
         setRows(newRows)
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         const date = DateRef.current?.value  
         const noOfEmployees = noofEmployeeRef.current?.value
-       // const lotNo = lotNoRef.current?.value
         const Mc_name = mc_name
-
-        // const formData=rows.map( row=>({
-        //     columnLotNo:lotNo,
-        //     columnDate:date,
-        //     columnEmployee:noOfEmployees,
-        //     columnMC:Mc_name,...row
-
-        // }))
-        //console.log('Submitted Data:',formData);
-  
-       try{
-        axios.post('/api/boiling/createLotNo', { }) .then(res => {
-            console.log(res)
-            //setLotNO(res.data.newSequence)  
-            const formData=rows.map( row=>({
-                columnLotNo:res.data.newSequence,
-                columnDate:date,
-                columnEmployee:noOfEmployees,
-                columnMC:Mc_name,...row
-    
-            }))
-            let boilingcount=0
+        
+try
+{
+    const createLot=await axios.post('/api/boiling/createLotNo', {})            
+    console.log(createLot)
+    //setLotNO(createLot.data.newSequence) 
+    //console.log(lotNO) 
+    try 
+    {   
+        const formData = rows.map(row => ({
+            columnLotNo: createLot.data.newSequence,
+            columnDate: date,
+            columnEmployee: noOfEmployees,
+            columnMC: Mc_name,
+            ...row
+        }))
+        let boilingcount = 0
+        let scoopingcount=0
+        for (var data of formData) 
+        {
+            const boilres=await axios.post('/api/boiling/createBoiling', { data })
            
-                for (const data of formData){
-                    axios.post('/api/boiling/createBoiling', { data }) .then(res => {
-                       boilingcount++;
-                       if(formData.length===boilingcount){
-                           setErrortext(res.data.message)
-                            
-                           if (res.status === 200) {
-                               const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                               dialog.showModal()
-                               setTimeout(() => {
-                                   dialog.close()
-                                   window.location.reload()
-                               }, 2000)
-                           }
-       
-                       }
-                      
-                   })
-                   .catch(err => {
-                       console.log(err)
-                       setErrortext(err.response.data.message)
-                       axios.delete(`/api/boiling/deleteLotNo/${data.columnLotNo}`).then((res) => {
-                        console.log(res.data)
-                        })
-                        axios.delete(`/api/boiling/deleteBoilingByLotNo/${data.columnLotNo}`).then((res) => {
-                            console.log(res.data)
-                            })
-                       const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
-                       dialog.showModal()
-                       setTimeout(() => {
-                           dialog.close()
-                       }, 2000)
-                   })
-       
-               
-    
+            boilingcount++;
+            if (formData.length === boilingcount) 
+            {
+                
+                if (boilres.status === 200) 
+                {
+                    await axios.post('/api/scooping/updateLotNo', 
+                    { lotNo:data.columnLotNo,desc:'Boiling'}) 
+                }
+            }     
+        }
+        const resStatus=await axios.post('/api/boiling/getStatusBoiling', { lotNo:formData[0].columnLotNo})
+        console.log(resStatus)
+        if(resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy==='Boiling')
+        {
+            const updatedFormDataArray = await updateFormData(formData,createLot.data.newSequence);
+            const processedFormDataArray = processFormData(updatedFormDataArray);
+            const formData2 = processedFormDataArray.map(row => ({
+                columnLotNo: createLot.data.newSequence,
+                rcvQuantity: (parseFloat(row.size) * 80),
+                 ...row
+            }))
+            for (var data2 of formData2) 
+            {
+                const initialscoop=await axios.post('/api/scooping/createInitialScooping', { data2 })
+                console.log(initialscoop)
+                scoopingcount++;
+                      if (formData.length === scoopingcount) 
+                        {
+                          setErrortext(initialscoop.data.message)
+                          if (initialscoop.status === 200) 
+                            {
+                            const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                            dialog2.showModal()
+                             setTimeout(() => {
+                                 dialog2.close()
+                                 window.location.reload()
+                             }, 3000)
+                            }
+                          
+                        }   
             }
-        }).catch(err => {
-            console.log(err)
-            
+        }       
+    }
+
+    catch(err)  
+    {
+        console.log(err)
+        if(axios.isAxiosError(err)){
+            setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+        }
+        else{
+            setErrortext('An Unexpected Error Occured')
+        }
+        const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+        dialog.showModal()
+        setTimeout(() => {
+            dialog.close()
+        }, 2000)
+        axios.delete(`/api/boiling/deleteLotNo/${createLot.data.newSequence}`).then((res) => {
+            console.log(res.data)
+        })
+        axios.delete(`/api/boiling/deleteBoilingByLotNo/${createLot.data.newSequence}`).then((res) => {
+            console.log(res.data)
+        })
+        axios.delete(`/api/scooping/deleteScoopingByLotNo/${createLot.data.newSequence}`).then((res) => {
+            console.log(res.data)
         })
         
         
-       }
+    }  
 
-       catch (err){
-        console.log(err)
-       }
-
-    };
-
+}
+catch(err){
+    console.log(err)
+    console.log(err)
+        if(axios.isAxiosError(err)){
+            setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+        }
+        else{
+            setErrortext('An Unexpected Error Occured')
+        }
+    const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+    dialog.showModal()
+    setTimeout(() => {
+        dialog.close()
+    }, 2000)
+}
+        
+            
+}        
+                    
     const successdialog = document.getElementById('myDialog') as HTMLInputElement;
     const errordialog = document.getElementById('errorDialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
@@ -181,6 +295,7 @@ const RCNBoilingEntryForm = () => {
 
     const { AllMachines } = useContext(Context)
     const { AllNewMachines } = useContext(Context)
+   
     return (
         <>
             <div className="px-5">
@@ -189,8 +304,8 @@ const RCNBoilingEntryForm = () => {
                     <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
                     <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
                    
-                    <div className="flex"><Label className="w-2/4  pt-1">Labours</Label>
-                    <Input className="w-2/4 " placeholder="No. of Labours" ref={noofEmployeeRef} required /> </div>
+                    <div className="flex"><Label className="w-2/4 pt-1">Labours</Label>
+                    <Input className="w-2/4 text-center" placeholder="No. of Labours" ref={noofEmployeeRef} required /> </div>
                     <div className="flex">
                     <Label className="w-2/4 pt-1">Machine Name</Label>
                     <Select value={mc_name} onValueChange={(value) => setMc_name(value)} required={true}>
@@ -218,10 +333,11 @@ const RCNBoilingEntryForm = () => {
                     <Table className="mt-1">
                              <TableHeader className="bg-neutral-100 text-stone-950" >
                              <TableHead className="text-center" >Sl. No.</TableHead>
+                             <TableHead className="text-center" >ScoopingLine</TableHead>
                              <TableHead className="text-center" >Origin</TableHead>
                              <TableHead className="text-center" >Size</TableHead>
                              <TableHead className="text-center" >Boiling Quantity</TableHead>
-                             <TableHead className="text-center" >Scooping Line No.</TableHead>
+                            
                              <TableHead className="text-center" >Pressure</TableHead>
                              <TableHead className="text-center" >Moisture</TableHead>
                              <TableHead className="text-center" >Cooking On</TableHead>
@@ -238,6 +354,27 @@ const RCNBoilingEntryForm = () => {
                                  <TableBody>
                                         <TableRow key={index} className="boiling-row-height">
                                         <TableCell>{index+1}</TableCell>
+                                        <TableCell className="text-center" >
+                                            <Select value={row.ScoopingLine} onValueChange={(val) => handleRowChange(index, 'ScoopingLine', val)} required={true}>
+                                                <SelectTrigger className="justify-center w-40">
+                                                    <SelectValue placeholder="Line Name" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectGroup>
+                                                        {
+                                                           AllNewMachines &&  AllNewMachines.map((item) => {
+                                                                return (
+                                                                    <SelectItem key={item.machineID} value={item.machineName}>
+                                                                        {item.machineName}
+                                                                    </SelectItem>
+                                                                )
+                                                            })
+                                                        }
+                                                    </SelectGroup>
+                                                </SelectContent>
+                                            </Select>
+
+                                        </TableCell>
                                         <TableCell className="text-center">
                                             <Select value={row.origin} onValueChange={(val) => handleRowChange(index, 'origin', val)} required={true}>
                                                 <SelectTrigger className="justify-center w-20">
@@ -284,18 +421,26 @@ const RCNBoilingEntryForm = () => {
                                         <TableCell className="text-center">
                                         <Input  value={row.size} placeholder="Bag" onChange={(e) => handleRowChange(index,'size',e.target.value)} required />
                                         </TableCell>
-                                            <TableCell className="text-center" >
-                                            <Select value={row.ScoopingLine} onValueChange={(val) => handleRowChange(index, 'ScoopingLine', val)} required={true}>
-                                                <SelectTrigger  className="justify-center w-40">
-                                                    <SelectValue placeholder="Line No." />
+                        
+                                     
+                                        <TableCell className="text-center"><Input  value={row.pressure} placeholder="psi" onChange={(e) => handleRowChange(index,'pressure',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"><Input  value={row.moisture} placeholder="%" onChange={(e) => handleRowChange(index,'moisture',e.target.value)} required /></TableCell>
+                                        <FormRow idx={index} row={row} column='cookingOn' handleRowChange={handleRowChange}/>
+                                        <FormRow idx={index} row={row} column='cookingOff' handleRowChange={handleRowChange}/>
+                                        {/* <TableCell className="text-center "> <input className="bg-green-100"  value={row.cookingOn} placeholder="MC ON Time" onChange={(e) => handleRowChange(index,'cookingOn',e.target.value)} type='time' required /></TableCell> */}
+                                        {/* <TableCell className="text-center"><input className="bg-red-100" value={row.cookingOff} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'cookingOff',e.target.value)} type='time' required /></TableCell> */}
+                                        <TableCell className="text-center" >
+                                            <Select value={row.CookingTime} onValueChange={(val) => handleRowChange(index, 'CookingTime', val)} required={true}>
+                                                <SelectTrigger className="justify-center w-20" >
+                                                    <SelectValue placeholder="Time" />
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     <SelectGroup>
                                                         {
-                                                           AllNewMachines &&  AllNewMachines.map((item) => {
+                                                            cookingTime.map((item) => {
                                                                 return (
-                                                                    <SelectItem key={item.machineID} value={item.machineName}>
-                                                                        {item.machineName}
+                                                                    <SelectItem key={item} value={item}>
+                                                                        {item}
                                                                     </SelectItem>
                                                                 )
                                                             })
@@ -305,13 +450,10 @@ const RCNBoilingEntryForm = () => {
                                             </Select>
 
                                         </TableCell>
-                                     
-                                        <TableCell className="text-center"><Input  value={row.pressure} placeholder="psi" onChange={(e) => handleRowChange(index,'pressure',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"><Input  value={row.moisture} placeholder="%" onChange={(e) => handleRowChange(index,'moisture',e.target.value)} required /></TableCell>
-
-                                        <TableCell className="text-center "> <Input className="bg-green-100"  value={row.cookingOn} placeholder="MC ON Time" onChange={(e) => handleRowChange(index,'cookingOn',e.target.value)} type='time' required /></TableCell>
-                                        <TableCell className="text-center"><Input className="bg-red-100" value={row.cookingOff} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'cookingOff',e.target.value)} type='time' required /></TableCell>
-                                        <TableCell className="text-center"><Input  value={row.CookingTime}  placeholder="CookingTime" onChange={(e) => handleRowChange(index,'CookingTime',e.target.value)} type='time' required /></TableCell>
+                                        
+                                        
+                                        
+                                        {/* <TableCell className="text-center"><Input  value={row.CookingTime}  placeholder="CookingTime" onChange={(e) => handleRowChange(index,'CookingTime',e.target.value)} type='time' required /></TableCell> */}
                                           <TableCell className="text-center"><Input  value={row.breakDown} defaultValue='00:00' placeholder="Break Down Time" onChange={(e) => handleRowChange(index,'breakDown',e.target.value)} type='time'  /></TableCell>
                                           <TableCell className="text-center"><Input  value={row.other} defaultValue='00:00' placeholder="Other" onChange={(e) => handleRowChange(index,'other',e.target.value)} type='time'  /></TableCell>
                                           <TableCell className="text-center">

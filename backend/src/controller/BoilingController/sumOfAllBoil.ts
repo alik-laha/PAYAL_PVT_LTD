@@ -44,7 +44,7 @@ const sumOfallBoil = async (req: Request, res: Response) => {
                     { editStatus: "NA" }
                 ], date: {
                     [Op.between]: [targetDate, today]
-                }
+                },
             }
         });
         const EditData = await RcnBoilingEdit.count()

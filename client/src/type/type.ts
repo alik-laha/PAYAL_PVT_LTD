@@ -24,6 +24,44 @@ export interface RcnPrimaryEntryData {
     receivedBy: string;
     createdAt: string;
 }
+export interface rcnScoopingData {
+    id: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    Opening_Qty: string;
+    Receiving_Qty: string;
+    Wholes: string;
+    Broken: string;
+    Uncut: string;
+    Unscoop: string;
+    NonCut: string;
+    Rejection: string;
+    Dust: string;
+    TotBagCutting: string;
+    KOR: string;
+    noOfEmployees: number;
+    noOfLadies: number;
+    noOfGents: number;
+    noOfSupervisors: number;
+    noOfOperators: number,
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string;
+    Mc_on: string;
+    Mc_off: string;
+    Trolley_Broken: string;
+    Trolley_Small_JB: string;
+    Mc_breakdown: string;
+    Brkdwn_reason: string;
+    otherTime: string;
+    scoopStatus: string;
+    Mc_runTime: string;
+    SizeName: string;
+    Scooping_Line_Mc:string;
+    Transfered_Qty:string;
+    Transfered_To:string;
+}
 export interface EditPendingData extends RcnPrimaryEntryData {
     editedBy: string;
 
@@ -83,7 +121,46 @@ export interface QcRcnEntryData {
     editapprovedBy: string;
 }
 
-
+export interface scoopingpendingLotData {
+    LotNo: string
+}
+export interface ScoopData {
+    LotNo: string;
+    id: number;
+    date: string;
+    origin: string;
+    SizeName: string;
+    Size: string;
+    Scooping_Line_Mc: string;
+    Opening_Qty: string;
+    Receiving_Qty: string;
+    Wholes: string;
+    Broken: string;
+    Uncut: string;
+    Unscoop: string;
+    NonCut: string;
+    Rejection: string;
+    Dust: string;
+    KOR: string;
+    Trolley_Broken: string;
+    Trolley_Small_JB: string;
+    Transfered_To: string;
+    scoopStatus: string;
+    Mc_on: string;
+    Mc_off: string;
+    noOfEmployees: string;
+    Mc_breakdown: string;
+    otherTime: string;
+    Brkdwn_reason: string;
+    noOfLadies: string;
+    noOfGents: string;
+    noOfSupervisors: string;
+    noOfOperators: string;
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string;
+    Transfered_Qty:number;
+}
 
 export interface ExcelRcnPrimaryEntryData {
     SL_No: number;
@@ -131,7 +208,6 @@ export interface EmployeeData {
     createdBy: string;
     modifyedBy: string;
 }
-
 
 export interface User {
     id: number;
@@ -316,6 +392,7 @@ export interface BoilingExcelData {
 
 }
 
+
 export interface SkuData {
     id: number;
     sku: string;
@@ -360,3 +437,45 @@ export interface ExcelrecevingPackageMaterialData {
     Approved_Or_Rejected_By: string;
     Created_By: string;
 }
+
+export interface ScoopingExcelData {
+    SL_No: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    Opening_Qty: string;
+    Receiving_Qty: string;
+    Wholes: string;
+    Broken: string;
+    Uncut: string;
+    Unscoop: string;
+    NonCut: string;
+    Rejection: string;
+    Dust: string;
+    TotBagCutting: string;
+    KOR: string;
+    LineWiseLadies: number;
+    Common_Ladies: number;
+    Common_Gents: number;
+    Common_Supervisors: number;
+    LineWiseOperator: number,
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string;
+    Mc_on: string;
+    Mc_off: string;
+    Trolley_Broken: string;
+    Trolley_Small_JB: string;
+    Mc_breakdown: string;
+    Brkdwn_reason: string;
+    otherTime: string;
+    scoopStatus: string;
+    Mc_runTime: string;
+    SizeName: string;
+    Scooping_Line_Mc:string;
+    Transfered_Qty:string;
+    Transfered_To:string;
+
+}
+
+

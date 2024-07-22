@@ -15,7 +15,8 @@ const Captcha: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    //const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const characters = '0123456789';
     let generatedText = '';
 
     // Clear canvas

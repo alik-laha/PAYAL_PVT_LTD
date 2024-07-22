@@ -81,6 +81,8 @@ const RcnBoiling = sequelize.define('rcnBoiling', {
         type: DataTypes.STRING,
         defaultValue: "NA"
     },
+   
+    
     Mc_runTime: {
         type: DataTypes.TIME,
         allowNull: false
@@ -89,7 +91,6 @@ const RcnBoiling = sequelize.define('rcnBoiling', {
         type: DataTypes.STRING,
         allowNull: true
     }
-
-
-});
+}
+   );
 export default RcnBoiling;
