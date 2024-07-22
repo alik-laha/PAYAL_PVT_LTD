@@ -130,7 +130,7 @@ const PackagingMetirialReceivingCreateForm = () => {
 
                     <div className="flex"><Label className="w-2/4  pt-1">SKU</Label>
                         <Input className="w-2/4 " placeholder="SKU" required value={sku} onChange={handleSkuchange} /> </div>
-                    <ScrollArea className="h-50 w-30 dropdown-content" style={{ display: skuview }}>
+                    <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: skuview }}>
                         {
                             skudata.map((item: SkuData) => (
                                 <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(item)}>
@@ -144,7 +144,7 @@ const PackagingMetirialReceivingCreateForm = () => {
                     <div className="flex"><Label className="w-2/4  pt-1">Vendor Name</Label>
                         <Input className="w-2/4 " placeholder="Vendor Name" required value={vendorName} onChange={handleVendorChange} /> </div>
 
-                    <ScrollArea className="h-30 w-30 dropdown-content" style={{ display: vendorNameView }}>
+                    <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: vendorNameView }}>
                         {
                             vendorData.map((item: VendorData) => (
                                 <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick(item)}>
