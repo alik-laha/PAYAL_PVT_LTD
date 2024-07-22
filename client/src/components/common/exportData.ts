@@ -17,10 +17,10 @@ export const cookingTime = ['00:07', '00:08', '00:09', '00:10', '00:11', '00:12'
 
 
 export const PermissionRol = {
-    Director: ['Employee', 'Dashboard User', 'Asset', 'RCN Primary Entry', 'RCN Incoming QC', 'Grading', 'Boiling', 'Scooping'],
-    FactoryManager: ['Employee', 'Asset', 'RCN Primary Entry', 'RCN Incoming QC', 'Grading', 'Boiling', 'Scooping'],
-    ReceivingSupervisor: ['RCN Primary Entry'],
-    ReceivingManager: ['RCN Primary Entry'],
+    Director: ['Employee', 'Dashboard User', 'Asset', 'RCN Primary Entry', 'Receiving Packaging Entry','RCN Incoming QC', 'Grading', 'Boiling', 'Scooping'],
+    FactoryManager: ['Employee', 'Asset', 'RCN Primary Entry','Receiving Packaging Entry', 'RCN Incoming QC', 'Grading', 'Boiling', 'Scooping'],
+    ReceivingSupervisor: ['RCN Primary Entry','Receiving Packaging Entry'],
+    ReceivingManager: ['RCN Primary Entry','Receiving Packaging Entry'],
     QCSupervisor: ['RCN Incoming QC'],
     QCManager: ['RCN Incoming QC'],
     GradingSupervisor: ['Grading'],

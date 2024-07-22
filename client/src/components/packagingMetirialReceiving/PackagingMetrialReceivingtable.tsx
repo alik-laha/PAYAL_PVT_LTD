@@ -48,8 +48,8 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination"
 import { CiEdit } from "react-icons/ci";
-import { pagelimit } from "../common/exportData"
-import { PackageMaterialReceivingData, SumofpackageMetrialReceving, ExcelrecevingPackageMaterialData } from '@/type/type'
+import { pagelimit, pendingCheckRole } from "../common/exportData"
+import { PackageMaterialReceivingData, SumofpackageMetrialReceving, ExcelrecevingPackageMaterialData, pendingCheckRoles, PermissionRole } from '@/type/type'
 import axios from 'axios'
 import PackageMaterialReceivingModify from "./PackageMetirialModifyReceving"
 import { useContext } from 'react';
@@ -227,6 +227,17 @@ const PackageMetrialRecivingTable = () => {
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
         saveAs(blob, 'Receiving_Packaging_Material_' + currDate + '.xlsx');
     }
+    const Role = localStorage.getItem('role') as keyof PermissionRole
+    const checkpending = (tab: string) => {
+        //console.log(Role)
+        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+            return true
+        }
+        else {
+            return false;
+        }
+
+    }
 
 
 
@@ -261,7 +272,7 @@ const PackageMetrialRecivingTable = () => {
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
-                {<span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+                {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
 
 
 
