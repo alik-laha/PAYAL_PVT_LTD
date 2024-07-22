@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import EditPackagingMaterial from "../../model/editPackageingMaterialModel";
 import packageMaterial from "../../model/recevingPackagingMaterialModel";
 import { PackageMaterialReceivingData } from "../../type/type";
-import app from "nodejs-boilerplate-express-mongoose/app";
+
 
 const acceptRecevingPackageEdit = async (req: Request, res: Response) => {
     try {
