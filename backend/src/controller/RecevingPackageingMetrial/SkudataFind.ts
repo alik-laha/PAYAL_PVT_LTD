@@ -10,7 +10,7 @@ const SkudataFind = async (req: Request, res: Response) => {
                 { sku: { [Op.like]: `%${sku}%` } },
             ]
         }
-        const skuData = await SkuModel.findOne({ where });
+        const skuData = await SkuModel.findAll({ where });
         if (!skuData) return res.status(404).json({ message: "sku not found" });
         return res.status(200).json({ skuData });
     } catch (error) {

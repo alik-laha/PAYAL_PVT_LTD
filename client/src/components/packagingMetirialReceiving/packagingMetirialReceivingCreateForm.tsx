@@ -57,11 +57,16 @@ const PackagingMetirialReceivingCreateForm = () => {
         const receivingDate = dateRef.current?.value
         const quantity = quantityRef.current?.value
         axios.post("/api/quality/createrecivingpackagematerial", { recevingDate: receivingDate, sku, vendorName, quantity, unit })
-            .then((res) => {
+            .then(() => {
+               
                 (successdialog as any).showModel();
             })
             .catch((err) => {
-                (errordialog as any).showModal();
+                console.log(err)
+                if(errordialog!== null){
+                    (errordialog as any).showModal();
+                }
+              
             })
     }
 
@@ -76,7 +81,7 @@ const PackagingMetirialReceivingCreateForm = () => {
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
-                    setSkuData([res.data.skuData])
+                    setSkuData(res.data.skuData)
                 }
             })
             .catch((err) => {
@@ -125,7 +130,7 @@ const PackagingMetirialReceivingCreateForm = () => {
 
                     <div className="flex"><Label className="w-2/4  pt-1">SKU</Label>
                         <Input className="w-2/4 " placeholder="SKU" required value={sku} onChange={handleSkuchange} /> </div>
-                    <ScrollArea className="h-30 w-30 dropdown-content" style={{ display: skuview }}>
+                    <ScrollArea className="h-50 w-30 dropdown-content" style={{ display: skuview }}>
                         {
                             skudata.map((item: SkuData) => (
                                 <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(item)}>
