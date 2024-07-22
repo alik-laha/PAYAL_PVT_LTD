@@ -10,7 +10,7 @@ const vendorNameFind = async (req: Request, res: Response) => {
                 { vendorName: { [Op.like]: `%${vendorName}%` } },
             ]
         }
-        const vendorData = await VendorName.findOne({ where });
+        const vendorData = await VendorName.findAll({ where });
         if (!vendorData) return res.status(404).json({ message: "vendor not found" });
         return res.status(200).json({ vendorData });
     } catch (error) {

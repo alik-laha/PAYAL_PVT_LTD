@@ -101,7 +101,7 @@ const PackagingMetirialReceivingCreateForm = () => {
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
-                    setVendorData([res.data.vendorData])
+                    setVendorData(res.data.vendorData)
                 }
             })
             .catch((err) => {
@@ -122,7 +122,7 @@ const PackagingMetirialReceivingCreateForm = () => {
 
     return (
         <>
-            <div className="pl-10 pr-10">
+            <div className="pl-10 pr-10 mt-6">
                 <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Receiving Date</Label>

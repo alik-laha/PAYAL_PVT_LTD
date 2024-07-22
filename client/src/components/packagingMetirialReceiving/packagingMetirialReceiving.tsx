@@ -37,7 +37,7 @@ const PackagingMetirialReceiving = () => {
                 <DialogTrigger>   <Button className="bg-lime-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+ Add New Entry</Button></DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Packaging Material Receiving Entry</p></DialogTitle>
+                        <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Packaging Material Receiving Entry</p></DialogTitle>
                         <DialogDescription>
                             <p className='text-1xl text-center'>To Be Filled Up By Receving Supervisor</p>
                         </DialogDescription>
