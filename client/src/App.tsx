@@ -80,7 +80,7 @@ function App() {
         </Route>
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager']} />}>
-          <Route path="/dashboard/recevingpackagingmetirial" element={<PackagingMetirialReceiving />} />
+          <Route path="/dashboard/recevingpackagingMaterial" element={<PackagingMetirialReceiving />} />
         </Route>
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>

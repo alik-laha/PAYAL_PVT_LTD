@@ -134,8 +134,8 @@ const DashboardSidebar = () => {
                             </CollapsibleContent>}
                         {renderlink('RCN Primary Entry')
                             && <CollapsibleContent className="Items-pvt">
-                                <NavLink to="/dashboard/recevingpackagingmetirial" >
-                                    Receiving Packaging Material
+                                <NavLink to="/dashboard/recevingpackagingMaterial" >
+                                    Packaging Material
                                 </NavLink>
 
                             </CollapsibleContent>}

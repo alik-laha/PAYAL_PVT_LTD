@@ -232,7 +232,7 @@ const PackageMetrialRecivingTable = () => {
 
     return (
         <>
-            <Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={GetPendingEdit}>Pending Edit {EditSumData?.sumOfAllRecenvingPackageMaterial}</Button>
+            <Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={GetPendingEdit}>Pending Edit ({EditSumData?.sumOfAllRecenvingPackageMaterial})</Button>
             <div className="ml-5 mt-5 ">
                 <div className="flex flexbox-search">
 
