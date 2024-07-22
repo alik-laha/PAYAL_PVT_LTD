@@ -1,13 +1,6 @@
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+
 import { Button } from "../ui/button"
 import { useState, useRef } from "react"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
@@ -18,7 +11,7 @@ import { SkuData, VendorData } from "@/type/type"
 
 const PackagingMetirialReceivingCreateForm = () => {
     const [unit, setUnit] = useState("")
-    const [errText, setErrText] = useState("")
+    
     const [sku, setSku] = useState("")
     const [vendorName, setVendorName] = useState("")
     const [skuview, setSkuView] = useState("none")
@@ -59,7 +52,7 @@ const PackagingMetirialReceivingCreateForm = () => {
         axios.post("/api/quality/createrecivingpackagematerial", { recevingDate: receivingDate, sku, vendorName, quantity, unit })
             .then(() => {
                
-                (successdialog as any).showModel();
+                (successdialog as any).showModal();
             })
             .catch((err) => {
                 console.log(err)
@@ -158,23 +151,45 @@ const PackagingMetirialReceivingCreateForm = () => {
                         <Input className="w-2/4 " placeholder="Quantity" required type="number" ref={quantityRef} /> </div>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Unit</Label>
-                        <Select value={unit} onValueChange={(value) => setUnit(value)} required={true}>
+
+                    <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
+                    disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                        onChange={(e) => setUnit(e.target.value)} value={unit} required>
+                        <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+                        focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>unit</option>
+                       
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                             value="Kg">
+                                Kg
+                            </option>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                             value="pcs">
+                                Pcs
+                            </option>
+                       
+                    </select>
+
+                        {/* <Select value={unit} onValueChange={(value) => setUnit(value)} required>
                             <SelectTrigger className="w-2/4">
-                                <SelectValue placeholder="Status" />
+                                <SelectValue placeholder="unit" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
 
                                     <SelectItem value="kg">
-                                        KG
+                                        Kg
                                     </SelectItem>
                                     <SelectItem value="pcs">
-                                        PCS
+                                        Pcs
                                     </SelectItem>
 
                                 </SelectGroup>
                             </SelectContent>
-                        </Select>
+                        </Select> */}
                     </div>
 
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
@@ -185,7 +200,7 @@ const PackagingMetirialReceivingCreateForm = () => {
             <dialog id="packagingMetirialReciveError" className="dashboard-modal">
                 <button id="packageMetrialRecivecross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">New package Matrial Receive Successfully created</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">Packaging material is Received Successfully</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
@@ -193,7 +208,7 @@ const PackagingMetirialReceivingCreateForm = () => {
             <dialog id="packageMetrialReceve" className="dashboard-modal">
                 <button id="packagigreciveerrorcross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errText}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Error In Receiving Packaging Material</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
