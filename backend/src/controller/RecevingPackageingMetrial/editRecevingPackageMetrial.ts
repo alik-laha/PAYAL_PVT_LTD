@@ -4,11 +4,13 @@ import packageMaterial from "../../model/recevingPackagingMaterialModel";
 import { PackageMaterialReceivingData } from "../../type/type";
 import VendorName from "../../model/vendorNameModel";
 import SkuModel from "../../model/SkuModel";
+import WhatsappMsg from "../../helper/WhatsappMsg";
 
 
 const editRecevingPackageMaterial = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
+        const createdBynew= req.cookies.user
         const { recevingDate, sku, vendorName, quantity, unit } = req.body;
         if (!id) return res.status(400).json({ message: "id is required" });
         const packageMaterialData: PackageMaterialReceivingData = await packageMaterial.findOne({ where: { id } }) as unknown as PackageMaterialReceivingData;
@@ -28,13 +30,16 @@ const editRecevingPackageMaterial = async (req: Request, res: Response) => {
             vendorName,
             quantity,
             unit,
-            createdBy: packageMaterialData.createdBy,
+            createdBy: createdBynew,
             editStatus: "Pending",
             qualityStatus: packageMaterialData.qualityStatus,
         });
+      
         if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Packaging material" });
         const updatePackageMaterial = await packageMaterial.update({ editStatus: "Pending" }, { where: { id } });
         if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Packaging material" });
+        const data = await WhatsappMsg("Packaging Material Receiving", createdBynew,"modify_request")
+        console.log(data)
         return res.status(201).json({ message: "package material edited successfully" });
 
     }
