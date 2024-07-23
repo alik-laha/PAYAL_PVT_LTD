@@ -10,8 +10,9 @@ import GraddingRouter from './router/GraddingRouter'
 import qcRcnRouter from './router/qcRcnRouter'
 import BoilingRouter from './router/BoilingRouter'
 import ResetPassword from "./router/resetPasswordRouter";
-import Quality from "./router/qualityRouter";
+import Quality from "./router/recevingpackageMaterial";
 import scoopingRouter from "./router/scoopingRouter";
+import qcPackageMaterialRouter from "./router/qcpackagingMaterialrouter";
 
 
 app.use(cookieParser());
@@ -32,5 +33,6 @@ app.use('/api/boiling', BoilingRouter)
 app.use('/api/scooping', scoopingRouter)
 app.use('/api/resetPassword', ResetPassword)
 app.use('/api/quality', Quality)
+app.use("/api/qcpackage", qcPackageMaterialRouter)
 
 export default app

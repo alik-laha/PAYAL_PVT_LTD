@@ -11,7 +11,7 @@ import { SkuData, VendorData } from "@/type/type"
 
 const PackagingMetirialReceivingCreateForm = () => {
     const [unit, setUnit] = useState("")
-    
+
     const [sku, setSku] = useState("")
     const [vendorName, setVendorName] = useState("")
     const [skuview, setSkuView] = useState("none")
@@ -50,16 +50,17 @@ const PackagingMetirialReceivingCreateForm = () => {
         const receivingDate = dateRef.current?.value
         const quantity = quantityRef.current?.value
         axios.post("/api/quality/createrecivingpackagematerial", { recevingDate: receivingDate, sku, vendorName, quantity, unit })
-            .then(() => {
-               
-                (successdialog as any).showModal();
+            .then((res) => {
+                axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: res.data.newPackageMaterial }).then(() => {
+                    (successdialog as any).showModal();
+                })
             })
             .catch((err) => {
                 console.log(err)
-                if(errordialog!== null){
+                if (errordialog !== null) {
                     (errordialog as any).showModal();
                 }
-              
+
             })
     }
 
@@ -152,26 +153,26 @@ const PackagingMetirialReceivingCreateForm = () => {
 
                     <div className="flex"><Label className="w-2/4  pt-1">Unit</Label>
 
-                    <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
                     disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setUnit(e.target.value)} value={unit} required>
-                        <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            onChange={(e) => setUnit(e.target.value)} value={unit} required>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
                         py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
                         focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>unit</option>
-                       
+
                             <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
                             py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                             value="Kg">
+                                value="Kg">
                                 Kg
                             </option>
                             <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
                             py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                             value="pcs">
+                                value="pcs">
                                 Pcs
                             </option>
-                       
-                    </select>
+
+                        </select>
 
                         {/* <Select value={unit} onValueChange={(value) => setUnit(value)} required>
                             <SelectTrigger className="w-2/4">
@@ -197,7 +198,7 @@ const PackagingMetirialReceivingCreateForm = () => {
 
 
             </div>
-            
+
             <dialog id="packageMetrialReceve" className="dashboard-modal">
                 <button id="packageMetrialRecivecross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

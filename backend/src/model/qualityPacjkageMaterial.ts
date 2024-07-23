@@ -13,6 +13,11 @@ const QualityPackageMaterial = sequelize.define('QcPackageMaterial', {
             key: 'id'
         }
     },
+    qualityStatus: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
     testingDate: {
         type: DataTypes.DATE,
         allowNull: true
@@ -65,7 +70,23 @@ const QualityPackageMaterial = sequelize.define('QcPackageMaterial', {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    qualityImage: {
+    foodGradeCirtificateStatus: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    foodGradeCirtiFicateStus: {
+        type: DataTypes.STRING(500),
+        allowNull: true,
+    },
+    coaCirtificateStatus: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    coaCirtificateFile: {
+        type: DataTypes.STRING(500),
+        allowNull: true,
+    },
+    damageFile: {
         type: DataTypes.STRING(500),
         allowNull: true,
     }
