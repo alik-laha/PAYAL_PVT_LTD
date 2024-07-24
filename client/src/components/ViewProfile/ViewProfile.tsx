@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { EmployeeData, User } from "../../type/type"
 import { IoMdCamera } from "react-icons/io";
 import { Input } from '../ui/input';
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 import DashboardHeader from '../dashboard/DashboardHeader';
 
 import DashboardSidebar from '../dashboard/DashboardSidebar';
@@ -23,6 +25,7 @@ const ViewProfile = () => {
     const [address, setAddress] = useState("")
     const [employeeImage, setEmployeeImage] = useState<any>()
     const [pinCode, setPinCode] = useState<string>("")
+    const [errortext, setErrorText] = useState<string>("")
     const successdialog = document.getElementById('machinescs') as HTMLInputElement;
     const errordialog = document.getElementById('machineerror') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
@@ -92,9 +95,16 @@ const ViewProfile = () => {
             if (res.data.image) {
                 localStorage.setItem("image", res.data.image)
             }
+            if(successdialog!=null){
+                (successdialog as any).showModal();
+            }
         }
         ).catch((err) => {
             console.log(err)
+            setErrorText(err.response.data.message)
+            if(errordialog!=null){
+                (errordialog as any).showModal();
+            }
         })
         console.log("submit")
 
@@ -128,6 +138,19 @@ const ViewProfile = () => {
                                 <form onSubmit={HandleSubmit}>
                                     <div className="col-md-4 mb-3">
                                         <div className="card">
+                                        <div className="row">
+                                                    
+                                                    <div className="col-sm-12 text-right mr-2 mt-2">
+                                                    {EmployeeEditMode ? <button className='bg-red-500 w-20 h-7 rounded-md text-white' onClick={() => setEmployeeEditMode(false)}>Cancel</button> : null}
+
+                                                    </div>
+                                                    
+                                               
+                                              
+                                                    <div className="col-sm-12 text-right mr-2 mt-2">
+                                                        {EmployeeEditMode ? null : <button className='bg-teal-500 w-20 h-7 rounded-md text-white' onClick={handleemployeeEdit}>Edit</button>}
+                                                    </div>
+                                                </div>
                                             <div className="card-body">
                                                 <div className="d-flex flex-column align-items-center text-center">
                                                     <div className='flex items-center justify-center flex-col'>{localStorage.getItem("image") == null ? <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-full" width="150" /> : <img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} alt="Admin" className="rounded-full" width="160" />}
@@ -135,6 +158,13 @@ const ViewProfile = () => {
                                                     <input type="file" className="hidden pt-2" id='fileInput' multiple onChange={handleCleanFileChange} />
                                                     
                                                 </div>
+                                                {
+                                                    EmployeeEditMode ? <div className="row mt-4">
+                                                        <div className="col-sm-12 text-center ">
+                                                            <button className='bg-teal-500 w-24 h-7 rounded-3xl text-white' type='submit'>Save</button>
+                                                        </div>
+                                                    </div> : null
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -142,16 +172,7 @@ const ViewProfile = () => {
                                         <h1 className='text-center font-bold pb-2'>Employee Details</h1>
                                         <div className="card mb-3">
                                             <div className="card-body">
-                                                <div className="row">
-                                                    <div className="col-sm-12 text-right ">
-                                                        {EmployeeEditMode ? <button className='bg-red-500 w-24 h-7 rounded-md text-white' onClick={() => setEmployeeEditMode(false)}>Cancel</button> : null}
-                                                    </div>
-                                                </div>
-                                                <div className="col-sm-12 float-right">
-                                                    <div className="col-sm-12 text-center ">
-                                                        {EmployeeEditMode ? null : <button className='bg-teal-500 w-24 h-7 rounded-md text-white' onClick={handleemployeeEdit}>Edit</button>}
-                                                    </div>
-                                                </div>
+                                               
                                                 <div className="row">
                                                     <div className="col-sm-3">
                                                         <h6 className="mb-2 font-semibold">Employee ID</h6>
@@ -239,7 +260,7 @@ const ViewProfile = () => {
                                                         <h6 className="mb-2 font-semibold">Email</h6>
                                                     </div>
                                                     <div className="col-sm-9 ">
-                                                    {EmployeeEditMode ? <Input className='bg-gray-100' value={email} onChange={(e) => setEmail(e.target.value)} required/> : EmployeeDetail?.mobNo}
+                                                    {EmployeeEditMode ? <Input className='bg-gray-100' value={email} onChange={(e) => setEmail(e.target.value)} required/> : EmployeeDetail?.email}
                                                     </div>
                                                 </div>
                                                 {!EmployeeEditMode ?<hr />:''}
@@ -308,13 +329,7 @@ const ViewProfile = () => {
                                                 
                                                 
                                                
-                                                {
-                                                    EmployeeEditMode ? <div className="row">
-                                                        <div className="col-sm-12 text-center ">
-                                                            <button className='bg-teal-500 w-24 h-7 rounded-3xl text-white' type='submit'>Save</button>
-                                                        </div>
-                                                    </div> : null
-                                                }
+                                              
                                                 
                                             </div>
                                         </div>
@@ -368,6 +383,21 @@ const ViewProfile = () => {
 
                 </div >
             </div>
+            <dialog id="machinescs" className="dashboard-modal">
+        <button id="machinescsbtn" className="dashboard-modal-close-btn ">X </button>
+        <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
+        <p id="modal-text" className="pl-3 mt-1 font-medium">Profile Details Updated Successfully</p></span>
+        
+        {/* <!-- Add more elements as needed --> */}
+    </dialog>
+
+    <dialog id="machineerror" className="dashboard-modal">
+        <button id="machineerrorbtn" className="dashboard-modal-close-btn ">X </button>
+        <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
+        <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+        
+        {/* <!-- Add more elements as needed --> */}
+    </dialog>
         </div>
 
     )
