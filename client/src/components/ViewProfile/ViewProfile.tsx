@@ -1,6 +1,6 @@
 import axios from 'axios';
 import "./ViewProfile.css";
-import { NavLink } from "react-router-dom";
+
 import { useEffect, useState } from "react";
 import { EmployeeData, User } from "../../type/type"
 import { IoMdCamera } from "react-icons/io";
@@ -14,8 +14,12 @@ const ViewProfile = () => {
     const [UserDetail, setUserDetail] = useState<User>()
     const [EmployeeEditMode, setEmployeeEditMode] = useState(false)
     const [employeeName, setEmployeeName] = useState("")
+    const [desg, setdesg] = useState("")
+    const [altno, setaltno] = useState("")
+    const [doj, setdoj] = useState("")
     const [email, setEmail] = useState("")
     const [mobNo, setMobNo] = useState("")
+    const [emergencycontact, setEmergencycontact] = useState("")
     const [emergencyMobNo, setEmergencyMobNo] = useState("")
     const [address, setAddress] = useState("")
     const [employeeImage, setEmployeeImage] = useState<any>()
@@ -34,6 +38,10 @@ const ViewProfile = () => {
         setEmployeeName(EmployeeDetail?.employeeName || "")
         setEmail(EmployeeDetail?.email || "")
         setMobNo(EmployeeDetail?.mobNo || "")
+        setdesg(EmployeeDetail?.designation || "")
+        setaltno(EmployeeDetail?.alternateMobNo || "")
+        setdoj(EmployeeDetail?.dateOfJoining || "")
+        setEmergencycontact(EmployeeDetail?.emergencyContact || "")
         setEmergencyMobNo(EmployeeDetail?.emergencyMobNo || "")
         setAddress(EmployeeDetail?.address || "")
         setPinCode(EmployeeDetail?.pincode || "")
@@ -130,7 +138,7 @@ const ViewProfile = () => {
                                                         <h6 className="mb-2 font-semibold">Full Name</h6>
                                                     </div>
                                                     <div className="col-sm-9 ">
-                                                        {EmployeeEditMode ? <Input value={employeeName} onChange={(e) => setEmployeeName(e.target.value)} readOnly /> : EmployeeDetail?.employeeName}
+                                                        {EmployeeDetail?.employeeName}
                                                     </div>
                                                 </div>
                                                 <hr />
@@ -140,27 +148,17 @@ const ViewProfile = () => {
                                                         <h6 className="mb-2 font-semibold">Email</h6>
                                                     </div>
                                                     <div className="col-sm-9 ">
-                                                        {EmployeeEditMode ? <Input value={email} onChange={(e) => setEmail(e.target.value)} /> : EmployeeDetail?.email}
+                                                        {EmployeeDetail?.email}
                                                     </div>
                                                 </div>
                                                 <hr />
                                                 <br />
                                                 <div className="row">
                                                     <div className="col-sm-3 font-semibold">
-                                                        <h6 className="mb-2">Employee Phone No</h6>
+                                                        <h6 className="mb-2">Employee Contact No.</h6>
                                                     </div>
                                                     <div className="col-sm-9  ">
                                                         {EmployeeEditMode ? <Input value={mobNo} onChange={(e) => setMobNo(e.target.value)} /> : EmployeeDetail?.mobNo}
-                                                    </div>
-                                                </div>
-                                                <hr />
-                                                <br />
-                                                <div className="row">
-                                                    <div className="col-sm-3">
-                                                        <h6 className="mb-2 font-semibold">Emergency Number</h6>
-                                                    </div>
-                                                    <div className="col-sm-9 ">
-                                                        {EmployeeEditMode ? <Input value={emergencyMobNo} onChange={(e) => setEmergencyMobNo(e.target.value)} /> : EmployeeDetail?.emergencyMobNo}
                                                     </div>
                                                 </div>
                                                 <hr />
@@ -177,14 +175,37 @@ const ViewProfile = () => {
                                                 <br />
                                                 <div className="row">
                                                     <div className="col-sm-3 font-semibold">
-                                                        <h6 className="mb-2">pin No</h6>
+                                                        <h6 className="mb-2">Pincode</h6>
                                                     </div>
                                                     <div className="col-sm-9  ">
-                                                        {EmployeeDetail?.pincode}
+                                                        {EmployeeEditMode ? <Input value={pinCode} onChange={(e) => setPinCode(e.target.value)} /> : EmployeeDetail?.pincode}
                                                     </div>
                                                 </div>
                                                 <hr />
                                                 <br />
+                                                <div className="row">
+                                                    <div className="col-sm-3">
+                                                        <h6 className="mb-2 font-semibold">Emergency Contact Name</h6>
+                                                    </div>
+                                                    <div className="col-sm-9 ">
+                                                        {EmployeeEditMode ? <Input value={emergencycontact} onChange={(e) => setEmergencycontact(e.target.value)} /> : EmployeeDetail?.emergencyContact}
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <br />
+                                                <div className="row">
+                                                    <div className="col-sm-3">
+                                                        <h6 className="mb-2 font-semibold">Emergency Contact No.</h6>
+                                                    </div>
+                                                    <div className="col-sm-9 ">
+                                                        {EmployeeEditMode ? <Input value={emergencyMobNo} onChange={(e) => setEmergencyMobNo(e.target.value)} /> : EmployeeDetail?.emergencyMobNo}
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <br />
+                                                
+                                                
+                                                
                                                 <div className="row">
                                                     <div className="col-sm-3 font-semibold">
                                                         <h6 className="mb-2">Aadhar No</h6>
