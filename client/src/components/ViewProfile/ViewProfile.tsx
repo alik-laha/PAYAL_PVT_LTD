@@ -180,7 +180,37 @@ const ViewProfile = () => {
                                                         <h6 className="mb-2">pin No</h6>
                                                     </div>
                                                     <div className="col-sm-9  ">
-                                                        {EmployeeEditMode ? <Input value={pinCode} onChange={(e) => setPinCode(e.target.value)} /> : EmployeeDetail?.pincode}
+                                                        {EmployeeDetail?.pincode}
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <br />
+                                                <div className="row">
+                                                    <div className="col-sm-3 font-semibold">
+                                                        <h6 className="mb-2">Aadhar No</h6>
+                                                    </div>
+                                                    <div className="col-sm-9  ">
+                                                        {EmployeeDetail?.aadhaarNo}
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <br />
+                                                <div className="row">
+                                                    <div className="col-sm-3 font-semibold">
+                                                        <h6 className="mb-2">Pan No</h6>
+                                                    </div>
+                                                    <div className="col-sm-9  ">
+                                                        {EmployeeDetail?.panNo}
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <br />
+                                                <div className="row">
+                                                    <div className="col-sm-3 font-semibold">
+                                                        <h6 className="mb-2">Qualification</h6>
+                                                    </div>
+                                                    <div className="col-sm-9  ">
+                                                        {EmployeeDetail?.heighstQualification}
                                                     </div>
                                                 </div>
                                                 {
