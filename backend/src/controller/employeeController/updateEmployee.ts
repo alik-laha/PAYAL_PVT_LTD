@@ -29,6 +29,9 @@ const updateEmployee = async (req: Request, res: Response) => {
         const files: any = req.files;
         if (files.employeeImage) {
             const file = files.employeeImage[0];
+            if (oldEmployee.employeeImage) {
+                fs.unlink(oldEmployee.employeeImage)
+            }
             await CompressImage(file, `./compressUpload/employeeImages/${file.filename}`);
             employeeImage = `./compressUpload/employeeImages/${file.filename}`;
         }

@@ -20,24 +20,27 @@ const CompressImage = async (files: any, output: string) => {
 }
 const employeeEditProfile = async (req: Request, res: Response) => {
     try {
-        const { emergencycontact, email, mobNo, address, emergencyMobNo, pincode,alternatecontact } = req.body;
+        const { emergencycontact, email, mobNo, address, emergencyMobNo, pincode, alternatecontact } = req.body;
         const id = req.cookies.id;
         let employeeImage: string = "";
         const files: any = req.files;
+        const existingEmployee: any = await Employee.findOne({ where: { employeeId: id } });
         if (files.employeeImage) {
             const file = files.employeeImage[0];
+            if (existingEmployee.employeeImage) {
+                fs.unlink(existingEmployee.employeeImage)
+            }
             await CompressImage(file, `./compressUpload/employeeImages/${file.filename}`);
             employeeImage = `./compressUpload/employeeImages/${file.filename}`;
         }
-        const existingEmployee = await Employee.findOne({ where: { employeeId: id } });
         if (!existingEmployee) {
             return res.status(404).json({ message: "Employee Not Found" });
         }
         if (employeeImage) {
-            await Employee.update({ alternateMobNo:alternatecontact, email, mobNo, address, emergencyMobNo, employeeImage, pincode,emergencyContact:emergencycontact }, { where: { employeeId: id } });
+            await Employee.update({ alternateMobNo: alternatecontact, email, mobNo, address, emergencyMobNo, employeeImage, pincode, emergencyContact: emergencycontact }, { where: { employeeId: id } });
         }
         else {
-            await Employee.update({ alternateMobNo:alternatecontact, email, mobNo, address, emergencyMobNo, pincode,emergencyContact:emergencycontact }, { where: { employeeId: id } })
+            await Employee.update({ alternateMobNo: alternatecontact, email, mobNo, address, emergencyMobNo, pincode, emergencyContact: emergencycontact }, { where: { employeeId: id } })
         }
 
         return res.status(200).json({ message: "Employee Profile Updated Successfully", image: employeeImage });
