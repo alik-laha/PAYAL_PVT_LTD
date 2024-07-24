@@ -51,7 +51,7 @@ const EmployeeModifyForm = (props: Props) => {
      const [releaseDate, setReleaseDate] = React.useState<Date | undefined>()
     const [address, setAddress] = React.useState<string>('')
     const [pincode, setPincode] = React.useState<string>('')
-   
+    const [file, setFile] = React.useState<any>()
     const [errortext, setErrorText] = React.useState<string>("")
 
     const successdialog = document.getElementById('modifysuccessemployeedialog') as HTMLInputElement;
@@ -124,7 +124,11 @@ const EmployeeModifyForm = (props: Props) => {
         
     }, [props.data])
 
-
+    const handleCleanFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setFile(e.target.files);
+        }
+    }
 
     return (
         <div className="pl-10 pr-10 ">
@@ -213,6 +217,10 @@ const EmployeeModifyForm = (props: Props) => {
                     <Label className="w-2/4 pt-1">Address </Label>
                     <Input className="w-2/4" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)}  readOnly={props.data.releseDate!==null}/>
 
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-1 ">Employee Image </Label>
+                    <input type="file" multiple onChange={handleCleanFileChange} />
                 </div>
                 {releaseDate ?<div className="flex pt-4 pb-2">
                 <Label className="w-2/4 pt-1 font-bold text-red-500">Date Of Release </Label>

@@ -15,6 +15,7 @@ import { NavLink } from "react-router-dom";
 import { PermissionRol, PermissionDep } from "../common/exportData";
 import { PermissionRole, PermissionDept } from "@/type/type";
 import { LuServerCrash } from "react-icons/lu";
+import { IoMdSettings } from "react-icons/io";
 
 
 
@@ -65,6 +66,9 @@ const DashboardSidebar = () => {
             <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
                 <a href="#" className="closebtn" onClick={closeSidebar}>&times;</a>
                 <a>
+                
+              
+                
                     {rendersection('HR & Admin') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25} />
                             <p>Admin & HR</p></CollapsibleTrigger>
@@ -158,6 +162,14 @@ const DashboardSidebar = () => {
                         </CollapsibleContent>}
 
                     </Collapsible>}
+                    <Collapsible>
+                <CollapsibleTrigger className="flex user-pvt "><IoMdSettings   size={25} />
+                <p>Settings</p></CollapsibleTrigger>
+                <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/userprofile" >
+                                    Profile
+                                </NavLink>
+                            </CollapsibleContent ></Collapsible >
 
 
                 </a>

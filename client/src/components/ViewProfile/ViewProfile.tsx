@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import { EmployeeData, User } from "../../type/type"
 import { IoMdCamera } from "react-icons/io";
 import { Input } from '../ui/input';
+import DashboardHeader from '../dashboard/DashboardHeader';
+
+import DashboardSidebar from '../dashboard/DashboardSidebar';
 
 const ViewProfile = () => {
     const [EmployeeDetail, setEmployeeDetail] = useState<EmployeeData>()
@@ -67,15 +70,21 @@ const ViewProfile = () => {
 
 
     return (
+        <div>
+        <DashboardHeader />
+        <DashboardSidebar />
+        <div className='dashboard-main-container'>
         <div className="new_body">
+            
+          
             <div className="container">
                 <div className="main-body">
-                    <nav aria-label="breadcrumb" className="main-breadcrumb">
+                    {/* <nav aria-label="breadcrumb" className="main-breadcrumb">
                         <ol className="breadcrumb">
                             <li className="breadcrumb-item"><NavLink to={"/dashboard"}>Home</NavLink></li>
 
                         </ol>
-                    </nav>
+                    </nav> */}
 
 
                     <div className="row gutters-sm">
@@ -94,7 +103,7 @@ const ViewProfile = () => {
                                 </div>
                             </div>
                             <div className="col-md-8">
-                                <h1 className='text-center'>Employee Detail</h1>
+                                <h1 className='text-center font-bold pb-2'>Employee Details</h1>
                                 <div className="card mb-3">
                                     <div className="card-body">
                                         <div className="row">
@@ -105,7 +114,7 @@ const ViewProfile = () => {
 
                                         <div className="row">
                                             <div className="col-sm-3">
-                                                <h6 className="mb-2">Employee Id</h6>
+                                                <h6 className="mb-2 font-semibold">Employee ID</h6>
                                             </div>
                                             <div className="col-sm-9 ">
                                                 {EmployeeDetail?.employeeId}
@@ -115,7 +124,7 @@ const ViewProfile = () => {
                                         <br />
                                         <div className="row">
                                             <div className="col-sm-3">
-                                                <h6 className="mb-2">Full Name</h6>
+                                                <h6 className="mb-2 font-semibold">Full Name</h6>
                                             </div>
                                             <div className="col-sm-9 ">
                                                 {EmployeeEditMode ? <Input value={employeeName} onChange={(e) => setEmployeeName(e.target.value)} /> : EmployeeDetail?.employeeName}
@@ -125,7 +134,7 @@ const ViewProfile = () => {
                                         <br />
                                         <div className="row">
                                             <div className="col-sm-3">
-                                                <h6 className="mb-2">Email</h6>
+                                                <h6 className="mb-2 font-semibold">Email</h6>
                                             </div>
                                             <div className="col-sm-9 ">
                                                 {EmployeeEditMode ? <Input value={email} onChange={(e) => setEmail(e.target.value)} /> : EmployeeDetail?.email}
@@ -134,10 +143,10 @@ const ViewProfile = () => {
                                         <hr />
                                         <br />
                                         <div className="row">
-                                            <div className="col-sm-3">
+                                            <div className="col-sm-3 font-semibold">
                                                 <h6 className="mb-2">Employee Phone No</h6>
                                             </div>
-                                            <div className="col-sm-9 ">
+                                            <div className="col-sm-9  ">
                                                 {EmployeeEditMode ? <Input value={mobNo} onChange={(e) => setMobNo(e.target.value)} /> : EmployeeDetail?.mobNo}
                                             </div>
                                         </div>
@@ -145,7 +154,7 @@ const ViewProfile = () => {
                                         <br />
                                         <div className="row">
                                             <div className="col-sm-3">
-                                                <h6 className="mb-2">Emergency Number</h6>
+                                                <h6 className="mb-2 font-semibold">Emergency Number</h6>
                                             </div>
                                             <div className="col-sm-9 ">
                                                 {EmployeeEditMode ? <Input value={emergencyMobNo} onChange={(e) => setEmergencyMobNo(e.target.value)} /> : EmployeeDetail?.emergencyMobNo}
@@ -154,10 +163,10 @@ const ViewProfile = () => {
                                         <hr />
                                         <br />
                                         <div className="row">
-                                            <div className="col-sm-3">
+                                            <div className="col-sm-3 font-semibold">
                                                 <h6 className="mb-2">Address</h6>
                                             </div>
-                                            <div className="col-sm-9 ">
+                                            <div className="col-sm-9  ">
                                                 {EmployeeEditMode ? <Input value={address} onChange={(e) => setAddress(e.target.value)} /> : EmployeeDetail?.address}
                                             </div>
                                         </div>
@@ -223,7 +232,12 @@ const ViewProfile = () => {
                     </div>
                 </div>
             </div>
+            
+            
         </div >
+        </div>
+        </div>
+       
     )
 }
 export default ViewProfile;
