@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig"
-import recevingPackage from "./recevingPackagingMaterialModel";
+import PackagingMaterial from "./recevingPackagingMaterialModel";
 
 const QualityPackageMaterial = sequelize.define('QcPackageMaterial', {
 
@@ -9,7 +9,7 @@ const QualityPackageMaterial = sequelize.define('QcPackageMaterial', {
         primaryKey: true,
         allowNull: false,
         references: {
-            model: recevingPackage,
+            model: PackagingMaterial,
             key: 'id'
         }
     },
