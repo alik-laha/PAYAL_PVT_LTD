@@ -58,3 +58,10 @@
 .shadow-none {
     box-shadow: none !important;
 }
+
+@media screen and (max-width: 999px) {
+
+    .nopadding{
+        padding: 0%!important;
+    }
+}
