@@ -39,7 +39,7 @@ const DashboardHeader = () => {
           src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`}
         /> : <img src={icon} />}</span>
         <div className='navbar-custom-menu'>
-          <ul className="dropdown-menu" style={{ display: dashbvisi, background: 'white'}}>
+          <ul className="dropdown-menu" style={{ display: dashbvisi, background: 'white',position:'fixed'}}>
             <li className="user-header mx-1 my-1">
               <NavLink to={"/dashboard/userprofile"}><span className="flex flex-col items-center justify-center items-center">{image != null ? <img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} alt='Operator Icon' className="img-header" /> : <img src={icon2} className="img-header" />}</span></NavLink>
               <p className="text-logout">Welcome, {localStorage.getItem('user')}</p>
