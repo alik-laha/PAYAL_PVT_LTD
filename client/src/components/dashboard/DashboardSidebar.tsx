@@ -72,6 +72,13 @@ const DashboardSidebar = () => {
                     {rendersection('HR & Admin') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25} />
                             <p>Admin & HR</p></CollapsibleTrigger>
+                            {renderlink('Dashboard User')
+                            && <CollapsibleContent className="Items-pvt">
+                                {renderlink('Dashboard User')}
+                                <NavLink to="/dashboard/user" >
+                                    Dashboard Users
+                                </NavLink>
+                            </CollapsibleContent>}
 
                         {renderlink('Employee')
                             && <CollapsibleContent className="Items-pvt">
@@ -80,18 +87,12 @@ const DashboardSidebar = () => {
                                 </NavLink>
                             </CollapsibleContent >}
 
-                        {renderlink('Dashboard User')
-                            && <CollapsibleContent className="Items-pvt">
-                                {renderlink('Dashboard User')}
-                                <NavLink to="/dashboard/user" >
-                                    User Profile
-                                </NavLink>
-                            </CollapsibleContent>}
+                       
 
                         {renderlink('Asset')
                             && <CollapsibleContent className="Items-pvt" >
                                 <NavLink to="/dashboard/machine" >
-                                    Asset
+                                    Asset Mapping
                                 </NavLink>
                             </CollapsibleContent >}
 

@@ -17,6 +17,7 @@ const ViewProfile = () => {
     const [desg, setdesg] = useState("")
     const [altno, setaltno] = useState("")
     const [doj, setdoj] = useState("")
+    const [bloodgp, setbloodgp] = useState("")
     const [email, setEmail] = useState("")
     const [mobNo, setMobNo] = useState("")
     const [emergencycontact, setEmergencycontact] = useState("")
@@ -41,6 +42,7 @@ const ViewProfile = () => {
         setdesg(EmployeeDetail?.designation || "")
         setaltno(EmployeeDetail?.alternateMobNo || "")
         setdoj(EmployeeDetail?.dateOfJoining || "")
+        setbloodgp(EmployeeDetail?.bloodGroup || "")
         setEmergencycontact(EmployeeDetail?.emergencyContact || "")
         setEmergencyMobNo(EmployeeDetail?.emergencyMobNo || "")
         setAddress(EmployeeDetail?.address || "")
@@ -105,10 +107,8 @@ const ViewProfile = () => {
                                             <div className="card-body">
                                                 <div className="d-flex flex-column align-items-center text-center">
                                                     <div className='flex items-center justify-center flex-col'>{localStorage.getItem("image") == null ? <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-full" width="150" /> : <img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} alt="Admin" className="rounded-full" width="160" />}{EmployeeEditMode ? <div className='text-right'><label htmlFor='fileInput'><IoMdCamera className='w-8 h-6' /></label></div> : null}</div>
-                                                    <input type="file" className="hidden" id='fileInput' multiple onChange={handleCleanFileChange} />
-                                                    <div className="mt-3">
-                                                        <h4>{localStorage.getItem("user")}  </h4>
-                                                    </div>
+                                                    <input type="file" className="hidden pt-2" id='fileInput' multiple onChange={handleCleanFileChange} />
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -143,45 +143,97 @@ const ViewProfile = () => {
                                                 </div>
                                                 <hr />
                                                 <br />
+                                              
                                                 <div className="row">
-                                                    <div className="col-sm-3">
-                                                        <h6 className="mb-2 font-semibold">Email</h6>
+                                                    <div className="col-sm-3 font-semibold">
+                                                        <h6 className="mb-2">Aadhar No</h6>
                                                     </div>
-                                                    <div className="col-sm-9 ">
-                                                        {EmployeeDetail?.email}
+                                                    <div className="col-sm-9  ">
+                                                        {EmployeeDetail?.aadhaarNo}
                                                     </div>
                                                 </div>
                                                 <hr />
                                                 <br />
                                                 <div className="row">
                                                     <div className="col-sm-3 font-semibold">
-                                                        <h6 className="mb-2">Employee Contact No.</h6>
+                                                        <h6 className="mb-2">Pan No</h6>
                                                     </div>
                                                     <div className="col-sm-9  ">
-                                                        {EmployeeEditMode ? <Input value={mobNo} onChange={(e) => setMobNo(e.target.value)} /> : EmployeeDetail?.mobNo}
+                                                        {EmployeeDetail?.panNo}
                                                     </div>
                                                 </div>
                                                 <hr />
+                                                <br />
+                                                <div className="row">
+                                                    <div className="col-sm-3 font-semibold">
+                                                        <h6 className="mb-2">Blood Group</h6>
+                                                    </div>
+                                                    <div className="col-sm-9  ">
+                                                        {EmployeeDetail?.bloodGroup}
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <br />
+                                                <div className="row">
+                                                    <div className="col-sm-3 font-semibold">
+                                                        <h6 className="mb-2">Qualification</h6>
+                                                    </div>
+                                                    <div className="col-sm-9  ">
+                                                        {EmployeeDetail?.heighstQualification}
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <br />
+                                                <div className="row">
+                                                    <div className="col-sm-3 font-semibold">
+                                                        <h6 className="mb-2">Date Of Joining</h6>
+                                                    </div>
+                                                    <div className="col-sm-9  ">
+                                                        {EmployeeDetail?.dateOfJoining.slice(0,10)}
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <br />
+                                              
+                                                <div className="row">
+                                                    <div className="col-sm-3">
+                                                        <h6 className="mb-2 font-semibold">Email</h6>
+                                                    </div>
+                                                    <div className="col-sm-9 ">
+                                                    {EmployeeEditMode ? <Input className='bg-gray-100' value={email} onChange={(e) => setEmail(e.target.value)} required/> : EmployeeDetail?.mobNo}
+                                                    </div>
+                                                </div>
+                                                {!EmployeeEditMode ?<hr />:''}
+                                                <br />
+                                                <div className="row">
+                                                    <div className="col-sm-3 font-semibold">
+                                                        <h6 className="mb-2">Contact No.</h6>
+                                                    </div>
+                                                    <div className="col-sm-9  ">
+                                                        {EmployeeEditMode ? <Input className='bg-gray-100' value={mobNo} onChange={(e) => setMobNo(e.target.value)} required/> : EmployeeDetail?.mobNo}
+                                                    </div>
+                                                </div>
+                                                {!EmployeeEditMode ?<hr />:''}
                                                 <br />
                                                 <div className="row">
                                                     <div className="col-sm-3 font-semibold">
                                                         <h6 className="mb-2">Address</h6>
                                                     </div>
                                                     <div className="col-sm-9  ">
-                                                        {EmployeeEditMode ? <Input value={address} onChange={(e) => setAddress(e.target.value)} /> : EmployeeDetail?.address}
+                                                        {EmployeeEditMode ? <Input className='bg-gray-100' value={address} onChange={(e) => setAddress(e.target.value)} /> : EmployeeDetail?.address}
                                                     </div>
                                                 </div>
-                                                <hr />
+                                                {!EmployeeEditMode ?<hr />:''}
                                                 <br />
                                                 <div className="row">
                                                     <div className="col-sm-3 font-semibold">
                                                         <h6 className="mb-2">Pincode</h6>
                                                     </div>
                                                     <div className="col-sm-9  ">
-                                                        {EmployeeEditMode ? <Input value={pinCode} onChange={(e) => setPinCode(e.target.value)} /> : EmployeeDetail?.pincode}
+                                                        {EmployeeEditMode ? <Input className='bg-gray-100' value={pinCode} onChange={(e) => setPinCode(e.target.value)} /> : EmployeeDetail?.pincode}
                                                     </div>
                                                 </div>
-                                                <hr />
+                                                {!EmployeeEditMode ?<hr />:''}
                                                 <br />
                                                 <div className="row">
                                                     <div className="col-sm-3">
@@ -206,34 +258,7 @@ const ViewProfile = () => {
                                                 
                                                 
                                                 
-                                                <div className="row">
-                                                    <div className="col-sm-3 font-semibold">
-                                                        <h6 className="mb-2">Aadhar No</h6>
-                                                    </div>
-                                                    <div className="col-sm-9  ">
-                                                        {EmployeeDetail?.aadhaarNo}
-                                                    </div>
-                                                </div>
-                                                <hr />
-                                                <br />
-                                                <div className="row">
-                                                    <div className="col-sm-3 font-semibold">
-                                                        <h6 className="mb-2">Pan No</h6>
-                                                    </div>
-                                                    <div className="col-sm-9  ">
-                                                        {EmployeeDetail?.panNo}
-                                                    </div>
-                                                </div>
-                                                <hr />
-                                                <br />
-                                                <div className="row">
-                                                    <div className="col-sm-3 font-semibold">
-                                                        <h6 className="mb-2">Qualification</h6>
-                                                    </div>
-                                                    <div className="col-sm-9  ">
-                                                        {EmployeeDetail?.heighstQualification}
-                                                    </div>
-                                                </div>
+                                               
                                                 {
                                                     EmployeeEditMode ? <div className="row">
                                                         <div className="col-sm-12 text-center ">

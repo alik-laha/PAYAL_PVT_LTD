@@ -9,7 +9,7 @@ const getEmployeeDetail = async (req: Request, res: Response) => {
         if (!EmployeeDetail) {
             return res.status(404).json({ message: "Employee Not Found" });
         }
-        const UserDetail = await User.findOne({ where: { employeeId: id } });
+        const UserDetail = await User.findOne({ attributes:['userName','dept','role'],where: { employeeId: id } });
         if (!UserDetail) {
             return res.status(404).json({ message: "User Not Found" });
         }
