@@ -49,6 +49,7 @@ const ViewProfile = () => {
         formData.append("mobNo", mobNo)
         formData.append("emergencyMobNo", emergencyMobNo)
         formData.append("address", address)
+        formData.append("pincode", pinCode)
         if (employeeImage) {
             formData.append("employeeImage", employeeImage[0])
         }

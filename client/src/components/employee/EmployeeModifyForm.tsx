@@ -29,7 +29,7 @@ interface Props {
         emergencyMobNo: string;
         pfNo: string;
         employeeId: string;
-        
+
     }
 }
 
@@ -48,7 +48,7 @@ const EmployeeModifyForm = (props: Props) => {
     const [emergencyContact, setEmergencyContact] = React.useState<string>('')
     const [emergencyMobNo, setEmergencyMobNo] = React.useState<string>('')
     const [pfNo, setPfNo] = React.useState<string>('')
-     const [releaseDate, setReleaseDate] = React.useState<Date | undefined>()
+    const [releaseDate, setReleaseDate] = React.useState<Date | undefined>()
     const [address, setAddress] = React.useState<string>('')
     const [pincode, setPincode] = React.useState<string>('')
     const [file, setFile] = React.useState<any>()
@@ -80,8 +80,30 @@ const EmployeeModifyForm = (props: Props) => {
     }
 
     const handleSubmit = (e: React.FormEvent) => {
+        const formData = new FormData();
+        formData.append('employeeName', employeeName);
+        formData.append('designation', designation);
+        formData.append('email', email);
+        formData.append('mobNo', mobNo);
+        formData.append('alternateMobNo', alternateMobNo);
+        formData.append('aadhaarNo', aadhaarNo);
+        formData.append('panNo', panNo);
+        formData.append('heighstQualification', heighstQualification);
+        formData.append('bloodGroup', bloodGroup);
+        formData.append('dateOfJoining', date?.toISOString() as string);
+        formData.append('address', address);
+        formData.append('pincode', pincode);
+        formData.append('emergencyContact', emergencyContact);
+        formData.append('emergencyMobNo', emergencyMobNo);
+        formData.append('pfNo', pfNo);
+        if (file) {
+            formData.append('employeeImage', file[0]);
+        }
+        if (releaseDate) {
+            formData.append('releseDate', releaseDate?.toISOString() as string);
+        }
         e.preventDefault()
-        axios.put(`/api/employee/updateemployee/${props.data.employeeId}`, { employeeName, designation, email, mobNo, alternateMobNo, aadhaarNo, panNo, heighstQualification, bloodGroup, dateOfJoining: date, address, pincode, emergencyContact, emergencyMobNo, pfNo, props }).then((res) => {
+        axios.put(`/api/employee/updateemployee/${props.data.employeeId}`, formData).then((res) => {
             console.log(res.data)
             setErrorText(res.data.msg)
             if (successdialog != null) {
@@ -91,9 +113,9 @@ const EmployeeModifyForm = (props: Props) => {
             console.log(err)
             console.log((err.response.data.message))
             setErrorText(err.response.data.message)
-                if(errordialog!=null){
-                    (errordialog as any).showModal();
-                }
+            if (errordialog != null) {
+                (errordialog as any).showModal();
+            }
         }
         )
     }
@@ -116,12 +138,11 @@ const EmployeeModifyForm = (props: Props) => {
         setEmergencyMobNo(props.data.emergencyMobNo)
         setPfNo(props.data.pfNo)
         setDate(new Date(props.data.dateOfJoining))
-        if(props.data.releseDate)
-            {setReleaseDate(new Date(props.data.releseDate))}
-        
+        if (props.data.releseDate) { setReleaseDate(new Date(props.data.releseDate)) }
+
         console.log(releaseDate)
-        
-        
+
+
     }, [props.data])
 
     const handleCleanFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -133,102 +154,102 @@ const EmployeeModifyForm = (props: Props) => {
     return (
         <div className="pl-10 pr-10 ">
             <form className='flex flex-col gap-0.5 text-xs' onSubmit={handleSubmit}>
-       
+
                 <div className="flex">
-                <Label className="w-2/4 pt-1">Name</Label>
-                <Input className="w-2/4 " placeholder="Name"  value={employeeName} onChange={(e) => setEmployeeName(e.target.value)}  readOnly={props.data.releseDate!==null}/>
+                    <Label className="w-2/4 pt-1">Name</Label>
+                    <Input className="w-2/4 " placeholder="Name" value={employeeName} onChange={(e) => setEmployeeName(e.target.value)} readOnly={props.data.releseDate !== null} />
                 </div>
 
                 <div className="flex">
-                     <Label className="w-2/4 pt-1">Designation</Label>
-                    <Input className="w-2/4" placeholder="Designation" value={designation} onChange={(e) => setDesignation(e.target.value)} readOnly={props.data.releseDate!==null} /> 
-                     </div>
-
-                     <div className="flex">
-                <Label className="w-2/4 pt-1">Email</Label>
-                <Input className="w-2/4" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} readOnly={props.data.releseDate!==null} />
+                    <Label className="w-2/4 pt-1">Designation</Label>
+                    <Input className="w-2/4" placeholder="Designation" value={designation} onChange={(e) => setDesignation(e.target.value)} readOnly={props.data.releseDate !== null} />
                 </div>
 
                 <div className="flex">
-                <Label className="w-2/4 pt-1 ">Date Of Joining </Label>
-                <span className=""><DatePicker buttonName="Date Of Joining." value={date} setValue={setDate} /></span>
-                
-                </div>
-               
-
-                <div className="flex">
-                <Label className="w-2/4 pt-1" >Contact No.</Label>
-                <Input className="w-2/4" placeholder="Contact No." value={mobNo} onChange={(e) => setMobNo(e.target.value)} readOnly={props.data.releseDate!==null}/>
+                    <Label className="w-2/4 pt-1">Email</Label>
+                    <Input className="w-2/4" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} readOnly={props.data.releseDate !== null} />
                 </div>
 
                 <div className="flex">
-                   
-                  
-                <Label className="w-2/4 pt-1" >Blood Group</Label>
-                    <Input className="w-2/4" placeholder="Blood Group" value={bloodGroup} onChange={(e) => setBloodGroup(e.target.value)}  readOnly={props.data.releseDate!==null}/>
+                    <Label className="w-2/4 pt-1 ">Date Of Joining </Label>
+                    <span className=""><DatePicker buttonName="Date Of Joining." value={date} setValue={setDate} /></span>
+
+                </div>
+
+
+                <div className="flex">
+                    <Label className="w-2/4 pt-1" >Contact No.</Label>
+                    <Input className="w-2/4" placeholder="Contact No." value={mobNo} onChange={(e) => setMobNo(e.target.value)} readOnly={props.data.releseDate !== null} />
+                </div>
+
+                <div className="flex">
+
+
+                    <Label className="w-2/4 pt-1" >Blood Group</Label>
+                    <Input className="w-2/4" placeholder="Blood Group" value={bloodGroup} onChange={(e) => setBloodGroup(e.target.value)} readOnly={props.data.releseDate !== null} />
 
                 </div>
 
                 <div className="flex">
-                <Label className="w-2/4 pt-1" >Contact No.(Alt)</Label>
-                
-                <Input className="w-2/4" placeholder="Alt No." value={alternateMobNo} onChange={(e) => setAlternateMobNo(e.target.value)}  readOnly={props.data.releseDate!==null}/>
+                    <Label className="w-2/4 pt-1" >Contact No.(Alt)</Label>
+
+                    <Input className="w-2/4" placeholder="Alt No." value={alternateMobNo} onChange={(e) => setAlternateMobNo(e.target.value)} readOnly={props.data.releseDate !== null} />
                 </div>
 
                 <div className="flex">
-              
-                    
+
+
                     <Label className="w-2/4 pt-1">Highest Study </Label>
-                    <Input className="w-2/4" placeholder=" Quaification" value={heighstQualification} onChange={(e) => setHeighstQualification(e.target.value)}  readOnly={props.data.releseDate!==null}/>
+                    <Input className="w-2/4" placeholder=" Quaification" value={heighstQualification} onChange={(e) => setHeighstQualification(e.target.value)} readOnly={props.data.releseDate !== null} />
                 </div>
                 <div className="flex">
-              
-                <Label className="w-2/4 pt-1">Aadhar No.</Label>
-                    <Input className="w-2/4" placeholder=" Aadhar No." value={aadhaarNo} onChange={(e) => setAadhaarNo(e.target.value)}  readOnly={props.data.releseDate!==null}/>
+
+                    <Label className="w-2/4 pt-1">Aadhar No.</Label>
+                    <Input className="w-2/4" placeholder=" Aadhar No." value={aadhaarNo} onChange={(e) => setAadhaarNo(e.target.value)} readOnly={props.data.releseDate !== null} />
                 </div>
 
 
                 <div className="flex">
-                  
+
                     <Label className="w-2/4 pt-1">Pan No.</Label>
-                    <Input className="w-2/4" placeholder="Pan No." value={panNo} onChange={(e) => setPanNo(e.target.value)}  readOnly={props.data.releseDate!==null}/> 
-                     </div>
-
-                     <div className="flex">
-                  
-                     <Label className="w-2/4 pt-1">Emergency Contact Name </Label>
-                    <Input className="w-2/4" placeholder=" Contact Name " value={emergencyContact} onChange={(e) => setEmergencyContact(e.target.value)}  readOnly={props.data.releseDate!==null}/>
-                   </div>
+                    <Input className="w-2/4" placeholder="Pan No." value={panNo} onChange={(e) => setPanNo(e.target.value)} readOnly={props.data.releseDate !== null} />
+                </div>
 
                 <div className="flex">
-                    
+
+                    <Label className="w-2/4 pt-1">Emergency Contact Name </Label>
+                    <Input className="w-2/4" placeholder=" Contact Name " value={emergencyContact} onChange={(e) => setEmergencyContact(e.target.value)} readOnly={props.data.releseDate !== null} />
+                </div>
+
+                <div className="flex">
+
                     <Label className="w-2/4 pt-1">Emergency Contact No. </Label>
-                    <Input className="w-2/4" placeholder="Contact No." value={emergencyMobNo} onChange={(e) => setEmergencyMobNo(e.target.value)}  readOnly={props.data.releseDate!==null}/>  </div>
+                    <Input className="w-2/4" placeholder="Contact No." value={emergencyMobNo} onChange={(e) => setEmergencyMobNo(e.target.value)} readOnly={props.data.releseDate !== null} />  </div>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">PF No.(Optional) </Label>
-                    <Input className="w-2/4" placeholder="PF No. " value={pfNo} onChange={(e) => setPfNo(e.target.value)}  readOnly={props.data.releseDate!==null}/>
+                    <Input className="w-2/4" placeholder="PF No. " value={pfNo} onChange={(e) => setPfNo(e.target.value)} readOnly={props.data.releseDate !== null} />
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1"> Pincode</Label>
-                    <Input className="w-2/4" placeholder=" Pincode " value={pincode} onChange={(e) => setPincode(e.target.value)}  readOnly={props.data.releseDate!==null}/>  </div>
-                
+                    <Input className="w-2/4" placeholder=" Pincode " value={pincode} onChange={(e) => setPincode(e.target.value)} readOnly={props.data.releseDate !== null} />  </div>
+
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Address </Label>
-                    <Input className="w-2/4" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)}  readOnly={props.data.releseDate!==null}/>
+                    <Input className="w-2/4" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)} readOnly={props.data.releseDate !== null} />
 
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 pt-1 ">Employee Image </Label>
                     <input type="file" multiple onChange={handleCleanFileChange} />
                 </div>
-                {releaseDate ?<div className="flex pt-4 pb-2">
-                <Label className="w-2/4 pt-1 font-bold text-red-500">Date Of Release </Label>
-                <span className=""><DatePicker buttonName="Date Of Release" value={releaseDate} setValue={setReleaseDate}/></span>
-                
-                </div>: <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Modify</Button>}
+                {releaseDate ? <div className="flex pt-4 pb-2">
+                    <Label className="w-2/4 pt-1 font-bold text-red-500">Date Of Release </Label>
+                    <span className=""><DatePicker buttonName="Date Of Release" value={releaseDate} setValue={setReleaseDate} /></span>
 
-               
+                </div> : <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Modify</Button>}
+
+
             </form>
 
             <dialog id="modifysuccessemployeedialog" className="dashboard-modal">

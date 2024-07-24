@@ -15,7 +15,7 @@ const router = express.Router();
 
 router.post("/createemployee", EmployeeImageUpload, employeeMiddleWare, jwtVerify, createEmployee);
 
-router.put("/updateemployee/:id", employeeMiddleWare, jwtVerify, updateEmployee)
+router.put("/updateemployee/:id", EmployeeImageUpload, employeeMiddleWare, jwtVerify, updateEmployee)
 
 router.post("/searchemployee", jwtVerify, searchEmployee)
 
