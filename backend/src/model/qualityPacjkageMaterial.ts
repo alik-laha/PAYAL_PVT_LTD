@@ -74,7 +74,7 @@ const QualityPackageMaterial = sequelize.define('QcPackageMaterial', {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    foodGradeCirtiFicateStus: {
+    foodGradeCirtiFicateFile: {
         type: DataTypes.STRING(500),
         allowNull: true,
     },
