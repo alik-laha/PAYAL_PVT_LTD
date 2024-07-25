@@ -10,6 +10,7 @@ import activeEmployeeCount from "../controller/employeeController/activeEmployee
 import updateEmployeeProfile from "../controller/employeeController/employeeEditProfile";
 import jwtVerify from "../middleWare/JwtAuthantication";
 import { EmployeeImageUpload } from "../helper/saveimagefromUpload";
+import profileEditMiddleWare from "../middleWare/profileeditmiddleware";
 
 const router = express.Router();
 
@@ -28,7 +29,7 @@ router.put("/releseemployee/:id", jwtVerify, releseEmployee)
 //active Employee Count
 router.get("/activeEmployeeCount", jwtVerify, activeEmployeeCount)
 
-router.post("/profileEmployeeEdit", EmployeeImageUpload, jwtVerify, updateEmployeeProfile)
+router.post("/profileEmployeeEdit", EmployeeImageUpload, profileEditMiddleWare,jwtVerify, updateEmployeeProfile)
 
 
 

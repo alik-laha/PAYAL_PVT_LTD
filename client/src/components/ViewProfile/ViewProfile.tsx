@@ -140,10 +140,20 @@ const ViewProfile = () => {
                                         <div className="card">
                                         <div className="row">
                                                     
-                                                    <div className="col-sm-12 text-right mr-2 mt-2">
-                                                    {EmployeeEditMode ? <button className='bg-red-500 w-20 h-7 rounded-md text-white' onClick={() => setEmployeeEditMode(false)}>Cancel</button> : null}
+                                        <div className="col-sm-12 text-right mr-2 mt-2">
+                                                    {EmployeeEditMode ? <button className='bg-red-500 w-20 h-7 rounded-md text-white' onClick={() => {
+                                                        setEmail(EmployeeDetail?.email || "")
+                                                        setMobNo(EmployeeDetail?.mobNo || "")
+                                                        setaltno(EmployeeDetail?.alternateMobNo || "")
+                                                        setEmergencycontact(EmployeeDetail?.emergencyContact || "")
+                                                        setEmergencyMobNo(EmployeeDetail?.emergencyMobNo || "")
+                                                        setAddress(EmployeeDetail?.address || "")
+                                                        setPinCode(EmployeeDetail?.pincode || "")
+                                                        setEmployeeImage(null)
+                                                        setEmployeeEditMode(false)
+                                                    }}>Cancel</button> : null}
 
-                                                    </div>
+                                                </div>
                                                     
                                                
                                               
@@ -156,7 +166,7 @@ const ViewProfile = () => {
                                                     <div className='flex items-center justify-center flex-col'>{localStorage.getItem("image") == null ? <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-full" width="150" /> : <img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} alt="Admin" className="rounded-full" width="160" />}
                                                     {EmployeeEditMode ? <div className='text-right'><label htmlFor='fileInput' className='flex pt-2 text-blue-500'>Upload  <IoMdCamera className='w-8 h-6' /></label></div> : null}</div>
                                                     <input type="file" className="hidden pt-2" id='fileInput' multiple onChange={handleCleanFileChange} />
-                                                    
+                                                    <p>{employeeImage ? employeeImage[0].name : null}</p>
                                                 </div>
                                                 {
                                                     EmployeeEditMode ? <div className="row mt-4">
