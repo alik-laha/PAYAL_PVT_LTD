@@ -15,9 +15,9 @@ const ViewProfile = () => {
     const [EmployeeDetail, setEmployeeDetail] = useState<EmployeeData>()
     const [UserDetail, setUserDetail] = useState<User>()
     const [EmployeeEditMode, setEmployeeEditMode] = useState(false)
-   
+
     const [altno, setaltno] = useState("")
-    
+
     const [email, setEmail] = useState("")
     const [mobNo, setMobNo] = useState("")
     const [emergencycontact, setEmergencycontact] = useState("")
@@ -31,25 +31,25 @@ const ViewProfile = () => {
     // const dialog = document.getElementById('myDialog');
     const closeDialogButton = document.getElementById('machinescsbtn') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('machineerrorbtn') as HTMLInputElement;
-    
-    if(closeDialogButton){
+
+    if (closeDialogButton) {
         closeDialogButton.addEventListener('click', () => {
-            if(successdialog!=null){
+            if (successdialog != null) {
                 (successdialog as any).close();
                 window.location.reload()
             }
-            
-            
-          });
+
+
+        });
     }
-    if(errorcloseDialogButton){
+    if (errorcloseDialogButton) {
         errorcloseDialogButton.addEventListener('click', () => {
-            if(errordialog!=null){
+            if (errordialog != null) {
                 (errordialog as any).close();
-               
+
             }
-            
-          });
+
+        });
     }
 
     useEffect(() => {
@@ -62,12 +62,12 @@ const ViewProfile = () => {
         })
     }, [])
     useEffect(() => {
-      
+
         setEmail(EmployeeDetail?.email || "")
         setMobNo(EmployeeDetail?.mobNo || "")
-       
+
         setaltno(EmployeeDetail?.alternateMobNo || "")
-       
+
         setEmergencycontact(EmployeeDetail?.emergencyContact || "")
         setEmergencyMobNo(EmployeeDetail?.emergencyMobNo || "")
         setAddress(EmployeeDetail?.address || "")
@@ -79,7 +79,7 @@ const ViewProfile = () => {
     const HandleSubmit = (e: React.FormEvent<HTMLElement>) => {
         e.preventDefault()
         const formData = new FormData()
-        
+
         formData.append("email", email)
         formData.append("mobNo", mobNo)
         formData.append("emergencyMobNo", emergencyMobNo)
@@ -95,14 +95,14 @@ const ViewProfile = () => {
             if (res.data.image) {
                 localStorage.setItem("image", res.data.image)
             }
-            if(successdialog!=null){
+            if (successdialog != null) {
                 (successdialog as any).showModal();
             }
         }
         ).catch((err) => {
             console.log(err)
             setErrorText(err.response.data.message)
-            if(errordialog!=null){
+            if (errordialog != null) {
                 (errordialog as any).showModal();
             }
         })
@@ -114,7 +114,9 @@ const ViewProfile = () => {
             setEmployeeImage(e.target.files);
         }
     }
-
+    if (employeeImage) {
+        console.log(employeeImage[0])
+    }
 
     return (
         <div>
@@ -138,25 +140,36 @@ const ViewProfile = () => {
                                 <form onSubmit={HandleSubmit}>
                                     <div className="col-md-4 mb-3">
                                         <div className="card">
-                                        <div className="row">
-                                                    
-                                                    <div className="col-sm-12 text-right mr-2 mt-2">
-                                                    {EmployeeEditMode ? <button className='bg-red-500 w-20 h-7 rounded-md text-white' onClick={() => setEmployeeEditMode(false)}>Cancel</button> : null}
+                                            <div className="row">
 
-                                                    </div>
-                                                    
-                                               
-                                              
-                                                    <div className="col-sm-12 text-right mr-2 mt-2">
-                                                        {EmployeeEditMode ? null : <button className='bg-teal-500 w-20 h-7 rounded-md text-white' onClick={handleemployeeEdit}>Edit</button>}
-                                                    </div>
+                                                <div className="col-sm-12 text-right mr-2 mt-2">
+                                                    {EmployeeEditMode ? <button className='bg-red-500 w-20 h-7 rounded-md text-white' onClick={() => {
+                                                        setEmail(EmployeeDetail?.email || "")
+                                                        setMobNo(EmployeeDetail?.mobNo || "")
+                                                        setaltno(EmployeeDetail?.alternateMobNo || "")
+                                                        setEmergencycontact(EmployeeDetail?.emergencyContact || "")
+                                                        setEmergencyMobNo(EmployeeDetail?.emergencyMobNo || "")
+                                                        setAddress(EmployeeDetail?.address || "")
+                                                        setPinCode(EmployeeDetail?.pincode || "")
+                                                        setEmployeeImage(null)
+                                                        setEmployeeEditMode(false)
+                                                    }}>Cancel</button> : null}
+
                                                 </div>
+
+
+
+                                                <div className="col-sm-12 text-right mr-2 mt-2">
+                                                    {EmployeeEditMode ? null : <button className='bg-teal-500 w-20 h-7 rounded-md text-white' onClick={handleemployeeEdit}>Edit</button>}
+                                                </div>
+                                            </div>
                                             <div className="card-body">
                                                 <div className="d-flex flex-column align-items-center text-center">
                                                     <div className='flex items-center justify-center flex-col'>{localStorage.getItem("image") == null ? <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-full" width="150" /> : <img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} alt="Admin" className="rounded-full" width="160" />}
-                                                    {EmployeeEditMode ? <div className='text-right'><label htmlFor='fileInput' className='flex pt-2 text-blue-500'>Upload  <IoMdCamera className='w-8 h-6' /></label></div> : null}</div>
+                                                        {EmployeeEditMode ? <div className='text-right'><label htmlFor='fileInput' className='flex pt-2 text-blue-500'>Upload  <IoMdCamera className='w-8 h-6' /></label></div> : null}</div>
                                                     <input type="file" className="hidden pt-2" id='fileInput' multiple onChange={handleCleanFileChange} />
-                                                    
+                                                    <p>{employeeImage ? employeeImage[0].name : null}</p>
+
                                                 </div>
                                                 {
                                                     EmployeeEditMode ? <div className="row mt-4">
@@ -172,7 +185,7 @@ const ViewProfile = () => {
                                         <h1 className='text-center font-bold pb-2'>Employee Details</h1>
                                         <div className="card mb-3">
                                             <div className="card-body">
-                                               
+
                                                 <div className="row">
                                                     <div className="col-sm-3">
                                                         <h6 className="mb-2 font-semibold">Employee ID</h6>
@@ -203,7 +216,7 @@ const ViewProfile = () => {
                                                 </div>
                                                 <hr />
                                                 <br />
-                                              
+
                                                 <div className="row">
                                                     <div className="col-sm-3 font-semibold">
                                                         <h6 className="mb-2">Aadhar No</h6>
@@ -249,61 +262,61 @@ const ViewProfile = () => {
                                                         <h6 className="mb-2">Date Of Joining</h6>
                                                     </div>
                                                     <div className="col-sm-9  ">
-                                                        {EmployeeDetail?.dateOfJoining.slice(0,10)}
+                                                        {EmployeeDetail?.dateOfJoining.slice(0, 10)}
                                                     </div>
                                                 </div>
                                                 <hr />
                                                 <br />
-                                              
+
                                                 <div className="row">
                                                     <div className="col-sm-3">
                                                         <h6 className="mb-2 font-semibold">Email</h6>
                                                     </div>
                                                     <div className="col-sm-9 ">
-                                                    {EmployeeEditMode ? <Input className='bg-gray-100' value={email} onChange={(e) => setEmail(e.target.value)} required/> : EmployeeDetail?.email}
+                                                        {EmployeeEditMode ? <Input className='bg-gray-100' value={email} onChange={(e) => setEmail(e.target.value)} required /> : EmployeeDetail?.email}
                                                     </div>
                                                 </div>
-                                                {!EmployeeEditMode ?<hr />:''}
+                                                {!EmployeeEditMode ? <hr /> : ''}
                                                 <br />
                                                 <div className="row">
                                                     <div className="col-sm-3 font-semibold">
                                                         <h6 className="mb-2">Contact No.</h6>
                                                     </div>
                                                     <div className="col-sm-9  ">
-                                                        {EmployeeEditMode ? <Input className='bg-gray-100' value={mobNo} onChange={(e) => setMobNo(e.target.value)} required/> : EmployeeDetail?.mobNo}
+                                                        {EmployeeEditMode ? <Input className='bg-gray-100' value={mobNo} onChange={(e) => setMobNo(e.target.value)} required /> : EmployeeDetail?.mobNo}
                                                     </div>
                                                 </div>
-                                                {!EmployeeEditMode ?<hr />:''}
+                                                {!EmployeeEditMode ? <hr /> : ''}
                                                 <br />
                                                 <div className="row">
                                                     <div className="col-sm-3 font-semibold">
                                                         <h6 className="mb-2">Alternate Contact No.</h6>
                                                     </div>
                                                     <div className="col-sm-9  ">
-                                                        {EmployeeEditMode ? <Input className='bg-gray-100' value={altno} onChange={(e) => setaltno(e.target.value)} required/> : EmployeeDetail?.alternateMobNo}
+                                                        {EmployeeEditMode ? <Input className='bg-gray-100' value={altno} onChange={(e) => setaltno(e.target.value)} required /> : EmployeeDetail?.alternateMobNo}
                                                     </div>
                                                 </div>
-                                                {!EmployeeEditMode ?<hr />:''}
+                                                {!EmployeeEditMode ? <hr /> : ''}
                                                 <br />
                                                 <div className="row">
                                                     <div className="col-sm-3 font-semibold">
                                                         <h6 className="mb-2">Address</h6>
                                                     </div>
                                                     <div className="col-sm-9  ">
-                                                        {EmployeeEditMode ? <Input className='bg-gray-100' value={address} onChange={(e) => setAddress(e.target.value)} required/> : EmployeeDetail?.address}
+                                                        {EmployeeEditMode ? <Input className='bg-gray-100' value={address} onChange={(e) => setAddress(e.target.value)} required /> : EmployeeDetail?.address}
                                                     </div>
                                                 </div>
-                                                {!EmployeeEditMode ?<hr />:''}
+                                                {!EmployeeEditMode ? <hr /> : ''}
                                                 <br />
                                                 <div className="row">
                                                     <div className="col-sm-3 font-semibold">
                                                         <h6 className="mb-2">Pincode</h6>
                                                     </div>
                                                     <div className="col-sm-9  ">
-                                                        {EmployeeEditMode ? <Input className='bg-gray-100' value={pinCode} onChange={(e) => setPinCode(e.target.value)} required/> : EmployeeDetail?.pincode}
+                                                        {EmployeeEditMode ? <Input className='bg-gray-100' value={pinCode} onChange={(e) => setPinCode(e.target.value)} required /> : EmployeeDetail?.pincode}
                                                     </div>
                                                 </div>
-                                                {!EmployeeEditMode ?<hr />:''}
+                                                {!EmployeeEditMode ? <hr /> : ''}
                                                 <br />
                                                 <div className="row">
                                                     <div className="col-sm-3">
@@ -313,24 +326,24 @@ const ViewProfile = () => {
                                                         {EmployeeEditMode ? <Input className='bg-gray-100' value={emergencycontact} onChange={(e) => setEmergencycontact(e.target.value)} required /> : EmployeeDetail?.emergencyContact}
                                                     </div>
                                                 </div>
-                                                {!EmployeeEditMode ?<hr />:''}
+                                                {!EmployeeEditMode ? <hr /> : ''}
                                                 <br />
                                                 <div className="row">
                                                     <div className="col-sm-3">
                                                         <h6 className="mb-2 font-semibold">Emergency Contact No.</h6>
                                                     </div>
                                                     <div className="col-sm-9 ">
-                                                        {EmployeeEditMode ? <Input className='bg-gray-100' value={emergencyMobNo} onChange={(e) => setEmergencyMobNo(e.target.value)} required/> : EmployeeDetail?.emergencyMobNo}
+                                                        {EmployeeEditMode ? <Input className='bg-gray-100' value={emergencyMobNo} onChange={(e) => setEmergencyMobNo(e.target.value)} required /> : EmployeeDetail?.emergencyMobNo}
                                                     </div>
                                                 </div>
-                                                {!EmployeeEditMode ?<hr />:''}
+                                                {!EmployeeEditMode ? <hr /> : ''}
                                                 <br />
-                                                
-                                                
-                                                
-                                               
-                                              
-                                                
+
+
+
+
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -384,20 +397,20 @@ const ViewProfile = () => {
                 </div >
             </div>
             <dialog id="machinescs" className="dashboard-modal">
-        <button id="machinescsbtn" className="dashboard-modal-close-btn ">X </button>
-        <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
-        <p id="modal-text" className="pl-3 mt-1 font-medium">Profile Details Updated Successfully</p></span>
-        
-        {/* <!-- Add more elements as needed --> */}
-    </dialog>
+                <button id="machinescsbtn" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">Profile Details Updated Successfully</p></span>
 
-    <dialog id="machineerror" className="dashboard-modal">
-        <button id="machineerrorbtn" className="dashboard-modal-close-btn ">X </button>
-        <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
-        <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
-        
-        {/* <!-- Add more elements as needed --> */}
-    </dialog>
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+
+            <dialog id="machineerror" className="dashboard-modal">
+                <button id="machineerrorbtn" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
         </div>
 
     )
