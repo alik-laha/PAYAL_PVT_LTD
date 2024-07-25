@@ -17,7 +17,7 @@ const Employeecreateform = () => {
     const nameref = useRef<HTMLInputElement>(null)
     const emailref = useRef<HTMLInputElement>(null)
     const desgref = useRef<HTMLInputElement>(null)
-    const dobref = useRef<HTMLInputElement>(null)
+    //const dobref = useRef<HTMLInputElement>(null)
     const contactNoref = useRef<HTMLInputElement>(null)
     const bloodgpref = useRef<HTMLInputElement>(null)
     const studyref = useRef<HTMLInputElement>(null)
@@ -61,7 +61,7 @@ const Employeecreateform = () => {
         const employeeName = nameref.current?.value
         const email = emailref.current?.value
         const designation = desgref.current?.value
-        const dateOfJoining = dobref.current?.value
+        //const dateOfJoining = dobref.current?.value
         const mobNo = contactNoref.current?.value
         const bloodGroup = bloodgpref.current?.value
 
@@ -115,9 +115,9 @@ const Employeecreateform = () => {
             if (desgref.current != null) {
                 desgref.current.value = '';
             }
-            if (dobref.current != null) {
-                dobref.current.value = '';
-            }
+            // if (dobref.current != null) {
+            //     dobref.current.value = '';
+            // }
             if (contactNoref.current != null) {
                 contactNoref.current.value = '';
             }
