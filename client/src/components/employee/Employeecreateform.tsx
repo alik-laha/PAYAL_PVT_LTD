@@ -91,7 +91,10 @@ const Employeecreateform = () => {
         formData.append('pfNo', pfNo as string);
         formData.append('pincode', pincode as string);
         formData.append('address', address as string);
-        formData.append('employeeImage', file[0]);
+        if(file){
+            formData.append('employeeImage', file[0]);
+        }
+       
 
         axios.post("/api/employee/createemployee", formData, {
             headers: {

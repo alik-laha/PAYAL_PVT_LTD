@@ -8,6 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import CameraComponentClean from '../CameraComponentClean';
 import { FaCamera } from "react-icons/fa";
 import CameraComponentBroken from "../CameraComponentBroken";
+import { Item } from "@radix-ui/react-menubar";
 
 const AbhayMcCleaningCreate = () => {
     const Date = useRef<HTMLInputElement>(null);
@@ -376,7 +377,11 @@ const AbhayMcCleaningCreate = () => {
                                         <img src={url} alt={`Blob ${index}`} style={{ width: '70px', height: '70px', margin: '5px' }} />
 
                                         <Button className="bg-red-500 text-center items-center justify-center h-7 w-12" type="button" onClick={() => {
-                                            const data = cleanImageUrl.filter((url: string, i: number) => i !== index)
+                                            const data = cleanImageUrl.filter((url: string, i: number) =>
+                                                 {i !== index
+                                                    console.log(url)
+                                                 })
+                                            
                                             setCleanImageUrl(data)
                                         }}>Clear</Button>
                                     </div>
@@ -414,7 +419,9 @@ const AbhayMcCleaningCreate = () => {
                                                     <img src={url} alt={`Blob ${index}`} style={{ width: '70px', height: '70px', margin: '5px' }} />
 
                                                     <Button className="bg-red-500 text-center items-center justify-center h-7 w-12" type="button" onClick={() => {
-                                                        const data = brokenImageUrl.filter((item, i) => i !== index)
+                                                        const data = brokenImageUrl.filter((item, i) => {i !== index
+                                                            console.log(item)
+                                                        })
                                                         setBrokenImageUrl(data)
                                                     }}>Clear</Button>
                                                 </div>
