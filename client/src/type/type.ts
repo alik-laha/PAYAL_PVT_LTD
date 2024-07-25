@@ -436,6 +436,8 @@ export interface ExcelrecevingPackageMaterialData {
     Unit: string;
     Quality_Status: string;
     Edit_Status: string;
+    Invoice:string;
+    Invoice_Date:string;
     Approved_Or_Rejected_By: string;
     Created_By: string;
 }

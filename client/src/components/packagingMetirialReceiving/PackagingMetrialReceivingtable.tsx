@@ -198,6 +198,8 @@ const PackageMetrialRecivingTable = () => {
             transformed = EditData.map((item: PackageMaterialReceivingData) => ({
                 Sl_No: item.id,
                 Entry_Date: handletimezone(item.recevingDate),
+                Invoice:item.invoice,
+                Invoice_Date: handletimezone(item.invoicedate),
                 SKU: item.sku,
                 Vendor_Name: item.vendorName,
                 Quantity: item.quantity,
@@ -213,6 +215,8 @@ const PackageMetrialRecivingTable = () => {
             transformed = data1.map((item: PackageMaterialReceivingData) => ({
                 Sl_No: item.id,
                 Entry_Date: handletimezone(item.recevingDate),
+                Invoice:item.invoice,
+                Invoice_Date: handletimezone(item.invoicedate),
                 SKU: item.sku,
                 Vendor_Name: item.vendorName,
                 Quantity: item.quantity,

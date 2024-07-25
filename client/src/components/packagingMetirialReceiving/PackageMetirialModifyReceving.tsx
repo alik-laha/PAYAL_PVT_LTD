@@ -24,6 +24,9 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
     const [errText, setErrText] = useState("")
     const [sku, setSku] = useState("")
     const [vendorName, setVendorName] = useState("")
+    const [invoicedate, setinvoicedate] = useState("")
+    const invoiceRef = useRef<HTMLInputElement>(null)
+    
     const [skuview, setSkuView] = useState("none")
     const [vendorNameView, setVendorNameView] = useState("none")
     const [skudata, setSkuData] = useState<SkuData[]>([])
@@ -35,7 +38,10 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         setUnit(data.unit)
         setSku(data.sku)
         setVendorName(data.vendorName)
+    
+        setinvoicedate(data.invoicedate.slice(0, 10))
         quantityRef.current!.value = data.quantity.toString()
+        invoiceRef.current!.value = data.invoice
         setDate(data.recevingDate.slice(0, 10))
         console.log(data.recevingDate.slice(0, 10))
     }, [])
@@ -63,7 +69,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         console.log("submit")
-        axios.post(`/api/quality/editrecevingpackagematerial/${data.id}`, { recevingDate: date, sku, vendorName, quantity: quantityRef.current?.value, unit })
+        axios.post(`/api/quality/editrecevingpackagematerial/${data.id}`, { recevingDate: date, invoicedate,invoice:invoiceRef.current?.value, vendorName, quantity: quantityRef.current?.value, unit })
             .then((res) => {
                 if (res.status === 201) {
                     (errordialog as any).showModal();
@@ -137,7 +143,12 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
 
                     <div className="flex"><Label className="w-2/4  pt-1">Receiving Date</Label>
                         <Input className="w-2/4 justify-center" placeholder="Receiving Date" value={date} onChange={(e)=>setDate(e.target.value)}required type="date" /> </div>
-
+                        <div className="flex"><Label className="w-2/4  pt-1">Invoice No</Label>
+                        <Input className="w-2/4 " placeholder="Invoice No" required  ref={invoiceRef} /> </div>
+                        
+                        
+                        <div className="flex"><Label className="w-2/4  pt-1">Invoice Date</Label>
+                        <Input className="w-2/4 justify-center" placeholder="Invoice Date" value={invoicedate} onChange={(e)=>setinvoicedate(e.target.value)}required type="date" /> </div>
                     <div className="flex"><Label className="w-2/4  pt-1">SKU</Label>
                         <Input className="w-2/4 " placeholder="SKU" required value={sku} onChange={handleSkuchange} /> </div>
                     <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: skuview }}>
