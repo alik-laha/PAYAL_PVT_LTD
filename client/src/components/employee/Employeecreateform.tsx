@@ -115,9 +115,9 @@ const Employeecreateform = () => {
             if (desgref.current != null) {
                 desgref.current.value = '';
             }
-            if (dobref.current != null) {
-                dobref.current.value = '';
-            }
+            // if (dobref.current != null) {
+            //     dobref.current.value = '';
+            // }
             if (contactNoref.current != null) {
                 contactNoref.current.value = '';
             }
