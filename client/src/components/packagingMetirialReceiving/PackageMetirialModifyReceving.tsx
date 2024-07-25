@@ -69,10 +69,10 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         console.log("submit")
-        axios.post(`/api/quality/editrecevingpackagematerial/${data.id}`, { recevingDate: date, invoicedate,invoice:invoiceRef.current?.value, vendorName, quantity: quantityRef.current?.value, unit })
+        axios.post(`/api/quality/editrecevingpackagematerial/${data.id}`, { recevingDate: date, invoicedate,invoice:invoiceRef.current?.value, sku,vendorName, quantity: quantityRef.current?.value, unit })
             .then((res) => {
                 if (res.status === 201) {
-                    (errordialog as any).showModal();
+                    (successdialog as any).showModal();
                 }
             }
             )
@@ -80,7 +80,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
                 console.log(err)
                 const errorText = err.response.data.message;
                 setErrText(errorText);
-                (successdialog as any).showModal();
+                (errordialog as any).showModal();
             })
 
     }
