@@ -14,6 +14,9 @@ import { LuBadgeCheck } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
 import { PermissionRol, PermissionDep } from "../common/exportData";
 import { PermissionRole, PermissionDept } from "@/type/type";
+import { LuServerCrash } from "react-icons/lu";
+import { IoMdSettings } from "react-icons/io";
+
 
 
 
@@ -64,9 +67,20 @@ const DashboardSidebar = () => {
             <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
                 <a href="#" className="closebtn" onClick={closeSidebar}>&times;</a>
                 <a>
+
+                
+              
+                
                     {rendersection('HR & Admin') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25} />
                             <p>Admin & HR</p></CollapsibleTrigger>
+                            {renderlink('Dashboard User')
+                            && <CollapsibleContent className="Items-pvt">
+                                {renderlink('Dashboard User')}
+                                <NavLink to="/dashboard/user" >
+                                    Dashboard Users
+                                </NavLink>
+                            </CollapsibleContent>}
 
                         {renderlink('Employee')
                             && <CollapsibleContent className="Items-pvt">
@@ -75,18 +89,13 @@ const DashboardSidebar = () => {
                                 </NavLink>
                             </CollapsibleContent >}
 
-                        {renderlink('Dashboard User')
-                            && <CollapsibleContent className="Items-pvt">
-                                {renderlink('Dashboard User')}
-                                <NavLink to="/dashboard/user" >
-                                    User Profile
-                                </NavLink>
-                            </CollapsibleContent>}
+                       
+
 
                         {renderlink('Asset')
                             && <CollapsibleContent className="Items-pvt" >
                                 <NavLink to="/dashboard/machine" >
-                                    Asset
+                                    Asset Mapping
                                 </NavLink>
                             </CollapsibleContent >}
 
@@ -106,6 +115,7 @@ const DashboardSidebar = () => {
 
                         {renderlink('Boiling')
 
+
                             &&  <CollapsibleContent className="Items-pvt">
                              <NavLink to="/dashboard/RcnBoiling" >
                                 RCN Boiling
@@ -113,12 +123,12 @@ const DashboardSidebar = () => {
                         </CollapsibleContent>}
                         {renderlink('Scooping')
 
+
                             &&  <CollapsibleContent className="Items-pvt">
                              <NavLink to="/dashboard/RcnScooping" >
                                 RCN Scooping
                             </NavLink>
                         </CollapsibleContent>}
-
                     </Collapsible>}
 
                     {rendersection('Receiving') && <Collapsible >
@@ -142,6 +152,8 @@ const DashboardSidebar = () => {
 
                     </Collapsible>}
 
+
+        
                     {rendersection('Quality') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><LuBadgeCheck size={25} />
                             <p>Quality</p></CollapsibleTrigger>
@@ -155,11 +167,31 @@ const DashboardSidebar = () => {
 
                     </Collapsible>}
 
-                    {/* {rendersection('Maintainance') && <Collapsible >
+
+                   
+
+                    {rendersection('Maintainance') && <Collapsible >
+
                         <CollapsibleTrigger className="user-pvt"><LuServerCrash size={25} />
                             <p>Maintainance</p></CollapsibleTrigger>
 
-                    </Collapsible>} */}
+                            {renderlink('Cleaning') &&  <CollapsibleContent className="Items-pvt">
+                            <NavLink to="/dashboard/cleaning" >
+                                Cleaning
+                            </NavLink>
+                        </CollapsibleContent>}
+
+                    </Collapsible>}
+
+                    
+                    <Collapsible>
+                <CollapsibleTrigger className="flex user-pvt "><IoMdSettings   size={25} />
+                <p>Settings</p></CollapsibleTrigger>
+                <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/userprofile" >
+                                    Profile
+                                </NavLink>
+                            </CollapsibleContent ></Collapsible >
 
 
                 </a>

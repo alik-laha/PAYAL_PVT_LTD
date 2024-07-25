@@ -120,6 +120,7 @@ export interface RcnBoilingData {
     modifiedBy: string;
 }
 
+
 export interface PackageMaterialReceivingData {
     id: number;
     recevingDate: string;
@@ -131,4 +132,117 @@ export interface PackageMaterialReceivingData {
     qualityStatus: string;
     editStatus: string;
     approvedBy: string;
+
+}
+
+export interface GraddingCleanData {
+    id: number;
+    date: string;
+    mc_name: string;
+    dustTable: boolean;
+    hopper: boolean;
+    elevetorCups: boolean;
+    elevetorMotorCleanByAir: boolean;
+    McAllPartsClean: boolean;
+    binClean: boolean;
+    CallibrationRollerHolesClean: boolean;
+    percentage: number;
+    damage: boolean;
+    partsName: string;
+    createdAt: Date;
+    updatedAt: Date;
+    cleanedBy: string;
+    cleanedPartsImages: string;
+    damagedPartsImages: string;
+}
+
+export interface BoilingCleanData {
+    id: number;
+    date: string;
+    mc_name: string;
+    motorAndOtherPartsCleaning: boolean;
+    cookingInsideWashByStream: boolean;
+    drainLineCleaning: boolean;
+    waterWashChemberCleaning: boolean;
+    pressureGageCleanning: boolean;
+    hopper: boolean;
+    elevetorCup: boolean;
+    percentage: number;
+    damage: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+    partsName: string;
+    cleanedBy: string;
+    cleanedPartsImages: string;
+    damagedPartsImages: string;
+}
+
+export interface ScoopingSectionCuttingCleanData {
+    id: number;
+    date: string;
+    mc_name: string;
+    gear_m3_30ta: boolean;
+    gear_m3_40tb: boolean;
+    gear_m372ta_50_18r: boolean;
+    sap: boolean;
+    bladeUp: boolean;
+    bladeDown: boolean;
+    speaderDown: boolean;
+    brushBig: boolean;
+    brushSmall: boolean;
+    chainOneSmall: boolean;
+    chainTwoLarge: boolean;
+    chainThreeBig: boolean;
+    chainFourBigTwo: boolean;
+    bigChainPatti: boolean;
+    bigTwoChainPatti: boolean;
+    spring: boolean;
+    trayCup: boolean;
+    gear_m3_60ta: boolean;
+    motorPinionGear: boolean;
+    cuttingChain: boolean;
+    damage: boolean;
+    partsName: string;
+    percentage: number;
+    createdAt: Date;
+    updatedAt: Date;
+    cleanedBy: string;
+    cleanedPartsImages: string;
+    damagedPartsImages: string;
+}
+
+export interface AbhayMcCleanData {
+    id: number;
+    date: string;
+    mainElevetorCup: boolean;
+    mainElevetorGearBox: boolean;
+    mainElevetorSpocket: boolean;
+    mainElevetorChain: boolean;
+    vibretor_1_scooperFan: boolean;
+    vibretor_1_clamSap: boolean;
+    vibretor_1_towerBlower: boolean;
+    vibretor_2_clamSap: boolean;
+    vibretor2_scooperFan: boolean;
+    vibretor_2_towerBlower: boolean;
+    wholesElevetorCup: boolean;
+    wholesElevetorSap: boolean;
+    wholesElevetorBlower: boolean;
+    wholesElevetorPully: boolean;
+    wholeElevetorSplitsAndBlower: boolean;
+    wholeElevetorGearBox: boolean;
+    sizerElevetor_1_cup: boolean;
+    sizerElevetor_2_cup: boolean;
+    shellHopper: boolean;
+    shelllBlower: boolean;
+    sizerElevetor_2toUnscoopTableScooperFan: boolean;
+    panaboardAllPartsCleanByHandBlower: boolean;
+    damage: boolean;
+    partsName: string;
+    percentage: number;
+    createdAt: Date;
+    updatedAt: Date;
+    cleanedBy: string;
+    cleanedPartsImages: string;
+    damagedPartsImages: string;
+
 }

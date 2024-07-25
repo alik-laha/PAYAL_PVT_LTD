@@ -24,6 +24,10 @@ const Employee = sequelize.define('employee', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    employeeImage: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     designation: {
         type: DataTypes.STRING,
         allowNull: false
