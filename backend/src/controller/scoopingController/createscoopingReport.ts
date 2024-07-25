@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import RcnScooping from "../../model/scoopingModel";
-import { Op } from "sequelize";
+
 
 
 const createscoopingReport = async (req: Request, res: Response) => {
@@ -9,7 +9,7 @@ const createscoopingReport = async (req: Request, res: Response) => {
         try {
             const id = req.params.id;
    
-            let {  Receiving_Qty, Wholes,Broken,Uncut ,Unscoop,NonCut,Rejection,Dust,KOR
+            let { Opening_Qty, Receiving_Qty, Wholes,Broken,Uncut ,Unscoop,NonCut,Rejection,Dust
                 ,Trolley_Broken,Trolley_Small_JB,Mc_on,Mc_off,noOfEmployees,noOfOperators,male,female,Date,supervisor,
                 Mc_breakdown,otherTime,Brkdwn_reason,Transfer_Qty,Transfer_To_MC } = req.body.data;
             
@@ -51,6 +51,15 @@ const createscoopingReport = async (req: Request, res: Response) => {
                 return res.status(400).json({ message: "Machine Run Time can not be negative" });
             }
             const Mc_runTime = millisecondsToTime(CalculatemachineOnOffTime(Mc_off, Mc_on) - (timeToMilliseconds(Mc_breakdown) + timeToMilliseconds(otherTime)));
+           
+            const total_bag=(((parseFloat(Receiving_Qty)+parseFloat(Opening_Qty))
+                            -(parseFloat(Uncut)+parseFloat(Unscoop)+parseFloat(NonCut)+parseFloat(Dust)))/80)
+                console.log(total_bag) 
+                
+                const kor=((parseFloat(Wholes)+parseFloat(Broken))/(total_bag*0.453)).toFixed(2)
+            
+            
+            
             const scoop = await RcnScooping.update(
                 {
                 
@@ -63,7 +72,8 @@ const createscoopingReport = async (req: Request, res: Response) => {
                     NonCut:NonCut,
                     Rejection:Rejection,
                     Dust:Dust,
-                    KOR:KOR,
+                    KOR:kor,
+                    
                     Trolley_Broken:Trolley_Broken,
                     Trolley_Small_JB:Trolley_Small_JB,
                     scoopStatus:1,

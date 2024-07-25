@@ -2,8 +2,7 @@ import { Request, Response } from "express";
 import EditPackagingMaterial from "../../model/editPackageingMaterialModel";
 import packageMaterial from "../../model/recevingPackagingMaterialModel";
 import { PackageMaterialReceivingData } from "../../type/type";
-import VendorName from "../../model/vendorNameModel";
-import SkuModel from "../../model/SkuModel";
+
 import WhatsappMsg from "../../helper/WhatsappMsg";
 
 
@@ -11,7 +10,7 @@ const editRecevingPackageMaterial = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const createdBynew= req.cookies.user
-        const { recevingDate, sku, vendorName, quantity, unit } = req.body;
+        const { recevingDate, sku, vendorName, quantity, unit,invoice,invoicedate } = req.body;
         if (!id) return res.status(400).json({ message: "id is required" });
         const packageMaterialData: PackageMaterialReceivingData = await packageMaterial.findOne({ where: { id } }) as unknown as PackageMaterialReceivingData;
         if (!packageMaterialData) return res.status(404).json({ message: "package material not found" });
@@ -22,7 +21,7 @@ const editRecevingPackageMaterial = async (req: Request, res: Response) => {
             sku,
             vendorName,
             quantity,
-            unit,
+            unit,invoice,invoicedate,
             createdBy: createdBynew,
             editStatus: "Pending",
             qualityStatus: packageMaterialData.qualityStatus,

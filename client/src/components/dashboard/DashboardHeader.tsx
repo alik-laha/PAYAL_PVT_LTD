@@ -3,9 +3,13 @@ import icon2 from '../../assets/Static_Images/OIP-2.webp'
 import { useEffect, useState } from "react"
 import "./dashboard.css"
 import axios from 'axios'
+
 import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
 import { timerLogout } from '../common/exportData'
+
+
+
 
 const DashboardHeader = () => {
   const navigate = useNavigate()
@@ -25,11 +29,15 @@ const DashboardHeader = () => {
       localStorage.removeItem('timeLeft');
       localStorage.removeItem('role')
       localStorage.removeItem('dept')
+      localStorage.removeItem('countdownStartTime')
+      localStorage.removeItem('user')
+      localStorage.removeItem('image')
       navigate('/login')
     }).catch((err) => {
       console.log(err)
     })
   }
+
   const sessionDuration = timerLogout; // 2 hours in seconds
   const [timeLeft, setTimeLeft] = useState<number>(() => {
     const savedTime = localStorage.getItem('timeLeft');
@@ -59,17 +67,33 @@ const DashboardHeader = () => {
     return time_left
   };
 
+
+  const image = localStorage.getItem('image')
+
   return (
     <>
       <div className='dashoboard-main-header'>
         <span className="logo-lg dashboard-text" ></span>
 
-        <span className='operator-hide' onClick={logoutVisiblity}><p className="logo-lg"> <p style={{fontSize:'16px'}}>Session Left : {formatTime(timeLeft)}</p> </p><img src={icon}></img></span>
+
+        
+
+        <span className='operator-hide' onClick={logoutVisiblity}><p className="logo-lg">
+        <p style={{fontSize:'16px'}}>Session Left : {formatTime(timeLeft)}</p>
+          </p>{image != null ? <img
+          src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`}
+        /> : <img src={icon} />}</span>
+
         <div className='navbar-custom-menu'>
-          <ul className="dropdown-menu" style={{ display: dashbvisi, background: 'white', position: 'fixed' }}>
+          <ul className="dropdown-menu" style={{ display: dashbvisi, background: 'white',position:'fixed'}}>
             <li className="user-header mx-1 my-1">
+
            
-              <span className="flex flex-col items-center justify-center items-center"><img src={icon2} alt='Operator Icon' className="img-header"></img></span>
+              {/* <span className="flex flex-col items-center justify-center items-center"><img src={icon2} alt='Operator Icon' className="img-header"></img></span> */}
+
+              <span className="flex flex-col items-center justify-center items-center">{image != null ? <img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} 
+              alt='Operator Icon' className="img-header" /> : <img src={icon2} className="img-header" />}</span>
+
               <p className="text-logout">Welcome, {localStorage.getItem('user')}</p>
               <p className="text-logout-2"> Dept: {localStorage.getItem('dept')}</p>
               <p className="text-logout-2"> Role: {localStorage.getItem('role')}</p>

@@ -264,8 +264,11 @@ export interface PermissionRole {
     QCSupervisor: string[];
     QCManager: string[];
     GradingSupervisor: string[];
-    ScoopingSupervisor: string[];
-    BoilingSupervisor: string[];
+    ScoopingSupervisor:string[];
+    BoilingSupervisor:string[];
+    CleaningSupervisor:string[];
+    MaintainanceManager:string[];
+
 
 
 }
@@ -276,9 +279,6 @@ export interface PermissionDept {
     Maintainance: string[];
     Production: string[];
     QualityControl: string[];
-    Grading: string[];
-    Boiling: string[];
-
 }
 export interface BoilingEntryData {
     moisture: string;
@@ -412,6 +412,8 @@ export interface PackageMaterialReceivingData {
     vendorName: string;
     quantity: string;
     unit: string;
+    invoicedate:string;
+    invoice:string;
     createdBy: string;
     qualityStatus: string;
     editStatus: string;
@@ -434,6 +436,8 @@ export interface ExcelrecevingPackageMaterialData {
     Unit: string;
     Quality_Status: string;
     Edit_Status: string;
+    Invoice:string;
+    Invoice_Date:string;
     Approved_Or_Rejected_By: string;
     Created_By: string;
 }

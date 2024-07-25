@@ -15,6 +15,14 @@ const EditPackagingMaterial = sequelize.define('editpackagingMaterialreceving', 
         type: DataTypes.STRING,
         allowNull: false,
     },
+    invoicedate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+    },
+    invoice: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     vendorName: {
         type: DataTypes.STRING,
         allowNull: false,

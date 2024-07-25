@@ -5,17 +5,17 @@ import VendorName from "../../model/vendorNameModel";
 
 const RecivingPackageMaterial = async (req: Request, res: Response) => {
     try {
-        const { recevingDate, sku, vendorName, quantity, unit } = req.body;
+        const { recevingDate, sku, vendorName, quantity, unit ,invoicedate,invoice} = req.body;
         const createdBy = req.cookies.user;
         let skuData = await SkuModel.findOne({ where: { sku } });
 
         const newPackageMaterial = await PackageMaterial.create({
             recevingDate,
-            sku,
+            sku,invoice,invoicedate,
             vendorName,
             quantity,
             unit,
-            createdBy
+            createdBy,
         });
         if (!skuData) {
             skuData = await SkuModel.create({ sku, unit, createdBy });
@@ -26,7 +26,7 @@ const RecivingPackageMaterial = async (req: Request, res: Response) => {
         }
         if (!newPackageMaterial || !skuData || !vendorData) return res.status(500).json({ message: "internal error while reciving package" });
 
-        return res.status(201).json({ message: "package material recived successfully" });
+        return res.status(201).json({ message: "package material received successfully", newPackageMaterial });
 
     } catch (error) {
         console.log(error)

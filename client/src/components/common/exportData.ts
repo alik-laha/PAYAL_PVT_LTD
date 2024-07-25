@@ -17,8 +17,11 @@ export const cookingTime = ['00:07', '00:08', '00:09', '00:10', '00:11', '00:12'
 
 
 export const PermissionRol = {
-    Director: ['Employee', 'Dashboard User', 'Asset', 'RCN Primary Entry', 'Receiving Packaging Entry','RCN Incoming QC', 'Grading', 'Boiling', 'Scooping'],
-    FactoryManager: ['Employee', 'Asset', 'RCN Primary Entry','Receiving Packaging Entry', 'RCN Incoming QC', 'Grading', 'Boiling', 'Scooping'],
+
+    Director: ['Employee', 'Dashboard User', 'Asset', 'RCN Primary Entry', 
+        'Receiving Packaging Entry','RCN Incoming QC', 'Grading', 'Boiling', 'Scooping','Cleaning'],
+    FactoryManager: ['Employee', 'Asset', 'RCN Primary Entry','Receiving Packaging Entry',
+         'RCN Incoming QC', 'Grading', 'Boiling', 'Scooping','Cleaning'],
     ReceivingSupervisor: ['RCN Primary Entry','Receiving Packaging Entry'],
     ReceivingManager: ['RCN Primary Entry','Receiving Packaging Entry'],
     QCSupervisor: ['RCN Incoming QC'],
@@ -26,18 +29,19 @@ export const PermissionRol = {
     GradingSupervisor: ['Grading'],
     BoilingSupervisor: ['Boiling'],
     ScoopingSupervisor: ['Scooping'],
-    ProductionManager:['Grading','Boiling','Scooping']
+    ProductionManager:['Grading','Boiling','Scooping'],
+    MaintainanceManager:['Cleaning'],
+    CleaningSupervisor:['Cleaning']
+
 }
 
 export const PermissionDep = {
     Admin: ['HR & Admin', 'Receiving', 'Quality', 'Maintainance', 'Production'],
     Receiving: ['Receiving'],
-    Maintainance: ['Maintainace'],
+    Maintainance: ['Maintainance'],
     Production: ['Production'],
     QualityControl: ['Quality'],
-    Grading: ['Production'],
-    Boiling: ['Production'],
-    Scooping: ['Production']
+  
 }
 
 export const pendingCheckRole = {
@@ -50,7 +54,7 @@ export const pendingCheckRole = {
 export const roleDataonDept = {
     Admin: ['Director', 'FactoryManager'],
     Receiving: ['ReceivingSupervisor', 'ReceivingManager'],
-    Maintainance: ['MaintainanceSupervisor', 'MaintainanceManager'],
+    Maintainance: ['CleaningSupervisor', 'MaintainanceManager'],
     QualityControl: ['QCSupervisor', 'QCManager'],
     Production: ['ProductionManager', 'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor']
 }
