@@ -14,12 +14,16 @@ const PackagingMetirialReceivingCreateForm = () => {
 
     const [sku, setSku] = useState("")
     const [vendorName, setVendorName] = useState("")
+    
+    
     const [skuview, setSkuView] = useState("none")
     const [vendorNameView, setVendorNameView] = useState("none")
     const [skudata, setSkuData] = useState<SkuData[]>([])
     const [vendorData, setVendorData] = useState<VendorData[]>([])
     const dateRef = useRef<HTMLInputElement>(null)
+    const invoicedateRef = useRef<HTMLInputElement>(null)
     const quantityRef = useRef<HTMLInputElement>(null)
+    const invoiceref = useRef<HTMLInputElement>(null)
 
     const successdialog = document.getElementById('packageMetrialReceve') as HTMLInputElement;
     const errordialog = document.getElementById('packagingMetirialReciveError') as HTMLInputElement;
@@ -49,7 +53,9 @@ const PackagingMetirialReceivingCreateForm = () => {
         e.preventDefault()
         const receivingDate = dateRef.current?.value
         const quantity = quantityRef.current?.value
-        axios.post("/api/quality/createrecivingpackagematerial", { recevingDate: receivingDate, sku, vendorName, quantity, unit })
+        const invoicedate=invoicedateRef.current?.value
+        const invoice=invoiceref.current?.value
+        axios.post("/api/quality/createrecivingpackagematerial", { recevingDate: receivingDate, sku, vendorName, quantity, unit,invoicedate,invoice })
             .then((res) => {
                 console.log(res)
                 axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: res.data.newPackageMaterial.id }).then(() => {
@@ -123,8 +129,11 @@ const PackagingMetirialReceivingCreateForm = () => {
                     <div className="flex"><Label className="w-2/4  pt-1">Receiving Date</Label>
                         <Input className="w-2/4 justify-center" placeholder="Receiving Date" required ref={dateRef} type="date" /> </div>
 
+                       
+
                     <div className="flex"><Label className="w-2/4  pt-1">SKU</Label>
                         <Input className="w-2/4 " placeholder="SKU" required value={sku} onChange={handleSkuchange} /> </div>
+                       
                     <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: skuview }}>
                         {
                             skudata.map((item: SkuData) => (
@@ -138,7 +147,11 @@ const PackagingMetirialReceivingCreateForm = () => {
 
                     <div className="flex"><Label className="w-2/4  pt-1">Vendor Name</Label>
                         <Input className="w-2/4 " placeholder="Vendor Name" required value={vendorName} onChange={handleVendorChange} /> </div>
+                        <div className="flex"><Label className="w-2/4  pt-1">Invoice No</Label>
+                        <Input className="w-2/4 " placeholder="Invoice No" required  ref={invoiceref} /> </div>
 
+                        <div className="flex"><Label className="w-2/4  pt-1">Invoice Date</Label>
+                        <Input className="w-2/4 justify-center" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div>    
                     <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: vendorNameView }}>
                         {
                             vendorData.map((item: VendorData) => (

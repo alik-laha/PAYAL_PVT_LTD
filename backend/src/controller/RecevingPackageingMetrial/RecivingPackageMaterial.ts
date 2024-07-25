@@ -5,17 +5,17 @@ import VendorName from "../../model/vendorNameModel";
 
 const RecivingPackageMaterial = async (req: Request, res: Response) => {
     try {
-        const { recevingDate, sku, vendorName, quantity, unit } = req.body;
+        const { recevingDate, sku, vendorName, quantity, unit ,invoicedate,invoice} = req.body;
         const createdBy = req.cookies.user;
         let skuData = await SkuModel.findOne({ where: { sku } });
 
         const newPackageMaterial = await PackageMaterial.create({
             recevingDate,
-            sku,
+            sku,invoice,invoicedate,
             vendorName,
             quantity,
             unit,
-            createdBy
+            createdBy,
         });
         if (!skuData) {
             skuData = await SkuModel.create({ sku, unit, createdBy });

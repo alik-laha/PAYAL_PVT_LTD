@@ -12,6 +12,14 @@ const PackagingMaterial = sequelize.define('packagingMaterialreceving', {
         type: DataTypes.DATE,
         allowNull: false,
     },
+    invoicedate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+    },
+    invoice: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     sku: {
         type: DataTypes.STRING,
         allowNull: false,
