@@ -9,6 +9,7 @@ import DeleteUser from '../controller/userController/DeleteUser';
 import logoutUser from '../controller/userController/logoutUser';
 import totaluserCount from '../controller/userController/totaluserCount';
 import jwtVerify from '../middleWare/JwtAuthantication';
+import getEmployeeDetail from '../controller/getProfile/getemployeedetail';
 const router = express.Router();
 
 router.post("/createuser", jwtVerify, UserMiddleWare, CreateUser)
@@ -25,6 +26,8 @@ router.put("/updateuser", jwtVerify, UpdateUser)
 router.delete("/deleteuser/:id", jwtVerify, DeleteUser)
 
 router.get("/logout", logoutUser)
+
+router.get("/profile", jwtVerify, getEmployeeDetail)
 
 
 

@@ -12,6 +12,7 @@ import cross from '../../assets/Static_Images/error_img.png'
 const Employeecreateform = () => {
     const [date, setDate] = React.useState<Date | undefined>()
     const [errortext, setErrorText] = useState<string>("")
+    const [file, setFile] = useState<any>()
 
     const nameref = useRef<HTMLInputElement>(null)
     const emailref = useRef<HTMLInputElement>(null)
@@ -74,24 +75,31 @@ const Employeecreateform = () => {
         const pfNo = pfref.current?.value
         const pincode = pincoderef.current?.value
         const address = addressref.current?.value
+        const formData = new FormData();
+        formData.append('employeeName', employeeName as string);
+        formData.append('email', email as string);
+        formData.append('designation', designation as string);
+        formData.append('dateOfJoining', date?.toString() as string);
+        formData.append('mobNo', mobNo as string);
+        formData.append('bloodGroup', bloodGroup as string);
+        formData.append('heighstQualification', heighstQualification as string);
+        formData.append('alternateMobNo', alternateMobNo as string);
+        formData.append('aadhaarNo', aadhaarNo as string);
+        formData.append('panNo', panNo as string);
+        formData.append('emergencyContact', emergencyContact as string);
+        formData.append('emergencyMobNo', emergencyMobNo as string);
+        formData.append('pfNo', pfNo as string);
+        formData.append('pincode', pincode as string);
+        formData.append('address', address as string);
+        if(file){
+            formData.append('employeeImage', file[0]);
+        }
+       
 
-        console.log(employeeName, email, designation, dateOfJoining, mobNo, bloodGroup, heighstQualification, alternateMobNo, aadhaarNo, panNo, emergencyContact, emergencyMobNo, pfNo, pincode, address)
-        axios.post("/api/employee/createemployee", {
-            employeeName,
-            email,
-            designation,
-            dateOfJoining: date,
-            mobNo,
-            bloodGroup,
-            heighstQualification,
-            alternateMobNo,
-            aadhaarNo,
-            panNo,
-            emergencyContact,
-            emergencyMobNo,
-            pfNo,
-            pincode,
-            address
+        axios.post("/api/employee/createemployee", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         }).then((res) => {
             console.log(res)
             setErrorText(res.data.msg)
@@ -144,7 +152,7 @@ const Employeecreateform = () => {
                 addressref.current.value = '';
             }
             setDate(undefined);
-            
+
 
         }).catch((err) => {
             console.log(err)
@@ -163,7 +171,11 @@ const Employeecreateform = () => {
 
         })
     }
-
+    const handleCleanFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setFile(e.target.files);
+        }
+    }
 
     return (
         <div className="pl-10 pr-10 ">
@@ -238,6 +250,10 @@ const Employeecreateform = () => {
                     <Label className="w-2/4 pt-1 ">Address </Label>
                     <Input className="w-2/4 " placeholder="Address " ref={addressref} />
 
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 pt-1 ">Employee Image </Label>
+                    <input type="file" multiple onChange={handleCleanFileChange} />
                 </div>
 
 

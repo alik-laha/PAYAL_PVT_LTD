@@ -11,15 +11,19 @@ import { SkuData, VendorData } from "@/type/type"
 
 const PackagingMetirialReceivingCreateForm = () => {
     const [unit, setUnit] = useState("")
-    
+
     const [sku, setSku] = useState("")
     const [vendorName, setVendorName] = useState("")
+    
+    
     const [skuview, setSkuView] = useState("none")
     const [vendorNameView, setVendorNameView] = useState("none")
     const [skudata, setSkuData] = useState<SkuData[]>([])
     const [vendorData, setVendorData] = useState<VendorData[]>([])
     const dateRef = useRef<HTMLInputElement>(null)
+    const invoicedateRef = useRef<HTMLInputElement>(null)
     const quantityRef = useRef<HTMLInputElement>(null)
+    const invoiceref = useRef<HTMLInputElement>(null)
 
     const successdialog = document.getElementById('packageMetrialReceve') as HTMLInputElement;
     const errordialog = document.getElementById('packagingMetirialReciveError') as HTMLInputElement;
@@ -49,16 +53,22 @@ const PackagingMetirialReceivingCreateForm = () => {
         e.preventDefault()
         const receivingDate = dateRef.current?.value
         const quantity = quantityRef.current?.value
-        axios.post("/api/quality/createrecivingpackagematerial", { recevingDate: receivingDate, sku, vendorName, quantity, unit })
-            .then(() => {
-                (successdialog as any).showModal();
+        const invoicedate=invoicedateRef.current?.value
+        const invoice=invoiceref.current?.value
+        axios.post("/api/quality/createrecivingpackagematerial", { recevingDate: receivingDate, sku, vendorName, quantity, unit,invoicedate,invoice })
+            .then((res) => {
+                console.log(res)
+                axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: res.data.newPackageMaterial.id }).then(() => {
+                    (successdialog as any).showModal();
+                })
+
             })
             .catch((err) => {
                 console.log(err)
-                if(errordialog!== null){
+                if (errordialog !== null) {
                     (errordialog as any).showModal();
                 }
-              
+
             })
     }
 
@@ -120,8 +130,11 @@ const PackagingMetirialReceivingCreateForm = () => {
                     <div className="flex"><Label className="w-2/4  pt-1">Receiving Date</Label>
                         <Input className="w-2/4 justify-center" placeholder="Receiving Date" required ref={dateRef} type="date" /> </div>
 
+                       
+
                     <div className="flex"><Label className="w-2/4  pt-1">SKU</Label>
                         <Input className="w-2/4 " placeholder="SKU" required value={sku} onChange={handleSkuchange} /> </div>
+                       
                     <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: skuview }}>
                         {
                             skudata.map((item: SkuData) => (
@@ -135,7 +148,11 @@ const PackagingMetirialReceivingCreateForm = () => {
 
                     <div className="flex"><Label className="w-2/4  pt-1">Vendor Name</Label>
                         <Input className="w-2/4 " placeholder="Vendor Name" required value={vendorName} onChange={handleVendorChange} /> </div>
+                        <div className="flex"><Label className="w-2/4  pt-1">Invoice No</Label>
+                        <Input className="w-2/4 " placeholder="Invoice No" required  ref={invoiceref} /> </div>
 
+                        <div className="flex"><Label className="w-2/4  pt-1">Invoice Date</Label>
+                        <Input className="w-2/4 justify-center" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div>    
                     <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: vendorNameView }}>
                         {
                             vendorData.map((item: VendorData) => (
@@ -151,44 +168,27 @@ const PackagingMetirialReceivingCreateForm = () => {
 
                     <div className="flex"><Label className="w-2/4  pt-1">Unit</Label>
 
-                    <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
                     disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setUnit(e.target.value)} value={unit} required>
-                        <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            onChange={(e) => setUnit(e.target.value)} value={unit} required>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
                         py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
                         focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>unit</option>
-                       
+
                             <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
                             py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                             value="Kg">
+                                value="Kg">
                                 Kg
                             </option>
                             <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
                             py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                             value="pcs">
+                                value="pcs">
                                 Pcs
                             </option>
-                       
-                    </select>
 
-                        {/* <Select value={unit} onValueChange={(value) => setUnit(value)} required>
-                            <SelectTrigger className="w-2/4">
-                                <SelectValue placeholder="unit" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
+                        </select>
 
-                                    <SelectItem value="kg">
-                                        Kg
-                                    </SelectItem>
-                                    <SelectItem value="pcs">
-                                        Pcs
-                                    </SelectItem>
-
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select> */}
                     </div>
 
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
@@ -196,7 +196,7 @@ const PackagingMetirialReceivingCreateForm = () => {
 
 
             </div>
-            
+
             <dialog id="packageMetrialReceve" className="dashboard-modal">
                 <button id="packageMetrialRecivecross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

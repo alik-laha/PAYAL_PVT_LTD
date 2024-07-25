@@ -198,6 +198,8 @@ const PackageMetrialRecivingTable = () => {
             transformed = EditData.map((item: PackageMaterialReceivingData,idx:number) => ({
                 Sl_No: idx+1,
                 Entry_Date: handletimezone(item.recevingDate),
+                Invoice:item.invoice,
+                Invoice_Date: handletimezone(item.invoicedate),
                 SKU: item.sku,
                 Vendor_Name: item.vendorName,
                 Quantity: item.quantity,
@@ -213,6 +215,8 @@ const PackageMetrialRecivingTable = () => {
             transformed = data1.map((item: PackageMaterialReceivingData,idx:number) => ({
                 Sl_No: idx+1,
                 Entry_Date: handletimezone(item.recevingDate),
+                Invoice:item.invoice,
+                Invoice_Date: handletimezone(item.invoicedate),
                 SKU: item.sku,
                 Vendor_Name: item.vendorName,
                 Quantity: item.quantity,
@@ -248,7 +252,11 @@ const PackageMetrialRecivingTable = () => {
 
     return (
         <>
-            {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={GetPendingEdit}>Pending Edit ({EditSumData?.sumOfAllRecenvingPackageMaterial})</Button>}
+
+{checkpending('RCNPrimary') &&
+<Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" 
+onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button>}
+
             <div className="ml-5 mt-5 ">
                 <div className="flex flexbox-search">
 
@@ -271,7 +279,7 @@ const PackageMetrialRecivingTable = () => {
                         placeholder="To Date"
 
                     />
-                    <Input className=" w-1/5 flexbox-search-width ml-5 pl-3 no-margin" placeholder="SKU/Vendor" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
+                    <Input className=" w-1/5 flexbox-search-width ml-5 pl-3 no-margin" placeholder="SKU/Vendor/Inv" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
 
 
                     <span className="w-1/8 ml-6"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
@@ -286,7 +294,9 @@ const PackageMetrialRecivingTable = () => {
 
                         <TableHead className="text-center" >Sl No</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
-                        <TableHead className="text-center" >ItemCode_(SKU)</TableHead>
+                        <TableHead className="text-center" >Invoice_Date</TableHead>
+                        <TableHead className="text-center" >Invoice_No</TableHead>
+                        <TableHead className="text-center" >Item_Code(SKU)</TableHead>
                         <TableHead className="text-center" >Vendor_Name</TableHead>
                         <TableHead className="text-center" >Quantity</TableHead>
                         <TableHead className="text-center" >Unit</TableHead>
@@ -305,6 +315,8 @@ const PackageMetrialRecivingTable = () => {
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-600">{handletimezone(item.invoicedate)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.invoice}</TableCell>
                                         <TableCell className="text-center">{item.sku}</TableCell>
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center">{item.quantity}</TableCell>
@@ -368,6 +380,9 @@ const PackageMetrialRecivingTable = () => {
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-600">{handletimezone(item.invoicedate)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.invoice}</TableCell>
+                                        
                                         <TableCell className="text-center">{item.sku}</TableCell>
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center">{item.quantity}</TableCell>
@@ -418,14 +433,15 @@ const PackageMetrialRecivingTable = () => {
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
-                                <TableCell></TableCell>
                                 <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
                                 <TableCell></TableCell>
+                                
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
+                                
                             </TableRow>)
                         )}
                     </TableBody>

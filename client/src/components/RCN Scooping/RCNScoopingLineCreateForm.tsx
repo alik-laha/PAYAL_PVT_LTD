@@ -119,6 +119,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         });
     }
    
+   
     
     useEffect(() => {
         const mergeRows = (data: ScoopingRowData[]): MergedData[] => {
@@ -467,17 +468,18 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                         <TableHead className="text-center" >NonCut</TableHead>
                         <TableHead className="text-center" >Rejection</TableHead>
                         <TableHead className="text-center" >Dust</TableHead>
-                        <TableHead className="text-center" >KOR</TableHead>
+                       
                         <TableHead className="text-center" >Trolley Broken(%)</TableHead>
                         <TableHead className="text-center" >Trolley SmallJB(%)</TableHead>
+                        <TableHead className="text-center" >No Of Ladies</TableHead>
+                        <TableHead className="text-center" >No Of Operator</TableHead>
                         <TableHead className="text-center" >Scooping On</TableHead>
                         <TableHead className="text-center" >Scooping Off</TableHead>
                         <TableHead className="text-center" >Breakdown Duration</TableHead>
                         <TableHead className="text-center" >Breakdown Reason</TableHead>
                         <TableHead className="text-center" >Other Duration</TableHead>
                        
-                        <TableHead className="text-center" >No Of Ladies</TableHead>
-                        <TableHead className="text-center" >No Of Operator</TableHead>
+                
                         <TableHead className="text-center" >Transfer Qty</TableHead>
                         <TableHead className="text-center" >Transfer To No</TableHead>
                         <TableHead className="text-center" >Transfer LineName</TableHead>
@@ -512,9 +514,12 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                         <TableCell className="text-center"> <Input  value={row.NonCut} placeholder="NonCut" onChange={(e) => handleRowChange(idx,'NonCut',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Rejection} placeholder="Rejection" onChange={(e) => handleRowChange(idx,'Rejection',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Dust} placeholder="Dust" onChange={(e) => handleRowChange(idx,'Dust',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.KOR} placeholder="KOR" onChange={(e) => handleRowChange(idx,'KOR',e.target.value)} required /></TableCell>
+                                       
                                         <TableCell className="text-center"> <Input  value={row.Trolley_Broken} placeholder="Broken (%)" onChange={(e) => handleRowChange(idx,'Trolley_Broken',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Trolley_Small_JB} placeholder="Small JB (%)" onChange={(e) => handleRowChange(idx,'Trolley_Small_JB',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.noOfEmployees} placeholder="Ladies" onChange={(e) => handleRowChange(idx,'noOfEmployees',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.noOfOperators} placeholder="Operators" onChange={(e) => handleRowChange(idx,'noOfOperators',e.target.value)} required /></TableCell>
+                                       
                                         {/* <TableCell className="text-center "> <Input className="bg-green-100"  value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx,'Mc_on',e.target.value)} type='time' required /></TableCell> */}
                                         <FormRow idx={idx} row={row} column='Mc_on' handleRowChange={handleRowChange}/>
                                         <FormRow idx={idx} row={row} column='Mc_off' handleRowChange={handleRowChange}/>
@@ -524,8 +529,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                                         <TableCell className="text-center"><Input  value={row.otherTime} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime',e.target.value)} type='time'  /></TableCell>
                                       
                                         
-                                        <TableCell className="text-center"> <Input  value={row.noOfEmployees} placeholder="Ladies" onChange={(e) => handleRowChange(idx,'noOfEmployees',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.noOfOperators} placeholder="Operators" onChange={(e) => handleRowChange(idx,'noOfOperators',e.target.value)} required /></TableCell>
+                                    
                                         <TableCell className="text-center"><Input  value={row.Transfer_Qty} placeholder="Kg" onChange={(e) => handleRowChange(idx,'Transfer_Qty',e.target.value)}  /></TableCell>
                                         <TableCell>
 

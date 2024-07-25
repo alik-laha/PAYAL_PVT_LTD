@@ -59,6 +59,9 @@ export const Login = () => {
                 localStorage.setItem('role', res.data.role);
                 localStorage.setItem('dept', res.data.dept);
                 localStorage.setItem('user', res.data.user);
+                if (res.data.image) {
+                    localStorage.setItem('image', res.data.image);
+                }
                 if (!countdownStartTime) {
                     localStorage.setItem('countdownStartTime', String(new Date().getTime()));
                 }
@@ -106,7 +109,7 @@ export const Login = () => {
                     <Button className="bg-orange-500 mb-1 mt-3 mb-4" type="submit">Login</Button>
 
                 </form>
-                
+
             </div>
         </div>
     )

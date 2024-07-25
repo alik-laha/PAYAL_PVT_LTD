@@ -1,26 +1,26 @@
 import { Request, Response } from "express";
-import {QcRCN} from "../../model/indexmapping";
+import { QcRCN } from "../../model/indexmapping";
 
 const qcInitialEntry = async (req: Request, res: Response) => {
 
     try {
-        const { g_id,blNo, conNo, origin, date } = req.body;
-        
+        const { g_id, blNo, conNo, origin, date } = req.body;
+
         const qcRcnInitial = await QcRCN.create({
-            id:g_id,
+            id: g_id,
             date,
             blNo,
             conNo,
-            origin, 
+            origin,
         });
-        res.status(201).json({ message: "QC Initial Entry Made Successfully", qcRcnInitial });
+        return res.status(201).json({ message: "QC Initial Entry Made Successfully", qcRcnInitial });
 
     }
     catch (err) {
         console.log(err);
-        res.status(500).json({ message: "Internal Server Error", error: err });
+        return res.status(500).json({ message: "Internal Server Error", error: err });
     }
 
-  
+
 }
 export default qcInitialEntry;

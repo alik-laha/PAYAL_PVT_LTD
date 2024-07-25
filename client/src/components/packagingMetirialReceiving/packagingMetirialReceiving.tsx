@@ -30,7 +30,7 @@ const PackagingMetirialReceiving = () => {
                         Item(SKU) Count<br /><p>{recevingPackagematerialOverView?.skuData}</p>
                     </div>
                     <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-600">
-                        Financial Year Entry <br /><p>{recevingPackagematerialOverView?.packagingMaterial}</p>
+                        Financial Year Entry <br /><p>{recevingPackagematerialOverView?.sumOfAllRecenvingPackageMaterial}</p>
                     </div>
                 </div>
                 <Dialog>

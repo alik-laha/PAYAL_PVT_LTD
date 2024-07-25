@@ -171,7 +171,7 @@ const MachineTable = () => {
 
                         <TableHead className="text-center" >Status </TableHead>
                         <TableHead className="text-center" >Asset Name </TableHead>
-                        <TableHead className="text-center" >Primary </TableHead>
+                        <TableHead className="text-center" >Production </TableHead>
                         <TableHead className="text-center" >Section </TableHead>
 
                         <TableHead className="text-center" >Description </TableHead>
@@ -196,10 +196,10 @@ const MachineTable = () => {
                                     ) : (
                                         <button className="bg-red-500 p-1 text-white rounded">{item.status}</button>
                                     )}</TableCell>
-                                    <TableCell className="text-center font-semibold text-yellow-700">{item.machineName}</TableCell>
+                                    <TableCell className="text-center font-semibold ">{item.machineName}</TableCell>
 
-                                    <TableCell className="text-center"><Input type='checkbox' className='h-4' checked={item.primaryAsset === 1 ? true : false} /></TableCell>
-                                    <TableCell className="text-center font-semibold text-pink-500">{item.section}</TableCell>
+                                    <TableCell className="text-center"><Input type='checkbox' className='h-4 ' checked={item.primaryAsset === 1 ? true : false} /></TableCell>
+                                    <TableCell className="text-center ">{item.section}</TableCell>
                                     <TableCell className="text-center">{item.description}</TableCell>
 
 
