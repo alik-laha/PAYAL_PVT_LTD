@@ -54,7 +54,7 @@ const SearchUser = async (req: Request, res: Response) => {
                 attributes: ['employeeName', 'userName', 'dept', 'role', 'createdBy', 'employeeId','modifyedBy'],
                 where,
                 //attributes: ['employeeName', 'userName', 'dept', 'role', 'createdBy', 'employeeId'],
-                order: [['dept', 'ASC']], // Order by date descending
+                order: [['dept', 'ASC'],['role', 'ASC']], // Order by date descending
                
             })
             console.log(page, size, "Alik")
@@ -70,7 +70,7 @@ const SearchUser = async (req: Request, res: Response) => {
         user = await User.findAll({
             where,
             attributes: ['employeeName', 'userName', 'dept', 'role', 'createdBy', 'employeeId','modifyedBy'],
-            order: [['dept', 'ASC']], // Order by date descending
+            order: [['dept', 'ASC'],['role', 'ASC']], // Order by date descending
                 limit: limit,
                 offset: offset
             

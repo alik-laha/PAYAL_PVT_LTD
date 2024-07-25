@@ -7,7 +7,7 @@ const CameraComponentClean = React.forwardRef(({ onSave }: { onSave: any }, ref:
     const [hasPhoto, setHasPhoto] = useState(false);
     const [videoView, setVideoView] = useState("");
     const [photoView, setPhotoView] = useState("hidden");
-    const successdialogclean = document.getElementById('Photodailogclean') as HTMLInputElement;
+    //const successdialogclean = document.getElementById('Photodailogclean') as HTMLInputElement;
 
     const getVideo = () => {
         navigator.mediaDevices
