@@ -28,6 +28,8 @@ const acceptRecevingPackageEdit = async (req: Request, res: Response) => {
             sku: editPackageMaterial.sku,
             vendorName: editPackageMaterial.vendorName,
             quantity: editPackageMaterial.quantity,
+            invoice:editPackageMaterial.invoice,
+            invoicedate:editPackageMaterial.invoicedate,
             unit: editPackageMaterial.unit,
             editStatus: "Accepted",
             approvedBy: req.cookies.user,

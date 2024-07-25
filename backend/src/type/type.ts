@@ -129,6 +129,8 @@ export interface PackageMaterialReceivingData {
     quantity: string;
     unit: string;
     createdBy: string;
+    invoice:string;
+    invoicedate:string;
     qualityStatus: string;
     editStatus: string;
     approvedBy: string;
