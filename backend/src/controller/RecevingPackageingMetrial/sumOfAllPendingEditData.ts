@@ -31,6 +31,9 @@ const sumOfAllRecenvingPackageMaterial = async (req: Request, res: Response) => 
                 recevingDate: {
                     [Op.between]: [targetDate, today]
                 }
+                ,editStatus:{
+                    [Op.ne]:'N/A'
+                }
             }
         });
         const vendorName = await VendorName.count();

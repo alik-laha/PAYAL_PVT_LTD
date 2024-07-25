@@ -412,6 +412,8 @@ export interface PackageMaterialReceivingData {
     vendorName: string;
     quantity: string;
     unit: string;
+    invoicedate:string;
+    invoice:string;
     createdBy: string;
     qualityStatus: string;
     editStatus: string;

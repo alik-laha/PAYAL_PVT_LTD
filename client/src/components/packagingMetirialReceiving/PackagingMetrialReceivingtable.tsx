@@ -286,7 +286,9 @@ const PackageMetrialRecivingTable = () => {
 
                         <TableHead className="text-center" >Sl No</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
-                        <TableHead className="text-center" >ItemCode_(SKU)</TableHead>
+                        <TableHead className="text-center" >Invoice_Date</TableHead>
+                        <TableHead className="text-center" >Invoice_No</TableHead>
+                        <TableHead className="text-center" >Item_Code(SKU)</TableHead>
                         <TableHead className="text-center" >Vendor_Name</TableHead>
                         <TableHead className="text-center" >Quantity</TableHead>
                         <TableHead className="text-center" >Unit</TableHead>
@@ -305,6 +307,8 @@ const PackageMetrialRecivingTable = () => {
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-600">{handletimezone(item.invoicedate)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.invoice}</TableCell>
                                         <TableCell className="text-center">{item.sku}</TableCell>
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center">{item.quantity}</TableCell>
@@ -368,6 +372,9 @@ const PackageMetrialRecivingTable = () => {
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-600">{handletimezone(item.invoicedate)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.invoice}</TableCell>
+                                        
                                         <TableCell className="text-center">{item.sku}</TableCell>
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center">{item.quantity}</TableCell>

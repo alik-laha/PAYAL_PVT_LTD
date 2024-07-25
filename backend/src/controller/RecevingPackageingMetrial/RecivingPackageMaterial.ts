@@ -26,7 +26,7 @@ const RecivingPackageMaterial = async (req: Request, res: Response) => {
         }
         if (!newPackageMaterial || !skuData || !vendorData) return res.status(500).json({ message: "internal error while reciving package" });
 
-        return res.status(201).json({ message: "package material recived successfully", newPackageMaterial });
+        return res.status(201).json({ message: "package material received successfully", newPackageMaterial });
 
     } catch (error) {
         console.log(error)
