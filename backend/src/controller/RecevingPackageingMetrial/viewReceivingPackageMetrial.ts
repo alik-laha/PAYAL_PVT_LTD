@@ -21,6 +21,7 @@ const viewReceivingPackageMetrial = async (req: Request, res: Response) => {
                         [Op.or]: [
                             { sku: { [Op.like]: `%${searchdata}%` } },
                             { vendorName: { [Op.like]: `%${searchdata}%` } },
+                            
                         ]
                     },
                     {

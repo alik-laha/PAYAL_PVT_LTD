@@ -275,7 +275,7 @@ const PackageMetrialRecivingTable = () => {
                         placeholder="To Date"
 
                     />
-                    <Input className=" w-1/5 flexbox-search-width ml-5 pl-3 no-margin" placeholder="SKU/Vendor" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
+                    <Input className=" w-1/5 flexbox-search-width ml-5 pl-3 no-margin" placeholder="SKU/Vendor/Inv" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
 
 
                     <span className="w-1/8 ml-6"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>

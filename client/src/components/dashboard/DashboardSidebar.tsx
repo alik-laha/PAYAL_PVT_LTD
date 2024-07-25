@@ -78,14 +78,14 @@ const DashboardSidebar = () => {
                             && <CollapsibleContent className="Items-pvt">
                                 {renderlink('Dashboard User')}
                                 <NavLink to="/dashboard/user" >
-                                    Dashboard Users
+                                    1. Dashboard Users
                                 </NavLink>
                             </CollapsibleContent>}
 
                         {renderlink('Employee')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/employee" >
-                                    Employee
+                                    2. Employee
                                 </NavLink>
                             </CollapsibleContent >}
 
@@ -95,7 +95,7 @@ const DashboardSidebar = () => {
                         {renderlink('Asset')
                             && <CollapsibleContent className="Items-pvt" >
                                 <NavLink to="/dashboard/machine" >
-                                    Asset Mapping
+                                    3. Asset Mapping
                                 </NavLink>
                             </CollapsibleContent >}
 
@@ -109,7 +109,7 @@ const DashboardSidebar = () => {
                         {renderlink('Grading')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/RcnGrading" >
-                                    RCN Grading
+                                    1. RCN Grading
                                 </NavLink>
                             </CollapsibleContent>}
 
@@ -118,7 +118,7 @@ const DashboardSidebar = () => {
 
                             &&  <CollapsibleContent className="Items-pvt">
                              <NavLink to="/dashboard/RcnBoiling" >
-                                RCN Boiling
+                                2. RCN Boiling
                             </NavLink>
                         </CollapsibleContent>}
                         {renderlink('Scooping')
@@ -126,7 +126,7 @@ const DashboardSidebar = () => {
 
                             &&  <CollapsibleContent className="Items-pvt">
                              <NavLink to="/dashboard/RcnScooping" >
-                                RCN Scooping
+                                3. RCN Scooping
                             </NavLink>
                         </CollapsibleContent>}
                     </Collapsible>}
@@ -138,14 +138,14 @@ const DashboardSidebar = () => {
                         {renderlink('RCN Primary Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/rcnprimaryentry" >
-                                    RCN Primary Entry
+                                    1. RCN Primary Entry
                                 </NavLink>
 
                             </CollapsibleContent>}
                         {renderlink('Receiving Packaging Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
-                                    Packaging Material
+                                    2. Packaging Material
                                 </NavLink>
 
                             </CollapsibleContent>}
@@ -160,7 +160,7 @@ const DashboardSidebar = () => {
                         {renderlink('RCN Incoming QC')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/qcRCN" >
-                                    RCN Incoming QC
+                                   1. RCN Incoming QC
                                 </NavLink>
                             </CollapsibleContent>}
 
