@@ -89,7 +89,7 @@ const DashboardHeader = () => {
             <li className="user-header mx-1 my-1">
 
            
-              <span className="flex flex-col items-center justify-center items-center"><img src={icon2} alt='Operator Icon' className="img-header"></img></span>
+              {/* <span className="flex flex-col items-center justify-center items-center"><img src={icon2} alt='Operator Icon' className="img-header"></img></span> */}
 
               <span className="flex flex-col items-center justify-center items-center">{image != null ? <img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} 
               alt='Operator Icon' className="img-header" /> : <img src={icon2} className="img-header" />}</span>
