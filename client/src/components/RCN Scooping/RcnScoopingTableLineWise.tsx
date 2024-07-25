@@ -78,7 +78,7 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                         <TableHead className="text-center" >NonCut(Kg)</TableHead>
                         <TableHead className="text-center" >Rejection(Kg)</TableHead>
                         <TableHead className="text-center" >RCNDust (Kg) </TableHead>
-                        <TableHead className="text-center" >Bag Cutting</TableHead>
+                       
                         <TableHead className="text-center" >KOR</TableHead>
                         <TableHead className="text-center" >Transfered_Qty</TableHead>
                         <TableHead className="text-center" >Transfered_To_Line</TableHead>
@@ -198,10 +198,10 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                                 <TableCell className="text-center ">{formatNumber(parseFloat(item.NonCut))} Kg</TableCell>
                                 <TableCell className="text-center">{formatNumber(parseFloat(item.Rejection))} Kg</TableCell>
                                 <TableCell className="text-center ">{formatNumber(parseFloat(item.Dust))} Kg</TableCell>
-                                <TableCell className="text-center ">{item.TotBagCutting}</TableCell>
+                                {/* <TableCell className="text-center ">{item.TotBagCutting}</TableCell> */}
                                 <TableCell className="text-center ">{formatNumber(parseFloat(item.KOR))}</TableCell>
 
-                                <TableCell className="text-center ">{item.Transfered_Qty} Kg</TableCell>
+                                <TableCell className="text-center ">{formatNumber(parseFloat(item.Transfered_Qty))} Kg</TableCell>
                                 <TableCell className="text-center ">{item.Transfered_To}</TableCell>
 
                                 <TableCell className="text-center ">{item.noOfLadies}</TableCell>

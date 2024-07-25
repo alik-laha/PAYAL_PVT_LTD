@@ -258,7 +258,7 @@ const RCNScoopingTable = () => {
                 NonCut: item.NonCut,
                 Rejection: item.Rejection,
                 Dust: item.Dust,
-                TotBagCutting: item.TotBagCutting,
+               
                 KOR: item.KOR,
                 Trolley_Broken: item.Trolley_Broken,
                 Trolley_Small_JB: item.Trolley_Small_JB,

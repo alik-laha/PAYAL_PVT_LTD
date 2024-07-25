@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import RcnAllScooping from "../../model/scoopingAllmodel";
 
+
 const createscoopingAllReport = async (req: Request, res: Response) => {
 
  
@@ -20,12 +21,16 @@ const createscoopingAllReport = async (req: Request, res: Response) => {
                 NonCut,
                 Rejection,
                 Dust,
-                KOR,
+                
                 noOfEmployees,
                 noOfOperators,male,female,supervisor,Date } = req.body.data2;
             
              const createdBy = req.cookies.user
-
+            const total_bag=(((parseFloat(Receiving_Qty)+parseFloat(Opening_Qty))
+                            -(parseFloat(Uncut)+parseFloat(Unscoop)+parseFloat(NonCut)+parseFloat(Dust)))/80)
+                console.log(total_bag) 
+                
+                const kor=((parseFloat(Wholes)+parseFloat(Broken))/(total_bag*0.453)).toFixed(2)
             const scoop = await RcnAllScooping.create(
                 {
                     LotNo:LotNo,
@@ -41,7 +46,8 @@ const createscoopingAllReport = async (req: Request, res: Response) => {
                     NonCut:NonCut,
                     Rejection:Rejection,
                     Dust:Dust,
-                    KOR:KOR,
+                    KOR:kor,
+                    TotBagCutting:total_bag,
                     noOfGents:male,
                     noOfLadies:female,
                     noOfSupervisors:supervisor,
