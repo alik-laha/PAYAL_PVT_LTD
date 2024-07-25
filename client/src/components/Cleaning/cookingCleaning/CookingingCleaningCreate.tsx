@@ -234,7 +234,9 @@ const CookingCleanCreate = () => {
                                         <img src={url} alt={`Blob ${index}`} style={{ width: '70px', height: '70px', margin: '5px' }} />
 
                                         <Button className="bg-red-500 text-center items-center justify-center h-7 w-12" type="button" onClick={() => {
-                                            const data = cleanImageUrl.filter((url: string, i: number) => i !== index)
+                                            const data = cleanImageUrl.filter((item, i) =>{
+                                                i !== index
+                                                console.log(item)})
                                             setCleanImageUrl(data)
                                         }}>Clear</Button>
                                     </div>
@@ -272,7 +274,9 @@ const CookingCleanCreate = () => {
                                                     <img src={url} alt={`Blob ${index}`} style={{ width: '70px', height: '70px', margin: '5px' }} />
 
                                                     <Button className="bg-red-500 text-center items-center justify-center h-7 w-12" type="button" onClick={() => {
-                                                        const data = brokenImageUrl.filter((item, i) => i !== index)
+                                                        const data = brokenImageUrl.filter((item, i) =>{
+                                                            i !== index
+                                                            console.log(item)})
                                                         setBrokenImageUrl(data)
                                                     }}>Clear</Button>
                                                 </div>
