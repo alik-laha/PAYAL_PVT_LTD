@@ -54,7 +54,7 @@ const SearchUser = async (req: Request, res: Response) => {
                 attributes: ['employeeName', 'userName', 'dept', 'role', 'createdBy', 'employeeId','modifyedBy'],
                 where,
                 //attributes: ['employeeName', 'userName', 'dept', 'role', 'createdBy', 'employeeId'],
-                order: [['createdAt', 'DESC']], // Order by date descending
+                order: ['dept', 'ASC'], // Order by date descending
                
             })
             console.log(page, size, "Alik")

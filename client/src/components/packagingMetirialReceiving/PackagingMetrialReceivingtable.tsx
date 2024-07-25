@@ -429,14 +429,15 @@ const PackageMetrialRecivingTable = () => {
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
-                                <TableCell></TableCell>
                                 <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
                                 <TableCell></TableCell>
+                                
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
+                                
                             </TableRow>)
                         )}
                     </TableBody>

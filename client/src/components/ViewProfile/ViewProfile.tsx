@@ -8,7 +8,7 @@ import { Input } from '../ui/input';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import DashboardHeader from '../dashboard/DashboardHeader';
-import icon from '../../assets/Static_Images/OIP.jpeg'
+import iconav from '../../assets/Static_Images/avatar7.png'
 
 import DashboardSidebar from '../dashboard/DashboardSidebar';
 
@@ -164,7 +164,7 @@ const ViewProfile = () => {
                                                 </div>
                                             <div className="card-body">
                                                 <div className="d-flex flex-column align-items-center text-center">
-                                                    <div className='flex items-center justify-center flex-col'>{localStorage.getItem("image") == null ? <img src={icon} alt="Admin" className="rounded-full" width="150" /> : <img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} alt="Admin" className="rounded-full" width="160" />}
+                                                    <div className='flex items-center justify-center flex-col'>{localStorage.getItem("image") == null ? <img src={iconav} alt="Admin" className="rounded-full" width="150" /> : <img src={`/api/cleaning/view?filename=${localStorage.getItem('image')}`} alt="Admin" className="rounded-full" width="160" />}
                                                     {EmployeeEditMode ? <div className='text-right'><label htmlFor='fileInput' className='flex pt-2 text-blue-500'>Upload  <IoMdCamera className='w-8 h-6' /></label></div> : null}</div>
                                                     <input type="file" className="hidden pt-2" id='fileInput' multiple onChange={handleCleanFileChange} />
                                                     <p>{employeeImage ? employeeImage[0].name : null}</p>

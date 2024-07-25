@@ -14,7 +14,7 @@ import { LuBadgeCheck } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
 import { PermissionRol, PermissionDep } from "../common/exportData";
 import { PermissionRole, PermissionDept } from "@/type/type";
-import { LuServerCrash } from "react-icons/lu";
+//import { LuServerCrash } from "react-icons/lu";
 import { IoMdSettings } from "react-icons/io";
 
 
@@ -170,7 +170,7 @@ const DashboardSidebar = () => {
 
                    
 
-                    {rendersection('Maintainance') && <Collapsible >
+                    {/* {rendersection('Maintainance') && <Collapsible >
 
                         <CollapsibleTrigger className="user-pvt"><LuServerCrash size={25} />
                             <p>Maintainance</p></CollapsibleTrigger>
@@ -181,15 +181,15 @@ const DashboardSidebar = () => {
                             </NavLink>
                         </CollapsibleContent>}
 
-                    </Collapsible>}
+                    </Collapsible>} */}
 
                     
                     <Collapsible>
                 <CollapsibleTrigger className="flex user-pvt "><IoMdSettings   size={25} />
-                <p>Settings</p></CollapsibleTrigger>
+                <p>Profile</p></CollapsibleTrigger>
                 <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/userprofile" >
-                                    Profile
+                                    Account
                                 </NavLink>
                             </CollapsibleContent ></Collapsible >
 
