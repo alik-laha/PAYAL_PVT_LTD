@@ -33,6 +33,6 @@ router.post("/updateLotNo", jwtVerify, updateLotNo)
 router.post("/createInitialBorma",jwtVerify,CreateInitialBorma )
 router.post('/deleteScoopReportByLotNo', jwtVerify, deleteScoopingReport)
 router.put("/createScoopingEdit/:id", jwtVerify, scoopingMiddleware,createscoopingEditReport)
-66
+router.post("/createScoopingallEdit", jwtVerify, createscoopingAllReport)
 
 export default router

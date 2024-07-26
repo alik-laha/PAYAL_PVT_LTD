@@ -356,7 +356,7 @@ const RCNLineCreateEditForm = (props: Props) => {
             console.log(newFormData)
             let scoopingcount = 0
             for (var data of formData) {
-                axios.put(`/api/scooping/createScoopingEdit6/${data.id}`, { data }).then(res => {
+                axios.put(`/api/scooping/createScoopingEdit/${data.id}`, { data }).then(res => {
                     //scoopingcount++;
                     if (formData.length === scoopingcount) {
                         setErrortext(res.data.message)
@@ -389,7 +389,7 @@ const RCNLineCreateEditForm = (props: Props) => {
             }))
 
             for (var data2 of formall) {
-                axios.post('/api/scooping/createScoopingall', { data2 }).then(res => {
+                axios.post('/api/scooping/createScoopingallEdit', { data2 }).then(res => {
                     scoopingcount++;
                     if (formall.length === scoopingcount) {
                         setErrortext(res.data.message)
