@@ -69,19 +69,19 @@ const ViewQcPackageMaterial = async (req: Request, res: Response) => {
                 rcnEntries = await QualityPackageMaterial.findAll({
                     where,
                     order: [['createdAt', 'DESC']], // Order by date descending
-                    // include: [{
-                    //     model: recevingPackageMaterial,
-                    //     required: true, // this is optional since 'required: false' is the default behavior for LEFT JOIN
-                    //     where: {
-                    //         [Op.and]: [
-                    //             { qualityStatus: { [Op.notLike]: false } },
-                    //             { editStatus: { [Op.notLike]: `Pending` } }
-                    //         ]
-                    //     }
-                    // }]
                     include: [{
                         model: recevingPackageMaterial,
+                        required: false, // this is optional since 'required: false' is the default behavior for LEFT JOIN
+                        where: {
+                            editStatus: {
+                                [Op.notLike]: `%Pending%`
+                            },
+                            qualityStatus: {
+                                [Op.like]: false
+                            }
+                        }
                     }]
+
 
                 });
 
