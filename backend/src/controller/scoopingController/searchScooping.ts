@@ -53,7 +53,7 @@ const SearchScooping = async (req: Request, res: Response) => {
             } else {
                 GradingEntries = await RcnScooping.findAll({
                     where,
-                    order: [['LotNo', 'DESC'], ['date', 'DESC']], // Order by date descending
+                    order: [['LotNo', 'DESC'], ['Scooping_Line_Mc','ASC'],['date', 'DESC']] // Order by date descending
 
                 });
 
@@ -72,7 +72,7 @@ const SearchScooping = async (req: Request, res: Response) => {
             else {
                 GradingEntries = await RcnScooping.findAll({
                     where,
-                    order: [['LotNo', 'DESC'], ['date', 'DESC']], // Order by date descending
+                    order: [['LotNo', 'DESC'], ['Scooping_Line_Mc','ASC'],['date', 'DESC']],
                     limit,
                     offset
                 });
