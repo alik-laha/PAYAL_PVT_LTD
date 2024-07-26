@@ -14,6 +14,7 @@ import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { useEffect, useRef, useState } from "react"
 import axios from "axios";
+import FormRow from "../common/FormRowTime"
 
 interface Props {
     scoop: ScoopData[]
@@ -140,8 +141,9 @@ const RCNLineCreateEditForm = (props: Props) => {
 
             const merged = filteredData.reduce<Record<string, {
                 LotNo: string, origin: string, Scooping_Line_Mc: string, Opening_Qty: number,
-                Receiving_Qty: number, Wholes: number, Broken: number, Uncut: number, Unscoop: number, NonCut: number, Rejection: number,
-                Dust: number, KOR: number; noOfEmployees: number, noOfOperators: number
+                Receiving_Qty: number, Wholes: number, Broken: number, Uncut: number, Unscoop: number,
+                 NonCut: number, Rejection: number,
+                Dust: number, KOR: number, noOfEmployees: number, noOfOperators: number
             }>>((acc, row) => {
                 const { LotNo,
                     origin,
@@ -354,7 +356,7 @@ const RCNLineCreateEditForm = (props: Props) => {
             console.log(newFormData)
             let scoopingcount = 0
             for (var data of formData) {
-                axios.put(`/api/scooping/createScooping/${data.id}`, { data }).then(res => {
+                axios.put(`/api/scooping/createScoopingEdit6/${data.id}`, { data }).then(res => {
                     //scoopingcount++;
                     if (formData.length === scoopingcount) {
                         setErrortext(res.data.message)
@@ -462,8 +464,8 @@ const RCNLineCreateEditForm = (props: Props) => {
 
                             <TableHead className="text-center" >No Of Ladies</TableHead>
                             <TableHead className="text-center" >No Of Operator</TableHead>
-                            <TableHead className="text-center" >Transfered_Qty</TableHead>
-                            <TableHead className="text-center" >Transfered_Line</TableHead>
+                            {/* <TableHead className="text-center" >Transfered_Qty</TableHead>
+                            <TableHead className="text-center" >Transfered_Line</TableHead> */}
 
 
 
@@ -498,9 +500,10 @@ const RCNLineCreateEditForm = (props: Props) => {
                                             <TableCell className="text-center"> <Input value={row.KOR} placeholder="KOR" onChange={(e) => handleRowChange(idx, 'KOR', e.target.value)} required /></TableCell>
                                             <TableCell className="text-center"> <Input value={row.Trolley_Broken} placeholder="Trolley Broken" onChange={(e) => handleRowChange(idx, 'Trolley_Broken', e.target.value)} required /></TableCell>
                                             <TableCell className="text-center"> <Input value={row.Trolley_Small_JB} placeholder="Trolley SmallJB" onChange={(e) => handleRowChange(idx, 'Trolley_Small_JB', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center "> <Input className="bg-green-100" value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx, 'Mc_on', e.target.value)} type='time' required /></TableCell>
-
-                                            <TableCell className="text-center"><Input className="bg-red-100" value={row.Mc_off} placeholder="MC Off Time" onChange={(e) => handleRowChange(idx, 'Mc_off', e.target.value)} type='time' required /></TableCell>
+                                            {/* <TableCell className="text-center "> <Input className="bg-green-100" value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx, 'Mc_on', e.target.value)} type='time' required /></TableCell> */}
+                                            <FormRow idx={idx} row={row} column='Mc_on' handleRowChange={handleRowChange}/>
+                                            <FormRow idx={idx} row={row} column='Mc_off' handleRowChange={handleRowChange}/>
+                                            {/* <TableCell className="text-center"><Input className="bg-red-100" value={row.Mc_off} placeholder="MC Off Time" onChange={(e) => handleRowChange(idx, 'Mc_off', e.target.value)} type='time' required /></TableCell> */}
                                             <TableCell className="text-center"><Input value={row.Mc_breakdown} placeholder="BreakDown" onChange={(e) => handleRowChange(idx, 'Mc_breakdown', e.target.value)} type='time' /></TableCell>
                                             <TableCell className="text-center"> <Input value={row.Brkdwn_reason} placeholder="Reason" onChange={(e) => handleRowChange(idx, 'Brkdwn_reason', e.target.value)} /></TableCell>
                                             <TableCell className="text-center"><Input value={row.otherTime} placeholder="Other Time" onChange={(e) => handleRowChange(idx, 'otherTime', e.target.value)} type='time' /></TableCell>
@@ -508,8 +511,8 @@ const RCNLineCreateEditForm = (props: Props) => {
 
                                             <TableCell className="text-center"> <Input value={row.noOfEmployees} placeholder="Ladies" onChange={(e) => handleRowChange(idx, 'noOfEmployees', e.target.value)} required /></TableCell>
                                             <TableCell className="text-center"> <Input value={row.noOfOperators} placeholder="Operators" onChange={(e) => handleRowChange(idx, 'noOfOperators', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"><Input value={row.Transfered_Qty} placeholder="Kg" readOnly/></TableCell>
-                                            <TableCell className="text-center"><Input value={row.Transfered_To} placeholder="Kg" readOnly /></TableCell>
+                                            {/* <TableCell className="text-center"><Input value={row.Transfered_Qty} placeholder="Kg" readOnly/></TableCell>
+                                            <TableCell className="text-center"><Input value={row.Transfered_To} placeholder="Kg" readOnly /></TableCell> */}
                                             
                                             <TableCell>
                                                 {/* <a className="bg-green-500  text-center items-center justify-center h-7 w-19" onClick={()=>handletransfer(idx)}>Transfer</a> */}

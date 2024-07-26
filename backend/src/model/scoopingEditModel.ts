@@ -1,14 +1,16 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig";
 
-const RcnEditScooping = sequelize.define('rcnEditScooping', {
+const RcnScoopingEdit = sequelize.define('rcnScoopingEdit', {
     id: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
     },
-    LotNo: {
+    LotNo:{
         type: DataTypes.STRING,
         allowNull: false
+        
     },
     date: {
         type: DataTypes.DATE,
@@ -34,66 +36,72 @@ const RcnEditScooping = sequelize.define('rcnEditScooping', {
 
     Opening_Qty:
     {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false
     },
     Receiving_Qty:
     {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false
     },
 
-    Wholes:
+    Wholes: 
     {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
-    Broken:
+    Broken: 
     {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
-    Uncut:
+    Uncut: 
     {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
-    Unscoop:
+    Unscoop: 
     {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
-    NonCut:
+    NonCut: 
     {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
-    Rejection:
+    Rejection: 
     {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
-    Dust:
+    Dust: 
     {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
-    KOR:
+    KOR: 
     {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
-    Trolley_Broken:
+    Trolley_Broken: 
     {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
-    Trolley_Small_JB:
+    Trolley_Small_JB: 
     {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10,2),
         allowNull: true
+    },
+   
+    scoopStatus:{
+        type:DataTypes.INTEGER,
+        defaultValue: 0
     },
 
+    
     Mc_on: {
         type: DataTypes.TIME,
         allowNull: true
@@ -118,19 +126,19 @@ const RcnEditScooping = sequelize.define('rcnEditScooping', {
         type: DataTypes.STRING,
         allowNull: true
     },
-    noOfLadies: {
+    noOfLadies:{
         type: DataTypes.INTEGER,
         allowNull: true
     },
-    noOfGents: {
+    noOfGents:{
         type: DataTypes.INTEGER,
         allowNull: true
     },
-    noOfSupervisors: {
+    noOfSupervisors:{
         type: DataTypes.INTEGER,
         allowNull: true
     },
-    noOfOperators: {
+    noOfOperators:{
         type: DataTypes.INTEGER,
         allowNull: true
     },
@@ -140,7 +148,14 @@ const RcnEditScooping = sequelize.define('rcnEditScooping', {
     },
     editStatus: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        defaultValue:'NA'
+    },
+    Transfered_To: {
+        type: DataTypes.STRING,
+    },
+    Transfered_Qty: {
+        type: DataTypes.DECIMAL(10,2),
     },
     Mc_runTime: {
         type: DataTypes.TIME,
@@ -151,8 +166,5 @@ const RcnEditScooping = sequelize.define('rcnEditScooping', {
         allowNull: true
     }
 
-
-
-
 });
-export default RcnEditScooping;
+export default RcnScoopingEdit;

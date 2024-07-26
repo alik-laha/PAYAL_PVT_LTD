@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import RcnScooping from "../../model/scoopingModel";
+import RcnScoopingEdit from "../../model/scoopingEditModel";
 
 
 
-const createscoopingReport = async (req: Request, res: Response) => {
+const createscoopingEditReport = async (req: Request, res: Response) => {
 
  
         try {
@@ -60,9 +61,11 @@ const createscoopingReport = async (req: Request, res: Response) => {
             
             
             
-            const scoop = await RcnScooping.update(
+            const scoopEdit = await RcnScoopingEdit.update(
                 {
-                
+                    
+                    id:id,
+                    Opening_Qty:Opening_Qty,
                     Receiving_Qty:Receiving_Qty,
                     date: Date,
                     Wholes:Wholes,
@@ -99,11 +102,23 @@ const createscoopingReport = async (req: Request, res: Response) => {
                     },
                 }
             );
+            await RcnScoopingEdit.update(
+                {
+                    
+                    editStatus:'Pending'
+
+                },
+                {
+                    where: {
+                        id,
+                    },
+                }
+            );
             
-            return res.status(200).json({ message: "RCN Scooping Report Uploaded Successfully" ,scoop});
+            return res.status(200).json({ message: "RCN Scooping Edit Report Uploaded Successfully" ,scoopEdit});
         } catch (err) {
             return res.status(500).json({ message: "internal server Error", err });
         }
 }
 
-export default createscoopingReport;
+export default createscoopingEditReport;

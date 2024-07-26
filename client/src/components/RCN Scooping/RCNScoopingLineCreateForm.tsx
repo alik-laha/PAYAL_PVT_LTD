@@ -144,7 +144,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
     
           const merged = filteredData.reduce<Record<string, { LotNo:string,origin: string,Opening_Qty:number,
             Receiving_Qty: number,Wholes:number,Broken: number,Uncut: number,Unscoop: number,NonCut:number,Rejection: number,
-            Dust:number,KOR:number;noOfEmployees: number,noOfOperators: number}>>((acc, row) => {
+            Dust:number,KOR:number,noOfEmployees: number,noOfOperators: number}>>((acc, row) => {
             const { LotNo,
                 origin,
                 
