@@ -92,5 +92,9 @@ const QualityPackageMaterial = sequelize.define('QcPackageMaterial', {
     }
 
 })
+PackagingMaterial.hasOne(QualityPackageMaterial, { foreignKey: { name: 'id' } })
+
+QualityPackageMaterial.belongsTo(PackagingMaterial, { foreignKey: { name: 'id' } })
+
 export default QualityPackageMaterial;
 
