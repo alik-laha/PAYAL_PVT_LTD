@@ -1,11 +1,7 @@
-
 import DashboardHeader from '../dashboard/DashboardHeader'
 import DashboardSidebar from '../dashboard/DashboardSidebar'
 
-
-import Employeecreateform from './Employeecreateform';
 import { Button } from "@/components/ui/button";
-import EmployeeTable from "./EmployeeTable";
 import {
     Dialog,
     DialogContent,
@@ -14,17 +10,8 @@ import {
 
     DialogTrigger,
 } from "@/components/ui/dialog"
-import UseQueryData from '../common/dataFetcher';
-import Loader from '../common/Loader';
 
-const Employee = () => {
-    const { data, error, isLoading } = UseQueryData('/api/employee/activeEmployeeCount', 'GET', 'EmployeeCount')
-    if (isLoading) {
-        return <Loader />
-    }
-    if (error) {
-        return <div>Error</div>
-    }
+const PackagingMetirialQuality = () => {
     return (
         <div>
             <DashboardHeader />
@@ -32,7 +19,7 @@ const Employee = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-300">
-                        Active Employee<br /><p>{data.Data}</p>
+                        Active Employee<br /><p>count here</p>
                     </div>
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
@@ -46,19 +33,18 @@ const Employee = () => {
 
                         </DialogHeader>
 
-                        <Employeecreateform />
+                        {/* <Employeecreateform /> */}
                     </DialogContent>
                 </Dialog>
 
                 <div>
 
                 </div>
-                <EmployeeTable />
+                {/* <EmployeeTable /> */}
 
             </div>
         </div>
-
-
     )
 }
-export default Employee;
+
+export default PackagingMetirialQuality
