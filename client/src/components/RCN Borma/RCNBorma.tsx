@@ -53,7 +53,7 @@ const RCNBorma = () => {
     console.log(data)
 
     const handleOpenLotNo = async () => {
-        axios.get('/api/scooping/getUnscoopedEntry/0').then(res => {
+        axios.get('/api/borma/getUnBoiledEntry/0').then(res => {
             console.log(res)
             setLotData(res.data.scoopingLot)
         })
@@ -106,7 +106,7 @@ const RCNBorma = () => {
                         <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>RCN Scooping Entry Form</p></DialogTitle>
+                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>RCN Boiling Entry Form</p></DialogTitle>
 
                             </DialogHeader>
 
@@ -115,7 +115,7 @@ const RCNBorma = () => {
                     </Dialog>
 
 
-                    {searchType === "LotWise" ? <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> : null}
+                    <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> 
 
                 </div>
                 
