@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import RcnAllEditScooping from "../../model/scoopingAllEditModel";
 const findEditaScoopingAll = async (req: Request, res: Response) => {
     try {
-        const scoopingAllEdit = await RcnAllEditScooping.findAll();
+        const scoopingAllEdit = await RcnAllEditScooping.findAll({order: [['LotNo', 'DESC'], ['date', 'DESC']] });
         if (!scoopingAllEdit) {
             return res.status(400).json({ message: "Not found" });
         }

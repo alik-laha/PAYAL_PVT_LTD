@@ -498,7 +498,7 @@ const RCNScoopingTable = () => {
                                                                     <p className='text-1xl pb-1 text-center mt-5'>Line Wise Scooping Modify</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            <RCNLineCreateEditForm scoop={scoopdata} />
+                                                            <RCNLineCreateEditForm scoop={scoopeditdata} />
                                                             {/* <RcnPrimaryModify data={item} /> */}
                                                         </DialogContent>
                                                     </Dialog>
