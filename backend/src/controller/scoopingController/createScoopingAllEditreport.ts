@@ -1,4 +1,4 @@
-6import { Request, Response } from "express";
+import { Request, Response } from "express";
 
 import RcnAllScooping from "../../model/scoopingAllmodel";
 
