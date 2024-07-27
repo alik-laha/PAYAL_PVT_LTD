@@ -63,7 +63,6 @@ import {
 } from "@/components/ui/pagination"
 import { useContext } from "react";
 import Context from "../context/context";
-import { EditPendingData } from "@/type/type";
 import { CiEdit } from "react-icons/ci";
 import RCNLineCreateEditForm from "./RCNLineCreateEditForm";
 import RcnTableLineWise from "./RcnScoopingTableLineWise";
@@ -83,7 +82,7 @@ const RCNScoopingTable = () => {
     const [page, setPage] = useState(pageNo)
     const [EditData, setEditData] = useState<rcnScoopingData[]>([])
     const limit = pagelimit
-    const { editScoopingLotWiseData } = useContext(Context);
+    const { editScoopingLotWiseData, setSearchType } = useContext(Context);
     const [blockpagen, setblockpagen] = useState('flex')
     const currDate = new Date().toLocaleDateString();
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
@@ -127,7 +126,7 @@ const RCNScoopingTable = () => {
         //console.log('search button pressed')
         //setEditPendingBoilingData([])
         setEditData([])
-
+        setSearchType(selectType)
         const response = await axios.post('/api/scooping/searchScooping', {
             blConNo: blConNo,
             origin: origin,
@@ -393,7 +392,9 @@ const RCNScoopingTable = () => {
 
                 <select className='flexbox-search-width font-semibold flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setselectType(e.target.value)} value={selectType}>
+                    onChange={(e) => {
+                        setselectType(e.target.value)
+                    }} value={selectType}>
 
                     {SelectType.map((data, index) => (
                         <option className='relative flex w-full cursor-default select-none items-center rounded-sm 

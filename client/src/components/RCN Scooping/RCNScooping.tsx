@@ -27,7 +27,7 @@ import { scoopingpendingLotData } from '@/type/type';
 
 const RCNScooping = () => {
 
-    const { setEditScoopingLotWiseData } = useContext(Context)
+    const { setEditScoopingLotWiseData, searchType } = useContext(Context)
     const [lotdata, setLotData] = useState<scoopingpendingLotData[]>([])
 
 
@@ -116,7 +116,7 @@ const RCNScooping = () => {
                     </Dialog>
 
 
-                    <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button>
+                    {searchType === "LotWise" ? <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> : null}
 
                 </div>
                 <RCNScoopingTable />

@@ -30,6 +30,8 @@ interface ContextType {
     setRecevingPacakanMaterialOverView: (data: SumofpackageMetrialReceving | null) => void;
     editScoopingLotWiseData: rcnScoopingData[];
     setEditScoopingLotWiseData: (data: rcnScoopingData[]) => void;
+    searchType: string;
+    setSearchType: (data: string) => void;
 }
 
 const Context = createContext<ContextType>({
@@ -61,6 +63,8 @@ const Context = createContext<ContextType>({
     recevingPackagematerialOverView: (null),
     editScoopingLotWiseData: [],
     setEditScoopingLotWiseData: () => { },
+    setSearchType: () => { },
+    searchType: '',
 
 });
 
