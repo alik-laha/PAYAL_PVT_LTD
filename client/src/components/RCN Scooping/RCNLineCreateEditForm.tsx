@@ -353,7 +353,10 @@ const RCNLineCreateEditForm = (props: Props) => {
                 let scoopingcount = 0
                 for (const data of formData) {
                     const createscoop = await axios.put(`/api/scooping/createScoopingEdit/${data.id}`, { data })
-                    scoopingcount++;
+
+                    if (createscoop) {
+                        scoopingcount++;
+                    }
                     if (formData.length === scoopingcount) {
                         if (createscoop.status === 200) {
                             await axios.post('/api/scooping/updateLotNo', { lotNo: props.scoop[0].LotNo, desc: 'ScoopingEdit' })
@@ -409,10 +412,10 @@ const RCNLineCreateEditForm = (props: Props) => {
                         if (update.status === 200) {
                             const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
                             dialog2.showModal()
-                            setTimeout(() => {
-                                dialog2.close()
-                                window.location.reload()
-                            }, 3000)
+                            // setTimeout(() => {
+                            //     dialog2.close()
+                            //     window.location.reload()
+                            // }, 3000)
                         }
                     }
                 }
@@ -428,9 +431,9 @@ const RCNLineCreateEditForm = (props: Props) => {
             }
             const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
             dialog.showModal()
-            setTimeout(() => {
-                dialog.close()
-            }, 2000)
+            // setTimeout(() => {
+            //     dialog.close()
+            // }, 2000)
         }
     }
 

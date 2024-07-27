@@ -3,7 +3,7 @@ import ScpNxtOpenEdit from "../../model/ScoopingNextOpeningEditModel";
 
 const updateNxtOpeningCreate = async (req: Request, res: Response) => {
     try {
-        const { LotNo, Scooping_Line_Mc, Uncut, Unscoop, NonCut } = req.body.data;
+        const { LotNo, Scooping_Line_Mc, Uncut, Unscoop, NonCut } = req.body.data3;
         const CretaeNextOpening = await ScpNxtOpenEdit.create({
             LotNo,
             Scooping_Line_Mc,

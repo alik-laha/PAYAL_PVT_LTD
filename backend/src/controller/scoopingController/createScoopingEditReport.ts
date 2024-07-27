@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import RcnScooping from "../../model/scoopingModel";
 import RcnScoopingEdit from "../../model/scoopingEditModel";
+import RcnAllScooping from "../../model/scoopingAllmodel";
 
 
 
@@ -101,7 +102,7 @@ const createscoopingEditReport = async (req: Request, res: Response) => {
 
             }
         );
-        await RcnScoopingEdit.update(
+        await RcnScooping.update(
             {
 
                 editStatus: 'Pending'
@@ -110,6 +111,18 @@ const createscoopingEditReport = async (req: Request, res: Response) => {
             {
                 where: {
                     id,
+                },
+            }
+        );
+        await RcnAllScooping.update(
+            {
+
+                editStatus: 'Pending'
+
+            },
+            {
+                where: {
+                    LotNo,
                 },
             }
         );
