@@ -268,6 +268,7 @@ export interface PermissionRole {
     BoilingSupervisor:string[];
     CleaningSupervisor:string[];
     MaintainanceManager:string[];
+    BormaSuperVisor:string[];
 
 
 

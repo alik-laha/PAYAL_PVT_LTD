@@ -21,6 +21,7 @@ import VerifyCodeAndResetPassword from './components/forgotPassword/VerifyCodeAn
 import PackagingMetirialReceiving from './components/packagingMetirialReceiving/packagingMetirialReceiving'
 import Cleaning from './components/Cleaning/Cleaning'
 import ViewProfile from './components/ViewProfile/ViewProfile'
+import RCNBorma from './components/RCN Borma/RCNBorma'
 
 
 function App() {
@@ -62,7 +63,7 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'ReceivingSupervisor', 'ReceivingManager', 'QCManager', 'QCSupervisor',
           'ProductionManager', 'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor',
-          'CleaningSupervisor','MaintainanceSupervisor', 'MaintainanceManager']} />}>
+          'CleaningSupervisor','MaintainanceSupervisor', 'MaintainanceManager','BormaSuperVisor']} />}>
 
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
@@ -102,6 +103,10 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'ScoopingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/rcnScooping' element={<RCNScooping />} />
+        </Route>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'BormaSuperVisor', 'ProductionManager']} />}>
+          <Route path='/dashboard/RcnBorma' element={<RCNBorma />} />
         </Route>
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
