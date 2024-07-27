@@ -329,92 +329,116 @@ const RCNLineCreateEditForm = (props: Props) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-
+    
         props.scoop.map((item: ScoopData, idx: number) => {
-            rows[idx].id = item.id
-            //rows[idx].Scooping_Line_Mc=item.Scooping_Line_Mc
-
+            rows[idx].id=item.id
         })
         console.log(rows)
-        const date = DateRef.current?.value
+        const date = DateRef.current?.value  
         const male = maleRef.current?.value
         const female = femaleRef.current?.value
         const supervisor = supervisorRef.current?.value
-        try {
 
-
+        try 
+        {
             const formData = rows.map((row: any) => ({
                 male: male,
                 Date: date,
                 female: female,
                 supervisor: supervisor,
-                ...row
+                 ...row
 
             }))
-
-            console.log(formData)
-            console.log(newFormData)
-            let scoopingcount = 0
-            for (var data of formData) {
-                axios.put(`/api/scooping/createScoopingEdit/${data.id}`, { data }).then(res => {
-                    //scoopingcount++;
-                    if (formData.length === scoopingcount) {
-                        setErrortext(res.data.message)
-
-                        // if (res.status === 200) {
-                        //    const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                        //    dialog.showModal()
-                        //     setTimeout(() => {
-                        //         dialog.close()
-                        //         window.location.reload()
-                        //     }, 2000)
-                        // }
-
-                    }
-
-                })
-                    .catch(err => {
-                        console.log(err)
-                        setErrortext(err.response.data.message)
-
-                    })
-            }
-            const formall = newFormData.map((row: any) => ({
-                male: male,
-                Date: date,
-                female: female,
-                supervisor: supervisor,
-                ...row
-
-            }))
-
-            for (var data2 of formall) {
-                axios.post('/api/scooping/createScoopingallEdit', { data2 }).then(res => {
-                    scoopingcount++;
-                    if (formall.length === scoopingcount) {
-                        setErrortext(res.data.message)
-
-                        if (res.status === 200) {
-                            const dialog = document.getElementById("successemployeedialog") as HTMLDialogElement
-                            dialog.showModal()
-                            setTimeout(() => {
-                                dialog.close()
-                                window.location.reload()
-                            }, 2000)
+            try{
+                let scoopingcount = 0
+                for (var data of formData) 
+                    {
+                        const createscoop= await axios.put(`/api/scooping/createScoopingEdit/${data.id}`, { data })
+                        scoopingcount++;
+                        if (formData.length === scoopingcount) 
+                        {
+                            if (createscoop.status === 200) 
+                            {
+                                await axios.post('/api/scooping/updateLotNo', { lotNo:props.scoop[0].LotNo,desc:'ScoopingEdit'}) 
+                            }
                         }
-
                     }
 
-                })
-                    .catch(err => {
-                        console.log(err)
-                        setErrortext(err.response.data.message)
-
-                    })
             }
+            catch (err) {
+                console.log(err)
+
+                if(axios.isAxiosError(err)){
+                    setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+                }
+                else{
+                    setErrortext('An Unexpected Error Occured')
+                }
+                const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                dialog.showModal()
+                setTimeout(() => {
+                    dialog.close()
+                }, 2000)
+                await axios.post('/api/scooping/deleteScoopEditReportByLotNo',{ lotNo:props.scoop[0].LotNo})
+                }
+           
+            let scoopingallcount=0
+
+                const resStatus=await axios.post('/api/boiling/getStatusBoiling', { lotNo:props.scoop[0].LotNo})
+                console.log(resStatus)
+
+                if(resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy==='ScoopingEdit')
+                {
+                    const formall = newFormData.map((row: any) => ({
+                        male: male,
+                        Date: date,
+                        female: female,
+                        supervisor: supervisor,
+                         ...row
+        
+                    }))
+                    for (var data2 of formall) 
+                    {   
+                        const resp=await axios.post('/api/scooping/createScoopingall', { data2 })
+                        console.log(resp.data.scoop.id)
+                        let p_id=await resp.data.scoop.id
+                        await axios.post('/api/scooping/createInitialBorma', {p_id, data2 })
+                    }
+    
+                    for (var data3 of newFormupdateData) 
+                    {
+                        scoopingallcount++
+                        const update=await axios.post('/api/scooping/updatenextopening', { data3 })
+                        if (newFormupdateData.length === scoopingallcount) 
+                            {
+                                
+                                setErrortext('Scooping Entry Created Successfully')
+                                if (update.status === 200) 
+                                {
+                                    const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                            dialog2.showModal()
+                             setTimeout(() => {
+                                 dialog2.close()
+                                 window.location.reload()
+                             }, 3000)
+                                }
+                            }
+                    }
+                }          
         }
         catch (err) {
-            console.log(err)
+        console.log(err)
+        if(axios.isAxiosError(err)){
+            setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+        }
+        else{
+            setErrortext('An Unexpected Error Occured')
+        }
+        const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+        dialog.showModal()
+        setTimeout(() => {
+            dialog.close()
+        }, 2000)
         }
     }
 
