@@ -21,6 +21,7 @@ import VerifyCodeAndResetPassword from './components/forgotPassword/VerifyCodeAn
 import PackagingMetirialReceiving from './components/packagingMetirialReceiving/packagingMetirialReceiving'
 import Cleaning from './components/Cleaning/Cleaning'
 import ViewProfile from './components/ViewProfile/ViewProfile'
+import PackagingMetirialQuality from './components/PackagingMetirial/packagingMeterialQuality'
 
 
 function App() {
@@ -62,7 +63,7 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'ReceivingSupervisor', 'ReceivingManager', 'QCManager', 'QCSupervisor',
           'ProductionManager', 'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor',
-          'CleaningSupervisor','MaintainanceSupervisor', 'MaintainanceManager']} />}>
+          'CleaningSupervisor', 'MaintainanceSupervisor', 'MaintainanceManager']} />}>
 
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
@@ -89,6 +90,10 @@ function App() {
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>
           <Route path="/dashboard/qcRCN" element={<QCRcn />} />
+        </Route>
+
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>
+          <Route path="/dashboard/qc_packaging_metirial" element={<PackagingMetirialQuality />} />
         </Route>
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'GradingSupervisor', 'ProductionManager']} />}>
