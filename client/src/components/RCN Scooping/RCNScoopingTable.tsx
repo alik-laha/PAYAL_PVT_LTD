@@ -165,6 +165,7 @@ const RCNScoopingTable = () => {
         handleSearch()
     }, [page])
     const [scoopdata, setscoopdata] = useState<ScoopData[]>([])
+    const [scoopeditdata, setscoopeditdata] = useState<ScoopData[]>([])
 
 
     //let scoopdata:ScoopData[]=[]
@@ -175,6 +176,18 @@ const RCNScoopingTable = () => {
             if (Array.isArray(res.data.scoopingLot)) {
                 //scoopdata=res.data.scoopingLot
                 setscoopdata(res.data.scoopingLot)
+                console.log(scoopdata)
+            }
+
+            //set(res.data.scoopingLot)
+        })
+    }
+    const handleEditLineEntry = async (lotNO: string) => {
+        axios.get(`/api/scooping/getEditScoopByLot/${lotNO}`).then(res => {
+            console.log(res)
+            if (Array.isArray(res.data.scoopingLot)) {
+                //scoopdata=res.data.scoopingLot
+                setscoopeditdata(res.data.scoopingLot)
                 console.log(scoopdata)
             }
 
@@ -472,37 +485,23 @@ const RCNScoopingTable = () => {
                                         <TableCell className="text-center">
                                             <Popover>
                                                 <PopoverTrigger>
-                                                    <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                                    <button className='p-2 text-white rounded bg-cyan-500' >Action</button>
                                                 </PopoverTrigger>
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger className="flex">
-                                                            <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger className="flex mt-2">
-                                                            <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
+                                                    <Dialog>
+                                                        <DialogTrigger className="flex"><CiEdit size={20} />
+                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" onClick={() => handleEditLineEntry(item.LotNo)}>Approve/Revert</button>
+                                                        </DialogTrigger>
+                                                        <DialogContent className='max-w-3xl'>
+                                                            <DialogHeader>
+                                                                <DialogTitle>
+                                                                    <p className='text-1xl pb-1 text-center mt-5'>Line Wise Scooping Modify</p>
+                                                                </DialogTitle>
+                                                            </DialogHeader>
+                                                            <RCNLineCreateEditForm scoop={scoopdata} />
+                                                            {/* <RcnPrimaryModify data={item} /> */}
+                                                        </DialogContent>
+                                                    </Dialog>
                                                 </PopoverContent>
                                             </Popover>
                                         </TableCell>
@@ -552,7 +551,7 @@ const RCNScoopingTable = () => {
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                     <Dialog>
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" onClick={() => handleLineEntry(item.LotNo)}>View/Modify</button>
+                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" onClick={() => handleLineEntry(item.LotNo)}>View</button>
                                                         </DialogTrigger>
                                                         <DialogContent className='max-w-3xl'>
                                                             <DialogHeader>

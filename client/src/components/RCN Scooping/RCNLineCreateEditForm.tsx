@@ -485,7 +485,7 @@ const RCNLineCreateEditForm = (props: Props) => {
                             <TableHead className="text-center" >Non Cut</TableHead>
                             <TableHead className="text-center" >Rejection</TableHead>
                             <TableHead className="text-center" >Dust</TableHead>
-                            <TableHead className="text-center" >KOR</TableHead>
+                            {/* <TableHead className="text-center" >KOR</TableHead> */}
                             <TableHead className="text-center" >Trolley Broken(%)</TableHead>
                             <TableHead className="text-center" >Trolley SmallJB(%)</TableHead>
                             <TableHead className="text-center" >Scooping On</TableHead>
@@ -529,7 +529,7 @@ const RCNLineCreateEditForm = (props: Props) => {
                                             <TableCell className="text-center"> <Input value={row.NonCut} placeholder="NonCut" onChange={(e) => handleRowChange(idx, 'NonCut', e.target.value)} required /></TableCell>
                                             <TableCell className="text-center"> <Input value={row.Rejection} placeholder="Rejection" onChange={(e) => handleRowChange(idx, 'Rejection', e.target.value)} required /></TableCell>
                                             <TableCell className="text-center"> <Input value={row.Dust} placeholder="Dust" onChange={(e) => handleRowChange(idx, 'Dust', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input value={row.KOR} placeholder="KOR" onChange={(e) => handleRowChange(idx, 'KOR', e.target.value)} required /></TableCell>
+                                            {/* <TableCell className="text-center"> <Input value={row.KOR} placeholder="KOR" onChange={(e) => handleRowChange(idx, 'KOR', e.target.value)} required /></TableCell> */}
                                             <TableCell className="text-center"> <Input value={row.Trolley_Broken} placeholder="Trolley Broken" onChange={(e) => handleRowChange(idx, 'Trolley_Broken', e.target.value)} required /></TableCell>
                                             <TableCell className="text-center"> <Input value={row.Trolley_Small_JB} placeholder="Trolley SmallJB" onChange={(e) => handleRowChange(idx, 'Trolley_Small_JB', e.target.value)} required /></TableCell>
                                             {/* <TableCell className="text-center "> <Input className="bg-green-100" value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx, 'Mc_on', e.target.value)} type='time' required /></TableCell> */}
