@@ -126,7 +126,7 @@ const RCNScoopingTable = () => {
     const handleSearch = async () => {
         //console.log('search button pressed')
         //setEditPendingBoilingData([])
-        //setEditData([])
+        setEditData([])
 
         const response = await axios.post('/api/scooping/searchScooping', {
             blConNo: blConNo,
@@ -165,6 +165,7 @@ const RCNScoopingTable = () => {
         handleSearch()
     }, [page])
     const [scoopdata, setscoopdata] = useState<ScoopData[]>([])
+
 
     //let scoopdata:ScoopData[]=[]
 

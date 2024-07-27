@@ -4,6 +4,7 @@ import sequelize from "../../config/databaseConfig";
 import { Op } from "sequelize";
 
 import RcnScooping from "../../model/scoopingModel";
+import RcnAllEditScooping from "../../model/scoopingAllEditModel";
 
 const sumOfAllScoop = async (req: Request, res: Response) => {
     try {
@@ -12,19 +13,19 @@ const sumOfAllScoop = async (req: Request, res: Response) => {
         let Year = today.getFullYear()
         console.log(today)
         const compareDate = new Date(`${Year}-04-01`);
-        compareDate.setHours(0,0,0,0)
+        compareDate.setHours(0, 0, 0, 0)
         let targetDate
         if (today < compareDate) {
             targetDate = new Date(`${Year - 1}-04-01`);
         }
-        else{
+        else {
             targetDate = new Date(`${Year}-04-01`);
         }
-        
-        targetDate.setHours(0,0,0,0)
-        if(today.getHours()<5 || (today.getHours()===5 && today.getMinutes()<=30)){
-            today.setHours(today.getHours()+5);
-            today.setMinutes(today.getMinutes()+30);
+
+        targetDate.setHours(0, 0, 0, 0)
+        if (today.getHours() < 5 || (today.getHours() === 5 && today.getMinutes() <= 30)) {
+            today.setHours(today.getHours() + 5);
+            today.setMinutes(today.getMinutes() + 30);
         }
 
         const data = await RcnScooping.findAll({
@@ -43,7 +44,7 @@ const sumOfAllScoop = async (req: Request, res: Response) => {
                 [sequelize.literal(`SUM(CASE WHEN SizeName='E' THEN Broken ELSE 0 end)`), 'BrokenE'],
                 [sequelize.literal(`SUM(CASE WHEN SizeName='F' THEN Broken ELSE 0 end)`), 'BrokenF'],
                 [sequelize.literal(`SUM(CASE WHEN SizeName='G' THEN Broken ELSE 0 end)`), 'BrokenG'],
-                
+
             ],
             where: {
                 [Op.or]: [
@@ -51,10 +52,10 @@ const sumOfAllScoop = async (req: Request, res: Response) => {
                     { editStatus: "NA" }
                 ], date: {
                     [Op.between]: [targetDate, today]
-                },scoopStatus:1
+                }, scoopStatus: 1
             }
         });
-        const EditData = await RcnScooping.count()
+        const EditData = await RcnAllEditScooping.count()
         if (data) {
             return res.status(200).json({ data, EditData });
         }
