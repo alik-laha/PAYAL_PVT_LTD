@@ -412,10 +412,10 @@ const RCNLineCreateEditForm = (props: Props) => {
                         if (update.status === 200) {
                             const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
                             dialog2.showModal()
-                            // setTimeout(() => {
-                            //     dialog2.close()
-                            //     window.location.reload()
-                            // }, 3000)
+                            setTimeout(() => {
+                                dialog2.close()
+                                window.location.reload()
+                            }, 3000)
                         }
                     }
                 }
@@ -431,9 +431,9 @@ const RCNLineCreateEditForm = (props: Props) => {
             }
             const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
             dialog.showModal()
-            // setTimeout(() => {
-            //     dialog.close()
-            // }, 2000)
+            setTimeout(() => {
+                dialog.close()
+            }, 2000)
         }
     }
 
