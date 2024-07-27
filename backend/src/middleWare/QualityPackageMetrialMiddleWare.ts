@@ -7,16 +7,21 @@ const QualityPackageMetrialMiddleWare = (req: Request, res: Response, next: Next
     try {
         const storage = multer.diskStorage({
             destination: (req, file, cb) => {
-                cb(null, './uploads/employeeImages/');
+                cb(null, './uploads/QcPackageMaterial/');
             },
             filename: (req, file, cb) => {
+                if (file.fieldname === 'foodGradeCirtiFicateFile') {
+                    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+                    cb(null, `foodGradeCirtiFicateFile-${uniqueSuffix}${path.extname(file.originalname)}`);
+                }
+
                 const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
                 cb(null, `${file.fieldname}-${uniqueSuffix}${path.extname(file.originalname)}`);
             }
         });
 
         const upload = multer({ storage }).fields([
-            { name: 'employeeImage', maxCount: 1 },
+            { name: 'foodGradeCirtiFicateFile', maxCount: 1 },
         ]);
 
         upload(req, res, (err) => {
