@@ -299,7 +299,7 @@ const RCNLineCreateEditForm = (props: Props) => {
             noOfEmployees: item.noOfEmployees,
             noOfOperators: item.noOfOperators, Transfered_To: item.Transfered_To, Transfered_Qty: item.Transfered_Qty
 
-
+            
 
         }));
 
