@@ -16,25 +16,28 @@ import scoopingMiddleware from "../middleWare/scoopingMiddleware";
 import deleteScoopingReport from "../controller/scoopingController/deleteScoopingReport";
 import createscoopingEditReport from "../controller/scoopingController/createScoopingEditReport";
 import deleteSccopingEditByLot from "../controller/scoopingController/deleteScoopingEditByLot";
+import createscoopingAllEditReport from "../controller/scoopingController/createScoopingAllEditreport";
+import updateNxtOpeningCreate from "../controller/scoopingController/updateNxtOpeningCreate";
 
 const router = express()
 
-router.post("/createInitialScooping",jwtVerify,CreateInitialScooping )
-router.post("/getPrevScoop",jwtVerify,getprevScoop )
+router.post("/createInitialScooping", jwtVerify, CreateInitialScooping)
+router.post("/getPrevScoop", jwtVerify, getprevScoop)
 router.delete('/deleteScoopingByLotNo/:id', jwtVerify, deleteSccopingByLot)
 router.get("/sumofallscoop", jwtVerify, sumOfAllScoop)
 router.get("/getUnscoopedEntry/:status", jwtVerify, getscoopLot)
 router.get("/getScoopByLot/:lotNO", jwtVerify, getscoopByLot)
-router.put("/createScooping/:id", jwtVerify, scoopingMiddleware,createscoopingReport)
+router.put("/createScooping/:id", jwtVerify, scoopingMiddleware, createscoopingReport)
 router.post("/createScoopingall", jwtVerify, createscoopingAllReport)
 router.post("/searchScooping", jwtVerify, SearchScooping)
 router.post("/getScoopByLotOrigin", jwtVerify, getscoopByLot)
 router.post("/updatenextopening", jwtVerify, updateScoopingOpening)
 router.post("/updateLotNo", jwtVerify, updateLotNo)
-router.post("/createInitialBorma",jwtVerify,CreateInitialBorma )
+router.post("/createInitialBorma", jwtVerify, CreateInitialBorma)
 router.post('/deleteScoopReportByLotNo', jwtVerify, deleteScoopingReport)
 router.post('/deleteScoopEditReportByLotNo', jwtVerify, deleteSccopingEditByLot)
-router.put("/createScoopingEdit/:id", jwtVerify, scoopingMiddleware,createscoopingEditReport)
-router.post("/createScoopingallEdit", jwtVerify, createscoopingAllReport)
+router.put("/createScoopingEdit/:id", jwtVerify, scoopingMiddleware, createscoopingEditReport)
+router.post("/createScoopingallEdit", jwtVerify, createscoopingAllEditReport)
+router.post("/updatenextopeningcreate", jwtVerify, updateNxtOpeningCreate)
 
 export default router

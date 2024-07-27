@@ -15,6 +15,7 @@ import { Input } from "../ui/input"
 import { useEffect, useRef, useState } from "react"
 import axios from "axios";
 import FormRow from "../common/FormRowTime"
+import { Button } from "../ui/button"
 
 interface Props {
     scoop: ScoopData[]
@@ -142,7 +143,7 @@ const RCNLineCreateEditForm = (props: Props) => {
             const merged = filteredData.reduce<Record<string, {
                 LotNo: string, origin: string, Scooping_Line_Mc: string, Opening_Qty: number,
                 Receiving_Qty: number, Wholes: number, Broken: number, Uncut: number, Unscoop: number,
-                 NonCut: number, Rejection: number,
+                NonCut: number, Rejection: number,
                 Dust: number, KOR: number, noOfEmployees: number, noOfOperators: number
             }>>((acc, row) => {
                 const { LotNo,
@@ -311,7 +312,7 @@ const RCNLineCreateEditForm = (props: Props) => {
 
     const [errortext, setErrortext] = useState('')
 
-    
+
 
 
     const handleRowChange = (index: number, field: string, fieldvalue: string | number) => {
@@ -322,56 +323,52 @@ const RCNLineCreateEditForm = (props: Props) => {
         console.log(rows)
     }
 
- 
+
 
 
 
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-    
+
         props.scoop.map((item: ScoopData, idx: number) => {
-            rows[idx].id=item.id
+            rows[idx].id = item.id
         })
         console.log(rows)
-        const date = DateRef.current?.value  
+        const date = DateRef.current?.value
         const male = maleRef.current?.value
         const female = femaleRef.current?.value
         const supervisor = supervisorRef.current?.value
 
-        try 
-        {
+        try {
             const formData = rows.map((row: any) => ({
                 male: male,
                 Date: date,
                 female: female,
                 supervisor: supervisor,
-                 ...row
+                ...row
 
             }))
-            try{
+            try {
                 let scoopingcount = 0
-                for (var data of formData) 
-                    {
-                        const createscoop= await axios.put(`/api/scooping/createScoopingEdit/${data.id}`, { data })
-                        scoopingcount++;
-                        if (formData.length === scoopingcount) 
-                        {
-                            if (createscoop.status === 200) 
-                            {
-                                await axios.post('/api/scooping/updateLotNo', { lotNo:props.scoop[0].LotNo,desc:'ScoopingEdit'}) 
-                            }
+                for (const data of formData) {
+                    const createscoop = await axios.put(`/api/scooping/createScoopingEdit/${data.id}`, { data })
+                    scoopingcount++;
+                    if (formData.length === scoopingcount) {
+                        if (createscoop.status === 200) {
+                            await axios.post('/api/scooping/updateLotNo', { lotNo: props.scoop[0].LotNo, desc: 'ScoopingEdit' })
                         }
                     }
+                }
 
             }
             catch (err) {
                 console.log(err)
 
-                if(axios.isAxiosError(err)){
-                    setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+                if (axios.isAxiosError(err)) {
+                    setErrortext(err.response?.data.message || 'An Unexpected Error Occured')
                 }
-                else{
+                else {
                     setErrortext('An Unexpected Error Occured')
                 }
                 const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
@@ -379,66 +376,61 @@ const RCNLineCreateEditForm = (props: Props) => {
                 setTimeout(() => {
                     dialog.close()
                 }, 2000)
-                await axios.post('/api/scooping/deleteScoopEditReportByLotNo',{ lotNo:props.scoop[0].LotNo})
+                await axios.post('/api/scooping/deleteScoopEditReportByLotNo', { lotNo: props.scoop[0].LotNo })
+            }
+
+            let scoopingallcount = 0
+
+            const resStatus = await axios.post('/api/boiling/getStatusBoiling', { lotNo: props.scoop[0].LotNo })
+            console.log(resStatus)
+
+            if (resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy === 'ScoopingEdit') {
+                const formall = newFormData.map((row: any) => ({
+                    male: male,
+                    Date: date,
+                    female: female,
+                    supervisor: supervisor,
+                    ...row
+
+                }))
+                for (const data2 of formall) {
+                    await axios.post('/api/scooping/createScoopingallEdit', { data2 })
+                    // console.log(resp.data.scoop.id)
+                    // const p_id = await resp.data.scoop.id
+                    // await axios.post('/api/scooping/createInitialBorma', { p_id, data2 })
                 }
-           
-            let scoopingallcount=0
 
-                const resStatus=await axios.post('/api/boiling/getStatusBoiling', { lotNo:props.scoop[0].LotNo})
-                console.log(resStatus)
+                for (const data3 of newFormupdateData) {
+                    scoopingallcount++
+                    const update = await axios.post('/api/scooping/updatenextopeningcreate', { data3 })
+                    if (newFormupdateData.length === scoopingallcount) {
 
-                if(resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy==='ScoopingEdit')
-                {
-                    const formall = newFormData.map((row: any) => ({
-                        male: male,
-                        Date: date,
-                        female: female,
-                        supervisor: supervisor,
-                         ...row
-        
-                    }))
-                    for (var data2 of formall) 
-                    {   
-                        const resp=await axios.post('/api/scooping/createScoopingall', { data2 })
-                        console.log(resp.data.scoop.id)
-                        let p_id=await resp.data.scoop.id
-                        await axios.post('/api/scooping/createInitialBorma', {p_id, data2 })
-                    }
-    
-                    for (var data3 of newFormupdateData) 
-                    {
-                        scoopingallcount++
-                        const update=await axios.post('/api/scooping/updatenextopening', { data3 })
-                        if (newFormupdateData.length === scoopingallcount) 
-                            {
-                                
-                                setErrortext('Scooping Entry Created Successfully')
-                                if (update.status === 200) 
-                                {
-                                    const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                        setErrortext('Scooping Entry Edit Requested')
+                        if (update.status === 200) {
+                            const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
                             dialog2.showModal()
-                             setTimeout(() => {
-                                 dialog2.close()
-                                 window.location.reload()
-                             }, 3000)
-                                }
-                            }
+                            setTimeout(() => {
+                                dialog2.close()
+                                window.location.reload()
+                            }, 3000)
+                        }
                     }
-                }          
+                }
+            }
         }
         catch (err) {
-        console.log(err)
-        if(axios.isAxiosError(err)){
-            setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
-        }
-        else{
-            setErrortext('An Unexpected Error Occured')
-        }
-        const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
-        dialog.showModal()
-        setTimeout(() => {
-            dialog.close()
-        }, 2000)
+            console.log(err)
+            if (axios.isAxiosError(err)) {
+                setErrortext(err.response?.data.message || 'An Unexpected Error Occured')
+            }
+            else {
+                setErrortext('An Unexpected Error Occured')
+            }
+            const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+            dialog.showModal()
+            setTimeout(() => {
+                dialog.close()
+            }, 2000)
         }
     }
 
@@ -525,8 +517,8 @@ const RCNLineCreateEditForm = (props: Props) => {
                                             <TableCell className="text-center"> <Input value={row.Trolley_Broken} placeholder="Trolley Broken" onChange={(e) => handleRowChange(idx, 'Trolley_Broken', e.target.value)} required /></TableCell>
                                             <TableCell className="text-center"> <Input value={row.Trolley_Small_JB} placeholder="Trolley SmallJB" onChange={(e) => handleRowChange(idx, 'Trolley_Small_JB', e.target.value)} required /></TableCell>
                                             {/* <TableCell className="text-center "> <Input className="bg-green-100" value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx, 'Mc_on', e.target.value)} type='time' required /></TableCell> */}
-                                            <FormRow idx={idx} row={row} column='Mc_on' handleRowChange={handleRowChange}/>
-                                            <FormRow idx={idx} row={row} column='Mc_off' handleRowChange={handleRowChange}/>
+                                            <FormRow idx={idx} row={row} column='Mc_on' handleRowChange={handleRowChange} />
+                                            <FormRow idx={idx} row={row} column='Mc_off' handleRowChange={handleRowChange} />
                                             {/* <TableCell className="text-center"><Input className="bg-red-100" value={row.Mc_off} placeholder="MC Off Time" onChange={(e) => handleRowChange(idx, 'Mc_off', e.target.value)} type='time' required /></TableCell> */}
                                             <TableCell className="text-center"><Input value={row.Mc_breakdown} placeholder="BreakDown" onChange={(e) => handleRowChange(idx, 'Mc_breakdown', e.target.value)} type='time' /></TableCell>
                                             <TableCell className="text-center"> <Input value={row.Brkdwn_reason} placeholder="Reason" onChange={(e) => handleRowChange(idx, 'Brkdwn_reason', e.target.value)} /></TableCell>
@@ -537,7 +529,7 @@ const RCNLineCreateEditForm = (props: Props) => {
                                             <TableCell className="text-center"> <Input value={row.noOfOperators} placeholder="Operators" onChange={(e) => handleRowChange(idx, 'noOfOperators', e.target.value)} required /></TableCell>
                                             {/* <TableCell className="text-center"><Input value={row.Transfered_Qty} placeholder="Kg" readOnly/></TableCell>
                                             <TableCell className="text-center"><Input value={row.Transfered_To} placeholder="Kg" readOnly /></TableCell> */}
-                                            
+
                                             <TableCell>
                                                 {/* <a className="bg-green-500  text-center items-center justify-center h-7 w-19" onClick={()=>handletransfer(idx)}>Transfer</a> */}
 
@@ -554,7 +546,7 @@ const RCNLineCreateEditForm = (props: Props) => {
                             ) : null}
                         </TableBody>
                     </Table>
-                    {/* <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button> */}
+                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
 
 
                 </form>

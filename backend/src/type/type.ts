@@ -129,8 +129,8 @@ export interface PackageMaterialReceivingData {
     quantity: string;
     unit: string;
     createdBy: string;
-    invoice:string;
-    invoicedate:string;
+    invoice: string;
+    invoicedate: string;
     qualityStatus: string;
     editStatus: string;
     approvedBy: string;
@@ -247,4 +247,12 @@ export interface AbhayMcCleanData {
     cleanedPartsImages: string;
     damagedPartsImages: string;
 
+}
+
+interface MergeNextOpeningData {
+    LotNo: string;
+    Scooping_Line_Mc: string;
+    Uncut: number;
+    Unscoop: number;
+    NonCut: number;
 }
