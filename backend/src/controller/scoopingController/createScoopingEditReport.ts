@@ -61,7 +61,7 @@ const createscoopingEditReport = async (req: Request, res: Response) => {
             
             
             
-            const scoopEdit = await RcnScoopingEdit.update(
+            const scoopEdit = await RcnScoopingEdit.create(
                 {
                     
                     id:id,
@@ -95,11 +95,6 @@ const createscoopingEditReport = async (req: Request, res: Response) => {
                     Transfered_Qty:Transfer_Qty,
                     Transfered_To:Transfer_To_MC
 
-                },
-                {
-                    where: {
-                        id,
-                    },
                 }
             );
             await RcnScoopingEdit.update(
