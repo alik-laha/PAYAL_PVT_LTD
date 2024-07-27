@@ -68,13 +68,13 @@ const DashboardSidebar = () => {
                 <a href="#" className="closebtn" onClick={closeSidebar}>&times;</a>
                 <a>
 
-                
-              
-                
+
+
+
                     {rendersection('HR & Admin') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25} />
                             <p>Admin & HR</p></CollapsibleTrigger>
-                            {renderlink('Dashboard User')
+                        {renderlink('Dashboard User')
                             && <CollapsibleContent className="Items-pvt">
                                 {renderlink('Dashboard User')}
                                 <NavLink to="/dashboard/user" >
@@ -89,7 +89,7 @@ const DashboardSidebar = () => {
                                 </NavLink>
                             </CollapsibleContent >}
 
-                       
+
 
 
                         {renderlink('Asset')
@@ -116,19 +116,19 @@ const DashboardSidebar = () => {
                         {renderlink('Boiling')
 
 
-                            &&  <CollapsibleContent className="Items-pvt">
-                             <NavLink to="/dashboard/RcnBoiling" >
-                                2. RCN Boiling
-                            </NavLink>
-                        </CollapsibleContent>}
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/RcnBoiling" >
+                                    2. RCN Boiling
+                                </NavLink>
+                            </CollapsibleContent>}
                         {renderlink('Scooping')
 
 
-                            &&  <CollapsibleContent className="Items-pvt">
-                             <NavLink to="/dashboard/RcnScooping" >
-                                3. RCN Scooping
-                            </NavLink>
-                        </CollapsibleContent>}
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/RcnScooping" >
+                                    3. RCN Scooping
+                                </NavLink>
+                            </CollapsibleContent>}
                     </Collapsible>}
 
                     {rendersection('Receiving') && <Collapsible >
@@ -153,14 +153,21 @@ const DashboardSidebar = () => {
                     </Collapsible>}
 
 
-        
+
                     {rendersection('Quality') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><LuBadgeCheck size={25} />
                             <p>Quality</p></CollapsibleTrigger>
                         {renderlink('RCN Incoming QC')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/qcRCN" >
-                                   1. RCN Incoming QC
+                                    1. RCN Incoming QC
+                                </NavLink>
+                            </CollapsibleContent>}
+
+                        {renderlink('RCN Incoming QC')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/qcRCN" >
+                                    2. QC Packaging Materials
                                 </NavLink>
                             </CollapsibleContent>}
 
@@ -168,7 +175,7 @@ const DashboardSidebar = () => {
                     </Collapsible>}
 
 
-                   
+
 
                     {/* {rendersection('Maintainance') && <Collapsible >
 
@@ -183,15 +190,15 @@ const DashboardSidebar = () => {
 
                     </Collapsible>} */}
 
-                    
+
                     <Collapsible>
-                <CollapsibleTrigger className="flex user-pvt "><IoMdSettings   size={25} />
-                <p>Profile</p></CollapsibleTrigger>
-                <CollapsibleContent className="Items-pvt">
-                                <NavLink to="/dashboard/userprofile" >
-                                    Account
-                                </NavLink>
-                            </CollapsibleContent ></Collapsible >
+                        <CollapsibleTrigger className="flex user-pvt "><IoMdSettings size={25} />
+                            <p>Profile</p></CollapsibleTrigger>
+                        <CollapsibleContent className="Items-pvt">
+                            <NavLink to="/dashboard/userprofile" >
+                                Account
+                            </NavLink>
+                        </CollapsibleContent ></Collapsible >
 
 
                 </a>
