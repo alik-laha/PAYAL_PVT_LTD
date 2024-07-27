@@ -21,13 +21,13 @@ import { useContext, useState } from 'react';
 import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
-import { scoopingpendingLotData } from '@/type/type';
+import { BormapendingLotData } from '@/type/type';
 
 
 const RCNBorma = () => {
 
     const { setEditScoopingLotWiseData } = useContext(Context)
-    const [lotdata, setLotData] = useState<scoopingpendingLotData[]>([])
+    const [lotdata, setLotData] = useState<BormapendingLotData[]>([])
 
 
 

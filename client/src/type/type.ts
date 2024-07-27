@@ -124,6 +124,9 @@ export interface QcRcnEntryData {
 export interface scoopingpendingLotData {
     LotNo: string
 }
+export interface BormapendingLotData {
+    LotNo: string
+}
 export interface ScoopData {
     LotNo: string;
     id: number;
