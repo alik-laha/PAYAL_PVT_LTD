@@ -71,7 +71,7 @@ const RCNScoopingTable = () => {
 
 
     const [origin, setOrigin] = useState<string>("")
-    const [selectType, setselectType] = useState<string>("LineWise")
+    const [selectType, setselectType] = useState<string>("LotWise")
     const [fromdate, setfromDate] = React.useState<string>('');
     const [todate, settoDate] = React.useState<string>('');
     const [hidetodate, sethidetoDate] = React.useState<string>('');
@@ -90,7 +90,7 @@ const RCNScoopingTable = () => {
 
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialog') as HTMLInputElement;
     const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialog') as HTMLInputElement;
-
+    const [tablesearch,settablesearch]=useState<string>("LotWise")
     //const [transformedData, setTransformedData] = useState<ExcelRcnPrimaryEntryData[]>([]);
 
     if (rejectcloseDialogButton) {
@@ -127,6 +127,7 @@ const RCNScoopingTable = () => {
         //setEditPendingBoilingData([])
         setEditData([])
         setSearchType(selectType)
+        settablesearch(selectType)
         const response = await axios.post('/api/scooping/searchScooping', {
             blConNo: blConNo,
             origin: origin,
@@ -394,6 +395,7 @@ const RCNScoopingTable = () => {
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                     onChange={(e) => {
                         setselectType(e.target.value)
+                        
                     }} value={selectType}>
 
                     {SelectType.map((data, index) => (
@@ -408,7 +410,7 @@ const RCNScoopingTable = () => {
 
             </div>
             {checkpending('Scooping') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
-            {selectType === "LotWise" ? (
+            {tablesearch === "LotWise" ? (
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Id</TableHead>

@@ -71,13 +71,13 @@ interface MergedData {
 }
 
 
-interface MergedUpdateData {
-    LotNo: string;
-    Scooping_Line_Mc: string;
-    Uncut: number;
-    Unscoop: number;
-    NonCut: number;
-}
+// interface MergedUpdateData {
+//     LotNo: string;
+//     Scooping_Line_Mc: string;
+//     Uncut: number;
+//     Unscoop: number;
+//     NonCut: number;
+// }
 
 
 
@@ -91,7 +91,7 @@ const RCNLineCreateEditForm = (props: Props) => {
     const [rows, setRows] = useState<ScoopingRowData[]>([])
 
     const [newFormData, setNewFormData] = useState<MergedData[]>([]);
-    const [newFormupdateData, setNewFormupdateData] = useState<MergedUpdateData[]>([]);
+    //const [newFormupdateData, setNewFormupdateData] = useState<MergedUpdateData[]>([]);
 
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
@@ -227,52 +227,52 @@ const RCNLineCreateEditForm = (props: Props) => {
 
 
 
-    useEffect(() => {
-        const mergeRows = (data: ScoopingRowData[]): MergedUpdateData[] => {
-            const filteredData = data.map(({ LotNo, Scooping_Line_Mc,
-                Uncut, Unscoop, NonCut }) => ({
-                    LotNo,
-                    Scooping_Line_Mc,
-                    Uncut: parseFloat(Uncut),
-                    Unscoop: parseFloat(Unscoop),
-                    NonCut: parseFloat(NonCut),
-                }));
-            const merged = filteredData.reduce<Record<string, {
-                LotNo: string, Scooping_Line_Mc: string
-                , Uncut: number, Unscoop: number, NonCut: number
-            }>>((acc, row) => {
-                const { LotNo,
-                    Scooping_Line_Mc,
-                    Uncut,
-                    Unscoop,
-                    NonCut,
-                } = row;
-                if (!acc[Scooping_Line_Mc]) {
-                    acc[Scooping_Line_Mc] = {
-                        LotNo, Scooping_Line_Mc,
-                        Uncut, Unscoop, NonCut
-                    };
-                } else {
-                    acc[Scooping_Line_Mc].LotNo = LotNo;
-                    acc[Scooping_Line_Mc].Uncut += Uncut;
-                    acc[Scooping_Line_Mc].Unscoop += Unscoop;
-                    acc[Scooping_Line_Mc].NonCut += NonCut;
-                }
-                return acc;
-            }, {});
+    // useEffect(() => {
+    //     const mergeRows = (data: ScoopingRowData[]): MergedUpdateData[] => {
+    //         const filteredData = data.map(({ LotNo, Scooping_Line_Mc,
+    //             Uncut, Unscoop, NonCut }) => ({
+    //                 LotNo,
+    //                 Scooping_Line_Mc,
+    //                 Uncut: parseFloat(Uncut),
+    //                 Unscoop: parseFloat(Unscoop),
+    //                 NonCut: parseFloat(NonCut),
+    //             }));
+    //         const merged = filteredData.reduce<Record<string, {
+    //             LotNo: string, Scooping_Line_Mc: string
+    //             , Uncut: number, Unscoop: number, NonCut: number
+    //         }>>((acc, row) => {
+    //             const { LotNo,
+    //                 Scooping_Line_Mc,
+    //                 Uncut,
+    //                 Unscoop,
+    //                 NonCut,
+    //             } = row;
+    //             if (!acc[Scooping_Line_Mc]) {
+    //                 acc[Scooping_Line_Mc] = {
+    //                     LotNo, Scooping_Line_Mc,
+    //                     Uncut, Unscoop, NonCut
+    //                 };
+    //             } else {
+    //                 acc[Scooping_Line_Mc].LotNo = LotNo;
+    //                 acc[Scooping_Line_Mc].Uncut += Uncut;
+    //                 acc[Scooping_Line_Mc].Unscoop += Unscoop;
+    //                 acc[Scooping_Line_Mc].NonCut += NonCut;
+    //             }
+    //             return acc;
+    //         }, {});
 
-            return Object.values(merged).map(item => ({
-                LotNo: item.LotNo,
-                Scooping_Line_Mc: item.Scooping_Line_Mc,
-                Uncut: item.Uncut,
-                Unscoop: item.Unscoop,
-                NonCut: item.NonCut,
-            }));
-        };
+    //         return Object.values(merged).map(item => ({
+    //             LotNo: item.LotNo,
+    //             Scooping_Line_Mc: item.Scooping_Line_Mc,
+    //             Uncut: item.Uncut,
+    //             Unscoop: item.Unscoop,
+    //             NonCut: item.NonCut,
+    //         }));
+    //     };
 
-        setNewFormupdateData(mergeRows(rows));
-        console.log(newFormupdateData)
-    }, [rows]);
+    //     setNewFormupdateData(mergeRows(rows));
+    //     console.log(newFormupdateData)
+    // }, [rows]);
 
     useEffect(() => {
         const initialform = props.scoop.map((item: ScoopData) => ({
@@ -397,19 +397,12 @@ const RCNLineCreateEditForm = (props: Props) => {
 
                 }))
                 for (const data2 of formall) {
-                    await axios.post('/api/scooping/createScoopingallEdit', { data2 })
-                    // console.log(resp.data.scoop.id)
-                    // const p_id = await resp.data.scoop.id
-                    // await axios.post('/api/scooping/createInitialBorma', { p_id, data2 })
-                }
-
-                for (const data3 of newFormupdateData) {
+                    const updateall=await axios.post('/api/scooping/createScoopingallEdit', { data2 })
                     scoopingallcount++
-                    const update = await axios.post('/api/scooping/updatenextopeningcreate', { data3 })
-                    if (newFormupdateData.length === scoopingallcount) {
+                    if (formall.length === scoopingallcount) {
 
                         setErrortext('Scooping Entry Edit Requested')
-                        if (update.status === 200) {
+                        if (updateall.status === 200) {
                             const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
                             dialog2.showModal()
                             setTimeout(() => {
@@ -418,7 +411,27 @@ const RCNLineCreateEditForm = (props: Props) => {
                             }, 3000)
                         }
                     }
+                    // console.log(resp.data.scoop.id)
+                    // const p_id = await resp.data.scoop.id
+                    // await axios.post('/api/scooping/createInitialBorma', { p_id, data2 })
                 }
+
+                // for (const data3 of newFormupdateData) {
+                //     scoopingallcount++
+                //     const update = await axios.post('/api/scooping/updatenextopeningcreate', { data3 })
+                //     if (newFormupdateData.length === scoopingallcount) {
+
+                //         setErrortext('Scooping Entry Edit Requested')
+                //         if (update.status === 200) {
+                //             const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                //             dialog2.showModal()
+                //             setTimeout(() => {
+                //                 dialog2.close()
+                //                 window.location.reload()
+                //             }, 3000)
+                //         }
+                //     }
+                // }
             }
         }
         catch (err) {

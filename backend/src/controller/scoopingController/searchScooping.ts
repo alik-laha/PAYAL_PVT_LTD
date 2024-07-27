@@ -22,7 +22,11 @@ const SearchScooping = async (req: Request, res: Response) => {
         }
         if (blConNo) {
             whereClause.push({
-                LotNo: { [Op.like]: `%${blConNo}%` }
+                
+                [Op.or]: [
+                    { LotNo: { [Op.like]: `%${blConNo}%` } },
+                    { Scooping_Line_Mc: { [Op.like]: `%${blConNo}%` } }
+                ]
 
             })
 

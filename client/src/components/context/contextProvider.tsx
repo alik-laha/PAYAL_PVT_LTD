@@ -21,7 +21,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [pendingreportcount, setpendingreportCount] = useState<number>(0)
     const [recevingPackagematerialOverView, setRecevingPacakanMaterialOverView] = useState<SumofpackageMetrialReceving | null>(null)
     const [editScoopingLotWiseData, setEditScoopingLotWiseData] = useState<rcnScoopingData[]>([])
-    const [searchType, setSearchType] = useState<string>('')
+    const [searchType, setSearchType] = useState<string>('LotWise')
 
     return (
         <Context.Provider value={{
