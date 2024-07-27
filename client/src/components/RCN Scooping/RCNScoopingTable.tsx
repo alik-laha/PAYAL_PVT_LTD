@@ -81,9 +81,9 @@ const RCNScoopingTable = () => {
     const [LotWiseData, setLotWiseData] = useState<rcnScoopingData[]>([])
     const [LineWiseData, setLineWiseData] = useState<rcnScoopingData[]>([])
     const [page, setPage] = useState(pageNo)
-    const [EditData, setEditData] = useState<EditPendingData[]>([])
+    const [EditData, setEditData] = useState<rcnScoopingData[]>([])
     const limit = pagelimit
-    const { editPendingData } = useContext(Context);
+    const { editScoopingLotWiseData } = useContext(Context);
     const [blockpagen, setblockpagen] = useState('flex')
     const currDate = new Date().toLocaleDateString();
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
@@ -116,12 +116,12 @@ const RCNScoopingTable = () => {
 
 
     useEffect(() => {
-        if (editPendingData) {
+        if (editScoopingLotWiseData) {
             //console.log(editPendingData)
-            setEditData(editPendingData)
+            setEditData(editScoopingLotWiseData)
             setblockpagen('none')
         }
-    }, [editPendingData])
+    }, [editScoopingLotWiseData])
 
     const handleSearch = async () => {
         //console.log('search button pressed')
@@ -214,9 +214,9 @@ const RCNScoopingTable = () => {
         let ws
         let transformed: ScoopingExcelData[] = [];
 
-        if(selectType==='LotWise'){
-                transformed = data1.map((item: rcnScoopingData, idx: number) => ({
-                SL_No: idx+1,
+        if (selectType === 'LotWise') {
+            transformed = data1.map((item: rcnScoopingData, idx: number) => ({
+                SL_No: idx + 1,
                 LotNo: item.LotNo,
                 date: handletimezone(item.date),
                 origin: item.origin,
@@ -239,13 +239,13 @@ const RCNScoopingTable = () => {
                 CreatedBy: item.CreatedBy,
                 editStatus: item.editStatus,
                 modifiedBy: item.modifiedBy,
-                }));
+            }));
         }
-        else{
+        else {
             transformed = data1.map((item: rcnScoopingData, idx: number) => ({
-                SL_No: idx+1,
+                SL_No: idx + 1,
                 LotNo: item.LotNo,
-                Scooping_Line_Mc:item.Scooping_Line_Mc,
+                Scooping_Line_Mc: item.Scooping_Line_Mc,
                 date: handletimezone(item.date),
                 origin: item.origin,
                 Opening_Qty: item.Opening_Qty,
@@ -258,7 +258,7 @@ const RCNScoopingTable = () => {
                 NonCut: item.NonCut,
                 Rejection: item.Rejection,
                 Dust: item.Dust,
-               
+
                 KOR: item.KOR,
                 Trolley_Broken: item.Trolley_Broken,
                 Trolley_Small_JB: item.Trolley_Small_JB,
@@ -275,17 +275,17 @@ const RCNScoopingTable = () => {
                 Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
                 Brkdwn_reason: item.Brkdwn_reason,
                 otherTime: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
-                scoopStatus: item.scoopStatus?'Done':'Not-Done',
-                Mc_runTime:item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
-                Transfered_Qty:item.Transfered_Qty,
-                Transfered_To:item.Transfered_To
+                scoopStatus: item.scoopStatus ? 'Done' : 'Not-Done',
+                Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
+                Transfered_Qty: item.Transfered_Qty,
+                Transfered_To: item.Transfered_To
             }));
-    
+
         }
-     
-            // setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
-        
+
+        // setTransformedData(transformed);
+        ws = XLSX.utils.json_to_sheet(transformed);
+
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
@@ -435,36 +435,36 @@ const RCNScoopingTable = () => {
                     </TableHeader>
                     <TableBody>
                         {EditData.length > 0 ? (
-                            EditData.map((item: EditPendingData, idx) => {
+                            EditData.map((item: rcnScoopingData, idx) => {
 
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                        <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                        <TableCell className="text-center">{item.blNo}</TableCell>
-                                        <TableCell className="text-center">{item.conNo}</TableCell>
-                                        <TableCell className="text-center">{item.truckNo}</TableCell>
+                                        <TableCell className="text-center font-semibold text-cyan-600">{item.LotNo}</TableCell>
+                                        <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.origin}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.Opening_Qty))} Kg</TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.Receiving_Qty))} Kg</TableCell>
 
-                                        <TableCell className="text-center">{item.blWeight}</TableCell>
-                                        <TableCell className="text-center">{item.netWeight}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.Wholes))} Kg</TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.Broken))} Kg</TableCell>
 
-                                        {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{Number(item.difference)}</TableCell>)
-                                            : (<TableCell className="text-center font-semibold text-green-600">{(Number(item.difference))}</TableCell>)}
+                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.Uncut))} Kg</TableCell>
 
-                                        <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
-                                        <TableCell className="text-center ">
-                                            {item.rcnStatus === 'QC Approved' ? (
-                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
-                                            ) : item.rcnStatus === 'QC Pending' ? (
-                                                <button className="bg-yellow-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
-                                            ) : (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
-                                            )}
-                                        </TableCell>
-                                        <TableCell className="text-center">{item.editStatus == 'Created' ?
-                                            'NA' : item.editStatus}</TableCell>
-                                        <TableCell className="text-center">{item.editedBy}</TableCell>
+
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.Unscoop))} Kg</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.NonCut))} Kg</TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.Rejection))} Kg</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.Dust))} Kg</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.TotBagCutting))}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.KOR))}</TableCell>
+                                        <TableCell className="text-center ">{item.noOfLadies}</TableCell>
+                                        <TableCell className="text-center">{item.noOfGents}</TableCell>
+                                        <TableCell className="text-center ">{item.noOfSupervisors}</TableCell>
+                                        <TableCell className="text-center ">{item.noOfOperators}</TableCell>
+                                        <TableCell className="text-center ">{item.noOfEmployees}</TableCell>
+                                        <TableCell className="text-center ">{item.editStatus}</TableCell>
+                                        <TableCell className="text-center ">{item.CreatedBy}</TableCell>
                                         <TableCell className="text-center">
                                             <Popover>
                                                 <PopoverTrigger>

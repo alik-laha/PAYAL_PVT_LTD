@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving } from '../../type/type';
+import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving, rcnScoopingData } from '../../type/type';
 
 interface ContextType {
     editPendingData: EditPendingData[];
@@ -28,6 +28,8 @@ interface ContextType {
     setpendingreportCount: (pendingreportcount: number) => void;
     recevingPackagematerialOverView: SumofpackageMetrialReceving | null;
     setRecevingPacakanMaterialOverView: (data: SumofpackageMetrialReceving | null) => void;
+    editScoopingLotWiseData: rcnScoopingData[];
+    setEditScoopingLotWiseData: (data: rcnScoopingData[]) => void;
 }
 
 const Context = createContext<ContextType>({
@@ -56,7 +58,9 @@ const Context = createContext<ContextType>({
     editPendingBoilingData: [],
     setEditPendingBoilingData: () => { },
     setRecevingPacakanMaterialOverView: () => { },
-    recevingPackagematerialOverView: (null)
+    recevingPackagematerialOverView: (null),
+    editScoopingLotWiseData: [],
+    setEditScoopingLotWiseData: () => { },
 
 });
 
