@@ -26,7 +26,7 @@ import { scoopingpendingLotData } from '@/type/type';
 
 const RCNBorma = () => {
 
-    const { setEditScoopingLotWiseData, searchType } = useContext(Context)
+    const { setEditScoopingLotWiseData } = useContext(Context)
     const [lotdata, setLotData] = useState<scoopingpendingLotData[]>([])
 
 
