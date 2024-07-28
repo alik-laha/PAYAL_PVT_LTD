@@ -11,7 +11,7 @@ const getBormaLot = async (req: Request, res: Response) => {
             
             attributes:[[sequelize.fn('DISTINCT',sequelize.col('LotNo')),'LotNo']],
             where: {
-                scoopStatus:status
+                BormaStatus:status
             }
 
         });

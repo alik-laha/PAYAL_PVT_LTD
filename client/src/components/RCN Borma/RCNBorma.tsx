@@ -22,6 +22,7 @@ import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
 import { BormapendingLotData } from '@/type/type';
+import RCNBormaCreateForm from './RCNBormaCreateForm';
 
 
 const RCNBorma = () => {
@@ -73,25 +74,25 @@ const RCNBorma = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
-                        A <br /><p>{data.data[0].India ? formatNumber(data.data[0].India)  : 0} Kg</p>
+                        India <br /><p>{data.data[0].India ? formatNumber(data.data[0].India)  : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                        B <br /><p>{data.data[0].Ghana? formatNumber(data.data[0].Ghana) : 0} Kg</p>
+                        Ghana <br /><p>{data.data[0].Ghana? formatNumber(data.data[0].Ghana) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
-                        C <br /><p>{data.data[0].Togo? formatNumber(data.data[0].Togo) : 0} Kg</p>
+                        Togo <br /><p>{data.data[0].Togo? formatNumber(data.data[0].Togo) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-sky-500 hover:bg-orange-400">
-                        D <br /><p>{data.data[0].Tanzania ? formatNumber(data.data[0].Tanzania) : 0} Kg</p>
+                        Tanzania <br /><p>{data.data[0].Tanzania ? formatNumber(data.data[0].Tanzania) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
-                        E <br /><p>{data.data[0].Nigeria  ? formatNumber(data.data[0].Nigeria) : 0} Kg</p>
+                        Nigeria <br /><p>{data.data[0].Nigeria  ? formatNumber(data.data[0].Nigeria) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
-                        F <br /><p>{data.data[0].Benin  ?  formatNumber(data.data[0].Benin): 0} Kg</p>
+                        Benin <br /><p>{data.data[0].Benin  ?  formatNumber(data.data[0].Benin): 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
-                        G <br /><p>{data.data[0].IVC ?  formatNumber(data.data[0].IVC) : 0} Kg</p>
+                        IVC <br /><p>{data.data[0].IVC ?  formatNumber(data.data[0].IVC) : 0} Kg</p>
                     </div>
 
 
@@ -106,11 +107,11 @@ const RCNBorma = () => {
                         <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>RCN Boiling Entry Form</p></DialogTitle>
+                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>RCN Borma Entry Form</p></DialogTitle>
 
                             </DialogHeader>
 
-                           
+                            <RCNBormaCreateForm props={lotdata} />
                         </DialogContent>
                     </Dialog>
 

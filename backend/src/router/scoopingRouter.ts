@@ -20,6 +20,7 @@ import createscoopingAllEditReport from "../controller/scoopingController/create
 import updateNxtOpeningCreate from "../controller/scoopingController/updateNxtOpeningCreate";
 import findEditaScoopingAll from "../controller/scoopingController/findEditaScoopingAll";
 import getEditscoopByLot from "../controller/scoopingController/getEditScoopByLot";
+import getscoopByLotOrigin from "../controller/scoopingController/getScoopByLotOrigin";
 
 const router = express()
 
@@ -32,7 +33,7 @@ router.get("/getScoopByLot/:lotNO", jwtVerify, getscoopByLot)
 router.put("/createScooping/:id", jwtVerify, scoopingMiddleware, createscoopingReport)
 router.post("/createScoopingall", jwtVerify, createscoopingAllReport)
 router.post("/searchScooping", jwtVerify, SearchScooping)
-router.post("/getScoopByLotOrigin", jwtVerify, getscoopByLot)
+router.post("/getScoopByLotOrigin", jwtVerify, getscoopByLotOrigin)
 router.post("/updatenextopening", jwtVerify, updateScoopingOpening)
 router.post("/updateLotNo", jwtVerify, updateLotNo)
 router.post("/createInitialBorma", jwtVerify, CreateInitialBorma)
