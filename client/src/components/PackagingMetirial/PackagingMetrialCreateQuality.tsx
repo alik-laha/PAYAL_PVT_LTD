@@ -20,9 +20,7 @@ const PackagingMetirialQcCreateForm = () => {
     const [coa, setCoa] = useState('')
     const [foodGradeCirtiicate, setFoodGradeCirtiicate] = useState('')
     const [remarks, setRemarks] = useState('')
-    const [foodGradeCirtificateStatus, setFoodGradeCirtificateStatus] = useState('')
     const [foodGradeCirtiFicateFile, setFoodGradeCirtiFicateFile] = useState<any>()
-    const [coaCirtificateStatus, setCoaCirtificateStatus] = useState('')
     const [coaCirtificateFile, setCoaCirtificateFile] = useState<any>()
     const dateRef = useRef<HTMLInputElement>(null)
 
@@ -52,22 +50,24 @@ const PackagingMetirialQcCreateForm = () => {
     }
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        const receivingDate = dateRef.current?.value
-        axios.post("/api/quality/createrecivingpackagematerial", { recevingDate: receivingDate })
-            .then((res) => {
-                console.log(res)
-                axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: res.data.newPackageMaterial.id }).then(() => {
-                    (successdialog as any).showModal();
-                })
+        const testingDate = dateRef.current?.value
+        const formData = new FormData()
+        formData.append('length', length.toString())
+        formData.append('width', width.toString())
+        formData.append('height', height.toString())
+        formData.append('gsm', gsm.toString())
+        formData.append('avgWeight', avgWeight.toString())
+        formData.append('leakageTest', leakageTest)
+        formData.append('dropTest', dropTest)
+        formData.append('sealCondition', sealCondition)
+        formData.append('labelingCondition', labelingCondition)
+        formData.append('coa', coa)
+        formData.append('foodGradeCirtiicate', foodGradeCirtiicate)
+        formData.append('remarks', remarks)
+        formData.append('foodGradeCirtiFicateFile', foodGradeCirtiFicateFile)
+        formData.append('coaCirtificateFile', coaCirtificateFile)
+        formData.append('testingDate', testingDate as string)
 
-            })
-            .catch((err) => {
-                console.log(err)
-                if (errordialog !== null) {
-                    (errordialog as any).showModal();
-                }
-
-            })
     }
     const handleCoaFileChamge = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -261,6 +261,8 @@ const PackagingMetirialQcCreateForm = () => {
                         <Label className="w-2/4 pt-1 ">Food Grade Report Upload</Label>
                         <input type="file" multiple onChange={handleFoodGradeUpload} value={foodGradeCirtiFicateFile} />
                     </div>
+                    <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
+                        <Input className="w-2/4 " placeholder="Remarks" required value={remarks} onChange={(e) => setRemarks(e.target.value)} /> </div>
 
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
                 </form>
