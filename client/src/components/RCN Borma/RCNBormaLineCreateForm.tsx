@@ -94,9 +94,9 @@ const RCNBormaLineCreateForm = (props:Props) => {
             LotNo: item.LotNo,
            
             origin: item.origin,
-            InputWholes: '',
-            InputPieces: '',
-            TotalInput: '',
+            InputWholes: item.InputWholes,
+            InputPieces: item.InputPieces,
+            TotalInput: item.TotalInput,
             Mc_on: '00:00',
             Mc_off: '00:00',
             Mc_breakdown: '00:00',
@@ -149,11 +149,9 @@ const RCNBormaLineCreateForm = (props:Props) => {
         try 
         {
             const formData = rows.map((row: any) => ({
-              
                 Date: date,
                 noOfOperators:operator,
                  ...row
-
             }))
             try{
                 let bormacount = 0
@@ -180,46 +178,33 @@ const RCNBormaLineCreateForm = (props:Props) => {
                 else{
                     setErrortext('An Unexpected Error Occured')
                 }
-                const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
-                dialog.showModal()
-                setTimeout(() => {
-                    dialog.close()
-                }, 2000)
-                await axios.post('/api/scooping/deleteScoopReportByLotNo',{ lotNo:props.scoop[0].LotNo})
+                // const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                // dialog.showModal()
+                // setTimeout(() => {
+                //     dialog.close()
+                // }, 2000)
+                // await axios.post('/api/scooping/deleteScoopReportByLotNo',{ lotNo:props.borma[0].LotNo})
                 }
            
             let scoopingallcount=0
 
-                const resStatus=await axios.post('/api/boiling/getStatusBoiling', { lotNo:props.scoop[0].LotNo})
+                const resStatus=await axios.post('/api/boiling/getStatusBoiling', { lotNo:props.borma[0].LotNo})
                 console.log(resStatus)
 
-                if(resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy==='Scooping')
+                if(resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy==='Borma')
                 {
-                    const formall = newFormData.map((row: any) => ({
-                        male: male,
-                        Date: date,
-                        female: female,
-                        supervisor: supervisor,
-                         ...row
-        
-                    }))
-                    for (var data2 of formall) 
+                   
+                    for (var data2 of rows) 
                     {   
                         const resp=await axios.post('/api/scooping/createScoopingall', { data2 })
                         console.log(resp.data.scoop.id)
                         let p_id=await resp.data.scoop.id
                         await axios.post('/api/scooping/createInitialBorma', {p_id, data2 })
-                    }
-    
-                    for (var data3 of newFormupdateData) 
-                    {
-                        scoopingallcount++
-                        const update=await axios.post('/api/scooping/updatenextopening', { data3 })
-                        if (newFormupdateData.length === scoopingallcount) 
+                        if (rows.length === scoopingallcount) 
                             {
                                 
                                 setErrortext('Scooping Entry Created Successfully')
-                                if (update.status === 200) 
+                                if (resp.status === 200) 
                                 {
                                     const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
                             dialog2.showModal()
@@ -230,6 +215,8 @@ const RCNBormaLineCreateForm = (props:Props) => {
                                 }
                             }
                     }
+    
+                    
                 }          
         }
         catch (err) {
@@ -258,114 +245,48 @@ const RCNBormaLineCreateForm = (props:Props) => {
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
                 <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
                 <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
-                <div className="flex"><Label className="w-2/4 pt-1">No. of Male</Label>
-                    <Input className="w-2/4 text-center" placeholder="No. of Male" ref={maleRef} required /> </div>
-                    <div className="flex"><Label className="w-2/4 pt-1">No. of Female</Label>
-                    <Input className="w-2/4 text-center" placeholder="No. of Female" ref={femaleRef} required /> </div>
-                    <div className="flex"><Label className="w-2/4 pt-1">No. Of Supervisors</Label>
-                    <Input className="w-2/4 text-center" placeholder="No. of Supervisor" ref={supervisorRef} required /> </div>
+                <div className="flex"><Label className="w-2/4 pt-1">No. of Operator</Label>
+                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> </div>
+                   
                 </div>
                    <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
-           
-  
                         <TableHead className="text-center" >Sl. No.</TableHead>
                         <TableHead className="text-center" >LotNo</TableHead>
-                        <TableHead className="text-center" >ScoopingLine</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Size Name</TableHead>
-                        <TableHead className="text-center" >Opening Qty</TableHead>
-                        <TableHead className="text-center" >Receiving Qty</TableHead>
-                        <TableHead className="text-center" >Wholes</TableHead>
-                        <TableHead className="text-center" >Broken</TableHead>
-                        <TableHead className="text-center" >UnCut</TableHead>
-                        <TableHead className="text-center" >UnScoop</TableHead>
-                        <TableHead className="text-center" >NonCut</TableHead>
-                        <TableHead className="text-center" >Rejection</TableHead>
-                        <TableHead className="text-center" >Dust</TableHead>
-                       
-                        <TableHead className="text-center" >Trolley Broken(%)</TableHead>
-                        <TableHead className="text-center" >Trolley SmallJB(%)</TableHead>
-                        <TableHead className="text-center" >No Of Ladies</TableHead>
-                        <TableHead className="text-center" >No Of Operator</TableHead>
-                        <TableHead className="text-center" >Scooping On</TableHead>
-                        <TableHead className="text-center" >Scooping Off</TableHead>
+                        <TableHead className="text-center" >Input Moisture</TableHead>
+                        <TableHead className="text-center" >Output Moisture</TableHead>
+                        <TableHead className="text-center" >Output Wholes</TableHead>
+                        <TableHead className="text-center" >Output Pieces</TableHead>
+                        <TableHead className="text-center" >No Of Trolley</TableHead>
+                        <TableHead className="text-center" >Temp</TableHead>
+                        <TableHead className="text-center" >Borma On</TableHead>
+                        <TableHead className="text-center" >Borma Off</TableHead>
                         <TableHead className="text-center" >Breakdown Duration</TableHead>
-                        <TableHead className="text-center" >Breakdown Reason</TableHead>
                         <TableHead className="text-center" >Other Duration</TableHead>
-                       
-                
-                        <TableHead className="text-center" >Transfer Qty</TableHead>
-                        <TableHead className="text-center" >Transfer To No</TableHead>
-                        <TableHead className="text-center" >Transfer LineName</TableHead>
-            
-
-                      
-                      
-                       
-
-
                     </TableHeader>
                     <TableBody>
-                        {props.scoop.length > 0 ? (
-                            rows.map(( row:ScoopingRowData,idx:number) => {
-                                //rows[idx].id=item.id
-                                //  {handleRowChange(idx,'id',item.id)}
+                        {props.borma.length > 0 ? (
+                            rows.map(( row:BormaRowData,idx:number) => {
+                              
                                 return (
                                     <TableRow key={idx} className="boiling-row-height-scoop">
                                         <TableCell className="text-center">{idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
-                                        
-                                        <TableCell className="text-center font-semibold"><Input value={row.Scooping_Line_Mc} placeholder="Line" onChange={(e) => handleRowChange(idx,'Scooping_Line_Mc',e.target.value)} readOnly required /></TableCell>
-                                        {/* <TableCell className="text-center">{item.Scooping_Line_Mc}</TableCell> */}
-                                        <TableCell className="text-center font-semibold">{row.origin}</TableCell>
-                                        <TableCell className="text-center font-semibold">{row.SizeName}</TableCell>
-                                        <TableCell className="text-center font-semibold">{row.Opening_Qty} kg</TableCell>
-                                        <TableCell className="text-center font-semibold">{row.Receiving_Qty} kg</TableCell>
-                                        <TableCell className="text-center "> <Input  value={row.Wholes} placeholder="Wholes" onChange={(e) => handleRowChange(idx,'Wholes',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Broken} placeholder="Broken" onChange={(e) => handleRowChange(idx,'Broken',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Uncut} placeholder="UnCut" onChange={(e) => handleRowChange(idx,'Uncut',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Unscoop} placeholder="UnScoop" onChange={(e) => handleRowChange(idx,'Unscoop',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.NonCut} placeholder="NonCut" onChange={(e) => handleRowChange(idx,'NonCut',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Rejection} placeholder="Rejection" onChange={(e) => handleRowChange(idx,'Rejection',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Dust} placeholder="Dust" onChange={(e) => handleRowChange(idx,'Dust',e.target.value)} required /></TableCell>
-                                       
-                                        <TableCell className="text-center"> <Input  value={row.Trolley_Broken} placeholder="Broken (%)" onChange={(e) => handleRowChange(idx,'Trolley_Broken',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Trolley_Small_JB} placeholder="Small JB (%)" onChange={(e) => handleRowChange(idx,'Trolley_Small_JB',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.noOfEmployees} placeholder="Ladies" onChange={(e) => handleRowChange(idx,'noOfEmployees',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.noOfOperators} placeholder="Operators" onChange={(e) => handleRowChange(idx,'noOfOperators',e.target.value)} required /></TableCell>
-                                       
+                                        <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
+                                        <TableCell className="text-center "> <Input  value={row.InputMoisture} placeholder="%" onChange={(e) => handleRowChange(idx,'InputMoisture',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.OutputMoisture} placeholder="%" onChange={(e) => handleRowChange(idx,'OutputMoisture',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.OutputWholes} placeholder="Wholes" onChange={(e) => handleRowChange(idx,'OutputWholes',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.OutputPieces} placeholder="Pieces" onChange={(e) => handleRowChange(idx,'OutputPieces',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.NoOfTrolley} placeholder="No." onChange={(e) => handleRowChange(idx,'NoOfTrolley',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.Temp} placeholder="Degree" onChange={(e) => handleRowChange(idx,'Temp',e.target.value)} required /></TableCell>
                                         {/* <TableCell className="text-center "> <Input className="bg-green-100"  value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx,'Mc_on',e.target.value)} type='time' required /></TableCell> */}
                                         <FormRow idx={idx} row={row} column='Mc_on' handleRowChange={handleRowChange}/>
                                         <FormRow idx={idx} row={row} column='Mc_off' handleRowChange={handleRowChange}/>
                                         {/* <TableCell className="text-center"><Input className="bg-red-100" value={row.Mc_off} placeholder="MC Off Time" onChange={(e) => handleRowChange(idx,'Mc_off',e.target.value)} type='time' required /></TableCell> */}
                                         <TableCell className="text-center"><Input  value={row.Mc_breakdown} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Brkdwn_reason} placeholder="Reason" onChange={(e) => handleRowChange(idx,'Brkdwn_reason',e.target.value)}  /></TableCell>
                                         <TableCell className="text-center"><Input  value={row.otherTime} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime',e.target.value)} type='time'  /></TableCell>
-                                      
-                                        
-                                    
-                                        <TableCell className="text-center"><Input  value={row.Transfer_Qty} placeholder="Kg" onChange={(e) => handleRowChange(idx,'Transfer_Qty',e.target.value)}  /></TableCell>
-                                        <TableCell>
-
-                                            <select className=' flex h-8 w-20 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                                            ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                                                onChange={(e) => handletransfer(idx, 'Transfer_To', e.target.value)} value={row.Transfer_To}>
-                                                <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                                                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground 
-                                                data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>None</option>
-                                                {options.map((data, index) => (
-                                                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                                                    py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground
-                                                    data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                                                        {data}
-                                                    </option>
-                                                ))}
-                                            </select> 
-                                        </TableCell>
-                                        <TableCell>       
-                                        <TableCell className="text-center font-semibold">{row.Transfer_To_MC}</TableCell>
-                                        </TableCell>
+                                 
                                     </TableRow>
                                 );
                             })
