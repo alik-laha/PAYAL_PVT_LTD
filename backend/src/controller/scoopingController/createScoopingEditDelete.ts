@@ -10,7 +10,7 @@ const createscoopingEditDelete = async (req: Request, res: Response) => {
         
         let { Opening_Qty, Receiving_Qty, Wholes, Broken, Uncut, Unscoop, NonCut, Rejection, Dust
             , Trolley_Broken, Trolley_Small_JB, Mc_on, Mc_off, noOfEmployees, noOfOperators, male, female, Date, supervisor,
-            Mc_breakdown, otherTime, Brkdwn_reason, Transfered_Qty, Transfered_To, LotNo, origin, SizeName, Size, Scooping_Line_Mc } = req.body.data;
+            Mc_breakdown, otherTime, Brkdwn_reason  } = req.body.data;
         
             const modifiedBY = req.cookies.user
         //const approvedBy = "RC User 2"
@@ -85,7 +85,7 @@ const createscoopingEditDelete = async (req: Request, res: Response) => {
             Mc_on: Mc_on,
             Mc_off: Mc_off,
             modifiedBy:modifiedBY,
-            editStatus:'NA',
+            editStatus:'Approved',
             CreatedBy:createdBy
          }, { where: { id } });
 

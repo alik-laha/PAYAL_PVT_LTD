@@ -64,7 +64,7 @@ const createScoopingDeleteAll = async (req: Request, res: Response) => {
                     noOfOperators:noOfOperators,
                     CreatedBy:createdBy,
                     modifiedBy:modifiedBy,
-                    editStatus:'NA'
+                    editStatus:'Approved'
 
                 }, {
                     where: {
