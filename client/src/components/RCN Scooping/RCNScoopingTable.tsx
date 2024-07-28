@@ -13,14 +13,14 @@ import { Button } from "@/components/ui/button";
 import React, { useEffect } from "react"
 import { Input } from "../ui/input";
 // import DatePicker from "../common/DatePicker";
-import { PermissionRole, RcnPrimaryEntryData, ScoopData, ScoopingExcelData, pendingCheckRoles, rcnScoopingData } from "@/type/type";
+import { PermissionRole, ScoopData, ScoopingExcelData, pendingCheckRoles, rcnScoopingData } from "@/type/type";
 
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { SelectType, pageNo, pagelimit, pendingCheckRole } from "../common/exportData"
-import { FcApprove, FcDisapprove } from "react-icons/fc";
+
 
 
 import {
@@ -39,17 +39,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
 
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
 import axios from "axios";
 
 import {
@@ -308,27 +298,8 @@ const RCNScoopingTable = () => {
         saveAs(blob, 'Scooping_' + currDate + '.xlsx');
     };
 
-    const handleRejection = async (item: RcnPrimaryEntryData) => {
-        const response = await axios.delete(`/api/rcnprimary/rejectededitrcn/${item.id}`)
-        const data = await response.data
-        console.log(data)
-        if (data.message === "Rcn Entry rejected successfully") {
-            //console.log('rejected enter')
-            if (rejectsuccessdialog != null) {
-                (rejectsuccessdialog as any).showModal();
-            }
-        }
-    }
-    const handleApprove = async (item: RcnPrimaryEntryData) => {
-        const response = await axios.put(`/api/rcnprimary/approveeditrcn/${item.id}`)
-        const data = await response.data
-        if (data.message === "Edit Request of Rcn Entry is Approved Successfully") {
+  
 
-            if (approvesuccessdialog != null) {
-                (approvesuccessdialog as any).showModal();
-            }
-        }
-    }
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
         const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -613,21 +584,9 @@ const RCNScoopingTable = () => {
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
-            <dialog id="rcneditapproveScsDialog" className="dashboard-modal">
-                <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification Request has Been Approved</p></span>
+            
 
-                {/* <!-- Add more elements as needed --> */}
-            </dialog>
-
-            <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
-                <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Modification Request has Been Reverted</p></span>
-
-                {/* <!-- Add more elements as needed --> */}
-            </dialog>
+          
         </div>
     )
 }

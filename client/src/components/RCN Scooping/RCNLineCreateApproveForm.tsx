@@ -95,7 +95,7 @@ const RCNLineCreateApproveForm = (props: Props) => {
 
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
-    const dialog = document.getElementById('myDialog');
+   
     const closeDialogButton = document.getElementById('empcloseDialog') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('errorempcloseDialog') as HTMLInputElement;
 
@@ -327,6 +327,7 @@ const RCNLineCreateApproveForm = (props: Props) => {
 
 
 
+
     const [errortext, setErrortext] = useState('')
 
 
@@ -355,14 +356,14 @@ const RCNLineCreateApproveForm = (props: Props) => {
             try {
                 let scoopingcount = 0
                 for (const data of formData) {
-                    const createscoop = await axios.put(`/api/scooping/createScoopingEdit/${data.id}`, { data })
+                    const createscoop = await axios.put(`/api/scooping/createScoopingEditDelete/${data.id}`, { data })
 
                     if (createscoop) {
                         scoopingcount++;
                     }
                     if (formData.length === scoopingcount) {
                         if (createscoop.status === 200) {
-                            await axios.post('/api/scooping/updateLotNo', { lotNo: props.scoop[0].LotNo, desc: 'ScoopingEdit' })
+                            await axios.post('/api/scooping/updateLotNo', { lotNo: props.scoop[0].LotNo, desc: 'Scooping' })
                         }
                     }
                 }
@@ -382,7 +383,7 @@ const RCNLineCreateApproveForm = (props: Props) => {
                 setTimeout(() => {
                     dialog.close()
                 }, 2000)
-                await axios.post('/api/scooping/deleteScoopEditReportByLotNo', { lotNo: props.scoop[0].LotNo })
+               
             }
 
             let scoopingallcount = 0
@@ -390,7 +391,7 @@ const RCNLineCreateApproveForm = (props: Props) => {
             const resStatus = await axios.post('/api/boiling/getStatusBoiling', { lotNo: props.scoop[0].LotNo })
             console.log(resStatus)
 
-            if (resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy === 'ScoopingEdit') {
+            if (resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy === 'Scooping') {
                 const formall = newFormData.map((row: any) => ({
                     male: male,
                     Date: date,
@@ -400,23 +401,10 @@ const RCNLineCreateApproveForm = (props: Props) => {
 
                 }))
                 for (const data2 of formall) {
-                    const updateall=await axios.post('/api/scooping/createScoopingallEdit', { data2 })
-                    scoopingallcount++
-                    if (formall.length === scoopingallcount) {
-
-                        setErrortext('Scooping Entry Edit Requested')
-                        if (updateall.status === 200) {
-                            const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
-                            dialog2.showModal()
-                            setTimeout(() => {
-                                dialog2.close()
-                                window.location.reload()
-                            }, 3000)
-                        }
-                    }
-                    console.log(resp.data.scoop.id)
-                    const p_id = await resp.data.scoop.id
-                    await axios.post('/api/scooping/createInitialBorma', { p_id, data2 })
+                    const resp=await axios.post('/api/scooping/createScoopingall', { data2 })
+                        console.log(resp.data.scoop.id)
+                        let p_id=await resp.data.scoop.id
+                        await axios.post('/api/scooping/createInitialBorma', {p_id, data2 })
                 }
 
                 for (const data3 of newFormupdateData) {
@@ -424,7 +412,7 @@ const RCNLineCreateApproveForm = (props: Props) => {
                     const update = await axios.post('/api/scooping/updatenextopeningcreate', { data3 })
                     if (newFormupdateData.length === scoopingallcount) {
 
-                        setErrortext('Scooping Entry Edit Requested')
+                        setErrortext('Modification Request Approved Successfully')
                         if (update.status === 200) {
                             const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
                             dialog2.showModal()
@@ -572,7 +560,7 @@ const RCNLineCreateApproveForm = (props: Props) => {
 
 
                 </form>
-                <Button className="bg-red-500  text-center mr-48 items-center justify-center h-8 w-20 float-right" style={{marginTop:'-32px'}}>Revert</Button>
+                <Button className="bg-red-500  text-center mr-48 items-center justify-center h-8 w-20 float-right" onClick={handleReject} style={{marginTop:'-32px'}}>Revert</Button>
 
                 <dialog id="successemployeedialog" className="dashboard-modal">
                     <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
@@ -593,14 +581,6 @@ const RCNLineCreateApproveForm = (props: Props) => {
                 </dialog>
 
             </div>
-
-
-
-
-
-
-
-
         </>
     )
 }

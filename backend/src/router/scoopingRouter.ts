@@ -44,5 +44,6 @@ router.post("/createScoopingallEdit", jwtVerify, createscoopingAllEditReport)
 router.post("/updatenextopeningcreate", jwtVerify, updateNxtOpeningCreate)
 router.get("/findEditScoopingAll", jwtVerify, findEditaScoopingAll)
 router.get("/getEditScoopByLot/:lotNO", jwtVerify, getEditscoopByLot)
+router.put("/createScoopingEditDelete/:id", jwtVerify, createscoopingEditReport)
 
 export default router
