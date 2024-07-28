@@ -5,6 +5,7 @@ import RecivingPackageMaterial from "../../model/recevingPackagingMaterialModel"
 const CreateQcPackagingMaterial = async (req: Request, res: Response) => {
     try {
         const { testingDate, length, width, height, gsm, avgWeight, leakageTest, dropTest, sealCondition, labelingCondition, coa, foodGradeCirtiFicate, remarks } = req.body;
+        const name = req.cookies.name;
         await QualityPackageMaterial.update({
             testingDate,
             length,
@@ -20,6 +21,8 @@ const CreateQcPackagingMaterial = async (req: Request, res: Response) => {
             foodGradeCirtiFicate,
             remarks,
             qualityStatus: "Qc Entered",
+            qcBy: name,
+            editStatus: "NA"
         }, { where: { id: req.params.id } });
 
         await RecivingPackageMaterial.update({ qualityStatus: "Qc Entered" }, { where: { id: req.params.id } });

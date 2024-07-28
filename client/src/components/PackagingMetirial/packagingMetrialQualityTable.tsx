@@ -642,7 +642,7 @@ const QCPackageMaterialTable = () => {
                                                                     <p className='text-1xl text-center'>To Be Filled Up By Quality Supervisor</p>
                                                                 </DialogDescription>
                                                             </DialogHeader>
-                                                            <QCreportForm />
+                                                            <QCreportForm id={item.id} />
                                                         </DialogContent>
                                                     </Dialog>
                                                 </PopoverContent>

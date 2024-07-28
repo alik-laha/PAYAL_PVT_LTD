@@ -5,9 +5,10 @@ import { Button } from "../ui/button"
 import { useState, useRef } from "react"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
+import axios from "axios"
 // import axios from "axios";
 
-const PackagingMetirialQcCreateForm = () => {
+const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
     const [length, setLength] = useState(0)
     const [width, setWidth] = useState(0)
     const [height, setHeight] = useState(0)
@@ -68,9 +69,14 @@ const PackagingMetirialQcCreateForm = () => {
         formData.append('foodGradeCirtiFicateFile', foodGradeCirtiFicateFile)
         formData.append('coaCirtificateFile', coaCirtificateFile)
         formData.append('testingDate', testingDate as string)
-        damagePartsImage.forEach((image: any) => {
-            formData.append('damagePartsImage', image)
-        })
+        formData.append('damagePartsImage', damagePartsImage)
+        axios.post(`/api/qcpackage/packaging_meterial_qc_entry/${id}`, formData)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
 
     }
     const handleCoaFileChamge = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,11 +92,8 @@ const PackagingMetirialQcCreateForm = () => {
     const handleDamagePartsImage = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e)
         if (e.target.files) {
-            setDamagePartsImage([...damagePartsImage, e.target.files[0]])
+            setDamagePartsImage(e.target.files[0])
         }
-    }
-    const handleclear = () => {
-        setDamagePartsImage([])
     }
 
     return (
@@ -98,26 +101,25 @@ const PackagingMetirialQcCreateForm = () => {
             <div className="pl-10 pr-10 mt-6">
                 <form className='flex flex-col gap-1 ' onSubmit={handleSubmit}>
 
-                    <div className="flex"><Label className="w-2/4  pt-0.5">Testing Date</Label>
-                        <Input className="w-2/4 justify-center" placeholder="Testing Date" required ref={dateRef} type="date" /> </div>
+                    <div className="flex"><Label className="w-2/4  pt-2">Testing Date</Label>
+                        <Input className="w-2/4 justify-center" placeholder="Testing Date" required ref={dateRef} type="date" />
+                    </div>
+                    <div className="flex"><Label className="w-2/4  pt-2">Width</Label>
+                        <Input className="w-2/4 " placeholder="Width" required value={width} type="number" step="0.1" onChange={(e) => setWidth(parseInt(e.target.value))} />
+                        <Label className="w-2/4  pt-2">Length</Label>
+                        <Input className="w-2/4 justify-center" placeholder="Length" required type="number" step="0.01" value={length} onChange={(e) => setLength(parseInt(e.target.value))} />
+                    </div>
 
-                    <div className="flex"><Label className="w-2/4  pt-0.5">Length</Label>
-                        <Input className="w-2/4 justify-center" placeholder="Length" required type="number" value={length} onChange={(e) => setLength(parseInt(e.target.value))} step="0.01" /> </div>
+                    <div className="flex"><Label className="w-2/4  pt-2">Height</Label>
+                        <Input className="w-2/4 " placeholder="Height" required value={height} type="number" onChange={(e) => setHeight(parseInt(e.target.value))} step="0.1" />
+                        <Label className="w-2/4  pt-2">GSM</Label>
+                        <Input className="w-2/4 " placeholder="GSM" required value={gsm} type="number" onChange={(e) => setGsm(parseInt(e.target.value))} step="0.1" />
+                    </div>
 
-
-                    <div className="flex"><Label className="w-2/4  pt-0.5">Width</Label>
-                        <Input className="w-2/4 " placeholder="Width" required value={width} type="number" onChange={(e) => setWidth(parseInt(e.target.value))} step="0.1" /> </div>
-
-                    <div className="flex"><Label className="w-2/4  pt-0.5">Height</Label>
-                        <Input className="w-2/4 " placeholder="Height" required value={height} type="number" onChange={(e) => setHeight(parseInt(e.target.value))} step="0.1" /> </div>
-
-                    <div className="flex"><Label className="w-2/4  pt-0.5">GSM</Label>
-                        <Input className="w-2/4 " placeholder="GSM" required value={gsm} type="number" onChange={(e) => setGsm(parseInt(e.target.value))} step="0.1" /> </div>
-
-                    <div className="flex"><Label className="w-2/4  pt-0.5">Avg Weight</Label>
+                    <div className="flex"><Label className="w-2/4  pt-2">Avg Weight</Label>
                         <Input className="w-2/4 " placeholder="Avg Weight" required value={avgWeight} type="number" onChange={(e) => setAvgWeight(parseInt(e.target.value))} step="0.1" /> </div>
 
-                    <div className="flex"><Label className="w-2/4  pt-0.5">Leakage Test</Label>
+                    <div className="flex"><Label className="w-2/4  pt-2">Leakage Test</Label>
                         <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-0.5 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
                     disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
@@ -139,9 +141,8 @@ const PackagingMetirialQcCreateForm = () => {
                                 Fail
                             </option>
 
-                        </select></div>
-
-                    <div className="flex"><Label className="w-2/4  pt-0.5">Drop Test</Label>
+                        </select>
+                        <Label className="w-2/4  pt-2">Drop Test</Label>
                         <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-0.5 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
                     disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
@@ -163,33 +164,12 @@ const PackagingMetirialQcCreateForm = () => {
                                 Fail
                             </option>
 
-                        </select></div>
+                        </select>
+                    </div>
 
-                    <div className="flex"><Label className="w-2/4  pt-0.5">Seal Condition</Label>
-                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-0.5 text-sm 
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
-                    disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                            onChange={(e) => setSealCondition(e.target.value)} value={sealCondition} required>
 
-                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                                value="NA">
-                                NA
-                            </option>
-                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                                value="OK">
-                                OK
-                            </option>
-                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                                value="Not OK">
-                                Not Ok
-                            </option>
-
-                        </select></div>
-                    <div className="flex"><Label className="w-2/4  pt-0.5">Labeling Condition</Label>
-                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-0.5 text-sm 
+                    <div className="flex"><Label className="w-2/4  pt-2">Labeling Condition</Label>
+                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
                     disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                             onChange={(e) => setLabelingCondition(e.target.value)} value={labelingCondition} required>
@@ -210,10 +190,34 @@ const PackagingMetirialQcCreateForm = () => {
                                 Not Ok
                             </option>
 
-                        </select></div>
+                        </select>
+                        <Label className="w-2/4  pt-2">Seal Condition</Label>
+                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
+                    disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                            onChange={(e) => setSealCondition(e.target.value)} value={sealCondition} required>
 
-                    <div className="flex"><Label className="w-2/4  pt-0.5">Coa Report</Label>
-                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-0.5 text-sm 
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="NA">
+                                NA
+                            </option>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="OK">
+                                OK
+                            </option>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="Not OK">
+                                Not Ok
+                            </option>
+
+                        </select>
+                    </div>
+
+                    <div className="flex"><Label className="w-2/4  pt-2">Coa Report</Label>
+                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
                     disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                             onChange={(e) => setCoa(e.target.value)} value={coa} required>
@@ -231,10 +235,10 @@ const PackagingMetirialQcCreateForm = () => {
                         </select></div>
 
                     <div className="flex">
-                        <Label className="w-2/4 pt-0.5 ">Coa File</Label>
+                        <Label className="w-2/4 pt-2 ">Coa File</Label>
                         <input type="file" multiple onChange={handleCoaFileChamge} />
                     </div>
-                    <div className="flex"><Label className="w-2/4  pt-0.5">Food Grade Cirtificate</Label>
+                    <div className="flex"><Label className="w-2/4  pt-2">Food Grade Cirtificate</Label>
                         <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
                     disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
@@ -252,16 +256,15 @@ const PackagingMetirialQcCreateForm = () => {
                             </option>
                         </select></div>
                     <div className="flex">
-                        <Label className="w-2/4 pt-0.5 ">Food Grade Report Upload</Label>
+                        <Label className="w-2/4 pt-2 ">Food Grade Report Upload</Label>
                         <input type="file" onChange={handleFoodGradeUpload} />
                     </div>
-                    <div className="flex"><Label className="w-2/4  pt-0.5">Remarks</Label>
+                    <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
                         <Input className="w-2/4 " placeholder="Remarks" required value={remarks} onChange={(e) => setRemarks(e.target.value)} /> </div>
 
                     <div className="flex">
-                        <Label className="w-2/4 pt-0.5 ">Damage Parts Upload</Label>
+                        <Label className="w-2/4 pt-2 ">Damage Parts Upload</Label>
                         <input type="file" multiple onChange={handleDamagePartsImage} />
-                        <button type="reset" onClick={handleclear}>clear</button>
                     </div>
 
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
