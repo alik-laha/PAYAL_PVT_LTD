@@ -25,9 +25,6 @@ const PackagingMetirialQcCreateForm = () => {
     const [coaCirtificateStatus, setCoaCirtificateStatus] = useState('')
     const [coaCirtificateFile, setCoaCirtificateFile] = useState('')
     const dateRef = useRef<HTMLInputElement>(null)
-    const invoicedateRef = useRef<HTMLInputElement>(null)
-    const quantityRef = useRef<HTMLInputElement>(null)
-    const invoiceref = useRef<HTMLInputElement>(null)
 
     const successdialog = document.getElementById('packageMetrialQc') as HTMLInputElement;
     const errordialog = document.getElementById('packagingMetirialQcError') as HTMLInputElement;
@@ -56,10 +53,7 @@ const PackagingMetirialQcCreateForm = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         const receivingDate = dateRef.current?.value
-        const quantity = quantityRef.current?.value
-        const invoicedate = invoicedateRef.current?.value
-        const invoice = invoiceref.current?.value
-        axios.post("/api/quality/createrecivingpackagematerial", { recevingDate: receivingDate, sku, vendorName, quantity, unit, invoicedate, invoice })
+        axios.post("/api/quality/createrecivingpackagematerial", { recevingDate: receivingDate })
             .then((res) => {
                 console.log(res)
                 axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: res.data.newPackageMaterial.id }).then(() => {
@@ -90,19 +84,19 @@ const PackagingMetirialQcCreateForm = () => {
                         <Input className="w-2/4 justify-center" placeholder="Receiving Date" required type="number" value={length} onChange={(e) => setLength(parseInt(e.target.value))} step="0.01" /> </div>
 
 
-                    <div className="flex"><Label className="w-2/4  pt-1">SKU</Label>
+                    <div className="flex"><Label className="w-2/4  pt-1">Width</Label>
                         <Input className="w-2/4 " placeholder="SKU" required value={width} type="number" onChange={(e) => setWidth(parseInt(e.target.value))} step="0.01" /> </div>
 
-                    <div className="flex"><Label className="w-2/4  pt-1">Vendor Name</Label>
+                    <div className="flex"><Label className="w-2/4  pt-1">Height</Label>
                         <Input className="w-2/4 " placeholder="Vendor Name" required value={height} type="number" onChange={(e) => setHeight(parseInt(e.target.value))} step="0.01" /> </div>
-                    <div className="flex"><Label className="w-2/4  pt-1">Invoice No</Label>
-                        <Input className="w-2/4 " placeholder="Invoice No" required ref={invoiceref} /> </div>
 
-                    <div className="flex"><Label className="w-2/4  pt-1">Invoice Date</Label>
-                        <Input className="w-2/4 justify-center" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div>
+                    <div className="flex"><Label className="w-2/4  pt-1">GSM</Label>
+                        <Input className="w-2/4 " placeholder="Vendor Name" required value={gsm} type="number" onChange={(e) => setGsm(parseInt(e.target.value))} step="0.01" /> </div>
 
-                    <div className="flex"><Label className="w-2/4  pt-1">Quantity</Label>
-                        <Input className="w-2/4 " placeholder="Quantity" required type="number" ref={quantityRef} /> </div>
+                    <div className="flex"><Label className="w-2/4  pt-1">Avg Weight</Label>
+                        <Input className="w-2/4 " placeholder="Vendor Name" required value={avgWeight} type="number" onChange={(e) => setAvgWeight(parseInt(e.target.value))} step="0.01" /> </div>
+
+
 
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
                 </form>
