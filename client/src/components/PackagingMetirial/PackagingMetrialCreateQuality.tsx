@@ -9,6 +9,21 @@ import axios from "axios";
 
 const PackagingMetirialQcCreateForm = () => {
     const [length, setLength] = useState(0)
+    const [width, setWidth] = useState(0)
+    const [height, setHeight] = useState(0)
+    const [gsm, setGsm] = useState(0)
+    const [avgWeight, setAvgWeight] = useState(0)
+    const [leakageTest, setLeakageTest] = useState('')
+    const [dropTest, setDropTest] = useState('')
+    const [sealCondition, setSealCondition] = useState('')
+    const [labelingCondition, setLabelingCondition] = useState('')
+    const [coa, setCoa] = useState('')
+    const [foodGradeCirtiicate, setFoodGradeCirtiicate] = useState('')
+    const [remarks, setRemarks] = useState('')
+    const [foodGradeCirtificateStatus, setFoodGradeCirtificateStatus] = useState('')
+    const [foodGradeCirtiFicateFile, setFoodGradeCirtiFicateFile] = useState('')
+    const [coaCirtificateStatus, setCoaCirtificateStatus] = useState('')
+    const [coaCirtificateFile, setCoaCirtificateFile] = useState('')
     const dateRef = useRef<HTMLInputElement>(null)
     const invoicedateRef = useRef<HTMLInputElement>(null)
     const quantityRef = useRef<HTMLInputElement>(null)
@@ -72,14 +87,14 @@ const PackagingMetirialQcCreateForm = () => {
                         <Input className="w-2/4 justify-center" placeholder="Receiving Date" required ref={dateRef} type="date" /> </div>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Length</Label>
-                        <Input className="w-2/4 justify-center" placeholder="Receiving Date" required type="number" value={length} onChange={(e) => setLength(e.tsrget.vlaue)} /> </div>
+                        <Input className="w-2/4 justify-center" placeholder="Receiving Date" required type="number" value={length} onChange={(e) => setLength(parseInt(e.target.value))} step="0.01" /> </div>
 
 
                     <div className="flex"><Label className="w-2/4  pt-1">SKU</Label>
-                        <Input className="w-2/4 " placeholder="SKU" required value={sku} onChange={handleSkuchange} /> </div>
+                        <Input className="w-2/4 " placeholder="SKU" required value={width} type="number" onChange={(e) => setWidth(parseInt(e.target.value))} step="0.01" /> </div>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Vendor Name</Label>
-                        <Input className="w-2/4 " placeholder="Vendor Name" required value={vendorName} onChange={handleVendorChange} /> </div>
+                        <Input className="w-2/4 " placeholder="Vendor Name" required value={height} type="number" onChange={(e) => setHeight(parseInt(e.target.value))} step="0.01" /> </div>
                     <div className="flex"><Label className="w-2/4  pt-1">Invoice No</Label>
                         <Input className="w-2/4 " placeholder="Invoice No" required ref={invoiceref} /> </div>
 
