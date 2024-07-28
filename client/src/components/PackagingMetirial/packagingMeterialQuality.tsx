@@ -10,7 +10,8 @@ import {
 
     DialogTrigger,
 } from "@/components/ui/dialog"
-import PackagingMetirialQcCreateForm from './PackagingMetrialCreateQuality';
+// import PackagingMetirialQcCreateForm from './PackagingMetrialCreateQuality';
+import PackagingMetrialtable from './packagingMetrialQualityTable';
 
 const PackagingMetirialQuality = () => {
     return (
@@ -42,7 +43,7 @@ const PackagingMetirialQuality = () => {
 
                 </div>
                 {/* <PackagingMetirialQcCreateForm /> */}
-                {/* <EmployeeTable /> */}
+                <PackagingMetrialtable />
 
             </div>
         </div>

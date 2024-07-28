@@ -78,7 +78,7 @@ const QCPackageMaterialTable = () => {
     const limit = pagelimit
     const [blockpagen, setblockpagen] = useState('flex')
     const [pendingData, setPendingData] = useState<QcRcnEntryData[]>([])
-    const [counteditpending, setcounteditpending] = useState<number>(0)
+    const [counteditpending, setcounteditpending] = useState<number>(2)
     const { pendingqccount, pendingreportcount } = useContext(Context);
 
     const approvesuccessdialog = document.getElementById('qcapproveScsDialog') as HTMLInputElement;
@@ -202,8 +202,8 @@ const QCPackageMaterialTable = () => {
         setData([])
 
         //setblockpagen('flex')
-        const response = await axios.put('/api/qcRcn/searchqcRcn', {
-            qcStatus: 'QC Pending'
+        const response = await axios.post('/api/qcpackage/package_material_view', {
+            qualityStatus: false
         })
         const data = await response.data
         if (data.rcnEntries.length === 0 && page > 1) {
@@ -241,7 +241,7 @@ const QCPackageMaterialTable = () => {
         setPendingData([])
 
         setblockpagen('flex')
-        const response = await axios.put('/api/qcRcn/searchqcRcn', {
+        const response = await axios.post('/api/qcpackage/package_material_view', {
             blConNo: searchData,
             origin: origin,
             fromDate: fromdate,
@@ -360,8 +360,9 @@ const QCPackageMaterialTable = () => {
         settoDate(nextday)
     }
     return (
+        // disabled={pendingqccount === 0 ? true : false}
         <div className="ml-5 mt-5 ">
-            <Button className="bg-lime-500 mb-5 mt-5 max-w-52 responsive-button-adjust" onClick={handleSearchPendingQC} disabled={pendingqccount === 0 ? true : false}>Pending QC ({pendingqccount})</Button>
+            <Button className="bg-lime-500 mb-5 mt-5 max-w-52 responsive-button-adjust" onClick={handleSearchPendingQC} >Pending QC ({pendingqccount})</Button>
             {checkpending('QCRCN') && <Button className="bg-orange-400 mb-5 ml-4 max-w-52 responsive-button-adjust responsive-no-margin" onClick={handleSearchPendingEdit} disabled={counteditpending === 0 ? true : false}>
                 Pending Edit ({counteditpending})</Button>}
 
@@ -518,7 +519,7 @@ const QCPackageMaterialTable = () => {
                                                                 <p className='text-1xl pb-1 text-center mt-5'>QC Incoming RCN Report </p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        <QCreportForm data={item} />
+                                                        {/* <QCreportForm data={item} /> */}
                                                     </DialogContent>
                                                 </Dialog>}
                                                 {item.rcnEntry.rcnStatus === 'QC Approved' && item.reportStatus === 1 && item.editStatus !== 'Pending' && <Dialog>
@@ -531,7 +532,7 @@ const QCPackageMaterialTable = () => {
                                                                 <p className='text-1xl pb-1 text-center mt-5'>View/ Modify QC Incoming Report </p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        <QCmodifyreportForm data={item} />
+                                                        {/* <QCmodifyreportForm data={item} /> */}
                                                     </DialogContent>
                                                 </Dialog>}
                                                 {item.editStatus === 'Pending' && <AlertDialog>
@@ -654,7 +655,7 @@ const QCPackageMaterialTable = () => {
                                                                     <p className='text-1xl pb-1 text-center mt-5'>QC Incoming RCN Report </p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            <QCreportForm data={item} />
+                                                            {/* <QCreportForm data={item} /> */}
                                                         </DialogContent>
                                                     </Dialog>}
                                                     {item.rcnEntry.rcnStatus === 'QC Approved' && item.reportStatus === 1 && <Dialog>
@@ -667,7 +668,7 @@ const QCPackageMaterialTable = () => {
                                                                     <p className='text-1xl pb-1 text-center mt-5'>View/ Modify QC Incoming Report </p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            <QCmodifyreportForm data={item} />
+                                                            {/* <QCmodifyreportForm data={item} /> */}
                                                         </DialogContent>
                                                     </Dialog>}
                                                 </PopoverContent>
