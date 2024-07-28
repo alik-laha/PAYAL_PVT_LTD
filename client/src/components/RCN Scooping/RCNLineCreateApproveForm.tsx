@@ -118,7 +118,24 @@ const RCNLineCreateApproveForm = (props: Props) => {
         });
     }
 
+    const handleAMPM = (time: string) => {
 
+        let [hours, minutes] = time.split(':').map(Number);
+        let period = ' AM';
+
+        if (hours === 0) {
+            hours = 12;
+        } else if (hours === 12) {
+            period = ' PM';
+        } else if (hours > 12) {
+            hours -= 12;
+            period = ' PM';
+        }
+        const finalTime = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + period.toString()
+
+        // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
+        return finalTime;
+    }
     useEffect(() => {
         const mergeRows = (data: ScoopingRowData[]): MergedData[] => {
             const filteredData = data.map(({ LotNo, origin, Scooping_Line_Mc,
@@ -314,20 +331,6 @@ const RCNLineCreateApproveForm = (props: Props) => {
 
 
 
-
-    const handleRowChange = (index: number, field: string, fieldvalue: string | number) => {
-
-        const newRows = [...rows];
-        newRows[index] = { ...newRows[index], [field]: fieldvalue };
-        setRows(newRows)
-        console.log(rows)
-    }
-
-
-
-
-
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
@@ -463,9 +466,9 @@ const RCNLineCreateApproveForm = (props: Props) => {
                         <div className="flex"><Label className="w-2/4 pt-1">No. of Male</Label>
                             <Input className="w-2/4 text-center" placeholder="No. of Male" ref={maleRef} required readOnly/> </div>
                         <div className="flex"><Label className="w-2/4 pt-1">No. of Female</Label>
-                            <Input className="w-2/4 text-center" placeholder="No. of Female" ref={femaleRef} required /> </div>
+                            <Input className="w-2/4 text-center" placeholder="No. of Female" ref={femaleRef} required readOnly/> </div>
                         <div className="flex"><Label className="w-2/4 pt-1">No. Of Supervisors</Label>
-                            <Input className="w-2/4 text-center" placeholder="No. of Supervisor" ref={supervisorRef} required /> </div>
+                            <Input className="w-2/4 text-center" placeholder="No. of Supervisor" ref={supervisorRef} required readOnly/> </div>
                     </div>
                     <Table className="mt-3">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -534,14 +537,19 @@ const RCNLineCreateApproveForm = (props: Props) => {
                                             <TableCell className="text-center"> {row.Trolley_Small_JB}</TableCell>
                                             {/* <TableCell className="text-center "> <Input className="bg-green-100" value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx, 'Mc_on', e.target.value)} type='time' required /></TableCell> */}
                                             
-                                            <TableCell className="text-center"> {row.Mc_on}</TableCell>
-                                            <TableCell className="text-center"> {row.Mc_off}</TableCell>
+                                            <TableCell className="text-center">{handleAMPM(row.Mc_on.slice(0, 5))}</TableCell>
+                                            <TableCell className="text-center">{handleAMPM(row.Mc_off.slice(0, 5))}</TableCell>
                                             {/* <FormRow idx={idx} row={row} column='Mc_on' handleRowChange={handleRowChange} /> */}
                                             {/* <FormRow idx={idx} row={row} column='Mc_off' handleRowChange={handleRowChange} /> */}
                                             {/* <TableCell className="text-center"><Input className="bg-red-100" value={row.Mc_off} placeholder="MC Off Time" onChange={(e) => handleRowChange(idx, 'Mc_off', e.target.value)} type='time' required /></TableCell> */}
-                                            <TableCell className="text-center">{row.Mc_breakdown} </TableCell>
+                                           
+                                        
+                                  
+                                            
+                                            <TableCell className="text-center">{row.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
                                             <TableCell className="text-center"> {row.Brkdwn_reason} </TableCell>
-                                            <TableCell className="text-center">{row.otherTime} </TableCell>
+                            
+                            <TableCell className="text-center">{row.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
 
 
                                             <TableCell className="text-center"> {row.noOfEmployees} </TableCell>
