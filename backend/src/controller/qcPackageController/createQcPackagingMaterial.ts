@@ -5,7 +5,7 @@ import RecivingPackageMaterial from "../../model/recevingPackagingMaterialModel"
 const CreateQcPackagingMaterial = async (req: Request, res: Response) => {
     try {
         const { testingDate, length, width, height, gsm, avgWeight, leakageTest, dropTest, sealCondition, labelingCondition, coa, foodGradeCirtiFicate, remarks } = req.body;
-        const name = req.cookies.name;
+        const name = req.cookies.user;
         console.log(req.files)
         const files: any = req.files;
         const foodGradeCirtiFicateFile = files.foodGradeCirtiFicateFile[0].path;

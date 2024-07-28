@@ -590,7 +590,7 @@ const QCPackageMaterialTable = () => {
                                             )}
                                         </TableCell>
                                         <TableCell className="text-center">{item.packagingMaterialreceving.createdBy}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.testDate}</TableCell>
+                                        <TableCell className="text-center font-bold">{handletimezone(item.testingDate)}</TableCell>
                                         <TableCell className="text-center font-bold">{item.length}</TableCell>
                                         <TableCell className="text-center font-bold">{item.width}</TableCell>
                                         <TableCell className="text-center font-bold">{item.height}</TableCell>
@@ -601,10 +601,10 @@ const QCPackageMaterialTable = () => {
                                         <TableCell className="text-center font-bold text-red-500">{item.sealCondition}</TableCell>
                                         <TableCell className="text-center">{item.labelingCondition}</TableCell>
                                         <TableCell className="text-center">{item.coa}</TableCell>
-                                        <TableCell className="text-center">{item.foodGradeCertificate}</TableCell>
+                                        <TableCell className="text-center">{item.foodGradeCirtiicate}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.foodGradeCirtificateStatus}</TableCell>
-                                        <TableCell className="text-center">{item.coaCertificateStatus}</TableCell>
+                                        <TableCell className="text-center">{item.coaCirtificateStatus}</TableCell>
                                         <TableCell className="text-center">{item.qcBy}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">
@@ -613,38 +613,42 @@ const QCPackageMaterialTable = () => {
                                                     <button className={`p-2 text-white rounded ${(item.qualityStatus === true && !item.editStatus) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.qualityStatus === true && !item.editStatus) ? true : false}>Action</button>
                                                 </PopoverTrigger>
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    <Dialog>
-                                                        <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" disabled={item.editStatus === "NA" ? false : true}>Modify</button>
-                                                        </DialogTrigger>
-                                                        <DialogContent>
-                                                            <DialogHeader>
-                                                                <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>Packaging Metrial Create</p>
-                                                                </DialogTitle>
-                                                                <DialogDescription>
-                                                                    <p className='text-1xl text-center'>To Be Filled Up By Quality Supervisor</p>
-                                                                </DialogDescription>
-                                                            </DialogHeader>
-                                                            {/* <QCreportForm /> */}
-                                                        </DialogContent>
-                                                    </Dialog>
-                                                    <Dialog>
-                                                        <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" disabled={item.editStatus === "NA" ? true : false}>Entry New</button>
-                                                        </DialogTrigger>
-                                                        <DialogContent>
-                                                            <DialogHeader>
-                                                                <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>Packaging Metrial Create</p>
-                                                                </DialogTitle>
-                                                                <DialogDescription>
-                                                                    <p className='text-1xl text-center'>To Be Filled Up By Quality Supervisor</p>
-                                                                </DialogDescription>
-                                                            </DialogHeader>
-                                                            <QCreportForm id={item.id} />
-                                                        </DialogContent>
-                                                    </Dialog>
+                                                    <div className={item.editStatus === "NA" ? "block" : "hidden"}>
+                                                        <Dialog>
+                                                            <DialogTrigger className="flex"><CiEdit size={20} />
+                                                                <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" disabled={item.editStatus === "NA" ? false : true}>Modify</button>
+                                                            </DialogTrigger>
+                                                            <DialogContent>
+                                                                <DialogHeader>
+                                                                    <DialogTitle>
+                                                                        <p className='text-1xl pb-1 text-center mt-5'>Packaging Metrial Create</p>
+                                                                    </DialogTitle>
+                                                                    <DialogDescription>
+                                                                        <p className='text-1xl text-center'>To Be Filled Up By Quality Supervisor</p>
+                                                                    </DialogDescription>
+                                                                </DialogHeader>
+                                                                {/* <QCreportForm /> */}
+                                                            </DialogContent>
+                                                        </Dialog>
+                                                    </div>
+                                                    <div className={item.editStatus === "NA" ? "hidden" : "block"}>
+                                                        <Dialog >
+                                                            <DialogTrigger className="flex"><CiEdit size={20} />
+                                                                <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" disabled={item.editStatus === "NA" ? true : false}>Entry New</button>
+                                                            </DialogTrigger>
+                                                            <DialogContent>
+                                                                <DialogHeader>
+                                                                    <DialogTitle>
+                                                                        <p className='text-1xl pb-1 text-center mt-5'>Packaging Metrial Create</p>
+                                                                    </DialogTitle>
+                                                                    <DialogDescription>
+                                                                        <p className='text-1xl text-center'>To Be Filled Up By Quality Supervisor</p>
+                                                                    </DialogDescription>
+                                                                </DialogHeader>
+                                                                <QCreportForm id={item.id} />
+                                                            </DialogContent>
+                                                        </Dialog>
+                                                    </div>
                                                 </PopoverContent>
                                             </Popover>
 

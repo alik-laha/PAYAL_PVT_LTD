@@ -499,7 +499,7 @@ export interface PackagingMeterialQc {
     }
     id: number;
     qualityStatus: boolean;
-    testDate: string;
+    testingDate: string;
     length: number;
     width: number;
     height: number;
@@ -510,10 +510,10 @@ export interface PackagingMeterialQc {
     sealCondition: string;
     labelingCondition: string;
     coa: string;
-    foodGradeCertificate: string;
+    foodGradeCirtiicate: string;
     foodGradeCirtificateStatus: string;
     foodGradeCirtificateFile: string;
-    coaCertificateStatus: string;
+    coaCirtificateStatus: string;
     coaCertificateFile: string;
     editStatus: string;
     qcBy: string;
