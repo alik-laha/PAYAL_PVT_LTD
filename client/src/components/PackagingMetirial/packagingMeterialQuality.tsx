@@ -26,7 +26,7 @@ const PackagingMetirialQuality = () => {
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
 
 
-                <Dialog >
+                {/* <Dialog >
                     <DialogTrigger>   <Button className="bg-blue-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+ Add New Employee</Button></DialogTrigger>
                     <DialogContent className='max-w-2xl'>
                         <DialogHeader>
@@ -34,13 +34,14 @@ const PackagingMetirialQuality = () => {
 
                         </DialogHeader>
 
-                        <PackagingMetirialQcCreateForm />
+                        
                     </DialogContent>
-                </Dialog>
+                </Dialog> */}
 
                 <div>
 
                 </div>
+                {/* <PackagingMetirialQcCreateForm /> */}
                 {/* <EmployeeTable /> */}
 
             </div>
