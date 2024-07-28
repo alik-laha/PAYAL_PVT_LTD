@@ -562,21 +562,18 @@ const RCNLineCreateApproveForm = (props: Props) => {
 
                                             </TableCell>
 
-
-
-
-
-
                                         </TableRow>
                                     );
                                 })
                             ) : null}
                         </TableBody>
                     </Table>
-                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
+                    <Button className="bg-green-500 ml-48 mt-3 text-center items-center justify-center h-8 w-20">Approve</Button>
 
 
                 </form>
+                <Button className="bg-red-500  text-center mr-48 items-center justify-center h-8 w-20 float-right" style={{marginTop:'-32px'}}>Revert</Button>
+
                 <dialog id="successemployeedialog" className="dashboard-modal">
                     <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

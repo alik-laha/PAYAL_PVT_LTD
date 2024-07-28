@@ -405,7 +405,7 @@ const RCNScoopingTable = () => {
 
                 />
 
-                <select className='flexbox-search-width font-semibold flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className='flexbox-search-width no-margin-left-absolute font-semibold flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                     onChange={(e) => {
                         setselectType(e.target.value)
@@ -496,7 +496,7 @@ const RCNScoopingTable = () => {
                                                         <DialogContent className='max-w-3xl'>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>Scooping Approve/Revert</p>
+                                                                    <p className='text-1xl pb-1 text-center '>Scooping Approve/Revert</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             <RCNLineCreateApproveForm scoop={scoopeditdata} />
