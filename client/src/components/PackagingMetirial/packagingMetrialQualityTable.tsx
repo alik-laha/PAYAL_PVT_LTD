@@ -615,7 +615,7 @@ const QCPackageMaterialTable = () => {
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                     <Dialog>
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" disabled={!item.editStatus ? false : true}>Modify</button>
+                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" disabled={item.editStatus === "NA" ? false : true}>Modify</button>
                                                         </DialogTrigger>
                                                         <DialogContent>
                                                             <DialogHeader>
@@ -631,7 +631,7 @@ const QCPackageMaterialTable = () => {
                                                     </Dialog>
                                                     <Dialog>
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" disabled={item.editStatus ? false : true}>Entry New</button>
+                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" disabled={item.editStatus === "NA" ? true : false}>Entry New</button>
                                                         </DialogTrigger>
                                                         <DialogContent>
                                                             <DialogHeader>
