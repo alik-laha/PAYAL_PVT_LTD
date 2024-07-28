@@ -22,7 +22,8 @@ import { useContext, useState } from 'react';
 import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
-import { scoopingpendingLotData } from '@/type/type';
+import { pendingCheckRoles, scoopingpendingLotData } from '@/type/type';
+import { pendingCheckRole, Role } from '../common/exportData';
 
 
 const RCNScooping = () => {
@@ -61,6 +62,16 @@ const RCNScooping = () => {
 
 
 
+
+    }
+    const checkpending = (tab: string) => {
+        //console.log(Role)
+        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+            return true
+        }
+        else {
+            return false;
+        }
 
     }
 
@@ -116,7 +127,7 @@ const RCNScooping = () => {
                     </Dialog>
 
 
-                    {searchType === "LotWise" ? <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> : null}
+                    {checkpending('Scooping') && (searchType === "LotWise" ? <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button> : null)}
 
                 </div>
                 <RCNScoopingTable />
