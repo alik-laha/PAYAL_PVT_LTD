@@ -55,12 +55,12 @@ import {
 import { FcApprove, FcDisapprove } from "react-icons/fc"
 import { MdOutlineDriveFolderUpload } from "react-icons/md";
 import { LiaEdit } from "react-icons/lia";
-import QCreportForm from "./PackagingMetrialCreateQuality"
+// import QCreportForm from "./PackagingMetrialCreateQuality"
 // import QCmodifyreportForm from './QCmodifyreportForm'
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { pendingCheckRole } from '../common/exportData';
-import { PermissionRole, pendingCheckRoles } from "@/type/type";
+import { PermissionRole, pendingCheckRoles, PackagingMeterialQc } from "@/type/type";
 // import { saveAs } from 'file-saver';
 // import * as XLSX from 'xlsx';
 import Context from "../context/context"
@@ -72,7 +72,7 @@ const QCPackageMaterialTable = () => {
     const [todate, settoDate] = React.useState<string>('');
     const [hidetodate, sethidetoDate] = React.useState<string>('');
     const [searchData, setSearchData] = useState<string>("")
-    const [Data, setData] = useState<QcRcnEntryData[]>([])
+    const [Data, setData] = useState<PackagingMeterialQc[]>([])
     const [page, setPage] = useState(pageNo)
     //const [EditData, setEditData] = useState<EditPendingData[]>([])
     const limit = pagelimit
@@ -435,7 +435,7 @@ const QCPackageMaterialTable = () => {
                 <TableBody>
 
                     {pendingData.length > 0 ?
-                        (pendingData.map((item: QcRcnEntryData, idx) => {
+                        (pendingData.map((item: PackagingMeterialQc, idx) => {
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{idx + 1}</TableCell>
@@ -571,46 +571,38 @@ const QCPackageMaterialTable = () => {
                         })
                         ) : (
 
-                            Data.length > 0 ? (Data.map((item: QcRcnEntryData, idx) => {
+                            Data.length > 0 ? (Data.map((item: PackagingMeterialQc, idx) => {
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                        <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
+                                        <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
+                                        <TableCell className="text-center">{handletimezone(item.packagingMaterialreceving.invoicedate)}</TableCell>
 
-                                        <TableCell className="text-center">{item.blNo}</TableCell>
-                                        <TableCell className="text-center">{item.conNo}</TableCell>
-                                        <TableCell className="text-center">{item.rcnEntry.truckNo}</TableCell>
-                                        <TableCell className="text-center">{item.rcnEntry.blWeight}</TableCell>
-                                        <TableCell className="text-center">{item.rcnEntry.noOfBags}</TableCell>
+                                        <TableCell className="text-center">{item.packagingMaterialreceving.invoice}</TableCell>
+                                        <TableCell className="text-center">{item.packagingMaterialreceving.sku}</TableCell>
+                                        <TableCell className="text-center">{item.packagingMaterialreceving.vendorName}</TableCell>
+                                        <TableCell className="text-center">{item.packagingMaterialreceving.quantity}</TableCell>
+                                        <TableCell className="text-center">{item.packagingMaterialreceving.unit}</TableCell>
                                         <TableCell className="text-center">
-                                            {item.rcnEntry.rcnStatus === 'QC Approved' ? (
-                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnEntry.rcnStatus}</button>
-                                            ) : item.rcnEntry.rcnStatus === 'QC Pending' ? (
-                                                <button className="bg-yellow-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnEntry.rcnStatus}</button>
+                                            {item.packagingMaterialreceving.qualityStatus ? (
+                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.packagingMaterialreceving.qualityStatus}</button>
                                             ) : (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnEntry.rcnStatus}</button>
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.packagingMaterialreceving.qualityStatus}</button>
                                             )}
                                         </TableCell>
-                                        <TableCell className="text-center">{item.qcapprovedBy}</TableCell>
-
-
-                                        <TableCell className="text-center">
-
-                                            <input type='checkbox' checked={item.reportStatus === 1 ? true : false} />
-                                        </TableCell>
-                                        <TableCell className="text-center font-bold">{item.sampling}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.moisture}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.nutCount}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.fluteRate}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.goodKernel}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.spIm}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.reject}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.shell}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500">{item.outTurn}</TableCell>
-                                        <TableCell className="text-center">{item.createdBy}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
-                                        <TableCell className="text-center">
+                                        <TableCell className="text-center">{item.packagingMaterialreceving.createdBy}</TableCell>
+                                        <TableCell className="text-center font-bold">{item.testDate}</TableCell>
+                                        <TableCell className="text-center font-bold">{item.length}</TableCell>
+                                        <TableCell className="text-center font-bold">{item.width}</TableCell>
+                                        <TableCell className="text-center font-bold">{item.height}</TableCell>
+                                        <TableCell className="text-center font-bold">{item.gsm}</TableCell>
+                                        <TableCell className="text-center font-bold">{item.avgWeight}</TableCell>
+                                        <TableCell className="text-center font-bold">{item.leakageTest}</TableCell>
+                                        <TableCell className="text-center font-bold">{item.dropTest}</TableCell>
+                                        <TableCell className="text-center font-bold text-red-500">{item.sealCondition}</TableCell>
+                                        <TableCell className="text-center">{item.labelingCondition}</TableCell>
+                                        <TableCell className="text-center">{item.coa}</TableCell>
+                                        {/* <TableCell className="text-center">
                                             <Popover>
                                                 <PopoverTrigger>
                                                     <button className={`p-2 text-white rounded ${(item.editStatus === 'Pending' || item.rcnEntry.rcnStatus === 'QC Rejected') ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.editStatus === 'Pending' || item.rcnEntry.rcnStatus === 'QC Rejected' || item.rcnEntry.editStatus === 'Pending') ? true : false}>Action</button>
@@ -656,7 +648,7 @@ const QCPackageMaterialTable = () => {
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             {/* <QCreportForm data={item} /> */}
-                                                        </DialogContent>
+                                        {/* </DialogContent>
                                                     </Dialog>}
                                                     {item.rcnEntry.rcnStatus === 'QC Approved' && item.reportStatus === 1 && <Dialog>
                                                         <DialogTrigger className="flex py-1">
@@ -667,13 +659,13 @@ const QCPackageMaterialTable = () => {
                                                                 <DialogTitle>
                                                                     <p className='text-1xl pb-1 text-center mt-5'>View/ Modify QC Incoming Report </p>
                                                                 </DialogTitle>
-                                                            </DialogHeader>
-                                                            {/* <QCmodifyreportForm data={item} /> */}
-                                                        </DialogContent>
+                                                            </DialogHeader>  */}
+                                        {/* <QCmodifyreportForm data={item} /> */}
+                                        {/* </DialogContent>
                                                     </Dialog>}
                                                 </PopoverContent>
                                             </Popover>
-                                        </TableCell>
+                                        </TableCell> */}
                                     </TableRow>
                                 );
                             })) : (<TableRow>

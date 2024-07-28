@@ -21,6 +21,7 @@ const PackagingMetirialQcCreateForm = () => {
     const [foodGradeCirtiicate, setFoodGradeCirtiicate] = useState('')
     const [remarks, setRemarks] = useState('')
     const [foodGradeCirtiFicateFile, setFoodGradeCirtiFicateFile] = useState<any>()
+    const [damagePartsImage, setDamagePartsImage] = useState<any>()
     const [coaCirtificateFile, setCoaCirtificateFile] = useState<any>()
     const dateRef = useRef<HTMLInputElement>(null)
 
@@ -67,6 +68,9 @@ const PackagingMetirialQcCreateForm = () => {
         formData.append('foodGradeCirtiFicateFile', foodGradeCirtiFicateFile)
         formData.append('coaCirtificateFile', coaCirtificateFile)
         formData.append('testingDate', testingDate as string)
+        damagePartsImage.forEach((image: any) => {
+            formData.append('damagePartsImage', image)
+        })
 
     }
     const handleCoaFileChamge = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +83,14 @@ const PackagingMetirialQcCreateForm = () => {
             setFoodGradeCirtiFicateFile(e.target.files[0])
         }
     }
-
+    const handleDamagePartsImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setDamagePartsImage([...damagePartsImage, e.target.files[0]])
+        }
+    }
+    const handleclear = () => {
+        setDamagePartsImage([])
+    }
 
     return (
         <>
@@ -263,6 +274,12 @@ const PackagingMetirialQcCreateForm = () => {
                     </div>
                     <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
                         <Input className="w-2/4 " placeholder="Remarks" required value={remarks} onChange={(e) => setRemarks(e.target.value)} /> </div>
+
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1 ">Damage Parts Upload</Label>
+                        <input type="file" multiple onChange={handleDamagePartsImage} value={damagePartsImage} />
+                        <button type="reset" onClick={handleclear}>clear</button>
+                    </div>
 
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
                 </form>

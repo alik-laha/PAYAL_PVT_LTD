@@ -58,9 +58,9 @@ export interface rcnScoopingData {
     scoopStatus: string;
     Mc_runTime: string;
     SizeName: string;
-    Scooping_Line_Mc:string;
-    Transfered_Qty:string;
-    Transfered_To:string;
+    Scooping_Line_Mc: string;
+    Transfered_Qty: string;
+    Transfered_To: string;
 }
 export interface EditPendingData extends RcnPrimaryEntryData {
     editedBy: string;
@@ -159,7 +159,7 @@ export interface ScoopData {
     CreatedBy: string;
     editStatus: string;
     modifiedBy: string;
-    Transfered_Qty:number;
+    Transfered_Qty: number;
 }
 
 export interface ExcelRcnPrimaryEntryData {
@@ -264,10 +264,10 @@ export interface PermissionRole {
     QCSupervisor: string[];
     QCManager: string[];
     GradingSupervisor: string[];
-    ScoopingSupervisor:string[];
-    BoilingSupervisor:string[];
-    CleaningSupervisor:string[];
-    MaintainanceManager:string[];
+    ScoopingSupervisor: string[];
+    BoilingSupervisor: string[];
+    CleaningSupervisor: string[];
+    MaintainanceManager: string[];
 
 
 
@@ -412,8 +412,8 @@ export interface PackageMaterialReceivingData {
     vendorName: string;
     quantity: string;
     unit: string;
-    invoicedate:string;
-    invoice:string;
+    invoicedate: string;
+    invoice: string;
     createdBy: string;
     qualityStatus: string;
     editStatus: string;
@@ -436,8 +436,8 @@ export interface ExcelrecevingPackageMaterialData {
     Unit: string;
     Quality_Status: string;
     Edit_Status: string;
-    Invoice:string;
-    Invoice_Date:string;
+    Invoice: string;
+    Invoice_Date: string;
     Approved_Or_Rejected_By: string;
     Created_By: string;
 }
@@ -476,9 +476,45 @@ export interface ScoopingExcelData {
     scoopStatus: string;
     Mc_runTime: string;
     SizeName: string;
-    Scooping_Line_Mc:string;
-    Transfered_Qty:string;
-    Transfered_To:string;
+    Scooping_Line_Mc: string;
+    Transfered_Qty: string;
+    Transfered_To: string;
+
+}
+
+export interface PackagingMeterialQc {
+    packagingMaterialreceving: {
+        id: number;
+        recevingDate: string;
+        sku: string;
+        vendorName: string;
+        quantity: string;
+        unit: string;
+        invoicedate: string;
+        invoice: string;
+        createdBy: string;
+        qualityStatus: string;
+        editStatus: string;
+        approvedBy: string;
+    }
+    id: number;
+    qualityStatus: string;
+    testDate: string;
+    length: number;
+    width: number;
+    height: number;
+    gsm: number;
+    avgWeight: number;
+    leakageTest: string;
+    dropTest: string;
+    sealCondition: string;
+    labelingCondition: string;
+    coa: string;
+    foodGradeCertificate: string;
+    foodGradeCirtificateStatus: string;
+    foodGradeCirtificateFile: string;
+    coaCertificateStatus: string;
+    coaCertificateFile: string;
 
 }
 
