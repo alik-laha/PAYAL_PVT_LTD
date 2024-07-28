@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import RcnScooping from "../../model/scoopingModel";
 import RcnScoopingEdit from "../../model/scoopingEditModel";
 
-const createscoopingEditReport = async (req: Request, res: Response) => {
+const createscoopingEditDelete = async (req: Request, res: Response) => {
 
 
     try {
@@ -49,18 +49,18 @@ const createscoopingEditReport = async (req: Request, res: Response) => {
         console.log(total_bag)
 
         const kor = ((parseFloat(Wholes) + parseFloat(Broken)) / (total_bag * 0.453)).toFixed(2)
-
+        console.log('Reached Here1')
         const latestEditEntry = await RcnScoopingEdit.findOne({
             attributes: ['CreatedBy'],
             where: { id }
         });
-
+        console.log('Reached Here2')
         let createdBy='ProductionManager'
         if(latestEditEntry){
              createdBy=latestEditEntry?.dataValues.CreatedBy
         }
       
-
+        console.log('Reached Here')
         const RcnGradingEditData = await RcnScooping.update({
             date: Date,
             Wholes: Wholes,
@@ -102,4 +102,4 @@ const createscoopingEditReport = async (req: Request, res: Response) => {
     }
 }
 
-export default createscoopingEditReport;
+export default createscoopingEditDelete;

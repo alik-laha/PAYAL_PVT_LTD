@@ -395,8 +395,7 @@ const RCNLineCreateApproveForm = (props: Props) => {
 
                 }))
                 for (const data2 of formall) {
-                        await axios.post('/api/scooping/createScoopingall', { data2 })
-                       
+                        await axios.post('/api/scooping/createScoopingDeleteall', { data2 })
                         await axios.post('/api/scooping/updateInitialBorma', {data2 })
                 }
 
@@ -553,7 +552,7 @@ const RCNLineCreateApproveForm = (props: Props) => {
 
 
                 </form>
-                <Button className="bg-red-500  text-center mr-48 items-center justify-center h-8 w-20 float-right" onClick={handleReject} style={{marginTop:'-32px'}}>Revert</Button>
+                <Button className="bg-red-500  text-center mr-48 items-center justify-center h-8 w-20 float-right"  style={{marginTop:'-32px'}}>Revert</Button>
 
                 <dialog id="successemployeedialog" className="dashboard-modal">
                     <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
