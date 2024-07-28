@@ -22,7 +22,7 @@ import { useContext, useState } from 'react';
 import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
-import { pendingCheckRoles, scoopingpendingLotData } from '@/type/type';
+import { pendingCheckRoles, PermissionRole, scoopingpendingLotData } from '@/type/type';
 import { pendingCheckRole, Role } from '../common/exportData';
 
 
@@ -64,6 +64,7 @@ const RCNScooping = () => {
 
 
     }
+    const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {
         //console.log(Role)
         if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
