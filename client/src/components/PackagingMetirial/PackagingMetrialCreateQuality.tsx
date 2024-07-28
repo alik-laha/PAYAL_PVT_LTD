@@ -21,9 +21,9 @@ const PackagingMetirialQcCreateForm = () => {
     const [foodGradeCirtiicate, setFoodGradeCirtiicate] = useState('')
     const [remarks, setRemarks] = useState('')
     const [foodGradeCirtificateStatus, setFoodGradeCirtificateStatus] = useState('')
-    const [foodGradeCirtiFicateFile, setFoodGradeCirtiFicateFile] = useState('')
+    const [foodGradeCirtiFicateFile, setFoodGradeCirtiFicateFile] = useState<any>()
     const [coaCirtificateStatus, setCoaCirtificateStatus] = useState('')
-    const [coaCirtificateFile, setCoaCirtificateFile] = useState('')
+    const [coaCirtificateFile, setCoaCirtificateFile] = useState<any>()
     const dateRef = useRef<HTMLInputElement>(null)
 
     const successdialog = document.getElementById('packageMetrialQc') as HTMLInputElement;
@@ -69,7 +69,16 @@ const PackagingMetirialQcCreateForm = () => {
 
             })
     }
-
+    const handleCoaFileChamge = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setCoaCirtificateFile(e.target.files[0])
+        }
+    }
+    const handleFoodGradeUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setFoodGradeCirtiFicateFile(e.target.files[0])
+        }
+    }
 
 
     return (
@@ -78,25 +87,180 @@ const PackagingMetirialQcCreateForm = () => {
                 <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Testing Date</Label>
-                        <Input className="w-2/4 justify-center" placeholder="Receiving Date" required ref={dateRef} type="date" /> </div>
+                        <Input className="w-2/4 justify-center" placeholder="Testing Date" required ref={dateRef} type="date" /> </div>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Length</Label>
-                        <Input className="w-2/4 justify-center" placeholder="Receiving Date" required type="number" value={length} onChange={(e) => setLength(parseInt(e.target.value))} step="0.01" /> </div>
+                        <Input className="w-2/4 justify-center" placeholder="Length" required type="number" value={length} onChange={(e) => setLength(parseInt(e.target.value))} step="0.01" /> </div>
 
 
                     <div className="flex"><Label className="w-2/4  pt-1">Width</Label>
-                        <Input className="w-2/4 " placeholder="SKU" required value={width} type="number" onChange={(e) => setWidth(parseInt(e.target.value))} step="0.01" /> </div>
+                        <Input className="w-2/4 " placeholder="Width" required value={width} type="number" onChange={(e) => setWidth(parseInt(e.target.value))} step="0.01" /> </div>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Height</Label>
-                        <Input className="w-2/4 " placeholder="Vendor Name" required value={height} type="number" onChange={(e) => setHeight(parseInt(e.target.value))} step="0.01" /> </div>
+                        <Input className="w-2/4 " placeholder="Height" required value={height} type="number" onChange={(e) => setHeight(parseInt(e.target.value))} step="0.01" /> </div>
 
                     <div className="flex"><Label className="w-2/4  pt-1">GSM</Label>
-                        <Input className="w-2/4 " placeholder="Vendor Name" required value={gsm} type="number" onChange={(e) => setGsm(parseInt(e.target.value))} step="0.01" /> </div>
+                        <Input className="w-2/4 " placeholder="GSM" required value={gsm} type="number" onChange={(e) => setGsm(parseInt(e.target.value))} step="0.01" /> </div>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Avg Weight</Label>
-                        <Input className="w-2/4 " placeholder="Vendor Name" required value={avgWeight} type="number" onChange={(e) => setAvgWeight(parseInt(e.target.value))} step="0.01" /> </div>
+                        <Input className="w-2/4 " placeholder="Avg Weight" required value={avgWeight} type="number" onChange={(e) => setAvgWeight(parseInt(e.target.value))} step="0.01" /> </div>
 
+                    <div className="flex"><Label className="w-2/4  pt-1">Leakage Test</Label>
+                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
+                    disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                            onChange={(e) => setLeakageTest(e.target.value)} value={leakageTest} required>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+                        focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>unit</option>
 
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="NA">
+                                NA
+                            </option>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="Pass">
+                                Pass
+                            </option>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="Fail">
+                                Fail
+                            </option>
+
+                        </select></div>
+
+                    <div className="flex"><Label className="w-2/4  pt-1">Drop Test</Label>
+                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
+                    disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                            onChange={(e) => setDropTest(e.target.value)} value={dropTest} required>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+                        focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>unit</option>
+
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="NA">
+                                NA
+                            </option>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="Pass">
+                                Pass
+                            </option>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="Fail">
+                                Fail
+                            </option>
+
+                        </select></div>
+
+                    <div className="flex"><Label className="w-2/4  pt-1">Seal Condition</Label>
+                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
+                    disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                            onChange={(e) => setSealCondition(e.target.value)} value={sealCondition} required>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+                        focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>unit</option>
+
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="NA">
+                                NA
+                            </option>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="OK">
+                                OK
+                            </option>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="Not OK">
+                                Not Ok
+                            </option>
+
+                        </select></div>
+                    <div className="flex"><Label className="w-2/4  pt-1">Labeling Condition</Label>
+                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
+                    disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                            onChange={(e) => setLabelingCondition(e.target.value)} value={labelingCondition} required>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+                        focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>unit</option>
+
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="NA">
+                                NA
+                            </option>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="OK">
+                                OK
+                            </option>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="Not OK">
+                                Not-Ok
+                            </option>
+
+                        </select></div>
+
+                    <div className="flex"><Label className="w-2/4  pt-1">Coa Report</Label>
+                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
+                    disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                            onChange={(e) => setCoa(e.target.value)} value={coa} required>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+                        focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>unit</option>
+
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="NA">
+                                NA
+                            </option>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="Yes">
+                                Yes
+                            </option>
+                        </select></div>
+
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1 ">Coa File</Label>
+                        <input type="file" multiple onChange={handleCoaFileChamge} value={coaCirtificateFile} />
+                    </div>
+                    <div className="flex"><Label className="w-2/4  pt-1">Food Grade Cirtificate</Label>
+                        <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
+                    disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                            onChange={(e) => setFoodGradeCirtiicate(e.target.value)} value={foodGradeCirtiicate} required>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+                        focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>unit</option>
+
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="NA">
+                                NA
+                            </option>
+                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                                value="Yes">
+                                Yes
+                            </option>
+                        </select></div>
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1 ">Food Grade Report Upload</Label>
+                        <input type="file" multiple onChange={handleFoodGradeUpload} value={foodGradeCirtiFicateFile} />
+                    </div>
 
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
                 </form>
