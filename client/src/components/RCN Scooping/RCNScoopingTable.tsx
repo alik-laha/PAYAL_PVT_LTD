@@ -66,6 +66,7 @@ import Context from "../context/context";
 import { CiEdit } from "react-icons/ci";
 import RCNLineCreateEditForm from "./RCNLineCreateEditForm";
 import RcnTableLineWise from "./RcnScoopingTableLineWise";
+import RCNLineCreateApproveForm from "./RCNLineCreateApproveForm";
 
 const RCNScoopingTable = () => {
 
@@ -498,7 +499,7 @@ const RCNScoopingTable = () => {
                                                                     <p className='text-1xl pb-1 text-center mt-5'>Line Wise Scooping Modify</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            <RCNLineCreateEditForm scoop={scoopeditdata} />
+                                                            <RCNLineCreateApproveForm scoop={scoopeditdata} />
                                                             {/* <RcnPrimaryModify data={item} /> */}
                                                         </DialogContent>
                                                     </Dialog>

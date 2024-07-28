@@ -71,13 +71,13 @@ interface MergedData {
 }
 
 
-// interface MergedUpdateData {
-//     LotNo: string;
-//     Scooping_Line_Mc: string;
-//     Uncut: number;
-//     Unscoop: number;
-//     NonCut: number;
-// }
+interface MergedUpdateData {
+    LotNo: string;
+    Scooping_Line_Mc: string;
+    Uncut: number;
+    Unscoop: number;
+    NonCut: number;
+}
 
 
 
@@ -91,11 +91,11 @@ const RCNLineCreateApproveForm = (props: Props) => {
     const [rows, setRows] = useState<ScoopingRowData[]>([])
 
     const [newFormData, setNewFormData] = useState<MergedData[]>([]);
-    //const [newFormupdateData, setNewFormupdateData] = useState<MergedUpdateData[]>([]);
+    const [newFormupdateData, setNewFormupdateData] = useState<MergedUpdateData[]>([]);
 
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
-    // const dialog = document.getElementById('myDialog');
+    const dialog = document.getElementById('myDialog');
     const closeDialogButton = document.getElementById('empcloseDialog') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('errorempcloseDialog') as HTMLInputElement;
 
@@ -227,52 +227,52 @@ const RCNLineCreateApproveForm = (props: Props) => {
 
 
 
-    // useEffect(() => {
-    //     const mergeRows = (data: ScoopingRowData[]): MergedUpdateData[] => {
-    //         const filteredData = data.map(({ LotNo, Scooping_Line_Mc,
-    //             Uncut, Unscoop, NonCut }) => ({
-    //                 LotNo,
-    //                 Scooping_Line_Mc,
-    //                 Uncut: parseFloat(Uncut),
-    //                 Unscoop: parseFloat(Unscoop),
-    //                 NonCut: parseFloat(NonCut),
-    //             }));
-    //         const merged = filteredData.reduce<Record<string, {
-    //             LotNo: string, Scooping_Line_Mc: string
-    //             , Uncut: number, Unscoop: number, NonCut: number
-    //         }>>((acc, row) => {
-    //             const { LotNo,
-    //                 Scooping_Line_Mc,
-    //                 Uncut,
-    //                 Unscoop,
-    //                 NonCut,
-    //             } = row;
-    //             if (!acc[Scooping_Line_Mc]) {
-    //                 acc[Scooping_Line_Mc] = {
-    //                     LotNo, Scooping_Line_Mc,
-    //                     Uncut, Unscoop, NonCut
-    //                 };
-    //             } else {
-    //                 acc[Scooping_Line_Mc].LotNo = LotNo;
-    //                 acc[Scooping_Line_Mc].Uncut += Uncut;
-    //                 acc[Scooping_Line_Mc].Unscoop += Unscoop;
-    //                 acc[Scooping_Line_Mc].NonCut += NonCut;
-    //             }
-    //             return acc;
-    //         }, {});
+    useEffect(() => {
+        const mergeRows = (data: ScoopingRowData[]): MergedUpdateData[] => {
+            const filteredData = data.map(({ LotNo, Scooping_Line_Mc,
+                Uncut, Unscoop, NonCut }) => ({
+                    LotNo,
+                    Scooping_Line_Mc,
+                    Uncut: parseFloat(Uncut),
+                    Unscoop: parseFloat(Unscoop),
+                    NonCut: parseFloat(NonCut),
+                }));
+            const merged = filteredData.reduce<Record<string, {
+                LotNo: string, Scooping_Line_Mc: string
+                , Uncut: number, Unscoop: number, NonCut: number
+            }>>((acc, row) => {
+                const { LotNo,
+                    Scooping_Line_Mc,
+                    Uncut,
+                    Unscoop,
+                    NonCut,
+                } = row;
+                if (!acc[Scooping_Line_Mc]) {
+                    acc[Scooping_Line_Mc] = {
+                        LotNo, Scooping_Line_Mc,
+                        Uncut, Unscoop, NonCut
+                    };
+                } else {
+                    acc[Scooping_Line_Mc].LotNo = LotNo;
+                    acc[Scooping_Line_Mc].Uncut += Uncut;
+                    acc[Scooping_Line_Mc].Unscoop += Unscoop;
+                    acc[Scooping_Line_Mc].NonCut += NonCut;
+                }
+                return acc;
+            }, {});
 
-    //         return Object.values(merged).map(item => ({
-    //             LotNo: item.LotNo,
-    //             Scooping_Line_Mc: item.Scooping_Line_Mc,
-    //             Uncut: item.Uncut,
-    //             Unscoop: item.Unscoop,
-    //             NonCut: item.NonCut,
-    //         }));
-    //     };
+            return Object.values(merged).map(item => ({
+                LotNo: item.LotNo,
+                Scooping_Line_Mc: item.Scooping_Line_Mc,
+                Uncut: item.Uncut,
+                Unscoop: item.Unscoop,
+                NonCut: item.NonCut,
+            }));
+        };
 
-    //     setNewFormupdateData(mergeRows(rows));
-    //     console.log(newFormupdateData)
-    // }, [rows]);
+        setNewFormupdateData(mergeRows(rows));
+        console.log(newFormupdateData)
+    }, [rows]);
 
     useEffect(() => {
         const initialform = props.scoop.map((item: ScoopData) => ({
@@ -411,27 +411,27 @@ const RCNLineCreateApproveForm = (props: Props) => {
                             }, 3000)
                         }
                     }
-                    // console.log(resp.data.scoop.id)
-                    // const p_id = await resp.data.scoop.id
-                    // await axios.post('/api/scooping/createInitialBorma', { p_id, data2 })
+                    console.log(resp.data.scoop.id)
+                    const p_id = await resp.data.scoop.id
+                    await axios.post('/api/scooping/createInitialBorma', { p_id, data2 })
                 }
 
-                // for (const data3 of newFormupdateData) {
-                //     scoopingallcount++
-                //     const update = await axios.post('/api/scooping/updatenextopeningcreate', { data3 })
-                //     if (newFormupdateData.length === scoopingallcount) {
+                for (const data3 of newFormupdateData) {
+                    scoopingallcount++
+                    const update = await axios.post('/api/scooping/updatenextopeningcreate', { data3 })
+                    if (newFormupdateData.length === scoopingallcount) {
 
-                //         setErrortext('Scooping Entry Edit Requested')
-                //         if (update.status === 200) {
-                //             const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
-                //             dialog2.showModal()
-                //             setTimeout(() => {
-                //                 dialog2.close()
-                //                 window.location.reload()
-                //             }, 3000)
-                //         }
-                //     }
-                // }
+                        setErrortext('Scooping Entry Edit Requested')
+                        if (update.status === 200) {
+                            const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                            dialog2.showModal()
+                            setTimeout(() => {
+                                dialog2.close()
+                                window.location.reload()
+                            }, 3000)
+                        }
+                    }
+                }
             }
         }
         catch (err) {
@@ -459,9 +459,9 @@ const RCNLineCreateApproveForm = (props: Props) => {
                         {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
                         <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
-                            <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                            <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required readOnly/> </div>
                         <div className="flex"><Label className="w-2/4 pt-1">No. of Male</Label>
-                            <Input className="w-2/4 text-center" placeholder="No. of Male" ref={maleRef} required /> </div>
+                            <Input className="w-2/4 text-center" placeholder="No. of Male" ref={maleRef} required readOnly/> </div>
                         <div className="flex"><Label className="w-2/4 pt-1">No. of Female</Label>
                             <Input className="w-2/4 text-center" placeholder="No. of Female" ref={femaleRef} required /> </div>
                         <div className="flex"><Label className="w-2/4 pt-1">No. Of Supervisors</Label>
@@ -496,8 +496,8 @@ const RCNLineCreateApproveForm = (props: Props) => {
 
                             <TableHead className="text-center" >No Of Ladies</TableHead>
                             <TableHead className="text-center" >No Of Operator</TableHead>
-                            {/* <TableHead className="text-center" >Transfered_Qty</TableHead>
-                            <TableHead className="text-center" >Transfered_Line</TableHead> */}
+                            <TableHead className="text-center" >Transfered_Qty</TableHead>
+                            <TableHead className="text-center" >Transfered_Line</TableHead>
 
 
 
@@ -516,35 +516,38 @@ const RCNLineCreateApproveForm = (props: Props) => {
                                             <TableCell className="text-center">{idx + 1}</TableCell>
                                             <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
 
-                                            <TableCell className="text-center font-semibold"><Input value={row.Scooping_Line_Mc} placeholder="Line" onChange={(e) => handleRowChange(idx, 'Scooping_Line_Mc', e.target.value)} readOnly required /></TableCell>
+                                            <TableCell className="text-center font-semibold">{row.Scooping_Line_Mc}</TableCell>
                                             {/* <TableCell className="text-center">{item.Scooping_Line_Mc}</TableCell> */}
                                             <TableCell className="text-center font-semibold">{row.origin}</TableCell>
                                             <TableCell className="text-center font-semibold">{row.SizeName}</TableCell>
                                             <TableCell className="text-center font-semibold">{row.Opening_Qty} kg</TableCell>
                                             <TableCell className="text-center font-semibold">{row.Receiving_Qty} kg</TableCell>
-                                            <TableCell className="text-center "> <Input value={row.Wholes} placeholder="Wholes" onChange={(e) => handleRowChange(idx, 'Wholes', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input value={row.Broken} placeholder="Broken" onChange={(e) => handleRowChange(idx, 'Broken', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input value={row.Uncut} placeholder="Uncut" onChange={(e) => handleRowChange(idx, 'Uncut', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input value={row.Unscoop} placeholder="Unscoop" onChange={(e) => handleRowChange(idx, 'Unscoop', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input value={row.NonCut} placeholder="NonCut" onChange={(e) => handleRowChange(idx, 'NonCut', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input value={row.Rejection} placeholder="Rejection" onChange={(e) => handleRowChange(idx, 'Rejection', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input value={row.Dust} placeholder="Dust" onChange={(e) => handleRowChange(idx, 'Dust', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center ">{row.Wholes} </TableCell>
+                                            <TableCell className="text-center"> {row.Broken} </TableCell>
+                                            <TableCell className="text-center"> {row.Uncut}</TableCell>
+                                            <TableCell className="text-center"> {row.Unscoop} </TableCell>
+                                            <TableCell className="text-center"> {row.NonCut} </TableCell>
+                                            <TableCell className="text-center"> {row.Rejection} </TableCell>
+                                            <TableCell className="text-center"> {row.Dust} </TableCell>
                                             {/* <TableCell className="text-center"> <Input value={row.KOR} placeholder="KOR" onChange={(e) => handleRowChange(idx, 'KOR', e.target.value)} required /></TableCell> */}
-                                            <TableCell className="text-center"> <Input value={row.Trolley_Broken} placeholder="Trolley Broken" onChange={(e) => handleRowChange(idx, 'Trolley_Broken', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input value={row.Trolley_Small_JB} placeholder="Trolley SmallJB" onChange={(e) => handleRowChange(idx, 'Trolley_Small_JB', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> {row.Trolley_Broken} </TableCell>
+                                            <TableCell className="text-center"> {row.Trolley_Small_JB}</TableCell>
                                             {/* <TableCell className="text-center "> <Input className="bg-green-100" value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx, 'Mc_on', e.target.value)} type='time' required /></TableCell> */}
-                                            <FormRow idx={idx} row={row} column='Mc_on' handleRowChange={handleRowChange} />
-                                            <FormRow idx={idx} row={row} column='Mc_off' handleRowChange={handleRowChange} />
+                                            
+                                            <TableCell className="text-center"> {row.Mc_on}</TableCell>
+                                            <TableCell className="text-center"> {row.Mc_off}</TableCell>
+                                            {/* <FormRow idx={idx} row={row} column='Mc_on' handleRowChange={handleRowChange} /> */}
+                                            {/* <FormRow idx={idx} row={row} column='Mc_off' handleRowChange={handleRowChange} /> */}
                                             {/* <TableCell className="text-center"><Input className="bg-red-100" value={row.Mc_off} placeholder="MC Off Time" onChange={(e) => handleRowChange(idx, 'Mc_off', e.target.value)} type='time' required /></TableCell> */}
-                                            <TableCell className="text-center"><Input value={row.Mc_breakdown} placeholder="BreakDown" onChange={(e) => handleRowChange(idx, 'Mc_breakdown', e.target.value)} type='time' /></TableCell>
-                                            <TableCell className="text-center"> <Input value={row.Brkdwn_reason} placeholder="Reason" onChange={(e) => handleRowChange(idx, 'Brkdwn_reason', e.target.value)} /></TableCell>
-                                            <TableCell className="text-center"><Input value={row.otherTime} placeholder="Other Time" onChange={(e) => handleRowChange(idx, 'otherTime', e.target.value)} type='time' /></TableCell>
+                                            <TableCell className="text-center">{row.Mc_breakdown} </TableCell>
+                                            <TableCell className="text-center"> {row.Brkdwn_reason} </TableCell>
+                                            <TableCell className="text-center">{row.otherTime} </TableCell>
 
 
-                                            <TableCell className="text-center"> <Input value={row.noOfEmployees} placeholder="Ladies" onChange={(e) => handleRowChange(idx, 'noOfEmployees', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input value={row.noOfOperators} placeholder="Operators" onChange={(e) => handleRowChange(idx, 'noOfOperators', e.target.value)} required /></TableCell>
-                                            {/* <TableCell className="text-center"><Input value={row.Transfered_Qty} placeholder="Kg" readOnly/></TableCell>
-                                            <TableCell className="text-center"><Input value={row.Transfered_To} placeholder="Kg" readOnly /></TableCell> */}
+                                            <TableCell className="text-center"> {row.noOfEmployees} </TableCell>
+                                            <TableCell className="text-center"> {row.noOfOperators}</TableCell>
+                                            <TableCell className="text-center">{row.Transfered_Qty} </TableCell>
+                                            <TableCell className="text-center">{row.Transfered_To} </TableCell>
 
                                             <TableCell>
                                                 {/* <a className="bg-green-500  text-center items-center justify-center h-7 w-19" onClick={()=>handletransfer(idx)}>Transfer</a> */}
