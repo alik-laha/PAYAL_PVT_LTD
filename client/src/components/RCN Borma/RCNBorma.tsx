@@ -31,7 +31,7 @@ const RCNBorma = () => {
 
 
 
-    const { data, isLoading, error } = UseQueryData('/api/scooping/sumofallscoop', 'GET', 'AllScoopingSum');
+    const { data, isLoading, error } = UseQueryData('/api/borma/sumofallborma', 'GET', 'AllBormaSum');
     const handleEditFetch = async () => {
 
         axios.get("/api/scooping/findEditBormaAll").then(res => {
@@ -73,25 +73,25 @@ const RCNBorma = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
-                        A <br /><p>{data.data[0].WholesA && data.data[0].BrokenA ? formatNumber(Number(data.data[0].WholesA) + Number(data.data[0].BrokenA)) : 0} Kg</p>
+                        A <br /><p>{data.data[0].India ? formatNumber(data.data[0].India)  : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                        B <br /><p>{data.data[0].WholesB && data.data[0].BrokenB ? formatNumber(Number(data.data[0].WholesB) + Number(data.data[0].BrokenB)) : 0} Kg</p>
+                        B <br /><p>{data.data[0].Ghana? formatNumber(data.data[0].Ghana) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
-                        C <br /><p>{data.data[0].WholesC && data.data[0].BrokenC ? formatNumber(Number(data.data[0].WholesC) + Number(data.data[0].BrokenC)) : 0} Kg</p>
+                        C <br /><p>{data.data[0].Togo? formatNumber(data.data[0].Togo) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-sky-500 hover:bg-orange-400">
-                        D <br /><p>{data.data[0].WholesD && data.data[0].BrokenD ? formatNumber(Number(data.data[0].WholesD) + Number(data.data[0].BrokenD)) : 0} Kg</p>
+                        D <br /><p>{data.data[0].Tanzania ? formatNumber(data.data[0].Tanzania) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
-                        E <br /><p>{data.data[0].WholesE && data.data[0].BrokenE ? formatNumber(Number(data.data[0].WholesE) + Number(data.data[0].BrokenE)) : 0} Kg</p>
+                        E <br /><p>{data.data[0].Nigeria  ? formatNumber(data.data[0].Nigeria) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
-                        F <br /><p>{data.data[0].WholesF && data.data[0].BrokenF ? formatNumber(Number(data.data[0].WholesF) + Number(data.data[0].BrokenF)) : 0} Kg</p>
+                        F <br /><p>{data.data[0].Benin  ?  formatNumber(data.data[0].Benin): 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
-                        G <br /><p>{data.data[0].WholesG && data.data[0].BrokenG ? formatNumber(Number(data.data[0].WholesG) + Number(data.data[0].BrokenG)) : 0} Kg</p>
+                        G <br /><p>{data.data[0].IVC ?  formatNumber(data.data[0].IVC) : 0} Kg</p>
                     </div>
 
 
