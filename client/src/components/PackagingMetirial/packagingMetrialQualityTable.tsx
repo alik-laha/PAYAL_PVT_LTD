@@ -1,13 +1,11 @@
 import { useContext, useEffect, useState } from "react"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
-import { Origin } from "../common/exportData"
 import React from "react"
 import axios from "axios"
 import { QcRcnEntryData } from "@/type/type"
 import { pageNo, pagelimit } from "../common/exportData"
 import { FaSearch } from "react-icons/fa"
-import { LuDownload } from "react-icons/lu"
 import {
     Pagination,
     PaginationContent,
@@ -30,7 +28,7 @@ import {
 import {
     Dialog,
     DialogContent,
-    // DialogDescription,
+    DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -55,7 +53,7 @@ import {
 import { FcApprove, FcDisapprove } from "react-icons/fc"
 import { MdOutlineDriveFolderUpload } from "react-icons/md";
 import { LiaEdit } from "react-icons/lia";
-// import QCreportForm from "./PackagingMetrialCreateQuality"
+import QCreportForm from "./PackagingMetrialCreateQuality"
 // import QCmodifyreportForm from './QCmodifyreportForm'
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
@@ -64,6 +62,7 @@ import { PermissionRole, pendingCheckRoles, PackagingMeterialQc } from "@/type/t
 // import { saveAs } from 'file-saver';
 // import * as XLSX from 'xlsx';
 import Context from "../context/context"
+import { CiEdit } from "react-icons/ci"
 
 
 const QCPackageMaterialTable = () => {
@@ -77,9 +76,9 @@ const QCPackageMaterialTable = () => {
     //const [EditData, setEditData] = useState<EditPendingData[]>([])
     const limit = pagelimit
     const [blockpagen, setblockpagen] = useState('flex')
-    const [pendingData, setPendingData] = useState<QcRcnEntryData[]>([])
+    const [pendingData, setPendingData] = useState<PackagingMeterialQc[]>([])
     const [counteditpending, setcounteditpending] = useState<number>(2)
-    const { pendingqccount, pendingreportcount } = useContext(Context);
+    const { pendingqccount } = useContext(Context);
 
     const approvesuccessdialog = document.getElementById('qcapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('qcapproveScscloseDialog') as HTMLInputElement;
@@ -296,7 +295,7 @@ const QCPackageMaterialTable = () => {
 
     }
 
-    const handleQCApprove = async (item: QcRcnEntryData) => {
+    const handleQCApprove = async (item: PackagingMeterialQc) => {
         const response = await axios.put(`/api/qcRcn/qcRcnApprove/${item.id}`)
         const data = await response.data
 
@@ -312,7 +311,7 @@ const QCPackageMaterialTable = () => {
 
     }
 
-    const handleQCReject = async (item: QcRcnEntryData) => {
+    const handleQCReject = async (item: PackagingMeterialQc) => {
         const response = await axios.put(`/api/qcRcn/qcRcnReject/${item.id}`)
         const data = await response.data
 
@@ -602,70 +601,55 @@ const QCPackageMaterialTable = () => {
                                         <TableCell className="text-center font-bold text-red-500">{item.sealCondition}</TableCell>
                                         <TableCell className="text-center">{item.labelingCondition}</TableCell>
                                         <TableCell className="text-center">{item.coa}</TableCell>
-                                        {/* <TableCell className="text-center">
+                                        <TableCell className="text-center">{item.foodGradeCertificate}</TableCell>
+                                        <TableCell className="text-center">{item.remarks}</TableCell>
+                                        <TableCell className="text-center">{item.foodGradeCirtificateStatus}</TableCell>
+                                        <TableCell className="text-center">{item.coaCertificateStatus}</TableCell>
+                                        <TableCell className="text-center">{item.qcBy}</TableCell>
+                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                        <TableCell className="text-center">
                                             <Popover>
                                                 <PopoverTrigger>
-                                                    <button className={`p-2 text-white rounded ${(item.editStatus === 'Pending' || item.rcnEntry.rcnStatus === 'QC Rejected') ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.editStatus === 'Pending' || item.rcnEntry.rcnStatus === 'QC Rejected' || item.rcnEntry.editStatus === 'Pending') ? true : false}>Action</button>
+                                                    <button className={`p-2 text-white rounded ${(item.qualityStatus === true && !item.editStatus) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.qualityStatus === true && !item.editStatus) ? true : false}>Action</button>
                                                 </PopoverTrigger>
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    {item.rcnEntry.rcnStatus === 'QC Pending' && <AlertDialog>
-                                                        <AlertDialogTrigger className="flex">
-                                                            <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >QC Approve</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Approve the RCN Incoming Entry?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleQCApprove(item)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>}
-                                                    {item.rcnEntry.rcnStatus === 'QC Pending' && <AlertDialog>
-                                                        <AlertDialogTrigger className="flex mt-1">
-                                                            <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">QC Reject</button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Do you want to Reject the RCN Incoming Entry?</AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                <AlertDialogAction onClick={() => handleQCReject(item)}>Continue</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>}
-                                                    {item.rcnEntry.rcnStatus === 'QC Approved' && item.reportStatus === 0 && <Dialog>
-                                                        <DialogTrigger className="flex py-1">
-                                                            <MdOutlineDriveFolderUpload size={20} color="green" />  <button className="bg-transparent pl-2 text-left hover:text-green-500" >
-                                                                Report Entry</button>
+                                                    <Dialog>
+                                                        <DialogTrigger className="flex"><CiEdit size={20} />
+                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" disabled={!item.editStatus ? false : true}>Modify</button>
                                                         </DialogTrigger>
                                                         <DialogContent>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>QC Incoming RCN Report </p>
+                                                                    <p className='text-1xl pb-1 text-center mt-5'>Packaging Metrial Create</p>
                                                                 </DialogTitle>
+                                                                <DialogDescription>
+                                                                    <p className='text-1xl text-center'>To Be Filled Up By Quality Supervisor</p>
+                                                                </DialogDescription>
                                                             </DialogHeader>
-                                                            {/* <QCreportForm data={item} /> */}
-                                        {/* </DialogContent>
-                                                    </Dialog>}
-                                                    {item.rcnEntry.rcnStatus === 'QC Approved' && item.reportStatus === 1 && <Dialog>
-                                                        <DialogTrigger className="flex py-1">
-                                                            <LiaEdit size={20} /><button className="bg-transparent pl-2 text-left hover:text-green-500" >Report Modify</button>
+                                                            {/* <QCreportForm /> */}
+                                                        </DialogContent>
+                                                    </Dialog>
+                                                    <Dialog>
+                                                        <DialogTrigger className="flex"><CiEdit size={20} />
+                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" disabled={item.editStatus ? false : true}>Entry New</button>
                                                         </DialogTrigger>
                                                         <DialogContent>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>View/ Modify QC Incoming Report </p>
+                                                                    <p className='text-1xl pb-1 text-center mt-5'>Packaging Metrial Create</p>
                                                                 </DialogTitle>
-                                                            </DialogHeader>  */}
-                                        {/* <QCmodifyreportForm data={item} /> */}
-                                        {/* </DialogContent>
-                                                    </Dialog>}
+                                                                <DialogDescription>
+                                                                    <p className='text-1xl text-center'>To Be Filled Up By Quality Supervisor</p>
+                                                                </DialogDescription>
+                                                            </DialogHeader>
+                                                            <QCreportForm />
+                                                        </DialogContent>
+                                                    </Dialog>
                                                 </PopoverContent>
                                             </Popover>
-                                        </TableCell> */}
+
+                                        </TableCell>
+
                                     </TableRow>
                                 );
                             })) : (<TableRow>
