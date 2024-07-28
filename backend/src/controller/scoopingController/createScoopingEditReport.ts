@@ -13,9 +13,14 @@ const createscoopingEditReport = async (req: Request, res: Response) => {
 
         let { Opening_Qty, Receiving_Qty, Wholes, Broken, Uncut, Unscoop, NonCut, Rejection, Dust
             , Trolley_Broken, Trolley_Small_JB, Mc_on, Mc_off, noOfEmployees, noOfOperators, male, female, Date, supervisor,
-            Mc_breakdown, otherTime, Brkdwn_reason, Transfer_Qty, Transfer_To_MC, LotNo, origin, SizeName, Size, Scooping_Line_Mc } = req.body.data;
+            Mc_breakdown, otherTime, Brkdwn_reason, Transfered_Qty, Transfered_To, LotNo, origin, SizeName, Size, Scooping_Line_Mc } = req.body.data;
 
-        const createdBy = req.cookies.user
+        
+        
+ 
+        
+        
+            const createdBy = req.cookies.user
 
         if (otherTime === undefined || otherTime === null) {
             otherTime = '00:00'
@@ -97,8 +102,8 @@ const createscoopingEditReport = async (req: Request, res: Response) => {
                 otherTime: otherTime,
                 Mc_on: Mc_on,
                 Mc_off: Mc_off,
-                Transfered_Qty: Transfer_Qty,
-                Transfered_To: Transfer_To_MC
+                Transfered_Qty: Transfered_Qty,
+                Transfered_To: Transfered_To
 
             }
         );

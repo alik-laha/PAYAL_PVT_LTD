@@ -278,7 +278,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
       
         //console.log(initialform)
         setRows(initialform)
-        //console.log(rows)
+        console.log(rows)
     }, [props.scoop]);
 
 
@@ -292,7 +292,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         const newRows=[...rows];
         newRows[index]={...newRows[index],[field]:fieldvalue};
         setRows(newRows)
-        //console.log(rows)
+        //console.log(rows) 
     }
 
     const handletransfer = async (index:number,field:string,fieldvalue:number|string) => {
