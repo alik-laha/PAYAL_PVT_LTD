@@ -217,10 +217,9 @@ const RCNScoopingTable = () => {
         })
         const data1 = await response.data
         let ws
-        let transformed: ScoopingExcelData[] = [];
-
-        if (selectType === 'LotWise') {
-            transformed = data1.map((item: rcnScoopingData, idx: number) => ({
+        let transformed: any = [];
+        if (EditData.length > 0) {
+            transformed = EditData.map((item: any, idx: number) => ({
                 SL_No: idx + 1,
                 LotNo: item.LotNo,
                 date: handletimezone(item.date),
@@ -245,48 +244,82 @@ const RCNScoopingTable = () => {
                 editStatus: item.editStatus,
                 modifiedBy: item.modifiedBy,
             }));
-        }
-        else {
-            transformed = data1.map((item: rcnScoopingData, idx: number) => ({
-                SL_No: idx + 1,
-                LotNo: item.LotNo,
-                Scooping_Line_Mc: item.Scooping_Line_Mc,
-                date: handletimezone(item.date),
-                origin: item.origin,
-                Opening_Qty: item.Opening_Qty,
-                Receiving_Qty: item.Receiving_Qty,
-                SizeName: item.SizeName,
-                Wholes: item.Wholes,
-                Broken: item.Broken,
-                Uncut: item.Uncut,
-                Unscoop: item.Unscoop,
-                NonCut: item.NonCut,
-                Rejection: item.Rejection,
-                Dust: item.Dust,
 
-                KOR: item.KOR,
-                Trolley_Broken: item.Trolley_Broken,
-                Trolley_Small_JB: item.Trolley_Small_JB,
-                LineWiseLadies: item.noOfEmployees,
-                Common_Ladies: item.noOfLadies,
-                Common_Gents: item.noOfGents,
-                Common_Supervisors: item.noOfSupervisors,
-                LineWiseOperator: item.noOfOperators,
-                CreatedBy: item.CreatedBy,
-                editStatus: item.editStatus,
-                modifiedBy: item.modifiedBy,
-                Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
-                Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
-                Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
-                Brkdwn_reason: item.Brkdwn_reason,
-                otherTime: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
-                scoopStatus: item.scoopStatus ? 'Done' : 'Not-Done',
-                Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
-                Transfered_Qty: item.Transfered_Qty,
-                Transfered_To: item.Transfered_To
-            }));
+
 
         }
+        else{
+
+            if (selectType === 'LotWise') {
+                transformed = data1.map((item: rcnScoopingData, idx: number) => ({
+                    SL_No: idx + 1,
+                    LotNo: item.LotNo,
+                    date: handletimezone(item.date),
+                    origin: item.origin,
+                    Opening_Qty: item.Opening_Qty,
+                    Receiving_Qty: item.Receiving_Qty,
+                    Wholes: item.Wholes,
+                    Broken: item.Broken,
+                    Uncut: item.Uncut,
+                    Unscoop: item.Unscoop,
+                    NonCut: item.NonCut,
+                    Rejection: item.Rejection,
+                    Dust: item.Dust,
+                    TotBagCutting: item.TotBagCutting,
+                    KOR: item.KOR,
+                    LineWiseLadies: item.noOfEmployees,
+                    Common_Ladies: item.noOfLadies,
+                    Common_Gents: item.noOfGents,
+                    Common_Supervisors: item.noOfSupervisors,
+                    LineWiseOperator: item.noOfOperators,
+                    CreatedBy: item.CreatedBy,
+                    editStatus: item.editStatus,
+                    modifiedBy: item.modifiedBy,
+                }));
+            }
+            else {
+                transformed = data1.map((item: rcnScoopingData, idx: number) => ({
+                    SL_No: idx + 1,
+                    LotNo: item.LotNo,
+                    Scooping_Line_Mc: item.Scooping_Line_Mc,
+                    date: handletimezone(item.date),
+                    origin: item.origin,
+                    Opening_Qty: item.Opening_Qty,
+                    Receiving_Qty: item.Receiving_Qty,
+                    SizeName: item.SizeName,
+                    Wholes: item.Wholes,
+                    Broken: item.Broken,
+                    Uncut: item.Uncut,
+                    Unscoop: item.Unscoop,
+                    NonCut: item.NonCut,
+                    Rejection: item.Rejection,
+                    Dust: item.Dust,
+    
+                    KOR: item.KOR,
+                    Trolley_Broken: item.Trolley_Broken,
+                    Trolley_Small_JB: item.Trolley_Small_JB,
+                    LineWiseLadies: item.noOfEmployees,
+                    Common_Ladies: item.noOfLadies,
+                    Common_Gents: item.noOfGents,
+                    Common_Supervisors: item.noOfSupervisors,
+                    LineWiseOperator: item.noOfOperators,
+                    CreatedBy: item.CreatedBy,
+                    editStatus: item.editStatus,
+                    modifiedBy: item.modifiedBy,
+                    Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
+                    Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
+                    Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
+                    Brkdwn_reason: item.Brkdwn_reason,
+                    otherTime: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
+                    scoopStatus: item.scoopStatus ? 'Done' : 'Not-Done',
+                    Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
+                    Transfered_Qty: item.Transfered_Qty,
+                    Transfered_To: item.Transfered_To
+                }));
+    
+            }
+        }
+        
 
         // setTransformedData(transformed);
         ws = XLSX.utils.json_to_sheet(transformed);
