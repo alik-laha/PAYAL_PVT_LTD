@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import RcnScooping from "../../model/scoopingModel";
 import sequelize from "../../config/databaseConfig";
+import RcnBorma from "../../model/bormaModel";
 
 const getBormaLot = async (req: Request, res: Response) => {
 
     try {
         const status = req.params.status;
-        const scoopingLot = await RcnScooping.findAll({
+        const scoopingLot = await RcnBorma.findAll({
             
             attributes:[[sequelize.fn('DISTINCT',sequelize.col('LotNo')),'LotNo']],
             where: {

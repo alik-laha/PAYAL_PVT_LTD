@@ -124,4 +124,4 @@ const RcnBormaEdit = sequelize.define('rcnBormaEdit', {
 
 
 });
-export default RcnBorma;
+export default RcnBormaEdit;
