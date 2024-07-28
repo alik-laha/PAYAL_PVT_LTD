@@ -21,6 +21,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [pendingreportcount, setpendingreportCount] = useState<number>(0)
     const [recevingPackagematerialOverView, setRecevingPacakanMaterialOverView] = useState<SumofpackageMetrialReceving | null>(null)
     const [editScoopingLotWiseData, setEditScoopingLotWiseData] = useState<rcnScoopingData[]>([])
+    const [editBormaLotWiseData, setEditBormaLotWiseData] = useState<any[]>([])
     const [searchType, setSearchType] = useState<string>('LotWise')
 
     return (
@@ -30,7 +31,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
             AllNewMachines, setAllNewMachines, editPendiningGrinderData, setEditPendiningGrinderData,
             editPendingBoilingData, setEditPendingBoilingData, pendingqccount, setpendingqcCount, pendingreportcount,
             setpendingreportCount, recevingPackagematerialOverView, setRecevingPacakanMaterialOverView,
-            editScoopingLotWiseData, setEditScoopingLotWiseData, searchType, setSearchType
+            editScoopingLotWiseData, setEditScoopingLotWiseData, searchType, setSearchType,editBormaLotWiseData,setEditBormaLotWiseData
         }}>
             {children}
         </Context.Provider>

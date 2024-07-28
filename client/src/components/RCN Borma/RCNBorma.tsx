@@ -26,7 +26,7 @@ import { BormapendingLotData } from '@/type/type';
 
 const RCNBorma = () => {
 
-    const { setEditScoopingLotWiseData } = useContext(Context)
+    const { setEditBormaLotWiseData } = useContext(Context)
     const [lotdata, setLotData] = useState<BormapendingLotData[]>([])
 
 
@@ -34,9 +34,9 @@ const RCNBorma = () => {
     const { data, isLoading, error } = UseQueryData('/api/scooping/sumofallscoop', 'GET', 'AllScoopingSum');
     const handleEditFetch = async () => {
 
-        axios.get("/api/scooping/findEditScoopingAll").then(res => {
+        axios.get("/api/scooping/findEditBormaAll").then(res => {
             console.log(res)
-            setEditScoopingLotWiseData(res.data.scoopingAllEdit)
+            setEditBormaLotWiseData(res.data.scoopingAllEdit)
         })
             .catch(err => {
                 console.log(err)
@@ -53,7 +53,7 @@ const RCNBorma = () => {
     console.log(data)
 
     const handleOpenLotNo = async () => {
-        axios.get('/api/borma/getUnBoiledEntry/0').then(res => {
+        axios.get('/api/borma/getUnBormaEntry/0').then(res => {
             console.log(res)
             setLotData(res.data.scoopingLot)
         })

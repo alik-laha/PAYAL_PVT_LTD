@@ -32,6 +32,8 @@ interface ContextType {
     setEditScoopingLotWiseData: (data: rcnScoopingData[]) => void;
     searchType: string;
     setSearchType: (data: string) => void;
+    editBormaLotWiseData: any[];
+    setEditBormaLotWiseData: (data: any[]) => void;
 }
 
 const Context = createContext<ContextType>({
@@ -65,6 +67,8 @@ const Context = createContext<ContextType>({
     setEditScoopingLotWiseData: () => { },
     setSearchType: () => { },
     searchType: '',
+    editBormaLotWiseData: [],
+    setEditBormaLotWiseData: () => {}
 
 });
 

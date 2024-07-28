@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import RcnScooping from "../../model/scoopingModel";
+
 import sequelize from "../../config/databaseConfig";
 import RcnBorma from "../../model/bormaModel";
 
@@ -16,10 +16,10 @@ const getBormaLot = async (req: Request, res: Response) => {
 
         });
         if(scoopingLot){
-            res.status(200).json({ message: "UnScooped Entry", scoopingLot });
+            res.status(200).json({ message: "Unboiled Entry", scoopingLot });
         }
         else{
-            res.status(500).json({ message: "Error in Unscooped Entry"});
+            res.status(500).json({ message: "Error in Unboiled Entry"});
         }
        
 
