@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
 import RcnAllEditScooping from "../../model/scoopingAllEditModel";
+import WhatsappMsg from "../../helper/WhatsappMsg";
 
 
 const createscoopingAllEditReport = async (req: Request, res: Response) => {
@@ -11,7 +12,6 @@ const createscoopingAllEditReport = async (req: Request, res: Response) => {
 
         let { LotNo,
             origin,
-
             Opening_Qty,
             Receiving_Qty,
             Wholes,
@@ -21,7 +21,6 @@ const createscoopingAllEditReport = async (req: Request, res: Response) => {
             NonCut,
             Rejection,
             Dust,
-
             noOfEmployees,
             noOfOperators, male, female, supervisor, Date } = req.body.data2;
 
@@ -59,9 +58,13 @@ const createscoopingAllEditReport = async (req: Request, res: Response) => {
             }
         );
 
+        if(scoop){
+            const data = await WhatsappMsg("RCN Scooping", createdBy,"modify_request")
+            console.log(data)
+            return res.status(200).json({ message: "RCN Scooping All Edit Entry is Uploaded Successfully", scoop });
+        }
 
-
-        return res.status(200).json({ message: "RCN Scooping Entry is Uploaded Successfully", scoop });
+       
     } catch (err) {
         return res.status(500).json({ message: "internal server Error", err });
     }
