@@ -325,13 +325,7 @@ const RCNLineCreateApproveForm = (props: Props) => {
         console.log(rows)
     }, [props.scoop]);
 
-
-
-
     const [errortext, setErrortext] = useState('')
-
-
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
@@ -401,10 +395,9 @@ const RCNLineCreateApproveForm = (props: Props) => {
 
                 }))
                 for (const data2 of formall) {
-                    const resp=await axios.post('/api/scooping/createScoopingall', { data2 })
-                        console.log(resp.data.scoop.id)
-                        let p_id=await resp.data.scoop.id
-                        await axios.post('/api/scooping/createInitialBorma', {p_id, data2 })
+                        await axios.post('/api/scooping/createScoopingall', { data2 })
+                       
+                        await axios.post('/api/scooping/updateInitialBorma', {data2 })
                 }
 
                 for (const data3 of newFormupdateData) {
