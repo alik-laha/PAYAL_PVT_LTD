@@ -1,12 +1,11 @@
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
-import { PackagingMeterialQc } from '../../types/packagingMeterialQc'
+import { PackagingMeterialQc } from '../../type/type'
 import { Button } from "../ui/button"
 import { useState, useRef, useEffect } from "react"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import axios from "axios"
-// import axios from "axios";
 
 const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) => {
     const [length, setLength] = useState(0)
@@ -32,6 +31,10 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
     const errorcloseDialogButton = document.getElementById('packagigQcerrorcrossedit') as HTMLInputElement;
 
     useEffect(() => {
+        console.log(data.testingDate)
+        if (data.testingDate && dateRef.current) {
+            dateRef.current.value = data.testingDate.slice(0, 10)
+        }
         setLength(data.length)
         setWidth(data.width)
         setHeight(data.height)
