@@ -327,6 +327,14 @@ const QCPackageMaterialTable = () => {
         sethidetoDate(selected)
         settoDate(nextday)
     }
+    const handleDownload = async (path: string) => {
+        console.log(path)
+        const link = document.createElement("a");
+        link.href = `/api/qcpackage/downloadData/${path}`;
+        link.download = path;
+        link.click();
+
+    }
     return (
         // disabled={pendingqccount === 0 ? true : false}
         <div className="ml-5 mt-5 ">
@@ -521,7 +529,7 @@ const QCPackageMaterialTable = () => {
                                         )}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">
-                                            {item.foodGradeCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary"><a href={item.foodGradeCirtificateFile} download>{item.foodGradeCirtificateStatus}</a></button> : item.foodGradeCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}
+                                            {item.foodGradeCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}>{item.foodGradeCirtificateStatus}</button> : item.foodGradeCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}
                                         </TableCell>
                                         <TableCell className="text-center">{item.coaCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.coaCirtificateStatus}</button> : item.coaCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}</TableCell>
                                         <TableCell className="text-center">{item.qcBy}</TableCell>
