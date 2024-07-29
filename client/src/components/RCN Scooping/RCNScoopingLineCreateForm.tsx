@@ -144,7 +144,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
     
           const merged = filteredData.reduce<Record<string, { LotNo:string,origin: string,Opening_Qty:number,
             Receiving_Qty: number,Wholes:number,Broken: number,Uncut: number,Unscoop: number,NonCut:number,Rejection: number,
-            Dust:number,KOR:number;noOfEmployees: number,noOfOperators: number}>>((acc, row) => {
+            Dust:number,KOR:number,noOfEmployees: number,noOfOperators: number}>>((acc, row) => {
             const { LotNo,
                 origin,
                 
@@ -278,7 +278,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
       
         //console.log(initialform)
         setRows(initialform)
-        //console.log(rows)
+        console.log(rows)
     }, [props.scoop]);
 
 
@@ -292,7 +292,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         const newRows=[...rows];
         newRows[index]={...newRows[index],[field]:fieldvalue};
         setRows(newRows)
-        //console.log(rows)
+        //console.log(rows) 
     }
 
     const handletransfer = async (index:number,field:string,fieldvalue:number|string) => {

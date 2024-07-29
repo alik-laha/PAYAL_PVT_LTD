@@ -12,12 +12,15 @@ import {
 import {
     Dialog,
     DialogContent,
+    DialogHeader,
+    DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import RCNScoopingLineCreateForm from "./RCNScoopingLineCreateForm";
+
 import axios from "axios";
 import { useState } from "react";
-import { ScoopData } from "@/type/type";
+import { BormaData } from "@/type/type";
+import RCNBormaLineCreateForm from "./RCNBormaLineCreateForm";
 
 
 
@@ -25,18 +28,18 @@ interface lotPropsdata{
     LotNo:string;
 }
 
-const RCNScoopingCreateForm = (props: any) => {
-    const [scoopdata, setscoopdata ]  = useState<ScoopData[]>([])
+const RCNBormaCreateForm = (props: any) => {
+    const [bormaData, setBormaData ]  = useState<BormaData[]>([])
 
     //let scoopdata:ScoopData[]=[]
     console.log(props)
     const handleLineEntry = async (lotNO:string) => {
-        axios.get(`/api/scooping/getScoopByLot/${lotNO}`).then(res=>{
+        axios.get(`/api/borma/getBormaByLot/${lotNO}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.scoopingLot)){
             //scoopdata=res.data.scoopingLot
-            setscoopdata(res.data.scoopingLot)
-             console.log(scoopdata)
+            setBormaData(res.data.scoopingLot)
+             console.log(bormaData)
            }
              
             //set(res.data.scoopingLot)
@@ -74,12 +77,12 @@ const RCNScoopingCreateForm = (props: any) => {
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger>
                                             { idx==0 &&  <DialogContent className='max-w-3xl'>
-                                                    {/* <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Scooping Line Entry</p></DialogTitle>
+                                                    <DialogHeader>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Borma Line Entry</p></DialogTitle>
 
-                                                    </DialogHeader> */}
-                                                <RCNScoopingLineCreateForm scoop={scoopdata}/>
-                                                    
+                                                    </DialogHeader>
+                                                
+                                                    <RCNBormaLineCreateForm borma={bormaData}/>
                                                 </DialogContent>}
                                             </Dialog>
                                         </TableCell>
@@ -90,7 +93,7 @@ const RCNScoopingCreateForm = (props: any) => {
                         ) : <TableRow>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Scooping</TableCell>
+                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Borma</TableCell>
                             <TableCell></TableCell>
                             </TableRow>}
                     </TableBody>
@@ -106,4 +109,4 @@ const RCNScoopingCreateForm = (props: any) => {
 
 
 }
-export default RCNScoopingCreateForm
+export default RCNBormaCreateForm

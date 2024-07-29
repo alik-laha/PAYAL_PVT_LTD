@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig";
 
-const RcnScoopingEdit = sequelize.define('rcnScoopingEdit', {
+const RcnAllEditScooping = sequelize.define('rcnAllEditScooping', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -20,20 +20,6 @@ const RcnScoopingEdit = sequelize.define('rcnScoopingEdit', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    SizeName: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    Size: {
-        type: DataTypes.FLOAT,
-        allowNull: false
-    },
-    Scooping_Line_Mc:
-    {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-
     Opening_Qty:
     {
         type: DataTypes.DECIMAL(10,2),
@@ -80,52 +66,23 @@ const RcnScoopingEdit = sequelize.define('rcnScoopingEdit', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
+    TotBagCutting: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
     KOR: 
     {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
-    Trolley_Broken: 
-    {
-        type: DataTypes.DECIMAL(10,2),
-        allowNull: true
-    },
-    Trolley_Small_JB: 
-    {
-        type: DataTypes.DECIMAL(10,2),
-        allowNull: true
-    },
-   
-    scoopStatus:{
-        type:DataTypes.INTEGER,
-        defaultValue: 0
-    },
 
-    
-    Mc_on: {
-        type: DataTypes.TIME,
-        allowNull: true
-    },
-    Mc_off: {
-        type: DataTypes.TIME,
-        allowNull: true
-    },
+
     noOfEmployees: {
         type: DataTypes.INTEGER,
         allowNull: true
     },
-    Mc_breakdown: {
-        type: DataTypes.TIME,
-        allowNull: true
-    },
-    otherTime: {
-        type: DataTypes.TIME,
-        allowNull: true
-    },
-    Brkdwn_reason: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
+ 
     noOfLadies:{
         type: DataTypes.INTEGER,
         allowNull: true
@@ -149,22 +106,14 @@ const RcnScoopingEdit = sequelize.define('rcnScoopingEdit', {
     editStatus: {
         type: DataTypes.STRING,
         allowNull: true,
-        defaultValue:'NA'
+        defaultValue:'Pending'
     },
-    Transfered_To: {
-        type: DataTypes.STRING,
-    },
-    Transfered_Qty: {
-        type: DataTypes.DECIMAL(10,2),
-    },
-    Mc_runTime: {
-        type: DataTypes.TIME,
-        allowNull: true
-    },
+
     modifiedBy: {
         type: DataTypes.STRING,
         allowNull: true
     }
 
+
 });
-export default RcnScoopingEdit;
+export default RcnAllEditScooping;

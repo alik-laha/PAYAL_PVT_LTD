@@ -124,6 +124,9 @@ export interface QcRcnEntryData {
 export interface scoopingpendingLotData {
     LotNo: string
 }
+export interface BormapendingLotData {
+    LotNo: string
+}
 export interface ScoopData {
     LotNo: string;
     id: number;
@@ -160,6 +163,33 @@ export interface ScoopData {
     editStatus: string;
     modifiedBy: string;
     Transfered_Qty:number;
+}
+export interface BormaData {
+            id: number;
+            LotNo: string;
+            date: string;
+            origin: string;
+            InputWholes: string;
+            InputPieces: string;
+            TotalInput: string;
+            Mc_on: string;
+            Mc_off: string;
+            Mc_breakdown: string;
+            Mc_runTime: string;
+            noOfOperators:string;
+            otherTime: string;
+            NoOfTrolley: string;
+            InputMoisture: string;
+            OutputMoisture: string;
+            OutputWholes: string;
+            OutputPieces: string;
+            TotalOutput: string;
+            BormaLoss: string;
+            BormaStatus: string;
+            Temp:string;
+            CreatedBy: string;
+            editStatus: string;
+            modifiedBy: string;
 }
 
 export interface ExcelRcnPrimaryEntryData {
@@ -268,6 +298,7 @@ export interface PermissionRole {
     BoilingSupervisor:string[];
     CleaningSupervisor:string[];
     MaintainanceManager:string[];
+    BormaSuperVisor:string[];
 
 
 

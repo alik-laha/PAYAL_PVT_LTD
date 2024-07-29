@@ -20,11 +20,28 @@ const SearchScooping = async (req: Request, res: Response) => {
                 }
             });
         }
-        if (blConNo) {
-            whereClause.push({
-                LotNo: { [Op.like]: `%${blConNo}%` }
+        
 
-            })
+        if (blConNo) {
+            if (type == 'LineWise') {
+                whereClause.push({
+                
+                    [Op.or]: [
+                        { LotNo: { [Op.like]: `%${blConNo}%` } },
+                        { Scooping_Line_Mc: { [Op.like]: `%${blConNo}%` } }
+                    ]
+    
+                })
+            }
+            else{
+                whereClause.push({
+                    LotNo: {
+                        [Op.like]:  `%${blConNo}%`
+                    }
+                });
+
+            }
+           
 
         }
         if (origin) {
@@ -53,7 +70,7 @@ const SearchScooping = async (req: Request, res: Response) => {
             } else {
                 GradingEntries = await RcnScooping.findAll({
                     where,
-                    order: [['LotNo', 'DESC'], ['date', 'DESC']], // Order by date descending
+                    order: [['LotNo', 'DESC'], ['Scooping_Line_Mc','ASC'],['date', 'DESC']] // Order by date descending
 
                 });
 
@@ -72,7 +89,7 @@ const SearchScooping = async (req: Request, res: Response) => {
             else {
                 GradingEntries = await RcnScooping.findAll({
                     where,
-                    order: [['LotNo', 'DESC'], ['date', 'DESC']], // Order by date descending
+                    order: [['LotNo', 'DESC'], ['Scooping_Line_Mc','ASC'],['date', 'DESC']],
                     limit,
                     offset
                 });

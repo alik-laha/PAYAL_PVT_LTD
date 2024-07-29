@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 
 import RcnAllScooping from "../../model/scoopingAllmodel";
+import RcnAllEditScooping from "../../model/scoopingAllEditModel";
 
 
-const createscoopingAllReport = async (req: Request, res: Response) => {
+const createScoopingDeleteAll = async (req: Request, res: Response) => {
 
  
         try {
            
-   
             let { LotNo,
                 origin,
                 Opening_Qty,
@@ -23,19 +23,30 @@ const createscoopingAllReport = async (req: Request, res: Response) => {
                 noOfEmployees,
                 noOfOperators,male,female,supervisor,Date } = req.body.data2;
             
-             const createdBy = req.cookies.user
+            const modifiedBy = req.cookies.user
             const total_bag=(((parseFloat(Receiving_Qty)+parseFloat(Opening_Qty))
                             -(parseFloat(Uncut)+parseFloat(Unscoop)+parseFloat(NonCut)+parseFloat(Dust)))/80)
-                console.log(total_bag) 
+            console.log(total_bag) 
                 
-                const kor=((parseFloat(Wholes)+parseFloat(Broken))/(total_bag*0.453)).toFixed(2)
-            const scoop = await RcnAllScooping.create(
-                {
+            const kor=((parseFloat(Wholes)+parseFloat(Broken))/(total_bag*0.453)).toFixed(2)
+
+            const latestEditEntry = await RcnAllEditScooping.findOne({
+                attributes: ['CreatedBy'],
+                where: {
                     LotNo:LotNo,
-                origin:origin,
-                
-                Opening_Qty:Opening_Qty,
-                Receiving_Qty:Receiving_Qty,
+                    origin:origin
+                    }
+            });
+    
+            let createdBy='ProductionManager'
+            if(latestEditEntry){
+                 createdBy=latestEditEntry?.dataValues.CreatedBy
+            }
+
+       
+            
+            const scoop = await RcnAllScooping.update(
+                {
                     date: Date,
                     Wholes:Wholes,
                     Broken:Broken,
@@ -52,17 +63,30 @@ const createscoopingAllReport = async (req: Request, res: Response) => {
                     noOfEmployees:noOfEmployees,
                     noOfOperators:noOfOperators,
                     CreatedBy:createdBy,
-                   
+                    modifiedBy:modifiedBy,
+                    editStatus:'Approved'
 
+                }, {
+                    where: {
+                    LotNo:LotNo,
+                    origin:origin
+                    }
+                });
+                if (scoop) {
+                    await RcnAllEditScooping.destroy({ where: {
+                        LotNo:LotNo,
+                        origin:origin
+                        } });
+                    return res.status(200).json({ message: "RCN Scooping Edit All Request Approved Successfully" });
                 }
-            );
-         
-    
+                else {
+                    return res.status(500).json({ message: "Internal Server Error" });
+                }
+
            
-            return res.status(200).json({ message: "RCN Scooping Entry is Uploaded Successfully",scoop });
         } catch (err) {
             return res.status(500).json({ message: "internal server Error", err });
         }
 }
 
-export default createscoopingAllReport;
+export default createScoopingDeleteAll;

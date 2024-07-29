@@ -1,7 +1,7 @@
 import Context from "./context.ts";
 import { ReactNode } from "react";
 import { useState } from "react";
-import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving } from "../../type/type";
+import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving, rcnScoopingData } from "../../type/type";
 
 interface ContextProviderProps {
     children: ReactNode;
@@ -20,6 +20,9 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [pendingqccount, setpendingqcCount] = useState<number>(0)
     const [pendingreportcount, setpendingreportCount] = useState<number>(0)
     const [recevingPackagematerialOverView, setRecevingPacakanMaterialOverView] = useState<SumofpackageMetrialReceving | null>(null)
+    const [editScoopingLotWiseData, setEditScoopingLotWiseData] = useState<rcnScoopingData[]>([])
+    const [editBormaLotWiseData, setEditBormaLotWiseData] = useState<any[]>([])
+    const [searchType, setSearchType] = useState<string>('LotWise')
 
     return (
         <Context.Provider value={{
@@ -27,7 +30,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
             generateCaptcha, setGenerateCaptcha, typedCaptcha, setTypedCaptcha, role, setRole, dept, setDept, AllMachines, setAllMachines,
             AllNewMachines, setAllNewMachines, editPendiningGrinderData, setEditPendiningGrinderData,
             editPendingBoilingData, setEditPendingBoilingData, pendingqccount, setpendingqcCount, pendingreportcount,
-            setpendingreportCount, recevingPackagematerialOverView, setRecevingPacakanMaterialOverView
+            setpendingreportCount, recevingPackagematerialOverView, setRecevingPacakanMaterialOverView,
+            editScoopingLotWiseData, setEditScoopingLotWiseData, searchType, setSearchType,editBormaLotWiseData,setEditBormaLotWiseData
         }}>
             {children}
         </Context.Provider>

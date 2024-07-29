@@ -4,7 +4,7 @@ export const Dept: string[] = ['Admin', 'Receiving', 'Maintainance', 'QualityCon
 //export const optionsMapping:Record<string, string[]> = {Admin :['AdminSupervisor','Admin-Manager'],Receiving:['Receiving-Supervisor', 'Receiving-Manager'],Maintainance:['Maintainance-Supervisor'],Quality-Control:['QC-Supervisor','QC-Manager'],Production:[Production Manager]}
 export const Role: string[] = ['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager', 'MaintainanceSupervisor',
     'MaintainanceManager'
-    , 'QCSupervisor', 'QCManager', 'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager'
+    , 'QCSupervisor', 'QCManager', 'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','BormaSuperVisor'
 ]
 export const pageNo = 1
 export const pagelimit = 8
@@ -19,9 +19,9 @@ export const cookingTime = ['00:07', '00:08', '00:09', '00:10', '00:11', '00:12'
 export const PermissionRol = {
 
     Director: ['Employee', 'Dashboard User', 'Asset', 'RCN Primary Entry', 
-        'Receiving Packaging Entry','RCN Incoming QC', 'Grading', 'Boiling', 'Scooping','Cleaning'],
+        'Receiving Packaging Entry','RCN Incoming QC', 'Grading', 'Boiling', 'Scooping','Cleaning','Borma'],
     FactoryManager: ['Employee', 'Asset', 'RCN Primary Entry','Receiving Packaging Entry',
-         'RCN Incoming QC', 'Grading', 'Boiling', 'Scooping','Cleaning'],
+         'RCN Incoming QC', 'Grading', 'Boiling', 'Scooping','Cleaning','Borma'],
     ReceivingSupervisor: ['RCN Primary Entry','Receiving Packaging Entry'],
     ReceivingManager: ['RCN Primary Entry','Receiving Packaging Entry'],
     QCSupervisor: ['RCN Incoming QC'],
@@ -31,7 +31,8 @@ export const PermissionRol = {
     ScoopingSupervisor: ['Scooping'],
     ProductionManager:['Grading','Boiling','Scooping'],
     MaintainanceManager:['Cleaning'],
-    CleaningSupervisor:['Cleaning']
+    CleaningSupervisor:['Cleaning'],
+    BormaSuperVisor:['Borma']
 
 }
 
@@ -49,12 +50,14 @@ export const pendingCheckRole = {
     QCRCN: ['Director', 'FactoryManager', 'QCManager'],
     Grading: ['Director', 'FactoryManager', 'ProductionManager'],
     Boiling: ['Director', 'FactoryManager', 'ProductionManager'],
-    Scooping: ['Director', 'FactoryManager', 'ProductionManager']
+    Scooping: ['Director', 'FactoryManager', 'ProductionManager'],
+    Borma: ['Director', 'FactoryManager', 'ProductionManager']
 }
 export const roleDataonDept = {
     Admin: ['Director', 'FactoryManager'],
     Receiving: ['ReceivingSupervisor', 'ReceivingManager'],
     Maintainance: ['CleaningSupervisor', 'MaintainanceManager'],
     QualityControl: ['QCSupervisor', 'QCManager'],
-    Production: ['ProductionManager', 'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor']
+    Production: ['ProductionManager', 'GradingSupervisor', 
+        'BoilingSupervisor', 'ScoopingSupervisor','BormaSuperVisor']
 }

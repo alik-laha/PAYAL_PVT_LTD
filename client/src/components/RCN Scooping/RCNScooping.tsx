@@ -22,25 +22,28 @@ import { useContext, useState } from 'react';
 import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
-import { scoopingpendingLotData } from '@/type/type';
+import { pendingCheckRoles, PermissionRole, scoopingpendingLotData } from '@/type/type';
+import { pendingCheckRole } from '../common/exportData';
 
 
 const RCNScooping = () => {
 
-    const {  setEditPendiningGrinderData } = useContext(Context)
-    const [lotdata, setLotData ]  = useState<scoopingpendingLotData[]>([])
+    const { setEditScoopingLotWiseData, searchType } = useContext(Context)
+    const [lotdata, setLotData] = useState<scoopingpendingLotData[]>([])
 
 
 
     const { data, isLoading, error } = UseQueryData('/api/scooping/sumofallscoop', 'GET', 'AllScoopingSum');
     const handleEditFetch = async () => {
-        axios.get('/api/grading/getPendingData')
-            .then(res => {
-                setEditPendiningGrinderData(res.data.data)
-            })
+
+        axios.get("/api/scooping/findEditScoopingAll").then(res => {
+            console.log(res)
+            setEditScoopingLotWiseData(res.data.scoopingAllEdit)
+        })
             .catch(err => {
                 console.log(err)
             })
+
     }
     if (isLoading) {
         return <Loader />
@@ -52,17 +55,28 @@ const RCNScooping = () => {
     console.log(data)
 
     const handleOpenLotNo = async () => {
-        axios.get('/api/scooping/getUnscoopedEntry/0').then(res=>{
+        axios.get('/api/scooping/getUnscoopedEntry/0').then(res => {
             console.log(res)
             setLotData(res.data.scoopingLot)
         })
 
-          
-        
+
+
+
+    }
+    const Role = localStorage.getItem('role') as keyof PermissionRole
+    const checkpending = (tab: string) => {
+        //console.log(Role)
+        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+            return true
+        }
+        else {
+            return false;
+        }
 
     }
 
-    function formatNumber(num:any) {
+    function formatNumber(num: any) {
         return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
     }
     return (
@@ -72,27 +86,27 @@ const RCNScooping = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
-                        A <br /><p>{data.data[0].WholesA && data.data[0].BrokenA  ? formatNumber(Number(data.data[0].WholesA) + Number(data.data[0].BrokenA )): 0} Kg</p>
+                        A <br /><p>{data.data[0].WholesA && data.data[0].BrokenA ? formatNumber(Number(data.data[0].WholesA) + Number(data.data[0].BrokenA)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                    B <br /><p>{data.data[0].WholesB && data.data[0].BrokenB  ? formatNumber(Number(data.data[0].WholesB) +Number(data.data[0].BrokenB)) : 0} Kg</p>
+                        B <br /><p>{data.data[0].WholesB && data.data[0].BrokenB ? formatNumber(Number(data.data[0].WholesB) + Number(data.data[0].BrokenB)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
-                    C <br /><p>{data.data[0].WholesC && data.data[0].BrokenC  ? formatNumber(Number(data.data[0].WholesC) + Number(data.data[0].BrokenC )): 0} Kg</p>
+                        C <br /><p>{data.data[0].WholesC && data.data[0].BrokenC ? formatNumber(Number(data.data[0].WholesC) + Number(data.data[0].BrokenC)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-sky-500 hover:bg-orange-400">
-                    D <br /><p>{data.data[0].WholesD && data.data[0].BrokenD  ? formatNumber(Number(data.data[0].WholesD) + Number(data.data[0].BrokenD )) : 0} Kg</p>
+                        D <br /><p>{data.data[0].WholesD && data.data[0].BrokenD ? formatNumber(Number(data.data[0].WholesD) + Number(data.data[0].BrokenD)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
-                    E <br /><p>{data.data[0].WholesE && data.data[0].BrokenE  ? formatNumber(Number(data.data[0].WholesE) + Number(data.data[0].BrokenE )) : 0} Kg</p>
+                        E <br /><p>{data.data[0].WholesE && data.data[0].BrokenE ? formatNumber(Number(data.data[0].WholesE) + Number(data.data[0].BrokenE)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
-                    F <br /><p>{data.data[0].WholesF && data.data[0].BrokenF  ? formatNumber(Number(data.data[0].WholesF) + Number(data.data[0].BrokenF )): 0} Kg</p>
+                        F <br /><p>{data.data[0].WholesF && data.data[0].BrokenF ? formatNumber(Number(data.data[0].WholesF) + Number(data.data[0].BrokenF)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
-                    G <br /><p>{data.data[0].WholesG && data.data[0].BrokenG  ? formatNumber(Number(data.data[0].WholesG) + Number(data.data[0].BrokenG )) : 0} Kg</p>
+                        G <br /><p>{data.data[0].WholesG && data.data[0].BrokenG ? formatNumber(Number(data.data[0].WholesG) + Number(data.data[0].BrokenG)) : 0} Kg</p>
                     </div>
-                  
+
 
 
 
@@ -109,12 +123,12 @@ const RCNScooping = () => {
 
                             </DialogHeader>
 
-                            <RCNScoopingCreateForm props={lotdata}/>
+                            <RCNScoopingCreateForm props={lotdata} />
                         </DialogContent>
                     </Dialog>
 
 
-                    <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit (0)</Button>
+                    {checkpending('Scooping') && (searchType === "LotWise" ? <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData === 0 ? true : false}> Pending Edit ({data.EditData})</Button> : null)}
 
                 </div>
                 <RCNScoopingTable />

@@ -13,7 +13,8 @@ const ApproveEditStatus = async (req: Request, res: Response) => {
         if (data) {
             const { date, A, B, C, D, E, F, G, dust, Mc_on, Mc_off, Mc_breakdown, noOfEmployees, grading_lotNo, Mc_name, origin, otherTime } = data;
             const Mc_runTime = data.Mc_runTime;
-            const RcnGradingEditData = await RcnGrading.update({ date, A, B, C, D, E, F, G, dust, Mc_on, Mc_off, Mc_breakdown, noOfEmployees, grading_lotNo, Mc_name, origin, otherTime, feeledBy, Mc_runTime, modifiedBy, editStatus }, { where: { id } });
+            const RcnGradingEditData = await RcnGrading.update({ date, A, B, C, D, E, F, G, dust, Mc_on, Mc_off, Mc_breakdown, noOfEmployees, grading_lotNo, Mc_name, origin, 
+                otherTime, feeledBy, Mc_runTime, modifiedBy, editStatus }, { where: { id } });
             if (RcnGradingEditData) {
                 await RcnGradingEdit.destroy({ where: { id } });
                 return res.status(200).json({ message: "Modify Request Approved Successfully" });

@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig";
 
-const RcnBorma = sequelize.define('rcnBorma', {
+const RcnBormaEdit = sequelize.define('rcnBormaEdit', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -124,4 +124,4 @@ const RcnBorma = sequelize.define('rcnBorma', {
 
 
 });
-export default RcnBorma;
+export default RcnBormaEdit;
