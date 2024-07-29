@@ -43,11 +43,10 @@ const CreateQcPackagingMaterial = async (req: Request, res: Response) => {
             foodGradeCirtiicate,
             remarks,
             qualityStatus: true,
-            qcBy: name,
+            createdBy: name,
             foodGradeCirtiFicateFile,
             coaCirtificateFile,
             damageFile: JSON.stringify(damagePartsImage),
-            editStatus: "NA",
             foodGradeCirtificateStatus,
             coaCirtificateStatus
         }, { where: { id: req.params.id } });

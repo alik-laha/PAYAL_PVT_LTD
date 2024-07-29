@@ -514,7 +514,7 @@ export interface PackagingMeterialQc {
     foodGradeCirtificateStatus: string;
     foodGradeCirtiFicateFile: string;
     coaCirtificateStatus: string;
-    coaCertificateFile: string;
+    coaCirtificateFile: string;
     editStatus: string;
     createdBy: string;
     remarks: string;
