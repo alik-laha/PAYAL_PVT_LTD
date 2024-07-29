@@ -236,7 +236,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
 
                     <div className="flex">
                         <Label className="w-2/4 pt-2 ">Coa File</Label>
-                        <input type="file" multiple onChange={handleCoaFileChamge} />
+                        <input type="file" accept="application/pdf,.xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple onChange={handleCoaFileChamge} />
                     </div>
                     <div className="flex"><Label className="w-2/4  pt-2">Food Grade Cirtificate</Label>
                         <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
@@ -258,14 +258,14 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                         </select></div>
                     <div className="flex">
                         <Label className="w-2/4 pt-2 ">Food Grade Report Upload</Label>
-                        <input type="file" onChange={handleFoodGradeUpload} />
+                        <input type="file" accept="application/pdf,.xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onChange={handleFoodGradeUpload} />
                     </div>
                     <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
                         <Input className="w-2/4 " placeholder="Remarks" required value={remarks} onChange={(e) => setRemarks(e.target.value)} /> </div>
 
                     <div className="flex">
                         <Label className="w-2/4 pt-2 ">Damage Parts Upload</Label>
-                        <input type="file" multiple onChange={handleDamagePartsImage} />
+                        <input type="file" accept="image/png, image/jpeg, image/jpg" multiple onChange={handleDamagePartsImage} />
                     </div>
 
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
