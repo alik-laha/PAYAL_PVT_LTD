@@ -516,8 +516,9 @@ export interface PackagingMeterialQc {
     coaCirtificateStatus: string;
     coaCertificateFile: string;
     editStatus: string;
-    qcBy: string;
+    createdBy: string;
     remarks: string;
+    approvedBy: string;
 
 }
 

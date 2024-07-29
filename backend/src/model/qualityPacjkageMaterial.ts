@@ -95,7 +95,11 @@ const QualityPackageMaterial = sequelize.define('QcPackageMaterial', {
         allowNull: false,
         defaultValue: false
     },
-    qcBy: {
+    createdBy: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    approvedBy: {
         type: DataTypes.STRING,
         allowNull: true
     },

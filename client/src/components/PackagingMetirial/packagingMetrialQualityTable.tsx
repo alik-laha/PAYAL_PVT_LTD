@@ -456,7 +456,7 @@ const QCPackageMaterialTable = () => {
                                     <TableCell className="text-center">{item.remarks}</TableCell>
                                     <TableCell className="text-center">{item.foodGradeCirtificateStatus}</TableCell>
                                     <TableCell className="text-center">{item.coaCirtificateStatus}</TableCell>
-                                    <TableCell className="text-center">{item.qcBy}</TableCell>
+                                    <TableCell className="text-center">{item.createdBy}</TableCell>
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
                                     <TableCell className="text-center">
                                         action
@@ -542,7 +542,7 @@ const QCPackageMaterialTable = () => {
                                             {item.foodGradeCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}>{item.foodGradeCirtificateStatus}</button> : item.foodGradeCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}
                                         </TableCell>
                                         <TableCell className="text-center">{item.coaCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => handleDownload(item.coaCertificateFile)}>{item.coaCirtificateStatus}</button> : item.coaCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}</TableCell>
-                                        <TableCell className="text-center">{item.qcBy}</TableCell>
+                                        <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">
                                             <Popover>
