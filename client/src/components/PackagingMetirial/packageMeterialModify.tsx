@@ -1,14 +1,14 @@
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
-
+import { PackagingMeterialQc } from '../../types/packagingMeterialQc'
 import { Button } from "../ui/button"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import axios from "axios"
 // import axios from "axios";
 
-const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
+const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) => {
     const [length, setLength] = useState(0)
     const [width, setWidth] = useState(0)
     const [height, setHeight] = useState(0)
@@ -26,10 +26,26 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
     const [coaCirtificateFile, setCoaCirtificateFile] = useState<any>()
     const dateRef = useRef<HTMLInputElement>(null)
 
-    const successdialog = document.getElementById('packageMetrialQc') as HTMLInputElement;
-    const errordialog = document.getElementById('packagingMetirialQcError') as HTMLInputElement;
-    const closeDialogButton = document.getElementById('packageMetrialQccross') as HTMLInputElement;
-    const errorcloseDialogButton = document.getElementById('packagigQcerrorcross') as HTMLInputElement;
+    const successdialog = document.getElementById('packageMetrialQcedit') as HTMLInputElement;
+    const errordialog = document.getElementById('packagingMetirialQcErroredit') as HTMLInputElement;
+    const closeDialogButton = document.getElementById('packageMetrialQccrossedit') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('packagigQcerrorcrossedit') as HTMLInputElement;
+
+    useEffect(() => {
+        setLength(data.length)
+        setWidth(data.width)
+        setHeight(data.height)
+        setGsm(data.gsm)
+        setAvgWeight(data.avgWeight)
+        setLeakageTest(data.leakageTest)
+        setDropTest(data.dropTest)
+        setSealCondition(data.sealCondition)
+        setLabelingCondition(data.labelingCondition)
+        setCoa(data.coa)
+        setFoodGradeCirtiicate(data.foodGradeCirtiicate)
+        setRemarks(data.remarks)
+    }, [])
+
 
     if (closeDialogButton) {
         closeDialogButton.addEventListener('click', () => {
@@ -70,7 +86,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
         formData.append('coaCirtificateFile', coaCirtificateFile)
         formData.append('testingDate', testingDate as string)
         formData.append('damagePartsImage', damagePartsImage)
-        axios.post(`/api/qcpackage/packaging_meterial_qc_entry/${id}`, formData)
+        axios.post(`/api/qcpackage/packaging_meterial_qc_entry/${data.id}`, formData)
             .then((res) => {
                 console.log(res)
             })
@@ -274,16 +290,16 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
 
             </div>
 
-            <dialog id="packageMetrialQc" className="dashboard-modal">
-                <button id="packageMetrialQccross" className="dashboard-modal-close-btn ">X </button>
+            <dialog id="packageMetrialQcedit" className="dashboard-modal">
+                <button id="packageMetrialQccrossedit" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
                     <p id="modal-text" className="pl-3 mt-1 font-medium">Packaging Material is Received Successfully</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="packagingMetirialQcError" className="dashboard-modal">
-                <button id="packagigQcerrorcross" className="dashboard-modal-close-btn ">X </button>
+            <dialog id="packagingMetirialQcErroredit" className="dashboard-modal">
+                <button id="packagigQcerrorcrossedit" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
                     <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Error In Receiving Packaging Material</p></span>
 
@@ -293,4 +309,4 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
     )
 }
 
-export default PackagingMetirialQcCreateForm;
+export default PackagingMetirialQcEditForm;
