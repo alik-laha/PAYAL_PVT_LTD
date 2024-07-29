@@ -44,7 +44,7 @@ const ModifyQcPackageMaterial = async (req: Request, res: Response) => {
             coaCirtificateFile: qualityPackageMaterial.coaCirtificateFile,
             damageFile: qualityPackageMaterial.damageFile,
             qualityPackageMaterialId: qualityPackageMaterial.id,
-            createdBy: qualityPackageMaterial.createdBy,
+            createdBy: name,
         });
 
     }
