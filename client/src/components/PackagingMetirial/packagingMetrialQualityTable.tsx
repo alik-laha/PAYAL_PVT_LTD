@@ -3,7 +3,6 @@ import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import React from "react"
 import axios from "axios"
-import { QcRcnEntryData } from "@/type/type"
 import { pageNo, pagelimit } from "../common/exportData"
 import { FaSearch } from "react-icons/fa"
 import {
@@ -39,20 +38,20 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
+// import {
+//     AlertDialog,
+//     AlertDialogAction,
+//     AlertDialogCancel,
+//     AlertDialogContent,
 
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { FcApprove, FcDisapprove } from "react-icons/fc"
-import { MdOutlineDriveFolderUpload } from "react-icons/md";
-import { LiaEdit } from "react-icons/lia";
+//     AlertDialogFooter,
+//     AlertDialogHeader,
+//     AlertDialogTitle,
+//     AlertDialogTrigger,
+// } from "@/components/ui/alert-dialog"
+// import { FcApprove, FcDisapprove } from "react-icons/fc"
+// import { MdOutlineDriveFolderUpload } from "react-icons/md";
+// import { LiaEdit } from "react-icons/lia";
 import QCreportForm from "./PackagingMetrialCreateQuality"
 // import QCmodifyreportForm from './QCmodifyreportForm'
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
@@ -66,7 +65,6 @@ import { CiEdit } from "react-icons/ci"
 
 
 const QCPackageMaterialTable = () => {
-    const [origin, setOrigin] = useState<string>("")
     const [fromdate, setfromDate] = React.useState<string>('');
     const [todate, settoDate] = React.useState<string>('');
     const [hidetodate, sethidetoDate] = React.useState<string>('');
@@ -226,8 +224,6 @@ const QCPackageMaterialTable = () => {
 
         setblockpagen('flex')
         const response = await axios.post('/api/qcpackage/package_material_view', {
-            blConNo: searchData,
-            origin: origin,
             fromDate: fromdate,
             toDate: todate
         }, {
@@ -255,59 +251,47 @@ const QCPackageMaterialTable = () => {
         })
     }, [page])
 
-    const handleEditApprove = async (item: QcRcnEntryData) => {
-        const response = await axios.put(`/api/qcRcn/approveEditQcReport/${item.id}`)
-        const data = await response.data
+    // const handleEditApprove = async (item: QcRcnEntryData) => {
+    //     const response = await axios.put(`/api/qcRcn/approveEditQcReport/${item.id}`)
+    //     const data = await response.data
 
-        if (data.message === "Edit Request of QC Report is Approved Successfully") {
-            setSuccessText(data.message)
-            if (approvesuccessdialog != null) {
-                (approvesuccessdialog as any).showModal();
-            }
-        }
+    //     if (data.message === "Edit Request of QC Report is Approved Successfully") {
+    //         setSuccessText(data.message)
+    //         if (approvesuccessdialog != null) {
+    //             (approvesuccessdialog as any).showModal();
+    //         }
+    //     }
 
-    }
-    const handleEditReject = async (item: QcRcnEntryData) => {
-        const response = await axios.delete(`/api/qcRcn/rejectEditQcReport//${item.id}`)
-        const data = await response.data
+    // }
 
-        if (data.message === "QC Report Edit Request is Reverted successfully") {
-            seterrorText(data.message)
-            if (rejectsuccessdialog != null) {
-                (rejectsuccessdialog as any).showModal();
-            }
-        }
+    // const handleQCApprove = async (item: PackagingMeterialQc) => {
+    //     const response = await axios.put(`/api/qcRcn/qcRcnApprove/${item.id}`)
+    //     const data = await response.data
 
-    }
-
-    const handleQCApprove = async (item: PackagingMeterialQc) => {
-        const response = await axios.put(`/api/qcRcn/qcRcnApprove/${item.id}`)
-        const data = await response.data
-
-        if (data.message === "QC Approval of Rcn Entry is made Successfully") {
-            setSuccessText(data.message)
-            if (approvesuccessdialog != null) {
-                (approvesuccessdialog as any).showModal();
-            }
+    //     if (data.message === "QC Approval of Rcn Entry is made Successfully") {
+    //         setSuccessText(data.message)
+    //         if (approvesuccessdialog != null) {
+    //             (approvesuccessdialog as any).showModal();
+    //         }
 
 
 
-        }
+    //     }
 
-    }
+    // }
 
-    const handleQCReject = async (item: PackagingMeterialQc) => {
-        const response = await axios.put(`/api/qcRcn/qcRcnReject/${item.id}`)
-        const data = await response.data
+    // const handleQCReject = async (item: PackagingMeterialQc) => {
+    //     const response = await axios.put(`/api/qcRcn/qcRcnReject/${item.id}`)
+    //     const data = await response.data
 
-        if (data.message === "QC Approval of Rcn Entry is Rejected Successfully") {
-            seterrorText(data.message)
-            if (rejectsuccessdialog != null) {
-                (rejectsuccessdialog as any).showModal();
-            }
-        }
+    //     if (data.message === "QC Approval of Rcn Entry is Rejected Successfully") {
+    //         seterrorText(data.message)
+    //         if (rejectsuccessdialog != null) {
+    //             (rejectsuccessdialog as any).showModal();
+    //         }
+    //     }
 
-    }
+    // }
     const checkpending = (tab: string) => {
         //console.log(Role)
         if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
@@ -457,49 +441,7 @@ const QCPackageMaterialTable = () => {
                                     <TableCell className="text-center">{item.qcBy}</TableCell>
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
                                     <TableCell className="text-center">
-                                        <Popover>
-                                            <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded ${(item.qualityStatus === true && !item.editStatus) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.qualityStatus === true && !item.editStatus) ? true : false}>Action</button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                <div className={item.editStatus === "NA" ? "block" : "hidden"}>
-                                                    <Dialog>
-                                                        <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" disabled={item.editStatus === "NA" ? false : true}>Modify</button>
-                                                        </DialogTrigger>
-                                                        <DialogContent>
-                                                            <DialogHeader>
-                                                                <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>Packaging Metrial Create</p>
-                                                                </DialogTitle>
-                                                                <DialogDescription>
-                                                                    <p className='text-1xl text-center'>To Be Filled Up By Quality Supervisor</p>
-                                                                </DialogDescription>
-                                                            </DialogHeader>
-                                                            {/* <QCreportForm /> */}
-                                                        </DialogContent>
-                                                    </Dialog>
-                                                </div>
-                                                <div className={item.editStatus === "NA" ? "hidden" : "block"}>
-                                                    <Dialog >
-                                                        <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" disabled={item.editStatus === "NA" ? true : false}>Entry New</button>
-                                                        </DialogTrigger>
-                                                        <DialogContent>
-                                                            <DialogHeader>
-                                                                <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>Packaging Metrial Create</p>
-                                                                </DialogTitle>
-                                                                <DialogDescription>
-                                                                    <p className='text-1xl text-center'>To Be Filled Up By Quality Supervisor</p>
-                                                                </DialogDescription>
-                                                            </DialogHeader>
-                                                            <QCreportForm id={item.id} />
-                                                        </DialogContent>
-                                                    </Dialog>
-                                                </div>
-                                            </PopoverContent>
-                                        </Popover>
+                                        action
 
                                     </TableCell>
                                 </TableRow>
@@ -521,9 +463,9 @@ const QCPackageMaterialTable = () => {
                                         <TableCell className="text-center">{item.packagingMaterialreceving.unit}</TableCell>
                                         <TableCell className="text-center">
                                             {item.packagingMaterialreceving.qualityStatus ? (
-                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.packagingMaterialreceving.qualityStatus}</button>
+                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">Done</button>
                                             ) : (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.packagingMaterialreceving.qualityStatus}</button>
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">Pending</button>
                                             )}
                                         </TableCell>
                                         <TableCell className="text-center">{item.packagingMaterialreceving.createdBy}</TableCell>
@@ -533,15 +475,53 @@ const QCPackageMaterialTable = () => {
                                         <TableCell className="text-center font-bold">{item.height}</TableCell>
                                         <TableCell className="text-center font-bold">{item.gsm}</TableCell>
                                         <TableCell className="text-center font-bold">{item.avgWeight}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.leakageTest}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.dropTest}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500">{item.sealCondition}</TableCell>
-                                        <TableCell className="text-center">{item.labelingCondition}</TableCell>
-                                        <TableCell className="text-center">{item.coa}</TableCell>
-                                        <TableCell className="text-center">{item.foodGradeCirtiicate}</TableCell>
+                                        <TableCell className="text-center font-bold">{
+                                            item.leakageTest === "Pass" ? (
+                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
+                                            ) : (
+                                                item.leakageTest === "Fail" ? (
+                                                    <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
+                                                ) : (null)
+                                            )
+                                        }</TableCell>
+                                        <TableCell className="text-center font-bold">{item.dropTest === "Pass" ? (
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.dropTest}</button>
+                                        ) : (
+                                            item.dropTest === "Fail" ? (
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.dropTest}</button>
+                                            ) : (null)
+                                        )}</TableCell>
+                                        <TableCell className="text-center font-bold text-red-500">{item.sealCondition === "OK" ? (
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.sealCondition}</button>
+                                        ) : (
+                                            item.sealCondition === "Not OK" ? (
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.sealCondition}</button>
+                                            ) : (null)
+                                        )}</TableCell>
+                                        <TableCell className="text-center">{item.labelingCondition === "OK" ? (
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.labelingCondition}</button>
+                                        ) : (
+                                            item.labelingCondition === "Not OK" ? (
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.labelingCondition}</button>
+                                            ) : (null)
+                                        )}</TableCell>
+                                        <TableCell className="text-center">{item.coa === "Yes" ? (
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.coa}</button>
+                                        ) : (
+                                            item.coa === "NA" ? (
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.coa}</button>
+                                            ) : (null)
+                                        )}</TableCell>
+                                        <TableCell className="text-center">{item.foodGradeCirtiicate === "Yes" ? (
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.foodGradeCirtiicate}</button>
+                                        ) : (
+                                            item.foodGradeCirtiicate === "NA" ? (
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.foodGradeCirtiicate}</button>
+                                            ) : (null)
+                                        )}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
-                                        <TableCell className="text-center">{item.foodGradeCirtificateStatus}</TableCell>
-                                        <TableCell className="text-center">{item.coaCirtificateStatus}</TableCell>
+                                        <TableCell className="text-center">{item.foodGradeCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.foodGradeCirtificateStatus}</button> : null}</TableCell>
+                                        <TableCell className="text-center">{item.coaCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.coaCirtificateStatus}</button> : null}</TableCell>
                                         <TableCell className="text-center">{item.qcBy}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">

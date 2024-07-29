@@ -244,6 +244,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                     disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                             onChange={(e) => setFoodGradeCirtiicate(e.target.value)} required>
 
+
                             <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
                             py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
                                 value="NA">
