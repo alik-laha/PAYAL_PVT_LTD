@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import QualityEditPackageMaterial from "../../model/editQualityPackageMaterial";
 import QualityPackageMaterial from "../../model/qualityPacjkageMaterial";
+import { promises as fs } from "fs";
 
 const ModifyQcPackageMaterial = async (req: Request, res: Response) => {
     try {
@@ -11,40 +12,62 @@ const ModifyQcPackageMaterial = async (req: Request, res: Response) => {
         let foodGradeCirtiFicateFile: string = "";
         let coaCirtificateFile: string = "";
         let damagePartsImage: string[] = [];
-        if (files.foodGradeCirtiFicateFile) {
-            foodGradeCirtiFicateFile = files.foodGradeCirtiFicateFile[0].path;
-        }
-        if (files.coaCirtificateFile) {
-            coaCirtificateFile = files.coaCirtificateFile[0].path;
-        }
-        if (files.damagePartsImage) {
-            files.damagePartsImage.map((file: any) => damagePartsImage.push(file.path));
-        }
         const qualityPackageMaterial: any = await QualityPackageMaterial.findOne({ where: { id } });
         if (!qualityPackageMaterial) {
             return res.status(404).json({ error: "Quality Package Material not found" });
         }
+        if (files.foodGradeCirtiFicateFile) {
+            fs.unlink(qualityPackageMaterial.foodGradeCirtiFicateFile);
+            foodGradeCirtiFicateFile = files.foodGradeCirtiFicateFile[0].path;
+        }
+        if (!files.foodGradeCirtiFicateFile) {
+            foodGradeCirtiFicateFile = qualityPackageMaterial.foodGradeCirtiFicateFile;
+        }
+        if (files.coaCirtificateFile) {
+            fs.unlink(qualityPackageMaterial.coaCirtificateFile);
+            coaCirtificateFile = files.coaCirtificateFile[0].path;
+        }
+        if (!files.coaCirtificateFile) {
+            coaCirtificateFile = qualityPackageMaterial.coaCirtificateFile;
+        }
+        if (files.damagePartsImage) {
+            qualityPackageMaterial.damageFile.JSON.parse().map((file: any) => fs.unlink(file));
+            files.damagePartsImage.map((file: any) => damagePartsImage.push(file.path));
+        }
+        if (!files.damagePartsImage) {
+            damagePartsImage = JSON.parse(qualityPackageMaterial.damageFile);
+        }
+
         await QualityEditPackageMaterial.create({
-            testingDate: qualityPackageMaterial.testingDate,
-            length: qualityPackageMaterial.length,
-            width: qualityPackageMaterial.width,
-            height: qualityPackageMaterial.height,
-            gsm: qualityPackageMaterial.gsm,
-            avgWeight: qualityPackageMaterial.avgWeight,
-            leakageTest: qualityPackageMaterial.leakageTest,
-            dropTest: qualityPackageMaterial.dropTest,
-            sealCondition: qualityPackageMaterial.sealCondition,
-            labelingCondition: qualityPackageMaterial.labelingCondition,
-            coa: qualityPackageMaterial.coa,
-            foodGradeCirtiicate: qualityPackageMaterial.foodGradeCirtiicate,
-            remarks: qualityPackageMaterial.remarks,
+            id: id,
+            testingDate: testingDate,
+            length: length,
+            width: width,
+            height: height,
+            gsm: gsm,
+            avgWeight: avgWeight,
+            leakageTest: leakageTest,
+            dropTest: dropTest,
+            sealCondition: sealCondition,
+            labelingCondition: labelingCondition,
+            coa: coa,
+            foodGradeCirtiicate: foodGradeCirtiicate,
+            remarks: remarks,
             foodGradeCirtificateStatus: qualityPackageMaterial.foodGradeCirtificateStatus,
-            foodGradeCirtiFicateFile: qualityPackageMaterial.foodGradeCirtiFicateFile,
+            foodGradeCirtiFicateFile: foodGradeCirtiFicateFile,
             coaCirtificateStatus: qualityPackageMaterial.coaCirtificateStatus,
-            coaCirtificateFile: qualityPackageMaterial.coaCirtificateFile,
-            damageFile: qualityPackageMaterial.damageFile,
-            qualityPackageMaterialId: qualityPackageMaterial.id,
+            coaCirtificateFile: coaCirtificateFile,
+            damageFile: JSON.stringify(damagePartsImage),
             createdBy: name,
+            editStatus: "Pending"
+        });
+        const qualityPackageMaterialUpdate = await QualityPackageMaterial.update({ editStatus: "Pending" }, { where: { id } });
+        if (!qualityPackageMaterialUpdate) {
+            return res.status(400).json({ error: "Quality Package Material not updated" });
+        }
+        return res.status(200).json({
+            message: "Quality Package Material updated successfully"
+
         });
 
     }
