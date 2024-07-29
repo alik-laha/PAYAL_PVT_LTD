@@ -224,6 +224,7 @@ const QCPackageMaterialTable = () => {
 
         setblockpagen('flex')
         const response = await axios.post('/api/qcpackage/package_material_view', {
+            searchData: searchData,
             fromDate: fromdate,
             toDate: todate
         }, {
