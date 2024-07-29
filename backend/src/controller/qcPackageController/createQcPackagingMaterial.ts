@@ -8,9 +8,18 @@ const CreateQcPackagingMaterial = async (req: Request, res: Response) => {
         const name = req.cookies.user;
         console.log(req.files)
         const files: any = req.files;
-        const foodGradeCirtiFicateFile = files.foodGradeCirtiFicateFile[0].path;
-        const coaCirtificateFile = files.coaCirtificateFile[0].path;
-        const damagePartsImage = files.damagePartsImage.map((file: any) => file.path);
+        let foodGradeCirtiFicateFile: string = "";
+        let coaCirtificateFile: string = "";
+        let damagePartsImage: string[] = [];
+        if (files.foodGradeCirtiFicateFile) {
+            foodGradeCirtiFicateFile = files.foodGradeCirtiFicateFile[0].path;
+        }
+        if (files.coaCirtificateFile) {
+            coaCirtificateFile = files.coaCirtificateFile[0].path;
+        }
+        if (files.damagePartsImage) {
+            files.damagePartsImage.map((file: any) => damagePartsImage.push(file.path));
+        }
         let foodGradeCirtificateStatus: string = "NA";
         let coaCirtificateStatus: string = "NA";
         if (foodGradeCirtiFicateFile) {

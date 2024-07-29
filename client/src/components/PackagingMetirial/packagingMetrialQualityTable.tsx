@@ -520,8 +520,10 @@ const QCPackageMaterialTable = () => {
                                             ) : (null)
                                         )}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
-                                        <TableCell className="text-center">{item.foodGradeCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.foodGradeCirtificateStatus}</button> : null}</TableCell>
-                                        <TableCell className="text-center">{item.coaCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.coaCirtificateStatus}</button> : null}</TableCell>
+                                        <TableCell className="text-center">
+                                            {item.foodGradeCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary"><a href={item.foodGradeCirtificateFile} download>{item.foodGradeCirtificateStatus}</a></button> : item.foodGradeCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}
+                                        </TableCell>
+                                        <TableCell className="text-center">{item.coaCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.coaCirtificateStatus}</button> : item.coaCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}</TableCell>
                                         <TableCell className="text-center">{item.qcBy}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">
