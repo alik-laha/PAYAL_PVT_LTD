@@ -12,6 +12,6 @@ router.post("/package_material_view", ViewQcPackageMaterial)
 
 router.post("/packaging_meterial_qc_entry/:id", QualityPackageMetrialMiddleWare, QcPackageMaterialEntry)
 
-router.get("/downloadData/:path", downloadData)
+router.get("/downloadData", downloadData)
 
 export default router

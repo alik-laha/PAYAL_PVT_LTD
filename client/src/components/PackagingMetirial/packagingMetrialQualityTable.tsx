@@ -282,9 +282,7 @@ const QCPackageMaterialTable = () => {
 
     // const handleQCReject = async (item: PackagingMeterialQc) => {
     //     const response = await axios.put(`/api/qcRcn/qcRcnReject/${item.id}`)
-    //     const data = await response.data
-
-    //     if (data.message === "QC Approval of Rcn Entry is Rejected Successfully") {
+    //     const        link.download = path.substring(26);sage === "QC Approval of Rcn Entry is Rejected Successfully") {
     //         seterrorText(data.message)
     //         if (rejectsuccessdialog != null) {
     //             (rejectsuccessdialog as any).showModal();
@@ -328,13 +326,23 @@ const QCPackageMaterialTable = () => {
         settoDate(nextday)
     }
     const handleDownload = async (path: string) => {
-        console.log(path)
-        const link = document.createElement("a");
-        link.href = `/api/qcpackage/downloadData/${path}`;
-        link.download = path;
-        link.click();
-
-    }
+        try {
+            console.log(path);
+            const response = await fetch(`/api/qcpackage/downloadData?path=${encodeURIComponent(path)}`);
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status} ${response.statusText}`);
+            }
+            const blob = await response.blob();
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = path.substring(26);
+            document.body.appendChild(link); // Append link to the body
+            link.click();
+            document.body.removeChild(link); // Remove the link after clicking
+        } catch (error) {
+            console.error('Error downloading the file:', error);
+        }
+    };
     return (
         // disabled={pendingqccount === 0 ? true : false}
         <div className="ml-5 mt-5 ">
