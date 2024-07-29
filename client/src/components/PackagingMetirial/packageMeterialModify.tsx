@@ -89,12 +89,25 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
         formData.append('coaCirtificateFile', coaCirtificateFile)
         formData.append('testingDate', testingDate as string)
         formData.append('damagePartsImage', damagePartsImage)
-        axios.post(`/api/qcpackage/packaging_meterial_qc_entry/${data.id}`, formData)
+        axios.put(`/api/qcpackage/modifyQcPackageMaterial/${data.id}`, formData)
             .then((res) => {
                 console.log(res)
+                if (res.status === 200) {
+                    if (successdialog != null) {
+                        (successdialog as any).showModal();
+                    }
+                }
+                else {
+                    if (errordialog != null) {
+                        (errordialog as any).showModal();
+                    }
+                }
             })
             .catch((err) => {
                 console.log(err)
+                if (errordialog != null) {
+                    (errordialog as any).showModal();
+                }
             })
 
     }
@@ -261,7 +274,7 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
                         <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
                     disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                            onChange={(e) => setFoodGradeCirtiicate(e.target.value)} >
+                            onChange={(e) => setFoodGradeCirtiicate(e.target.value)} value={foodGradeCirtiicate}>
 
 
                             <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 

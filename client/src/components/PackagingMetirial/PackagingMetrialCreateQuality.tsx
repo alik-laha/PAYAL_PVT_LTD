@@ -73,9 +73,22 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
         axios.post(`/api/qcpackage/packaging_meterial_qc_entry/${id}`, formData)
             .then((res) => {
                 console.log(res)
+                if (res.status === 200) {
+                    if (successdialog != null) {
+                        (successdialog as any).showModal();
+                    }
+                }
+                else {
+                    if (errordialog != null) {
+                        (errordialog as any).showModal();
+                    }
+                }
             })
             .catch((err) => {
                 console.log(err)
+                if (errordialog != null) {
+                    (errordialog as any).showModal();
+                }
             })
 
     }

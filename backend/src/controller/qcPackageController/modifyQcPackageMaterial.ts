@@ -17,21 +17,27 @@ const ModifyQcPackageMaterial = async (req: Request, res: Response) => {
             return res.status(404).json({ error: "Quality Package Material not found" });
         }
         if (files.foodGradeCirtiFicateFile) {
-            fs.unlink(qualityPackageMaterial.foodGradeCirtiFicateFile);
+            if (qualityPackageMaterial.foodGradeCirtiFicateFile) {
+                fs.unlink(qualityPackageMaterial.foodGradeCirtiFicateFile);
+            }
             foodGradeCirtiFicateFile = files.foodGradeCirtiFicateFile[0].path;
         }
         if (!files.foodGradeCirtiFicateFile) {
             foodGradeCirtiFicateFile = qualityPackageMaterial.foodGradeCirtiFicateFile;
         }
         if (files.coaCirtificateFile) {
-            fs.unlink(qualityPackageMaterial.coaCirtificateFile);
+            if (qualityPackageMaterial.coaCirtificateFile) {
+                fs.unlink(qualityPackageMaterial.coaCirtificateFile);
+            }
             coaCirtificateFile = files.coaCirtificateFile[0].path;
         }
         if (!files.coaCirtificateFile) {
             coaCirtificateFile = qualityPackageMaterial.coaCirtificateFile;
         }
         if (files.damagePartsImage) {
-            qualityPackageMaterial.damageFile.JSON.parse().map((file: any) => fs.unlink(file));
+            if (qualityPackageMaterial.damageFile) {
+                qualityPackageMaterial.damageFile.JSON.parse().map((file: any) => fs.unlink(file));
+            }
             files.damagePartsImage.map((file: any) => damagePartsImage.push(file.path));
         }
         if (!files.damagePartsImage) {

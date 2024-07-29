@@ -211,7 +211,7 @@ const QCPackageMaterialTable = () => {
 
     const handleSearchPendingEdit = async () => {
         setData([])
-        const response = await axios.get('/api/qcRcn/getTotalEditQC')
+        const response = await axios.get('/api/qcpackage/viewQcPackageMaterial')
         const data = await response.data
         setPendingData(data.rcnEdit)
         setblockpagen('none')
