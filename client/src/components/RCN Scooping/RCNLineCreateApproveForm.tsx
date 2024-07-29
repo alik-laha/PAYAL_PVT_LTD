@@ -14,7 +14,7 @@ import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { useEffect, useRef, useState } from "react"
 import axios from "axios";
-import FormRow from "../common/FormRowTime"
+// import FormRow from "../common/FormRowTime"
 import { Button } from "../ui/button"
 
 interface Props {
@@ -95,7 +95,7 @@ const RCNLineCreateApproveForm = (props: Props) => {
 
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
-   
+
     const closeDialogButton = document.getElementById('empcloseDialog') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('errorempcloseDialog') as HTMLInputElement;
 
@@ -377,7 +377,7 @@ const RCNLineCreateApproveForm = (props: Props) => {
                 setTimeout(() => {
                     dialog.close()
                 }, 2000)
-               
+
             }
 
             let scoopingallcount = 0
@@ -395,8 +395,8 @@ const RCNLineCreateApproveForm = (props: Props) => {
 
                 }))
                 for (const data2 of formall) {
-                        await axios.post('/api/scooping/createScoopingDeleteall', { data2 })
-                        await axios.post('/api/scooping/updateInitialBorma', {data2 })
+                    await axios.post('/api/scooping/createScoopingDeleteall', { data2 })
+                    await axios.post('/api/scooping/updateInitialBorma', { data2 })
                 }
 
                 for (const data3 of newFormupdateData) {
@@ -442,13 +442,13 @@ const RCNLineCreateApproveForm = (props: Props) => {
                         {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
                         <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
-                            <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required readOnly/> </div>
+                            <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required readOnly /> </div>
                         <div className="flex"><Label className="w-2/4 pt-1">No. of Male</Label>
-                            <Input className="w-2/4 text-center" placeholder="No. of Male" ref={maleRef} required readOnly/> </div>
+                            <Input className="w-2/4 text-center" placeholder="No. of Male" ref={maleRef} required readOnly /> </div>
                         <div className="flex"><Label className="w-2/4 pt-1">No. of Female</Label>
-                            <Input className="w-2/4 text-center" placeholder="No. of Female" ref={femaleRef} required readOnly/> </div>
+                            <Input className="w-2/4 text-center" placeholder="No. of Female" ref={femaleRef} required readOnly /> </div>
                         <div className="flex"><Label className="w-2/4 pt-1">No. Of Supervisors</Label>
-                            <Input className="w-2/4 text-center" placeholder="No. of Supervisor" ref={supervisorRef} required readOnly/> </div>
+                            <Input className="w-2/4 text-center" placeholder="No. of Supervisor" ref={supervisorRef} required readOnly /> </div>
                     </div>
                     <Table className="mt-3">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -516,20 +516,20 @@ const RCNLineCreateApproveForm = (props: Props) => {
                                             <TableCell className="text-center"> {row.Trolley_Broken} </TableCell>
                                             <TableCell className="text-center"> {row.Trolley_Small_JB}</TableCell>
                                             {/* <TableCell className="text-center "> <Input className="bg-green-100" value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx, 'Mc_on', e.target.value)} type='time' required /></TableCell> */}
-                                            
+
                                             <TableCell className="text-center">{handleAMPM(row.Mc_on.slice(0, 5))}</TableCell>
                                             <TableCell className="text-center">{handleAMPM(row.Mc_off.slice(0, 5))}</TableCell>
                                             {/* <FormRow idx={idx} row={row} column='Mc_on' handleRowChange={handleRowChange} /> */}
                                             {/* <FormRow idx={idx} row={row} column='Mc_off' handleRowChange={handleRowChange} /> */}
                                             {/* <TableCell className="text-center"><Input className="bg-red-100" value={row.Mc_off} placeholder="MC Off Time" onChange={(e) => handleRowChange(idx, 'Mc_off', e.target.value)} type='time' required /></TableCell> */}
-                                           
-                                        
-                                  
-                                            
+
+
+
+
                                             <TableCell className="text-center">{row.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
                                             <TableCell className="text-center"> {row.Brkdwn_reason} </TableCell>
-                            
-                            <TableCell className="text-center">{row.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+
+                                            <TableCell className="text-center">{row.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
 
 
                                             <TableCell className="text-center"> {row.noOfEmployees} </TableCell>
@@ -552,7 +552,7 @@ const RCNLineCreateApproveForm = (props: Props) => {
 
 
                 </form>
-                <Button className="bg-red-500  text-center mr-48 items-center justify-center h-8 w-20 float-right"  style={{marginTop:'-32px'}}>Revert</Button>
+                <Button className="bg-red-500  text-center mr-48 items-center justify-center h-8 w-20 float-right" style={{ marginTop: '-32px' }}>Revert</Button>
 
                 <dialog id="successemployeedialog" className="dashboard-modal">
                     <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>

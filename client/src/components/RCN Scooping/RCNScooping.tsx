@@ -23,7 +23,7 @@ import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
 import { pendingCheckRoles, PermissionRole, scoopingpendingLotData } from '@/type/type';
-import { pendingCheckRole, Role } from '../common/exportData';
+import { pendingCheckRole } from '../common/exportData';
 
 
 const RCNScooping = () => {
@@ -128,7 +128,7 @@ const RCNScooping = () => {
                     </Dialog>
 
 
-                    {checkpending('Scooping') && (searchType === "LotWise" ? <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button> : null)}
+                    {checkpending('Scooping') && (searchType === "LotWise" ? <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData === 0 ? true : false}> Pending Edit ({data.EditData})</Button> : null)}
 
                 </div>
                 <RCNScoopingTable />

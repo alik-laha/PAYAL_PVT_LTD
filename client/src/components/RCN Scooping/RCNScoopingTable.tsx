@@ -13,12 +13,10 @@ import { Button } from "@/components/ui/button";
 import React, { useEffect } from "react"
 import { Input } from "../ui/input";
 // import DatePicker from "../common/DatePicker";
-import { PermissionRole, ScoopData, ScoopingExcelData, pendingCheckRoles, rcnScoopingData } from "@/type/type";
+import { PermissionRole, ScoopData, pendingCheckRoles, rcnScoopingData } from "@/type/type";
 
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
-import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
-import cross from '../../assets/Static_Images/error_img.png'
 import { SelectType, pageNo, pagelimit, pendingCheckRole } from "../common/exportData"
 
 
@@ -81,7 +79,7 @@ const RCNScoopingTable = () => {
 
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialog') as HTMLInputElement;
     const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialog') as HTMLInputElement;
-    const [tablesearch,settablesearch]=useState<string>("LotWise")
+    const [tablesearch, settablesearch] = useState<string>("LotWise")
     //const [transformedData, setTransformedData] = useState<ExcelRcnPrimaryEntryData[]>([]);
 
     if (rejectcloseDialogButton) {
@@ -248,7 +246,7 @@ const RCNScoopingTable = () => {
 
 
         }
-        else{
+        else {
 
             if (selectType === 'LotWise') {
                 transformed = data1.map((item: rcnScoopingData, idx: number) => ({
@@ -294,7 +292,7 @@ const RCNScoopingTable = () => {
                     NonCut: item.NonCut,
                     Rejection: item.Rejection,
                     Dust: item.Dust,
-    
+
                     KOR: item.KOR,
                     Trolley_Broken: item.Trolley_Broken,
                     Trolley_Small_JB: item.Trolley_Small_JB,
@@ -316,10 +314,10 @@ const RCNScoopingTable = () => {
                     Transfered_Qty: item.Transfered_Qty,
                     Transfered_To: item.Transfered_To
                 }));
-    
+
             }
         }
-        
+
 
         // setTransformedData(transformed);
         ws = XLSX.utils.json_to_sheet(transformed);
@@ -331,7 +329,7 @@ const RCNScoopingTable = () => {
         saveAs(blob, 'Scooping_' + currDate + '.xlsx');
     };
 
-  
+
 
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
@@ -413,7 +411,7 @@ const RCNScoopingTable = () => {
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                     onChange={(e) => {
                         setselectType(e.target.value)
-                        
+
                     }} value={selectType}>
 
                     {SelectType.map((data, index) => (
@@ -617,9 +615,9 @@ const RCNScoopingTable = () => {
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
-            
 
-          
+
+
         </div>
     )
 }
