@@ -550,15 +550,15 @@ const QCPackageMaterialTable = () => {
                                                     <button className={`p-2 text-white rounded ${(item.qualityStatus === true && !item.editStatus) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.qualityStatus === true && !item.editStatus) ? true : false}>Action</button>
                                                 </PopoverTrigger>
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    <div className={item.editStatus === "NA" ? "block" : "hidden"}>
+                                                    <div className={item.qualityStatus == true ? "block" : "hidden"}>
                                                         <Dialog>
                                                             <DialogTrigger className="flex"><CiEdit size={20} />
-                                                                <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" disabled={item.editStatus === "NA" ? false : true}>Modify</button>
+                                                                <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button>
                                                             </DialogTrigger>
                                                             <DialogContent>
                                                                 <DialogHeader>
                                                                     <DialogTitle>
-                                                                        <p className='text-1xl pb-1 text-center mt-5'>Packaging Metrial Create</p>
+                                                                        <p className='text-1xl pb-1 text-center mt-5'>Packaging Metrial Modify</p>
                                                                     </DialogTitle>
                                                                     <DialogDescription>
                                                                         <p className='text-1xl text-center'>To Be Filled Up By Quality Supervisor</p>
@@ -568,10 +568,10 @@ const QCPackageMaterialTable = () => {
                                                             </DialogContent>
                                                         </Dialog>
                                                     </div>
-                                                    <div className={item.editStatus === "NA" ? "hidden" : "block"}>
+                                                    <div className={item.qualityStatus == false ? "block" : "hidden"}>
                                                         <Dialog >
                                                             <DialogTrigger className="flex"><CiEdit size={20} />
-                                                                <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" disabled={item.editStatus === "NA" ? true : false}>Entry New</button>
+                                                                <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Entry New</button>
                                                             </DialogTrigger>
                                                             <DialogContent>
                                                                 <DialogHeader>

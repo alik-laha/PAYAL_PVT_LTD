@@ -92,8 +92,8 @@ const QualityPackageMaterial = sequelize.define('QcPackageMaterial', {
     },
     editStatus: {
         type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: false
+        allowNull: true,
+        defaultValue: 'NA'
     },
     createdBy: {
         type: DataTypes.STRING,
