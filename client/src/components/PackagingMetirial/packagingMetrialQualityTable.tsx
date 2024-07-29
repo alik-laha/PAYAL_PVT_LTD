@@ -508,15 +508,15 @@ const QCPackageMaterialTable = () => {
                                         <TableCell className="text-center">{item.coa === "Yes" ? (
                                             <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.coa}</button>
                                         ) : (
-                                            item.coa === "NA" ? (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.coa}</button>
+                                            item.coa === "" ? (
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button>
                                             ) : (null)
                                         )}</TableCell>
                                         <TableCell className="text-center">{item.foodGradeCirtiicate === "Yes" ? (
                                             <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.foodGradeCirtiicate}</button>
                                         ) : (
-                                            item.foodGradeCirtiicate === "NA" ? (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.foodGradeCirtiicate}</button>
+                                            item.foodGradeCirtiicate === "" ? (
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button>
                                             ) : (null)
                                         )}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
