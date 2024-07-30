@@ -8,6 +8,7 @@ import ModifyQcPackageMaterial from '../controller/qcPackageController/modifyQcP
 import ApproveQcPackageEdit from '../controller/qcPackageController/ApproveQcPackageEdit';
 import RejectQcPackageEdit from '../controller/qcPackageController/RejectQcPackageEdit';
 import viewEditQcPackageMeterial from '../controller/qcPackageController/viewEditQcPackageMeterial';
+import SumOfallelement from '../controller/qcPackageController/SumOfallelement';
 const router = express.Router();
 
 router.post("/qcpackaginginitialEntry", QcPackageMaterialInitialEntry)
@@ -25,5 +26,7 @@ router.get("/viewQcPackageMaterial", viewEditQcPackageMeterial)
 router.get("/approveQcPackageEdit/:id", ApproveQcPackageEdit)
 
 router.get("/rejectQcPackageEdit/:id", RejectQcPackageEdit)
+
+router.get("/sumOfallelement", SumOfallelement)
 
 export default router

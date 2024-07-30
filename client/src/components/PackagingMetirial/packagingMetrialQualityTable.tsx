@@ -89,6 +89,7 @@ const QCPackageMaterialTable = () => {
     const [blockpagen, setblockpagen] = useState('flex')
     const [pendingData, setPendingData] = useState<PackagingMeterialQc[]>([])
     const [counteditpending, setcounteditpending] = useState<number>(2)
+    const [sumOfallelement, setsumOfallelement] = useState<any>()
     const { pendingqccount } = useContext(Context);
 
     const approvesuccessdialog = document.getElementById('qcapproveScsDialogpackage') as HTMLInputElement;
@@ -293,6 +294,17 @@ const QCPackageMaterialTable = () => {
                 console.log(error)
             })
     }
+    useEffect(() => {
+        axios.get("/api/qcpackage/sumOfallelement")
+            .then((res) => {
+                console.log(res)
+                setsumOfallelement(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
+
     const checkpending = (tab: string) => {
         //console.log(Role)
         if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
@@ -351,7 +363,7 @@ const QCPackageMaterialTable = () => {
         <div className="ml-5 mt-5 ">
             <Button className="bg-lime-500 mb-5 mt-5 max-w-52 responsive-button-adjust" onClick={handleSearchPendingQC} >Pending QC ({pendingqccount})</Button>
             {checkpending('QCRCN') && <Button className="bg-orange-400 mb-5 ml-4 max-w-52 responsive-button-adjust responsive-no-margin" onClick={handleSearchPendingEdit} disabled={counteditpending === 0 ? true : false}>
-                Pending Edit ({counteditpending})</Button>}
+                Pending Edit ({sumOfallelement ? sumOfallelement.editCount : 0})</Button>}
 
             <div className="flex flexbox-search">
 
