@@ -63,6 +63,7 @@ import { PermissionRole, pendingCheckRoles, PackagingMeterialQc } from "@/type/t
 import Context from "../context/context"
 import { CiEdit } from "react-icons/ci"
 import PackagingMetirialQcEditForm from "./packageMeterialModify"
+import { set } from "lodash"
 
 
 const QCPackageMaterialTable = () => {
@@ -216,6 +217,8 @@ const QCPackageMaterialTable = () => {
         // setPendingData(data.rcnEdit)
         // setblockpagen('none')
         console.log(response)
+        setblockpagen('none')
+        setPendingData(response.data)
     }
 
 
@@ -421,9 +424,86 @@ const QCPackageMaterialTable = () => {
                 <TableBody>
 
                     {pendingData.length > 0 ?
-                        (pendingData.map((item: PackagingMeterialQc) => {
+                        (pendingData.map((item: PackagingMeterialQc, idx: number) => {
                             return (
                                 <TableRow key={item.id}>
+                                    <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                    <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
+                                    <TableCell className="text-center">{handletimezone(item.packagingMaterialreceving.invoicedate)}</TableCell>
+
+                                    <TableCell className="text-center">{item.packagingMaterialreceving.invoice}</TableCell>
+                                    <TableCell className="text-center">{item.packagingMaterialreceving.sku}</TableCell>
+                                    <TableCell className="text-center">{item.packagingMaterialreceving.vendorName}</TableCell>
+                                    <TableCell className="text-center">{item.packagingMaterialreceving.quantity}</TableCell>
+                                    <TableCell className="text-center">{item.packagingMaterialreceving.unit}</TableCell>
+                                    <TableCell className="text-center">
+                                        {item.packagingMaterialreceving.qualityStatus ? (
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">Done</button>
+                                        ) : (
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">Pending</button>
+                                        )}
+                                    </TableCell>
+                                    <TableCell className="text-center">{item.packagingMaterialreceving.createdBy}</TableCell>
+                                    <TableCell className="text-center font-bold">{handletimezone(item.testingDate)}</TableCell>
+                                    <TableCell className="text-center font-bold">{item.length}</TableCell>
+                                    <TableCell className="text-center font-bold">{item.width}</TableCell>
+                                    <TableCell className="text-center font-bold">{item.height}</TableCell>
+                                    <TableCell className="text-center font-bold">{item.gsm}</TableCell>
+                                    <TableCell className="text-center font-bold">{item.avgWeight}</TableCell>
+                                    <TableCell className="text-center font-bold">{
+                                        item.leakageTest === "Pass" ? (
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
+                                        ) : (
+                                            item.leakageTest === "Fail" ? (
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
+                                            ) : (null)
+                                        )
+                                    }</TableCell>
+                                    <TableCell className="text-center font-bold">{item.dropTest === "Pass" ? (
+                                        <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.dropTest}</button>
+                                    ) : (
+                                        item.dropTest === "Fail" ? (
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.dropTest}</button>
+                                        ) : (null)
+                                    )}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{item.sealCondition === "OK" ? (
+                                        <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.sealCondition}</button>
+                                    ) : (
+                                        item.sealCondition === "Not OK" ? (
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.sealCondition}</button>
+                                        ) : (null)
+                                    )}</TableCell>
+                                    <TableCell className="text-center">{item.labelingCondition === "OK" ? (
+                                        <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.labelingCondition}</button>
+                                    ) : (
+                                        item.labelingCondition === "Not OK" ? (
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.labelingCondition}</button>
+                                        ) : (null)
+                                    )}</TableCell>
+                                    <TableCell className="text-center">{item.coa === "Yes" ? (
+                                        <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.coa}</button>
+                                    ) : (
+                                        item.coa === "" ? (
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button>
+                                        ) : (null)
+                                    )}</TableCell>
+                                    <TableCell className="text-center">{item.foodGradeCirtiicate === "Yes" ? (
+                                        <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.foodGradeCirtiicate}</button>
+                                    ) : (
+                                        item.foodGradeCirtiicate === "" ? (
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button>
+                                        ) : (null)
+                                    )}</TableCell>
+                                    <TableCell className="text-center">{item.remarks}</TableCell>
+                                    <TableCell className="text-center">
+                                        {item.foodGradeCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}>{item.foodGradeCirtificateStatus}</button> : item.foodGradeCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}
+                                    </TableCell>
+                                    <TableCell className="text-center">{item.coaCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => handleDownload(item.coaCirtificateFile)}>{item.coaCirtificateStatus}</button> : item.coaCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}</TableCell>
+                                    <TableCell className="text-center">{item.createdBy}</TableCell>
+                                    <TableCell className="text-center">{item.editStatus}</TableCell>
+                                    <TableCell className="text-center">
+                                        action
+                                    </TableCell>
 
                                 </TableRow>
                             );

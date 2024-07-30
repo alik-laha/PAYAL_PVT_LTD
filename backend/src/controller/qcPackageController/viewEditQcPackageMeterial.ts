@@ -11,11 +11,6 @@ const viewEditQcPackageMeterial = async (req: Request, res: Response) => {
             include: [{
                 model: recevingPackageMaterial,
                 required: true,
-                where: {
-                    qualityStatus: {
-                        [Op.like]: false
-                    }
-                }
             }]
         }); // Include the recevingPackageMaterial model
 
