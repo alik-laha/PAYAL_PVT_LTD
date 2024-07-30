@@ -91,13 +91,11 @@ const QCPackageMaterialTable = () => {
     const [counteditpending, setcounteditpending] = useState<number>(2)
     const { pendingqccount } = useContext(Context);
 
-    const approvesuccessdialog = document.getElementById('qcapproveScsDialog') as HTMLInputElement;
-    const approvecloseDialogButton = document.getElementById('qcapproveScscloseDialog') as HTMLInputElement;
+    const approvesuccessdialog = document.getElementById('qcapproveScsDialogpackage') as HTMLInputElement;
+    const approvecloseDialogButton = document.getElementById('qcapproveScscloseDialogpackage') as HTMLInputElement;
 
-    const rejectsuccessdialog = document.getElementById('qcRejectDialog') as HTMLInputElement;
-    const rejectcloseDialogButton = document.getElementById('qcrejectcloseDialog') as HTMLInputElement;
-    const [successtext, setSuccessText] = React.useState<string>('');
-    const [errortext, seterrorText] = React.useState<string>('');
+    const rejectsuccessdialog = document.getElementById('qcRejectDialogpackage') as HTMLInputElement;
+    const rejectcloseDialogButton = document.getElementById('qcrejectcloseDialogpackage') as HTMLInputElement;
     //const [transformedData, setTransformedData] = useState<QcRcnEntryExcelData[]>([]);
     const Role = localStorage.getItem('role') as keyof PermissionRole
     // const currDate = new Date().toLocaleDateString();
@@ -707,18 +705,18 @@ const QCPackageMaterialTable = () => {
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
-            <dialog id="qcapproveScsDialog" className="dashboard-modal">
-                <button id="qcapproveScscloseDialog" className="dashboard-modal-close-btn ">X </button>
+            <dialog id="qcapproveScsDialogpackage" className="dashboard-modal">
+                <button id="qcapproveScscloseDialogpackage" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">{successtext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">The Edit has been Approved</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
 
-            <dialog id="qcRejectDialog" className="dashboard-modal">
-                <button id="qcrejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
+            <dialog id="qcRejectDialogpackage" className="dashboard-modal">
+                <button id="qcrejectcloseDialogpackage" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">The Edit Has Been Rejected</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
