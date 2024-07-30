@@ -9,7 +9,12 @@ const SumOfallelement = async (req: Request, res: Response) => {
                 editStatus: "Pending"
             }
         })
-        return res.status(200).json({ editCount: editDataCount })
+        const QCnotEntered = await PackagingMaterial.count({
+            where: {
+                qualityStatus: false
+            }
+        })
+        return res.status(200).json({ editCount: editDataCount, QualityNotEntered: QCnotEntered })
     }
     catch (err) {
         console.log(err)
