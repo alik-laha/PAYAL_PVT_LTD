@@ -266,8 +266,32 @@ const QCPackageMaterialTable = () => {
     }, [page])
 
     const handleApprove = async (id: number) => {
+        axios.get(`/api/qcpackage/approveQcPackageEdit/${id}`)
+            .then((response) => {
+                console.log(response)
+                if (response.status === 200) {
+                    if (approvesuccessdialog != null) {
+                        (approvesuccessdialog as any).showModal();
+                    }
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
     const handleRejection = async (id: number) => {
+        axios.get(`/api/qcpackage/rejectQcPackageEdit/${id}`)
+            .then((response) => {
+                console.log(response)
+                if (response.status === 200) {
+                    if (rejectsuccessdialog != null) {
+                        (rejectsuccessdialog as any).showModal();
+                    }
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
     const checkpending = (tab: string) => {
         //console.log(Role)
