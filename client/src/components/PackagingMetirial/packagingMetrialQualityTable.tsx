@@ -212,10 +212,10 @@ const QCPackageMaterialTable = () => {
     const handleSearchPendingEdit = async () => {
         setData([])
         const response = await axios.get('/api/qcpackage/viewQcPackageMaterial')
-        const data = await response.data
-        setPendingData(data.rcnEdit)
-        setblockpagen('none')
-
+        // const data = await response.data
+        // setPendingData(data.rcnEdit)
+        // setblockpagen('none')
+        console.log(response)
     }
 
 
@@ -421,47 +421,10 @@ const QCPackageMaterialTable = () => {
                 <TableBody>
 
                     {pendingData.length > 0 ?
-                        (pendingData.map((item: PackagingMeterialQc, idx) => {
+                        (pendingData.map((item: PackagingMeterialQc) => {
                             return (
                                 <TableRow key={item.id}>
-                                    <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
-                                    <TableCell className="text-center">{handletimezone(item.packagingMaterialreceving.invoicedate)}</TableCell>
 
-                                    <TableCell className="text-center">{item.packagingMaterialreceving.invoice}</TableCell>
-                                    <TableCell className="text-center">{item.packagingMaterialreceving.sku}</TableCell>
-                                    <TableCell className="text-center">{item.packagingMaterialreceving.vendorName}</TableCell>
-                                    <TableCell className="text-center">{item.packagingMaterialreceving.quantity}</TableCell>
-                                    <TableCell className="text-center">{item.packagingMaterialreceving.unit}</TableCell>
-                                    <TableCell className="text-center">
-                                        {item.packagingMaterialreceving.qualityStatus ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.packagingMaterialreceving.qualityStatus}</button>
-                                        ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.packagingMaterialreceving.qualityStatus}</button>
-                                        )}
-                                    </TableCell>
-                                    <TableCell className="text-center">{item.packagingMaterialreceving.createdBy}</TableCell>
-                                    <TableCell className="text-center font-bold">{handletimezone(item.testingDate)}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.length}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.width}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.height}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.gsm}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.avgWeight}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.leakageTest}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.dropTest}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{item.sealCondition}</TableCell>
-                                    <TableCell className="text-center">{item.labelingCondition}</TableCell>
-                                    <TableCell className="text-center">{item.coa}</TableCell>
-                                    <TableCell className="text-center">{item.foodGradeCirtiicate}</TableCell>
-                                    <TableCell className="text-center">{item.remarks}</TableCell>
-                                    <TableCell className="text-center">{item.foodGradeCirtificateStatus}</TableCell>
-                                    <TableCell className="text-center">{item.coaCirtificateStatus}</TableCell>
-                                    <TableCell className="text-center">{item.createdBy}</TableCell>
-                                    <TableCell className="text-center">{item.editStatus}</TableCell>
-                                    <TableCell className="text-center">
-                                        action
-
-                                    </TableCell>
                                 </TableRow>
                             );
                         })

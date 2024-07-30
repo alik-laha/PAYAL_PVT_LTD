@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig"
+import PackagingMaterial from "./recevingPackagingMaterialModel";
 
 const QualityEditPackageMaterial = sequelize.define('EditQcPackageMaterial', {
     id: {
@@ -99,5 +100,8 @@ const QualityEditPackageMaterial = sequelize.define('EditQcPackageMaterial', {
     },
 
 })
+PackagingMaterial.hasOne(QualityEditPackageMaterial, { foreignKey: { name: 'id' } })
+
+QualityEditPackageMaterial.belongsTo(PackagingMaterial, { foreignKey: { name: 'id' } })
 
 export default QualityEditPackageMaterial;
