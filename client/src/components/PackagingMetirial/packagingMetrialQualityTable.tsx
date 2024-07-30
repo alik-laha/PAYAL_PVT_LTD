@@ -15,7 +15,18 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination"
 import { format, toZonedTime } from 'date-fns-tz'
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
 
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { FcApprove, FcDisapprove } from "react-icons/fc";
 import {
     Table,
     TableBody,
@@ -256,45 +267,10 @@ const QCPackageMaterialTable = () => {
         })
     }, [page])
 
-    // const handleEditApprove = async (item: QcRcnEntryData) => {
-    //     const response = await axios.put(`/api/qcRcn/approveEditQcReport/${item.id}`)
-    //     const data = await response.data
-
-    //     if (data.message === "Edit Request of QC Report is Approved Successfully") {
-    //         setSuccessText(data.message)
-    //         if (approvesuccessdialog != null) {
-    //             (approvesuccessdialog as any).showModal();
-    //         }
-    //     }
-
-    // }
-
-    // const handleQCApprove = async (item: PackagingMeterialQc) => {
-    //     const response = await axios.put(`/api/qcRcn/qcRcnApprove/${item.id}`)
-    //     const data = await response.data
-
-    //     if (data.message === "QC Approval of Rcn Entry is made Successfully") {
-    //         setSuccessText(data.message)
-    //         if (approvesuccessdialog != null) {
-    //             (approvesuccessdialog as any).showModal();
-    //         }
-
-
-
-    //     }
-
-    // }
-
-    // const handleQCReject = async (item: PackagingMeterialQc) => {
-    //     const response = await axios.put(`/api/qcRcn/qcRcnReject/${item.id}`)
-    //     const        link.download = path.substring(26);sage === "QC Approval of Rcn Entry is Rejected Successfully") {
-    //         seterrorText(data.message)
-    //         if (rejectsuccessdialog != null) {
-    //             (rejectsuccessdialog as any).showModal();
-    //         }
-    //     }
-
-    // }
+    const handleApprove = async (id: number) => {
+    }
+    const handleRejection = async (id: number) => {
+    }
     const checkpending = (tab: string) => {
         //console.log(Role)
         if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
@@ -502,7 +478,41 @@ const QCPackageMaterialTable = () => {
                                     <TableCell className="text-center">{item.createdBy}</TableCell>
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
                                     <TableCell className="text-center">
-                                        action
+                                        <Popover>
+                                            <PopoverTrigger>
+                                                <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                                <AlertDialog>
+                                                    <AlertDialogTrigger className="flex">
+                                                        <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
+                                                    </AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction onClick={() => handleApprove(item.id)}>Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>
+                                                <AlertDialog>
+                                                    <AlertDialogTrigger className="flex mt-2">
+                                                        <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
+                                                    </AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction onClick={() => handleRejection(item.id)}>Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>
+                                            </PopoverContent>
+                                        </Popover>
                                     </TableCell>
 
                                 </TableRow>
