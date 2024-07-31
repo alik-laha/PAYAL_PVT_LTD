@@ -787,7 +787,7 @@ const QCPackageMaterialTable = () => {
                 <div className="flex flex-wrap">
                     {images.map((item, idx) => {
                         return (
-                            <img key={idx} src={`/api/cleaning/view?filename=${item}`} alt="image" className="w-2/4 h-2/4" />
+                            <img key={idx} src={`/api/cleaning/view?filename=${item}`} alt="image" className="w-2/4 h-2/4 p-2" />
                         )
                     })}
                 </div>
