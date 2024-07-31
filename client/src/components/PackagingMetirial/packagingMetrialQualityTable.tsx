@@ -77,12 +77,15 @@ const QCPackageMaterialTable = () => {
     const [pendingData, setPendingData] = useState<PackagingMeterialQc[]>([])
     const [counteditpending, setcounteditpending] = useState<number>(2)
     const [sumOfallelement, setsumOfallelement] = useState<any>()
+    const [images, setImages] = useState<string[]>([])
 
     const approvesuccessdialog = document.getElementById('qcapproveScsDialogpackage') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('qcapproveScscloseDialogpackage') as HTMLInputElement;
 
     const rejectsuccessdialog = document.getElementById('qcRejectDialogpackage') as HTMLInputElement;
     const rejectcloseDialogButton = document.getElementById('qcrejectcloseDialogpackage') as HTMLInputElement;
+    const imageView = document.getElementById('ImageView') as HTMLInputElement;
+    const imageCross = document.getElementById('ImageCross') as HTMLInputElement;
     //const [transformedData, setTransformedData] = useState<QcRcnEntryExcelData[]>([]);
     const Role = localStorage.getItem('role') as keyof PermissionRole
     // const currDate = new Date().toLocaleDateString();
@@ -186,6 +189,14 @@ const QCPackageMaterialTable = () => {
             }
 
 
+        });
+    }
+
+    if (imageCross) {
+        imageCross.addEventListener('click', () => {
+            if (imageView != null) {
+                (imageView as any).close();
+            }
         });
     }
 
@@ -345,8 +356,11 @@ const QCPackageMaterialTable = () => {
             console.error('Error downloading the file:', error);
         }
     };
-    const viewImage = (images: any) => {
-        console.log(images)
+    const viewImage = (images: string[]) => {
+        setImages(images)
+        if (imageView != null) {
+            (imageView as any).showModal();
+        }
     }
     return (
         // disabled={pendingqccount === 0 ? true : false}
@@ -762,6 +776,14 @@ const QCPackageMaterialTable = () => {
 
             <dialog id="qcRejectDialogpackage" className="dashboard-modal">
                 <button id="qcrejectcloseDialogpackage" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">The Edit Has Been Rejected</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+
+            <dialog id="ImageView" className="dashboard-modal">
+                <button id="ImageCross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
                     <p id="modal-text" className="pl-3 mt-1 text-base font-medium">The Edit Has Been Rejected</p></span>
 
