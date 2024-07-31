@@ -784,8 +784,13 @@ const QCPackageMaterialTable = () => {
 
             <dialog id="ImageView" className="dashboard-modal">
                 <button id="ImageCross" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">The Edit Has Been Rejected</p></span>
+                <div className="flex flex-wrap">
+                    {images.map((item, idx) => {
+                        return (
+                            <img key={idx} src={`/api/cleaning/view?filename=${item}`} alt="image" className="w-2/4 h-2/4" />
+                        )
+                    })}
+                </div>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
