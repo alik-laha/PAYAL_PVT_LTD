@@ -69,7 +69,11 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
         formData.append('foodGradeCirtiFicateFile', foodGradeCirtiFicateFile)
         formData.append('coaCirtificateFile', coaCirtificateFile)
         formData.append('testingDate', testingDate as string)
-        formData.append('damagePartsImage', damagePartsImage)
+        if (damagePartsImage) {
+            for (let i = 0; i < damagePartsImage.length; i++) {
+                formData.append(`damagePartsImage`, damagePartsImage[i])
+            }
+        }
         axios.post(`/api/qcpackage/packaging_meterial_qc_entry/${id}`, formData)
             .then((res) => {
                 console.log(res)
@@ -103,9 +107,8 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
         }
     }
     const handleDamagePartsImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e)
         if (e.target.files) {
-            setDamagePartsImage([...damagePartsImage, e.target.files[0]])
+            setDamagePartsImage(e.target.files)
         }
     }
 

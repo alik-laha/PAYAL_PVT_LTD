@@ -49,17 +49,6 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-// import {
-//     AlertDialog,
-//     AlertDialogAction,
-//     AlertDialogCancel,
-//     AlertDialogContent,
-
-//     AlertDialogFooter,
-//     AlertDialogHeader,
-//     AlertDialogTitle,
-//     AlertDialogTrigger,
-// } from "@/components/ui/alert-dialog"
 // import { FcApprove, FcDisapprove } from "react-icons/fc"
 // import { MdOutlineDriveFolderUpload } from "react-icons/md";
 // import { LiaEdit } from "react-icons/lia";
@@ -71,10 +60,8 @@ import { pendingCheckRole } from '../common/exportData';
 import { PermissionRole, pendingCheckRoles, PackagingMeterialQc } from "@/type/type";
 // import { saveAs } from 'file-saver';
 // import * as XLSX from 'xlsx';
-import Context from "../context/context"
 import { CiEdit } from "react-icons/ci"
 import PackagingMetirialQcEditForm from "./packageMeterialModify"
-import { set } from "lodash"
 
 
 const QCPackageMaterialTable = () => {
@@ -90,7 +77,6 @@ const QCPackageMaterialTable = () => {
     const [pendingData, setPendingData] = useState<PackagingMeterialQc[]>([])
     const [counteditpending, setcounteditpending] = useState<number>(2)
     const [sumOfallelement, setsumOfallelement] = useState<any>()
-    const { pendingqccount } = useContext(Context);
 
     const approvesuccessdialog = document.getElementById('qcapproveScsDialogpackage') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('qcapproveScscloseDialogpackage') as HTMLInputElement;
@@ -205,6 +191,7 @@ const QCPackageMaterialTable = () => {
 
 
     const handleSearchPendingQC = async () => {
+        setPendingData([])
 
         //setblockpagen('flex')
         const response = await axios.post('/api/qcpackage/package_material_view', {
@@ -358,6 +345,9 @@ const QCPackageMaterialTable = () => {
             console.error('Error downloading the file:', error);
         }
     };
+    const viewImage = (images: any) => {
+        console.log(images)
+    }
     return (
         // disabled={pendingqccount === 0 ? true : false}
         <div className="ml-5 mt-5 ">
@@ -424,6 +414,7 @@ const QCPackageMaterialTable = () => {
                     <TableHead className="text-center" >Remarks</TableHead>
                     <TableHead className="text-center" >FoodGrade Report Download</TableHead>
                     <TableHead className="text-center" >Coa Report Download</TableHead>
+                    <TableHead className="text-center" >Damage Image</TableHead>
 
                     <TableHead className="text-center" >Report By</TableHead>
                     <TableHead className="text-center" >Edit Status</TableHead>
@@ -509,6 +500,16 @@ const QCPackageMaterialTable = () => {
                                         {item.foodGradeCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}>{item.foodGradeCirtificateStatus}</button> : item.foodGradeCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}
                                     </TableCell>
                                     <TableCell className="text-center">{item.coaCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => handleDownload(item.coaCirtificateFile)}>{item.coaCirtificateStatus}</button> : item.coaCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}</TableCell>
+                                    <TableCell className="text-center">
+                                        {
+                                            JSON.parse(item.damageFile).length > 0 ? (
+                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => viewImage(JSON.parse(item.damageFile))}>View</button>
+                                            ) : (
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button>
+                                            )
+
+                                        }
+                                    </TableCell>
                                     <TableCell className="text-center">{item.createdBy}</TableCell>
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
                                     <TableCell className="text-center">
@@ -629,6 +630,16 @@ const QCPackageMaterialTable = () => {
                                             {item.foodGradeCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}>{item.foodGradeCirtificateStatus}</button> : item.foodGradeCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}
                                         </TableCell>
                                         <TableCell className="text-center">{item.coaCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => handleDownload(item.coaCirtificateFile)}>{item.coaCirtificateStatus}</button> : item.coaCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}</TableCell>
+                                        <TableCell className="text-center">
+                                            {
+                                                item.damageFile.length > 3 ? (
+                                                    <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => viewImage(JSON.parse(item.damageFile))}>View</button>
+                                                ) : (
+                                                    <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button>
+                                                )
+
+                                            }
+                                        </TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">

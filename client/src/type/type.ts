@@ -519,6 +519,7 @@ export interface PackagingMeterialQc {
     createdBy: string;
     remarks: string;
     approvedBy: string;
+    damageFile: string;
 }
 
 

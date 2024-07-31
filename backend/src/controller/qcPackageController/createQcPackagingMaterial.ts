@@ -10,7 +10,7 @@ const CreateQcPackagingMaterial = async (req: Request, res: Response) => {
         const files: any = req.files;
         let foodGradeCirtiFicateFile: string = "";
         let coaCirtificateFile: string = "";
-        let damagePartsImage: string[] = [];
+        let damagePartsImage: any[] = [];
         if (files.foodGradeCirtiFicateFile) {
             foodGradeCirtiFicateFile = files.foodGradeCirtiFicateFile[0].path;
         }

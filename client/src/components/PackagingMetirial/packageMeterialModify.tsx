@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from "react"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import axios from "axios"
+import { set } from "lodash"
 
 const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) => {
     const [length, setLength] = useState(0)
@@ -71,6 +72,7 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
     }
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        console.log(damagePartsImage)
         const testingDate = dateRef.current?.value
         const formData = new FormData()
         formData.append('length', length.toString())
@@ -88,7 +90,11 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
         formData.append('foodGradeCirtiFicateFile', foodGradeCirtiFicateFile)
         formData.append('coaCirtificateFile', coaCirtificateFile)
         formData.append('testingDate', testingDate as string)
-        formData.append('damagePartsImage', damagePartsImage)
+        if (damagePartsImage) {
+            for (let i = 0; i < damagePartsImage.length; i++) {
+                formData.append('damagePartsImage', damagePartsImage[i])
+            }
+        }
         axios.put(`/api/qcpackage/modifyQcPackageMaterial/${data.id}`, formData)
             .then((res) => {
                 console.log(res)
@@ -122,9 +128,8 @@ const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) =>
         }
     }
     const handleDamagePartsImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e)
         if (e.target.files) {
-            setDamagePartsImage([...damagePartsImage, e.target.files[0]])
+            setDamagePartsImage(e.target.files)
         }
     }
 

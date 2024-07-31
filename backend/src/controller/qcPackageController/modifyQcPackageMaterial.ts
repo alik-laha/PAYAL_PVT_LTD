@@ -11,7 +11,7 @@ const ModifyQcPackageMaterial = async (req: Request, res: Response) => {
         const files: any = req.files;
         let foodGradeCirtiFicateFile: string = "";
         let coaCirtificateFile: string = "";
-        let damagePartsImage: string[] = [];
+        let damagePartsImage: any[] = [];
         const qualityPackageMaterial: any = await QualityPackageMaterial.findOne({ where: { id } });
         if (!qualityPackageMaterial) {
             return res.status(404).json({ error: "Quality Package Material not found" });
