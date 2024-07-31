@@ -16,6 +16,7 @@ import { PermissionRol, PermissionDep } from "../common/exportData";
 import { PermissionRole, PermissionDept } from "@/type/type";
 //import { LuServerCrash } from "react-icons/lu";
 import { IoMdSettings } from "react-icons/io";
+import { GiSecurityGate } from "react-icons/gi";
 
 
 
@@ -69,7 +70,18 @@ const DashboardSidebar = () => {
                 <a>
 
                 
-              
+                {rendersection('GatePass') && <Collapsible >
+                        <CollapsibleTrigger className="user-pvt"><GiSecurityGate  size={25} />
+                            <p>Gate Pass</p></CollapsibleTrigger>
+                            {renderlink('Dashboard User')
+                            && <CollapsibleContent className="Items-pvt">
+                                {renderlink('Dashboard User')}
+                                <NavLink to="/dashboard/user" >
+                                    Entry IN
+                                </NavLink>
+                            </CollapsibleContent>}
+
+                    </Collapsible>}
                 
                     {rendersection('HR & Admin') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25} />
@@ -78,14 +90,14 @@ const DashboardSidebar = () => {
                             && <CollapsibleContent className="Items-pvt">
                                 {renderlink('Dashboard User')}
                                 <NavLink to="/dashboard/user" >
-                                    1. Dashboard Users
+                                Users
                                 </NavLink>
                             </CollapsibleContent>}
 
                         {renderlink('Employee')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/employee" >
-                                    2. Employee
+                                    Employee
                                 </NavLink>
                             </CollapsibleContent >}
 
@@ -95,7 +107,7 @@ const DashboardSidebar = () => {
                         {renderlink('Asset')
                             && <CollapsibleContent className="Items-pvt" >
                                 <NavLink to="/dashboard/machine" >
-                                    3. Asset Mapping
+                                   Asset Mapping
                                 </NavLink>
                             </CollapsibleContent >}
 
@@ -103,13 +115,15 @@ const DashboardSidebar = () => {
 
                     </Collapsible>}
 
+                    
+
                     {rendersection('Production') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineFactory size={25} />
                             <p>Production</p></CollapsibleTrigger>
                         {renderlink('Grading')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/RcnGrading" >
-                                    1. RCN Grading
+                                    RCN Grading
                                 </NavLink>
                             </CollapsibleContent>}
 
@@ -118,7 +132,7 @@ const DashboardSidebar = () => {
 
                             &&  <CollapsibleContent className="Items-pvt">
                              <NavLink to="/dashboard/RcnBoiling" >
-                                2. RCN Boiling
+                                RCN Boiling
                             </NavLink>
                         </CollapsibleContent>}
                         {renderlink('Scooping')
@@ -126,7 +140,7 @@ const DashboardSidebar = () => {
 
                             &&  <CollapsibleContent className="Items-pvt">
                              <NavLink to="/dashboard/RcnScooping" >
-                                3. RCN Scooping
+                                RCN Scooping
                             </NavLink>
                         </CollapsibleContent>}
                         {renderlink('Borma')
@@ -134,7 +148,7 @@ const DashboardSidebar = () => {
 
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/RcnBorma" >
-                                    4. RCN Borma
+                                    RCN Borma
                                 </NavLink>
                             </CollapsibleContent>}
                     </Collapsible>}
@@ -149,14 +163,14 @@ const DashboardSidebar = () => {
                         {renderlink('RCN Primary Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/rcnprimaryentry" >
-                                    1. RCN Primary Entry
+                                    RCN Primary Entry
                                 </NavLink>
 
                             </CollapsibleContent>}
                         {renderlink('Receiving Packaging Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
-                                    2. Packaging Material
+                                    Packaging Material
                                 </NavLink>
 
                             </CollapsibleContent>}
@@ -171,7 +185,7 @@ const DashboardSidebar = () => {
                         {renderlink('RCN Incoming QC')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/qcRCN" >
-                                   1. RCN Incoming QC
+                                   RCN Incoming QC
                                 </NavLink>
                             </CollapsibleContent>}
 

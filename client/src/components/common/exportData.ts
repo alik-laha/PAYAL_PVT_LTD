@@ -37,7 +37,7 @@ export const PermissionRol = {
 }
 
 export const PermissionDep = {
-    Admin: ['HR & Admin', 'Receiving', 'Quality', 'Maintainance', 'Production'],
+    Admin: ['HR & Admin', 'GatePass','Receiving', 'Quality', 'Maintainance', 'Production'],
     Receiving: ['Receiving'],
     Maintainance: ['Maintainance'],
     Production: ['Production'],
@@ -59,5 +59,6 @@ export const roleDataonDept = {
     Maintainance: ['CleaningSupervisor', 'MaintainanceManager'],
     QualityControl: ['QCSupervisor', 'QCManager'],
     Production: ['ProductionManager', 'GradingSupervisor', 
-        'BoilingSupervisor', 'ScoopingSupervisor','BormaSuperVisor']
+        'BoilingSupervisor', 'ScoopingSupervisor','BormaSuperVisor'],
+    GatePass:['Director', 'FactoryManager','Security'],
 }
