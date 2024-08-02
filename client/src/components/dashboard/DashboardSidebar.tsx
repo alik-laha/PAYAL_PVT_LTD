@@ -73,14 +73,14 @@ const DashboardSidebar = () => {
                 {rendersection('GatePass') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><GiSecurityGate  size={25} />
                             <p>Gate Pass</p></CollapsibleTrigger>
-                            {renderlink('Dashboard User')
+                            {renderlink('Gatepass')
                             && <CollapsibleContent className="Items-pvt">
                                 {renderlink('Dashboard User')}
-                                <NavLink to="/dashboard/user" >
+                                <NavLink to="/dashboard/gatepassIn" >
                                    IN
                                 </NavLink>
                             </CollapsibleContent>}
-                            {renderlink('Dashboard User')
+                            {renderlink('Gatepass')
                             && <CollapsibleContent className="Items-pvt">
                                 {renderlink('Dashboard User')}
                                 <NavLink to="/dashboard/user" >

@@ -29,7 +29,7 @@ export const PermissionRol = {
     GradingSupervisor: ['Grading'],
     BoilingSupervisor: ['Boiling'],
     ScoopingSupervisor: ['Scooping'],
-    ProductionManager:['Grading','Boiling','Scooping'],
+    ProductionManager:['Grading','Boiling','Scooping','Borma'],
     MaintainanceManager:['Cleaning'],
     CleaningSupervisor:['Cleaning'],
     BormaSuperVisor:['Borma'],
@@ -43,6 +43,7 @@ export const PermissionDep = {
     Maintainance: ['Maintainance'],
     Production: ['Production'],
     QualityControl: ['Quality'],
+    GatePass:['GatePass']
   
 }
 
@@ -61,5 +62,5 @@ export const roleDataonDept = {
     QualityControl: ['QCSupervisor', 'QCManager'],
     Production: ['ProductionManager', 'GradingSupervisor', 
         'BoilingSupervisor', 'ScoopingSupervisor','BormaSuperVisor'],
-    GatePass:['Security'],
+    GatePass:['Security']
 }

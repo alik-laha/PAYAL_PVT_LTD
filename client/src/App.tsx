@@ -22,6 +22,9 @@ import PackagingMetirialReceiving from './components/packagingMetirialReceiving/
 import Cleaning from './components/Cleaning/Cleaning'
 import ViewProfile from './components/ViewProfile/ViewProfile'
 import RCNBorma from './components/RCN Borma/RCNBorma'
+import GatepassIn from './components/gatepass In/GatePassIn'
+
+
 
 
 function App() {
@@ -63,7 +66,7 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'ReceivingSupervisor', 'ReceivingManager', 'QCManager', 'QCSupervisor',
           'ProductionManager', 'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor',
-          'CleaningSupervisor','MaintainanceSupervisor', 'MaintainanceManager','BormaSuperVisor']} />}>
+          'CleaningSupervisor','MaintainanceSupervisor', 'MaintainanceManager','BormaSuperVisor','Security']} />}>
 
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
@@ -112,6 +115,10 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'CleaningSupervisor', 'MaintainanceManager']} />}>
           <Route path='/dashboard/cleaning' element={<Cleaning />} />
+        </Route>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'Security']} />}>
+          <Route path='/dashboard/gatepassIn' element={<GatepassIn />} />
         </Route>
 
         <Route path="/dashboard/userprofile" element={<ViewProfile />} />
