@@ -22,6 +22,7 @@ import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
 import { BormapendingLotData } from '@/type/type';
+import GatePassCreateForm from './gatepasscreateform';
 
 
 
@@ -76,15 +77,11 @@ const GatepassIn = () => {
                     <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
                         IN PASS ISSUED <br /><p>{data.data[0].India ? formatNumber(data.data[0].India)  : 5} </p>
                     </div>
-                    <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                        IN PASS RECEIVE <br /><p>{data.data[0].Ghana? formatNumber(data.data[0].Ghana) : 3} </p>
-                    </div>
+                    
                     <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
-                        IN PASS APPROVE <br /><p>{data.data[0].Ghana? formatNumber(data.data[0].Ghana) : 3} </p>
+                       APPROVED <br /><p>{data.data[0].Ghana? formatNumber(data.data[0].Ghana) : 3} </p>
                     </div>
-                    <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
-                        PENDING RECEIVING <br /><p>{data.data[0].Togo? formatNumber(data.data[0].Togo) : 2} </p>
-                    </div>
+                   
                     <div className="flexbox-tile bg-purple-500 hover:bg-orange-400">
                         PENDING APPROVAL <br /><p>{data.data[0].Tanzania ? formatNumber(data.data[0].Tanzania) : 2} </p>
                     </div>
@@ -102,10 +99,10 @@ const GatepassIn = () => {
                         <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>RCN Borma Entry Form</p></DialogTitle>
+                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>GatePass Entry Form</p></DialogTitle>
 
                             </DialogHeader>
-
+                            <GatePassCreateForm/>
                             {/* <RCNBormaCreateForm props={lotdata} /> */}
                         </DialogContent>
                     </Dialog>
