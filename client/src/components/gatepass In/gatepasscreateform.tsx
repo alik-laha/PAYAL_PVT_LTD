@@ -102,8 +102,8 @@ return(
                     onClick={addRow}>+ Add </button>
                 <Table className="mt-1 w-4/5 ml-5">
                 <TableHeader className="bg-neutral-100 text-stone-950" >
-                             <TableHead className="text-center" >Sl. No.</TableHead>
-                             <TableHead className="text-center" > Going To Section</TableHead>
+                             <TableHead className="text-center w-20" >Sl. No.</TableHead>
+                             <TableHead className="text-center w-30" > Section</TableHead>
                             
                              <TableHead className="text-center" >Action</TableHead>
                              </TableHeader>
@@ -113,12 +113,12 @@ return(
                              <TableBody>
                              <TableRow key={index} className="boiling-row-height">
 
-                             <TableCell className="text-center" >{index+1}</TableCell>
-                             <TableCell className="text-center" >
+                             <TableCell className="text-center w-20" >{index+1}</TableCell>
+                             <TableCell className="text-center w-30" >
 
                              <Select value={row.section} onValueChange={(val) => handleRowChange(index, 'section', val)} required={true}>
-                                                <SelectTrigger className="justify-center items-center text-center ml-16" >
-                                                    <SelectValue placeholder=" Section" />
+                                                <SelectTrigger className="justify-center items-center text-center ml-5" >
+                                                    <SelectValue placeholder="Section" />
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     <SelectGroup>
