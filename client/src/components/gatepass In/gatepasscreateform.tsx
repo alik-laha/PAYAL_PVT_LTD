@@ -67,10 +67,21 @@ return(
 <>
 
 <div className="pl-5 pr-5 ">
-            <form className='flex flex-col gap-1.5 text-xs' onSubmit={handleSubmit}>
+            <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
          
                 
-            <div className="mx-8 flex flex-col gap-1">                                          
+            <div className="mx-8 flex flex-col gap-0.5">  
+            <div className="flex mt-1">
+                    <Label className="w-2/4 pt-1">Date</Label>
+                    <Input className="w-2/4 text-center justify-center" placeholder="Date" ref={vehicleNoRef} type="date" required/>
+                
+                </div>
+                  
+                      <div className="flex mt-1">
+                    <Label className="w-2/4 pt-1 ">Time</Label>
+                    <Input className="w-2/4 justify-center" placeholder="Time" ref={vehicleNoRef} type='time' required/>
+                
+                </div>                                     
                 <div className="flex mt-1">
                     <Label className="w-2/4 pt-1">Vehicle No</Label>
                     <Input className="w-2/4 text-center" placeholder="Vehicle No" ref={vehicleNoRef} required/>
@@ -96,15 +107,23 @@ return(
                     <Label className="w-2/4 pt-1">Gross Wt. Slip </Label>
                     <Input className="w-2/4 text-center" placeholder="Slip No." ref={GrossWtSlipRef} />
                 </div>
+                <div className="flex mt-1">
+                    <Label className="w-2/4 pt-1">Name Of Security</Label>
+                    <Input className="w-2/4 text-center" placeholder="Name" ref={vehicleNoRef} required/>
+                </div> 
                 
                 </div>
-                <button className="ml-5 bg-blue-400 font-bold text-grey-700 w-20 h-8 text-primary-foreground rounded-md text-center items-center justify-center"
+                <div className="flex">
+                    <div className=" w-1/5 mt-3">
+                    <button className="ml-4 mt-1 bg-blue-400 font-bold w-2/3 text-grey-700  h-8 text-primary-foreground rounded-md text-center items-center justify-center"
                     onClick={addRow}>+ Add </button>
-                <Table className="mt-1 w-4/5 ml-5">
+                    </div>
+                
+                <Table className="mt-1 w-4/5 ml-5 ">
                 <TableHeader className="bg-neutral-100 text-stone-950" >
-                             <TableHead className="text-center w-20" >Sl. No.</TableHead>
-                             <TableHead className="text-center w-30" > Section</TableHead>
-                            
+                             <TableHead className="text-center " >Sl. No.</TableHead>
+                             <TableHead className="text-center " > Section</TableHead>
+
                              <TableHead className="text-center" >Action</TableHead>
                              </TableHeader>
                              {rows.map((row,index)=> {
@@ -113,8 +132,8 @@ return(
                              <TableBody>
                              <TableRow key={index} className="boiling-row-height">
 
-                             <TableCell className="text-center w-20" >{index+1}</TableCell>
-                             <TableCell className="text-center w-30" >
+                             <TableCell className="text-center " >{index+1}</TableCell>
+                             <TableCell className="text-center " >
 
                              <Select value={row.section} onValueChange={(val) => handleRowChange(index, 'section', val)} required={true}>
                                                 <SelectTrigger className="justify-center items-center text-center ml-5" >
@@ -150,6 +169,9 @@ return(
 
 
                 </Table>
+                </div>
+                
+                
                 
                 
                 <div>
