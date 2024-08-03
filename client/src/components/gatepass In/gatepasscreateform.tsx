@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
@@ -33,6 +33,16 @@ const GatePassCreateForm = () => {
     const DriverContactNoref = useRef<HTMLInputElement>(null)
     const GrossWtRef = useRef<HTMLInputElement>(null)
     const GrossWtSlipRef = useRef<HTMLInputElement>(null)
+    const NameRef = useRef<HTMLInputElement>(null)
+    const [date,setDate]=useState<string>('')
+    const [time,setTime]=useState<string>('')
+
+
+    useEffect(()=>{
+        setDate(new Date().toISOString().slice(0,10))
+        setTime(new Date().toTimeString().slice(0,5))
+
+    },[])
     
     const [rows,setRows]=useState<SectionRowData[]>([{section:''}
     ]);
@@ -59,6 +69,7 @@ const handleSubmit = (e: React.FormEvent) => {
         const drivercontact = DriverContactNoref.current?.value
         const grossWt = GrossWtRef.current?.value
         const grossWtSlip = GrossWtSlipRef.current?.value 
+        const name = NameRef.current?.value 
 }
 
 
@@ -66,20 +77,20 @@ const handleSubmit = (e: React.FormEvent) => {
 return(
 <>
 
-<div className="pl-5 pr-5 ">
+<div className="pl-5 pr-5 responsive-80-width">
             <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
          
                 
             <div className="mx-8 flex flex-col gap-0.5">  
             <div className="flex mt-1">
                     <Label className="w-2/4 pt-1">Date</Label>
-                    <Input className="w-2/4 text-center justify-center" placeholder="Date" ref={vehicleNoRef} type="date" required/>
+                    <Input className="w-2/4 text-center justify-center" placeholder="Date" value={date} type="date" readOnly required/>
                 
                 </div>
                   
                       <div className="flex mt-1">
                     <Label className="w-2/4 pt-1 ">Time</Label>
-                    <Input className="w-2/4 justify-center" placeholder="Time" ref={vehicleNoRef} type='time' required/>
+                    <Input className="w-2/4 justify-center" placeholder="Time" value={time} type='time' required readOnly/>
                 
                 </div>                                     
                 <div className="flex mt-1">
@@ -109,7 +120,7 @@ return(
                 </div>
                 <div className="flex mt-1">
                     <Label className="w-2/4 pt-1">Name Of Security</Label>
-                    <Input className="w-2/4 text-center" placeholder="Name" ref={vehicleNoRef} required/>
+                    <Input className="w-2/4 text-center" placeholder="Security Name" ref={NameRef} required/>
                 </div> 
                 
                 </div>
@@ -118,8 +129,8 @@ return(
                     <button className="ml-4 mt-1 bg-blue-400 font-bold w-2/3 text-grey-700  h-8 text-primary-foreground rounded-md text-center items-center justify-center"
                     onClick={addRow}>+ Add </button>
                     </div>
-                
-                <Table className="mt-1 w-4/5 ml-5 ">
+                <div  className="mt-1 w-4/5 ml-5 ">
+                <Table>
                 <TableHeader className="bg-neutral-100 text-stone-950" >
                              <TableHead className="text-center " >Sl. No.</TableHead>
                              <TableHead className="text-center " > Section</TableHead>
@@ -136,10 +147,10 @@ return(
                              <TableCell className="text-center " >
 
                              <Select value={row.section} onValueChange={(val) => handleRowChange(index, 'section', val)} required={true}>
-                                                <SelectTrigger className="justify-center items-center text-center ml-5" >
-                                                    <SelectValue placeholder="Section" />
+                                                <SelectTrigger className="justify-center items-center text-center ml-5 w-44" >
+                                                    <SelectValue placeholder="Section"  className="w-44"/>
                                                 </SelectTrigger>
-                                                <SelectContent>
+                                                <SelectContent >
                                                     <SelectGroup>
                                                         {
                                                             GatePassSection.map((item) => {
@@ -169,6 +180,8 @@ return(
 
 
                 </Table>
+                </div>
+               
                 </div>
                 
                 

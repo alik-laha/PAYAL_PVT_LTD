@@ -513,6 +513,10 @@
         font-size: 25px;
   
     }
+    .responsive-80-width{
+
+        width :80%!important;
+    }
 
     .sidebar.open {
         width: 65%;
