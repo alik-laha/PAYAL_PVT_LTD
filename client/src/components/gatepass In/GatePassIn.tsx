@@ -70,7 +70,8 @@ const GatepassIn = () => {
                     </Dialog>
 
 
-                    <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" > Pending Edit ()</Button> 
+                    <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" > Pending Edit (
+                        )</Button> 
 
                 </div>
                 
