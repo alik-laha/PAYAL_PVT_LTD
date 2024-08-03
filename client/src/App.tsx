@@ -63,10 +63,13 @@ function App() {
         <Route path='/' element={<Navigate to={"/dashboard"} replace />} />
         <Route path="/login" element={<Login />} />
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'ReceivingSupervisor', 'ReceivingManager', 'QCManager', 'QCSupervisor',
-          'ProductionManager', 'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor',
-          'CleaningSupervisor','MaintainanceSupervisor', 'MaintainanceManager','BormaSuperVisor','Security']} />}>
+        <Route element={<Private allowedRoles={['Director','FactoryManager',
+    'ReceivingSupervisor','ReceivingPMSupervisor','ReceivingManager','ReceivingAlmondSupervisor','ReceivingStoreSupervisor',
+    'ReceivingAgarbatiSupervisor','ReceivingCivilSupervisor','ReceivingPurchaseSupervisor',
+    'QCSupervisor','QCManager',
+    'GradingSupervisor','BoilingSupervisor','ScoopingSupervisor','ProductionManager','BormaSuperVisor',
+    'MaintainanceManager','CleaningSupervisor',
+    'Security','GatePassManager']} />}>
 
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
@@ -87,7 +90,7 @@ function App() {
           <Route path="/dashboard/rcnprimaryentry" element={<RcnPrimaryEntry />} />
         </Route>
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingPMSupervisor', 'ReceivingManager']} />}>
           <Route path="/dashboard/recevingpackagingMaterial" element={<PackagingMetirialReceiving />} />
         </Route>
 
@@ -117,7 +120,7 @@ function App() {
           <Route path='/dashboard/cleaning' element={<Cleaning />} />
         </Route>
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'Security']} />}>
+          'Security','GatePassManager']} />}>
           <Route path='/dashboard/gatepassIn' element={<GatepassIn />} />
         </Route>
 

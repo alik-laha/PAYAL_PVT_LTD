@@ -133,7 +133,7 @@ const DashboardSidebar = () => {
                                 </NavLink>
 
                             </CollapsibleContent>}
-                        {renderlink('Receiving Packaging Entry')
+                        {renderlink('Receiving Almond Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
                                     Raw Almond
@@ -141,7 +141,7 @@ const DashboardSidebar = () => {
 
                             </CollapsibleContent>}
 
-                            {renderlink('Receiving Packaging Entry')
+                            {renderlink('Receiving Store Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
                                     Store
@@ -155,13 +155,13 @@ const DashboardSidebar = () => {
                                     Packaging Material
                                 </NavLink>
                                 </CollapsibleContent>}
-                                {renderlink('Receiving Packaging Entry')
+                                {renderlink('Receiving Civil Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
                                     Civil
                                 </NavLink>
                                 </CollapsibleContent>}
-                                {renderlink('Receiving Packaging Entry')
+                                {renderlink('Receiving Agarbati Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
                                     AgarBati
@@ -169,7 +169,7 @@ const DashboardSidebar = () => {
                                 </CollapsibleContent>}
 
 
-                                {renderlink('Receiving Packaging Entry')
+                                {renderlink('Receiving Purchase Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
                                     Purchase/Credit Note
