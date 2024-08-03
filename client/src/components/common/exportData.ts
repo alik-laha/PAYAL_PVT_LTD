@@ -1,16 +1,20 @@
 export const Origin = ["India", "Ghana", "IVC", "Benin", "Tanzania", "Nigeria", "Togo"]
-export const GatePassSection = ["Cashew", "Packaging Material"]
+export const GatePassSection = ["Raw Cashew", "Packaging Material",'Raw Almond','Purchase/Credit Note','Store','Civil','Agarbati']
 export const SelectType = ["LineWise","LotWise"]
 export const Dept: string[] = ['Admin', 'Receiving', 'Maintainance', 'QualityControl', 'Production']
 //export const optionsMapping:Record<string, string[]> = {Admin :['AdminSupervisor','Admin-Manager'],Receiving:['Receiving-Supervisor', 'Receiving-Manager'],Maintainance:['Maintainance-Supervisor'],Quality-Control:['QC-Supervisor','QC-Manager'],Production:[Production Manager]}
-export const Role: string[] = ['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager', 'MaintainanceSupervisor',
-    'MaintainanceManager'
-    , 'QCSupervisor', 'QCManager', 'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','BormaSuperVisor'
+export const Role: string[] = ['Director', 'FactoryManager', 
+    'ReceivingSupervisor', 'ReceivingPMSupervisor','ReceivingManager', 'ReceivingAlmondSupervisor', 'ReceivingStoreSupervisor', 
+    'ReceivingAgarbatiSupervisor','ReceivingCivilSupervisor','ReceivingPurchaseSupervisor',
+    'Security','GatePassManager',
+    'MaintainanceSupervisor','MaintainanceManager',
+    'QCSupervisor', 'QCManager', 
+    'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','BormaSuperVisor'
 ]
 export const pageNo = 1
 export const pagelimit = 8
 export const timerLogout = 7200
-export const Section = ['Boiling', 'Grading', 'Scooping']
+export const Section = ['Boiling', 'Grading', 'Scooping','Borma']
 export const MachineStatus = ['Active', 'Inactive', 'Discarded']
 export const Size = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 export const Session_LogoutTime_Hr = 2
@@ -19,12 +23,29 @@ export const cookingTime = ['00:07', '00:08', '00:09', '00:10', '00:11', '00:12'
 
 export const PermissionRol = {
 
-    Director: ['Employee', 'Dashboard User', 'Asset', 'RCN Primary Entry', 
-        'Receiving Packaging Entry','RCN Incoming QC', 'Grading', 'Boiling', 'Scooping','Cleaning','Borma','Gatepass'],
-    FactoryManager: ['Employee', 'Asset', 'RCN Primary Entry','Receiving Packaging Entry',
-         'RCN Incoming QC', 'Grading', 'Boiling', 'Scooping','Cleaning','Borma','Gatepass'],
-    ReceivingSupervisor: ['RCN Primary Entry','Receiving Packaging Entry'],
-    ReceivingManager: ['RCN Primary Entry','Receiving Packaging Entry'],
+    Director: ['Employee', 'Dashboard User', 'Asset', 
+        'RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry',
+        'RCN Incoming QC', 
+        'Grading', 'Boiling', 'Scooping','Borma',
+        'Cleaning',
+        'Gatepass'],
+    FactoryManager: ['Employee', 'Asset', 
+        'RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry',
+        'RCN Incoming QC', 
+        'Grading', 'Boiling', 'Scooping','Borma',
+        'Cleaning',
+        'Gatepass'],
+    ReceivingSupervisor: ['RCN Primary Entry'],
+    ReceivingPMSupervisor: ['Receiving Packaging Entry'],
+    ReceivingManager: ['RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry'],
+    ReceivingAlmondSupervisor:['Receiving Almond Entry'],
+    ReceivingStoreSupervisor: ['Receiving Store Entry'],
+    ReceivingAgarbatiSupervisor:['Receiving Agarbati Entry'],
+    ReceivingCivilSupervisor:['Receiving Civil Entry'],
+    ReceivingPurchaseSupervisor:['Receiving Purchase Entry'],
     QCSupervisor: ['RCN Incoming QC'],
     QCManager: ['RCN Incoming QC'],
     GradingSupervisor: ['Grading'],
@@ -34,8 +55,8 @@ export const PermissionRol = {
     MaintainanceManager:['Cleaning'],
     CleaningSupervisor:['Cleaning'],
     BormaSuperVisor:['Borma'],
-    Security:['Gatepass']
-
+    Security:['Gatepass'],
+    GatePassManager:['Gatepass']
 }
 
 export const PermissionDep = {
@@ -58,10 +79,11 @@ export const pendingCheckRole = {
 }
 export const roleDataonDept = {
     Admin: ['Director', 'FactoryManager'],
-    Receiving: ['ReceivingSupervisor', 'ReceivingManager'],
+    Receiving: ['ReceivingManager','ReceivingSupervisor', 'ReceivingPMSupervisor', 'ReceivingAlmondSupervisor',
+         'ReceivingStoreSupervisor', 'ReceivingAgarbatiSupervisor','ReceivingCivilSupervisor','ReceivingPurchaseSupervisor'],
     Maintainance: ['CleaningSupervisor', 'MaintainanceManager'],
     QualityControl: ['QCSupervisor', 'QCManager'],
     Production: ['ProductionManager', 'GradingSupervisor', 
         'BoilingSupervisor', 'ScoopingSupervisor','BormaSuperVisor'],
-    GatePass:['Security']
+    GatePass:['Security','GatePassManager']
 }

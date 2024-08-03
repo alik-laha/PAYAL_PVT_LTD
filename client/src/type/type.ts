@@ -287,20 +287,29 @@ export interface AssetDataExcel {
 
 export interface PermissionRole {
 
+   
+
     Director: string[];
-    ReceivingManager: string[];
     FactoryManager: string[];
     ReceivingSupervisor: string[];
+    ReceivingPMSupervisor: string[];
+    ReceivingManager: string[];
+    ReceivingAlmondSupervisor:string[];
+    ReceivingStoreSupervisor: string[];
+    ReceivingAgarbatiSupervisor:string[];
+    ReceivingCivilSupervisor:string[];
+    ReceivingPurchaseSupervisor:string[];
     QCSupervisor: string[];
     QCManager: string[];
     GradingSupervisor: string[];
-    ScoopingSupervisor:string[];
-    BoilingSupervisor:string[];
-    CleaningSupervisor:string[];
+    BoilingSupervisor: string[];
+    ScoopingSupervisor: string[];
+    ProductionManager:string[];
     MaintainanceManager:string[];
+    CleaningSupervisor:string[];
     BormaSuperVisor:string[];
-
-
+    Security:string[];
+    GatePassManager:string[];
 
 }
 
@@ -310,6 +319,7 @@ export interface PermissionDept {
     Maintainance: string[];
     Production: string[];
     QualityControl: string[];
+    GatePass:string[];
 }
 export interface BoilingEntryData {
     moisture: string;
@@ -365,6 +375,9 @@ export interface pendingCheckRoles {
     RCNPrimary: string[];
     QCRCN: string[];
     Grading: string[];
+    Boiling: string[];
+    Scooping: string[];
+    Borma: string[];
 }
 
 export interface GradingExcelData {
