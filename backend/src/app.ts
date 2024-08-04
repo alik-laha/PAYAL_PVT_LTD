@@ -16,6 +16,7 @@ import scoopingRouter from "./router/scoopingRouter";
 import qcPackageMaterialRouter from "./router/qcpackagingMaterialrouter";
 import Cleaning from "./router/Cleaning";
 import BormaRouter from "./router/BormaRouter";
+import gatePassRouter from "./router/gatePassRouter";
 
 
 app.use(cookieParser());
@@ -39,6 +40,6 @@ app.use('/api/quality', Quality)
 app.use("/api/qcpackage", qcPackageMaterialRouter)
 app.use('/api/cleaning', Cleaning)
 app.use('/api/borma', BormaRouter)
-
+app.use('/api/gatepass', gatePassRouter)
 
 export default app
