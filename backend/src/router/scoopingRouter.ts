@@ -44,7 +44,7 @@ router.post('/deleteScoopReportByLotNo', jwtVerify, deleteScoopingReport)
 router.post('/deleteScoopEditReportByLotNo', jwtVerify, deleteSccopingEditByLot)
 router.put("/createScoopingEdit/:id", jwtVerify, scoopingMiddleware, createscoopingEditReport)
 router.post("/createScoopingallEdit", jwtVerify, createscoopingAllEditReport)
-router.post("/updatenextopeningcreate", jwtVerify, updateNxtOpeningCreate)
+
 router.get("/findEditScoopingAll", jwtVerify, findEditaScoopingAll)
 router.get("/getEditScoopByLot/:lotNO", jwtVerify, getEditscoopByLot)
 router.put("/createScoopingEditDelete/:id", jwtVerify, createscoopingEditDelete)
