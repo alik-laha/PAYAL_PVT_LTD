@@ -401,7 +401,7 @@ const RCNLineCreateApproveForm = (props: Props) => {
 
                 for (const data3 of newFormupdateData) {
                     scoopingallcount++
-                    const update = await axios.post('/api/scooping/updatenextopeningcreate', { data3 })
+                    const update = await axios.post('/api/scooping/updatenextopening', { data3 })
                     if (newFormupdateData.length === scoopingallcount) {
                         
 
