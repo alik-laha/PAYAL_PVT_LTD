@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/dialog"
 import GatePassCreateForm from './gatepasscreateform';
 
+import GatePassTable from './gatePasstable';
+
 
 
 
@@ -76,7 +78,7 @@ const GatepassIn = () => {
                         )</Button> 
 
                 </div>
-                
+                <GatePassTable/>
 
             </div>
         </div>
