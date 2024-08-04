@@ -10,18 +10,12 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+
 import { GatePassSection } from "../common/exportData";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
-
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 
 
 interface SectionRowData{
@@ -37,7 +31,7 @@ const GatePassCreateForm = () => {
     const NameRef = useRef<HTMLInputElement>(null)
     const [date,setDate]=useState<string>('')
     const [time,setTime]=useState<string>('')
-
+    const [errortext, setErrortext] = useState('')
 
     useEffect(()=>{
         setDate(new Date().toISOString().slice(0,10))
@@ -61,6 +55,31 @@ const GatePassCreateForm = () => {
         const newRows =rows.filter((_,i)=> i!==index);
         setRows(newRows)
     }
+    const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
+const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
+// const dialog = document.getElementById('myDialog');
+const closeDialogButton = document.getElementById('empcloseDialog') as HTMLInputElement;
+const errorcloseDialogButton = document.getElementById('errorempcloseDialog') as HTMLInputElement;
+
+if (closeDialogButton) {
+    closeDialogButton.addEventListener('click', () => {
+        if (successdialog != null) {
+            (successdialog as any).close();
+            window.location.reload()
+        }
+
+
+    });
+}
+if (errorcloseDialogButton) {
+    errorcloseDialogButton.addEventListener('click', () => {
+        if (errordialog != null) {
+            (errordialog as any).close();
+
+        }
+
+    });
+}
 
 const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -101,10 +120,16 @@ const handleSubmit = async (e: React.FormEvent) => {
                 gatecount++;
                 if (formData.length === gatecount) 
                 {     
+                    
+                    setErrortext(gateRes.data.message)
                     if (gateRes.status === 200) 
                     {
-                        await axios.post('/api/gatepass/updateGatePass', 
-                        { gatePassNo:data.gatePassNo,status:'SentToReceiver'}) 
+                        await axios.post('/api/gatepass/updateGatePass', { gatePassNo:data.gatePassNo,status:'SentToReceiver'}) 
+                        if(successdialog){
+                                (successdialog as any).showModal()
+                            }
+                           
+                            
                     }
                 }     
             }
@@ -231,6 +256,23 @@ return(
                 <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
                
                 </form>
+                <dialog id="successemployeedialog" className="dashboard-modal">
+                <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
+                </span>
+
+
+            </dialog>
+
+            <dialog id="erroremployeedialog" className="dashboard-modal">
+                <button id="errorempcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p>
+                </span>
+
+
+            </dialog>
 </div>  
 
 </>

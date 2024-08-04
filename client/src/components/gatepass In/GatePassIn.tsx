@@ -36,12 +36,15 @@ const GatepassIn = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
+                <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+                        Total Approved Pass <br /><p>5 </p>
+                    </div>
                     <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
-                        IN PASS ISSUED <br /><p>5 </p>
+                        Issued Today<br /><p>5 </p>
                     </div>
                     
                     <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
-                       APPROVED <br /><p>3 </p>
+                       Approved Today <br /><p>3 </p>
                     </div>
                    
                     <div className="flexbox-tile bg-purple-500 hover:bg-orange-400">
@@ -65,7 +68,6 @@ const GatepassIn = () => {
 
                             </DialogHeader>
                             <GatePassCreateForm/>
-                            {/* <RCNBormaCreateForm props={lotdata} /> */}
                         </DialogContent>
                     </Dialog>
 
