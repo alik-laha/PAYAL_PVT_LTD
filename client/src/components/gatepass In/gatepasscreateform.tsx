@@ -76,12 +76,38 @@ const handleSubmit = async (e: React.FormEvent) => {
 try
 {
     const creategatepass=await axios.post('/api/gatepass/createGatePass', {})            
-    console.log(createLot)
-    //setLotNO(createLot.data.newSequence) 
-    //console.log(lotNO) 
+    console.log(creategatepass)
     try 
     {
+        const formData = rows.map(row => ({
+            gatePassNo: creategatepass.data.gatepassNo,
+            Date: date,
+            Time:time,
+            vehicle: vehicle,
+            document: document,
+            drivername:drivername,
+            driverContact:drivercontact,
+            grossWt:grossWt,
+            GrossWtSlip:grossWtSlip,
+            SecName:name,
+            ...row
+        }))
 
+        let gatecount = 0
+
+        for (var data of formData) 
+            {
+                const gateRes=await axios.post('/api/gatepass/createGatePassMaster', { data })             
+                gatecount++;
+                if (formData.length === gatecount) 
+                {     
+                    if (gateRes.status === 200) 
+                    {
+                        await axios.post('/api/gatepass/updateGatePass', 
+                        { gatePassNo:data.gatePassNo,status:'SentToReceiver'}) 
+                    }
+                }     
+            }
 
     }
     catch{

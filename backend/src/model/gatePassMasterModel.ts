@@ -27,6 +27,11 @@ const gatePassMaster = sequelize.define('gatePassMaster', {
         allowNull: false
        
     },
+    DocNo:{
+        type: DataTypes.STRING,
+        allowNull: false
+
+    },
     grosswtNo: {
         type: DataTypes.STRING,
         allowNull: true
