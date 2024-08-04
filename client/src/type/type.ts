@@ -526,4 +526,27 @@ export interface ScoopingExcelData {
 
 }
 
+export interface GatePassData {
+            id: number;
+            gatePassNo: string;
+            date: string;
+            time: string;
+            grosswt: string;
+            DocNo: string;
+            grosswtNo: string;
+            vehicleNo: string;
+            driverName: string;
+            driverContact: string;
+            securityName: string;
+            section: string;
+            receivingStatus: number;
+            netWeight: string;
+            approvalStatus: number;
+            billAmount: string;
+            createdBy: string;
+            status: string;
+            modifiedBy: string;
+          
+}
+
 
