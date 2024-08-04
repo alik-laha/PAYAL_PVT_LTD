@@ -17,7 +17,7 @@ import deleteScoopingReport from "../controller/scoopingController/deleteScoopin
 import createscoopingEditReport from "../controller/scoopingController/createScoopingEditReport";
 import deleteSccopingEditByLot from "../controller/scoopingController/deleteScoopingEditByLot";
 import createscoopingAllEditReport from "../controller/scoopingController/createScoopingAllEditreport";
-import updateNxtOpeningCreate from "../controller/scoopingController/updateNxtOpeningCreate";
+
 import findEditaScoopingAll from "../controller/scoopingController/findEditaScoopingAll";
 import getEditscoopByLot from "../controller/scoopingController/getEditScoopByLot";
 import getscoopByLotOrigin from "../controller/scoopingController/getScoopByLotOrigin";
@@ -44,7 +44,7 @@ router.post('/deleteScoopReportByLotNo', jwtVerify, deleteScoopingReport)
 router.post('/deleteScoopEditReportByLotNo', jwtVerify, deleteSccopingEditByLot)
 router.put("/createScoopingEdit/:id", jwtVerify, scoopingMiddleware, createscoopingEditReport)
 router.post("/createScoopingallEdit", jwtVerify, createscoopingAllEditReport)
-router.post("/updatenextopeningcreate", jwtVerify, updateNxtOpeningCreate)
+
 router.get("/findEditScoopingAll", jwtVerify, findEditaScoopingAll)
 router.get("/getEditScoopByLot/:lotNO", jwtVerify, getEditscoopByLot)
 router.put("/createScoopingEditDelete/:id", jwtVerify, createscoopingEditDelete)
