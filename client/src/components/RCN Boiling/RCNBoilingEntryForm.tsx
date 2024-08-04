@@ -73,9 +73,6 @@ const RCNBoilingEntryForm = () =>
           return formData;
         });
       }
-
-
-
       async function updateFormData(formDataArray: RowData[],lotNO:string): Promise<RowData[]> 
       {
         for (let formData of formDataArray) {

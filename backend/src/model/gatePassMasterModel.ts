@@ -70,7 +70,7 @@ const gatePassMaster = sequelize.define('gatePassMaster', {
     },
     netWeight: {
         type: DataTypes.DOUBLE,
-        allowNull: false
+        allowNull: true
        
     },
     approvalStatus: {
@@ -81,7 +81,7 @@ const gatePassMaster = sequelize.define('gatePassMaster', {
     },
     billAmount: {
         type: DataTypes.DOUBLE,
-        allowNull: false
+        allowNull: true
        
     },
     createdBy: {

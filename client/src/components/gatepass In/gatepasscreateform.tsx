@@ -53,7 +53,7 @@ const GatePassCreateForm = () => {
         newRows[index]={...newRows[index],[field]:fieldvalue};
         setRows(newRows)
     }
-    const addRow = () => {
+    const addRow2 = () => {
         setRows([...rows,{section:''}])
     }
 
@@ -73,13 +73,13 @@ const handleSubmit = async (e: React.FormEvent) => {
         const name = NameRef.current?.value 
 
 
-try
-{
-    const creategatepass=await axios.post('/api/gatepass/createGatePass', {})            
-    console.log(creategatepass)
-    try 
-    {
-        const formData = rows.map(row => ({
+        try
+        {
+        const creategatepass=await axios.post('/api/gatepass/createGatePass', {})            
+        console.log(creategatepass)
+            try 
+            {
+             const formData = rows.map(row => ({
             gatePassNo: creategatepass.data.gatepassNo,
             Date: date,
             Time:time,
@@ -127,12 +127,10 @@ catch{
 return(
 <>
 
-<div className="pl-5 pr-5 responsive-80-width">
-            <form className='flex flex-col gap-1 text-xs' onSubmit={handleSubmit}>
-         
-                
+<div className="pl-5 pr-5 ">
+            <form className='flex flex-col gap-1 text-xs responsive-80-width' onSubmit={handleSubmit}>          
             <div className="mx-8 flex flex-col gap-0.5">  
-            <div className="flex mt-1">
+                <div className="flex mt-1">
                     <Label className="w-2/4 pt-1">Date</Label>
                     <Input className="w-2/4 text-center justify-center" placeholder="Date" value={date} type="date" readOnly required/>
                 
@@ -174,12 +172,12 @@ return(
                 </div> 
                 
                 </div>
-                <div className="flex">
+                <div className="flex mt-1">
                     <div className=" w-1/5 mt-3">
                     <button className="ml-4 mt-1 bg-blue-400 font-bold w-2/3 text-grey-700  h-8 text-primary-foreground rounded-md text-center items-center justify-center"
-                    onClick={addRow}>+ Add </button>
+                    onClick={addRow2}>+ Add </button>
                     </div>
-                <div  className="mt-1 w-4/5 ml-5 ">
+                <div  className="mt-1 w-4/5 ml-4 ">
                 <Table>
                 <TableHeader className="bg-neutral-100 text-stone-950" >
                              <TableHead className="text-center " >Sl. No.</TableHead>
@@ -196,24 +194,19 @@ return(
                              <TableCell className="text-center " >{index+1}</TableCell>
                              <TableCell className="text-center " >
 
-                             <Select value={row.section} onValueChange={(val) => handleRowChange(index, 'section', val)} required={true}>
-                                                <SelectTrigger className="justify-center items-center text-center ml-5 w-44" >
-                                                    <SelectValue placeholder="Section"  className="w-44"/>
-                                                </SelectTrigger>
-                                                <SelectContent >
-                                                    <SelectGroup>
-                                                        {
-                                                            GatePassSection.map((item) => {
-                                                                return (
-                                                                    <SelectItem key={item} value={item}>
-                                                                        {item}
-                                                                    </SelectItem>
-                                                                )
-                                                            })
-                                                        }
-                                                    </SelectGroup>
-                                                </SelectContent>
-                                            </Select>
+
+
+                                            <select className="ml-5  w-38 text-center flex h-8 rounded-md border border-input bg-background 
+                                            px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+                                            placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+                                            focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>handleRowChange(index, 'section', e.target.value)} 
+                                            value={row.section} required>
+                                                <option value="" disabled className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+                                                focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Section</option>
+                                                {GatePassSection.map((item: any,idx:number) => (
+                                                    <option key={idx} value={item}>{item}</option>
+                                                ))}
+                                            </select>
                                 </TableCell>
 
                                 <TableCell className="text-center">
@@ -235,11 +228,8 @@ return(
                 </div>
                 
                 
-                
-                
-                <div>
-                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
-                </div>
+                <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
+               
                 </form>
 </div>  
 
