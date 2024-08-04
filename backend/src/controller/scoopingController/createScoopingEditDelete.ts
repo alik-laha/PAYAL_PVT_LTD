@@ -55,7 +55,7 @@ const createscoopingEditDelete = async (req: Request, res: Response) => {
             where: { id }
         });
         console.log('Reached Here2')
-        let createdBy='ProductionManager'
+        let createdBy
         if(latestEditEntry){
              createdBy=latestEditEntry?.dataValues.CreatedBy
         }
