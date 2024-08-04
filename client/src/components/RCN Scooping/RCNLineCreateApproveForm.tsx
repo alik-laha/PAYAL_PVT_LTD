@@ -403,6 +403,7 @@ const RCNLineCreateApproveForm = (props: Props) => {
                     scoopingallcount++
                     const update = await axios.post('/api/scooping/updatenextopeningcreate', { data3 })
                     if (newFormupdateData.length === scoopingallcount) {
+                        
 
                         setErrortext('Modification Request Approved Successfully')
                         if (update.status === 200) {

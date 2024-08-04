@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/select"
 import { GatePassSection } from "../common/exportData";
 import { MdDelete } from "react-icons/md";
+import axios from "axios";
 
 
 
@@ -61,7 +62,7 @@ const GatePassCreateForm = () => {
         setRows(newRows)
     }
 
-const handleSubmit = (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         const vehicle = vehicleNoRef.current?.value
         const document = DocumentNoRef.current?.value
@@ -70,6 +71,29 @@ const handleSubmit = (e: React.FormEvent) => {
         const grossWt = GrossWtRef.current?.value
         const grossWtSlip = GrossWtSlipRef.current?.value 
         const name = NameRef.current?.value 
+
+
+try
+{
+    const creategatepass=await axios.post('/api/gatepass/createGatePass', {})            
+    console.log(createLot)
+    //setLotNO(createLot.data.newSequence) 
+    //console.log(lotNO) 
+    try 
+    {
+
+
+    }
+    catch{
+
+
+    }
+
+}
+catch{
+
+
+}
 }
 
 
