@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import RcnPrimary from "../../model/RcnEntryModel";
+
 import { Op } from "sequelize";
 import gatePassMaster from "../../model/gatePassMasterModel";
 
@@ -52,7 +52,7 @@ const SearchGatePass = async (req: Request, res: Response) => {
             });
         }
         else{
-             rcnEntries = await RcnPrimary.findAll({
+             rcnEntries = await gatePassMaster.findAll({
                 where,
                 order: [['date', 'DESC']], // Order by date descending
                 limit: limit,

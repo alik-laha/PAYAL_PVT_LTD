@@ -6,6 +6,15 @@ import { format, toZonedTime } from 'date-fns-tz'
 import React from "react";
 import { GatePassSection ,pageNo, pagelimit } from "../common/exportData";
 import axios from "axios";
+import { LuDownload } from "react-icons/lu";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
 const GatePassTable = () => {
 
     const [fromdate, setfromDate] = React.useState<string>('');
@@ -119,6 +128,35 @@ return (
 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
 </div>
+<span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" ><LuDownload size={18} /></Button> </span>
+<Table className="mt-4">
+<TableHeader className="bg-neutral-100 text-stone-950 ">
+
+<TableHead className="text-center" >Id</TableHead>
+                    <TableHead className="text-center" >Origin</TableHead>
+                    <TableHead className="text-center" >Date of Receiving </TableHead>
+                    <TableHead className="text-center" >BL No.</TableHead>
+                    <TableHead className="text-center" >Con No.</TableHead>
+                    <TableHead className="text-center" >Truck No.</TableHead>
+
+                    <TableHead className="text-center" >BL Weight</TableHead>
+                    <TableHead className="text-center" >Net Weight</TableHead>
+                    <TableHead className="text-center" >Difference</TableHead>
+                    <TableHead className="text-center" >Bag Count</TableHead>
+                    <TableHead className="text-center" >QC Status</TableHead>
+                    <TableHead className="text-center" >Edit Status </TableHead>
+                    <TableHead className="text-center" >Entried By </TableHead>
+                    <TableHead className="text-center" >Action</TableHead>
+    </TableHeader>
+
+    </Table>
+
+
+
+
+
+
+
 
 
 </div>
