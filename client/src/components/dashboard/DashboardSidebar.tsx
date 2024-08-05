@@ -110,26 +110,19 @@ const DashboardSidebar = () => {
                                    IN
                                 </NavLink>
                             </CollapsibleContent>}
-                            {renderlink('Gatepass')
-                            && <CollapsibleContent className="Items-pvt">
-                                {renderlink('Dashboard User')}
-                                <NavLink to="/dashboard/user" >
-                                    OUT
-                                </NavLink>
-                            </CollapsibleContent>}
-
+                           
                     </Collapsible>}
                 
                     
                     {rendersection('Receiving') && 
                     <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25} />
-                            <p>Receiving</p></CollapsibleTrigger>
+                            <p>Receiving/Dispatch</p></CollapsibleTrigger>
 
                         {renderlink('RCN Primary Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/rcnprimaryentry" >
-                                    Raw Cashew Nut
+                                    Raw Cashew Nut In
                                 </NavLink>
 
                             </CollapsibleContent>}

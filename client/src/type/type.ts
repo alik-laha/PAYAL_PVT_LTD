@@ -529,6 +529,7 @@ export interface ScoopingExcelData {
 export interface GatePassData {
             id: number;
             gatePassNo: string;
+            type:string;
             date: string;
             time: string;
             grosswt: string;
