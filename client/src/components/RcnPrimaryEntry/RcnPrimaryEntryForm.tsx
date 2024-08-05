@@ -92,9 +92,9 @@ const RcnPrimaryEntryForm = (props:Props) => {
         axios.post('/api/rcnprimary/updateRcnEntry', { id,origin, blNo, conNo,  blWeight, noOfBags })
             .then((res) => {
 
-                //console.log(res.data.rcnPrimary.id)
-                let g_id=res.data.rcnPrimary.id
-                axios.post('/api/qcRcn/qcInitialEntry', { g_id , origin, blNo, conNo, date })
+                console.log(res)
+                //let g_id=res.data.rcnPrimary.id
+                axios.post('/api/qcRcn/qcInitialEntry', { id, origin, blNo, conNo, date })
                 .then((res) => {
                     console.log(res)
                     if (successdialog != null) {
