@@ -17,7 +17,7 @@ import getRcnByGatePass from '../controller/RcnPrimaryEntry/getRcnByGatePass';
 const router = express.Router();
 
 //Create Rcn Entry via user Cookies
-router.post('/create', RcnPrimaryMiddleWare, jwtVerify, CreateRcnPrimaryEntry);
+router.post('/updateRcnEntry', RcnPrimaryMiddleWare, jwtVerify, CreateRcnPrimaryEntry);
 
 //Update Rcn Entry by Id
 router.put('/update/:id', RcnPrimaryMiddleWare, jwtVerify, UpdateRcnPrimaryEntry);

@@ -221,7 +221,7 @@ const GatePassTable = () => {
                                         {item.receivingStatus === 0 ? (
                                             <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">Pending</button>
                                         ) :  (
-                                            <button className="bg-gree-500 p-1 text-white rounded fix-button-width-rcnprimary">Completed</button>
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">Completed</button>
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center ">

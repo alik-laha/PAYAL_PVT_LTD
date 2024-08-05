@@ -6,17 +6,11 @@ import RcnPrimary from "../../model/RcnEntryModel";
 
 const CreateGatePassSection = async (req: Request, res: Response) => {
 try{
-    const { gatePassNo, Date, Time, vehicle,
-        document,
-            drivername,
-            driverContact,
-            grossWt,
-            GrossWtSlip,
-            SecName,section,type
+    const { gatePassNo, Date, vehicle, grossWt,section,type
         } = req.body.data;
 
 
-    const feeledBy = req.cookies.user;
+    
 
 
     if (section==='Raw Cashew' && type==='IN') {

@@ -89,12 +89,12 @@ const RcnPrimaryEntryForm = (props:Props) => {
         console.log({ origin, blNo, conNo,noOfBags , blWeight  })
 
 
-        axios.post('/api/rcnprimary/updateRcnEntry', { id,origin, blNo, conNo,  blWeight, noOfBags })
+        axios.post('/api/rcnprimary/updateRcnEntry', { id,origin, blNo, conNo,  blWeight, noOfBags,gatepass })
             .then((res) => {
 
                 console.log(res)
                 //let g_id=res.data.rcnPrimary.id
-                axios.post('/api/qcRcn/qcInitialEntry', { id, origin, blNo, conNo, date })
+                axios.post('/api/qcRcn/qcInitialEntry', { g_id:id, origin, blNo, conNo, date })
                 .then((res) => {
                     console.log(res)
                     if (successdialog != null) {
@@ -176,12 +176,12 @@ const RcnPrimaryEntryForm = (props:Props) => {
 
 
                     <div className="flex"><Label className="w-2/4  pt-2">BL No.</Label>
-                        <Input className="w-2/4 text-center " placeholder="BL No." ref={blNoRef} required /> </div>
+                        <Input className="w-2/4 text-center " placeholder="BL No." ref={blNoRef}  /> </div>
 
                    
 
                     <div className="flex"><Label className="w-2/4 pt-1">Container No.</Label>
-                        <Input className="w-2/4 text-center" placeholder="Container No." ref={conNoRef} required /> </div>
+                        <Input className="w-2/4 text-center" placeholder="Container No." ref={conNoRef}  /> </div>
 
                   
                     <div className="flex">
