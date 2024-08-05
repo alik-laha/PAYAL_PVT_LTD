@@ -16,6 +16,15 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { GatePassData } from "@/type/type";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination"
 const GatePassTable = () => {
 
     const [fromdate, setfromDate] = React.useState<string>('');
@@ -168,16 +177,16 @@ const GatePassTable = () => {
 
                     <TableHead className="text-center" >Sl No.</TableHead>
                     <TableHead className="text-center" >GatePass_ID</TableHead>
-                    <TableHead className="text-center" >Date</TableHead>
-                    <TableHead className="text-center" >Date</TableHead>
+                    <TableHead className="text-center" >Gate_Entry_Date</TableHead>
+                    <TableHead className="text-center" >Entry_Time</TableHead>
                     <TableHead className="text-center" >Type</TableHead>
                     <TableHead className="text-center" >Section</TableHead>
                     <TableHead className="text-center" >Doc_No.</TableHead>
 
-                    <TableHead className="text-center" >Gross_Wt.</TableHead>
-                    <TableHead className="text-center" >Wt_Slip</TableHead>
+                    <TableHead className="text-center" >Gross_Initial_Wt</TableHead>
+                    <TableHead className="text-center" >Wt_Slip_No</TableHead>
                     <TableHead className="text-center" >Vehicle_No</TableHead>
-                    <TableHead className="text-center" >Driver Name</TableHead>
+                    <TableHead className="text-center" >Driver_Name</TableHead>
                     <TableHead className="text-center" >Driver_Contact</TableHead>
                     <TableHead className="text-center" >Receiving/Dispatch</TableHead>
                     <TableHead className="text-center" >Approval</TableHead>
@@ -254,6 +263,30 @@ const GatePassTable = () => {
                 </TableBody>
 
             </Table>
+            <Pagination style={{ display: blockpagen }} className="pt-5 ">
+                <PaginationContent>
+                    <PaginationItem>
+                        <PaginationPrevious onClick={() => setPage((prev) => {
+                            if (prev === 1) {
+                                return prev
+                            }
+                            if (prev <= 0) {
+                                return prev + 1
+                            }
+                            return prev - 1
+                        })} />
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationLink href="#">{page}</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationEllipsis />
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                    </PaginationItem>
+                </PaginationContent>
+            </Pagination>
 
 
         </div>

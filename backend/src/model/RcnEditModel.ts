@@ -30,6 +30,22 @@ const RcnEdit = sequelize.define('rcnEdit', {
         type: DataTypes.FLOAT,
         allowNull: false
     },
+    gatePassNo:{
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    grossWt:{
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: false
+    },
+    status:{
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
+    systemBags: {
+        type: DataTypes.FLOAT,
+        allowNull: true
+    },
     noOfBags: {
         type: DataTypes.INTEGER,
         allowNull: false
@@ -55,13 +71,6 @@ const RcnEdit = sequelize.define('rcnEdit', {
         allowNull: false
     }
 },
-    {
-        indexes: [
-            {
-                unique: true,
-                fields: ['blNo', 'conNo']
-            }
-        ]
-    });
+   );
 
 export default RcnEdit;

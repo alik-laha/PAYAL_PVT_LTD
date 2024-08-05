@@ -118,13 +118,14 @@ const handleSubmit = async (e: React.FormEvent) => {
 
         for (var data of formData) 
             {
-                const gateRes=await axios.post('/api/gatepass/createGatePassMaster', { data })             
+                const gateRes=await axios.post('/api/gatepass/createGatePassMaster', { data })   
+                const gateResSection=await axios.post('/api/gatepass/createGatePassMasterForSection', { data })             
                 gatecount++;
                 if (formData.length === gatecount) 
                 {     
                     
                     setErrortext(gateRes.data.message)
-                    if (gateRes.status === 200) 
+                    if (gateResSection.status === 200) 
                     {
                         await axios.post('/api/gatepass/updateGatePass', { gatePassNo:data.gatePassNo,status:'SentToReceiver'}) 
                         if(successdialog){
