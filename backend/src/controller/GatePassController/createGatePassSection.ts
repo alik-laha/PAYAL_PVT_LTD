@@ -28,7 +28,7 @@ try{
         });
 
         if(RCNIncoming){
-            return res.status(200).json({ message: "Gate Pass Entry Created Successfully" });
+            return res.status(200).json({ message: "RCN Initial Entry Created Successfully" });
         }
         
     }
