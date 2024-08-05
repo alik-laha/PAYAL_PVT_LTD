@@ -10,6 +10,7 @@ import EditApprove from '../controller/RcnPrimaryEntry/EditApprove';
 import getAllEditPending from '../controller/RcnPrimaryEntry/getAllEditPending';
 import jwtVerify from '../middleWare/JwtAuthantication';
 import getStockByOrigin from '../controller/RcnPrimaryEntry/getStockByOrigin';
+import getUnEntriedRcn from '../controller/RcnPrimaryEntry/getUnEntriedRcn';
 
 
 const router = express.Router();
@@ -39,6 +40,8 @@ router.put("/approveeditrcn/:id", jwtVerify, EditApprove);
 router.get('/geteditpending', jwtVerify, getAllEditPending);
 
 router.get('/getStockByOrigin/:origin', jwtVerify, getStockByOrigin)
+
+router.get("/getRcnNotEntried/:status", jwtVerify, getUnEntriedRcn)
 
 
 

@@ -1,29 +1,31 @@
 import DashboardHeader from '../dashboard/DashboardHeader'
 import DashboardSidebar from '../dashboard/DashboardSidebar'
-import RcnPrimaryEntryForm from "./RcnPrimaryEntryForm";
+
 import { Button } from "@/components/ui/button";
 import RcnPrimaryEntryTable from "./RcnPrimaryEntryTable";
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
+
     DialogHeader,
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
 import UseQueryData from "../common/dataFetcher";
-import { PermissionRole, SumofAllCuntryData } from "@/type/type";
+import { PermissionRole, rcnpendingLotData, SumofAllCuntryData } from "@/type/type";
 
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Context from '../context/context';
 import axios from 'axios';
 import Loader from '../common/Loader';
 import { pendingCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
+import RCNInitialForm from './RcnInitialForm';
 
 const RcnPrimaryEntry = () => {
     const { setEditPendingData } = useContext(Context);
     const Role = localStorage.getItem('role') as keyof PermissionRole
+    const [lotdata, setLotData] = useState<rcnpendingLotData[]>([])
 
     const handleEditFetch = async () => {
         const Data = await axios.get('/api/rcnprimary/geteditpending');
@@ -41,6 +43,7 @@ const RcnPrimaryEntry = () => {
         }
 
     }
+    
     const { data, isLoading, error } = UseQueryData('/api/rcnprimary/sum', 'GET', 'AllOriginRcnPrimary');
     if (isLoading) {
         return <Loader />
@@ -48,6 +51,13 @@ const RcnPrimaryEntry = () => {
 
     if (error) {
         return <div>Error</div>;
+    }
+    const handleOpenLotNo = async () => {
+        axios.get('/api/rcnprimary/getRcnNotEntried/0').then(res => {
+            console.log(res)
+            setLotData(res.data.rcnLot)
+        })
+
     }
     return (
         <div>
@@ -75,16 +85,14 @@ const RcnPrimaryEntry = () => {
 
                 <div>
                     <Dialog>
-                        <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl text-center mt-5'>RCN Primary Entry Form</p></DialogTitle>
-                                <DialogDescription>
-                                    <p className='text-1xl text-center'>To Be Filled Up By Receiving Supervisor</p>
-                                </DialogDescription>
+                                <DialogTitle><p className='text-1xl text-center mt-5'>RCN Pending List</p></DialogTitle>
+                               
                             </DialogHeader>
-
-                            <RcnPrimaryEntryForm />
+                          
+                            <RCNInitialForm props={lotdata}/>
                         </DialogContent>
                     </Dialog>
 
