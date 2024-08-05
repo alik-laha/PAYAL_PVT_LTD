@@ -9,7 +9,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect,   } from "react"
 import { Origin } from "../common/exportData"
 import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
@@ -25,20 +25,29 @@ const RcnPrimaryEntryForm = (props:Props) => {
 
     const blNoRef = useRef<HTMLInputElement>(null)
     const conNoRef = useRef<HTMLInputElement>(null)
-    //const truckNoRef = useRef<HTMLInputElement>(null)
+ 
     const blWeightRef = useRef<HTMLInputElement>(null)
-    //const netWeightRef = useRef<HTMLInputElement>(null)
-    const noOfBagsRef = useRef<HTMLInputElement>(null)
-    //const dateRef = useRef<HTMLInputElement>(null)
+    const [id, setId] = useState<number>()
+    const [date, setDate] = useState<string>('')
+    const [gatepass, setGatePass] = useState<string>('')
+    const [grossWt, setGrossWt] = useState<string>('')
+    const [truck, settruck] = useState<string>('')
 
+    const noOfBagsRef = useRef<HTMLInputElement>(null)
     console.log(props)
 
-    // useEffect(() => {
+    useEffect(() => {  
+        if(props.rcn[0]){
+            setId(props.rcn[0].id)
+        setDate(props.rcn[0].date.slice(0,10))
+        setGrossWt(props.rcn[0].grossWt)
+        setGatePass(props.rcn[0].gatePassNo)
+        settruck(props.rcn[0].truckNo)
+        }
+        
+    }, [props.rcn[0]]);
+    
 
-
-
-
-    // }, [props.rcn]);
 
     const successdialog = document.getElementById('myDialog') as HTMLInputElement;
     const errordialog = document.getElementById('errorDialog') as HTMLInputElement;
@@ -66,19 +75,21 @@ const RcnPrimaryEntryForm = (props:Props) => {
         });
     }
 
+ 
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         const blNo = blNoRef.current?.value
         const conNo = conNoRef.current?.value
-        //const truckNo = truckNoRef.current?.value
+   
         const blWeight = blWeightRef.current?.value
-        //const netWeight = netWeightRef.current?.value
+    
         const noOfBags = noOfBagsRef.current?.value
-        //const date = dateRef.current?.value
-        //console.log({ origin, blNo, conNo, truckNo, blWeight, netWeight })
+     
+        console.log({ origin, blNo, conNo,noOfBags , blWeight  })
 
 
-        axios.post('/api/rcnprimary/create', { origin, blNo, conNo,  blWeight, noOfBags })
+        axios.post('/api/rcnprimary/updateRcnEntry', { id,origin, blNo, conNo,  blWeight, noOfBags })
             .then((res) => {
 
                 //console.log(res.data.rcnPrimary.id)
@@ -95,15 +106,11 @@ const RcnPrimaryEntryForm = (props:Props) => {
                     if (conNoRef.current != null) {
                         conNoRef.current.value = '';
                     }
-                    if (truckNoRef.current != null) {
-                        truckNoRef.current.value = '';
-                    }
+                  
                     if (blWeightRef.current != null) {
                         blWeightRef.current.value = '';
                     }
-                    if (netWeightRef.current != null) {
-                        netWeightRef.current.value = '';
-                    }
+                 
                     if (noOfBagsRef.current != null) {
                         noOfBagsRef.current.value = '';
                     }
@@ -137,13 +144,13 @@ const RcnPrimaryEntryForm = (props:Props) => {
             <div className="pl-10 pr-10">
                 <form className='flex flex-col gap-1.5 ' onSubmit={handleSubmit}>
                 <div className="flex mt-4"><Label className="w-2/4  pt-1">GatePass No.</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={props.rcn[0].gatePassNo} readOnly /> </div>
+                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
                 <div className="flex"><Label className="w-2/4  pt-1">Date of Receving</Label>
-                <Input className="w-2/4  font-semibold text-center" placeholder="BL No." value={props.rcn[0].date.slice(0,10)}  readOnly /> </div> 
+                <Input className="w-2/4  font-semibold text-center" placeholder="BL No." value={date}  readOnly /> </div> 
                 <div className="flex"><Label className="w-2/4  pt-1">Gross Wt (Kg)</Label>
-                <Input className="w-2/4  font-semibold text-center" placeholder="BL No." value={props.rcn[0].grossWt}  readOnly /> </div>   
+                <Input className="w-2/4  font-semibold text-center" placeholder="BL No." value={grossWt}  readOnly /> </div>   
                 <div className="flex"><Label className="w-2/4  pt-1">Truck No.</Label>
-                <Input className="w-2/4  font-semibold text-center" placeholder="BL No." value={props.rcn[0].truckNo}  readOnly /> </div>       
+                <Input className="w-2/4  font-semibold text-center" placeholder="BL No." value={truck}  readOnly /> </div>       
                     
                     <div className="flex ">
                         <Label className="w-2/4  pt-1">Origin</Label>
