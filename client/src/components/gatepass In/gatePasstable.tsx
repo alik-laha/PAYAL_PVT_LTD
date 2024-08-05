@@ -4,7 +4,7 @@ import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
 import { format, toZonedTime } from 'date-fns-tz'
 import React from "react";
-import { GatePassSection, pageNo, pagelimit } from "../common/exportData";
+import { GatePassSection, SelectGatePassType, pageNo, pagelimit } from "../common/exportData";
 import axios from "axios";
 import { LuDownload } from "react-icons/lu";
 import {
@@ -23,6 +23,7 @@ const GatePassTable = () => {
     const [hidetodate, sethidetoDate] = useState<string>('');
     const [blConNo, setBlConNo] = useState<string>("")
     const [section, setSection] = useState<string>("")
+    const [type, settype] = useState<string>("")
     const [blockpagen, setblockpagen] = useState('flex')
     const [Data, setData] = useState<GatePassData[]>([])
     const [page, setPage] = useState(pageNo)
@@ -62,7 +63,8 @@ const GatePassTable = () => {
             blConNo: blConNo,
             section: section,
             fromDate: fromdate,
-            toDate: todate
+            toDate: todate,
+            type:type
         }, {
             params: {
                 page: page,
@@ -128,7 +130,7 @@ const GatePassTable = () => {
                 </select>
 
                 <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
-                <Input className="w-1/6 flexbox-search-width-calender"
+                <Input className="w-1/7 flexbox-search-width-calender"
                     type="date"
                     value={fromdate}
                     onChange={(e) => setfromDate(e.target.value)}
@@ -136,13 +138,25 @@ const GatePassTable = () => {
 
                 />
                 <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                <Input className="w-1/6 flexbox-search-width-calender"
+                <Input className="w-1/7 flexbox-search-width-calender"
                     type="date"
                     value={hidetodate}
                     onChange={handleTodate}
                     placeholder="To Date"
 
                 />
+                <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                    onChange={(e) => settype(e.target.value)} value={type}>
+                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>In/Out (All)</option>
+                    {SelectGatePassType.map((data, index) => (
+                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                            {data}
+                        </option>
+                    ))}
+                </select>
 
 
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
@@ -165,8 +179,10 @@ const GatePassTable = () => {
                     <TableHead className="text-center" >Vehicle_No</TableHead>
                     <TableHead className="text-center" >Driver Name</TableHead>
                     <TableHead className="text-center" >Driver_Contact</TableHead>
-                  
+                    <TableHead className="text-center" >Receiving/Dispatch</TableHead>
+                    <TableHead className="text-center" >Approval</TableHead>
                     <TableHead className="text-center" >Entried By</TableHead>
+                    
                     <TableHead className="text-center" >Action</TableHead>
                 </TableHeader>
                 <TableBody>
@@ -191,7 +207,23 @@ const GatePassTable = () => {
                                 <TableCell className="text-center">{item.vehicleNo}</TableCell>
                                 <TableCell className="text-center">{item.driverName}</TableCell>
                                 <TableCell className="text-center">{item.driverContact}</TableCell>
-                                <TableCell className="text-center">{item.securityName}</TableCell>
+                                
+                                <TableCell className="text-center ">
+                                        {item.receivingStatus === 0 ? (
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">Pending</button>
+                                        ) :  (
+                                            <button className="bg-gree-500 p-1 text-white rounded fix-button-width-rcnprimary">Completed</button>
+                                        )}
+                                    </TableCell>
+                                    <TableCell className="text-center ">
+                                        {item.approvalStatus === 0 ? (
+                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">Pending</button>
+                                        ) :  (
+                                            <button className="bg-gree-500 p-1 text-white rounded fix-button-width-rcnprimary">Completed</button>
+                                        )}
+                                    </TableCell>
+
+                                    <TableCell className="text-center">{item.securityName}</TableCell>
                                
 
                                 

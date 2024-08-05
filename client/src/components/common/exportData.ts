@@ -1,6 +1,7 @@
 export const Origin = ["India", "Ghana", "IVC", "Benin", "Tanzania", "Nigeria", "Togo"]
 export const GatePassSection = ["Raw Cashew", "Packaging Material",'Raw Almond','Purchase/Credit Note','Store','Civil','Agarbati']
 export const SelectType = ["LineWise","LotWise"]
+export const SelectGatePassType = ["IN","OUT"]
 export const Dept: string[] = ['Admin', 'Receiving', 'Maintainance', 'QualityControl', 'Production','GatePass']
 //export const optionsMapping:Record<string, string[]> = {Admin :['AdminSupervisor','Admin-Manager'],Receiving:['Receiving-Supervisor', 'Receiving-Manager'],Maintainance:['Maintainance-Supervisor'],Quality-Control:['QC-Supervisor','QC-Manager'],Production:[Production Manager]}
 export const Role: string[] = ['Director', 'FactoryManager', 
