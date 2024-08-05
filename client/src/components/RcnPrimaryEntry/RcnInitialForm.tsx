@@ -27,17 +27,17 @@ interface lotPropsdata{
 }
 
 const RCNInitialForm = (props: any) => {
-    const [scoopdata, setscoopdata ]  = useState<ScoopData[]>([])
+    const [rcnData, setrcnData]  = useState<ScoopData[]>([])
 
     //let scoopdata:ScoopData[]=[]
     console.log(props)
-    const handleLineEntry = async (lotNO:string) => {
-        axios.get(`/api/scooping/getScoopByLot/${lotNO}`).then(res=>{
+    const handleLineEntry = async (gatePassNo:string) => {
+        axios.get(`/api/rcnprimary/getRcnByGatePass/${gatePassNo}`).then(res=>{
            console.log(res)
-           if(Array.isArray(res.data.scoopingLot)){
+           if(Array.isArray(res.data.rcnmainLot)){
             //scoopdata=res.data.scoopingLot
-            setscoopdata(res.data.scoopingLot)
-             console.log(scoopdata)
+            setrcnData(res.data.rcnmainLot)
+             console.log(rcnData)
            }
              
             //set(res.data.scoopingLot)
@@ -73,13 +73,13 @@ const RCNInitialForm = (props: any) => {
                                         <TableCell className="text-center">
                                             <Dialog>
                                                 <DialogTrigger>
-                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger>
                                             { idx==0 &&  <DialogContent className='max-w-3xl'>
                                                     {/* <DialogHeader>
                                                         <DialogTitle><p className='text-1xl text-center mt-1'>Scooping Line Entry</p></DialogTitle>
 
                                                     </DialogHeader> */}
-                                                <RcnPrimaryEntryForm scoop={scoopdata}/>
+                                                <RcnPrimaryEntryForm rcn={rcnData}/>
                                                     
                                                 </DialogContent>}
                                             </Dialog>

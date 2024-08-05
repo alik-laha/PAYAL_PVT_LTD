@@ -8,6 +8,7 @@ export interface DatePickerProps {
 }
 
 export interface RcnPrimaryEntryData {
+   
     approvedBy: string;
     id: number;
     origin: string;
@@ -23,6 +24,10 @@ export interface RcnPrimaryEntryData {
     editStatus: string;
     receivedBy: string;
     createdAt: string;
+    gatePassNo:string;
+    grossWt:string;
+    status:number;
+    systemBags:string;            
 }
 export interface rcnScoopingData {
     id: number;
