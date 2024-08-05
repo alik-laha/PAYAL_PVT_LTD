@@ -125,7 +125,7 @@ export interface scoopingpendingLotData {
     LotNo: string
 }
 export interface rcnpendingLotData {
-    GatePassNo: string
+    gatePassNo: string
 }
 export interface BormapendingLotData {
     LotNo: string

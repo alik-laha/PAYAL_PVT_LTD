@@ -23,7 +23,7 @@ import RcnPrimaryEntryForm from "./RcnPrimaryEntryForm";
 
 
 interface lotPropsdata{
-    LotNo:string;
+    gatePassNo:string;
 }
 
 const RCNInitialForm = (props: any) => {
@@ -50,7 +50,7 @@ const RCNInitialForm = (props: any) => {
                 <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl. No.</TableHead>
-                        <TableHead className="text-center" >Lot No</TableHead>
+                        <TableHead className="text-center" >GatePass No</TableHead>
                         <TableHead className="text-center" >Status</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
 
@@ -66,7 +66,7 @@ const RCNInitialForm = (props: any) => {
                                             {idx + 1}
                                         </TableCell>
                                         <TableCell className="text-center font-semibold">
-                                            {item.LotNo}
+                                            {item.gatePassNo}
                                         </TableCell>
 
                                         <TableCell className="text-center"><Button className="bg-orange-500 h-8 text-white rounded-md">Pending</Button></TableCell>

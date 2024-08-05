@@ -88,7 +88,7 @@ const RcnPrimaryEntry = () => {
                         <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl text-center mt-5'>RCN Pending List</p></DialogTitle>
+                                <DialogTitle><p className='text-1xl text-center mt-5'>RCN Receiving Pending List</p></DialogTitle>
                                
                             </DialogHeader>
                           
