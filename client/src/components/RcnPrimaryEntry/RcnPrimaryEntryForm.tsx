@@ -9,24 +9,36 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Origin } from "../common/exportData"
 import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
+import { RcnPrimaryEntryData } from "@/type/type"
+interface Props {
+    rcn: RcnPrimaryEntryData[]      
+}
 
-
-const RcnPrimaryEntryForm = () => {
+const RcnPrimaryEntryForm = (props:Props) => {
     const [origin, setOrigin] = useState<string>("")
     const [errortext, setErrorText] = useState<string>("")
 
     const blNoRef = useRef<HTMLInputElement>(null)
     const conNoRef = useRef<HTMLInputElement>(null)
-    const truckNoRef = useRef<HTMLInputElement>(null)
+    //const truckNoRef = useRef<HTMLInputElement>(null)
     const blWeightRef = useRef<HTMLInputElement>(null)
-    const netWeightRef = useRef<HTMLInputElement>(null)
+    //const netWeightRef = useRef<HTMLInputElement>(null)
     const noOfBagsRef = useRef<HTMLInputElement>(null)
-    const dateRef = useRef<HTMLInputElement>(null)
+    //const dateRef = useRef<HTMLInputElement>(null)
+
+    console.log(props)
+
+    // useEffect(() => {
+
+
+
+
+    // }, [props.rcn]);
 
     const successdialog = document.getElementById('myDialog') as HTMLInputElement;
     const errordialog = document.getElementById('errorDialog') as HTMLInputElement;
@@ -58,13 +70,15 @@ const RcnPrimaryEntryForm = () => {
         e.preventDefault()
         const blNo = blNoRef.current?.value
         const conNo = conNoRef.current?.value
-        const truckNo = truckNoRef.current?.value
+        //const truckNo = truckNoRef.current?.value
         const blWeight = blWeightRef.current?.value
-        const netWeight = netWeightRef.current?.value
+        //const netWeight = netWeightRef.current?.value
         const noOfBags = noOfBagsRef.current?.value
-        const date = dateRef.current?.value
-        console.log({ origin, blNo, conNo, truckNo, blWeight, netWeight })
-        axios.post('/api/rcnprimary/create', { origin, blNo, conNo, truckNo, blWeight, netWeight, noOfBags, date })
+        //const date = dateRef.current?.value
+        //console.log({ origin, blNo, conNo, truckNo, blWeight, netWeight })
+
+
+        axios.post('/api/rcnprimary/create', { origin, blNo, conNo,  blWeight, noOfBags })
             .then((res) => {
 
                 //console.log(res.data.rcnPrimary.id)
@@ -121,10 +135,20 @@ const RcnPrimaryEntryForm = () => {
     return (
         <>
             <div className="pl-10 pr-10">
-                <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
-                    <div className="flex mt-2"><Label className="w-2/4  pt-1">Origin</Label>
+                <form className='flex flex-col gap-1.5 ' onSubmit={handleSubmit}>
+                <div className="flex mt-4"><Label className="w-2/4  pt-1">GatePass No.</Label>
+                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={props.rcn[0].gatePassNo} readOnly /> </div>
+                <div className="flex"><Label className="w-2/4  pt-1">Date of Receving</Label>
+                <Input className="w-2/4  font-semibold text-center" placeholder="BL No." value={props.rcn[0].date.slice(0,10)}  readOnly /> </div> 
+                <div className="flex"><Label className="w-2/4  pt-1">Gross Wt (Kg)</Label>
+                <Input className="w-2/4  font-semibold text-center" placeholder="BL No." value={props.rcn[0].grossWt}  readOnly /> </div>   
+                <div className="flex"><Label className="w-2/4  pt-1">Truck No.</Label>
+                <Input className="w-2/4  font-semibold text-center" placeholder="BL No." value={props.rcn[0].truckNo}  readOnly /> </div>       
+                    
+                    <div className="flex ">
+                        <Label className="w-2/4  pt-1">Origin</Label>
                         <Select value={origin} onValueChange={(value) => setOrigin(value)} required={true}>
-                            <SelectTrigger className="w-2/4">
+                            <SelectTrigger className="w-2/4 justify-center">
                                 <SelectValue placeholder="Origin" />
                             </SelectTrigger>
                             <SelectContent>
@@ -141,30 +165,27 @@ const RcnPrimaryEntryForm = () => {
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
-                        {/* <Input   placeholder="Origin"/>  */}</div>
-                    <div className="flex"><Label className="w-2/4  pt-1">BL No.</Label>
-                        <Input className="w-2/4 " placeholder="BL No." ref={blNoRef} required /> </div>
+                       </div>
 
-                    <div className="flex"><Label className="w-2/4  pt-1">Date of Receving</Label>
-                        <Input className="w-2/4 " placeholder="BL No." ref={dateRef} type="date" required /> </div>
+
+                    <div className="flex"><Label className="w-2/4  pt-2">BL No.</Label>
+                        <Input className="w-2/4 text-center " placeholder="BL No." ref={blNoRef} required /> </div>
+
+                   
 
                     <div className="flex"><Label className="w-2/4 pt-1">Container No.</Label>
-                        <Input className="w-2/4 " placeholder="Container No." ref={conNoRef} required /> </div>
+                        <Input className="w-2/4 text-center" placeholder="Container No." ref={conNoRef} required /> </div>
 
-                    <div className="flex"><Label className="w-2/4 pt-1" > Truck No.</Label>
-                        <Input className="w-2/4 " placeholder="Truck No." ref={truckNoRef} required />
-                    </div>
+                  
                     <div className="flex">
-                        <Label className="w-2/4 pt-1">Total Bags</Label>
-                        <Input className="w-2/4 " placeholder="Total Bags" ref={noOfBagsRef} type="number" required />
+                        <Label className="w-2/4 pt-1">Physical Bag Count</Label>
+                        <Input className="w-2/4 text-center" placeholder="Bag Count" ref={noOfBagsRef} type="number" required />
                     </div>
                     <div className="flex">
                         <Label className="w-2/4 pt-1"> BL Weight</Label>
-                        <Input className="w-2/4 " placeholder="BL Weight" ref={blWeightRef} type="number" step="0.01" required />
+                        <Input className="w-2/4 text-center" placeholder="BL Weight" ref={blWeightRef} type="number" step="0.01" required />
                     </div>
-                    <div className="flex"><Label className="w-2/4 pt-1"> Net Weight</Label>
-                        <Input className="w-2/4 " placeholder="Net Weight" ref={netWeightRef} type="number" step="0.01" required />
-                    </div>
+                   
                     <Button className="bg-orange-500 mb-2 mt-4 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
                 </form>
 

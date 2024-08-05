@@ -12,12 +12,14 @@ import {
 import {
     Dialog,
     DialogContent,
+    DialogHeader,
+    DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
 
 import axios from "axios";
 import { useState } from "react";
-import { ScoopData } from "@/type/type";
+import { RcnPrimaryEntryData } from "@/type/type";
 import RcnPrimaryEntryForm from "./RcnPrimaryEntryForm";
 
 
@@ -27,7 +29,7 @@ interface lotPropsdata{
 }
 
 const RCNInitialForm = (props: any) => {
-    const [rcnData, setrcnData]  = useState<ScoopData[]>([])
+    const [rcnData, setrcnData]  = useState<RcnPrimaryEntryData[]>([])
 
     //let scoopdata:ScoopData[]=[]
     console.log(props)
@@ -74,11 +76,11 @@ const RCNInitialForm = (props: any) => {
                                             <Dialog>
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger>
-                                            { idx==0 &&  <DialogContent className='max-w-3xl'>
-                                                    {/* <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Scooping Line Entry</p></DialogTitle>
+                                            { idx==0 &&  <DialogContent className='max-w-2xl'>
+                                                    <DialogHeader>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>RCN Incoming Entry</p></DialogTitle>
 
-                                                    </DialogHeader> */}
+                                                    </DialogHeader>
                                                 <RcnPrimaryEntryForm rcn={rcnData}/>
                                                     
                                                 </DialogContent>}
@@ -91,7 +93,7 @@ const RCNInitialForm = (props: any) => {
                         ) : <TableRow>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Scooping</TableCell>
+                            <TableCell className="text-left  text-red-500 font-semibold">No Pending GatePass For RCN Entry</TableCell>
                             <TableCell></TableCell>
                             </TableRow>}
                     </TableBody>
