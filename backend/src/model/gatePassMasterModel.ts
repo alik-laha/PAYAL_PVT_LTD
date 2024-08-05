@@ -17,13 +17,17 @@ const gatePassMaster = sequelize.define('gatePassMaster', {
         allowNull: false
        
     },
+    type:{
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     time: {
         type: DataTypes.TIME,
         allowNull: false
        
     },
     grosswt: {
-        type: DataTypes.DOUBLE,
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false
        
     },
@@ -69,7 +73,7 @@ const gatePassMaster = sequelize.define('gatePassMaster', {
        
     },
     netWeight: {
-        type: DataTypes.DOUBLE,
+        type: DataTypes.DECIMAL(10,2),
         allowNull: true
        
     },
@@ -80,7 +84,7 @@ const gatePassMaster = sequelize.define('gatePassMaster', {
        
     },
     billAmount: {
-        type: DataTypes.DOUBLE,
+        type: DataTypes.FLOAT,
         allowNull: true
        
     },

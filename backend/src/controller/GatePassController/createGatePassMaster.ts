@@ -11,7 +11,7 @@ try{
             driverContact,
             grossWt,
             GrossWtSlip,
-            SecName,section
+            SecName,section,type
         } = req.body.data;
 
 
@@ -23,6 +23,7 @@ try{
         date: Date,
         time: Time,
         DocNo:document,
+        type:type,
         grosswt: grossWt,
         grosswtNo: GrossWtSlip,
         vehicleNo: vehicle,

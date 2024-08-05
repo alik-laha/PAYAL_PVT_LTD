@@ -31,6 +31,7 @@ const GatePassCreateForm = () => {
     const NameRef = useRef<HTMLInputElement>(null)
     const [date,setDate]=useState<string>('')
     const [time,setTime]=useState<string>('')
+    const [type,setType]=useState<string>('IN')
     const [errortext, setErrortext] = useState('')
 
     useEffect(()=>{
@@ -109,6 +110,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             grossWt:grossWt,
             GrossWtSlip:grossWtSlip,
             SecName:name,
+            type:type,
             ...row
         }))
 
@@ -165,7 +167,23 @@ return(
                     <Label className="w-2/4 pt-1 ">Time</Label>
                     <Input className="w-2/4 justify-center" placeholder="Time" value={time} type='time' required readOnly/>
                 
-                </div>                                     
+                </div> 
+                <div className="flex mt-1">
+                <Label className="w-2/4 pt-1 ">Type (IN/OUT)</Label>
+                <select className="pt-1 w-2/4 text-center flex h-8 rounded-md border border-input bg-background 
+                                            px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+                                            placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+                                            focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>setType(e.target.value)} 
+                                            value={type} required>
+                                                
+                                                    <option value='IN' className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-2 text-sm outline-none focus:bg-accent 
+                                                focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">IN</option>
+                                                    <option value='OUT' className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-2 text-sm outline-none focus:bg-accent 
+                                                focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">OUT</option>
+                                                
+                                            </select>  
+                </div>
+                                                  
                 <div className="flex mt-1">
                     <Label className="w-2/4 pt-1">Vehicle No</Label>
                     <Input className="w-2/4 text-center" placeholder="Vehicle No" ref={vehicleNoRef} required/>

@@ -155,7 +155,8 @@ const GatePassTable = () => {
                     <TableHead className="text-center" >Sl No.</TableHead>
                     <TableHead className="text-center" >GatePass_ID</TableHead>
                     <TableHead className="text-center" >Date</TableHead>
-                    <TableHead className="text-center" >Time</TableHead>
+                    <TableHead className="text-center" >Date</TableHead>
+                    <TableHead className="text-center" >Type</TableHead>
                     <TableHead className="text-center" >Section</TableHead>
                     <TableHead className="text-center" >Doc_No.</TableHead>
 
@@ -181,6 +182,7 @@ const GatePassTable = () => {
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.gatePassNo}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                 <TableCell className="text-center">{handleAMPM(item.time)}</TableCell>
+                                <TableCell className="text-center">{item.type}</TableCell>
                                 <TableCell className="text-center font-semibold">{item.section}</TableCell>
                                 
                                 <TableCell className="text-center">{item.DocNo}</TableCell>

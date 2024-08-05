@@ -107,7 +107,7 @@ const DashboardSidebar = () => {
                             && <CollapsibleContent className="Items-pvt">
                                 {renderlink('Dashboard User')}
                                 <NavLink to="/dashboard/gatepassIn" >
-                                   IN
+                                   In/Out Entry
                                 </NavLink>
                             </CollapsibleContent>}
                            
