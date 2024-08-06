@@ -24,6 +24,7 @@ import getscoopByLotOrigin from "../controller/scoopingController/getScoopByLotO
 import UpdateInitialBorma from "../controller/scoopingController/updateInitialBorma";
 import createScoopingDeleteAll from "../controller/scoopingController/createScoopingDeleteAll";
 import createscoopingEditDelete from "../controller/scoopingController/createScoopingEditDelete";
+import updateScoopingStatus from "../controller/scoopingController/updateScoopingStatus";
 
 const router = express()
 
@@ -50,5 +51,6 @@ router.get("/getEditScoopByLot/:lotNO", jwtVerify, getEditscoopByLot)
 router.put("/createScoopingEditDelete/:id", jwtVerify, createscoopingEditDelete)
 router.post("/updateInitialBorma", jwtVerify, UpdateInitialBorma)
 router.post("/createScoopingDeleteall", jwtVerify, createScoopingDeleteAll)
+router.post("/updateStatus", jwtVerify, updateScoopingStatus)
 
 export default router

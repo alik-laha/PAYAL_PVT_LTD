@@ -56,8 +56,15 @@ const createscoopingReport = async (req: Request, res: Response) => {
                             -(parseFloat(Uncut)+parseFloat(Unscoop)+parseFloat(NonCut)+parseFloat(Dust)))/80)
                 console.log(total_bag) 
                 
-                const kor=((parseFloat(Wholes)+parseFloat(Broken))/(total_bag*0.453)).toFixed(2)
-            
+                let kor
+        if(total_bag===0){
+            kor=0
+
+        }
+        else{
+             kor = ((parseFloat(Wholes) + parseFloat(Broken)) / (total_bag * 0.453)).toFixed(2)
+        }
+
             
             
             const scoop = await RcnScooping.update(
@@ -99,8 +106,10 @@ const createscoopingReport = async (req: Request, res: Response) => {
                     },
                 }
             );
+            if(scoop){
+                return res.status(200).json({ message: "RCN Scooping Report Uploaded Successfully" ,scoop});
+            }
             
-            return res.status(200).json({ message: "RCN Scooping Report Uploaded Successfully" ,scoop});
         } catch (err) {
             return res.status(500).json({ message: "internal server Error", err });
         }

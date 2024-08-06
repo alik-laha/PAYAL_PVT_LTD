@@ -227,52 +227,7 @@ const RCNLineCreateEditForm = (props: Props) => {
 
 
 
-    // useEffect(() => {
-    //     const mergeRows = (data: ScoopingRowData[]): MergedUpdateData[] => {
-    //         const filteredData = data.map(({ LotNo, Scooping_Line_Mc,
-    //             Uncut, Unscoop, NonCut }) => ({
-    //                 LotNo,
-    //                 Scooping_Line_Mc,
-    //                 Uncut: parseFloat(Uncut),
-    //                 Unscoop: parseFloat(Unscoop),
-    //                 NonCut: parseFloat(NonCut),
-    //             }));
-    //         const merged = filteredData.reduce<Record<string, {
-    //             LotNo: string, Scooping_Line_Mc: string
-    //             , Uncut: number, Unscoop: number, NonCut: number
-    //         }>>((acc, row) => {
-    //             const { LotNo,
-    //                 Scooping_Line_Mc,
-    //                 Uncut,
-    //                 Unscoop,
-    //                 NonCut,
-    //             } = row;
-    //             if (!acc[Scooping_Line_Mc]) {
-    //                 acc[Scooping_Line_Mc] = {
-    //                     LotNo, Scooping_Line_Mc,
-    //                     Uncut, Unscoop, NonCut
-    //                 };
-    //             } else {
-    //                 acc[Scooping_Line_Mc].LotNo = LotNo;
-    //                 acc[Scooping_Line_Mc].Uncut += Uncut;
-    //                 acc[Scooping_Line_Mc].Unscoop += Unscoop;
-    //                 acc[Scooping_Line_Mc].NonCut += NonCut;
-    //             }
-    //             return acc;
-    //         }, {});
 
-    //         return Object.values(merged).map(item => ({
-    //             LotNo: item.LotNo,
-    //             Scooping_Line_Mc: item.Scooping_Line_Mc,
-    //             Uncut: item.Uncut,
-    //             Unscoop: item.Unscoop,
-    //             NonCut: item.NonCut,
-    //         }));
-    //     };
-
-    //     setNewFormupdateData(mergeRows(rows));
-    //     console.log(newFormupdateData)
-    // }, [rows]);
 
     useEffect(() => {
         const initialform = props.scoop.map((item: ScoopData) => ({
@@ -360,6 +315,7 @@ const RCNLineCreateEditForm = (props: Props) => {
                     if (formData.length === scoopingcount) {
                         if (createscoop.status === 200) {
                             await axios.post('/api/scooping/updateLotNo', { lotNo: props.scoop[0].LotNo, desc: 'ScoopingEdit' })
+                            await axios.post('/api/scooping/updateStatus', { lotNo: props.scoop[0].LotNo, desc: 'Pending' })
                         }
                     }
                 }
