@@ -25,6 +25,23 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { FcApprove } from "react-icons/fc";
 const GatePassTable = () => {
 
     const [fromdate, setfromDate] = React.useState<string>('');
@@ -36,6 +53,7 @@ const GatePassTable = () => {
     const [blockpagen, setblockpagen] = useState('flex')
     const [Data, setData] = useState<GatePassData[]>([])
     const [page, setPage] = useState(pageNo)
+    const [netWeight, setNetWeight] = useState<number>(0)
 
     const limit = pagelimit
 
@@ -188,6 +206,7 @@ const GatePassTable = () => {
                     <TableHead className="text-center" >Vehicle_No</TableHead>
                     <TableHead className="text-center" >Driver_Name</TableHead>
                     <TableHead className="text-center" >Driver_Contact</TableHead>
+                 
                     <TableHead className="text-center" >Receiving/Dispatch</TableHead>
                     <TableHead className="text-center" >Approval</TableHead>
                     <TableHead className="text-center" >Entried By</TableHead>
@@ -216,23 +235,126 @@ const GatePassTable = () => {
                                 <TableCell className="text-center">{item.vehicleNo}</TableCell>
                                 <TableCell className="text-center">{item.driverName}</TableCell>
                                 <TableCell className="text-center">{item.driverContact}</TableCell>
+                              
+                               
                                 
                                 <TableCell className="text-center ">
                                         {item.receivingStatus === 0 ? (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">Pending</button>
+                                            <button className="bg-red-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Pending</button>
                                         ) :  (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">Completed</button>
+                                            <button className="bg-green-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Completed</button>
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center ">
                                         {item.approvalStatus === 0 ? (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">Pending</button>
+                                            <button className="bg-red-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Pending</button>
                                         ) :  (
-                                            <button className="bg-gree-500 p-1 text-white rounded fix-button-width-rcnprimary">Completed</button>
+                                            <button className="bg-gree-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Completed</button>
                                         )}
                                     </TableCell>
 
                                     <TableCell className="text-center">{item.securityName}</TableCell>
+                                    <TableCell className="text-center">
+                                    <Popover>
+                                            <PopoverTrigger>
+                                                <button className={`p-2 text-white rounded ${(item.receivingStatus === 0) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.receivingStatus === 0) ? true : false}>Action</button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                            {item.receivingStatus === 1 && item.approvalStatus === 0 && <AlertDialog>
+                                                <AlertDialogTrigger className="flex">
+                                                        <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >Net Weight Entry</button>
+                                                    </AlertDialogTrigger>
+                                                
+                                                </AlertDialog>}
+                                            </PopoverContent>
+                                            {/* <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                                {item.rcnEntry.rcnStatus === 'QC Pending' && item.editStatus !== 'Pending' && <AlertDialog>
+                                                    <AlertDialogTrigger className="flex">
+                                                        <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >QC Approve</button>
+                                                    </AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>Do you want to Approve the RCN Incoming Entry?</AlertDialogTitle>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction onClick={() => handleQCApprove(item)}>Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>}
+                                                {item.rcnEntry.rcnStatus === 'QC Pending' && item.editStatus !== 'Pending' && <AlertDialog>
+                                                    <AlertDialogTrigger className="flex mt-1">
+                                                        <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">QC Reject</button>
+                                                    </AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>Do you want to Reject the RCN Incoming Entry?</AlertDialogTitle>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction onClick={() => handleQCReject(item)}>Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>}
+                                                {item.rcnEntry.rcnStatus === 'QC Approved' && item.reportStatus === 0 && item.editStatus !== 'Pending' && <Dialog>
+                                                    <DialogTrigger className="flex py-1">
+                                                        <MdOutlineDriveFolderUpload size={20} color="green" />  <button className="bg-transparent pl-2 text-left hover:text-green-500" >
+                                                            Report Entry</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent>
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                <p className='text-1xl pb-1 text-center mt-5'>QC Incoming RCN Report </p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        <QCreportForm data={item} />
+                                                    </DialogContent>
+                                                </Dialog>}
+                                                {item.rcnEntry.rcnStatus === 'QC Approved' && item.reportStatus === 1 && item.editStatus !== 'Pending' && <Dialog>
+                                                    <DialogTrigger className="flex py-1">
+                                                        <LiaEdit size={20} /><button className="bg-transparent pl-2 text-left hover:text-green-500" >Report Modify</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent>
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                <p className='text-1xl pb-1 text-center mt-5'>View/ Modify QC Incoming Report </p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        <QCmodifyreportForm data={item} />
+                                                    </DialogContent>
+                                                </Dialog>}
+                                                {item.editStatus === 'Pending' && <AlertDialog>
+                                                    <AlertDialogTrigger className="flex">
+                                                        <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >Edit Approve</button>
+                                                    </AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>Do you want to Approve the Edit Request ?</AlertDialogTitle>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction onClick={() => handleEditApprove(item)}>Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>}
+                                                {item.editStatus === 'Pending' && <AlertDialog>
+                                                    <AlertDialogTrigger className="flex mt-1">
+                                                        <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Edit Revert</button>
+                                                    </AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>Do you want to Revert the Edit Request of QC Incoming Entry?</AlertDialogTitle>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction onClick={() => handleEditReject(item)}>Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>}
+                                            </PopoverContent> */}
+                                    </Popover>
+                                    </TableCell>
+                                    
                                
 
                                 
