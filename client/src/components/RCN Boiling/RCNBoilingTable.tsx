@@ -215,7 +215,7 @@ const RCNBoilingTable = () => {
                 Labour_No: item.noOfEmployees,
                 Breakdown_Duration: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr.',
                 Other_Duration: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr.',
-                Run_Duration: item.Mc_runTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0/, '') + ' hr.',
+                Run_Duration: item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr.',
                 Edit_Status: item.editStatus,
                 Entried_By: item.CreatedBy,
                 ApprovedOrRejectedBy: item.modifiedBy

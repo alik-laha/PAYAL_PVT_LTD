@@ -48,7 +48,15 @@ const createscoopingEditDelete = async (req: Request, res: Response) => {
             - (parseFloat(Uncut) + parseFloat(Unscoop) + parseFloat(NonCut) + parseFloat(Dust))) / 80)
         console.log(total_bag)
 
-        const kor = ((parseFloat(Wholes) + parseFloat(Broken)) / (total_bag * 0.453)).toFixed(2)
+        //const kor = ((parseFloat(Wholes) + parseFloat(Broken)) / (total_bag * 0.453)).toFixed(2)
+        let kor
+        if(total_bag===0){
+            kor=0
+
+        }
+        else{
+             kor = ((parseFloat(Wholes) + parseFloat(Broken)) / (total_bag * 0.453)).toFixed(2)
+        }
         console.log('Reached Here1')
         const latestEditEntry = await RcnScoopingEdit.findOne({
             attributes: ['CreatedBy'],
