@@ -4,7 +4,7 @@ import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
 import { format, toZonedTime } from 'date-fns-tz'
 import React from "react";
-import { GatePassSection, SelectGatePassType, pageNo, pagelimit } from "../common/exportData";
+import {  SelectGatePassType, pageNo, pagelimit, sectionDataonTypeGate } from "../common/exportData";
 import axios from "axios";
 import { LuDownload } from "react-icons/lu";
 import {
@@ -164,12 +164,11 @@ const GatePassTable = () => {
                     onChange={(e) => setSection(e.target.value)} value={section}>
                     <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
         py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Section (All)</option>
-                    {GatePassSection.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                            {data}
-                        </option>
-                    ))}
+                    {type ? (
+                                        sectionDataonTypeGate[type as keyof typeof sectionDataonTypeGate].map((item) => (
+                                            <option key={item} value={item}>{item}</option>
+                                        ))
+                                    ) : null}
                 </select>
 
                 <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>

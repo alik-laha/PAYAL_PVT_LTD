@@ -11,7 +11,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-import { GatePassSection } from "../common/exportData";
+import {  sectionDataonTypeGate } from "../common/exportData";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
@@ -236,6 +236,7 @@ return(
                              <TableRow key={index} className="boiling-row-height">
 
                              <TableCell className="text-center " >{index+1}</TableCell>
+                            
                              <TableCell className="text-center " >
 
 
@@ -247,9 +248,14 @@ return(
                                             value={row.section} required>
                                                 <option value="" disabled className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
                                                 focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Section</option>
-                                                {GatePassSection.map((item: any,idx:number) => (
+                                                {/* {GatePassSection.map((item: any,idx:number) => (
                                                     <option key={idx} value={item}>{item}</option>
-                                                ))}
+                                                ))} */}
+                                                 {type ? (
+                                        sectionDataonTypeGate[type as keyof typeof sectionDataonTypeGate].map((item) => (
+                                            <option key={item} value={item}>{item}</option>
+                                        ))
+                                    ) : null}
                                             </select>
                                 </TableCell>
 
