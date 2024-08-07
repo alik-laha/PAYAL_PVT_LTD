@@ -11,9 +11,9 @@ const updateApprovalGate = async (req: Request, res: Response) => {
         const { vehicle, docNo, driver,drivercontact, grossWt, grossWtSlip, netwt,editmode ,type,section,gatepassNo,billamt} = req.body;
         const gatepassId = req.params.id
         const feeledBy = req.cookies.user;
-           
+        console.log(req.body)  
         
-        if(editmode==='TRUE')
+        if(editmode)
             {
                 await gatePassMaster.update(
                     {         
@@ -25,7 +25,8 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                         driverContact:drivercontact,
                         billAmount:billamt,
                         approvalStatus:1,
-                        modifiedBy: feeledBy
+                        modifiedBy: feeledBy,
+                        netWeight:netwt
                     },
                     {
                         where: {
@@ -60,7 +61,7 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                 {         
                     billAmount:billamt,
                     approvalStatus:1,
-                    createdBy: feeledBy
+                    modifiedBy: feeledBy
                 },
                 {
                     where: {

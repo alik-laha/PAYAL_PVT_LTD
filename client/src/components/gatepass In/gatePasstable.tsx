@@ -7,6 +7,8 @@ import React from "react";
 import {  SelectGatePassType, pageNo, pagelimit, sectionDataonTypeGate } from "../common/exportData";
 import axios from "axios";
 import { LuDownload } from "react-icons/lu";
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 import {
     Table,
     TableBody,
@@ -69,6 +71,31 @@ const GatePassTable = () => {
 
     const limit = pagelimit
     const [errview, setErrView] = useState<string>("hidden")
+    const successdialog = document.getElementById('machinescs') as HTMLInputElement;
+    const errordialog = document.getElementById('machineerror') as HTMLInputElement;
+    // const dialog = document.getElementById('myDialog');
+    const closeDialogButton = document.getElementById('machinescsbtn') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('machineerrorbtn') as HTMLInputElement;
+    const [errortext, setErrorText] = useState<string>("")
+    if(closeDialogButton){
+        closeDialogButton.addEventListener('click', () => {
+            if(successdialog!=null){
+                (successdialog as any).close();
+                window.location.reload()
+            }
+            
+            
+          });
+    }
+    if(errorcloseDialogButton){
+        errorcloseDialogButton.addEventListener('click', () => {
+            if(errordialog!=null){
+                (errordialog as any).close();
+               
+            }
+            
+          });
+    }
 
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
@@ -155,9 +182,16 @@ const GatePassTable = () => {
             type:data.type,gatepassNo:data.gatePassNo }).then((res) => {
             setNetWeight(0)
             console.log(res.data)
+            if(successdialog!=null){
+                (successdialog as any).showModal();
+            }
             //window.location.reload()
         }).catch((err) => {
             console.log(err)
+            setErrorText(err.response.data.message)
+            if(errordialog!=null){
+                (errordialog as any).showModal();
+            }
         })
     }
 
@@ -315,15 +349,15 @@ const GatePassTable = () => {
                                                 
                                                 </AlertDialog>}
 
-                                                {item.netWeight  && item.receivingStatus === 1 && item.approvalStatus === 0 && <Dialog>
+                                                {item.netWeight  && item.receivingStatus === 1 && <Dialog>
                                                     <DialogTrigger className="flex py-1">
                                                         <MdOutlineDriveFolderUpload size={20} color="green" />  <button className="bg-transparent pl-2 text-left hover:text-green-500" >
-                                                            Approve GatePass</button>
+                                                            Verify GatePass</button>
                                                     </DialogTrigger>
                                                     <DialogContent>
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-5'>Gate Pass Report </p>
+                                                                <p className='text-1xl pb-1 text-center mt-5'>Gate Pass Verification </p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         {/* <QCreportForm data={item} /> */}
@@ -389,6 +423,21 @@ const GatePassTable = () => {
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
+            <dialog id="machinescs" className="dashboard-modal">
+        <button id="machinescsbtn" className="dashboard-modal-close-btn ">X </button>
+        <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
+        <p id="modal-text" className="pl-3 mt-1 font-medium">Net Weight Updated Successfully</p></span>
+        
+        {/* <!-- Add more elements as needed --> */}
+    </dialog>
+
+    <dialog id="machineerror" className="dashboard-modal">
+        <button id="machineerrorbtn" className="dashboard-modal-close-btn ">X </button>
+        <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
+        <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+        
+        {/* <!-- Add more elements as needed --> */}
+    </dialog>
 
 
         </div>

@@ -122,11 +122,17 @@ const DashboardSidebar = () => {
                         {renderlink('RCN Primary Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/rcnprimaryentry" >
-                                    Raw Cashew Nut In
+                                    RCN Incoming
                                 </NavLink>
 
                             </CollapsibleContent>}
-                        {renderlink('Receiving Almond Entry')
+                            {renderlink('Receiving Packaging Entry')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/recevingpackagingMaterial" >
+                                    Packaging Material
+                                </NavLink>
+                                </CollapsibleContent>}
+                        {/* {renderlink('Receiving Almond Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
                                     Raw Almond
@@ -142,12 +148,7 @@ const DashboardSidebar = () => {
 
                             </CollapsibleContent>}
 
-                            {renderlink('Receiving Packaging Entry')
-                            && <CollapsibleContent className="Items-pvt">
-                                <NavLink to="/dashboard/recevingpackagingMaterial" >
-                                    Packaging Material
-                                </NavLink>
-                                </CollapsibleContent>}
+                            
                                 {renderlink('Receiving Civil Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
@@ -167,7 +168,7 @@ const DashboardSidebar = () => {
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
                                     Purchase/Credit Note
                                 </NavLink>
-                                </CollapsibleContent>}
+                                </CollapsibleContent>} */}
 
 
                              

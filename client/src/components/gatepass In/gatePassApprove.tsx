@@ -55,11 +55,11 @@ const GatepassApprove = (props: GatePassDataProps) => {
     const [id,setId]=useState<number>()
    
 
-    const successdialog = document.getElementById('machinescs') as HTMLInputElement;
-    const errordialog = document.getElementById('machineerror') as HTMLInputElement;
+    const successdialog = document.getElementById('machinescsgate') as HTMLInputElement;
+    const errordialog = document.getElementById('machineerrorgate') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
-    const closeDialogButton = document.getElementById('machinescsbtn') as HTMLInputElement;
-    const errorcloseDialogButton = document.getElementById('machineerrorbtn') as HTMLInputElement;
+    const closeDialogButton = document.getElementById('machinescsbtngate') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('machineerrorbtngate') as HTMLInputElement;
     
     if(closeDialogButton){
         closeDialogButton.addEventListener('click', () => {
@@ -110,26 +110,15 @@ const handlegateEdit = () => {
 
     const HandleSubmit = (e: React.FormEvent<HTMLElement>) => {
         e.preventDefault()
-        const formData = new FormData()    
-        formData.append("vehicle", vehile)
-        formData.append("docNo", DocumentNo)
-        formData.append("driver", DriverName)
-        formData.append("drivercontact", DriverContactNo)
-        formData.append("grossWt", GrossWt)
-        formData.append("grossWtSlip", GrossWtSlip)
-        formData.append("netwt", ntweight)
-        formData.append("editmode", String(gatepassEditMode))
-        formData.append("netwt", ntweight)
-        formData.append("editmode", String(gatepassEditMode))
-        formData.append("type", type)
-        formData.append("section", section)
-        formData.append("gatepassNo", gatepassId)
-        if(billamt){
-            formData.append("billamt", billamt.toString())
-        }
+      
          
-        axios.put(`/api/gatepass/updateApproval/${id}`, formData).then((res) => {
+        axios.put(`/api/gatepass/updateApproval/${id}`, {vehicle:vehile,docNo:DocumentNo,driver:
+            DriverName,drivercontact:DriverContactNo,grossWt:GrossWt,grossWtSlip:GrossWtSlip,
+            netwt:ntweight,editmode:gatepassEditMode,type:type,section,gatepassNo:gatepassId,billamt:billamt
+
+        }).then((res) => {
             console.log(res)
+            setErrorText(res.data.message)
             if(successdialog!=null){
                 (successdialog as any).showModal();
             }
@@ -201,8 +190,8 @@ return (
                 <div className="flex mt-1">
                     <Label className="w-2/4 pt-1">Driver Contact</Label>
                   
-                    {gatepassEditMode ? <Input className="w-2/4 text-center" placeholder="Contact No" value={DriverContactNo} onChange={(e) => setDriverContactNo(e.target.value)} required/>
-                    :<Input className="w-2/4 text-center bg-yellow-100" placeholder="Contact No" value={DriverContactNo}  required/>}
+                    {gatepassEditMode ? <Input className="w-2/4 text-center" placeholder="Contact No" value={DriverContactNo} onChange={(e) => setDriverContactNo(e.target.value)} />
+                    :<Input className="w-2/4 text-center bg-yellow-100" placeholder="Contact No" value={DriverContactNo}  />}
                 </div>
                 
                 <div className="flex mt-1">
@@ -214,8 +203,8 @@ return (
                 <div className="flex mt-1">
                     <Label className="w-2/4 pt-1">Gross Wt. Slip </Label>
                   
-                    {gatepassEditMode ? <Input className="w-2/4 text-center" placeholder="Slip No." value={GrossWtSlip} onChange={(e) => setGrossWtSlip(e.target.value)} required/>
-                    :<Input className="w-2/4 text-center bg-yellow-100" placeholder="Slip No." value={GrossWtSlip}  required/>}
+                    {gatepassEditMode ? <Input className="w-2/4 text-center" placeholder="Slip No." value={GrossWtSlip} onChange={(e) => setGrossWtSlip(e.target.value)} />
+                    :<Input className="w-2/4 text-center bg-yellow-100" placeholder="Slip No." value={GrossWtSlip}  />}
                 </div>
                 <div className="flex mt-1">
                     <Label className="w-2/4 pt-1">Net Wt. (Kg)</Label>
@@ -246,20 +235,20 @@ return (
                                                     }}>Cancel Edit</Button> : null}  
 
                  {gatepassEditMode ? null : <Button className='bg-teal-500 mt-3 text-xs text-center items-center justify-center h-8 w-20' onClick={handlegateEdit}>Edit</Button>}     
-                <Button className="bg-orange-500 ml-3 text-center items-center mt-3 text-xs justify-center h-8 w-20">Submit</Button>  
+                <Button className="bg-orange-500 ml-3 text-center items-center mt-3 text-xs justify-center h-8 w-20">Approve</Button>  
                 </div>
                                         
                 </form>
-                <dialog id="machinescs" className="dashboard-modal">
-        <button id="machinescsbtn" className="dashboard-modal-close-btn ">X </button>
+                <dialog id="machinescsgate" className="dashboard-modal">
+        <button id="machinescsbtngate" className="dashboard-modal-close-btn ">X </button>
         <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
-        <p id="modal-text" className="pl-3 mt-1 font-medium">Profile Details Updated Successfully</p></span>
+        <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
         
         {/* <!-- Add more elements as needed --> */}
     </dialog>
 
-    <dialog id="machineerror" className="dashboard-modal">
-        <button id="machineerrorbtn" className="dashboard-modal-close-btn ">X </button>
+    <dialog id="machineerrorgate" className="dashboard-modal">
+        <button id="machineerrorbtngate" className="dashboard-modal-close-btn ">X </button>
         <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
         <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
         
