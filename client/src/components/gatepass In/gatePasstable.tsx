@@ -36,6 +36,8 @@ import {
     AlertDialogCancel,
     AlertDialogContent,
 
+    AlertDialogDescription,
+
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
@@ -56,7 +58,7 @@ const GatePassTable = () => {
     const [netWeight, setNetWeight] = useState<number>(0)
 
     const limit = pagelimit
-
+    const [errview, setErrView] = useState<string>("hidden")
 
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
@@ -134,6 +136,20 @@ const GatePassTable = () => {
         // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
         return finalTime;
     }
+    const handleNetWeight = (data: GatePassData) => {
+        if (!netWeight) {
+            setErrView('block')
+            return
+        }
+        axios.put(`/api/gatepass/updateNetWeight/${data.id}`, { netWeight: netWeight,section:data.section,
+            type:data.type,gatepassNo:data.gatePassNo }).then((res) => {
+            setNetWeight(0)
+            console.log(res.data)
+            //window.location.reload()
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
 
 
 
@@ -208,6 +224,7 @@ const GatePassTable = () => {
                     <TableHead className="text-center" >Driver_Contact</TableHead>
                  
                     <TableHead className="text-center" >Receiving/Dispatch</TableHead>
+                    <TableHead className="text-center" >netWeight</TableHead>
                     <TableHead className="text-center" >Approval</TableHead>
                     <TableHead className="text-center" >Entried By</TableHead>
                     
@@ -245,6 +262,7 @@ const GatePassTable = () => {
                                             <button className="bg-green-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Completed</button>
                                         )}
                                     </TableCell>
+                                    <TableCell className="text-center">{item.netWeight ? item.netWeight:0} kg </TableCell>
                                     <TableCell className="text-center ">
                                         {item.approvalStatus === 0 ? (
                                             <button className="bg-red-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Pending</button>
@@ -260,10 +278,27 @@ const GatePassTable = () => {
                                                 <button className={`p-2 text-white rounded ${(item.receivingStatus === 0) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.receivingStatus === 0) ? true : false}>Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                            {item.receivingStatus === 1 && item.approvalStatus === 0 && <AlertDialog>
+                                            {!item.netWeight && item.receivingStatus === 1 && item.approvalStatus === 0 && <AlertDialog>
                                                 <AlertDialogTrigger className="flex">
                                                         <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >Net Weight Entry</button>
                                                     </AlertDialogTrigger>
+
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle> Enter Net Weight (Gross Initial Wt. - Final Wt.)</AlertDialogTitle>
+                                                            <AlertDialogDescription>
+
+                                                                This will Link all other Receiving Sections
+                                                                <Input type="number" placeholder="Net Weight" className='mt-3 w-100 text-center justify-center items-center' value={netWeight} onChange={(e) => setNetWeight(e.target.value)} required={true} />
+                                                                <span id="nameError" className={`text-red-500 pt-2 font-bold ${errview}`}>Date is Required for Release</span>
+                                                            </AlertDialogDescription>
+                                                        </AlertDialogHeader>
+
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction onClick={() => handleNetWeight(item)}>Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
                                                 
                                                 </AlertDialog>}
                                             </PopoverContent>
