@@ -49,9 +49,11 @@ const GatepassApprove = (props: GatePassDataProps) => {
     const [date,setDate]=useState<string>('')
     const [time,setTime]=useState<string>('')
     const [type,setType]=useState<string>('')
-
+    const [gatepassId,setGatepassId]=useState<string>('')
     const [gatepassEditMode, setgatepassEditMode] = useState(false)
     const [errortext, setErrorText] = useState<string>("")
+    const [id,setId]=useState<number>()
+   
 
     const successdialog = document.getElementById('machinescs') as HTMLInputElement;
     const errordialog = document.getElementById('machineerror') as HTMLInputElement;
@@ -93,6 +95,11 @@ const GatepassApprove = (props: GatePassDataProps) => {
         setTime(props.data?.time || "")
         setNetWeight(props.data?.netWeight|| "")
         setsection(props.data?.section|| "")
+        setGatepassId(props.data?.gatePassNo|| "")
+        if(props.data.id){
+            setId(props.data.id)
+        }
+        
     }, [props.data])
 
 const handlegateEdit = () => {
@@ -111,11 +118,17 @@ const handlegateEdit = () => {
         formData.append("grossWt", GrossWt)
         formData.append("grossWtSlip", GrossWtSlip)
         formData.append("netwt", ntweight)
+        formData.append("editmode", String(gatepassEditMode))
+        formData.append("netwt", ntweight)
+        formData.append("editmode", String(gatepassEditMode))
+        formData.append("type", type)
+        formData.append("section", section)
+        formData.append("gatepassNo", gatepassId)
         if(billamt){
             formData.append("billamt", billamt.toString())
         }
          
-        axios.post("/api/gatepass/updateApproval", formData).then((res) => {
+        axios.put(`/api/gatepass/updateApproval/${id}`, formData).then((res) => {
             console.log(res)
             if(successdialog!=null){
                 (successdialog as any).showModal();
@@ -212,7 +225,7 @@ return (
 
                 <div className="flex mt-1">
                     <Label className="w-2/4 pt-1 font-bold">Bill Amount</Label>
-                  <Input className="w-2/4 text-center" placeholder="Bill Amount" value={billamt} onChange={(e) => setbillamt(parseFloat(e.target.value))} required/>
+                  <Input className="w-2/4 text-center" placeholder="Bill Amount" step="0.01" type='number' value={billamt} onChange={(e) => setbillamt(parseFloat(e.target.value))} required/>
                    
                 </div>                    
                 </div>

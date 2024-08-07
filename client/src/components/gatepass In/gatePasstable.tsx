@@ -233,9 +233,12 @@ const GatePassTable = () => {
                     <TableHead className="text-center" >Driver_Contact</TableHead>
                  
                     <TableHead className="text-center" >Receiving/Dispatch</TableHead>
+                    
                     <TableHead className="text-center" >netWeight</TableHead>
-                    <TableHead className="text-center" >Approval</TableHead>
                     <TableHead className="text-center" >Entried By</TableHead>
+                    <TableHead className="text-center" >Approval</TableHead>
+                    <TableHead className="text-center" >Verified By</TableHead>
+                   
                     
                     <TableHead className="text-center" >Action</TableHead>
                 </TableHeader>
@@ -272,15 +275,16 @@ const GatePassTable = () => {
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center">{item.netWeight ? item.netWeight:0} kg </TableCell>
+                                    <TableCell className="text-center">{item.securityName}</TableCell>
                                     <TableCell className="text-center ">
                                         {item.approvalStatus === 0 ? (
                                             <button className="bg-red-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Pending</button>
                                         ) :  (
-                                            <button className="bg-gree-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Completed</button>
+                                            <button className="bg-green-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Completed</button>
                                         )}
                                     </TableCell>
-
-                                    <TableCell className="text-center">{item.securityName}</TableCell>
+                                    <TableCell className="text-center">{item.modifiedBy}</TableCell>
+                                   
                                     <TableCell className="text-center">
                                     <Popover>
                                             <PopoverTrigger>

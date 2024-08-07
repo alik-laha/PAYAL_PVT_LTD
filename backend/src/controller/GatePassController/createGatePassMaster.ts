@@ -14,8 +14,8 @@ try{
             SecName,section,type
         } = req.body.data;
 
-
-    const feeledBy = req.cookies.user;
+        const feeledBy = req.cookies.user;
+    
 
 
     const GatePassEntry = await gatePassMaster.create({
