@@ -26,7 +26,8 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                         billAmount:billamt,
                         approvalStatus:1,
                         modifiedBy: feeledBy,
-                        netWeight:netwt
+                        netWeight:netwt,
+                        status:'Approved'
                     },
                     {
                         where: {
@@ -61,7 +62,8 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                 {         
                     billAmount:billamt,
                     approvalStatus:1,
-                    modifiedBy: feeledBy
+                    modifiedBy: feeledBy,
+                    status:'Approved'
                 },
                 {
                     where: {

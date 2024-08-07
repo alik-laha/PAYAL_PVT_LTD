@@ -349,7 +349,7 @@ const GatePassTable = () => {
                                                 
                                                 </AlertDialog>}
 
-                                                {item.netWeight  && item.receivingStatus === 1 && <Dialog>
+                                                {item.netWeight  && item.receivingStatus === 1 && item.approvalStatus === 0 && <Dialog>
                                                     <DialogTrigger className="flex py-1">
                                                         <MdOutlineDriveFolderUpload size={20} color="green" />  <button className="bg-transparent pl-2 text-left hover:text-green-500" >
                                                             Verify GatePass</button>
