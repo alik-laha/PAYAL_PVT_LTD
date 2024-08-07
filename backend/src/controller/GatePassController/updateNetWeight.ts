@@ -12,7 +12,8 @@ const updateNetWeight = async (req: Request, res: Response) => {
         const { netWeight,section,type,gatepassNo } = req.body;
         const gatepassupdate = await gatePassMaster.update(
             { 
-                netWeight:netWeight
+                netWeight:netWeight,
+                status:'Pending Approval'
             },
             {
                 where: {

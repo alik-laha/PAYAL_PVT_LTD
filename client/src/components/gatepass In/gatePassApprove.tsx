@@ -2,6 +2,9 @@
 import { useEffect, useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
 
 interface GatePassDataProps{
 
@@ -97,9 +100,11 @@ const handlegateEdit = () => {
 return (
 
 <div className="pl-5 pr-5 ">
-            <form className='flex flex-col gap-1 text-xs responsive-80-width' > 
+
+            <form className='flex flex-col gap-1 text-xs ' > 
                                                  
             <div className="mx-8 flex flex-col gap-0.5">  
+      
             <div className="flex mt-1">
                 <Label className="w-2/4 pt-1 ">Type (IN/OUT)</Label>
                <Input className="w-2/4 text-center bg-yellow-100" placeholder="type" value={type}  required/>
@@ -175,40 +180,44 @@ return (
                     <Label className="w-2/4 pt-1 font-bold">Bill Amount</Label>
                   <Input className="w-2/4 text-center" placeholder="Bill Amount" value={billamt} onChange={(e) => setbillamt(parseFloat(e.target.value))} required/>
                    
-                </div> 
-              
-               
-                                                    
-                                                   
-                                               
-                
+                </div>                    
                 </div>
-                <div className="col-sm-12 text-right mr-2 mt-2">
-                {gatepassEditMode ? <button className='bg-red-500 w-20 h-7 rounded-md text-white' onClick={() => {
+                <div className="flex mt-1">
+                {gatepassEditMode ? <Button className='bg-red-500 mt-3 text-xs text-center items-center justify-center h-8 w-20' onClick={() => {
                                                         setVehicle(props.data?.vehicleNo || "")
                                                         setDocumentNo(props.data?.DocNo|| "")
                                                         setDriverName(props.data?.driverName || "")
                                                         setDriverContactNo(props.data?.driverContact || "")
                                                         setGrossWt(props.data?.grosswt|| "")
                                                         setGrossWtSlip(props.data?.grosswtNo|| "")
-                                                        setName(props.data?.securityName || "")
+                                                        
                                                         setDate(props.data?.date.slice(0,10) || "")
                                                         setTime(props.data?.time || "")
                                                         setNetWeight(props.data?.netWeight|| "")
-                                                    }}>Cancel</button> : null}        
+                                                        
+                                                        setgatepassEditMode(false)
+                                                    }}>Cancel Edit</Button> : null}  
 
+                 {gatepassEditMode ? null : <Button className='bg-teal-500 mt-3 text-xs text-center items-center justify-center h-8 w-20' onClick={handlegateEdit}>Edit</Button>}     
+                <Button className="bg-orange-500 ml-3 text-center items-center mt-3 text-xs justify-center h-8 w-20">Submit</Button>  
                 </div>
-                <div className="col-sm-12 text-right mr-2 mt-2">
-                                                        {gatepassEditMode ? null : <button className='bg-teal-500 w-20 h-7 rounded-md text-white' onClick={handlegateEdit}>Edit</button>}
-                                                    </div>   
-                                                    {
-                                                    gatepassEditMode ? <div className="row mt-4">
-                                                        <div className="col-sm-12 text-center ">
-                                                            <button className='bg-teal-500 w-24 h-7 rounded-3xl text-white' type='submit'>Save</button>
-                                                        </div>
-                                                    </div> : null
-                                                }
+                                        
                 </form>
+                <dialog id="machinescs" className="dashboard-modal">
+        <button id="machinescsbtn" className="dashboard-modal-close-btn ">X </button>
+        <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
+        <p id="modal-text" className="pl-3 mt-1 font-medium">Profile Details Updated Successfully</p></span>
+        
+        {/* <!-- Add more elements as needed --> */}
+    </dialog>
+
+    <dialog id="machineerror" className="dashboard-modal">
+        <button id="machineerrorbtn" className="dashboard-modal-close-btn ">X </button>
+        <span className="flex"><img src={cross} height={25} width={25} alt='error_image'/>
+        <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+        
+        {/* <!-- Add more elements as needed --> */}
+    </dialog>
                 </div>
 
 

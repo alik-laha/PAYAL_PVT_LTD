@@ -319,7 +319,7 @@ const GatePassTable = () => {
                                                     <DialogContent>
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-5'>QC Incoming RCN Report </p>
+                                                                <p className='text-1xl pb-1 text-center mt-5'>Gate Pass Report </p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         {/* <QCreportForm data={item} /> */}
