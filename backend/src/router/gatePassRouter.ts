@@ -15,5 +15,7 @@ router.post("/createGatePassMasterForSection", jwtVerify, CreateGatePassSection)
 router.post("/updateGatePass", jwtVerify, updateGatePass)
 router.put("/gatepasssearch", jwtVerify, SearchGatePass)
 router.put("/updateNetWeight/:id", jwtVerify, updateNetWeight)
+router.put("/updateApproval/:id", jwtVerify, updateNetWeight)
+router.post("/updateApproval",jwtVerify, updateEmployeeProfile)
 
 export default router;

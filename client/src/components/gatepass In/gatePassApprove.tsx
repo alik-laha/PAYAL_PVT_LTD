@@ -5,6 +5,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
+import axios from "axios";
 
 interface GatePassDataProps{
 
@@ -97,11 +98,44 @@ const GatepassApprove = (props: GatePassDataProps) => {
 const handlegateEdit = () => {
         setgatepassEditMode(true)
     }
+
+
+
+    const HandleSubmit = (e: React.FormEvent<HTMLElement>) => {
+        e.preventDefault()
+        const formData = new FormData()    
+        formData.append("vehicle", vehile)
+        formData.append("docNo", DocumentNo)
+        formData.append("driver", DriverName)
+        formData.append("drivercontact", DriverContactNo)
+        formData.append("grossWt", GrossWt)
+        formData.append("grossWtSlip", GrossWtSlip)
+        formData.append("netwt", ntweight)
+        if(billamt){
+            formData.append("billamt", billamt.toString())
+        }
+         
+        axios.post("/api/gatepass/updateApproval", formData).then((res) => {
+            console.log(res)
+            if(successdialog!=null){
+                (successdialog as any).showModal();
+            }
+        }
+        ).catch((err) => {
+            console.log(err)
+            setErrorText(err.response.data.message)
+            if(errordialog!=null){
+                (errordialog as any).showModal();
+            }
+        })
+        console.log("submit")
+
+    }    
 return (
 
 <div className="pl-5 pr-5 ">
 
-            <form className='flex flex-col gap-1 text-xs ' > 
+            <form className='flex flex-col gap-1 text-xs ' onSubmit={HandleSubmit} > 
                                                  
             <div className="mx-8 flex flex-col gap-0.5">  
       
