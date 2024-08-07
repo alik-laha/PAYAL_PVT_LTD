@@ -92,9 +92,11 @@ const RCNInitialForm = (props: any) => {
                             })
                         ) : <TableRow>
                             <TableCell></TableCell>
+                            <TableCell className="text-right  text-red-500 font-semibold">No Pending Entry</TableCell>
                             <TableCell></TableCell>
-                            <TableCell className="text-left  text-red-500 font-semibold">No Pending GatePass For RCN Entry</TableCell>
+                        
                             <TableCell></TableCell>
+                         
                             </TableRow>}
                     </TableBody>
                 </Table>

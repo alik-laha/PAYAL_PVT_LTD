@@ -322,23 +322,23 @@ const RcnPrimaryEntryTable = () => {
 
             </div>
             {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
-
-
-
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Id</TableHead>
+                    <TableHead className="text-center" >GatePass_No</TableHead>
+                 
                     <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Date of Receiving </TableHead>
+                    <TableHead className="text-center" >Date_of_Receiving </TableHead>
                     <TableHead className="text-center" >BL No.</TableHead>
                     <TableHead className="text-center" >Con No.</TableHead>
                     <TableHead className="text-center" >Truck No.</TableHead>
-
+                    <TableHead className="text-center" >Gross Weight</TableHead>
                     <TableHead className="text-center" >BL Weight</TableHead>
                     <TableHead className="text-center" >Net Weight</TableHead>
                     <TableHead className="text-center" >Difference</TableHead>
-                    <TableHead className="text-center" >Bag Count</TableHead>
+                    <TableHead className="text-center" >Physical Bag Count</TableHead>
+                    <TableHead className="text-center" >System Bag Count</TableHead>
                     <TableHead className="text-center" >QC Status</TableHead>
                     <TableHead className="text-center" >Edit Status </TableHead>
                     <TableHead className="text-center" >Entried By </TableHead>
@@ -352,12 +352,13 @@ const RcnPrimaryEntryTable = () => {
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{idx + 1}</TableCell>
+                                    <TableCell className="text-center">{item.gatePassNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center">{item.blNo}</TableCell>
                                     <TableCell className="text-center">{item.conNo}</TableCell>
                                     <TableCell className="text-center">{item.truckNo}</TableCell>
-
+                                    <TableCell className="text-center">{item.grossWt}</TableCell>
                                     <TableCell className="text-center">{item.blWeight}</TableCell>
                                     <TableCell className="text-center">{item.netWeight}</TableCell>
 
@@ -365,6 +366,7 @@ const RcnPrimaryEntryTable = () => {
                                         : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)}
 
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.systemBags}</TableCell>
                                     <TableCell className="text-center ">
                                         {item.rcnStatus === 'QC Approved' ? (
                                             <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
@@ -424,17 +426,19 @@ const RcnPrimaryEntryTable = () => {
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                    <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center">{item.blNo}</TableCell>
                                     <TableCell className="text-center">{item.conNo}</TableCell>
                                     <TableCell className="text-center">{item.truckNo}</TableCell>
-
+                                    <TableCell className="text-center">{item.grossWt}</TableCell>
                                     <TableCell className="text-center">{item.blWeight}</TableCell>
                                     <TableCell className="text-center">{item.netWeight}</TableCell>
                                     {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)
                                         : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)}
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.systemBags}</TableCell>
                                     <TableCell className="text-center">
                                         {item.rcnStatus === 'QC Approved' ? (
                                             <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
@@ -479,7 +483,9 @@ const RcnPrimaryEntryTable = () => {
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
+                            <TableCell></TableCell>
                             <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
+                            <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
