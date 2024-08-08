@@ -104,5 +104,10 @@ const gatePassMaster = sequelize.define('gatePassMaster', {
         allowNull: true,
        
     },
+    OutTime: {
+        type: DataTypes.TIME,
+        allowNull: true
+       
+    },
 })
     export default gatePassMaster;

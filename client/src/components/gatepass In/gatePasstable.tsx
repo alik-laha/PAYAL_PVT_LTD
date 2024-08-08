@@ -173,6 +173,25 @@ const GatePassTable = () => {
         // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
         return finalTime;
     }
+    
+    const handleRelease = (id: number) => {
+        const outtime=new Date().toTimeString().slice(0,5)
+        axios.put(`/api/gatepass/updateRelease/${id}`, {outtime }).then((res) => {
+            
+            console.log(res.data)
+            if(successdialog!=null){
+                (successdialog as any).showModal();
+            }
+            //window.location.reload()
+        }).catch((err) => {
+            console.log(err)
+            setErrorText(err.response.data.message)
+            if(errordialog!=null){
+                (errordialog as any).showModal();
+            }
+        })
+
+    }
     const handleNetWeight = (data: GatePassData) => {
         if (!netWeight) {
             setErrView('block')
@@ -181,8 +200,10 @@ const GatePassTable = () => {
         axios.put(`/api/gatepass/updateNetWeight/${data.id}`, { netWeight: netWeight,section:data.section,
             type:data.type,gatepassNo:data.gatePassNo }).then((res) => {
             setNetWeight(0)
+            setErrorText(res.data.message);
             console.log(res.data)
             if(successdialog!=null){
+                
                 (successdialog as any).showModal();
             }
             //window.location.reload()
@@ -272,7 +293,7 @@ const GatePassTable = () => {
                     <TableHead className="text-center" >Entried By</TableHead>
                     <TableHead className="text-center" >Approval</TableHead>
                     <TableHead className="text-center" >Verified By</TableHead>
-                   
+                    <TableHead className="text-center" >Out_Time</TableHead>
                     
                     <TableHead className="text-center" >Action</TableHead>
                 </TableHeader>
@@ -318,9 +339,10 @@ const GatePassTable = () => {
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center">{item.modifiedBy}</TableCell>
-                                   
+                                    <TableCell className="text-center">{item.OutTime===null? '':(handleAMPM(item.OutTime))}</TableCell>
                                     <TableCell className="text-center">
-                                    <Popover>
+
+                                        {item.status==='Approved'? (<button className="bg-orange-500 p-2 text-white rounded " onClick={() => handleRelease(item.id)}>Release</button>):(<Popover>
                                             <PopoverTrigger>
                                                 <button className={`p-2 text-white rounded ${(item.receivingStatus === 0) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.receivingStatus === 0) ? true : false}>Action</button>
                                             </PopoverTrigger>
@@ -366,7 +388,8 @@ const GatePassTable = () => {
                                                 </Dialog>}    
                                             </PopoverContent>
                                            
-                                    </Popover>
+                                    </Popover>)}
+                                    
                                     </TableCell>
                                     
                                
@@ -426,7 +449,7 @@ const GatePassTable = () => {
             <dialog id="machinescs" className="dashboard-modal">
         <button id="machinescsbtn" className="dashboard-modal-close-btn ">X </button>
         <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
-        <p id="modal-text" className="pl-3 mt-1 font-medium">Net Weight Updated Successfully</p></span>
+        <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
         
         {/* <!-- Add more elements as needed --> */}
     </dialog>

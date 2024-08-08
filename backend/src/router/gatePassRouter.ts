@@ -8,6 +8,7 @@ import SearchGatePass from '../controller/GatePassController/searchGatePass';
 import CreateGatePassSection from '../controller/GatePassController/createGatePassSection';
 import updateNetWeight from '../controller/GatePassController/updateNetWeight';
 import updateApprovalGate from '../controller/GatePassController/updateApprovalGate';
+import updateReleaseGate from '../controller/GatePassController/updateReleaseGate';
 const router = express.Router();
 
 router.post("/createGatePass", jwtVerify, CreateGatePass)
@@ -17,5 +18,6 @@ router.post("/updateGatePass", jwtVerify, updateGatePass)
 router.put("/gatepasssearch", jwtVerify, SearchGatePass)
 router.put("/updateNetWeight/:id", jwtVerify, updateNetWeight)
 router.put("/updateApproval/:id",jwtVerify, updateApprovalGate)
+router.put("/updateRelease/:id",jwtVerify, updateReleaseGate)
 
 export default router;

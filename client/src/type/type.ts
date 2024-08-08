@@ -555,6 +555,7 @@ export interface GatePassData {
             createdBy: string;
             status: string;
             modifiedBy: string;
+            OutTime:string;
           
 }
 
