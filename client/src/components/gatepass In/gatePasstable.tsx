@@ -17,7 +17,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { GatePassData, pendingCheckRoles, PermissionRole } from "@/type/type";
+import { GatePassData, GatePassExcelData, pendingCheckRoles, PermissionRole } from "@/type/type";
 import {
     Pagination,
     PaginationContent,
@@ -56,6 +56,10 @@ import {
 import { FcApprove } from "react-icons/fc";
 import { MdOutlineDriveFolderUpload } from "react-icons/md";
 import GatepassApprove from "./gatePassApprove";
+import * as XLSX from 'xlsx'
+import { saveAs } from 'file-saver'
+
+
 const GatePassTable = () => {
 
     const [fromdate, setfromDate] = React.useState<string>('');
@@ -226,7 +230,56 @@ const GatePassTable = () => {
         }
 
     }
+    const handleExcellExport = async () => {
+        const response = await axios.put('/api/gatepass/gatepasssearch', {
+            blConNo: blConNo,
+            section: section,
+            fromDate: fromdate,
+            toDate: todate,
+            type:type
+        })
+        const data1 = await response.data
+        let ws
+        let transformed: GatePassExcelData[] = []
+            transformed = data1.rcnEntries.map((item: GatePassData, index: number) => {
+                return {
+                    'Id': index+1,
+                    'GatePassNo': item.gatePassNo,
+                    'Type':item.type,
+                    'Date':handletimezone(item.date) ,
+                    'In_Time': handleAMPM(item.time),
+                    'Grosswt': item.grosswt,
+                    'DocNo': item.DocNo,
+                    'Gross_Wt_Bill': item.grosswtNo,
+                    'VehicleNo': item.vehicleNo,
+                    'DriverName': item.driverName,
+                    'DriverContact': item.driverContact,
+                    'SecurityName': item.securityName,
+                    'Section': item.section,
+                    'ReceivingStatus': item.receivingStatus===1?'Completed':'Pending' ,
+                    'NetWeight': item.netWeight,
+                    'ApprovalStatus': item.approvalStatus===1?'Completed':'Pending',
+                    'BillAmount': item.billAmount,
+                    
+                    'Status': item.status,
+                    'Verified_By': item.modifiedBy,
+                    'OutTime':item.OutTime===null? '':(handleAMPM(item.OutTime))
+                
+                        
+                }
+            })
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        
+        const currDate = new Date().toLocaleDateString();
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'GatePass_Entry_' + currDate + '.xlsx');
 
+
+    }
 
     return (
         <div className="ml-5 mt-5 ">
@@ -279,7 +332,7 @@ const GatePassTable = () => {
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
             </div>
-            {checkpending('Gatepass') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" ><LuDownload size={18} /></Button> </span>}
+            {checkpending('Gatepass') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={handleExcellExport}><LuDownload size={18} /></Button> </span>}
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 

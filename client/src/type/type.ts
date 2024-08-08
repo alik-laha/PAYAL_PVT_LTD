@@ -559,5 +559,28 @@ export interface GatePassData {
             OutTime:string;
           
 }
+export interface GatePassExcelData {
+    Id: number;
+    GatePassNo: string;
+    Type:string;
+    Date: string;
+    In_Time: string;
+    Grosswt: string;
+    DocNo: string;
+    Gross_Wt_Bill: string;
+    VehicleNo: string;
+    DriverName: string;
+    DriverContact: string;
+    SecurityName: string;
+    Section: string;
+    ReceivingStatus: number;
+    NetWeight: string;
+    ApprovalStatus: number;
+    BillAmount: string;
+    Status: string;
+    Verified_By: string;
+    OutTime:string;
+  
+}
 
 
