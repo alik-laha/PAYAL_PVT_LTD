@@ -4,8 +4,13 @@ import { QcRCN } from "../../model/indexmapping";
 const qcInitialEntry = async (req: Request, res: Response) => {
 
     try {
-        const { g_id, blNo, conNo, origin, date } = req.body;
-
+        let { g_id, blNo, conNo, origin, date } = req.body;
+        if(!blNo){
+            blNo='LOCAL PURCHASE'
+        }
+        if(!conNo){
+            conNo='NO CONTAINER'
+        }
         const qcRcnInitial = await QcRCN.create({
             id: g_id,
             date,
