@@ -286,15 +286,16 @@ const GatePassTable = () => {
                     <TableHead className="text-center" >Vehicle_No</TableHead>
                     <TableHead className="text-center" >Driver_Name</TableHead>
                     <TableHead className="text-center" >Driver_Contact</TableHead>
-                 
-                    <TableHead className="text-center" >Receiving/Dispatch</TableHead>
+                    <TableHead className="text-center" >Entried_By_Seurity</TableHead>
                     
-                    <TableHead className="text-center" >netWeight</TableHead>
-                    <TableHead className="text-center" >Entried By</TableHead>
-                    <TableHead className="text-center" >Approval</TableHead>
-                    <TableHead className="text-center" >Verified By</TableHead>
+                    
+                    <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
+
+                    
+                    <TableHead className="text-center" >Verified/Approved_By</TableHead>
                     <TableHead className="text-center" >Out_Time</TableHead>
-                    
+                    <TableHead className="text-center" >Receiving/Dispatch</TableHead>
+                    <TableHead className="text-center" >Approval</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
                 </TableHeader>
                 <TableBody>
@@ -319,27 +320,30 @@ const GatePassTable = () => {
                                 <TableCell className="text-center">{item.vehicleNo}</TableCell>
                                 <TableCell className="text-center">{item.driverName}</TableCell>
                                 <TableCell className="text-center">{item.driverContact}</TableCell>
-                              
+                                <TableCell className="text-center">{item.securityName}</TableCell>
                                
                                 
-                                <TableCell className="text-center ">
+                                
+                                    <TableCell className="text-center font-semibold">{item.netWeight ? item.netWeight:0} kg </TableCell>
+                                    
+                                    
+                                    <TableCell className="text-center">{item.modifiedBy}</TableCell>
+                                    <TableCell className="text-center">{item.OutTime===null? '':(handleAMPM(item.OutTime))}</TableCell>
+                                    <TableCell className="text-center ">
                                         {item.receivingStatus === 0 ? (
                                             <button className="bg-red-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Pending</button>
                                         ) :  (
-                                            <button className="bg-green-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Completed</button>
+                                            <button className="bg-green-500 p-1 text-white rounded-md fix-button-width-rcnprimary opacity-90">Completed</button>
                                         )}
                                     </TableCell>
-                                    <TableCell className="text-center">{item.netWeight ? item.netWeight:0} kg </TableCell>
-                                    <TableCell className="text-center">{item.securityName}</TableCell>
                                     <TableCell className="text-center ">
                                         {item.approvalStatus === 0 ? (
                                             <button className="bg-red-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Pending</button>
                                         ) :  (
-                                            <button className="bg-green-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Completed</button>
+                                            <button className="bg-green-500 p-1 text-white rounded-md fix-button-width-rcnprimary opacity-90">Completed</button>
                                         )}
                                     </TableCell>
-                                    <TableCell className="text-center">{item.modifiedBy}</TableCell>
-                                    <TableCell className="text-center">{item.OutTime===null? '':(handleAMPM(item.OutTime))}</TableCell>
+                                    
                                     <TableCell className="text-center">
 
                                         {item.status==='Approved'? (<button className="bg-orange-500 p-2 text-white rounded " onClick={() => handleRelease(item.id)}>Release</button>):(<Popover>

@@ -9,7 +9,8 @@ import RcnPrimary from "../../model/RcnEntryModel";
 const updateReleaseGate = async (req: Request, res: Response) => {
     try {
         const gatepassId = req.params.id
-        const outtime = req.body.data
+        const outtime = req.body.outtime
+        //console.log(req.body)
         const gatepassupdate=await gatePassMaster.update(
             {               
                 status:'Closed',
