@@ -24,7 +24,7 @@ const updateReleaseGate = async (req: Request, res: Response) => {
         );
             
         if(gatepassupdate){
-            return res.status(200).json({ message: "Vehicle is Now Released" });
+            return res.status(201).json({ message: "Vehicle is Now Released" });
         }
 
 

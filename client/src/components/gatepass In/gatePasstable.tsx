@@ -331,14 +331,14 @@ const GatePassTable = () => {
                                     <TableCell className="text-center">{item.OutTime===null? '':(handleAMPM(item.OutTime))}</TableCell>
                                     <TableCell className="text-center ">
                                         {item.receivingStatus === 0 ? (
-                                            <button className="bg-red-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Pending</button>
+                                            <button className="bg-purple-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Pending</button>
                                         ) :  (
                                             <button className="bg-green-500 p-1 text-white rounded-md fix-button-width-rcnprimary opacity-90">Completed</button>
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center ">
                                         {item.approvalStatus === 0 ? (
-                                            <button className="bg-red-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Pending</button>
+                                            <button className="bg-purple-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Pending</button>
                                         ) :  (
                                             <button className="bg-green-500 p-1 text-white rounded-md fix-button-width-rcnprimary opacity-90">Completed</button>
                                         )}
@@ -346,7 +346,7 @@ const GatePassTable = () => {
                                     
                                     <TableCell className="text-center">
 
-                                        {item.status==='Closed'? (<button className="bg-red-500 p-2 text-white rounded opacity-80 " disabled={true}>Closed</button>):(<Popover>
+                                        {item.status==='Closed'? (<button className="bg-red-500 p-2 text-white rounded " disabled={true}>Closed</button>):(<Popover>
                                             <PopoverTrigger>
                                                 <button className={`p-2 text-white rounded ${(item.receivingStatus === 0) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.receivingStatus === 0) ? true : false}>Action</button>
                                             </PopoverTrigger>

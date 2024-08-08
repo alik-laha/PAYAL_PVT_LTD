@@ -36,7 +36,7 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(rcnincomingUpdate){
-                    return res.status(201).json({ msg: `NetWeight of Gatepass ID ${gatepassId} is Updated` });
+                    return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
                 }
                 
             }
