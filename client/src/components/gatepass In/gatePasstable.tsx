@@ -346,10 +346,11 @@ const GatePassTable = () => {
                                     
                                     <TableCell className="text-center">
 
-                                        {item.status==='Approved'? (<button className="bg-orange-500 p-2 text-white rounded " onClick={() => handleRelease(item.id)}>Release</button>):(<Popover>
+                                        {item.status==='Closed'? (<button className="bg-red-500 p-2 text-white rounded opacity-80 " disabled={true}>Closed</button>):(<Popover>
                                             <PopoverTrigger>
                                                 <button className={`p-2 text-white rounded ${(item.receivingStatus === 0) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.receivingStatus === 0) ? true : false}>Action</button>
                                             </PopoverTrigger>
+
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                             {!item.netWeight && item.receivingStatus === 1 && item.approvalStatus === 0 && <AlertDialog>
                                                 <AlertDialogTrigger className="flex">
@@ -375,7 +376,7 @@ const GatePassTable = () => {
                                                 
                                                 </AlertDialog>}
 
-                                                {item.netWeight  && item.receivingStatus === 1 && item.approvalStatus === 0 && <Dialog>
+                                            {item.netWeight  && item.receivingStatus === 1 && item.approvalStatus === 0 && <Dialog>
                                                     <DialogTrigger className="flex py-1">
                                                         <MdOutlineDriveFolderUpload size={20} color="green" />  <button className="bg-transparent pl-2 text-left hover:text-green-500" >
                                                             Verify GatePass</button>
@@ -389,7 +390,32 @@ const GatePassTable = () => {
                                                         {/* <QCreportForm data={item} /> */}
                                                          <GatepassApprove data={item} />
                                                     </DialogContent>
-                                                </Dialog>}    
+                                                </Dialog>}   
+
+
+                                            {item.receivingStatus === 1 && item.approvalStatus === 1 && <AlertDialog>
+                                                <AlertDialogTrigger className="flex">
+                                                        <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >Release</button>
+                                                    </AlertDialogTrigger>
+
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle> Do You want to Release Vehicle For Incoming/Outgoing Exit?</AlertDialogTitle>
+                                                            <AlertDialogDescription>
+
+                                                                This will close the GatePass
+                                                               
+                                                            </AlertDialogDescription>
+                                                        </AlertDialogHeader>
+
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction onClick={() =>  handleRelease(item.id)}>Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                
+                                                </AlertDialog>}
+     
                                             </PopoverContent>
                                            
                                     </Popover>)}
