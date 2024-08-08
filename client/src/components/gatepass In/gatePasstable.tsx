@@ -4,7 +4,7 @@ import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
 import { format, toZonedTime } from 'date-fns-tz'
 import React from "react";
-import {  SelectGatePassType, pageNo, pagelimit, sectionDataonTypeGate } from "../common/exportData";
+import {  SelectGatePassType, pageNo, pagelimit, pendingCheckRole, sectionDataonTypeGate } from "../common/exportData";
 import axios from "axios";
 import { LuDownload } from "react-icons/lu";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
@@ -17,7 +17,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { GatePassData } from "@/type/type";
+import { GatePassData, pendingCheckRoles, PermissionRole } from "@/type/type";
 import {
     Pagination,
     PaginationContent,
@@ -215,7 +215,17 @@ const GatePassTable = () => {
             }
         })
     }
+    const checkpending = (tab: string) => {
+        const Role = localStorage.getItem('role') as keyof PermissionRole
+        //console.log(Role)
+        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+            return true
+        }
+        else {
+            return false;
+        }
 
+    }
 
 
     return (
@@ -269,7 +279,7 @@ const GatePassTable = () => {
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
             </div>
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" ><LuDownload size={18} /></Button> </span>
+            {checkpending('Gatepass') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" ><LuDownload size={18} /></Button> </span>}
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
@@ -376,7 +386,7 @@ const GatePassTable = () => {
                                                 
                                                 </AlertDialog>}
 
-                                            {item.netWeight  && item.receivingStatus === 1 && item.approvalStatus === 0 && <Dialog>
+                                            {checkpending('Gatepass') && item.netWeight  && item.receivingStatus === 1 && item.approvalStatus === 0 && <Dialog>
                                                     <DialogTrigger className="flex py-1">
                                                         <MdOutlineDriveFolderUpload size={20} color="green" />  <button className="bg-transparent pl-2 text-left hover:text-green-500" >
                                                             Verify GatePass</button>

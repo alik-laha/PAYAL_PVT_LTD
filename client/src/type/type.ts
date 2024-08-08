@@ -386,6 +386,7 @@ export interface pendingCheckRoles {
     Boiling: string[];
     Scooping: string[];
     Borma: string[];
+    Gatepass:string[];
 }
 
 export interface GradingExcelData {

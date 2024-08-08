@@ -76,7 +76,8 @@ export const pendingCheckRole = {
     Grading: ['Director', 'FactoryManager', 'ProductionManager'],
     Boiling: ['Director', 'FactoryManager', 'ProductionManager'],
     Scooping: ['Director', 'FactoryManager', 'ProductionManager'],
-    Borma: ['Director', 'FactoryManager', 'ProductionManager']
+    Borma: ['Director', 'FactoryManager', 'ProductionManager'],
+    Gatepass: ['Director', 'FactoryManager', 'GatePassManager']
 }
 export const roleDataonDept = {
     Admin: ['Director', 'FactoryManager'],
