@@ -9,6 +9,7 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
         const id = req.params.id;
         const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin, date } = req.body;
         let difference = netWeight -blWeight ;
+        let systemBags=(netWeight/80).toFixed(2)
 
         const editedBy = req.cookies.user
             if (!id) 
@@ -24,9 +25,12 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
     
             if(rcnData){
                 const rcnEdit = await RcnEdit.create({
+                    gatePassNo:rcnData?.gatePassNo,
+                    grossWt:rcnData?.grossWt,
                     blNo,
                     truckNo,
                     conNo,
+                    systemBags,
                     blWeight,
                     netWeight,
                     difference,

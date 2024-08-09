@@ -75,7 +75,7 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        axios.put(`/api/rcnprimary/update/${props.data.id}`, { gatePassNo,grossWt,origin, blNo, conNo, truckNo, noOfBags, blWeight, netWeight, date })
+        axios.put(`/api/rcnprimary/update/${props.data.id}`, { origin, blNo, conNo, truckNo, noOfBags, blWeight, netWeight, date })
             .then((res) => {
                 console.log(res)
                 if (successdialog != null) {
@@ -160,7 +160,7 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
                     <Input className="w-2/4 text-center " placeholder="Total Bags" type="number" value={noOfBags} onChange={(e) => setNoOfBags(e.target.value)} />
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 mt-2"> BL Weight</Label>
+                    <Label className="w-2/4 mt-2"> BL Weight (Kg)</Label>
                     <Input className="w-2/4 text-center" placeholder="BL Weight" type="number" value={blWeight} onChange={(e) => setBlWeight(e.target.value)} />
                 </div>
                
