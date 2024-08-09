@@ -134,17 +134,32 @@ const handleSubmit = async (e: React.FormEvent) => {
                            
                             
                     }
-                    else{
-
-                        
-                    }
+                    
                 }     
             }
 
     }
-    catch{
+    catch(err)  {
 
-
+        console.log(err)
+        if(axios.isAxiosError(err)){
+            setErrortext(err.response?.data.message ||'An Unexpected Error Occured in Creating Gate Pass')
+        }
+        else{
+            setErrortext('An Unexpected Error Occured in Creating Gate Pass')
+        }
+        const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+        dialog.showModal()
+        setTimeout(() => {
+            dialog.close()
+        }, 2000)
+        axios.delete(`/api/gatepass/deletegatepass/${createLot.data.newSequence}`).then((res) => {
+            console.log(res.data)
+        })
+        axios.delete(`/api/gatepass/deletegatepassmaster/${createLot.data.newSequence}`).then((res) => {
+            console.log(res.data)
+        })
+       
     }
 
 }
