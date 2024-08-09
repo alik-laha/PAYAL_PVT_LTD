@@ -43,18 +43,21 @@ const GatepassIn = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                 <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
-                        Total Issued <br /><p>5 </p>
+                        Total Issued <br /><p>{data.Issued} </p>
                     </div>
-                    <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
-                        Completed <br /><p>5 </p>
+                    <div className="flexbox-tile bg-lime-500 hover:bg-orange-400">
+                        Completed <br /><p>{data.completed} </p>
+                    </div>
+                    <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
+                       Pending Receive/Dispatch<br /><p>{data.PendingRcv}</p>
                     </div>
                     
                     <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
-                        Pending Approval<br /><p>5 </p>
+                        Pending Approval<br /><p>{data.Pendingapprove} </p>
                     </div>
                     
-                    <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
-                       Pending Release<br /><p>3 </p>
+                    <div className="flexbox-tile bg-purple-500 hover:bg-orange-400">
+                       Pending Release<br /><p>{data.Pendingrelease} </p>
                     </div>
                    
                     

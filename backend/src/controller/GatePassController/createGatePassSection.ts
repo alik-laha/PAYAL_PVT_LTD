@@ -29,6 +29,7 @@ try{
         }
         
     }
+    return res.status(200).json({ message: "Gate Pass created Sucessfully" });
 }
 catch (err) {
     return res.status(500).json({ message: "Duplicate Lot No. or Error in Creating GatePass", err });
