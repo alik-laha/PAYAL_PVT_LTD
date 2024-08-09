@@ -75,7 +75,7 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        axios.put(`/api/rcnprimary/update/${props.data.id}`, { origin, blNo, conNo, truckNo, noOfBags, blWeight, netWeight, date })
+        axios.put(`/api/rcnprimary/update/${props.data.id}`, { gatePassNo,origin, blNo, conNo, truckNo, noOfBags, blWeight, netWeight, date })
             .then((res) => {
                 console.log(res)
                 if (successdialog != null) {

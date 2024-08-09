@@ -3,11 +3,12 @@ import RcnPrimary from "../../model/RcnEntryModel";
 import RcnEdit from "../../model/RcnEditModel";
 import { RcnPrimaryModifyProps } from "../../type/type";
 import WhatsappMsg from "../../helper/WhatsappMsg";
+import gatePassMaster from "../../model/gatePassMasterModel";
 
 const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
-        const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin, date } = req.body;
+        const { gatePassNo,blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin, date } = req.body;
         let difference = netWeight -blWeight ;
         let systemBags=(netWeight/80).toFixed(2)
 
@@ -24,43 +25,106 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
             })) as RcnPrimaryModifyProps | null;
     
             if(rcnData){
-                const rcnEdit = await RcnEdit.create({
-                    gatePassNo:rcnData?.gatePassNo,
-                    grossWt:rcnData?.grossWt,
-                    blNo,
-                    truckNo,
-                    conNo,
-                    systemBags,
-                    blWeight,
-                    netWeight,
-                    difference,
-                    noOfBags,
-                    origin,
-                    id,
-                    editedBy,
-                    rcnStatus: rcnData?.rcnStatus,
-                    date
-        
-        
-                });
-                if(rcnEdit){
-                    const rcn = await RcnPrimary.update(
-                        {
-                            editStatus: "Pending",
-                        },
-                        {
-                            where: {
-                                id,
+                if(rcnData?.blWeight===blWeight){
+                    const rcnEdit = await RcnEdit.create({
+                        gatePassNo:rcnData?.gatePassNo,
+                        grossWt:rcnData?.grossWt,
+                        blNo,
+                        truckNo,
+                        conNo,
+                        systemBags,
+                        blWeight,
+                        netWeight,
+                        difference,
+                        noOfBags,
+                        origin,
+                        id,
+                        editedBy,
+                        rcnStatus: rcnData?.rcnStatus,
+                        date
+            
+            
+                    });
+                    if(rcnEdit){
+                        const rcn = await RcnPrimary.update(
+                            {
+                                editStatus: "Pending",
                             },
+                            {
+                                where: {
+                                    id,
+                                },
+                            }
+                        );
+                        if(rcn){
+                            const data = await WhatsappMsg("RCN Primary Receiving", editedBy, "modify_request")
+                        console.log(data)
+                        return res.status(200).json({ message: "Rcn Entry updated successfully Wait for approval" });
                         }
-                    );
-                    if(rcn){
-                        const data = await WhatsappMsg("RCN Primary Receiving", editedBy, "modify_request")
-                    console.log(data)
-                    return res.status(200).json({ message: "Rcn Entry updated successfully Wait for approval" });
+                        
                     }
-                    
                 }
+                else{
+                    const gatepassdata= await gatePassMaster.findOne({ where: {
+                        gatePassNo:gatePassNo,section:'Raw Cashew'
+                    }})
+                    if(gatepassdata){
+
+                        if(gatepassdata.dataValues.approvalStatus===1){
+                            const rcnEdit = await RcnEdit.create({
+                                gatePassNo:rcnData?.gatePassNo,
+                                grossWt:rcnData?.grossWt,
+                                blNo,
+                                truckNo,
+                                conNo,
+                                systemBags,
+                                blWeight,
+                                netWeight,
+                                difference,
+                                noOfBags,
+                                origin,
+                                id,
+                                editedBy,
+                                rcnStatus: rcnData?.rcnStatus,
+                                date
+                    
+                    
+                            });
+                            if(rcnEdit){
+                                const rcn = await RcnPrimary.update(
+                                    {
+                                        editStatus: "Pending",
+                                    },
+                                    {
+                                        where: {
+                                            id,
+                                        },
+                                    }
+                                );
+                                if(rcn){
+                                    const data = await WhatsappMsg("RCN Primary Receiving", editedBy, "modify_request")
+                                console.log(data)
+                                return res.status(200).json({ message: "Rcn Entry updated successfully Wait for approval" });
+                                }
+                                
+                            }
+
+
+                        }
+                        else{
+                            res.status(500).json({ message: "BL Weight Can't Be Updated Before Gate Pass Closure " });
+                        }
+                    }
+                    else{
+                        res.status(500).json({ message: "Internal Server Error" });
+                    }
+                }
+
+
+
+
+
+                
             }
             //console.log(rcn);
             else{
