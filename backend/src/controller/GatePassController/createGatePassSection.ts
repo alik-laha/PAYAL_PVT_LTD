@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import RcnPrimary from "../../model/RcnEntryModel";
-//import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
+import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 
 
 
@@ -21,8 +21,8 @@ try{
             grossWt:grossWt,
             truckNo:vehicle,    
         });
-        // const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatePassNo,"gatepass_rcv_dispatch",'RCN Cashew IN')
-        // console.log(data)
+        const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatePassNo,"gatepass_rcv_dispatch",'RCN Cashew IN')
+        console.log(data)
 
         if(RCNIncoming){
             return res.status(200).json({ message: "RCN Initial Entry Created Successfully" });

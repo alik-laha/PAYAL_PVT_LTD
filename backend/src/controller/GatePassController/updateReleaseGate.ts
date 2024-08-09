@@ -1,8 +1,5 @@
 import { Request, Response } from "express";
 import gatePassMaster from "../../model/gatePassMasterModel";
-import sequelize from "../../config/databaseConfig";
-import RcnPrimary from "../../model/RcnEntryModel";
-
 
 
 
