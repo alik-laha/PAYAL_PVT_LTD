@@ -7,9 +7,19 @@ const CreateGatePass = async (req: Request, res: Response) => {
 try{
 
     const feeledBy = req.cookies.user;
-    const lastgatepass = await gatePass.findOne({ order: [['id', 'DESC']] }) ;
-    const newId = lastgatepass ? lastgatepass.dataValues.id + 1 : 1;
-    const gatepassNo = `PDPL${String(newId).padStart(5, '0')}`;
+
+    const lastGatePassNo = await gatePass.findOne({
+        
+        order: [['gatePassNo', 'DESC']]
+      });
+      
+      const newGatePassNo = lastGatePassNo ? parseInt(lastGatePassNo.dataValues.gatePassNo.slice(4)) + 1 : 1;
+
+
+
+    //const lastgatepass = await gatePass.findOne({ order: [['id', 'DESC']] }) ;
+   // const newId = lastgatepass ? lastgatepass.dataValues.id + 1 : 1;
+    const gatepassNo = `PDPL${String(newGatePassNo).padStart(5, '0')}`;
     await gatePass.create({ gatePassNo: gatepassNo ,createdBy:feeledBy})
     //console.log('New sequence generated and saved:', newSequence);
     return res.status(201).json({ message: `New GatePass ${gatepassNo} is Created`, gatepassNo });

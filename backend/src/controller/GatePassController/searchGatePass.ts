@@ -52,14 +52,14 @@ const SearchGatePass = async (req: Request, res: Response) => {
         if(limit===0 && offset===0){
              rcnEntries = await gatePassMaster.findAll({
                 where,
-                order: [['date', 'DESC']], // Order by date descending
+                order: [['gatePassNo', 'DESC'],['date', 'DESC']], // Order by date descending
                 
             });
         }
         else{
              rcnEntries = await gatePassMaster.findAll({
                 where,
-                order: [['date', 'DESC']], // Order by date descending
+                order:  [['gatePassNo', 'DESC'],['date', 'DESC']], // Order by date descending
                 limit: limit,
                 offset: offset
             });
