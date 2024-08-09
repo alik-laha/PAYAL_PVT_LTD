@@ -19,25 +19,14 @@ import GatePassCreateForm from './gatepasscreateform';
 import GatePassTable from './gatePasstable';
 import Loader from '../common/Loader';
 import UseQueryData from '../common/dataFetcher';
-import { pendingCheckRole } from '../common/exportData';
-import { pendingCheckRoles, PermissionRole } from '@/type/type';
+
 
 
 
 
 
 const GatepassIn = () => {
-    const Role = localStorage.getItem('role') as keyof PermissionRole
-    const checkpending = (tab: string) => {
-        //console.log(Role)
-        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
-            return true
-        }
-        else {
-            return false;
-        }
-
-    }
+   
     const { data, error, isLoading } = UseQueryData('/api/gatepass/activegatepasscount', 'GET', 'getTtotalActvGatePass')
     if (isLoading) {
         return <Loader/>
@@ -94,11 +83,10 @@ const GatepassIn = () => {
                     </Dialog>
 
 
-                    {checkpending('Gatepass') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" disabled={data.Pendingapprove === 0 ? true : false}> Pending Approve(
-                        {data.Pendingapprove})</Button> }
+                   
 
                 </div>
-                <GatePassTable/>
+                <GatePassTable />
 
             </div>
         </div>

@@ -60,7 +60,7 @@ import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
 
 
-const GatePassTable = () => {
+const GatePassTable = (props:any) => {
 
     const [fromdate, setfromDate] = React.useState<string>('');
     const [todate, settoDate] = React.useState<string>('');
@@ -281,9 +281,14 @@ const GatePassTable = () => {
 
 
     }
+    
 
     return (
+        <>
+        {/* {checkpending('Gatepass') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleSearchPendingApproval} disabled={props.count === 0 ? true : false}> Pending Approve(
+            {props.count})</Button> } */}
         <div className="ml-5 mt-5 ">
+             
             <div className="flex flexbox-search">
 
                 <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" GatePass/Doc No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
@@ -558,6 +563,8 @@ const GatePassTable = () => {
 
 
         </div>
+        </>
+        
 
 
 
