@@ -52,7 +52,7 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
 
 
         });
-        return res.status(200).json({ message: "Rcn Entry updated successfully Wait for approve" });
+        return res.status(200).json({ message: "Rcn Entry updated successfully Wait for approval" });
     }
 
     catch (err) {

@@ -26,6 +26,10 @@ interface RcnPrimaryModifyProps {
         blWeight: string;
         netWeight: string;
         date: string;
+
+      
+    // gatePassNo:string;
+    // grossWt:string;
     }
 }
 
