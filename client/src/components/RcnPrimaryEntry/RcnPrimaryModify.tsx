@@ -28,8 +28,8 @@ interface RcnPrimaryModifyProps {
         date: string;
 
       
-    // gatePassNo:string;
-    // grossWt:string;
+     gatePassNo:string;
+     grossWt:string;
     }
 }
 
@@ -37,6 +37,8 @@ interface RcnPrimaryModifyProps {
 const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
 
     const [origin, setOrigin] = useState<string>("")
+    const [gatePassNo, setgatePassNo] = useState<string>("")
+    const [grossWt, setgrossWt] = useState<string>("")
     const [blNo, setBlNo] = useState<string>("")
     const [conNo, setConNo] = useState<string>("")
     const [truckNo, setTruckNo] = useState<string>("")
@@ -73,7 +75,7 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        axios.put(`/api/rcnprimary/update/${props.data.id}`, { origin, blNo, conNo, truckNo, noOfBags, blWeight, netWeight, date })
+        axios.put(`/api/rcnprimary/update/${props.data.id}`, { gatePassNo,grossWt,origin, blNo, conNo, truckNo, noOfBags, blWeight, netWeight, date })
             .then((res) => {
                 console.log(res)
                 if (successdialog != null) {
@@ -107,15 +109,29 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
         setBlWeight(props.data.blWeight)
         setNetWeight(props.data.netWeight)
         setDate(new Date(props.data.date))
+        setgrossWt(props.data.grossWt)
+        setgatePassNo(props.data.gatePassNo)
     }, [])
 
 
     return (
         <div className="pl-10 pr-10">
-            <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
-                <div className="flex mt-8"><Label className="w-2/4 ">Origin</Label>
-                    <Select value={origin} onValueChange={(value) => setOrigin(value)}>
-                        <SelectTrigger className="w-2/4 ">
+            <form className='flex flex-col gap-1 ' onSubmit={handleSubmit}>
+            <div className="flex mt-2"><Label className="w-2/4 mt-2">Gate Pass No.</Label>
+                 <Input className="w-2/4 bg-yellow-100 text-center" placeholder="BL No." value={gatePassNo} readOnly /> </div>
+                 <div className="flex"><Label className="w-2/4 mt-2" > Truck No.</Label>
+                    <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Truck No." value={truckNo} readOnly />
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Date of Reciving</Label>
+                    <Input className="w-2/4 text-center bg-yellow-100 justify-center" placeholder="Date Of Receiving" type="date" value={date ? date.toISOString().split('T')[0] : '' } readOnly/>
+                </div>
+                <div className="flex"><Label className="w-2/4 mt-2"> Net Weight (Kg)</Label>
+                    <Input className="w-2/4 text-center bg-yellow-100" placeholder="Net Weight" type="number" value={netWeight} readOnly />
+                </div>
+                <div className="flex"><Label className="w-2/4 mt-2">Origin</Label>
+                    <Select value={origin} onValueChange={(value) => setOrigin(value)} >
+                        <SelectTrigger className="w-2/4 justify-center">
                             <SelectValue placeholder="Origin" />
                         </SelectTrigger>
                         <SelectContent>
@@ -133,28 +149,21 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
                         </SelectContent>
                     </Select>
                     {/* <Input   placeholder="Origin"/>  */}</div>
-                <div className="flex"><Label className="w-2/4 ">BL No.</Label>
-                    <Input className="w-2/4 " placeholder="BL No." value={blNo} onChange={(e) => setBlNo(e.target.value)} /> </div>
-                <div className="flex"><Label className="w-2/4 " >Container No.</Label>
-                    <Input className="w-2/4 " placeholder="Container No." value={conNo} onChange={(e) => setConNo(e.target.value)} /> </div>
-                <div className="flex"><Label className="w-2/4 " > Truck No.</Label>
-                    <Input className="w-2/4 " placeholder="Truck No." value={truckNo} onChange={(e) => setTruckNo(e.target.value)} />
+                <div className="flex"><Label className="w-2/4 mt-3">BL No.</Label>
+                    <Input className="w-2/4 text-center" placeholder="BL No." value={blNo} onChange={(e) => setBlNo(e.target.value)} /> </div>
+                <div className="flex"><Label className="w-2/4 mt-2" >Container No.</Label>
+                    <Input className="w-2/4 text-center" placeholder="Container No." value={conNo} onChange={(e) => setConNo(e.target.value)} /> </div>
+                
+                
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Physical Bag Count</Label>
+                    <Input className="w-2/4 text-center " placeholder="Total Bags" type="number" value={noOfBags} onChange={(e) => setNoOfBags(e.target.value)} />
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 ">Date of Reciving</Label>
-                    <Input className="w-2/4 " placeholder="Date Of Receiving" type="date" value={date ? date.toISOString().split('T')[0] : ''} onChange={(e) => setDate(new Date(e.target.value))} />
+                    <Label className="w-2/4 mt-2"> BL Weight</Label>
+                    <Input className="w-2/4 text-center" placeholder="BL Weight" type="number" value={blWeight} onChange={(e) => setBlWeight(e.target.value)} />
                 </div>
-                <div className="flex">
-                    <Label className="w-2/4 ">Total Bags</Label>
-                    <Input className="w-2/4 " placeholder="Total Bags" type="number" value={noOfBags} onChange={(e) => setNoOfBags(e.target.value)} />
-                </div>
-                <div className="flex">
-                    <Label className="w-2/4 "> BL Weight</Label>
-                    <Input className="w-2/4 " placeholder="BL Weight" type="number" value={blWeight} onChange={(e) => setBlWeight(e.target.value)} />
-                </div>
-                <div className="flex"><Label className="w-2/4 "> Net Weight</Label>
-                    <Input className="w-2/4 " placeholder="Net Weight" type="number" value={netWeight} onChange={(e) => setNetWeight(e.target.value)} />
-                </div>
+               
                 <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
             </form>
 
