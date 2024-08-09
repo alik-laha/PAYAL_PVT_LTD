@@ -12,6 +12,8 @@ export interface RcnPrimaryModifyProps {
     date: Date;
     gatePassNo:string;
     grossWt:string;
+    systemBags:string;
+    difference:string;
 
 }
 
