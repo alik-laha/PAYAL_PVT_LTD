@@ -40,9 +40,7 @@ const modifyrcnReport = async (req: Request, res: Response) => {
             },
            
         );
-        if (!rcnedit) {
-            return res.status(400).json({ message: " QC Rcn Edit Entry is not found" });
-        }
+      
         if(rcnedit){
             const rcn = await QcRCN.update(
                 {   
@@ -61,6 +59,13 @@ const modifyrcnReport = async (req: Request, res: Response) => {
                  console.log(data)
                     return res.status(200).json({ message: "RCN QC Report Edit Requested",rcn });
             }
+            else{
+                return res.status(400).json({ message: " QC Rcn Edit Entry is not found" });
+            }
+        }
+        else{
+            return res.status(400).json({ message: " QC Rcn Edit Entry is not found" });
+
         }
         
 
