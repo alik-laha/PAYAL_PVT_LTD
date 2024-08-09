@@ -10,9 +10,12 @@ import updateNetWeight from '../controller/GatePassController/updateNetWeight';
 import updateApprovalGate from '../controller/GatePassController/updateApprovalGate';
 import updateReleaseGate from '../controller/GatePassController/updateReleaseGate';
 import getActvGatepass from '../controller/GatePassController/getActvGatepass';
+import deletegatepass from '../controller/GatePassController/deletegatepass';
 const router = express.Router();
 
 router.post("/createGatePass", jwtVerify, CreateGatePass)
+router.delete("/deletegatepass/:id", jwtVerify, deletegatepass)
+router.post("/deletegatepassmaster", jwtVerify, CreateGatePass)
 router.post("/createGatePassMaster", jwtVerify, CreateGatePassMaster)
 router.post("/createGatePassMasterForSection", jwtVerify, CreateGatePassSection)
 router.post("/updateGatePass", jwtVerify, updateGatePass)

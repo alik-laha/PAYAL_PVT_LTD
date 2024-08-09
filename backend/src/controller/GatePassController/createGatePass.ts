@@ -12,10 +12,10 @@ try{
     const gatepassNo = `PDPL${String(newId).padStart(5, '0')}`;
     await gatePass.create({ gatePassNo: gatepassNo ,createdBy:feeledBy})
     //console.log('New sequence generated and saved:', newSequence);
-    return res.status(201).json({ msg: `New GatePass ${gatepassNo} is Created`, gatepassNo });
+    return res.status(201).json({ message: `New GatePass ${gatepassNo} is Created`, gatepassNo });
 }
 catch (err) {
-    return res.status(500).json({ message: "Duplicate Lot No. or Error in Creating GatePass", err });
+    return res.status(500).json({ message: "Error in Creating GatePass", err });
 }
 
 }

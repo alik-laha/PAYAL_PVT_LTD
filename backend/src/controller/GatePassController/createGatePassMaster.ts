@@ -39,7 +39,7 @@ try{
     }
 }
 catch (err) {
-    return res.status(500).json({ message: "Duplicate Lot No. or Error in Creating GatePass", err });
+    return res.status(500).json({ message: "Error in Creating GatePass", err });
 }
 
 }

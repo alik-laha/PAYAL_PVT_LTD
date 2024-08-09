@@ -93,12 +93,11 @@ const handleSubmit = async (e: React.FormEvent) => {
         const name = NameRef.current?.value 
 
 
-        try
-        {
+    try
+    {
         const creategatepass=await axios.post('/api/gatepass/createGatePass', {})            
         console.log(creategatepass)
-            try 
-            {
+       
              const formData = rows.map(row => ({
             gatePassNo: creategatepass.data.gatepassNo,
             Date: date,
@@ -112,12 +111,13 @@ const handleSubmit = async (e: React.FormEvent) => {
             SecName:name,
             type:type,
             ...row
-        }))
+            }))
 
-        let gatecount = 0
-
-        for (var data of formData) 
-            {
+            let gatecount = 0
+            try{
+            for (var data of formData) 
+            {   
+                
                 const gateRes=await axios.post('/api/gatepass/createGatePassMaster', { data })   
                 const gateResSection=await axios.post('/api/gatepass/createGatePassMasterForSection', { data })             
                 gatecount++;
@@ -135,37 +135,45 @@ const handleSubmit = async (e: React.FormEvent) => {
                             
                     }
                     
-                }     
+                }
+                 
             }
+        } 
+        catch(err)  {
+
+            console.log(err)
+            if(axios.isAxiosError(err)){
+                setErrortext(err.response?.data.message ||'An Unexpected Error Occured in Creating Gate Pass')
+            }
+            else{
+                setErrortext('An Unexpected Error Occured in Creating Gate Pass')
+            }
+            
+            if(errordialog){
+                (errordialog as any).showModal()
+            }
+            setTimeout(() => {
+                (errordialog as any).close()
+            }, 2000)
+            axios.delete(`/api/gatepass/deletegatepass/${creategatepass.data.gatepassNo}`).then((res) => {
+                console.log(res.data)
+            })
+           
+           
+            }  
+
+        
+    
 
     }
-    catch(err)  {
-
-        console.log(err)
-        if(axios.isAxiosError(err)){
-            setErrortext(err.response?.data.message ||'An Unexpected Error Occured in Creating Gate Pass')
-        }
-        else{
-            setErrortext('An Unexpected Error Occured in Creating Gate Pass')
-        }
-        const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
-        dialog.showModal()
-        setTimeout(() => {
-            dialog.close()
-        }, 2000)
-        axios.delete(`/api/gatepass/deletegatepass/${createLot.data.newSequence}`).then((res) => {
-            console.log(res.data)
-        })
-        axios.delete(`/api/gatepass/deletegatepassmaster/${createLot.data.newSequence}`).then((res) => {
-            console.log(res.data)
-        })
-       
+catch(err){
+    console.log(err)
+    if(axios.isAxiosError(err)){
+        setErrortext(err.response?.data.message ||'An Unexpected Error Occured in Creating Gate Pass')
     }
-
-}
-catch{
-
-
+    else{
+        setErrortext('An Unexpected Error Occured in Creating Gate Pass')
+    }
 }
 }
 
