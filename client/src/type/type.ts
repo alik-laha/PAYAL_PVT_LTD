@@ -208,13 +208,17 @@ export interface ExcelRcnPrimaryEntryData {
     Con_No: string;
     RCN_QC_Status: string;
     Date: string;
-    No_Of_Bags: string;
+    Physical_Bag_Count: string;
     Truck_No: string;
     Bl_Weight: string;
     Net_Weight: string;
     Difference: string;
     Edit_Status: string;
     Created_by: string;
+    GatePass_No:string;
+    Gross_Weight:string;
+    System_Bag_Count: string;
+
 
 }
 
