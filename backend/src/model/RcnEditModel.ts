@@ -24,11 +24,11 @@ const RcnEdit = sequelize.define('rcnEdit', {
     },
     netWeight: {
         type: DataTypes.FLOAT,
-        allowNull: false
+        allowNull: true
     },
     difference: {
         type: DataTypes.FLOAT,
-        allowNull: false
+        allowNull: true
     },
     gatePassNo:{
         type: DataTypes.STRING,

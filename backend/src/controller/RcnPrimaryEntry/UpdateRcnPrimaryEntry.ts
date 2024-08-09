@@ -9,7 +9,14 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const { gatePassNo,blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin, date } = req.body;
-        let difference = netWeight -blWeight ;
+        let difference 
+        if(netWeight>0){
+            difference = netWeight -blWeight ;
+        }
+        else{
+            difference=0
+        }
+       
         let systemBags=(netWeight/80).toFixed(2)
 
         const editedBy = req.cookies.user
@@ -25,7 +32,9 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
             })) as RcnPrimaryModifyProps | null;
     
             if(rcnData){
+
                 if(rcnData?.blWeight===blWeight){
+
                     const rcnEdit = await RcnEdit.create({
                         gatePassNo:rcnData?.gatePassNo,
                         grossWt:rcnData?.grossWt,
@@ -116,7 +125,7 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
                         }
                     }
                     else{
-                        res.status(500).json({ message: "Internal Server Error" });
+                        res.status(500).json({ message: "Internal Server Error " });
                     }
                 }
 
