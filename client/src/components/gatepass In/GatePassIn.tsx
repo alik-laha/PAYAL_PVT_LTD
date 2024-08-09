@@ -17,6 +17,8 @@ import {
 import GatePassCreateForm from './gatepasscreateform';
 
 import GatePassTable from './gatePasstable';
+import Loader from '../common/Loader';
+import UseQueryData from '../common/dataFetcher';
 
 
 
@@ -25,11 +27,13 @@ import GatePassTable from './gatePasstable';
 const GatepassIn = () => {
 
 
-
-
- 
- 
-
+    const { data, error, isLoading } = UseQueryData('/api/gatepass/activegatepasscount', 'GET', 'getTtotalActvGatePass')
+    if (isLoading) {
+        return <Loader/>
+    }
+    if (error) {
+        return <div>Error</div>
+    }
 
  
     return (
@@ -38,20 +42,22 @@ const GatepassIn = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
-                        Total Approved Pass <br /><p>5 </p>
+                <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
+                        Total Issued <br /><p>5 </p>
                     </div>
+                    <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
+                        Completed <br /><p>5 </p>
+                    </div>
+                    
                     <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
-                        Issued Today<br /><p>5 </p>
+                        Pending Approval<br /><p>5 </p>
                     </div>
                     
                     <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
-                       Approved Today <br /><p>3 </p>
+                       Pending Release<br /><p>3 </p>
                     </div>
                    
-                    <div className="flexbox-tile bg-purple-500 hover:bg-orange-400">
-                        PENDING APPROVAL <br /><p>2 </p>
-                    </div>
+                    
                    
 
 
