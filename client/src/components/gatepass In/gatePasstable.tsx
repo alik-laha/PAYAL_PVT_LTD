@@ -181,11 +181,12 @@ const GatePassTable = () => {
     const handleRelease = (id: number) => {
         const outtime=new Date().toTimeString().slice(0,5)
         axios.put(`/api/gatepass/updateRelease/${id}`, {outtime }).then((res) => {
-            
+            setErrorText(res.data.message);
             console.log(res.data)
             if(successdialog!=null){
                 (successdialog as any).showModal();
             }
+
             //window.location.reload()
         }).catch((err) => {
             console.log(err)
@@ -394,14 +395,14 @@ const GatePassTable = () => {
                                     <TableCell className="text-center">{item.OutTime===null? '':(handleAMPM(item.OutTime))}</TableCell>
                                     <TableCell className="text-center ">
                                         {item.receivingStatus === 0 ? (
-                                            <button className="bg-purple-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Pending</button>
+                                            <button className="bg-red-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Pending</button>
                                         ) :  (
                                             <button className="bg-green-500 p-1 text-white rounded-md fix-button-width-rcnprimary ">Completed</button>
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center ">
                                         {item.approvalStatus === 0 ? (
-                                            <button className="bg-purple-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Pending</button>
+                                            <button className="bg-red-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Pending</button>
                                         ) :  (
                                             <button className="bg-green-500 p-1 text-white rounded-md fix-button-width-rcnprimary ">Completed</button>
                                         )}
@@ -409,7 +410,7 @@ const GatePassTable = () => {
                                     
                                     <TableCell className="text-center">
 
-                                        {item.status==='Closed'? (<button className="bg-red-500 p-2 text-white rounded opacity-80 " disabled={true}>Closed</button>):(<Popover>
+                                        {item.status==='Closed'? (<button className="bg-blue-500 p-2 text-white rounded opacity-40 " disabled={true}>Closed</button>):(<Popover>
                                             <PopoverTrigger>
                                                 <button className={`p-2 text-white rounded ${(item.receivingStatus === 0) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.receivingStatus === 0) ? true : false}>Action</button>
                                             </PopoverTrigger>
