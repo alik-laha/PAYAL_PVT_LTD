@@ -19,14 +19,25 @@ import GatePassCreateForm from './gatepasscreateform';
 import GatePassTable from './gatePasstable';
 import Loader from '../common/Loader';
 import UseQueryData from '../common/dataFetcher';
+import { pendingCheckRole } from '../common/exportData';
+import { pendingCheckRoles, PermissionRole } from '@/type/type';
 
 
 
 
 
 const GatepassIn = () => {
+    const Role = localStorage.getItem('role') as keyof PermissionRole
+    const checkpending = (tab: string) => {
+        //console.log(Role)
+        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+            return true
+        }
+        else {
+            return false;
+        }
 
-
+    }
     const { data, error, isLoading } = UseQueryData('/api/gatepass/activegatepasscount', 'GET', 'getTtotalActvGatePass')
     if (isLoading) {
         return <Loader/>
@@ -49,7 +60,7 @@ const GatepassIn = () => {
                         Completed <br /><p>{data.completed} </p>
                     </div>
                     <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
-                       Pending Receive/Dispatch<br /><p>{data.PendingRcv}</p>
+                       Pending Rcv/Disptch<br /><p>{data.PendingRcv}</p>
                     </div>
                     
                     <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
@@ -72,7 +83,7 @@ const GatepassIn = () => {
 
                 <div>
                     <Dialog>
-                        <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4">+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4 responsive-button-adjust">+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>GatePass Entry Form</p></DialogTitle>
@@ -83,8 +94,8 @@ const GatepassIn = () => {
                     </Dialog>
 
 
-                    <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" > Pending Edit (
-                        )</Button> 
+                    {checkpending('Gatepass') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" disabled={data.Pendingapprove === 0 ? true : false}> Pending Approve(
+                        {data.Pendingapprove})</Button> }
 
                 </div>
                 <GatePassTable/>
