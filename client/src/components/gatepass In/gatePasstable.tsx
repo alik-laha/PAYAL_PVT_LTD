@@ -60,7 +60,7 @@ import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
 
 
-const GatePassTable = (props:any) => {
+const GatePassTable = () => {
 
     const [fromdate, setfromDate] = React.useState<string>('');
     const [todate, settoDate] = React.useState<string>('');
