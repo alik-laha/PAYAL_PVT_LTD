@@ -53,7 +53,7 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                 );
         
                 if(rcnincomingUpdate){
-                    return res.status(200).json({ message: "Gate Pass Approved With Modification Successfully" });
+                    return res.status(200).json({ message: "Gate Pass Details Modified and Approved Successfully" });
                 }
             }
         }
@@ -72,7 +72,7 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                 }
             );
             if(gatepassupdate){
-                return res.status(200).json({ message: "Gate pass Approved Successfully" });
+                return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
             }
 
         }

@@ -469,7 +469,7 @@ const GatePassTable = () => {
 
                                                     <AlertDialogContent>
                                                         <AlertDialogHeader>
-                                                            <AlertDialogTitle> Do You want to Release Vehicle For Incoming/Outgoing Exit?</AlertDialogTitle>
+                                                            <AlertDialogTitle> Do You want to Release Incoming Vehicle at Exit Point?</AlertDialogTitle>
                                                             <AlertDialogDescription>
 
                                                                 This will close the GatePass
