@@ -1,6 +1,8 @@
 import axios from 'axios'
 
 const Number_IN_RCN = process.env.WP_NUMBER_IN_RCN ? process.env.WP_NUMBER_IN_RCN.split(',') : [];
+
+const WP_NUMBER_SECURITY = process.env.WP_NUMBER_SECURITY ? process.env.WP_NUMBER_SECURITY.split(',') : [];
 //const template1 = "modify_request"
 const WpMsgGatePassRcv = async (tablename: string, gatepassNo: string, template: string,section:string) => {
 
@@ -60,6 +62,60 @@ const WpMsgGatePassRcv = async (tablename: string, gatepassNo: string, template:
         
 
 
+    }
+    if (template === 'rcv_dispatch_complt') {
+        
+            WP_NUMBER_SECURITY.map((num) => {
+                const data = {
+                    messaging_product: "whatsapp",
+                    to: num,
+                    type: "template",
+                    template: {
+                        name: template,
+                        language: {
+                            code: "en"
+                        },
+                        components: [
+                            {
+                                type: "body",
+                                parameters: [
+                                    {
+                                        type: "text",
+                                        text: tablename // This replaces {{1}}
+                                    },
+                                    {
+                                        type: "text",
+                                        text: gatepassNo // This replaces {{2}}
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+                try {
+                    axios.post(process.env.WP_API_URL!, data, {
+                        headers: {
+                            'Authorization': `Bearer ${process.env.WP_API_TOKEN}`,
+                            'Content-Type': 'application/json'
+                        }
+                    }).then((response) => {
+                        console.log(response)
+                        return response
+                    }).catch((err) => {
+                        console.log(err)
+                        return err
+                    })
+    
+                }
+                catch {
+                    (err: any) => {
+                        console.log(err)
+                        return err
+                    }
+                }
+    
+            })
+        
     }
 
 
