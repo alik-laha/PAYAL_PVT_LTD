@@ -18,27 +18,27 @@ const PackagingMaterial = sequelize.define('packagingMaterialreceving', {
     },
     invoicedate: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
     },
     invoice: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     sku: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     vendorName: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     quantityKg: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
     },
     quantityPc: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     editStatus: {
         type: DataTypes.STRING,
@@ -52,12 +52,12 @@ const PackagingMaterial = sequelize.define('packagingMaterialreceving', {
     },
     createdBy: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     approvedBy: {
         type: DataTypes.STRING,
         allowNull: true,
-        defaultValue: "N/A"
+      
     },
     status:{
         type: DataTypes.INTEGER,

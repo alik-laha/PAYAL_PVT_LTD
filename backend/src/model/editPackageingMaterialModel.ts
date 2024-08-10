@@ -11,33 +11,38 @@ const EditPackagingMaterial = sequelize.define('editpackagingMaterialreceving', 
         type: DataTypes.DATE,
         allowNull: false,
     },
-    sku: {
+    truckNo: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
     },
     invoicedate: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
     },
     invoice: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
+    },
+    sku: {
+        type: DataTypes.STRING,
+        allowNull: true,
     },
     vendorName: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
-    quantity: {
+    quantityKg: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
     },
-    unit: {
+    quantityPc: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
     },
     editStatus: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        defaultValue: "N/A"
     },
     qualityStatus: {
         type: DataTypes.BOOLEAN,
@@ -46,12 +51,28 @@ const EditPackagingMaterial = sequelize.define('editpackagingMaterialreceving', 
     },
     createdBy: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     approvedBy: {
         type: DataTypes.STRING,
         allowNull: true,
+      
     },
-
+    status:{
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
+    netWeight: {
+        type: DataTypes.FLOAT,
+        allowNull: true
+    },
+    gatePassNo:{
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    grossWt:{
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: false
+    },
 })
 export default EditPackagingMaterial;
