@@ -17,14 +17,15 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { MdDelete } from "react-icons/md"
+
 interface Props {
     rcn: PackageMaterialReceivingData[]      
 }
 interface SectionRowData{
     sku:string;
     vendorName:string;
-    quantityKg:string;
-    qunatityPc:string;
+    quantity:number;
+    unit:string;
 }
 const PackagingMetirialReceivingCreateForm = (props:Props) => {
     //const [unit, setUnit] = useState("")
@@ -52,7 +53,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
 
     useEffect(() => {  
         if(props.rcn[0]){
-            setId(props.rcn[0].id)
+        setId(props.rcn[0].id)
         setDate(props.rcn[0].recevingDate.slice(0,10))
         setGrossWt(props.rcn[0].grossWt)
         setGatePass(props.rcn[0].gatePassNo)
@@ -61,7 +62,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         
     }, [props.rcn[0]]);
 
-    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',vendorName:'',quantityKg:'',qunatityPc:''}
+    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',vendorName:'',quantity:0,unit:''}
     ]);
 
     const handleRowChange = (index:number,field:string,fieldvalue:string) => {
@@ -129,7 +130,27 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                     }
                     
                 }
-        }    
+        }   
+        else{
+            const firstrow=formData[0]
+            await axios.put(`/api/packageMaterial/updateRcvPM/${id}`, {data:firstrow })
+            await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id })
+            let pmrescount=0
+            for(let i=1;i<formData.length;i++){
+                
+                const data1=formData[i];
+                const Pmres=await axios.post('/api/packageMaterial/createPM', {data:data1 })
+                await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: Pmres.data.newPackageMaterial.id })
+                pmrescount++
+                if(pmrescount==(formData.length-1))
+                {
+                    if(successdialog){
+                        (successdialog as any).showModal();
+                    }
+                }
+            }
+
+        } 
                     
         }
         catch{
@@ -183,7 +204,10 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
     }
     const handleSkuidClick = (index:any,item: SkuData) => {
        // setSku(item.sku)
+       rows[index].sku=item.sku
+       rows[index].unit=item.unit
        handleRowChange(index,'sku',item.sku)
+       
         setSkuView("none")
     }
     const handleVendoridClick = (index:any,item: VendorData) => {
@@ -221,8 +245,8 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                             <TableHead className="text-center" >Sl. No.</TableHead>
                             <TableHead className="text-center" >Item_Code(SKU)</TableHead>
                             <TableHead className="text-center" >Vendor_Name</TableHead>
-                            <TableHead className="text-center" >Qty(Pc)</TableHead>
-                            <TableHead className="text-center" >Qty(Kg)</TableHead>
+                            <TableHead className="text-center" >Quantity</TableHead>
+                            <TableHead className="text-center" >Unit</TableHead>
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>
                         {rows.map((row, index) => {
@@ -264,13 +288,14 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                                             </TableCell>
 
                                             <TableCell className="text-center" >
-                                                <Input value={row.quantityKg} placeholder="Kg"
+                                                <Input value={row.quantity} placeholder="Kg" type='number'
                                                     onChange={(e) => {
-                                                        handleRowChange(index, 'quantityKg', e.target.value)
+                                                        handleRowChange(index, 'quantity', e.target.value)
                                                     }} />
                                             </TableCell>
                                             <TableCell className="text-center" >
-                                                <Input value={row.qunatityPc} placeholder="Pc." onChange={(e) => { handleRowChange(index, 'qunatityPc', e.target.value) }} />
+                                          
+                                                <Input value={row.unit} placeholder="Pc." required /> 
                                             </TableCell>
 
 

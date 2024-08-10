@@ -15,7 +15,7 @@ import updatePM from '../controller/RecevingPackageingMetrial/updatePM';
 const router = express.Router();
 
 
-router.post("/createrecivingpackagematerial",jwtVerify, RecivingPackageMaterial)
+router.post("/createPM",jwtVerify, RecivingPackageMaterial)
 router.put("/updateRcvPM/:id",jwtVerify, updatePM)
 router.post("/skudatafind", jwtVerify,SkudataFind)
 router.post("/vendornamefind",jwtVerify, vendorNameFind)

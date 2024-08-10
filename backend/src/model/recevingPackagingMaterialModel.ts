@@ -32,11 +32,11 @@ const PackagingMaterial = sequelize.define('packagingMaterialreceving', {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    quantityKg: {
-        type: DataTypes.INTEGER,
+    quantity: {
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
-    quantityPc: {
+    unit: {
         type: DataTypes.STRING,
         allowNull: true,
     },

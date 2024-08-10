@@ -31,11 +31,11 @@ const EditPackagingMaterial = sequelize.define('editpackagingMaterialreceving', 
         type: DataTypes.STRING,
         allowNull: true,
     },
-    quantityKg: {
-        type: DataTypes.INTEGER,
+    quantity: {
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
-    quantityPc: {
+    unit: {
         type: DataTypes.STRING,
         allowNull: true,
     },
