@@ -17,6 +17,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { MdDelete } from "react-icons/md"
+import { seteuid } from "process"
 
 interface Props {
     rcn: PackageMaterialReceivingData[]      
@@ -78,7 +79,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         const newRows =rows.filter((_,i)=> i!==index);
         setRows(newRows)
     }
-
+    const [errortext, setErrortext] = useState('')
     const successdialog = document.getElementById('packageMetrialReceve') as HTMLInputElement;
     const errordialog = document.getElementById('packagingMetirialReciveError') as HTMLInputElement;
     const closeDialogButton = document.getElementById('packageMetrialRecivecross') as HTMLInputElement;
@@ -125,6 +126,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                 {
                     await axios.put(`/api/packageMaterial/updateRcvPM/${id}`, {data })
                     await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id })
+                    setErrortext('Packaging Material Received Successfully')
                     if(successdialog){
                         (successdialog as any).showModal();
                     }
@@ -132,7 +134,16 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                 }
             }  
         }
-        catch{
+        catch (err){
+            console.log(err)
+            await axios.post('/api/packageMaterial/deletePMByID',{ id:id,gatepass:gatepass})
+            if(axios.isAxiosError(err)){
+                setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+            }
+            if(errordialog){
+                (errordialog as any).showModal()
+            }
+            
 
         }
         if(formData.length>1){
@@ -332,7 +343,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
             <dialog id="packageMetrialReceve" className="dashboard-modal">
                 <button id="packageMetrialRecivecross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Packaging Material is Received Successfully</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
@@ -340,7 +351,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
             <dialog id="packagingMetirialReciveError" className="dashboard-modal">
                 <button id="packagigreciveerrorcross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Error In Receiving Packaging Material</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

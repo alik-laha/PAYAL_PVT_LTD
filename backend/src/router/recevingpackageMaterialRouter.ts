@@ -12,6 +12,7 @@ import rejectRecevingPackageEdit from '../controller/RecevingPackageingMetrial/r
 import getUnEntriedPM from '../controller/RecevingPackageingMetrial/getUnEntriedPM';
 import getPMbyGatePass from '../controller/RecevingPackageingMetrial/getPMbyGatePass';
 import updatePM from '../controller/RecevingPackageingMetrial/updatePM';
+import deletePMbyID from '../controller/RecevingPackageingMetrial/deletePMbyID';
 const router = express.Router();
 
 
@@ -28,5 +29,7 @@ router.get("/rejecteditrecevingpackagematerial/:id",jwtVerify, rejectRecevingPac
 
 router.get("/getPMNotEntried/:status", jwtVerify, getUnEntriedPM)
 router.get("/getPMByGatePass/:lotNO", jwtVerify, getPMbyGatePass)
+router.post("/deletePMByID", jwtVerify, deletePMbyID)
+router.post("/updateGatePass/:lotNO", jwtVerify, deletePMbyID)
 
 export default router;
