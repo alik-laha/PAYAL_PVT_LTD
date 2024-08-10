@@ -108,8 +108,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         //const quantity = quantityRef.current?.value
         const invoicedate=invoicedateRef.current?.value
         const invoice=invoiceref.current?.value
-        try 
-        {   
+         
         const formData = rows.map(row => ({
                 GatePassNo: gatepass,
                 recevingDate: date,
@@ -119,8 +118,9 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                 invoice:invoice,
                 ...row
         }))
-           
-        if(formData.length===1){
+        try 
+        { 
+            if(formData.length===1){
             for (var data of formData) 
                 {
                     await axios.put(`/api/packageMaterial/updateRcvPM/${id}`, {data })
@@ -130,12 +130,21 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                     }
                     
                 }
-        }   
-        else{
+            }  
+        }
+        catch{
+
+        }
+        if(formData.length>1){
             const firstrow=formData[0]
-            await axios.put(`/api/packageMaterial/updateRcvPM/${id}`, {data:firstrow })
-            await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id })
-            let pmrescount=0
+            try{
+                await axios.put(`/api/packageMaterial/updateRcvPM/${id}`, {data:firstrow })
+                await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id })
+            }catch{
+
+            }
+            try{
+                let pmrescount=0
             for(let i=1;i<formData.length;i++){
                 
                 const data1=formData[i];
@@ -149,13 +158,15 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                     }
                 }
             }
+            }
+            catch{
+
+            }
+            
 
         } 
                     
-        }
-        catch{
-
-        }
+        
 }
 
     const handleSkuchange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
@@ -255,7 +266,6 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                                     <TableBody>
                                         <TableRow key={index} className="boiling-row-height">
                                             <TableCell>{index + 1}</TableCell>
-
                                             <TableCell className="text-center" >
                                                 <Input value={row.sku} placeholder="SKU"
                                                     onChange={(e) => handleSkuchange(index, e)} required />
@@ -270,9 +280,6 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                                                     }
                                                 </ScrollArea>}
                                             </TableCell>
-
-
-
                                             <TableCell className="text-center" >
                                                 <Input value={row.vendorName} placeholder="Vendor"
                                                     onChange={(e) => handleVendorChange(index, e)} required />
