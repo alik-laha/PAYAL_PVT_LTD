@@ -36,6 +36,12 @@ const deletePMbyID = async (req: Request, res: Response) => {
              
         }
     });
+    await QualityPackageMaterial.destroy({
+        where: {
+            id: id
+             
+        }
+    });
     await PackagingMaterial.destroy({
         where: {
             gatePassNo: gatepass,
