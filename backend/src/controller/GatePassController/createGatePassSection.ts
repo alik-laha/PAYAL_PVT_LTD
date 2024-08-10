@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import RcnPrimary from "../../model/RcnEntryModel";
 import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
+import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
 
 
 
@@ -26,6 +27,21 @@ try{
 
         if(RCNIncoming){
             return res.status(200).json({ message: "RCN Initial Entry Created Successfully" });
+        }
+        
+    }
+    if (section==='Packaging Material' && type==='IN') {
+        const PCIncoming = await PackagingMaterial.create({
+            gatePassNo: gatePassNo,
+            recevingDate: Date,
+            grossWt:grossWt,
+            truckNo:vehicle,    
+        });
+        const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatePassNo,"gatepass_rcv_dispatch",'PC IN')
+        console.log(data)
+
+        if(PCIncoming){
+            return res.status(200).json({ message: "PC Initial Entry Created Successfully" });
         }
         
     }

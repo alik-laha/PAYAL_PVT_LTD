@@ -12,6 +12,10 @@ const PackagingMaterial = sequelize.define('packagingMaterialreceving', {
         type: DataTypes.DATE,
         allowNull: false,
     },
+    truckNo: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     invoicedate: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -28,11 +32,11 @@ const PackagingMaterial = sequelize.define('packagingMaterialreceving', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    quantity: {
+    quantityKg: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    unit: {
+    quantityPc: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -54,6 +58,22 @@ const PackagingMaterial = sequelize.define('packagingMaterialreceving', {
         type: DataTypes.STRING,
         allowNull: true,
         defaultValue: "N/A"
+    },
+    status:{
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
+    netWeight: {
+        type: DataTypes.FLOAT,
+        allowNull: true
+    },
+    gatePassNo:{
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    grossWt:{
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: false
     },
 
 })
