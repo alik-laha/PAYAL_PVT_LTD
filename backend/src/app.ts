@@ -11,7 +11,7 @@ import qcRcnRouter from './router/qcRcnRouter'
 import BoilingRouter from './router/BoilingRouter'
 import ResetPassword from "./router/resetPasswordRouter";
 
-import PackageMaterial from "./router/recevingpackageMaterial";
+import PMRouter from "./router/recevingpackageMaterialRouter";
 import scoopingRouter from "./router/scoopingRouter";
 import qcPackageMaterialRouter from "./router/qcpackagingMaterialrouter";
 import Cleaning from "./router/Cleaning";
@@ -36,7 +36,7 @@ app.use('/api/grading', GraddingRouter)
 app.use('/api/boiling', BoilingRouter)
 app.use('/api/scooping', scoopingRouter)
 app.use('/api/resetPassword', ResetPassword)
-app.use('/api/packageMaterial', PackageMaterial)
+app.use('/api/packageMaterial', PMRouter)
 app.use("/api/qcpackage", qcPackageMaterialRouter)
 app.use('/api/cleaning', Cleaning)
 app.use('/api/borma', BormaRouter)

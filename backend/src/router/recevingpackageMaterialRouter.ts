@@ -1,4 +1,5 @@
 import express from 'express';
+import jwtVerify from '../middleWare/JwtAuthantication';
 import RecivingPackageMaterial from '../controller/RecevingPackageingMetrial/RecivingPackageMaterial';
 import SkudataFind from '../controller/RecevingPackageingMetrial/SkudataFind';
 import vendorNameFind from '../controller/RecevingPackageingMetrial/vendorNameFind';
@@ -8,17 +9,20 @@ import sumOfAllRecenvingPackageMaterial from '../controller/RecevingPackageingMe
 import editRecevingPackageMaterial from '../controller/RecevingPackageingMetrial/editRecevingPackageMetrial';
 import acceptRecevingPackageEdit from '../controller/RecevingPackageingMetrial/acceptrecevingPackageedit';
 import rejectRecevingPackageEdit from '../controller/RecevingPackageingMetrial/rejectrecevingPackageedit';
+import getUnEntriedPM from '../controller/RecevingPackageingMetrial/getUnEntriedPM';
 const router = express.Router();
 
 
-router.post("/createrecivingpackagematerial", RecivingPackageMaterial)
-router.post("/skudatafind", SkudataFind)
-router.post("/vendornamefind", vendorNameFind)
-router.post("/getreceivematerial", viewReceivingPackageMetrial)
-router.get("/geteditrecevingpackagematerial", editedRecevingPackageMaterial)
-router.get("/getsumofEditRecevingPackageMaterial", sumOfAllRecenvingPackageMaterial)
-router.post("/editrecevingpackagematerial/:id", editRecevingPackageMaterial)
-router.get('/accepteditrecevingpackagematerial/:id', acceptRecevingPackageEdit)
-router.get("/rejecteditrecevingpackagematerial/:id", rejectRecevingPackageEdit)
+router.post("/createrecivingpackagematerial",jwtVerify, RecivingPackageMaterial)
+router.post("/skudatafind", jwtVerify,SkudataFind)
+router.post("/vendornamefind",jwtVerify, vendorNameFind)
+router.post("/getreceivematerial", jwtVerify,viewReceivingPackageMetrial)
+router.get("/geteditrecevingpackagematerial",jwtVerify, editedRecevingPackageMaterial)
+router.get("/getsumofEditRecevingPackageMaterial",jwtVerify, sumOfAllRecenvingPackageMaterial)
+router.post("/editrecevingpackagematerial/:id",jwtVerify, editRecevingPackageMaterial)
+router.get('/accepteditrecevingpackagematerial/:id', jwtVerify,acceptRecevingPackageEdit)
+router.get("/rejecteditrecevingpackagematerial/:id",jwtVerify, rejectRecevingPackageEdit)
+
+router.get("/getPMNotEntried/:status", jwtVerify, getUnEntriedPM)
 
 export default router;

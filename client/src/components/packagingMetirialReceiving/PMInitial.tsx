@@ -20,7 +20,7 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import { RcnPrimaryEntryData } from "@/type/type";
-import RcnPrimaryEntryForm from "./RcnPrimaryEntryForm";
+
 
 
 
@@ -78,10 +78,10 @@ const PMInitial = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger>
                                             { idx==0 &&  <DialogContent className='max-w-2xl'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>RCN Incoming Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Packaging Material Incoming Entry</p></DialogTitle>
 
                                                     </DialogHeader>
-                                                <RcnPrimaryEntryForm rcn={rcnData}/>
+                                                {/* <RcnPrimaryEntryForm rcn={rcnData}/> */}
                                                     
                                                 </DialogContent>}
                                             </Dialog>
