@@ -467,7 +467,8 @@ export interface PackageMaterialReceivingData {
     recevingDate: string;
     sku: string;
     vendorName: string;
-    quantity: string;
+    quantityKg: string;
+    quantityPc:string;
     unit: string;
     invoicedate:string;
     invoice:string;
@@ -475,6 +476,11 @@ export interface PackageMaterialReceivingData {
     qualityStatus: string;
     editStatus: string;
     approvedBy: string;
+    truckNo: string;
+    status: number;
+    netWeight: string;
+    gatePassNo:string;
+    grossWt: string;
 }
 
 export interface SumofpackageMetrialReceving {

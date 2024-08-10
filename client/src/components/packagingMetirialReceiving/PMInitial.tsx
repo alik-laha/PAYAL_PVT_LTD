@@ -19,7 +19,8 @@ import {
 
 import axios from "axios";
 import { useState } from "react";
-import { RcnPrimaryEntryData } from "@/type/type";
+import { PackageMaterialReceivingData } from "@/type/type";
+import PackagingMetirialReceivingCreateForm from "./packagingMetirialReceivingCreateForm";
 
 
 
@@ -29,12 +30,12 @@ interface lotPropsdata{
 }
 
 const PMInitial = (props: any) => {
-    const [rcnData, setrcnData]  = useState<RcnPrimaryEntryData[]>([])
+    const [rcnData, setrcnData]  = useState<PackageMaterialReceivingData[]>([])
 
     //let scoopdata:ScoopData[]=[]
     console.log(props)
     const handleLineEntry = async (gatePassNo:string) => {
-        axios.get(`/api/rcnprimary/getRcnByGatePass/${gatePassNo}`).then(res=>{
+        axios.get(`/api/packageMaterial/getPMByGatePass/${gatePassNo}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.rcnmainLot)){
             //scoopdata=res.data.scoopingLot
@@ -81,8 +82,8 @@ const PMInitial = (props: any) => {
                                                         <DialogTitle><p className='text-1xl text-center mt-1'>Packaging Material Incoming Entry</p></DialogTitle>
 
                                                     </DialogHeader>
-                                                {/* <RcnPrimaryEntryForm rcn={rcnData}/> */}
-                                                    
+                                                <PackagingMetirialReceivingCreateForm rcn={rcnData}/>
+                                              
                                                 </DialogContent>}
                                             </Dialog>
                                         </TableCell>

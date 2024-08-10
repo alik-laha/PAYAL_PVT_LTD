@@ -146,11 +146,11 @@ const RcnPrimaryEntryForm = (props:Props) => {
                 <div className="flex mt-4"><Label className="w-2/4  pt-1">GatePass No.</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
                 <div className="flex"><Label className="w-2/4  pt-1">Date of Receving</Label>
-                <Input className="w-2/4  font-semibold text-center" placeholder="BL No." value={date}  readOnly /> </div> 
+                <Input className="w-2/4  bg-yellow-100 font-semibold text-center" placeholder="BL No." value={date}  readOnly /> </div> 
                 <div className="flex"><Label className="w-2/4  pt-1">Gross Wt (Kg)</Label>
-                <Input className="w-2/4  font-semibold text-center" placeholder="BL No." value={grossWt}  readOnly /> </div>   
+                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={grossWt}  readOnly /> </div>   
                 <div className="flex"><Label className="w-2/4  pt-1">Truck No.</Label>
-                <Input className="w-2/4  font-semibold text-center" placeholder="BL No." value={truck}  readOnly /> </div>       
+                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={truck}  readOnly /> </div>       
                     
                     <div className="flex ">
                         <Label className="w-2/4  pt-1">Origin</Label>

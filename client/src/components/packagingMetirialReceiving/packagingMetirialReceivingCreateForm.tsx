@@ -2,14 +2,16 @@ import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 
 import { Button } from "../ui/button"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import axios from "axios"
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { SkuData, VendorData } from "@/type/type"
-
-const PackagingMetirialReceivingCreateForm = () => {
+import { PackageMaterialReceivingData, SkuData, VendorData } from "@/type/type"
+interface Props {
+    rcn: PackageMaterialReceivingData[]      
+}
+const PackagingMetirialReceivingCreateForm = (props:Props) => {
     const [unit, setUnit] = useState("")
 
     const [sku, setSku] = useState("")
@@ -20,10 +22,27 @@ const PackagingMetirialReceivingCreateForm = () => {
     const [vendorNameView, setVendorNameView] = useState("none")
     const [skudata, setSkuData] = useState<SkuData[]>([])
     const [vendorData, setVendorData] = useState<VendorData[]>([])
-    const dateRef = useRef<HTMLInputElement>(null)
+
     const invoicedateRef = useRef<HTMLInputElement>(null)
     const quantityRef = useRef<HTMLInputElement>(null)
     const invoiceref = useRef<HTMLInputElement>(null)
+    
+    const [id, setId] = useState<number>()
+    const [date, setDate] = useState<string>('')
+    const [gatepass, setGatePass] = useState<string>('')
+    const [grossWt, setGrossWt] = useState<string>('')
+    const [truck, settruck] = useState<string>('')
+
+    useEffect(() => {  
+        if(props.rcn[0]){
+            setId(props.rcn[0].id)
+        setDate(props.rcn[0].recevingDate.slice(0,10))
+        setGrossWt(props.rcn[0].grossWt)
+        setGatePass(props.rcn[0].gatePassNo)
+        settruck(props.rcn[0].truckNo)
+        }
+        
+    }, [props.rcn[0]]);
 
     const successdialog = document.getElementById('packageMetrialReceve') as HTMLInputElement;
     const errordialog = document.getElementById('packagingMetirialReciveError') as HTMLInputElement;
@@ -51,7 +70,7 @@ const PackagingMetirialReceivingCreateForm = () => {
     }
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        const receivingDate = dateRef.current?.value
+
         const quantity = quantityRef.current?.value
         const invoicedate=invoicedateRef.current?.value
         const invoice=invoiceref.current?.value
@@ -124,12 +143,22 @@ const PackagingMetirialReceivingCreateForm = () => {
 
     return (
         <>
-            <div className="pl-10 pr-10 mt-6">
-                <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
+            <div className="pl-10 pr-10">
+                <form className='flex flex-col gap-1.5 ' onSubmit={handleSubmit}>
 
-                    <div className="flex"><Label className="w-2/4  pt-1">Receiving Date</Label>
-                        <Input className="w-2/4 justify-center" placeholder="Receiving Date" required ref={dateRef} type="date" /> </div>
+                <div className="flex mt-4"><Label className="w-2/4  pt-1">GatePass No.</Label>
+                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
+                <div className="flex"><Label className="w-2/4  pt-1">Date of Receving</Label>
+                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={date}  readOnly /> </div> 
+                <div className="flex"><Label className="w-2/4  pt-1">Gross Wt (Kg)</Label>
+                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={grossWt}  readOnly /> </div>   
+                <div className="flex"><Label className="w-2/4  pt-1">Truck No.</Label>
+                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={truck}  readOnly /> </div> 
+                <div className="flex"><Label className="w-2/4  pt-1">Invoice No</Label>
+                <Input className="w-2/4 text-center" placeholder="Invoice No" required  ref={invoiceref} /> </div>
 
+                <div className="flex"><Label className="w-2/4  pt-1">Invoice Date</Label>
+                <Input className="w-2/4 justify-center" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div> 
                        
 
                     <div className="flex"><Label className="w-2/4  pt-1">SKU</Label>
@@ -148,11 +177,7 @@ const PackagingMetirialReceivingCreateForm = () => {
 
                     <div className="flex"><Label className="w-2/4  pt-1">Vendor Name</Label>
                         <Input className="w-2/4 " placeholder="Vendor Name" required value={vendorName} onChange={handleVendorChange} /> </div>
-                        <div className="flex"><Label className="w-2/4  pt-1">Invoice No</Label>
-                        <Input className="w-2/4 " placeholder="Invoice No" required  ref={invoiceref} /> </div>
-
-                        <div className="flex"><Label className="w-2/4  pt-1">Invoice Date</Label>
-                        <Input className="w-2/4 justify-center" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div>    
+              
                     <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: vendorNameView }}>
                         {
                             vendorData.map((item: VendorData) => (
