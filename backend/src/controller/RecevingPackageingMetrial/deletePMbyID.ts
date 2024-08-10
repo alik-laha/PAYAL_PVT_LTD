@@ -7,8 +7,6 @@ import QualityPackageMaterial from "../../model/qualityPacjkageMaterial";
 
 
 const deletePMbyID = async (req: Request, res: Response) => {
-    
-
     try{
     const id = req.body.id
     const gatepass = req.body.gatepass
@@ -36,12 +34,7 @@ const deletePMbyID = async (req: Request, res: Response) => {
              
         }
     });
-    await QualityPackageMaterial.destroy({
-        where: {
-            id: id
-             
-        }
-    });
+
     await PackagingMaterial.destroy({
         where: {
             gatePassNo: gatepass,
