@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import { Op } from "sequelize";
 import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
+import QualityPackageMaterial from "../../model/qualityPacjkageMaterial";
 
 
 
@@ -29,6 +30,12 @@ const deletePMbyID = async (req: Request, res: Response) => {
             },
         }
     );
+    await QualityPackageMaterial.destroy({
+        where: {
+            id: id
+             
+        }
+    });
     await PackagingMaterial.destroy({
         where: {
             gatePassNo: gatepass,

@@ -133,28 +133,14 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                     
                 }
             }  
-        }
-        catch (err){
-            console.log(err)
-            await axios.post('/api/packageMaterial/deletePMByID',{ id:id,gatepass:gatepass})
-            if(axios.isAxiosError(err)){
-                setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
-            }
-            if(errordialog){
-                (errordialog as any).showModal()
-            }
-            
-
-        }
+       
         if(formData.length>1){
             const firstrow=formData[0]
-            try{
+          
                 await axios.put(`/api/packageMaterial/updateRcvPM/${id}`, {data:firstrow })
                 await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id })
-            }catch{
-
-            }
-            try{
+           
+           
                 let pmrescount=0
             for(let i=1;i<formData.length;i++){
                 
@@ -169,13 +155,22 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                     }
                 }
             }
-            }
-            catch{
-
-            }
-            
-
+           
         } 
+    }
+    catch (err){
+        console.log(err)
+        await axios.post('/api/packageMaterial/deletePMByID',{ id:id,gatepass:gatepass})
+        if(axios.isAxiosError(err)){
+            setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+        }
+        if(errordialog){
+            (errordialog as any).showModal()
+        }
+        
+        
+
+    }
                     
         
 }
