@@ -11,10 +11,12 @@ import acceptRecevingPackageEdit from '../controller/RecevingPackageingMetrial/a
 import rejectRecevingPackageEdit from '../controller/RecevingPackageingMetrial/rejectrecevingPackageedit';
 import getUnEntriedPM from '../controller/RecevingPackageingMetrial/getUnEntriedPM';
 import getPMbyGatePass from '../controller/RecevingPackageingMetrial/getPMbyGatePass';
+import updatePM from '../controller/RecevingPackageingMetrial/updatePM';
 const router = express.Router();
 
 
 router.post("/createrecivingpackagematerial",jwtVerify, RecivingPackageMaterial)
+router.put("/updateRcvPM/:id",jwtVerify, updatePM)
 router.post("/skudatafind", jwtVerify,SkudataFind)
 router.post("/vendornamefind",jwtVerify, vendorNameFind)
 router.post("/getreceivematerial", jwtVerify,viewReceivingPackageMetrial)

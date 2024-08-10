@@ -27,7 +27,7 @@ interface SectionRowData{
     qunatityPc:string;
 }
 const PackagingMetirialReceivingCreateForm = (props:Props) => {
-    const [unit, setUnit] = useState("")
+    //const [unit, setUnit] = useState("")
 
    // const [sku, setSku] = useState("")
     //const [vendorName, setVendorName] = useState("")
@@ -102,28 +102,40 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
 
         });
     }
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-
-        const quantity = quantityRef.current?.value
+        //const quantity = quantityRef.current?.value
         const invoicedate=invoicedateRef.current?.value
         const invoice=invoiceref.current?.value
-        axios.post("/api/quality/createrecivingpackagematerial", { recevingDate: receivingDate, sku, vendorName, quantity, unit,invoicedate,invoice })
-            .then((res) => {
-                console.log(res)
-                axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: res.data.newPackageMaterial.id }).then(() => {
-                    (successdialog as any).showModal();
-                })
-
-            })
-            .catch((err) => {
-                console.log(err)
-                if (errordialog !== null) {
-                    (errordialog as any).showModal();
+        try 
+        {   
+        const formData = rows.map(row => ({
+                GatePassNo: gatepass,
+                recevingDate: date,
+                TruckNo: truck,
+                GrossWt: grossWt,
+                invoicedate:invoicedate,
+                invoice:invoice,
+                ...row
+        }))
+           
+        if(formData.length===1){
+            for (var data of formData) 
+                {
+                    await axios.put(`/api/packageMaterial/updateRcvPM/${id}`, {data })
+                    await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id })
+                    if(successdialog){
+                        (successdialog as any).showModal();
+                    }
+                    
                 }
+        }    
+                    
+        }
+        catch{
 
-            })
-    }
+        }
+}
 
     const handleSkuchange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
         //setSku(e.target.value)
@@ -203,83 +215,83 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
 
                 <button className="bg-blue-400 font-bold text-grey-700 w-8 h-8 text-primary-foreground rounded-md text-center items-center justify-center"
                     onClick={addRow2}>+</button>
-                    <Table className="mt-1 overflow-scroll">
-                             <TableHeader className="bg-neutral-100 text-stone-950" >
-                             <TableHead className="text-center" >Sl. No.</TableHead>
-                             <TableHead className="text-center" >Item_Code(SKU)</TableHead>
-                             <TableHead className="text-center" >Vendor_Name</TableHead>
-                             <TableHead className="text-center" >Qty(Pc)</TableHead>
-                             <TableHead className="text-center" >Qty(Kg)</TableHead> 
-                             <TableHead className="text-center" >Action</TableHead>
-                             </TableHeader>
-                    {rows.map((row,index)=> {
-                        return(
-                            <>
-                                 <TableBody>
+                    <div className="max-h-44 overflow-scroll">
+                    <Table className="mt-1 ">
+                        <TableHeader className="bg-neutral-100 text-stone-950" >
+                            <TableHead className="text-center" >Sl. No.</TableHead>
+                            <TableHead className="text-center" >Item_Code(SKU)</TableHead>
+                            <TableHead className="text-center" >Vendor_Name</TableHead>
+                            <TableHead className="text-center" >Qty(Pc)</TableHead>
+                            <TableHead className="text-center" >Qty(Kg)</TableHead>
+                            <TableHead className="text-center" >Action</TableHead>
+                        </TableHeader>
+                        {rows.map((row, index) => {
+                            return (
+                                <>
+                                    <TableBody>
                                         <TableRow key={index} className="boiling-row-height">
-                                        <TableCell>{index+1}</TableCell>
+                                            <TableCell>{index + 1}</TableCell>
 
-                                        <TableCell className="text-center" >
-                                        <Input  value={row.sku} placeholder="SKU" 
-                                        onChange={(e) => handleSkuchange(index,e)} required /> 
-                                             {actvskuindex===index && <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: skuview ,position:'fixed' }}>
-                                                {
-                                                    skudata.map((item: SkuData) => (
-                                                        <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(index,item)}>
-                                                            <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.sku}</p>
-                                                          
-                                                        </div>
-                                                    ))
-                                                }
-                                        </ScrollArea>}    
-                                        </TableCell>
+                                            <TableCell className="text-center" >
+                                                <Input value={row.sku} placeholder="SKU"
+                                                    onChange={(e) => handleSkuchange(index, e)} required />
+                                                {actvskuindex === index && <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: skuview, position: 'fixed' }}>
+                                                    {
+                                                        skudata.map((item: SkuData) => (
+                                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(index, item)}>
+                                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.sku}</p>
 
-                                       
-
-                                        <TableCell className="text-center" >
-                                        <Input  value={row.vendorName} placeholder="Vendor" 
-                                        onChange={(e) =>  handleVendorChange(index,e)}  required/>     
-                                            {actvindex===index && <ScrollArea className="max-h-24 overflow-scroll w-40 dropdown-content" style={{ display: vendorNameView,position:'fixed' }}>
-                                                {
-                                                    vendorData.map((item: VendorData) => (
-                                                        <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick(index, item)}>
-                                                            <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.vendorName}</p>
-                                                        </div>
-                                                    ))
-                                                }
-                                            </ScrollArea> }    
-                                        </TableCell>
-
-                                        <TableCell className="text-center" >
-                                        <Input  value={row.quantityKg} placeholder="Kg" 
-                                        onChange={(e) => 
-                                            {
-                                            handleRowChange(index,'quantityKg',e.target.value)}}  />     
-                                        </TableCell>
-                                        <TableCell className="text-center" >
-                                        <Input  value={row.qunatityPc} placeholder="Pc." onChange={(e) => {handleRowChange(index,'qunatityPc',e.target.value)}}  />     
-                                        </TableCell>
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </ScrollArea>}
+                                            </TableCell>
 
 
-                                        <TableCell className="text-center">
-                                        <button className="bg-red-400 text-grey-700 w-7 h-7  text-primary-foreground rounded-md text-center items-center justify-center"
-                    onClick={()=>deleteRow(index)}><MdDelete size={20}/></button>
-                                        </TableCell>
- 
+
+                                            <TableCell className="text-center" >
+                                                <Input value={row.vendorName} placeholder="Vendor"
+                                                    onChange={(e) => handleVendorChange(index, e)} required />
+                                                {actvindex === index && <ScrollArea className="max-h-24 overflow-scroll w-40 dropdown-content" style={{ display: vendorNameView, position: 'fixed' }}>
+                                                    {
+                                                        vendorData.map((item: VendorData) => (
+                                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick(index, item)}>
+                                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.vendorName}</p>
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </ScrollArea>}
+                                            </TableCell>
+
+                                            <TableCell className="text-center" >
+                                                <Input value={row.quantityKg} placeholder="Kg"
+                                                    onChange={(e) => {
+                                                        handleRowChange(index, 'quantityKg', e.target.value)
+                                                    }} />
+                                            </TableCell>
+                                            <TableCell className="text-center" >
+                                                <Input value={row.qunatityPc} placeholder="Pc." onChange={(e) => { handleRowChange(index, 'qunatityPc', e.target.value) }} />
+                                            </TableCell>
+
+
+                                            <TableCell className="text-center">
+                                                <button className="bg-red-400 text-grey-700 w-7 h-7  text-primary-foreground rounded-md text-center items-center justify-center"
+                                                    onClick={() => deleteRow(index)}><MdDelete size={20} /></button>
+                                            </TableCell>
+
                                         </TableRow>
 
-                </TableBody>
-                            
-                    </>
-                        )
-                   
-                    })}
+                                    </TableBody>
+
+                                </>
+                            )
+
+                        })}
 
                     </Table>
-
-
-
-                    <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
+                    </div>
+                    
+                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
                 </form>
 
 
