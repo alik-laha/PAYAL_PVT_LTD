@@ -17,6 +17,7 @@ const deletegatepass= async (req: Request, res: Response) => {
                 gatePassNo: id
             }
         });
+        
         return res.status(200).json({ message: "GatePass has deleted successfully" })
     }
     catch (err) {

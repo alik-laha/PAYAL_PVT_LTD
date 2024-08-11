@@ -15,6 +15,7 @@ const router = express.Router();
 
 router.post("/createGatePass", jwtVerify, CreateGatePass)
 router.delete("/deletegatepass/:id", jwtVerify, deletegatepass)
+router.delete("/deletegatepassSection/:id/:section", jwtVerify, deletegatepass)
 router.post("/deletegatepassmaster", jwtVerify, CreateGatePass)
 router.post("/createGatePassMaster", jwtVerify, CreateGatePassMaster)
 router.post("/createGatePassMasterForSection", jwtVerify, CreateGatePassSection)
