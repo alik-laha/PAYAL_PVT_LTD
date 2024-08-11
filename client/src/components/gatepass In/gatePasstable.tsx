@@ -9,6 +9,7 @@ import axios from "axios";
 import { LuDownload } from "react-icons/lu";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
+import logo from '../../assets/Static_Images/Company Logo.jpeg'
 import {
     Table,
     TableBody,
@@ -18,6 +19,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { GatePassData, GatePassExcelData, pendingCheckRoles, PermissionRole } from "@/type/type";
+
 import {
     Pagination,
     PaginationContent,
@@ -58,7 +60,10 @@ import { MdOutlineDriveFolderUpload } from "react-icons/md";
 import GatepassApprove from "./gatePassApprove";
 import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
-
+import { Document, Page, Text, View,PDFDownloadLink,StyleSheet,Image } from '@react-pdf/renderer';
+interface pdfprops{
+    data:GatePassData;
+}
 
 const GatePassTable = () => {
 
@@ -81,6 +86,301 @@ const GatePassTable = () => {
     const closeDialogButton = document.getElementById('machinescsbtn') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('machineerrorbtn') as HTMLInputElement;
     const [errortext, setErrorText] = useState<string>("")
+    // const [pdfdata,setPDFdata]=useState([])
+    // const [pdfstate,setpdfstate]=useState(false)
+    const borderColor = "#3778C2";
+    const styles = StyleSheet.create({
+        section: {
+            margin: 10,
+            padding: 10,
+            flexGrow: 1,
+          },
+        page: {
+          
+          fontFamily: "Helvetica",
+          fontSize: 11,
+          paddingTop: 10,
+          paddingLeft: 50,
+          paddingRight: 50,
+          lineHeight: 1.5,
+          flexDirection: "column"
+        },
+        logo: {
+          width: 60,
+          height: 60,
+          marginTop:20,
+          marginRight:20
+          
+        },
+        mainHeader: {
+          display: "flex",
+          flexDirection: "row-reverse",
+          justifyContent: "space-between",
+          alignItems: "center"
+        },
+
+        tableContainer: {
+            // backgroundColor: '#E4E4E4',
+            flexDirection: "row",
+            flexWrap: "wrap",
+            marginTop: 15,
+            borderWidth: 1,
+            borderColor: "#3778C2"
+          },
+          container: {
+            flexDirection: "row",
+            borderBottomColor: "#00519C",
+            backgroundColor: "#00519C",
+            color: "#fff",
+            borderBottomWidth: 1,
+            alignItems: "center",
+            height: 20,
+            textAlign: "center",
+            fontStyle: "bold",
+            flexGrow: 1
+          },
+          description: {
+            width: "40%",
+            borderRightColor: borderColor,
+            borderRightWidth: 1,
+            fontSize:'12',
+            marginLeft:'10px'
+          },
+          qty: {
+            width: "60%",
+            fontSize:'12',
+            marginRight:'10px'   
+           
+          },
+          row: {
+            display:'flex',
+            flexDirection: "row",
+            borderBottomColor: "#3778C2",
+            borderBottomWidth: 1,
+            alignItems: "center",
+            height: 20,
+            
+          },
+          rowdescription: {
+            width: "40%",
+            textAlign: "center",
+            borderRightColor: borderColor,
+            borderRightWidth: 1,
+            backgroundColor: "azure",
+            fontSize:'10px',
+            fontWeight: "extrabold",
+            color:'#00519C'
+            
+          },
+          rowqty: {
+            width: "60%",
+            backgroundColor: "white",
+            textAlign: "center",
+            fontSize:'10px'
+          },
+          headerContainer: {
+            marginTop: 25,
+            justifyContent: "flex-start",
+            width: "50%"
+          },
+          billTo: {
+            marginRight: 10,
+            fontWeight:'extrabold'
+
+          },
+          Mainbillto: {
+            display: "flex",
+            flexDirection: "row",
+            marginTop: 2,
+            paddingBottom: 1,
+            fontSize:'10px'
+          },
+          instituteheader:{
+            textAlign:'center',
+            flexDirection:'row'
+            
+            
+          },
+          institutedesc:{
+            
+            flexDirection:'column',
+            marginLeft:'10px'
+            
+          },
+          institutename:{
+            textAlign:'center',
+            fontSize:'18',
+            fontWeight:'bold',
+            color:'#00519C',
+            marginTop: 20,
+            
+          },
+          instituteother:{
+            textAlign:'center',
+            fontSize:'10',
+            fontWeight:'bold',
+            color:'black',
+            
+            
+          },
+          formDetails:{
+            marginLeft:20,
+            width:'100%',
+            marginTop: 50,
+            textAlign:'center',
+            fontSize:'12',
+            color:'red',
+            fontWeight:'bold',
+            
+            fontStyle:'cursive'
+          },
+          blankrow:{
+            width:'100%',
+            backgroundColor:'antiquewhite',
+            color:'#00519C',
+            textAlign:'center',
+            fontWeight:'bold',
+            fontSize:'10px'
+          },
+          footer:{
+            marginTop:'55px',
+            display:'flex',
+            flexDirection:'row',
+            textAlign:'center'
+          },
+          rightfooter:{
+            width:'50%',
+            marginLeft:'50px',
+            float:'right'
+          },
+          leftfooter:{
+            width:'50%',
+            float:'left'
+          }
+          
+      });
+
+
+      const MyDocument = ( data:pdfprops ) => (
+
+        <Document>
+            <Page size="A4" style={styles.page}>
+                <View style={styles.section}>
+                    {/* <View style={styles.mainHeader}>
+                        
+                        
+                    </View> */}
+                    <View style={styles.instituteheader}>
+                    <Image
+                            style={styles.logo}
+                            src={logo}
+                        />
+                     <View style={styles.institutedesc}>
+                        <Text style={styles.institutename}> PAYEL DEALERS PVT. LTD.</Text>{"\n"}
+                        <Text style={styles.instituteother}> CIN No: U25111WB1996PTC079361 </Text>{"\n"}
+                        <Text style={styles.instituteother}> Email :payeldealersoffice2019@gmail.com </Text>{"\n"}
+                    
+                        <Text style={styles.instituteother}> 51 Km Stone Durgapur ExpressWay, Vill: Kanajuly,Hooghly,712305 </Text>{"\n"}
+                    
+                    </View>
+                    
+                    
+
+                        
+                    </View>
+                    <View style={styles.formDetails}><Text>Gate Pass Report </Text></View> 
+                    
+                    <View style={styles.headerContainer}>
+                    <View style={styles.Mainbillto}>
+                            <Text style={styles.billTo}>GatePass No: </Text>
+                            <Text>{data.data.gatePassNo}</Text>
+                        </View>
+                        <View style={styles.Mainbillto}>
+                            <Text style={styles.billTo}>Date: </Text>
+                            <Text>{handletimezone(data.data.date)}</Text>
+                        </View>
+                        <View style={styles.Mainbillto}>
+                            <Text style={styles.billTo}>Time of Entry: </Text>
+                            <Text>{handleAMPM(data.data.time)}</Text>
+                        </View>
+                        <View style={styles.Mainbillto}>
+                            <Text style={styles.billTo}>Time of Exit: </Text>
+                            <Text>{handleAMPM(data.data.OutTime)}</Text>
+                        </View>
+                        <View style={styles.Mainbillto}>
+                            <Text style={styles.billTo}>Type of GatePass: </Text>
+                            <Text>{data.data.type}</Text>
+                        </View>
+                        <View style={styles.Mainbillto}>
+                            <Text style={styles.billTo}>Section:</Text>
+                            <Text>{data.data.section}</Text>
+                        </View>
+                        
+                        
+                    </View>
+                    <View style={styles.tableContainer}>
+                        {/* Invoice Table Header */}
+                        <View style={styles.container}>
+                            <Text style={styles.description}>Title</Text>
+                            <Text style={styles.qty}>Description</Text>
+
+                        </View>
+                        {/* Invoice Table Rows */}
+                        <View style={styles.row}>
+                            <Text style={styles.rowdescription}>Vehicle No.</Text>
+                            <Text style={styles.rowqty}>{data.data.vehicleNo}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.rowdescription}>Driver Name</Text>
+                            <Text style={styles.rowqty}>{data.data.driverName}</Text>
+                        </View>
+                        
+                        {/* {"\n"}
+                        <View style={styles.row}>
+                            <Text style={styles.blankrow}></Text>
+                            
+                        </View> */}
+                        <View style={styles.row}>
+                            <Text style={styles.rowdescription}>Driver Contact</Text>
+                            <Text style={styles.rowqty}>{data.data.driverContact}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.rowdescription}>Gross Weight(Kg)</Text>
+                            <Text style={styles.rowqty}>{data.data.grosswt}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.rowdescription}>Gross Weight Slip No.</Text>
+                            <Text style={styles.rowqty}>{data.data.grosswtNo}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.rowdescription}>Net Weight(Kg)</Text>
+                            <Text style={styles.rowqty}>{data.data.netWeight}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.rowdescription}>Total Bill Amount</Text>
+                            <Text style={styles.rowqty}>{data.data.billAmount}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.rowdescription}>Entried By Security</Text>
+                            <Text style={styles.rowqty}>{data.data.securityName}</Text>
+                        </View>
+                     
+
+                    </View>
+                    <View style={styles.footer}>
+                        <Text style={styles.leftfooter}>Security Signature</Text>
+                        <Text style={styles.rightfooter}>Security Manager Signature</Text>
+                    </View>
+
+
+                </View>
+
+            </Page>
+        </Document>
+
+      );
+      
+      
     if(closeDialogButton){
         closeDialogButton.addEventListener('click', () => {
             if(successdialog!=null){
@@ -488,13 +788,14 @@ const GatePassTable = () => {
                                             </PopoverContent>
                                            
                                     </Popover>)}
+                                    { item.status==='Closed' && <button className='dashboard-btn fix-width-pdf pdf-btn' 
+                                    style={{background:'lightsalmon',color:'white',marginBottom:'8px',float:'right'}}>
+                                    <PDFDownloadLink document={<MyDocument data={item}/>} fileName={"Gate_Pass_Report_"+item.gatePassNo+".pdf"} >
+                                        {({ loading }) => (loading ? 'Download' : 'Download')}
+                                    </PDFDownloadLink></button>}
                                     
                                     </TableCell>
                                     
-                               
-
-                                
-
                             </TableRow>)
 
                     })) : (<TableRow>
