@@ -12,6 +12,18 @@ const VendorName = sequelize.define('vendorName', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    vendorAddress: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    vendorContact: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    section: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     createdBy: {
         type: DataTypes.STRING,
         allowNull: false,

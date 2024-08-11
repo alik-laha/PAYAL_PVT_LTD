@@ -11,8 +11,13 @@ const SkuModel = sequelize.define('Sku', {
     sku: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique:true
     },
     unit: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    section: {
         type: DataTypes.STRING,
         allowNull: false,
     },

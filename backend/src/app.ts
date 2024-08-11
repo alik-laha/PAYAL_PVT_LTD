@@ -17,6 +17,7 @@ import qcPackageMaterialRouter from "./router/qcpackagingMaterialrouter";
 import Cleaning from "./router/Cleaning";
 import BormaRouter from "./router/BormaRouter";
 import gatePassRouter from "./router/gatePassRouter";
+import VendorSKURouter from "./router/VendorSKURouter";
 
 
 app.use(cookieParser());
@@ -41,5 +42,6 @@ app.use("/api/qcpackage", qcPackageMaterialRouter)
 app.use('/api/cleaning', Cleaning)
 app.use('/api/borma', BormaRouter)
 app.use('/api/gatepass', gatePassRouter)
+app.use('/api/vendorSKU', VendorSKURouter)
 
 export default app
