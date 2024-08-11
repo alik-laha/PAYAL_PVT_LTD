@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import gatePassMaster from "../../model/gatePassMasterModel";
 import RcnPrimary from "../../model/RcnEntryModel";
 import sequelize from "../../config/databaseConfig";
+import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 
 
 const updateNetWeight = async (req: Request, res: Response) => {
@@ -36,6 +37,8 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(rcnincomingUpdate){
+                    const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepassNo,"verify_gatepass",'RCN Cashew IN')
+            console.log(data)
                     return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
                 }
                 

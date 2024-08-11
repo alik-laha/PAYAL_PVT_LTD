@@ -22,7 +22,7 @@ const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
             conNo='NO CONTAINER'
         }
 
-        await RcnPrimary.update({
+        const rcnupdate=await RcnPrimary.update({
            
             blNo,
             conNo,
@@ -35,15 +35,21 @@ const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
                     id: id
                 }
         });
-        await gatePassMaster.update({receivingStatus:1}, {
+        if (rcnupdate){
+            const gatepassupdate=await gatePassMaster.update({receivingStatus:1}, {
                 where: {
                     gatePassNo: gatepass,
                     section:'Raw Cashew'
                 }
         });
-        const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepass,"rcv_dispatch_complt",'RCN Cashew IN')
-        console.log(data)
-        res.status(201).json({ message: "Rcn Primary Entry is Created Successfully" });
+        if(gatepassupdate){
+            const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepass,"rcv_dispatch_complt",'RCN Cashew IN')
+            console.log(data)
+            res.status(201).json({ message: "Rcn Primary Entry is Created Successfully" });
+        }
+        }
+        
+     
 
     }
     catch (err) {

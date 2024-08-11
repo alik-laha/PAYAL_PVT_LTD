@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import gatePassMaster from "../../model/gatePassMasterModel";
 import sequelize from "../../config/databaseConfig";
 import RcnPrimary from "../../model/RcnEntryModel";
+import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 
 
 
@@ -14,45 +15,46 @@ const updateApprovalGate = async (req: Request, res: Response) => {
         console.log(req.body)  
         
         if(editmode)
-            {
-                await gatePassMaster.update(
-                    {         
-                        DocNo:docNo,
-                        grosswt: grossWt,
-                        grosswtNo: grossWtSlip,
-                        vehicleNo: vehicle,
-                        driverName: driver,
-                        driverContact:drivercontact,
-                        billAmount:billamt,
-                        approvalStatus:1,
-                        modifiedBy: feeledBy,
-                        netWeight:netwt,
-                        status:'Approved'
+        {
+            await gatePassMaster.update(
+                {
+                    DocNo: docNo,
+                    grosswt: grossWt,
+                    grosswtNo: grossWtSlip,
+                    vehicleNo: vehicle,
+                    driverName: driver,
+                    driverContact: drivercontact,
+                    billAmount: billamt,
+                    approvalStatus: 1,
+                    modifiedBy: feeledBy,
+                    netWeight: netwt,
+                    status: 'Approved'
+                },
+                {
+                    where: {
+                        id: gatepassId
                     },
-                    {
-                        where: {
-                            id:gatepassId
-                        },
-                    }
-                );
-                if (section==='Raw Cashew' && type==='IN')
-                     {
+                }
+            );
+            if (section === 'Raw Cashew' && type === 'IN') {
                 const rcnincomingUpdate = await RcnPrimary.update(
-                    { 
-                            grossWt:grossWt,
-                            truckNo:vehicle, 
-                            netWeight:netwt,
-                            difference:sequelize.literal(`netWeight-blWeight`),
-                            systemBags:(netwt/80).toFixed(2)
+                    {
+                        grossWt: grossWt,
+                        truckNo: vehicle,
+                        netWeight: netwt,
+                        difference: sequelize.literal(`netWeight-blWeight`),
+                        systemBags: (netwt / 80).toFixed(2)
                     },
                     {
                         where: {
-                            gatePassNo:gatepassNo
+                            gatePassNo: gatepassNo
                         },
                     }
                 );
-        
-                if(rcnincomingUpdate){
+
+                if (rcnincomingUpdate) {
+                    const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepassNo,"gatepass_release",'RCN Cashew IN')
+                    console.log(data)
                     return res.status(200).json({ message: "Gate Pass Details Modified and Approved Successfully" });
                 }
             }
