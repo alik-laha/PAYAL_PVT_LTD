@@ -95,6 +95,12 @@ const GatePassTable = () => {
             padding: 10,
             flexGrow: 1,
           },
+
+          headerline:{
+            borderBottomColor:'black',
+            borderBottomWidth:1,
+            marginVertical:10,
+          },
         page: {
           
           fontFamily: "Helvetica",
@@ -224,14 +230,14 @@ const GatePassTable = () => {
             
           },
           formDetails:{
-            marginLeft:20,
+           
             width:'100%',
-            marginTop: 50,
+            marginTop: 10,
             textAlign:'center',
-            fontSize:'12',
-            color:'red',
+            fontSize:'14',
+            color:'#00519C',
             fontWeight:'bold',
-            
+            textDecoration:'underline',
             fontStyle:'cursive'
           },
           blankrow:{
@@ -243,7 +249,7 @@ const GatePassTable = () => {
             fontSize:'10px'
           },
           footer:{
-            marginTop:'55px',
+            marginTop:'105px',
             display:'flex',
             flexDirection:'row',
             textAlign:'center'
@@ -271,23 +277,26 @@ const GatePassTable = () => {
                         
                     </View> */}
                     <View style={styles.instituteheader}>
-                    <Image
+                        <Image
                             style={styles.logo}
                             src={logo}
                         />
-                     <View style={styles.institutedesc}>
-                        <Text style={styles.institutename}> PAYEL DEALERS PVT. LTD.</Text>{"\n"}
-                        <Text style={styles.instituteother}> CIN No: U25111WB1996PTC079361 </Text>{"\n"}
-                        <Text style={styles.instituteother}> Email :payeldealersoffice2019@gmail.com </Text>{"\n"}
+                         <View style={styles.institutedesc}>
+                            <Text style={styles.institutename}> PAYEL DEALERS PVT. LTD.</Text>{"\n"}
+                            <Text style={styles.instituteother}> CIN No: U25111WB1996PTC079361 </Text>{"\n"}
+                            <Text style={styles.instituteother}> FSSAI License No :10014031001340 </Text>{"\n"}
                     
-                        <Text style={styles.instituteother}> 51 Km Stone Durgapur ExpressWay, Vill: Kanajuly,Hooghly,712305 </Text>{"\n"}
+                            <Text style={styles.instituteother}> 51 Km Stone Durgapur ExpressWay, Vill: Kanajuly,Hooghly,712305 </Text>{"\n"}
                     
-                    </View>
-                    
+                        </View>
+                        
                     
 
                         
                     </View>
+                    <View style={{borderBottomColor:'black',
+            borderBottomWidth:1,
+            marginVertical:10}}/>
                     <View style={styles.formDetails}><Text>Gate Pass Report </Text></View> 
                     
                     <View style={styles.headerContainer}>
@@ -340,6 +349,10 @@ const GatePassTable = () => {
                             <Text style={styles.blankrow}></Text>
                             
                         </View> */}
+                         <View style={styles.row}>
+                            <Text style={styles.rowdescription}>Invoice/Chalan No.</Text>
+                            <Text style={styles.rowqty}>{data.data.DocNo}</Text>
+                        </View>
                         <View style={styles.row}>
                             <Text style={styles.rowdescription}>Driver Contact</Text>
                             <Text style={styles.rowqty}>{data.data.driverContact}</Text>
@@ -369,7 +382,7 @@ const GatePassTable = () => {
                     </View>
                     <View style={styles.footer}>
                         <Text style={styles.leftfooter}>Security Signature</Text>
-                        <Text style={styles.rightfooter}>Security Manager Signature</Text>
+                        <Text style={styles.rightfooter}>Authority Signature</Text>
                     </View>
 
 
@@ -713,9 +726,9 @@ const GatePassTable = () => {
                                         )}
                                     </TableCell>
                                     
-                                    <TableCell className="text-center">
+                                    <TableCell className="text-center flex">
 
-                                        {item.status==='Closed'? (<button className="bg-blue-500 p-2 text-white rounded opacity-40 " disabled={true}>Closed</button>):(<Popover>
+                                        {item.status==='Closed'? (<button className="bg-blue-500 h-8 p-2 text-white rounded opacity-40 " disabled={true}>Closed</button>):(<Popover>
                                             <PopoverTrigger>
                                                 <button className={`p-2 text-white rounded ${(item.receivingStatus === 0) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.receivingStatus === 0) ? true : false}>Action</button>
                                             </PopoverTrigger>
@@ -788,10 +801,10 @@ const GatePassTable = () => {
                                             </PopoverContent>
                                            
                                     </Popover>)}
-                                    { item.status==='Closed' && <button className='dashboard-btn fix-width-pdf pdf-btn' 
-                                    style={{background:'lightsalmon',color:'white',marginBottom:'8px',float:'right'}}>
+                                    { item.status==='Closed' && <button className='bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4' 
+                                    style={{background:'lightsalmon',color:'white',float:'right'}}>
                                     <PDFDownloadLink document={<MyDocument data={item}/>} fileName={"Gate_Pass_Report_"+item.gatePassNo+".pdf"} >
-                                        {({ loading }) => (loading ? 'Download' : 'Download')}
+                                        {({ loading }) => (loading ? <LuDownload size={18} /> : <LuDownload size={18} />)}
                                     </PDFDownloadLink></button>}
                                     
                                     </TableCell>
