@@ -22,7 +22,7 @@ const deletegatepassSection= async (req: Request, res: Response) => {
             });
         
         
-        return res.status(200).json({ message: "GatePass has deleted successfully" })
+        return res.status(200).json({ message: "GatePass Section has deleted successfully" })
     }
     catch (err) {
         return res.status(500).json({ message: "Internal Server Error" })

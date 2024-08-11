@@ -11,12 +11,13 @@ import updateApprovalGate from '../controller/GatePassController/updateApprovalG
 import updateReleaseGate from '../controller/GatePassController/updateReleaseGate';
 import getActvGatepass from '../controller/GatePassController/getActvGatepass';
 import deletegatepass from '../controller/GatePassController/deletegatepass';
+import deletegatepassSection from '../controller/GatePassController/deletegatepassSection';
 const router = express.Router();
 
 router.post("/createGatePass", jwtVerify, CreateGatePass)
 router.delete("/deletegatepass/:id", jwtVerify, deletegatepass)
-router.delete("/deletegatepassSection/:id/:section", jwtVerify, deletegatepass)
-router.post("/deletegatepassmaster", jwtVerify, CreateGatePass)
+router.delete("/deletegatepassSection/:id/:section", jwtVerify, deletegatepassSection)
+
 router.post("/createGatePassMaster", jwtVerify, CreateGatePassMaster)
 router.post("/createGatePassMasterForSection", jwtVerify, CreateGatePassSection)
 router.post("/updateGatePass", jwtVerify, updateGatePass)
