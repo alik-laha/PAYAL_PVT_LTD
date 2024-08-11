@@ -23,6 +23,7 @@ import Cleaning from './components/Cleaning/Cleaning'
 import ViewProfile from './components/ViewProfile/ViewProfile'
 import RCNBorma from './components/RCN Borma/RCNBorma'
 import GatepassIn from './components/gatepass In/GatePassIn'
+import VendorSKU from './components/VendorSKU/VendorSku'
 
 
 
@@ -84,6 +85,9 @@ function App() {
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager']} />}>
           <Route path="/dashboard/machine" element={<Machine />} />
+        </Route>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager']} />}>
+          <Route path="/dashboard/vendorSKU" element={<VendorSKU />} />
         </Route>
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager']} />}>
