@@ -259,13 +259,13 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
 
                 <button className="bg-blue-400 font-bold text-grey-700 w-8 h-8 text-primary-foreground rounded-md text-center items-center justify-center"
                     onClick={addRow2}>+</button>
-                    <div className="max-h-44 overflow-scroll">
+                    <div className="max-h-44 w-90 overflow-scroll">
                     <Table className="mt-1 ">
                         <TableHeader className="bg-neutral-100 text-stone-950" >
                             <TableHead className="text-center" >Sl. No.</TableHead>
                             <TableHead className="text-center" >Item_Code(SKU)</TableHead>
                             <TableHead className="text-center" >Vendor_Name</TableHead>
-                            <TableHead className="text-center" >Amount/Quantity</TableHead>
+                            <TableHead className="text-center" >Quantity</TableHead>
                             <TableHead className="text-center" >Unit</TableHead>
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>

@@ -162,13 +162,13 @@ const PackageMetrialRecivingTable = () => {
     }
     const GetPendingEdit = async () => {
         // console.log("alik")
-        const Data = await axios.get('/api/quality/geteditrecevingpackagematerial');
+        const Data = await axios.get('/api/packageMaterial/geteditrecevingpackagematerial');
         console.log(Data)
         setEditData(Data.data)
 
     }
     const getSumOfAllEdit = async () => {
-        const Data = await axios.get('/api/quality/getsumofEditRecevingPackageMaterial');
+        const Data = await axios.get('/api/packageMaterial/getsumofEditRecevingPackageMaterial');
         setEditSumData(Data.data)
         setRecevingPacakanMaterialOverView(Data.data)
     }

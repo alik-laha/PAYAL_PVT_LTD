@@ -15,7 +15,7 @@ const updatePM = async (req: Request, res: Response) => {
         }
         else{
             const newPackageMaterial = await PackageMaterial.update({
-                recevingDate,
+               
                 sku,invoice,invoicedate,
                 vendorName,
                 quantity,
