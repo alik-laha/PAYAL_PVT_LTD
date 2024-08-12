@@ -109,5 +109,10 @@ const gatePassMaster = sequelize.define('gatePassMaster', {
         allowNull: true
        
     },
+    Remarks: {
+        type: DataTypes.STRING,
+        allowNull: true,
+       
+    },
 })
     export default gatePassMaster;

@@ -577,7 +577,8 @@ const GatePassTable = () => {
                     
                     'Status': item.status,
                     'Verified_By': item.modifiedBy,
-                    'OutTime':item.OutTime===null? '':(handleAMPM(item.OutTime))
+                    'OutTime':item.OutTime===null? '':(handleAMPM(item.OutTime)),
+                    'Remarks':item.Remarks
                 
                         
                 }
@@ -678,6 +679,7 @@ const GatePassTable = () => {
                     <TableHead className="text-center" >Out_Time</TableHead>
                     <TableHead className="text-center" >Receiving/Dispatch</TableHead>
                     <TableHead className="text-center" >Approval</TableHead>
+                    <TableHead className="text-center" >Remarks</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
                 </TableHeader>
                 <TableBody>
@@ -725,6 +727,8 @@ const GatePassTable = () => {
                                             <button className="bg-green-500 p-1 text-white rounded-md fix-button-width-rcnprimary ">Completed</button>
                                         )}
                                     </TableCell>
+                                    <TableCell className="text-center">{item.Remarks}</TableCell>
+                                    
                                     
                                     <TableCell className="text-center flex">
 
@@ -819,6 +823,10 @@ const GatePassTable = () => {
                         <TableCell></TableCell>
                         <TableCell></TableCell>
                         <TableCell></TableCell>
+                       
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
                         <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
                         <TableCell></TableCell>
                         <TableCell></TableCell>
@@ -826,6 +834,10 @@ const GatePassTable = () => {
                         <TableCell></TableCell>
                         <TableCell></TableCell>
                         <TableCell></TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+
                     </TableRow>)}
 
 

@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import axios from "axios";
+import { Textarea } from "../ui/textarea";
 
 interface GatePassDataProps{
 
@@ -46,6 +47,7 @@ const GatepassApprove = (props: GatePassDataProps) => {
     const [ntweight,setNetWeight]=useState<string>('')
     const [section,setsection]=useState<string>('')
     const [billamt,setbillamt]=useState<number>()
+    const [remarks,setremarks]=useState<string>()
     const [date,setDate]=useState<string>('')
     const [time,setTime]=useState<string>('')
     const [type,setType]=useState<string>('')
@@ -114,7 +116,7 @@ const handlegateEdit = () => {
          
         axios.put(`/api/gatepass/updateApproval/${id}`, {vehicle:vehile,docNo:DocumentNo,driver:
             DriverName,drivercontact:DriverContactNo,grossWt:GrossWt,grossWtSlip:GrossWtSlip,
-            netwt:ntweight,editmode:gatepassEditMode,type:type,section,gatepassNo:gatepassId,billamt:billamt
+            netwt:ntweight,editmode:gatepassEditMode,type:type,section,gatepassNo:gatepassId,billamt:billamt,remarks:remarks
 
         }).then((res) => {
             console.log(res)
@@ -139,7 +141,7 @@ return (
 
             <form className='flex flex-col gap-1 text-xs ' onSubmit={HandleSubmit} > 
                                                  
-            <div className="mx-8 flex flex-col gap-0.5">  
+            <div className="mx-8 flex flex-col gap-0.5 max-h-72 overflow-y-scroll">  
       
             <div className="flex mt-1">
                 <Label className="w-2/4 pt-1 ">Type (IN/OUT)</Label>
@@ -213,9 +215,12 @@ return (
                 </div> 
 
                 <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1 font-bold">Bill Amount</Label>
+                    <Label className="w-2/4 pt-1 font-bold">Bill Amount (&#x20B9;)</Label>
                   <Input className="w-2/4 text-center" placeholder="Bill Amount" step="0.01" type='number' value={billamt} onChange={(e) => setbillamt(parseFloat(e.target.value))} required/>
                    
+                </div>
+                <div className="flex mt-1"><Label className="w-2/4 pt-1" > Remarks</Label>
+                    <Textarea className="w-2/4 text-center" placeholder="Remarks" value={remarks} onChange={(e) => setremarks(e.target.value)}  />
                 </div>                    
                 </div>
                 <div className="flex mt-1">

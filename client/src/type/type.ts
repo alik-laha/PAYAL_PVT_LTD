@@ -567,6 +567,7 @@ export interface GatePassData {
             status: string;
             modifiedBy: string;
             OutTime:string;
+            Remarks:string;
           
 }
 export interface GatePassExcelData {
@@ -590,6 +591,7 @@ export interface GatePassExcelData {
     Status: string;
     Verified_By: string;
     OutTime:string;
+    Remarks:string;
   
 }
 

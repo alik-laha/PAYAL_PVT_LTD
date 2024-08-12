@@ -9,7 +9,7 @@ import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 
 const updateApprovalGate = async (req: Request, res: Response) => {
     try {
-        const { vehicle, docNo, driver,drivercontact, grossWt, grossWtSlip, netwt,editmode ,type,section,gatepassNo,billamt} = req.body;
+        const { vehicle, docNo, driver,drivercontact, grossWt, grossWtSlip, netwt,editmode ,type,section,gatepassNo,billamt,remarks} = req.body;
         const gatepassId = req.params.id
         const feeledBy = req.cookies.user;
         console.log(req.body)  
@@ -25,6 +25,7 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                     driverName: driver,
                     driverContact: drivercontact,
                     billAmount: billamt,
+                    Remarks:remarks,
                     approvalStatus: 1,
                     modifiedBy: feeledBy,
                     netWeight: netwt,
@@ -64,6 +65,7 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                 {         
                     billAmount:billamt,
                     approvalStatus:1,
+                    Remarks:remarks,
                     modifiedBy: feeledBy,
                     status:'Approved'
                 },
