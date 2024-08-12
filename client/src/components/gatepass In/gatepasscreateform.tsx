@@ -247,8 +247,8 @@ return(
                     <button className="ml-4 mt-1 bg-blue-400 font-bold w-2/3 text-grey-700  h-8 text-primary-foreground rounded-md text-center items-center justify-center"
                     onClick={addRow2}>+ Add </button>
                     </div>
-                <div  className="mt-1 w-4/5 ml-4 ">
-                <Table>
+                <div  className="mt-1 w-4/5 ml-4 max-h-28 overflow-y-scroll">
+                <Table >
                 <TableHeader className="bg-neutral-100 text-stone-950" >
                              <TableHead className="text-center " >Sl. No.</TableHead>
                              <TableHead className="text-center " > Section</TableHead>

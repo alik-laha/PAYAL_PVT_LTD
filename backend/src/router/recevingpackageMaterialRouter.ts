@@ -1,8 +1,7 @@
 import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
 import RecivingPackageMaterial from '../controller/RecevingPackageingMetrial/RecivingPackageMaterial';
-import SkudataFind from '../controller/RecevingPackageingMetrial/SkudataFind';
-import vendorNameFind from '../controller/RecevingPackageingMetrial/vendorNameFind';
+
 import viewReceivingPackageMetrial from '../controller/RecevingPackageingMetrial/viewReceivingPackageMetrial';
 import editedRecevingPackageMaterial from '../controller/RecevingPackageingMetrial/editedRecevingPackageMaterial';
 import sumOfAllRecenvingPackageMaterial from '../controller/RecevingPackageingMetrial/sumOfAllPendingEditData';
@@ -18,8 +17,7 @@ const router = express.Router();
 
 router.post("/createPM",jwtVerify, RecivingPackageMaterial)
 router.put("/updateRcvPM/:id",jwtVerify, updatePM)
-router.post("/skudatafind", jwtVerify,SkudataFind)
-router.post("/vendornamefind",jwtVerify, vendorNameFind)
+
 router.post("/getreceivematerial", jwtVerify,viewReceivingPackageMetrial)
 router.get("/geteditrecevingpackagematerial",jwtVerify, editedRecevingPackageMaterial)
 router.get("/getsumofEditRecevingPackageMaterial",jwtVerify, sumOfAllRecenvingPackageMaterial)

@@ -5,9 +5,11 @@ import { Op } from "sequelize";
 const SkudataFind = async (req: Request, res: Response) => {
     try {
         const { sku } = req.body;
+        const section = req.params.section;
         let where = {
-            [Op.or]: [
+            [Op.and]: [
                 { sku: { [Op.like]: `%${sku}%` } },
+                { section: { [Op.like]: `%${section}%` } },
             ]
         }
         const skuData = await SkuModel.findAll({ where });

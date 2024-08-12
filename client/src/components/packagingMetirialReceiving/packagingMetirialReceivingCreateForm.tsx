@@ -184,7 +184,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         } else {
             setSkuView("none")
         }
-        axios.post("/api/packageMaterial/skudatafind", { sku: e.target.value })
+        axios.post("/api/vendorSKU/skudatafind/Packaging Material", { sku: e.target.value })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -206,7 +206,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         } else {
             setVendorNameView("none")
         }
-        axios.post("/api/packageMaterial/vendornamefind", { vendorName: e.target.value })
+        axios.post("/api/vendorSKU/vendornamefind/Packaging Material", { vendorName: e.target.value })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -262,7 +262,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                             <TableHead className="text-center" >Sl. No.</TableHead>
                             <TableHead className="text-center" >Item_Code(SKU)</TableHead>
                             <TableHead className="text-center" >Vendor_Name</TableHead>
-                            <TableHead className="text-center" >Quantity</TableHead>
+                            <TableHead className="text-center" >Amount/Quantity</TableHead>
                             <TableHead className="text-center" >Unit</TableHead>
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>
@@ -301,14 +301,14 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                                             </TableCell>
 
                                             <TableCell className="text-center" >
-                                                <Input value={row.quantity} placeholder="Kg" type='number'
+                                                <Input value={row.quantity} placeholder="Qty." type='number'
                                                     onChange={(e) => {
                                                         handleRowChange(index, 'quantity', e.target.value)
-                                                    }} />
+                                                    }} required/>
                                             </TableCell>
                                             <TableCell className="text-center" >
                                           
-                                                <Input value={row.unit} placeholder="Pc." required /> 
+                                                <Input value={row.unit} placeholder="unit" required readOnly /> 
                                             </TableCell>
 
 

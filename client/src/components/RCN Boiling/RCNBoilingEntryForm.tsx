@@ -327,7 +327,8 @@ catch(err){
                     </div>
                     <button className="bg-blue-400 font-bold text-grey-700 w-8 h-8 text-primary-foreground rounded-md text-center items-center justify-center"
                     onClick={addRow}>+</button>
-                    <Table className="mt-1">
+                    <div className="max-h-60 overflow-y-scroll">
+                    <Table className="mt-1 ">
                              <TableHeader className="bg-neutral-100 text-stone-950" >
                              <TableHead className="text-center" >Sl. No.</TableHead>
                              <TableHead className="text-center" >ScoopingLine</TableHead>
@@ -469,6 +470,8 @@ catch(err){
                     })}
 
                     </Table>
+                    </div>
+                   
                    
                     <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
                   

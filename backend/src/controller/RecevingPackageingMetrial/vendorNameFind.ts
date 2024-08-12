@@ -5,9 +5,11 @@ import { Op } from "sequelize";
 const vendorNameFind = async (req: Request, res: Response) => {
     try {
         const { vendorName } = req.body;
+        const section = req.params.section;
         let where = {
-            [Op.or]: [
+            [Op.and]: [
                 { vendorName: { [Op.like]: `%${vendorName}%` } },
+                { section: { [Op.like]: `%${section}%` } },
             ]
         }
         const vendorData = await VendorName.findAll({ where });
