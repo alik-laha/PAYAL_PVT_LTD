@@ -285,6 +285,18 @@ export interface AssetData {
     createdBy: string;
     modifiedBy: string;
 }
+
+export interface VendorData {
+    primaryAsset: number;
+    id: number;
+    machineID: string;
+    machineName: string;
+    description: string;
+    status: string;
+    section: string;
+    createdBy: string;
+    modifiedBy: string;
+}
 export interface AssetDataExcel {
     primaryAsset: string;
     id: number;
@@ -454,11 +466,15 @@ export interface SkuData {
     id: number;
     sku: string;
     unit: string;
+    section:string;
     createdBy: string;
 }
 export interface VendorData {
     id: number;
     vendorName: string;
+    vendorAddress:string;
+    vendorContact:string;
+    section:string;
     createdBy: string;
 }
 

@@ -22,25 +22,17 @@ import {
 } from "@/components/ui/popover"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
-import { pageNo, pagelimit } from "../common/exportData"
+import { SKUSection, SelectTypeSKUVendor, pageNo, pagelimit } from "../common/exportData"
 //import ModifymachineForm from './ModifyMachineForm'
 //import { saveAs } from 'file-saver';
 //import * as XLSX from 'xlsx';
 import { useEffect, useState } from "react"
 import { LuDownload } from "react-icons/lu";
-import { Section } from "../common/exportData"
+
 import { FaSearch } from "react-icons/fa"
 import axios from "axios"
-import { AssetData, AssetDataExcel } from "@/type/type"
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    // DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog"
+import {  SkuData, VendorData } from "@/type/type"
+
 import {
     AlertDialog,
     AlertDialogAction,
@@ -54,7 +46,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { CiEdit } from "react-icons/ci"
+
 import { MdDelete } from "react-icons/md"
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -64,16 +56,20 @@ const VendorSKUTable = () => {
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
     const [section, setSection] = useState<string>("")
-    const [assetidname, setassetidname] = useState<string>("")
-    const [Data, setData] = useState<AssetData[]>([])
+    const [selectType, setselectType] = useState<string>("SKU")
+    // const [tablesearch, settablesearch] = useState<string>("SKU")
+    const [itemname, setitemname] = useState<string>("")
+    const [sku, setskuData] = useState<SkuData[]>([])
+    const [vendor, setvendorData] = useState<VendorData[]>([])
     //const [transformedData, setTransformedData] = useState<AssetDataExcel[]>([]);
-    const currDate = new Date().toLocaleDateString();
+    //const currDate = new Date().toLocaleDateString();
 
     const handleSearch = async () => {
 
-        const response = await axios.put('/api/asset/assetSearch', {
-            assetidname: assetidname,
+        const response = await axios.put('/api/vendorSKU/VendorSKUSearch', {
+            item: itemname,
             section: section,
+            type:selectType
 
         }, {
             params: {
@@ -82,12 +78,17 @@ const VendorSKUTable = () => {
             }
         })
         const data = await response.data
-        if (data.assetEntries.length === 0 && page > 1) {
+        if (data.length === 0 && page > 1) {
             setPage((prev) => prev - 1)
 
         }
-
-        setData(data.assetEntries)
+        if (selectType === 'SKU') {
+            setskuData(data)
+        }
+        else {
+            // setData(data)
+            setvendorData(data)
+        }
 
     }
 
@@ -100,37 +101,28 @@ const VendorSKUTable = () => {
             return prev
         })
     }, [page])
+   
 
     const exportToExcel = async () => {
 
-        const response = await axios.put('/api/asset/assetSearch', {}, {})
-        const data1 = await response.data
-        let transformed: AssetDataExcel[] = [];
-        transformed = data1.assetEntries.map((item: AssetData, idx: number) => ({
-            id: idx + 1,
-            machineID: item.machineID,
-            machineName: item.machineName,
-            description: item.description,
-            primary: item.primaryAsset === 1 ? 'yes' : 'no',
-            status: item.status,
-            section: item.section,
-            createdBy: item.createdBy,
-            modifiedBy: item.modifiedBy
-        }))
-        //setTransformedData(transformed);
-        const ws = XLSX.utils.json_to_sheet(transformed);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Asset_Details_' + currDate + '.xlsx');
+    
 
     }
 
-    const handleDelete = (data: AssetData) => {
+    const handleDeleteSKU = (data: SkuData) => {
         axios.delete(`/api/asset/deleteAsset/${data.id}`).then((res) => {
             console.log(res.data)
-            setData(Data.filter((item) => item.id !== data.id))
+            setskuData(sku.filter((item) => item.id !== data.id))
+        }
+        ).catch((err) => {
+            console.log(err)
+
+        }).finally(() => { window.location.reload() })
+    }
+    const handleDeleteVendor = (data: VendorData) => {
+        axios.delete(`/api/asset/deleteAsset/${data.id}`).then((res) => {
+            console.log(res.data)
+            setvendorData(vendor.filter((item) => item.id !== data.id))
         }
         ).catch((err) => {
             console.log(err)
@@ -145,86 +137,65 @@ const VendorSKUTable = () => {
             <div className=" mt-5">
                 <div className="flex ">
 
-                    <Input className="w-1/3 mb-2" placeholder="Asset Id" value={assetidname} onChange={(e) => setassetidname(e.target.value)} />
-                    <select className=' flex h-8 w-1/3 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" SKU/Vendor" value={itemname} onChange={(e) => setitemname(e.target.value)} />
+                    
+                <select className='flexbox-search-width flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                    onChange={(e) => {
+                        setselectType(e.target.value)
+
+                    }} value={selectType}>
+
+                    {SelectTypeSKUVendor.map((data, index) => (
+                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                            {data}
+                        </option>
+                    ))}
+                </select>
+
+                <select className=' flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setSection(e.target.value)} value={section}>
                         <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
                         py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Section (All)</option>
-                        {Section.map((data, index) => (
+                        {SKUSection.map((data, index) => (
                             <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
                             py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
                                 {data}
                             </option>
                         ))}
                     </select>
-                    <span className="w-1/3 pl-5 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+
+                    <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
                 </div>
 
                 <span className="w-1/8 pb-2"><Button className="bg-green-700 h-8 my-2 w-30 text-sm float-right mr-4" onClick={exportToExcel}>
                     <LuDownload size={18} /></Button>  </span>
-
-                <Table className="mt-1">
+                        
+                {selectType==='SKU' ? <Table className="mt-1">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl No.</TableHead>
-                        <TableHead className="text-center " >Asset ID</TableHead>
-
-                        <TableHead className="text-center" >Status </TableHead>
-                        <TableHead className="text-center" >Asset Name </TableHead>
-                        <TableHead className="text-center" >Production </TableHead>
+                        <TableHead className="text-center " >Item Name (SKU)</TableHead>
+                        <TableHead className="text-center" >Unit </TableHead>
                         <TableHead className="text-center" >Section </TableHead>
-
-                        <TableHead className="text-center" >Description </TableHead>
-
-
                         <TableHead className="text-center" >Action</TableHead>
                     </TableHeader>
 
                     <TableBody>{
-                        Data.length > 0 ? (Data.map((item, idx) => {
+                        sku.length > 0 ? (sku.map((item, idx) => {
 
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className="text-center font-semibold text-purple-700">{item.machineID}</TableCell>
-
-
-
-
-                                    <TableCell className="text-center">{item.status == 'Active' ? (
-                                        <button className="bg-green-500 p-1 text-white rounded">Active</button>
-                                    ) : (
-                                        <button className="bg-red-500 p-1 text-white rounded">{item.status}</button>
-                                    )}</TableCell>
-                                    <TableCell className="text-center font-semibold ">{item.machineName}</TableCell>
-
-                                    <TableCell className="text-center"><Input type='checkbox' className='h-4 ' checked={item.primaryAsset === 1 ? true : false} /></TableCell>
+                                    <TableCell className="text-center font-semibold ">{item.sku}</TableCell>
+                                    <TableCell className="text-center  ">{item.unit}</TableCell>
                                     <TableCell className="text-center ">{item.section}</TableCell>
-                                    <TableCell className="text-center">{item.description}</TableCell>
-
-
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-
-                                                <Dialog>
-                                                    <DialogTrigger className="flex">  <CiEdit size={20} /> <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500">Modify</button></DialogTrigger>
-                                                    <DialogContent>
-                                                        <DialogHeader>
-                                                            <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>View Asset</p></DialogTitle>
-                                                            <DialogDescription>
-                                                                <p className='text-1xl text-center pb-5'>To Be Actioned Up By Admin</p>
-                                                            </DialogDescription>
-                                                        </DialogHeader>
-                                                        {/* <ModifymachineForm
-                                                            data={item}
-                                                        /> */}
-                                                    </DialogContent>
-                                                </Dialog>
-
-
 
                                                 <AlertDialog>
                                                     <AlertDialogTrigger className="flex"><MdDelete size={20} /><button className="bg-transparent pl-2 text-left hover:text-red-500 ">Delete</button></AlertDialogTrigger>
@@ -237,7 +208,79 @@ const VendorSKUTable = () => {
                                                         </AlertDialogHeader>
                                                         <AlertDialogFooter>
                                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleDelete(item)}>Continue</AlertDialogAction>
+                                                            <AlertDialogAction onClick={() => handleDeleteSKU(item)}>Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>
+                                            </PopoverContent>
+                                        </Popover>
+
+                                    </TableCell>
+                                </TableRow>
+
+                            )
+                        })) : (<TableRow>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+
+                     
+                            <TableCell><p className="w-100 font-medium text-center text-red-500 pt-3 pb-10">No SKU Found</p></TableCell>
+
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                    
+
+                        </TableRow>)
+
+
+
+                    }
+
+                    </TableBody>
+
+
+
+                </Table>:<Table className="mt-1">
+                    <TableHeader className="bg-neutral-100 text-stone-950 ">
+                        <TableHead className="text-center" >Sl No.</TableHead>
+                        <TableHead className="text-center " >Vendor_Name</TableHead>
+                        <TableHead className="text-center" >Section </TableHead>
+                        <TableHead className="text-center" >Vendor_Address </TableHead>
+                        <TableHead className="text-center" >Contact </TableHead>              
+                       
+                        <TableHead className="text-center" >Action</TableHead>
+                    </TableHeader>
+
+                    <TableBody>{
+                        vendor.length > 0 ? (vendor.map((item, idx) => {
+
+                            return (
+                                <TableRow key={item.id}>
+                                    <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                    <TableCell className="text-center font-semibold ">{item.vendorName}</TableCell>   
+                                    <TableCell className="text-center ">{item.section}</TableCell>                             
+                                    <TableCell className="text-center  ">{item.vendorAddress}</TableCell>
+                                    <TableCell className="text-center ">{item.vendorContact}</TableCell>
+                                   
+
+                                    <TableCell className="text-center">
+                                        <Popover>
+                                            <PopoverTrigger>  <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+
+                                                <AlertDialog>
+                                                    <AlertDialogTrigger className="flex"><MdDelete size={20} /><button className="bg-transparent pl-2 text-left hover:text-red-500 ">Delete</button></AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                                            <AlertDialogDescription>
+                                                                This action cannot be undone. This will permanently delete Asset Data
+                                                            </AlertDialogDescription>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction onClick={() => handleDeleteVendor(item)}>Continue</AlertDialogAction>
                                                         </AlertDialogFooter>
                                                     </AlertDialogContent>
                                                 </AlertDialog>
@@ -253,7 +296,7 @@ const VendorSKUTable = () => {
                             <TableCell></TableCell>
 
                             <TableCell></TableCell>
-                            <TableCell><p className="w-100 font-medium text-center text-red-500 pt-3 pb-10">No Asset Found</p></TableCell>
+                            <TableCell><p className="w-100 font-medium text-center text-red-500 pt-3 pb-10">No Vendor Found</p></TableCell>
 
                             <TableCell></TableCell>
                             <TableCell></TableCell>
@@ -266,14 +309,11 @@ const VendorSKUTable = () => {
 
                     }
 
-
-
-
                     </TableBody>
 
 
 
-                </Table>
+                </Table>}
                 <Pagination className="pt-5 ">
                     <PaginationContent>
                         <PaginationItem>

@@ -18,6 +18,7 @@ import UseQueryData from '../common/dataFetcher';
 import VendorCreateForm from './VendorCreateForm';
 import SKUCreateForm from './SKUCreateForm';
 import VendorSKUTable from './VendorSKUTable';
+import { SKUSection } from '../common/exportData';
 
 
 
@@ -36,33 +37,24 @@ const VendorSKU = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
+                <div className="flexbox-tile bg-yellow-500 hover:bg-cyan-600">
+                         Section <br /><p>{SKUSection.length}</p>
+                    </div>
                     <div className="flexbox-tile bg-green-500 hover:bg-green-600">
-                        Total SKU<br /><p>{data.SKU}</p>
+                        SKU<br /><p>{data.SKU}</p>
                     </div>
                   
                     <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-600">
-                        Total Vendor <br /><p>{data.Vendor}</p>
+                         Vendor <br /><p>{data.Vendor}</p>
                     </div>
                 </div>
               
 
 
-                <Dialog>
-                    <DialogTrigger>   <Button className="bg-red-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+ Add Vendor</Button></DialogTrigger>
-                    <DialogContent>
-                        <DialogHeader>
-                            <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>New Vendor Creation</p></DialogTitle>
-                            <DialogDescription>
-                                <p className='text-1xl text-center'>To Be Filled Up By Admin</p>
-                            </DialogDescription>
-                        </DialogHeader>
-
-                        <VendorCreateForm/>
-                    </DialogContent>
-                </Dialog>
+         
 
                 <Dialog>
-                    <DialogTrigger>   <Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+ Add SKU</Button></DialogTrigger>
+                    <DialogTrigger>   <Button className="bg-orange-400 w-20 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+  SKU</Button></DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
                             <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>New SKU Creation</p></DialogTitle>
@@ -72,6 +64,19 @@ const VendorSKU = () => {
                         </DialogHeader>
 
                         <SKUCreateForm/>
+                    </DialogContent>
+                </Dialog>
+                <Dialog>
+                    <DialogTrigger>   <Button className="bg-red-400 w-20 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left">+ Vendor</Button></DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>New Vendor Creation</p></DialogTitle>
+                            <DialogDescription>
+                                <p className='text-1xl text-center'>To Be Filled Up By Admin</p>
+                            </DialogDescription>
+                        </DialogHeader>
+
+                        <VendorCreateForm/>
                     </DialogContent>
                 </Dialog>
 
