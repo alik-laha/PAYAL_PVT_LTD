@@ -96,7 +96,7 @@ const SKUCreateForm = () =>{
     return (
         <>
         <div className="pl-10 pr-10">
-            <form className='flex flex-col gap-2 ' onSubmit={handleSubmit}>
+            <form className='flex flex-col gap-2 mt-5' onSubmit={handleSubmit}>
 
             <div className="flex"><Label className="w-2/4  pt-1">Item Name (SKU)</Label>
                     <Input className="w-2/4 text-center" placeholder="item" ref={skuref} required/> </div>

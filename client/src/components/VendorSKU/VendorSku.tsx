@@ -37,13 +37,11 @@ const VendorSKU = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-green-500 hover:bg-green-600">
-                        Total SKU (PM)<br /><p>{data.Data}</p>
+                        Total SKU<br /><p>{data.Data}</p>
                     </div>
-                    <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-600">
-                        Total SKU (Store)<br /><p>{data.inactive}</p>
-                    </div>
+                  
                     <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-600">
-                        Vendor <br /><p>{data.Dicarded}</p>
+                        Total Vendor <br /><p>{data.Dicarded}</p>
                     </div>
                 </div>
               

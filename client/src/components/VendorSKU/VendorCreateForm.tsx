@@ -7,25 +7,27 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Section,MachineStatus } from "../common/exportData"
-import { useState, useRef, ChangeEvent } from "react"
+import {  SKUSection, SKUUnit } from "../common/exportData"
+import { useState, useRef } from "react"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
-import { Textarea } from "../ui/textarea"
+
 import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 
 const VendorCreateForm = () =>{
     const [section, setSection] =useState<string>('')
-    const [machinestatus, setMachineStatus] = useState<string>("")
+   
+    
     const [errortext, setErrorText] = useState<string>("")
-    const [primary, setPrimary] = useState<number>(0);
-    const [primarybool, setprimaryBool] = useState<boolean>(false);
-    const machineIdref = useRef<HTMLInputElement>(null)
-    const machinenameref = useRef<HTMLInputElement>(null)
-    const descriptionref = useRef<HTMLTextAreaElement>(null)
+   
+    const vendorRef = useRef<HTMLInputElement>(null)
+    const vendoraddressRef = useRef<HTMLInputElement>(null)
+    const vendorContactRef = useRef<HTMLInputElement>(null)
+
+  
     
     const successdialog = document.getElementById('machinescs') as HTMLInputElement;
     const errordialog = document.getElementById('machineerror') as HTMLInputElement;
@@ -37,7 +39,10 @@ const VendorCreateForm = () =>{
         closeDialogButton.addEventListener('click', () => {
             if(successdialog!=null){
                 (successdialog as any).close();
-                window.location.reload()
+                //window.location.reload()
+           
+            
+            setSection('')
             }
             
             
@@ -55,88 +60,70 @@ const VendorCreateForm = () =>{
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        const machineId = machineIdref.current?.value
-        const machinename = machinenameref.current?.value
-        const description = descriptionref.current?.value
-
-      
-       
-        console.log({ machineId,machinename,section, machinestatus,description,primary })
-        axios.post('/api/asset/createmachine', { machineId,machinename,section, machinestatus,description,primary})
+        const vendor = vendorRef.current?.value
+        const vendoradd = vendoraddressRef.current?.value
+        const vendorNo = vendorContactRef.current?.value  
+    axios.post('/api/vendorSKU/createVendor', { vendor,vendoradd,vendorNo,section})
         .then((res) => {
             console.log(res)
             if(successdialog!=null){
                 (successdialog as any).showModal();
             }
-            if(machineIdref.current!=null){
-                machineIdref.current.value='';
+            if(vendorRef.current!=null){
+                vendorRef.current.value='';
             }
-            if(machinenameref.current!=null){
-                machinenameref.current.value='';
+            if(vendoraddressRef.current!=null){
+                vendoraddressRef.current.value='';
             }
-            if(descriptionref.current!=null){
-                descriptionref.current.value='';
+            if(vendorContactRef.current!=null){
+                vendorContactRef.current.value='';
             }
-            setSection('')
-            setMachineStatus('')
+
+            
+        setSection('')
+       
            
               
 }).catch((err) => {
     console.log(err)
-    if(err.response.data.error.original.errno===1062)
-        {
+    
             setErrorText('Duplicate Entry is Not Allowed')
             if(errordialog!=null){
                 (errordialog as any).showModal();
             }
-            return
-        }
-    setErrorText(err.response.data.message)
-    if(errordialog!=null){
-        (errordialog as any).showModal();
-    }
+        
     
 })
       
     }
 
-    const handleprimary = (e: ChangeEvent<HTMLInputElement>) => {
-        // e.preventDefault();
-        setprimaryBool(!primarybool)
-        
-        e.target.checked === true ? setPrimary(1) : setPrimary(0)
-        console.log(primary)
-        console.log(primarybool)
 
-    }
    
     return (
         <>
         <div className="pl-10 pr-10">
-            <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
+            <form className='flex flex-col gap-2 mt-5' onSubmit={handleSubmit}>
 
-            <div className="flex"><Label className="w-2/4  pt-1">Machine ID</Label>
-                    <Input className="w-2/4 " placeholder="Machine Id" ref={machineIdref} required/> </div>
-                <div className="flex"><Label className="w-2/4 pt-1">Machine Name</Label>
-                    <Input className="w-2/4 " placeholder="Machine Name" ref={machinenameref} required/> </div>
-                    <div className="flex"><Label className="w-2/4 pt-1">Primary</Label>
-                    <Input 
-                        type="checkbox"
-                        placeholder="Primary "
-                        className="h-5 mt-2"
-                        onChange={handleprimary}
-                        
-                        checked={primary === 1 ? true : false}/> </div>
+            <div className="flex"><Label className="w-2/4  pt-1">Vendor/Party Name</Label>
+                    <Input className="w-2/4 text-center" placeholder="Vendor/Party" ref={vendorRef} required/> </div>
+                    <div className="flex"><Label className="w-2/4  pt-1">Address</Label>
+                    <Input className="w-2/4 text-center" placeholder="Address" ref={vendoraddressRef} /> </div>
+                    <div className="flex"><Label className="w-2/4  pt-1">Contact</Label>
+                    <Input className="w-2/4 text-center" placeholder="Contact" ref={vendorContactRef} /> </div>
+
+
+               
+                 
 
                 <div className="flex"><Label className="w-2/4  pt-1">Section</Label>
                     <Select value={section} onValueChange={(value) => setSection(value)} required={true}>
-                        <SelectTrigger className="w-2/4">
+                        <SelectTrigger className="w-2/4 justify-center">
                             <SelectValue placeholder="Section" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
                                 {
-                                    Section.map((item) => {
+                                    SKUSection.map((item) => {
                                         return (
                                             <SelectItem key={item} value={item}>
                                                 {item}
@@ -149,31 +136,10 @@ const VendorCreateForm = () =>{
                     </Select>
                     {/* <Input   placeholder="Section"/>  */}
                     </div>
-                    <div className="flex"><Label className="w-2/4  pt-1">Machine Status</Label>
-                    <Select value={machinestatus} onValueChange={(value) => setMachineStatus(value)} required={true}>
-                        <SelectTrigger className="w-2/4">
-                            <SelectValue placeholder="Status" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                {
-                                    MachineStatus.map((item) => {
-                                        return (
-                                            <SelectItem key={item} value={item}>
-                                                {item}
-                                            </SelectItem>
-                                        )
-                                    })
-                                }
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                    {/* <Input   placeholder="Section"/>  */}</div>
-                    <div className="flex"><Label className="w-2/4 pt-1" > Description</Label>
-                    <Textarea className="w-2/4 " placeholder="Description" ref={descriptionref}  />
-                </div>
+                  
+                  
                 
-                <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
+                <Button className="bg-orange-500 mb-4 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
             </form>
 
             
@@ -181,7 +147,7 @@ const VendorCreateForm = () =>{
         <dialog id="machinescs" className="dashboard-modal">
         <button id="machinescsbtn" className="dashboard-modal-close-btn ">X </button>
         <span className="flex"><img src={tick} height={2} width={35} alt='tick_image'/>
-        <p id="modal-text" className="pl-3 mt-1 font-medium">New Asset has created Successfully</p></span>
+        <p id="modal-text" className="pl-3 mt-1 font-medium">New Vendor has Created Successfully</p></span>
         
         {/* <!-- Add more elements as needed --> */}
     </dialog>
