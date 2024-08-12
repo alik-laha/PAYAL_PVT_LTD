@@ -63,9 +63,10 @@ const VendorSKUTable = () => {
     const [vendor, setvendorData] = useState<VendorData[]>([])
     //const [transformedData, setTransformedData] = useState<AssetDataExcel[]>([]);
     //const currDate = new Date().toLocaleDateString();
+    const [tablesearch, settablesearch] = useState<string>("SKU")
 
     const handleSearch = async () => {
-
+        settablesearch(selectType)
         const response = await axios.put('/api/vendorSKU/VendorSKUSearch', {
             item: itemname,
             section: section,
@@ -110,7 +111,7 @@ const VendorSKUTable = () => {
     }
 
     const handleDeleteSKU = (data: SkuData) => {
-        axios.delete(`/api/asset/deleteAsset/${data.id}`).then((res) => {
+        axios.delete(`/api/vendorSKU/deleteSKU/${data.id}`).then((res) => {
             console.log(res.data)
             setskuData(sku.filter((item) => item.id !== data.id))
         }
@@ -120,7 +121,7 @@ const VendorSKUTable = () => {
         }).finally(() => { window.location.reload() })
     }
     const handleDeleteVendor = (data: VendorData) => {
-        axios.delete(`/api/asset/deleteAsset/${data.id}`).then((res) => {
+        axios.delete(`/api/vendorSKU/deleteVendor/${data.id}`).then((res) => {
             console.log(res.data)
             setvendorData(vendor.filter((item) => item.id !== data.id))
         }
@@ -135,26 +136,24 @@ const VendorSKUTable = () => {
     return (
         <>
             <div className=" mt-5">
-                <div className="flex ">
+                <div className="flex flexbox-search">
 
-                <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" SKU/Vendor" value={itemname} onChange={(e) => setitemname(e.target.value)} />
+                <Input className="no-padding ml-5 w-1/5 flexbox-search-width" placeholder=" SKU Name/Vendor" value={itemname} onChange={(e) => setitemname(e.target.value)} />
                     
-                <select className='flexbox-search-width flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className='flexbox-search-width flex h-8 w-1/5 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => {
-                        setselectType(e.target.value)
-
-                    }} value={selectType}>
-
+                    onChange={(e) => {setselectType(e.target.value)}} value={selectType}>
+                        
                     {SelectTypeSKUVendor.map((data, index) => (
                         <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:
+            pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
                             {data}
                         </option>
                     ))}
                 </select>
 
-                <select className=' flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className='flexbox-search-width flex h-8 w-1/5 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setSection(e.target.value)} value={section}>
                         <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
@@ -167,13 +166,13 @@ const VendorSKUTable = () => {
                         ))}
                     </select>
 
-                    <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+                    <span className="w-1/8 ml-6 "><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
                 </div>
 
                 <span className="w-1/8 pb-2"><Button className="bg-green-700 h-8 my-2 w-30 text-sm float-right mr-4" onClick={exportToExcel}>
                     <LuDownload size={18} /></Button>  </span>
                         
-                {selectType==='SKU' ? <Table className="mt-1">
+                {tablesearch==='SKU' ? <Table className="mt-1">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl No.</TableHead>
                         <TableHead className="text-center " >Item Name (SKU)</TableHead>
@@ -203,7 +202,7 @@ const VendorSKUTable = () => {
                                                         <AlertDialogHeader>
                                                             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                                                             <AlertDialogDescription>
-                                                                This action cannot be undone. This will permanently delete Asset Data
+                                                                This action cannot be undone. This will permanently delete SKU Data
                                                             </AlertDialogDescription>
                                                         </AlertDialogHeader>
                                                         <AlertDialogFooter>
@@ -275,7 +274,7 @@ const VendorSKUTable = () => {
                                                         <AlertDialogHeader>
                                                             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                                                             <AlertDialogDescription>
-                                                                This action cannot be undone. This will permanently delete Asset Data
+                                                                This action cannot be undone. This will permanently delete Vendor Data
                                                             </AlertDialogDescription>
                                                         </AlertDialogHeader>
                                                         <AlertDialogFooter>
@@ -297,11 +296,10 @@ const VendorSKUTable = () => {
 
                             <TableCell></TableCell>
                             <TableCell><p className="w-100 font-medium text-center text-red-500 pt-3 pb-10">No Vendor Found</p></TableCell>
-
+                            
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                            
 
                         </TableRow>)
 

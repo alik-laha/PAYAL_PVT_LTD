@@ -29,7 +29,7 @@ try{
    
 }
 catch (err) {
-    return res.status(500).json({ message: "Error in Creating Vendor", err });
+    return res.status(500).json({ message: "Error in Creating Vendor/Duplicate Entry", err });
 }
 
 }

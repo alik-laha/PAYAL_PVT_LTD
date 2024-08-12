@@ -28,7 +28,7 @@ try{
    
 }
 catch (err) {
-    return res.status(500).json({ message: "Error in Creating SKU", err });
+    return res.status(500).json({ message: "Error in Creating SKU/Duplicate Entry", err });
 }
 
 }

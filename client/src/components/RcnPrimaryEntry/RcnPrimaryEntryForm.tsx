@@ -189,7 +189,7 @@ const RcnPrimaryEntryForm = (props:Props) => {
                         <Input className="w-2/4 text-center" placeholder="Bag Count" ref={noOfBagsRef} type="number" required />
                     </div>
                     <div className="flex">
-                        <Label className="w-2/4 pt-1"> BL Weight</Label>
+                        <Label className="w-2/4 pt-1"> BL Weight (Kg)</Label>
                         <Input className="w-2/4 text-center" placeholder="BL Weight" ref={blWeightRef} type="number" step="0.01" required />
                     </div>
                    

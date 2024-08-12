@@ -87,7 +87,7 @@ const VendorCreateForm = () =>{
 }).catch((err) => {
     console.log(err)
     
-            setErrorText('Duplicate Entry is Not Allowed')
+            setErrorText(err.response.data.message)
             if(errordialog!=null){
                 (errordialog as any).showModal();
             }
