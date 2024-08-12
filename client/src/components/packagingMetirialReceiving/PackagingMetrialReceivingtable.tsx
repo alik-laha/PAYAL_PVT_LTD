@@ -320,8 +320,12 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                         <TableCell className="text-center">{idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
+                                        <TableCell className="text-center ">{item.truckNo}</TableCell>
+                                         <TableCell className="text-center font-semibold">{item.grossWt}</TableCell>
+                                          <TableCell className="text-center font-semibold">{item.netWeight}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-600">{handletimezone(item.invoicedate)}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.invoice}</TableCell>
+                                        
                                         <TableCell className="text-center">{item.sku}</TableCell>
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center">{item.quantity}</TableCell>

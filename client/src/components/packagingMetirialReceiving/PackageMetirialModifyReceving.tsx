@@ -19,7 +19,10 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
     const errordialog = document.getElementById('packagingMetirialReciveErrorUpdate') as HTMLInputElement;
     const closeDialogButton = document.getElementById('packageMetrialRecivecrossUpdate') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('packagigreciveerrorcrossUpdate') as HTMLInputElement;
-
+    const [truck, settruck] = useState("")
+    const [grossswt, setgrosswt] = useState("")
+    const [netwt, setnetwt] = useState("")
+    const [gatepassno, setgatepassno] = useState("")
     const [unit, setUnit] = useState("")
     const [errText, setErrText] = useState("")
     const [sku, setSku] = useState("")
@@ -37,8 +40,12 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
     useEffect(() => {
         setUnit(data.unit)
         setSku(data.sku)
+        settruck(data.truckNo)
         setVendorName(data.vendorName)
-    
+        setgrosswt(data.grossWt)
+        data.netWeight?setnetwt(data.netWeight):setnetwt('')
+        setgatepassno(data.gatePassNo)
+        
         setinvoicedate(data.invoicedate.slice(0, 10))
         quantityRef.current!.value = data.quantity.toString()
         invoiceRef.current!.value = data.invoice
@@ -69,7 +76,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         console.log("submit")
-        axios.post(`/api/quality/editrecevingpackagematerial/${data.id}`, { recevingDate: date, invoicedate,invoice:invoiceRef.current?.value, sku,vendorName, quantity: quantityRef.current?.value, unit })
+        axios.post(`/api/quality/editrecevingpackagematerial/${data.id}`, {  invoicedate,invoice:invoiceRef.current?.value, sku,vendorName, quantity: quantityRef.current?.value, unit })
             .then((res) => {
                 if (res.status === 201) {
                     (successdialog as any).showModal();
@@ -91,7 +98,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         } else {
             setSkuView("none")
         }
-        axios.post("/api/quality/skudatafind", { sku: e.target.value })
+        axios.post("/api/vendorSKU/skudatafind/Packaging Material", { sku: e.target.value })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -112,7 +119,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         } else {
             setVendorNameView("none")
         }
-        axios.post("/api/quality/vendornamefind", { vendorName: e.target.value })
+        axios.post("/api/vendorSKU/vendornamefind/Packaging Material", { vendorName: e.target.value })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -138,20 +145,30 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
 
     return (
         <>
-             <div className="pl-10 pr-10 mt-6">
-                <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
-
+             <div className="pl-10 pr-10 mt-3 max-h-80 overflow-y-scroll">
+                <form className='flex flex-col gap-2 ' onSubmit={handleSubmit}>
+                <div className="flex"><Label className="w-2/4  pt-1">GatePass No.</Label>
+                <Input className="w-2/4 text-center bg-yellow-100" placeholder="GatePassNo." value={gatepassno} readOnly required /> </div>
+                <div className="flex"><Label className="w-2/4  pt-1">Vehicle No.</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="GatePassNo." value={truck} readOnly required /> </div>  
                     <div className="flex"><Label className="w-2/4  pt-1">Receiving Date</Label>
-                        <Input className="w-2/4 justify-center" placeholder="Receiving Date" value={date} onChange={(e)=>setDate(e.target.value)}required type="date" /> </div>
+                        <Input className="w-2/4 justify-center bg-yellow-100" placeholder="Receiving Date" value={date} required type="date" /> </div>
+                        
+                        <div className="flex"><Label className="w-2/4  pt-1">Gross Wt.(Kg)</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="GatePassNo." value={grossswt} readOnly required /> </div>        
+                        
+                        <div className="flex"><Label className="w-2/4  pt-1">Net Wt.(Kg)</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="GatePassNo." value={netwt} readOnly required /> </div>  
+
                         <div className="flex"><Label className="w-2/4  pt-1">Invoice No</Label>
-                        <Input className="w-2/4 " placeholder="Invoice No" required  ref={invoiceRef} /> </div>
+                        <Input className="w-2/4 text-center" placeholder="Invoice No" required  ref={invoiceRef} /> </div>
                         
                         
                         <div className="flex"><Label className="w-2/4  pt-1">Invoice Date</Label>
                         <Input className="w-2/4 justify-center" placeholder="Invoice Date" value={invoicedate} onChange={(e)=>setinvoicedate(e.target.value)}required type="date" /> </div>
                     <div className="flex"><Label className="w-2/4  pt-1">SKU</Label>
-                        <Input className="w-2/4 " placeholder="SKU" required value={sku} onChange={handleSkuchange} /> </div>
-                    <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: skuview }}>
+                        <Input className="w-2/4 text-center" placeholder="SKU" required value={sku} onChange={handleSkuchange} /> </div>
+                    <ScrollArea className="max-h-24 w-2/4 overflow-scroll w-30 dropdown-content" style={{ display: skuview }}>
                         {
                             skudata.map((item: SkuData) => (
                                 <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(item)}>
@@ -163,9 +180,9 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
                     </ScrollArea>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Vendor Name</Label>
-                        <Input className="w-2/4 " placeholder="Vendor Name" required value={vendorName} onChange={handleVendorChange} /> </div>
+                        <Input className="w-2/4 text-center" placeholder="Vendor Name" required value={vendorName} onChange={handleVendorChange} /> </div>
 
-                    <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: vendorNameView }}>
+                    <ScrollArea className="max-h-24 w-2/4 overflow-scroll w-30 dropdown-content" style={{ display: vendorNameView }}>
                         {
                             vendorData.map((item: VendorData) => (
                                 <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick(item)}>
@@ -175,34 +192,16 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
                         }
                     </ScrollArea>
 
-                    <div className="flex"><Label className="w-2/4  pt-1">Quantity</Label>
-                        <Input className="w-2/4 " placeholder="Quantity" required type="number" ref={quantityRef} /> </div>
+                    <div className="flex"><Label className="w-2/4  pt-1">Amount/Quantity</Label>
+                        <Input className="w-2/4 text-center" placeholder="Qty" required type="number" ref={quantityRef} step='0.01'/> </div>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Unit</Label>
+                    <Input className="w-2/4 text-center" placeholder="Qty" required value={unit} /> </div>
 
-                    <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
-                    disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setUnit(e.target.value)} value={unit} required>
-                        <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
-                        focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>unit</option>
-                       
-                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                             value="Kg">
-                                Kg
-                            </option>
-                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                             value="pcs">
-                                Pcs
-                            </option>
-                       
-                    </select>
 
-                        
-                    </div>
+
+
+
 
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
                 </form>
