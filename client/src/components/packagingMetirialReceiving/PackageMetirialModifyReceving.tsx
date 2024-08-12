@@ -76,7 +76,8 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         console.log("submit")
-        axios.post(`/api/quality/editrecevingpackagematerial/${data.id}`, {  invoicedate,invoice:invoiceRef.current?.value, sku,vendorName, quantity: quantityRef.current?.value, unit })
+        axios.post(`/api/packageMaterial/editrecevingpackagematerial/${data.id}`, { 
+            grossswt,netwt,recevingDate:date,truck,gatepassno, invoicedate,invoice:invoiceRef.current?.value, sku,vendorName, quantity: quantityRef.current?.value, unit })
             .then((res) => {
                 if (res.status === 201) {
                     (successdialog as any).showModal();

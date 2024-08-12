@@ -73,6 +73,7 @@ const EditPackagingMaterial = sequelize.define('editpackagingMaterialreceving', 
     grossWt:{
         type: DataTypes.DECIMAL(10,2),
         allowNull: false
-    },
+    }
+    
 })
 export default EditPackagingMaterial;
