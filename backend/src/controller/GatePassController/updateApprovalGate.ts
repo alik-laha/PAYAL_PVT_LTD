@@ -3,6 +3,7 @@ import gatePassMaster from "../../model/gatePassMasterModel";
 import sequelize from "../../config/databaseConfig";
 import RcnPrimary from "../../model/RcnEntryModel";
 import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
+import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
 
 
 
@@ -59,6 +60,27 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                     return res.status(200).json({ message: "Gate Pass Details Modified and Approved Successfully" });
                 }
             }
+            if (section === 'Packaging Material' && type === 'IN') {
+                const pmupdate = await PackagingMaterial.update(
+                    {
+                        grossWt: grossWt,
+                        truckNo: vehicle,
+                        netWeight: netwt,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo: gatepassNo
+                        },
+                    }
+                );
+
+                if (pmupdate) {
+                    const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatepassNo,"gatepass_release",'Packaging Material Incoming')
+                    console.log(data)
+                    return res.status(200).json({ message: "Gate Pass Details Modified and Approved Successfully" });
+                }
+            }
         }
         else{
             const gatepassupdate=await gatePassMaster.update(
@@ -76,9 +98,18 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                 }
             );
             if(gatepassupdate){
-                const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepassNo,"gatepass_release",'RCN Cashew IN')
+                if (section === 'Raw Cashew' && type === 'IN'){
+                    const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepassNo,"gatepass_release",'RCN Cashew IN')
                     console.log(data)
                 return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
+                }
+                if (section === 'Packaging Material' && type === 'IN'){
+                    const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatepassNo,"gatepass_release",'Packaging Material Incoming')
+                    console.log(data)
+                return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
+
+                }
+               
             }
 
         }
