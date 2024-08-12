@@ -141,7 +141,7 @@ return (
 
             <form className='flex flex-col gap-1 text-xs ' onSubmit={HandleSubmit} > 
                                                  
-            <div className="mx-8 flex flex-col gap-0.5 max-h-72 overflow-y-scroll">  
+            <div className="mx-2 flex flex-col gap-0.5 max-h-80 overflow-y-scroll">  
       
             <div className="flex mt-1">
                 <Label className="w-2/4 pt-1 ">Type (IN/OUT)</Label>
@@ -186,8 +186,8 @@ return (
                 </div>
                 <div className="flex mt-1">
                     <Label className="w-2/4 pt-1">Driver Name</Label>
-                    {gatepassEditMode ? <Input className="w-2/4 text-center" placeholder="Driver Name" value={DriverName} onChange={(e) => setDriverName(e.target.value)} required/>
-                    :<Input className="w-2/4 text-center bg-yellow-100" placeholder="Driver Name" value={DriverName}  required/>}
+                    {gatepassEditMode ? <Input className="w-2/4 text-center" placeholder="Driver Name" value={DriverName} onChange={(e) => setDriverName(e.target.value)} />
+                    :<Input className="w-2/4 text-center bg-yellow-100" placeholder="Driver Name" value={DriverName}  />}
                 </div>
                 <div className="flex mt-1">
                     <Label className="w-2/4 pt-1">Driver Contact</Label>

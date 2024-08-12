@@ -167,6 +167,16 @@ const GatePassTable = () => {
             height: 20,
             
           },
+          rowTextArea: {
+            display:'flex',
+            flexDirection: "row",
+            borderBottomColor: "#3778C2",
+            borderBottomWidth: 1,
+            alignItems: "center",
+            height: 40,
+            
+          },
+         
           rowdescription: {
             width: "40%",
             textAlign: "center",
@@ -178,12 +188,25 @@ const GatePassTable = () => {
             color:'#00519C'
             
           },
+          rowdescriptionTextArea: {
+            width: "40%",
+            backgroundColor: "white",
+            textAlign: "center",
+            borderRightColor: borderColor,
+            borderRightWidth: 1,
+            fontSize:'10px',
+            fontWeight: "extrabold",
+            color:'#00519C'
+            
+          },
+         
           rowqty: {
             width: "60%",
             backgroundColor: "white",
             textAlign: "center",
             fontSize:'10px'
           },
+          
           headerContainer: {
             marginTop: 25,
             justifyContent: "flex-start",
@@ -343,20 +366,16 @@ const GatePassTable = () => {
                             <Text style={styles.rowdescription}>Driver Name</Text>
                             <Text style={styles.rowqty}>{data.data.driverName}</Text>
                         </View>
-                        
-                        {/* {"\n"}
                         <View style={styles.row}>
-                            <Text style={styles.blankrow}></Text>
-                            
-                        </View> */}
+                            <Text style={styles.rowdescription}>Driver Contact No.</Text>
+                            <Text style={styles.rowqty}>{data.data.driverContact}</Text>
+                        </View>
+                        
                          <View style={styles.row}>
                             <Text style={styles.rowdescription}>Invoice/Chalan No.</Text>
                             <Text style={styles.rowqty}>{data.data.DocNo}</Text>
                         </View>
-                        <View style={styles.row}>
-                            <Text style={styles.rowdescription}>Driver Contact</Text>
-                            <Text style={styles.rowqty}>{data.data.driverContact}</Text>
-                        </View>
+                        
                         <View style={styles.row}>
                             <Text style={styles.rowdescription}>Gross Weight(Kg)</Text>
                             <Text style={styles.rowqty}>{data.data.grosswt}</Text>
@@ -370,16 +389,22 @@ const GatePassTable = () => {
                             <Text style={styles.rowqty}>{data.data.netWeight}</Text>
                         </View>
                         <View style={styles.row}>
-                            <Text style={styles.rowdescription}>Total Bill Amount</Text>
+                            <Text style={styles.rowdescription}>Total Bill Amount(Rs.)</Text>
                             <Text style={styles.rowqty}>{data.data.billAmount}</Text>
                         </View>
+                        
                         <View style={styles.row}>
                             <Text style={styles.rowdescription}>Entried By Security</Text>
                             <Text style={styles.rowqty}>{data.data.securityName}</Text>
                         </View>
+                        <View style={styles.rowTextArea}>
+                            <Text style={styles.rowdescriptionTextArea}>Remarks</Text>
+                            <Text style={styles.rowqty}>{data.data.Remarks}</Text>
+                        </View>
                      
 
                     </View>
+                    
                     <View style={styles.footer}>
                         <Text style={styles.leftfooter}>Security Signature</Text>
                         <Text style={styles.rightfooter}>Authority Signature</Text>
@@ -679,7 +704,7 @@ const GatePassTable = () => {
                     <TableHead className="text-center" >Out_Time</TableHead>
                     <TableHead className="text-center" >Receiving/Dispatch</TableHead>
                     <TableHead className="text-center" >Approval</TableHead>
-                    <TableHead className="text-center" >Remarks</TableHead>
+                    <TableHead className="text-center" >Verifier_Remarks</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
                 </TableHeader>
                 <TableBody>

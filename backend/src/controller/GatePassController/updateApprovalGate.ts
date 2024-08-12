@@ -76,6 +76,8 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                 }
             );
             if(gatepassupdate){
+                const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepassNo,"gatepass_release",'RCN Cashew IN')
+                    console.log(data)
                 return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
             }
 

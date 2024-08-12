@@ -210,12 +210,8 @@ return(
                 </div>
                                                   
                 <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Vehicle No</Label>
+                    <Label className="w-2/4 pt-1">Vehicle No (*)</Label>
                     <Input className="w-2/4 text-center" placeholder="Vehicle No" ref={vehicleNoRef} required/>
-                </div>
-                <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Chalan No(*)</Label>
-                    <Input className="w-2/4 text-center" placeholder="Doc No." ref={DocumentNoRef} required/>
                 </div>
                 <div className="flex mt-1">
                     <Label className="w-2/4 pt-1">Driver Name</Label>
@@ -225,9 +221,15 @@ return(
                     <Label className="w-2/4 pt-1">Driver Contact</Label>
                     <Input className="w-2/4 text-center" placeholder="Contact No" ref={DriverContactNoref} />
                 </div>
+                <div className="flex mt-1">
+                    <Label className="w-2/4 pt-1">Chalan/Invoice No(*)</Label>
+                    <Input className="w-2/4 text-center" placeholder="Doc No." ref={DocumentNoRef} required/>
+                </div>
+                
+                
                 
                 <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Gross Wt.</Label>
+                    <Label className="w-2/4 pt-1">Gross Wt. (*)</Label>
                     <Input className="w-2/4 text-center" type='number' step='0.01' placeholder="Gross Wt." ref={GrossWtRef} required/>
                 </div>
                 <div className="flex mt-1">
@@ -235,7 +237,7 @@ return(
                     <Input className="w-2/4 text-center" placeholder="Slip No." ref={GrossWtSlipRef} />
                 </div>
                 <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Name Of Security</Label>
+                    <Label className="w-2/4 pt-1">Name Of Security (*)</Label>
                     <Input className="w-2/4 text-center" placeholder="Security Name" ref={NameRef} required/>
                 </div> 
                 
