@@ -64,6 +64,7 @@ const VendorSKUTable = () => {
     //const [transformedData, setTransformedData] = useState<AssetDataExcel[]>([]);
     //const currDate = new Date().toLocaleDateString();
     const [tablesearch, settablesearch] = useState<string>("SKU")
+    const currDate = new Date().toLocaleDateString();
 
     const handleSearch = async () => {
         settablesearch(selectType)
@@ -105,7 +106,49 @@ const VendorSKUTable = () => {
    
 
     const exportToExcel = async () => {
+        const response = await axios.put('/api/vendorSKU/VendorSKUSearch', { item: itemname,
+            section: section,
+            type:selectType}, {})
 
+        const data1 = await response.data
+        let transformed:any  = [];
+        if (selectType === 'SKU') {
+            transformed = data1.map((item: SkuData, idx: number) => ({
+                SL_No: idx + 1,
+                Item_SKU: item.sku,
+                Unit: item.unit,
+                Section: item.section,
+                createdBy: item.createdBy,
+             
+            }))
+            const ws = XLSX.utils.json_to_sheet(transformed);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            saveAs(blob, 'SKU_Details_' + currDate + '.xlsx');
+        }
+        else {
+            // setData(data)
+            transformed = data1.map((item: VendorData, idx: number) => ({
+                SL_No: idx + 1,
+                VendorName: item.vendorName,
+                Section: item.section,
+                Vendor_Address: item.vendorAddress,
+                Vendor_Contact: item.vendorContact,
+                createdBy: item.createdBy,
+            }))
+            const ws = XLSX.utils.json_to_sheet(transformed);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            saveAs(blob, 'Vendor_Details_' + currDate + '.xlsx');
+        }
+
+        
+        //setTransformedData(transformed);
+       
     
 
     }
