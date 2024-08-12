@@ -7,7 +7,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import {  SKUSection, SKUUnit } from "../common/exportData"
+import {  SKUSection } from "../common/exportData"
 import { useState, useRef } from "react"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"

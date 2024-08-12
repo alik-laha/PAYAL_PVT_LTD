@@ -11,7 +11,7 @@ const VendorName = sequelize.define('vendorName', {
     vendorName: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique:true
+     
     },
     vendorAddress: {
         type: DataTypes.STRING,
@@ -29,5 +29,13 @@ const VendorName = sequelize.define('vendorName', {
         type: DataTypes.STRING,
         allowNull: false,
     }
-})
+}, {
+    indexes: [
+        {
+            unique: true,
+            fields: ['vendorName','section']
+        }
+    ]
+}
+)
 export default VendorName;
