@@ -61,7 +61,8 @@ export const PermissionRol = {
     CleaningSupervisor:['Cleaning'],
     BormaSuperVisor:['Borma'],
     Security:['Gatepass'],
-    GatePassManager:['Gatepass']
+    GatePassManager:['Gatepass','RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry']
 }
 
 export const PermissionDep = {
@@ -70,7 +71,7 @@ export const PermissionDep = {
     Maintainance: ['Maintainance'],
     Production: ['Production'],
     QualityControl: ['Quality'],
-    GatePass:['GatePass']
+    GatePass:['GatePass','Receiving']
   
 }
 

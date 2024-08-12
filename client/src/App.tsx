@@ -90,11 +90,11 @@ function App() {
           <Route path="/dashboard/vendorSKU" element={<VendorSKU />} />
         </Route>
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager','GatePassManager']} />}>
           <Route path="/dashboard/rcnprimaryentry" element={<RcnPrimaryEntry />} />
         </Route>
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingPMSupervisor', 'ReceivingManager']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingPMSupervisor', 'ReceivingManager','GatePassManager']} />}>
           <Route path="/dashboard/recevingpackagingMaterial" element={<PackagingMetirialReceiving />} />
         </Route>
 
