@@ -480,11 +480,12 @@ export interface VendorData {
 
 export interface PackageMaterialReceivingData {
     id: number;
+    
     recevingDate: string;
     sku: string;
     vendorName: string;
-    quantityKg: string;
-    quantityPc:string;
+    quantity: string;
+
     unit: string;
     invoicedate:string;
     invoice:string;

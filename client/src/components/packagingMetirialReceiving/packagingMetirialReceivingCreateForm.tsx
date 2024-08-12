@@ -150,6 +150,9 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                 pmrescount++
                 if(pmrescount==(formData.length-1))
                 {
+                    
+                    await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
+                        section:'Packaging Material' })
                     if(successdialog){
                         (successdialog as any).showModal();
                     }

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import gatePass from "../../model/gatepassModel";
+
 import gatePassMaster from "../../model/gatePassMasterModel";
 import { Op } from "sequelize";
 
