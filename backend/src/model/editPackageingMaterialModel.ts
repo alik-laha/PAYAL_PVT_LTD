@@ -32,7 +32,7 @@ const EditPackagingMaterial = sequelize.define('editpackagingMaterialreceving', 
         allowNull: true,
     },
     quantity: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(10,2),
         allowNull: true,
     },
     invoicequantity: {
@@ -41,7 +41,7 @@ const EditPackagingMaterial = sequelize.define('editpackagingMaterialreceving', 
     },
     type: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     unit: {
         type: DataTypes.STRING,

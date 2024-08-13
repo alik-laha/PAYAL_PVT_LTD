@@ -30,14 +30,14 @@ const PackagingMaterial = sequelize.define('packagingMaterialreceving', {
     },
     type: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     vendorName: {
         type: DataTypes.STRING,
         allowNull: true,
     },
     quantity: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(10,2),
         allowNull: true,
     },
     invoicequantity: {
