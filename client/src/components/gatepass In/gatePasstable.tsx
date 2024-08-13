@@ -76,7 +76,7 @@ const GatePassTable = () => {
     const [blockpagen, setblockpagen] = useState('flex')
     const [Data, setData] = useState<GatePassData[]>([])
     const [page, setPage] = useState(pageNo)
-    const [netWeight, setNetWeight] = useState<number>(0)
+    const [netWeight, setNetWeight] = useState<number>()
 
     const limit = pagelimit
     const [errview, setErrView] = useState<string>("hidden")
@@ -773,9 +773,9 @@ const GatePassTable = () => {
                                                             <AlertDialogTitle> Enter Net Weight (Gross Initial Wt. - Final Wt.)</AlertDialogTitle>
                                                             <AlertDialogDescription>
 
-                                                                This will Link all other Receiving Sections
-                                                                <Input type="number" placeholder="Net Weight" className='mt-3 w-100 text-center justify-center items-center' value={netWeight} onChange={(e) => setNetWeight(e.target.value)} required={true} />
-                                                                <span id="nameError" className={`text-red-500 pt-2 font-bold ${errview}`}>Date is Required for Release</span>
+                                                                This will Link Corresponding Receiving Section
+                                                                <Input type="number" placeholder="Net Weight" className='mt-3 w-100 text-center justify-center items-center' value={netWeight} onChange={(e) => setNetWeight(Number(e.target.value))} required />
+                                                                <span id="nameError" className={`text-red-500 pt-2 font-bold ${errview}`}>Net Weight is Required</span>
                                                             </AlertDialogDescription>
                                                         </AlertDialogHeader>
 
