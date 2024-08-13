@@ -402,7 +402,11 @@ export interface pendingCheckRoles {
     Boiling: string[];
     Scooping: string[];
     Borma: string[];
-    Gatepass:string[];
+    
+}
+export interface rcvCheckRoles {
+    RCNPrimaryEntry: string[];
+    
 }
 
 export interface GradingExcelData {

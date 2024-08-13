@@ -64,7 +64,11 @@ export const pendingCheckRole = {
     Boiling: ['Director', 'FactoryManager', 'ProductionManager'],
     Scooping: ['Director', 'FactoryManager', 'ProductionManager'],
     Borma: ['Director', 'FactoryManager', 'ProductionManager'],
-    Gatepass: ['Director', 'FactoryManager', 'GatePassManager']
+   
+}
+export const rcvCheckRole = {
+    RCNPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingSupervisor'],
+ 
 }
 export const roleDataonDept = {
     Admin: ['Director', 'FactoryManager'],

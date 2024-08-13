@@ -12,13 +12,13 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import UseQueryData from "../common/dataFetcher";
-import { PermissionRole, rcnpendingLotData, SumofAllCuntryData } from "@/type/type";
+import { PermissionRole, rcnpendingLotData, rcvCheckRoles, SumofAllCuntryData } from "@/type/type";
 
 import { useContext, useState } from 'react';
 import Context from '../context/context';
 import axios from 'axios';
 import Loader from '../common/Loader';
-import { pendingCheckRole } from '../common/exportData';
+import { pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
 import RCNInitialForm from './RcnInitialForm';
 
@@ -36,6 +36,16 @@ const RcnPrimaryEntry = () => {
     const checkpending = (tab: string) => {
         //console.log(Role)
         if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+            return true
+        }
+        else {
+            return false;
+        }
+
+    }
+    const checkreceiving = (tab: string) => {
+        //console.log(Role)
+        if (rcvCheckRole[tab as keyof rcvCheckRoles].includes(Role)) {
             return true
         }
         else {
@@ -84,7 +94,7 @@ const RcnPrimaryEntry = () => {
 
 
                 <div>
-                    <Dialog>
+                {checkreceiving('RCNPrimaryEntry') && <Dialog>
                         <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
@@ -94,7 +104,7 @@ const RcnPrimaryEntry = () => {
                           
                             <RCNInitialForm props={lotdata}/>
                         </DialogContent>
-                    </Dialog>
+                    </Dialog>}
 
                     {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.CountPendingEdit === 0 ? true : false}>
                         Pending Edit ({data.CountPendingEdit})</Button>}

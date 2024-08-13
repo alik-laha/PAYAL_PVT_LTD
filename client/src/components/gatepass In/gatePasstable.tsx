@@ -389,7 +389,7 @@ const GatePassTable = () => {
                             <Text style={styles.rowqty}>{data.data.netWeight}</Text>
                         </View>
                         <View style={styles.row}>
-                            <Text style={styles.rowdescription}>Total Bill Amount(Rs.)</Text>
+                            <Text style={styles.rowdescription}>Bill Amount(Rs.)</Text>
                             <Text style={styles.rowqty}>{data.data.billAmount}</Text>
                         </View>
                         
@@ -397,8 +397,8 @@ const GatePassTable = () => {
                             <Text style={styles.rowdescription}>Entried By Security</Text>
                             <Text style={styles.rowqty}>{data.data.securityName}</Text>
                         </View>
-                        <View style={styles.rowTextArea}>
-                            <Text style={styles.rowdescriptionTextArea}>Remarks</Text>
+                        <View style={styles.row}>
+                            <Text style={styles.rowdescription}>Remarks</Text>
                             <Text style={styles.rowqty}>{data.data.Remarks}</Text>
                         </View>
                      

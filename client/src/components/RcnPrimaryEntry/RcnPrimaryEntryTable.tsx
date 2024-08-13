@@ -336,12 +336,12 @@ const RcnPrimaryEntryTable = () => {
                  
                     <TableHead className="text-center" >Origin</TableHead>
                     <TableHead className="text-center" >Date_of_Receiving </TableHead>
-                    <TableHead className="text-center" >BL No.</TableHead>
-                    <TableHead className="text-center" >Con No.</TableHead>
-                    <TableHead className="text-center" >Truck No.</TableHead>
-                    <TableHead className="text-center" >Gross Weight</TableHead>
-                    <TableHead className="text-center" >BL Weight</TableHead>
-                    <TableHead className="text-center" >Net Weight</TableHead>
+                    <TableHead className="text-center" >BL_No.</TableHead>
+                    <TableHead className="text-center" >Con_No.</TableHead>
+                    <TableHead className="text-center" >Truck_No.</TableHead>
+                    <TableHead className="text-center" >Gross_Weight</TableHead>
+                    <TableHead className="text-center" >BL_Weight</TableHead>
+                    <TableHead className="text-center" >Net_Weight</TableHead>
                     <TableHead className="text-center" >Difference</TableHead>
                     <TableHead className="text-center" >Physical Bag Count</TableHead>
                     <TableHead className="text-center" >System Bag Count</TableHead>
@@ -364,12 +364,12 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center">{item.blNo}</TableCell>
                                     <TableCell className="text-center">{item.conNo}</TableCell>
                                     <TableCell className="text-center">{item.truckNo}</TableCell>
-                                    <TableCell className="text-center">{item.grossWt}</TableCell>
-                                    <TableCell className="text-center">{item.blWeight}</TableCell>
-                                    <TableCell className="text-center">{item.netWeight}</TableCell>
+                                    <TableCell className="text-center">{item.grossWt} Kg</TableCell>
+                                    <TableCell className="text-center">{item.blWeight} Kg</TableCell>
+                                    <TableCell className="text-center">{item.netWeight} Kg</TableCell>
 
-                                    {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)
-                                        : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)}
+                                    {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)
+                                        : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)}
 
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
                                     <TableCell className="text-center font-semibold">{item.systemBags}</TableCell>
@@ -438,11 +438,11 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center">{item.blNo}</TableCell>
                                     <TableCell className="text-center">{item.conNo}</TableCell>
                                     <TableCell className="text-center">{item.truckNo}</TableCell>
-                                    <TableCell className="text-center">{item.grossWt}</TableCell>
-                                    <TableCell className="text-center">{item.blWeight}</TableCell>
-                                    <TableCell className="text-center">{item.netWeight}</TableCell>
-                                    {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)
-                                        : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)}
+                                    <TableCell className="text-center">{item.grossWt} kg</TableCell>
+                                    <TableCell className="text-center">{item.blWeight} Kg</TableCell>
+                                    <TableCell className="text-center">{item.netWeight} Kg</TableCell>
+                                    {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)
+                                        : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)}
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
                                     <TableCell className="text-center font-semibold">{item.systemBags}</TableCell>
                                     <TableCell className="text-center">

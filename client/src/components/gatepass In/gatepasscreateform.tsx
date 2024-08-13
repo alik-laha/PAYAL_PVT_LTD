@@ -203,8 +203,8 @@ return(
                                                 
                                                     <option value='IN' className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-2 text-sm outline-none focus:bg-accent 
                                                 focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">IN</option>
-                                                    {/* <option value='OUT' className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-2 text-sm outline-none focus:bg-accent 
-                                                focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">OUT</option> */}
+                                                    <option value='OUT' className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-2 text-sm outline-none focus:bg-accent 
+                                                focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">OUT</option>
                                                 
                                             </select>  
                 </div>
@@ -229,7 +229,7 @@ return(
                 
                 
                 <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Gross Wt. (*)</Label>
+                    <Label className="w-2/4 pt-1">Gross Wt (Kg) (*)</Label>
                     <Input className="w-2/4 text-center" type='number' step='0.01' placeholder="Gross Wt." ref={GrossWtRef} required/>
                 </div>
                 <div className="flex mt-1">
