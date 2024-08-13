@@ -6,7 +6,7 @@ import VendorName from "../../model/vendorNameModel";
 const createVendor = async (req: Request, res: Response) => {
 try{
    
-    const { vendor,vendoradd,vendorNo,section} = req.body;
+    const { vendor,vendoradd,vendorNo,section,type} = req.body;
  
     const feeledBy = req.cookies.user;
     if(!section ){
@@ -18,7 +18,7 @@ try{
             vendorName:vendor,
             vendorAddress:vendoradd,
             vendorContact:vendorNo,
-            section,
+            section,type,
             createdBy: feeledBy
         });
     

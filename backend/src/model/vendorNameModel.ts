@@ -13,6 +13,11 @@ const VendorName = sequelize.define('vendorName', {
         allowNull: false,
      
     },
+    type: {
+        type: DataTypes.STRING,
+        allowNull: false,
+     
+    },
     vendorAddress: {
         type: DataTypes.STRING,
         allowNull: true,

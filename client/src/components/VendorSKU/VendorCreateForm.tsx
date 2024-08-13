@@ -16,15 +16,18 @@ import { Button } from "../ui/button"
 import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
+import { Textarea } from "../ui/textarea"
 
 const VendorCreateForm = () =>{
     const [section, setSection] =useState<string>('')
+    const [type, settype] =useState<string>('Vendor')
    
     
     const [errortext, setErrorText] = useState<string>("")
    
     const vendorRef = useRef<HTMLInputElement>(null)
-    const vendoraddressRef = useRef<HTMLInputElement>(null)
+    //const vendoraddress = useRef<HTMLInputElement>(null)
+    const [vendoraddress, setvendoraddress] = useState<string>("")
     const vendorContactRef = useRef<HTMLInputElement>(null)
 
   
@@ -61,9 +64,9 @@ const VendorCreateForm = () =>{
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         const vendor = vendorRef.current?.value
-        const vendoradd = vendoraddressRef.current?.value
+        //const vendoradd = vendoraddressRef.current?.value
         const vendorNo = vendorContactRef.current?.value  
-    axios.post('/api/vendorSKU/createVendor', { vendor,vendoradd,vendorNo,section})
+    axios.post('/api/vendorSKU/createVendor', { vendor,vendoradd:vendoraddress,vendorNo,section,type})
         .then((res) => {
             console.log(res)
             if(successdialog!=null){
@@ -72,15 +75,14 @@ const VendorCreateForm = () =>{
             if(vendorRef.current!=null){
                 vendorRef.current.value='';
             }
-            if(vendoraddressRef.current!=null){
-                vendoraddressRef.current.value='';
-            }
+       
             if(vendorContactRef.current!=null){
                 vendorContactRef.current.value='';
             }
 
-            
+        settype('')    
         setSection('')
+        setvendoraddress('')
        
            
               
@@ -103,21 +105,9 @@ const VendorCreateForm = () =>{
         <>
         <div className="pl-10 pr-10">
             <form className='flex flex-col gap-2 mt-5' onSubmit={handleSubmit}>
-
-            <div className="flex"><Label className="w-2/4  pt-1">Vendor/Party Name</Label>
-                    <Input className="w-2/4 text-center" placeholder="Vendor/Party" ref={vendorRef} required/> </div>
-                    <div className="flex"><Label className="w-2/4  pt-1">Address</Label>
-                    <Input className="w-2/4 text-center" placeholder="Address" ref={vendoraddressRef} /> </div>
-                    <div className="flex"><Label className="w-2/4  pt-1">Contact</Label>
-                    <Input className="w-2/4 text-center" placeholder="Contact" ref={vendorContactRef} /> </div>
-
-
-               
-                 
-
-                <div className="flex"><Label className="w-2/4  pt-1">Section</Label>
+            <div className="flex"><Label className="w-2/4  pt-1">Section</Label>
                     <Select value={section} onValueChange={(value) => setSection(value)} required={true}>
-                        <SelectTrigger className="w-2/4 justify-center">
+                        <SelectTrigger className="w-2/4 bg-purple-100 justify-center">
                             <SelectValue placeholder="Section" />
                         </SelectTrigger>
                         <SelectContent>
@@ -136,6 +126,35 @@ const VendorCreateForm = () =>{
                     </Select>
                     {/* <Input   placeholder="Section"/>  */}
                     </div>
+                    <div className="flex mt-1">
+                <Label className="w-2/4 pt-1 ">Type </Label>
+                <select className="pt-1 w-2/4 text-center flex h-8 rounded-md border border-input bg-background 
+                                            px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+                                            placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+                                            focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>settype(e.target.value)} 
+                                            value={type} required>
+                                                
+                                                    <option value='Vendor' className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-2 text-sm outline-none focus:bg-accent 
+                                                focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Vendor</option>
+                                                    <option value='Party' className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-2 text-sm outline-none focus:bg-accent 
+                                                focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Party</option>
+                                                
+                                            </select>  
+                </div>
+                    <div className="flex"><Label className="w-2/4  pt-1">Vendor/Party Name</Label>
+            
+                    <Input className="w-2/4 text-center" placeholder="Name" ref={vendorRef} required/> </div>
+                    <div className="flex"><Label className="w-2/4  pt-1">Contact</Label>
+                    <Input className="w-2/4 text-center" placeholder="Contact" ref={vendorContactRef} /> </div>
+                    <div className="flex"><Label className="w-2/4  pt-1">Address</Label>
+                    <Textarea className="w-2/4 text-center" placeholder="Address" value={vendoraddress} onChange={(e)=>setvendoraddress(e.target.value)}/> </div>
+                
+
+
+               
+                 
+
+                
                   
                   
                 

@@ -286,8 +286,11 @@ const VendorSKUTable = () => {
                 </Table>:<Table className="mt-1">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl No.</TableHead>
-                        <TableHead className="text-center " >Vendor_Name</TableHead>
+                       
+                        <TableHead className="text-center " >Vendor/Party Name</TableHead>
                         <TableHead className="text-center" >Section </TableHead>
+                        <TableHead className="text-center" >Type</TableHead>
+                       
                         <TableHead className="text-center" >Vendor_Address </TableHead>
                         <TableHead className="text-center" >Contact </TableHead>              
                        
@@ -300,8 +303,11 @@ const VendorSKUTable = () => {
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                    
                                     <TableCell className="text-center font-semibold ">{item.vendorName}</TableCell>   
-                                    <TableCell className="text-center ">{item.section}</TableCell>                             
+                                    <TableCell className="text-center ">{item.section}</TableCell> 
+                                    <TableCell className="text-center  ">{item.type}</TableCell>  
+                                                             
                                     <TableCell className="text-center  ">{item.vendorAddress}</TableCell>
                                     <TableCell className="text-center ">{item.vendorContact}</TableCell>
                                    
@@ -340,7 +346,7 @@ const VendorSKUTable = () => {
 
                             <TableCell></TableCell>
                             <TableCell><p className="w-100 font-medium text-center text-red-500 pt-3 pb-10">No Vendor Found</p></TableCell>
-                            
+                            <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             
