@@ -23,7 +23,7 @@ const updateNetWeight = async (req: Request, res: Response) => {
             }
         );
         if(gatepassupdate){
-            if (section==='Raw Cashew' && type==='IN') {
+            if (section==='RawCashew' && type==='IN') {
 
                 const rcnincomingUpdate = await RcnPrimary.update(
                     { 
@@ -45,7 +45,7 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 }
                 
             }
-            if (section==='Packaging Material' && type==='IN') {
+            if (section==='PackagingMaterial' && type==='IN') {
 
                 const pmupdate = await PackagingMaterial.update(
                     { 

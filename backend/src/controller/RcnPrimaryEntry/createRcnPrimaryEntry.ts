@@ -39,7 +39,7 @@ const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
             const gatepassupdate=await gatePassMaster.update({receivingStatus:1}, {
                 where: {
                     gatePassNo: gatepass,
-                    section:'Raw Cashew'
+                    section:'RawCashew'
                 }
         });
         if(gatepassupdate){

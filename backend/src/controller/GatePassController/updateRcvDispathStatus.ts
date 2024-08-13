@@ -22,7 +22,7 @@ try{
         });
         if(gatepassupdate){
 
-            if(section==='Packaging Material'){
+            if(section==='PackagingMaterial'){
                 const data = await WpMsgGatePassRcv("Packaging Material In", gatePassNo,"rcv_dispatch_complt",'Packaging Material IN')
                 console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });

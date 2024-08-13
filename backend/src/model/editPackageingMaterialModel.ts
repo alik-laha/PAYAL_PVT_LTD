@@ -35,6 +35,14 @@ const EditPackagingMaterial = sequelize.define('editpackagingMaterialreceving', 
         type: DataTypes.FLOAT,
         allowNull: true,
     },
+    invoicequantity: {
+        type: DataTypes.FLOAT,
+        allowNull: true,
+    },
+    type: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     unit: {
         type: DataTypes.STRING,
         allowNull: true,

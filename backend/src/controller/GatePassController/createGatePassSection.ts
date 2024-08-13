@@ -15,7 +15,7 @@ try{
     
 
 
-    if (section==='Raw Cashew' && type==='IN') {
+    if (section==='RawCashew' && type==='IN') {
         const RCNIncoming = await RcnPrimary.create({
             gatePassNo: gatePassNo,
             date: Date,
@@ -31,7 +31,7 @@ try{
         }
         
     }
-    if (section==='Packaging Material' && type==='IN') {
+    if (section==='PackagingMaterial' && type==='IN') {
         const PCIncoming = await PackagingMaterial.create({
             gatePassNo: gatePassNo,
             recevingDate: Date,

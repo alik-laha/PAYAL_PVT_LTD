@@ -8,13 +8,13 @@ const deletegatepassSection= async (req: Request, res: Response) => {
     try {
         const {id,section} = req.params;
 
-        if(section==='Raw Cashew')
+        if(section==='RawCashew')
         await RcnPrimary.destroy({
             where: {
                 gatePassNo: id
             }
         });
-        if(section==='Packaging Material')
+        if(section==='PackagingMaterial')
             await PackagingMaterial.destroy({
                 where: {
                     gatePassNo: id

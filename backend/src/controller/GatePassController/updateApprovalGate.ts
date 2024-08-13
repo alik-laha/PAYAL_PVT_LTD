@@ -38,7 +38,7 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                     },
                 }
             );
-            if (section === 'Raw Cashew' && type === 'IN') {
+            if (section === 'RawCashew' && type === 'IN') {
                 const rcnincomingUpdate = await RcnPrimary.update(
                     {
                         grossWt: grossWt,
@@ -60,7 +60,7 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                     return res.status(200).json({ message: "Gate Pass Details Modified and Approved Successfully" });
                 }
             }
-            if (section === 'Packaging Material' && type === 'IN') {
+            if (section === 'PackagingMaterial' && type === 'IN') {
                 const pmupdate = await PackagingMaterial.update(
                     {
                         grossWt: grossWt,
@@ -98,12 +98,12 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                 }
             );
             if(gatepassupdate){
-                if (section === 'Raw Cashew' && type === 'IN'){
+                if (section === 'RawCashew' && type === 'IN'){
                     const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepassNo,"gatepass_release",'RCN Cashew IN')
                     console.log(data)
                 return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
                 }
-                if (section === 'Packaging Material' && type === 'IN'){
+                if (section === 'PackagingMaterial' && type === 'IN'){
                     const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatepassNo,"gatepass_release",'Packaging Material Incoming')
                     console.log(data)
                 return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });

@@ -75,7 +75,7 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
                 }
                 else{
                     const gatepassdata= await gatePassMaster.findOne({ where: {
-                        gatePassNo:gatePassNo,section:'Raw Cashew'
+                        gatePassNo:gatePassNo,section:'RawCashew'
                     }})
                     if(gatepassdata){
 
