@@ -7,7 +7,7 @@ import SkuModel from "../../model/SkuModel";
 const createSKU = async (req: Request, res: Response) => {
 try{
    
-    const { sku, unit, section} = req.body;
+    const { sku, unit, section,type} = req.body;
  
     const feeledBy = req.cookies.user;
     if(!unit || !section ){
@@ -16,7 +16,7 @@ try{
     else{
         console.log('reached sku 1')
         const skuEntry = await SkuModel.create({
-            sku,unit,
+            sku,unit,type,
             section,
             createdBy: feeledBy
         });

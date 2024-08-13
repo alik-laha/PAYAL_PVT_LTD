@@ -44,14 +44,14 @@ const SearchSKUVendor = async (req: Request, res: Response) => {
             if (type == 'SKU') {
                 GradingEntries = await SkuModel.findAll({
                     where,
-                    order: [['sku', 'ASC']], // Order by sku ascending
+                    order: [['section', 'ASC'],['type', 'ASC'],['sku', 'ASC']], // Order by sku ascending
 
                 });
 
             } else {
                 GradingEntries = await VendorName.findAll({
                     where,
-                    order: [['vendorName', 'ASC']] // Order by vendorname ascending
+                    order: [['section', 'ASC'],['type', 'ASC'],['vendorName', 'ASC']] // Order by vendorname ascending
 
                 });
 

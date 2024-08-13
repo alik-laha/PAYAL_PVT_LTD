@@ -7,7 +7,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import {  SKUSection, SKUUnit } from "../common/exportData"
+import {  SKUSection, SKUUnit, TypeOnSection } from "../common/exportData"
 import { useState, useRef } from "react"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
@@ -20,6 +20,7 @@ import cross from '../../assets/Static_Images/error_img.png'
 const SKUCreateForm = () =>{
     const [section, setSection] =useState<string>('')
     const [unit, setUnit] =useState<string>('')
+    const [type, setType] =useState<string>('')
     
     const [errortext, setErrorText] = useState<string>("")
    
@@ -63,7 +64,7 @@ const SKUCreateForm = () =>{
        
 
        
-        axios.post('/api/vendorSKU/createSKU', { sku,unit,section})
+        axios.post('/api/vendorSKU/createSKU', { sku,unit,section,type})
         .then((res) => {
             console.log(res)
             if(successdialog!=null){
@@ -72,8 +73,8 @@ const SKUCreateForm = () =>{
             if(skuref.current!=null){
                 skuref.current.value='';
             }
-           setUnit('')
-            
+        setUnit('')
+        setType('')  
         setSection('')
        
            
@@ -97,7 +98,46 @@ const SKUCreateForm = () =>{
         <>
         <div className="pl-10 pr-10">
             <form className='flex flex-col gap-2 mt-5' onSubmit={handleSubmit}>
+            <div className="flex"><Label className="w-2/4  pt-1">Section</Label>
+                    <Select value={section} onValueChange={(value) => setSection(value)} required={true}>
+                        <SelectTrigger className="w-2/4 justify-center">
+                            <SelectValue placeholder="Section" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {
+                                    SKUSection.map((item) => {
+                                        return (
+                                            <SelectItem key={item} value={item}>
+                                                {item}
+                                            </SelectItem>
+                                        )
+                                    })
+                                }
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    {/* <Input   placeholder="Section"/>  */}
+                    </div>
 
+                    <div className="flex"><Label className="w-2/4  pt-1">Type of SKU</Label>
+                    <select className="w-2/4 text-center flex h-8 rounded-md border border-input bg-background 
+                                            px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+                                            placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+                                            focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>setType(e.target.value)} 
+                                            value={type} required>
+                                                <option value="" disabled className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+                                                focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">type</option>
+                                            
+                                                 {section ? (
+                                        TypeOnSection[section as keyof typeof TypeOnSection].map((item) => (
+                                            <option key={item} value={item}>{item}</option>
+                                        ))
+                                    ) : null}
+                                            </select>
+                    {/* <Input   placeholder="Section"/>  */}
+                    </div>
+                    
             <div className="flex"><Label className="w-2/4  pt-1">Item Name (SKU)</Label>
                     <Input className="w-2/4 text-center" placeholder="item" ref={skuref} required/> </div>
 
@@ -125,27 +165,7 @@ const SKUCreateForm = () =>{
                     </div>
                  
 
-                <div className="flex"><Label className="w-2/4  pt-1">Section</Label>
-                    <Select value={section} onValueChange={(value) => setSection(value)} required={true}>
-                        <SelectTrigger className="w-2/4 justify-center">
-                            <SelectValue placeholder="Section" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                {
-                                    SKUSection.map((item) => {
-                                        return (
-                                            <SelectItem key={item} value={item}>
-                                                {item}
-                                            </SelectItem>
-                                        )
-                                    })
-                                }
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                    {/* <Input   placeholder="Section"/>  */}
-                    </div>
+               
                   
                   
                 

@@ -99,7 +99,7 @@ export const sectionDataonTypeGate = {
 }
 export const SelectGatePassType = ["IN","OUT"]
 export const SKUSection = ['PackagingMaterial', 'Store' ]
-export const SKUUnit = ['Kg','gm','lb','mtr','foot','sqFt','sqMtr','Pc','Bag','Bucket','Ltr','coil']
+export const SKUUnit = ['Pc','Kg','Mtr','SqMtr','Ft','SqFt','Bag','Bucket','Ltr','Coil']
 export const SelectTypeSKUVendor = ["SKU","Vendor"]
 
 export const TypeOnSection = {

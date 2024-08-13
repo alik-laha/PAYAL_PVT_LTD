@@ -464,6 +464,7 @@ export interface SkuData {
     unit: string;
     section:string;
     createdBy: string;
+    type:string;
 }
 export interface VendorData {
     id: number;

@@ -116,6 +116,7 @@ const VendorSKUTable = () => {
             transformed = data1.map((item: SkuData, idx: number) => ({
                 SL_No: idx + 1,
                 Item_SKU: item.sku,
+                Type:item.type,
                 Unit: item.unit,
                 Section: item.section,
                 createdBy: item.createdBy,
@@ -133,6 +134,7 @@ const VendorSKUTable = () => {
             transformed = data1.map((item: VendorData, idx: number) => ({
                 SL_No: idx + 1,
                 VendorName: item.vendorName,
+                Type: item.type,
                 Section: item.section,
                 Vendor_Address: item.vendorAddress,
                 Vendor_Contact: item.vendorContact,
@@ -219,7 +221,9 @@ const VendorSKUTable = () => {
                 {tablesearch==='SKU' ? <Table className="mt-1">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl No.</TableHead>
+                      
                         <TableHead className="text-center " >Item Name (SKU)</TableHead>
+                        <TableHead className="text-center " >SKUType</TableHead>
                         <TableHead className="text-center" >Unit </TableHead>
                         <TableHead className="text-center" >Section </TableHead>
                         <TableHead className="text-center" >Action</TableHead>
@@ -231,7 +235,9 @@ const VendorSKUTable = () => {
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                   
                                     <TableCell className="text-center font-semibold ">{item.sku}</TableCell>
+                                    <TableCell className="text-center ">{item.type}</TableCell>
                                     <TableCell className="text-center  ">{item.unit}</TableCell>
                                     <TableCell className="text-center ">{item.section}</TableCell>
                                     <TableCell className="text-center">
