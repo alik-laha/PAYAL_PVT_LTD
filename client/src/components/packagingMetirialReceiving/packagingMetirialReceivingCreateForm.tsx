@@ -213,7 +213,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         } else {
             setVendorNameView("none")
         }
-        axios.post("/api/vendorSKU/vendornamefind/PackagingMaterial", { vendorName: e.target.value })
+        axios.post(`/api/vendorSKU/vendornamefind/PackagingMaterial/${type}`, { vendorName: e.target.value })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
