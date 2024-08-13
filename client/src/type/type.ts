@@ -74,6 +74,7 @@ export interface EditPendingData extends RcnPrimaryEntryData {
 
 export interface QcRcnEntryExcelData {
     id: number;
+    gatePassNo:string;
     blNo: string;
     conNo: string;
     date: string;
