@@ -1,11 +1,6 @@
-export const Origin = ["India", "Ghana", "IVC", "Benin", "Tanzania", "Nigeria", "Togo"]
-//export const GatePassSection = ["Raw Cashew", "Packaging Material",'Raw Almond','Purchase/Credit Note','Store','Civil','Agarbati']
-export const SelectType = ["LineWise","LotWise"]
-export const SelectTypeSKUVendor = ["SKU","Vendor"]
-//export const SelectGatePassType = ["IN","OUT"]
-export const SelectGatePassType = ["IN"]
+
+
 export const Dept: string[] = ['Admin', 'Receiving', 'Maintainance', 'QualityControl', 'Production','GatePass']
-//export const optionsMapping:Record<string, string[]> = {Admin :['AdminSupervisor','Admin-Manager'],Receiving:['Receiving-Supervisor', 'Receiving-Manager'],Maintainance:['Maintainance-Supervisor'],Quality-Control:['QC-Supervisor','QC-Manager'],Production:[Production Manager]}
 export const Role: string[] = ['Director', 'FactoryManager', 
     'ReceivingSupervisor', 'ReceivingPMSupervisor','ReceivingManager', 'ReceivingAlmondSupervisor', 'ReceivingStoreSupervisor', 
     'ReceivingAgarbatiSupervisor','ReceivingCivilSupervisor','ReceivingPurchaseSupervisor',
@@ -14,20 +9,7 @@ export const Role: string[] = ['Director', 'FactoryManager',
     'QCSupervisor', 'QCManager', 
     'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','BormaSuperVisor'
 ]
-export const pageNo = 1
-export const pagelimit = 8
-export const timerLogout = 7200
-export const Section = ['Boiling', 'Grading', 'Scooping','Borma']
-export const MachineStatus = ['Active', 'Inactive', 'Discarded']
-export const Size = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
-export const Session_LogoutTime_Hr = 2
-export const cookingTime = ['00:07', '00:08', '00:09', '00:10', '00:11', '00:12']
-export const SKUSection = ['Packaging Material', 'Store' ]
-export const SKUUnit = ['kg','pc','bag','bucket','ltr','mtr','ft','gm','lb']
-
-
 export const PermissionRol = {
-
     Director: ['Employee', 'Dashboard User', 'Asset', 'VendorSKU',
         'RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
         'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry',
@@ -94,14 +76,29 @@ export const roleDataonDept = {
         'BoilingSupervisor', 'ScoopingSupervisor','BormaSuperVisor'],
     GatePass:['Security','GatePassManager']
 }
+export const pageNo = 1
+export const pagelimit = 8
+export const timerLogout = 7200
+export const Section = ['Boiling', 'Grading', 'Scooping','Borma']
+export const MachineStatus = ['Active', 'Inactive', 'Discarded']
+export const Size = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+export const Session_LogoutTime_Hr = 2
+export const cookingTime = ['00:07', '00:08', '00:09', '00:10', '00:11', '00:12']
+export const Origin = ["India", "Ghana", "IVC", "Benin", "Tanzania", "Nigeria", "Togo"]
+export const SelectType = ["LineWise","LotWise"]
 
-// export const sectionDataonTypeGate = {
-//     IN: ["Raw Cashew", "Packaging Material",'Raw Almond','Purchase/Credit Note','Store','Civil','Agarbati'],
-//     OUT: ["Raw Cashew",'Raw Almond'],
-   
-// }
+
 export const sectionDataonTypeGate = {
-    IN: ["Raw Cashew", "Packaging Material"]
-   
+    IN: ["RawCashew", "PackagingMaterial","Store"],
+    OUT: ["Store"],
+}
+export const SelectGatePassType = ["IN","OUT"]
+export const SKUSection = ['PackagingMaterial', 'Store' ]
+export const SKUUnit = ['Kg','gm','lb','mtr','foot','sqFt','sqMtr','Pc','Bag','Bucket','Ltr','coil']
+export const SelectTypeSKUVendor = ["SKU","Vendor"]
+
+export const TypeOnSection = {
+    PackagingMaterial: ['Pouch','Bucket','Tin','Stickers','PlasticBag','PP','PlasticCan'],
+    Store:['ElectricalSpare','MechanicalSpare','Stationary','Chemical','Civil','Machine','Miscellaneous','Asset'],
 }
 

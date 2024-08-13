@@ -99,7 +99,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         } else {
             setSkuView("none")
         }
-        axios.post("/api/vendorSKU/skudatafind/Packaging Material", { sku: e.target.value })
+        axios.post("/api/vendorSKU/skudatafind/PackagingMaterial", { sku: e.target.value })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -120,7 +120,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         } else {
             setVendorNameView("none")
         }
-        axios.post("/api/vendorSKU/vendornamefind/Packaging Material", { vendorName: e.target.value })
+        axios.post("/api/vendorSKU/vendornamefind/PackagingMaterial", { vendorName: e.target.value })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {

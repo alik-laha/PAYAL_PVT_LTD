@@ -152,7 +152,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                 {
                     
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-                        section:'Packaging Material' })
+                        section:'PackagingMaterial' })
                     if(successdialog){
                         (successdialog as any).showModal();
                     }
@@ -187,7 +187,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         } else {
             setSkuView("none")
         }
-        axios.post("/api/vendorSKU/skudatafind/Packaging Material", { sku: e.target.value })
+        axios.post("/api/vendorSKU/skudatafind/PackagingMaterial", { sku: e.target.value })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -209,7 +209,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         } else {
             setVendorNameView("none")
         }
-        axios.post("/api/vendorSKU/vendornamefind/Packaging Material", { vendorName: e.target.value })
+        axios.post("/api/vendorSKU/vendornamefind/PackagingMaterial", { vendorName: e.target.value })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
