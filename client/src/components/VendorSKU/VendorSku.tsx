@@ -41,12 +41,13 @@ const VendorSKU = () => {
                          Section <br /><p>{SKUSection.length}</p>
                     </div>
                     <div className="flexbox-tile bg-green-500 hover:bg-green-600">
-                        SKU<br /><p>{data.SKU}</p>
+                        Item/SKU<br /><p>{data.SKU}</p>
                     </div>
                   
                     <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-600">
-                         Vendor <br /><p>{data.Vendor}</p>
+                         Vendor/Party <br /><p>{data.Vendor}</p>
                     </div>
+                   
                 </div>
               
 

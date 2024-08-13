@@ -10,6 +10,7 @@ const getTotalActiveSKUVendor = async (req: Request, res: Response) => {
             });
         const Vendor = await VendorName.count({ distinct:true,col:'vendorName',
                 });
+               
         
         res.status(200).json({ message: "SKU & Vendor Count", SKU,Vendor });
     }
