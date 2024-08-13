@@ -17,7 +17,8 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { MdDelete } from "react-icons/md"
-import { seteuid } from "process"
+import { TypeOnSection } from "../common/exportData"
+
 
 interface Props {
     rcn: PackageMaterialReceivingData[]      
@@ -26,6 +27,8 @@ interface SectionRowData{
     sku:string;
     vendorName:string;
     quantity:number;
+    invoicequantity:number;
+    type:string;
     unit:string;
 }
 const PackagingMetirialReceivingCreateForm = (props:Props) => {
@@ -63,7 +66,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         
     }, [props.rcn[0]]);
 
-    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',vendorName:'',quantity:0,unit:''}
+    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',vendorName:'',quantity:0,invoicequantity:0,unit:''}
     ]);
 
     const handleRowChange = (index:number,field:string,fieldvalue:string) => {
@@ -72,13 +75,14 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         setRows(newRows)
     }
     const addRow2 = () => {
-        setRows([...rows,{sku:'',vendorName:'',quantityKg:'',qunatityPc:''}])
+        setRows([...rows,{sku:'',type:'',vendorName:'',quantity:0,invoicequantity:0,unit:''}])
     }
 
     const deleteRow = (index:number) =>{
         const newRows =rows.filter((_,i)=> i!==index);
         setRows(newRows)
     }
+    const type='PackagingMaterial'
     const [errortext, setErrortext] = useState('')
     const successdialog = document.getElementById('packageMetrialReceve') as HTMLInputElement;
     const errordialog = document.getElementById('packagingMetirialReciveError') as HTMLInputElement;
@@ -238,9 +242,9 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
 
     return (
         <>
-            <div className="pl-10 pr-10">
+            <div className="px-5">
                 <form className='flex flex-col gap-1.5 ' onSubmit={handleSubmit}>
-
+                <div className="mx-8 flex flex-col gap-1"> 
                 <div className="flex mt-4"><Label className="w-2/4  pt-1">GatePass No.</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
                 <div className="flex"><Label className="w-2/4  pt-1">Date of Receving</Label>
@@ -256,16 +260,18 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                 <Input className="w-2/4 justify-center" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div> 
                        
 
-
+                </div>
                 <button className="bg-blue-400 font-bold text-grey-700 w-8 h-8 text-primary-foreground rounded-md text-center items-center justify-center"
                     onClick={addRow2}>+</button>
-                    <div className="max-h-44 w-90 overflow-scroll">
+                    <div className="max-h-60 overflow-y-scroll">
                     <Table className="mt-1 ">
                         <TableHeader className="bg-neutral-100 text-stone-950" >
                             <TableHead className="text-center" >Sl. No.</TableHead>
-                            <TableHead className="text-center" >Item_Code(SKU)</TableHead>
-                            <TableHead className="text-center" >Vendor_Name</TableHead>
-                            <TableHead className="text-center" >Quantity</TableHead>
+                            <TableHead className="text-center" >Item Type</TableHead>
+                            <TableHead className="text-center" >Item </TableHead>
+                            <TableHead className="text-center" >Vendor Name</TableHead>
+                            <TableHead className="text-center" >Invoice Qty</TableHead>
+                            <TableHead className="text-center" >Physical Qty</TableHead>
                             <TableHead className="text-center" >Unit</TableHead>
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>
@@ -275,6 +281,29 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                                     <TableBody>
                                         <TableRow key={index} className="boiling-row-height">
                                             <TableCell>{index + 1}</TableCell>
+                                            <TableCell className="text-center " >
+
+
+
+                                                <select className="text-center flex h-8 rounded-md border border-input bg-background 
+px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'type', e.target.value)}
+                                                    value={row.type} required>
+                                                    <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Section</option>
+                                                    {/* {GatePassSection.map((item: any,idx:number) => (
+        <option key={idx} value={item}>{item}</option>
+    ))} */}
+                                                    {type ? (
+                                                        TypeOnSection[type as keyof typeof TypeOnSection].map((item) => (
+                                                            <option key={item} value={item}>{item}</option>
+                                                        ))
+                                                    ) : null}
+                                                </select>
+                                            </TableCell>
+
+
                                             <TableCell className="text-center" >
                                                 <Input value={row.sku} placeholder="SKU"
                                                     onChange={(e) => handleSkuchange(index, e)} required />
@@ -301,6 +330,12 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                                                         ))
                                                     }
                                                 </ScrollArea>}
+                                            </TableCell>
+                                            <TableCell className="text-center" >
+                                                <Input value={row.invoicequantity} placeholder="Qty." type='number'
+                                                    onChange={(e) => {
+                                                        handleRowChange(index, 'invoicequantity', e.target.value)
+                                                    }} required/>
                                             </TableCell>
 
                                             <TableCell className="text-center" >
@@ -334,11 +369,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                     
                     <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
                 </form>
-
-
-            </div>
-
-            <dialog id="packageMetrialReceve" className="dashboard-modal">
+                <dialog id="packageMetrialReceve" className="dashboard-modal">
                 <button id="packageMetrialRecivecross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
                     <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
@@ -353,6 +384,10 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
+
+            </div>
+
+           
         </>
     )
 }
