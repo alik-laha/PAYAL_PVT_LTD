@@ -122,7 +122,7 @@ const DashboardSidebar = () => {
                     </Collapsible>}
                 
                     
-                    {rendersection('Receiving') && 
+                    { Role!=='Security' && rendersection('Receiving') && 
                     <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25} />
                             <p>Receiving/Dispatch</p></CollapsibleTrigger>

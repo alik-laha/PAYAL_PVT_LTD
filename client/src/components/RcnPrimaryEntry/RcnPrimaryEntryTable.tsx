@@ -265,6 +265,7 @@ const RcnPrimaryEntryTable = () => {
         }
 
     }
+  
 
 
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -463,7 +464,7 @@ const RcnPrimaryEntryTable = () => {
                                                 <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                <Dialog>
+                                           <Dialog>
                                                     <DialogTrigger className="flex"><CiEdit size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                     </DialogTrigger>

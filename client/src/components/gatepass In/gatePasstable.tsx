@@ -831,7 +831,7 @@ const GatePassTable = () => {
                                            
                                     </Popover>)}
                                     { item.status==='Closed' && <button className='bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4' 
-                                    style={{background:'lightsalmon',color:'white',float:'right'}}>
+                                    style={{background:'orange',color:'white',float:'right'}}>
                                     <PDFDownloadLink document={<MyDocument data={item}/>} fileName={"Gate_Pass_Report_"+item.gatePassNo+".pdf"} >
                                         {({ loading }) => (loading ? <LuDownload size={18} /> : <LuDownload size={18} />)}
                                     </PDFDownloadLink></button>}
