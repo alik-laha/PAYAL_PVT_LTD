@@ -112,6 +112,18 @@ const handleSubmit = async (e: React.FormEvent) => {
             ...row
         }))
 
+        const sections= formData.map((row)=>row.SecName)
+
+        const hasduplicate=sections.some((item,index)=>sections.indexOf(item)!==index);
+        if(hasduplicate)
+        {
+            setErrortext('Duplicate Section Values Found')
+            if(errordialog!=null){
+                (errordialog as any).showModal();
+            }
+            return
+        }
+
         let gatecount = 0
         try {
             for (var data of formData) {
@@ -233,8 +245,8 @@ return(
                     <Input className="w-2/4 text-center" type='number' step='0.01' placeholder="Gross Wt." ref={GrossWtRef} required/>
                 </div>
                 <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Gross Wt. Slip </Label>
-                    <Input className="w-2/4 text-center" placeholder="Slip No." ref={GrossWtSlipRef} />
+                    <Label className="w-2/4 pt-1">Wt. Slip (*) </Label>
+                    <Input className="w-2/4 text-center" placeholder="Slip No." ref={GrossWtSlipRef} required/>
                 </div>
                 <div className="flex mt-1">
                     <Label className="w-2/4 pt-1">Name Of Security (*)</Label>

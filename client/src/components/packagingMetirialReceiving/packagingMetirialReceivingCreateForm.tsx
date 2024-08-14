@@ -269,13 +269,26 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
     }
     const handleunitWtChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
     
-        handleRowChange(index,'unitWt',e.target.value)
+       // handleRowChange(index,'unitWt',e.target.value)
         rows[index].unitWt=parseFloat(e.target.value) 
-        const totalWt=e.target.value ?(parseFloat(e.target.value)*rows[index].quantity):0
+        const totalWt=e.target.value ?formatNumber(Number(e.target.value)*rows[index].quantity):0
         //setVendorName(e.target.value)
         handleRowChange(index,'totalWt',totalWt.toString())
         
        
+    }
+    const handleQtyChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+    
+        //handleRowChange(index,'quantity',e.target.value)
+        rows[index].quantity=parseFloat(e.target.value)
+        const totalWt=e.target.value ?formatNumber(Number(e.target.value)*rows[index].unitWt):0
+        //setVendorName(e.target.value)
+        handleRowChange(index,'totalWt',totalWt.toString())
+        
+       
+    }
+    function formatNumber(num: any) {
+        return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
     }
     
 
@@ -329,7 +342,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                             <TableHead className="text-center" >Invoice_Qty</TableHead>
                             <TableHead className="text-center" >Unit</TableHead>
                             <TableHead className="text-center" >Physical_Qty</TableHead>
-                            <TableHead className="text-center" >Unit</TableHead>
+                            
                             <TableHead className="text-center" >Unit_Wt(Kg)</TableHead>
                             <TableHead className="text-center" >Total_Wt(Kg)</TableHead>
                             <TableHead className="text-center" >Action</TableHead>
@@ -394,13 +407,11 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             <TableCell className="text-center" >
                                                 <Input value={row.quantity} placeholder="Qty." type='number'
                                                     onChange={(e) => {
-                                                        handleRowChange(index, 'quantity', e.target.value)
+                                                        handleQtyChange(index, e)
+
                                                     }} required/>
                                             </TableCell>
-                                            <TableCell className="text-center" >
-                                          
-                                                <Input value={row.unit} placeholder="unit" required readOnly className="bg-yellow-100"/> 
-                                            </TableCell>
+                                           
                                             <TableCell className="text-center" >
                                                 <Input value={row.unitWt} placeholder="unitWt" type="number"
                                                     onChange={(e) => {
