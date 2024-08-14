@@ -296,13 +296,17 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                         <TableHead className="text-center" >GatePass_No.</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
                         <TableHead className="text-center" >Vehicle_No</TableHead>
-                          <TableHead className="text-center" >Gross_Wt</TableHead>
-                           <TableHead className="text-center" >Net_Wt</TableHead>
-                        <TableHead className="text-center" >Invoice_Date</TableHead>
-                        <TableHead className="text-center" >Invoice_No</TableHead>
-                        <TableHead className="text-center" >Item_Code(SKU)</TableHead>
+                          <TableHead className="text-center" >Gross_Wt(Kg)</TableHead>
+                           <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
+                           <TableHead className="text-center" >Invoice_No</TableHead>
+                           <TableHead className="text-center" >Invoice_Date</TableHead>
+                           <TableHead className="text-center" >Item_Type</TableHead>
+                           <TableHead className="text-center" >Item_Code(SKU)</TableHead>
                         <TableHead className="text-center" >Vendor_Name</TableHead>
-                        <TableHead className="text-center" >Quantity</TableHead>
+                        
+                       
+                        <TableHead className="text-center" >Invoice Qyantity</TableHead>
+                        <TableHead className="text-center" >Physical Quantity</TableHead>
                         <TableHead className="text-center" >Unit</TableHead>
                         <TableHead className="text-center" >Quality Status</TableHead>
                         <TableHead className="text-center" >Edit Status</TableHead>
@@ -321,13 +325,18 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                         <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
                                         <TableCell className="text-center ">{item.truckNo}</TableCell>
-                                         <TableCell className="text-center font-semibold">{item.grossWt}</TableCell>
-                                          <TableCell className="text-center font-semibold">{item.netWeight}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-600">{handletimezone(item.invoicedate)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.invoice}</TableCell>
+                                         <TableCell className="text-center ">{item.grossWt} </TableCell>
+                                          <TableCell className="text-center ">{item.netWeight} </TableCell>
+                                          <TableCell className="text-center ">{item.invoice}</TableCell>
+                                          <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
+                                          <TableCell className="text-center ">{item.type}</TableCell>
+                                          <TableCell className="text-center">{item.sku}</TableCell>
+                                          <TableCell className="text-center">{item.vendorName}</TableCell>
+                                       
                                         
-                                        <TableCell className="text-center">{item.sku}</TableCell>
-                                        <TableCell className="text-center">{item.vendorName}</TableCell>
+                                        
+                                        
+                                        <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{item.quantity}</TableCell>
 
                                         <TableCell className="text-center">{item.unit}</TableCell>
@@ -391,13 +400,18 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                             <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
                                         <TableCell className="text-center ">{item.truckNo}</TableCell>
-                                         <TableCell className="text-center font-semibold">{item.grossWt}</TableCell>
-                                          <TableCell className="text-center font-semibold">{item.netWeight}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-600">{handletimezone(item.invoicedate)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.invoice}</TableCell>
+                                         <TableCell className="text-center ">{item.grossWt}</TableCell>
+                                          <TableCell className="text-center ">{item.netWeight} </TableCell>
+                                          <TableCell className="text-center ">{item.invoice}</TableCell>
+                                          <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
+                                          <TableCell className="text-center ">{item.type}</TableCell>
+                                          <TableCell className="text-center">{item.sku}</TableCell>
+                                          <TableCell className="text-center">{item.vendorName}</TableCell>
+                              
                                         
-                                        <TableCell className="text-center">{item.sku}</TableCell>
-                                        <TableCell className="text-center">{item.vendorName}</TableCell>
+                                        
+                                        
+                                        <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{item.quantity}</TableCell>
 
                                         <TableCell className="text-center">{item.unit}</TableCell>

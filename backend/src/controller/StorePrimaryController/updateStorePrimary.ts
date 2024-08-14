@@ -3,9 +3,10 @@ import PackageMaterial from "../../model/recevingPackagingMaterialModel";
 import SkuModel from "../../model/SkuModel";
 import VendorName from "../../model/vendorNameModel";
 
-const RecivingPackageMaterial = async (req: Request, res: Response) => {
+const updateStorePrimary = async (req: Request, res: Response) => {
     try {
-        const { GatePassNo,recevingDate, TruckNo,GrossWt,sku, vendorName, quantity, unit ,invoicedate,invoice,invoicequantity,type} = req.body.data;
+        const { sku, vendorName, quantity, unit ,invoicedate,invoice,invoicequantity,type} = req.body.data;
+        const id=req.params.id;
         const createdBy = req.cookies.user;
         let skuData = await SkuModel.findOne({ where: { sku ,type,section:'PackagingMaterial'} });
         let vendorData = await VendorName.findOne({ where: { vendorName,type:'Vendor',section:'PackagingMaterial' } });
@@ -13,14 +14,18 @@ const RecivingPackageMaterial = async (req: Request, res: Response) => {
             return res.status(500).json({ message: "SKU/Vendor Does Not Exist" });
         }
         else{
-            const newPackageMaterial = await PackageMaterial.create({
-                gatePassNo:GatePassNo,grossWt:GrossWt,truckNo:TruckNo,
-                recevingDate,
-                sku,invoice,invoicedate,
-                vendorName,invoicequantity,type,
+            const newPackageMaterial = await PackageMaterial.update({
+               
+                sku,invoice,invoicedate,type,
+                vendorName,
                 quantity,
+                invoicequantity,
                 unit,
                 createdBy,status:1
+            }, {
+                where: {
+                    id: id
+                }
             });
             if(newPackageMaterial){
                 return res.status(201).json({ message: "package material received successfully", newPackageMaterial });
@@ -30,8 +35,7 @@ const RecivingPackageMaterial = async (req: Request, res: Response) => {
             }
 
         }
-
-      
+    
 
     } catch (error) {
         console.log(error)
@@ -39,4 +43,4 @@ const RecivingPackageMaterial = async (req: Request, res: Response) => {
 
     }
 }
-export default RecivingPackageMaterial;
+export default updateStorePrimary;

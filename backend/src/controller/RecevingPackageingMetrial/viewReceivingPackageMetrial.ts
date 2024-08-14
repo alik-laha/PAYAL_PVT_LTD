@@ -63,7 +63,7 @@ const viewReceivingPackageMetrial = async (req: Request, res: Response) => {
         if (page === 0 && size === 0) {
             PackageMaterials = await PackageMaterial.findAll({
                 where,
-                order: [['recevingDate', 'DESC']]
+                order: [['gatePassNo', 'DESC'],['recevingDate', 'DESC']]
                  // Order by date descending
             });
             if (PackageMaterials.length === 0) {
@@ -74,7 +74,7 @@ const viewReceivingPackageMetrial = async (req: Request, res: Response) => {
         else {
             PackageMaterials = await PackageMaterial.findAll({
                 where,
-                order: [['recevingDate', 'DESC']], // Order by date descending
+                order: [['gatePassNo', 'DESC'],['recevingDate', 'DESC']], // Order by date descending
                 limit: limit,
                 offset: offset
             });

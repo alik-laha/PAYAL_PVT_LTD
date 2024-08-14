@@ -86,6 +86,14 @@ const storePrimaryModel = sequelize.define('storePrimary', {
     grossWt:{
         type: DataTypes.DECIMAL(10,2),
         allowNull: false
+    },
+    unitWt:{
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    totalWt:{
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
     }
 
 })

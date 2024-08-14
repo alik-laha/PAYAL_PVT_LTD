@@ -82,6 +82,14 @@ const PackagingMaterial = sequelize.define('packagingMaterialreceving', {
     grossWt:{
         type: DataTypes.DECIMAL(10,2),
         allowNull: false
+    },
+    unitWt:{
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    totalWt:{
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
     }
 
 })

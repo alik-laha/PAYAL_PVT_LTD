@@ -25,11 +25,13 @@ interface Props {
 }
 interface SectionRowData{
     sku:string;
-    vendorName:string;
+   // vendorName:string;
     quantity:number;
     invoicequantity:number;
     type:string;
     unit:string;
+    unitWt:number;
+    totalWt:number;
 }
 const PackagingMetirialReceivingCreateForm = (props:Props) => {
     //const [unit, setUnit] = useState("")
@@ -42,7 +44,8 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
     const [vendorNameView, setVendorNameView] = useState("none")
     const [skudata, setSkuData] = useState<SkuData[]>([])
     const [vendorData, setVendorData] = useState<VendorData[]>([])
-
+   
+    
     const invoicedateRef = useRef<HTMLInputElement>(null)
    // const quantityRef = useRef<HTMLInputElement>(null)
     const invoiceref = useRef<HTMLInputElement>(null)
@@ -52,8 +55,9 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
     const [gatepass, setGatePass] = useState<string>('')
     const [grossWt, setGrossWt] = useState<string>('')
     const [truck, settruck] = useState<string>('')
-    const [actvindex,setActvindex]=useState<number>()
+    //const [actvindex,setActvindex]=useState<number>()
     const [actvskuindex,setActvskuindex]=useState<number>()
+    const [VendorName, setVendorName] = useState<string>('')
 
     useEffect(() => {  
         if(props.rcn[0]){
@@ -66,7 +70,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         
     }, [props.rcn[0]]);
 
-    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',vendorName:'',quantity:0,invoicequantity:0,unit:''}
+    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',quantity:0,invoicequantity:0,unit:'',unitWt:0,totalWt:0}
     ]);
 
     const handleRowChange = (index:number,field:string,fieldvalue:string) => {
@@ -75,7 +79,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         setRows(newRows)
     }
     const addRow2 = () => {
-        setRows([...rows,{sku:'',type:'',vendorName:'',quantity:0,invoicequantity:0,unit:''}])
+        setRows([...rows,{sku:'',type:'',quantity:0,invoicequantity:0,unit:'',unitWt:0,totalWt:0}])
     }
 
     const deleteRow = (index:number) =>{
@@ -121,6 +125,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                 GrossWt: grossWt,
                 invoicedate:invoicedate,
                 invoice:invoice,
+                vendorName:VendorName,
                 ...row
         }))
         try 
@@ -218,10 +223,10 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                 }
             })
     }
-    const handleVendorChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
-        handleRowChange(index,'vendorName',e.target.value)
-        //setVendorName(e.target.value)
-        setActvindex(index)
+    const handleVendorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        //handleRowChange(index,'vendorName',e.target.value)
+        setVendorName(e.target.value)
+        //setActvindex(index)
         if (e.target.value.length > 0 && vendorData.length > 0) {
             setVendorNameView("block")
         } else {
@@ -248,9 +253,9 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
        
         setSkuView("none")
     }
-    const handleVendoridClick = (index:any,item: VendorData) => {
-        //setVendorName(item.vendorName)
-        handleRowChange(index,'vendorName',item.vendorName)
+    const handleVendoridClick = (item: VendorData) => {
+        setVendorName(item.vendorName)
+        //handleRowChange(index,'vendorName',item.vendorName)
         setVendorNameView("none")
     }
     const handleTypeChange = (index:number,e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -259,6 +264,16 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         }
         handleRowChange(index,'type',e.target.value)
         //setVendorName(e.target.value)
+        
+       
+    }
+    const handleunitWtChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+    
+        handleRowChange(index,'unitWt',e.target.value)
+        rows[index].unitWt=parseFloat(e.target.value) 
+        const totalWt=e.target.value ?(parseFloat(e.target.value)*rows[index].quantity):0
+        //setVendorName(e.target.value)
+        handleRowChange(index,'totalWt',totalWt.toString())
         
        
     }
@@ -281,7 +296,24 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                 <Input className="w-2/4 text-center" placeholder="Invoice No" required  ref={invoiceref} /> </div>
 
                 <div className="flex"><Label className="w-2/4  pt-2">Invoice Date</Label>
-                <Input className="w-2/4 justify-center" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div> 
+                <Input className="w-2/4 justify-center" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div>
+                <div className="flex "><Label className="w-2/4  pt-2">Vendor Name</Label>
+                <div className="w-2/4">
+                <Input className="justify-center text-center" placeholder="Vendor" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
+                <ScrollArea className="max-h-24 w-1/3 overflow-y-scroll dropdown-content" style={{ display: vendorNameView,position:'fixed'}}>
+                                                    {
+                                                        vendorData.map((item: VendorData) => (
+                                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick( item)}>
+                                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.vendorName}</p>
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </ScrollArea>
+                </div>
+                
+     
+                                                   
+                </div>  
                        
 
                 </div>
@@ -293,10 +325,13 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                             <TableHead className="text-center" >Sl. No.</TableHead>
                             <TableHead className="text-center" >Item_Type</TableHead>
                             <TableHead className="text-center" >SKU/Item_Name</TableHead>
-                            <TableHead className="text-center" >Vendor_Name</TableHead>
-                            <TableHead className="text-center" >Invoice Qty</TableHead>
-                            <TableHead className="text-center" >Physical Qty</TableHead>
+                       
+                            <TableHead className="text-center" >Invoice_Qty</TableHead>
                             <TableHead className="text-center" >Unit</TableHead>
+                            <TableHead className="text-center" >Physical_Qty</TableHead>
+                            <TableHead className="text-center" >Unit</TableHead>
+                            <TableHead className="text-center" >Unit_Wt(Kg)</TableHead>
+                            <TableHead className="text-center" >Total_Wt(Kg)</TableHead>
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>
                         {rows.map((row, index) => {
@@ -331,7 +366,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             <TableCell className="text-center" >
                                                 <Input value={row.sku} placeholder="SKU"
                                                     onChange={(e) => handleSkuchange(index, e)} required />
-                                                {actvskuindex === index && <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: skuview, position: 'fixed' }}>
+                                                {actvskuindex === index && <ScrollArea className="max-h-24 w-32 overflow-scroll  dropdown-content" style={{ display: skuview, position: 'fixed' }}>
                                                     {
                                                         skudata.map((item: SkuData) => (
                                                             <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(index, item)}>
@@ -342,24 +377,18 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                     }
                                                 </ScrollArea>}
                                             </TableCell>
-                                            <TableCell className="text-center" >
-                                                <Input value={row.vendorName} placeholder="Vendor"
-                                                    onChange={(e) => handleVendorChange(index, e)} required />
-                                                {actvindex === index && <ScrollArea className="max-h-24 overflow-scroll w-40 dropdown-content" style={{ display: vendorNameView, position: 'fixed' }}>
-                                                    {
-                                                        vendorData.map((item: VendorData) => (
-                                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick(index, item)}>
-                                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.vendorName}</p>
-                                                            </div>
-                                                        ))
-                                                    }
-                                                </ScrollArea>}
-                                            </TableCell>
+                                           
+
+
                                             <TableCell className="text-center" >
                                                 <Input value={row.invoicequantity} placeholder="Qty." type='number'
                                                     onChange={(e) => {
                                                         handleRowChange(index, 'invoicequantity', e.target.value)
                                                     }} required/>
+                                            </TableCell>
+                                            <TableCell className="text-center" >
+                                          
+                                                <Input value={row.unit} placeholder="unit" required readOnly className="bg-yellow-100"/> 
                                             </TableCell>
 
                                             <TableCell className="text-center" >
@@ -370,7 +399,18 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             </TableCell>
                                             <TableCell className="text-center" >
                                           
-                                                <Input value={row.unit} placeholder="unit" required readOnly /> 
+                                                <Input value={row.unit} placeholder="unit" required readOnly className="bg-yellow-100"/> 
+                                            </TableCell>
+                                            <TableCell className="text-center" >
+                                                <Input value={row.unitWt} placeholder="unitWt" type="number"
+                                                    onChange={(e) => {
+                                                        handleunitWtChange(index, e)
+                                                    }} required/>
+                                            </TableCell>
+                                           
+                                            <TableCell className="text-center" >
+                                          
+                                                <Input value={row.totalWt} placeholder="unit" required readOnly /> 
                                             </TableCell>
 
 

@@ -8,8 +8,8 @@ const updatePM = async (req: Request, res: Response) => {
         const { sku, vendorName, quantity, unit ,invoicedate,invoice,invoicequantity,type} = req.body.data;
         const id=req.params.id;
         const createdBy = req.cookies.user;
-        let skuData = await SkuModel.findOne({ where: { sku } });
-        let vendorData = await VendorName.findOne({ where: { vendorName } });
+        let skuData = await SkuModel.findOne({ where: { sku ,type,section:'PackagingMaterial'} });
+        let vendorData = await VendorName.findOne({ where: { vendorName,type:'Vendor',section:'PackagingMaterial' } });
         if(!skuData || !vendorData){
             return res.status(500).json({ message: "SKU/Vendor Does Not Exist" });
         }
