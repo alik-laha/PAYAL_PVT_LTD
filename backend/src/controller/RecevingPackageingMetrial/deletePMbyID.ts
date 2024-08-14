@@ -21,7 +21,7 @@ const deletePMbyID = async (req: Request, res: Response) => {
             type:null,
             unit:null,
             createdBy:null,
-            status:0
+            status:0,remarks:null,totalWt:null
            
         },
         {
