@@ -1,4 +1,4 @@
-import { FaSearch } from "react-icons/fa";
+import { FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight, FaSearch } from "react-icons/fa";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ import { LuDownload } from "react-icons/lu";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import logo from '../../assets/Static_Images/Company Logo.jpeg'
+
 import {
     Table,
     TableBody,
@@ -684,8 +685,14 @@ const GatePassTable = () => {
                     <TableHead className="text-center" >Sl No.</TableHead>
                     <TableHead className="text-center" >GatePass_ID</TableHead>
                     <TableHead className="text-center" >Gate_Entry_Date</TableHead>
+                    <TableHead className="text-center" >In/Out</TableHead>
+                    <TableHead className="text-center" >Receiving/Dispatch</TableHead>
+
+                    <TableHead className="text-center" >Verification/Approval</TableHead>
+                 
                     <TableHead className="text-center" >Entry_Time</TableHead>
-                    <TableHead className="text-center" >Type</TableHead>
+                    <TableHead className="text-center" >Exit_Time</TableHead>
+                    
                     <TableHead className="text-center" >Section</TableHead>
                     <TableHead className="text-center" >Doc_No.</TableHead>
 
@@ -700,10 +707,10 @@ const GatePassTable = () => {
                     <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
 
                     
+                    
+                    
+                  
                     <TableHead className="text-center" >Verified/Approved_By</TableHead>
-                    <TableHead className="text-center" >Out_Time</TableHead>
-                    <TableHead className="text-center" >Receiving/Dispatch</TableHead>
-                    <TableHead className="text-center" >Approval</TableHead>
                     <TableHead className="text-center" >Verifier_Remarks</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
                 </TableHeader>
@@ -719,12 +726,29 @@ const GatePassTable = () => {
                                 <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.gatePassNo}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
+                                <TableCell className="text-center ml-5">{item.type ==='IN'? <FaRegArrowAltCircleRight  size={20} />:<FaRegArrowAltCircleLeft  size={20}/>}</TableCell>  
+                                <TableCell className="text-center ">
+                                        {item.receivingStatus === 0 ? (
+                                            <button className="bg-red-500 rounded drop-shadow-lg p-1 text-white  fix-button-width-rcnprimary">Pending</button>
+                                        ) :  (
+                                            <button className="bg-green-400 rounded drop-shadow-lg p-1 text-white  fix-button-width-rcnprimary ">Completed</button>
+                                        )}
+                                    </TableCell>
+                                    <TableCell className="text-center ">
+                                        {item.approvalStatus === 0 ? (
+                                            <button className="bg-red-500 rounded drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
+                                        ) :  (
+                                            <button className="bg-green-400 rounded drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
+                                        )}
+                                    </TableCell>
+                                   
                                 <TableCell className="text-center">{handleAMPM(item.time)}</TableCell>
-                                <TableCell className="text-center">{item.type}</TableCell>
-                                <TableCell className="text-center font-semibold">{item.section}</TableCell>
+                                <TableCell className="text-center">{item.OutTime===null? '':(handleAMPM(item.OutTime))}</TableCell>
+                                
+                                <TableCell className="text-center ">{item.section}</TableCell>
                                 
                                 <TableCell className="text-center">{item.DocNo}</TableCell>
-                                <TableCell className="text-center font-semibold">{item.grosswt} kg </TableCell>
+                                <TableCell className="text-center ">{item.grosswt} kg </TableCell>
                                 <TableCell className="text-center">{item.grosswtNo}</TableCell>
                                 <TableCell className="text-center">{item.vehicleNo}</TableCell>
                                 <TableCell className="text-center">{item.driverName}</TableCell>
@@ -736,28 +760,16 @@ const GatePassTable = () => {
                                     <TableCell className="text-center font-semibold">{item.netWeight ? item.netWeight:0} kg </TableCell>
                                     
                                     
+                                    
+                                  
+                                  
                                     <TableCell className="text-center">{item.modifiedBy}</TableCell>
-                                    <TableCell className="text-center">{item.OutTime===null? '':(handleAMPM(item.OutTime))}</TableCell>
-                                    <TableCell className="text-center ">
-                                        {item.receivingStatus === 0 ? (
-                                            <button className="bg-red-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Pending</button>
-                                        ) :  (
-                                            <button className="bg-green-500 p-1 text-white rounded-md fix-button-width-rcnprimary ">Completed</button>
-                                        )}
-                                    </TableCell>
-                                    <TableCell className="text-center ">
-                                        {item.approvalStatus === 0 ? (
-                                            <button className="bg-red-500 p-1 text-white rounded-md fix-button-width-rcnprimary">Pending</button>
-                                        ) :  (
-                                            <button className="bg-green-500 p-1 text-white rounded-md fix-button-width-rcnprimary ">Completed</button>
-                                        )}
-                                    </TableCell>
                                     <TableCell className="text-center">{item.Remarks}</TableCell>
                                     
                                     
                                     <TableCell className="text-center flex">
 
-                                        {item.status==='Closed'? (<button className="bg-blue-500 h-8 p-2 text-white rounded opacity-40 " disabled={true}>Closed</button>):(<Popover>
+                                        {item.status==='Closed'? (<button className="bg-red-500  p-2 text-white rounded opacity-40 " disabled={true}>Closed</button>):(<Popover>
                                             <PopoverTrigger>
                                                 <button className={`p-2 text-white rounded ${(item.receivingStatus === 0) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.receivingStatus === 0) ? true : false}>Action</button>
                                             </PopoverTrigger>

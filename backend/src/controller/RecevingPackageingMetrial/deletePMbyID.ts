@@ -17,6 +17,8 @@ const deletePMbyID = async (req: Request, res: Response) => {
             invoicedate:null,
             vendorName:null,
             quantity:null,
+            invoicequantity:null,
+            type:null,
             unit:null,
             createdBy:null,
             status:0
@@ -30,7 +32,8 @@ const deletePMbyID = async (req: Request, res: Response) => {
     );
     await QualityPackageMaterial.destroy({
         where: {
-            id: id
+            
+            gatePassNo:gatepass
              
         }
     });

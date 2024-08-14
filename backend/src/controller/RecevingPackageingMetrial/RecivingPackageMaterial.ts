@@ -5,7 +5,7 @@ import VendorName from "../../model/vendorNameModel";
 
 const RecivingPackageMaterial = async (req: Request, res: Response) => {
     try {
-        const { GatePassNo,recevingDate, TruckNo,GrossWt,sku, vendorName, quantity, unit ,invoicedate,invoice} = req.body.data;
+        const { GatePassNo,recevingDate, TruckNo,GrossWt,sku, vendorName, quantity, unit ,invoicedate,invoice,invoicequantity,type} = req.body.data;
         const createdBy = req.cookies.user;
         let skuData = await SkuModel.findOne({ where: { sku } });
         let vendorData = await VendorName.findOne({ where: { vendorName } });
@@ -17,7 +17,7 @@ const RecivingPackageMaterial = async (req: Request, res: Response) => {
                 gatePassNo:GatePassNo,grossWt:GrossWt,truckNo:TruckNo,
                 recevingDate,
                 sku,invoice,invoicedate,
-                vendorName,
+                vendorName,invoicequantity,type,
                 quantity,
                 unit,
                 createdBy,status:1

@@ -129,8 +129,11 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
             for (var data of formData) 
                 {
                     await axios.put(`/api/packageMaterial/updateRcvPM/${id}`, {data })
-                    await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id })
-                    setErrortext('Packaging Material Received Successfully')
+                    await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id,gatePassNo:gatepass })
+                   
+                    await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
+                        section:'PackagingMaterial' })
+                        setErrortext('Packaging Material Received Successfully')
                     if(successdialog){
                         (successdialog as any).showModal();
                     }
@@ -138,11 +141,11 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                 }
             }  
        
-        if(formData.length>1){
+            else if(formData.length>1){
             const firstrow=formData[0]
           
                 await axios.put(`/api/packageMaterial/updateRcvPM/${id}`, {data:firstrow })
-                await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id })
+                await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id,gatePassNo:gatepass })
            
            
                 let pmrescount=0
@@ -150,13 +153,14 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                 
                 const data1=formData[i];
                 const Pmres=await axios.post('/api/packageMaterial/createPM', {data:data1 })
-                await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: Pmres.data.newPackageMaterial.id })
+                await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: Pmres.data.newPackageMaterial.id,gatePassNo:gatepass })
                 pmrescount++
                 if(pmrescount==(formData.length-1))
                 {
                     
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
                         section:'PackagingMaterial' })
+                        setErrortext('Packaging Material Received Successfully')
                     if(successdialog){
                         (successdialog as any).showModal();
                     }
@@ -184,6 +188,14 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
 
     const handleSkuchange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
         //setSku(e.target.value)
+        if(!rows[index].type){
+            setErrortext('Please Select Item Type First')
+            if(errordialog!== null)
+            {
+                (errordialog as any).showModal()
+            }
+            return
+        }
         handleRowChange(index,'sku',e.target.value)
         setActvskuindex(index)
         if (e.target.value.length > 0 && skudata.length > 0) {
@@ -191,7 +203,9 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         } else {
             setSkuView("none")
         }
-        axios.post("/api/vendorSKU/skudatafind/PackagingMaterial", { sku: e.target.value })
+
+       
+        axios.post("/api/vendorSKU/skudatafind/PackagingMaterial", { sku: e.target.value,type:rows[index].type })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -213,7 +227,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         } else {
             setVendorNameView("none")
         }
-        axios.post(`/api/vendorSKU/vendornamefind/PackagingMaterial/${type}`, { vendorName: e.target.value })
+        axios.post(`/api/vendorSKU/vendornamefind/PackagingMaterial/`, { vendorName: e.target.value })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -239,24 +253,34 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         handleRowChange(index,'vendorName',item.vendorName)
         setVendorNameView("none")
     }
+    const handleTypeChange = (index:number,e: React.ChangeEvent<HTMLSelectElement>) => {
+        if(rows[index].sku){
+            rows[index].sku=''
+        }
+        handleRowChange(index,'type',e.target.value)
+        //setVendorName(e.target.value)
+        
+       
+    }
+    
 
     return (
         <>
-            <div className="px-5">
+            <div className="px-5 mt-4">
                 <form className='flex flex-col gap-1.5 ' onSubmit={handleSubmit}>
                 <div className="mx-8 flex flex-col gap-1"> 
-                <div className="flex mt-4"><Label className="w-2/4  pt-1">GatePass No.</Label>
+                <div className="flex mt-4"><Label className="w-2/4  pt-2">GatePass No.</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
-                <div className="flex"><Label className="w-2/4  pt-1">Date of Receving</Label>
+                <div className="flex"><Label className="w-2/4  pt-2">Date</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={date}  readOnly /> </div> 
-                <div className="flex"><Label className="w-2/4  pt-1">Gross Wt (Kg)</Label>
+                <div className="flex"><Label className="w-2/4  pt-2">Gross Wt (Kg)</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={grossWt}  readOnly /> </div>   
-                <div className="flex"><Label className="w-2/4  pt-1">Truck No.</Label>
+                <div className="flex"><Label className="w-2/4  pt-2">Truck No.</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={truck}  readOnly /> </div> 
-                <div className="flex"><Label className="w-2/4  pt-1">Invoice No</Label>
+                <div className="flex"><Label className="w-2/4  pt-2">Invoice No</Label>
                 <Input className="w-2/4 text-center" placeholder="Invoice No" required  ref={invoiceref} /> </div>
 
-                <div className="flex"><Label className="w-2/4  pt-1">Invoice Date</Label>
+                <div className="flex"><Label className="w-2/4  pt-2">Invoice Date</Label>
                 <Input className="w-2/4 justify-center" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div> 
                        
 
@@ -267,9 +291,9 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                     <Table className="mt-1 ">
                         <TableHeader className="bg-neutral-100 text-stone-950" >
                             <TableHead className="text-center" >Sl. No.</TableHead>
-                            <TableHead className="text-center" >Item Type</TableHead>
-                            <TableHead className="text-center" >Item </TableHead>
-                            <TableHead className="text-center" >Vendor Name</TableHead>
+                            <TableHead className="text-center" >Item_Type</TableHead>
+                            <TableHead className="text-center" >SKU/Item_Name</TableHead>
+                            <TableHead className="text-center" >Vendor_Name</TableHead>
                             <TableHead className="text-center" >Invoice Qty</TableHead>
                             <TableHead className="text-center" >Physical Qty</TableHead>
                             <TableHead className="text-center" >Unit</TableHead>
@@ -288,10 +312,10 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                                                 <select className="text-center flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
-focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'type', e.target.value)}
+focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleTypeChange(index, e)}
                                                     value={row.type} required>
                                                     <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
-    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Section</option>
+    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Type</option>
                                                     {/* {GatePassSection.map((item: any,idx:number) => (
         <option key={idx} value={item}>{item}</option>
     ))} */}
