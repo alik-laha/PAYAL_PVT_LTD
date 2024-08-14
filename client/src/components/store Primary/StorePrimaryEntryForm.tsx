@@ -83,7 +83,7 @@ const StorePrimaryEntry = (props:Props) => {
         const newRows =rows.filter((_,i)=> i!==index);
         setRows(newRows)
     }
-    const type='PackagingMaterial'
+    const type='Store'
     const [errortext, setErrortext] = useState('')
     const successdialog = document.getElementById('packageMetrialReceve') as HTMLInputElement;
     const errordialog = document.getElementById('packagingMetirialReciveError') as HTMLInputElement;
@@ -124,6 +124,7 @@ const StorePrimaryEntry = (props:Props) => {
                 invoicedate:invoicedate,
                 invoice:invoice,
                 vendorName:VendorName,
+             
                 ...row
         }))
         try 
@@ -131,12 +132,10 @@ const StorePrimaryEntry = (props:Props) => {
             if(formData.length===1){
             for (var data of formData) 
                 {
-                    await axios.put(`/api/packageMaterial/updateRcvPM/${id}`, {data })
-                    await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id,gatePassNo:gatepass })
-                   
+                    await axios.put(`/api/storePrimary/updateRcvStore/${id}`, {data })
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-                        section:'PackagingMaterial' })
-                        setErrortext('Packaging Material Received Successfully')
+                        section:'Store' })
+                        setErrortext('Store Item Received/Dispatched Received Successfully')
                     if(successdialog){
                         (successdialog as any).showModal();
                     }
@@ -147,23 +146,20 @@ const StorePrimaryEntry = (props:Props) => {
             else if(formData.length>1){
             const firstrow=formData[0]
           
-                await axios.put(`/api/packageMaterial/updateRcvPM/${id}`, {data:firstrow })
-                await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id,gatePassNo:gatepass })
-           
+                await axios.put(`/api/storePrimary/updateRcvStore/${id}`, {data:firstrow })
            
                 let pmrescount=0
             for(let i=1;i<formData.length;i++){
                 
                 const data1=formData[i];
-                const Pmres=await axios.post('/api/packageMaterial/createPM', {data:data1 })
-                await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: Pmres.data.newPackageMaterial.id,gatePassNo:gatepass })
+                await axios.post('/api/storePrimary/createStorePrimary', {data:data1 })
                 pmrescount++
                 if(pmrescount==(formData.length-1))
                 {
                     
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-                        section:'PackagingMaterial' })
-                        setErrortext('Packaging Material Received Successfully')
+                        section:'Store' })
+                        setErrortext('Store Item Received/Dispatched Received Successfully')
                     if(successdialog){
                         (successdialog as any).showModal();
                     }
@@ -208,7 +204,7 @@ const StorePrimaryEntry = (props:Props) => {
         }
 
        
-        axios.post("/api/vendorSKU/skudatafind/PackagingMaterial", { sku: e.target.value,type:rows[index].type })
+        axios.post("/api/vendorSKU/skudatafind/Store", { sku: e.target.value,type:rows[index].type })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -230,7 +226,13 @@ const StorePrimaryEntry = (props:Props) => {
         } else {
             setVendorNameView("none")
         }
-        axios.post(`/api/vendorSKU/vendornamefind/PackagingMaterial/`, { vendorName: e.target.value,type:'Vendor'  })
+        let vendortype:string;
+        if(gateType==='IN'){
+            vendortype='Vendor'
+        }else{
+            vendortype='Party'
+        }
+        axios.post(`/api/vendorSKU/vendornamefind/Store/`, { vendorName: e.target.value,type:vendortype  })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {

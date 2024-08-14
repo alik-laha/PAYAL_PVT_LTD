@@ -19,7 +19,7 @@ import {
 
 import axios from "axios";
 import { useState } from "react";
-import { PackageMaterialReceivingData, storeprimaryData } from "@/type/type";
+import {  storeprimaryData } from "@/type/type";
 
 import StorePrimaryEntry from "./StorePrimaryEntryForm";
 

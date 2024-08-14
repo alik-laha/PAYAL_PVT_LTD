@@ -1,7 +1,7 @@
 
 
 import { Request, Response } from "express";
-import gatePass from "../../model/gatepassModel";
+
 import gatePassMaster from "../../model/gatePassMasterModel";
 import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 
@@ -24,6 +24,11 @@ try{
 
             if(section==='PackagingMaterial'){
                 const data = await WpMsgGatePassRcv("Packaging Material In", gatePassNo,"rcv_dispatch_complt",'Packaging Material IN')
+                console.log(data)
+                res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
+            }
+            if(section==='Store'){
+                const data = await WpMsgGatePassRcv("Store Item Receiving/Dispatch", gatePassNo,"rcv_dispatch_complt",'Store Rcv/Dispatch')
                 console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
