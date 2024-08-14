@@ -726,7 +726,7 @@ const GatePassTable = () => {
                                 <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.gatePassNo}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                <TableCell className="text-center ml-5">{item.type ==='IN'? <FaRegArrowAltCircleRight  size={20} />:<FaRegArrowAltCircleLeft  size={20}/>}</TableCell>  
+                                <TableCell className="text-center items-center justify-center">{item.type ==='IN'? <FaRegArrowAltCircleRight  size={20} />:<FaRegArrowAltCircleLeft  size={20}/>}</TableCell>  
                                 <TableCell className="text-center ">
                                         {item.receivingStatus === 0 ? (
                                             <button className="bg-red-500 rounded drop-shadow-lg p-1 text-white  fix-button-width-rcnprimary">Pending</button>
