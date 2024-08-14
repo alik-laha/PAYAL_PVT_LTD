@@ -52,7 +52,7 @@ try{
             gateType:type
 
         });
-        const data = await WpMsgGatePassRcv("Store Item Entry", gatePassNo,"gatepass_rcv_dispatch",'STORE ENTRY')
+        const data = await WpMsgGatePassRcv("Store Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch",'STORE ENTRY')
         console.log(data)
 
         if(storeEntry){

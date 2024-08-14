@@ -94,6 +94,20 @@ const handleSubmit = async (e: React.FormEvent) => {
 
 
     try {
+
+        
+
+        const sections= rows.map((row)=>row.section)
+
+        const hasduplicate=sections.some((item,index)=>sections.indexOf(item)!==index);
+        if(hasduplicate)
+        {
+            setErrortext('Duplicate Section Values Found !')
+            if(errordialog!=null){
+                (errordialog as any).showModal();
+            }
+            return
+        }
         const creategatepass = await axios.post('/api/gatepass/createGatePass', {})
         console.log(creategatepass)
 
@@ -112,17 +126,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             ...row
         }))
 
-        const sections= formData.map((row)=>row.SecName)
-
-        const hasduplicate=sections.some((item,index)=>sections.indexOf(item)!==index);
-        if(hasduplicate)
-        {
-            setErrortext('Duplicate Section Values Found !')
-            if(errordialog!=null){
-                (errordialog as any).showModal();
-            }
-            return
-        }
+        
 
         let gatecount = 0
         try {

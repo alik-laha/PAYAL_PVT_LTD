@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const Number_IN_RCN = process.env.WP_NUMBER_IN_RCN ? process.env.WP_NUMBER_IN_RCN.split(',') : [];
 const Number_IN_PC = process.env.WP_NUMBER_IN_PC ? process.env.WP_NUMBER_IN_PC.split(',') : [];
-const Number_IN_STORE = process.env.Number_IN_STORE ? process.env.Number_IN_STORE.split(',') : [];
+const Number_IN_STORE = process.env.WP_NUMBER_IN_STORE ? process.env.WP_NUMBER_IN_STORE.split(',') : [];
 const WP_NUMBER_SECURITY = process.env.WP_NUMBER_SECURITY ? process.env.WP_NUMBER_SECURITY.split(',') : [];
 const WP_NUMBER_GATEPASS_MANAGER = process.env.WP_NUMBER_GATEPASS_MANAGER ? process.env.WP_NUMBER_GATEPASS_MANAGER.split(',') : [];
 //const template1 = "modify_request"
