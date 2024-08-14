@@ -398,6 +398,8 @@ export interface pendingCheckRoles {
 }
 export interface rcvCheckRoles {
     RCNPrimaryEntry: string[];
+    PMPrimaryEntry:string[];
+    StorePrimaryEntry:string[];
     
 }
 

@@ -69,6 +69,9 @@ export const pendingCheckRole = {
 }
 export const rcvCheckRole = {
     RCNPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingSupervisor'],
+    PMPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingPMSupervisor'],
+    StorePrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingStoreSupervisor'],
+
  
 }
 export const roleDataonDept = {

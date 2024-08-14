@@ -140,6 +140,13 @@ const DashboardSidebar = () => {
                                     Packaging Material
                                 </NavLink>
                                 </CollapsibleContent>}
+                                {renderlink('Receiving Store Entry')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/storePrimary" >
+                                    Store
+                                </NavLink>
+
+                            </CollapsibleContent>}
                         {/* {renderlink('Receiving Almond Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
@@ -148,13 +155,7 @@ const DashboardSidebar = () => {
 
                             </CollapsibleContent>}
 
-                            {renderlink('Receiving Store Entry')
-                            && <CollapsibleContent className="Items-pvt">
-                                <NavLink to="/dashboard/recevingpackagingMaterial" >
-                                    Store
-                                </NavLink>
-
-                            </CollapsibleContent>}
+                         
 
                             
                                 {renderlink('Receiving Civil Entry')

@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import RcnPrimary from "../../model/RcnEntryModel";
 import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
+import storePrimaryModel from "../../model/storePrimaryModel";
 
 
 
@@ -10,10 +11,6 @@ const CreateGatePassSection = async (req: Request, res: Response) => {
 try{
     const { gatePassNo, Date, vehicle, grossWt,section,type
         } = req.body.data;
-
-
-    
-
 
     if (section==='RawCashew' && type==='IN') {
         const RCNIncoming = await RcnPrimary.create({
@@ -46,6 +43,24 @@ try{
         }
         
     }
+    if (section==='Store') {
+        const storeEntry = await storePrimaryModel.create({
+            gatePassNo: gatePassNo,
+            recevingDate: Date,
+            grossWt:grossWt,
+            truckNo:vehicle,  
+            gateType:type
+
+        });
+        const data = await WpMsgGatePassRcv("Store Item Entry", gatePassNo,"gatepass_rcv_dispatch",'STORE ENTRY')
+        console.log(data)
+
+        if(storeEntry){
+            return res.status(200).json({ message: "Store Entry Created Successfully" });
+        }
+        
+    }
+    
     return res.status(200).json({ message: "Gate Pass created Sucessfully" });
 }
 catch (err) {
