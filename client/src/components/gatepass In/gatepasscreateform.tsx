@@ -117,7 +117,7 @@ const handleSubmit = async (e: React.FormEvent) => {
         const hasduplicate=sections.some((item,index)=>sections.indexOf(item)!==index);
         if(hasduplicate)
         {
-            setErrortext('Duplicate Section Values Found')
+            setErrortext('Duplicate Section Values Found !')
             if(errordialog!=null){
                 (errordialog as any).showModal();
             }

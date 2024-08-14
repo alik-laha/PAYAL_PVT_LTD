@@ -82,9 +82,9 @@ const EditPackagingMaterial = sequelize.define('editpackagingMaterialreceving', 
         type: DataTypes.DECIMAL(10,2),
         allowNull: false
     }  ,
-     unitWt:{
-        type: DataTypes.DECIMAL(10,2),
-        allowNull: true
+    remarks:{
+        type: DataTypes.STRING,
+        allowNull: true,
     },
     totalWt:{
         type: DataTypes.DECIMAL(10,2),
