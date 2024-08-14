@@ -4,6 +4,7 @@ import RcnPrimary from "../../model/RcnEntryModel";
 import sequelize from "../../config/databaseConfig";
 import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
+import storePrimaryModel from "../../model/storePrimaryModel";
 
 
 
@@ -61,6 +62,27 @@ const updateNetWeight = async (req: Request, res: Response) => {
         
                 if(pmupdate){
                     const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatepassNo,"verify_gatepass",'Packaging Material Incoming')
+            console.log(data)
+                    return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
+                }
+                
+            }
+            if (section==='Store') {
+
+                const pmupdate = await storePrimaryModel.update(
+                    { 
+                        netWeight:netWeight,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo:gatepassNo
+                        },
+                    }
+                );
+        
+                if(pmupdate){
+                    const data = await WpMsgGatePassRcv("Store Entry/Dispatch", gatepassNo,"verify_gatepass",'Store Entry/Dispatch')
             console.log(data)
                     return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
                 }

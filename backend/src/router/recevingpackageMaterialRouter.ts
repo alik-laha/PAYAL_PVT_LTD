@@ -28,6 +28,5 @@ router.get("/rejecteditrecevingpackagematerial/:id",jwtVerify, rejectRecevingPac
 router.get("/getPMNotEntried/:status", jwtVerify, getUnEntriedPM)
 router.get("/getPMByGatePass/:lotNO", jwtVerify, getPMbyGatePass)
 router.post("/deletePMByID", jwtVerify, deletePMbyID)
-router.post("/updateGatePass/:lotNO", jwtVerify, deletePMbyID)
 
 export default router;

@@ -4,6 +4,7 @@ import getUnEntriedStorePrimary from '../controller/StorePrimaryController/getUn
 import getStorebyGatePass from '../controller/StorePrimaryController/getStoreByGatePass';
 import updateRcvStore from '../controller/StorePrimaryController/updateRcvStore';
 import createStorePrimary from '../controller/StorePrimaryController/createStorePrimary';
+import deleteStorePrimary from '../controller/StorePrimaryController/deleteStorePrimary';
 
 const router = express.Router();
 
@@ -14,5 +15,6 @@ router.get("/getStoreNotEntried/:status", jwtVerify, getUnEntriedStorePrimary)
 router.put("/updateRcvStore/:id",jwtVerify, updateRcvStore)
 
 router.post("/createStorePrimary",jwtVerify, createStorePrimary)
+router.post("/deleteStorePrimaryByID", jwtVerify, deleteStorePrimary)
 
 export default router;
