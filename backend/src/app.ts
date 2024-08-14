@@ -18,6 +18,8 @@ import Cleaning from "./router/Cleaning";
 import BormaRouter from "./router/BormaRouter";
 import gatePassRouter from "./router/gatePassRouter";
 import VendorSKURouter from "./router/VendorSKURouter";
+import storePrimaryRouter from "./router/storePrimaryRouter";
+
 
 
 app.use(cookieParser());
@@ -43,5 +45,6 @@ app.use('/api/cleaning', Cleaning)
 app.use('/api/borma', BormaRouter)
 app.use('/api/gatepass', gatePassRouter)
 app.use('/api/vendorSKU', VendorSKURouter)
+app.use('/api/storePrimary', storePrimaryRouter)
 
 export default app

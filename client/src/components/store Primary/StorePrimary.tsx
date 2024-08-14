@@ -26,7 +26,7 @@ const StorePrimary = () => {
     const [lotdata, setLotData] = useState<rcnpendingLotData[]>([])
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const handleOpenLotNo = async () => {
-        axios.get('/api/packageMaterial/getPMNotEntried/0').then(res => {
+        axios.get('/api/storePrimary/getStoreNotEntried/0').then(res => {
             console.log(res)
             setLotData(res.data.rcnLot)
         })
@@ -48,12 +48,7 @@ const StorePrimary = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                    <div className="flexbox-tile bg-green-500 hover:bg-green-600">
-                        Vendor Count<br /><p>{recevingPackagematerialOverView?.vendorName}</p>
-                    </div>
-                    <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-600">
-                        Item(SKU) Count<br /><p>{recevingPackagematerialOverView?.skuData}</p>
-                    </div>
+                   
                     <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-600">
                         Financial Year Entry <br /><p>{recevingPackagematerialOverView?.sumOfAllRecenvingPackageMaterial}</p>
                     </div>
@@ -63,7 +58,7 @@ const StorePrimary = () => {
                 onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                 <DialogContent className='max-w-2xl'>
                     <DialogHeader>
-                        <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Packaging Material Pending List</p></DialogTitle>
+                        <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Store Entry Pending List</p></DialogTitle>
                        
                     </DialogHeader>
 

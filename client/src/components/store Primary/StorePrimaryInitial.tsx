@@ -19,7 +19,7 @@ import {
 
 import axios from "axios";
 import { useState } from "react";
-import { PackageMaterialReceivingData } from "@/type/type";
+import { PackageMaterialReceivingData, storeprimaryData } from "@/type/type";
 
 import StorePrimaryEntry from "./StorePrimaryEntryForm";
 
@@ -31,12 +31,12 @@ interface lotPropsdata{
 }
 
 const StoreInitial = (props: any) => {
-    const [rcnData, setrcnData]  = useState<PackageMaterialReceivingData[]>([])
+    const [rcnData, setrcnData]  = useState<storeprimaryData[]>([])
 
     //let scoopdata:ScoopData[]=[]
     console.log(props)
     const handleLineEntry = async (gatePassNo:string) => {
-        axios.get(`/api/packageMaterial/getPMByGatePass/${gatePassNo}`).then(res=>{
+        axios.get(`/api/storePrimary/getStoreByGatePass/${gatePassNo}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.rcnmainLot)){
             //scoopdata=res.data.scoopingLot
@@ -80,7 +80,7 @@ const StoreInitial = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger>
                                             { idx==0 &&  <DialogContent style={{display:'block'}} className='max-w-3xl'>
                                                     <DialogHeader >
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Packaging Material Incoming Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Store Receiving/Dispatch Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 <StorePrimaryEntry rcn={rcnData}/>

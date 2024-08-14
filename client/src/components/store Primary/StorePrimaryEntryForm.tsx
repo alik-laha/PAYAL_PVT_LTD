@@ -7,7 +7,7 @@ import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import axios from "axios"
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { PackageMaterialReceivingData, SkuData, VendorData } from "@/type/type"
+import { PackageMaterialReceivingData, SkuData, storeprimaryData, VendorData } from "@/type/type"
 import {
     Table,
     TableBody,
@@ -21,40 +21,44 @@ import { TypeOnSection } from "../common/exportData"
 
 
 interface Props {
-    rcn: PackageMaterialReceivingData[]      
+    rcn: storeprimaryData[]      
 }
 interface SectionRowData{
     sku:string;
-    vendorName:string;
+   // vendorName:string;
     quantity:number;
     invoicequantity:number;
     type:string;
     unit:string;
+    remarks:string;
+    totalWt:number;
 }
 const StorePrimaryEntry = (props:Props) => {
 
-    
-    
     const [skuview, setSkuView] = useState("none")
     const [vendorNameView, setVendorNameView] = useState("none")
     const [skudata, setSkuData] = useState<SkuData[]>([])
     const [vendorData, setVendorData] = useState<VendorData[]>([])
-
+   
+    
     const invoicedateRef = useRef<HTMLInputElement>(null)
    // const quantityRef = useRef<HTMLInputElement>(null)
     const invoiceref = useRef<HTMLInputElement>(null)
     
     const [id, setId] = useState<number>()
     const [date, setDate] = useState<string>('')
+    const [gateType, setgateType] = useState<string>('')
     const [gatepass, setGatePass] = useState<string>('')
     const [grossWt, setGrossWt] = useState<string>('')
     const [truck, settruck] = useState<string>('')
-    const [actvindex,setActvindex]=useState<number>()
+    //const [actvindex,setActvindex]=useState<number>()
     const [actvskuindex,setActvskuindex]=useState<number>()
+    const [VendorName, setVendorName] = useState<string>('')
 
     useEffect(() => {  
         if(props.rcn[0]){
         setId(props.rcn[0].id)
+        setgateType(props.rcn[0].gateType)
         setDate(props.rcn[0].recevingDate.slice(0,10))
         setGrossWt(props.rcn[0].grossWt)
         setGatePass(props.rcn[0].gatePassNo)
@@ -63,7 +67,7 @@ const StorePrimaryEntry = (props:Props) => {
         
     }, [props.rcn[0]]);
 
-    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',vendorName:'',quantity:0,invoicequantity:0,unit:''}
+    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',quantity:0,invoicequantity:0,unit:'',remarks:'',totalWt:0}
     ]);
 
     const handleRowChange = (index:number,field:string,fieldvalue:string) => {
@@ -72,7 +76,7 @@ const StorePrimaryEntry = (props:Props) => {
         setRows(newRows)
     }
     const addRow2 = () => {
-        setRows([...rows,{sku:'',type:'',vendorName:'',quantity:0,invoicequantity:0,unit:''}])
+        setRows([...rows,{sku:'',type:'',quantity:0,invoicequantity:0,unit:'',remarks:'',totalWt:0}])
     }
 
     const deleteRow = (index:number) =>{
@@ -115,9 +119,11 @@ const StorePrimaryEntry = (props:Props) => {
                 GatePassNo: gatepass,
                 recevingDate: date,
                 TruckNo: truck,
+                gateType:gateType,
                 GrossWt: grossWt,
                 invoicedate:invoicedate,
                 invoice:invoice,
+                vendorName:VendorName,
                 ...row
         }))
         try 
@@ -215,10 +221,10 @@ const StorePrimaryEntry = (props:Props) => {
                 }
             })
     }
-    const handleVendorChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
-        handleRowChange(index,'vendorName',e.target.value)
-        //setVendorName(e.target.value)
-        setActvindex(index)
+    const handleVendorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        //handleRowChange(index,'vendorName',e.target.value)
+        setVendorName(e.target.value)
+        //setActvindex(index)
         if (e.target.value.length > 0 && vendorData.length > 0) {
             setVendorNameView("block")
         } else {
@@ -245,9 +251,9 @@ const StorePrimaryEntry = (props:Props) => {
        
         setSkuView("none")
     }
-    const handleVendoridClick = (index:any,item: VendorData) => {
-        //setVendorName(item.vendorName)
-        handleRowChange(index,'vendorName',item.vendorName)
+    const handleVendoridClick = (item: VendorData) => {
+        setVendorName(item.vendorName)
+        //handleRowChange(index,'vendorName',item.vendorName)
         setVendorNameView("none")
     }
     const handleTypeChange = (index:number,e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -259,26 +265,47 @@ const StorePrimaryEntry = (props:Props) => {
         
        
     }
+   
+    // function formatNumber(num: any) {
+    //     return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
+    // }
     
 
     return (
         <>
             <div className="px-5 mt-4">
-                <form className='flex flex-col gap-1.5 ' onSubmit={handleSubmit}>
+                <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit}>
                 <div className="mx-8 flex flex-col gap-1"> 
                 <div className="flex mt-4"><Label className="w-2/4  pt-2">GatePass No.</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
+               
                 <div className="flex"><Label className="w-2/4  pt-2">Date</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={date}  readOnly /> </div> 
-                <div className="flex"><Label className="w-2/4  pt-2">Gross Wt (Kg)</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={grossWt}  readOnly /> </div>   
-                <div className="flex"><Label className="w-2/4  pt-2">Truck No.</Label>
+                
+                <div className="flex"><Label className="w-2/4  pt-2">Vehicle No.</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={truck}  readOnly /> </div> 
                 <div className="flex"><Label className="w-2/4  pt-2">Invoice No</Label>
                 <Input className="w-2/4 text-center" placeholder="Invoice No" required  ref={invoiceref} /> </div>
 
                 <div className="flex"><Label className="w-2/4  pt-2">Invoice Date</Label>
-                <Input className="w-2/4 justify-center" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div> 
+                <Input className="w-2/4 justify-center" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div>
+                <div className="flex "><Label className="w-2/4  pt-2">Vendor Name</Label>
+                <div className="w-2/4">
+                <Input className="justify-center text-center" placeholder="Vendor" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
+                <ScrollArea className="max-h-24 w-1/3 overflow-y-scroll dropdown-content" style={{ display: vendorNameView,position:'fixed'}}>
+                                                    {
+                                                        vendorData.map((item: VendorData) => (
+                                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick( item)}>
+                                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.vendorName}</p>
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </ScrollArea>
+                </div>
+                
+     
+                                                   
+                </div>  
                        
 
                 </div>
@@ -290,10 +317,14 @@ const StorePrimaryEntry = (props:Props) => {
                             <TableHead className="text-center" >Sl. No.</TableHead>
                             <TableHead className="text-center" >Item_Type</TableHead>
                             <TableHead className="text-center" >SKU/Item_Name</TableHead>
-                            <TableHead className="text-center" >Vendor_Name</TableHead>
-                            <TableHead className="text-center" >Invoice Qty</TableHead>
-                            <TableHead className="text-center" >Physical Qty</TableHead>
+                       
+                            <TableHead className="text-center" >Invoice_Qty</TableHead>
                             <TableHead className="text-center" >Unit</TableHead>
+                            <TableHead className="text-center" >Physical_Qty</TableHead>
+                            
+                           
+                            <TableHead className="text-center" >Total_Weight(Kg)</TableHead>
+                            <TableHead className="text-center w-30" >Remarks</TableHead>
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>
                         {rows.map((row, index) => {
@@ -328,7 +359,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             <TableCell className="text-center" >
                                                 <Input value={row.sku} placeholder="SKU"
                                                     onChange={(e) => handleSkuchange(index, e)} required />
-                                                {actvskuindex === index && <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: skuview, position: 'fixed' }}>
+                                                {actvskuindex === index && <ScrollArea className="max-h-24 w-32 overflow-scroll  dropdown-content" style={{ display: skuview, position: 'fixed' }}>
                                                     {
                                                         skudata.map((item: SkuData) => (
                                                             <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(index, item)}>
@@ -339,35 +370,40 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                     }
                                                 </ScrollArea>}
                                             </TableCell>
-                                            <TableCell className="text-center" >
-                                                <Input value={row.vendorName} placeholder="Vendor"
-                                                    onChange={(e) => handleVendorChange(index, e)} required />
-                                                {actvindex === index && <ScrollArea className="max-h-24 overflow-scroll w-40 dropdown-content" style={{ display: vendorNameView, position: 'fixed' }}>
-                                                    {
-                                                        vendorData.map((item: VendorData) => (
-                                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick(index, item)}>
-                                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.vendorName}</p>
-                                                            </div>
-                                                        ))
-                                                    }
-                                                </ScrollArea>}
-                                            </TableCell>
+                                           
+
+
                                             <TableCell className="text-center" >
                                                 <Input value={row.invoicequantity} placeholder="Qty." type='number'
                                                     onChange={(e) => {
                                                         handleRowChange(index, 'invoicequantity', e.target.value)
                                                     }} required/>
                                             </TableCell>
+                                            <TableCell className="text-center" >
+                                          
+                                                <Input value={row.unit} placeholder="unit" required readOnly className="bg-yellow-100"/> 
+                                            </TableCell>
 
                                             <TableCell className="text-center" >
                                                 <Input value={row.quantity} placeholder="Qty." type='number'
                                                     onChange={(e) => {
                                                         handleRowChange(index, 'quantity', e.target.value)
+
                                                     }} required/>
                                             </TableCell>
+                                           
                                             <TableCell className="text-center" >
+                                                <Input value={row.totalWt} placeholder="unitWt" type="number"
+                                                    onChange={(e) => {
+                                                        handleRowChange(index, 'totalWt', e.target.value)
+                                                    }} />
+                                            </TableCell>
+                                           
+                                            <TableCell className="text-center w-30" >
                                           
-                                                <Input value={row.unit} placeholder="unit" required readOnly /> 
+                                                <Input value={row.remarks} placeholder="remarks" className='w-90' onChange={(e) => {
+                                                        handleRowChange(index, 'remarks', e.target.value)
+                                                    }} /> 
                                             </TableCell>
 
 

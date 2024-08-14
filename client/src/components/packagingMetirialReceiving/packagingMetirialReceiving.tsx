@@ -46,12 +46,7 @@ const PackagingMetirialReceiving = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                    <div className="flexbox-tile bg-green-500 hover:bg-green-600">
-                        Vendor Count<br /><p>{recevingPackagematerialOverView?.vendorName}</p>
-                    </div>
-                    <div className="flexbox-tile bg-yellow-500 hover:bg-yellow-600">
-                        Item(SKU) Count<br /><p>{recevingPackagematerialOverView?.skuData}</p>
-                    </div>
+                   
                     <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-600">
                         Financial Year Entry <br /><p>{recevingPackagematerialOverView?.sumOfAllRecenvingPackageMaterial}</p>
                     </div>

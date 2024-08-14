@@ -5,7 +5,7 @@ import VendorName from "../../model/vendorNameModel";
 
 const updatePM = async (req: Request, res: Response) => {
     try {
-        const { sku, vendorName, quantity, unit ,invoicedate,invoice,invoicequantity,type} = req.body.data;
+        const { sku, vendorName, quantity, unit ,invoicedate,invoice,invoicequantity,type,remarks,totalWt} = req.body.data;
         const id=req.params.id;
         const createdBy = req.cookies.user;
         let skuData = await SkuModel.findOne({ where: { sku ,type,section:'PackagingMaterial'} });
@@ -20,7 +20,7 @@ const updatePM = async (req: Request, res: Response) => {
                 vendorName,
                 quantity,
                 invoicequantity,
-                unit,
+                unit,remarks,totalWt,
                 createdBy,status:1
             }, {
                 where: {

@@ -30,16 +30,11 @@ interface SectionRowData{
     invoicequantity:number;
     type:string;
     unit:string;
-    unitWt:number;
+    remarks:string;
     totalWt:number;
 }
 const PackagingMetirialReceivingCreateForm = (props:Props) => {
-    //const [unit, setUnit] = useState("")
 
-   // const [sku, setSku] = useState("")
-    //const [vendorName, setVendorName] = useState("")
-    
-    
     const [skuview, setSkuView] = useState("none")
     const [vendorNameView, setVendorNameView] = useState("none")
     const [skudata, setSkuData] = useState<SkuData[]>([])
@@ -70,7 +65,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         
     }, [props.rcn[0]]);
 
-    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',quantity:0,invoicequantity:0,unit:'',unitWt:0,totalWt:0}
+    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',quantity:0,invoicequantity:0,unit:'',remarks:'',totalWt:0}
     ]);
 
     const handleRowChange = (index:number,field:string,fieldvalue:string) => {
@@ -79,7 +74,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         setRows(newRows)
     }
     const addRow2 = () => {
-        setRows([...rows,{sku:'',type:'',quantity:0,invoicequantity:0,unit:'',unitWt:0,totalWt:0}])
+        setRows([...rows,{sku:'',type:'',quantity:0,invoicequantity:0,unit:'',remarks:'',totalWt:0}])
     }
 
     const deleteRow = (index:number) =>{
@@ -267,29 +262,10 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         
        
     }
-    const handleunitWtChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
-    
-       // handleRowChange(index,'unitWt',e.target.value)
-        rows[index].unitWt=parseFloat(e.target.value) 
-        const totalWt=e.target.value ?formatNumber(Number(e.target.value)*rows[index].quantity):0
-        //setVendorName(e.target.value)
-        handleRowChange(index,'totalWt',totalWt.toString())
-        
-       
-    }
-    const handleQtyChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
-    
-        //handleRowChange(index,'quantity',e.target.value)
-        rows[index].quantity=parseFloat(e.target.value)
-        const totalWt=e.target.value ?formatNumber(Number(e.target.value)*rows[index].unitWt):0
-        //setVendorName(e.target.value)
-        handleRowChange(index,'totalWt',totalWt.toString())
-        
-       
-    }
-    function formatNumber(num: any) {
-        return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
-    }
+   
+    // function formatNumber(num: any) {
+    //     return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
+    // }
     
 
     return (
@@ -301,9 +277,8 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
                 <div className="flex"><Label className="w-2/4  pt-2">Date</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={date}  readOnly /> </div> 
-                <div className="flex"><Label className="w-2/4  pt-2">Gross Wt (Kg)</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={grossWt}  readOnly /> </div>   
-                <div className="flex"><Label className="w-2/4  pt-2">Truck No.</Label>
+           
+                <div className="flex"><Label className="w-2/4  pt-2">Vehicle No.</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={truck}  readOnly /> </div> 
                 <div className="flex"><Label className="w-2/4  pt-2">Invoice No</Label>
                 <Input className="w-2/4 text-center" placeholder="Invoice No" required  ref={invoiceref} /> </div>
@@ -343,8 +318,9 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                             <TableHead className="text-center" >Unit</TableHead>
                             <TableHead className="text-center" >Physical_Qty</TableHead>
                             
-                            <TableHead className="text-center" >Unit_Wt(Kg)</TableHead>
-                            <TableHead className="text-center" >Total_Wt(Kg)</TableHead>
+                           
+                            <TableHead className="text-center" >Total_Weight(Kg)</TableHead>
+                            <TableHead className="text-center w-30" >Remarks</TableHead>
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>
                         {rows.map((row, index) => {
@@ -407,21 +383,23 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             <TableCell className="text-center" >
                                                 <Input value={row.quantity} placeholder="Qty." type='number'
                                                     onChange={(e) => {
-                                                        handleQtyChange(index, e)
+                                                        handleRowChange(index, 'quantity', e.target.value)
 
                                                     }} required/>
                                             </TableCell>
                                            
                                             <TableCell className="text-center" >
-                                                <Input value={row.unitWt} placeholder="unitWt" type="number"
+                                                <Input value={row.totalWt} placeholder="unitWt" type="number"
                                                     onChange={(e) => {
-                                                        handleunitWtChange(index, e)
-                                                    }} required/>
+                                                        handleRowChange(index, 'totalWt', e.target.value)
+                                                    }} />
                                             </TableCell>
                                            
-                                            <TableCell className="text-center" >
+                                            <TableCell className="text-center w-30" >
                                           
-                                                <Input value={row.totalWt} placeholder="unit" required readOnly /> 
+                                                <Input value={row.remarks} placeholder="remarks" className='w-90' onChange={(e) => {
+                                                        handleRowChange(index, 'remarks', e.target.value)
+                                                    }} /> 
                                             </TableCell>
 
 

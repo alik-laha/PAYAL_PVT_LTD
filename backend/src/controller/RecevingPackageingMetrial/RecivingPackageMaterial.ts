@@ -5,7 +5,7 @@ import VendorName from "../../model/vendorNameModel";
 
 const RecivingPackageMaterial = async (req: Request, res: Response) => {
     try {
-        const { GatePassNo,recevingDate, TruckNo,GrossWt,sku, vendorName, quantity, unit ,invoicedate,invoice,invoicequantity,type} = req.body.data;
+        const { GatePassNo,recevingDate, TruckNo,GrossWt,sku, vendorName, quantity, unit ,invoicedate,invoice,invoicequantity,type,remarks,totalWt} = req.body.data;
         const createdBy = req.cookies.user;
         let skuData = await SkuModel.findOne({ where: { sku ,type,section:'PackagingMaterial'} });
         let vendorData = await VendorName.findOne({ where: { vendorName,type:'Vendor',section:'PackagingMaterial' } });
@@ -19,7 +19,7 @@ const RecivingPackageMaterial = async (req: Request, res: Response) => {
                 sku,invoice,invoicedate,
                 vendorName,invoicequantity,type,
                 quantity,
-                unit,
+                unit,remarks,totalWt,
                 createdBy,status:1
             });
             if(newPackageMaterial){
