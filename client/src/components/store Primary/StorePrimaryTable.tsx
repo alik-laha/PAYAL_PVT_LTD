@@ -50,7 +50,7 @@ import {
 } from "@/components/ui/pagination"
 import { CiEdit } from "react-icons/ci";
 import { pagelimit, pendingCheckRole } from "../common/exportData"
-import { PackageMaterialReceivingData,  ExcelrecevingPackageMaterialData, pendingCheckRoles, PermissionRole, sumofStorePrimary, storeprimaryData } from '@/type/type'
+import { PackageMaterialReceivingData, pendingCheckRoles, PermissionRole, sumofStorePrimary, storeprimaryData, ExcelStorePrimaryData } from '@/type/type'
 import axios from 'axios'
 //import PackageMaterialReceivingModify from "./PackageMetirialModifyReceving"
 import { useContext } from 'react';
@@ -185,27 +185,34 @@ const StorePrimaryTable = () => {
         getSumOfAllEdit()
     }, [])
     const exportToExcel = async () => {
-        const response = await axios.post('/api/quality/getreceivematerial', {
-            searchData,
-            fromdate,
-            todate
+        const response = await axios.post('/api/storePrimary/getStorePrimary', {
+            fromdate, todate, searchdata,gatepassSearch 
         })
         const data1 = response.data.PackageMaterials
         console.log(data1)
 
         let ws
-        let transformed: ExcelrecevingPackageMaterialData[] = [];
+        let transformed: ExcelStorePrimaryData[] = [];
         if (EditData.length > 0) {
 
-            transformed = EditData.map((item: PackageMaterialReceivingData,idx:number) => ({
+            transformed = EditData.map((item: storeprimaryData,idx:number) => ({
                 Sl_No: idx+1,
+                GatePass_No:item.gatePassNo,
+                Gate_Pass_Type:item.gateType,
                 Entry_Date: handletimezone(item.recevingDate),
+                Vehicle_No:item.truckNo,
+                Gross_Wt:item.grossWt,
+                Net_Wt:item.netWeight,
                 Invoice:item.invoice,
                 Invoice_Date: handletimezone(item.invoicedate),
+                Type_Of_Material:item.type,
                 SKU: item.sku,
                 Vendor_Name: item.vendorName,
-                Quantity: item.quantity,
+                Physical_Quantity: formatNumber(item.quantity),
+                Invoice_Quantity:item.invoicequantity,
                 Unit: item.unit,
+                Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
+                Remarks:item.remarks,
                 Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
                 Created_By: item.createdBy,
@@ -214,15 +221,24 @@ const StorePrimaryTable = () => {
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
-            transformed = data1.map((item: PackageMaterialReceivingData,idx:number) => ({
+            transformed = data1.map((item: storeprimaryData,idx:number) => ({
                 Sl_No: idx+1,
+                GatePass_No:item.gatePassNo,
+                Gate_Pass_Type:item.gateType,
                 Entry_Date: handletimezone(item.recevingDate),
+                Vehicle_No:item.truckNo,
+                Gross_Wt:item.grossWt,
+                Net_Wt:item.netWeight,
                 Invoice:item.invoice,
                 Invoice_Date: handletimezone(item.invoicedate),
+                Type_Of_Material:item.type,
                 SKU: item.sku,
                 Vendor_Name: item.vendorName,
-                Quantity: item.quantity,
+                Physical_Quantity: formatNumber(item.quantity),
+                Invoice_Quantity:item.invoicequantity,
                 Unit: item.unit,
+                Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
+                Remarks:item.remarks,
                 Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
                 Created_By: item.createdBy,
@@ -236,7 +252,7 @@ const StorePrimaryTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Receiving_Packaging_Material_' + currDate + '.xlsx');
+        saveAs(blob, 'Store_Item_Material_' + currDate + '.xlsx');
     }
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {
