@@ -9,6 +9,8 @@ import SearchStorePrimary from '../controller/StorePrimaryController/searchStore
 import sumofStorePrimary from '../controller/StorePrimaryController/sumofStorePrimary';
 import getEditStorePrimary from '../controller/StorePrimaryController/getEditStorePrimary';
 import editstorePrimary from '../controller/StorePrimaryController/editstorePrimary';
+import acceptStoreEditPrimary from '../controller/StorePrimaryController/acceptStoreEditPrimary';
+import rejectStorePrimaryEdit from '../controller/StorePrimaryController/rejectStoreEditPrimary';
 
 const router = express.Router();
 
@@ -25,5 +27,8 @@ router.post("/getStorePrimary", jwtVerify,SearchStorePrimary)
 router.get("/getsumofPM",jwtVerify, sumofStorePrimary)
 router.get("/getEditStorePrimary",jwtVerify, getEditStorePrimary)
 router.post("/editStorePrimary/:id",jwtVerify, editstorePrimary)
+
+router.get('/acceptEditStorePrimary/:id', jwtVerify,acceptStoreEditPrimary)
+router.get("/rejectEditStorePrimary/:id",jwtVerify, rejectStorePrimaryEdit)
 
 export default router;
