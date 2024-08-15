@@ -334,20 +334,17 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
                                         <TableCell className="text-center ">{item.truckNo}</TableCell>
                                          <TableCell className="text-center ">{item.grossWt} </TableCell>
-                                          <TableCell className="text-center ">{item.netWeight} </TableCell>
+                                          <TableCell className="text-center ">{item.netWeight}  </TableCell>
                                           <TableCell className="text-center ">{item.invoice}</TableCell>
                                           <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
                                           <TableCell className="text-center ">{item.type}</TableCell>
                                           <TableCell className="text-center">{item.sku}</TableCell>
                                           <TableCell className="text-center">{item.vendorName}</TableCell>
-                                       
-                                        
-                                        
-                                        
                                         <TableCell className="text-center">{item.invoicequantity}</TableCell>
-                                        <TableCell className="text-center">{item.quantity}</TableCell>
-
-                                        <TableCell className="text-center">{item.unit}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.unit}</TableCell>
+                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?item.totalWt.concat(' Kg') :''} </TableCell>
+                                     
                                         <TableCell className="text-center ">
                                             {item.qualityStatus ? (
                                                 <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Done</button>
@@ -356,6 +353,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                             )}
                                         </TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
+                                        <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.approvedBy}</TableCell>
                                         <TableCell className="text-center">
@@ -405,7 +403,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                            <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
                                         <TableCell className="text-center ">{item.truckNo}</TableCell>
                                          <TableCell className="text-center ">{item.grossWt} </TableCell>
@@ -415,14 +413,8 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                           <TableCell className="text-center ">{item.type}</TableCell>
                                           <TableCell className="text-center">{item.sku}</TableCell>
                                           <TableCell className="text-center">{item.vendorName}</TableCell>
-                                          
-                              
-                                        
-                                        
-                                        
                                         <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
-
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
                                         <TableCell className="text-center">{item.totalWt!=='0.00' ?item.totalWt.concat(' Kg') :''} </TableCell>
                                      
