@@ -5,6 +5,8 @@ import getStorebyGatePass from '../controller/StorePrimaryController/getStoreByG
 import updateRcvStore from '../controller/StorePrimaryController/updateRcvStore';
 import createStorePrimary from '../controller/StorePrimaryController/createStorePrimary';
 import deleteStorePrimary from '../controller/StorePrimaryController/deleteStorePrimary';
+import SearchStorePrimary from '../controller/StorePrimaryController/searchStorePrimary';
+import sumofStorePrimary from '../controller/StorePrimaryController/sumofStorePrimary';
 
 const router = express.Router();
 
@@ -16,5 +18,8 @@ router.put("/updateRcvStore/:id",jwtVerify, updateRcvStore)
 
 router.post("/createStorePrimary",jwtVerify, createStorePrimary)
 router.post("/deleteStorePrimaryByID", jwtVerify, deleteStorePrimary)
+router.post("/getStorePrimary", jwtVerify,SearchStorePrimary)
+
+router.get("/getsumofPM",jwtVerify, sumofStorePrimary)
 
 export default router;

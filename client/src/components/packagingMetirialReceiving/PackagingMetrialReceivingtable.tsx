@@ -69,6 +69,7 @@ const PackageMetrialRecivingTable = () => {
     const [EditSumData, setEditSumData] = useState<SumofpackageMetrialReceving>()
     const [fromdate, setfromDate] = useState('')
     const [searchdata, setSearchData] = useState('')
+    const [gatepassSearch, setgatepassSearch] = useState('')
     const [hidetodate, sethidetoDate] = useState('')
     const [todate, settoDate] = useState('')
     const [page, setPage] = useState(1)
@@ -150,7 +151,7 @@ const PackageMetrialRecivingTable = () => {
             })
     }
     const searchData = () => {
-        axios.post('/api/packageMaterial/getreceivematerial', { fromdate, todate, searchdata }, { params: { page: page, limit: limit } }).then((res) => {
+        axios.post('/api/packageMaterial/getreceivematerial', { fromdate, todate, searchdata,gatepassSearch }, { params: { page: page, limit: limit } }).then((res) => {
             setData(res.data.PackageMaterials)
 
             if (res.data.PackageMaterials.length === 0) {
@@ -264,8 +265,8 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
             <div className="ml-5 mt-5 ">
                 <div className="flex flexbox-search">
 
-
-
+                <Input className=" w-1/3 flexbox-search-width pl-3 mr-5 " placeholder="GatePass No" value={gatepassSearch} onChange={(e) => setgatepassSearch(e.target.value)} />
+                <Input className=" w-1/3 flexbox-search-width mr-5 ml-5 pl-3 no-margin" placeholder="SKU/Vendor" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
 
                     <label className="font-semibold mt-1  mr-5 flexbox-search-width-label-left ">From </label>
                     <Input className="w-1/6 flexbox-search-width-calender"
@@ -283,10 +284,10 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                         placeholder="To Date"
 
                     />
-                    <Input className=" w-1/5 flexbox-search-width ml-5 pl-3 no-margin" placeholder="SKU/Vendor/Inv" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
+                   
 
 
-                    <span className="w-1/8 ml-6"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+                    <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
                 {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}

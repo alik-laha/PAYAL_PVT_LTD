@@ -3,7 +3,7 @@ import PackageMaterial from "../../model/recevingPackagingMaterialModel";
 import { Op } from "sequelize";
 import gatePass from "../../model/gatepassModel";
 
-const viewReceivingPackageMetrial = async (req: Request, res: Response) => {
+const SearchStorePrimary = async (req: Request, res: Response) => {
     try {
         const { fromdate, todate, searchdata,gatepassSearch } = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
@@ -33,7 +33,7 @@ const viewReceivingPackageMetrial = async (req: Request, res: Response) => {
                         }
                     },
                     {
-                        gatePassNo:{[Op.like]:`%${gatepassSearch}%`}
+                        gatePassNo:{[Op.like]:gatepassSearch}
                     },
                     
                     {
@@ -68,7 +68,7 @@ const viewReceivingPackageMetrial = async (req: Request, res: Response) => {
         if (!searchdata && !fromdate && !todate && gatepassSearch) {
             where = {
                 
-                    gatePassNo:{[Op.like]:`%${gatepassSearch}%`}
+                    gatePassNo:{[Op.like]:gatePass}
               
                 ,status:{
                     [Op.eq]: 1
@@ -129,4 +129,4 @@ const viewReceivingPackageMetrial = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "internal error while finding sku data" });
     }
 }
-export default viewReceivingPackageMetrial;
+export default SearchStorePrimary;

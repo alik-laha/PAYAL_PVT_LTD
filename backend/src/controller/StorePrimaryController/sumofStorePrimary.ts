@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-import EditPackagingMaterial from "../../model/editPackageingMaterialModel";
-import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
-import { Op } from "sequelize";
 
-const sumOfAllRecenvingPackageMaterial = async (req: Request, res: Response) => {
+import { Op } from "sequelize";
+import storePrimaryModel from "../../model/storePrimaryModel";
+import storePrimaryEditModel from "../../model/storePrimaryEditModel";
+
+const sumofStorePrimary = async (req: Request, res: Response) => {
     try {
         const today = new Date();
         let Year = today.getFullYear()
@@ -24,7 +25,7 @@ const sumOfAllRecenvingPackageMaterial = async (req: Request, res: Response) => 
             today.setHours(today.getHours() + 5);
             today.setMinutes(today.getMinutes() + 30);
         }
-        const sumOfAllRecenvingPackageMaterial = await PackagingMaterial.count({
+        const sumofStorePrimary = await storePrimaryModel.count({
             where: {
                 recevingDate: {
                     [Op.between]: [targetDate, today]
@@ -35,11 +36,11 @@ const sumOfAllRecenvingPackageMaterial = async (req: Request, res: Response) => 
             },distinct:true,col:'gatePassNo'
         });
     
-        const packagingMaterial = await EditPackagingMaterial.count();
-        return res.status(200).json({ sumOfAllRecenvingPackageMaterial, packagingMaterial });
+        const storePrimary = await storePrimaryEditModel.count();
+        return res.status(200).json({ sumofStorePrimary, storePrimary });
     }
     catch (err) {
         console.log(err)
     }
 }
-export default sumOfAllRecenvingPackageMaterial;
+export default sumofStorePrimary;
