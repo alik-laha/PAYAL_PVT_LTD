@@ -127,7 +127,7 @@ const PackageMetrialRecivingTable = () => {
     }
     const handleApprove = (item: number) => {
         console.log(item)
-        axios.get(`/api/quality/accepteditrecevingpackagematerial/${item}`)
+        axios.get(`/api/packageMaterial/accepteditrecevingpackagematerial/${item}`)
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -139,7 +139,7 @@ const PackageMetrialRecivingTable = () => {
             })
     }
     const handleRejection = (item: number) => {
-        axios.get(`/api/quality/rejecteditrecevingpackagematerial/${item}`)
+        axios.get(`/api/packageMaterial/rejecteditrecevingpackagematerial/${item}`)
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {

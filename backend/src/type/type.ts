@@ -141,6 +141,7 @@ export interface PackageMaterialReceivingData {
     remarks:string;
     editStatus: string;
     approvedBy: string;
+    type:string;
 
 }
 export interface storeRcvData {
