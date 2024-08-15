@@ -87,7 +87,8 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         e.preventDefault()
         console.log("submit")
         axios.post(`/api/packageMaterial/editrecevingpackagematerial/${data.id}`, { 
-            grossswt,netwt,recevingDate:date,truck,gatepassno, invoicedate,invoice:invoiceRef.current?.value, sku,vendorName, quantity: quantityRef.current?.value, unit })
+            grossswt,netwt,recevingDate:date,truck,gatepassno, invoicedate,invoice:invoiceRef.current?.value, type,sku,vendorName, 
+            quantity: quantityRef.current?.value,invoicequantity:invoicequantityRef.current?.value, unit,totalWt:rowWt,remarks })
             .then((res) => {
                 if (res.status === 201) {
                     (successdialog as any).showModal();
@@ -109,7 +110,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         } else {
             setSkuView("none")
         }
-        axios.post("/api/vendorSKU/skudatafind/PackagingMaterial", { sku: e.target.value })
+        axios.post("/api/vendorSKU/skudatafind/PackagingMaterial", { sku: e.target.value,type:type })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -130,7 +131,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         } else {
             setVendorNameView("none")
         }
-        axios.post("/api/vendorSKU/vendornamefind/PackagingMaterial", { vendorName: e.target.value })
+        axios.post(`/api/vendorSKU/vendornamefind/PackagingMaterial/`, { vendorName: e.target.value,type:'Vendor' })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -152,14 +153,8 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         setVendorName(item.vendorName)
         setVendorNameView("none")
     }
-    const handleTypeChange = (data:PackageMaterialReceivingData,e: React.ChangeEvent<HTMLSelectElement>) => {
-       console.log(data)
-        settype(e.target.value)
-        //setVendorName(e.target.value)
-        
-       
-    }
-     const typesection='PackagingMaterial'
+  
+    const typesection='PackagingMaterial'
 
 
     return (
@@ -188,7 +183,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
                         <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
-focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleTypeChange(data, e)}
+focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>  settype(e.target.value)}
                                                     value={type} required>
                                                     <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
     focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Type</option>
@@ -233,7 +228,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                     <div className="flex"><Label className="w-2/4  pt-1">Physical Qty</Label>
                         <Input className="w-2/4 text-center" placeholder="Qty" required type="number" ref={quantityRef} step='0.01'/> </div>
                         <div className="flex"><Label className="w-2/4  pt-1">Unit</Label>
-                        <Input className="w-2/4 text-center" placeholder="Qty" required value={unit} /> </div>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Qty" required value={unit} /> </div>
                         <div className="flex"><Label className="w-2/4  pt-1">Row Item Wt</Label>
                         <Input className="w-2/4 text-center" placeholder="Wt"  type="number" value={rowWt} step='0.01' onChange={(e)=> setrowwt(e.target.value)}/> </div>
                         <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
