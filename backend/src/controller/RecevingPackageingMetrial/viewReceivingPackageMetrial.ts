@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import PackageMaterial from "../../model/recevingPackagingMaterialModel";
 import { Op } from "sequelize";
-import gatePass from "../../model/gatepassModel";
+
 
 const viewReceivingPackageMetrial = async (req: Request, res: Response) => {
     try {
