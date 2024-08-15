@@ -1,7 +1,7 @@
 import Context from "./context.ts";
 import { ReactNode } from "react";
 import { useState } from "react";
-import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving, rcnScoopingData } from "../../type/type";
+import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving, rcnScoopingData,sumofStorePrimary } from "../../type/type";
 
 interface ContextProviderProps {
     children: ReactNode;
@@ -23,6 +23,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [editScoopingLotWiseData, setEditScoopingLotWiseData] = useState<rcnScoopingData[]>([])
     const [editBormaLotWiseData, setEditBormaLotWiseData] = useState<any[]>([])
     const [searchType, setSearchType] = useState<string>('LotWise')
+    const [StorePrimaryOverView, setStorePrimaryOverView] = useState<sumofStorePrimary | null>(null)
 
     return (
         <Context.Provider value={{
@@ -31,7 +32,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
             AllNewMachines, setAllNewMachines, editPendiningGrinderData, setEditPendiningGrinderData,
             editPendingBoilingData, setEditPendingBoilingData, pendingqccount, setpendingqcCount, pendingreportcount,
             setpendingreportCount, recevingPackagematerialOverView, setRecevingPacakanMaterialOverView,
-            editScoopingLotWiseData, setEditScoopingLotWiseData, searchType, setSearchType,editBormaLotWiseData,setEditBormaLotWiseData
+            editScoopingLotWiseData, setEditScoopingLotWiseData, searchType, setSearchType,editBormaLotWiseData,setEditBormaLotWiseData,
+            StorePrimaryOverView,setStorePrimaryOverView
         }}>
             {children}
         </Context.Provider>

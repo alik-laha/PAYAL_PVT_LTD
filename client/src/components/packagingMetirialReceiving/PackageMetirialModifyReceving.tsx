@@ -153,9 +153,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         setVendorNameView("none")
     }
     const handleTypeChange = (data:PackageMaterialReceivingData,e: React.ChangeEvent<HTMLSelectElement>) => {
-        if(data.sku){
-           data.sku=''
-        }
+       console.log(data)
         settype(e.target.value)
         //setVendorName(e.target.value)
         
