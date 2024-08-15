@@ -259,7 +259,7 @@ const PackageMetrialRecivingTable = () => {
         <>
 
 {checkpending('RCNPrimary') &&
-<Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" 
+<Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" disabled={EditSumData?.packagingMaterial===0 ?true :false}
 onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button>}
 
             <div className="ml-5 mt-5 ">

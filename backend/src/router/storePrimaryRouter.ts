@@ -7,6 +7,7 @@ import createStorePrimary from '../controller/StorePrimaryController/createStore
 import deleteStorePrimary from '../controller/StorePrimaryController/deleteStorePrimary';
 import SearchStorePrimary from '../controller/StorePrimaryController/searchStorePrimary';
 import sumofStorePrimary from '../controller/StorePrimaryController/sumofStorePrimary';
+import getEditStorePrimary from '../controller/StorePrimaryController/getEditStorePrimary';
 
 const router = express.Router();
 
@@ -21,5 +22,6 @@ router.post("/deleteStorePrimaryByID", jwtVerify, deleteStorePrimary)
 router.post("/getStorePrimary", jwtVerify,SearchStorePrimary)
 
 router.get("/getsumofPM",jwtVerify, sumofStorePrimary)
+router.get("/getEditStorePrimary",jwtVerify, getEditStorePrimary)
 
 export default router;

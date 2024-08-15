@@ -8,7 +8,7 @@ import { SkuData, VendorData, PackageMaterialReceivingData } from "@/type/type"
 import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
-import { Textarea } from "../ui/textarea";
+
 import { TypeOnSection } from "../common/exportData";
 
 interface Props {

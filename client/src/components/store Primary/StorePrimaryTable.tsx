@@ -50,7 +50,7 @@ import {
 } from "@/components/ui/pagination"
 import { CiEdit } from "react-icons/ci";
 import { pagelimit, pendingCheckRole } from "../common/exportData"
-import { PackageMaterialReceivingData,  ExcelrecevingPackageMaterialData, pendingCheckRoles, PermissionRole, sumofStorePrimary } from '@/type/type'
+import { PackageMaterialReceivingData,  ExcelrecevingPackageMaterialData, pendingCheckRoles, PermissionRole, sumofStorePrimary, storeprimaryData } from '@/type/type'
 import axios from 'axios'
 //import PackageMaterialReceivingModify from "./PackageMetirialModifyReceving"
 import { useContext } from 'react';
@@ -163,7 +163,7 @@ const StorePrimaryTable = () => {
     }
     const GetPendingEdit = async () => {
         // console.log("alik")
-        const Data = await axios.get('/api/packageMaterial/geteditrecevingpackagematerial');
+        const Data = await axios.get('/api/storePrimary/getEditStorePrimary');
         console.log(Data)
         setEditData(Data.data)
 
@@ -259,7 +259,7 @@ const StorePrimaryTable = () => {
         <>
 
 {checkpending('RCNPrimary') &&
-<Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" 
+<Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" disabled={EditSumData?.storePrimary===0 ?true :false}
 onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
 
             <div className="ml-5 mt-5 ">
@@ -302,6 +302,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
 
                         <TableHead className="text-center" >Sl No</TableHead>
                         <TableHead className="text-center" >GatePass_No.</TableHead>
+                        <TableHead className="text-center" >Type</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
                         <TableHead className="text-center" >Vehicle_No</TableHead>
                           <TableHead className="text-center" >Gross_Wt(Kg)</TableHead>
@@ -318,7 +319,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                         <TableHead className="text-center" >Unit</TableHead>
                         <TableHead className="text-center" > Row_Item_Wt(Kg)</TableHead>
                      
-                        <TableHead className="text-center" >Quality Status</TableHead>
+
                         <TableHead className="text-center" >Edit Status</TableHead>
                         <TableHead className="text-center" > Remarks</TableHead>
                         <TableHead className="text-center" >Entried By</TableHead>
@@ -402,13 +403,14 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                 );
                             })
                         ) : (
-                            Data.length > 0 ? (Data.map((item: PackageMaterialReceivingData, idx: number) => {
+                            Data.length > 0 ? (Data.map((item: storeprimaryData, idx: number) => {
 
 
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                             <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
+                                            <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
                                         <TableCell className="text-center ">{item.truckNo}</TableCell>
                                          <TableCell className="text-center ">{item.grossWt} </TableCell>
@@ -429,13 +431,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
                                         <TableCell className="text-center">{item.totalWt!=='0.00' ?item.totalWt.concat(' Kg') :''} </TableCell>
                                      
-                                        <TableCell className="text-center ">
-                                            {item.qualityStatus ? (
-                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Done</button>
-                                            ) : (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Pending</button>
-                                            )}
-                                        </TableCell>
+                                      
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
