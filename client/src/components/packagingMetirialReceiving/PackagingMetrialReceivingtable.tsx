@@ -184,10 +184,8 @@ const PackageMetrialRecivingTable = () => {
         getSumOfAllEdit()
     }, [])
     const exportToExcel = async () => {
-        const response = await axios.post('/api/quality/getreceivematerial', {
-            searchData,
-            fromdate,
-            todate
+        const response = await axios.post('/api/packageMaterial/getreceivematerial', {
+            fromdate, todate, searchdata,gatepassSearch
         })
         const data1 = response.data.PackageMaterials
         console.log(data1)
@@ -198,13 +196,21 @@ const PackageMetrialRecivingTable = () => {
 
             transformed = EditData.map((item: PackageMaterialReceivingData,idx:number) => ({
                 Sl_No: idx+1,
+                GatePass_No:item.gatePassNo,
                 Entry_Date: handletimezone(item.recevingDate),
+                Vehicle_No:item.truckNo,
+                Gross_Wt:item.grossWt,
+                Net_Wt:item.netWeight,
                 Invoice:item.invoice,
                 Invoice_Date: handletimezone(item.invoicedate),
+                Type_Of_Material:item.type,
                 SKU: item.sku,
                 Vendor_Name: item.vendorName,
-                Quantity: item.quantity,
+                Physical_Quantity: formatNumber(item.quantity),
+                Invoice_Quantity:item.invoicequantity,
                 Unit: item.unit,
+                Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
+                Remarks:item.remarks,
                 Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
                 Created_By: item.createdBy,
@@ -215,13 +221,21 @@ const PackageMetrialRecivingTable = () => {
         else {
             transformed = data1.map((item: PackageMaterialReceivingData,idx:number) => ({
                 Sl_No: idx+1,
+                GatePass_No:item.gatePassNo,
                 Entry_Date: handletimezone(item.recevingDate),
+                Vehicle_No:item.truckNo,
+                Gross_Wt:item.grossWt,
+                Net_Wt:item.netWeight,
                 Invoice:item.invoice,
                 Invoice_Date: handletimezone(item.invoicedate),
+                Type_Of_Material:item.type,
                 SKU: item.sku,
                 Vendor_Name: item.vendorName,
-                Quantity: item.quantity,
+                Physical_Quantity: formatNumber(item.quantity),
+                Invoice_Quantity:item.invoicequantity,
                 Unit: item.unit,
+                Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
+                Remarks:item.remarks,
                 Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
                 Created_By: item.createdBy,

@@ -541,7 +541,8 @@ export interface ExcelrecevingPackageMaterialData {
     Entry_Date: string;
     SKU: string;
     Vendor_Name: string;
-    Quantity: string;
+    Physical_Quantity: string|number;
+    Invoice_Quantity: string;
     Unit: string;
     Quality_Status: string;
     Edit_Status: string;
@@ -549,6 +550,36 @@ export interface ExcelrecevingPackageMaterialData {
     Invoice_Date:string;
     Approved_Or_Rejected_By: string;
     Created_By: string;
+    Type_Of_Material:string;
+    Line_Weight:string|number;
+    GatePass_No:string;
+    Gross_Wt:string;
+    Net_Wt:string;
+    Vehicle_No:string;
+    Remarks:string;
+}
+export interface ExcelStorePrimaryData {
+    Sl_No: number;
+    Gate_Pass_Type:string;
+    Entry_Date: string;
+    SKU: string;
+    Vendor_Name: string;
+    Physical_Quantity: string|number;
+    Invoice_Quantity: string;
+    Unit: string;
+    Quality_Status: string;
+    Edit_Status: string;
+    Invoice:string;
+    Invoice_Date:string;
+    Approved_Or_Rejected_By: string;
+    Created_By: string;
+    Type_Of_Material:string;
+    Line_Weight:string|number;
+    GatePass_No:string;
+    Gross_Wt:string;
+    Net_Wt:string;
+    Vehicle_No:string;
+    Remarks:string;
 }
 
 export interface ScoopingExcelData {
