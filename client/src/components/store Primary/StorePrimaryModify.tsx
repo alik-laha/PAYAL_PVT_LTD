@@ -225,7 +225,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                     </ScrollArea>
 
                     <div className="flex"><Label className="w-2/4  pt-1">{gateType==='IN'? 'Vendor':'Party'} Name</Label>
-                        <Input className="w-2/4 text-center" placeholder="Vendor Name" required value={vendorName} onChange={handleVendorChange} /> </div>
+                        <Input className="w-2/4 text-center" placeholder="Name" required value={vendorName} onChange={handleVendorChange} /> </div>
 
                     <ScrollArea className="max-h-24 w-2/4 overflow-scroll w-30 dropdown-content" style={{ display: vendorNameView }}>
                         {

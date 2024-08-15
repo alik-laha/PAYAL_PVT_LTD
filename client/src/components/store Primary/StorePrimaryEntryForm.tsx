@@ -291,9 +291,9 @@ const StorePrimaryEntry = (props:Props) => {
 
                 <div className="flex"><Label className="w-2/4  pt-2">Invoice Date</Label>
                 <Input className="w-2/4 justify-center" placeholder="Invoice Date" required ref={invoicedateRef} type="date" /> </div>
-                <div className="flex "><Label className="w-2/4  pt-2">Vendor Name</Label>
+                <div className="flex "><Label className="w-2/4  pt-2">{gateType==='IN'? 'Vendor':'Party'} Name</Label>
                 <div className="w-2/4">
-                <Input className="justify-center text-center" placeholder="Vendor" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
+                <Input className="justify-center text-center" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
                 <ScrollArea className="max-h-24 w-1/3 overflow-y-scroll dropdown-content" style={{ display: vendorNameView,position:'fixed'}}>
                                                     {
                                                         vendorData.map((item: VendorData) => (
