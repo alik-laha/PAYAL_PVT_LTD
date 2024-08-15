@@ -12,7 +12,9 @@ const viewReceivingPackageMetrial = async (req: Request, res: Response) => {
 
         let where;
         if (!searchdata && !fromdate && !todate) {
-            where = {}
+            where = {
+                status:{[Op.eq]:1}
+            }
         }
         if (searchdata && fromdate && todate) {
             where = {
@@ -28,22 +30,32 @@ const viewReceivingPackageMetrial = async (req: Request, res: Response) => {
                         recevingDate: {
                             [Op.between]: [fromdate, todate]
                         }
+                    }, {
+                        status:{[Op.eq]:1}
                     }
+                  
+
+                    
                 ]
             }
         }
         if (searchdata && !fromdate && !todate) {
             where = {
+                
                 [Op.or]: [
                     { sku: { [Op.like]: `%${searchdata}%` } },
                     { vendorName: { [Op.like]: `%${searchdata}%` } },
-                ]
+                ],status:{
+                    [Op.eq]: 1
+                }
             }
         }
         if (!searchdata && fromdate && todate) {
             where = {
                 recevingDate: {
                     [Op.between]: [fromdate, todate]
+                },status:{
+                    [Op.eq]: 1
                 }
             }
         }
@@ -51,7 +63,8 @@ const viewReceivingPackageMetrial = async (req: Request, res: Response) => {
         if (page === 0 && size === 0) {
             PackageMaterials = await PackageMaterial.findAll({
                 where,
-                order: [['recevingDate', 'DESC']], // Order by date descending
+                order: [['gatePassNo', 'DESC'],['recevingDate', 'DESC']]
+                 // Order by date descending
             });
             if (PackageMaterials.length === 0) {
                 return res.status(200).json({ msg: 'Package Material found', PackageMaterials })
@@ -61,7 +74,7 @@ const viewReceivingPackageMetrial = async (req: Request, res: Response) => {
         else {
             PackageMaterials = await PackageMaterial.findAll({
                 where,
-                order: [['recevingDate', 'DESC']], // Order by date descending
+                order: [['gatePassNo', 'DESC'],['recevingDate', 'DESC']], // Order by date descending
                 limit: limit,
                 offset: offset
             });

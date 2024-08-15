@@ -10,12 +10,14 @@ import EditApprove from '../controller/RcnPrimaryEntry/EditApprove';
 import getAllEditPending from '../controller/RcnPrimaryEntry/getAllEditPending';
 import jwtVerify from '../middleWare/JwtAuthantication';
 import getStockByOrigin from '../controller/RcnPrimaryEntry/getStockByOrigin';
+import getUnEntriedRcn from '../controller/RcnPrimaryEntry/getUnEntriedRcn';
+import getRcnByGatePass from '../controller/RcnPrimaryEntry/getRcnByGatePass';
 
 
 const router = express.Router();
 
 //Create Rcn Entry via user Cookies
-router.post('/create', RcnPrimaryMiddleWare, jwtVerify, CreateRcnPrimaryEntry);
+router.post('/updateRcnEntry', RcnPrimaryMiddleWare, jwtVerify, CreateRcnPrimaryEntry);
 
 //Update Rcn Entry by Id
 router.put('/update/:id', RcnPrimaryMiddleWare, jwtVerify, UpdateRcnPrimaryEntry);
@@ -39,6 +41,10 @@ router.put("/approveeditrcn/:id", jwtVerify, EditApprove);
 router.get('/geteditpending', jwtVerify, getAllEditPending);
 
 router.get('/getStockByOrigin/:origin', jwtVerify, getStockByOrigin)
+
+router.get("/getRcnNotEntried/:status", jwtVerify, getUnEntriedRcn)
+
+router.get("/getRcnByGatePass/:lotNO", jwtVerify, getRcnByGatePass)
 
 
 

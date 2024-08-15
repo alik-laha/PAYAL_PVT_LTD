@@ -20,6 +20,9 @@ const CreateUser = async (req: Request, res: Response) => {
         if (Msg) {
             return res.status(201).json({ message: "New User Along with Credential Has Been Sent Over Mail" });
         }
+        else{
+            return res.status(201).json({ message: "New User created But unable to Sent Mail " });
+        }
     } catch (err) {
         return res.status(500).json({ message: "Internal Server Error", error: err });
     }

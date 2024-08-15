@@ -150,7 +150,7 @@ const PackageMetrialRecivingTable = () => {
             })
     }
     const searchData = () => {
-        axios.post('/api/quality/getreceivematerial', { fromdate, todate, searchdata }, { params: { page: page, limit: limit } }).then((res) => {
+        axios.post('/api/packageMaterial/getreceivematerial', { fromdate, todate, searchdata }, { params: { page: page, limit: limit } }).then((res) => {
             setData(res.data.PackageMaterials)
 
             if (res.data.PackageMaterials.length === 0) {
@@ -162,13 +162,13 @@ const PackageMetrialRecivingTable = () => {
     }
     const GetPendingEdit = async () => {
         // console.log("alik")
-        const Data = await axios.get('/api/quality/geteditrecevingpackagematerial');
+        const Data = await axios.get('/api/packageMaterial/geteditrecevingpackagematerial');
         console.log(Data)
         setEditData(Data.data)
 
     }
     const getSumOfAllEdit = async () => {
-        const Data = await axios.get('/api/quality/getsumofEditRecevingPackageMaterial');
+        const Data = await axios.get('/api/packageMaterial/getsumofEditRecevingPackageMaterial');
         setEditSumData(Data.data)
         setRecevingPacakanMaterialOverView(Data.data)
     }
@@ -293,12 +293,20 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                         <TableHead className="text-center" >Sl No</TableHead>
+                        <TableHead className="text-center" >GatePass_No.</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
-                        <TableHead className="text-center" >Invoice_Date</TableHead>
-                        <TableHead className="text-center" >Invoice_No</TableHead>
-                        <TableHead className="text-center" >Item_Code(SKU)</TableHead>
+                        <TableHead className="text-center" >Vehicle_No</TableHead>
+                          <TableHead className="text-center" >Gross_Wt(Kg)</TableHead>
+                           <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
+                           <TableHead className="text-center" >Invoice_No</TableHead>
+                           <TableHead className="text-center" >Invoice_Date</TableHead>
+                           <TableHead className="text-center" >Item_Type</TableHead>
+                           <TableHead className="text-center" >Item_Code(SKU)</TableHead>
                         <TableHead className="text-center" >Vendor_Name</TableHead>
-                        <TableHead className="text-center" >Quantity</TableHead>
+                        
+                       
+                        <TableHead className="text-center" >Invoice Qyantity</TableHead>
+                        <TableHead className="text-center" >Physical Quantity</TableHead>
                         <TableHead className="text-center" >Unit</TableHead>
                         <TableHead className="text-center" >Quality Status</TableHead>
                         <TableHead className="text-center" >Edit Status</TableHead>
@@ -314,11 +322,21 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{idx + 1}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-600">{handletimezone(item.invoicedate)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.invoice}</TableCell>
-                                        <TableCell className="text-center">{item.sku}</TableCell>
-                                        <TableCell className="text-center">{item.vendorName}</TableCell>
+                                        <TableCell className="text-center ">{item.truckNo}</TableCell>
+                                         <TableCell className="text-center ">{item.grossWt} </TableCell>
+                                          <TableCell className="text-center ">{item.netWeight} </TableCell>
+                                          <TableCell className="text-center ">{item.invoice}</TableCell>
+                                          <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
+                                          <TableCell className="text-center ">{item.type}</TableCell>
+                                          <TableCell className="text-center">{item.sku}</TableCell>
+                                          <TableCell className="text-center">{item.vendorName}</TableCell>
+                                       
+                                        
+                                        
+                                        
+                                        <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{item.quantity}</TableCell>
 
                                         <TableCell className="text-center">{item.unit}</TableCell>
@@ -379,12 +397,21 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                            <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-600">{handletimezone(item.invoicedate)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.invoice}</TableCell>
+                                        <TableCell className="text-center ">{item.truckNo}</TableCell>
+                                         <TableCell className="text-center ">{item.grossWt}</TableCell>
+                                          <TableCell className="text-center ">{item.netWeight} </TableCell>
+                                          <TableCell className="text-center ">{item.invoice}</TableCell>
+                                          <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
+                                          <TableCell className="text-center ">{item.type}</TableCell>
+                                          <TableCell className="text-center">{item.sku}</TableCell>
+                                          <TableCell className="text-center">{item.vendorName}</TableCell>
+                              
                                         
-                                        <TableCell className="text-center">{item.sku}</TableCell>
-                                        <TableCell className="text-center">{item.vendorName}</TableCell>
+                                        
+                                        
+                                        <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{item.quantity}</TableCell>
 
                                         <TableCell className="text-center">{item.unit}</TableCell>

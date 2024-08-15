@@ -107,6 +107,7 @@ const QCRcnTable = () => {
 
             transformed = pendingData.map((item: QcRcnEntryData, idx: number) => ({
                 id: idx + 1,
+                gatePassNo:item.rcnEntry.gatePassNo,
                 blNo: item.blNo,
                 conNo: item.conNo,
                 date: item.date,
@@ -138,6 +139,7 @@ const QCRcnTable = () => {
         else {
             transformed = data1.rcnEntries.map((item: QcRcnEntryData, idx: number) => ({
                 id: idx + 1,
+                gatePassNo:item.rcnEntry.gatePassNo,
                 blNo: item.blNo,
                 conNo: item.conNo,
                 date: item.date,
@@ -434,8 +436,8 @@ const QCRcnTable = () => {
 
                     <TableHead className="text-center" >Id</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Incoming Date </TableHead>
-
+                    <TableHead className="text-center" >Incoming_Date </TableHead>
+                    <TableHead className="text-center" >GatePass No</TableHead>
                     <TableHead className="text-center" >BL No.</TableHead>
                     <TableHead className="text-center" >Con No.</TableHead>
                     <TableHead className="text-center" >Truck No.</TableHead>
@@ -471,8 +473,8 @@ const QCRcnTable = () => {
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{idx + 1}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                    <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-
+                                    <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.rcnEntry.gatePassNo}</TableCell>
                                     <TableCell className="text-center">{item.blNo}</TableCell>
                                     <TableCell className="text-center">{item.conNo}</TableCell>
                                     <TableCell className="text-center">{item.rcnEntry.truckNo}</TableCell>
@@ -607,8 +609,8 @@ const QCRcnTable = () => {
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                        <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-
+                                        <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.rcnEntry.gatePassNo}</TableCell>
                                         <TableCell className="text-center">{item.blNo}</TableCell>
                                         <TableCell className="text-center">{item.conNo}</TableCell>
                                         <TableCell className="text-center">{item.rcnEntry.truckNo}</TableCell>

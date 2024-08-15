@@ -178,8 +178,8 @@ const Employeecreateform = () => {
     }
 
     return (
-        <div className="pl-10 pr-10 ">
-            <form className='flex flex-col gap-0.5 text-xs' onSubmit={handleSubmit}>
+        <div className="pl-10 pr-10 max-h-80 overflow-y-scroll">
+            <form className='flex flex-col gap-0.5 text-xs mt-5' onSubmit={handleSubmit}>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Name</Label>
@@ -260,7 +260,7 @@ const Employeecreateform = () => {
 
 
 
-                <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
+                <Button className="bg-orange-500 mt-4 text-center items-center justify-center h-8 w-20">Submit</Button>
             </form>
             <dialog id="successemployeedialog" className="dashboard-modal">
                 <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>

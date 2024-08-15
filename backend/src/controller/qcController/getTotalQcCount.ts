@@ -11,7 +11,8 @@ const getTotalQcCount = async (req: Request, res: Response) => {
             where: {
                 [Op.and]: [
                     { rcnStatus: { [Op.like]: `QC Pending` } },
-                    { editStatus: { [Op.notLike]: `Pending` } }
+                    { editStatus: { [Op.notLike]: `Pending` } },
+                    {status:1}
                 ]
             }
         });

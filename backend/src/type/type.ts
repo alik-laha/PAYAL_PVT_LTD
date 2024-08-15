@@ -9,7 +9,11 @@ export interface RcnPrimaryModifyProps {
     netWeight: string;
     rcnStatus: string;
     editedBy: string;
-    date: Date
+    date: Date;
+    gatePassNo:string;
+    grossWt:string;
+    systemBags:string;
+    difference:string;
 
 }
 

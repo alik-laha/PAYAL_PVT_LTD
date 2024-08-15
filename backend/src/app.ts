@@ -11,11 +11,15 @@ import qcRcnRouter from './router/qcRcnRouter'
 import BoilingRouter from './router/BoilingRouter'
 import ResetPassword from "./router/resetPasswordRouter";
 
-import Quality from "./router/recevingpackageMaterial";
+import PMRouter from "./router/recevingpackageMaterialRouter";
 import scoopingRouter from "./router/scoopingRouter";
 import qcPackageMaterialRouter from "./router/qcpackagingMaterialrouter";
 import Cleaning from "./router/Cleaning";
 import BormaRouter from "./router/BormaRouter";
+import gatePassRouter from "./router/gatePassRouter";
+import VendorSKURouter from "./router/VendorSKURouter";
+import storePrimaryRouter from "./router/storePrimaryRouter";
+
 
 
 app.use(cookieParser());
@@ -35,10 +39,12 @@ app.use('/api/grading', GraddingRouter)
 app.use('/api/boiling', BoilingRouter)
 app.use('/api/scooping', scoopingRouter)
 app.use('/api/resetPassword', ResetPassword)
-app.use('/api/quality', Quality)
+app.use('/api/packageMaterial', PMRouter)
 app.use("/api/qcpackage", qcPackageMaterialRouter)
 app.use('/api/cleaning', Cleaning)
 app.use('/api/borma', BormaRouter)
-
+app.use('/api/gatepass', gatePassRouter)
+app.use('/api/vendorSKU', VendorSKURouter)
+app.use('/api/storePrimary', storePrimaryRouter)
 
 export default app

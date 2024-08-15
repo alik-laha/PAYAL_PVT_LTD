@@ -63,6 +63,9 @@ const createscoopingAllEditReport = async (req: Request, res: Response) => {
             console.log(data)
             return res.status(200).json({ message: "RCN Scooping All Edit Entry is Uploaded Successfully", scoop });
         }
+        else{
+            return res.status(500).json({ message: "internal server Error"});
+        }
 
        
     } catch (err) {

@@ -2,6 +2,7 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig";
 
 
+
 const RcnPrimary = sequelize.define('rcnEntry', {
     id: {
         type: DataTypes.INTEGER,
@@ -13,39 +14,58 @@ const RcnPrimary = sequelize.define('rcnEntry', {
         allowNull: false
        
     },
-    blNo: {
+    gatePassNo:{
         type: DataTypes.STRING,
         allowNull: false,
-       
     },
+
+    blNo: {
+        type: DataTypes.STRING,
+        allowNull: true,
+          
+    },
+    grossWt:{
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: false
+    },
+
     truckNo: {
         type: DataTypes.STRING,
         allowNull: false
     },
     conNo: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique:true
+        allowNull: true,
+        
     },
     blWeight: {
         type: DataTypes.FLOAT,
-        allowNull: false
+        allowNull: true
     },
+    status:{
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
+
     netWeight: {
         type: DataTypes.FLOAT,
-        allowNull: false
+        allowNull: true
     },
     difference: {
         type: DataTypes.FLOAT,
-        allowNull: false
+        allowNull: true
     },
     noOfBags: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
+    },
+    systemBags: {
+        type: DataTypes.FLOAT,
+        allowNull: true
     },
     origin: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     editStatus: {
         type: DataTypes.STRING,
@@ -57,20 +77,12 @@ const RcnPrimary = sequelize.define('rcnEntry', {
     },
     receivedBy: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     approvedBy: {
         type: DataTypes.STRING,
         allowNull: true
     }
-},
-    {
-        indexes: [
-            {
-                unique: true,
-                fields: ['blNo', 'conNo']
-            }
-        ]
-    });
+});
 
 export default RcnPrimary;

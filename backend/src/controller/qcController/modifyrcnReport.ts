@@ -40,26 +40,36 @@ const modifyrcnReport = async (req: Request, res: Response) => {
             },
            
         );
-        if (!rcnedit) {
-            return res.status(400).json({ message: " QC Rcn Edit Entry is not found" });
-        }
-
-        const rcn = await QcRCN.update(
-            {   
-               editStatus:'Pending',
-               reportStatus:0
-
-            },
-            {
-                where: {
-                    id,
+      
+        if(rcnedit){
+            const rcn = await QcRCN.update(
+                {   
+                   editStatus:'Pending',
+                   reportStatus:0
+    
                 },
+                {
+                    where: {
+                        id,
+                    },
+                }
+            );
+            if(rcn){
+                const data = await WhatsappMsg("RCN Incoming QC", createdBy,"modify_request")
+                 console.log(data)
+                    return res.status(200).json({ message: "RCN QC Report Edit Requested",rcn });
             }
-        );
+            else{
+                return res.status(400).json({ message: " QC Rcn Edit Entry is not found" });
+            }
+        }
+        else{
+            return res.status(400).json({ message: " QC Rcn Edit Entry is not found" });
 
-        const data = await WhatsappMsg("RCN Incoming QC", createdBy,"modify_request")
-        console.log(data)
-        return res.status(200).json({ message: "RCN QC Report Edit Requested",rcn });
+        }
+        
+
+        
     }
 
     catch (err) {

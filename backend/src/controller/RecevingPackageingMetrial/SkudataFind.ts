@@ -4,12 +4,28 @@ import { Op } from "sequelize";
 
 const SkudataFind = async (req: Request, res: Response) => {
     try {
-        const { sku } = req.body;
-        let where = {
-            [Op.or]: [
-                { sku: { [Op.like]: `%${sku}%` } },
-            ]
+        const { sku,type } = req.body;
+        const section = req.params.section;
+        let where
+        if(type){
+            where = {
+                [Op.and]: [
+                    { sku: { [Op.like]: `%${sku}%` } },
+                    { section: { [Op.like]: `%${section}%` } },
+                    { type: { [Op.like]: `%${type}%` } }
+                ]
+            }
+
         }
+        else{
+            where = {
+                [Op.and]: [
+                    { sku: { [Op.like]: `%${sku}%` } },
+                    { section: { [Op.like]: `%${section}%` } },
+                ]
+            }
+        }
+      
         const skuData = await SkuModel.findAll({ where });
         if (!skuData) return res.status(404).json({ message: "sku not found" });
         return res.status(200).json({ skuData });

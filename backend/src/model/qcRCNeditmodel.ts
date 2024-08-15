@@ -91,13 +91,6 @@ const QceditRCN = sequelize.define('QceditRCN', {
         defaultValue: 0
     }
    
-}, {
-    indexes: [
-        {
-            unique: true,
-            fields: ['conNo']
-        }
-    ]
 })
 
 
