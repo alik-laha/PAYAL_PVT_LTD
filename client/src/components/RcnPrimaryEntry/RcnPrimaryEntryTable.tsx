@@ -358,8 +358,8 @@ const RcnPrimaryEntryTable = () => {
 
                             return (
                                 <TableRow key={item.id}>
-                                    <TableCell className="text-center">{idx + 1}</TableCell>
-                                    <TableCell className="text-center">{item.gatePassNo}</TableCell>
+                                    <TableCell className="text-center ">{idx + 1}</TableCell>
+                                    <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center">{item.blNo}</TableCell>
@@ -367,7 +367,7 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center">{item.truckNo}</TableCell>
                                     <TableCell className="text-center">{item.grossWt} Kg</TableCell>
                                     <TableCell className="text-center">{item.blWeight} Kg</TableCell>
-                                    <TableCell className="text-center">{item.netWeight} Kg</TableCell>
+                                    <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} Kg</TableCell>
 
                                     {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)
                                         : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)}
@@ -441,7 +441,7 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center">{item.truckNo}</TableCell>
                                     <TableCell className="text-center">{item.grossWt} kg</TableCell>
                                     <TableCell className="text-center">{item.blWeight} Kg</TableCell>
-                                    <TableCell className="text-center">{item.netWeight} Kg</TableCell>
+                                    <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} Kg</TableCell>
                                     {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)
                                         : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)}
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>

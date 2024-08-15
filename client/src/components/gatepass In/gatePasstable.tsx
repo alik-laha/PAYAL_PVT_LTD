@@ -570,6 +570,24 @@ const GatePassTable = () => {
         }
 
     }
+    const handlesection = (tab: string) => {
+    let tabnew:string=''
+       if(tab==='RawCashew'){
+           tabnew='RCN' 
+       }else if(tab==='PackagingMaterial'){
+        
+            tabnew='PM' 
+        }
+        else if(tab==='Store'){
+        
+            tabnew='Store' 
+        }
+        
+       
+       const returnString=tabnew
+       return returnString
+
+    }
     const handleExcellExport = async () => {
         const response = await axios.put('/api/gatepass/gatepasssearch', {
             blConNo: blConNo,
@@ -689,11 +707,13 @@ const GatePassTable = () => {
                     <TableHead className="text-center" >Receiving/Dispatch</TableHead>
 
                     <TableHead className="text-center" >Verification/Approval</TableHead>
-                 
+                    <TableHead className="text-center" >Closure</TableHead>
+
+                    <TableHead className="text-center" >Receive/Dispatch_Section</TableHead>
                     <TableHead className="text-center" >Entry_Time</TableHead>
                     <TableHead className="text-center" >Exit_Time</TableHead>
                     
-                    <TableHead className="text-center" >Section</TableHead>
+                   
                     <TableHead className="text-center" >Doc_No.</TableHead>
 
                     <TableHead className="text-center" >Gross_Initial_Wt</TableHead>
@@ -741,11 +761,19 @@ const GatePassTable = () => {
                                             <button className="bg-green-400 rounded drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
                                         )}
                                     </TableCell>
+                                    <TableCell className="text-center ">
+                                        {item.status !== 'Closed' ? (
+                                            <button className="bg-red-500 rounded drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
+                                        ) :  (
+                                            <button className="bg-green-400 rounded drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
+                                        )}
+                                    </TableCell>
+                                    <TableCell className="text-center font-semibold">{handlesection(item.section)}</TableCell>
                                    
                                 <TableCell className="text-center">{handleAMPM(item.time)}</TableCell>
                                 <TableCell className="text-center">{item.OutTime===null? '':(handleAMPM(item.OutTime))}</TableCell>
                                 
-                                <TableCell className="text-center ">{item.section}</TableCell>
+                               
                                 
                                 <TableCell className="text-center">{item.DocNo}</TableCell>
                                 <TableCell className="text-center ">{item.grosswt} kg </TableCell>

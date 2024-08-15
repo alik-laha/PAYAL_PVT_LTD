@@ -22,7 +22,7 @@ try{
         
 
         if(RCNIncoming){
-            const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatePassNo,"gatepass_rcv_dispatch",'RCN Cashew IN')
+            const data = await WpMsgGatePassRcv("Raw Cashew Receiving", gatePassNo,"gatepass_rcv_dispatch",'RCN Cashew IN')
             console.log(data)
             return res.status(200).json({ message: "RCN Initial Entry Created Successfully" });
         }
@@ -35,7 +35,7 @@ try{
             grossWt:grossWt,
             truckNo:vehicle,    
         });
-        const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatePassNo,"gatepass_rcv_dispatch",'PC IN')
+        const data = await WpMsgGatePassRcv("Packaging Material Receiving", gatePassNo,"gatepass_rcv_dispatch",'PC IN')
         console.log(data)
 
         if(PCIncoming){

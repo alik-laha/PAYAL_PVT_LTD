@@ -101,7 +101,7 @@ const DashboardSidebar = () => {
                             && <CollapsibleContent className="Items-pvt">
                                 {renderlink('Dashboard User')}
                                 <NavLink to="/dashboard/vendorSKU" >
-                                Store Item Mapping
+                                Item/Vendor Mapping
                                 </NavLink>
                             </CollapsibleContent>}
 
