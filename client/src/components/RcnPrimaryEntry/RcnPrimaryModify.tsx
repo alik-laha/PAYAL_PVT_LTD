@@ -126,6 +126,9 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
                     <Label className="w-2/4 mt-2">Date of Reciving</Label>
                     <Input className="w-2/4 text-center bg-yellow-100 justify-center" placeholder="Date Of Receiving" type="date" value={date ? date.toISOString().split('T')[0] : '' } readOnly/>
                 </div>
+                <div className="flex"><Label className="w-2/4 mt-2"> Gross Weight (Kg)</Label>
+                    <Input className="w-2/4 text-center bg-yellow-100" placeholder="Gross Weight" type="number" value={grossWt} readOnly />
+                </div>
                 <div className="flex"><Label className="w-2/4 mt-2"> Net Weight (Kg)</Label>
                     <Input className="w-2/4 text-center bg-yellow-100" placeholder="Net Weight" type="number" value={netWeight} readOnly />
                 </div>
