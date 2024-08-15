@@ -151,7 +151,7 @@ const StorePrimaryTable = () => {
             })
     }
     const searchData = () => {
-        axios.post('/api/packageMaterial/getreceivematerial', { fromdate, todate, searchdata }, { params: { page: page, limit: limit } }).then((res) => {
+        axios.post('/api/storePrimary/getStorePrimary', { fromdate, todate, searchdata,gatepassSearch }, { params: { page: page, limit: limit } }).then((res) => {
             setData(res.data.PackageMaterials)
 
             if (res.data.PackageMaterials.length === 0) {

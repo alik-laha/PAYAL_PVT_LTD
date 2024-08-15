@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
-import PackageMaterial from "../../model/recevingPackagingMaterialModel";
+
 import { Op } from "sequelize";
-import gatePass from "../../model/gatepassModel";
+
+import storePrimaryModel from "../../model/storePrimaryModel";
 
 const SearchStorePrimary = async (req: Request, res: Response) => {
     try {
@@ -33,7 +34,7 @@ const SearchStorePrimary = async (req: Request, res: Response) => {
                         }
                     },
                     {
-                        gatePassNo:{[Op.like]:gatepassSearch}
+                        gatePassNo:{[Op.like]:`%${gatepassSearch}%`}
                     },
                     
                     {
@@ -68,7 +69,7 @@ const SearchStorePrimary = async (req: Request, res: Response) => {
         if (!searchdata && !fromdate && !todate && gatepassSearch) {
             where = {
                 
-                    gatePassNo:{[Op.like]:gatePass}
+                    gatePassNo:{[Op.like]:`%${gatepassSearch}%`}
               
                 ,status:{
                     [Op.eq]: 1
@@ -102,27 +103,27 @@ const SearchStorePrimary = async (req: Request, res: Response) => {
         }
         let PackageMaterials;
         if (page === 0 && size === 0) {
-            PackageMaterials = await PackageMaterial.findAll({
+            PackageMaterials = await storePrimaryModel.findAll({
                 where,
                 order: [['gatePassNo', 'DESC'],['recevingDate', 'DESC']]
                  // Order by date descending
             });
             if (PackageMaterials.length === 0) {
-                return res.status(200).json({ msg: 'Package Material found', PackageMaterials })
+                return res.status(200).json({ msg: 'Store Material found', PackageMaterials })
             }
-            return res.status(200).json({ msg: 'Package Material found', PackageMaterials })
+            return res.status(200).json({ msg: 'Store Material found', PackageMaterials })
         }
         else {
-            PackageMaterials = await PackageMaterial.findAll({
+            PackageMaterials = await storePrimaryModel.findAll({
                 where,
                 order: [['gatePassNo', 'DESC'],['recevingDate', 'DESC']], // Order by date descending
                 limit: limit,
                 offset: offset
             });
             if (PackageMaterials.length === 0) {
-                return res.status(200).json({ msg: 'Package Material found', PackageMaterials })
+                return res.status(200).json({ msg: 'Store Material found', PackageMaterials })
             }
-            return res.status(200).json({ msg: 'Package Material found', PackageMaterials })
+            return res.status(200).json({ msg: 'Store Material found', PackageMaterials })
         }
 
     } catch (error) {
