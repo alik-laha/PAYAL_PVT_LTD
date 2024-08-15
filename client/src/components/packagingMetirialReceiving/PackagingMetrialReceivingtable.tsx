@@ -69,6 +69,7 @@ const PackageMetrialRecivingTable = () => {
     const [EditSumData, setEditSumData] = useState<SumofpackageMetrialReceving>()
     const [fromdate, setfromDate] = useState('')
     const [searchdata, setSearchData] = useState('')
+    const [gatepassSearch, setgatepassSearch] = useState('')
     const [hidetodate, sethidetoDate] = useState('')
     const [todate, settoDate] = useState('')
     const [page, setPage] = useState(1)
@@ -126,7 +127,7 @@ const PackageMetrialRecivingTable = () => {
     }
     const handleApprove = (item: number) => {
         console.log(item)
-        axios.get(`/api/quality/accepteditrecevingpackagematerial/${item}`)
+        axios.get(`/api/packageMaterial/accepteditrecevingpackagematerial/${item}`)
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -138,7 +139,7 @@ const PackageMetrialRecivingTable = () => {
             })
     }
     const handleRejection = (item: number) => {
-        axios.get(`/api/quality/rejecteditrecevingpackagematerial/${item}`)
+        axios.get(`/api/packageMaterial/rejecteditrecevingpackagematerial/${item}`)
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -150,7 +151,7 @@ const PackageMetrialRecivingTable = () => {
             })
     }
     const searchData = () => {
-        axios.post('/api/quality/getreceivematerial', { fromdate, todate, searchdata }, { params: { page: page, limit: limit } }).then((res) => {
+        axios.post('/api/packageMaterial/getreceivematerial', { fromdate, todate, searchdata,gatepassSearch }, { params: { page: page, limit: limit } }).then((res) => {
             setData(res.data.PackageMaterials)
 
             if (res.data.PackageMaterials.length === 0) {
@@ -162,13 +163,13 @@ const PackageMetrialRecivingTable = () => {
     }
     const GetPendingEdit = async () => {
         // console.log("alik")
-        const Data = await axios.get('/api/quality/geteditrecevingpackagematerial');
+        const Data = await axios.get('/api/packageMaterial/geteditrecevingpackagematerial');
         console.log(Data)
         setEditData(Data.data)
 
     }
     const getSumOfAllEdit = async () => {
-        const Data = await axios.get('/api/quality/getsumofEditRecevingPackageMaterial');
+        const Data = await axios.get('/api/packageMaterial/getsumofEditRecevingPackageMaterial');
         setEditSumData(Data.data)
         setRecevingPacakanMaterialOverView(Data.data)
     }
@@ -183,10 +184,8 @@ const PackageMetrialRecivingTable = () => {
         getSumOfAllEdit()
     }, [])
     const exportToExcel = async () => {
-        const response = await axios.post('/api/quality/getreceivematerial', {
-            searchData,
-            fromdate,
-            todate
+        const response = await axios.post('/api/packageMaterial/getreceivematerial', {
+            fromdate, todate, searchdata,gatepassSearch
         })
         const data1 = response.data.PackageMaterials
         console.log(data1)
@@ -197,13 +196,21 @@ const PackageMetrialRecivingTable = () => {
 
             transformed = EditData.map((item: PackageMaterialReceivingData,idx:number) => ({
                 Sl_No: idx+1,
+                GatePass_No:item.gatePassNo,
                 Entry_Date: handletimezone(item.recevingDate),
+                Vehicle_No:item.truckNo,
+                Gross_Wt:item.grossWt,
+                Net_Wt:item.netWeight,
                 Invoice:item.invoice,
                 Invoice_Date: handletimezone(item.invoicedate),
+                Type_Of_Material:item.type,
                 SKU: item.sku,
                 Vendor_Name: item.vendorName,
-                Quantity: item.quantity,
+                Physical_Quantity: formatNumber(item.quantity),
+                Invoice_Quantity:item.invoicequantity,
                 Unit: item.unit,
+                Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
+                Remarks:item.remarks,
                 Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
                 Created_By: item.createdBy,
@@ -214,13 +221,21 @@ const PackageMetrialRecivingTable = () => {
         else {
             transformed = data1.map((item: PackageMaterialReceivingData,idx:number) => ({
                 Sl_No: idx+1,
+                GatePass_No:item.gatePassNo,
                 Entry_Date: handletimezone(item.recevingDate),
+                Vehicle_No:item.truckNo,
+                Gross_Wt:item.grossWt,
+                Net_Wt:item.netWeight,
                 Invoice:item.invoice,
                 Invoice_Date: handletimezone(item.invoicedate),
+                Type_Of_Material:item.type,
                 SKU: item.sku,
                 Vendor_Name: item.vendorName,
-                Quantity: item.quantity,
+                Physical_Quantity: formatNumber(item.quantity),
+                Invoice_Quantity:item.invoicequantity,
                 Unit: item.unit,
+                Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
+                Remarks:item.remarks,
                 Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
                 Created_By: item.createdBy,
@@ -248,20 +263,24 @@ const PackageMetrialRecivingTable = () => {
 
     }
 
+    function formatNumber(num: string) {
+        return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
+    }
+
 
 
     return (
         <>
 
 {checkpending('RCNPrimary') &&
-<Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" 
+<Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" disabled={EditSumData?.packagingMaterial===0 ?true :false}
 onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button>}
 
             <div className="ml-5 mt-5 ">
                 <div className="flex flexbox-search">
 
-
-
+                <Input className=" w-1/3 flexbox-search-width pl-3 mr-5 " placeholder="GatePass No" value={gatepassSearch} onChange={(e) => setgatepassSearch(e.target.value)} />
+                <Input className=" w-1/3 flexbox-search-width mr-5 ml-5 pl-3 no-margin" placeholder="SKU/Vendor" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
 
                     <label className="font-semibold mt-1  mr-5 flexbox-search-width-label-left ">From </label>
                     <Input className="w-1/6 flexbox-search-width-calender"
@@ -279,10 +298,10 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                         placeholder="To Date"
 
                     />
-                    <Input className=" w-1/5 flexbox-search-width ml-5 pl-3 no-margin" placeholder="SKU/Vendor/Inv" value={searchdata} onChange={(e) => setSearchData(e.target.value)} />
+                   
 
 
-                    <span className="w-1/8 ml-6"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+                    <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
                 {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
@@ -293,15 +312,26 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                         <TableHead className="text-center" >Sl No</TableHead>
+                        <TableHead className="text-center" >GatePass_No.</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
-                        <TableHead className="text-center" >Invoice_Date</TableHead>
-                        <TableHead className="text-center" >Invoice_No</TableHead>
-                        <TableHead className="text-center" >Item_Code(SKU)</TableHead>
+                        <TableHead className="text-center" >Vehicle_No</TableHead>
+                          <TableHead className="text-center" >Gross_Wt(Kg)</TableHead>
+                           <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
+                           <TableHead className="text-center" >Invoice_No</TableHead>
+                           <TableHead className="text-center" >Invoice_Date</TableHead>
+                           <TableHead className="text-center" >Item_Type</TableHead>
+                           <TableHead className="text-center" >Item_Code(SKU)</TableHead>
                         <TableHead className="text-center" >Vendor_Name</TableHead>
-                        <TableHead className="text-center" >Quantity</TableHead>
+                        
+                       
+                        <TableHead className="text-center" >Invoice_Qty</TableHead>
+                        <TableHead className="text-center" >Physical_Qty</TableHead>
                         <TableHead className="text-center" >Unit</TableHead>
+                        <TableHead className="text-center" > Row_Item_Wt(Kg)</TableHead>
+                     
                         <TableHead className="text-center" >Quality Status</TableHead>
                         <TableHead className="text-center" >Edit Status</TableHead>
+                        <TableHead className="text-center" > Remarks</TableHead>
                         <TableHead className="text-center" >Entried By</TableHead>
                         <TableHead className="text-center" >Actioned By</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
@@ -314,14 +344,21 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{idx + 1}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-600">{handletimezone(item.invoicedate)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.invoice}</TableCell>
-                                        <TableCell className="text-center">{item.sku}</TableCell>
-                                        <TableCell className="text-center">{item.vendorName}</TableCell>
-                                        <TableCell className="text-center">{item.quantity}</TableCell>
-
-                                        <TableCell className="text-center">{item.unit}</TableCell>
+                                        <TableCell className="text-center ">{item.truckNo}</TableCell>
+                                         <TableCell className="text-center ">{item.grossWt} </TableCell>
+                                          <TableCell className="text-center ">{item.netWeight}  </TableCell>
+                                          <TableCell className="text-center ">{item.invoice}</TableCell>
+                                          <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
+                                          <TableCell className="text-center ">{item.type}</TableCell>
+                                          <TableCell className="text-center">{item.sku}</TableCell>
+                                          <TableCell className="text-center">{item.vendorName}</TableCell>
+                                        <TableCell className="text-center">{item.invoicequantity}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.unit}</TableCell>
+                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :''} </TableCell>
+                                     
                                         <TableCell className="text-center ">
                                             {item.qualityStatus ? (
                                                 <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Done</button>
@@ -330,6 +367,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                             )}
                                         </TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
+                                        <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.approvedBy}</TableCell>
                                         <TableCell className="text-center">
@@ -379,15 +417,21 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-600">{handletimezone(item.invoicedate)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.invoice}</TableCell>
-                                        
-                                        <TableCell className="text-center">{item.sku}</TableCell>
-                                        <TableCell className="text-center">{item.vendorName}</TableCell>
-                                        <TableCell className="text-center">{item.quantity}</TableCell>
-
-                                        <TableCell className="text-center">{item.unit}</TableCell>
+                                        <TableCell className="text-center ">{item.truckNo}</TableCell>
+                                         <TableCell className="text-center ">{item.grossWt} </TableCell>
+                                          <TableCell className="text-center ">{item.netWeight}  </TableCell>
+                                          <TableCell className="text-center ">{item.invoice}</TableCell>
+                                          <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
+                                          <TableCell className="text-center ">{item.type}</TableCell>
+                                          <TableCell className="text-center">{item.sku}</TableCell>
+                                          <TableCell className="text-center">{item.vendorName}</TableCell>
+                                        <TableCell className="text-center">{item.invoicequantity}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.unit}</TableCell>
+                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :''} </TableCell>
+                                     
                                         <TableCell className="text-center ">
                                             {item.qualityStatus ? (
                                                 <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Done</button>
@@ -396,9 +440,10 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                             )}
                                         </TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
+                                        <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.approvedBy}</TableCell>
-
+                                        
                                         <TableCell className="text-center">
                                             <Popover>
                                                 <PopoverTrigger>
@@ -415,7 +460,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                                                     <p className='text-1xl pb-1 text-center mt-5'>Packaging Receiving Modification</p>
                                                                 </DialogTitle>
                                                                 <DialogDescription>
-                                                                    <p className='text-1xl text-center'>To Be Filled Up By Receving Supervisor</p>
+                                                                    <p className='text-1xl text-center'>To Be Filled Up By PM Receving Supervisor</p>
                                                                 </DialogDescription>
                                                             </DialogHeader>
                                                             <PackageMaterialReceivingModify data={item} />

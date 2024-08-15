@@ -24,15 +24,15 @@ const EditApprove = async (req: Request, res: Response) => {
             origin: rcn.origin,
             blNo: rcn.blNo,
             conNo: rcn.conNo,
-            truckNo: rcn.truckNo,
+            
             noOfBags: rcn.noOfBags,
             blWeight: rcn.blWeight,
-            netWeight: rcn.netWeight,
+            difference:rcn.difference,
             editStatus: "Approved",
             rcnStatus: rcn.rcnStatus,
             receivedBy: rcn.editedBy,
             approvedBy:approvedBy,
-            date:rcn.date
+           
         }, {
             where: {
                 id

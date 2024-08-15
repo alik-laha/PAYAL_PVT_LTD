@@ -16,6 +16,7 @@ import { PermissionRol, PermissionDep } from "../common/exportData";
 import { PermissionRole, PermissionDept } from "@/type/type";
 //import { LuServerCrash } from "react-icons/lu";
 import { IoMdSettings } from "react-icons/io";
+import { GiSecurityGate } from "react-icons/gi";
 
 
 
@@ -68,24 +69,21 @@ const DashboardSidebar = () => {
                 <a href="#" className="closebtn" onClick={closeSidebar}>&times;</a>
                 <a>
 
-                
-              
-                
-                    {rendersection('HR & Admin') && <Collapsible >
+                {rendersection('HR & Admin') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25} />
                             <p>Admin & HR</p></CollapsibleTrigger>
                             {renderlink('Dashboard User')
                             && <CollapsibleContent className="Items-pvt">
                                 {renderlink('Dashboard User')}
                                 <NavLink to="/dashboard/user" >
-                                    1. Dashboard Users
+                                Users
                                 </NavLink>
                             </CollapsibleContent>}
 
                         {renderlink('Employee')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/employee" >
-                                    2. Employee
+                                    Employee
                                 </NavLink>
                             </CollapsibleContent >}
 
@@ -95,13 +93,97 @@ const DashboardSidebar = () => {
                         {renderlink('Asset')
                             && <CollapsibleContent className="Items-pvt" >
                                 <NavLink to="/dashboard/machine" >
-                                    3. Asset Mapping
+                                   Asset Mapping
                                 </NavLink>
                             </CollapsibleContent >}
+
+                            {renderlink('VendorSKU')
+                            && <CollapsibleContent className="Items-pvt">
+                                {renderlink('Dashboard User')}
+                                <NavLink to="/dashboard/vendorSKU" >
+                                Item/Vendor Mapping
+                                </NavLink>
+                            </CollapsibleContent>}
 
 
 
                     </Collapsible>}
+                {rendersection('GatePass') && <Collapsible >
+                        <CollapsibleTrigger className="user-pvt"><GiSecurityGate  size={25} />
+                            <p>Gate Pass</p></CollapsibleTrigger>
+                            {renderlink('Gatepass')
+                            && <CollapsibleContent className="Items-pvt">
+                                {renderlink('Dashboard User')}
+                                <NavLink to="/dashboard/gatepassIn" >
+                                  Entry (In/Out)
+                                </NavLink>
+                            </CollapsibleContent>}
+                           
+                    </Collapsible>}
+                
+                    
+                    { Role!=='Security' && rendersection('Receiving') && 
+                    <Collapsible >
+                        <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25} />
+                            <p>Receiving/Dispatch</p></CollapsibleTrigger>
+
+                        {renderlink('RCN Primary Entry')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/rcnprimaryentry" >
+                                    RCN Incoming
+                                </NavLink>
+
+                            </CollapsibleContent>}
+                            {renderlink('Receiving Packaging Entry')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/recevingpackagingMaterial" >
+                                    Packaging Material
+                                </NavLink>
+                                </CollapsibleContent>}
+                                {renderlink('Receiving Store Entry')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/storePrimary" >
+                                    Store
+                                </NavLink>
+
+                            </CollapsibleContent>}
+                        {/* {renderlink('Receiving Almond Entry')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/recevingpackagingMaterial" >
+                                    Raw Almond
+                                </NavLink>
+
+                            </CollapsibleContent>}
+
+                         
+
+                            
+                                {renderlink('Receiving Civil Entry')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/recevingpackagingMaterial" >
+                                    Civil
+                                </NavLink>
+                                </CollapsibleContent>}
+                                {renderlink('Receiving Agarbati Entry')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/recevingpackagingMaterial" >
+                                    AgarBati
+                                </NavLink>
+                                </CollapsibleContent>}
+
+
+                                {renderlink('Receiving Purchase Entry')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/recevingpackagingMaterial" >
+                                    Purchase/Credit Note
+                                </NavLink>
+                                </CollapsibleContent>} */}
+
+
+                             
+
+                    </Collapsible>}
+                    
 
                     {rendersection('Production') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineFactory size={25} />
@@ -109,7 +191,7 @@ const DashboardSidebar = () => {
                         {renderlink('Grading')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/RcnGrading" >
-                                    1. RCN Grading
+                                    RCN Grading
                                 </NavLink>
                             </CollapsibleContent>}
 
@@ -118,7 +200,7 @@ const DashboardSidebar = () => {
 
                             &&  <CollapsibleContent className="Items-pvt">
                              <NavLink to="/dashboard/RcnBoiling" >
-                                2. RCN Boiling
+                                RCN Boiling
                             </NavLink>
                         </CollapsibleContent>}
                         {renderlink('Scooping')
@@ -126,7 +208,7 @@ const DashboardSidebar = () => {
 
                             &&  <CollapsibleContent className="Items-pvt">
                              <NavLink to="/dashboard/RcnScooping" >
-                                3. RCN Scooping
+                                RCN Scooping
                             </NavLink>
                         </CollapsibleContent>}
                         {renderlink('Borma')
@@ -134,34 +216,14 @@ const DashboardSidebar = () => {
 
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/RcnBorma" >
-                                    4. RCN Borma
+                                    RCN Borma
                                 </NavLink>
                             </CollapsibleContent>}
                     </Collapsible>}
 
                     
 
-                    {rendersection('Receiving') && 
-                    <Collapsible >
-                        <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25} />
-                            <p>Receiving</p></CollapsibleTrigger>
-
-                        {renderlink('RCN Primary Entry')
-                            && <CollapsibleContent className="Items-pvt">
-                                <NavLink to="/dashboard/rcnprimaryentry" >
-                                    1. RCN Primary Entry
-                                </NavLink>
-
-                            </CollapsibleContent>}
-                        {renderlink('Receiving Packaging Entry')
-                            && <CollapsibleContent className="Items-pvt">
-                                <NavLink to="/dashboard/recevingpackagingMaterial" >
-                                    2. Packaging Material
-                                </NavLink>
-
-                            </CollapsibleContent>}
-
-                    </Collapsible>}
+                    
 
 
         
@@ -171,7 +233,7 @@ const DashboardSidebar = () => {
                         {renderlink('RCN Incoming QC')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/qcRCN" >
-                                   1. RCN Incoming QC
+                                   RCN Incoming QC
                                 </NavLink>
                             </CollapsibleContent>}
 

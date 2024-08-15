@@ -2,12 +2,12 @@ import { Request, Response, NextFunction } from "express";
 
 const RcnPrimaryMiddleWare = (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin } = req.body;
+        const { origin, blNo, conNo,  blWeight, noOfBags} = req.body;
          const receivedBy = req.cookies.user;
         //const receivedBy = "alik";
 
-        if (!blNo || !truckNo || !conNo || !blWeight || !netWeight || !noOfBags || !origin) {
-            console.log(blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin);
+        if ( !blWeight  || !noOfBags || !origin) {
+            console.log(blNo, conNo, blWeight, noOfBags, origin);
             return res.status(400).json({ message: "All Fields Are Required" });
         }
         if (!receivedBy) {

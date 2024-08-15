@@ -12,29 +12,41 @@ const PackagingMaterial = sequelize.define('packagingMaterialreceving', {
         type: DataTypes.DATE,
         allowNull: false,
     },
+    truckNo: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     invoicedate: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
     },
     invoice: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     sku: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
+    },
+    type: {
+        type: DataTypes.STRING,
+        allowNull: true,
     },
     vendorName: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     quantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true,
+    },
+    invoicequantity: {
+        type: DataTypes.FLOAT,
+        allowNull: true,
     },
     unit: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     editStatus: {
         type: DataTypes.STRING,
@@ -48,13 +60,37 @@ const PackagingMaterial = sequelize.define('packagingMaterialreceving', {
     },
     createdBy: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     approvedBy: {
         type: DataTypes.STRING,
         allowNull: true,
-        defaultValue: "N/A"
+      
     },
+    status:{
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
+    netWeight: {
+        type: DataTypes.FLOAT,
+        allowNull: true
+    },
+    gatePassNo:{
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    grossWt:{
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: false
+    },
+    remarks:{
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    totalWt:{
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    }
 
 })
 export default PackagingMaterial;

@@ -13,6 +13,9 @@ const createAsset = async (req: Request, res: Response) => {
         if (asset) {
             return res.status(201).json({ message: "New Asset has been Created" });
         }
+        else{
+            return res.status(500).json({ message: "Error In Creating Asset"});
+        }
     } catch (err) {
         console.log(err)
         

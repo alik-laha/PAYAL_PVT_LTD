@@ -39,6 +39,11 @@ const SearchRcnPrimary = async (req: Request, res: Response) => {
                 }
             });
         }
+        whereClause.push({
+            status: {
+                [Op.eq]: 1
+            }
+        });
   
         // Convert the array to an object for the where condition
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};

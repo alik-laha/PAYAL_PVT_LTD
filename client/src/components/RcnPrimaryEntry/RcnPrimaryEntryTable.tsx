@@ -174,13 +174,16 @@ const RcnPrimaryEntryTable = () => {
 
             transformed = EditData.map((item: EditPendingData, idx: number) => ({
                 SL_No: idx + 1,
+                GatePass_No:item.gatePassNo,
                 Date: handletimezone(item.date),
                 Origin: item.origin,
                 Bl_No: item.blNo,
                 Con_No: item.conNo,
                 RCN_QC_Status: item.rcnStatus,
-                No_Of_Bags: item.noOfBags,
+                Physical_Bag_Count: item.noOfBags,
+                System_Bag_Count:item.systemBags,
                 Truck_No: item.truckNo,
+                Gross_Weight:item.grossWt,
                 Bl_Weight: item.blWeight,
                 Net_Weight: item.netWeight,
                 Difference: item.difference,
@@ -196,13 +199,16 @@ const RcnPrimaryEntryTable = () => {
         else {
             transformed = data1.rcnEntries.map((item: RcnPrimaryEntryData, idx: number) => ({
                 SL_No: idx + 1,
+                GatePass_No:item.gatePassNo,
                 Origin: item.origin,
                 Bl_No: item.blNo,
                 Con_No: item.conNo,
                 RCN_QC_Status: item.rcnStatus,
                 Date: handletimezone(item.date),
-                No_Of_Bags: item.noOfBags,
+                Physical_Bag_Count: item.noOfBags,
+                System_Bag_Count:item.systemBags,
                 Truck_No: item.truckNo,
+                Gross_Weight:item.grossWt,
                 Bl_Weight: item.blWeight,
                 Net_Weight: item.netWeight,
                 Difference: item.difference,
@@ -259,6 +265,7 @@ const RcnPrimaryEntryTable = () => {
         }
 
     }
+  
 
 
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -322,23 +329,23 @@ const RcnPrimaryEntryTable = () => {
 
             </div>
             {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
-
-
-
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Id</TableHead>
+                    <TableHead className="text-center" >GatePass_No</TableHead>
+                 
                     <TableHead className="text-center" >Origin</TableHead>
-                    <TableHead className="text-center" >Date of Receiving </TableHead>
-                    <TableHead className="text-center" >BL No.</TableHead>
-                    <TableHead className="text-center" >Con No.</TableHead>
-                    <TableHead className="text-center" >Truck No.</TableHead>
-
-                    <TableHead className="text-center" >BL Weight</TableHead>
-                    <TableHead className="text-center" >Net Weight</TableHead>
+                    <TableHead className="text-center" >Date_of_Receiving </TableHead>
+                    <TableHead className="text-center" >BL_No.</TableHead>
+                    <TableHead className="text-center" >Con_No.</TableHead>
+                    <TableHead className="text-center" >Truck_No.</TableHead>
+                    <TableHead className="text-center" >Gross_Weight</TableHead>
+                    <TableHead className="text-center" >BL_Weight</TableHead>
+                    <TableHead className="text-center" >Net_Weight</TableHead>
                     <TableHead className="text-center" >Difference</TableHead>
-                    <TableHead className="text-center" >Bag Count</TableHead>
+                    <TableHead className="text-center" >Physical Bag Count</TableHead>
+                    <TableHead className="text-center" >System Bag Count</TableHead>
                     <TableHead className="text-center" >QC Status</TableHead>
                     <TableHead className="text-center" >Edit Status </TableHead>
                     <TableHead className="text-center" >Entried By </TableHead>
@@ -351,20 +358,22 @@ const RcnPrimaryEntryTable = () => {
 
                             return (
                                 <TableRow key={item.id}>
-                                    <TableCell className="text-center">{idx + 1}</TableCell>
+                                    <TableCell className="text-center ">{idx + 1}</TableCell>
+                                    <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center">{item.blNo}</TableCell>
                                     <TableCell className="text-center">{item.conNo}</TableCell>
                                     <TableCell className="text-center">{item.truckNo}</TableCell>
+                                    <TableCell className="text-center">{item.grossWt} Kg</TableCell>
+                                    <TableCell className="text-center">{item.blWeight} Kg</TableCell>
+                                    <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} Kg</TableCell>
 
-                                    <TableCell className="text-center">{item.blWeight}</TableCell>
-                                    <TableCell className="text-center">{item.netWeight}</TableCell>
-
-                                    {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)
-                                        : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)}
+                                    {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)
+                                        : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)}
 
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.systemBags}</TableCell>
                                     <TableCell className="text-center ">
                                         {item.rcnStatus === 'QC Approved' ? (
                                             <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
@@ -424,17 +433,19 @@ const RcnPrimaryEntryTable = () => {
                             return (
                                 <TableRow key={item.id}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                    <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center">{item.blNo}</TableCell>
                                     <TableCell className="text-center">{item.conNo}</TableCell>
                                     <TableCell className="text-center">{item.truckNo}</TableCell>
-
-                                    <TableCell className="text-center">{item.blWeight}</TableCell>
-                                    <TableCell className="text-center">{item.netWeight}</TableCell>
-                                    {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)
-                                        : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))}</TableCell>)}
+                                    <TableCell className="text-center">{item.grossWt} kg</TableCell>
+                                    <TableCell className="text-center">{item.blWeight} Kg</TableCell>
+                                    <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} Kg</TableCell>
+                                    {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)
+                                        : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)}
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.systemBags}</TableCell>
                                     <TableCell className="text-center">
                                         {item.rcnStatus === 'QC Approved' ? (
                                             <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.rcnStatus}</button>
@@ -453,7 +464,7 @@ const RcnPrimaryEntryTable = () => {
                                                 <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                <Dialog>
+                                           <Dialog>
                                                     <DialogTrigger className="flex"><CiEdit size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                     </DialogTrigger>
@@ -479,7 +490,9 @@ const RcnPrimaryEntryTable = () => {
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
+                            <TableCell></TableCell>
                             <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
+                            <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>

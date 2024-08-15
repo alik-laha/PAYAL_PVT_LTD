@@ -1,47 +1,59 @@
-export const Origin = ["India", "Ghana", "IVC", "Benin", "Tanzania", "Nigeria", "Togo"]
-export const SelectType = ["LineWise","LotWise"]
-export const Dept: string[] = ['Admin', 'Receiving', 'Maintainance', 'QualityControl', 'Production']
-//export const optionsMapping:Record<string, string[]> = {Admin :['AdminSupervisor','Admin-Manager'],Receiving:['Receiving-Supervisor', 'Receiving-Manager'],Maintainance:['Maintainance-Supervisor'],Quality-Control:['QC-Supervisor','QC-Manager'],Production:[Production Manager]}
-export const Role: string[] = ['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager', 'MaintainanceSupervisor',
-    'MaintainanceManager'
-    , 'QCSupervisor', 'QCManager', 'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','BormaSuperVisor'
+
+
+export const Dept: string[] = ['Admin', 'Receiving', 'Maintainance', 'QualityControl', 'Production','GatePass']
+export const Role: string[] = ['Director', 'FactoryManager', 
+    'ReceivingSupervisor', 'ReceivingPMSupervisor','ReceivingManager', 'ReceivingAlmondSupervisor', 'ReceivingStoreSupervisor', 
+    'ReceivingAgarbatiSupervisor','ReceivingCivilSupervisor','ReceivingPurchaseSupervisor',
+    'Security','GatePassManager',
+    'MaintainanceSupervisor','MaintainanceManager',
+    'QCSupervisor', 'QCManager', 
+    'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','BormaSuperVisor'
 ]
-export const pageNo = 1
-export const pagelimit = 8
-export const timerLogout = 7200
-export const Section = ['Boiling', 'Grading', 'Scooping']
-export const MachineStatus = ['Active', 'Inactive', 'Discarded']
-export const Size = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
-export const Session_LogoutTime_Hr = 2
-export const cookingTime = ['00:07', '00:08', '00:09', '00:10', '00:11', '00:12']
-
-
 export const PermissionRol = {
-
-    Director: ['Employee', 'Dashboard User', 'Asset', 'RCN Primary Entry', 
-        'Receiving Packaging Entry','RCN Incoming QC', 'Grading', 'Boiling', 'Scooping','Cleaning','Borma'],
-    FactoryManager: ['Employee', 'Asset', 'RCN Primary Entry','Receiving Packaging Entry',
-         'RCN Incoming QC', 'Grading', 'Boiling', 'Scooping','Cleaning','Borma'],
-    ReceivingSupervisor: ['RCN Primary Entry','Receiving Packaging Entry'],
-    ReceivingManager: ['RCN Primary Entry','Receiving Packaging Entry'],
+    Director: ['Employee', 'Dashboard User', 'Asset', 'VendorSKU',
+        'RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry',
+        'RCN Incoming QC', 
+        'Grading', 'Boiling', 'Scooping','Borma',
+        'Cleaning',
+        'Gatepass'],
+    FactoryManager: ['Employee', 'Asset','VendorSKU', 
+        'RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry',
+        'RCN Incoming QC', 
+        'Grading', 'Boiling', 'Scooping','Borma',
+        'Cleaning',
+        'Gatepass'],
+    ReceivingSupervisor: ['RCN Primary Entry'],
+    ReceivingPMSupervisor: ['Receiving Packaging Entry'],
+    ReceivingManager: ['RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry'],
+    ReceivingAlmondSupervisor:['Receiving Almond Entry'],
+    ReceivingStoreSupervisor: ['Receiving Store Entry'],
+    ReceivingAgarbatiSupervisor:['Receiving Agarbati Entry'],
+    ReceivingCivilSupervisor:['Receiving Civil Entry'],
+    ReceivingPurchaseSupervisor:['Receiving Purchase Entry'],
     QCSupervisor: ['RCN Incoming QC'],
     QCManager: ['RCN Incoming QC'],
     GradingSupervisor: ['Grading'],
     BoilingSupervisor: ['Boiling'],
     ScoopingSupervisor: ['Scooping'],
-    ProductionManager:['Grading','Boiling','Scooping'],
+    ProductionManager:['Grading','Boiling','Scooping','Borma'],
     MaintainanceManager:['Cleaning'],
     CleaningSupervisor:['Cleaning'],
-    BormaSuperVisor:['Borma']
-
+    BormaSuperVisor:['Borma'],
+    Security:['Gatepass'],
+    GatePassManager:['Gatepass','RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry']
 }
 
 export const PermissionDep = {
-    Admin: ['HR & Admin', 'Receiving', 'Quality', 'Maintainance', 'Production'],
+    Admin: ['HR & Admin', 'GatePass','Receiving', 'Quality', 'Maintainance', 'Production'],
     Receiving: ['Receiving'],
     Maintainance: ['Maintainance'],
     Production: ['Production'],
     QualityControl: ['Quality'],
+    GatePass:['GatePass','Receiving']
   
 }
 
@@ -51,13 +63,50 @@ export const pendingCheckRole = {
     Grading: ['Director', 'FactoryManager', 'ProductionManager'],
     Boiling: ['Director', 'FactoryManager', 'ProductionManager'],
     Scooping: ['Director', 'FactoryManager', 'ProductionManager'],
-    Borma: ['Director', 'FactoryManager', 'ProductionManager']
+    Borma: ['Director', 'FactoryManager', 'ProductionManager'],
+    Gatepass: ['Director', 'FactoryManager', 'GatePassManager'],
+   
+}
+export const rcvCheckRole = {
+    RCNPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingSupervisor'],
+    PMPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingPMSupervisor'],
+    StorePrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingStoreSupervisor'],
+
+ 
 }
 export const roleDataonDept = {
     Admin: ['Director', 'FactoryManager'],
-    Receiving: ['ReceivingSupervisor', 'ReceivingManager'],
+    Receiving: ['ReceivingManager','ReceivingSupervisor', 'ReceivingPMSupervisor', 'ReceivingAlmondSupervisor',
+         'ReceivingStoreSupervisor', 'ReceivingAgarbatiSupervisor','ReceivingCivilSupervisor','ReceivingPurchaseSupervisor'],
     Maintainance: ['CleaningSupervisor', 'MaintainanceManager'],
     QualityControl: ['QCSupervisor', 'QCManager'],
     Production: ['ProductionManager', 'GradingSupervisor', 
-        'BoilingSupervisor', 'ScoopingSupervisor','BormaSuperVisor']
+        'BoilingSupervisor', 'ScoopingSupervisor','BormaSuperVisor'],
+    GatePass:['Security','GatePassManager']
 }
+export const pageNo = 1
+export const pagelimit = 8
+export const timerLogout = 7200
+export const Section = ['Boiling', 'Grading', 'Scooping','Borma']
+export const MachineStatus = ['Active', 'Inactive', 'Discarded']
+export const Size = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+export const Session_LogoutTime_Hr = 2
+export const cookingTime = ['00:07', '00:08', '00:09', '00:10', '00:11', '00:12']
+export const Origin = ["India", "Ghana", "IVC", "Benin", "Tanzania", "Nigeria", "Togo"]
+export const SelectType = ["LineWise","LotWise"]
+
+
+export const sectionDataonTypeGate = {
+    IN: ["RawCashew", "PackagingMaterial","Store"],
+    OUT: ["Store"],
+}
+export const SelectGatePassType = ["IN","OUT"]
+export const SKUSection = ['PackagingMaterial', 'Store' ]
+export const SKUUnit = ['Pc','Kg','Mtr','SqMtr','Ft','SqFt','Bag','Bucket','Ltr','Coil']
+export const SelectTypeSKUVendor = ["SKU","Vendor"]
+
+export const TypeOnSection = {
+    PackagingMaterial: ['Pouch','Bucket','Tin','Stickers','PlasticBag','PP','PlasticCan'],
+    Store:['ElectricalSpare','MechanicalSpare','Stationary','Chemical','Civil','Machine','Miscellaneous','Asset'],
+}
+

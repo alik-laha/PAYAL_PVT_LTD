@@ -8,6 +8,7 @@ export interface DatePickerProps {
 }
 
 export interface RcnPrimaryEntryData {
+   
     approvedBy: string;
     id: number;
     origin: string;
@@ -23,6 +24,10 @@ export interface RcnPrimaryEntryData {
     editStatus: string;
     receivedBy: string;
     createdAt: string;
+    gatePassNo:string;
+    grossWt:string;
+    status:number;
+    systemBags:string;            
 }
 export interface rcnScoopingData {
     id: number;
@@ -69,6 +74,7 @@ export interface EditPendingData extends RcnPrimaryEntryData {
 
 export interface QcRcnEntryExcelData {
     id: number;
+    gatePassNo:string;
     blNo: string;
     conNo: string;
     date: string;
@@ -123,6 +129,9 @@ export interface QcRcnEntryData {
 
 export interface scoopingpendingLotData {
     LotNo: string
+}
+export interface rcnpendingLotData {
+    gatePassNo: string
 }
 export interface BormapendingLotData {
     LotNo: string
@@ -200,13 +209,17 @@ export interface ExcelRcnPrimaryEntryData {
     Con_No: string;
     RCN_QC_Status: string;
     Date: string;
-    No_Of_Bags: string;
+    Physical_Bag_Count: string;
     Truck_No: string;
     Bl_Weight: string;
     Net_Weight: string;
     Difference: string;
     Edit_Status: string;
     Created_by: string;
+    GatePass_No:string;
+    Gross_Weight:string;
+    System_Bag_Count: string;
+
 
 }
 
@@ -273,6 +286,8 @@ export interface AssetData {
     createdBy: string;
     modifiedBy: string;
 }
+
+
 export interface AssetDataExcel {
     primaryAsset: string;
     id: number;
@@ -287,20 +302,29 @@ export interface AssetDataExcel {
 
 export interface PermissionRole {
 
+   
+
     Director: string[];
-    ReceivingManager: string[];
     FactoryManager: string[];
     ReceivingSupervisor: string[];
+    ReceivingPMSupervisor: string[];
+    ReceivingManager: string[];
+    ReceivingAlmondSupervisor:string[];
+    ReceivingStoreSupervisor: string[];
+    ReceivingAgarbatiSupervisor:string[];
+    ReceivingCivilSupervisor:string[];
+    ReceivingPurchaseSupervisor:string[];
     QCSupervisor: string[];
     QCManager: string[];
     GradingSupervisor: string[];
-    ScoopingSupervisor:string[];
-    BoilingSupervisor:string[];
-    CleaningSupervisor:string[];
+    BoilingSupervisor: string[];
+    ScoopingSupervisor: string[];
+    ProductionManager:string[];
     MaintainanceManager:string[];
+    CleaningSupervisor:string[];
     BormaSuperVisor:string[];
-
-
+    Security:string[];
+    GatePassManager:string[];
 
 }
 
@@ -310,6 +334,7 @@ export interface PermissionDept {
     Maintainance: string[];
     Production: string[];
     QualityControl: string[];
+    GatePass:string[];
 }
 export interface BoilingEntryData {
     moisture: string;
@@ -365,6 +390,17 @@ export interface pendingCheckRoles {
     RCNPrimary: string[];
     QCRCN: string[];
     Grading: string[];
+    Boiling: string[];
+    Scooping: string[];
+    Borma: string[];
+    Gatepass:string[];
+    
+}
+export interface rcvCheckRoles {
+    RCNPrimaryEntry: string[];
+    PMPrimaryEntry:string[];
+    StorePrimaryEntry:string[];
+    
 }
 
 export interface GradingExcelData {
@@ -428,20 +464,28 @@ export interface SkuData {
     id: number;
     sku: string;
     unit: string;
+    section:string;
     createdBy: string;
+    type:string;
 }
 export interface VendorData {
     id: number;
+    type:string;
     vendorName: string;
+    vendorAddress:string;
+    vendorContact:string;
+    section:string;
     createdBy: string;
 }
 
 export interface PackageMaterialReceivingData {
     id: number;
+    type:string;
     recevingDate: string;
     sku: string;
     vendorName: string;
     quantity: string;
+    invoicequantity:string;
     unit: string;
     invoicedate:string;
     invoice:string;
@@ -449,13 +493,47 @@ export interface PackageMaterialReceivingData {
     qualityStatus: string;
     editStatus: string;
     approvedBy: string;
+    truckNo: string;
+    status: number;
+    netWeight: string;
+    gatePassNo:string;
+    grossWt: string;
+    totalWt:string;
+    remarks:string;
+}
+
+export interface storeprimaryData {
+    id: number;
+    type:string;
+    recevingDate: string;
+    sku: string;
+    vendorName: string;
+    quantity: string;
+    invoicequantity:string;
+    unit: string;
+    invoicedate:string;
+    invoice:string;
+    createdBy: string;
+    qualityStatus: string;
+    editStatus: string;
+    approvedBy: string;
+    truckNo: string;
+    status: number;
+    netWeight: string;
+    gatePassNo:string;
+    grossWt: string;
+    totalWt:string;
+    remarks:string;
+    gateType:string;
 }
 
 export interface SumofpackageMetrialReceving {
     sumOfAllRecenvingPackageMaterial: number;
-    vendorName: number;
-    skuData: number;
     packagingMaterial: number;
+}
+export interface sumofStorePrimary {
+    sumofStorePrimary: number;
+    storePrimary: number;
 }
 
 export interface ExcelrecevingPackageMaterialData {
@@ -463,7 +541,8 @@ export interface ExcelrecevingPackageMaterialData {
     Entry_Date: string;
     SKU: string;
     Vendor_Name: string;
-    Quantity: string;
+    Physical_Quantity: string|number;
+    Invoice_Quantity: string;
     Unit: string;
     Quality_Status: string;
     Edit_Status: string;
@@ -471,6 +550,36 @@ export interface ExcelrecevingPackageMaterialData {
     Invoice_Date:string;
     Approved_Or_Rejected_By: string;
     Created_By: string;
+    Type_Of_Material:string;
+    Line_Weight:string|number;
+    GatePass_No:string;
+    Gross_Wt:string;
+    Net_Wt:string;
+    Vehicle_No:string;
+    Remarks:string;
+}
+export interface ExcelStorePrimaryData {
+    Sl_No: number;
+    Gate_Pass_Type:string;
+    Entry_Date: string;
+    SKU: string;
+    Vendor_Name: string;
+    Physical_Quantity: string|number;
+    Invoice_Quantity: string;
+    Unit: string;
+    Quality_Status: string;
+    Edit_Status: string;
+    Invoice:string;
+    Invoice_Date:string;
+    Approved_Or_Rejected_By: string;
+    Created_By: string;
+    Type_Of_Material:string;
+    Line_Weight:string|number;
+    GatePass_No:string;
+    Gross_Wt:string;
+    Net_Wt:string;
+    Vehicle_No:string;
+    Remarks:string;
 }
 
 export interface ScoopingExcelData {
@@ -511,6 +620,56 @@ export interface ScoopingExcelData {
     Transfered_Qty:string;
     Transfered_To:string;
 
+}
+
+export interface GatePassData {
+            id: number;
+            gatePassNo: string;
+            type:string;
+            date: string;
+            time: string;
+            grosswt: string;
+            DocNo: string;
+            grosswtNo: string;
+            vehicleNo: string;
+            driverName: string;
+            driverContact: string;
+            securityName: string;
+            section: string;
+            receivingStatus: number;
+            netWeight: string;
+            approvalStatus: number;
+            billAmount: string;
+            createdBy: string;
+            status: string;
+            modifiedBy: string;
+            OutTime:string;
+            Remarks:string;
+          
+}
+export interface GatePassExcelData {
+    Id: number;
+    GatePassNo: string;
+    Type:string;
+    Date: string;
+    In_Time: string;
+    Grosswt: string;
+    DocNo: string;
+    Gross_Wt_Bill: string;
+    VehicleNo: string;
+    DriverName: string;
+    DriverContact: string;
+    SecurityName: string;
+    Section: string;
+    ReceivingStatus: number;
+    NetWeight: string;
+    ApprovalStatus: number;
+    BillAmount: string;
+    Status: string;
+    Verified_By: string;
+    OutTime:string;
+    Remarks:string;
+  
 }
 
 

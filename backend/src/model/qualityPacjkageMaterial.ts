@@ -13,6 +13,10 @@ const QualityPackageMaterial = sequelize.define('QcPackageMaterial', {
             key: 'id'
         }
     },
+    gatePassNo:{
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     qualityStatus: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

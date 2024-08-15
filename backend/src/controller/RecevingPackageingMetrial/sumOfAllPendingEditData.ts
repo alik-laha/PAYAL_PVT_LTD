@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import EditPackagingMaterial from "../../model/editPackageingMaterialModel";
 import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
-import VendorName from "../../model/vendorNameModel";
-import SkuData from "../../model/SkuModel";
 import { Op } from "sequelize";
 
 const sumOfAllRecenvingPackageMaterial = async (req: Request, res: Response) => {
@@ -33,13 +31,12 @@ const sumOfAllRecenvingPackageMaterial = async (req: Request, res: Response) => 
                 }
                 ,editStatus:{
                     [Op.notLike]:'Pending'
-                }
-            }
+                },status:1
+            },distinct:true,col:'gatePassNo'
         });
-        const vendorName = await VendorName.count();
-        const skuData = await SkuData.count();
+    
         const packagingMaterial = await EditPackagingMaterial.count();
-        return res.status(200).json({ sumOfAllRecenvingPackageMaterial, vendorName, skuData, packagingMaterial });
+        return res.status(200).json({ sumOfAllRecenvingPackageMaterial, packagingMaterial });
     }
     catch (err) {
         console.log(err)

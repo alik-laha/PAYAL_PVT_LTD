@@ -91,13 +91,6 @@ const QcRCN = sequelize.define('QcRCN', {
         defaultValue: 0
     }
    
-}, {
-    indexes: [
-        {
-            unique: true,
-            fields: ['conNo']
-        }
-    ]
 })
 
 

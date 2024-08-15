@@ -1,31 +1,55 @@
 import { Request, Response } from "express";
 import { RcnPrimary } from "../../model/indexmapping";
+import gatePassMaster from "../../model/gatePassMasterModel";
+import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 
 const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
     try {
-        const { blNo, truckNo, conNo, blWeight, netWeight, noOfBags, origin, date } = req.body;
+        let { id,origin, blNo, conNo,  blWeight, noOfBags,gatepass } = req.body;
         // const date = new Date();
         const receivedBy = req.cookies.user;
         // const receivedBy = "RC User 1";
-        let difference = netWeight -blWeight ;
-        const rcnPrimaryExists = await RcnPrimary.findOne({ where: { blNo, conNo } });
-        if (rcnPrimaryExists) {
-            return res.status(400).json({ message: "Entry Already Exists With this Bl-No and Con-No" });
+        //let difference = netWeight -blWeight ;
+        // const rcnPrimaryExists = await RcnPrimary.findOne({ where: { blNo, conNo } });
+        // if (rcnPrimaryExists) {
+        //     return res.status(400).json({ message: "Entry Already Exists With this Bl-No and Con-No" });
+        // }
+
+        if(!blNo){
+            blNo='LOCAL PURCHASE'
+        }
+        if(!conNo){
+            conNo='NO CONTAINER'
         }
 
-        const rcnPrimary = await RcnPrimary.create({
-            date,
+        const rcnupdate=await RcnPrimary.update({
+           
             blNo,
-            truckNo,
             conNo,
             blWeight,
-            netWeight,
-            difference,
             noOfBags,
             origin,
-            receivedBy
+            receivedBy,
+            status:1}, {
+                where: {
+                    id: id
+                }
         });
-        res.status(201).json({ message: "Rcn Primary Entry is Created Successfully", rcnPrimary });
+        if (rcnupdate){
+            const gatepassupdate=await gatePassMaster.update({receivingStatus:1}, {
+                where: {
+                    gatePassNo: gatepass,
+                    section:'RawCashew'
+                }
+        });
+        if(gatepassupdate){
+            const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepass,"rcv_dispatch_complt",'RCN Cashew IN')
+            console.log(data)
+            res.status(201).json({ message: "Rcn Primary Entry is Created Successfully" });
+        }
+        }
+        
+     
 
     }
     catch (err) {

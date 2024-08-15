@@ -22,6 +22,11 @@ import PackagingMetirialReceiving from './components/packagingMetirialReceiving/
 import Cleaning from './components/Cleaning/Cleaning'
 import ViewProfile from './components/ViewProfile/ViewProfile'
 import RCNBorma from './components/RCN Borma/RCNBorma'
+import GatepassIn from './components/gatepass In/GatePassIn'
+import VendorSKU from './components/VendorSKU/VendorSku'
+import StorePrimary from './components/store Primary/StorePrimary'
+
+
 
 
 function App() {
@@ -60,10 +65,13 @@ function App() {
         <Route path='/' element={<Navigate to={"/dashboard"} replace />} />
         <Route path="/login" element={<Login />} />
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'ReceivingSupervisor', 'ReceivingManager', 'QCManager', 'QCSupervisor',
-          'ProductionManager', 'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor',
-          'CleaningSupervisor','MaintainanceSupervisor', 'MaintainanceManager','BormaSuperVisor']} />}>
+        <Route element={<Private allowedRoles={['Director','FactoryManager',
+    'ReceivingSupervisor','ReceivingPMSupervisor','ReceivingManager','ReceivingAlmondSupervisor','ReceivingStoreSupervisor',
+    'ReceivingAgarbatiSupervisor','ReceivingCivilSupervisor','ReceivingPurchaseSupervisor',
+    'QCSupervisor','QCManager',
+    'GradingSupervisor','BoilingSupervisor','ScoopingSupervisor','ProductionManager','BormaSuperVisor',
+    'MaintainanceManager','CleaningSupervisor',
+    'Security','GatePassManager']} />}>
 
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
@@ -79,12 +87,15 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager']} />}>
           <Route path="/dashboard/machine" element={<Machine />} />
         </Route>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager']} />}>
+          <Route path="/dashboard/vendorSKU" element={<VendorSKU />} />
+        </Route>
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager','GatePassManager']} />}>
           <Route path="/dashboard/rcnprimaryentry" element={<RcnPrimaryEntry />} />
         </Route>
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingPMSupervisor', 'ReceivingManager','GatePassManager']} />}>
           <Route path="/dashboard/recevingpackagingMaterial" element={<PackagingMetirialReceiving />} />
         </Route>
 
@@ -112,6 +123,13 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'CleaningSupervisor', 'MaintainanceManager']} />}>
           <Route path='/dashboard/cleaning' element={<Cleaning />} />
+        </Route>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'Security','GatePassManager']} />}>
+          <Route path='/dashboard/gatepassIn' element={<GatepassIn />} />
+        </Route>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingStoreSupervisor', 'ReceivingManager','GatePassManager']} />}>
+          <Route path="/dashboard/storePrimary" element={<StorePrimary />} />
         </Route>
 
         <Route path="/dashboard/userprofile" element={<ViewProfile />} />

@@ -9,6 +9,8 @@ import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 
+import { TypeOnSection } from "../common/exportData";
+
 interface Props {
     data: PackageMaterialReceivingData;
 }
@@ -19,7 +21,10 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
     const errordialog = document.getElementById('packagingMetirialReciveErrorUpdate') as HTMLInputElement;
     const closeDialogButton = document.getElementById('packageMetrialRecivecrossUpdate') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('packagigreciveerrorcrossUpdate') as HTMLInputElement;
-
+    const [truck, settruck] = useState("")
+    const [grossswt, setgrosswt] = useState("")
+    const [netwt, setnetwt] = useState("")
+    const [gatepassno, setgatepassno] = useState("")
     const [unit, setUnit] = useState("")
     const [errText, setErrText] = useState("")
     const [sku, setSku] = useState("")
@@ -33,15 +38,27 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
     const [vendorData, setVendorData] = useState<VendorData[]>([])
     const [date, setDate] = useState("")
     const quantityRef = useRef<HTMLInputElement>(null)
+    const invoicequantityRef = useRef<HTMLInputElement>(null)
+    const [remarks, setremarks] = useState("")
+    const [rowWt, setrowwt] = useState<string>('')
+    const [type, settype] = useState<string>('')
 
     useEffect(() => {
         setUnit(data.unit)
         setSku(data.sku)
+        settruck(data.truckNo)
         setVendorName(data.vendorName)
-    
+        setgrosswt(data.grossWt)
+        settype(data.type)
+        data.netWeight?setnetwt(data.netWeight):setnetwt('')
+        setgatepassno(data.gatePassNo)
+        settype(data.type)
         setinvoicedate(data.invoicedate.slice(0, 10))
         quantityRef.current!.value = data.quantity.toString()
         invoiceRef.current!.value = data.invoice
+        invoicequantityRef.current!.value = data.invoicequantity
+        setremarks(data.remarks)
+        setrowwt(data.totalWt)
         setDate(data.recevingDate.slice(0, 10))
         console.log(data.recevingDate.slice(0, 10))
     }, [])
@@ -69,7 +86,9 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         console.log("submit")
-        axios.post(`/api/quality/editrecevingpackagematerial/${data.id}`, { recevingDate: date, invoicedate,invoice:invoiceRef.current?.value, sku,vendorName, quantity: quantityRef.current?.value, unit })
+        axios.post(`/api/packageMaterial/editrecevingpackagematerial/${data.id}`, { 
+            grossswt,netwt,recevingDate:date,truck,gatepassno, invoicedate,invoice:invoiceRef.current?.value, type,sku,vendorName, 
+            quantity: quantityRef.current?.value,invoicequantity:invoicequantityRef.current?.value, unit,totalWt:rowWt,remarks })
             .then((res) => {
                 if (res.status === 201) {
                     (successdialog as any).showModal();
@@ -91,7 +110,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         } else {
             setSkuView("none")
         }
-        axios.post("/api/quality/skudatafind", { sku: e.target.value })
+        axios.post("/api/vendorSKU/skudatafind/PackagingMaterial", { sku: e.target.value,type:type })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -112,7 +131,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         } else {
             setVendorNameView("none")
         }
-        axios.post("/api/quality/vendornamefind", { vendorName: e.target.value })
+        axios.post(`/api/vendorSKU/vendornamefind/PackagingMaterial/`, { vendorName: e.target.value,type:'Vendor' })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -134,24 +153,53 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         setVendorName(item.vendorName)
         setVendorNameView("none")
     }
+  
+    const typesection='PackagingMaterial'
 
 
     return (
         <>
-             <div className="pl-10 pr-10 mt-6">
-                <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
-
+             <div className="pl-10 pr-10 mt-3 max-h-80 overflow-y-scroll">
+                <form className='flex flex-col gap-2 ' onSubmit={handleSubmit}>
+                <div className="flex"><Label className="w-2/4  pt-1">GatePass No.</Label>
+                <Input className="w-2/4 text-center bg-yellow-100" placeholder="GatePassNo." value={gatepassno} readOnly required /> </div>
+                <div className="flex"><Label className="w-2/4  pt-1">Vehicle No.</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="GatePassNo." value={truck} readOnly required /> </div>  
                     <div className="flex"><Label className="w-2/4  pt-1">Receiving Date</Label>
-                        <Input className="w-2/4 justify-center" placeholder="Receiving Date" value={date} onChange={(e)=>setDate(e.target.value)}required type="date" /> </div>
+                        <Input className="w-2/4 justify-center bg-yellow-100" placeholder="Receiving Date" value={date} required type="date" /> </div>
+                        
+                        <div className="flex"><Label className="w-2/4  pt-1">Gross Wt.(Kg)</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Gross Wt." value={grossswt} readOnly required /> </div>        
+                        
+                        <div className="flex"><Label className="w-2/4  pt-1">Net Wt.(Kg)</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Nt Wt." value={netwt} readOnly required /> </div>  
+
                         <div className="flex"><Label className="w-2/4  pt-1">Invoice No</Label>
-                        <Input className="w-2/4 " placeholder="Invoice No" required  ref={invoiceRef} /> </div>
-                        
-                        
+                        <Input className="w-2/4 text-center" placeholder="Invoice No" required  ref={invoiceRef} /> </div>
                         <div className="flex"><Label className="w-2/4  pt-1">Invoice Date</Label>
                         <Input className="w-2/4 justify-center" placeholder="Invoice Date" value={invoicedate} onChange={(e)=>setinvoicedate(e.target.value)}required type="date" /> </div>
+                        
+                        <div className="flex"><Label className="w-2/4  pt-1">Material Type</Label>
+                        <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
+px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>  settype(e.target.value)}
+                                                    value={type} required>
+                                                    <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Type</option>
+                                                    {/* {GatePassSection.map((item: any,idx:number) => (
+        <option key={idx} value={item}>{item}</option>
+    ))} */}
+                                                    {typesection ? (
+                                                        TypeOnSection[typesection as keyof typeof TypeOnSection].map((item) => (
+                                                            <option key={item} value={item}>{item}</option>
+                                                        ))
+                                                    ) : null}
+                                                </select> </div>
+                     
                     <div className="flex"><Label className="w-2/4  pt-1">SKU</Label>
-                        <Input className="w-2/4 " placeholder="SKU" required value={sku} onChange={handleSkuchange} /> </div>
-                    <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: skuview }}>
+                        <Input className="w-2/4 text-center" placeholder="SKU" required value={sku} onChange={handleSkuchange} /> </div>
+                    <ScrollArea className="max-h-24 w-2/4 overflow-scroll w-30 dropdown-content" style={{ display: skuview }}>
                         {
                             skudata.map((item: SkuData) => (
                                 <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(item)}>
@@ -163,9 +211,9 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
                     </ScrollArea>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Vendor Name</Label>
-                        <Input className="w-2/4 " placeholder="Vendor Name" required value={vendorName} onChange={handleVendorChange} /> </div>
+                        <Input className="w-2/4 text-center" placeholder="Vendor Name" required value={vendorName} onChange={handleVendorChange} /> </div>
 
-                    <ScrollArea className="max-h-24 overflow-scroll w-30 dropdown-content" style={{ display: vendorNameView }}>
+                    <ScrollArea className="max-h-24 w-2/4 overflow-scroll w-30 dropdown-content" style={{ display: vendorNameView }}>
                         {
                             vendorData.map((item: VendorData) => (
                                 <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick(item)}>
@@ -174,35 +222,23 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
                             ))
                         }
                     </ScrollArea>
+                    <div className="flex"><Label className="w-2/4  pt-1">Invoice Qty</Label>
+                    <Input className="w-2/4 text-center" placeholder="Qty" required type="number" ref={invoicequantityRef} step='0.01'/> </div>
 
-                    <div className="flex"><Label className="w-2/4  pt-1">Quantity</Label>
-                        <Input className="w-2/4 " placeholder="Quantity" required type="number" ref={quantityRef} /> </div>
+                    <div className="flex"><Label className="w-2/4  pt-1">Physical Qty</Label>
+                        <Input className="w-2/4 text-center" placeholder="Qty" required type="number" ref={quantityRef} step='0.01'/> </div>
+                        <div className="flex"><Label className="w-2/4  pt-1">Unit</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Qty" required value={unit} /> </div>
+                        <div className="flex"><Label className="w-2/4  pt-1">Row Item Wt</Label>
+                        <Input className="w-2/4 text-center" placeholder="Wt"  type="number" value={rowWt} step='0.01' onChange={(e)=> setrowwt(e.target.value)}/> </div>
+                        <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
+                        <Input className="w-2/4 text-center" placeholder="remarks"   value={remarks} onChange={(e)=> setremarks(e.target.value)}/> </div>
+                   
 
-                    <div className="flex"><Label className="w-2/4  pt-1">Unit</Label>
 
-                    <select className=' flex h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
-                    disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setUnit(e.target.value)} value={unit} required>
-                        <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
-                        focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value='' disabled>unit</option>
-                       
-                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                             value="Kg">
-                                Kg
-                            </option>
-                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                             value="pcs">
-                                Pcs
-                            </option>
-                       
-                    </select>
 
-                        
-                    </div>
+
+
 
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
                 </form>

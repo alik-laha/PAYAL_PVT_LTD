@@ -11,8 +11,17 @@ const SkuModel = sequelize.define('Sku', {
     sku: {
         type: DataTypes.STRING,
         allowNull: false,
+     
     },
     unit: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    section: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    type: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -20,5 +29,13 @@ const SkuModel = sequelize.define('Sku', {
         type: DataTypes.STRING,
         allowNull: false,
     }
-})
+    }, {
+        indexes: [
+            {
+                unique: true,
+                fields: ['sku','section']
+            }
+        ]
+    }
+)
 export default SkuModel;

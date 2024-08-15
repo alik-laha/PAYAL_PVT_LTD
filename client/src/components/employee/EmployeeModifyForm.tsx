@@ -152,8 +152,8 @@ const EmployeeModifyForm = (props: Props) => {
     }
 
     return (
-        <div className="pl-10 pr-10 ">
-            <form className='flex flex-col gap-0.5 text-xs' onSubmit={handleSubmit}>
+        <div className="pl-10 pr-10 max-h-80 overflow-y-scroll">
+            <form className='flex flex-col gap-0.5 text-xs mt-5' onSubmit={handleSubmit}>
 
                 <div className="flex">
                     <Label className="w-2/4 pt-1">Name</Label>
