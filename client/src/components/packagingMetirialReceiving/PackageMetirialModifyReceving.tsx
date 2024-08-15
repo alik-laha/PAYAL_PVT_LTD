@@ -8,6 +8,8 @@ import { SkuData, VendorData, PackageMaterialReceivingData } from "@/type/type"
 import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
+import { Textarea } from "../ui/textarea";
+import { TypeOnSection } from "../common/exportData";
 
 interface Props {
     data: PackageMaterialReceivingData;
@@ -36,6 +38,10 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
     const [vendorData, setVendorData] = useState<VendorData[]>([])
     const [date, setDate] = useState("")
     const quantityRef = useRef<HTMLInputElement>(null)
+    const invoicequantityRef = useRef<HTMLInputElement>(null)
+    const [remarks, setremarks] = useState("")
+    const [rowWt, setrowwt] = useState<string>('')
+    const [type, settype] = useState<string>('')
 
     useEffect(() => {
         setUnit(data.unit)
@@ -43,12 +49,16 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         settruck(data.truckNo)
         setVendorName(data.vendorName)
         setgrosswt(data.grossWt)
+        settype(data.type)
         data.netWeight?setnetwt(data.netWeight):setnetwt('')
         setgatepassno(data.gatePassNo)
-        
+        settype(data.type)
         setinvoicedate(data.invoicedate.slice(0, 10))
         quantityRef.current!.value = data.quantity.toString()
         invoiceRef.current!.value = data.invoice
+        invoicequantityRef.current!.value = data.invoicequantity
+        setremarks(data.remarks)
+        setrowwt(data.totalWt)
         setDate(data.recevingDate.slice(0, 10))
         console.log(data.recevingDate.slice(0, 10))
     }, [])
@@ -142,6 +152,16 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
         setVendorName(item.vendorName)
         setVendorNameView("none")
     }
+    const handleTypeChange = (data:PackageMaterialReceivingData,e: React.ChangeEvent<HTMLSelectElement>) => {
+        if(data.sku){
+           data.sku=''
+        }
+        settype(e.target.value)
+        //setVendorName(e.target.value)
+        
+       
+    }
+     const typesection='PackagingMaterial'
 
 
     return (
@@ -156,17 +176,34 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
                         <Input className="w-2/4 justify-center bg-yellow-100" placeholder="Receiving Date" value={date} required type="date" /> </div>
                         
                         <div className="flex"><Label className="w-2/4  pt-1">Gross Wt.(Kg)</Label>
-                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="GatePassNo." value={grossswt} readOnly required /> </div>        
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Gross Wt." value={grossswt} readOnly required /> </div>        
                         
                         <div className="flex"><Label className="w-2/4  pt-1">Net Wt.(Kg)</Label>
-                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="GatePassNo." value={netwt} readOnly required /> </div>  
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Nt Wt." value={netwt} readOnly required /> </div>  
 
                         <div className="flex"><Label className="w-2/4  pt-1">Invoice No</Label>
                         <Input className="w-2/4 text-center" placeholder="Invoice No" required  ref={invoiceRef} /> </div>
-                        
-                        
                         <div className="flex"><Label className="w-2/4  pt-1">Invoice Date</Label>
                         <Input className="w-2/4 justify-center" placeholder="Invoice Date" value={invoicedate} onChange={(e)=>setinvoicedate(e.target.value)}required type="date" /> </div>
+                        
+                        <div className="flex"><Label className="w-2/4  pt-1">Material Type</Label>
+                        <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
+px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleTypeChange(data, e)}
+                                                    value={type} required>
+                                                    <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Type</option>
+                                                    {/* {GatePassSection.map((item: any,idx:number) => (
+        <option key={idx} value={item}>{item}</option>
+    ))} */}
+                                                    {typesection ? (
+                                                        TypeOnSection[typesection as keyof typeof TypeOnSection].map((item) => (
+                                                            <option key={item} value={item}>{item}</option>
+                                                        ))
+                                                    ) : null}
+                                                </select> </div>
+                     
                     <div className="flex"><Label className="w-2/4  pt-1">SKU</Label>
                         <Input className="w-2/4 text-center" placeholder="SKU" required value={sku} onChange={handleSkuchange} /> </div>
                     <ScrollArea className="max-h-24 w-2/4 overflow-scroll w-30 dropdown-content" style={{ display: skuview }}>
@@ -192,12 +229,18 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
                             ))
                         }
                     </ScrollArea>
+                    <div className="flex"><Label className="w-2/4  pt-1">Invoice Qty</Label>
+                    <Input className="w-2/4 text-center" placeholder="Qty" required type="number" ref={invoicequantityRef} step='0.01'/> </div>
 
-                    <div className="flex"><Label className="w-2/4  pt-1">Amount/Quantity</Label>
+                    <div className="flex"><Label className="w-2/4  pt-1">Physical Qty</Label>
                         <Input className="w-2/4 text-center" placeholder="Qty" required type="number" ref={quantityRef} step='0.01'/> </div>
-
-                    <div className="flex"><Label className="w-2/4  pt-1">Unit</Label>
-                    <Input className="w-2/4 text-center" placeholder="Qty" required value={unit} /> </div>
+                        <div className="flex"><Label className="w-2/4  pt-1">Unit</Label>
+                        <Input className="w-2/4 text-center" placeholder="Qty" required value={unit} /> </div>
+                        <div className="flex"><Label className="w-2/4  pt-1">Row Item Wt</Label>
+                        <Input className="w-2/4 text-center" placeholder="Wt"  type="number" value={rowWt} step='0.01' onChange={(e)=> setrowwt(e.target.value)}/> </div>
+                        <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
+                        <Input className="w-2/4 text-center" placeholder="remarks"   value={remarks} onChange={(e)=> setremarks(e.target.value)}/> </div>
+                   
 
 
 
