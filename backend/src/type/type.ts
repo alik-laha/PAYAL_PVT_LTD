@@ -131,13 +131,38 @@ export interface PackageMaterialReceivingData {
     sku: string;
     vendorName: string;
     quantity: string;
+    invoicequantity: string;
     unit: string;
     createdBy: string;
     invoice: string;
     invoicedate: string;
     qualityStatus: string;
+    totalWt:string;
+    remarks:string;
     editStatus: string;
     approvedBy: string;
+
+}
+export interface storeRcvData {
+    id: number;
+    type:string;
+    sku: string;
+    vendorName: string;
+    quantity: string;
+    invoicequantity:string;
+    unit: string;
+    invoicedate:string;
+    invoice:string;
+    createdBy: string;
+    qualityStatus: string;
+    editStatus: string;
+    approvedBy: string;
+   
+    netWeight: string;
+ 
+    totalWt:string;
+    remarks:string;
+    gateType:string;
 
 }
 
