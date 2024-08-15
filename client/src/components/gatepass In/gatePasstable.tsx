@@ -573,10 +573,10 @@ const GatePassTable = () => {
     const handlesection = (tab: string) => {
     let tabnew:string=''
        if(tab==='RawCashew'){
-           tabnew='RCN' 
+           tabnew='Raw Cashew' 
        }else if(tab==='PackagingMaterial'){
         
-            tabnew='PM' 
+            tabnew='Packaging Material' 
         }
         else if(tab==='Store'){
         
@@ -703,13 +703,14 @@ const GatePassTable = () => {
                     <TableHead className="text-center" >Sl No.</TableHead>
                     <TableHead className="text-center" >GatePass_ID</TableHead>
                     <TableHead className="text-center" >Gate_Entry_Date</TableHead>
-                    <TableHead className="text-center" >In/Out</TableHead>
+                    <TableHead className="text-center" >Entry(In/Out)</TableHead>
+                    <TableHead className="text-center" >Rcv/Dispatch_Section</TableHead>
                     <TableHead className="text-center" >Receiving/Dispatch</TableHead>
 
                     <TableHead className="text-center" >Verification/Approval</TableHead>
                     <TableHead className="text-center" >Closure</TableHead>
 
-                    <TableHead className="text-center" >Receive/Dispatch_Section</TableHead>
+                
                     <TableHead className="text-center" >Entry_Time</TableHead>
                     <TableHead className="text-center" >Exit_Time</TableHead>
                     
@@ -746,32 +747,33 @@ const GatePassTable = () => {
                                 <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.gatePassNo}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                <TableCell className="text-center items-center justify-center">{item.type ==='IN'? <FaRegArrowAltCircleRight  size={20} />:<FaRegArrowAltCircleLeft  size={20}/>}</TableCell>  
+                                <TableCell className="text-center  font-semibold mt-3 flex"> {item.type ==='IN'? <FaRegArrowAltCircleRight color="blue" size={22} className="mr-5 "/>:<FaRegArrowAltCircleLeft color='red' size={22} className="mr-2"/>} {item.type}</TableCell>  
+                                <TableCell className="text-center font-semibold shadow-md ">{handlesection(item.section)}</TableCell>
                                 <TableCell className="text-center ">
                                         {item.receivingStatus === 0 ? (
-                                            <button className="bg-red-500 rounded drop-shadow-lg p-1 text-white  fix-button-width-rcnprimary">Pending</button>
+                                            <button className="bg-red-500 rounded shadow-md drop-shadow-lg p-1 text-white  fix-button-width-rcnprimary">Pending</button>
                                         ) :  (
-                                            <button className="bg-green-400 rounded drop-shadow-lg p-1 text-white  fix-button-width-rcnprimary ">Completed</button>
+                                            <button className="bg-green-400 rounded shadow-md drop-shadow-lg p-1 text-white  fix-button-width-rcnprimary ">Completed</button>
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center ">
                                         {item.approvalStatus === 0 ? (
-                                            <button className="bg-red-500 rounded drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
+                                            <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
                                         ) :  (
-                                            <button className="bg-green-400 rounded drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
+                                            <button className="bg-green-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
                                         )}
                                     </TableCell>
                                     <TableCell className="text-center ">
                                         {item.status !== 'Closed' ? (
-                                            <button className="bg-red-500 rounded drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
+                                            <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
                                         ) :  (
-                                            <button className="bg-green-400 rounded drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
+                                            <button className="bg-green-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
                                         )}
                                     </TableCell>
-                                    <TableCell className="text-center font-semibold">{handlesection(item.section)}</TableCell>
+                                    
                                    
-                                <TableCell className="text-center">{handleAMPM(item.time)}</TableCell>
-                                <TableCell className="text-center">{item.OutTime===null? '':(handleAMPM(item.OutTime))}</TableCell>
+                                <TableCell className="text-center  font-semibold">{handleAMPM(item.time)}</TableCell>
+                                <TableCell className="text-center font-semibold">{item.OutTime===null? '':(handleAMPM(item.OutTime))}</TableCell>
                                 
                                
                                 
