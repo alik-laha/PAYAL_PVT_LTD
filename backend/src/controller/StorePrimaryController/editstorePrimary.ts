@@ -56,9 +56,9 @@ const editstorePrimary = async (req: Request, res: Response) => {
             type,invoicequantity,remarks,totalWt
         });
       
-        if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Packaging material" });
-        const updatePackageMaterial = await packageMaterial.update({ editStatus: "Pending" }, { where: { id } });
-        if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Packaging material" });
+        if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Store material" });
+        const updatePackageMaterial = await storePrimaryModel.update({ editStatus: "Pending" }, { where: { id } });
+        if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Store material" });
         const data = await WhatsappMsg("Store Primary Rcv/Dispatch", createdBynew,"modify_request")
         console.log(data)
         return res.status(201).json({ message: "Store material edited successfully" });

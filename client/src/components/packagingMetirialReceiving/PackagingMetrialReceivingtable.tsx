@@ -446,7 +446,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                                                     <p className='text-1xl pb-1 text-center mt-5'>Packaging Receiving Modification</p>
                                                                 </DialogTitle>
                                                                 <DialogDescription>
-                                                                    <p className='text-1xl text-center'>To Be Filled Up By Receving Supervisor</p>
+                                                                    <p className='text-1xl text-center'>To Be Filled Up By PM Receving Supervisor</p>
                                                                 </DialogDescription>
                                                             </DialogHeader>
                                                             <PackageMaterialReceivingModify data={item} />

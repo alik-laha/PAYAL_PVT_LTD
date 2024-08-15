@@ -58,6 +58,7 @@ import Context from '../context/context';
 import { LuDownload } from "react-icons/lu";
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import StorePrimaryModify from "./StorePrimaryModify"
 
 const StorePrimaryTable = () => {
 
@@ -329,37 +330,28 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                     </TableHeader>
                     <TableBody>
                         {EditData.length > 0 ? (
-                            EditData.map((item: PackageMaterialReceivingData, idx: number) => {
+                            EditData.map((item: storeprimaryData, idx: number) => {
 
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
+                                        <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
                                         <TableCell className="text-center ">{item.truckNo}</TableCell>
-                                         <TableCell className="text-center ">{item.grossWt} </TableCell>
-                                          <TableCell className="text-center ">{item.netWeight} </TableCell>
-                                          <TableCell className="text-center ">{item.invoice}</TableCell>
-                                          <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
-                                          <TableCell className="text-center ">{item.type}</TableCell>
-                                          <TableCell className="text-center">{item.sku}</TableCell>
-                                          <TableCell className="text-center">{item.vendorName}</TableCell>
-                                       
-                                        
-                                        
-                                        
+                                        <TableCell className="text-center ">{item.grossWt} </TableCell>
+                                        <TableCell className="text-center ">{item.netWeight}  </TableCell>
+                                        <TableCell className="text-center ">{item.invoice}</TableCell>
+                                        <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
+                                        <TableCell className="text-center ">{item.type}</TableCell>
+                                        <TableCell className="text-center">{item.sku}</TableCell>
+                                        <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center">{item.invoicequantity}</TableCell>
-                                        <TableCell className="text-center">{item.quantity}</TableCell>
-
-                                        <TableCell className="text-center">{item.unit}</TableCell>
-                                        <TableCell className="text-center ">
-                                            {item.qualityStatus ? (
-                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Done</button>
-                                            ) : (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Pending</button>
-                                            )}
-                                        </TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.unit}</TableCell>
+                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?item.totalWt.concat(' Kg') :''} </TableCell> 
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
+                                        <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.approvedBy}</TableCell>
                                         <TableCell className="text-center">
@@ -409,34 +401,25 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                            <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
-                                            <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
+                                        <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
                                         <TableCell className="text-center ">{item.truckNo}</TableCell>
-                                         <TableCell className="text-center ">{item.grossWt} </TableCell>
-                                          <TableCell className="text-center ">{item.netWeight}  </TableCell>
-                                          <TableCell className="text-center ">{item.invoice}</TableCell>
-                                          <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
-                                          <TableCell className="text-center ">{item.type}</TableCell>
-                                          <TableCell className="text-center">{item.sku}</TableCell>
-                                          <TableCell className="text-center">{item.vendorName}</TableCell>
-                                          
-                              
-                                        
-                                        
-                                        
+                                        <TableCell className="text-center ">{item.grossWt} </TableCell>
+                                        <TableCell className="text-center ">{item.netWeight}  </TableCell>
+                                        <TableCell className="text-center ">{item.invoice}</TableCell>
+                                        <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
+                                        <TableCell className="text-center ">{item.type}</TableCell>
+                                        <TableCell className="text-center">{item.sku}</TableCell>
+                                        <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
-
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?item.totalWt.concat(' Kg') :''} </TableCell>
-                                     
-                                      
+                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?item.totalWt.concat(' Kg') :''} </TableCell> 
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.approvedBy}</TableCell>
-                                        
                                         <TableCell className="text-center">
                                             <Popover>
                                                 <PopoverTrigger>
@@ -450,13 +433,14 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                                         <DialogContent>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>Packaging Receiving Modification</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-5'>Store Item Modification</p>
                                                                 </DialogTitle>
                                                                 <DialogDescription>
-                                                                    <p className='text-1xl text-center'>To Be Filled Up By Receving Supervisor</p>
+                                                                    <p className='text-1xl text-center'>To Be Filled Up By Store Receving Supervisor</p>
                                                                 </DialogDescription>
                                                             </DialogHeader>
-                                                            {/* <PackageMaterialReceivingModify data={item} /> */}
+                                                            <StorePrimaryModify data={item} />
+                                                            
                                                         </DialogContent>
                                                     </Dialog>
                                                 </PopoverContent>
