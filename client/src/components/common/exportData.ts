@@ -97,8 +97,8 @@ export const SelectType = ["LineWise","LotWise"]
 
 
 export const sectionDataonTypeGate = {
-    IN: ["RawCashew", "PackagingMaterial","Store"],
-    OUT: ["Store"],
+    IN: ["RawCashew", "PackagingMaterial","Store",'General'],
+    OUT: ["Store",'General'],
 }
 export const SelectGatePassType = ["IN","OUT"]
 export const SKUSection = ['PackagingMaterial', 'Store' ,'General']

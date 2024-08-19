@@ -5,6 +5,7 @@ import RcnPrimary from "../../model/RcnEntryModel";
 import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
+import generalPrimaryModel from "../../model/generalPrimaryModel";
 
 
 
@@ -98,7 +99,28 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                 );
 
                 if (pmupdate) {
-                    const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatepassNo,"gatepass_release",'Packaging Material Incoming')
+                    const data = await WpMsgGatePassRcv("Store Item Rcv/Dispatch", gatepassNo,"gatepass_release",'Store Item Rcv/Dispatch')
+                    console.log(data)
+                    return res.status(200).json({ message: "Gate Pass Details Modified and Approved Successfully" });
+                }
+            }
+            if (section === 'General' ) {
+                const generalupdate = await generalPrimaryModel.update(
+                    {
+                        grossWt: grossWt,
+                        truckNo: vehicle,
+                        netWeight: netwt,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo: gatepassNo
+                        },
+                    }
+                );
+
+                if (generalupdate) {
+                    const data = await WpMsgGatePassRcv("General Item Rcv/Dispatch", gatepassNo,"gatepass_release",'General Item Rcv/Dispatch')
                     console.log(data)
                     return res.status(200).json({ message: "Gate Pass Details Modified and Approved Successfully" });
                 }
@@ -133,6 +155,12 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                 }
                 if (section === 'Store'){
                     const data = await WpMsgGatePassRcv("Store Entry/Dispatch", gatepassNo,"gatepass_release",'Store Entry/Dispatch')
+                    console.log(data)
+                return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
+
+                }
+                if (section === 'General'){
+                    const data = await WpMsgGatePassRcv("General Item Rcv/Dispatch", gatepassNo,"gatepass_release",'General Item Rcv/Dispatch')
                     console.log(data)
                 return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
 

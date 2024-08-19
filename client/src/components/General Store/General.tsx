@@ -21,8 +21,8 @@ import GeneralStoreInitial from "./CreateGeneralInitial";
 import GeneralStoreTable from "./GeneralTable";
 
 const GeneralStore = () => {
-    const { StorePrimaryOverView } = useContext(Context);
-    console.log(StorePrimaryOverView)
+    const { GeneralPrimaryOverView } = useContext(Context);
+    console.log(GeneralPrimaryOverView)
     const [lotdata, setLotData] = useState<rcnpendingLotData[]>([])
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const handleOpenLotNo = async () => {
@@ -50,7 +50,7 @@ const GeneralStore = () => {
                 <div className="flexbox-header">
                    
                     <div className="flexbox-tile bg-cyan-500 hover:bg-cyan-600">
-                        Financial Year Entry <br /><p>{StorePrimaryOverView?.sumofStorePrimary}</p>
+                        Financial Year Entry <br /><p>{GeneralPrimaryOverView?.sumofGeneralPrimary}</p>
                     </div>
                 </div>
                 {checkreceiving('GeneralPrimaryEntry') && <Dialog>
