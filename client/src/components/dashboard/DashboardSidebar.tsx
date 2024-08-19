@@ -148,7 +148,7 @@ const DashboardSidebar = () => {
                                 {renderlink('Receiving Store Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/storePrimary" >
-                                    Store
+                                    Store Items
                                 </NavLink>
 
                             </CollapsibleContent>}

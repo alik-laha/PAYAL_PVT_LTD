@@ -312,7 +312,7 @@ export interface PermissionRole {
     ReceivingAlmondSupervisor:string[];
     ReceivingStoreSupervisor: string[];
     ReceivingAgarbatiSupervisor:string[];
-    ReceivingCivilSupervisor:string[];
+    ReceivingGeneralSupervisor:string[];
     ReceivingPurchaseSupervisor:string[];
     QCSupervisor: string[];
     QCManager: string[];
