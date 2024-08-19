@@ -2,14 +2,9 @@ import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
 
 
-
-
-import SearchStorePrimary from '../controller/StorePrimaryController/searchStorePrimary';
-import sumofStorePrimary from '../controller/StorePrimaryController/sumofStorePrimary';
-import getEditStorePrimary from '../controller/StorePrimaryController/getEditStorePrimary';
 import editstorePrimary from '../controller/StorePrimaryController/editstorePrimary';
 
-import rejectStorePrimaryEdit from '../controller/StorePrimaryController/rejectStoreEditPrimary';
+
 import getUnEntriedGeneralPrimary from '../controller/generalStoreController/getGeneralNotEntried';
 import getGeneralbyGatePass from '../controller/generalStoreController/getGeneralByGatePass';
 import updateRcvGeneral from '../controller/generalStoreController/updateRcvGeneral';
@@ -17,6 +12,9 @@ import createGeneralPrimary from '../controller/generalStoreController/createGen
 import deleteGeneralPrimary from '../controller/generalStoreController/deleteGeneralPrimarybyID';
 import acceptGeneralEditPrimary from '../controller/generalStoreController/acceptGeneralEditPrimary';
 import rejectGeneralPrimaryEdit from '../controller/generalStoreController/rejectGeneralEditPrimary';
+import SearchGeneralPrimary from '../controller/generalStoreController/getGeneralSearch';
+import sumofGeneralPrimary from '../controller/generalStoreController/SumOfGeneralPrimary';
+import getEditGeneralPrimary from '../controller/generalStoreController/getEditGeneralPrimary';
 
 const router = express.Router();
 
@@ -26,9 +24,9 @@ router.put("/updateRcvGeneral/:id",jwtVerify, updateRcvGeneral)
 router.post("/createGeneralPrimary",jwtVerify, createGeneralPrimary)
 router.post("/deleteGeneralPrimaryByID", jwtVerify, deleteGeneralPrimary)
 
-router.post("/getStorePrimary", jwtVerify,SearchStorePrimary)
-router.get("/getsumofPM",jwtVerify, sumofStorePrimary)
-router.get("/getEditStorePrimary",jwtVerify, getEditStorePrimary)
+router.post("/getGeneralPrimary", jwtVerify,SearchGeneralPrimary)
+router.get("/getsumofGeneral",jwtVerify, sumofGeneralPrimary)
+router.get("/getEditGeneralPrimary",jwtVerify, getEditGeneralPrimary)
 
 router.post("/editStorePrimary/:id",jwtVerify, editstorePrimary)
 router.get('/acceptEditGeneralPrimary/:id', jwtVerify,acceptGeneralEditPrimary)

@@ -50,7 +50,7 @@ import {
 } from "@/components/ui/pagination"
 import { CiEdit } from "react-icons/ci";
 import { pagelimit, pendingCheckRole } from "../common/exportData"
-import {  pendingCheckRoles, PermissionRole, storeprimaryData, ExcelStorePrimaryData, sumofGeneralPrimary } from '@/type/type'
+import {  pendingCheckRoles, PermissionRole, generalprimaryData, ExcelStorePrimaryData, sumofGeneralPrimary } from '@/type/type'
 import axios from 'axios'
 //import PackageMaterialReceivingModify from "./PackageMetirialModifyReceving"
 import { useContext } from 'react';
@@ -153,7 +153,11 @@ const GeneralStoreTable = () => {
     }
     const searchData = () => {
         axios.post('/api/generalPrimary/getGeneralPrimary', { fromdate, todate, searchdata,gatepassSearch }, { params: { page: page, limit: limit } }).then((res) => {
-            setData(res.data.PackageMaterials)
+            
+            
+                setData(res.data.PackageMaterials)
+            
+           
 
             if (res.data.PackageMaterials.length === 0) {
                 setPage((prev) => prev - 1)
@@ -276,8 +280,8 @@ const GeneralStoreTable = () => {
         <>
 
 {checkpending('RCNPrimary') &&
-<Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" disabled={EditSumData?.storePrimary===0 ?true :false}
-onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
+<Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" disabled={EditSumData?.GeneralPrimary===0 ?true :false}
+onClick={GetPendingEdit}>Pending Edit ({EditSumData?.GeneralPrimary})</Button>}
 
             <div className="ml-5 mt-5 ">
                 <div className="flex flexbox-search">
@@ -346,7 +350,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                     </TableHeader>
                     <TableBody>
                         {EditData.length > 0 ? (
-                            EditData.map((item: storeprimaryData, idx: number) => {
+                            EditData.map((item: generalprimaryData, idx: number) => {
 
                                 return (
                                     <TableRow key={item.id}>
@@ -411,7 +415,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                 );
                             })
                         ) : (
-                            Data.length > 0 ? (Data.map((item: storeprimaryData, idx: number) => {
+                            Data.length > 0 ? (Data.map((item: generalprimaryData, idx: number) => {
 
 
                                 return (
@@ -449,7 +453,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                                         <DialogContent>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>Store Item Modification</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-5'>General Item Modification</p>
                                                                 </DialogTitle>
                                                                 <DialogDescription>
                                                                     <p className='text-1xl text-center'>To Be Filled Up By Store Receving Supervisor</p>
