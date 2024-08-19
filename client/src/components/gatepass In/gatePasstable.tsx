@@ -801,6 +801,10 @@ const GatePassTable = () => {
         
             tabnew='Store' 
         }
+        else if(tab==='General'){
+        
+          tabnew='General' 
+      }
         
        
        const returnString=tabnew
