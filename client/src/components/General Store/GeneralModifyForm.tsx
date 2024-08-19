@@ -88,7 +88,7 @@ const GeneralPrimaryModify = ({ data }: Props) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         console.log("submit")
-        axios.post(`/api/storePrimary/editStorePrimary/${data.id}`, { 
+        axios.post(`/api/generalPrimary/editGeneralPrimary/${data.id}`, { 
             grossswt,netwt,gateType,recevingDate:date,truck,gatepassno, invoicedate,invoice:invoiceRef.current?.value, type,sku,vendorName, 
             quantity: quantityRef.current?.value,invoicequantity:invoicequantityRef.current?.value, unit,totalWt:rowWt,remarks })
             .then((res) => {
@@ -112,7 +112,7 @@ const GeneralPrimaryModify = ({ data }: Props) => {
         } else {
             setSkuView("none")
         }
-        axios.post("/api/vendorSKU/skudatafind/Store", { sku: e.target.value,type:type })
+        axios.post("/api/vendorSKU/skudatafind/General", { sku: e.target.value,type:type })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -141,7 +141,7 @@ const GeneralPrimaryModify = ({ data }: Props) => {
 
              vendorType='Party'
         }
-        axios.post(`/api/vendorSKU/vendornamefind/Store/`, { vendorName: e.target.value,type:vendorType })
+        axios.post(`/api/vendorSKU/vendornamefind/General/`, { vendorName: e.target.value,type:vendorType })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -164,7 +164,7 @@ const GeneralPrimaryModify = ({ data }: Props) => {
         setVendorNameView("none")
     }
   
-    const typesection='Store'
+    const typesection='General'
 
 
     return (

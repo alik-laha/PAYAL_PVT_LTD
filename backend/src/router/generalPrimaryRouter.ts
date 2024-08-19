@@ -2,7 +2,6 @@ import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
 
 
-import editstorePrimary from '../controller/StorePrimaryController/editstorePrimary';
 
 
 import getUnEntriedGeneralPrimary from '../controller/generalStoreController/getGeneralNotEntried';
@@ -15,6 +14,7 @@ import rejectGeneralPrimaryEdit from '../controller/generalStoreController/rejec
 import SearchGeneralPrimary from '../controller/generalStoreController/getGeneralSearch';
 import sumofGeneralPrimary from '../controller/generalStoreController/SumOfGeneralPrimary';
 import getEditGeneralPrimary from '../controller/generalStoreController/getEditGeneralPrimary';
+import editGeneralPrimary from '../controller/generalStoreController/editGeneralPrimary';
 
 const router = express.Router();
 
@@ -28,7 +28,7 @@ router.post("/getGeneralPrimary", jwtVerify,SearchGeneralPrimary)
 router.get("/getsumofGeneral",jwtVerify, sumofGeneralPrimary)
 router.get("/getEditGeneralPrimary",jwtVerify, getEditGeneralPrimary)
 
-router.post("/editStorePrimary/:id",jwtVerify, editstorePrimary)
+router.post("/editGeneralPrimary/:id",jwtVerify, editGeneralPrimary)
 router.get('/acceptEditGeneralPrimary/:id', jwtVerify,acceptGeneralEditPrimary)
 router.get("/rejectEditGeneralPrimary/:id",jwtVerify, rejectGeneralPrimaryEdit)
 

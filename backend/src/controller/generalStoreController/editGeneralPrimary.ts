@@ -1,16 +1,17 @@
 import { Request, Response } from "express";
 
-
 import {  storeRcvData } from "../../type/type";
 
 import WhatsappMsg from "../../helper/WhatsappMsg";
 import SkuModel from "../../model/SkuModel";
 import VendorName from "../../model/vendorNameModel";
-import storePrimaryModel from "../../model/storePrimaryModel";
-import storePrimaryEditModel from "../../model/storePrimaryEditModel";
 
 
-const editstorePrimary = async (req: Request, res: Response) => {
+import generalPrimaryModel from "../../model/generalPrimaryModel";
+import generalPrimaryEditModel from "../../model/generalPrimaryEditModel";
+
+
+const editGeneralPrimary = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const createdBynew= req.cookies.user
@@ -23,22 +24,22 @@ const editstorePrimary = async (req: Request, res: Response) => {
         else{
             vendortype='Party'
         }
-        let skuData = await SkuModel.findOne({ where: { sku ,type,section:'Store'} });
-        let vendorData = await VendorName.findOne({ where: { vendorName,type:vendortype,section:'Store' } });
+        let skuData = await SkuModel.findOne({ where: { sku ,type,section:'General'} });
+        let vendorData = await VendorName.findOne({ where: { vendorName,type:vendortype,section:'General' } });
         if(!skuData || !vendorData){
             return res.status(500).json({ message: "SKU/Vendor Does Not Exist" });
         }
         else{
             
-        const packageMaterialData: storeRcvData = await storePrimaryModel.findOne({ where: { id } }) as unknown as storeRcvData;
-        if (!packageMaterialData) return res.status(404).json({ message: "store material not found" });
+        const packageMaterialData: storeRcvData = await generalPrimaryModel.findOne({ where: { id } }) as unknown as storeRcvData;
+        if (!packageMaterialData) return res.status(404).json({ message: "general material not found" });
         let netwt=req.body.netwt
         if(netwt===''|| netwt===null)
         {
             netwt=0
         }
         console.log(req.body)
-        const editPackageMaterial = await storePrimaryEditModel.create({
+        const editPackageMaterial = await generalPrimaryEditModel.create({
             id: packageMaterialData.id,
             gateType:gateType,
             truckNo:truck,
@@ -56,12 +57,12 @@ const editstorePrimary = async (req: Request, res: Response) => {
             type,invoicequantity,remarks,totalWt
         });
       
-        if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Store material" });
-        const updatePackageMaterial = await storePrimaryModel.update({ editStatus: "Pending" }, { where: { id } });
-        if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Store material" });
-        const data = await WhatsappMsg("Store Primary Rcv/Dispatch", createdBynew,"modify_request")
+        if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing general material" });
+        const updatePackageMaterial = await generalPrimaryModel.update({ editStatus: "Pending" }, { where: { id } });
+        if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing general material" });
+        const data = await WhatsappMsg("General Primary Rcv/Dispatch", createdBynew,"modify_request")
         console.log(data)
-        return res.status(201).json({ message: "Store material edited successfully" });
+        return res.status(201).json({ message: "General material edited successfully" });
         }
 
         
@@ -72,4 +73,4 @@ const editstorePrimary = async (req: Request, res: Response) => {
         console.log(err);
     }
 }
-export default editstorePrimary;
+export default editGeneralPrimary;

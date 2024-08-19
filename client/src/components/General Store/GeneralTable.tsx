@@ -189,7 +189,7 @@ const GeneralStoreTable = () => {
         getSumOfAllEdit()
     }, [])
     const exportToExcel = async () => {
-        const response = await axios.post('/api/storePrimary/getStorePrimary', {
+        const response = await axios.post('/api/generalPrimary/getGeneralPrimary', {
             fromdate, todate, searchdata,gatepassSearch 
         })
         const data1 = response.data.PackageMaterials
@@ -199,7 +199,7 @@ const GeneralStoreTable = () => {
         let transformed: ExcelStorePrimaryData[] = [];
         if (EditData.length > 0) {
 
-            transformed = EditData.map((item: storeprimaryData,idx:number) => ({
+            transformed = EditData.map((item: generalprimaryData,idx:number) => ({
                 Sl_No: idx+1,
                 GatePass_No:item.gatePassNo,
                 Gate_Pass_Type:item.gateType,
@@ -225,7 +225,7 @@ const GeneralStoreTable = () => {
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
-            transformed = data1.map((item: storeprimaryData,idx:number) => ({
+            transformed = data1.map((item: generalprimaryData,idx:number) => ({
                 Sl_No: idx+1,
                 GatePass_No:item.gatePassNo,
                 Gate_Pass_Type:item.gateType,
