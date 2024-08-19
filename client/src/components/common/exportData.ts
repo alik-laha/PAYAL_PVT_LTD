@@ -108,6 +108,6 @@ export const SelectTypeSKUVendor = ["SKU","Vendor"]
 export const TypeOnSection = {
     PackagingMaterial: ['Pouch','Bucket','Tin','Stickers','PlasticBag','PP','PlasticCan'],
     Store:['ElectricalSpare','MechanicalSpare','Stationary','Chemical','Civil','Machine','Miscellaneous','Asset'],
-    General:['Fuel','Civil']
+    General:['Fuel','Civil','General','Miscellaneous']
 }
 

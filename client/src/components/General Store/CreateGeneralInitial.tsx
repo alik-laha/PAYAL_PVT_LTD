@@ -21,7 +21,7 @@ import axios from "axios";
 import { useState } from "react";
 import {  storeprimaryData } from "@/type/type";
 
-import StorePrimaryEntry from "./StorePrimaryEntryForm";
+import GeneralPrimaryEntry from "./GeneralCreateForm";
 
 
 
@@ -36,7 +36,7 @@ const GeneralStoreInitial = (props: any) => {
     //let scoopdata:ScoopData[]=[]
     console.log(props)
     const handleLineEntry = async (gatePassNo:string) => {
-        axios.get(`/api/storePrimary/getStoreByGatePass/${gatePassNo}`).then(res=>{
+        axios.get(`/api/generalPrimary/getGeneralByGatePass/${gatePassNo}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.rcnmainLot)){
             //scoopdata=res.data.scoopingLot
@@ -80,10 +80,10 @@ const GeneralStoreInitial = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger>
                                             { idx==0 &&  <DialogContent style={{display:'block'}} className='max-w-3xl'>
                                                     <DialogHeader >
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Store Receiving/Dispatch Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>General Receiving/Dispatch Entry</p></DialogTitle>
 
                                                     </DialogHeader>
-                                                <StorePrimaryEntry rcn={rcnData}/>
+                                                <GeneralPrimaryEntry rcn={rcnData}/>
                                               
                                                 </DialogContent>}
                                             </Dialog>

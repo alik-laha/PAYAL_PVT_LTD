@@ -26,7 +26,7 @@ const GeneralStore = () => {
     const [lotdata, setLotData] = useState<rcnpendingLotData[]>([])
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const handleOpenLotNo = async () => {
-        axios.get('/api/storePrimary/getStoreNotEntried/0').then(res => {
+        axios.get('/api/generalPrimary/getgeneralNotEntried/0').then(res => {
             console.log(res)
             setLotData(res.data.rcnLot)
         })

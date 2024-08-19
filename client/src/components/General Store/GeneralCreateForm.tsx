@@ -33,7 +33,7 @@ interface SectionRowData{
     remarks:string;
     totalWt:number;
 }
-const StorePrimaryEntry = (props:Props) => {
+const GeneralPrimaryEntry = (props:Props) => {
 
     const [skuview, setSkuView] = useState("none")
     const [vendorNameView, setVendorNameView] = useState("none")
@@ -83,7 +83,7 @@ const StorePrimaryEntry = (props:Props) => {
         const newRows =rows.filter((_,i)=> i!==index);
         setRows(newRows)
     }
-    const type='Store'
+    const type='General'
     const [errortext, setErrortext] = useState('')
     const successdialog = document.getElementById('packageMetrialReceve') as HTMLInputElement;
     const errordialog = document.getElementById('packagingMetirialReciveError') as HTMLInputElement;
@@ -132,10 +132,10 @@ const StorePrimaryEntry = (props:Props) => {
             if(formData.length===1){
             for (var data of formData) 
                 {
-                    await axios.put(`/api/storePrimary/updateRcvStore/${id}`, {data })
+                    await axios.put(`/api/generalPrimary/updateRcvGeneral/${id}`, {data })
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-                        section:'Store' })
-                        setErrortext('Store Item Received/Dispatched Received Successfully')
+                        section:'General' })
+                        setErrortext('Genaral Items Received/Dispatched Successfully')
                     if(successdialog){
                         (successdialog as any).showModal();
                     }
@@ -146,20 +146,20 @@ const StorePrimaryEntry = (props:Props) => {
             else if(formData.length>1){
             const firstrow=formData[0]
           
-                await axios.put(`/api/storePrimary/updateRcvStore/${id}`, {data:firstrow })
+                await axios.put(`/api/generalPrimary/updateRcvGeneral/${id}`, {data:firstrow })
            
                 let pmrescount=0
             for(let i=1;i<formData.length;i++){
                 
                 const data1=formData[i];
-                await axios.post('/api/storePrimary/createStorePrimary', {data:data1 })
+                await axios.post('/api/generalPrimary/createGeneralPrimary', {data:data1 })
                 pmrescount++
                 if(pmrescount==(formData.length-1))
                 {
                     
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-                        section:'Store' })
-                        setErrortext('Store Item Received/Dispatched Received Successfully')
+                        section:'General' })
+                        setErrortext('General Items Received/Dispatched Successfully')
                     if(successdialog){
                         (successdialog as any).showModal();
                     }
@@ -170,7 +170,7 @@ const StorePrimaryEntry = (props:Props) => {
     }
     catch (err){
         console.log(err)
-        await axios.post('/api/storePrimary/deleteStorePrimaryByID',{ id:id,gatepass:gatepass})
+        await axios.post('/api/generalPrimary/deleteGeneralPrimaryByID',{ id:id,gatepass:gatepass})
         if(axios.isAxiosError(err)){
             setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
         }
@@ -204,7 +204,7 @@ const StorePrimaryEntry = (props:Props) => {
         }
 
        
-        axios.post("/api/vendorSKU/skudatafind/Store", { sku: e.target.value,type:rows[index].type })
+        axios.post("/api/vendorSKU/skudatafind/General", { sku: e.target.value,type:rows[index].type })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -232,7 +232,7 @@ const StorePrimaryEntry = (props:Props) => {
         }else{
             vendortype='Party'
         }
-        axios.post(`/api/vendorSKU/vendornamefind/Store/`, { vendorName: e.target.value,type:vendortype  })
+        axios.post(`/api/vendorSKU/vendornamefind/General/`, { vendorName: e.target.value,type:vendortype  })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -451,4 +451,4 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
     )
 }
 
-export default StorePrimaryEntry;
+export default GeneralPrimaryEntry;

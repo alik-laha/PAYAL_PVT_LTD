@@ -19,6 +19,7 @@ import BormaRouter from "./router/BormaRouter";
 import gatePassRouter from "./router/gatePassRouter";
 import VendorSKURouter from "./router/VendorSKURouter";
 import storePrimaryRouter from "./router/storePrimaryRouter";
+import generalPrimaryRouter from "./router/generalPrimaryRouter";
 
 
 
@@ -46,5 +47,6 @@ app.use('/api/borma', BormaRouter)
 app.use('/api/gatepass', gatePassRouter)
 app.use('/api/vendorSKU', VendorSKURouter)
 app.use('/api/storePrimary', storePrimaryRouter)
+app.use('/api/generalPrimary', generalPrimaryRouter)
 
 export default app

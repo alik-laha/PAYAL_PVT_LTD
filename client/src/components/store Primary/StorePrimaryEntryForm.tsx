@@ -135,7 +135,7 @@ const StorePrimaryEntry = (props:Props) => {
                     await axios.put(`/api/storePrimary/updateRcvStore/${id}`, {data })
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
                         section:'Store' })
-                        setErrortext('Store Item Received/Dispatched Received Successfully')
+                        setErrortext('Store Item Received/Dispatched Successfully')
                     if(successdialog){
                         (successdialog as any).showModal();
                     }
@@ -159,7 +159,7 @@ const StorePrimaryEntry = (props:Props) => {
                     
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
                         section:'Store' })
-                        setErrortext('Store Item Received/Dispatched Received Successfully')
+                        setErrortext('Store Item Received/Dispatched Successfully')
                     if(successdialog){
                         (successdialog as any).showModal();
                     }
