@@ -80,7 +80,7 @@ const VendorCreateForm = () =>{
                 vendorContactRef.current.value='';
             }
 
-        settype('')    
+        settype('Vendor')    
         setSection('')
         setvendoraddress('')
        

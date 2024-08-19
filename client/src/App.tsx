@@ -25,6 +25,7 @@ import RCNBorma from './components/RCN Borma/RCNBorma'
 import GatepassIn from './components/gatepass In/GatePassIn'
 import VendorSKU from './components/VendorSKU/VendorSku'
 import StorePrimary from './components/store Primary/StorePrimary'
+import GeneralStore from './components/General Store/General'
 
 
 
@@ -67,7 +68,7 @@ function App() {
 
         <Route element={<Private allowedRoles={['Director','FactoryManager',
     'ReceivingSupervisor','ReceivingPMSupervisor','ReceivingManager','ReceivingAlmondSupervisor','ReceivingStoreSupervisor',
-    'ReceivingAgarbatiSupervisor','ReceivingCivilSupervisor','ReceivingPurchaseSupervisor',
+    'ReceivingAgarbatiSupervisor','ReceivingGeneralSupervisor','ReceivingPurchaseSupervisor',
     'QCSupervisor','QCManager',
     'GradingSupervisor','BoilingSupervisor','ScoopingSupervisor','ProductionManager','BormaSuperVisor',
     'MaintainanceManager','CleaningSupervisor',
@@ -130,6 +131,9 @@ function App() {
         </Route>
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingStoreSupervisor', 'ReceivingManager','GatePassManager']} />}>
           <Route path="/dashboard/storePrimary" element={<StorePrimary />} />
+        </Route>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingGeneralSupervisor', 'ReceivingManager','GatePassManager']} />}>
+          <Route path="/dashboard/GeneralStore" element={<GeneralStore />} />
         </Route>
 
         <Route path="/dashboard/userprofile" element={<ViewProfile />} />

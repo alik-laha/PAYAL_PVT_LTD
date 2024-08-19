@@ -4,6 +4,7 @@ import RcnPrimary from "../../model/RcnEntryModel";
 import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
+import generalPrimaryModel from "../../model/generalPrimaryModel";
 
 
 
@@ -57,6 +58,23 @@ try{
 
         if(storeEntry){
             return res.status(200).json({ message: "Store Entry Created Successfully" });
+        }
+        
+    }
+    if (section==='General') {
+        const generalEntry = await generalPrimaryModel.create({
+            gatePassNo: gatePassNo,
+            recevingDate: Date,
+            grossWt:grossWt,
+            truckNo:vehicle,  
+            gateType:type
+
+        });
+        const data = await WpMsgGatePassRcv("General Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch",'GENERAL ENTRY')
+        console.log(data)
+
+        if(generalEntry){
+            return res.status(200).json({ message: "General Item Entry Created Successfully" });
         }
         
     }

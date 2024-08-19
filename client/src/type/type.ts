@@ -312,7 +312,7 @@ export interface PermissionRole {
     ReceivingAlmondSupervisor:string[];
     ReceivingStoreSupervisor: string[];
     ReceivingAgarbatiSupervisor:string[];
-    ReceivingCivilSupervisor:string[];
+    ReceivingGeneralSupervisor:string[];
     ReceivingPurchaseSupervisor:string[];
     QCSupervisor: string[];
     QCManager: string[];
@@ -526,6 +526,30 @@ export interface storeprimaryData {
     remarks:string;
     gateType:string;
 }
+export interface generalprimaryData {
+    id: number;
+    type:string;
+    recevingDate: string;
+    sku: string;
+    vendorName: string;
+    quantity: string;
+    invoicequantity:string;
+    unit: string;
+    invoicedate:string;
+    invoice:string;
+    createdBy: string;
+    qualityStatus: string;
+    editStatus: string;
+    approvedBy: string;
+    truckNo: string;
+    status: number;
+    netWeight: string;
+    gatePassNo:string;
+    grossWt: string;
+    totalWt:string;
+    remarks:string;
+    gateType:string;
+}
 
 export interface SumofpackageMetrialReceving {
     sumOfAllRecenvingPackageMaterial: number;
@@ -534,6 +558,10 @@ export interface SumofpackageMetrialReceving {
 export interface sumofStorePrimary {
     sumofStorePrimary: number;
     storePrimary: number;
+}
+export interface sumofGeneralPrimary {
+    sumofGeneralPrimary: number;
+    GeneralPrimary: number;
 }
 
 export interface ExcelrecevingPackageMaterialData {

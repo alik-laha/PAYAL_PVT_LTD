@@ -32,6 +32,11 @@ try{
                 console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
+            if(section==='General'){
+                const data = await WpMsgGatePassRcv("General Item Receiving/Dispatch", gatePassNo,"rcv_dispatch_complt",'General Rcv/Dispatch')
+                console.log(data)
+                res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
+            }
 
            
         }

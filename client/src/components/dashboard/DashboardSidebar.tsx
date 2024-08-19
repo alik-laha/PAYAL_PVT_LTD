@@ -130,24 +130,48 @@ const DashboardSidebar = () => {
                         {renderlink('RCN Primary Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/rcnprimaryentry" >
-                                    RCN Incoming
+                                    RCN Receiving
                                 </NavLink>
 
-                            </CollapsibleContent>}
-                            {renderlink('Receiving Packaging Entry')
+                        </CollapsibleContent>}
+
+                       
+
+
+                        {renderlink('Receiving Packaging Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
                                     Packaging Material
                                 </NavLink>
-                                </CollapsibleContent>}
+                        </CollapsibleContent>}
+                                
                                 {renderlink('Receiving Store Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/storePrimary" >
-                                    Store
+                                    Store Items
                                 </NavLink>
 
                             </CollapsibleContent>}
-                        {/* {renderlink('Receiving Almond Entry')
+                           
+
+                                {renderlink('Receiving Civil Entry')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/GeneralStore" >
+                                    General Items
+                                </NavLink>
+                                </CollapsibleContent>}
+
+
+
+
+                        {/* 
+                        
+                        
+                        
+                        
+                        
+                        
+                        {renderlink('Receiving Almond Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
                                     Raw Almond

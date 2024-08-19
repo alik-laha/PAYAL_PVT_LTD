@@ -50,7 +50,7 @@ import {
 } from "@/components/ui/pagination"
 import { CiEdit } from "react-icons/ci";
 import { pagelimit, pendingCheckRole } from "../common/exportData"
-import {  pendingCheckRoles, PermissionRole, sumofStorePrimary, storeprimaryData, ExcelStorePrimaryData } from '@/type/type'
+import {  pendingCheckRoles, PermissionRole, generalprimaryData, ExcelStorePrimaryData, sumofGeneralPrimary } from '@/type/type'
 import axios from 'axios'
 //import PackageMaterialReceivingModify from "./PackageMetirialModifyReceving"
 import { useContext } from 'react';
@@ -58,16 +58,16 @@ import Context from '../context/context';
 import { LuDownload } from "react-icons/lu";
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
-import StorePrimaryModify from "./StorePrimaryModify"
 
-const StorePrimaryTable = () => {
+import GeneralPrimaryModify from "./GeneralModifyForm"
 
-    const { setStorePrimaryOverView } = useContext(Context);
+const GeneralStoreTable = () => {
 
+    const { setGeneralPrimaryOverView } = useContext(Context);
     const [Data, setData] = useState([])
     const [EditData, setEditData] = useState([])
     // const [EditPendingData, setEditPendingData] = useState()
-    const [EditSumData, setEditSumData] = useState<sumofStorePrimary>()
+    const [EditSumData, setEditSumData] = useState<sumofGeneralPrimary>()
     const [fromdate, setfromDate] = useState('')
     const [searchdata, setSearchData] = useState('')
     const [hidetodate, sethidetoDate] = useState('')
@@ -128,7 +128,7 @@ const StorePrimaryTable = () => {
     }
     const handleApprove = (item: number) => {
         console.log(item)
-        axios.get(`/api/storePrimary/acceptEditStorePrimary/${item}`)
+        axios.get(`/api/generalPrimary/acceptEditGeneralPrimary/${item}`)
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -140,7 +140,7 @@ const StorePrimaryTable = () => {
             })
     }
     const handleRejection = (item: number) => {
-        axios.get(`/api/storePrimary/rejectEditStorePrimary/${item}`)
+        axios.get(`/api/generalPrimary/rejectEditGeneralPrimary/${item}`)
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -152,8 +152,12 @@ const StorePrimaryTable = () => {
             })
     }
     const searchData = () => {
-        axios.post('/api/storePrimary/getStorePrimary', { fromdate, todate, searchdata,gatepassSearch }, { params: { page: page, limit: limit } }).then((res) => {
-            setData(res.data.PackageMaterials)
+        axios.post('/api/generalPrimary/getGeneralPrimary', { fromdate, todate, searchdata,gatepassSearch }, { params: { page: page, limit: limit } }).then((res) => {
+            
+            
+                setData(res.data.PackageMaterials)
+            
+           
 
             if (res.data.PackageMaterials.length === 0) {
                 setPage((prev) => prev - 1)
@@ -164,15 +168,15 @@ const StorePrimaryTable = () => {
     }
     const GetPendingEdit = async () => {
         // console.log("alik")
-        const Data = await axios.get('/api/storePrimary/getEditStorePrimary');
+        const Data = await axios.get('/api/generalPrimary/getEditGeneralPrimary');
         console.log(Data)
         setEditData(Data.data)
 
     }
     const getSumOfAllEdit = async () => {
-        const Data = await axios.get('/api/storePrimary/getsumofStore');
+        const Data = await axios.get('/api/generalPrimary/getsumofGeneral');
         setEditSumData(Data.data)
-        setStorePrimaryOverView(Data.data)
+        setGeneralPrimaryOverView(Data.data)
     }
 
     useEffect(() => {
@@ -185,7 +189,7 @@ const StorePrimaryTable = () => {
         getSumOfAllEdit()
     }, [])
     const exportToExcel = async () => {
-        const response = await axios.post('/api/storePrimary/getStorePrimary', {
+        const response = await axios.post('/api/generalPrimary/getGeneralPrimary', {
             fromdate, todate, searchdata,gatepassSearch 
         })
         const data1 = response.data.PackageMaterials
@@ -195,7 +199,7 @@ const StorePrimaryTable = () => {
         let transformed: ExcelStorePrimaryData[] = [];
         if (EditData.length > 0) {
 
-            transformed = EditData.map((item: storeprimaryData,idx:number) => ({
+            transformed = EditData.map((item: generalprimaryData,idx:number) => ({
                 Sl_No: idx+1,
                 GatePass_No:item.gatePassNo,
                 Gate_Pass_Type:item.gateType,
@@ -221,7 +225,7 @@ const StorePrimaryTable = () => {
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
-            transformed = data1.map((item: storeprimaryData,idx:number) => ({
+            transformed = data1.map((item: generalprimaryData,idx:number) => ({
                 Sl_No: idx+1,
                 GatePass_No:item.gatePassNo,
                 Gate_Pass_Type:item.gateType,
@@ -252,7 +256,7 @@ const StorePrimaryTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Store_Item_Material_' + currDate + '.xlsx');
+        saveAs(blob, 'General_Item_Material_' + currDate + '.xlsx');
     }
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {
@@ -276,8 +280,8 @@ const StorePrimaryTable = () => {
         <>
 
 {checkpending('RCNPrimary') &&
-<Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" disabled={EditSumData?.storePrimary===0 ?true :false}
-onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
+<Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" disabled={EditSumData?.GeneralPrimary===0 ?true :false}
+onClick={GetPendingEdit}>Pending Edit ({EditSumData?.GeneralPrimary})</Button>}
 
             <div className="ml-5 mt-5 ">
                 <div className="flex flexbox-search">
@@ -346,7 +350,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                     </TableHeader>
                     <TableBody>
                         {EditData.length > 0 ? (
-                            EditData.map((item: storeprimaryData, idx: number) => {
+                            EditData.map((item: generalprimaryData, idx: number) => {
 
                                 return (
                                     <TableRow key={item.id}>
@@ -411,7 +415,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                 );
                             })
                         ) : (
-                            Data.length > 0 ? (Data.map((item: storeprimaryData, idx: number) => {
+                            Data.length > 0 ? (Data.map((item: generalprimaryData, idx: number) => {
 
 
                                 return (
@@ -449,13 +453,13 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                                         <DialogContent>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>Store Item Modification</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-5'>General Item Modification</p>
                                                                 </DialogTitle>
                                                                 <DialogDescription>
                                                                     <p className='text-1xl text-center'>To Be Filled Up By Store Receving Supervisor</p>
                                                                 </DialogDescription>
                                                             </DialogHeader>
-                                                            <StorePrimaryModify data={item} />
+                                                            <GeneralPrimaryModify data={item} />
                                                             
                                                         </DialogContent>
                                                     </Dialog>
@@ -524,4 +528,4 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
         </>
     )
 }
-export default StorePrimaryTable;
+export default GeneralStoreTable;
