@@ -170,7 +170,7 @@ const StorePrimaryTable = () => {
 
     }
     const getSumOfAllEdit = async () => {
-        const Data = await axios.get('/api/storePrimary/getsumofPM');
+        const Data = await axios.get('/api/storePrimary/getsumofStore');
         setEditSumData(Data.data)
         setStorePrimaryOverView(Data.data)
     }

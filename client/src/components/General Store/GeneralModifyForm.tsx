@@ -15,7 +15,7 @@ interface Props {
     data: storeprimaryData;
 }
 
-const StorePrimaryModify = ({ data }: Props) => {
+const GeneralPrimaryModify = ({ data }: Props) => {
 
     const successdialog = document.getElementById('packageMetrialReceveUpdate') as HTMLInputElement;
     const errordialog = document.getElementById('packagingMetirialReciveErrorUpdate') as HTMLInputElement;
@@ -278,4 +278,4 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
         </>
     )
 }
-export default StorePrimaryModify;
+export default GeneralPrimaryModify;

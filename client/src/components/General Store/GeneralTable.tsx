@@ -50,7 +50,7 @@ import {
 } from "@/components/ui/pagination"
 import { CiEdit } from "react-icons/ci";
 import { pagelimit, pendingCheckRole } from "../common/exportData"
-import {  pendingCheckRoles, PermissionRole, sumofStorePrimary, storeprimaryData, ExcelStorePrimaryData } from '@/type/type'
+import {  pendingCheckRoles, PermissionRole, storeprimaryData, ExcelStorePrimaryData, sumofGeneralPrimary } from '@/type/type'
 import axios from 'axios'
 //import PackageMaterialReceivingModify from "./PackageMetirialModifyReceving"
 import { useContext } from 'react';
@@ -58,16 +58,16 @@ import Context from '../context/context';
 import { LuDownload } from "react-icons/lu";
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
-import StorePrimaryModify from "./StorePrimaryModify"
+
+import GeneralPrimaryModify from "./GeneralModifyForm"
 
 const GeneralStoreTable = () => {
 
-    const { setStorePrimaryOverView } = useContext(Context);
-
+    const { setGeneralPrimaryOverView } = useContext(Context);
     const [Data, setData] = useState([])
     const [EditData, setEditData] = useState([])
     // const [EditPendingData, setEditPendingData] = useState()
-    const [EditSumData, setEditSumData] = useState<sumofStorePrimary>()
+    const [EditSumData, setEditSumData] = useState<sumofGeneralPrimary>()
     const [fromdate, setfromDate] = useState('')
     const [searchdata, setSearchData] = useState('')
     const [hidetodate, sethidetoDate] = useState('')
@@ -128,7 +128,7 @@ const GeneralStoreTable = () => {
     }
     const handleApprove = (item: number) => {
         console.log(item)
-        axios.get(`/api/storePrimary/acceptEditStorePrimary/${item}`)
+        axios.get(`/api/generalPrimary/acceptEditGeneralPrimary/${item}`)
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -140,7 +140,7 @@ const GeneralStoreTable = () => {
             })
     }
     const handleRejection = (item: number) => {
-        axios.get(`/api/storePrimary/rejectEditStorePrimary/${item}`)
+        axios.get(`/api/generalPrimary/rejectEditGeneralPrimary/${item}`)
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -152,7 +152,7 @@ const GeneralStoreTable = () => {
             })
     }
     const searchData = () => {
-        axios.post('/api/storePrimary/getStorePrimary', { fromdate, todate, searchdata,gatepassSearch }, { params: { page: page, limit: limit } }).then((res) => {
+        axios.post('/api/generalPrimary/getGeneralPrimary', { fromdate, todate, searchdata,gatepassSearch }, { params: { page: page, limit: limit } }).then((res) => {
             setData(res.data.PackageMaterials)
 
             if (res.data.PackageMaterials.length === 0) {
@@ -164,15 +164,15 @@ const GeneralStoreTable = () => {
     }
     const GetPendingEdit = async () => {
         // console.log("alik")
-        const Data = await axios.get('/api/storePrimary/getEditStorePrimary');
+        const Data = await axios.get('/api/generalPrimary/getEditGeneralPrimary');
         console.log(Data)
         setEditData(Data.data)
 
     }
     const getSumOfAllEdit = async () => {
-        const Data = await axios.get('/api/storePrimary/getsumofPM');
+        const Data = await axios.get('/api/generalPrimary/getsumofGeneral');
         setEditSumData(Data.data)
-        setStorePrimaryOverView(Data.data)
+        setGeneralPrimaryOverView(Data.data)
     }
 
     useEffect(() => {
@@ -252,7 +252,7 @@ const GeneralStoreTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Store_Item_Material_' + currDate + '.xlsx');
+        saveAs(blob, 'General_Item_Material_' + currDate + '.xlsx');
     }
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {
@@ -455,7 +455,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                                                     <p className='text-1xl text-center'>To Be Filled Up By Store Receving Supervisor</p>
                                                                 </DialogDescription>
                                                             </DialogHeader>
-                                                            <StorePrimaryModify data={item} />
+                                                            <GeneralPrimaryModify data={item} />
                                                             
                                                         </DialogContent>
                                                     </Dialog>

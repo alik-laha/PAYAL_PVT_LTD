@@ -24,7 +24,7 @@ router.post("/createStorePrimary",jwtVerify, createStorePrimary)
 router.post("/deleteStorePrimaryByID", jwtVerify, deleteStorePrimary)
 router.post("/getStorePrimary", jwtVerify,SearchStorePrimary)
 
-router.get("/getsumofPM",jwtVerify, sumofStorePrimary)
+router.get("/getsumofStore",jwtVerify, sumofStorePrimary)
 router.get("/getEditStorePrimary",jwtVerify, getEditStorePrimary)
 router.post("/editStorePrimary/:id",jwtVerify, editstorePrimary)
 

@@ -290,6 +290,145 @@ const GatePassTable = () => {
           
       });
 
+      const stylesSmall = StyleSheet.create({
+        section: {
+          margin: 2,
+          padding: 2,
+          flexGrow: 1,
+        },
+        headerline: {
+          borderBottomColor: 'black',
+          borderBottomWidth: 1,
+          marginVertical: 2,
+        },
+        page: {
+          fontFamily: "Helvetica",
+          fontSize: 5,
+          paddingTop: 2,
+          paddingLeft: 2,
+          paddingRight: 2,
+          lineHeight: 0.7,
+          flexDirection: "column",
+          width: 80,
+          height: 200,
+        },
+        logo: {
+          width: 15,
+          height: 15,
+          marginTop: 2,
+          marginRight: 2,
+        },
+        mainHeader: {
+          display: "flex",
+          flexDirection: "row-reverse",
+          justifyContent: "space-between",
+          alignItems: "center",
+        },
+        tableContainer: {
+          flexDirection: "column",
+          marginTop: 7,
+          borderWidth: 0.5,
+          borderColor: "#3778C2",
+        },
+        container: {
+          flexDirection: "row",
+          borderBottomColor: "#00519C",
+          backgroundColor: "#00519C",
+          color: "#fff",
+          borderBottomWidth: 1,
+          alignItems: "center",
+          height: 10,
+          textAlign: "center",
+          fontStyle: "bold",
+          flexGrow: 1,
+        },
+        description: {
+          width: "50%",
+          borderRightColor: "#3778C2",
+          borderRightWidth: 0.5,
+          fontSize: 3,
+          marginLeft: 2,
+        },
+        qty: {
+          width: "50%",
+          fontSize: 3,
+          marginRight: 2,
+        },
+        row: {
+          display: 'flex',
+          flexDirection: "row",
+          borderBottomColor: "#3778C2",
+          borderBottomWidth: 0.5,
+          alignItems: "center",
+          height: 10,
+        },
+        rowdescription: {
+          width: "50%",
+          textAlign: "center",
+          borderRightColor: "#3778C2",
+          borderRightWidth: 1,
+        
+          fontSize: 3,
+          fontWeight: "bold",
+          color: '#00519C',
+        },
+        rowqty: {
+          width: "50%",
+          backgroundColor: "white",
+          textAlign: "center",
+          fontSize: 3,
+        },
+        headerContainer: {
+          marginTop: 10,
+          justifyContent: "flex-start",
+          width: "100%",
+        },
+        billTo: {
+          marginRight: 2,
+          fontWeight: 'bold',
+        },
+        Mainbillto: {
+          display: "flex",
+          flexDirection: "row",
+          marginTop: 2,
+          paddingBottom: 1,
+          fontSize: 3,
+        },
+        instituteheader: {
+          textAlign: 'center',
+          flexDirection: 'row',
+        },
+        institutedesc: {
+          flexDirection: 'column',
+          marginLeft: 2,
+        },
+        institutename: {
+            marginTop: 1,
+          textAlign: 'center',
+          fontSize: 4,
+          fontWeight: 'bold',
+          color: '#00519C',
+          marginBottom: 3,
+        },
+        instituteother: {
+          textAlign: 'center',
+          fontSize: 3,
+          fontWeight: 'bold',
+          color: 'black',
+          marginTop: 1,
+        },
+        formDetails: {
+          width: '100%',
+          marginTop: 5,
+          textAlign: 'center',
+          fontSize: 4,
+          color: '#00519C',
+          fontWeight: 'bold',
+          textDecoration: 'underline',
+          fontStyle: 'italic',
+        },
+      });
+
 
       const MyDocument = ( data:pdfprops ) => (
 
@@ -379,7 +518,7 @@ const GatePassTable = () => {
                         
                         <View style={styles.row}>
                             <Text style={styles.rowdescription}>Gross Weight(Kg)</Text>
-                            <Text style={styles.rowqty}>{data.data.grosswt}</Text>
+                            <Text style={styles.rowqty}>{formatNumber(data.data.grosswt)}</Text>
                         </View>
                         <View style={styles.row}>
                             <Text style={styles.rowdescription}>Gross Weight Slip No.</Text>
@@ -387,7 +526,7 @@ const GatePassTable = () => {
                         </View>
                         <View style={styles.row}>
                             <Text style={styles.rowdescription}>Net Weight(Kg)</Text>
-                            <Text style={styles.rowqty}>{data.data.netWeight}</Text>
+                            <Text style={styles.rowqty}>{formatNumber(data.data.netWeight)}</Text>
                         </View>
                         <View style={styles.row}>
                             <Text style={styles.rowdescription}>Bill Amount(Rs.)</Text>
@@ -417,6 +556,86 @@ const GatePassTable = () => {
             </Page>
         </Document>
 
+      );
+      const MyDocument2 = (data: pdfprops) => (
+        <Document>
+          <Page size={[80, 200]} style={stylesSmall.page}>
+            <View style={stylesSmall.section}>
+              <View style={stylesSmall.instituteheader}>
+                <Image
+                  style={stylesSmall.logo}
+                  src={logo}
+                />
+                <View style={stylesSmall.institutedesc}>
+                  <Text style={stylesSmall.institutename}>PAYEL DEALERS PVT. LTD.</Text>{"\n"}
+                  <Text style={stylesSmall.instituteother}>CIN No: U25111WB1996PTC079361</Text>{"\n"}
+                  <Text style={stylesSmall.instituteother}>FSSAI License No: 10014031001340</Text>{"\n"}
+                  
+                </View>
+              </View>
+              <View style={stylesSmall.headerline} />
+              <View style={stylesSmall.formDetails}>
+                <Text>Gate Pass Initial Slip</Text>
+              </View>
+              <View style={stylesSmall.headerContainer}>
+                <View style={stylesSmall.Mainbillto}>
+                  <Text style={stylesSmall.billTo}>GatePass No:</Text>
+                  <Text>{data.data.gatePassNo}</Text>
+                </View>
+                <View style={stylesSmall.Mainbillto}>
+                  <Text style={stylesSmall.billTo}>Date:</Text>
+                  <Text>{handletimezone(data.data.date)}</Text>
+                </View>
+                <View style={stylesSmall.Mainbillto}>
+                  <Text style={stylesSmall.billTo}>Time of Entry:</Text>
+                  <Text>{handleAMPM(data.data.time)}</Text>
+                </View>
+                <View style={stylesSmall.Mainbillto}>
+                  <Text style={stylesSmall.billTo}>Type of GatePass:</Text>
+                  <Text>{data.data.type}</Text>
+                </View>
+                <View style={stylesSmall.Mainbillto}>
+                  <Text style={stylesSmall.billTo}>Section:</Text>
+                  <Text>{data.data.section}</Text>
+                </View>
+              </View>
+              <View style={stylesSmall.tableContainer}>
+                <View style={stylesSmall.container}>
+                  <Text style={stylesSmall.description}>Title</Text>
+                  <Text style={stylesSmall.qty}>Description</Text>
+                </View>
+                <View style={stylesSmall.row}>
+                  <Text style={stylesSmall.rowdescription}>Vehicle No.</Text>
+                  <Text style={stylesSmall.rowqty}>{data.data.vehicleNo}</Text>
+                </View>
+                <View style={stylesSmall.row}>
+                  <Text style={stylesSmall.rowdescription}>Driver Name</Text>
+                  <Text style={stylesSmall.rowqty}>{data.data.driverName}</Text>
+                </View>
+                <View style={stylesSmall.row}>
+                  <Text style={stylesSmall.rowdescription}>Contact No.</Text>
+                  <Text style={stylesSmall.rowqty}>{data.data.driverContact}</Text>
+                </View>
+                <View style={stylesSmall.row}>
+                  <Text style={stylesSmall.rowdescription}>Chalan No.</Text>
+                  <Text style={stylesSmall.rowqty}>{data.data.DocNo}</Text>
+                </View>
+                <View style={stylesSmall.row}>
+                  <Text style={stylesSmall.rowdescription}>Gross Wt(Kg)</Text>
+                  <Text style={stylesSmall.rowqty}>{formatNumber(data.data.grosswt)}</Text>
+                </View>
+                <View style={stylesSmall.row}>
+                  <Text style={stylesSmall.rowdescription}> Wt Slip No.</Text>
+                  <Text style={stylesSmall.rowqty}>{data.data.grosswtNo}</Text>
+                </View>
+                <View style={stylesSmall.row}>
+                  <Text style={stylesSmall.rowdescription}>Entried By</Text>
+                  <Text style={stylesSmall.rowqty}>{data.data.securityName}</Text>
+                </View>
+              </View>
+            </View>
+          </Page>
+        </Document>
       );
       
       
@@ -639,6 +858,10 @@ const GatePassTable = () => {
 
 
     }
+    function formatNumber(num: string) {
+        return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
+    }
+    const Role = localStorage.getItem('role') as keyof PermissionRole
     
 
     return (
@@ -706,31 +929,18 @@ const GatePassTable = () => {
                     <TableHead className="text-center" >Entry(In/Out)</TableHead>
                     <TableHead className="text-center" >Rcv/Dispatch_Section</TableHead>
                     <TableHead className="text-center" >Receiving/Dispatch</TableHead>
-
                     <TableHead className="text-center" >Verification/Approval</TableHead>
-                    <TableHead className="text-center" >Closure</TableHead>
-
-                
+                    <TableHead className="text-center" >Closure</TableHead>                
                     <TableHead className="text-center" >Entry_Time</TableHead>
                     <TableHead className="text-center" >Exit_Time</TableHead>
-                    
-                   
                     <TableHead className="text-center" >Doc_No.</TableHead>
-
                     <TableHead className="text-center" >Gross_Initial_Wt</TableHead>
                     <TableHead className="text-center" >Wt_Slip_No</TableHead>
                     <TableHead className="text-center" >Vehicle_No</TableHead>
                     <TableHead className="text-center" >Driver_Name</TableHead>
                     <TableHead className="text-center" >Driver_Contact</TableHead>
-                    <TableHead className="text-center" >Entried_By_Seurity</TableHead>
-                    
-                    
+                    <TableHead className="text-center" >Entried_By_Seurity</TableHead>                 
                     <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
-
-                    
-                    
-                    
-                  
                     <TableHead className="text-center" >Verified/Approved_By</TableHead>
                     <TableHead className="text-center" >Verifier_Remarks</TableHead>
                     <TableHead className="text-center" >Action</TableHead>
@@ -755,44 +965,31 @@ const GatePassTable = () => {
                                         ) :  (
                                             <button className="bg-green-400 rounded shadow-md drop-shadow-lg p-1 text-white  fix-button-width-rcnprimary ">Completed</button>
                                         )}
-                                    </TableCell>
-                                    <TableCell className="text-center ">
+                                </TableCell>
+                                <TableCell className="text-center ">
                                         {item.approvalStatus === 0 ? (
                                             <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
                                         ) :  (
                                             <button className="bg-green-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
                                         )}
-                                    </TableCell>
-                                    <TableCell className="text-center ">
+                                </TableCell>
+                                <TableCell className="text-center ">
                                         {item.status !== 'Closed' ? (
                                             <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
                                         ) :  (
                                             <button className="bg-green-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
                                         )}
-                                    </TableCell>
-                                    
-                                   
+                                </TableCell>   
                                 <TableCell className="text-center  font-semibold">{handleAMPM(item.time)}</TableCell>
                                 <TableCell className="text-center font-semibold">{item.OutTime===null? '':(handleAMPM(item.OutTime))}</TableCell>
-                                
-                               
-                                
-                                <TableCell className="text-center">{item.DocNo}</TableCell>
-                                <TableCell className="text-center ">{item.grosswt} kg </TableCell>
+                                 <TableCell className="text-center">{item.DocNo}</TableCell>
+                                <TableCell className="text-center ">{formatNumber(item.grosswt)} kg </TableCell>
                                 <TableCell className="text-center">{item.grosswtNo}</TableCell>
                                 <TableCell className="text-center">{item.vehicleNo}</TableCell>
                                 <TableCell className="text-center">{item.driverName}</TableCell>
                                 <TableCell className="text-center">{item.driverContact}</TableCell>
                                 <TableCell className="text-center">{item.securityName}</TableCell>
-                               
-                                
-                                
-                                    <TableCell className="text-center font-semibold">{item.netWeight ? item.netWeight:0} kg </TableCell>
-                                    
-                                    
-                                    
-                                  
-                                  
+                                    <TableCell className="text-center font-semibold">{item.netWeight ? formatNumber(item.netWeight):0} kg </TableCell>
                                     <TableCell className="text-center">{item.modifiedBy}</TableCell>
                                     <TableCell className="text-center">{item.Remarks}</TableCell>
                                     
@@ -872,9 +1069,15 @@ const GatePassTable = () => {
                                             </PopoverContent>
                                            
                                     </Popover>)}
-                                    { item.status==='Closed' && <button className='bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4' 
+                                    {  Role!=='Security'&& item.status==='Closed' && <button className='bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4' 
                                     style={{background:'orange',color:'white',float:'right'}}>
                                     <PDFDownloadLink document={<MyDocument data={item}/>} fileName={"Gate_Pass_Report_"+item.gatePassNo+".pdf"} >
+                                        {({ loading }) => (loading ? <LuDownload size={18} /> : <LuDownload size={18} />)}
+                                    </PDFDownloadLink></button>}
+
+                                    {  !item.netWeight && item.receivingStatus === 0 && item.approvalStatus === 0 && <button className='bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4' 
+                                    style={{background:'grey',color:'white',float:'right'}}>
+                                    <PDFDownloadLink document={<MyDocument2 data={item}/>} fileName={"Gate_Pass_Initial_Report_"+item.gatePassNo+".pdf"} >
                                         {({ loading }) => (loading ? <LuDownload size={18} /> : <LuDownload size={18} />)}
                                     </PDFDownloadLink></button>}
                                     
