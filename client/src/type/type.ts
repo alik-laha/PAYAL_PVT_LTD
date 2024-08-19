@@ -535,6 +535,10 @@ export interface sumofStorePrimary {
     sumofStorePrimary: number;
     storePrimary: number;
 }
+export interface sumofGeneralPrimary {
+    sumofGeneralPrimary: number;
+    GeneralPrimary: number;
+}
 
 export interface ExcelrecevingPackageMaterialData {
     Sl_No: number;
