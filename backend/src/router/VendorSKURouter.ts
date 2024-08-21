@@ -20,4 +20,5 @@ router.delete('/deleteSKU/:id', jwtVerify, deleteSKU)
 router.delete('/deleteVendor/:id', jwtVerify, deleteVendor)
 router.post("/skudatafind/:section", jwtVerify,SkudataFind)
 router.post("/vendornamefind/:section",jwtVerify, vendorNameFind)
+router.get('/getItembySection/:type', jwtVerify, getMechineByType)
 export default router;

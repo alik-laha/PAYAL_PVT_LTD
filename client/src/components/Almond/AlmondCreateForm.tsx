@@ -20,13 +20,14 @@ interface Props {
 }
 
 const AlmondPrimaryEntryForm = (props:Props) => {
-    const [origin, setOrigin] = useState<string>("")
+    
     const [errortext, setErrorText] = useState<string>("")
 
+    const [origin, setOrigin] = useState<string>("")
     const blNoRef = useRef<HTMLInputElement>(null)
     const conNoRef = useRef<HTMLInputElement>(null)
- 
     const blWeightRef = useRef<HTMLInputElement>(null)
+
     const [id, setId] = useState<number>()
     const [date, setDate] = useState<string>('')
     const [gatepass, setGatePass] = useState<string>('')
@@ -94,43 +95,10 @@ const AlmondPrimaryEntryForm = (props:Props) => {
 
                 console.log(res)
                 //let g_id=res.data.rcnPrimary.id
-                axios.post('/api/qcRcn/qcInitialEntry', { g_id:id, origin, blNo, conNo, date })
-                .then((res) => {
-                    console.log(res)
-                    if (successdialog != null) {
-                        (successdialog as any).showModal();
-                    }
-                    if (blNoRef.current != null) {
-                        blNoRef.current.value = '';
-                    }
-                    if (conNoRef.current != null) {
-                        conNoRef.current.value = '';
-                    }
-                  
-                    if (blWeightRef.current != null) {
-                        blWeightRef.current.value = '';
-                    }
-                 
-                    if (noOfBagsRef.current != null) {
-                        noOfBagsRef.current.value = '';
-                    }
-                    setOrigin('')
-                }).catch((err) => {
-                    console.log(err)
-                })
-
-
-
-
+    
             }).catch((err) => {
                 console.log(err)
-                // if (err.response.data.error.original.errno === 1062) {
-                //     setErrorText('Duplicate Entry is Not Allowed')
-                //     if (errordialog != null) {
-                //         (errordialog as any).showModal();
-                //     }
-                //     return
-                // }
+        
                 setErrorText(err.response.data.message)
                 if (errordialog != null) {
                     (errordialog as any).showModal();
