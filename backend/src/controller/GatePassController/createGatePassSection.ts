@@ -5,6 +5,7 @@ import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
 import generalPrimaryModel from "../../model/generalPrimaryModel";
+import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
 
 
 
@@ -75,6 +76,23 @@ try{
 
         if(generalEntry){
             return res.status(200).json({ message: "General Item Entry Created Successfully" });
+        }
+        
+    }
+    if (section==='Almond') {
+        const generalEntry = await almondPrimaryEntryModel.create({
+            gatePassNo: gatePassNo,
+            recevingDate: Date,
+            grossWt:grossWt,
+            truckNo:vehicle,  
+            gateType:type
+
+        });
+        const data = await WpMsgGatePassRcv("Almond Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch",'ALMOND ENTRY')
+        console.log(data)
+
+        if(generalEntry){
+            return res.status(200).json({ message: "Almond Item Entry Created Successfully" });
         }
         
     }

@@ -20,6 +20,7 @@ import gatePassRouter from "./router/gatePassRouter";
 import VendorSKURouter from "./router/VendorSKURouter";
 import storePrimaryRouter from "./router/storePrimaryRouter";
 import generalPrimaryRouter from "./router/generalPrimaryRouter";
+import almondRouter from "./router/almondRouter";
 
 
 
@@ -48,5 +49,6 @@ app.use('/api/gatepass', gatePassRouter)
 app.use('/api/vendorSKU', VendorSKURouter)
 app.use('/api/storePrimary', storePrimaryRouter)
 app.use('/api/generalPrimary', generalPrimaryRouter)
+app.use('/api/almondPrimary', almondRouter)
 
 export default app

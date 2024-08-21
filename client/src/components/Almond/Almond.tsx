@@ -20,7 +20,8 @@ import axios from 'axios';
 import Loader from '../common/Loader';
 import { pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
-import RCNInitialForm from './RcnInitialForm';
+import AlmondInitialForm from './AlmondInitial';
+
 
 const Almond = () => {
     const { setEditPendingData } = useContext(Context);
@@ -54,7 +55,7 @@ const Almond = () => {
 
     }
     
-    const { data, isLoading, error } = UseQueryData('/api/rcnprimary/sum', 'GET', 'AllOriginRcnPrimary');
+    const { data, isLoading, error } = UseQueryData('/api/almondPrimary/sumofAllAlmondEntry', 'GET', 'AllOriginAlmondPrimary');
     if (isLoading) {
         return <Loader />
     }
@@ -63,7 +64,7 @@ const Almond = () => {
         return <div>Error</div>;
     }
     const handleOpenLotNo = async () => {
-        axios.get('/api/rcnprimary/getRcnNotEntried/0').then(res => {
+        axios.get('/api/almondPrimary/getAlmondNotEntried/0').then(res => {
             console.log(res)
             setLotData(res.data.rcnLot)
         })
@@ -98,11 +99,11 @@ const Almond = () => {
                         <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl text-center mt-5'>RCN Receiving Pending List</p></DialogTitle>
+                                <DialogTitle><p className='text-1xl text-center mt-5'>Almond Receiving/Dispatch Pending List</p></DialogTitle>
                                
                             </DialogHeader>
                           
-                            {/* <RCNInitialForm props={lotdata}/> */}
+                            <AlmondInitialForm props={lotdata}/>
                         </DialogContent>
                     </Dialog>}
 
