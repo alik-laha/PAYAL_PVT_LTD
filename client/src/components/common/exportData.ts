@@ -72,6 +72,7 @@ export const rcvCheckRole = {
     PMPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingPMSupervisor'],
     StorePrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingStoreSupervisor'],
     GeneralPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingGeneralSupervisor'],
+    AlmondPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingGeneralSupervisor'],
  
 }
 export const roleDataonDept = {
@@ -97,7 +98,7 @@ export const SelectType = ["LineWise","LotWise"]
 
 
 export const sectionDataonTypeGate = {
-    IN: ["RawCashew", "PackagingMaterial","Store",'General'],
+    IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond'],
     OUT: ["Store",'General'],
 }
 export const SelectGatePassType = ["IN","OUT"]

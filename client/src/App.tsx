@@ -26,6 +26,7 @@ import GatepassIn from './components/gatepass In/GatePassIn'
 import VendorSKU from './components/VendorSKU/VendorSku'
 import StorePrimary from './components/store Primary/StorePrimary'
 import GeneralStore from './components/General Store/General'
+import Almond from './components/Almond/Almond'
 
 
 
@@ -134,6 +135,9 @@ function App() {
         </Route>
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingGeneralSupervisor', 'ReceivingManager','GatePassManager']} />}>
           <Route path="/dashboard/GeneralStore" element={<GeneralStore />} />
+        </Route>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingAlmondSupervisor', 'ReceivingManager','GatePassManager']} />}>
+          <Route path="/dashboard/AlmondPrimary" element={<Almond />} />
         </Route>
 
         <Route path="/dashboard/userprofile" element={<ViewProfile />} />

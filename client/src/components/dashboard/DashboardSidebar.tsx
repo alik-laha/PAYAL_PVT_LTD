@@ -161,6 +161,14 @@ const DashboardSidebar = () => {
                                 </NavLink>
                                 </CollapsibleContent>}
 
+                                {renderlink('Receiving Almond Entry')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/AlmondPrimary" >
+                                    Almond
+                                </NavLink>
+
+                            </CollapsibleContent>}
+
 
 
 
@@ -171,13 +179,7 @@ const DashboardSidebar = () => {
                         
                         
                         
-                        {renderlink('Receiving Almond Entry')
-                            && <CollapsibleContent className="Items-pvt">
-                                <NavLink to="/dashboard/recevingpackagingMaterial" >
-                                    Raw Almond
-                                </NavLink>
-
-                            </CollapsibleContent>}
+                        
 
                          
 
