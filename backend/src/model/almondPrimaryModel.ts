@@ -28,6 +28,10 @@ const almondPrimaryEntryModel = sequelize.define('almondPrimaryEntry', {
         type: DataTypes.STRING,
         allowNull: true,
     },
+    grade: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
    
     type: {
         type: DataTypes.STRING,
@@ -41,10 +45,7 @@ const almondPrimaryEntryModel = sequelize.define('almondPrimaryEntry', {
         type: DataTypes.INTEGER,
         allowNull: true
     },
-    unit: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
+ 
    
     editStatus: {
         type: DataTypes.STRING,

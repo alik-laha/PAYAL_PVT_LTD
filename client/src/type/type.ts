@@ -227,6 +227,10 @@ export interface SumofAllCuntryData {
     origin: string;
     totalBags: number;
 }
+export interface SumofAllTypeDataAlmond {
+    type: string;
+    totalBags: number;
+}
 
 export interface EmployeeData {
     id: number;
@@ -286,6 +290,10 @@ export interface AssetData {
     createdBy: string;
     modifiedBy: string;
 }
+export interface findskutypeData {
+  sku:string;
+}
+
 
 
 export interface AssetDataExcel {

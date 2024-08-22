@@ -12,7 +12,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import UseQueryData from "../common/dataFetcher";
-import { PermissionRole, rcnpendingLotData, rcvCheckRoles, SumofAllCuntryData } from "@/type/type";
+import { PermissionRole, rcnpendingLotData, rcvCheckRoles, SumofAllTypeDataAlmond } from "@/type/type";
 
 import { useContext, useState } from 'react';
 import Context from '../context/context';
@@ -80,10 +80,10 @@ const Almond = () => {
                 <div className="flexbox-header">
                     {
 
-                        data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllCuntryData) => {
+                        data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllTypeDataAlmond) => {
                             return (
-                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-600" key={item.origin}>
-                                    {item.origin} <br /><p>{item.totalBags} Bag</p>
+                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-600" key={item.type}>
+                                    {item.type} <br /><p>{item.totalBags} Bag</p>
                                 </div>
                             )
                         })

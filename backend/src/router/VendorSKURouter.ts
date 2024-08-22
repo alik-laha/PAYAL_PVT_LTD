@@ -9,6 +9,7 @@ import deleteSKU from '../controller/VendorSKUController/deleteSKU';
 import deleteVendor from '../controller/VendorSKUController/deleteVendor';
 import SkudataFind from '../controller/RecevingPackageingMetrial/SkudataFind';
 import vendorNameFind from '../controller/RecevingPackageingMetrial/vendorNameFind';
+import getItemByBytype from '../controller/VendorSKUController/getItembyType';
 
 const router = express.Router();
 
@@ -20,5 +21,5 @@ router.delete('/deleteSKU/:id', jwtVerify, deleteSKU)
 router.delete('/deleteVendor/:id', jwtVerify, deleteVendor)
 router.post("/skudatafind/:section", jwtVerify,SkudataFind)
 router.post("/vendornamefind/:section",jwtVerify, vendorNameFind)
-router.get('/getItembySection/:type', jwtVerify, getMechineByType)
+router.put('/getItembySection/:type', jwtVerify, getItemByBytype)
 export default router;
