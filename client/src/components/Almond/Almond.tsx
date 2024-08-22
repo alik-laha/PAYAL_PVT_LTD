@@ -2,7 +2,6 @@ import DashboardHeader from '../dashboard/DashboardHeader'
 import DashboardSidebar from '../dashboard/DashboardSidebar'
 
 import { Button } from "@/components/ui/button";
-import RcnPrimaryEntryTable from "./RcnPrimaryEntryTable";
 import {
     Dialog,
     DialogContent,
@@ -21,6 +20,7 @@ import Loader from '../common/Loader';
 import { pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
 import AlmondInitialForm from './AlmondInitial';
+import AlmondTable from './AlmondTable';
 
 
 const Almond = () => {
@@ -111,7 +111,7 @@ const Almond = () => {
                         Pending Edit ({data.CountPendingEdit})</Button>}
 
                 </div>
-                {/* <RcnPrimaryEntryTable /> */}
+                <AlmondTable />
 
             </div>
         </div>
