@@ -175,7 +175,7 @@ const AlmondPrimaryEntryForm = (props:Props) => {
         const blNo = blNoRef.current?.value
         const conNo = conNoRef.current?.value
      
-        console.log({ origin, gateType   })
+ 
         const formData = rows.map(row => ({
             GatePassNo: gatepass,
             recevingDate: date,
@@ -194,7 +194,7 @@ const AlmondPrimaryEntryForm = (props:Props) => {
         if(formData.length===1){
             for (var data of formData) 
                 {
-                    await axios.put(`/api/generalPrimary/updateRcvGeneral/${id}`, {data })
+                    await axios.put(`/api/almondPrimary/updateRcvAlmond/${id}`, {data })
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
                         section:'Almond' })
                         setErrorText('Almond Items Dispatched Successfully')
@@ -208,19 +208,19 @@ const AlmondPrimaryEntryForm = (props:Props) => {
             else if(formData.length>1){
             const firstrow=formData[0]
           
-                await axios.put(`/api/generalPrimary/updateRcvGeneral/${id}`, {data:firstrow })
+                await axios.put(`/api/almondPrimary/updateRcvAlmond/${id}`, {data:firstrow })
            
                 let pmrescount=0
             for(let i=1;i<formData.length;i++){
                 
                 const data1=formData[i];
-                await axios.post('/api/generalPrimary/createGeneralPrimary', {data:data1 })
+                await axios.post('/api/almondPrimary/createAlmondPrimary', {data:data1 })
                 pmrescount++
                 if(pmrescount==(formData.length-1))
                 {
                     
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-                        section:'General' })
+                        section:'Almond' })
                         setErrorText('Almond Items Dispatched Successfully')
                     if(successdialog){
                         (successdialog as any).showModal();
@@ -232,7 +232,7 @@ const AlmondPrimaryEntryForm = (props:Props) => {
     }
     catch(err){
         console.log(err)
-        await axios.post('/api/generalPrimary/deleteGeneralPrimaryByID',{ id:id,gatepass:gatepass})
+        await axios.post('/api/almondPrimary/deleteAlmondByID',{ id:id,gatepass:gatepass})
         if(axios.isAxiosError(err)){
             setErrorText(err.response?.data.message ||'An Unexpected Error Occured')
         }
@@ -293,6 +293,9 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                 <form className='flex flex-col gap-1.5 ' onSubmit={handleSubmit}>
                 <div className="flex mt-4"><Label className="w-2/4  pt-1">GatePass No.</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
+                <div className="flex"><Label className="w-2/4  pt-1">GatePass Type</Label>
+                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass Type" value={gateType} readOnly /> </div>
+                
                 <div className="flex"><Label className="w-2/4  pt-1">Date of Receving</Label>
                 <Input className="w-2/4  bg-yellow-100 font-semibold text-center" placeholder="BL No." value={date}  readOnly /> </div> 
                 <div className="flex"><Label className="w-2/4  pt-1">Gross Wt (Kg)</Label>
@@ -360,15 +363,16 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                 <div className="mx-8 flex flex-col gap-1"> 
                 <div className="flex mt-4"><Label className="w-2/4  pt-1">GatePass No.</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
-                
+                <div className="flex"><Label className="w-2/4  pt-1">GatePass Type</Label>
+                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass Type" value={gateType} readOnly /> </div>
                 <div className="flex"><Label className="w-2/4  pt-1">Date of Receving</Label>
-                <Input className="w-2/4  bg-yellow-100 font-semibold text-center" placeholder="BL No." value={date}  readOnly /> </div> 
+                <Input className="w-2/4  bg-yellow-100 font-semibold text-center" placeholder="Date" value={date}  readOnly /> </div> 
                 
                 <div className="flex"><Label className="w-2/4  pt-1">Gross Wt (Kg)</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={grossWt}  readOnly /> </div>   
+                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="Gross Wt." value={grossWt}  readOnly /> </div>   
                 
                 <div className="flex"><Label className="w-2/4  pt-1">Vehicle No.</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={truck}  readOnly /> </div>       
+                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="Vehicle No." value={truck}  readOnly /> </div>       
                 <div className="flex"><Label className="w-2/4  pt-2">Invoice No.</Label>
                 <Input className="w-2/4 text-center " placeholder="Invoice No." ref={blNoRef}  required/> </div>
                 
@@ -451,7 +455,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
 
 
                                             <TableCell className="text-center" >
-                                                <Input value={row.quantity} placeholder="Qty." type='number'
+                                                <Input value={row.quantity} placeholder="Qty." type='number' step='0'
                                                     onChange={(e) => {
                                                         handleRowChange(index, 'quantity', e.target.value)
 

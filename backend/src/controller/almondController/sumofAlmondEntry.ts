@@ -36,7 +36,7 @@ const sumofAllTypeAlmond = async (req: Request, res: Response): Promise<Response
                 [Op.or]: [
                     { editStatus: 'Accepted' },
                     { editStatus: 'N/A' }
-                ],status:1,
+                ],status:1,gateType:'IN',
                 recevingDate: {
                     [Op.between]: [targetDate, today]
                 }

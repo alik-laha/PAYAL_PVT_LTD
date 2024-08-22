@@ -24,7 +24,10 @@ const CreateInitialBorma = async (req: Request, res: Response) => {
            
 
         });
-        res.status(201).json({ message: "Borma Initial Entry Made Successfully", BormaInitial });
+        if(BormaInitial){
+            res.status(201).json({ message: "Borma Initial Entry Made Successfully", BormaInitial });
+        }
+        
 
     }
     catch (err) {

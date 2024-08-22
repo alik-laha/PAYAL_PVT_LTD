@@ -33,6 +33,10 @@ const almondPrimaryEntryEditModel = sequelize.define('almondPrimaryEditEntry', {
         type: DataTypes.STRING,
         allowNull: true,
     },
+    totalWt: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
     grade: {
         type: DataTypes.STRING,
         allowNull: true,

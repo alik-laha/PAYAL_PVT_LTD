@@ -280,7 +280,8 @@ const GeneralPrimaryEntry = (props:Props) => {
                 <div className="mx-8 flex flex-col gap-1"> 
                 <div className="flex mt-4"><Label className="w-2/4  pt-2">GatePass No.</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
-               
+                <div className="flex"><Label className="w-2/4  pt-2">GatePass Type</Label>
+                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="Type" value={gateType} readOnly /> </div>
                 <div className="flex"><Label className="w-2/4  pt-2">Date</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={date}  readOnly /> </div> 
                 
