@@ -39,6 +39,8 @@ interface ContextType {
     setSearchType: (data: string) => void;
     editBormaLotWiseData: any[];
     setEditBormaLotWiseData: (data: any[]) => void;
+    editPendingAlmondData: EditPendingData[];
+    setEditPendingAlmondData: (data: EditPendingData[]) => void;
 }
 
 const Context = createContext<ContextType>({
@@ -77,7 +79,9 @@ const Context = createContext<ContextType>({
     setSearchType: () => { },
     searchType: '',
     editBormaLotWiseData: [],
-    setEditBormaLotWiseData: () => {}
+    setEditBormaLotWiseData: () => {},
+    editPendingAlmondData: [],
+    setEditPendingAlmondData: () => {}
 
 });
 

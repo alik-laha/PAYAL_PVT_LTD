@@ -25,6 +25,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [searchType, setSearchType] = useState<string>('LotWise')
     const [StorePrimaryOverView, setStorePrimaryOverView] = useState<sumofStorePrimary | null>(null)
     const [GeneralPrimaryOverView, setGeneralPrimaryOverView] = useState<sumofGeneralPrimary | null>(null)
+    const [editPendingAlmondData, setEditPendingAlmondData] = useState<EditPendingData[]>([])
 
     return (
         <Context.Provider value={{
@@ -34,7 +35,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
             editPendingBoilingData, setEditPendingBoilingData, pendingqccount, setpendingqcCount, pendingreportcount,
             setpendingreportCount, recevingPackagematerialOverView, setRecevingPacakanMaterialOverView,
             editScoopingLotWiseData, setEditScoopingLotWiseData, searchType, setSearchType,editBormaLotWiseData,setEditBormaLotWiseData,
-            StorePrimaryOverView,setStorePrimaryOverView,GeneralPrimaryOverView,setGeneralPrimaryOverView
+            StorePrimaryOverView,setStorePrimaryOverView,GeneralPrimaryOverView,setGeneralPrimaryOverView,editPendingAlmondData,setEditPendingAlmondData
         }}>
             {children}
         </Context.Provider>

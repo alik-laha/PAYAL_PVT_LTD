@@ -24,14 +24,14 @@ import AlmondTable from './AlmondTable';
 
 
 const Almond = () => {
-    const { setEditPendingData } = useContext(Context);
+    const { setEditPendingAlmondData } = useContext(Context);
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const [lotdata, setLotData] = useState<rcnpendingLotData[]>([])
 
     const handleEditFetch = async () => {
         const Data = await axios.get('/api/rcnprimary/geteditpending');
         console.log(Data)
-        setEditPendingData(Data.data);
+        setEditPendingAlmondData(Data.data);
     };
 
     const checkpending = (tab: string) => {
