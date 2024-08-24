@@ -29,7 +29,7 @@ const Almond = () => {
     const [lotdata, setLotData] = useState<rcnpendingLotData[]>([])
 
     const handleEditFetch = async () => {
-        const Data = await axios.get('/api/rcnprimary/geteditpending');
+        const Data = await axios.get('/api/almondPrimary/getAlmondeditpending');
         console.log(Data)
         setEditPendingAlmondData(Data.data);
     };

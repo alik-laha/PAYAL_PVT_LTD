@@ -123,7 +123,7 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
                     <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Truck No." value={truckNo} readOnly />
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 mt-2">Date of Reciving</Label>
+                    <Label className="w-2/4 mt-2">Date of Receiving</Label>
                     <Input className="w-2/4 text-center bg-yellow-100 justify-center" placeholder="Date Of Receiving" type="date" value={date ? date.toISOString().split('T')[0] : '' } readOnly/>
                 </div>
                 <div className="flex"><Label className="w-2/4 mt-2"> Gross Weight (Kg)</Label>

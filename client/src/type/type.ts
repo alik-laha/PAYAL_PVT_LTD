@@ -29,6 +29,35 @@ export interface RcnPrimaryEntryData {
     status:number;
     systemBags:string;            
 }
+export interface AlmondPrimaryEntryData {
+   
+    approvedBy: string;
+    id: number;
+    recevingDate: string;
+    noOfBags: string;
+    truckNo: string;
+    netWeight: string;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string;
+    status:number;
+    systemBags:string;  
+    gateType: string,
+    invoicedate: string;  
+    invoice: string;  
+    grade: string;  
+    type: string;  
+    vendorName: string;  
+    totalWt:string;  
+ 
+
+
+
+
+
+
+}
 export interface rcnScoopingData {
     id: number;
     LotNo: string;
@@ -71,6 +100,7 @@ export interface EditPendingData extends RcnPrimaryEntryData {
     editedBy: string;
 
 }
+
 
 export interface QcRcnEntryExcelData {
     id: number;

@@ -1,7 +1,7 @@
 import Context from "./context.ts";
 import { ReactNode } from "react";
 import { useState } from "react";
-import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving, rcnScoopingData,sumofStorePrimary, sumofGeneralPrimary } from "../../type/type";
+import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving, rcnScoopingData,sumofStorePrimary, sumofGeneralPrimary, AlmondPrimaryEntryData } from "../../type/type";
 
 interface ContextProviderProps {
     children: ReactNode;
@@ -25,7 +25,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [searchType, setSearchType] = useState<string>('LotWise')
     const [StorePrimaryOverView, setStorePrimaryOverView] = useState<sumofStorePrimary | null>(null)
     const [GeneralPrimaryOverView, setGeneralPrimaryOverView] = useState<sumofGeneralPrimary | null>(null)
-    const [editPendingAlmondData, setEditPendingAlmondData] = useState<EditPendingData[]>([])
+    const [editPendingAlmondData, setEditPendingAlmondData] = useState<AlmondPrimaryEntryData[]>([])
 
     return (
         <Context.Provider value={{
