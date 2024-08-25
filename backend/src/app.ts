@@ -51,4 +51,6 @@ app.use('/api/storePrimary', storePrimaryRouter)
 app.use('/api/generalPrimary', generalPrimaryRouter)
 app.use('/api/almondPrimary', almondRouter)
 
+app.use("/api/qcpackage", qcPackageMaterialRouter)
+
 export default app

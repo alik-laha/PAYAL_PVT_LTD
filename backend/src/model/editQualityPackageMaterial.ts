@@ -2,16 +2,11 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig"
 import PackagingMaterial from "./recevingPackagingMaterialModel";
 
-const QualityPackageMaterial = sequelize.define('QcPackageMaterial', {
-
+const QualityEditPackageMaterial = sequelize.define('EditQcPackageMaterial', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
-        references: {
-            model: PackagingMaterial,
-            key: 'id'
-        }
     },
     gatePassNo:{
         type: DataTypes.STRING,
@@ -97,23 +92,20 @@ const QualityPackageMaterial = sequelize.define('QcPackageMaterial', {
     editStatus: {
         type: DataTypes.STRING,
         allowNull: true,
-        defaultValue: 'NA'
+        defaultValue: 'Pending'
     },
-
     createdBy: {
         type: DataTypes.STRING,
         allowNull: true
     },
-
     approvedBy: {
         type: DataTypes.STRING,
         allowNull: true
     },
 
 })
+PackagingMaterial.hasOne(QualityEditPackageMaterial, { foreignKey: { name: 'id' } })
 
-PackagingMaterial.hasOne(QualityPackageMaterial,{foreignKey:{name:'id'}})
+QualityEditPackageMaterial.belongsTo(PackagingMaterial, { foreignKey: { name: 'id' } })
 
-QualityPackageMaterial.belongsTo(PackagingMaterial,{foreignKey:{name:'id'}})
-export default QualityPackageMaterial;
-
+export default QualityEditPackageMaterial;

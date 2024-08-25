@@ -262,6 +262,12 @@ const DashboardSidebar = () => {
                                    RCN Incoming QC
                                 </NavLink>
                             </CollapsibleContent>}
+                        {renderlink('RCN Incoming QC')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/qc_packaging_metirial" >
+                                  Packaging Materials QC
+                                </NavLink>
+                            </CollapsibleContent>}
 
 
                     </Collapsible>}
