@@ -426,7 +426,7 @@ const AlmondTable = () => {
                                                         <DialogContent>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>RCN Primary Entry Modification</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-1'>Almond Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             <AlmondModify data={item} />

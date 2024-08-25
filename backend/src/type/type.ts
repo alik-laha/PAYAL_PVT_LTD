@@ -166,6 +166,28 @@ export interface storeRcvData {
     gateType:string;
 
 }
+export interface AlmondrcvData {
+    approvedBy: string;
+    id: number;
+    recevingDate: string;
+    noOfBags: string;
+    truckNo: string;
+    netWeight: string;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string;
+    status:number;
+    systemBags:string;  
+    gateType: string,
+    invoicedate: string;  
+    invoice: string;  
+    grade: string;  
+    type: string;  
+    vendorName: string;  
+    totalWt:string;  
+
+}
 
 export interface GraddingCleanData {
     id: number;

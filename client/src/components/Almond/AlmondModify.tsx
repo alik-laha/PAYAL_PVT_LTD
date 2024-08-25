@@ -1,21 +1,15 @@
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { Origin, SelectGatePassType } from "../common/exportData"
+
 import React, { useEffect } from "react"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+
 import { useState } from "react"
 import axios from "axios"
-import { findskutypeData } from "@/type/type"
+import { findskutypeData, VendorData } from "@/type/type"
+import { ScrollArea } from "../ui/scroll-area"
 interface RcnPrimaryModifyProps {
     data: {
     approvedBy: string;
@@ -44,7 +38,7 @@ interface RcnPrimaryModifyProps {
 const AlmondModify = (props: RcnPrimaryModifyProps) => {
 
     const [weight, setweight] = useState<string>("")
-    const [vendor, setVendor] = useState<string>("")
+   
     const [gatePassNo, setgatePassNo] = useState<string>("")
     const [grossWt, setgrossWt] = useState<string>("")
     const [almondtype, setalmondtype] = useState<string>("")
@@ -61,6 +55,10 @@ const AlmondModify = (props: RcnPrimaryModifyProps) => {
     
     const [errortext, setErrorText] = useState<string>("")
     const [date, setDate] = useState<Date>()
+
+    const [VendorName, setVendorName] = useState<string>('')
+    const [vendorNameView, setVendorNameView] = useState("none")
+    const [vendorData, setVendorData] = useState<VendorData[]>([])
 
     const successdialog = document.getElementById('rcneditscsDialog') as HTMLInputElement;
     const errordialog = document.getElementById('rcnediterrDialog') as HTMLInputElement;
@@ -89,19 +87,27 @@ const AlmondModify = (props: RcnPrimaryModifyProps) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        axios.put(`/api/rcnprimary/update/${props.data.id}`, { gatePassNo,origin, blNo, conNo, truckNo, noOfBags, blWeight, netWeight, date })
+        axios.post(`/api/almondPrimary/updateAlmond/${props.data.id}`, { gatePassNo,gatetype,almondtype,almondgrade,
+            grossWt, netWeight, truckNo, noOfBags,VendorNam: VendorName, weight, invoice, invoicedate,date })
             .then((res) => {
                 console.log(res)
                 if (successdialog != null) {
                     (successdialog as any).showModal();
                 }
-                setBlNo('')
-                setConNo('')
-                setTruckNo('')
-                setBlWeight('')
-                setNetWeight('')
-                setNoOfBags('')
-                setOrigin('')
+                setalmondtype('')
+        setinvoice('')
+        setinvoicedate('')
+       
+        setNoOfBags('')
+    setweight('')
+
+        setNetWeight('')
+       
+        setgrossWt('')
+        setgatePassNo('')
+        setTruckNo('')
+        setGateType('')
+        setVendorName('')
 
             }).catch((err) => {
                 console.log(err)
@@ -120,7 +126,7 @@ const AlmondModify = (props: RcnPrimaryModifyProps) => {
         setinvoicedate(props.data.invoicedate.slice(0,10))
        
         setNoOfBags(props.data.noOfBags)
-    
+    setweight(props.data.totalWt)
 
         setNetWeight(props.data.netWeight)
         setDate(new Date(props.data.recevingDate))
@@ -128,6 +134,8 @@ const AlmondModify = (props: RcnPrimaryModifyProps) => {
         setgatePassNo(props.data.gatePassNo)
         setTruckNo(props.data.truckNo)
         setGateType(props.data.gateType)
+        setVendorName(props.data.vendorName)
+
     }, [])
     useEffect(() => {
         axios.put('/api/vendorSKU/getItembySection/Almond Type',{section:'Almond'})
@@ -151,6 +159,40 @@ const AlmondModify = (props: RcnPrimaryModifyProps) => {
                 console.log(err)
             })            
     }, [])
+  
+    const handleVendoridClick = (item: VendorData) => {
+        setVendorName(item.vendorName)
+        //handleRowChange(index,'vendorName',item.vendorName)
+        setVendorNameView("none")
+    }
+    const handleVendorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        //handleRowChange(index,'vendorName',e.target.value)
+        setVendorName(e.target.value)
+        //setActvindex(index)
+        if (e.target.value.length > 0 && vendorData.length > 0) {
+            setVendorNameView("block")
+        } else {
+            setVendorNameView("none")
+        }
+        let vendortype:string;
+        if(gatetype==='IN'){
+            vendortype='Vendor'
+        }else{
+            vendortype='Party'
+        }
+        axios.post(`/api/vendorSKU/vendornamefind/Almond/`, { vendorName: e.target.value,type:vendortype  })
+            .then((res) => {
+                console.log(res)
+                if (res.status === 200) {
+                    setVendorData(res.data.vendorData)
+                }
+            })
+            .catch((err) => {
+                if (err.response.status === 404) {
+                    setVendorData([])
+                }
+            })
+    }
 
 
     return (
@@ -158,45 +200,87 @@ const AlmondModify = (props: RcnPrimaryModifyProps) => {
             <form className='flex flex-col gap-1 ' onSubmit={handleSubmit}>
             <div className="flex mt-2"><Label className="w-2/4 mt-2">Gate Pass No.</Label>
                  <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Gate Pass No." value={gatePassNo} readOnly /> </div>
-                 <div className="flex "><Label className="w-2/4 mt-2">Gate Pass Type</Label>
-                 <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Gate Type" value={gatetype} readOnly /> </div>
+                 {/* <div className="flex "><Label className="w-2/4 mt-2">Gate Pass Type</Label>
+                 <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Gate Type" value={gatetype} readOnly /> </div> */}
                  <div className="flex"><Label className="w-2/4 mt-2" > Truck No.</Label>
                     <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Truck No." value={truckNo} readOnly />
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 mt-2">Date of Reciving</Label>
+                    <Label className="w-2/4 mt-2">Date of Receiving</Label>
                     <Input className="w-2/4 text-center bg-yellow-100 justify-center" placeholder="Date Of Receiving" type="date" value={date ? date.toISOString().split('T')[0] : '' } readOnly/>
                 </div>
-                <div className="flex"><Label className="w-2/4 mt-2"> Gross Weight (Kg)</Label>
+                {/* <div className="flex"><Label className="w-2/4 mt-2"> Gross Weight (Kg)</Label>
                     <Input className="w-2/4 text-center bg-yellow-100" placeholder="Gross Weight" type="number" value={grossWt} readOnly />
                 </div>
                 <div className="flex"><Label className="w-2/4 mt-2"> Net Weight (Kg)</Label>
                     <Input className="w-2/4 text-center bg-yellow-100" placeholder="Net Weight" type="number" value={netWeight} readOnly />
-                </div>
+                </div> */}
 
                 <div className="flex"><Label className="w-2/4 mt-2">Almond Type</Label>
-                <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
+                    <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => setalmondtype(e.target.value)}
-                                                    value={almondtype} required>
-                                                    {/* <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+                        value={almondtype} required>
+                        {/* <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
     focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Grade</option> */}
-                                                    {/* {GatePassSection.map((item: any,idx:number) => (
+                        {/* {GatePassSection.map((item: any,idx:number) => (
         <option key={idx} value={item}>{item}</option>
     ))} */}
-                                                    {sku ? (
-                                                        sku.map((item:findskutypeData) => (
-                                                            <option key={item.sku} value={item.sku}>{item.sku}</option>
-                                                        ))
-                                                    ) : null}
-                                                </select>
+                        {sku ? (
+                            sku.map((item: findskutypeData) => (
+                                <option key={item.sku} value={item.sku}>{item.sku}</option>
+                            ))
+                        ) : null}
+                    </select>
                     {/* <Input   placeholder="Origin"/>  */}</div>
+
+                {gatetype === 'OUT' ? (<div className="flex"><Label className="w-2/4 mt-2">Almond Grade</Label>
+                    <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
+px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => setalmondgrade(e.target.value)}
+                        value={almondgrade} required>
+                        {/* <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Grade</option> */}
+                        {/* {GatePassSection.map((item: any,idx:number) => (
+        <option key={idx} value={item}>{item}</option>
+    ))} */}
+                        {grade ? (
+                            grade.map((item: findskutypeData) => (
+                                <option key={item.sku} value={item.sku}>{item.sku}</option>
+                            ))
+                        ) : null}
+                    </select>
+                    {/* <Input   placeholder="Origin"/>  */}</div>) : ''}  
+                    <div className="flex"><Label className="w-2/4  pt-2">{gatetype==='IN'? 'Vendor': 'Party'} Name</Label>
+                    <Input className="w-2/4 text-center" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} />    </div>
+                    <ScrollArea className="max-h-28 w-2/4 overflow-scroll w-30 dropdown-content" style={{ display: vendorNameView}}>
+                                                    {
+                                                        vendorData.map((item: VendorData) => (
+                                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick( item)}>
+                                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.vendorName}</p>
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </ScrollArea>
+                    
+                    
+                  
+                
+                
+                
+                
+                
                 <div className="flex"><Label className="w-2/4 mt-2">Invoice No.</Label>
                     <Input className="w-2/4 text-center" placeholder="Invoice No" value={invoice} onChange={(e) => setinvoice(e.target.value)} /> </div>
                 <div className="flex"><Label className="w-2/4 mt-2" >Invoice Date</Label>
                     <Input className="w-2/4 text-center justify-center" placeholder="Invoice Date" value={invoicedate} onChange={(e) => setinvoicedate(e.target.value)} type="date"/> </div>
-                
+                    
+                 {gatetype==='OUT' ? (<div className="flex"><Label className="w-2/4 mt-2" >Weight</Label>
+                    <Input className="w-2/4 text-center justify-center" placeholder="Row Weight" value={weight} onChange={(e) => setweight(e.target.value)} /> </div>):''}   
+          
+             
                 
                 <div className="flex">
                     <Label className="w-2/4 mt-2">Physical Bag Count</Label>
@@ -204,7 +288,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                 </div>
               
                
-                <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
+                <Button className="bg-orange-500 mb-1 mt-1 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
             </form>
 
             <dialog id="rcneditscsDialog" className="dashboard-modal">
