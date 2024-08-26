@@ -212,6 +212,7 @@ const StorePrimaryTable = () => {
                 Invoice_Quantity:item.invoicequantity,
                 Unit: item.unit,
                 Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
+                Bill_Amount:item.totalBill!=='0.00' ?formatNumber(item.totalBill) :'',
                 Remarks:item.remarks,
                 Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
@@ -238,6 +239,7 @@ const StorePrimaryTable = () => {
                 Invoice_Quantity:item.invoicequantity,
                 Unit: item.unit,
                 Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
+                Bill_Amount:item.totalBill!=='0.00' ?formatNumber(item.totalBill) :'',
                 Remarks:item.remarks,
                 Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
@@ -334,11 +336,12 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                         <TableHead className="text-center" >Invoice_Qty</TableHead>
                         <TableHead className="text-center" >Physical_Qty</TableHead>
                         <TableHead className="text-center" >Unit</TableHead>
-                        <TableHead className="text-center" > Row_Item_Wt(Kg)</TableHead>
+                        <TableHead className="text-center" > Item_Wt(Kg)</TableHead>
+                        <TableHead className="text-center" > Bill_Amount</TableHead>
                      
 
                         <TableHead className="text-center" >Edit Status</TableHead>
-                        <TableHead className="text-center" > Remarks</TableHead>
+                        <TableHead className="text-center" >Remarks</TableHead>
                         <TableHead className="text-center" >Entried By</TableHead>
                         <TableHead className="text-center" >Actioned By</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
@@ -365,7 +368,8 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                         <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt):''} </TableCell> 
+                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt):0} </TableCell> 
+                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill):0} </TableCell> 
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
@@ -431,7 +435,8 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                         <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :''} </TableCell> 
+                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :0} </TableCell> 
+                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} </TableCell>   
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>

@@ -562,6 +562,7 @@ export interface storeprimaryData {
     gatePassNo:string;
     grossWt: string;
     totalWt:string;
+    totalBill:string;
     remarks:string;
     gateType:string;
 }
@@ -588,6 +589,7 @@ export interface generalprimaryData {
     totalWt:string;
     remarks:string;
     gateType:string;
+    totalBill:string;
 }
 
 export interface SumofpackageMetrialReceving {
@@ -624,7 +626,7 @@ export interface ExcelrecevingPackageMaterialData {
     Net_Wt:string;
     Vehicle_No:string;
     Remarks:string;
-    totalBill:string;
+    totalBill:string|number;
 }
 export interface ExcelStorePrimaryData {
     Sl_No: number;
@@ -643,6 +645,7 @@ export interface ExcelStorePrimaryData {
     Created_By: string;
     Type_Of_Material:string;
     Line_Weight:string|number;
+    Bill_Amount:string|number;
     GatePass_No:string;
     Gross_Wt:string;
     Net_Wt:string;
