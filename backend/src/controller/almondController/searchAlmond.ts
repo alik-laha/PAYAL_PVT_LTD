@@ -65,14 +65,14 @@ const SearchAlmondPrimary = async (req: Request, res: Response) => {
         if(limit===0 && offset===0){
              rcnEntries = await almondPrimaryEntryModel.findAll({
                 where,
-                order: [['recevingDate', 'DESC']], // Order by date descending
+                order: [['gatePassNo','DESC'],['recevingDate', 'DESC']], // Order by date descending
                 
             });
         }
         else{
              rcnEntries = await almondPrimaryEntryModel.findAll({
                 where,
-                order: [['recevingDate', 'DESC']], // Order by date descending
+                order: [['gatePassNo','DESC'],['recevingDate', 'DESC']], // Order by date descending
                 limit: limit,
                 offset: offset
             });

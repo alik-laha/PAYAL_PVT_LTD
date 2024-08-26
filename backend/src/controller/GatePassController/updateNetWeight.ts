@@ -6,6 +6,7 @@ import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
 import generalPrimaryModel from "../../model/generalPrimaryModel";
+import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
 
 
 
@@ -105,6 +106,27 @@ const updateNetWeight = async (req: Request, res: Response) => {
         
                 if(generalupdate){
                     const data = await WpMsgGatePassRcv("General Item Entry/Dispatch", gatepassNo,"verify_gatepass",'General Item Entry/Dispatch')
+            console.log(data)
+                    return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
+                }
+                
+            }
+            if (section==='Almond') {
+
+                const generalupdate = await almondPrimaryEntryModel.update(
+                    { 
+                        netWeight:netWeight,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo:gatepassNo
+                        },
+                    }
+                );
+        
+                if(generalupdate){
+                    const data = await WpMsgGatePassRcv("Almond Entry/Dispatch", gatepassNo,"verify_gatepass",'Almond Entry/Dispatch')
             console.log(data)
                     return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
                 }
