@@ -29,6 +29,45 @@ export interface RcnPrimaryEntryData {
     status:number;
     systemBags:string;            
 }
+export interface PackagingMeterialQc {
+    packagingMaterialreceving: {
+        id: number;
+        recevingDate: string;
+        sku: string;
+        vendorName: string;
+        quantity: string;
+        unit: string;
+        invoicedate: string;
+        invoice: string;
+        createdBy: string;
+        qualityStatus: string;
+        editStatus: string;
+        approvedBy: string;
+    }
+    id: number;
+    qualityStatus: boolean;
+    testingDate: string;
+    length: number;
+    width: number;
+    height: number;
+    gsm: number;
+    avgWeight: number;
+    leakageTest: string;
+    dropTest: string;
+    sealCondition: string;
+    labelingCondition: string;
+    coa: string;
+    foodGradeCirtiicate: string;
+    foodGradeCirtificateStatus: string;
+    foodGradeCirtiFicateFile: string;
+    coaCirtificateStatus: string;
+    coaCirtificateFile: string;
+    editStatus: string;
+    createdBy: string;
+    remarks: string;
+    approvedBy: string;
+    damageFile: string;
+}
 export interface AlmondPrimaryEntryData {
    
     approvedBy: string;
