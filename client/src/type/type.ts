@@ -32,6 +32,7 @@ export interface RcnPrimaryEntryData {
 export interface PackagingMeterialQc {
     packagingMaterialreceving: {
         id: number;
+        gatePassNo:string;
         recevingDate: string;
         sku: string;
         vendorName: string;
