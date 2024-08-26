@@ -10,32 +10,33 @@ import { useState } from "react"
 import axios from "axios"
 import { findskutypeData, VendorData } from "@/type/type"
 import { ScrollArea } from "../ui/scroll-area"
-interface RcnPrimaryModifyProps {
+interface AlmondPrimaryModifyProps {
     data: {
-    approvedBy: string;
-    id: number;
-    recevingDate: string;
-    noOfBags: string;
-    truckNo: string;
-    netWeight: string;
-    editStatus: string;
-    createdBy: string;
-    gatePassNo:string;
-    grossWt:string;
-    status:number;
-    systemBags:string;  
-    gateType: string,
-    invoicedate: string;  
-    invoice: string;  
-    grade: string;  
-    type: string;  
-    vendorName: string;  
-    totalWt:string;  
+        approvedBy: string;
+        id: number;
+        recevingDate: string;
+        noOfBags: string;
+        truckNo: string;
+        netWeight: string;
+        editStatus: string;
+        createdBy: string;
+        gatePassNo:string;
+        grossWt:string;
+        status:number;
+        systemBags:string;  
+        gateType: string,
+        invoicedate: string;  
+        invoice: string;  
+        grade: string;  
+        type: string;  
+        vendorName: string;  
+        totalWt:string;  
+        totalBill:string;  
     }
 }
 
 
-const AlmondModify = (props: RcnPrimaryModifyProps) => {
+const AlmondModify = (props: AlmondPrimaryModifyProps) => {
 
     const [weight, setweight] = useState<string>("")
    
@@ -51,7 +52,7 @@ const AlmondModify = (props: RcnPrimaryModifyProps) => {
     const [netWeight, setNetWeight] = useState<string>("")
     const [sku, setsku] = useState<findskutypeData[]>()
     const [grade, setGrade] = useState<findskutypeData[]>()
-
+    const [billamt, setBillamt] = useState<string>("")
     
     const [errortext, setErrorText] = useState<string>("")
     const [date, setDate] = useState<Date>()
@@ -88,7 +89,7 @@ const AlmondModify = (props: RcnPrimaryModifyProps) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         axios.post(`/api/almondPrimary/updateAlmond/${props.data.id}`, { gatePassNo,gatetype,almondtype,almondgrade,
-            grossWt, netWeight, truckNo, noOfBags,VendorNam: VendorName, weight, invoice, invoicedate,date })
+            grossWt, netWeight, truckNo, noOfBags,VendorNam: VendorName, weight, invoice, invoicedate,date,totalBill:billamt })
             .then((res) => {
                 console.log(res)
                 if (successdialog != null) {
@@ -124,7 +125,7 @@ const AlmondModify = (props: RcnPrimaryModifyProps) => {
         setalmondtype(props.data.type)
         setinvoice(props.data.invoice)
         setinvoicedate(props.data.invoicedate.slice(0,10))
-       
+        setalmondgrade(props.data.grade)
         setNoOfBags(props.data.noOfBags)
     setweight(props.data.totalWt)
 
@@ -135,6 +136,7 @@ const AlmondModify = (props: RcnPrimaryModifyProps) => {
         setTruckNo(props.data.truckNo)
         setGateType(props.data.gateType)
         setVendorName(props.data.vendorName)
+        setBillamt(props.data.totalBill)
 
     }, [])
     useEffect(() => {
@@ -283,8 +285,12 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
              
                 
                 <div className="flex">
-                    <Label className="w-2/4 mt-2">Physical Bag Count</Label>
+                    <Label className="w-2/4 mt-2">Bag/Item Count</Label>
                     <Input className="w-2/4 text-center " placeholder="Total Bags" type="number" value={noOfBags} onChange={(e) => setNoOfBags(e.target.value)} />
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Bill Amount</Label>
+                    <Input className="w-2/4 text-center " placeholder="Bill Amount" type="number" value={billamt} onChange={(e) => setBillamt(e.target.value)} />
                 </div>
               
                
@@ -294,7 +300,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
             <dialog id="rcneditscsDialog" className="dashboard-modal">
                 <button id="rcnscscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification of RCN Primary Entry is Requested </p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification of Almond Entry is Requested </p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

@@ -16,6 +16,29 @@ export interface RcnPrimaryModifyProps {
     difference:string;
 
 }
+export interface AlmondModifyProps {
+    approvedBy: string;
+    id: number;
+    recevingDate: string;
+    noOfBags: string;
+    truckNo: string;
+    netWeight: string;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string;
+    status:number;
+    systemBags:string;  
+    gateType: string,
+    invoicedate: string;  
+    invoice: string;  
+    grade: string;  
+    type: string;  
+    vendorName: string;  
+    totalWt:string;  
+    totalBill:string;  
+
+}
 
 export interface qcapproveprops {
     rcnStatus: string;

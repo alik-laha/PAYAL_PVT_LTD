@@ -107,7 +107,7 @@ export const SKUUnit = ['Pc','Kg','Mtr','SqMtr','Ft','SqFt','Bag','Bucket','Ltr'
 export const SelectTypeSKUVendor = ["SKU","Vendor"]
 
 export const TypeOnSection = {
-    PackagingMaterial: ['Pouch','Bucket','Tin','Stickers','PlasticBag','PP','PlasticCan'],
+    PackagingMaterial: ['Pouch','Bucket','Tin','Can','Jar','Cartoon','Tape','Foil','Stickers','PlasticBag','PP','Label','Lid'],
     Store:['ElectricalSpare','MechanicalSpare','Stationary','Chemical','Civil','Machine','Miscellaneous','Asset'],
     General:['Fuel','Civil','General','Miscellaneous'],
     Almond:['Almond Type','Almond Grade']

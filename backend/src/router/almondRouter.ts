@@ -10,6 +10,8 @@ import deleteAlmondPrimary from '../controller/almondController/deleteAlmondByGa
 import SearchAlmondPrimary from '../controller/almondController/searchAlmond';
 import getAllAlmondEditPending from '../controller/almondController/getAllAlmondEditPending';
 import EditAlmondEntry from '../controller/almondController/EditAlmondEntry';
+import approveAlmond from '../controller/almondController/approveAlmondEntry';
+import EditRejectAlmond from '../controller/almondController/rejectAlmondEntry';
 const router = express.Router();
 
 router.get('/sumofAllAlmondEntry', jwtVerify, sumofAllTypeAlmond);
@@ -24,5 +26,11 @@ router.put('/almondprimarysearch', jwtVerify, SearchAlmondPrimary);
 router.get('/getAlmondeditpending', jwtVerify, getAllAlmondEditPending);
 
 router.post("/updateAlmond/:id",jwtVerify, EditAlmondEntry)
+
+//Edit Reject Rcn Entry by Id
+router.delete('/rejectededitAlmond/:id', jwtVerify, EditRejectAlmond);
+
+//Edit Approve Rcn Entry by Id
+router.put("/approveeditAlmond/:id", jwtVerify, approveAlmond);
 
 export default router;

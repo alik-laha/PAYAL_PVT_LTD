@@ -42,7 +42,7 @@ export interface AlmondPrimaryEntryData {
     gatePassNo:string;
     grossWt:string;
     status:number;
-    systemBags:string;  
+
     gateType: string,
     invoicedate: string;  
     invoice: string;  
@@ -50,14 +50,35 @@ export interface AlmondPrimaryEntryData {
     type: string;  
     vendorName: string;  
     totalWt:string;  
+    totalBill:string;  
  
-
-
-
-
-
-
 }
+
+export interface AlmondPrimaryExcelEntryData {
+   
+    ApprovedBy: string;
+    id: number;
+    ReceivingDate: string;
+    Item_Count: string;
+    Vehicle_No: string;
+    netWeight: string|number;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string|number;
+    gateType: string,
+    invoicedate: string;  
+    invoice: string;  
+    grade: string;  
+    type: string;  
+    vendorName: string;  
+    totalWt:string|number;  
+    totalBill:string|number;  
+ 
+}
+
+
+
 export interface rcnScoopingData {
     id: number;
     LotNo: string;
@@ -626,7 +647,7 @@ export interface ExcelrecevingPackageMaterialData {
     Net_Wt:string;
     Vehicle_No:string;
     Remarks:string;
-    totalBill:string|number;
+    Total_Bill:string|number;
 }
 export interface ExcelStorePrimaryData {
     Sl_No: number;

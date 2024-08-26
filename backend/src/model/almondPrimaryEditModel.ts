@@ -82,6 +82,10 @@ const almondPrimaryEntryEditModel = sequelize.define('almondPrimaryEditEntry', {
     grossWt:{
         type: DataTypes.DECIMAL(10,2),
         allowNull: false
+    },
+    totalBill:{
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
     }
    
 

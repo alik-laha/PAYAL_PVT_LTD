@@ -154,7 +154,7 @@ const PackageMetrialRecivingTable = () => {
         axios.post('/api/packageMaterial/getreceivematerial', { fromdate, todate, searchdata,gatepassSearch }, { params: { page: page, limit: limit } }).then((res) => {
             setData(res.data.PackageMaterials)
 
-            if (res.data.PackageMaterials.length === 0) {
+            if (res.data.PackageMaterials.length === 0 && page>1) {
                 setPage((prev) => prev - 1)
             }
         }).catch((err) => {

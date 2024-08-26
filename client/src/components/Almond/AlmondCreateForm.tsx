@@ -37,6 +37,7 @@ interface SectionRowData{
    // unit:string;
     //remarks:string;
     totalWt:number;
+    totalBill:number;
 }
 
 const AlmondPrimaryEntryForm = (props:Props) => {
@@ -47,6 +48,7 @@ const AlmondPrimaryEntryForm = (props:Props) => {
     const [gateType, setGateType] = useState<string>("")
     const blNoRef = useRef<HTMLInputElement>(null)
     const conNoRef = useRef<HTMLInputElement>(null)
+    const billAmtRef = useRef<HTMLInputElement>(null)
 // const blWeightRef = useRef<HTMLInputElement>(null)
 
     const [id, setId] = useState<number>()
@@ -96,7 +98,7 @@ const AlmondPrimaryEntryForm = (props:Props) => {
             })            
     }, [])
 
-    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',quantity:0,totalWt:0}
+    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',quantity:0,totalWt:0,totalBill:0}
     ]);
 
     const handleRowChange = (index:number,field:string,fieldvalue:string) => {
@@ -105,7 +107,7 @@ const AlmondPrimaryEntryForm = (props:Props) => {
         setRows(newRows)
     }
     const addRow2 = () => {
-        setRows([...rows,{sku:'',type:'',quantity:0,totalWt:0}])
+        setRows([...rows,{sku:'',type:'',quantity:0,totalWt:0,totalBill:0}])
     }
 
 
@@ -141,7 +143,7 @@ const AlmondPrimaryEntryForm = (props:Props) => {
         e.preventDefault()
         const blNo = blNoRef.current?.value
         const conNo = conNoRef.current?.value
-   
+        const billAmt =billAmtRef.current?.value
        // const blWeight = blWeightRef.current?.value
     
         const noOfBags = noOfBagsRef.current?.value
@@ -149,7 +151,7 @@ const AlmondPrimaryEntryForm = (props:Props) => {
         console.log({ origin, gateType,noOfBags })
 
 
-        axios.post('/api/almondPrimary/updateAlmondEntry', { id,origin,blNo, conNo,gateType, noOfBags,gatepass ,Vendor:VendorName})
+        axios.post('/api/almondPrimary/updateAlmondEntry', { id,origin,blNo, conNo,gateType, noOfBags,gatepass ,Vendor:VendorName,totalBill:billAmt})
             .then((res) => {
 
                 console.log(res)
@@ -351,6 +353,10 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                         <Label className="w-2/4 pt-1">Physical Bag Count</Label>
                         <Input className="w-2/4 text-center" placeholder="Bag Count" ref={noOfBagsRef} type="number" required />
                 </div>
+                <div className="flex">
+                        <Label className="w-2/4 pt-1">Bill Amount</Label>
+                        <Input className="w-2/4 text-center" placeholder="Bill Amount" ref={billAmtRef} type="number" required step="0.01"/>
+                </div>
                     {/* <div className="flex">
                         <Label className="w-2/4 pt-1"> BL Weight (Kg)</Label>
                         <Input className="w-2/4 text-center" placeholder="BL Weight" ref={blWeightRef} type="number" step="0.01" required />
@@ -405,7 +411,8 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                            
                            
                             <TableHead className="text-center" >Qty(Pc)</TableHead>                  
-                            <TableHead className="text-center" >Weight(Kg)</TableHead>             
+                            <TableHead className="text-center" >Weight(Kg)</TableHead> 
+                            <TableHead className="text-center" >Bill Amount</TableHead>           
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>
                         {rows.map((row, index) => {
@@ -466,6 +473,12 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                 <Input value={row.totalWt} placeholder="unitWt" type="number"
                                                     onChange={(e) => {
                                                         handleRowChange(index, 'totalWt', e.target.value)
+                                                    }} />
+                                            </TableCell>
+                                            <TableCell className="text-center" >
+                                                <Input value={row.totalBill} placeholder="billAmt" type="number"
+                                                    onChange={(e) => {
+                                                        handleRowChange(index, 'totalBill', e.target.value)
                                                     }} />
                                             </TableCell>
                                            
