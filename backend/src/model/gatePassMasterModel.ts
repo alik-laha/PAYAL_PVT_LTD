@@ -17,6 +17,11 @@ const gatePassMaster = sequelize.define('gatePassMaster', {
         allowNull: false
        
     },
+    exitdate: {
+        type: DataTypes.DATE,
+        allowNull: true
+       
+    },
     type:{
         type: DataTypes.STRING,
         allowNull: false,

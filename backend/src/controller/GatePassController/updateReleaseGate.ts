@@ -7,11 +7,13 @@ const updateReleaseGate = async (req: Request, res: Response) => {
     try {
         const gatepassId = req.params.id
         const outtime = req.body.outtime
+        const outdate = req.body.outdate
         //console.log(req.body)
         const gatepassupdate=await gatePassMaster.update(
             {               
                 status:'Closed',
-                OutTime:outtime
+                OutTime:outtime,
+                exitdate:outdate
             },
             {
                 where: {

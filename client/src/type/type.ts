@@ -711,6 +711,7 @@ export interface GatePassData {
             modifiedBy: string;
             OutTime:string;
             Remarks:string;
+            exitdate:string;
           
 }
 export interface GatePassExcelData {
