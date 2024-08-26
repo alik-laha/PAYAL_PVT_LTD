@@ -6,7 +6,7 @@ import { useState, useRef, useEffect } from "react"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import axios from "axios"
-import { set } from "lodash"
+
 
 const PackagingMetirialQcEditForm = ({ data }: { data: PackagingMeterialQc }) => {
     const [length, setLength] = useState(0)
