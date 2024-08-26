@@ -538,6 +538,7 @@ export interface PackageMaterialReceivingData {
     grossWt: string;
     totalWt:string;
     remarks:string;
+    totalBill:string;
 }
 
 export interface storeprimaryData {
@@ -623,6 +624,7 @@ export interface ExcelrecevingPackageMaterialData {
     Net_Wt:string;
     Vehicle_No:string;
     Remarks:string;
+    totalBill:string;
 }
 export interface ExcelStorePrimaryData {
     Sl_No: number;

@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import SkuModel from "../../model/SkuModel";
-import VendorName from "../../model/vendorNameModel";
+//import VendorName from "../../model/vendorNameModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
 
 const updateRcvStore = async (req: Request, res: Response) => {
     try {
-        const { sku, vendorName, quantity, unit ,invoicedate,invoice,invoicequantity,type,remarks,totalWt,gateType} = req.body.data;
+        const { sku, vendorName, quantity, unit ,invoicedate,invoice,invoicequantity,type,remarks,totalWt,gateType,totalBill} = req.body.data;
         let vendortype:string
         if(gateType==='IN'){
             vendortype='Vendor'
@@ -16,9 +16,12 @@ const updateRcvStore = async (req: Request, res: Response) => {
         const id=req.params.id;
         const createdBy = req.cookies.user;
         let skuData = await SkuModel.findOne({ where: { sku ,type,section:'Store'} });
-        let vendorData = await VendorName.findOne({ where: { vendorName,type:vendortype,section:'Store' } });
-        if(!skuData || !vendorData){
-            return res.status(500).json({ message: "SKU/Vendor Does Not Exist" });
+        //let vendorData = await VendorName.findOne({ where: { vendorName,type:vendortype,section:'Store' } });
+        // if(!skuData || !vendorData){
+        //     return res.status(500).json({ message: "SKU/Vendor Does Not Exist" });
+        // }
+        if(!skuData ){
+            return res.status(500).json({ message: "SKU Does Not Exist" });
         }
         else{
             const newPackageMaterial = await storePrimaryModel.update({
@@ -27,7 +30,7 @@ const updateRcvStore = async (req: Request, res: Response) => {
                 vendorName,
                 quantity,
                 invoicequantity,
-                unit,remarks,totalWt,
+                unit,remarks,totalWt,totalBill,
                 createdBy,status:1
             }, {
                 where: {

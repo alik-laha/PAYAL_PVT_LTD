@@ -89,7 +89,11 @@ const EditPackagingMaterial = sequelize.define('editpackagingMaterialreceving', 
     totalWt:{
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
-    }
+    },
+    totalBill:{
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
     
 })
 export default EditPackagingMaterial;

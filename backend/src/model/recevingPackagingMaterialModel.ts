@@ -90,7 +90,12 @@ const PackagingMaterial = sequelize.define('packagingMaterialreceving', {
     totalWt:{
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
-    }
+    },
+    
+    totalBill:{
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
 
 })
 export default PackagingMaterial;

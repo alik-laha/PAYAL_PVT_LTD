@@ -95,6 +95,10 @@ const storePrimaryModel = sequelize.define('storePrimary', {
     totalWt:{
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
+    },
+    totalBill:{
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
     }
 
 })

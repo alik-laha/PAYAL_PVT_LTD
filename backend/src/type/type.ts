@@ -138,6 +138,7 @@ export interface PackageMaterialReceivingData {
     invoicedate: string;
     qualityStatus: string;
     totalWt:string;
+    totalBill:string;
     remarks:string;
     editStatus: string;
     approvedBy: string;
@@ -158,7 +159,7 @@ export interface storeRcvData {
     qualityStatus: string;
     editStatus: string;
     approvedBy: string;
-   
+    totalBill:string;
     netWeight: string;
  
     totalWt:string;
@@ -185,7 +186,8 @@ export interface AlmondrcvData {
     grade: string;  
     type: string;  
     vendorName: string;  
-    totalWt:string;  
+    totalWt:string; 
+    totalBill:string; 
 
 }
 

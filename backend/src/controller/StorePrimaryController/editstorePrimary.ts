@@ -5,7 +5,7 @@ import {  storeRcvData } from "../../type/type";
 
 import WhatsappMsg from "../../helper/WhatsappMsg";
 import SkuModel from "../../model/SkuModel";
-import VendorName from "../../model/vendorNameModel";
+//import VendorName from "../../model/vendorNameModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
 import storePrimaryEditModel from "../../model/storePrimaryEditModel";
 
@@ -14,7 +14,7 @@ const editstorePrimary = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const createdBynew= req.cookies.user
-        const {  gateType,grossswt,truck,gatepassno,recevingDate, sku, vendorName, quantity, unit,invoice,invoicedate,invoicequantity,remarks,totalWt,type } = req.body;
+        const {  gateType,grossswt,truck,gatepassno,recevingDate, sku, vendorName, quantity, unit,invoice,invoicedate,invoicequantity,remarks,totalWt,type,totalBill } = req.body;
         if (!id) return res.status(400).json({ message: "id is required" });
         let vendortype:string
         if(gateType==='IN'){
@@ -24,9 +24,12 @@ const editstorePrimary = async (req: Request, res: Response) => {
             vendortype='Party'
         }
         let skuData = await SkuModel.findOne({ where: { sku ,type,section:'Store'} });
-        let vendorData = await VendorName.findOne({ where: { vendorName,type:vendortype,section:'Store' } });
-        if(!skuData || !vendorData){
-            return res.status(500).json({ message: "SKU/Vendor Does Not Exist" });
+        //let vendorData = await VendorName.findOne({ where: { vendorName,type:vendortype,section:'Store' } });
+        // if(!skuData || !vendorData){
+        //     return res.status(500).json({ message: "SKU/Vendor Does Not Exist" });
+        // }
+        if(!skuData ){
+            return res.status(500).json({ message: "SKU Does Not Exist" });
         }
         else{
             
@@ -49,7 +52,7 @@ const editstorePrimary = async (req: Request, res: Response) => {
             sku,
             vendorName,
             quantity,
-            status:1,
+            status:1,totalBill,
             unit,invoice,invoicedate,
             createdBy: createdBynew,
             editStatus: "Pending",

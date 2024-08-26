@@ -30,6 +30,7 @@ const acceptRecevingPackageEdit = async (req: Request, res: Response) => {
             invoicequantity: editPackageMaterial.invoicequantity,
             remarks:editPackageMaterial.remarks,
             totalWt:editPackageMaterial.totalWt,
+            totalBill:editPackageMaterial.totalBill,
             invoice:editPackageMaterial.invoice,
             invoicedate:editPackageMaterial.invoicedate,
             type:editPackageMaterial.type,

@@ -210,6 +210,7 @@ const PackageMetrialRecivingTable = () => {
                 Invoice_Quantity:item.invoicequantity,
                 Unit: item.unit,
                 Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
+                Total_Bill:item.totalBill!=='0.00' ?formatNumber(item.totalBill) :'',
                 Remarks:item.remarks,
                 Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
@@ -235,6 +236,7 @@ const PackageMetrialRecivingTable = () => {
                 Invoice_Quantity:item.invoicequantity,
                 Unit: item.unit,
                 Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
+                Total_Bill:item.totalBill!=='0.00' ?formatNumber(item.totalBill) :'',
                 Remarks:item.remarks,
                 Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
@@ -328,7 +330,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                         <TableHead className="text-center" >Physical_Qty</TableHead>
                         <TableHead className="text-center" >Unit</TableHead>
                         <TableHead className="text-center" > Row_Item_Wt(Kg)</TableHead>
-                     
+                        <TableHead className="text-center" > Bill_Amount(Kg)</TableHead>
                         <TableHead className="text-center" >Quality Status</TableHead>
                         <TableHead className="text-center" >Edit Status</TableHead>
                         <TableHead className="text-center" > Remarks</TableHead>
@@ -357,8 +359,8 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                         <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :''} </TableCell>
-                                     
+                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :0} </TableCell>
+                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} </TableCell>
                                         <TableCell className="text-center ">
                                             {item.qualityStatus ? (
                                                 <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Done</button>
@@ -430,8 +432,8 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                         <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :''} </TableCell>
-                                     
+                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :0} </TableCell>
+                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} </TableCell>
                                         <TableCell className="text-center ">
                                             {item.qualityStatus ? (
                                                 <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">QC Done</button>
