@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving, rcnScoopingData ,sumofStorePrimary, sumofGeneralPrimary} from '../../type/type';
+import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving, rcnScoopingData ,sumofStorePrimary, sumofGeneralPrimary, AlmondPrimaryEntryData} from '../../type/type';
 
 interface ContextType {
     editPendingData: EditPendingData[];
@@ -39,6 +39,8 @@ interface ContextType {
     setSearchType: (data: string) => void;
     editBormaLotWiseData: any[];
     setEditBormaLotWiseData: (data: any[]) => void;
+    editPendingAlmondData: AlmondPrimaryEntryData[];
+    setEditPendingAlmondData: (data: AlmondPrimaryEntryData[]) => void;
 }
 
 const Context = createContext<ContextType>({
@@ -77,7 +79,9 @@ const Context = createContext<ContextType>({
     setSearchType: () => { },
     searchType: '',
     editBormaLotWiseData: [],
-    setEditBormaLotWiseData: () => {}
+    setEditBormaLotWiseData: () => {},
+    editPendingAlmondData: [],
+    setEditPendingAlmondData: () => {}
 
 });
 

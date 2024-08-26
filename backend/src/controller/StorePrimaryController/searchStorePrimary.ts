@@ -6,19 +6,19 @@ import storePrimaryModel from "../../model/storePrimaryModel";
 
 const SearchStorePrimary = async (req: Request, res: Response) => {
     try {
-        const { fromdate, todate, searchdata,gatepassSearch } = req.body;
+        const { fromdate, todate, searchdata,gatepassSearch,selectType } = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
         const size = parseInt(req.query.limit as string, 10) || 0;
         const offset = (page - 1) * size;
         const limit = size;
 
         let where;
-        if (!searchdata && !fromdate && !todate && !gatepassSearch) {
+        if (!searchdata && !fromdate && !todate && !gatepassSearch && !selectType) {
             where = {
                 status:{[Op.eq]:1}
             }
         }
-        if (searchdata && fromdate && todate && gatepassSearch) {
+        if (searchdata && fromdate && todate && gatepassSearch && selectType) {
             where = {
                 [Op.and]: [
                     {
@@ -39,6 +39,9 @@ const SearchStorePrimary = async (req: Request, res: Response) => {
                     
                     {
                         status:{[Op.eq]:1}
+                    },
+                    {
+                        gateType:{[Op.eq]:selectType}
                     }
                   
 
@@ -46,7 +49,7 @@ const SearchStorePrimary = async (req: Request, res: Response) => {
                 ]
             }
         }
-        if (searchdata && !fromdate && !todate && !gatepassSearch) {
+        if (searchdata && !fromdate && !todate && !gatepassSearch && !selectType) {
             where = {
                 
                 [Op.or]: [
@@ -57,7 +60,7 @@ const SearchStorePrimary = async (req: Request, res: Response) => {
                 }
             }
         }
-        if (!searchdata && fromdate && todate && !gatepassSearch) {
+        if (!searchdata && fromdate && todate && !gatepassSearch && !selectType) {
             where = {
                 recevingDate: {
                     [Op.between]: [fromdate, todate]
@@ -66,7 +69,7 @@ const SearchStorePrimary = async (req: Request, res: Response) => {
                 }
             }
         }
-        if (!searchdata && !fromdate && !todate && gatepassSearch) {
+        if (!searchdata && !fromdate && !todate && gatepassSearch && !selectType) {
             where = {
                 
                     gatePassNo:{[Op.like]:`%${gatepassSearch}%`}
@@ -76,7 +79,17 @@ const SearchStorePrimary = async (req: Request, res: Response) => {
                 }
             }
         }
-        if (searchdata && fromdate && todate && !gatepassSearch) {
+        if (!searchdata && !fromdate && !todate && !gatepassSearch && selectType) {
+            where = {
+                
+                gateType:{[Op.eq]:selectType}
+              
+                ,status:{
+                    [Op.eq]: 1
+                }
+            }
+        }
+        if (searchdata && fromdate && todate && !gatepassSearch && !selectType) {
             where =  where = {
                 [Op.and]: [
                     {
@@ -96,6 +109,50 @@ const SearchStorePrimary = async (req: Request, res: Response) => {
                         status:{[Op.eq]:1}
                     }
                   
+
+                    
+                ]
+            }
+        }
+        if (!searchdata && fromdate && todate && !gatepassSearch && selectType) {
+            where =  where = {
+                [Op.and]: [
+                   
+                    {
+                        recevingDate: {
+                            [Op.between]: [fromdate, todate]
+                        }
+                    },
+                    
+                    {
+                        status:{[Op.eq]:1}
+                    },
+                    {
+                        gateType:{[Op.eq]:selectType}
+                    }
+
+                    
+                ]
+            }
+        }
+        if (searchdata && !fromdate && !todate && !gatepassSearch && selectType) {
+            where =  where = {
+                [Op.and]: [
+                   
+                    {
+                        [Op.or]: [
+                            { sku: { [Op.like]: `%${searchdata}%` } },
+                            { vendorName: { [Op.like]: `%${searchdata}%` } },
+                            
+                        ]
+                    },
+                    
+                    {
+                        status:{[Op.eq]:1}
+                    },
+                    {
+                        gateType:{[Op.eq]:selectType}
+                    }
 
                     
                 ]

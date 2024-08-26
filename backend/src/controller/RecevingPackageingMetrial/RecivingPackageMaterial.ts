@@ -1,16 +1,19 @@
 import { Request, Response } from "express";
 import PackageMaterial from "../../model/recevingPackagingMaterialModel";
 import SkuModel from "../../model/SkuModel";
-import VendorName from "../../model/vendorNameModel";
+//import VendorName from "../../model/vendorNameModel";
 
 const RecivingPackageMaterial = async (req: Request, res: Response) => {
     try {
-        const { GatePassNo,recevingDate, TruckNo,GrossWt,sku, vendorName, quantity, unit ,invoicedate,invoice,invoicequantity,type,remarks,totalWt} = req.body.data;
+        const { GatePassNo,recevingDate, TruckNo,GrossWt,sku, vendorName, quantity, unit ,invoicedate,invoice,invoicequantity,type,remarks,totalWt,totalBill} = req.body.data;
         const createdBy = req.cookies.user;
         let skuData = await SkuModel.findOne({ where: { sku ,type,section:'PackagingMaterial'} });
-        let vendorData = await VendorName.findOne({ where: { vendorName,type:'Vendor',section:'PackagingMaterial' } });
-        if(!skuData || !vendorData){
-            return res.status(500).json({ message: "SKU/Vendor Does Not Exist" });
+        //let vendorData = await VendorName.findOne({ where: { vendorName,type:'Vendor',section:'PackagingMaterial' } });
+        // if(!skuData || !vendorData){
+        //     return res.status(500).json({ message: "SKU/Vendor Does Not Exist" });
+        // }
+        if(!skuData ){
+            return res.status(500).json({ message: "SKU Does Not Exist" });
         }
         else{
             const newPackageMaterial = await PackageMaterial.create({
@@ -18,7 +21,7 @@ const RecivingPackageMaterial = async (req: Request, res: Response) => {
                 recevingDate,
                 sku,invoice,invoicedate,
                 vendorName,invoicequantity,type,
-                quantity,
+                quantity,totalBill,
                 unit,remarks,totalWt,
                 createdBy,status:1
             });

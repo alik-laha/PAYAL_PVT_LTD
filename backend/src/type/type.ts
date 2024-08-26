@@ -16,6 +16,29 @@ export interface RcnPrimaryModifyProps {
     difference:string;
 
 }
+export interface AlmondModifyProps {
+    approvedBy: string;
+    id: number;
+    recevingDate: string;
+    noOfBags: string;
+    truckNo: string;
+    netWeight: string;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string;
+    status:number;
+    systemBags:string;  
+    gateType: string,
+    invoicedate: string;  
+    invoice: string;  
+    grade: string;  
+    type: string;  
+    vendorName: string;  
+    totalWt:string;  
+    totalBill:string;  
+
+}
 
 export interface qcapproveprops {
     rcnStatus: string;
@@ -138,6 +161,7 @@ export interface PackageMaterialReceivingData {
     invoicedate: string;
     qualityStatus: string;
     totalWt:string;
+    totalBill:string;
     remarks:string;
     editStatus: string;
     approvedBy: string;
@@ -158,12 +182,35 @@ export interface storeRcvData {
     qualityStatus: string;
     editStatus: string;
     approvedBy: string;
-   
+    totalBill:string;
     netWeight: string;
  
     totalWt:string;
     remarks:string;
     gateType:string;
+
+}
+export interface AlmondrcvData {
+    approvedBy: string;
+    id: number;
+    recevingDate: string;
+    noOfBags: string;
+    truckNo: string;
+    netWeight: string;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string;
+    status:number;
+    systemBags:string;  
+    gateType: string,
+    invoicedate: string;  
+    invoice: string;  
+    grade: string;  
+    type: string;  
+    vendorName: string;  
+    totalWt:string; 
+    totalBill:string; 
 
 }
 

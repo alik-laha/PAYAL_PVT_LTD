@@ -264,6 +264,17 @@ const GatePassTable = () => {
             textDecoration:'underline',
             fontStyle:'cursive'
           },
+          formDetails2:{
+           
+            width:'100%',
+            marginTop: 20,
+            textAlign:'left',
+            fontSize:'10',
+            color:'black',
+            fontWeight:'bold',
+         
+            fontStyle:'cursive'
+          },
           blankrow:{
             width:'100%',
             backgroundColor:'antiquewhite',
@@ -424,8 +435,19 @@ const GatePassTable = () => {
           fontSize: 4,
           color: '#00519C',
           fontWeight: 'bold',
-          textDecoration: 'underline',
+       
           fontStyle: 'italic',
+        },
+        formDetails2: {
+          width: '100%',
+          marginTop: 5,
+          textAlign: 'left',
+          fontSize: 3,
+          color: 'black',
+          fontWeight: 'bold',
+          textDecoration: 'none',
+          fontStyle: 'italic',
+          lineHeight:'1.5'
         },
       });
 
@@ -446,7 +468,7 @@ const GatePassTable = () => {
                         />
                          <View style={styles.institutedesc}>
                             <Text style={styles.institutename}> PAYEL DEALERS PVT. LTD.</Text>{"\n"}
-                            <Text style={styles.instituteother}> CIN No: U25111WB1996PTC079361 </Text>{"\n"}
+                            <Text style={styles.instituteother}> GST No: 19AACCP9943Q1ZF </Text>{"\n"}
                             <Text style={styles.instituteother}> FSSAI License No :10014031001340 </Text>{"\n"}
                     
                             <Text style={styles.instituteother}> 51 Km Stone Durgapur ExpressWay, Vill: Kanajuly,Hooghly,712305 </Text>{"\n"}
@@ -463,17 +485,22 @@ const GatePassTable = () => {
                     <View style={styles.formDetails}><Text>Gate Pass Report </Text></View> 
                     
                     <View style={styles.headerContainer}>
-                    <View style={styles.Mainbillto}>
+                        <View style={styles.Mainbillto}>
                             <Text style={styles.billTo}>GatePass No: </Text>
                             <Text>{data.data.gatePassNo}</Text>
                         </View>
                         <View style={styles.Mainbillto}>
-                            <Text style={styles.billTo}>Date: </Text>
+                            <Text style={styles.billTo}>Date of Entry: </Text>
                             <Text>{handletimezone(data.data.date)}</Text>
                         </View>
                         <View style={styles.Mainbillto}>
                             <Text style={styles.billTo}>Time of Entry: </Text>
                             <Text>{handleAMPM(data.data.time)}</Text>
+                        </View>
+                        
+                        <View style={styles.Mainbillto}>
+                            <Text style={styles.billTo}>Date of Exit: </Text>
+                            <Text>{handletimezone(data.data.exitdate)}</Text>
                         </View>
                         <View style={styles.Mainbillto}>
                             <Text style={styles.billTo}>Time of Exit: </Text>
@@ -503,19 +530,9 @@ const GatePassTable = () => {
                             <Text style={styles.rowqty}>{data.data.vehicleNo}</Text>
                         </View>
                         <View style={styles.row}>
-                            <Text style={styles.rowdescription}>Driver Name</Text>
-                            <Text style={styles.rowqty}>{data.data.driverName}</Text>
-                        </View>
-                        <View style={styles.row}>
-                            <Text style={styles.rowdescription}>Driver Contact No.</Text>
-                            <Text style={styles.rowqty}>{data.data.driverContact}</Text>
-                        </View>
-                        
-                         <View style={styles.row}>
                             <Text style={styles.rowdescription}>Invoice/Chalan No.</Text>
                             <Text style={styles.rowqty}>{data.data.DocNo}</Text>
                         </View>
-                        
                         <View style={styles.row}>
                             <Text style={styles.rowdescription}>Gross Weight(Kg)</Text>
                             <Text style={styles.rowqty}>{formatNumber(data.data.grosswt)}</Text>
@@ -532,6 +549,14 @@ const GatePassTable = () => {
                             <Text style={styles.rowdescription}>Bill Amount(Rs.)</Text>
                             <Text style={styles.rowqty}>{data.data.billAmount}</Text>
                         </View>
+                        <View style={styles.row}>
+                            <Text style={styles.rowdescription}>Driver Name</Text>
+                            <Text style={styles.rowqty}>{data.data.driverName}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.rowdescription}>Driver Contact No.</Text>
+                            <Text style={styles.rowqty}>{data.data.driverContact}</Text>
+                        </View>
                         
                         <View style={styles.row}>
                             <Text style={styles.rowdescription}>Entried By Security</Text>
@@ -544,11 +569,12 @@ const GatePassTable = () => {
                      
 
                     </View>
-                    
-                    <View style={styles.footer}>
-                        <Text style={styles.leftfooter}>Security Signature</Text>
-                        <Text style={styles.rightfooter}>Authority Signature</Text>
+
+                    <View style={styles.formDetails2}>
+                <Text>This is a computer-generated document. No signature is required</Text>
                     </View>
+                    
+                   
 
 
                 </View>
@@ -568,7 +594,7 @@ const GatePassTable = () => {
                 />
                 <View style={stylesSmall.institutedesc}>
                   <Text style={stylesSmall.institutename}>PAYEL DEALERS PVT. LTD.</Text>{"\n"}
-                  <Text style={stylesSmall.instituteother}>CIN No: U25111WB1996PTC079361</Text>{"\n"}
+                  <Text style={stylesSmall.instituteother}>GST No: 19AACCP9943Q1ZF</Text>{"\n"}
                   <Text style={stylesSmall.instituteother}>FSSAI License No: 10014031001340</Text>{"\n"}
                   
                 </View>
@@ -609,14 +635,6 @@ const GatePassTable = () => {
                   <Text style={stylesSmall.rowqty}>{data.data.vehicleNo}</Text>
                 </View>
                 <View style={stylesSmall.row}>
-                  <Text style={stylesSmall.rowdescription}>Driver Name</Text>
-                  <Text style={stylesSmall.rowqty}>{data.data.driverName}</Text>
-                </View>
-                <View style={stylesSmall.row}>
-                  <Text style={stylesSmall.rowdescription}>Contact No.</Text>
-                  <Text style={stylesSmall.rowqty}>{data.data.driverContact}</Text>
-                </View>
-                <View style={stylesSmall.row}>
                   <Text style={stylesSmall.rowdescription}>Chalan No.</Text>
                   <Text style={stylesSmall.rowqty}>{data.data.DocNo}</Text>
                 </View>
@@ -625,13 +643,26 @@ const GatePassTable = () => {
                   <Text style={stylesSmall.rowqty}>{formatNumber(data.data.grosswt)}</Text>
                 </View>
                 <View style={stylesSmall.row}>
-                  <Text style={stylesSmall.rowdescription}> Wt Slip No.</Text>
+                  <Text style={stylesSmall.rowdescription}>Gross Wt Slip No.</Text>
                   <Text style={stylesSmall.rowqty}>{data.data.grosswtNo}</Text>
                 </View>
+                <View style={stylesSmall.row}>
+                  <Text style={stylesSmall.rowdescription}>Driver Name</Text>
+                  <Text style={stylesSmall.rowqty}>{data.data.driverName}</Text>
+                </View>
+                <View style={stylesSmall.row}>
+                  <Text style={stylesSmall.rowdescription}>Contact No.</Text>
+                  <Text style={stylesSmall.rowqty}>{data.data.driverContact}</Text>
+                </View>
+                
+                
                 <View style={stylesSmall.row}>
                   <Text style={stylesSmall.rowdescription}>Entried By</Text>
                   <Text style={stylesSmall.rowqty}>{data.data.securityName}</Text>
                 </View>
+              </View>
+              <View style={stylesSmall.formDetails2}>
+                <Text>This is a computer-generated document. No signature is required</Text>
               </View>
             </View>
           </Page>
@@ -738,7 +769,8 @@ const GatePassTable = () => {
     
     const handleRelease = (id: number) => {
         const outtime=new Date().toTimeString().slice(0,5)
-        axios.put(`/api/gatepass/updateRelease/${id}`, {outtime }).then((res) => {
+        const outdate=new Date().toISOString().slice(0,10)
+        axios.put(`/api/gatepass/updateRelease/${id}`, {outtime,outdate }).then((res) => {
             setErrorText(res.data.message);
             console.log(res.data)
             if(successdialog!=null){
@@ -805,6 +837,10 @@ const GatePassTable = () => {
         
           tabnew='General' 
       }
+      else if(tab==='Almond'){
+        
+        tabnew='Almond' 
+    }
         
        
        const returnString=tabnew
@@ -929,13 +965,15 @@ const GatePassTable = () => {
 
                     <TableHead className="text-center" >Sl No.</TableHead>
                     <TableHead className="text-center" >GatePass_ID</TableHead>
-                    <TableHead className="text-center" >Gate_Entry_Date</TableHead>
+                    
                     <TableHead className="text-center" >Entry(In/Out)</TableHead>
                     <TableHead className="text-center" >Rcv/Dispatch_Section</TableHead>
                     <TableHead className="text-center" >Receiving/Dispatch</TableHead>
                     <TableHead className="text-center" >Verification/Approval</TableHead>
-                    <TableHead className="text-center" >Closure</TableHead>                
+                    <TableHead className="text-center" >Closure</TableHead>  
+                    <TableHead className="text-center" >Gate_Entry_Date</TableHead>              
                     <TableHead className="text-center" >Entry_Time</TableHead>
+                    <TableHead className="text-center" >Gate_Exit_Date</TableHead>
                     <TableHead className="text-center" >Exit_Time</TableHead>
                     <TableHead className="text-center" >Doc_No.</TableHead>
                     <TableHead className="text-center" >Gross_Initial_Wt</TableHead>
@@ -960,7 +998,7 @@ const GatePassTable = () => {
                             <TableRow key={item.id}>
                                 <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.gatePassNo}</TableCell>
-                                <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
+                               
                                 <TableCell className="text-center  font-semibold mt-3 flex"> {item.type ==='IN'? <FaRegArrowAltCircleRight color="blue" size={22} className="mr-5 "/>:<FaRegArrowAltCircleLeft color='red' size={22} className="mr-2"/>} {item.type}</TableCell>  
                                 <TableCell className="text-center font-semibold shadow-md ">{handlesection(item.section)}</TableCell>
                                 <TableCell className="text-center ">
@@ -983,8 +1021,10 @@ const GatePassTable = () => {
                                         ) :  (
                                             <button className="bg-green-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
                                         )}
-                                </TableCell>   
+                                </TableCell> 
+                                <TableCell className="text-center">{handletimezone(item.date)}</TableCell>  
                                 <TableCell className="text-center  font-semibold">{handleAMPM(item.time)}</TableCell>
+                                <TableCell className="text-center">{item.exitdate ? (handletimezone(item.exitdate)):''}</TableCell>  
                                 <TableCell className="text-center font-semibold">{item.OutTime===null? '':(handleAMPM(item.OutTime))}</TableCell>
                                  <TableCell className="text-center">{item.DocNo}</TableCell>
                                 <TableCell className="text-center ">{formatNumber(item.grosswt)} kg </TableCell>

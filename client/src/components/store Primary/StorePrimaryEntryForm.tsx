@@ -32,6 +32,7 @@ interface SectionRowData{
     unit:string;
     remarks:string;
     totalWt:number;
+    totalBill:number;
 }
 const StorePrimaryEntry = (props:Props) => {
 
@@ -67,7 +68,7 @@ const StorePrimaryEntry = (props:Props) => {
         
     }, [props.rcn[0]]);
 
-    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',quantity:0,invoicequantity:0,unit:'',remarks:'',totalWt:0}
+    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',quantity:0,invoicequantity:0,unit:'',remarks:'',totalWt:0,totalBill:0}
     ]);
 
     const handleRowChange = (index:number,field:string,fieldvalue:string) => {
@@ -76,7 +77,7 @@ const StorePrimaryEntry = (props:Props) => {
         setRows(newRows)
     }
     const addRow2 = () => {
-        setRows([...rows,{sku:'',type:'',quantity:0,invoicequantity:0,unit:'',remarks:'',totalWt:0}])
+        setRows([...rows,{sku:'',type:'',quantity:0,invoicequantity:0,unit:'',remarks:'',totalWt:0,totalBill:0}])
     }
 
     const deleteRow = (index:number) =>{
@@ -280,12 +281,13 @@ const StorePrimaryEntry = (props:Props) => {
                 <div className="mx-8 flex flex-col gap-1"> 
                 <div className="flex mt-4"><Label className="w-2/4  pt-2">GatePass No.</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
-               
+                <div className="flex"><Label className="w-2/4  pt-2">GatePass Type</Label>
+                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="Type" value={gateType} readOnly /> </div>
                 <div className="flex"><Label className="w-2/4  pt-2">Date</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={date}  readOnly /> </div> 
+                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="Date" value={date}  readOnly /> </div> 
                 
                 <div className="flex"><Label className="w-2/4  pt-2">Vehicle No.</Label>
-                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="BL No." value={truck}  readOnly /> </div> 
+                <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="Vehicle No" value={truck}  readOnly /> </div> 
                 <div className="flex"><Label className="w-2/4  pt-2">Invoice No</Label>
                 <Input className="w-2/4 text-center" placeholder="Invoice No" required  ref={invoiceref} /> </div>
 
@@ -326,6 +328,7 @@ const StorePrimaryEntry = (props:Props) => {
                             
                            
                             <TableHead className="text-center" >Total_Weight(Kg)</TableHead>
+                            <TableHead className="text-center" >Total_Amount(Rs)</TableHead>
                             <TableHead className="text-center w-30" >Remarks</TableHead>
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>
@@ -383,7 +386,9 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             </TableCell>
                                             <TableCell className="text-center" >
                                           
-                                                <Input value={row.unit} placeholder="unit" required readOnly className="bg-yellow-100"/> 
+                                                <Input value={row.unit} placeholder="unit" required onChange={(e) => {
+                                                        handleRowChange(index, 'unit', e.target.value)
+                                                    }}   className="bg-yellow-100"/> 
                                             </TableCell>
 
                                             <TableCell className="text-center" >
@@ -398,6 +403,12 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                 <Input value={row.totalWt} placeholder="unitWt" type="number"
                                                     onChange={(e) => {
                                                         handleRowChange(index, 'totalWt', e.target.value)
+                                                    }} />
+                                            </TableCell>
+                                            <TableCell className="text-center" >
+                                                <Input value={row.totalBill} placeholder="Amount" type="number"
+                                                    onChange={(e) => {
+                                                        handleRowChange(index, 'totalBill', e.target.value)
                                                     }} />
                                             </TableCell>
                                            

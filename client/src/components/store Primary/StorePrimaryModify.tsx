@@ -41,6 +41,7 @@ const StorePrimaryModify = ({ data }: Props) => {
     const invoicequantityRef = useRef<HTMLInputElement>(null)
     const [remarks, setremarks] = useState("")
     const [rowWt, setrowwt] = useState<string>('')
+    const [rowBill, setrowBill] = useState<string>('')
     const [type, settype] = useState<string>('')
     const [gateType, setgateType] = useState<string>('')
 
@@ -61,6 +62,7 @@ const StorePrimaryModify = ({ data }: Props) => {
         setremarks(data.remarks)
         setgateType(data.gateType)
         setrowwt(data.totalWt)
+        setrowBill(data.totalBill)
         setDate(data.recevingDate.slice(0, 10))
         console.log(data.recevingDate.slice(0, 10))
     }, [])
@@ -90,7 +92,7 @@ const StorePrimaryModify = ({ data }: Props) => {
         console.log("submit")
         axios.post(`/api/storePrimary/editStorePrimary/${data.id}`, { 
             grossswt,netwt,gateType,recevingDate:date,truck,gatepassno, invoicedate,invoice:invoiceRef.current?.value, type,sku,vendorName, 
-            quantity: quantityRef.current?.value,invoicequantity:invoicequantityRef.current?.value, unit,totalWt:rowWt,remarks })
+            quantity: quantityRef.current?.value,invoicequantity:invoicequantityRef.current?.value, unit,totalWt:rowWt,remarks,totalBill:rowBill })
             .then((res) => {
                 if (res.status === 201) {
                     (successdialog as any).showModal();
@@ -242,9 +244,12 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                     <div className="flex"><Label className="w-2/4  pt-1">Physical Qty</Label>
                         <Input className="w-2/4 text-center" placeholder="Qty" required type="number" ref={quantityRef} step='0.01'/> </div>
                         <div className="flex"><Label className="w-2/4  pt-1">Unit</Label>
-                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Qty" required value={unit} /> </div>
+                        <Input className="w-2/4 text-center bg-yellow-100" onChange={(e)=> setUnit(e.target.value)} placeholder="Qty" required value={unit} /> </div>
                         <div className="flex"><Label className="w-2/4  pt-1">Row Item Wt</Label>
                         <Input className="w-2/4 text-center" placeholder="Wt"  type="number" value={rowWt} step='0.01' onChange={(e)=> setrowwt(e.target.value)}/> </div>
+                        <div className="flex"><Label className="w-2/4  pt-1">Bill Amount</Label>
+                        <Input className="w-2/4 text-center" placeholder="Wt"  type="number" value={rowBill} step='0.01' onChange={(e)=> setrowBill(e.target.value)}/> </div>
+                        
                         <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
                         <Input className="w-2/4 text-center" placeholder="remarks"   value={remarks} onChange={(e)=> setremarks(e.target.value)}/> </div>
                    

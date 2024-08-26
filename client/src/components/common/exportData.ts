@@ -72,6 +72,7 @@ export const rcvCheckRole = {
     PMPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingPMSupervisor'],
     StorePrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingStoreSupervisor'],
     GeneralPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingGeneralSupervisor'],
+    AlmondPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingGeneralSupervisor'],
  
 }
 export const roleDataonDept = {
@@ -97,17 +98,18 @@ export const SelectType = ["LineWise","LotWise"]
 
 
 export const sectionDataonTypeGate = {
-    IN: ["RawCashew", "PackagingMaterial","Store",'General'],
-    OUT: ["Store",'General'],
+    IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond'],
+    OUT: ["Store",'General','Almond'],
 }
 export const SelectGatePassType = ["IN","OUT"]
-export const SKUSection = ['PackagingMaterial', 'Store' ,'General']
-export const SKUUnit = ['Pc','Kg','Mtr','SqMtr','Ft','SqFt','Bag','Bucket','Ltr','Coil']
+export const SKUSection = ['PackagingMaterial', 'Store' ,'General','Almond']
+export const SKUUnit = ['Pc','Kg','Mtr','SqMtr','Ft','SqFt','Bag','Bucket','Ltr','Coil','None']
 export const SelectTypeSKUVendor = ["SKU","Vendor"]
 
 export const TypeOnSection = {
-    PackagingMaterial: ['Pouch','Bucket','Tin','Stickers','PlasticBag','PP','PlasticCan'],
+    PackagingMaterial: ['Pouch','Bucket','Tin','Can','Jar','Cartoon','Tape','Foil','Stickers','PlasticBag','PP','Label','Lid'],
     Store:['ElectricalSpare','MechanicalSpare','Stationary','Chemical','Civil','Machine','Miscellaneous','Asset'],
-    General:['Fuel','Civil','General','Miscellaneous']
+    General:['Fuel','Civil','General','Miscellaneous'],
+    Almond:['Almond Type','Almond Grade']
 }
 

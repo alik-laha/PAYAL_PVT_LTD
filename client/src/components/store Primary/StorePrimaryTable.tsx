@@ -49,7 +49,7 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination"
 import { CiEdit } from "react-icons/ci";
-import { pagelimit, pendingCheckRole } from "../common/exportData"
+import { pagelimit, pendingCheckRole, SelectGatePassType } from "../common/exportData"
 import {  pendingCheckRoles, PermissionRole, sumofStorePrimary, storeprimaryData, ExcelStorePrimaryData } from '@/type/type'
 import axios from 'axios'
 //import PackageMaterialReceivingModify from "./PackageMetirialModifyReceving"
@@ -80,7 +80,7 @@ const StorePrimaryTable = () => {
     const closeDialogButton = document.getElementById('recevingeditapproveclose') as HTMLInputElement;
     const errordialog = document.getElementById('recevingeditreject') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('recevingeditrejectclose') as HTMLInputElement;
-
+    const [selectType, setselectType] = useState<string>("")
     if (closeDialogButton) {
         closeDialogButton.addEventListener('click', () => {
             if (successdialog != null) {
@@ -152,10 +152,10 @@ const StorePrimaryTable = () => {
             })
     }
     const searchData = () => {
-        axios.post('/api/storePrimary/getStorePrimary', { fromdate, todate, searchdata,gatepassSearch }, { params: { page: page, limit: limit } }).then((res) => {
+        axios.post('/api/storePrimary/getStorePrimary', { fromdate, todate, searchdata,gatepassSearch,selectType }, { params: { page: page, limit: limit } }).then((res) => {
             setData(res.data.PackageMaterials)
 
-            if (res.data.PackageMaterials.length === 0) {
+            if (res.data.PackageMaterials.length === 0 && page>1) {
                 setPage((prev) => prev - 1)
             }
         }).catch((err) => {
@@ -212,6 +212,7 @@ const StorePrimaryTable = () => {
                 Invoice_Quantity:item.invoicequantity,
                 Unit: item.unit,
                 Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
+                Bill_Amount:item.totalBill!=='0.00' ?formatNumber(item.totalBill) :'',
                 Remarks:item.remarks,
                 Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
@@ -238,6 +239,7 @@ const StorePrimaryTable = () => {
                 Invoice_Quantity:item.invoicequantity,
                 Unit: item.unit,
                 Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
+                Bill_Amount:item.totalBill!=='0.00' ?formatNumber(item.totalBill) :'',
                 Remarks:item.remarks,
                 Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
                 Edit_Status: item.editStatus,
@@ -304,6 +306,18 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                         placeholder="To Date"
 
                     />
+                      <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                        onChange={(e) => setselectType(e.target.value)} value={selectType}>
+                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>In/Out (All)</option>
+                        {SelectGatePassType.map((data, index) => (
+                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                {data}
+                            </option>
+                        ))}
+                    </select>
                    
 
 
@@ -334,11 +348,12 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                         <TableHead className="text-center" >Invoice_Qty</TableHead>
                         <TableHead className="text-center" >Physical_Qty</TableHead>
                         <TableHead className="text-center" >Unit</TableHead>
-                        <TableHead className="text-center" > Row_Item_Wt(Kg)</TableHead>
+                        <TableHead className="text-center" > Item_Wt(Kg)</TableHead>
+                        <TableHead className="text-center" > Bill_Amount</TableHead>
                      
 
                         <TableHead className="text-center" >Edit Status</TableHead>
-                        <TableHead className="text-center" > Remarks</TableHead>
+                        <TableHead className="text-center" >Remarks</TableHead>
                         <TableHead className="text-center" >Entried By</TableHead>
                         <TableHead className="text-center" >Actioned By</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
@@ -355,7 +370,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                         <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
                                         <TableCell className="text-center ">{item.truckNo}</TableCell>
-                                        <TableCell className="text-center ">{item.grossWt} </TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
                                         <TableCell className="text-center ">{item.netWeight}  </TableCell>
                                         <TableCell className="text-center ">{item.invoice}</TableCell>
                                         <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
@@ -365,7 +380,8 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                         <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt):''} </TableCell> 
+                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt):0} </TableCell> 
+                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill):0} </TableCell> 
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
@@ -421,7 +437,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                         <TableCell className="text-center text-red-500 font-semibold">{item.gateType}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
                                         <TableCell className="text-center ">{item.truckNo}</TableCell>
-                                        <TableCell className="text-center ">{item.grossWt} </TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
                                         <TableCell className="text-center ">{item.netWeight}  </TableCell>
                                         <TableCell className="text-center ">{item.invoice}</TableCell>
                                         <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
@@ -431,7 +447,8 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                         <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :''} </TableCell> 
+                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :0} </TableCell> 
+                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} </TableCell>   
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>

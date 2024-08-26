@@ -93,8 +93,27 @@ const QualityPackageMaterial = sequelize.define('QcPackageMaterial', {
     damageFile: {
         type: DataTypes.STRING(500),
         allowNull: true,
-    }
+    },
+    editStatus: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: 'NA'
+    },
+
+    createdBy: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+
+    approvedBy: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
 
 })
+
+PackagingMaterial.hasOne(QualityPackageMaterial,{foreignKey:{name:'id'}})
+
+QualityPackageMaterial.belongsTo(PackagingMaterial,{foreignKey:{name:'id'}})
 export default QualityPackageMaterial;
 

@@ -5,21 +5,24 @@ import { PackageMaterialReceivingData } from "../../type/type";
 
 import WhatsappMsg from "../../helper/WhatsappMsg";
 import SkuModel from "../../model/SkuModel";
-import VendorName from "../../model/vendorNameModel";
+//import VendorName from "../../model/vendorNameModel";
 
 
 const editRecevingPackageMaterial = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const createdBynew= req.cookies.user
-        const {  grossswt,truck,gatepassno,recevingDate, sku, vendorName, quantity, unit,invoice,invoicedate,invoicequantity,remarks,totalWt,type } = req.body;
+        const {  grossswt,truck,gatepassno,recevingDate, sku, vendorName, quantity, unit,invoice,invoicedate,invoicequantity,remarks,totalWt,type,totalBill } = req.body;
         if (!id) return res.status(400).json({ message: "id is required" });
 
 
         let skuData = await SkuModel.findOne({ where: { sku ,type,section:'PackagingMaterial'} });
-        let vendorData = await VendorName.findOne({ where: { vendorName,type:'Vendor',section:'PackagingMaterial' } });
-        if(!skuData || !vendorData){
-            return res.status(500).json({ message: "SKU/Vendor Does Not Exist" });
+        //let vendorData = await VendorName.findOne({ where: { vendorName,type:'Vendor',section:'PackagingMaterial' } });
+        // if(!skuData || !vendorData){
+        //     return res.status(500).json({ message: "SKU/Vendor Does Not Exist" });
+        // }
+        if(!skuData ){
+            return res.status(500).json({ message: "SKU Does Not Exist" });
         }
         else{
             
@@ -45,7 +48,7 @@ const editRecevingPackageMaterial = async (req: Request, res: Response) => {
             unit,invoice,invoicedate,
             createdBy: createdBynew,
             editStatus: "Pending",
-            qualityStatus: packageMaterialData.qualityStatus,type,invoicequantity,remarks,totalWt
+            qualityStatus: packageMaterialData.qualityStatus,type,invoicequantity,remarks,totalWt,totalBill
         });
       
         if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Packaging material" });
