@@ -1,5 +1,6 @@
 import { createContext } from 'react';
-import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving, rcnScoopingData ,sumofStorePrimary, sumofGeneralPrimary, AlmondPrimaryEntryData} from '../../type/type';
+import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving,
+     rcnScoopingData ,sumofStorePrimary, sumofGeneralPrimary, AlmondPrimaryEntryData, sumofRcvVillagePrimary} from '../../type/type';
 
 interface ContextType {
     editPendingData: EditPendingData[];
@@ -31,6 +32,8 @@ interface ContextType {
     setRecevingPacakanMaterialOverView: (data: SumofpackageMetrialReceving | null) => void;
     StorePrimaryOverView:sumofStorePrimary| null;
     setStorePrimaryOverView: (data: sumofStorePrimary | null) => void;
+    RcvVillagePrimaryOverView:sumofRcvVillagePrimary| null;
+    setRcvVillagePrimaryOverView: (data: sumofRcvVillagePrimary | null) => void;
     GeneralPrimaryOverView:sumofGeneralPrimary| null;
     setGeneralPrimaryOverView: (data: sumofGeneralPrimary | null) => void;
     editScoopingLotWiseData: rcnScoopingData[];
@@ -81,7 +84,9 @@ const Context = createContext<ContextType>({
     editBormaLotWiseData: [],
     setEditBormaLotWiseData: () => {},
     editPendingAlmondData: [],
-    setEditPendingAlmondData: () => {}
+    setEditPendingAlmondData: () => {},
+    RcvVillagePrimaryOverView:(null),
+    setRcvVillagePrimaryOverView: () => {}
 
 });
 

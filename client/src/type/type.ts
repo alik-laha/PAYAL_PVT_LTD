@@ -418,6 +418,7 @@ export interface PermissionRole {
     GradingSupervisor: string[];
     BoilingSupervisor: string[];
     ScoopingSupervisor: string[];
+    VillageSupervisor:string[];
     ProductionManager:string[];
     MaintainanceManager:string[];
     CleaningSupervisor:string[];
@@ -499,6 +500,9 @@ export interface rcvCheckRoles {
     RCNPrimaryEntry: string[];
     PMPrimaryEntry:string[];
     StorePrimaryEntry:string[];
+    AlmondPrimaryEntry:string[];
+    GeneralPrimaryEntry:string[];
+    VillagePrimaryEntry:string[];
     
 }
 
@@ -627,6 +631,31 @@ export interface storeprimaryData {
     remarks:string;
     gateType:string;
 }
+export interface rcvVillageprimaryData {
+    id: number;
+    type:string;
+    recevingDate: string;
+    sku: string;
+    vendorName: string;
+    quantity: string;
+    invoicequantity:string;
+    unit: string;
+    invoicedate:string;
+    invoice:string;
+    createdBy: string;
+    qualityStatus: string;
+    editStatus: string;
+    approvedBy: string;
+    truckNo: string;
+    status: number;
+    netWeight: string;
+    gatePassNo:string;
+    grossWt: string;
+    totalWt:string;
+    totalBill:string;
+    remarks:string;
+    gateType:string;
+}
 export interface generalprimaryData {
     id: number;
     type:string;
@@ -660,6 +689,10 @@ export interface SumofpackageMetrialReceving {
 export interface sumofStorePrimary {
     sumofStorePrimary: number;
     storePrimary: number;
+}
+export interface sumofRcvVillagePrimary {
+    sumofRcvVillagePrimary: number;
+    RcvVillagePrimary: number;
 }
 export interface sumofGeneralPrimary {
     sumofGeneralPrimary: number;

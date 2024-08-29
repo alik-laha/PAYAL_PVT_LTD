@@ -168,28 +168,21 @@ const DashboardSidebar = () => {
                                 </NavLink>
 
                             </CollapsibleContent>}
+                            {renderlink('Receiving Village Entry')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/RcvVillage" >
+                                    Village
+                                </NavLink>
+
+                            </CollapsibleContent>}
 
 
 
 
                         {/* 
                         
-                        
-                        
-                        
-                        
-                        
-                        
 
-                         
-
-                            
-                                {renderlink('Receiving Civil Entry')
-                            && <CollapsibleContent className="Items-pvt">
-                                <NavLink to="/dashboard/recevingpackagingMaterial" >
-                                    Civil
-                                </NavLink>
-                                </CollapsibleContent>}
+                           
                                 {renderlink('Receiving Agarbati Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
@@ -211,7 +204,7 @@ const DashboardSidebar = () => {
                     </Collapsible>}
                     
 
-                    {rendersection('Production') && <Collapsible >
+                    { rendersection('Production') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineFactory size={25} />
                             <p>Production</p></CollapsibleTrigger>
                         {renderlink('Grading')

@@ -21,6 +21,7 @@ import VendorSKURouter from "./router/VendorSKURouter";
 import storePrimaryRouter from "./router/storePrimaryRouter";
 import generalPrimaryRouter from "./router/generalPrimaryRouter";
 import almondRouter from "./router/almondRouter";
+import RcvVillageRouter from "./router/RcvVillageRouter";
 
 
 
@@ -50,6 +51,7 @@ app.use('/api/vendorSKU', VendorSKURouter)
 app.use('/api/storePrimary', storePrimaryRouter)
 app.use('/api/generalPrimary', generalPrimaryRouter)
 app.use('/api/almondPrimary', almondRouter)
+app.use('/api/rcvVillage', RcvVillageRouter)
 
 app.use("/api/qcpackage", qcPackageMaterialRouter)
 

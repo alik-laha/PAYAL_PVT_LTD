@@ -29,7 +29,7 @@ const updateAlmondExit = async (req: Request, res: Response) => {
         const newPackageMaterial = await almondPrimaryEntryModel.update({
             invoice:invoice,
             invoicedate:invoicedate,
-            noOfBags:parseInt(quantity),
+            noOfBags:quantity ?parseInt(quantity):0,
             type:type,
             createdBy:createdBy,
             vendorName:vendorName,

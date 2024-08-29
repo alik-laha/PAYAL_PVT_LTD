@@ -31,7 +31,7 @@ const createAlmondExit = async (req: Request, res: Response) => {
             recevingDate,
             invoice:invoice,
             invoicedate:invoicedate,
-            noOfBags:parseInt(quantity),
+            noOfBags:quantity ?parseInt(quantity):0,
             type:type,
             createdBy:createdBy,
             vendorName:vendorName,

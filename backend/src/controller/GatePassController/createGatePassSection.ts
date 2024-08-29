@@ -6,6 +6,7 @@ import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
 import generalPrimaryModel from "../../model/generalPrimaryModel";
 import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
+import RcvVillageModel from "../../model/RcvVillageModel";
 
 
 
@@ -93,6 +94,23 @@ try{
 
         if(generalEntry){
             return res.status(200).json({ message: "Almond Item Entry Created Successfully" });
+        }
+        
+    }
+    if (section==='Village') {
+        const generalEntry = await RcvVillageModel.create({
+            gatePassNo: gatePassNo,
+            recevingDate: Date,
+            grossWt:grossWt,
+            truckNo:vehicle,  
+            gateType:type
+
+        });
+        const data = await WpMsgGatePassRcv("Village Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch",'VILLAGE ENTRY')
+        console.log(data)
+
+        if(generalEntry){
+            return res.status(200).json({ message: "Village Item Entry Created Successfully" });
         }
         
     }

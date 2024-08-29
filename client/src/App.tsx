@@ -28,6 +28,7 @@ import StorePrimary from './components/store Primary/StorePrimary'
 import GeneralStore from './components/General Store/General'
 import Almond from './components/Almond/Almond'
 import PackagingMetirialQuality from './components/PM QC/PMQC'
+import RcvVillage from './components/Rcv Village/RcvVillage'
 
 
 
@@ -139,6 +140,9 @@ function App() {
         </Route>
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingAlmondSupervisor', 'ReceivingManager','GatePassManager']} />}>
           <Route path="/dashboard/AlmondPrimary" element={<Almond />} />
+        </Route>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingAlmondSupervisor', 'ReceivingManager','GatePassManager']} />}>
+          <Route path="/dashboard/RcvVillage" element={<RcvVillage />} />
         </Route>
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>
           <Route path="/dashboard/qc_packaging_metirial" element={<PackagingMetirialQuality />} />
