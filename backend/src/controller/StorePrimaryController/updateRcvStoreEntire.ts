@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 //import VendorName from "../../model/vendorNameModel";
 
-import RcvVillageModel from "../../model/RcvVillageModel";
+
 import SkuModel from "../../model/SkuModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
 
@@ -12,7 +12,7 @@ const updateStoreEntire = async (req: Request, res: Response) => {
         const id=req.params.id;
        // console.log(req.body)
         const createdBy = req.cookies.user;
-        const formData=req.body.formData
+        const formData=req.body.data
         const firstrow=formData[0]
         const { sku, vendorName, quantity, unit ,invoicedate,invoice,invoicequantity,type,remarks,totalWt,totalBill} = firstrow;
         let skuData = await SkuModel.findOne({ where: { sku ,type,section:'Store'} });
@@ -27,12 +27,14 @@ const updateStoreEntire = async (req: Request, res: Response) => {
         {
             await storePrimaryModel.sequelize?.transaction( async (transaction) =>{
                 const dataToUpdate=formData.slice(1)
+                console.log(dataToUpdate)
                 for (let data of dataToUpdate)
                 {
                     console.log(data)
                     let skuData = await SkuModel.findOne({ where: { sku:data.sku ,type:data.type,section:'Store'} });
                     if(!skuData ){
-                        return res.status(500).json({ message: "SKU Does Not Exist" });
+                        res.status(500).json({ message: "SKU Does Not Exist" });
+                        throw new Error ('Transaction Aborted')
                     }
                     await storePrimaryModel.create({
                         gatePassNo:data.GatePassNo,grossWt:data.GrossWt,truckNo:data.TruckNo,
@@ -58,10 +60,10 @@ const updateStoreEntire = async (req: Request, res: Response) => {
                 }
             });
             if(newPackageMaterial){
-                return res.status(201).json({ message: "Village material received/dispatched successfully", newPackageMaterial });
+                return res.status(201).json({ message: "Store material received/dispatched successfully", newPackageMaterial });
             }
             else{
-                return res.status(500).json({ message: "internal error while creating Village Entry" });
+                return res.status(500).json({ message: "internal error while creating Store Entry" });
             }
         }
        
@@ -71,8 +73,12 @@ const updateStoreEntire = async (req: Request, res: Response) => {
         
 
     } catch (error) {
-        console.log(error)
-        return res.status(500).json({ message: "internal error while creating Village Entry" });
+        
+        if(!res.headersSent){
+            console.log(error)
+            return res.status(500).json({ message: "Error while creating Village Entry" ,error});
+        }
+        
 
     }
 }
