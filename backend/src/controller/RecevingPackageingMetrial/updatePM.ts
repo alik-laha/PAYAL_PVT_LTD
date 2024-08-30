@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import PackageMaterial from "../../model/recevingPackagingMaterialModel";
 import SkuModel from "../../model/SkuModel";
+import QualityPackageMaterial from "../../model/qualityPacjkageMaterial";
 //import VendorName from "../../model/vendorNameModel";
 
 const updatePM = async (req: Request, res: Response) => {
@@ -31,6 +32,10 @@ const updatePM = async (req: Request, res: Response) => {
                 }
             });
             if(newPackageMaterial){
+                const gatePassNo  = req.body.gatePassNo
+                const create = await QualityPackageMaterial.create({ id ,gatePassNo})
+                if (!create) return res.status(400).json({ message: "internal error while creating PM" })
+                //return res.status(201).json({ msg: "sucessFully created" })
                 return res.status(201).json({ message: "package material received successfully", newPackageMaterial });
             }
             else{

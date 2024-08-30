@@ -126,8 +126,6 @@ const handleSubmit = async (e: React.FormEvent) => {
             ...row
         }))
 
-        
-
         let gatecount = 0
         try {
             for (var data of formData) {

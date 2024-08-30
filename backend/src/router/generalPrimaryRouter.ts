@@ -15,6 +15,7 @@ import SearchGeneralPrimary from '../controller/generalStoreController/getGenera
 import sumofGeneralPrimary from '../controller/generalStoreController/SumOfGeneralPrimary';
 import getEditGeneralPrimary from '../controller/generalStoreController/getEditGeneralPrimary';
 import editGeneralPrimary from '../controller/generalStoreController/editGeneralPrimary';
+import updateGeneralEntire from '../controller/generalStoreController/updateGeneralEntire';
 
 const router = express.Router();
 
@@ -31,5 +32,7 @@ router.get("/getEditGeneralPrimary",jwtVerify, getEditGeneralPrimary)
 router.post("/editGeneralPrimary/:id",jwtVerify, editGeneralPrimary)
 router.get('/acceptEditGeneralPrimary/:id', jwtVerify,acceptGeneralEditPrimary)
 router.get("/rejectEditGeneralPrimary/:id",jwtVerify, rejectGeneralPrimaryEdit)
+
+router.put("/updateGeneralEntire/:id",jwtVerify, updateGeneralEntire)
 
 export default router;
