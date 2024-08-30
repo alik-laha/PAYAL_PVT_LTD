@@ -14,6 +14,7 @@ import rejectStorePrimaryEdit from '../controller/StorePrimaryController/rejectS
 import getRcvVillagebyGatePass from '../controller/RcvVIllageController/getRcVVillageByGatepass';
 import getUnEntriedRcvVillage from '../controller/RcvVIllageController/getUnEntriedRcvVillage';
 import updateRcvVillage from '../controller/RcvVIllageController/UpdateRcvVillage';
+import updateRcvVillageEntire from '../controller/RcvVIllageController/updateRcvVillageEntire';
 
 const router = express.Router();
 
@@ -34,4 +35,7 @@ router.put("/updateRcvVillage/:id",jwtVerify, updateRcvVillage)
 // router.get('/acceptEditStorePrimary/:id', jwtVerify,acceptStoreEditPrimary)
 // router.get("/rejectEditStorePrimary/:id",jwtVerify, rejectStorePrimaryEdit)
 
+
+
+router.put("/updateRcvVillageEntire/:id",jwtVerify, updateRcvVillageEntire)
 export default router;

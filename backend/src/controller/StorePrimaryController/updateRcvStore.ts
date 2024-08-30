@@ -5,14 +5,14 @@ import storePrimaryModel from "../../model/storePrimaryModel";
 
 const updateRcvStore = async (req: Request, res: Response) => {
     try {
-        const { sku, vendorName, quantity, unit ,invoicedate,invoice,invoicequantity,type,remarks,totalWt,gateType,totalBill} = req.body.data;
-        let vendortype:string
-        if(gateType==='IN'){
-            vendortype='Vendor'
-        }
-       else{
-            vendortype='Party'
-       }
+        const { sku, vendorName, quantity, unit ,invoicedate,invoice,invoicequantity,type,remarks,totalWt,totalBill} = req.body.data;
+    //     let vendortype:string
+    //     if(gateType==='IN'){
+    //         vendortype='Vendor'
+    //     }
+    //    else{
+    //         vendortype='Party'
+    //    }
         const id=req.params.id;
         const createdBy = req.cookies.user;
         let skuData = await SkuModel.findOne({ where: { sku ,type,section:'Store'} });
