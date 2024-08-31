@@ -43,8 +43,8 @@ const updateGeneralEntire = async (req: Request, res: Response) => {
                         unit:data.unit,remarks:data.remarks,totalWt:data.totalWt,
                         createdBy,status:1,gateType:data.gateType
                 },{transaction})
-            }        
-            })
+            }  
+
             const newPackageMaterial = await generalPrimaryModel.update({
                 sku,invoice,invoicedate,type,
                     vendorName,
@@ -55,14 +55,19 @@ const updateGeneralEntire = async (req: Request, res: Response) => {
             }, {
                 where: {
                     id: id
-                }
+                },transaction
             });
             if(newPackageMaterial){
                 return res.status(201).json({ message: "General material received/dispatched successfully", newPackageMaterial });
             }
             else{
-                return res.status(500).json({ message: "internal error while creating General Entry" });
+                res.status(500).json({ message: "internal error while creating General Entry" });
+                throw new Error ('Transaction Aborted 2')
             }
+
+            })
+            
+            
         }
        
 

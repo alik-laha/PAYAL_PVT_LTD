@@ -59,31 +59,40 @@ const updatePMEntire = async (req: Request, res: Response) => {
                     else {
                         throw new Error('Transaction Aborted 2')
                     }
-                }        
-            })
-            const newPackageMaterial = await PackageMaterial.update({
-                sku,invoice,invoicedate,type,
-                    vendorName,
-                    quantity,
-                    invoicequantity,
-                    unit,remarks,totalWt,totalBill,
-                    createdBy,status:1
-            }, {
-                where: {
-                    id: id
+                    
+                }   
+                const newPackageMaterial = await PackageMaterial.update({
+                    sku,invoice,invoicedate,type,
+                        vendorName,
+                        quantity,
+                        invoicequantity,
+                        unit,remarks,totalWt,totalBill,
+                        createdBy,status:1
+                }, {
+                    where: {
+                        id: id
+                    },transaction}
+                );   
+                
+                if(newPackageMaterial){
+                    const create =await QualityPackageMaterial.create({ id ,gatePassNo},{transaction})
+                    if (!create)
+                    {
+                       res.status(400).json({ message: "internal error while creating PM 2" })
+                       throw new Error('Transaction Aborted 3')
+                    } 
+                    //return res.status(201).json({ msg: "sucessFully created" })
+                    return res.status(201).json({ message: "package material received successfully", newPackageMaterial });
                 }
-            });
-            if(newPackageMaterial){
-                const gatePassNo  = req.body.gatePassNo
-                const create = QualityPackageMaterial.create({ id ,gatePassNo})
-                if (!create) return res.status(400).json({ message: "internal error while creating PM" })
-                //return res.status(201).json({ msg: "sucessFully created" })
-                return res.status(201).json({ message: "package material received successfully", newPackageMaterial });
+                else{
+                    res.status(400).json({ message: "internal error while creating PM 3" })
+                    throw new Error('Transaction Aborted 4')
+                }
+            })
+            
                 //return res.status(201).json({ message: "General material received/dispatched successfully", newPackageMaterial });
-            }
-            else{
-                return res.status(500).json({ message: "internal error while creating General Entry" });
-            }
+            
+          
         }
        
 
@@ -95,7 +104,7 @@ const updatePMEntire = async (req: Request, res: Response) => {
         
         if(!res.headersSent){
             console.log(error)
-            return res.status(500).json({ message: "Error while creating General Entry" ,error});
+            return res.status(500).json({ message: "Error while creating PM Entry" ,error});
         }
         
 

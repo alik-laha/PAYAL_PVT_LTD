@@ -76,15 +76,15 @@ const PMInitial = (props: any) => {
                                         <TableCell className="text-center">
                                             <Dialog>
                                                 <DialogTrigger>
-                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger>
-                                            { idx==0 &&  <DialogContent style={{display:'block'}} className='max-w-3xl'>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} >+ Add </Button></DialogTrigger>
+                                  <DialogContent style={{display:'block'}} className='max-w-3xl'>
                                                     <DialogHeader >
                                                         <DialogTitle><p className='text-1xl text-center mt-1'>Packaging Material Incoming Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 <PackagingMetirialReceivingCreateForm rcn={rcnData}/>
                                               
-                                                </DialogContent>}
+                                                </DialogContent>
                                             </Dialog>
                                         </TableCell>
 
