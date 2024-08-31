@@ -13,6 +13,7 @@ import CreateLotNo from "../controller/BoilingController/createLotNo";
 import deleteLotNo from "../controller/BoilingController/deleteLotNo";
 import deleteBoilingByLot from "../controller/BoilingController/deleteBoilingByLot";
 import getStatusBoiling from "../controller/BoilingController/getStatusBoiling";
+import CreateBoilingEntire from "../controller/BoilingController/createEntireBoiling";
 const router = express.Router();
 
 router.post("/createBoiling", jwtVerify,BoilingMiddleWare, CreateBoiling)
@@ -26,4 +27,7 @@ router.post("/createLotNo", jwtVerify, CreateLotNo)
 router.delete('/deleteLotNo/:id', jwtVerify, deleteLotNo)
 router.delete('/deleteBoilingByLotNo/:id', jwtVerify, deleteBoilingByLot)
 router.post('/getStatusBoiling', jwtVerify, getStatusBoiling)
+
+
+router.post('/createEntireBoiling', jwtVerify, CreateBoilingEntire)
 export default router;

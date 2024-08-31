@@ -145,6 +145,55 @@ const RCNBoilingEntryForm = () =>
         setRows(newRows)
     }
 
+    const handleSubmit2 = async (e: React.FormEvent) => {
+        e.preventDefault()
+        const date = DateRef.current?.value
+        const noOfEmployees = noofEmployeeRef.current?.value
+        const Mc_name = mc_name
+
+        try {
+            const formData = rows.map(row => ({
+                columnDate: date,
+                columnEmployee: noOfEmployees,
+                columnMC: Mc_name,
+                ...row
+            }))
+
+            const initialscoop = await axios.post('/api/boiling/createEntireBoiling', { databoil:formData })
+            console.log(initialscoop)
+
+            
+                setErrortext(initialscoop.data.message)
+                if (initialscoop.status === 200) {
+                    const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                    dialog2.showModal()
+                    setTimeout(() => {
+                        dialog2.close()
+                        window.location.reload()
+                    }, 3000)
+                }
+
+            
+
+        }
+        catch (err) {
+            console.log(err)
+            if (axios.isAxiosError(err)) {
+                setErrortext(err.response?.data.message || 'An Unexpected Error Occured')
+            }
+            else {
+                setErrortext('An Unexpected Error Occured')
+            }
+            const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+            dialog.showModal()
+            setTimeout(() => {
+                dialog.close()
+            }, 2000)
+        }
+
+
+    }
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         const date = DateRef.current?.value  
@@ -296,7 +345,7 @@ catch(err){
     return (
         <>
             <div className="px-5">
-                <form className='flex flex-col gap-1 pt-4' onSubmit={handleSubmit}>
+                <form className='flex flex-col gap-1 pt-4' onSubmit={handleSubmit2}>
                    <div className="mx-8 flex flex-col gap-1"> 
                     <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
                     <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
