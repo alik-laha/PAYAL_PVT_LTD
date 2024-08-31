@@ -162,13 +162,7 @@ const RcvVillagePrimaryEntry = (props:Props) => {
                 (errordialog as any).showModal()
             }
             
-            
-    
         }
-
-
-
-
 
     }
 
@@ -263,7 +257,7 @@ const RcvVillagePrimaryEntry = (props:Props) => {
         }else{
             vendortype='Party'
         }
-        axios.post(`/api/vendorSKU/vendornamefind/Store/`, { vendorName: e.target.value,type:vendortype  })
+        axios.post(`/api/vendorSKU/vendornamefind/Village/`, { vendorName: e.target.value,type:vendortype  })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {

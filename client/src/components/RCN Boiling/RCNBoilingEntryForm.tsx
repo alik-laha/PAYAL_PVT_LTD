@@ -44,6 +44,7 @@ import {
 import { MdDelete } from "react-icons/md";
 
 import FormRow from "../common/FormRowTime"
+import { Console } from "console"
 
 
 
@@ -150,14 +151,34 @@ const RCNBoilingEntryForm = () =>
         const date = DateRef.current?.value
         const noOfEmployees = noofEmployeeRef.current?.value
         const Mc_name = mc_name
+        const formData = rows.map(row => ({
+            columnDate: date,
+            columnEmployee: noOfEmployees,
+            columnMC: Mc_name,
+            ...row
+        }))
+        formData.map((row:any) => {
+         console.log('Entered Here')
+         console.log(row)
+            if(row.columnMC ===''|| row.origin==='' || row.size==='' || row.ScoopingLine==='' || row.sizeName===''){
+                setErrortext('Duplicate Section Values Found !')
+                const errordialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                if (errordialog != null) {
+                    (errordialog as any).showModal();
+                }
+                return
+            }
+            if(row.cookingOn===''){
+                row.cookingOn='00:00'
+            }
+            if(row.cookingOff===''){
+                row.cookingOff='00:00'
+            }
+        })
+        
 
         try {
-            const formData = rows.map(row => ({
-                columnDate: date,
-                columnEmployee: noOfEmployees,
-                columnMC: Mc_name,
-                ...row
-            }))
+          
 
             const initialscoop = await axios.post('/api/boiling/createEntireBoiling', { databoil:formData })
             console.log(initialscoop)
@@ -314,7 +335,7 @@ catch(err){
 }        
                     
     const successdialog = document.getElementById('myDialog') as HTMLInputElement;
-    const errordialog = document.getElementById('errorDialog') as HTMLInputElement;
+    const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
     const closeDialogButton = document.getElementById('closeDialog') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('errorcloseDialog') as HTMLInputElement;

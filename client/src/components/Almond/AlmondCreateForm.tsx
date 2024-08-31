@@ -137,7 +137,69 @@ const AlmondPrimaryEntryForm = (props:Props) => {
         });
     }
 
- 
+    const handleSubmit3 = async (e: React.FormEvent) => {
+        e.preventDefault()
+        const blNo = blNoRef.current?.value
+        const conNo = conNoRef.current?.value
+
+
+        const formData = rows.map(row => ({
+            GatePassNo: gatepass,
+            recevingDate: date,
+            TruckNo: truck,
+            gateType: gateType,
+            GrossWt: grossWt,
+            invoicedate: conNo,
+            invoice: blNo,
+            vendorName: VendorName,
+            ...row
+        }))
+
+
+        try {
+            if (formData.length === 1) {
+                for (var data of formData) {
+                    await axios.put(`/api/almondPrimary/updateRcvAlmond/${id}`, { data })
+                    await axios.post("/api/gatepass/updateRcvDisptchStatus", {
+                        gatePassNo: gatepass,
+                        section: 'Almond'
+                    })
+                    setErrorText('Almond Items Dispatched Successfully')
+                    if (successdialog) {
+                        (successdialog as any).showModal();
+                    }
+
+                }
+            }
+
+            else if (formData.length > 1) {
+                await axios.put(`/api/almondPrimary/updateRcvAlmondEntire/${id}`, { formData })
+                await axios.post("/api/gatepass/updateRcvDisptchStatus", {
+                    gatePassNo: gatepass,
+                    section: 'Almond'
+                })
+                setErrorText('Almond Items Dispatched Successfully')
+                if (successdialog) {
+                    (successdialog as any).showModal();
+                }
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+            //await axios.post('/api/storePrimary/deleteStorePrimaryByID',{ id:id,gatepass:gatepass})
+            if (axios.isAxiosError(err)) {
+                setErrorText(err.response?.data.message || 'An Unexpected Error Occured')
+            }
+            if (errordialog) {
+                (errordialog as any).showModal()
+            }
+
+
+
+        }
+
+    }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -172,79 +234,79 @@ const AlmondPrimaryEntryForm = (props:Props) => {
             })
 
     }
-    const handleSubmit2 = async (e: React.FormEvent) => {
-        e.preventDefault()
-        const blNo = blNoRef.current?.value
-        const conNo = conNoRef.current?.value
+    // const handleSubmit2 = async (e: React.FormEvent) => {
+    //     e.preventDefault()
+    //     const blNo = blNoRef.current?.value
+    //     const conNo = conNoRef.current?.value
      
  
-        const formData = rows.map(row => ({
-            GatePassNo: gatepass,
-            recevingDate: date,
-            TruckNo: truck,
-            gateType:gateType,
-            GrossWt: grossWt,
-            invoicedate:conNo,
-            invoice:blNo,
-            vendorName:VendorName,
-            ...row
-    }))
-    console.log(formData)
+    //     const formData = rows.map(row => ({
+    //         GatePassNo: gatepass,
+    //         recevingDate: date,
+    //         TruckNo: truck,
+    //         gateType:gateType,
+    //         GrossWt: grossWt,
+    //         invoicedate:conNo,
+    //         invoice:blNo,
+    //         vendorName:VendorName,
+    //         ...row
+    // }))
+    // console.log(formData)
 
-    try 
-    {
-        if(formData.length===1){
-            for (var data of formData) 
-                {
-                    await axios.put(`/api/almondPrimary/updateRcvAlmond/${id}`, {data })
-                    await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-                        section:'Almond' })
-                        setErrorText('Almond Items Dispatched Successfully')
-                    if(successdialog){
-                        (successdialog as any).showModal();
-                    }
+    // try 
+    // {
+    //     if(formData.length===1){
+    //         for (var data of formData) 
+    //             {
+    //                 await axios.put(`/api/almondPrimary/updateRcvAlmond/${id}`, {data })
+    //                 await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
+    //                     section:'Almond' })
+    //                     setErrorText('Almond Items Dispatched Successfully')
+    //                 if(successdialog){
+    //                     (successdialog as any).showModal();
+    //                 }
                     
-                }
-            }  
+    //             }
+    //         }  
        
-            else if(formData.length>1){
-            const firstrow=formData[0]
+    //         else if(formData.length>1){
+    //         const firstrow=formData[0]
           
-                await axios.put(`/api/almondPrimary/updateRcvAlmond/${id}`, {data:firstrow })
+    //             await axios.put(`/api/almondPrimary/updateRcvAlmond/${id}`, {data:firstrow })
            
-                let pmrescount=0
-            for(let i=1;i<formData.length;i++){
+    //             let pmrescount=0
+    //         for(let i=1;i<formData.length;i++){
                 
-                const data1=formData[i];
-                await axios.post('/api/almondPrimary/createAlmondPrimary', {data:data1 })
-                pmrescount++
-                if(pmrescount==(formData.length-1))
-                {
+    //             const data1=formData[i];
+    //             await axios.post('/api/almondPrimary/createAlmondPrimary', {data:data1 })
+    //             pmrescount++
+    //             if(pmrescount==(formData.length-1))
+    //             {
                     
-                    await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-                        section:'Almond' })
-                        setErrorText('Almond Items Dispatched Successfully')
-                    if(successdialog){
-                        (successdialog as any).showModal();
-                    }
-                }
-            }
+    //                 await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
+    //                     section:'Almond' })
+    //                     setErrorText('Almond Items Dispatched Successfully')
+    //                 if(successdialog){
+    //                     (successdialog as any).showModal();
+    //                 }
+    //             }
+    //         }
            
-        } 
-    }
-    catch(err){
-        console.log(err)
-        await axios.post('/api/almondPrimary/deleteAlmondByID',{ id:id,gatepass:gatepass})
-        if(axios.isAxiosError(err)){
-            setErrorText(err.response?.data.message ||'An Unexpected Error Occured')
-        }
-        if(errordialog){
-            (errordialog as any).showModal()
-        }
+    //     } 
+    // }
+    // catch(err){
+    //     console.log(err)
+    //     await axios.post('/api/almondPrimary/deleteAlmondByID',{ id:id,gatepass:gatepass})
+    //     if(axios.isAxiosError(err)){
+    //         setErrorText(err.response?.data.message ||'An Unexpected Error Occured')
+    //     }
+    //     if(errordialog){
+    //         (errordialog as any).showModal()
+    //     }
 
-    }
+    // }
 
-    }
+    // }
     const [VendorName, setVendorName] = useState<string>('')
     const [vendorNameView, setVendorNameView] = useState("none")
     const [vendorData, setVendorData] = useState<VendorData[]>([])
@@ -365,7 +427,7 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                     <Button className="bg-orange-500 mb-2 mt-4 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
                 </form> :
 
-                <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit2}>
+                <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit3}>
                 <div className="mx-8 flex flex-col gap-1"> 
                 <div className="flex mt-4"><Label className="w-2/4  pt-1">GatePass No.</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
