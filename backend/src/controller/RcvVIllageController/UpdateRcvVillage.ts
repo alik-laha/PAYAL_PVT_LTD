@@ -6,14 +6,14 @@ import RcvVillageModel from "../../model/RcvVillageModel";
 
 const updateRcvVillage = async (req: Request, res: Response) => {
     try {
-        const { sku, vendorName, quantity ,invoice,type,remarks,totalWt,gateType} = req.body.data;
-        let vendortype:string
-        if(gateType==='IN'){
-            vendortype='Vendor'
-        }
-       else{
-            vendortype='Party'
-       }
+        const { sku, vendorName, quantity ,invoice,type,remarks,totalWt} = req.body.data;
+    //     let vendortype:string
+    //     if(gateType==='IN'){
+    //         vendortype='Vendor'
+    //     }
+    //    else{
+    //         vendortype='Party'
+    //    }
         const id=req.params.id;
         const createdBy = req.cookies.user;
       

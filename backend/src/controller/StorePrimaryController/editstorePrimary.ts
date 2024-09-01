@@ -16,13 +16,13 @@ const editstorePrimary = async (req: Request, res: Response) => {
         const createdBynew= req.cookies.user
         const {  gateType,grossswt,truck,gatepassno,recevingDate, sku, vendorName, quantity, unit,invoice,invoicedate,invoicequantity,remarks,totalWt,type,totalBill } = req.body;
         if (!id) return res.status(400).json({ message: "id is required" });
-        let vendortype:string
-        if(gateType==='IN'){
-            vendortype='Vendor'
-        }
-        else{
-            vendortype='Party'
-        }
+        // let vendortype:string
+        // if(gateType==='IN'){
+        //     vendortype='Vendor'
+        // }
+        // else{
+        //     vendortype='Party'
+        // }
         let skuData = await SkuModel.findOne({ where: { sku ,type,section:'Store'} });
         //let vendorData = await VendorName.findOne({ where: { vendorName,type:vendortype,section:'Store' } });
         // if(!skuData || !vendorData){

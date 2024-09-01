@@ -177,7 +177,7 @@ const StorePrimaryTable = () => {
 
     useEffect(() => {
         searchData()
-        // GetPendingEdit()
+        //GetPendingEdit()
 
     }, [page])
 

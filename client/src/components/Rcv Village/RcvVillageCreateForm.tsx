@@ -154,7 +154,7 @@ const RcvVillagePrimaryEntry = (props:Props) => {
         }
         catch (err){
             console.log(err)
-            //await axios.post('/api/storePrimary/deleteStorePrimaryByID',{ id:id,gatepass:gatepass})
+            await axios.post('/api/rcvVillage/deleteVillagePrimaryByID',{ id:id,gatepass:gatepass})
             if(axios.isAxiosError(err)){
                 setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
             }

@@ -93,6 +93,29 @@ export interface AlmondPrimaryEntryData {
     totalBill:string;  
  
 }
+export interface RcvVillagePrimaryEntryData {
+   
+    approvedBy: string;
+    id: number;
+    recevingDate: string;
+    quantity: string;
+    truckNo: string;
+    netWeight: string;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string;
+    status:number;
+    gateType: string,
+    remarks:string;
+    invoice: string;  
+    sku: string;  
+    type: string;  
+    vendorName: string;  
+    totalWt:string;  
+
+ 
+}
 
 export interface AlmondPrimaryExcelEntryData {
    

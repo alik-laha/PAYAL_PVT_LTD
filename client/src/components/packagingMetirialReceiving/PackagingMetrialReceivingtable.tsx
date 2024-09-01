@@ -176,7 +176,7 @@ const PackageMetrialRecivingTable = () => {
 
     useEffect(() => {
         searchData()
-        // GetPendingEdit()
+        //GetPendingEdit()
 
     }, [page])
 

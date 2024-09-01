@@ -26,7 +26,7 @@ const SearchAlmondPrimary = async (req: Request, res: Response) => {
 
         if (fromDate && toDate) {
             whereClause.push({
-                date: {
+                recevingDate: {
                     [Op.between]: [fromDate, toDate]
                 }
             });
