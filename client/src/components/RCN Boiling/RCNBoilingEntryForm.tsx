@@ -51,70 +51,70 @@ import { Console } from "console"
 const RCNBoilingEntryForm = () => 
     {
     
-    function processFormData(formDataArray: RowData[]): RowData[] {
-        const ScoopingLineCount: { [key: string]: number } = {};
+    // function processFormData(formDataArray: RowData[]): RowData[] {
+    //     const ScoopingLineCount: { [key: string]: number } = {};
       
-        // First pass: Count occurrences of each elementA
-        formDataArray.forEach(formData => {
-            ScoopingLineCount[formData.ScoopingLine] = (ScoopingLineCount[formData.ScoopingLine] || 0) + 1;
-        });
+    //     // First pass: Count occurrences of each elementA
+    //     formDataArray.forEach(formData => {
+    //         ScoopingLineCount[formData.ScoopingLine] = (ScoopingLineCount[formData.ScoopingLine] || 0) + 1;
+    //     });
       
-        // Second pass: Modify elementB based on the count
-        const seen: { [key: string]: number } = {};
+    //     // Second pass: Modify elementB based on the count
+    //     const seen: { [key: string]: number } = {};
       
-        return formDataArray.map(formData => 
-        {
-          const count = ScoopingLineCount[formData.ScoopingLine];
-          if (count > 1) {
-            seen[formData.ScoopingLine] = (seen[formData.ScoopingLine] || 0) + 1;
-            if (seen[formData.ScoopingLine] > 1) {
-              formData.openQuantity = 0;
-            }
-          }
-          return formData;
-        });
-      }
-      async function updateFormData(formDataArray: RowData[],lotNO:string): Promise<RowData[]> 
-      {
-        for (let formData of formDataArray) {
-          formData.openQuantity = await fetchOpenQty(formData.ScoopingLine,lotNO);
-          console.log(formData.openQuantity)
-          //formData.openQuantity =  axios.post('/api/scooping/getPrevScoop', {formData.ScoopingLine,lotNO})
-        }
-        return formDataArray;
-      }
+    //     return formDataArray.map(formData => 
+    //     {
+    //       const count = ScoopingLineCount[formData.ScoopingLine];
+    //       if (count > 1) {
+    //         seen[formData.ScoopingLine] = (seen[formData.ScoopingLine] || 0) + 1;
+    //         if (seen[formData.ScoopingLine] > 1) {
+    //           formData.openQuantity = 0;
+    //         }
+    //       }
+    //       return formData;
+    //     });
+    //   }
+    //   async function updateFormData(formDataArray: RowData[],lotNO:string): Promise<RowData[]> 
+    //   {
+    //     for (let formData of formDataArray) {
+    //       formData.openQuantity = await fetchOpenQty(formData.ScoopingLine,lotNO);
+    //       console.log(formData.openQuantity)
+    //       //formData.openQuantity =  axios.post('/api/scooping/getPrevScoop', {formData.ScoopingLine,lotNO})
+    //     }
+    //     return formDataArray;
+    //   }
 
-      async function fetchOpenQty(ScoopingLine: string,lotNO:string): Promise<number> {
-        try{
-            const response= await axios.post('/api/scooping/getPrevScoop', { ScoopingLine,lotNO})
-            console.log(response)
+    //   async function fetchOpenQty(ScoopingLine: string,lotNO:string): Promise<number> {
+    //     try{
+    //         const response= await axios.post('/api/scooping/getPrevScoop', { ScoopingLine,lotNO})
+    //         console.log(response)
 
-            if(response.data.message==='Previous Cutting Not Found'){
-                return 0
-            }
-            if(response.data.finalSum[0].totalUncut!== null && response.data.finalSum[0].totalNonCut!== null
-                && response.data.finalSum[0].totalUnscoop!== null
-            )
-            {
-                const prevSum:number=parseFloat(response.data.finalSum[0].totalUncut)
-                +parseFloat(response.data.finalSum[0].totalNonCut)+
-                parseFloat(response.data.finalSum[0].totalUnscoop)
-                return prevSum
-            }
-            else{
-                return 0
-            }
+    //         if(response.data.message==='Previous Cutting Not Found'){
+    //             return 0
+    //         }
+    //         if(response.data.finalSum[0].totalUncut!== null && response.data.finalSum[0].totalNonCut!== null
+    //             && response.data.finalSum[0].totalUnscoop!== null
+    //         )
+    //         {
+    //             const prevSum:number=parseFloat(response.data.finalSum[0].totalUncut)
+    //             +parseFloat(response.data.finalSum[0].totalNonCut)+
+    //             parseFloat(response.data.finalSum[0].totalUnscoop)
+    //             return prevSum
+    //         }
+    //         else{
+    //             return 0
+    //         }
           
             
-        }
-        catch(err){
-            console.log(err);
-            throw err
-        }
+    //     }
+    //     catch(err){
+    //         console.log(err);
+    //         throw err
+    //     }
 
         
         
-      }
+    //   }
 
 
     const DateRef = useRef<HTMLInputElement>(null)
@@ -126,7 +126,7 @@ const RCNBoilingEntryForm = () =>
     ]);
 
     const [errortext, setErrortext] = useState('')
-   
+    const [isdisable,setisdisable]=useState<boolean>(false)
   
 
     const handleRowChange = (index:number,field:string,fieldvalue:string) => {
@@ -148,6 +148,7 @@ const RCNBoilingEntryForm = () =>
 
     const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
+        setisdisable(true)
         const date = DateRef.current?.value
         const noOfEmployees = noofEmployeeRef.current?.value
         const Mc_name = mc_name
@@ -178,12 +179,8 @@ const RCNBoilingEntryForm = () =>
         
 
         try {
-          
-
             const initialscoop = await axios.post('/api/boiling/createEntireBoiling', { databoil:formData })
-            console.log(initialscoop)
-
-            
+            console.log(initialscoop)         
                 setErrortext(initialscoop.data.message)
                 if (initialscoop.status === 200) {
                     const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
@@ -193,9 +190,6 @@ const RCNBoilingEntryForm = () =>
                         window.location.reload()
                     }, 3000)
                 }
-
-            
-
         }
         catch (err) {
             console.log(err)
@@ -211,128 +205,131 @@ const RCNBoilingEntryForm = () =>
                 dialog.close()
             }, 2000)
         }
+        finally{
+            setisdisable(false)
+        }
 
 
     }
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        const date = DateRef.current?.value  
-        const noOfEmployees = noofEmployeeRef.current?.value
-        const Mc_name = mc_name
+//     const handleSubmit = async (e: React.FormEvent) => {
+//         e.preventDefault()
+//         const date = DateRef.current?.value  
+//         const noOfEmployees = noofEmployeeRef.current?.value
+//         const Mc_name = mc_name
         
-try
-{
-    const createLot=await axios.post('/api/boiling/createLotNo', {})            
-    console.log(createLot)
-    //setLotNO(createLot.data.newSequence) 
-    //console.log(lotNO) 
-    try 
-    {   
-        const formData = rows.map(row => ({
-            columnLotNo: createLot.data.newSequence,
-            columnDate: date,
-            columnEmployee: noOfEmployees,
-            columnMC: Mc_name,
-            ...row
-        }))
-        let boilingcount = 0
-        let scoopingcount=0
-        for (var data of formData) 
-        {
-            const boilres=await axios.post('/api/boiling/createBoiling', { data })
+// try
+// {
+//     const createLot=await axios.post('/api/boiling/createLotNo', {})            
+//     console.log(createLot)
+//     //setLotNO(createLot.data.newSequence) 
+//     //console.log(lotNO) 
+//     try 
+//     {   
+//         const formData = rows.map(row => ({
+//             columnLotNo: createLot.data.newSequence,
+//             columnDate: date,
+//             columnEmployee: noOfEmployees,
+//             columnMC: Mc_name,
+//             ...row
+//         }))
+//         let boilingcount = 0
+//         let scoopingcount=0
+//         for (var data of formData) 
+//         {
+//             const boilres=await axios.post('/api/boiling/createBoiling', { data })
            
-            boilingcount++;
-            if (formData.length === boilingcount) 
-            {
+//             boilingcount++;
+//             if (formData.length === boilingcount) 
+//             {
                 
-                if (boilres.status === 200) 
-                {
-                    await axios.post('/api/scooping/updateLotNo', 
-                    { lotNo:data.columnLotNo,desc:'Boiling'}) 
-                }
-            }     
-        }
-        const resStatus=await axios.post('/api/boiling/getStatusBoiling', { lotNo:formData[0].columnLotNo})
-        console.log(resStatus)
-        if(resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy==='Boiling')
-        {
-            const updatedFormDataArray = await updateFormData(formData,createLot.data.newSequence);
-            const processedFormDataArray = processFormData(updatedFormDataArray);
-            const formData2 = processedFormDataArray.map(row => ({
-                columnLotNo: createLot.data.newSequence,
-                rcvQuantity: (parseFloat(row.size) * 80),
-                 ...row
-            }))
-            for (var data2 of formData2) 
-            {
-                const initialscoop=await axios.post('/api/scooping/createInitialScooping', { data2 })
-                console.log(initialscoop)
-                scoopingcount++;
-                      if (formData.length === scoopingcount) 
-                        {
-                          setErrortext(initialscoop.data.message)
-                          if (initialscoop.status === 200) 
-                            {
-                            const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
-                            dialog2.showModal()
-                             setTimeout(() => {
-                                 dialog2.close()
-                                 window.location.reload()
-                             }, 3000)
-                            }
+//                 if (boilres.status === 200) 
+//                 {
+//                     await axios.post('/api/scooping/updateLotNo', 
+//                     { lotNo:data.columnLotNo,desc:'Boiling'}) 
+//                 }
+//             }     
+//         }
+//         const resStatus=await axios.post('/api/boiling/getStatusBoiling', { lotNo:formData[0].columnLotNo})
+//         console.log(resStatus)
+//         if(resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy==='Boiling')
+//         {
+//             const updatedFormDataArray = await updateFormData(formData,createLot.data.newSequence);
+//             const processedFormDataArray = processFormData(updatedFormDataArray);
+//             const formData2 = processedFormDataArray.map(row => ({
+//                 columnLotNo: createLot.data.newSequence,
+//                 rcvQuantity: (parseFloat(row.size) * 80),
+//                  ...row
+//             }))
+//             for (var data2 of formData2) 
+//             {
+//                 const initialscoop=await axios.post('/api/scooping/createInitialScooping', { data2 })
+//                 console.log(initialscoop)
+//                 scoopingcount++;
+//                       if (formData.length === scoopingcount) 
+//                         {
+//                           setErrortext(initialscoop.data.message)
+//                           if (initialscoop.status === 200) 
+//                             {
+//                             const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+//                             dialog2.showModal()
+//                              setTimeout(() => {
+//                                  dialog2.close()
+//                                  window.location.reload()
+//                              }, 3000)
+//                             }
                           
-                        }   
-            }
-        }       
-    }
+//                         }   
+//             }
+//         }       
+//     }
 
-    catch(err)  
-    {
-        console.log(err)
-        if(axios.isAxiosError(err)){
-            setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
-        }
-        else{
-            setErrortext('An Unexpected Error Occured')
-        }
-        const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
-        dialog.showModal()
-        setTimeout(() => {
-            dialog.close()
-        }, 2000)
-        axios.delete(`/api/boiling/deleteLotNo/${createLot.data.newSequence}`).then((res) => {
-            console.log(res.data)
-        })
-        axios.delete(`/api/boiling/deleteBoilingByLotNo/${createLot.data.newSequence}`).then((res) => {
-            console.log(res.data)
-        })
-        axios.delete(`/api/scooping/deleteScoopingByLotNo/${createLot.data.newSequence}`).then((res) => {
-            console.log(res.data)
-        })
+//     catch(err)  
+//     {
+//         console.log(err)
+//         if(axios.isAxiosError(err)){
+//             setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+//         }
+//         else{
+//             setErrortext('An Unexpected Error Occured')
+//         }
+//         const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+//         dialog.showModal()
+//         setTimeout(() => {
+//             dialog.close()
+//         }, 2000)
+//         axios.delete(`/api/boiling/deleteLotNo/${createLot.data.newSequence}`).then((res) => {
+//             console.log(res.data)
+//         })
+//         axios.delete(`/api/boiling/deleteBoilingByLotNo/${createLot.data.newSequence}`).then((res) => {
+//             console.log(res.data)
+//         })
+//         axios.delete(`/api/scooping/deleteScoopingByLotNo/${createLot.data.newSequence}`).then((res) => {
+//             console.log(res.data)
+//         })
         
         
-    }  
+//     }  
 
-}
-catch(err){
-    console.log(err)
-    console.log(err)
-        if(axios.isAxiosError(err)){
-            setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
-        }
-        else{
-            setErrortext('An Unexpected Error Occured')
-        }
-    const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
-    dialog.showModal()
-    setTimeout(() => {
-        dialog.close()
-    }, 2000)
-}
+// }
+// catch(err){
+//     console.log(err)
+//     console.log(err)
+//         if(axios.isAxiosError(err)){
+//             setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+//         }
+//         else{
+//             setErrortext('An Unexpected Error Occured')
+//         }
+//     const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+//     dialog.showModal()
+//     setTimeout(() => {
+//         dialog.close()
+//     }, 2000)
+// }
         
             
-}        
+// }        
                     
     const successdialog = document.getElementById('myDialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
@@ -543,7 +540,7 @@ catch(err){
                     </div>
                    
                    
-                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
+                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                   
                    
                 </form>
