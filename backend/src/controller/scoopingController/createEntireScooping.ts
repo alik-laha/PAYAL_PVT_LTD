@@ -4,6 +4,8 @@ import sequelize from "../../config/databaseConfig";
 import RcnScooping from "../../model/scoopingModel";
 import RcnAllScooping from "../../model/scoopingAllmodel";
 import RcnBorma from "../../model/bormaModel";
+import LotNo from "../../model/lotNomodel";
+import { Op } from "sequelize";
 
 const CreateEntireScooping = async (req: Request, res: Response) => {
     const timeToMilliseconds = (time: string) => {
@@ -25,7 +27,9 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
         }
         return time1InMilliseconds;
     }
-    const feeledBy = req.cookies.user;
+
+    try{
+        const feeledBy = req.cookies.user;
     const linescoop = req.body.linescoop
     const lotscoop = req.body.lotscoop
     const updatescoop = req.body.updatescoop
@@ -158,12 +162,108 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
 
         }
         for (let data of updatescoop) {
-         
+            const Scooping_Line_Mc=data.Scooping_Line_Mc
+            const uncut=data.Uncut ? data.Uncut:0
+            const unscoop=data.Unscoop ? data.Unscoop:0
+            const noncut=data.NonCut ?data.NonCut:0
+            const finalopen=uncut+unscoop+noncut
+            console.log(finalopen)
+            const LotNo=data.LotNo
 
+            const nextEntry = await RcnScooping.findOne({
+                attributes: ['LotNo','scoopStatus','id'],
+                where: {
+        
+                    Scooping_Line_Mc: Scooping_Line_Mc,
+                    LotNo: {
+                        [Op.gt]: LotNo
+                    }
+        
+                },
+                order: [['LotNo', 'ASC']]
+        
+            });
+            console.log(nextEntry)
+
+            if(nextEntry && nextEntry.dataValues.scoopStatus==0)
+            {
+                let nextid=nextEntry.dataValues.id
+                console.log(nextEntry.dataValues.scoopStatus)
+                console.log(nextEntry.dataValues.LotNo)
+                let linecount = await RcnScooping.count({ where: { LotNo: nextEntry.dataValues.LotNo, Scooping_Line_Mc: Scooping_Line_Mc } })
+                console.log(linecount)
+
+                if(linecount>1)
+                {
+                    const nextEntryid = await RcnScooping.findOne({
+                        attributes: ['id'],
+                        where: {
+        
+                            Scooping_Line_Mc: Scooping_Line_Mc,
+                            LotNo: nextEntry.dataValues.LotNo,
+                            Opening_Qty: {
+                                [Op.gt]: 0
+                            }
+        
+                        },
+                        order: [['LotNo', 'ASC']]
+        
+                    });
+                    if(nextEntryid)
+                    {
+                        await RcnScooping.update({
+                            Opening_Qty:finalopen
+                        }, { where: { id:nextEntryid.dataValues.id },transaction });
+                        
+                    }
+                    else{
+                        await RcnScooping.update({
+                            Opening_Qty:finalopen
+                        }, { where: { id:nextid },transaction });
+                        
+                    }
+                }
+                else
+                {
+                    await RcnScooping.update({
+                        Opening_Qty:finalopen
+                    }, { where: { id:nextid },transaction });
+                }
+
+
+            }
+           else{
+            console.log('Nothing To Update or Already Scooping Done')
+           }
+
+        }
+        const lotupdate = await LotNo.update(
+            { 
+              modifiedBy:'Scooping'
+            },
+            {
+                where: {
+                    lotNo:lotscoop[0].lotNo
+                },transaction
+            }
+        );
+        if(lotupdate){
+            res.status(200).json({ message: "Scooping Entry Made Successfully" });
+        }
+        else{
+            console.log('No Need For Update')
         }
 
 
     })
+    }
+    catch(error) {
+        if(!res.headersSent){
+            console.log(error)
+            return res.status(500).json({ message: "Error while creating Scooping Entry" ,error});
+        }
+    }
+    
 
 
 }
