@@ -27,7 +27,7 @@ export const PermissionRol = {
     ReceivingSupervisor: ['RCN Primary Entry'],
     ReceivingPMSupervisor: ['Receiving Packaging Entry'],
     ReceivingManager: ['RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
-        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','Receiving Village Entry'],
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry'],
     ReceivingAlmondSupervisor:['Receiving Almond Entry'],
     ReceivingStoreSupervisor: ['Receiving Store Entry'],
     ReceivingAgarbatiSupervisor:['Receiving Agarbati Entry'],
@@ -38,7 +38,7 @@ export const PermissionRol = {
     GradingSupervisor: ['Grading'],
     BoilingSupervisor: ['Boiling'],
     ScoopingSupervisor: ['Scooping'],
-    ProductionManager:['Grading','Boiling','Scooping','Borma'],
+    ProductionManager:['Grading','Boiling','Scooping','Borma','Receiving Village Entry'],
     MaintainanceManager:['Cleaning'],
     CleaningSupervisor:['Cleaning'],
     BormaSuperVisor:['Borma'],
@@ -54,12 +54,12 @@ export const PermissionDep = {
     Maintainance: ['Maintainance'],
     Production: ['Production'],
     QualityControl: ['Quality'],
-    GatePass:['GatePass','Receiving']
+    GatePass:['GatePass','Receiving','Production']
   
 }
-
+//they are only eligible to download excel and pending edit button will appear to check pending
 export const pendingCheckRole = {
-    RCNPrimary: ['Director', 'FactoryManager', 'ReceivingManager'],
+    RCNPrimary: ['Director', 'FactoryManager', 'ReceivingManager'],//For All Receiving/Dispatch 'RCNPrimary' is common
     QCRCN: ['Director', 'FactoryManager', 'QCManager'],
     Grading: ['Director', 'FactoryManager', 'ProductionManager'],
     Boiling: ['Director', 'FactoryManager', 'ProductionManager'],
@@ -68,23 +68,24 @@ export const pendingCheckRole = {
     Gatepass: ['Director', 'FactoryManager', 'GatePassManager'],
    
 }
+//They are only eligible to create entry
 export const rcvCheckRole = {
     RCNPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingSupervisor'],
     PMPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingPMSupervisor'],
     StorePrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingStoreSupervisor'],
     GeneralPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingGeneralSupervisor'],
     AlmondPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingAlmondSupervisor'],
-    VillagePrimaryEntry:['Director', 'FactoryManager', 'ReceivingManager','VillageSupervisor'],
+    VillagePrimaryEntry:['Director', 'FactoryManager','VillageSupervisor','ProductionManager'],
  
 }
 export const roleDataonDept = {
     Admin: ['Director', 'FactoryManager'],
     Receiving: ['ReceivingManager','ReceivingSupervisor', 'ReceivingPMSupervisor', 'ReceivingAlmondSupervisor',
-         'ReceivingStoreSupervisor','ReceivingGeneralSupervisor','VillageSupervisor'],
+         'ReceivingStoreSupervisor','ReceivingGeneralSupervisor'],
     //Maintainance: ['CleaningSupervisor', 'MaintainanceManager'],
     QualityControl: ['QCSupervisor', 'QCManager'],
     Production: ['ProductionManager', 'GradingSupervisor', 
-        'BoilingSupervisor', 'ScoopingSupervisor','BormaSuperVisor'],
+        'BoilingSupervisor', 'ScoopingSupervisor','BormaSuperVisor','VillageSupervisor'],
     GatePass:['Security','GatePassManager']
 }
 export const pageNo = 1

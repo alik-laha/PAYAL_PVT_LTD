@@ -58,6 +58,7 @@ import Context from '../context/context';
 import { LuDownload } from "react-icons/lu";
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import RcvVillageModify from "./RcvVillageModify"
 // import StorePrimaryModify from "./StorePrimaryModify"
 
 const RcvVillageTable = () => {
@@ -392,10 +393,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >GatePass_Type</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
                         <TableHead className="text-center" >Vehicle_No</TableHead>
-                        <TableHead className="text-center" >Gross_Weight</TableHead>
+                        <TableHead className="text-center" >Initial_Weight</TableHead>
                         <TableHead className="text-center" >Item_Type</TableHead>
                         <TableHead className="text-center" >Item_Name</TableHead> 
-                        <TableHead className="text-center" >Invoice_No.</TableHead>            
+                        <TableHead className="text-center" >Doc_No.</TableHead>            
                         <TableHead className="text-center" >Net_Weight</TableHead>
                         <TableHead className="text-center" >Vendor_Name</TableHead>
                         <TableHead className="text-center" >Bag/Item_Count</TableHead>
@@ -420,13 +421,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.gateType}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
                                 <TableCell className="text-center">{item.truckNo}</TableCell>
-                                <TableCell className="text-center">{formatNumber(item.grossWt)} kg</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.grossWt)}</TableCell>
                                 <TableCell className="text-center">{item.type}</TableCell>
                                 <TableCell className="text-center" >{item.sku}</TableCell> 
                                 <TableCell className="text-center">{item.invoice}</TableCell>                            
-                                <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} Kg</TableCell>
+                                <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
                                 <TableCell className="text-center">{item.vendorName}</TableCell>
-                                <TableCell className="text-center font-semibold">{item.quantity}</TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(item.quantity)}</TableCell>
                                 <TableCell className="text-center" >{item.totalWt}</TableCell> 
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
 
@@ -484,13 +485,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.gateType}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
                                 <TableCell className="text-center">{item.truckNo}</TableCell>
-                                <TableCell className="text-center">{formatNumber(item.grossWt)} kg</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.grossWt)}</TableCell>
                                 <TableCell className="text-center">{item.type}</TableCell>
                                 <TableCell className="text-center" >{item.sku}</TableCell> 
                                 <TableCell className="text-center">{item.invoice}</TableCell>                            
-                                <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} Kg</TableCell>
+                                <TableCell className="text-center">{item.netWeight ? item.netWeight : 0}</TableCell>
                                 <TableCell className="text-center">{item.vendorName}</TableCell>
-                                <TableCell className="text-center font-semibold">{item.quantity}</TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(item.quantity)}</TableCell>
                                 <TableCell className="text-center" >{item.totalWt}</TableCell> 
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
 
@@ -510,13 +511,14 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogContent>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>Store Item Modification</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-5'>Village Item Modification</p>
                                                                 </DialogTitle>
                                                                 <DialogDescription>
-                                                                    <p className='text-1xl text-center'>To Be Filled Up By Store Receving Supervisor</p>
+                                                                    <p className='text-1xl text-center'>To Be Filled Up By Village Supervisor</p>
                                                                 </DialogDescription>
                                                             </DialogHeader>
-                                                            {/* <StorePrimaryModify data={item} /> */}
+                                                            <RcvVillageModify data={item} />
+                                                            
                                                             
                                                         </DialogContent>
                                                     </Dialog>

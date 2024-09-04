@@ -381,7 +381,7 @@ const AlmondTable = () => {
                         <TableHead className="text-center" >Receiving_Date</TableHead>
                         <TableHead className="text-center" >Vehicle_No</TableHead>
 
-                        <TableHead className="text-center" >Gross_Weight</TableHead>
+                        <TableHead className="text-center" >Initial_Weight</TableHead>
                         <TableHead className="text-center" >Type</TableHead>
                         {(tablesearch === 'OUT' || EditData.length > 0) ? <TableHead className="text-center" >Grade</TableHead> : ''}
                         <TableHead className="text-center" >Invoice_No.</TableHead>
@@ -411,12 +411,12 @@ const AlmondTable = () => {
                                 <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
 
                                 <TableCell className="text-center">{item.truckNo}</TableCell>
-                                <TableCell className="text-center">{formatNumber(item.grossWt)} kg</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
                                 <TableCell className="text-center">{item.type}</TableCell>
                                 {(tablesearch === 'OUT' || EditData.length > 0 )? <TableCell className="text-center" >{item.grade}</TableCell> : ''}
                                 <TableCell className="text-center">{item.invoice}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.invoicedate)}</TableCell>
-                                <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} Kg</TableCell>
+                                <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
 
                                 <TableCell className="text-center">{item.vendorName}</TableCell>
                                 <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
@@ -475,12 +475,12 @@ const AlmondTable = () => {
                                         <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
 
                                         <TableCell className="text-center">{item.truckNo}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.grossWt)} kg</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.grossWt)}</TableCell>
                                         <TableCell className="text-center">{item.type}</TableCell>
                                         {tablesearch === 'OUT' ? <TableCell className="text-center" >{item.grade}</TableCell> : ''}
                                         <TableCell className="text-center">{item.invoice}</TableCell>
                                         <TableCell className="text-center">{handletimezone(item.invoicedate)}</TableCell>
-                                        <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} Kg</TableCell>
+                                        <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
 
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
