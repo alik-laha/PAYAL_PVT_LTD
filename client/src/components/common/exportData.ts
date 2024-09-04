@@ -65,6 +65,7 @@ export const pendingCheckRole = {
     Boiling: ['Director', 'FactoryManager', 'ProductionManager'],
     Scooping: ['Director', 'FactoryManager', 'ProductionManager'],
     Borma: ['Director', 'FactoryManager', 'ProductionManager'],
+    Village: ['Director', 'FactoryManager', 'ProductionManager'],
     Gatepass: ['Director', 'FactoryManager', 'GatePassManager'],
    
 }

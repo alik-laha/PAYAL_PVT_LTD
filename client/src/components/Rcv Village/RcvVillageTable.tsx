@@ -64,18 +64,15 @@ import RcvVillageModify from "./RcvVillageModify"
 const RcvVillageTable = () => {
 
     const { setRcvVillagePrimaryOverView } = useContext(Context);
-
     const [Data, setData] = useState([])
     const [EditData, setEditData] = useState([])
     // const [EditPendingData, setEditPendingData] = useState()
     const [EditSumData, setEditSumData] = useState<sumofRcvVillagePrimary>()
-    const [fromdate, setfromDate] = useState('')
-   
+    const [fromdate, setfromDate] = useState('')  
     const [hidetodate, sethidetoDate] = useState('')
     const [todate, settoDate] = useState('')
     const [page, setPage] = useState(1)
     const limit = pagelimit
-
     const currDate = new Date().toLocaleDateString();
     const successdialog = document.getElementById('recevingeditapprove') as HTMLInputElement;
     const closeDialogButton = document.getElementById('recevingeditapproveclose') as HTMLInputElement;
@@ -134,7 +131,7 @@ const RcvVillageTable = () => {
     }
     const handleApprove = (item: number) => {
         console.log(item)
-        axios.get(`/api/storePrimary/acceptEditStorePrimary/${item}`)
+        axios.get(`/api/rcvVillage/acceptEditVillagePrimary/${item}`)
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -146,7 +143,7 @@ const RcvVillageTable = () => {
             })
     }
     const handleRejection = (item: number) => {
-        axios.get(`/api/storePrimary/rejectEditStorePrimary/${item}`)
+        axios.get(`/api/rcvVillage/rejectEditVillagePrimary/${item}`)
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -314,7 +311,7 @@ const RcvVillageTable = () => {
     return (
         <>
 
-{checkpending('RCNPrimary') &&
+{checkpending('Village') &&
 <Button className="bg-orange-400 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" disabled={EditSumData?.RcvVillagePrimary===0 ?true :false}
 onClick={GetPendingEdit}>Pending Edit ({EditSumData?.RcvVillagePrimary})</Button>}
 
@@ -381,7 +378,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
-                {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+                {checkpending('Village') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
 
 
 

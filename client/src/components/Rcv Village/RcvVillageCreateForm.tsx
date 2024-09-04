@@ -41,7 +41,6 @@ const RcvVillagePrimaryEntry = (props:Props) => {
     const [vendorData, setVendorData] = useState<VendorData[]>([])
    // const quantityRef = useRef<HTMLInputElement>(null)
     const invoiceref = useRef<HTMLInputElement>(null)
-    
     const [id, setId] = useState<number>()
     const [date, setDate] = useState<string>('')
     const [gateType, setgateType] = useState<string>('')
@@ -49,9 +48,7 @@ const RcvVillagePrimaryEntry = (props:Props) => {
     const [grossWt, setGrossWt] = useState<string>('')
     const [truck, settruck] = useState<string>('')
     //const [actvindex,setActvindex]=useState<number>()
-   
     const [VendorName, setVendorName] = useState<string>('')
-
     const [sku,setsku]=useState<findskutypeData[]>([])
 
     useEffect(() => {  

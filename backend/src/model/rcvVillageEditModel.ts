@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig"
 
 
-const RcvVillageEditModel = sequelize.define('rcvVillage', {
+const RcvVillageEditModel = sequelize.define('rcvVillageEdit', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

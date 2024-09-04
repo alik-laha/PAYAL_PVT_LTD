@@ -516,6 +516,7 @@ export interface pendingCheckRoles {
     Boiling: string[];
     Scooping: string[];
     Borma: string[];
+    Village:string[];
     Gatepass:string[];
     
 }

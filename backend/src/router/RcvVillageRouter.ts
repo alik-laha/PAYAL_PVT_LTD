@@ -8,9 +8,9 @@ import jwtVerify from '../middleWare/JwtAuthantication';
 
 
 
-import editstorePrimary from '../controller/StorePrimaryController/editstorePrimary';
-import acceptStoreEditPrimary from '../controller/StorePrimaryController/acceptStoreEditPrimary';
-import rejectStorePrimaryEdit from '../controller/StorePrimaryController/rejectStoreEditPrimary';
+
+ import acceptStoreEditPrimary from '../controller/StorePrimaryController/acceptStoreEditPrimary';
+
 import getRcvVillagebyGatePass from '../controller/RcvVIllageController/getRcVVillageByGatepass';
 import getUnEntriedRcvVillage from '../controller/RcvVIllageController/getUnEntriedRcvVillage';
 import updateRcvVillage from '../controller/RcvVIllageController/UpdateRcvVillage';
@@ -19,6 +19,9 @@ import deleteVillagePrimary from '../controller/RcvVIllageController/deleteRcvVi
 import searchRcvVillage from '../controller/RcvVIllageController/SearchRcvVillage';
 import sumofRcvVillagePrimary from '../controller/RcvVIllageController/SumofRcvVillage';
 import getEditRcvVillagePrimary from '../controller/RcvVIllageController/getEditRcvVillage';
+import editRcvVillage from '../controller/RcvVIllageController/editRcvVillage';
+import rejectVillagePrimaryEdit from '../controller/RcvVIllageController/rejectEditRcvVillage';
+import approveEditRcvVillage from '../controller/RcvVIllageController/approveEditrcvVillage';
 
 const router = express.Router();
 
@@ -34,10 +37,10 @@ router.post("/getVillagePrimary", jwtVerify,searchRcvVillage)
 
 router.get("/getsumofRcvVillage",jwtVerify, sumofRcvVillagePrimary)
 router.get("/getEditRcvVillagePrimary",jwtVerify, getEditRcvVillagePrimary)
-// router.post("/editStorePrimary/:id",jwtVerify, editstorePrimary)
+router.post("/editVillagePrimary/:id",jwtVerify, editRcvVillage)
 
-// router.get('/acceptEditStorePrimary/:id', jwtVerify,acceptStoreEditPrimary)
-// router.get("/rejectEditStorePrimary/:id",jwtVerify, rejectStorePrimaryEdit)
+ router.get('/acceptEditVillagePrimary/:id', jwtVerify,approveEditRcvVillage)
+ router.get("/rejectEditVillagePrimary/:id",jwtVerify, rejectVillagePrimaryEdit)
 
 
 
