@@ -7,7 +7,7 @@ import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import axios from "axios"
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {  findskutypeData, rcvVillageprimaryData, SkuData,  VendorData } from "@/type/type"
+import {  findskutypeData, rcvVillageprimaryData,  VendorData } from "@/type/type"
 import {
     Table,
     TableBody,
