@@ -33,6 +33,7 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
     const linescoop = req.body.linescoop
     const lotscoop = req.body.lotscoop
     const updatescoop = req.body.updatescoop
+    const LotNO = req.body.LotNo
 
     await sequelize.transaction(async (transaction: any) => {
 
@@ -211,6 +212,7 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
                     });
                     if(nextEntryid)
                     {
+                        console.log(nextEntryid.dataValues.id)
                         await RcnScooping.update({
                             Opening_Qty:finalopen
                         }, { where: { id:nextEntryid.dataValues.id },transaction });
@@ -237,13 +239,16 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
            }
 
         }
+        
         const lotupdate = await LotNo.update(
+
+
             { 
               modifiedBy:'Scooping'
             },
             {
                 where: {
-                    lotNo:lotscoop[0].lotNo
+                    lotNo:LotNO
                 },transaction
             }
         );

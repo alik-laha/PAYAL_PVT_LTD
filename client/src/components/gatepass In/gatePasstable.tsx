@@ -869,9 +869,9 @@ const GatePassTable = () => {
                     'Type':item.type,
                     'Date':handletimezone(item.date) ,
                     'In_Time': handleAMPM(item.time),
-                    'Grosswt': item.grosswt,
+                    'Gross_Or_Tare_Wt': item.grosswt,
                     'DocNo': item.DocNo,
-                    'Gross_Wt_Bill': item.grosswtNo,
+                    'Gross_Or_Tare_Wt_Bill': item.grosswtNo,
                     'VehicleNo': item.vehicleNo,
                     'DriverName': item.driverName,
                     'DriverContact': item.driverContact,
@@ -980,7 +980,7 @@ const GatePassTable = () => {
                     <TableHead className="text-center" >Gate_Exit_Date</TableHead>
                     <TableHead className="text-center" >Exit_Time</TableHead>
                     <TableHead className="text-center" >Doc_No.</TableHead>
-                    <TableHead className="text-center" >Gross_Initial_Wt</TableHead>
+                    <TableHead className="text-center" >Gross/Tare_Wt</TableHead>
                     <TableHead className="text-center" >Wt_Slip_No</TableHead>
                     <TableHead className="text-center" >Vehicle_No</TableHead>
                     <TableHead className="text-center" >Driver_Name</TableHead>

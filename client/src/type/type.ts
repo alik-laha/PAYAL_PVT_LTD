@@ -842,9 +842,9 @@ export interface GatePassExcelData {
     Type:string;
     Date: string;
     In_Time: string;
-    Grosswt: string;
+    Gross_Or_Tare_Wt: string;
     DocNo: string;
-    Gross_Wt_Bill: string;
+    Gross_Or_Tare_Wt_Bill: string;
     VehicleNo: string;
     DriverName: string;
     DriverContact: string;

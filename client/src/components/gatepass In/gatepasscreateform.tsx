@@ -297,7 +297,7 @@ return(
                 
                 
                 <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Gross Wt (Kg) (*)</Label>
+                    <Label className="w-2/4 pt-1">{type==='IN' ?'Gross':'Tare'} Wt (Kg) (*)</Label>
                     <Input className="w-2/4 text-center" type='number' step='0.01' placeholder="Gross Wt." ref={GrossWtRef} required/>
                 </div>
                 <div className="flex mt-1">

@@ -190,9 +190,7 @@ const CreateBoilingEntire = async (req: Request, res: Response) => {
                 }
 
             }
-            else{
-
-            }
+         
 
 
 
