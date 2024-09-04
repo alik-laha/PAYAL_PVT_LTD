@@ -21,7 +21,7 @@ const deleteGeneralPrimary = async (req: Request, res: Response) => {
             type:null,
             unit:null,
             createdBy:null,
-            status:0,remarks:null,totalWt:null
+            status:0,remarks:null,totalWt:null,totalBill:null
            
         },
         {

@@ -13,6 +13,7 @@ import getActvGatepass from '../controller/GatePassController/getActvGatepass';
 import deletegatepass from '../controller/GatePassController/deletegatepass';
 import deletegatepassSection from '../controller/GatePassController/deletegatepassSection';
 import updateRcvDispathStatus from '../controller/GatePassController/updateRcvDispathStatus';
+import CreateGatePassEntire from '../controller/GatePassController/createGatepasEntire';
 const router = express.Router();
 
 router.post("/createGatePass", jwtVerify, CreateGatePass)
@@ -29,4 +30,6 @@ router.put("/updateRelease/:id",jwtVerify, updateReleaseGate)
 router.get("/activegatepasscount", jwtVerify, getActvGatepass)
 router.post("/updateRcvDisptchStatus", jwtVerify, updateRcvDispathStatus)
 
+
+router.post("/createGatePassEntire",jwtVerify, CreateGatePassEntire)
 export default router;

@@ -177,7 +177,7 @@ const StorePrimaryTable = () => {
 
     useEffect(() => {
         searchData()
-        // GetPendingEdit()
+        //GetPendingEdit()
 
     }, [page])
 
@@ -336,7 +336,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                         <TableHead className="text-center" >Type</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
                         <TableHead className="text-center" >Vehicle_No</TableHead>
-                          <TableHead className="text-center" >Gross_Wt(Kg)</TableHead>
+                          <TableHead className="text-center" >Initial_Wt(Kg)</TableHead>
                            <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
                            <TableHead className="text-center" >Invoice_No</TableHead>
                            <TableHead className="text-center" >Invoice_Date</TableHead>

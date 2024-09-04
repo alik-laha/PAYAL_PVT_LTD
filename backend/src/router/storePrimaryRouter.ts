@@ -11,6 +11,7 @@ import getEditStorePrimary from '../controller/StorePrimaryController/getEditSto
 import editstorePrimary from '../controller/StorePrimaryController/editstorePrimary';
 import acceptStoreEditPrimary from '../controller/StorePrimaryController/acceptStoreEditPrimary';
 import rejectStorePrimaryEdit from '../controller/StorePrimaryController/rejectStoreEditPrimary';
+import updateStoreEntire from '../controller/StorePrimaryController/updateRcvStoreEntire';
 
 const router = express.Router();
 
@@ -30,5 +31,7 @@ router.post("/editStorePrimary/:id",jwtVerify, editstorePrimary)
 
 router.get('/acceptEditStorePrimary/:id', jwtVerify,acceptStoreEditPrimary)
 router.get("/rejectEditStorePrimary/:id",jwtVerify, rejectStorePrimaryEdit)
+
+router.put("/updateRcvStoreEntire/:id",jwtVerify, updateStoreEntire)
 
 export default router;

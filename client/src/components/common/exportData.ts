@@ -7,19 +7,19 @@ export const Role: string[] = ['Director', 'FactoryManager',
     'Security','GatePassManager',
     'MaintainanceSupervisor','MaintainanceManager',
     'QCSupervisor', 'QCManager', 
-    'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','BormaSuperVisor'
+    'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','BormaSuperVisor','VillageSupervisor'
 ]
 export const PermissionRol = {
     Director: ['Employee', 'Dashboard User', 'Asset', 'VendorSKU',
         'RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
-        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry',
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','Receiving Village Entry',
         'RCN Incoming QC', 
         'Grading', 'Boiling', 'Scooping','Borma',
         'Cleaning',
         'Gatepass'],
     FactoryManager: ['Employee', 'Asset','VendorSKU', 
         'RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
-        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry',
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','Receiving Village Entry',
         'RCN Incoming QC', 
         'Grading', 'Boiling', 'Scooping','Borma',
         'Cleaning',
@@ -38,13 +38,14 @@ export const PermissionRol = {
     GradingSupervisor: ['Grading'],
     BoilingSupervisor: ['Boiling'],
     ScoopingSupervisor: ['Scooping'],
-    ProductionManager:['Grading','Boiling','Scooping','Borma'],
+    ProductionManager:['Grading','Boiling','Scooping','Borma','Receiving Village Entry'],
     MaintainanceManager:['Cleaning'],
     CleaningSupervisor:['Cleaning'],
     BormaSuperVisor:['Borma'],
+    VillageSupervisor:['Receiving Village Entry'],
     Security:['Gatepass'],
     GatePassManager:['Gatepass','RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
-        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry']
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','Receiving Village Entry']
 }
 
 export const PermissionDep = {
@@ -53,36 +54,39 @@ export const PermissionDep = {
     Maintainance: ['Maintainance'],
     Production: ['Production'],
     QualityControl: ['Quality'],
-    GatePass:['GatePass','Receiving']
+    GatePass:['GatePass','Receiving','Production']
   
 }
-
+//they are only eligible to download excel and pending edit button will appear to check pending
 export const pendingCheckRole = {
-    RCNPrimary: ['Director', 'FactoryManager', 'ReceivingManager'],
+    RCNPrimary: ['Director', 'FactoryManager', 'ReceivingManager'],//For All Receiving/Dispatch 'RCNPrimary' is common
     QCRCN: ['Director', 'FactoryManager', 'QCManager'],
     Grading: ['Director', 'FactoryManager', 'ProductionManager'],
     Boiling: ['Director', 'FactoryManager', 'ProductionManager'],
     Scooping: ['Director', 'FactoryManager', 'ProductionManager'],
     Borma: ['Director', 'FactoryManager', 'ProductionManager'],
+    Village: ['Director', 'FactoryManager', 'ProductionManager'],
     Gatepass: ['Director', 'FactoryManager', 'GatePassManager'],
    
 }
+//They are only eligible to create entry
 export const rcvCheckRole = {
     RCNPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingSupervisor'],
     PMPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingPMSupervisor'],
     StorePrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingStoreSupervisor'],
     GeneralPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingGeneralSupervisor'],
-    AlmondPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingGeneralSupervisor'],
+    AlmondPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingAlmondSupervisor'],
+    VillagePrimaryEntry:['Director', 'FactoryManager','VillageSupervisor','ProductionManager'],
  
 }
 export const roleDataonDept = {
     Admin: ['Director', 'FactoryManager'],
     Receiving: ['ReceivingManager','ReceivingSupervisor', 'ReceivingPMSupervisor', 'ReceivingAlmondSupervisor',
-         'ReceivingStoreSupervisor', 'ReceivingAgarbatiSupervisor','ReceivingGeneralSupervisor','ReceivingPurchaseSupervisor'],
-    Maintainance: ['CleaningSupervisor', 'MaintainanceManager'],
+         'ReceivingStoreSupervisor','ReceivingGeneralSupervisor'],
+    //Maintainance: ['CleaningSupervisor', 'MaintainanceManager'],
     QualityControl: ['QCSupervisor', 'QCManager'],
     Production: ['ProductionManager', 'GradingSupervisor', 
-        'BoilingSupervisor', 'ScoopingSupervisor','BormaSuperVisor'],
+        'BoilingSupervisor', 'ScoopingSupervisor','BormaSuperVisor','VillageSupervisor'],
     GatePass:['Security','GatePassManager']
 }
 export const pageNo = 1
@@ -98,11 +102,11 @@ export const SelectType = ["LineWise","LotWise"]
 
 
 export const sectionDataonTypeGate = {
-    IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond'],
-    OUT: ["Store",'General','Almond'],
+    IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond','Village'],
+    OUT: ["Store",'General','Almond','Village'],
 }
 export const SelectGatePassType = ["IN","OUT"]
-export const SKUSection = ['PackagingMaterial', 'Store' ,'General','Almond']
+export const SKUSection = ['PackagingMaterial', 'Store' ,'General','Almond','Village']
 export const SKUUnit = ['Pc','Kg','Mtr','SqMtr','Ft','SqFt','Bag','Bucket','Ltr','Coil','None']
 export const SelectTypeSKUVendor = ["SKU","Vendor"]
 
@@ -110,6 +114,8 @@ export const TypeOnSection = {
     PackagingMaterial: ['Pouch','Bucket','Tin','Can','Jar','Cartoon','Tape','Foil','Stickers','PlasticBag','PP','Label','Lid'],
     Store:['ElectricalSpare','MechanicalSpare','Stationary','Chemical','Civil','Machine','Miscellaneous','Asset'],
     General:['Fuel','Civil','General','Miscellaneous'],
-    Almond:['Almond Type','Almond Grade']
+    Almond:['Almond Type','Almond Grade'],
+    Village:['Item Type','Item Name']
+
 }
 

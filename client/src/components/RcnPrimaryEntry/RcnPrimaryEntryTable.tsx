@@ -266,7 +266,9 @@ const RcnPrimaryEntryTable = () => {
 
     }
   
-
+    function formatNumber(num: string) {
+        return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
+    }
 
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -340,9 +342,9 @@ const RcnPrimaryEntryTable = () => {
                     <TableHead className="text-center" >BL_No.</TableHead>
                     <TableHead className="text-center" >Con_No.</TableHead>
                     <TableHead className="text-center" >Truck_No.</TableHead>
-                    <TableHead className="text-center" >Gross_Weight</TableHead>
-                    <TableHead className="text-center" >BL_Weight</TableHead>
-                    <TableHead className="text-center" >Net_Weight</TableHead>
+                    <TableHead className="text-center" >Gross_Weight(Kg)</TableHead>
+                    <TableHead className="text-center" >BL_Weight(Kg)</TableHead>
+                    <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
                     <TableHead className="text-center" >Difference</TableHead>
                     <TableHead className="text-center" >Physical Bag Count</TableHead>
                     <TableHead className="text-center" >System Bag Count</TableHead>
@@ -365,9 +367,9 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center">{item.blNo}</TableCell>
                                     <TableCell className="text-center">{item.conNo}</TableCell>
                                     <TableCell className="text-center">{item.truckNo}</TableCell>
-                                    <TableCell className="text-center">{item.grossWt} Kg</TableCell>
-                                    <TableCell className="text-center">{item.blWeight} Kg</TableCell>
-                                    <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} Kg</TableCell>
+                                    <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
+                                    <TableCell className="text-center">{item.blWeight} </TableCell>
+                                    <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
 
                                     {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)
                                         : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)}
@@ -439,9 +441,9 @@ const RcnPrimaryEntryTable = () => {
                                     <TableCell className="text-center">{item.blNo}</TableCell>
                                     <TableCell className="text-center">{item.conNo}</TableCell>
                                     <TableCell className="text-center">{item.truckNo}</TableCell>
-                                    <TableCell className="text-center">{item.grossWt} kg</TableCell>
-                                    <TableCell className="text-center">{item.blWeight} Kg</TableCell>
-                                    <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} Kg</TableCell>
+                                    <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
+                                    <TableCell className="text-center">{item.blWeight} </TableCell>
+                                    <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
                                     {Number(item.difference) < 0 ? (<TableCell className="text-center font-semibold text-red-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)
                                         : (<TableCell className="text-center font-semibold text-green-600">{formatNumberWithSign(Number(item.difference))} Kg</TableCell>)}
                                     <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>

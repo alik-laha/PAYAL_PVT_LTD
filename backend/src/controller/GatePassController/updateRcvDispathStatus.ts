@@ -23,7 +23,7 @@ try{
         if(gatepassupdate){
 
             if(section==='PackagingMaterial'){
-                const data = await WpMsgGatePassRcv("Packaging Material In", gatePassNo,"rcv_dispatch_complt",'Packaging Material IN')
+                const data = await WpMsgGatePassRcv("Packaging Material Receiving", gatePassNo,"rcv_dispatch_complt",'Packaging Material IN')
                 console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
@@ -38,7 +38,12 @@ try{
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
             if(section==='Almond'){
-                const data = await WpMsgGatePassRcv("Almond Dispatch", gatePassNo,"rcv_dispatch_complt",'Almond Dispatch')
+                const data = await WpMsgGatePassRcv("Almond Receiving/Dispatch", gatePassNo,"rcv_dispatch_complt",'Almond Dispatch')
+                console.log(data)
+                res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
+            }
+            if(section==='Village'){
+                const data = await WpMsgGatePassRcv("Village Receiving/Dispatch", gatePassNo,"rcv_dispatch_complt",'Almond Dispatch')
                 console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }

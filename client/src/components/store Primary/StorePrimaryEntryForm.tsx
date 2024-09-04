@@ -110,27 +110,101 @@ const StorePrimaryEntry = (props:Props) => {
 
         });
     }
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        //const quantity = quantityRef.current?.value
-        const invoicedate=invoicedateRef.current?.value
-        const invoice=invoiceref.current?.value
+//     const handleSubmit = async (e: React.FormEvent) => {
+//         e.preventDefault()
+//         //const quantity = quantityRef.current?.value
+//         const invoicedate=invoicedateRef.current?.value
+//         const invoice=invoiceref.current?.value
          
-        const formData = rows.map(row => ({
-                GatePassNo: gatepass,
-                recevingDate: date,
-                TruckNo: truck,
-                gateType:gateType,
-                GrossWt: grossWt,
-                invoicedate:invoicedate,
-                invoice:invoice,
-                vendorName:VendorName,
+//         const formData = rows.map(row => ({
+//                 GatePassNo: gatepass,
+//                 recevingDate: date,
+//                 TruckNo: truck,
+//                 gateType:gateType,
+//                 GrossWt: grossWt,
+//                 invoicedate:invoicedate,
+//                 invoice:invoice,
+//                 vendorName:VendorName,
              
-                ...row
-        }))
-        try 
-        { 
-            if(formData.length===1){
+//                 ...row
+//         }))
+//         try 
+//         { 
+//             if(formData.length===1){
+//             for (var data of formData) 
+//                 {
+//                     await axios.put(`/api/storePrimary/updateRcvStore/${id}`, {data })
+//                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
+//                         section:'Store' })
+//                         setErrortext('Store Item Received/Dispatched Successfully')
+//                     if(successdialog){
+//                         (successdialog as any).showModal();
+//                     }
+                    
+//                 }
+//             }  
+       
+//             else if(formData.length>1){
+//             const firstrow=formData[0]
+          
+//                 await axios.put(`/api/storePrimary/updateRcvStore/${id}`, {data:firstrow })
+           
+//                 let pmrescount=0
+//             for(let i=1;i<formData.length;i++){
+                
+//                 const data1=formData[i];
+//                 await axios.post('/api/storePrimary/createStorePrimary', {data:data1 })
+//                 pmrescount++
+//                 if(pmrescount==(formData.length-1))
+//                 {
+                    
+//                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
+//                         section:'Store' })
+//                         setErrortext('Store Item Received/Dispatched Successfully')
+//                     if(successdialog){
+//                         (successdialog as any).showModal();
+//                     }
+//                 }
+//             }
+           
+//         } 
+//     }
+//     catch (err){
+//         console.log(err)
+//         await axios.post('/api/storePrimary/deleteStorePrimaryByID',{ id:id,gatepass:gatepass})
+//         if(axios.isAxiosError(err)){
+//             setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+//         }
+//         if(errordialog){
+//             (errordialog as any).showModal()
+//         }
+        
+        
+
+//     }
+                    
+        
+// }
+const handleSubmit2 = async (e: React.FormEvent) => {
+    e.preventDefault()
+    //const quantity = quantityRef.current?.value
+    const invoicedate=invoicedateRef.current?.value
+    const invoice=invoiceref.current?.value
+    const formData = rows.map(row => ({
+            GatePassNo: gatepass,
+            recevingDate: date,
+            TruckNo: truck,
+            gateType:gateType,
+            GrossWt: grossWt,
+            invoicedate:invoicedate,
+            invoice:invoice,
+            vendorName:VendorName,
+         
+            ...row
+    }))
+
+    try{
+        if(formData.length===1){
             for (var data of formData) 
                 {
                     await axios.put(`/api/storePrimary/updateRcvStore/${id}`, {data })
@@ -142,33 +216,20 @@ const StorePrimaryEntry = (props:Props) => {
                     }
                     
                 }
-            }  
-       
+            } 
             else if(formData.length>1){
-            const firstrow=formData[0]
-          
-                await axios.put(`/api/storePrimary/updateRcvStore/${id}`, {data:firstrow })
-           
-                let pmrescount=0
-            for(let i=1;i<formData.length;i++){
-                
-                const data1=formData[i];
-                await axios.post('/api/storePrimary/createStorePrimary', {data:data1 })
-                pmrescount++
-                if(pmrescount==(formData.length-1))
-                {
-                    
+            
+              
+                    await axios.put(`/api/storePrimary/updateRcvStoreEntire/${id}`, {data:formData })
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-                        section:'Store' })
-                        setErrortext('Store Item Received/Dispatched Successfully')
-                    if(successdialog){
-                        (successdialog as any).showModal();
-                    }
-                }
-            }
-           
-        } 
+                            section:'Store' })
+                            setErrortext('Store Item Received/Dispatched Successfully')
+                        if(successdialog){
+                            (successdialog as any).showModal();
+                        }     
+            } 
     }
+
     catch (err){
         console.log(err)
         await axios.post('/api/storePrimary/deleteStorePrimaryByID',{ id:id,gatepass:gatepass})
@@ -182,8 +243,11 @@ const StorePrimaryEntry = (props:Props) => {
         
 
     }
-                    
-        
+
+
+
+
+
 }
 
     const handleSkuchange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
@@ -277,7 +341,7 @@ const StorePrimaryEntry = (props:Props) => {
     return (
         <>
             <div className="px-5 mt-4">
-                <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit}>
+                <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit2}>
                 <div className="mx-8 flex flex-col gap-1"> 
                 <div className="flex mt-4"><Label className="w-2/4  pt-2">GatePass No.</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>

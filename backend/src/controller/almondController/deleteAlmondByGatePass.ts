@@ -20,7 +20,7 @@ const deleteAlmondPrimary = async (req: Request, res: Response) => {
             type:null,
             grade:null,
             createdBy:null,
-            status:0,totalWt:null
+            status:0,totalWt:null,totalBill:null
            
         },
         {

@@ -184,8 +184,8 @@ const StorePrimaryModify = ({ data }: Props) => {
                     <div className="flex"><Label className="w-2/4  pt-1">Receiving Date</Label>
                         <Input className="w-2/4 justify-center bg-yellow-100" placeholder="Receiving Date" value={date} required type="date" /> </div>
                         
-                        <div className="flex"><Label className="w-2/4  pt-1">Gross Wt.(Kg)</Label>
-                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Gross Wt." value={grossswt} readOnly required /> </div>        
+                        <div className="flex"><Label className="w-2/4  pt-1">{gateType==='IN'?'Gross':'Tare'} Wt.(Kg)</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Gross/Tare Wt." value={grossswt} readOnly required /> </div>        
                         
                         <div className="flex"><Label className="w-2/4  pt-1">Net Wt.(Kg)</Label>
                         <Input className="w-2/4 text-center bg-yellow-100" placeholder="Nt Wt." value={netwt} readOnly required /> </div>  

@@ -108,7 +108,8 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
 
         });
     }
-    const handleSubmit = async (e: React.FormEvent) => {
+
+    const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
         //const quantity = quantityRef.current?.value
         const invoicedate=invoicedateRef.current?.value
@@ -129,8 +130,8 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
             if(formData.length===1){
             for (var data of formData) 
                 {
-                    await axios.put(`/api/packageMaterial/updateRcvPM/${id}`, {data })
-                    await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id,gatePassNo:gatepass })
+                    await axios.put(`/api/packageMaterial/updateRcvPM/${id}`, {data ,gatePassNo:gatepass})
+                    //await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id,gatePassNo:gatepass })
                    
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
                         section:'PackagingMaterial' })
@@ -141,37 +142,23 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
                     
                 }
             }  
-       
-            else if(formData.length>1){
-            const firstrow=formData[0]
-          
-                await axios.put(`/api/packageMaterial/updateRcvPM/${id}`, {data:firstrow })
-                await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id,gatePassNo:gatepass })
-           
-           
-                let pmrescount=0
-            for(let i=1;i<formData.length;i++){
-                
-                const data1=formData[i];
-                const Pmres=await axios.post('/api/packageMaterial/createPM', {data:data1 })
-                await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: Pmres.data.newPackageMaterial.id,gatePassNo:gatepass })
-                pmrescount++
-                if(pmrescount==(formData.length-1))
-                {
-                    
-                    await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-                        section:'PackagingMaterial' })
-                        setErrortext('Packaging Material Received Successfully')
-                    if(successdialog){
-                        (successdialog as any).showModal();
-                    }
+            else if (formData.length > 1) {
+
+
+                await axios.put(`/api/packageMaterial/updatePMEntire/${id}`, { data: formData,gatePassNo:gatepass })
+                await axios.post("/api/gatepass/updateRcvDisptchStatus", {
+                    gatePassNo: gatepass,
+                    section: 'PackagingMaterial'
+                })
+                setErrortext('Packaging Material Received Successfully')
+                if (successdialog) {
+                    (successdialog as any).showModal();
                 }
             }
-           
-        } 
-    }
-    catch (err){
-        console.log(err)
+        }
+
+        catch (err) {
+            console.log(err)
         await axios.post('/api/packageMaterial/deletePMByID',{ id:id,gatepass:gatepass})
         if(axios.isAxiosError(err)){
             setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
@@ -179,13 +166,90 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
         if(errordialog){
             (errordialog as any).showModal()
         }
+
+
+
+        }
+
+    }
+//     const handleSubmit = async (e: React.FormEvent) => {
+//         e.preventDefault()
+//         //const quantity = quantityRef.current?.value
+//         const invoicedate=invoicedateRef.current?.value
+//         const invoice=invoiceref.current?.value
+         
+//         const formData = rows.map(row => ({
+//                 GatePassNo: gatepass,
+//                 recevingDate: date,
+//                 TruckNo: truck,
+//                 GrossWt: grossWt,
+//                 invoicedate:invoicedate,
+//                 invoice:invoice,
+//                 vendorName:VendorName,
+//                 ...row
+//         }))
+//         try 
+//         { 
+//             if(formData.length===1){
+//             for (var data of formData) 
+//                 {
+//                     await axios.put(`/api/packageMaterial/updateRcvPM/${id}`, {data })
+//                     await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id,gatePassNo:gatepass })
+                   
+//                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
+//                         section:'PackagingMaterial' })
+//                         setErrortext('Packaging Material Received Successfully')
+//                     if(successdialog){
+//                         (successdialog as any).showModal();
+//                     }
+                    
+//                 }
+//             }  
+       
+//             else if(formData.length>1){
+//             const firstrow=formData[0]
+          
+//                 await axios.put(`/api/packageMaterial/updateRcvPM/${id}`, {data:firstrow })
+//                 await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: id,gatePassNo:gatepass })
+           
+           
+//                 let pmrescount=0
+//             for(let i=1;i<formData.length;i++){
+                
+//                 const data1=formData[i];
+//                 const Pmres=await axios.post('/api/packageMaterial/createPM', {data:data1 })
+//                 await axios.post("/api/qcpackage/qcpackaginginitialEntry", { id: Pmres.data.newPackageMaterial.id,gatePassNo:gatepass })
+//                 pmrescount++
+//                 if(pmrescount==(formData.length-1))
+//                 {
+                    
+//                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
+//                         section:'PackagingMaterial' })
+//                         setErrortext('Packaging Material Received Successfully')
+//                     if(successdialog){
+//                         (successdialog as any).showModal();
+//                     }
+//                 }
+//             }
+           
+//         } 
+//     }
+//     catch (err){
+//         console.log(err)
+//         await axios.post('/api/packageMaterial/deletePMByID',{ id:id,gatepass:gatepass})
+//         if(axios.isAxiosError(err)){
+//             setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+//         }
+//         if(errordialog){
+//             (errordialog as any).showModal()
+//         }
         
         
 
-    }
+//     }
                     
         
-}
+// }
 
     const handleSkuchange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
         //setSku(e.target.value)
@@ -272,7 +336,7 @@ const PackagingMetirialReceivingCreateForm = (props:Props) => {
     return (
         <>
             <div className="px-5 mt-4">
-                <form className='flex flex-col gap-1.5 ' onSubmit={handleSubmit}>
+                <form className='flex flex-col gap-1.5 ' onSubmit={handleSubmit2}>
                 <div className="mx-8 flex flex-col gap-1"> 
                 <div className="flex mt-4"><Label className="w-2/4  pt-2">GatePass No.</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>

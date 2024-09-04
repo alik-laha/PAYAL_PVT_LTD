@@ -168,28 +168,15 @@ const DashboardSidebar = () => {
                                 </NavLink>
 
                             </CollapsibleContent>}
+                            
 
 
 
 
                         {/* 
                         
-                        
-                        
-                        
-                        
-                        
-                        
 
-                         
-
-                            
-                                {renderlink('Receiving Civil Entry')
-                            && <CollapsibleContent className="Items-pvt">
-                                <NavLink to="/dashboard/recevingpackagingMaterial" >
-                                    Civil
-                                </NavLink>
-                                </CollapsibleContent>}
+                           
                                 {renderlink('Receiving Agarbati Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
@@ -211,7 +198,7 @@ const DashboardSidebar = () => {
                     </Collapsible>}
                     
 
-                    {rendersection('Production') && <Collapsible >
+                    {Role!=='Security' && rendersection('Production') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineFactory size={25} />
                             <p>Production</p></CollapsibleTrigger>
                         {renderlink('Grading')
@@ -244,6 +231,14 @@ const DashboardSidebar = () => {
                                 <NavLink to="/dashboard/RcnBorma" >
                                     RCN Borma
                                 </NavLink>
+                            </CollapsibleContent>}
+
+                            {renderlink('Receiving Village Entry')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/RcvVillage" >
+                                     Village Primary
+                                </NavLink>
+
                             </CollapsibleContent>}
                     </Collapsible>}
 

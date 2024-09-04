@@ -81,38 +81,28 @@ if (errorcloseDialogButton) {
 
     });
 }
+    const handleSubmit2 = async (e: React.FormEvent) => {
+        e.preventDefault()
+        const vehicle = vehicleNoRef.current?.value
+        const document = DocumentNoRef.current?.value
+        const drivername = DriverNameRef.current?.value
+        const drivercontact = DriverContactNoref.current?.value
+        const grossWt = GrossWtRef.current?.value
+        const grossWtSlip = GrossWtSlipRef.current?.value
+        const name = NameRef.current?.value
 
-const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const vehicle = vehicleNoRef.current?.value
-    const document = DocumentNoRef.current?.value
-    const drivername = DriverNameRef.current?.value
-    const drivercontact = DriverContactNoref.current?.value
-    const grossWt = GrossWtRef.current?.value
-    const grossWtSlip = GrossWtSlipRef.current?.value
-    const name = NameRef.current?.value
+        const sections = rows.map((row) => row.section)
 
-
-    try {
-
-        
-
-        const sections= rows.map((row)=>row.section)
-
-        const hasduplicate=sections.some((item,index)=>sections.indexOf(item)!==index);
-        if(hasduplicate)
-        {
+        const hasduplicate = sections.some((item, index) => sections.indexOf(item) !== index);
+        if (hasduplicate) {
             setErrortext('Duplicate Section Values Found !')
-            if(errordialog!=null){
+            if (errordialog != null) {
                 (errordialog as any).showModal();
             }
             return
         }
-        const creategatepass = await axios.post('/api/gatepass/createGatePass', {})
-        console.log(creategatepass)
-
         const formData = rows.map(row => ({
-            gatePassNo: creategatepass.data.gatepassNo,
+               
             Date: date,
             Time: time,
             vehicle: vehicle,
@@ -126,33 +116,16 @@ const handleSubmit = async (e: React.FormEvent) => {
             ...row
         }))
 
-        
-
-        let gatecount = 0
         try {
-            for (var data of formData) {
-
-                const gateRes = await axios.post('/api/gatepass/createGatePassMaster', { data })
-                const gateResSection = await axios.post('/api/gatepass/createGatePassMasterForSection', { data })
-                gatecount++;
-                if (formData.length === gatecount) {
-
-                    setErrortext(gateRes.data.message)
-                    if (gateResSection.status === 200) {
-                        await axios.post('/api/gatepass/updateGatePass', { gatePassNo: data.gatePassNo, status: 'SentToReceiver' })
-                        if (successdialog) {
-                            (successdialog as any).showModal()
-                        }
-
-
-                    }
-
+            
+            await axios.post(`/api/gatepass/createGatePassEntire`, { data: formData })
+            setErrortext('Gate Pass Created Successfully')
+                if (successdialog) {
+                    (successdialog as any).showModal();
                 }
 
-            }
         }
         catch (err) {
-
             console.log(err)
             if (axios.isAxiosError(err)) {
                 setErrortext(err.response?.data.message || 'An Unexpected Error Occured in Creating Gate Pass')
@@ -160,35 +133,114 @@ const handleSubmit = async (e: React.FormEvent) => {
             else {
                 setErrortext('An Unexpected Error Occured in Creating Gate Pass')
             }
-
-            if (errordialog) {
-                (errordialog as any).showModal()
-            }
-            setTimeout(() => {
-                (errordialog as any).close()
-            }, 2000)
-                 axios.delete(`/api/gatepass/deletegatepass/${creategatepass.data.gatepassNo}`).then(async (res) => {
-
-                for (var data of formData){
-                    await axios.delete(`/api/gatepass/deletegatepassSection/${data.gatePassNo}/${data.section}`)
-                }
-                console.log(res.data)
-            })
-
-
-        }
-
-    }
-    catch (err) {
-        console.log(err)
-        if (axios.isAxiosError(err)) {
-            setErrortext(err.response?.data.message || 'An Unexpected Error Occured in Creating Gate Pass')
-        }
-        else {
-            setErrortext('An Unexpected Error Occured in Creating Gate Pass')
         }
     }
-}
+
+// const handleSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault()
+//     const vehicle = vehicleNoRef.current?.value
+//     const document = DocumentNoRef.current?.value
+//     const drivername = DriverNameRef.current?.value
+//     const drivercontact = DriverContactNoref.current?.value
+//     const grossWt = GrossWtRef.current?.value
+//     const grossWtSlip = GrossWtSlipRef.current?.value
+//     const name = NameRef.current?.value
+
+
+//     try {
+
+        
+
+//         const sections= rows.map((row)=>row.section)
+
+//         const hasduplicate=sections.some((item,index)=>sections.indexOf(item)!==index);
+//         if(hasduplicate)
+//         {
+//             setErrortext('Duplicate Section Values Found !')
+//             if(errordialog!=null){
+//                 (errordialog as any).showModal();
+//             }
+//             return
+//         }
+//         const creategatepass = await axios.post('/api/gatepass/createGatePass', {})
+//         console.log(creategatepass)
+
+//         const formData = rows.map(row => ({
+//             gatePassNo: creategatepass.data.gatepassNo,
+//             Date: date,
+//             Time: time,
+//             vehicle: vehicle,
+//             document: document,
+//             drivername: drivername,
+//             driverContact: drivercontact,
+//             grossWt: grossWt,
+//             GrossWtSlip: grossWtSlip,
+//             SecName: name,
+//             type: type,
+//             ...row
+//         }))
+
+//         let gatecount = 0
+//         try {
+//             for (var data of formData) {
+
+//                 const gateRes = await axios.post('/api/gatepass/createGatePassMaster', { data })
+//                 const gateResSection = await axios.post('/api/gatepass/createGatePassMasterForSection', { data })
+//                 gatecount++;
+//                 if (formData.length === gatecount) {
+
+//                     setErrortext(gateRes.data.message)
+//                     if (gateResSection.status === 200) {
+//                         await axios.post('/api/gatepass/updateGatePass', { gatePassNo: data.gatePassNo, status: 'SentToReceiver' })
+//                         if (successdialog) {
+//                             (successdialog as any).showModal()
+//                         }
+
+
+//                     }
+
+//                 }
+
+//             }
+//         }
+//         catch (err) {
+
+//             console.log(err)
+//             if (axios.isAxiosError(err)) {
+//                 setErrortext(err.response?.data.message || 'An Unexpected Error Occured in Creating Gate Pass')
+//             }
+//             else {
+//                 setErrortext('An Unexpected Error Occured in Creating Gate Pass')
+//             }
+
+//             if (errordialog) {
+//                 (errordialog as any).showModal()
+//             }
+//             setTimeout(() => {
+//                 (errordialog as any).close()
+//             }, 2000)
+//                  axios.delete(`/api/gatepass/deletegatepass/${creategatepass.data.gatepassNo}`).then(async (res) => {
+
+//                 for (var data of formData){
+//                     await axios.delete(`/api/gatepass/deletegatepassSection/${data.gatePassNo}/${data.section}`)
+//                 }
+//                 console.log(res.data)
+//             })
+
+
+//         }
+
+//     }
+//     catch (err) {
+//         console.log(err)
+//         if (axios.isAxiosError(err)) {
+//             setErrortext(err.response?.data.message || 'An Unexpected Error Occured in Creating Gate Pass')
+//         }
+//         else {
+//             setErrortext('An Unexpected Error Occured in Creating Gate Pass')
+//         }
+//     }
+// }
 
 
 
@@ -196,7 +248,7 @@ return(
 <>
 
 <div className="pl-5 pr-5 ">
-            <form className='flex flex-col gap-1 text-xs responsive-80-width' onSubmit={handleSubmit}>          
+            <form className='flex flex-col gap-1 text-xs responsive-80-width' onSubmit={handleSubmit2}>          
             <div className="mx-8 flex flex-col gap-0.5">  
                 <div className="flex mt-1">
                     <Label className="w-2/4 pt-1">Date</Label>
@@ -245,7 +297,7 @@ return(
                 
                 
                 <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Gross Wt (Kg) (*)</Label>
+                    <Label className="w-2/4 pt-1">{type==='IN' ?'Gross':'Tare'} Wt (Kg) (*)</Label>
                     <Input className="w-2/4 text-center" type='number' step='0.01' placeholder="Gross Wt." ref={GrossWtRef} required/>
                 </div>
                 <div className="flex mt-1">

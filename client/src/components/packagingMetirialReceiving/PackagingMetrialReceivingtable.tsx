@@ -176,7 +176,7 @@ const PackageMetrialRecivingTable = () => {
 
     useEffect(() => {
         searchData()
-        // GetPendingEdit()
+        //GetPendingEdit()
 
     }, [page])
 
@@ -349,7 +349,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                         <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
                                         <TableCell className="text-center ">{item.truckNo}</TableCell>
-                                         <TableCell className="text-center ">{item.grossWt} </TableCell>
+                                         <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
                                           <TableCell className="text-center ">{item.netWeight}  </TableCell>
                                           <TableCell className="text-center ">{item.invoice}</TableCell>
                                           <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>
@@ -422,7 +422,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                                         <TableCell className="text-center font-semibold">{item.gatePassNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.recevingDate)}</TableCell>
                                         <TableCell className="text-center ">{item.truckNo}</TableCell>
-                                         <TableCell className="text-center ">{item.grossWt} </TableCell>
+                                         <TableCell className="text-center ">{formatNumber(item.grossWt)} </TableCell>
                                           <TableCell className="text-center ">{item.netWeight}  </TableCell>
                                           <TableCell className="text-center ">{item.invoice}</TableCell>
                                           <TableCell className="text-center ">{handletimezone(item.invoicedate)}</TableCell>

@@ -93,6 +93,29 @@ export interface AlmondPrimaryEntryData {
     totalBill:string;  
  
 }
+export interface RcvVillagePrimaryEntryData {
+   
+    approvedBy: string;
+    id: number;
+    recevingDate: string;
+    quantity: string;
+    truckNo: string;
+    netWeight: string;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string;
+    status:number;
+    gateType: string,
+    remarks:string;
+    invoice: string;  
+    sku: string;  
+    type: string;  
+    vendorName: string;  
+    totalWt:string;  
+
+ 
+}
 
 export interface AlmondPrimaryExcelEntryData {
    
@@ -114,6 +137,28 @@ export interface AlmondPrimaryExcelEntryData {
     vendorName: string;  
     totalWt:string|number;  
     totalBill:string|number;  
+ 
+}
+export interface RcvVillagePrimaryExcelEntryData {
+   
+    ApprovedBy: string;
+    id: number;
+    ReceivingDate: string;
+    Item_Or_Bag_Count: string;
+    Vehicle_No: string;
+    netWeight: string|number;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string|number;
+    gateType: string,
+
+    invoice: string;  
+    grade: string;  
+    type: string;  
+    vendorName: string;  
+    totalWt:string|number;  
+
  
 }
 
@@ -418,6 +463,7 @@ export interface PermissionRole {
     GradingSupervisor: string[];
     BoilingSupervisor: string[];
     ScoopingSupervisor: string[];
+    VillageSupervisor:string[];
     ProductionManager:string[];
     MaintainanceManager:string[];
     CleaningSupervisor:string[];
@@ -492,6 +538,7 @@ export interface pendingCheckRoles {
     Boiling: string[];
     Scooping: string[];
     Borma: string[];
+    Village:string[];
     Gatepass:string[];
     
 }
@@ -499,6 +546,9 @@ export interface rcvCheckRoles {
     RCNPrimaryEntry: string[];
     PMPrimaryEntry:string[];
     StorePrimaryEntry:string[];
+    AlmondPrimaryEntry:string[];
+    GeneralPrimaryEntry:string[];
+    VillagePrimaryEntry:string[];
     
 }
 
@@ -627,6 +677,31 @@ export interface storeprimaryData {
     remarks:string;
     gateType:string;
 }
+export interface rcvVillageprimaryData {
+    id: number;
+    type:string;
+    recevingDate: string;
+    sku: string;
+    vendorName: string;
+    quantity: string;
+
+
+
+    invoice:string;
+    createdBy: string;
+  
+    editStatus: string;
+    approvedBy: string;
+    truckNo: string;
+    status: number;
+    netWeight: string;
+    gatePassNo:string;
+    grossWt: string;
+    totalWt:string;
+
+    remarks:string;
+    gateType:string;
+}
 export interface generalprimaryData {
     id: number;
     type:string;
@@ -660,6 +735,10 @@ export interface SumofpackageMetrialReceving {
 export interface sumofStorePrimary {
     sumofStorePrimary: number;
     storePrimary: number;
+}
+export interface sumofRcvVillagePrimary {
+    sumofRcvVillagePrimary: number;
+    RcvVillagePrimary: number;
 }
 export interface sumofGeneralPrimary {
     sumofGeneralPrimary: number;
@@ -786,9 +865,9 @@ export interface GatePassExcelData {
     Type:string;
     Date: string;
     In_Time: string;
-    Grosswt: string;
+    Gross_Or_Tare_Wt: string;
     DocNo: string;
-    Gross_Wt_Bill: string;
+    Gross_Or_Tare_Wt_Bill: string;
     VehicleNo: string;
     DriverName: string;
     DriverContact: string;

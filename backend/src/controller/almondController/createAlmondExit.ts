@@ -9,13 +9,13 @@ const createAlmondExit = async (req: Request, res: Response) => {
         const { GatePassNo,recevingDate, TruckNo,GrossWt,sku, vendorName ,invoicedate,invoice,quantity,type,totalWt,gateType,totalBill} = req.body.data;
         const createdBy = req.cookies.user;
         
-        let vendortype:string
-        if(gateType==='IN'){
-            vendortype='Vendor'
-        }
-       else{
-            vendortype='Party'
-       }
+    //     let vendortype:string
+    //     if(gateType==='IN'){
+    //         vendortype='Vendor'
+    //     }
+    //    else{
+    //         vendortype='Party'
+    //    }
 
        // let vendorData = await VendorName.findOne({ where: { vendorName,type:vendortype,section:'Almond' } });
         // if( !vendorData){
@@ -31,7 +31,7 @@ const createAlmondExit = async (req: Request, res: Response) => {
             recevingDate,
             invoice:invoice,
             invoicedate:invoicedate,
-            noOfBags:parseInt(quantity),
+            noOfBags:quantity ?parseInt(quantity):0,
             type:type,
             createdBy:createdBy,
             vendorName:vendorName,

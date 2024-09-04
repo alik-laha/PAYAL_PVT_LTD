@@ -213,6 +213,27 @@ export interface AlmondrcvData {
     totalBill:string; 
 
 }
+export interface VillageRcvData {
+    approvedBy: string;
+    id: number;
+    recevingDate: string;
+    truckNo: string;
+    netWeight: string;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string;
+    status:number;
+    quantity:string;
+    gateType: string,
+    invoice: string;  
+    sku: string;  
+    type: string;  
+    vendorName: string;  
+    totalWt:string; 
+    remarks:string;
+
+}
 
 export interface GraddingCleanData {
     id: number;

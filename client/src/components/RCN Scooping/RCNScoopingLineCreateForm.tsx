@@ -284,7 +284,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
 
     
     const [errortext, setErrortext] = useState('')
-
+    const [isdisable,setisdisable]=useState<boolean>(false)
     const options=Array.from({length:rows.length},(_,index)=>index+1)
     
 
@@ -317,10 +317,9 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         handleRowChange(index,'Transfer_To_MC',rows[parseInt(rows[index].Transfer_To)-1].Scooping_Line_Mc)
     }
 
-    
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
-    
+        setisdisable(true)
         props.scoop.map((item: ScoopData, idx: number) => {
             rows[idx].id=item.id
         })
@@ -330,8 +329,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         const female = femaleRef.current?.value
         const supervisor = supervisorRef.current?.value
 
-        try 
-        {
+      
             const formData = rows.map((row: any) => ({
                 male: male,
                 Date: date,
@@ -340,29 +338,37 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                  ...row
 
             }))
-            try{
-                let scoopingcount = 0
-                for (var data of formData) 
-                    {
-                        const createscoop= await axios.put(`/api/scooping/createScooping/${data.id}`, { data })
-                        scoopingcount++;
-                        if (formData.length === scoopingcount) 
-                        {
-                            if (createscoop.status === 200) 
-                            {
-                                await axios.post('/api/scooping/updateLotNo', { lotNo:props.scoop[0].LotNo,desc:'Scooping'}) 
-                            }
-                        }
-                    }
+            const formall = newFormData.map((row: any) => ({
+                male: male,
+                Date: date,
+                female: female,
+                supervisor: supervisor,
+                 ...row
 
+            }))
+
+            try {
+                const initialscoop = await axios.post('/api/scooping/createEntireScooping', { linescoop:formData,
+                    lotscoop:formall,updatescoop:newFormupdateData,LotNo:props.scoop[0].LotNo
+                 })
+                console.log(initialscoop)         
+                    setErrortext(initialscoop.data.message)
+                    if (initialscoop.status === 200) {
+                        const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                        dialog2.showModal()
+                        setTimeout(() => {
+                            dialog2.close()
+                            window.location.reload()
+                        }, 3000)
+                    }
+                    
             }
             catch (err) {
                 console.log(err)
-
-                if(axios.isAxiosError(err)){
-                    setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+                if (axios.isAxiosError(err)) {
+                    setErrortext(err.response?.data.message || 'An Unexpected Error Occured')
                 }
-                else{
+                else {
                     setErrortext('An Unexpected Error Occured')
                 }
                 const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
@@ -370,74 +376,135 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                 setTimeout(() => {
                     dialog.close()
                 }, 2000)
-                await axios.post('/api/scooping/deleteScoopReportByLotNo',{ lotNo:props.scoop[0].LotNo})
-                }
-           
-            let scoopingallcount=0
+            }
+            finally{
+                setisdisable(false)
+            }
 
-                const resStatus=await axios.post('/api/boiling/getStatusBoiling', { lotNo:props.scoop[0].LotNo})
-                console.log(resStatus)
-
-                if(resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy==='Scooping')
-                {
-                    const formall = newFormData.map((row: any) => ({
-                        male: male,
-                        Date: date,
-                        female: female,
-                        supervisor: supervisor,
-                         ...row
-        
-                    }))
-                    for (var data2 of formall) 
-                    {   
-                        const resp=await axios.post('/api/scooping/createScoopingall', { data2 })
-                        console.log(resp.data.scoop.id)
-                        let p_id=await resp.data.scoop.id
-                        await axios.post('/api/scooping/createInitialBorma', {p_id, data2 })
-                    }
-    
-                    for (var data3 of newFormupdateData) 
-                    {
-                        scoopingallcount++
-                        const update=await axios.post('/api/scooping/updatenextopening', { data3 })
-                        if (newFormupdateData.length === scoopingallcount) 
-                            {
-                                
-                                setErrortext('Scooping Entry Created Successfully')
-                                if (update.status === 200) 
-                                {
-                                    const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
-                            dialog2.showModal()
-                             setTimeout(() => {
-                                 dialog2.close()
-                                 window.location.reload()
-                             }, 3000)
-                                }
-                            }
-                    }
-                }          
-        }
-        catch (err) {
-        console.log(err)
-        if(axios.isAxiosError(err)){
-            setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
-        }
-        else{
-            setErrortext('An Unexpected Error Occured')
-        }
-        const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
-        dialog.showModal()
-        setTimeout(() => {
-            dialog.close()
-        }, 2000)
-        }
+                         
+       
     }
+    
+    // const handleSubmit = async (e: React.FormEvent) => {
+    //     e.preventDefault()
+    
+    //     props.scoop.map((item: ScoopData, idx: number) => {
+    //         rows[idx].id=item.id
+    //     })
+    //     console.log(rows)
+    //     const date = DateRef.current?.value  
+    //     const male = maleRef.current?.value
+    //     const female = femaleRef.current?.value
+    //     const supervisor = supervisorRef.current?.value
+
+    //     try 
+    //     {
+    //         const formData = rows.map((row: any) => ({
+    //             male: male,
+    //             Date: date,
+    //             female: female,
+    //             supervisor: supervisor,
+    //              ...row
+
+    //         }))
+    //         try{
+    //             let scoopingcount = 0
+    //             for (var data of formData) 
+    //                 {
+    //                     const createscoop= await axios.put(`/api/scooping/createScooping/${data.id}`, { data })
+    //                     scoopingcount++;
+    //                     if (formData.length === scoopingcount) 
+    //                     {
+    //                         if (createscoop.status === 200) 
+    //                         {
+    //                             await axios.post('/api/scooping/updateLotNo', { lotNo:props.scoop[0].LotNo,desc:'Scooping'}) 
+    //                         }
+    //                     }
+    //                 }
+
+    //         }
+    //         catch (err) {
+    //             console.log(err)
+
+    //             if(axios.isAxiosError(err)){
+    //                 setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+    //             }
+    //             else{
+    //                 setErrortext('An Unexpected Error Occured')
+    //             }
+    //             const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+    //             dialog.showModal()
+    //             setTimeout(() => {
+    //                 dialog.close()
+    //             }, 2000)
+    //             await axios.post('/api/scooping/deleteScoopReportByLotNo',{ lotNo:props.scoop[0].LotNo})
+    //             }
+           
+    //         let scoopingallcount=0
+
+    //             const resStatus=await axios.post('/api/boiling/getStatusBoiling', { lotNo:props.scoop[0].LotNo})
+    //             console.log(resStatus)
+
+    //             if(resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy==='Scooping')
+    //             {
+    //                 const formall = newFormData.map((row: any) => ({
+    //                     male: male,
+    //                     Date: date,
+    //                     female: female,
+    //                     supervisor: supervisor,
+    //                      ...row
+        
+    //                 }))
+    //                 for (var data2 of formall) 
+    //                 {   
+    //                     const resp=await axios.post('/api/scooping/createScoopingall', { data2 })
+    //                     console.log(resp.data.scoop.id)
+    //                     let p_id=await resp.data.scoop.id
+    //                     await axios.post('/api/scooping/createInitialBorma', {p_id, data2 })
+    //                 }
+    
+    //                 for (var data3 of newFormupdateData) 
+    //                 {
+    //                     scoopingallcount++
+    //                     const update=await axios.post('/api/scooping/updatenextopening', { data3 })
+    //                     if (newFormupdateData.length === scoopingallcount) 
+    //                         {
+                                
+    //                             setErrortext('Scooping Entry Created Successfully')
+    //                             if (update.status === 200) 
+    //                             {
+    //                                 const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+    //                         dialog2.showModal()
+    //                          setTimeout(() => {
+    //                              dialog2.close()
+    //                              window.location.reload()
+    //                          }, 3000)
+    //                             }
+    //                         }
+    //                 }
+    //             }          
+    //     }
+    //     catch (err) {
+    //     console.log(err)
+    //     if(axios.isAxiosError(err)){
+    //         setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+    //     }
+    //     else{
+    //         setErrortext('An Unexpected Error Occured')
+    //     }
+    //     const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+    //     dialog.showModal()
+    //     setTimeout(() => {
+    //         dialog.close()
+    //     }, 2000)
+    //     }
+    // }
 
  
     return (
         <>
         <div className="px-5 py-2 overflow-auto">
-            <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit}>
+            <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit2}>
                <div className="mx-8 flex flex-col gap-0.5"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
@@ -557,7 +624,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
                         ) : null}
                     </TableBody>
                 </Table>  
-                <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
+                <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                   
                    
                   </form>

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import sequelize from "../../config/databaseConfig";
 import RcnPrimary from "../../model/RcnEntryModel";
-import RcnEdit from "../../model/RcnEditModel";
+
 import { Op } from "sequelize";
 
 const getStockByOrigin = async (req: Request, res: Response): Promise<Response> => {

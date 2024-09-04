@@ -197,13 +197,13 @@ return (
                 </div>
                 
                 <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Gross Wt. (Kg)</Label>
+                    <Label className="w-2/4 pt-1">{type==='IN'?'Gross' :'Tare'} Wt. (Kg)</Label>
                   
-                    {gatepassEditMode ? <Input className="w-2/4 text-center" placeholder="Gross Wt." value={GrossWt} onChange={(e) => setGrossWt(e.target.value)} required/>
+                    {gatepassEditMode ? <Input className="w-2/4 text-center" placeholder="Gross/Tare Wt." value={GrossWt} onChange={(e) => setGrossWt(e.target.value)} required/>
                     :<Input className="w-2/4 text-center bg-yellow-100" placeholder="Gross Wt." value={GrossWt}  required/>}
                 </div>
                 <div className="flex mt-1">
-                    <Label className="w-2/4 pt-1">Gross Wt. Slip </Label>
+                    <Label className="w-2/4 pt-1">{type==='IN'?'Gross' :'Tare'} Wt. Slip </Label>
                   
                     {gatepassEditMode ? <Input className="w-2/4 text-center" placeholder="Slip No." value={GrossWtSlip} onChange={(e) => setGrossWtSlip(e.target.value)} />
                     :<Input className="w-2/4 text-center bg-yellow-100" placeholder="Slip No." value={GrossWtSlip}  />}
