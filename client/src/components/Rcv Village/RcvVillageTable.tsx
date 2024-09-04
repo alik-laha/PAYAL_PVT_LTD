@@ -50,7 +50,7 @@ import {
 } from "@/components/ui/pagination"
 import { CiEdit } from "react-icons/ci";
 import { pagelimit, pendingCheckRole, SelectGatePassType } from "../common/exportData"
-import {  pendingCheckRoles, PermissionRole, storeprimaryData, sumofRcvVillagePrimary, findskutypeData, RcvVillagePrimaryEntryData, RcvVillagePrimaryExcelEntryData, rcvVillageprimaryData } from '@/type/type'
+import {  pendingCheckRoles, PermissionRole, sumofRcvVillagePrimary, findskutypeData, RcvVillagePrimaryEntryData, RcvVillagePrimaryExcelEntryData, rcvVillageprimaryData } from '@/type/type'
 import axios from 'axios'
 //import PackageMaterialReceivingModify from "./PackageMetirialModifyReceving"
 import { useContext } from 'react';
