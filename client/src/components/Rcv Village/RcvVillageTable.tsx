@@ -50,7 +50,7 @@ import {
 } from "@/components/ui/pagination"
 import { CiEdit } from "react-icons/ci";
 import { pagelimit, pendingCheckRole, SelectGatePassType } from "../common/exportData"
-import {  pendingCheckRoles, PermissionRole, storeprimaryData, ExcelStorePrimaryData, sumofRcvVillagePrimary, findskutypeData, RcvVillagePrimaryEntryData } from '@/type/type'
+import {  pendingCheckRoles, PermissionRole, storeprimaryData, sumofRcvVillagePrimary, findskutypeData, RcvVillagePrimaryEntryData, RcvVillagePrimaryExcelEntryData, rcvVillageprimaryData } from '@/type/type'
 import axios from 'axios'
 //import PackageMaterialReceivingModify from "./PackageMetirialModifyReceving"
 import { useContext } from 'react';
@@ -226,59 +226,47 @@ const RcvVillageTable = () => {
         console.log(data1)
 
         let ws
-        let transformed: ExcelStorePrimaryData[] = [];
+        let transformed: RcvVillagePrimaryExcelEntryData[] = [];
         if (EditData.length > 0) {
 
-            transformed = EditData.map((item: storeprimaryData,idx:number) => ({
-                Sl_No: idx+1,
-                GatePass_No:item.gatePassNo,
-                Gate_Pass_Type:item.gateType,
-                Entry_Date: handletimezone(item.recevingDate),
+            transformed = EditData.map((item: rcvVillageprimaryData,idx:number) => ({
+                id: idx + 1,
+                gatePassNo:item.gatePassNo,
+                gateType:item.gateType,
+                ReceivingDate: handletimezone(item.recevingDate),
                 Vehicle_No:item.truckNo,
-                Gross_Wt:item.grossWt,
-                Net_Wt:item.netWeight,
-                Invoice:item.invoice,
-                Invoice_Date: handletimezone(item.invoicedate),
-                Type_Of_Material:item.type,
-                SKU: item.sku,
-                Vendor_Name: item.vendorName,
-                Physical_Quantity: formatNumber(item.quantity),
-                Invoice_Quantity:item.invoicequantity,
-                Unit: item.unit,
-                Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
-                Bill_Amount:item.totalBill!=='0.00' ?formatNumber(item.totalBill) :'',
-                Remarks:item.remarks,
-                Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
-                Edit_Status: item.editStatus,
-                Created_By: item.createdBy,
-                Approved_Or_Rejected_By: item.approvedBy
+                vendorName:item.vendorName,
+                grossWt:formatNumber(item.grossWt),
+                netWeight:item.netWeight ? item.netWeight : 0 ,
+                type:item.type,
+                grade:item.sku,
+                invoice:item.invoice,
+           
+                totalWt:item.totalWt ? formatNumber(item.totalWt):0 ,
+    
+                Item_Or_Bag_Count:item.quantity,
+                editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
             }));
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
-            transformed = data1.map((item: storeprimaryData,idx:number) => ({
-                Sl_No: idx+1,
-                GatePass_No:item.gatePassNo,
-                Gate_Pass_Type:item.gateType,
-                Entry_Date: handletimezone(item.recevingDate),
+            transformed = data1.map((item: rcvVillageprimaryData,idx:number) => ({
+                id: idx + 1,
+                gatePassNo:item.gatePassNo,
+                gateType:item.gateType,
+                ReceivingDate: handletimezone(item.recevingDate),
                 Vehicle_No:item.truckNo,
-                Gross_Wt:item.grossWt,
-                Net_Wt:item.netWeight,
-                Invoice:item.invoice,
-                Invoice_Date: handletimezone(item.invoicedate),
-                Type_Of_Material:item.type,
-                SKU: item.sku,
-                Vendor_Name: item.vendorName,
-                Physical_Quantity: formatNumber(item.quantity),
-                Invoice_Quantity:item.invoicequantity,
-                Unit: item.unit,
-                Line_Weight:item.totalWt!=='0.00' ?formatNumber(item.totalWt) :'',
-                Bill_Amount:item.totalBill!=='0.00' ?formatNumber(item.totalBill) :'',
-                Remarks:item.remarks,
-                Quality_Status: item.qualityStatus ? "QC Done" : "QC Pending",
-                Edit_Status: item.editStatus,
-                Created_By: item.createdBy,
-                Approved_Or_Rejected_By: item.approvedBy
+                vendorName:item.vendorName,
+                grossWt:formatNumber(item.grossWt),
+                netWeight:item.netWeight ? item.netWeight : 0 ,
+                type:item.type,
+                grade:item.sku,
+                invoice:item.invoice,
+             
+                totalWt:item.totalWt ? formatNumber(item.totalWt):0 ,
+              
+                Item_Or_Bag_Count:item.quantity,
+                editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
 
             }));
             // setTransformedData(transformed);
@@ -288,7 +276,7 @@ const RcvVillageTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Store_Item_Material_' + currDate + '.xlsx');
+        saveAs(blob, 'Village_Primary_Material_' + currDate + '.xlsx');
     }
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {

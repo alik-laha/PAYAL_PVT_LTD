@@ -139,6 +139,28 @@ export interface AlmondPrimaryExcelEntryData {
     totalBill:string|number;  
  
 }
+export interface RcvVillagePrimaryExcelEntryData {
+   
+    ApprovedBy: string;
+    id: number;
+    ReceivingDate: string;
+    Item_Or_Bag_Count: string;
+    Vehicle_No: string;
+    netWeight: string|number;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string|number;
+    gateType: string,
+
+    invoice: string;  
+    grade: string;  
+    type: string;  
+    vendorName: string;  
+    totalWt:string|number;  
+
+ 
+}
 
 
 
@@ -662,12 +684,12 @@ export interface rcvVillageprimaryData {
     sku: string;
     vendorName: string;
     quantity: string;
-    invoicequantity:string;
-    unit: string;
-    invoicedate:string;
+
+
+
     invoice:string;
     createdBy: string;
-    qualityStatus: string;
+  
     editStatus: string;
     approvedBy: string;
     truckNo: string;
@@ -676,7 +698,7 @@ export interface rcvVillageprimaryData {
     gatePassNo:string;
     grossWt: string;
     totalWt:string;
-    totalBill:string;
+
     remarks:string;
     gateType:string;
 }

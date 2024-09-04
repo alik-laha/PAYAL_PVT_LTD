@@ -19,20 +19,15 @@ import {
 
 import axios from "axios";
 import { useState } from "react";
-import {  storeprimaryData } from "@/type/type";
+import {  rcvVillageprimaryData } from "@/type/type";
 import RcvVillagePrimaryEntry from "./RcvVillageCreateForm";
-
-
-
-
-
 
 interface lotPropsdata{
     gatePassNo:string;
 }
 
 const RcvVillageInitial = (props: any) => {
-    const [rcnData, setrcnData]  = useState<storeprimaryData[]>([])
+    const [rcnData, setrcnData]  = useState<rcvVillageprimaryData[]>([])
 
     //let scoopdata:ScoopData[]=[]
     console.log(props)
@@ -78,15 +73,15 @@ const RcvVillageInitial = (props: any) => {
                                         <TableCell className="text-center">
                                             <Dialog>
                                                 <DialogTrigger>
-                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger>
-                                            { idx==0 &&  <DialogContent style={{display:'block'}} className='max-w-3xl'>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} >+ Add </Button></DialogTrigger>
+                                             <DialogContent style={{display:'block'}} className='max-w-3xl'>
                                                     <DialogHeader >
                                                         <DialogTitle><p className='text-1xl text-center mt-1'>Village Receiving/Dispatch Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 <RcvVillagePrimaryEntry rcn={rcnData}/>
                                               
-                                                </DialogContent>}
+                                                </DialogContent>
                                             </Dialog>
                                         </TableCell>
 

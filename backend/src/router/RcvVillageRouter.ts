@@ -1,16 +1,6 @@
 import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
 
-
-
-
-
-
-
-
-
- import acceptStoreEditPrimary from '../controller/StorePrimaryController/acceptStoreEditPrimary';
-
 import getRcvVillagebyGatePass from '../controller/RcvVIllageController/getRcVVillageByGatepass';
 import getUnEntriedRcvVillage from '../controller/RcvVIllageController/getUnEntriedRcvVillage';
 import updateRcvVillage from '../controller/RcvVIllageController/UpdateRcvVillage';
