@@ -90,7 +90,7 @@ const StorePrimaryEntry = (props:Props) => {
     const errordialog = document.getElementById('packagingMetirialReciveError') as HTMLInputElement;
     const closeDialogButton = document.getElementById('packageMetrialRecivecross') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('packagigreciveerrorcross') as HTMLInputElement;
-
+    const [isdisable,setisdisable]=useState<boolean>(false)
     if (closeDialogButton) {
         closeDialogButton.addEventListener('click', () => {
             if (successdialog != null) {
@@ -187,6 +187,7 @@ const StorePrimaryEntry = (props:Props) => {
 // }
 const handleSubmit2 = async (e: React.FormEvent) => {
     e.preventDefault()
+    setisdisable(true)
     //const quantity = quantityRef.current?.value
     const invoicedate=invoicedateRef.current?.value
     const invoice=invoiceref.current?.value
@@ -242,6 +243,9 @@ const handleSubmit2 = async (e: React.FormEvent) => {
         
         
 
+    }
+    finally{
+        setisdisable(false)
     }
 
 
@@ -428,7 +432,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             <TableCell className="text-center" >
                                                 <Input value={row.sku} placeholder="SKU"
                                                     onChange={(e) => handleSkuchange(index, e)} required />
-                                                {actvskuindex === index && <ScrollArea className="max-h-24 w-32 overflow-scroll  dropdown-content" style={{ display: skuview, position: 'fixed' }}>
+                                                {actvskuindex === index && <ScrollArea className="max-h-24 w-auto overflow-scroll  dropdown-content" style={{ display: skuview, position: 'fixed' }}>
                                                     {
                                                         skudata.map((item: SkuData) => (
                                                             <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(index, item)}>
@@ -501,7 +505,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                     </Table>
                     </div>
                     
-                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
+                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 </form>
                 <dialog id="packageMetrialReceve" className="dashboard-modal">
                 <button id="packageMetrialRecivecross" className="dashboard-modal-close-btn ">X </button>

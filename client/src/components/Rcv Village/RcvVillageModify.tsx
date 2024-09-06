@@ -39,7 +39,7 @@ const RcvVillageModify = ({ data }: Props) => {
     const [sku, setsku] = useState<findskutypeData[]>([])
     const [grade, setGrade] = useState<findskutypeData[]>([])
     const [errText, setErrText] = useState<string>('')
-
+    const [isdisable,setisdisable]=useState<boolean>(false)
 
 
     useEffect(() => {
@@ -142,6 +142,7 @@ const RcvVillageModify = ({ data }: Props) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        setisdisable(true)
         console.log("submit")
         axios.post(`/api/rcvVillage/editVillagePrimary/${data.id}`, {
             grossWt, netwt, gateType, recevingDate: date, 
@@ -160,6 +161,9 @@ const RcvVillageModify = ({ data }: Props) => {
                 const errorText = err.response.data.message;
                 setErrText(errorText);
                 (errordialog as any).showModal();
+            })
+            .finally(()=>{
+                setisdisable(false)
             })
 
     }
@@ -261,7 +265,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
 
 
 
-                    <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
+                    <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 </form>
 
 

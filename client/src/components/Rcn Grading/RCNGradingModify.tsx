@@ -104,7 +104,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
     function formatNumber(num:any) {
         return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
     }
-
+    const [isdisable,setisdisable]=useState<boolean>(false)
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         
@@ -124,6 +124,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
 
 
        }
+       setisdisable(true)
         axios.put(`/api/grading/updateGrading/${props.data.id}`, { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on, Mc_off, noOfEmployees, otherTime, grading_lotNo, Mc_breakdown })
             .then(res => {
                 setErrortext(res.data.message)
@@ -144,6 +145,8 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
                 setTimeout(() => {
                     dialog.close()
                 }, 2000)
+            }).finally(()=>{
+                setisdisable(false)
             })
 
     }
@@ -318,7 +321,7 @@ const RcnGraddingModifyForm = (props: RcnGraddingModifyFormProps) => {
 
 
                 <div>
-                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
+                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 </div>
 
             </form>

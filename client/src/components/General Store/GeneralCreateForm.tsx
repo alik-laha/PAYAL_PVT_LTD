@@ -55,7 +55,7 @@ const GeneralPrimaryEntry = (props: Props) => {
     //const [actvindex,setActvindex]=useState<number>()
     const [actvskuindex, setActvskuindex] = useState<number>()
     const [VendorName, setVendorName] = useState<string>('')
-
+    const [isdisable,setisdisable]=useState<boolean>(false)
     useEffect(() => {
         if (props.rcn[0]) {
             setId(props.rcn[0].id)
@@ -202,7 +202,7 @@ const GeneralPrimaryEntry = (props: Props) => {
 
             ...row
         }))
-
+        setisdisable(true)
         try {
             if (formData.length === 1) {
                 for (var data of formData) {
@@ -245,6 +245,9 @@ const GeneralPrimaryEntry = (props: Props) => {
 
 
 
+        }
+        finally{
+            setisdisable(false)
         }
 
 
@@ -429,7 +432,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                 <TableCell className="text-center" >
                                                     <Input value={row.sku} placeholder="SKU"
                                                         onChange={(e) => handleSkuchange(index, e)} required />
-                                                    {actvskuindex === index && <ScrollArea className="max-h-24 w-32 overflow-scroll  dropdown-content" style={{ display: skuview, position: 'fixed' }}>
+                                                    {actvskuindex === index && <ScrollArea className="max-h-24 w-auto overflow-scroll  dropdown-content" style={{ display: skuview, position: 'fixed' }}>
                                                         {
                                                             skudata.map((item: SkuData) => (
                                                                 <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(index, item)}>
@@ -503,7 +506,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                         </Table>
                     </div>
 
-                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
+                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 </form>
                 <dialog id="packageMetrialReceve" className="dashboard-modal">
                     <button id="packageMetrialRecivecross" className="dashboard-modal-close-btn ">X </button>

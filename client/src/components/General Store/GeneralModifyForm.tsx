@@ -44,7 +44,7 @@ const GeneralPrimaryModify = ({ data }: Props) => {
     const [rowBill, setrowBill] = useState<string>('')
     const [type, settype] = useState<string>('')
     const [gateType, setgateType] = useState<string>('')
-
+    const [isdisable,setisdisable]=useState<boolean>(false)
     useEffect(() => {
         setUnit(data.unit)
         setSku(data.sku)
@@ -62,6 +62,7 @@ const GeneralPrimaryModify = ({ data }: Props) => {
         setremarks(data.remarks)
         setgateType(data.gateType)
         setrowwt(data.totalWt)
+        setrowBill(data.totalBill)
         setDate(data.recevingDate.slice(0, 10))
         console.log(data.recevingDate.slice(0, 10))
     }, [])
@@ -88,6 +89,7 @@ const GeneralPrimaryModify = ({ data }: Props) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        setisdisable(true)
         console.log("submit")
         axios.post(`/api/generalPrimary/editGeneralPrimary/${data.id}`, { 
             grossswt,netwt,gateType,recevingDate:date,truck,gatepassno, invoicedate,invoice:invoiceRef.current?.value, type,sku,vendorName, 
@@ -103,6 +105,8 @@ const GeneralPrimaryModify = ({ data }: Props) => {
                 const errorText = err.response.data.message;
                 setErrText(errorText);
                 (errordialog as any).showModal();
+            }).finally(()=>{
+                setisdisable(false)
             })
 
     }
@@ -258,7 +262,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
 
 
 
-                    <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
+                    <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 </form>
 
 

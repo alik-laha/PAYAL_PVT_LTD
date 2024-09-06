@@ -46,9 +46,10 @@ const RcnGradingCreateForm = () => {
                 });
             }
     
-
+    const [isdisable,setisdisable]=useState<boolean>(false)
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        
         const date = DateRef.current?.value
         const A = aRef.current?.value
         const B = bRef.current?.value
@@ -73,7 +74,7 @@ const RcnGradingCreateForm = () => {
             dialog.showModal()
             return
         }
-
+        setisdisable(true)
         axios.post('/api/grading/createGrading', { date, origin, A, B, C, D, E, F, G, dust, Mc_name, Mc_on:mc_on, Mc_off:mc_off, noOfEmployees, Mc_breakdown, otherTime, grading_lotNo })
             .then(res => {
                 setErrortext(res.data.message)
@@ -94,6 +95,8 @@ const RcnGradingCreateForm = () => {
                 setTimeout(() => {
                     dialog.close()
                 }, 2000)
+            }).finally(()=>{
+                setisdisable(false)
             })
     }
     const handleoriginStock = (value:string) => {
@@ -257,7 +260,7 @@ const RcnGradingCreateForm = () => {
 
 
                 <div>
-                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
+                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 </div>
 
             </form>

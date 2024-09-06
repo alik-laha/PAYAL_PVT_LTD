@@ -58,7 +58,7 @@ const AlmondPrimaryEntryForm = (props:Props) => {
     const [truck, settruck] = useState<string>('')
     const [sku,setsku]=useState<findskutypeData[]>([])
     const [grade,setGrade]=useState<findskutypeData[]>([])
-    
+    const [isdisable,setisdisable]=useState<boolean>(false)
 
     const noOfBagsRef = useRef<HTMLInputElement>(null)
     //console.log(props)
@@ -139,6 +139,7 @@ const AlmondPrimaryEntryForm = (props:Props) => {
 
     const handleSubmit3 = async (e: React.FormEvent) => {
         e.preventDefault()
+        setisdisable(true)
         const blNo = blNoRef.current?.value
         const conNo = conNoRef.current?.value
 
@@ -198,11 +199,15 @@ const AlmondPrimaryEntryForm = (props:Props) => {
 
 
         }
+        finally{
+          setisdisable(false)  
+        }
 
     }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        setisdisable(true)
         const blNo = blNoRef.current?.value
         const conNo = conNoRef.current?.value
         const billAmt =billAmtRef.current?.value
@@ -231,6 +236,8 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                     (errordialog as any).showModal();
                 }
 
+            }).finally(()=>{
+                setisdisable(false)
             })
 
     }
@@ -424,7 +431,7 @@ const AlmondPrimaryEntryForm = (props:Props) => {
                         <Input className="w-2/4 text-center" placeholder="BL Weight" ref={blWeightRef} type="number" step="0.01" required />
                     </div> */}
                    
-                    <Button className="bg-orange-500 mb-2 mt-4 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
+                    <Button className="bg-orange-500 mb-2 mt-4 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 </form> :
 
                 <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit3}>
@@ -564,7 +571,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                     </Table>
                     </div>
                     
-                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
+                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 </form>
                 
                 }
