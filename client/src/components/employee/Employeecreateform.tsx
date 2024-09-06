@@ -29,7 +29,7 @@ const Employeecreateform = () => {
     const pfref = useRef<HTMLInputElement>(null)
     const pincoderef = useRef<HTMLInputElement>(null)
     const addressref = useRef<HTMLInputElement>(null)
-
+    const [isdisable,setisdisable]=useState<boolean>(false)
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
@@ -57,7 +57,9 @@ const Employeecreateform = () => {
 
 
     const handleSubmit = (e: React.FormEvent) => {
+      
         e.preventDefault()
+        setisdisable(true)
         const employeeName = nameref.current?.value
         const email = emailref.current?.value
         const designation = desgref.current?.value
@@ -169,6 +171,8 @@ const Employeecreateform = () => {
                 (errordialog as any).showModal();
             }
 
+        }).finally(()=>{
+            setisdisable(false)
         })
     }
     const handleCleanFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -260,7 +264,7 @@ const Employeecreateform = () => {
 
 
 
-                <Button className="bg-orange-500 mt-4 text-center items-center justify-center h-8 w-20">Submit</Button>
+                <Button className="bg-orange-500 mt-4 text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
             </form>
             <dialog id="successemployeedialog" className="dashboard-modal">
                 <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>

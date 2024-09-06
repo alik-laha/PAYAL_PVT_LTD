@@ -53,7 +53,7 @@ const EmployeeModifyForm = (props: Props) => {
     const [pincode, setPincode] = React.useState<string>('')
     const [file, setFile] = React.useState<any>()
     const [errortext, setErrorText] = React.useState<string>("")
-
+    const [isdisable,setisdisable]=useState<boolean>(false)
     const successdialog = document.getElementById('modifysuccessemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('modifyerroremployeedialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
@@ -80,6 +80,7 @@ const EmployeeModifyForm = (props: Props) => {
     }
 
     const handleSubmit = (e: React.FormEvent) => {
+        setisdisable(true)
         const formData = new FormData();
         formData.append('employeeName', employeeName);
         formData.append('designation', designation);
@@ -117,7 +118,9 @@ const EmployeeModifyForm = (props: Props) => {
                 (errordialog as any).showModal();
             }
         }
-        )
+        ).finally(()=>{
+            setisdisable(false)
+        })
     }
     useEffect(() => {
         setEmployeeName(props.data.employeeName)
@@ -247,7 +250,7 @@ const EmployeeModifyForm = (props: Props) => {
                     <Label className="w-2/4 pt-1 font-bold text-red-500">Date Of Release </Label>
                     <span className=""><DatePicker buttonName="Date Of Release" value={releaseDate} setValue={setReleaseDate} /></span>
 
-                </div> : <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Modify</Button>}
+                </div> : <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>}
 
 
             </form>

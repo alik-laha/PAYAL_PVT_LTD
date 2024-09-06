@@ -30,7 +30,7 @@ const DashboardUserModifyForm = (props: UserProps) => {
     const [errortext, setErrorText] = React.useState<string>("")
     const [pssword,SetPssword]=useState<string>('');
     const [confirmpassword,SetconfirmPassword]=useState<string>('');
-  
+    const [isdisable,setisdisable]=useState<boolean>(false)
 
     const successdialog = document.getElementById('modifysuccessuserdialog') as HTMLInputElement;
     const errordialog = document.getElementById('modifyerroruserdialog') as HTMLInputElement;
@@ -81,7 +81,7 @@ const DashboardUserModifyForm = (props: UserProps) => {
              //password = await hashPassword(pssword)
              password = pssword
         }
-        
+        setisdisable(true)
         axios.put('/api/user/updateuser', { userName, password, role, dept, employeeId: props.Data.employeeId })
             .then((res) => {
                 console.log(res.data)
@@ -96,6 +96,8 @@ const DashboardUserModifyForm = (props: UserProps) => {
                 if (errordialog != null) {
                     (errordialog as any).showModal();
                 }
+            }).finally(()=>{
+                setisdisable(false)
             })
     }
     console.log(props.Data)
@@ -123,7 +125,7 @@ const DashboardUserModifyForm = (props: UserProps) => {
 
     return (
         <div className="pl-10 pr-10">
-            <form className='flex flex-col gap-4 mt-5 ' onSubmit={handleSubmit}>
+            <form className='flex flex-col gap-4 mt-5 ' onSubmit={handleSubmit}> 
                 <div className="flex"><Label className="w-2/4 ">User Name</Label>
                     <Input className="w-2/4 " placeholder="User Name" value={userName} onChange={(e) => setUserName(e.target.value)} /> </div>
                 <div className="flex"><Label className="w-2/4 "  >Password</Label>
@@ -172,7 +174,7 @@ const DashboardUserModifyForm = (props: UserProps) => {
 
 
 
-                <Button className="bg-orange-500 mb-2 mt-8 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
+                <Button className="bg-orange-500 mb-2 mt-8 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
             </form>
             <dialog id="modifysuccessuserdialog" className="dashboard-modal">
                 <button id="modifyusrcloseDialog" className="dashboard-modal-close-btn ">X </button>

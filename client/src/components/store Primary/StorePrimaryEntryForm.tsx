@@ -360,7 +360,7 @@ const handleSubmit2 = async (e: React.FormEvent) => {
                 <div className="flex "><Label className="w-2/4  pt-2">{gateType==='IN'? 'Vendor':'Party'} Name</Label>
                 <div className="w-2/4">
                 <Input className="justify-center text-center" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
-                <ScrollArea className="max-h-24 w-1/3 overflow-y-scroll dropdown-content" style={{ display: vendorNameView,position:'fixed'}}>
+                <ScrollArea className="max-h-24 w-1/3 overflow-scroll dropdown-content" style={{ display: vendorNameView,position:'fixed'}}>
                                                     {
                                                         vendorData.map((item: VendorData) => (
                                                             <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick( item)}>
