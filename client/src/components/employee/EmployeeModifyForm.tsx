@@ -53,7 +53,7 @@ const EmployeeModifyForm = (props: Props) => {
     const [pincode, setPincode] = React.useState<string>('')
     const [file, setFile] = React.useState<any>()
     const [errortext, setErrorText] = React.useState<string>("")
-    const [isdisable,setisdisable]=useState<boolean>(false)
+    const [isdisable,setisdisable]=React.useState<boolean>(false)
     const successdialog = document.getElementById('modifysuccessemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('modifyerroremployeedialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
