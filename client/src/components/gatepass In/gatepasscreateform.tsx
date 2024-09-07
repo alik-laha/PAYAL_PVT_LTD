@@ -33,7 +33,7 @@ const GatePassCreateForm = () => {
     const [time,setTime]=useState<string>('')
     const [type,setType]=useState<string>('IN')
     const [errortext, setErrortext] = useState('')
-
+    const [isdisable,setisdisable]=useState<boolean>(false)
     useEffect(()=>{
         setDate(new Date().toISOString().slice(0,10))
         setTime(new Date().toTimeString().slice(0,5))
@@ -83,6 +83,7 @@ if (errorcloseDialogButton) {
 }
     const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
+        
         const vehicle = vehicleNoRef.current?.value
         const document = DocumentNoRef.current?.value
         const drivername = DriverNameRef.current?.value
@@ -101,6 +102,7 @@ if (errorcloseDialogButton) {
             }
             return
         }
+        setisdisable(true)
         const formData = rows.map(row => ({
                
             Date: date,
@@ -115,6 +117,7 @@ if (errorcloseDialogButton) {
             type: type,
             ...row
         }))
+        
 
         try {
             
@@ -133,6 +136,9 @@ if (errorcloseDialogButton) {
             else {
                 setErrortext('An Unexpected Error Occured in Creating Gate Pass')
             }
+        }
+        finally{
+            setisdisable(false)
         }
     }
 
@@ -372,7 +378,7 @@ return(
                 </div>
                 
                 
-                <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
+                <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                
                 </form>
                 <dialog id="successemployeedialog" className="dashboard-modal">

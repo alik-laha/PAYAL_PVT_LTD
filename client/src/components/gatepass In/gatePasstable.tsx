@@ -714,6 +714,7 @@ const GatePassTable = () => {
         settoDate(nextday)
     }
 
+
     const handleSearch = async () => {
         //console.log('search button pressed')
         //setEditData([])

@@ -47,7 +47,7 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
     const [netWeight, setNetWeight] = useState<string>("")
     const [errortext, setErrorText] = useState<string>("")
     const [date, setDate] = useState<Date>()
-
+    const [isdisable,setisdisable]=useState<boolean>(false)
     const successdialog = document.getElementById('rcneditscsDialog') as HTMLInputElement;
     const errordialog = document.getElementById('rcnediterrDialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
@@ -75,6 +75,7 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        setisdisable(true)
         axios.put(`/api/rcnprimary/update/${props.data.id}`, { gatePassNo,origin, blNo, conNo, truckNo, noOfBags, blWeight, netWeight, date })
             .then((res) => {
                 console.log(res)
@@ -95,6 +96,8 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
                 if (errordialog != null) {
                     (errordialog as any).showModal();
                 }
+            }).finally(()=>{
+                setisdisable(false)
             })
     }
 
@@ -167,7 +170,7 @@ const RcnPrimaryModify = (props: RcnPrimaryModifyProps) => {
                     <Input className="w-2/4 text-center" placeholder="BL Weight" type="number" value={blWeight} onChange={(e) => setBlWeight(e.target.value)} />
                 </div>
                
-                <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
+                <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
             </form>
 
             <dialog id="rcneditscsDialog" className="dashboard-modal">

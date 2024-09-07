@@ -49,7 +49,7 @@ const QCreportForm = (props: QcRcnEntryDataprops) => {
     const [outturn, setOutTurn] = useState<string>('')
     const [remarks, setRemarks] = useState<string>("")
     const [errortext, setErrorText] = useState<string>("")
-
+    const [isdisable,setisdisable]=useState<boolean>(false)
     const successdialog = document.getElementById('qcrcnscsDialog') as HTMLInputElement;
     const errordialog = document.getElementById('qcrcnerrDialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
@@ -78,6 +78,7 @@ const QCreportForm = (props: QcRcnEntryDataprops) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        setisdisable(true)
         axios.put(`/api/qcRcn/createQcRcn/${props.data.id}`, { sampling,moisture,nutCount ,fluteRate,goodKernel,spim,reject,shell
             ,outturn,remarks
         })
@@ -103,6 +104,8 @@ const QCreportForm = (props: QcRcnEntryDataprops) => {
                 if (errordialog != null) {
                     (errordialog as any).showModal();
                 }
+            }).finally(()=>{
+                setisdisable(false)
             })
     }
 
@@ -156,7 +159,7 @@ const QCreportForm = (props: QcRcnEntryDataprops) => {
             <Input className="w-2/4 " placeholder="Out Turn" value={outturn} onChange={(e) => setOutTurn(e.target.value)} required/> </div>
             <div className="flex"><Label className="w-2/4 pt-1" >Remarks</Label>
             <Textarea className="w-2/4 " placeholder="Remarks" value={remarks} onChange={(e) => setRemarks(e.target.value)} /> </div>
-            <Button className="bg-orange-500 mt-1 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
+            <Button className="bg-orange-500 mt-1 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
             </form>
 
             <dialog id="qcrcnscsDialog" className="dashboard-modal">

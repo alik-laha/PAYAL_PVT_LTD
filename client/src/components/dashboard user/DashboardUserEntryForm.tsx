@@ -37,6 +37,7 @@ const DashboardUserEntryForm = () => {
     const errordialog = document.getElementById('usererror') as HTMLInputElement;
     const closeDialogButton = document.getElementById('userscsbtn') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('usererrorbtn') as HTMLInputElement;
+    const [isdisable,setisdisable]=useState<boolean>(false)
 
     useEffect(() => {
         if (closeDialogButton) {
@@ -82,7 +83,7 @@ const DashboardUserEntryForm = () => {
         const password = pssword
         //const password = await hashPassword(pssword)
         //const confirmPassword =  hashPassword(confirmpassword);
-
+        setisdisable(true)
         axios.post('/api/user/createuser', { userName, password, dept, role, employeeId, employeeName })
             .then((res) => {
                 console.log(res.data);
@@ -112,7 +113,10 @@ const DashboardUserEntryForm = () => {
                 if (errordialog != null) {
                     (errordialog as any).showModal();
                 }
-            });
+            }).finally(()=>{
+                setisdisable(false)
+            })
+           
     };
 
     const fetchEmployeeId = useCallback(
@@ -212,7 +216,7 @@ const DashboardUserEntryForm = () => {
                             </SelectContent>
                         </Select>
                     </div>
-                    <Button className="bg-orange-500 mb-2 ml-20 mr-20 text-center items-center justify-center mt-8">Submit</Button>
+                    <Button className="bg-orange-500 mb-2 ml-20 mr-20 text-center items-center justify-center mt-8" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 </form>
             </div>
             <dialog id="userscs" className="dashboard-modal">

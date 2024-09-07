@@ -22,7 +22,7 @@ interface Props {
 const RcnPrimaryEntryForm = (props:Props) => {
     const [origin, setOrigin] = useState<string>("")
     const [errortext, setErrorText] = useState<string>("")
-
+   
     const blNoRef = useRef<HTMLInputElement>(null)
     const conNoRef = useRef<HTMLInputElement>(null)
  
@@ -32,7 +32,7 @@ const RcnPrimaryEntryForm = (props:Props) => {
     const [gatepass, setGatePass] = useState<string>('')
     const [grossWt, setGrossWt] = useState<string>('')
     const [truck, settruck] = useState<string>('')
-
+    const [isdisable,setisdisable]=useState<boolean>(false)
     const noOfBagsRef = useRef<HTMLInputElement>(null)
     console.log(props)
 
@@ -79,6 +79,7 @@ const RcnPrimaryEntryForm = (props:Props) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        setisdisable(true)
         const blNo = blNoRef.current?.value
         const conNo = conNoRef.current?.value
    
@@ -136,6 +137,8 @@ const RcnPrimaryEntryForm = (props:Props) => {
                     (errordialog as any).showModal();
                 }
 
+            }).finally(()=>{
+                setisdisable(false)
             })
 
     }
@@ -193,7 +196,7 @@ const RcnPrimaryEntryForm = (props:Props) => {
                         <Input className="w-2/4 text-center" placeholder="BL Weight" ref={blWeightRef} type="number" step="0.01" required />
                     </div>
                    
-                    <Button className="bg-orange-500 mb-2 mt-4 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
+                    <Button className="bg-orange-500 mb-2 mt-4 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 </form>
 
 

@@ -56,7 +56,7 @@ const AlmondModify = (props: AlmondPrimaryModifyProps) => {
     
     const [errortext, setErrorText] = useState<string>("")
     const [date, setDate] = useState<Date>()
-
+    const [isdisable,setisdisable]=useState<boolean>(false)
     const [VendorName, setVendorName] = useState<string>('')
     const [vendorNameView, setVendorNameView] = useState("none")
     const [vendorData, setVendorData] = useState<VendorData[]>([])
@@ -88,6 +88,7 @@ const AlmondModify = (props: AlmondPrimaryModifyProps) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        setisdisable(true)
         axios.post(`/api/almondPrimary/updateAlmond/${props.data.id}`, { gatePassNo,gatetype,almondtype,almondgrade,
             grossWt, netWeight, truckNo, noOfBags,VendorNam: VendorName, weight, invoice, invoicedate,date,totalBill:billamt })
             .then((res) => {
@@ -116,6 +117,8 @@ const AlmondModify = (props: AlmondPrimaryModifyProps) => {
                 if (errordialog != null) {
                     (errordialog as any).showModal();
                 }
+            }).finally(()=>{
+                setisdisable(false)
             })
     }
 
@@ -294,7 +297,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                 </div>
               
                
-                <Button className="bg-orange-500 mb-1 mt-1 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
+                <Button className="bg-orange-500 mb-1 mt-1 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
             </form>
 
             <dialog id="rcneditscsDialog" className="dashboard-modal">

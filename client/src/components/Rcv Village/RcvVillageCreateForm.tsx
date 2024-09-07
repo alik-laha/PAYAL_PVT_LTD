@@ -35,7 +35,7 @@ interface SectionRowData{
 }
 const RcvVillagePrimaryEntry = (props:Props) => {
 
-   
+    const [isdisable,setisdisable]=useState<boolean>(false)
     const [vendorNameView, setVendorNameView] = useState("none")
    // const [skudata, setSkuData] = useState<SkuData[]>([])
     const [vendorData, setVendorData] = useState<VendorData[]>([])
@@ -120,6 +120,7 @@ const RcvVillagePrimaryEntry = (props:Props) => {
                 vendorName:VendorName, 
                 ...row
         }))
+        setisdisable(true)
         try{
 
             if(formData.length===1)
@@ -159,6 +160,9 @@ const RcvVillagePrimaryEntry = (props:Props) => {
                 (errordialog as any).showModal()
             }
             
+        }
+        finally{
+            setisdisable(false)
         }
 
     }
@@ -444,7 +448,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                     </Table>
                     </div>
                     
-                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20">Submit</Button>
+                    <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 </form>
                 <dialog id="packageMetrialReceve" className="dashboard-modal">
                 <button id="packageMetrialRecivecross" className="dashboard-modal-close-btn ">X </button>

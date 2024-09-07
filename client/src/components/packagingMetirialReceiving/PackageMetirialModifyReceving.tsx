@@ -43,6 +43,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
     const [rowWt, setrowwt] = useState<string>('')
     const [rowBill, setrowBill] = useState<string>('')
     const [type, settype] = useState<string>('')
+    const [isdisable,setisdisable]=useState<boolean>(false)
 
     useEffect(() => {
         setUnit(data.unit)
@@ -87,6 +88,7 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        setisdisable(true)
         console.log("submit")
         axios.post(`/api/packageMaterial/editrecevingpackagematerial/${data.id}`, { 
             grossswt,netwt,recevingDate:date,truck,gatepassno, invoicedate,invoice:invoiceRef.current?.value, type,sku,vendorName, 
@@ -102,6 +104,8 @@ const PackageMaterialReceivingModify = ({ data }: Props) => {
                 const errorText = err.response.data.message;
                 setErrText(errorText);
                 (errordialog as any).showModal();
+            }).finally(()=>{
+                setisdisable(false)
             })
 
     }
@@ -245,7 +249,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
 
 
 
-                    <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
+                    <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 </form>
 
 
