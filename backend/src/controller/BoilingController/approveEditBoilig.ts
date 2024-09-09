@@ -42,7 +42,7 @@ const approveEditBoiling = async (req: Request, res: Response) => {
             
 
 
-            let where
+            
             if (prevdata && scoopstatus && scoopstatus.dataValues.scoopStatus==0) {
                 const RcnGradingEditData = await RcnBoiling.update({
                     LotNo,
@@ -62,6 +62,8 @@ const approveEditBoiling = async (req: Request, res: Response) => {
                     otherTime, CreatedBy, Mc_runTime,
                     modifiedBy, editStatus
                 }, { where: { id } });
+                
+                let where
                 where = {
                     [Op.and]: [
                         {

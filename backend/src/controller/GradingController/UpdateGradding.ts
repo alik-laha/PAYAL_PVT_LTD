@@ -35,7 +35,7 @@ const UpdateGradding = async (req: Request, res: Response) => {
             
             
             if (RcnGradingEditData) {
-                const data = await WhatsappMsg("RCN Grading", feeledBy,"modify_request")
+                const data = await WhatsappMsg("RCN Grading", feeledBy,"modify_request","Production")
                 console.log(data)
                 return res.status(200).json({ message: "Data Modification Request Sent Successfully" })
             }

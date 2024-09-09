@@ -57,7 +57,7 @@ try{
                                 truckNo:data.vehicle,    
                             },{transaction});
                             if(RCNIncoming){
-                                const data = await WpMsgGatePassRcv("Raw Cashew Receiving",gatepassNo,"gatepass_rcv_dispatch",'RCN Cashew IN')
+                                const data = await WpMsgGatePassRcv("Raw Cashew Receiving",gatepassNo,"gatepass_rcv_dispatch_final",'RCN Cashew IN')
                                 console.log(data)
                                 //return res.status(200).json({ message: "RCN Initial Entry Created Successfully" });
                             }
@@ -72,7 +72,7 @@ try{
                                 truckNo:data.vehicle,    
                             },{transaction});
                             if(PCIncoming){
-                                const data = await WpMsgGatePassRcv("Packaging Material Receiving", gatepassNo,"gatepass_rcv_dispatch",'PC IN')
+                                const data = await WpMsgGatePassRcv("Packaging Material Receiving", gatepassNo,"gatepass_rcv_dispatch_final",'PC IN')
                                 console.log(data)
                                 //return res.status(200).json({ message: "PC Initial Entry Created Successfully" });
                             }    
@@ -87,7 +87,7 @@ try{
                                 gateType:data.type   
                             },{transaction});
                             if(storeEntry){
-                                const data = await WpMsgGatePassRcv("Store Receiving/Dispatch", gatepassNo,"gatepass_rcv_dispatch",'STORE ENTRY')
+                                const data = await WpMsgGatePassRcv("Store Receiving/Dispatch", gatepassNo,"gatepass_rcv_dispatch_final",'STORE ENTRY')
                                 console.log(data)
                                 //return res.status(200).json({ message: "Store Entry Created Successfully" });
                             }
@@ -103,7 +103,7 @@ try{
                     
                             },{transaction});               
                             if(generalEntry){
-                                const data = await WpMsgGatePassRcv("General Receiving/Dispatch", gatepassNo,"gatepass_rcv_dispatch",'GENERAL ENTRY')
+                                const data = await WpMsgGatePassRcv("General Receiving/Dispatch", gatepassNo,"gatepass_rcv_dispatch_final",'GENERAL ENTRY')
                                 console.log(data)
                                 //return res.status(200).json({ message: "General Item Entry Created Successfully" });
                             }
@@ -120,7 +120,7 @@ try{
                             },{transaction});
                            
                             if(generalEntry){
-                                const data = await WpMsgGatePassRcv("Almond Receiving/Dispatch", gatepassNo,"gatepass_rcv_dispatch",'ALMOND ENTRY')
+                                const data = await WpMsgGatePassRcv("Almond Receiving/Dispatch", gatepassNo,"gatepass_rcv_dispatch_final",'ALMOND ENTRY')
                                 console.log(data)
                                // return res.status(200).json({ message: "Almond Item Entry Created Successfully" });
                             }
@@ -138,7 +138,7 @@ try{
                             
                     
                             if(generalEntry){
-                                const data = await WpMsgGatePassRcv("Village Receiving/Dispatch", gatepassNo,"gatepass_rcv_dispatch",'VILLAGE ENTRY')
+                                const data = await WpMsgGatePassRcv("Village Receiving/Dispatch", gatepassNo,"gatepass_rcv_dispatch_final",'VILLAGE ENTRY')
                             console.log(data)
                                // return res.status(200).json({ message: "Village Item Entry Created Successfully" });
                             }

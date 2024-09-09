@@ -25,7 +25,7 @@ try{
         
 
         if(RCNIncoming){
-            const data = await WpMsgGatePassRcv("Raw Cashew Receiving", gatePassNo,"gatepass_rcv_dispatch",'RCN Cashew IN')
+            const data = await WpMsgGatePassRcv("Raw Cashew Receiving", gatePassNo,"gatepass_rcv_dispatch_final",'RCN Cashew IN')
             console.log(data)
             return res.status(200).json({ message: "RCN Initial Entry Created Successfully" });
         }
@@ -38,7 +38,7 @@ try{
             grossWt:grossWt,
             truckNo:vehicle,    
         });
-        const data = await WpMsgGatePassRcv("Packaging Material Receiving", gatePassNo,"gatepass_rcv_dispatch",'PC IN')
+        const data = await WpMsgGatePassRcv("Packaging Material Receiving", gatePassNo,"gatepass_rcv_dispatch_final",'PC IN')
         console.log(data)
 
         if(PCIncoming){
@@ -55,7 +55,7 @@ try{
             gateType:type
 
         });
-        const data = await WpMsgGatePassRcv("Store Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch",'STORE ENTRY')
+        const data = await WpMsgGatePassRcv("Store Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch_final",'STORE ENTRY')
         console.log(data)
 
         if(storeEntry){
@@ -72,7 +72,7 @@ try{
             gateType:type
 
         });
-        const data = await WpMsgGatePassRcv("General Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch",'GENERAL ENTRY')
+        const data = await WpMsgGatePassRcv("General Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch_final",'GENERAL ENTRY')
         console.log(data)
 
         if(generalEntry){
@@ -89,7 +89,7 @@ try{
             gateType:type
 
         });
-        const data = await WpMsgGatePassRcv("Almond Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch",'ALMOND ENTRY')
+        const data = await WpMsgGatePassRcv("Almond Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch_final",'ALMOND ENTRY')
         console.log(data)
 
         if(generalEntry){
@@ -106,7 +106,7 @@ try{
             gateType:type
 
         });
-        const data = await WpMsgGatePassRcv("Village Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch",'VILLAGE ENTRY')
+        const data = await WpMsgGatePassRcv("Village Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch_final",'VILLAGE ENTRY')
         console.log(data)
 
         if(generalEntry){

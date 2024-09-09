@@ -62,7 +62,7 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
     const [Mc_breakdown, setMc_breakdown] = useState('00:00')
     const [otherTime, setOtherTime] = useState('00:00')
     const { AllMachines } = useContext(Context)
-    const { AllNewMachines } = useContext(Context)
+    //const { AllNewMachines } = useContext(Context)
     
       
     const [errortext, setErrortext] = useState<string>('')
@@ -93,8 +93,16 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
         });
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        const resStatus = await axios.post('/api/boiling/getStatusBoiling', { lotNo: props.data.LotNo})
+        console.log(resStatus)
+        if (resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy !== 'Boiling') {
+            setErrortext(`Lot has Already Crossed ${resStatus.data.lotStatus.modifiedBy} Section`)
+            const dialog = document.getElementById("rcnediterrDialog") as HTMLDialogElement
+            dialog.showModal()
+            return
+        }
         axios.put(`/api/boiling/updateBoiling/${props.data.id}`, { 
             origin,
             LotNo,
@@ -180,6 +188,27 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
 
             <div className="flex mt-2"><Label className="w-2/4 pt-1" >Lot No.</Label>
             <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Lot No." value={LotNo} onChange={(e) => setLotNo(e.target.value)} readOnly/> </div>
+            <div className="flex"><Label className="w-2/4 pt-1">Scooping Line</Label>
+            <Input className="w-2/4 text-center bg-yellow-100" placeholder="Scop Line" value={scopline} readOnly required/>
+                    {/* <Select value={scopline} onValueChange={(value) => setscopline(value)}>
+                        <SelectTrigger className="w-2/4 justify-center">
+                            <SelectValue placeholder="Scooping Line" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {
+                                    AllNewMachines.map((item) => {
+                                        return (
+                                            <SelectItem key={item.machineID} value={item.machineName}>
+                                                {item.machineName}
+                                            </SelectItem>
+                                        )
+                                    })
+                                }
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select> */}
+            </div>
             <div className="flex">
                     <Label className="w-2/4 pt-1">Date Of Boiling</Label>
                     <Input className="w-2/4 justify-center" placeholder="Date" value={date} onChange={(e) => setDate(e.target.value)} type='date' /> </div>
@@ -238,26 +267,7 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
             <Input className="w-2/4 text-center" placeholder="Boiling Qty." value={size} onChange={(e) => setsize(e.target.value)} required/> </div>
              <div className="flex"><Label className="w-2/4 pt-1">No. Of Labour</Label>
             <Input className="w-2/4 text-center" placeholder="No. Of Employees" value={noOfEmployees} onChange={(e) => setNoOfEmployees(e.target.value)} required/> </div>
-            <div className="flex"><Label className="w-2/4 pt-1">Scooping Line</Label>
-                    <Select value={scopline} onValueChange={(value) => setscopline(value)}>
-                        <SelectTrigger className="w-2/4 justify-center">
-                            <SelectValue placeholder="Scooping Line" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                {
-                                    AllNewMachines.map((item) => {
-                                        return (
-                                            <SelectItem key={item.machineID} value={item.machineName}>
-                                                {item.machineName}
-                                            </SelectItem>
-                                        )
-                                    })
-                                }
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-            </div>
+            
             <div className="flex"><Label className="w-2/4 pt-1">Machine Name</Label>
                     <Select value={Mc_name} onValueChange={(value) => setMc_name(value)}>
                         <SelectTrigger className="w-2/4 justify-center">

@@ -66,7 +66,7 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
                             }
                         );
                         if(rcn){
-                            const data = await WhatsappMsg("RCN Primary Receiving", editedBy, "modify_request")
+                            const data = await WhatsappMsg("RCN Primary Receiving", editedBy, "modify_request","Receiving")
                         console.log(data)
                         return res.status(200).json({ message: "Rcn Entry updated successfully Wait for approval" });
                         }
@@ -111,7 +111,7 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
                                     }
                                 );
                                 if(rcn){
-                                    const data = await WhatsappMsg("RCN Primary Receiving", editedBy, "modify_request")
+                                    const data = await WhatsappMsg("RCN Primary Receiving", editedBy, "modify_request","Receiving")
                                 console.log(data)
                                 return res.status(200).json({ message: "Rcn Entry updated successfully Wait for approval" });
                                 }

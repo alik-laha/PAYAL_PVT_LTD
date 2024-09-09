@@ -54,7 +54,7 @@ const editRecevingPackageMaterial = async (req: Request, res: Response) => {
         if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Packaging material" });
         const updatePackageMaterial = await packageMaterial.update({ editStatus: "Pending" }, { where: { id } });
         if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Packaging material" });
-        const data = await WhatsappMsg("Packaging Material Receiving", createdBynew,"modify_request")
+        const data = await WhatsappMsg("Packaging Material Receiving", createdBynew,"modify_request","Receiving")
         console.log(data)
         return res.status(201).json({ message: "package material edited successfully" });
         }

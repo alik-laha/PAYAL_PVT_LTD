@@ -59,7 +59,7 @@ const createscoopingAllEditReport = async (req: Request, res: Response) => {
         );
 
         if(scoop){
-            const data = await WhatsappMsg("RCN Scooping", createdBy,"modify_request")
+            const data = await WhatsappMsg("RCN Scooping", createdBy,"modify_request","Production")
             console.log(data)
             return res.status(200).json({ message: "RCN Scooping All Edit Entry is Uploaded Successfully", scoop });
         }

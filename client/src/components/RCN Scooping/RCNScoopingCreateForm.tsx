@@ -18,7 +18,7 @@ import RCNScoopingLineCreateForm from "./RCNScoopingLineCreateForm";
 import axios from "axios";
 import { useState } from "react";
 import { ScoopData } from "@/type/type";
-
+import cross from '../../assets/Static_Images/error_img.png'
 
 
 interface lotPropsdata{
@@ -27,10 +27,34 @@ interface lotPropsdata{
 
 const RCNScoopingCreateForm = (props: any) => {
     const [scoopdata, setscoopdata ]  = useState<ScoopData[]>([])
-
+    const [errortext, seterrorText] = useState<string>('');
+    
+    const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialog') as HTMLInputElement;
+    const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialog') as HTMLInputElement;
     //let scoopdata:ScoopData[]=[]
+    if (rejectcloseDialogButton) {
+        rejectcloseDialogButton.addEventListener('click', () => {
+            if (rejectsuccessdialog != null) {
+                (rejectsuccessdialog as any).close();
+                //window.location.reload()
+            }
+
+
+        });
+    }
     console.log(props)
     const handleLineEntry = async (lotNO:string) => {
+
+        const resStatus = await axios.post('/api/boiling/pendingLotCount', { lotNo: lotNO,section:'Boiling'})
+        console.log(resStatus)
+        if (resStatus.data.count && resStatus.data.count >0) 
+            {
+                seterrorText(`Modification of Lot is Pending in Previous Section`)
+                if (rejectsuccessdialog != null) {
+                    (rejectsuccessdialog as any).showModal();
+                }
+                return
+            }
         axios.get(`/api/scooping/getScoopByLot/${lotNO}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.scoopingLot)){
@@ -42,6 +66,7 @@ const RCNScoopingCreateForm = (props: any) => {
             //set(res.data.scoopingLot)
         })
     }
+   
     return (
         <>
             <div className="pl-10 pr-10 max-h-64 overflow-scroll">
@@ -100,6 +125,14 @@ const RCNScoopingCreateForm = (props: any) => {
 
 
             </div>
+            
+            <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
+                <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
         
         </>
     )

@@ -55,7 +55,7 @@ const modifyrcnReport = async (req: Request, res: Response) => {
                 }
             );
             if(rcn){
-                const data = await WhatsappMsg("RCN Incoming QC", createdBy,"modify_request")
+                const data = await WhatsappMsg("RCN Incoming QC", createdBy,"modify_request","QC")
                  console.log(data)
                     return res.status(200).json({ message: "RCN QC Report Edit Requested",rcn });
             }

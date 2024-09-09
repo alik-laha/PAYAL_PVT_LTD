@@ -9,10 +9,10 @@ const Number_IN_VILLAGE = process.env.WP_NUMBER_IN_VILLAGE ? process.env.WP_NUMB
 const WP_NUMBER_SECURITY = process.env.WP_NUMBER_SECURITY ? process.env.WP_NUMBER_SECURITY.split(',') : [];
 const WP_NUMBER_GATEPASS_MANAGER = process.env.WP_NUMBER_GATEPASS_MANAGER ? process.env.WP_NUMBER_GATEPASS_MANAGER.split(',') : [];
 
-//const template1 = "modify_request"
+
 const WpMsgGatePassRcv = async (tablename: string, gatepassNo: string, template: string,section:string) => {
 
-    if (template === 'gatepass_rcv_dispatch') {
+    if (template === 'ggatepass_rcv_dispatch_final') {
         if (section === 'RCN Cashew IN') {
             Number_IN_RCN.map((num) => {
                 const data = {
@@ -383,7 +383,7 @@ const WpMsgGatePassRcv = async (tablename: string, gatepassNo: string, template:
 
     }
 
-    if (template === 'verify_gatepass') {
+    if (template === 'verify_gatepass_final') {
 
         WP_NUMBER_GATEPASS_MANAGER.map((num) => {
             const data = {

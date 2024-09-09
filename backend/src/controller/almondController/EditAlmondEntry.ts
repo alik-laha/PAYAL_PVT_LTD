@@ -64,7 +64,7 @@ const EditAlmondEntry = async (req: Request, res: Response) => {
         if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Almond Item" });
         const updatePackageMaterial = await almondPrimaryEntryModel.update({ editStatus: "Pending" }, { where: { id } });
         if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Almond Item" });
-        const data = await WhatsappMsg("Almond Primary Rcv/Dispatch", createdBynew,"modify_request")
+        const data = await WhatsappMsg("Almond Primary Rcv/Dispatch", createdBynew,"modify_request","Receiving")
         console.log(data)
         return res.status(201).json({ message: "Almond material edited successfully" });
 

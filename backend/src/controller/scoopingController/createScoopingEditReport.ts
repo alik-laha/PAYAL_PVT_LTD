@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import RcnScooping from "../../model/scoopingModel";
+
 import RcnScoopingEdit from "../../model/scoopingEditModel";
-import RcnAllScooping from "../../model/scoopingAllmodel";
+
 
 
 
