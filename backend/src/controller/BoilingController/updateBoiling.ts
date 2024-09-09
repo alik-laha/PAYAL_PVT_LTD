@@ -61,7 +61,7 @@ const UpdateBoiling = async (req: Request, res: Response) => {
             
             
             if (RcnBoilingEditData) {
-                const data = await WhatsappMsg("RCN Boiling", feeledBy,"modify_request")
+                const data = await WhatsappMsg("RCN Boiling", feeledBy,"modify_request","Production")
                 //console.log(data)
                 return res.status(200).json({ message: "Data Modification Request Sent Successfully" })
             }

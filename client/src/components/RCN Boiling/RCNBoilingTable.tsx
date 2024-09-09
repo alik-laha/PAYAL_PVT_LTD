@@ -65,6 +65,7 @@ import { useContext } from "react";
 import Context from "../context/context";
 
 import { CiEdit } from "react-icons/ci";
+import { MdDelete } from "react-icons/md";
 
 
 const RCNBoilingTable = () => {
@@ -257,6 +258,29 @@ const RCNBoilingTable = () => {
                 (rejectsuccessdialog as any).showModal();
             }
         }
+    }
+    const handleDelete = async (item: BoilingEntryData) => 
+    {  
+        const resStatus = await axios.post('/api/boiling/getStatusBoiling', { lotNo: item.LotNo})
+        console.log(resStatus)
+        if (resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy !== 'Boiling') 
+        {
+            seterrorText(`Lot has Already Crossed ${resStatus.data.lotStatus.modifiedBy} Section`)
+            if (rejectsuccessdialog != null) {
+                (rejectsuccessdialog as any).showModal();
+            }
+            return
+        }
+
+        const response = await axios.delete(`/api/boiling/deleteLotNoEntire/${item.LotNo}`)
+        const data = await response.data
+        if (data.message === "Lot No. has deleted successfully") {
+            setSuccessText(data.message)
+            if (approvesuccessdialog != null) {
+                (approvesuccessdialog as any).showModal();
+            }
+        }
+        
     }
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
@@ -520,7 +544,22 @@ const RCNBoilingTable = () => {
                                                         <RCNBoilingModify data={item} />
                                                     </DialogContent>
                                                 </Dialog>
+                                                <AlertDialog>
+                                                    <AlertDialogTrigger className="flex">
+                                                    <MdDelete color='Red' size={20} /> <button className="bg-transparent pb-2 pl-2 text-left hover:text-red-500"> Delete</button>
+                                                    </AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>Do you want to Delete Entire Items of Lot {item.LotNo}?</AlertDialogTitle>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction onClick={() => handleDelete(item)}>Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>
                                             </PopoverContent>
+                                            
                                         </Popover>
                                     </TableCell>
                                 </TableRow>

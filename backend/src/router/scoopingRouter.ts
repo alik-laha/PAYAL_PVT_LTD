@@ -26,6 +26,9 @@ import createScoopingDeleteAll from "../controller/scoopingController/createScoo
 import createscoopingEditDelete from "../controller/scoopingController/createScoopingEditDelete";
 import updateScoopingStatus from "../controller/scoopingController/updateScoopingStatus";
 import CreateEntireScooping from "../controller/scoopingController/createEntireScooping";
+import CreateEntireScoopingEdit from "../controller/scoopingController/createEntireScoopingEdit";
+import updateScoopingOpeningEntire from "../controller/scoopingController/updateScoopingNextOpeningEntire";
+import checkNextOpening from "../controller/scoopingController/checkNextOpening";
 
 const router = express()
 
@@ -55,5 +58,8 @@ router.post("/createScoopingDeleteall", jwtVerify, createScoopingDeleteAll)
 router.post("/updateStatus", jwtVerify, updateScoopingStatus)
 
 router.post("/createEntireScooping", jwtVerify, CreateEntireScooping)
+router.post("/createEntireScoopingEdit", jwtVerify, CreateEntireScoopingEdit)
+router.post("/updatenextopeningEntire", jwtVerify, updateScoopingOpeningEntire)
+router.post("/checkNextLot", jwtVerify, checkNextOpening)
 
 export default router

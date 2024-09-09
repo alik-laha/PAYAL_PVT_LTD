@@ -42,7 +42,7 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(rcnincomingUpdate){
-                    const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepassNo,"verify_gatepass",'RCN Cashew IN')
+                    const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepassNo,"verify_gatepass_final",'RCN Cashew IN')
             console.log(data)
                     return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
                 }
@@ -63,7 +63,7 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(pmupdate){
-                    const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatepassNo,"verify_gatepass",'Packaging Material Incoming')
+                    const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatepassNo,"verify_gatepass_final",'Packaging Material Incoming')
             console.log(data)
                     return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
                 }
@@ -84,7 +84,7 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(pmupdate){
-                    const data = await WpMsgGatePassRcv("Store Entry/Dispatch", gatepassNo,"verify_gatepass",'Store Entry/Dispatch')
+                    const data = await WpMsgGatePassRcv("Store Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Store Entry/Dispatch')
             console.log(data)
                     return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
                 }
@@ -105,7 +105,7 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(generalupdate){
-                    const data = await WpMsgGatePassRcv("General Item Entry/Dispatch", gatepassNo,"verify_gatepass",'General Item Entry/Dispatch')
+                    const data = await WpMsgGatePassRcv("General Item Entry/Dispatch", gatepassNo,"verify_gatepass_final",'General Item Entry/Dispatch')
             console.log(data)
                     return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
                 }
@@ -126,7 +126,7 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(generalupdate){
-                    const data = await WpMsgGatePassRcv("Almond Entry/Dispatch", gatepassNo,"verify_gatepass",'Almond Entry/Dispatch')
+                    const data = await WpMsgGatePassRcv("Almond Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Almond Entry/Dispatch')
             console.log(data)
                     return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
                 }

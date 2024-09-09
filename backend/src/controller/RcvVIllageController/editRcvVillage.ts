@@ -71,7 +71,7 @@ const editRcvVillage = async (req: Request, res: Response) => {
         if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Village material" });
         const updatePackageMaterial = await RcvVillageModel.update({ editStatus: "Pending" }, { where: { id } });
         if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Store material" });
-        const data = await WhatsappMsg("Village Primary Rcv/Dispatch", createdBynew,"modify_request")
+        const data = await WhatsappMsg("Village Primary Rcv/Dispatch", createdBynew,"modify_request","Production")
         console.log(data)
         return res.status(201).json({ message: "Village material edited successfully" });
         

@@ -2,12 +2,12 @@
 import { Request, Response } from "express";
 import sequelize from "../../config/databaseConfig";
 import RcnScooping from "../../model/scoopingModel";
+import RcnScoopingEdit from "../../model/scoopingEditModel";
+import RcnAllEditScooping from "../../model/scoopingAllEditModel";
 import RcnAllScooping from "../../model/scoopingAllmodel";
-import RcnBorma from "../../model/bormaModel";
-import LotNo from "../../model/lotNomodel";
-import { Op } from "sequelize";
+import WhatsappMsg from "../../helper/WhatsappMsg";
 
-const CreateEntireScooping = async (req: Request, res: Response) => {
+const CreateEntireScoopingEdit = async (req: Request, res: Response) => {
     const timeToMilliseconds = (time: string) => {
         const [hours, minutes] = time.split(':').map(Number);
         return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
@@ -29,10 +29,10 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
     }
 
     try{
-        const feeledBy = req.cookies.user;
+    const feeledBy = req.cookies.user;
     const linescoop = req.body.linescoop
     const lotscoop = req.body.lotscoop
-    const updatescoop = req.body.updatescoop
+ 
     const LotNO = req.body.LotNo
 
     await sequelize.transaction(async (transaction: any) => {
@@ -45,11 +45,15 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
             if (data.Mc_breakdown === undefined || data.Mc_breakdown === null) {
                 data.Mc_breakdown = '00:00'
             }
+            if (!data.id) {
+                res.status(400).json({ message: "Please Provide the id" });
+                throw new Error('Transaction Aborted 1')
+            }
             const runtime = CalculatemachineOnOffTime(data.Mc_off, data.Mc_on) -
                 (timeToMilliseconds(data.Mc_breakdown) + timeToMilliseconds(data.otherTime))
             if (runtime < 0) {
                 res.status(500).json({ message: "Machine Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
+                throw new Error('Transaction Aborted 2')
             }
             const Mc_runTime = millisecondsToTime(runtime);
             let total_bag =
@@ -66,8 +70,10 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
             else {
                 kor = ((data.Wholes ? parseFloat(data.Wholes) : 0 + data.Broken ? parseFloat(data.Broken) : 0) / (total_bag * 0.453)).toFixed(2)
             }
-            await RcnScooping.update(
+            await RcnScoopingEdit.create(
                 {
+                    id:data.id,
+                    Opening_Qty:data.Opening_Qty,
                     Receiving_Qty: data.Receiving_Qty,
                     date: data.Date,
                     Wholes: data.Wholes,
@@ -78,6 +84,11 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
                     Rejection: data.Rejection,
                     Dust: data.Dust,
                     KOR: kor,
+                    SizeName: data.SizeName,
+                    Size:data.Size,
+                    Scooping_Line_Mc:data.Scooping_Line_Mc,
+                    LotNo:LotNO,
+                    origin:data.origin,
                     Trolley_Broken: data.Trolley_Broken,
                     Trolley_Small_JB: data.Trolley_Small_JB,
                     scoopStatus: 1,
@@ -95,19 +106,11 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
                     Mc_off: data.Mc_off,
                     Transfered_Qty: data.Transfer_Qty,
                     Transfered_To: data.Transfer_To_MC
-
-
-
-                },
-                {
-                    where: {
-                        id: data.id
-                    }, transaction
-                }
+                },{transaction}   
             );
 
         }
-        for (let data of lotscoop) {
+        for (let data of lotscoop) {    
             let total_bag2 =
                 ((data.Receiving_Qty ? parseFloat(data.Receiving_Qty) : 0 +
                     data.Opening_Qty ? parseFloat(data.Opening_Qty) : 0)
@@ -122,7 +125,7 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
             else {
                 kor2 = ((data.Wholes ? parseFloat(data.Wholes) : 0 + data.Broken ? parseFloat(data.Broken) : 0) / (total_bag2 * 0.453)).toFixed(2)
             }
-            const lotwise=await RcnAllScooping.create(
+            await RcnAllEditScooping.create(
                 {
                     LotNo: data.LotNo,
                     origin: data.origin,
@@ -144,114 +147,35 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
                     noOfEmployees: data.noOfEmployees,
                     noOfOperators: data.noOfOperators,
                     CreatedBy: feeledBy,
+                    Transfered_Qty: data.Transfered_Qty,
+                Transfered_To: data.Transfered_To
                 },{transaction}
-            );
-            if(lotwise){
-            const totalInput=data.Wholes?parseFloat(data.Wholes):0 + data.Broken?parseFloat(data.Broken):0
-              await RcnBorma.create({
-                    id:lotwise.dataValues.id,
-                    LotNo:data.LotNo,
-                    origin:data.origin,
-                    InputWholes:data.Wholes,
-                    InputPieces:data.Broken, 
-                    TotalInput:totalInput,
-                },{transaction});
-
-            }
-
-
-
-        }
-        for (let data of updatescoop) {
-            const Scooping_Line_Mc=data.Scooping_Line_Mc
-            const uncut=data.Uncut ? data.Uncut:0
-            const unscoop=data.Unscoop ? data.Unscoop:0
-            const noncut=data.NonCut ?data.NonCut:0
-            const finalopen=uncut+unscoop+noncut
-            console.log(finalopen)
-            const LotNo=data.LotNo
-
-            const nextEntry = await RcnScooping.findOne({
-                attributes: ['LotNo','scoopStatus','id'],
-                where: {
-        
-                    Scooping_Line_Mc: Scooping_Line_Mc,
-                    LotNo: {
-                        [Op.gt]: LotNo
-                    }
-        
-                },
-                order: [['LotNo', 'ASC']]
-        
-            });
-            console.log(nextEntry)
-
-            if(nextEntry && nextEntry.dataValues.scoopStatus==0)
+            );  
+        } 
+        const lineupdate=await RcnScooping.update(
             {
-                let nextid=nextEntry.dataValues.id
-                console.log(nextEntry.dataValues.scoopStatus)
-                console.log(nextEntry.dataValues.LotNo)
-                let linecount = await RcnScooping.count({ where: { LotNo: nextEntry.dataValues.LotNo, Scooping_Line_Mc: Scooping_Line_Mc } })
-                console.log(linecount)
-
-                if(linecount>1)
-                {
-                    const nextEntryid = await RcnScooping.findOne({
-                        attributes: ['id'],
-                        where: {
-        
-                            Scooping_Line_Mc: Scooping_Line_Mc,
-                            LotNo: nextEntry.dataValues.LotNo,
-                            Opening_Qty: {
-                                [Op.gt]: 0
-                            }
-        
-                        },
-                        order: [['LotNo', 'ASC']]
-        
-                    });
-                    if(nextEntryid)
-                    {
-                        console.log(nextEntryid.dataValues.id)
-                        await RcnScooping.update({
-                            Opening_Qty:finalopen
-                        }, { where: { id:nextEntryid.dataValues.id },transaction });
-                        
-                    }
-                    else{
-                        await RcnScooping.update({
-                            Opening_Qty:finalopen
-                        }, { where: { id:nextid },transaction });
-                        
-                    }
-                }
-                else
-                {
-                    await RcnScooping.update({
-                        Opening_Qty:finalopen
-                    }, { where: { id:nextid },transaction });
-                }
-
-
-            }
-           else{
-            console.log('Nothing To Update or Already Scooping Done')
-           }
-
-        }
-        
-        const lotupdate = await LotNo.update(
-            { 
-              modifiedBy:'Scooping'
+                editStatus: 'Pending'
             },
             {
                 where: {
-                    lotNo:LotNO
+                    LotNo:LotNO
                 },transaction
             }
         );
-        if(lotupdate){
-            res.status(200).json({ message: "Scooping Entry Made Successfully" });
+        const lotupdate=await RcnAllScooping.update(
+            {
+                editStatus: 'Pending'
+            },
+            {
+                where: {
+                    LotNo:LotNO
+                },transaction
+            }
+        );
+        if(lineupdate && lotupdate){
+            const data = await WhatsappMsg("RCN Scooping", feeledBy,"modify_request","Production")
+            console.log(data)
+            res.status(200).json({ message: "Scooping Modification Raised Successfully" });
         }
         else{
             console.log('No Need For Update')
@@ -272,4 +196,4 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
 }
 
 
-export default CreateEntireScooping;
+export default CreateEntireScoopingEdit;

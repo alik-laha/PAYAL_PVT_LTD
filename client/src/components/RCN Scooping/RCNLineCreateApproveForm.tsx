@@ -95,7 +95,7 @@ const RCNLineCreateApproveForm = (props: Props) => {
 
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
-
+    const [isdisable,setisdisable]=useState<boolean>(false)
     const closeDialogButton = document.getElementById('empcloseDialog') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('errorempcloseDialog') as HTMLInputElement;
 
@@ -433,12 +433,76 @@ const RCNLineCreateApproveForm = (props: Props) => {
             }, 2000)
         }
     }
+    const handleSubmit2 = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setisdisable(true)
+        props.scoop.map((item: ScoopData, idx: number) => {
+            rows[idx].id = item.id
+        })
+        console.log(rows)
+        const date = DateRef.current?.value
+        const male = maleRef.current?.value
+        const female = femaleRef.current?.value
+        const supervisor = supervisorRef.current?.value
+
+
+        const formData = rows.map((row: any) => ({
+            male: male,
+            Date: date,
+            female: female,
+            supervisor: supervisor,
+             ...row
+
+        }))
+        const formall = newFormData.map((row: any) => ({
+            male: male,
+            Date: date,
+            female: female,
+            supervisor: supervisor,
+             ...row
+
+        }))
+
+        try {
+            const initialscoop = await axios.post('/api/scooping/updatenextopeningEntire', { linescoop:formData,
+                lotscoop:formall,updatescoop:newFormupdateData,LotNo:props.scoop[0].LotNo
+             })
+            console.log(initialscoop)         
+                setErrortext(initialscoop.data.message)
+                if (initialscoop.status === 200) {
+                    const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                    dialog2.showModal()
+                    setTimeout(() => {
+                        dialog2.close()
+                        window.location.reload()
+                    }, 3000)
+                }
+                
+        }
+        catch (err) {
+            console.log(err)
+            if (axios.isAxiosError(err)) {
+                setErrortext(err.response?.data.message || 'An Unexpected Error Occured')
+            }
+            else {
+                setErrortext('An Unexpected Error Occured')
+            }
+            const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+            dialog.showModal()
+            setTimeout(() => {
+                dialog.close()
+            }, 2000)
+        }
+        finally{
+            setisdisable(false)
+        }
+    }
 
 
     return (
         <>
             <div className="px-5 py-2 overflow-auto">
-                <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit}>
+                <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit2}>
                     <div className="mx-8 flex flex-col gap-0.5">
                         {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
@@ -549,7 +613,7 @@ const RCNLineCreateApproveForm = (props: Props) => {
                             ) : null}
                         </TableBody>
                     </Table>
-                    <Button className="bg-green-500 ml-48 mt-3 text-center items-center justify-center h-8 w-20">Approve</Button>
+                    <Button className="bg-green-500 ml-48 mt-3 text-center items-center justify-center h-8 w-20"disabled={isdisable}>{isdisable? 'Submitting':'Approve'}</Button>
 
 
                 </form>
