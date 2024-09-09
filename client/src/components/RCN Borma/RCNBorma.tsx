@@ -65,7 +65,7 @@ const RCNBorma = () => {
     }
 
     function formatNumber(num: any) {
-        return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
+        return Number.isInteger(num) ? parseInt(num) : parseFloat(num).toFixed(2);
     }
     return (
         <div>

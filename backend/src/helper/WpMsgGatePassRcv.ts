@@ -12,7 +12,7 @@ const WP_NUMBER_GATEPASS_MANAGER = process.env.WP_NUMBER_GATEPASS_MANAGER ? proc
 
 const WpMsgGatePassRcv = async (tablename: string, gatepassNo: string, template: string,section:string) => {
 
-    if (template === 'ggatepass_rcv_dispatch_final') {
+    if (template === 'gatepass_rcv_dispatch_final') {
         if (section === 'RCN Cashew IN') {
             Number_IN_RCN.map((num) => {
                 const data = {

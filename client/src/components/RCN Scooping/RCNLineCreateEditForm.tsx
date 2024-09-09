@@ -402,7 +402,7 @@ const RCNLineCreateEditForm = (props: Props) => {
         console.log(resStatus2)
     
         if (resStatus2 && resStatus2.data.nextEntry.scoopStatus===1) {
-            setErrortext(`Next Lot Has Already Scooping Entry`)
+            setErrortext(`Old Lot Can't be Modified`)
             const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
             dialog.showModal()
             return

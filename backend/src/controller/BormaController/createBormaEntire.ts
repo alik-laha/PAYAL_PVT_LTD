@@ -49,14 +49,15 @@ const CreateEntireBorma = async (req: Request, res: Response) => {
                 throw new Error('Transaction Aborted 1')
             }
             const Mc_runTime = millisecondsToTime(runtime);
+            const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
+            let prcntg:number=0
+            if(data.TotalInput){
+                 prcntg=(((parseFloat(data.TotalInput)-totalOut)/parseFloat(data.TotalInput))*100)
+            }
             
             await RcnBorma.update(
-                {
-                    date: data.Date,
-                    origin: data.origin,
-                    InputWholes: data.InputWholes,
-                    InputPieces: data.InputPieces,
-                    TotalInput: parseFloat(data.InputWholes?data.InputWholes:0)+parseFloat(data.InputPieces?data.InputPieces:0),
+                {     
+                    date:data.Date,
                     Mc_on: data.Mc_on,
                     Mc_off: data.Mc_off,
                     Mc_breakdown: data.Mc_breakdown,
@@ -68,15 +69,12 @@ const CreateEntireBorma = async (req: Request, res: Response) => {
                     OutputMoisture: data.OutputMoisture,
                     OutputWholes: data.OutputWholes,
                     OutputPieces: data.OutputPieces,
-                    TotalOutput: (data.OutputWholes?data.OutputWholes:0)+(data.OutputPieces?data.OutputPieces:0),
-                    BormaLoss: 10,
+                    TotalOutput: totalOut,
+                    BormaLoss: prcntg,
                     BormaStatus: 1,
                     Temp:data.Temp,
                     CreatedBy: feeledBy
                   
-
-
-
                 },
                 {
                     where: {
