@@ -326,113 +326,113 @@ const RCNLineCreateApproveForm = (props: Props) => {
     }, [props.scoop]);
 
     const [errortext, setErrortext] = useState('')
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
+    // const handleSubmit = async (e: React.FormEvent) => {
+    //     e.preventDefault()
 
-        props.scoop.map((item: ScoopData, idx: number) => {
-            rows[idx].id = item.id
-        })
-        console.log(rows)
-        const date = DateRef.current?.value
-        const male = maleRef.current?.value
-        const female = femaleRef.current?.value
-        const supervisor = supervisorRef.current?.value
+    //     props.scoop.map((item: ScoopData, idx: number) => {
+    //         rows[idx].id = item.id
+    //     })
+    //     console.log(rows)
+    //     const date = DateRef.current?.value
+    //     const male = maleRef.current?.value
+    //     const female = femaleRef.current?.value
+    //     const supervisor = supervisorRef.current?.value
 
-        try {
-            const formData = rows.map((row: any) => ({
-                male: male,
-                Date: date,
-                female: female,
-                supervisor: supervisor,
-                ...row
+    //     try {
+    //         const formData = rows.map((row: any) => ({
+    //             male: male,
+    //             Date: date,
+    //             female: female,
+    //             supervisor: supervisor,
+    //             ...row
 
-            }))
-            try {
-                let scoopingcount = 0
-                for (const data of formData) {
-                    const createscoop = await axios.put(`/api/scooping/createScoopingEditDelete/${data.id}`, { data })
+    //         }))
+    //         try {
+    //             let scoopingcount = 0
+    //             for (const data of formData) {
+    //                 const createscoop = await axios.put(`/api/scooping/createScoopingEditDelete/${data.id}`, { data })
 
-                    if (createscoop) {
-                        scoopingcount++;
-                    }
-                    if (formData.length === scoopingcount) {
-                        if (createscoop.status === 200) {
-                            await axios.post('/api/scooping/updateLotNo', { lotNo: props.scoop[0].LotNo, desc: 'Scooping' })
-                        }
-                    }
-                }
+    //                 if (createscoop) {
+    //                     scoopingcount++;
+    //                 }
+    //                 if (formData.length === scoopingcount) {
+    //                     if (createscoop.status === 200) {
+    //                         await axios.post('/api/scooping/updateLotNo', { lotNo: props.scoop[0].LotNo, desc: 'Scooping' })
+    //                     }
+    //                 }
+    //             }
 
-            }
-            catch (err) {
-                console.log(err)
+    //         }
+    //         catch (err) {
+    //             console.log(err)
 
-                if (axios.isAxiosError(err)) {
-                    setErrortext(err.response?.data.message || 'An Unexpected Error Occured')
-                }
-                else {
-                    setErrortext('An Unexpected Error Occured')
-                }
-                const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
-                dialog.showModal()
-                setTimeout(() => {
-                    dialog.close()
-                }, 2000)
+    //             if (axios.isAxiosError(err)) {
+    //                 setErrortext(err.response?.data.message || 'An Unexpected Error Occured')
+    //             }
+    //             else {
+    //                 setErrortext('An Unexpected Error Occured')
+    //             }
+    //             const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+    //             dialog.showModal()
+    //             setTimeout(() => {
+    //                 dialog.close()
+    //             }, 2000)
 
-            }
+    //         }
 
-            let scoopingallcount = 0
+    //         let scoopingallcount = 0
 
-            const resStatus = await axios.post('/api/boiling/getStatusBoiling', { lotNo: props.scoop[0].LotNo })
-            console.log(resStatus)
+    //         const resStatus = await axios.post('/api/boiling/getStatusBoiling', { lotNo: props.scoop[0].LotNo })
+    //         console.log(resStatus)
 
-            if (resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy === 'Scooping') {
-                const formall = newFormData.map((row: any) => ({
-                    male: male,
-                    Date: date,
-                    female: female,
-                    supervisor: supervisor,
-                    ...row
+    //         if (resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy === 'Scooping') {
+    //             const formall = newFormData.map((row: any) => ({
+    //                 male: male,
+    //                 Date: date,
+    //                 female: female,
+    //                 supervisor: supervisor,
+    //                 ...row
 
-                }))
-                for (const data2 of formall) {
-                    await axios.post('/api/scooping/createScoopingDeleteall', { data2 })
-                    await axios.post('/api/scooping/updateInitialBorma', { data2 })
-                }
+    //             }))
+    //             for (const data2 of formall) {
+    //                 await axios.post('/api/scooping/createScoopingDeleteall', { data2 })
+    //                 await axios.post('/api/scooping/updateInitialBorma', { data2 })
+    //             }
 
-                for (const data3 of newFormupdateData) {
-                    scoopingallcount++
-                    const update = await axios.post('/api/scooping/updatenextopening', { data3 })
-                    if (newFormupdateData.length === scoopingallcount) {
+    //             for (const data3 of newFormupdateData) {
+    //                 scoopingallcount++
+    //                 const update = await axios.post('/api/scooping/updatenextopening', { data3 })
+    //                 if (newFormupdateData.length === scoopingallcount) {
                         
 
-                        setErrortext('Modification Request Approved Successfully')
-                        if (update.status === 200) {
-                            const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
-                            dialog2.showModal()
-                            setTimeout(() => {
-                                dialog2.close()
-                                window.location.reload()
-                            }, 3000)
-                        }
-                    }
-                }
-            }
-        }
-        catch (err) {
-            console.log(err)
-            if (axios.isAxiosError(err)) {
-                setErrortext(err.response?.data.message || 'An Unexpected Error Occured')
-            }
-            else {
-                setErrortext('An Unexpected Error Occured')
-            }
-            const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
-            dialog.showModal()
-            setTimeout(() => {
-                dialog.close()
-            }, 2000)
-        }
-    }
+    //                     setErrortext('Modification Request Approved Successfully')
+    //                     if (update.status === 200) {
+    //                         const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+    //                         dialog2.showModal()
+    //                         setTimeout(() => {
+    //                             dialog2.close()
+    //                             window.location.reload()
+    //                         }, 3000)
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     catch (err) {
+    //         console.log(err)
+    //         if (axios.isAxiosError(err)) {
+    //             setErrortext(err.response?.data.message || 'An Unexpected Error Occured')
+    //         }
+    //         else {
+    //             setErrortext('An Unexpected Error Occured')
+    //         }
+    //         const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+    //         dialog.showModal()
+    //         setTimeout(() => {
+    //             dialog.close()
+    //         }, 2000)
+    //     }
+    // }
     const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
         setisdisable(true)
