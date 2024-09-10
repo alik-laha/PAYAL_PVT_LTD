@@ -4,7 +4,7 @@ import sequelize from "../../config/databaseConfig";
 
 import RcnBorma from "../../model/bormaModel";
 import LotNo from "../../model/lotNomodel";
-import { Op } from "sequelize";
+
 
 const CreateEntireBorma = async (req: Request, res: Response) => {
     const timeToMilliseconds = (time: string) => {
@@ -50,6 +50,11 @@ const CreateEntireBorma = async (req: Request, res: Response) => {
             }
             const Mc_runTime = millisecondsToTime(runtime);
             const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
+            if(parseFloat(data.TotalInput)<totalOut){
+                res.status(500).json({ message: "Borma Output can't be Greater Than Input" });
+                throw new Error('Transaction Aborted due to negative value')
+
+            }
             let prcntg:number=0
             if(data.TotalInput){
                  prcntg=(((parseFloat(data.TotalInput)-totalOut)/parseFloat(data.TotalInput))*100)

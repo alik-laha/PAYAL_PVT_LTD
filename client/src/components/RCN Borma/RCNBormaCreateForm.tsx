@@ -22,7 +22,7 @@ import { useState } from "react";
 import { BormaData } from "@/type/type";
 import RCNBormaLineCreateForm from "./RCNBormaLineCreateForm";
 
-
+import cross from '../../assets/Static_Images/error_img.png'
 
 interface lotPropsdata{
     LotNo:string;
@@ -30,10 +30,34 @@ interface lotPropsdata{
 
 const RCNBormaCreateForm = (props: any) => {
     const [bormaData, setBormaData ]  = useState<BormaData[]>([])
+    const [errortext, seterrorText] = useState<string>('');
+    
+    const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialog') as HTMLInputElement;
+    const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialog') as HTMLInputElement;
+    //let scoopdata:ScoopData[]=[]
+    if (rejectcloseDialogButton) {
+        rejectcloseDialogButton.addEventListener('click', () => {
+            if (rejectsuccessdialog != null) {
+                (rejectsuccessdialog as any).close();
+                //window.location.reload()
+            }
 
+
+        });
+    }
     //let scoopdata:ScoopData[]=[]
     console.log(props)
     const handleLineEntry = async (lotNO:string) => {
+        const resStatus = await axios.post('/api/boiling/pendingLotCount', { lotNo: lotNO,section:'Scooping'})
+        console.log(resStatus)
+        if (resStatus.data.count && resStatus.data.count >0) 
+            {
+                seterrorText(`Modification of Lot is Pending in Previous Section`)
+                if (rejectsuccessdialog != null) {
+                    (rejectsuccessdialog as any).showModal();
+                }
+                return
+            }
         axios.get(`/api/borma/getBormaByLot/${lotNO}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.scoopingLot)){
@@ -103,6 +127,13 @@ const RCNBormaCreateForm = (props: any) => {
 
 
             </div>
+            <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
+                <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
         
         </>
     )

@@ -117,13 +117,11 @@ const RCNBormaLineCreateForm = (props:Props) => {
         console.log(rows)
         const date = DateRef.current?.value  
         const operator = operatorRef.current?.value
-
-      
+       
             const formData = rows.map((row: any) => ({
                 Date: date,
                 operator: operator,
                  ...row
-
             }))
         
             try {

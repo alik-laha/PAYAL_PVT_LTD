@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import RcnBoilingEdit from "../../model/RcnBoilingEditModel";
+import RcnAllEditScooping from "../../model/scoopingAllEditModel";
 
 
 
@@ -11,6 +12,9 @@ const countPendingLot= async (req: Request, res: Response) => {
         if(section==='Boiling'){
              count = await RcnBoilingEdit.count({ where: { LotNo:lotNo} });
         }
+        if(section==='Scooping'){
+            count = await RcnAllEditScooping.count({ where: { LotNo:lotNo} });
+       }
         
         return res.status(200).json({ message: "Pending Count", count})
     }
