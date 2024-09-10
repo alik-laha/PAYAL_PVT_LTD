@@ -53,18 +53,15 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
             }
             const Mc_runTime = millisecondsToTime(runtime);
             let total_bag =
-                ((data.Receiving_Qty ? parseFloat(data.Receiving_Qty) : 0 +
-                    data.Opening_Qty ? parseFloat(data.Opening_Qty) : 0)
-                    - (data.Uncut ? parseFloat(data.Uncut) : 0 + data.Unscoop ? parseFloat(data.Unscoop) : 0 +
-                        data.NonCut ? parseFloat(data.NonCut) : 0 +
-                            data.Dust ? parseFloat(data.Dust) : 0)) / 80
+            (((parseFloat(data.Receiving_Qty)+parseFloat(data.Opening_Qty))
+            -(parseFloat(data.Uncut)+parseFloat(data.Unscoop)+parseFloat(data.NonCut)+parseFloat(data.Dust)))/80)
             console.log(total_bag)
             let kor
             if (total_bag === 0) {
                 kor = 0
             }
             else {
-                kor = ((data.Wholes ? parseFloat(data.Wholes) : 0 + data.Broken ? parseFloat(data.Broken) : 0) / (total_bag * 0.453)).toFixed(2)
+                kor = ((parseFloat(data.Wholes) + parseFloat(data.Broken)) / (total_bag * 0.453)).toFixed(2)
             }
             await RcnScooping.update(
                 {
@@ -95,9 +92,6 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
                     Mc_off: data.Mc_off,
                     Transfered_Qty: data.Transfer_Qty,
                     Transfered_To: data.Transfer_To_MC
-
-
-
                 },
                 {
                     where: {
@@ -109,18 +103,15 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
         }
         for (let data of lotscoop) {
             let total_bag2 =
-                ((data.Receiving_Qty ? parseFloat(data.Receiving_Qty) : 0 +
-                    data.Opening_Qty ? parseFloat(data.Opening_Qty) : 0)
-                    - (data.Uncut ? parseFloat(data.Uncut) : 0 + data.Unscoop ? parseFloat(data.Unscoop) : 0 +
-                        data.NonCut ? parseFloat(data.NonCut) : 0 +
-                            data.Dust ? parseFloat(data.Dust) : 0)) / 80
+            (((parseFloat(data.Receiving_Qty)+parseFloat(data.Opening_Qty))
+            -(parseFloat(data.Uncut)+parseFloat(data.Unscoop)+parseFloat(data.NonCut)+parseFloat(data.Dust)))/80)
             console.log(total_bag2)
             let kor2
             if (total_bag2 === 0) {
                 kor2 = 0
             }
             else {
-                kor2 = ((data.Wholes ? parseFloat(data.Wholes) : 0 + data.Broken ? parseFloat(data.Broken) : 0) / (total_bag2 * 0.453)).toFixed(2)
+                kor2 = ((parseFloat(data.Wholes) + parseFloat(data.Broken)) / (total_bag2 * 0.453)).toFixed(2)
             }
             const lotwise=await RcnAllScooping.create(
                 {
@@ -147,7 +138,7 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
                 },{transaction}
             );
             if(lotwise){
-            const totalInput=data.Wholes?parseFloat(data.Wholes):0 + data.Broken?parseFloat(data.Broken):0
+            const totalInput=parseFloat(data.Wholes) + parseFloat(data.Broken)
               await RcnBorma.create({
                     id:lotwise.dataValues.id,
                     LotNo:data.LotNo,

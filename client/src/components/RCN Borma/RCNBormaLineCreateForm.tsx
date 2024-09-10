@@ -16,9 +16,8 @@ interface Props {
 
 
 interface BormaRowData{
-    id: number;
+            id: number;
             LotNo: string;
-            
             origin: string;
             InputWholes: string;
             InputPieces: string;
@@ -26,8 +25,6 @@ interface BormaRowData{
             Mc_on: string;
             Mc_off: string;
             Mc_breakdown: string;
-           
-           
             otherTime: string;
             NoOfTrolley: string;
             InputMoisture: string;
@@ -54,15 +51,12 @@ const RCNBormaLineCreateForm = (props:Props) => {
     const DateRef = useRef<HTMLInputElement>(null);
     const operatorRef = useRef<HTMLInputElement>(null);
     const [rows,setRows]=useState<BormaRowData[]>([])
-   
-
-
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
     const closeDialogButton = document.getElementById('empcloseDialog') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('errorempcloseDialog') as HTMLInputElement;
-
+    const [isdisable,setisdisable]=useState<boolean>(false)
     if (closeDialogButton) {
         closeDialogButton.addEventListener('click', () => {
             if (successdialog != null) {
@@ -81,27 +75,17 @@ const RCNBormaLineCreateForm = (props:Props) => {
 
         });
     }
-   
-   
-    
-
-
     useEffect(() => { 
         const initialform =  props.borma.map((item: BormaData) => ({
-          
-
             id: item.id,
             LotNo: item.LotNo,
-           
             origin: item.origin,
             InputWholes: item.InputWholes,
             InputPieces: item.InputPieces,
             TotalInput: item.TotalInput,
             Mc_on: '00:00',
             Mc_off: '00:00',
-            Mc_breakdown: '00:00',
-         
-            
+            Mc_breakdown: '00:00', 
             otherTime: '00:00',
             NoOfTrolley: '',
             InputMoisture: '',
@@ -111,135 +95,79 @@ const RCNBormaLineCreateForm = (props:Props) => {
             TotalOutput: '',
             BormaLoss: '',
             Temp:''
-
-
-
         }));
       
         //console.log(initialform)
         setRows(initialform)
         //console.log(rows)
-    }, [props.borma]);
-
-
-    
+    }, [props.borma]); 
     const [errortext, setErrortext] = useState('')
-
-
-    
-
     const handleRowChange = (index:number,field:string,fieldvalue:string|number) => {
         const newRows=[...rows];
         newRows[index]={...newRows[index],[field]:fieldvalue};
         setRows(newRows)
         //console.log(rows)
     }
-
-    
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
-    
+        setisdisable(true)
         props.borma.map((item: BormaData, idx: number) => {
             rows[idx].id=item.id
         })
         console.log(rows)
         const date = DateRef.current?.value  
-        const operator=operatorRef.current?.value
-
-        try 
-        {
+        const operator = operatorRef.current?.value
+       
             const formData = rows.map((row: any) => ({
                 Date: date,
-                noOfOperators:operator,
+                operator: operator,
                  ...row
             }))
-            try{
-                let bormacount = 0
-                for (var data of formData) 
-                    {
-                        const createBorma= await axios.put(`/api/borma/createBorma/${data.id}`, { data })
-                        bormacount++;
-                        if (formData.length === bormacount) 
-                        {
-                            if (createBorma.status === 200) 
-                            {
-                                await axios.post('/api/scooping/updateLotNo', { lotNo:props.borma[0].LotNo,desc:'Borma'}) 
-                            }
-                        }
+        
+            try {
+                const initialborma = await axios.post('/api/borma/createEntireBorma', { lineborma:formData,
+                    LotNo:props.borma[0].LotNo
+                 })
+                console.log(initialborma)         
+                    setErrortext(initialborma.data.message)
+                    if (initialborma.status === 200) {
+                        const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                        dialog2.showModal()
+                        setTimeout(() => {
+                            dialog2.close()
+                            window.location.reload()
+                        }, 3000)
                     }
-
+                    
             }
             catch (err) {
                 console.log(err)
-
-                if(axios.isAxiosError(err)){
-                    setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+                if (axios.isAxiosError(err)) {
+                    setErrortext(err.response?.data.message || 'An Unexpected Error Occured')
                 }
-                else{
+                else {
                     setErrortext('An Unexpected Error Occured')
                 }
-                // const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
-                // dialog.showModal()
-                // setTimeout(() => {
-                //     dialog.close()
-                // }, 2000)
-                // await axios.post('/api/scooping/deleteScoopReportByLotNo',{ lotNo:props.borma[0].LotNo})
-                }
-           
-            let scoopingallcount=0
+                const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                dialog.showModal()
+                setTimeout(() => {
+                    dialog.close()
+                }, 2000)
+            }
+            finally{
+                setisdisable(false)
+            }
 
-                const resStatus=await axios.post('/api/boiling/getStatusBoiling', { lotNo:props.borma[0].LotNo})
-                console.log(resStatus)
-
-                if(resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy==='Borma')
-                {
-                   
-                    for (var data2 of rows) 
-                    {   
-                        const resp=await axios.post('/api/scooping/createScoopingall', { data2 })
-                        console.log(resp.data.scoop.id)
-                        let p_id=await resp.data.scoop.id
-                        await axios.post('/api/scooping/createInitialBorma', {p_id, data2 })
-                        if (rows.length === scoopingallcount) 
-                            {
-                                
-                                setErrortext('Scooping Entry Created Successfully')
-                                if (resp.status === 200) 
-                                {
-                                    const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
-                            dialog2.showModal()
-                             setTimeout(() => {
-                                 dialog2.close()
-                                 window.location.reload()
-                             }, 3000)
-                                }
-                            }
-                    }
-    
-                    
-                }          
-        }
-        catch (err) {
-        console.log(err)
-        if(axios.isAxiosError(err)){
-            setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
-        }
-        else{
-            setErrortext('An Unexpected Error Occured')
-        }
-        const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
-        dialog.showModal()
-        setTimeout(() => {
-            dialog.close()
-        }, 2000)
-        }
+                         
+       
     }
+
 
  
     return (
         <>
         <div className="px-5 py-2 overflow-auto">
-            <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit}>
+            <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit2}>
                <div className="mx-8 flex flex-col gap-0.5"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
@@ -249,6 +177,7 @@ const RCNBormaLineCreateForm = (props:Props) => {
                     <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> </div>
                    
                 </div>
+            
                    <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl. No.</TableHead>
@@ -293,7 +222,7 @@ const RCNBormaLineCreateForm = (props:Props) => {
                         ) : null}
                     </TableBody>
                 </Table>  
-                <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled>Submit</Button>
+                <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                   
                    
                   </form>

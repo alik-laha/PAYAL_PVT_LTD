@@ -74,25 +74,25 @@ const RCNBorma = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
-                        India <br /><p>{data.data[0].India ? formatNumber(data.data[0].India)  : 0} Kg</p>
+                        India <br /><p>{data.data[0].India ? formatNumber(Number(data.data[0].India))  : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                        Ghana <br /><p>{data.data[0].Ghana? formatNumber(data.data[0].Ghana) : 0} Kg</p>
+                        Ghana <br /><p>{data.data[0].Ghana? formatNumber(Number(data.data[0].Ghana)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
-                        Togo <br /><p>{data.data[0].Togo? formatNumber(data.data[0].Togo) : 0} Kg</p>
+                        Togo <br /><p>{data.data[0].Togo? formatNumber(Number(data.data[0].Togo)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-sky-500 hover:bg-orange-400">
-                        Tanzania <br /><p>{data.data[0].Tanzania ? formatNumber(data.data[0].Tanzania) : 0} Kg</p>
+                        Tanzania <br /><p>{data.data[0].Tanzania ? formatNumber(Number(data.data[0].Tanzania)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
-                        Nigeria <br /><p>{data.data[0].Nigeria  ? formatNumber(data.data[0].Nigeria) : 0} Kg</p>
+                        Nigeria <br /><p>{data.data[0].Nigeria  ? formatNumber(Number(data.data[0].Nigeria)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
-                        Benin <br /><p>{data.data[0].Benin  ?  formatNumber(data.data[0].Benin): 0} Kg</p>
+                        Benin <br /><p>{data.data[0].Benin  ?  formatNumber(Number(data.data[0].Benin)): 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
-                        IVC <br /><p>{data.data[0].IVC ?  formatNumber(data.data[0].IVC) : 0} Kg</p>
+                        IVC <br /><p>{data.data[0].IVC ?  formatNumber(Number(data.data[0].IVC)) : 0} Kg</p>
                     </div>
 
 
