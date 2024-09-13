@@ -6,26 +6,20 @@ import {
 // import { useNavigate } from "react-router-dom"
 import "./dashboard.css"
 import { useState } from "react"
-import { MdOutlineAdminPanelSettings, MdOutlineStorefront } from "react-icons/md";
-import { MdCallReceived } from "react-icons/md";
-import { MdOutlineFactory } from "react-icons/md";
-import { LuBadgeCheck } from "react-icons/lu";
-//import {  LuServerCrash } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
 import { PermissionRol, PermissionDep } from "../common/exportData";
 import { PermissionRole, PermissionDept } from "@/type/type";
-//import { LuServerCrash } from "react-icons/lu";
+import { MdOutlineAdminPanelSettings, MdOutlineStorefront,MdGrading,
+    MdHolidayVillage,MdCallReceived,MdOutlineFactory } from "react-icons/md";
 import { IoIosNavigate, IoMdSettings } from "react-icons/io";
-import { LuDonut } from "react-icons/lu";
+import { LuDonut,LuBadgeCheck } from "react-icons/lu";
 import { GoPackageDependents } from "react-icons/go";
 import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { FaUserTie } from "react-icons/fa";
-import { PiPackageLight } from "react-icons/pi";
-import { GiGate } from "react-icons/gi";
-import { MdGrading } from "react-icons/md";
-import { GiBoilingBubbles } from "react-icons/gi";
-import { GiIceCreamScoop } from "react-icons/gi";
+import { PiPackageLight ,PiExam } from "react-icons/pi";
+import { GiBoilingBubbles,GiIceCreamScoop,GiGate } from "react-icons/gi";
+import { CgSmartHomeBoiler } from "react-icons/cg";
 const DashboardSidebar = () => {
     // const navigate = useNavigate()
     const Role = localStorage.getItem('role') as keyof PermissionRole
@@ -241,14 +235,17 @@ const DashboardSidebar = () => {
 
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/RcnBorma" >
-                                    RCN Borma
+                                
+                                <p className="flex"> <CgSmartHomeBoiler size={20}/><p className="pl-3">  RCN Borma </p></p>
                                 </NavLink>
                             </CollapsibleContent>}
 
                             {renderlink('Receiving Village Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/RcvVillage" >
-                                     Village Primary
+                                
+                                <p className="flex"> <MdHolidayVillage size={20}/><p className="pl-3">  Village Primary </p></p>
+                                     
                                 </NavLink>
 
                             </CollapsibleContent>}
@@ -266,7 +263,8 @@ const DashboardSidebar = () => {
                         {renderlink('RCN Incoming QC')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/qcRCN" >
-                                   RCN Incoming QC
+                                <p className="flex"> <PiExam size={20}/><p className="pl-3">  RCN Incoming QC </p></p>
+                                  
                                 </NavLink>
                             </CollapsibleContent>}
                         {/* {renderlink('RCN Incoming QC')
