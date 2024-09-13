@@ -93,6 +93,35 @@ export interface AlmondPrimaryEntryData {
     totalBill:string;  
  
 }
+export interface BormaEntryData {
+   
+            id: number;
+            LotNo: string;
+            date: string;
+            origin: string;
+            InputWholes: string;
+            InputPieces: string;
+            TotalInput: string;
+            Mc_on: string;
+            Mc_off: string;
+            Mc_breakdown: string;
+            Mc_runTime: string;
+            noOfOperators: string;
+            otherTime: string;
+            NoOfTrolley:string;
+            InputMoisture: string;
+            OutputMoisture: string;
+            OutputWholes: string;
+            OutputPieces: string;
+            TotalOutput: string;
+            BormaLoss: string;
+            BormaStatus: number;
+            Temp: string;
+            CreatedBy: string;
+            editStatus: string;
+            modifiedBy:string
+ 
+}
 export interface RcvVillagePrimaryEntryData {
    
     approvedBy: string;

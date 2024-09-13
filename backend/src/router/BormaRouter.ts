@@ -6,6 +6,7 @@ import sumOfallBorma from "../controller/BormaController/sumofallBorma";
 import getBormaBylot from "../controller/BormaController/getBormaByLot";
 
 import CreateEntireBorma from "../controller/BormaController/createBormaEntire";
+import SearchRCNBorma from "../controller/BormaController/serachBorma";
 const router = express()
 
 router.get("/getUnBormaEntry/:status", jwtVerify, getBormaLot)
@@ -13,5 +14,6 @@ router.get("/findEditBormaAll", jwtVerify, findEditBormaAll)
 router.get("/sumofallborma", jwtVerify, sumOfallBorma)
 router.get("/getBormaByLot/:lotNO", jwtVerify, getBormaBylot)
 router.post("/createEntireBorma", jwtVerify, CreateEntireBorma)
+router.put('/bormaprimarysearch', jwtVerify, SearchRCNBorma);
 
 export default router

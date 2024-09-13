@@ -397,21 +397,21 @@ const RCNBoilingTable = () => {
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Id</TableHead>
-                    <TableHead className="text-center " >BoilingLot No</TableHead>
+                    <TableHead className="text-center " >BoilingLot_No</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
 
 
-                    <TableHead className="text-center" >BoilingDate </TableHead>
-                    <TableHead className="text-center" >Machine Name</TableHead>
+                    <TableHead className="text-center" >Boiling_Date </TableHead>
+                    <TableHead className="text-center" >Machine_Name</TableHead>
                     <TableHead className="text-center" >ScoopingLineName</TableHead>
                     <TableHead className="text-center" >Size</TableHead>
-                    <TableHead className="text-center" >Qty (Bag)</TableHead>
+                    <TableHead className="text-center" >Qty_(Bag)</TableHead>
                     <TableHead className="text-center" >Pressure</TableHead>
                     <TableHead className="text-center" >Moisture</TableHead>
                     <TableHead className="text-center" >Cooking Time</TableHead>
 
-                    <TableHead className="text-center" >MachineON</TableHead>
-                    <TableHead className="text-center" >MachineOFF</TableHead>
+                    <TableHead className="text-center" >Machine_ON</TableHead>
+                    <TableHead className="text-center" >Machine_OFF</TableHead>
                     <TableHead className="text-center" >Breakdown Duration</TableHead>
                     <TableHead className="text-center" >Other Duration </TableHead>
                     <TableHead className="text-center" >Run Duration </TableHead>

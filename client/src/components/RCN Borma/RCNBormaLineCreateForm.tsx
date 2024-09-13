@@ -182,7 +182,12 @@ const RCNBormaLineCreateForm = (props:Props) => {
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl. No.</TableHead>
                         <TableHead className="text-center" >LotNo</TableHead>
+                       
+                       
                         <TableHead className="text-center" >Origin</TableHead>
+                        <TableHead className="text-center" >Input Wholes</TableHead>
+                        <TableHead className="text-center" >Input Pieces</TableHead>
+                        <TableHead className="text-center" >Total Input</TableHead>
                         <TableHead className="text-center" >Input Moisture</TableHead>
                         <TableHead className="text-center" >Output Moisture</TableHead>
                         <TableHead className="text-center" >Output Wholes</TableHead>
@@ -203,6 +208,9 @@ const RCNBormaLineCreateForm = (props:Props) => {
                                         <TableCell className="text-center">{idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
+                                        <TableCell className="text-center font-semibold ">{row.InputWholes}</TableCell>
+                                        <TableCell className="text-center font-semibold ">{row.InputPieces}</TableCell>
+                                        <TableCell className="text-center font-semibold ">{row.TotalInput}</TableCell>
                                         <TableCell className="text-center "> <Input  value={row.InputMoisture} placeholder="%" onChange={(e) => handleRowChange(idx,'InputMoisture',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.OutputMoisture} placeholder="%" onChange={(e) => handleRowChange(idx,'OutputMoisture',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.OutputWholes} placeholder="Wholes" onChange={(e) => handleRowChange(idx,'OutputWholes',e.target.value)} required /></TableCell>

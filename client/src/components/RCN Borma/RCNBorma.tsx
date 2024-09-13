@@ -23,6 +23,7 @@ import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
 import { BormapendingLotData } from '@/type/type';
 import RCNBormaCreateForm from './RCNBormaCreateForm';
+import BormaTable from './RCNBormaTable';
 
 
 const RCNBorma = () => {
@@ -119,7 +120,7 @@ const RCNBorma = () => {
                     <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> 
 
                 </div>
-                
+                <BormaTable/>
 
             </div>
         </div>
