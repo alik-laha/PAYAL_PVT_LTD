@@ -113,10 +113,10 @@
     
 }
 .Items-pvt a:hover{
-    color:black;
+    color:rgb(16, 10, 90);
     background-image: linear-gradient(165deg, rgb(195, 223, 241) 30%, #e2f34f6b 100%);;
     /* background-color: rgb(195, 223, 241); */
-    font-weight: 600;
+    font-weight: 700;
     font-size: 15px;
     
 }

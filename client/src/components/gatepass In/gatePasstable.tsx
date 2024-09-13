@@ -1,7 +1,7 @@
 import { FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight, FaSearch } from "react-icons/fa";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { format, toZonedTime } from 'date-fns-tz'
 import React from "react";
 import {  SelectGatePassType, pageNo, pagelimit, pendingCheckRole, sectionDataonTypeGate } from "../common/exportData";
@@ -78,7 +78,6 @@ const GatePassTable = () => {
     const [Data, setData] = useState<GatePassData[]>([])
     const [page, setPage] = useState(pageNo)
     const [netWeight, setNetWeight] = useState<number>()
-
     const limit = pagelimit
     const [errview, setErrView] = useState<string>("hidden")
     const successdialog = document.getElementById('machinescs') as HTMLInputElement;
@@ -90,6 +89,20 @@ const GatePassTable = () => {
     // const [pdfdata,setPDFdata]=useState([])
     // const [pdfstate,setpdfstate]=useState(false)
     const borderColor = "#3778C2";
+    //const pdfBlobUrlRef=useRef<string|null>(null)
+
+    // const generateAndPrintPDF = async (data: GatePassData) => {
+    //   const blob = await renderToStream(<MyDocument2 data={data}/>);
+    //   // Create a blob URL for the PDF
+    //   const url = URL.createObjectURL(blob);
+    //   pdfBlobUrlRef.current = url;
+  
+    //   // Open PDF in a new window and trigger print
+    //   const pdfWindow = window.open(url);
+    //   pdfWindow?.addEventListener('load', () => {
+    //     pdfWindow?.print();
+    //   });
+    // };
     const styles = StyleSheet.create({
         section: {
             margin: 10,
