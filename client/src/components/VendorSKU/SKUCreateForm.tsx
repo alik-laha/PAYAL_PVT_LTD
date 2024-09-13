@@ -7,7 +7,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import {  SKUSection, SKUUnit, TypeOnSection } from "../common/exportData"
+import {  SKUSection, TypeOnSection } from "../common/exportData"
 import { useState, useRef } from "react"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
@@ -142,7 +142,7 @@ const SKUCreateForm = () =>{
                     <Input className="w-2/4 text-center" placeholder="item" ref={skuref} required/> </div>
 
 
-               <div className="flex"><Label className="w-2/4  pt-1">Unit</Label>
+               {/* <div className="flex"><Label className="w-2/4  pt-1">Unit</Label>
                     <Select value={unit} onValueChange={(value) => setUnit(value)} required={true}>
                         <SelectTrigger className="w-2/4 justify-center">
                             <SelectValue placeholder="Unit" />
@@ -161,11 +161,12 @@ const SKUCreateForm = () =>{
                             </SelectGroup>
                         </SelectContent>
                     </Select>
-                    {/* <Input   placeholder="Section"/>  */}
-                    </div>
+                    <Input   placeholder="Section"/> 
+                    </div> */}
                  
 
-               
+                    <div className="flex"><Label className="w-2/4  pt-1">Unit</Label>
+                    <Input className="w-2/4 text-center" placeholder="unit"  onChange={(e) => setUnit(e.target.value)} required/> </div>
                   
                   
                 

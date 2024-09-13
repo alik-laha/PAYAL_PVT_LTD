@@ -6,7 +6,7 @@ import {
 // import { useNavigate } from "react-router-dom"
 import "./dashboard.css"
 import { useState } from "react"
-import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { MdOutlineAdminPanelSettings, MdOutlineStorefront } from "react-icons/md";
 import { MdCallReceived } from "react-icons/md";
 import { MdOutlineFactory } from "react-icons/md";
 import { LuBadgeCheck } from "react-icons/lu";
@@ -15,12 +15,17 @@ import { NavLink } from "react-router-dom";
 import { PermissionRol, PermissionDep } from "../common/exportData";
 import { PermissionRole, PermissionDept } from "@/type/type";
 //import { LuServerCrash } from "react-icons/lu";
-import { IoMdSettings } from "react-icons/io";
-import { GiSecurityGate } from "react-icons/gi";
-
-
-
-
+import { IoIosNavigate, IoMdSettings } from "react-icons/io";
+import { LuDonut } from "react-icons/lu";
+import { GoPackageDependents } from "react-icons/go";
+import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
+import { BiSolidUserPlus } from "react-icons/bi";
+import { FaUserTie } from "react-icons/fa";
+import { PiPackageLight } from "react-icons/pi";
+import { GiGate } from "react-icons/gi";
+import { MdGrading } from "react-icons/md";
+import { GiBoilingBubbles } from "react-icons/gi";
+import { GiIceCreamScoop } from "react-icons/gi";
 const DashboardSidebar = () => {
     // const navigate = useNavigate()
     const Role = localStorage.getItem('role') as keyof PermissionRole
@@ -75,15 +80,16 @@ const DashboardSidebar = () => {
                             {renderlink('Dashboard User')
                             && <CollapsibleContent className="Items-pvt">
                                 {renderlink('Dashboard User')}
-                                <NavLink to="/dashboard/user" >
-                                Users
+                                <NavLink to="/dashboard/user" className='flex' >
+                                <p className="flex"><BiSolidUserPlus size={21}/> <p className="pl-3">Users</p></p>
                                 </NavLink>
                             </CollapsibleContent>}
 
                         {renderlink('Employee')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/employee" >
-                                    Employee
+                                   
+                                    <p className="flex"><FaUserTie size={17}/> <p className="pl-3">Employee</p></p>
                                 </NavLink>
                             </CollapsibleContent >}
 
@@ -93,29 +99,23 @@ const DashboardSidebar = () => {
                         {renderlink('Asset')
                             && <CollapsibleContent className="Items-pvt" >
                                 <NavLink to="/dashboard/machine" >
-                                   Asset Mapping
+                                <p className="flex"><TbSitemap size={20}/> <p className="pl-3">Asset Mapping</p></p>
                                 </NavLink>
                             </CollapsibleContent >}
 
-                            {renderlink('VendorSKU')
-                            && <CollapsibleContent className="Items-pvt">
-                                {renderlink('Dashboard User')}
-                                <NavLink to="/dashboard/vendorSKU" >
-                                Item/Vendor Mapping
-                                </NavLink>
-                            </CollapsibleContent>}
+                            
 
 
 
                     </Collapsible>}
                 {rendersection('GatePass') && <Collapsible >
-                        <CollapsibleTrigger className="user-pvt"><GiSecurityGate  size={25} />
+                        <CollapsibleTrigger className="user-pvt"><GiGate size={25}/>
                             <p>Gate Pass</p></CollapsibleTrigger>
                             {renderlink('Gatepass')
                             && <CollapsibleContent className="Items-pvt">
                                 {renderlink('Dashboard User')}
                                 <NavLink to="/dashboard/gatepassIn" >
-                                  Entry (In/Out)
+                                <p className="flex"><IoIosNavigate size={22}/> <p className="pl-3">Entry</p></p>
                                 </NavLink>
                             </CollapsibleContent>}
                            
@@ -125,15 +125,32 @@ const DashboardSidebar = () => {
                     { Role!=='Security' && rendersection('Receiving') && 
                     <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25} />
-                            <p>Receiving/Dispatch</p></CollapsibleTrigger>
+                            <p>Receiving</p></CollapsibleTrigger>
+                            {renderlink('VendorSKU')
+                            && <CollapsibleContent className="Items-pvt">
+                                {renderlink('Dashboard User')}
+                                <NavLink to="/dashboard/vendorSKU" >
+                                <p className="flex"><TbSitemap size={20}/> <p className="pl-3">Item/Vendor Mapping</p></p>
+                                </NavLink>
+                            </CollapsibleContent>}
 
                         {renderlink('RCN Primary Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/rcnprimaryentry" >
-                                    RCN Receiving
+                                   
+                                    <p className="flex"><LuDonut size={20}/> <p className="pl-3"> Raw Cachew </p></p>
+                                    
                                 </NavLink>
 
                         </CollapsibleContent>}
+                        {renderlink('Receiving Almond Entry')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/AlmondPrimary" >
+                                 
+                                    <p className="flex"><TbBrandPeanut size={20}/> <p className="pl-3">   Almond </p></p>
+                                </NavLink>
+
+                            </CollapsibleContent>}
 
                        
 
@@ -141,14 +158,16 @@ const DashboardSidebar = () => {
                         {renderlink('Receiving Packaging Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
-                                    Packaging Material
+                                   
+                                    <p className="flex"><GoPackageDependents size={20}/><p className="pl-3">  Packaging Material</p></p>
                                 </NavLink>
                         </CollapsibleContent>}
                                 
                                 {renderlink('Receiving Store Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/storePrimary" >
-                                    Store Items
+                                  
+                                    <p className="flex"><MdOutlineStorefront size={20}/><p className="pl-3">    Store Items </p></p>
                                 </NavLink>
 
                             </CollapsibleContent>}
@@ -157,22 +176,10 @@ const DashboardSidebar = () => {
                                 {renderlink('Receiving Civil Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/GeneralStore" >
-                                    General Items
+                                   
+                                    <p className="flex"><PiPackageLight size={20}/><p className="pl-3"> General Items </p></p>
                                 </NavLink>
-                                </CollapsibleContent>}
-
-                                {renderlink('Receiving Almond Entry')
-                            && <CollapsibleContent className="Items-pvt">
-                                <NavLink to="/dashboard/AlmondPrimary" >
-                                    Almond
-                                </NavLink>
-
-                            </CollapsibleContent>}
-                            
-
-
-
-
+                                </CollapsibleContent>}  
                         {/* 
                         
 
@@ -204,7 +211,8 @@ const DashboardSidebar = () => {
                         {renderlink('Grading')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/RcnGrading" >
-                                    RCN Grading
+                                   
+                                    <p className="flex"><MdGrading size={20}/><p className="pl-3">  RCN Grading </p></p>
                                 </NavLink>
                             </CollapsibleContent>}
 
@@ -213,7 +221,8 @@ const DashboardSidebar = () => {
 
                             &&  <CollapsibleContent className="Items-pvt">
                              <NavLink to="/dashboard/RcnBoiling" >
-                                RCN Boiling
+                           
+                                <p className="flex"> <GiBoilingBubbles size={20}/><p className="pl-3">  RCN Boiling </p></p>
                             </NavLink>
                         </CollapsibleContent>}
                         {renderlink('Scooping')
@@ -221,7 +230,10 @@ const DashboardSidebar = () => {
 
                             &&  <CollapsibleContent className="Items-pvt">
                              <NavLink to="/dashboard/RcnScooping" >
-                                RCN Scooping
+                       
+                                
+                                <p className="flex"> <GiIceCreamScoop size={20}/><p className="pl-3">  RCN Scooping </p></p>
+                               
                             </NavLink>
                         </CollapsibleContent>}
                         {renderlink('Borma')

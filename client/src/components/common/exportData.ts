@@ -27,7 +27,7 @@ export const PermissionRol = {
     ReceivingSupervisor: ['RCN Primary Entry'],
     ReceivingPMSupervisor: ['Receiving Packaging Entry'],
     ReceivingManager: ['RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
-        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry'],
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','VendorSKU'],
     ReceivingAlmondSupervisor:['Receiving Almond Entry'],
     ReceivingStoreSupervisor: ['Receiving Store Entry'],
     ReceivingAgarbatiSupervisor:['Receiving Agarbati Entry'],

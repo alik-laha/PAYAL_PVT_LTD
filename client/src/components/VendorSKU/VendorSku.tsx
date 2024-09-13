@@ -56,7 +56,7 @@ const VendorSKU = () => {
 
                 <Dialog>
                     <DialogTrigger>   <Button className="bg-orange-400 w-28 mb-2 mt-5 ml-8 responsive-button-adjust no-margin-left">+ Add SKU</Button></DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className='max-w-2xl'>
                         <DialogHeader>
                             <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>New SKU Creation</p></DialogTitle>
                             <DialogDescription>
@@ -69,7 +69,7 @@ const VendorSKU = () => {
                 </Dialog>
                 <Dialog>
                     <DialogTrigger>   <Button className="bg-red-400 w-28 mb-2 mt-5 ml-8 r no-margin-left responsive-button-adjust">+ Add Vendor</Button></DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className='max-w-2xl'>
                         <DialogHeader>
                             <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>New Vendor Creation</p></DialogTitle>
                             <DialogDescription>

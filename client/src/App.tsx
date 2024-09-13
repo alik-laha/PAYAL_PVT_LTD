@@ -91,7 +91,7 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager']} />}>
           <Route path="/dashboard/machine" element={<Machine />} />
         </Route>
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager','ReceivingManager']} />}>
           <Route path="/dashboard/vendorSKU" element={<VendorSKU />} />
         </Route>
 
