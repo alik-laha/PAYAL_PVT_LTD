@@ -405,7 +405,7 @@ const AlmondTable = () => {
 
                             return (
                                 <TableRow key={item.id}>
-                                <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                <TableCell className="text-center">{idx + 1}</TableCell>
                                 <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.gateType}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>

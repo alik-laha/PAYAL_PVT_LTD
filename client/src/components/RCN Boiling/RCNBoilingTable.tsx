@@ -400,10 +400,10 @@ const RCNBoilingTable = () => {
                     <TableHead className="text-center " >BoilingLot_No</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
 
-
+                    <TableHead className="text-center" >ScoopingLineName</TableHead>
                     <TableHead className="text-center" >Boiling_Date </TableHead>
                     <TableHead className="text-center" >Machine_Name</TableHead>
-                    <TableHead className="text-center" >ScoopingLineName</TableHead>
+                 
                     <TableHead className="text-center" >Size</TableHead>
                     <TableHead className="text-center" >Qty_(Bag)</TableHead>
                     <TableHead className="text-center" >Pressure</TableHead>
@@ -430,12 +430,12 @@ const RCNBoilingTable = () => {
                                     <TableCell className="text-center">{idx + 1}</TableCell>
                                     <TableCell className="text-center font-bold text-orange-600">{item.LotNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-
-
-                                    <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center">{item.MCName}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.Scooping_Line_Mc}</TableCell>
 
+
+                                    <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                    <TableCell className="text-center">{item.MCName}</TableCell>
+                                  
                                     <TableCell className="text-center font-bold">{item.SizeName}</TableCell>
                                     <TableCell className="text-center font-bold">{item.Size} </TableCell>
                                     <TableCell className="text-center font-bold">{item.Pressure} psi</TableCell>
@@ -500,11 +500,11 @@ const RCNBoilingTable = () => {
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center font-bold text-orange-600">{item.LotNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-
+                                    <TableCell className="text-center font-semibold text-cyan-600">{item.Scooping_Line_Mc}</TableCell>
 
                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                     <TableCell className="text-center">{item.MCName}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.Scooping_Line_Mc}</TableCell>
+                           
 
                                     <TableCell className="text-center ">{item.SizeName}</TableCell>
                                     <TableCell className="text-center ">{item.Size} </TableCell>

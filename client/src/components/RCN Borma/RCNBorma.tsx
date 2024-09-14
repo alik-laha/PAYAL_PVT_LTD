@@ -36,7 +36,7 @@ const RCNBorma = () => {
     const { data, isLoading, error } = UseQueryData('/api/borma/sumofallborma', 'GET', 'AllBormaSum');
     const handleEditFetch = async () => {
 
-        axios.get("/api/scooping/findEditBormaAll").then(res => {
+        axios.get("/api/borma/findEditBormaAll").then(res => {
             console.log(res)
             setEditBormaLotWiseData(res.data.scoopingAllEdit)
         })
