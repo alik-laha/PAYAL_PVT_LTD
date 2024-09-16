@@ -21,25 +21,24 @@ import { useContext, useState } from 'react';
 import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
-import { BormapendingLotData, pendingCheckRoles, PermissionRole } from '@/type/type';
-import RCNBormaCreateForm from './RCNBormaCreateForm';
-import BormaTable from './RCNBormaTable';
-import { pendingCheckRole } from '../common/exportData';
+import { HumidpendingLotData } from '@/type/type';
+// import RCNBormaCreateForm from './RCNBormaCreateForm';
+// import BormaTable from './RCNBormaTable';
 
 
-const RCNBorma = () => {
+const Humidifier = () => {
 
-    const { setEditBormaLotWiseData } = useContext(Context)
-    const [lotdata, setLotData] = useState<BormapendingLotData[]>([])
+    const { setEditHumidLotWiseData } = useContext(Context)
+    const [lotdata, setLotData] = useState<HumidpendingLotData[]>([])
 
 
 
-    const { data, isLoading, error } = UseQueryData('/api/borma/sumofallborma', 'GET', 'AllBormaSum');
+    const { data, isLoading, error } = UseQueryData('/api/humid/sumofallhumid', 'GET', 'AllHumidSum');
     const handleEditFetch = async () => {
 
-        axios.get("/api/borma/findEditBormaAll").then(res => {
+        axios.get("/api/humid/findEditHumidAll").then(res => {
             console.log(res)
-            setEditBormaLotWiseData(res.data.scoopingAllEdit)
+            setEditHumidLotWiseData(res.data.scoopingAllEdit)
         })
             .catch(err => {
                 console.log(err)
@@ -56,7 +55,7 @@ const RCNBorma = () => {
     console.log(data)
 
     const handleOpenLotNo = async () => {
-        axios.get('/api/borma/getUnBormaEntry/0').then(res => {
+        axios.get('/api/humid/getUnHumidEntry/0').then(res => {
             console.log(res)
             setLotData(res.data.scoopingLot)
         })
@@ -68,17 +67,6 @@ const RCNBorma = () => {
 
     function formatNumber(num: any) {
         return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
-    }
-    const Role = localStorage.getItem('role') as keyof PermissionRole
-    const checkpending = (tab: string) => {
-        //console.log(Role)
-        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
-            return true
-        }
-        else {
-            return false;
-        }
-
     }
     return (
         <div>
@@ -114,7 +102,7 @@ const RCNBorma = () => {
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg font-semibold text-center '>RCN BORMA</p>
+
                 <div>
                     <Dialog>
                         <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
@@ -124,15 +112,15 @@ const RCNBorma = () => {
 
                             </DialogHeader>
 
-                            <RCNBormaCreateForm props={lotdata} />
+                            {/* <RCNBormaCreateForm props={lotdata} /> */}
                         </DialogContent>
                     </Dialog>
 
 
-                    {checkpending('Borma') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> }
+                    <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> 
 
                 </div>
-                <BormaTable/>
+                {/* <BormaTable/> */}
 
             </div>
         </div>
@@ -140,4 +128,4 @@ const RCNBorma = () => {
 
     )
 }
-export default RCNBorma;
+export default Humidifier;

@@ -301,6 +301,9 @@ export interface rcnpendingLotData {
 export interface BormapendingLotData {
     LotNo: string
 }
+export interface HumidpendingLotData {
+    LotNo: string
+}
 export interface ScoopData {
     LotNo: string;
     id: number;

@@ -29,6 +29,7 @@ import GeneralStore from './components/General Store/General'
 import Almond from './components/Almond/Almond'
 import PackagingMetirialQuality from './components/PM QC/PMQC'
 import RcvVillage from './components/Rcv Village/RcvVillage'
+import Humidifier from './components/Humidifier/Humidifier'
 
 
 
@@ -69,13 +70,14 @@ function App() {
         <Route path='/' element={<Navigate to={"/dashboard"} replace />} />
         <Route path="/login" element={<Login />} />
 
-        <Route element={<Private allowedRoles={['Director','FactoryManager',
-    'ReceivingSupervisor','ReceivingPMSupervisor','ReceivingManager','ReceivingAlmondSupervisor','ReceivingStoreSupervisor',
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 
+    'ReceivingSupervisor', 'ReceivingPMSupervisor','ReceivingManager', 'ReceivingAlmondSupervisor', 'ReceivingStoreSupervisor', 
     'ReceivingAgarbatiSupervisor','ReceivingGeneralSupervisor','ReceivingPurchaseSupervisor',
-    'QCSupervisor','QCManager',
-    'GradingSupervisor','BoilingSupervisor','ScoopingSupervisor','ProductionManager','BormaSuperVisor',
-    'MaintainanceManager','CleaningSupervisor',
-    'Security','GatePassManager']} />}>
+    'Security','GatePassManager',
+    'MaintainanceSupervisor','MaintainanceManager',
+    'QCSupervisor', 'QCManager', 
+    'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','BormaSuperVisor',
+    'PeelingSuperVisor','VillageSupervisor']} />}>
 
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
@@ -122,6 +124,12 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'BormaSuperVisor', 'ProductionManager']} />}>
           <Route path='/dashboard/RcnBorma' element={<RCNBorma />} />
+          
+        </Route>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'PeelingSuperVisor', 'ProductionManager']} />}>
+          <Route path='/dashboard/Humidifier' element={<Humidifier />} />
+          
         </Route>
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',

@@ -42,6 +42,8 @@ interface ContextType {
     setSearchType: (data: string) => void;
     editBormaLotWiseData: any[];
     setEditBormaLotWiseData: (data: any[]) => void;
+    editHumidLotWiseData: any[];
+    setEditHumidLotWiseData: (data: any[]) => void;
     editPendingAlmondData: AlmondPrimaryEntryData[];
     setEditPendingAlmondData: (data: AlmondPrimaryEntryData[]) => void;
 }
@@ -83,6 +85,8 @@ const Context = createContext<ContextType>({
     searchType: '',
     editBormaLotWiseData: [],
     setEditBormaLotWiseData: () => {},
+    editHumidLotWiseData: [],
+    setEditHumidLotWiseData: () => {},
     editPendingAlmondData: [],
     setEditPendingAlmondData: () => {},
     RcvVillagePrimaryOverView:(null),

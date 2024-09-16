@@ -22,6 +22,7 @@ import storePrimaryRouter from "./router/storePrimaryRouter";
 import generalPrimaryRouter from "./router/generalPrimaryRouter";
 import almondRouter from "./router/almondRouter";
 import RcvVillageRouter from "./router/RcvVillageRouter";
+import HumidRouter from "./router/HumidRouter";
 
 
 
@@ -46,6 +47,7 @@ app.use('/api/packageMaterial', PMRouter)
 app.use("/api/qcpackage", qcPackageMaterialRouter)
 app.use('/api/cleaning', Cleaning)
 app.use('/api/borma', BormaRouter)
+app.use('/api/humid', HumidRouter)
 app.use('/api/gatepass', gatePassRouter)
 app.use('/api/vendorSKU', VendorSKURouter)
 app.use('/api/storePrimary', storePrimaryRouter)
