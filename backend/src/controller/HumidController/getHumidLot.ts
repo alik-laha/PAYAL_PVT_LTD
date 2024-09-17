@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import sequelize from "../../config/databaseConfig";
 import Humidifier from "../../model/humidfierModel";
 
-const getBormaLot = async (req: Request, res: Response) => {
+const getHumidLot = async (req: Request, res: Response) => {
 
     try {
         const status = req.params.status;
@@ -31,4 +31,4 @@ const getBormaLot = async (req: Request, res: Response) => {
 
 }
 
-export default getBormaLot;
+export default getHumidLot;

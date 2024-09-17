@@ -41,7 +41,7 @@ const approveAlmond = async (req: Request, res: Response) => {
             }
         });
         if (!rcnEdit) {
-            return res.status(400).json({ message: "Rcn Entry is not found" });
+            return res.status(400).json({ message: "Almond Entry is not found" });
         }
         const rcnEditDelete = await almondPrimaryEntryEditModel.destroy({
             where: {
@@ -53,7 +53,7 @@ const approveAlmond = async (req: Request, res: Response) => {
         }
 
 
-        return res.status(200).json({ message: "Edit Request of Rcn Entry is Approved Successfully" });
+        return res.status(200).json({ message: "Edit Request of Almond Entry is Approved Successfully" });
 
     } catch (err) {
         console.log(err);

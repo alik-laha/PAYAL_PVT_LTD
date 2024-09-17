@@ -248,7 +248,7 @@ const DashboardSidebar = () => {
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/Humidifier" >
 
-                                    <p className="flex"> <BsMoisture size={20} /><p className="pl-3">  RCN Humidification </p></p>
+                                    <p className="flex"> <BsMoisture size={20} /><p className="pl-3">  RCN Humidifier </p></p>
                                 </NavLink>
                             </CollapsibleContent>}
 
@@ -257,7 +257,7 @@ const DashboardSidebar = () => {
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/RcvVillage" >
 
-                                    <p className="flex"> <MdHolidayVillage size={20} /><p className="pl-3">  Village Primary </p></p>
+                                    <p className="flex"> <MdHolidayVillage size={20} /><p className="pl-3">  Village Receiving </p></p>
 
                                 </NavLink>
 

@@ -191,6 +191,16 @@ const BormaTable = () => {
         // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
         return finalTime;
     }
+    const handleApprove = async (item: BormaData) => {
+        const response = await axios.put(`/api/borma/approveeditBorma/${item.id}`)
+        const data = await response.data
+        if (data.message === "Edit Request of Borma Entry is Approved Successfully") {
+
+            if (approvesuccessdialog != null) {
+                (approvesuccessdialog as any).showModal();
+            }
+        }
+    }
     return (
         <>
 

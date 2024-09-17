@@ -21,8 +21,10 @@ import { useContext, useState } from 'react';
 import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
-import { HumidpendingLotData } from '@/type/type';
-// import RCNBormaCreateForm from './RCNBormaCreateForm';
+import { HumidpendingLotData, pendingCheckRoles, PermissionRole } from '@/type/type';
+import RCNHumidCreateForm from './HumidifierCreateForm';
+import { pendingCheckRole } from '../common/exportData';
+
 // import BormaTable from './RCNBormaTable';
 
 
@@ -64,6 +66,17 @@ const Humidifier = () => {
 
 
     }
+    const Role = localStorage.getItem('role') as keyof PermissionRole
+    const checkpending = (tab: string) => {
+        //console.log(Role)
+        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+            return true
+        }
+        else {
+            return false;
+        }
+
+    }
 
     function formatNumber(num: any) {
         return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
@@ -102,22 +115,22 @@ const Humidifier = () => {
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-
+                <p className='text-lg font-semibold text-center '>RCN HUMIDIFIER</p>
                 <div>
                     <Dialog>
                         <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>RCN Borma Entry Form</p></DialogTitle>
+                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>RCN Humidifier Entry Form</p></DialogTitle>
 
                             </DialogHeader>
 
-                            {/* <RCNBormaCreateForm props={lotdata} /> */}
+                            <RCNHumidCreateForm props={lotdata} />
                         </DialogContent>
                     </Dialog>
 
 
-                    <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> 
+                    {checkpending('Humidifier') &&  <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> }
 
                 </div>
                 {/* <BormaTable/> */}

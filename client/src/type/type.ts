@@ -368,6 +368,31 @@ export interface BormaData {
             editStatus: string;
             modifiedBy: string;
 }
+export interface HumidData {
+    id: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    
+    TotalInput: string;
+    Mc_on: string;
+    Mc_off: string;
+    Mc_breakdown: string;
+    Mc_runTime: string;
+    noOfOperators:string;
+    otherTime: string;
+    NoOfTrolley: string;
+    InputMoisture: string;
+    OutputMoisture: string;
+  
+    TotalOutput: string;
+    MoistGain:string;
+    Status: string;
+    
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string;
+}
 
 export interface ExcelRcnPrimaryEntryData {
     SL_No: number;
