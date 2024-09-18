@@ -82,7 +82,6 @@ export interface AlmondPrimaryEntryData {
     gatePassNo:string;
     grossWt:string;
     status:number;
-
     gateType: string,
     invoicedate: string;  
     invoice: string;  
@@ -122,6 +121,7 @@ export interface BormaEntryData {
             modifiedBy:string
  
 }
+
 export interface RcvVillagePrimaryEntryData {
    
     approvedBy: string;
@@ -368,6 +368,33 @@ export interface BormaData {
             editStatus: string;
             modifiedBy: string;
 }
+export interface BormaExcelData {
+    SL_No: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    InputWholes: string | number;
+    InputPieces: string | number;
+    TotalInput: string | number;
+    Mc_on: string;
+    Mc_off: string;
+    Mc_breakdown: string;
+    Mc_runTime: string;
+    noOfOperators:string;
+    otherTime: string;
+    NoOfTrolley: string;
+    InputMoisture: string | number;
+    OutputMoisture: string | number;
+    OutputWholes: string | number;
+    OutputPieces: string | number;
+    TotalOutput: string | number;
+    BormaLoss: string | number;
+   
+    Temp:string;
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string;
+}
 export interface HumidData {
     id: number;
     LotNo: string;
@@ -502,9 +529,6 @@ export interface AssetDataExcel {
 }
 
 export interface PermissionRole {
-
-   
-
     Director: string[];
     FactoryManager: string[];
     ReceivingSupervisor: string[];
@@ -520,6 +544,8 @@ export interface PermissionRole {
     GradingSupervisor: string[];
     BoilingSupervisor: string[];
     ScoopingSupervisor: string[];
+    BormaSupervisor:string[];
+    PeelingSupervisor:string[];
     VillageSupervisor:string[];
     ProductionManager:string[];
     MaintainanceManager:string[];
@@ -595,6 +621,8 @@ export interface pendingCheckRoles {
     Boiling: string[];
     Scooping: string[];
     Borma: string[];
+    Humidifier:string[];
+    Peeling:string[];
     Village:string[];
     Gatepass:string[];
     

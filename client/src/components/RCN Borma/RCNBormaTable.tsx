@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Origin, pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
 import Context from "../context/context";
 import axios from "axios";
-import { BormaData, pendingCheckRoles, PermissionRole } from "@/type/type";
+import { BormaData, BormaExcelData, pendingCheckRoles, PermissionRole } from "@/type/type";
 import { Input } from "../ui/input";
 import { FaSearch } from "react-icons/fa";
 import { Button } from "../ui/button";
@@ -54,6 +54,8 @@ import {
 import { CiEdit } from "react-icons/ci";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import BormaModify from "./RCNBormaModify";
+import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
 
 const BormaTable = () => {
     const limit = pagelimit
@@ -101,7 +103,85 @@ const BormaTable = () => {
             return prev
         })
     }, [page])
-    const exportToExcel = async () => { }
+    const exportToExcel = async () => { 
+        const response = await axios.put('/api/borma/bormaprimarysearch', {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            origin: origin,
+        })
+        const data1 = await response.data
+
+        let ws
+        let transformed: BormaExcelData[] = [];
+        if (EditData.length > 0) {
+
+            transformed = EditData.map((item: BormaData, idx: number) => ({
+                SL_No: idx + 1,
+                LotNo: item.LotNo,
+                date: handletimezone(item.date),
+                origin: item.origin,
+                InputWholes: formatNumber(item.InputWholes),
+                InputPieces: formatNumber(item.InputPieces),
+                TotalInput: formatNumber(item.InputWholes),
+                Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
+                Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
+                Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),         
+                otherTime: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
+                Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
+                noOfOperators:item.noOfOperators,
+                NoOfTrolley: item.NoOfTrolley,
+                InputMoisture: formatNumber(item.InputMoisture),   
+                OutputMoisture: formatNumber(item.OutputMoisture),   
+                OutputWholes: formatNumber(item.OutputWholes),   
+                OutputPieces: formatNumber(item.OutputPieces),   
+                TotalOutput: formatNumber(item.TotalOutput),   
+                BormaLoss: formatNumber(item.BormaLoss),    
+                Temp:item.Temp,
+                CreatedBy: item.CreatedBy,
+                editStatus: item.editStatus,
+                modifiedBy: item.modifiedBy
+            }));
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        else {
+            transformed = data1.rcnEntries.map((item: BormaData, idx: number) => ({
+                SL_No: idx + 1,
+                LotNo: item.LotNo,
+                date: handletimezone(item.date),
+                origin: item.origin,
+                InputWholes: formatNumber(item.InputWholes),
+                InputPieces: formatNumber(item.InputPieces),
+                TotalInput: formatNumber(item.InputWholes),
+                Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
+                Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
+                Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),         
+                otherTime: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
+                Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
+                noOfOperators:item.noOfOperators,
+                NoOfTrolley: item.NoOfTrolley,
+                InputMoisture: formatNumber(item.InputMoisture),   
+                OutputMoisture: formatNumber(item.OutputMoisture),   
+                OutputWholes: formatNumber(item.OutputWholes),   
+                OutputPieces: formatNumber(item.OutputPieces),   
+                TotalOutput: formatNumber(item.TotalOutput),   
+                BormaLoss: formatNumber(item.BormaLoss),    
+                Temp:item.Temp,
+                CreatedBy: item.CreatedBy,
+                editStatus: item.editStatus,
+                modifiedBy: item.modifiedBy
+
+            }));
+            // setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'Borma_Entry' + currDate + '.xlsx');
+    }
     const handleSearch = async () => {
 
         setEditData([])
@@ -198,6 +278,17 @@ const BormaTable = () => {
 
             if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).showModal();
+            }
+        }
+    }
+    const handleRejection = async (item: BormaData) => {
+        const response = await axios.delete(`/api/borma/rejectededitBorma/${item.id}`)
+        const data = await response.data
+        console.log(data)
+        if (data.message === "Borma Entry rejected successfully") {
+            //console.log('rejected enter')
+            if (rejectsuccessdialog != null) {
+                (rejectsuccessdialog as any).showModal();
             }
         }
     }

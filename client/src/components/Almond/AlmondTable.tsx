@@ -175,7 +175,7 @@ const AlmondTable = () => {
         const response = await axios.delete(`/api/almondPrimary/rejectededitAlmond/${item.id}`)
         const data = await response.data
         console.log(data)
-        if (data.message === "Rcn Entry rejected successfully") {
+        if (data.message === "Almond Entry rejected successfully") {
             //console.log('rejected enter')
             if (rejectsuccessdialog != null) {
                 (rejectsuccessdialog as any).showModal();
@@ -256,7 +256,7 @@ const AlmondTable = () => {
     const handleApprove = async (item: AlmondPrimaryEntryData) => {
         const response = await axios.put(`/api/almondPrimary/approveeditAlmond/${item.id}`)
         const data = await response.data
-        if (data.message === "Edit Request of Rcn Entry is Approved Successfully") {
+        if (data.message === "Edit Request of Almond Entry is Approved Successfully") {
 
             if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).showModal();
