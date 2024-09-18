@@ -82,7 +82,6 @@ export interface AlmondPrimaryEntryData {
     gatePassNo:string;
     grossWt:string;
     status:number;
-
     gateType: string,
     invoicedate: string;  
     invoice: string;  
@@ -93,6 +92,36 @@ export interface AlmondPrimaryEntryData {
     totalBill:string;  
  
 }
+export interface BormaEntryData {
+   
+            id: number;
+            LotNo: string;
+            date: string;
+            origin: string;
+            InputWholes: string;
+            InputPieces: string;
+            TotalInput: string;
+            Mc_on: string;
+            Mc_off: string;
+            Mc_breakdown: string;
+            Mc_runTime: string;
+            noOfOperators: string;
+            otherTime: string;
+            NoOfTrolley:string;
+            InputMoisture: string;
+            OutputMoisture: string;
+            OutputWholes: string;
+            OutputPieces: string;
+            TotalOutput: string;
+            BormaLoss: string;
+            BormaStatus: number;
+            Temp: string;
+            CreatedBy: string;
+            editStatus: string;
+            modifiedBy:string
+ 
+}
+
 export interface RcvVillagePrimaryEntryData {
    
     approvedBy: string;
@@ -272,6 +301,9 @@ export interface rcnpendingLotData {
 export interface BormapendingLotData {
     LotNo: string
 }
+export interface HumidpendingLotData {
+    LotNo: string
+}
 export interface ScoopData {
     LotNo: string;
     id: number;
@@ -335,6 +367,79 @@ export interface BormaData {
             CreatedBy: string;
             editStatus: string;
             modifiedBy: string;
+}
+export interface BormaExcelData {
+    SL_No: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    InputWholes: string | number;
+    InputPieces: string | number;
+    TotalInput: string | number;
+    Mc_on: string;
+    Mc_off: string;
+    Mc_breakdown: string;
+    Mc_runTime: string;
+    noOfOperators:string;
+    otherTime: string;
+    NoOfTrolley: string;
+    InputMoisture: string | number;
+    OutputMoisture: string | number;
+    OutputWholes: string | number;
+    OutputPieces: string | number;
+    TotalOutput: string | number;
+    BormaLoss: string | number;
+   
+    Temp:string;
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string;
+}
+export interface HumidData {
+    id: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    
+    TotalInput: string;
+    Mc_on: string;
+    Mc_off: string;
+    Mc_breakdown: string;
+    Mc_runTime: string;
+    noOfOperators:string;
+    otherTime: string;
+    NoOfTrolley: string;
+    InputMoisture: string;
+    OutputMoisture: string;
+  
+    TotalOutput: string;
+    MoistGain:string;
+    Status: string;
+    
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string;
+}
+export interface HumidExcelData {
+    SL_No: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    TotalInput: string | number;
+    Mc_on: string;
+    Mc_off: string;
+    Mc_breakdown: string;
+    Mc_runTime: string;
+    noOfOperators:string;
+    otherTime: string;
+    NoOfTrolley: string;
+    InputMoisture: string | number;
+    OutputMoisture: string | number;
+    TotalOutput: string | number;
+    MoistGain:string | number;
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string;
 }
 
 export interface ExcelRcnPrimaryEntryData {
@@ -445,9 +550,6 @@ export interface AssetDataExcel {
 }
 
 export interface PermissionRole {
-
-   
-
     Director: string[];
     FactoryManager: string[];
     ReceivingSupervisor: string[];
@@ -463,6 +565,8 @@ export interface PermissionRole {
     GradingSupervisor: string[];
     BoilingSupervisor: string[];
     ScoopingSupervisor: string[];
+    BormaSupervisor:string[];
+    PeelingSupervisor:string[];
     VillageSupervisor:string[];
     ProductionManager:string[];
     MaintainanceManager:string[];
@@ -538,6 +642,8 @@ export interface pendingCheckRoles {
     Boiling: string[];
     Scooping: string[];
     Borma: string[];
+    Humidifier:string[];
+    Peeling:string[];
     Village:string[];
     Gatepass:string[];
     

@@ -76,6 +76,7 @@ const RcnGrading = () => {
             <DashboardHeader />
             <DashboardSidebar />
             <div className='dashboard-main-container'>
+          
                 <div className="flexbox-header">
                     <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
                         A <br /><p>{data.data[0].totalA ? formatNumber(parseFloat(data.data[0].totalA)) : 0} Bag</p>
@@ -106,8 +107,9 @@ const RcnGrading = () => {
 
 
                 </div>
+                
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-
+                <p className='text-lg font-semibold text-center py-1 '>RCN GRADING</p>
                 <div>
                     <Dialog>
                         <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-red-500 mb-2 mt-5 ml-4" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>
@@ -126,6 +128,7 @@ const RcnGrading = () => {
 
                 </div>
                 <RcnGradingTable />
+                
 
             </div>
         </div>

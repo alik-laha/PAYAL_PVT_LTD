@@ -107,13 +107,13 @@ const RCNBoiling = () => {
                     
 
                 </div>
-
+                <p className='text-lg font-semibold text-center py-1 '>RCN BOILING</p>
                 
                 
                 <div>
                 <Dialog>
                     <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust">+ Add New Entry</Button></DialogTrigger>
-                    <DialogContent style={{display:'block'}} className='max-w-3xl'>
+                    <DialogContent style={{display:'block'}} className='max-w-7xl'>
                         <DialogHeader>
                             <DialogTitle><p className='text-m  text-center my-2'>RCN Boiling Entry Form</p></DialogTitle>
                             

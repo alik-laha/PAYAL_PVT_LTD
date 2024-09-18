@@ -11,16 +11,14 @@ import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 
 interface Props {
-    borma: BormaData[]       
+    borma: HumidData[]       
 }
 
 
-interface BormaRowData{
+interface HumidRowData{
             id: number;
             LotNo: string;
             origin: string;
-            InputWholes: string;
-            InputPieces: string;
             TotalInput: string;
             Mc_on: string;
             Mc_off: string;
@@ -29,15 +27,12 @@ interface BormaRowData{
             NoOfTrolley: string;
             InputMoisture: string;
             OutputMoisture: string;
-            OutputWholes: string;
-            OutputPieces: string;
-            TotalOutput: string;
-            BormaLoss: string;
-            Temp:string;
+            TotalOutput: string
+           
 }
 
 
-import { BormaData } from "@/type/type"
+import {  HumidData } from "@/type/type"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
@@ -46,11 +41,11 @@ import axios from "axios";
 import FormRow from "../common/FormRowTime";
 
 
-const RCNBormaLineCreateForm = (props:Props) => {
+const RCNHumidLineCreateForm = (props:Props) => {
     //console.log(props)
     const DateRef = useRef<HTMLInputElement>(null);
     const operatorRef = useRef<HTMLInputElement>(null);
-    const [rows,setRows]=useState<BormaRowData[]>([])
+    const [rows,setRows]=useState<HumidRowData[]>([])
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
@@ -76,25 +71,19 @@ const RCNBormaLineCreateForm = (props:Props) => {
         });
     }
     useEffect(() => { 
-        const initialform =  props.borma.map((item: BormaData) => ({
+        const initialform =  props.borma.map((item: HumidData) => ({
             id: item.id,
             LotNo: item.LotNo,
             origin: item.origin,
-            InputWholes: item.InputWholes,
-            InputPieces: item.InputPieces,
             TotalInput: item.TotalInput,
             Mc_on: '00:00',
             Mc_off: '00:00',
             Mc_breakdown: '00:00', 
             otherTime: '00:00',
-            NoOfTrolley: '',
-            InputMoisture: '',
+            NoOfTrolley: item.NoOfTrolley,
+            InputMoisture: item.InputMoisture,
             OutputMoisture: '',
-            OutputWholes: '',
-            OutputPieces: '',
-            TotalOutput: '',
-            BormaLoss: '',
-            Temp:''
+            TotalOutput: ''  
         }));
       
         //console.log(initialform)
@@ -111,7 +100,7 @@ const RCNBormaLineCreateForm = (props:Props) => {
     const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
         setisdisable(true)
-        props.borma.map((item: BormaData, idx: number) => {
+        props.borma.map((item: HumidData, idx: number) => {
             rows[idx].id=item.id
         })
         console.log(rows)
@@ -125,12 +114,12 @@ const RCNBormaLineCreateForm = (props:Props) => {
             }))
         
             try {
-                const initialborma = await axios.post('/api/borma/createEntireBorma', { lineborma:formData,
+                const initialhumid = await axios.post('/api/humid/createEntireHumid', { linehumid:formData,
                     LotNo:props.borma[0].LotNo
                  })
-                console.log(initialborma)         
-                    setErrortext(initialborma.data.message)
-                    if (initialborma.status === 200) {
+                console.log(initialhumid)         
+                    setErrortext(initialhumid.data.message)
+                    if (initialhumid.status === 200) {
                         const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
                         dialog2.showModal()
                         setTimeout(() => {
@@ -161,7 +150,9 @@ const RCNBormaLineCreateForm = (props:Props) => {
                          
        
     }
-
+    function formatNumber(num: string) {
+        return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
+    }
 
  
     return (
@@ -185,38 +176,32 @@ const RCNBormaLineCreateForm = (props:Props) => {
                        
                        
                         <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Input Wholes</TableHead>
-                        <TableHead className="text-center" >Input Pieces</TableHead>
-                        <TableHead className="text-center" >Total Input</TableHead>
+                        <TableHead className="text-center" >Total_Input(Kg)</TableHead>
                         <TableHead className="text-center" >Input Moisture</TableHead>
                         <TableHead className="text-center" >Output Moisture</TableHead>
-                        <TableHead className="text-center" >Output Wholes</TableHead>
-                        <TableHead className="text-center" >Output Pieces</TableHead>
+                        <TableHead className="text-center" >Total_Output(Kg)</TableHead>
                         <TableHead className="text-center" >No Of Trolley</TableHead>
-                        <TableHead className="text-center" >Temp</TableHead>
-                        <TableHead className="text-center" >Borma On</TableHead>
-                        <TableHead className="text-center" >Borma Off</TableHead>
+                        <TableHead className="text-center" >Humidifier_On</TableHead>
+                        <TableHead className="text-center" >Humidifier_Off</TableHead>
                         <TableHead className="text-center" >Breakdown Duration</TableHead>
                         <TableHead className="text-center" >Other Duration</TableHead>
                     </TableHeader>
                     <TableBody>
                         {props.borma.length > 0 ? (
-                            rows.map(( row:BormaRowData,idx:number) => {
+                            rows.map(( row:HumidRowData,idx:number) => {
                               
                                 return (
                                     <TableRow key={idx} className="boiling-row-height-scoop">
                                         <TableCell className="text-center">{idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
-                                        <TableCell className="text-center font-semibold ">{row.InputWholes}</TableCell>
-                                        <TableCell className="text-center font-semibold ">{row.InputPieces}</TableCell>
-                                        <TableCell className="text-center font-semibold ">{row.TotalInput}</TableCell>
-                                        <TableCell className="text-center "> <Input  value={row.InputMoisture} placeholder="%" onChange={(e) => handleRowChange(idx,'InputMoisture',e.target.value)} required /></TableCell>
+
+                                        <TableCell className="text-center font-semibold ">{formatNumber(row.TotalInput)} Kg</TableCell>
+                                        <TableCell className="text-center "> {formatNumber(row.InputMoisture)}%</TableCell>
                                         <TableCell className="text-center"> <Input  value={row.OutputMoisture} placeholder="%" onChange={(e) => handleRowChange(idx,'OutputMoisture',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.OutputWholes} placeholder="Wholes" onChange={(e) => handleRowChange(idx,'OutputWholes',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.OutputPieces} placeholder="Pieces" onChange={(e) => handleRowChange(idx,'OutputPieces',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.NoOfTrolley} placeholder="No." onChange={(e) => handleRowChange(idx,'NoOfTrolley',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.Temp} placeholder="Degree" onChange={(e) => handleRowChange(idx,'Temp',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input  value={row.TotalOutput} placeholder="Kg" onChange={(e) => handleRowChange(idx,'TotalOutput',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> {row.NoOfTrolley}</TableCell>
+                                    
                                         {/* <TableCell className="text-center "> <Input className="bg-green-100"  value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx,'Mc_on',e.target.value)} type='time' required /></TableCell> */}
                                         <FormRow idx={idx} row={row} column='Mc_on' handleRowChange={handleRowChange}/>
                                         <FormRow idx={idx} row={row} column='Mc_off' handleRowChange={handleRowChange}/>
@@ -264,4 +249,4 @@ const RCNBormaLineCreateForm = (props:Props) => {
           </>
     )
 }
-export default RCNBormaLineCreateForm;
+export default RCNHumidLineCreateForm;

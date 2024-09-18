@@ -23,7 +23,6 @@ interface AlmondPrimaryModifyProps {
         gatePassNo:string;
         grossWt:string;
         status:number;
-   
         gateType: string,
         invoicedate: string;  
         invoice: string;  

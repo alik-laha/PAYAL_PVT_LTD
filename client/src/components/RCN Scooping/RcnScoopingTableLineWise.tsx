@@ -47,18 +47,19 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
 
                 <TableHead className="text-center" >Id</TableHead>
                 <TableHead className="text-center" >RCNLotNo.</TableHead>
-                <TableHead className="text-center" >DateofScooping </TableHead>
                 <TableHead className="text-center" >Origin</TableHead>
                 <TableHead className="text-center" >ScoopingLineMC</TableHead>
+                <TableHead className="text-center" >DateofScooping </TableHead>
+                
                 <TableHead className="text-center" >Size Name</TableHead>
-                <TableHead className="text-center" >Opening_Qty</TableHead>
-                <TableHead className="text-center" >Receiving_Qty</TableHead>
-                <TableHead className="text-center" >ScoopingOn</TableHead>
-                <TableHead className="text-center" >ScoopingOff</TableHead>
+                <TableHead className="text-center" >Opening_Qty(Kg)</TableHead>
+                <TableHead className="text-center" >Receiving_Qty(Kg)</TableHead>
+                <TableHead className="text-center" >Scooping_MC_ON</TableHead>
+                <TableHead className="text-center" >Scooping_MC_OFF</TableHead>
                 <TableHead className="text-center" >BreakDown</TableHead>
                 <TableHead className="text-center" >OtherTime</TableHead>
 
-                <TableHead className="text-center" >M/c RunTime</TableHead>
+                <TableHead className="text-center" >MC_RunTime</TableHead>
 
                 <TableHead className="text-center" >Trolley Broken</TableHead>
                 <TableHead className="text-center" >Trolley SmallJB</TableHead>
@@ -91,13 +92,15 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                     return (
                         <TableRow key={item.id}>
                             <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                            <TableCell className="text-center font-semibold text-cyan-600">{item.LotNo}</TableCell>
+                            <TableCell className="text-center font-semibold text-orange-600">{item.LotNo}</TableCell>
+                            <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
+                            <TableCell className="text-center  font-semibold text-cyan-600 ">{item.Scooping_Line_Mc}</TableCell>
                             <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                            <TableCell className="text-center font-semibold">{item.origin}</TableCell>
-                            <TableCell className="text-center  font-semibold text-purple-500">{item.Scooping_Line_Mc}</TableCell>
-                            <TableCell className="text-center">{item.SizeName}</TableCell>
-                            <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.Opening_Qty))} Kg</TableCell>
-                            <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.Receiving_Qty))} Kg</TableCell>
+                           
+                           
+                            <TableCell className="text-center ">{item.SizeName}</TableCell>
+                            <TableCell className="text-center ">{formatNumber(parseFloat(item.Opening_Qty))} </TableCell>
+                            <TableCell className="text-center ">{formatNumber(parseFloat(item.Receiving_Qty))} </TableCell>
 
                             <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
@@ -109,20 +112,20 @@ const RcnTableLineWise = ({ LineWise, page }: { LineWise: rcnScoopingData[], pag
                             <TableCell className="text-center">{item.Trolley_Small_JB}%</TableCell>
 
 
-                            <TableCell className="text-center">{formatNumber(parseFloat(item.Wholes))} Kg</TableCell>
-                            <TableCell className="text-center">{formatNumber(parseFloat(item.Broken))} Kg</TableCell>
+                            <TableCell className="text-center">{formatNumber(parseFloat(item.Wholes))} </TableCell>
+                            <TableCell className="text-center">{formatNumber(parseFloat(item.Broken))} </TableCell>
 
-                            <TableCell className="text-center ">{formatNumber(parseFloat(item.Uncut))} Kg</TableCell>
+                            <TableCell className="text-center ">{formatNumber(parseFloat(item.Uncut))} </TableCell>
 
 
-                            <TableCell className="text-center">{formatNumber(parseFloat(item.Unscoop))} Kg</TableCell>
-                            <TableCell className="text-center ">{formatNumber(parseFloat(item.NonCut))} Kg</TableCell>
-                            <TableCell className="text-center">{formatNumber(parseFloat(item.Rejection))} Kg</TableCell>
-                            <TableCell className="text-center ">{formatNumber(parseFloat(item.Dust))} Kg</TableCell>
+                            <TableCell className="text-center">{formatNumber(parseFloat(item.Unscoop))} </TableCell>
+                            <TableCell className="text-center ">{formatNumber(parseFloat(item.NonCut))} </TableCell>
+                            <TableCell className="text-center">{formatNumber(parseFloat(item.Rejection))} </TableCell>
+                            <TableCell className="text-center ">{formatNumber(parseFloat(item.Dust))} </TableCell>
                             {/* <TableCell className="text-center ">{item.TotBagCutting}</TableCell> */}
                             <TableCell className="text-center ">{formatNumber(parseFloat(item.KOR))}</TableCell>
 
-                            <TableCell className="text-center ">{formatNumber(parseFloat(item.Transfered_Qty))} Kg</TableCell>
+                            <TableCell className="text-center ">{formatNumber(parseFloat(item.Transfered_Qty))} </TableCell>
                             <TableCell className="text-center ">{item.Transfered_To}</TableCell>
 
                             <TableCell className="text-center ">{item.noOfLadies}</TableCell>

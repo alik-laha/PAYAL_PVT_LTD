@@ -100,7 +100,7 @@ const RCNBormaCreateForm = (props: any) => {
                                             <Dialog>
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger>
-                                            { idx==0 &&  <DialogContent className='max-w-3xl'>
+                                            { idx==0 &&  <DialogContent className='max-w-7xl'>
                                                     <DialogHeader>
                                                         <DialogTitle><p className='text-1xl text-center mt-1'>Borma Line Entry</p></DialogTitle>
 

@@ -12,21 +12,25 @@ import {
 import {
     Dialog,
     DialogContent,
+    DialogHeader,
+    DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import RCNScoopingLineCreateForm from "./RCNScoopingLineCreateForm";
+
 import axios from "axios";
 import { useState } from "react";
-import { ScoopData } from "@/type/type";
-import cross from '../../assets/Static_Images/error_img.png'
+import { HumidData } from "@/type/type";
 
+
+import cross from '../../assets/Static_Images/error_img.png'
+import RCNHumidLineCreateForm from "./HumidifierLineCreateForm";
 
 interface lotPropsdata{
     LotNo:string;
 }
 
-const RCNScoopingCreateForm = (props: any) => {
-    const [scoopdata, setscoopdata ]  = useState<ScoopData[]>([])
+const RCNHumidCreateForm = (props: any) => {
+    const [bormaData, setBormaData ]  = useState<HumidData[]>([])
     const [errortext, seterrorText] = useState<string>('');
     
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialog') as HTMLInputElement;
@@ -42,10 +46,10 @@ const RCNScoopingCreateForm = (props: any) => {
 
         });
     }
+    //let scoopdata:ScoopData[]=[]
     console.log(props)
     const handleLineEntry = async (lotNO:string) => {
-
-        const resStatus = await axios.post('/api/boiling/pendingLotCount', { lotNo: lotNO,section:'Boiling'})
+        const resStatus = await axios.post('/api/boiling/pendingLotCount', { lotNo: lotNO,section:'Borma'})
         console.log(resStatus)
         if (resStatus.data.count && resStatus.data.count >0) 
             {
@@ -55,18 +59,17 @@ const RCNScoopingCreateForm = (props: any) => {
                 }
                 return
             }
-        axios.get(`/api/scooping/getScoopByLot/${lotNO}`).then(res=>{
+        axios.get(`/api/humid/getHumidByLot/${lotNO}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.scoopingLot)){
             //scoopdata=res.data.scoopingLot
-            setscoopdata(res.data.scoopingLot)
-             console.log(scoopdata)
+            setBormaData(res.data.scoopingLot)
+             console.log(bormaData)
            }
              
             //set(res.data.scoopingLot)
         })
     }
-   
     return (
         <>
             <div className="pl-10 pr-10 max-h-64 overflow-scroll">
@@ -98,13 +101,13 @@ const RCNScoopingCreateForm = (props: any) => {
                                             <Dialog>
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger>
-                                            { idx==0 &&  <DialogContent className='max-w-8xl'>
-                                                    {/* <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Scooping Line Entry</p></DialogTitle>
+                                            { idx==0 &&  <DialogContent className='max-w-7xl'>
+                                                    <DialogHeader>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Humidifier Line Entry</p></DialogTitle>
 
-                                                    </DialogHeader> */}
-                                                <RCNScoopingLineCreateForm scoop={scoopdata}/>
-                                                    
+                                                    </DialogHeader>
+                                                
+                                                    <RCNHumidLineCreateForm borma={bormaData}/>
                                                 </DialogContent>}
                                             </Dialog>
                                         </TableCell>
@@ -115,7 +118,7 @@ const RCNScoopingCreateForm = (props: any) => {
                         ) : <TableRow>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Scooping</TableCell>
+                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Humidification</TableCell>
                             <TableCell></TableCell>
                             </TableRow>}
                     </TableBody>
@@ -125,7 +128,6 @@ const RCNScoopingCreateForm = (props: any) => {
 
 
             </div>
-            
             <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
                 <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
@@ -139,4 +141,4 @@ const RCNScoopingCreateForm = (props: any) => {
 
 
 }
-export default RCNScoopingCreateForm
+export default RCNHumidCreateForm

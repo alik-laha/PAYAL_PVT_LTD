@@ -1,12 +1,13 @@
-import axios from "axios";
-import { pagelimit, pageNo, pendingCheckRole, SelectGatePassType } from "../common/exportData";
 import { useContext, useEffect, useState } from "react";
+import { Origin, pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
+import Context from "../context/context";
+import axios from "axios";
+import { HumidData, BormaExcelData, pendingCheckRoles, PermissionRole, HumidExcelData } from "@/type/type";
 import { Input } from "../ui/input";
-import { AlmondPrimaryEntryData, AlmondPrimaryExcelEntryData, findskutypeData, pendingCheckRoles, PermissionRole } from "@/type/type";
-import { format, toZonedTime } from 'date-fns-tz'
-import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
+import { Button } from "../ui/button";
 import { LuDownload } from "react-icons/lu";
+import { format, toZonedTime } from 'date-fns-tz'
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import {
@@ -17,7 +18,6 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import Context from "../context/context";
 import {
     Pagination,
     PaginationContent,
@@ -33,15 +33,6 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import {
-    Dialog,
-    DialogContent,
-    // DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog"
-import { CiEdit } from "react-icons/ci";
-import {
     AlertDialog,
     AlertDialogAction,
     AlertDialogCancel,
@@ -52,33 +43,34 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import {
+    Dialog,
+    DialogContent,
+    // DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { CiEdit } from "react-icons/ci";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
-import AlmondModify from "./AlmondModify";
-
+// import BormaModify from "./RCNBormaModify";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import HumidifierModify from "./HumidifierModify";
 
-
-const AlmondTable = () => {
+const HumidTable = () => {
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
-    const [selectType, setselectType] = useState<string>("IN")
-    const [tablesearch, settablesearch] = useState<string>("IN")
     const [fromdate, setfromDate] = useState<string>('');
     const [todate, settoDate] = useState<string>('');
     const [hidetodate, sethidetoDate] = useState<string>('');
-    const [blConNo, setBlConNo] = useState<string>("")
     const currDate = new Date().toLocaleDateString();
     const [origin, setOrigin] = useState<string>("")
-    const [gradeor, setgradeor] = useState<string>("")
-    const [Data, setData] = useState<any[]>([])
-    const [sku, setsku] = useState<findskutypeData[]>([])
-    const [grade, setGrade] = useState<findskutypeData[]>([])
-
-    const [EditData, setEditData] = useState<AlmondPrimaryEntryData[]>([])
-    const { editPendingAlmondData } = useContext(Context);
     const [blockpagen, setblockpagen] = useState('flex')
-
+    const [EditData, setEditData] = useState<HumidData[]>([])
+    const [blConNo, setBlConNo] = useState<string>("")
+    const { editHumidLotWiseData } = useContext(Context);
+    const [Data, setData] = useState<any[]>([])
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 
@@ -112,18 +104,85 @@ const AlmondTable = () => {
             return prev
         })
     }, [page])
-
-    const handleSearch = async () => {
-        settablesearch(selectType)
-        setEditData([])
-        setblockpagen('flex')
-        const response = await axios.put('/api/almondPrimary/almondprimarysearch', {
+    const exportToExcel = async () => { 
+        const response = await axios.put('/api/humid/humidprimarysearch', {
             searchitem: blConNo,
-            gatetype: selectType,
             fromDate: fromdate,
             toDate: todate,
-            almondtype: origin,
-            almondgrade: gradeor
+            origin: origin,
+        })
+        const data1 = await response.data
+
+        let ws
+        let transformed: HumidExcelData[] = [];
+        if (EditData.length > 0) {
+
+            transformed = EditData.map((item: HumidData, idx: number) => ({
+                SL_No: idx + 1,
+                LotNo: item.LotNo,
+                date: handletimezone(item.date),
+                origin: item.origin,
+                Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
+                Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
+                Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),         
+                otherTime: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
+                Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
+                noOfOperators:item.noOfOperators,
+                NoOfTrolley: item.NoOfTrolley,
+                InputMoisture: formatNumber(item.InputMoisture),   
+                OutputMoisture: formatNumber(item.OutputMoisture), 
+                TotalInput: formatNumber(item.TotalInput),    
+                TotalOutput: formatNumber(item.TotalOutput),   
+                MoistGain: formatNumber(item.MoistGain),    
+                CreatedBy: item.CreatedBy,
+                editStatus: item.editStatus,
+                modifiedBy: item.modifiedBy
+            }));
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        else {
+            transformed = data1.rcnEntries.map((item: BormaData, idx: number) => ({
+                SL_No: idx + 1,
+                LotNo: item.LotNo,
+                date: handletimezone(item.date),
+                origin: item.origin,
+                Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
+                Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
+                Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),         
+                otherTime: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
+                Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
+                noOfOperators:item.noOfOperators,
+                NoOfTrolley: item.NoOfTrolley,
+                InputMoisture: formatNumber(item.InputMoisture),   
+                OutputMoisture: formatNumber(item.OutputMoisture), 
+                TotalInput: formatNumber(item.TotalInput),    
+                TotalOutput: formatNumber(item.TotalOutput),   
+                MoistGain: formatNumber(item.MoistGain),    
+                CreatedBy: item.CreatedBy,
+                editStatus: item.editStatus,
+                modifiedBy: item.modifiedBy
+
+            }));
+            // setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'Humidifier_Entry_' + currDate + '.xlsx');
+    }
+    const handleSearch = async () => {
+
+        setEditData([])
+        setblockpagen('flex')
+        const response = await axios.put('/api/humid/humidprimarysearch', {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            origin: origin,
+
 
         }, {
             params: {
@@ -141,128 +200,13 @@ const AlmondTable = () => {
 
     }
     useEffect(() => {
-        if (editPendingAlmondData.length > 0) {
+        if (editHumidLotWiseData.length > 0) {
             //console.log(editPendingData)
-            setEditData(editPendingAlmondData)
+            setEditData(editHumidLotWiseData)
             setblockpagen('none')
         }
-    }, [editPendingAlmondData])
 
-    useEffect(() => {
-        axios.put('/api/vendorSKU/getItembySection/Almond Type', { section: 'Almond' })
-            .then(res => {
-                //console.log(res.data)
-                setsku(res.data)
-                //console.log(sku)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [])
-    useEffect(() => {
-        axios.put('/api/vendorSKU/getItembySection/Almond Grade', { section: 'Almond' })
-            .then(res => {
-                //console.log(res.data)
-                setGrade(res.data)
-                //console.log(sku)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [])
-
-    const handleRejection = async (item: AlmondPrimaryEntryData) => {
-        const response = await axios.delete(`/api/almondPrimary/rejectededitAlmond/${item.id}`)
-        const data = await response.data
-        console.log(data)
-        if (data.message === "Almond Entry rejected successfully") {
-            //console.log('rejected enter')
-            if (rejectsuccessdialog != null) {
-                (rejectsuccessdialog as any).showModal();
-            }
-        }
-    }
-
-    const exportToExcel = async () => {
-        const response = await axios.put('/api/almondPrimary/almondprimarysearch', {
-            searchitem: blConNo,
-            gatetype: selectType,
-            fromDate: fromdate,
-            toDate: todate,
-            almondtype: origin,
-            almondgrade: gradeor
-        })
-        const data1 = await response.data
-
-        let ws
-        let transformed: AlmondPrimaryExcelEntryData[] = [];
-        if (EditData.length > 0) {
-
-            transformed = EditData.map((item: AlmondPrimaryEntryData, idx: number) => ({
-               
-                
-                id: idx + 1,
-                gatePassNo:item.gatePassNo,
-                gateType:item.gateType,
-                ReceivingDate: handletimezone(item.recevingDate),
-                Vehicle_No:item.truckNo,
-                vendorName:item.vendorName,
-                grossWt:formatNumber(item.grossWt),
-                netWeight:item.netWeight ? item.netWeight : 0 ,
-                type:item.type,
-                grade:item.grade,
-                invoice:item.invoice,
-                invoicedate:handletimezone(item.invoicedate),
-                totalWt:item.totalWt ? formatNumber(item.totalWt):0 ,
-                totalBill:item.totalBill ? formatNumber(item.totalBill):0 ,
-                Item_Count:item.noOfBags,
-                editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
-    
-            }));
-            //setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
-        }
-        else {
-            transformed = data1.rcnEntries.map((item: AlmondPrimaryEntryData, idx: number) => ({
-                id: idx + 1,
-                gatePassNo:item.gatePassNo,
-                gateType:item.gateType,
-                ReceivingDate: handletimezone(item.recevingDate),
-                Vehicle_No:item.truckNo,
-                vendorName:item.vendorName,
-                grossWt:formatNumber(item.grossWt),
-                netWeight:item.netWeight ? item.netWeight : 0 ,
-                type:item.type,
-                grade:item.grade,
-                invoice:item.invoice,
-                invoicedate:handletimezone(item.invoicedate),
-                totalWt:item.totalWt ? formatNumber(item.totalWt):0 ,
-                totalBill:item.totalBill ? formatNumber(item.totalBill):0 ,
-                Item_Count:item.noOfBags,
-                editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
-
-            }));
-            // setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
-        }
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Almond_Primary_Entry_' + currDate + '.xlsx');
-
-
-    }
-    const handleApprove = async (item: AlmondPrimaryEntryData) => {
-        const response = await axios.put(`/api/almondPrimary/approveeditAlmond/${item.id}`)
-        const data = await response.data
-        if (data.message === "Edit Request of Almond Entry is Approved Successfully") {
-
-            if (approvesuccessdialog != null) {
-                (approvesuccessdialog as any).showModal();
-            }
-        }
-    }
+    },[editHumidLotWiseData])
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
         const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -283,9 +227,6 @@ const AlmondTable = () => {
     function formatNumber(num: string) {
         return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
     }
-
-
-
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
 
         const selected = e.target.value;
@@ -303,23 +244,62 @@ const AlmondTable = () => {
         sethidetoDate(selected)
         settoDate(nextday)
     }
+    const handleAMPM = (time: string) => {
 
+        let [hours, minutes] = time.split(':').map(Number);
+        let period = ' AM';
+
+        if (hours === 0) {
+            hours = 12;
+        } else if (hours === 12) {
+            period = ' PM';
+        } else if (hours > 12) {
+            hours -= 12;
+            period = ' PM';
+        }
+        const finalTime = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + period.toString()
+
+        // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
+        return finalTime;
+    }
+    const handleApprove = async (item: HumidData) => {
+        const response = await axios.put(`/api/humid/approveeditHumid/${item.id}`)
+        const data = await response.data
+        if (data.message === "Edit Request of Humid Entry is Approved Successfully") {
+
+            if (approvesuccessdialog != null) {
+                (approvesuccessdialog as any).showModal();
+            }
+        }
+    }
+    const handleRejection = async (item: HumidData) => {
+        const response = await axios.delete(`/api/humid/rejectededitHumid/${item.id}`)
+        const data = await response.data
+        console.log(data)
+        if (data.message === "Humid Entry rejected successfully") {
+            //console.log('rejected enter')
+            if (rejectsuccessdialog != null) {
+                (rejectsuccessdialog as any).showModal();
+            }
+        }
+    }
     return (
         <>
+
             <div className="ml-5 mt-5 ">
                 <div className="flex flexbox-search">
 
-                    <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" GatePass No" value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                    <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
 
                     <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setOrigin(e.target.value)} value={origin}>
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Type (All)</option>
-                        {sku.map((data, index) => (
+  <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
+                        {Origin.map((data, index) => (
                             <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data.sku} key={index}>
-                                {data.sku}
+py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                {data}
                             </option>
                         ))}
                     </select>
@@ -341,89 +321,64 @@ const AlmondTable = () => {
                         placeholder="To Date"
 
                     />
-                    <select className='flexbox-search-width flex h-8 w-1/7 no-margin-left-absolute ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setgradeor(e.target.value)} value={gradeor}>
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Grade (All)</option>
-                        {grade.map((data, index) => (
-                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data.sku} key={index}>
-                                {data.sku}
-                            </option>
-                        ))}
-                    </select>
-                    <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setselectType(e.target.value)} value={selectType}>
 
-                        {SelectGatePassType.map((data, index) => (
-                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                                {data}
-                            </option>
-                        ))}
-                    </select>
+                   
 
 
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
-                {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+                {checkpending('Humidifier') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
                         <TableHead className="text-center" >Id</TableHead>
-                        <TableHead className="text-center" >GatePass_No</TableHead>
-
-                        <TableHead className="text-center" >GatePass_Type</TableHead>
-                        <TableHead className="text-center" >Receiving_Date</TableHead>
-                        <TableHead className="text-center" >Vehicle_No</TableHead>
-
-                        <TableHead className="text-center" >Initial_Weight</TableHead>
-                        <TableHead className="text-center" >Type</TableHead>
-                        {(tablesearch === 'OUT' || EditData.length > 0) ? <TableHead className="text-center" >Grade</TableHead> : ''}
-                        <TableHead className="text-center" >Invoice_No.</TableHead>
-                        <TableHead className="text-center" >Invoice_Date</TableHead>
-
-                        <TableHead className="text-center" >Net_Weight</TableHead>
-
-                        <TableHead className="text-center" >Vendor Name</TableHead>
-                        <TableHead className="text-center" >Bag/Item_Count</TableHead>
-                        {(tablesearch === 'OUT' || EditData.length > 0 )? <TableHead className="text-center" >Row_Weight</TableHead> : ''}
-                        <TableHead className="text-center" >Bill_Amount</TableHead>
+                        <TableHead className="text-center" >Item_Lot_No</TableHead>
+                        <TableHead className="text-center" >Origin</TableHead>
+                        <TableHead className="text-center" >Humidify_Date</TableHead>
+                        <TableHead className="text-center" >Moisture(Input)</TableHead>
+                        <TableHead className="text-center ">Total_Input(Kg)</TableHead>
+                        <TableHead className="text-center" >Moisture(Output)</TableHead>
+                        <TableHead className="text-center " >Total_Output(Kg)</TableHead>
+                        <TableHead className="text-center" >Moisture_Gain</TableHead>
+                        <TableHead className="text-center" >No_Of_Trolley</TableHead>
+                        <TableHead className="text-center" >Humidifier_ON</TableHead>
+                        <TableHead className="text-center" >Humidifier_OFF</TableHead>
+                        
+                        <TableHead className="text-center" >Breakdown Duration</TableHead>
+                        <TableHead className="text-center" >Other Duration</TableHead>
+                        <TableHead className="text-center" >Run Duration</TableHead>
+                        <TableHead className="text-center" >No_Of_Operator</TableHead>
                         <TableHead className="text-center" >Edit Status </TableHead>
-
+                        <TableHead className="text-center" >Created By </TableHead>
                         <TableHead className="text-center" >Action</TableHead>
                     </TableHeader>
-
                     <TableBody>
 
 
-                        {EditData.length > 0 ? (EditData.map((item: AlmondPrimaryEntryData, idx) => {
+                        {EditData.length > 0 ? (EditData.map((item: HumidData, idx) => {
 
                             return (
                                 <TableRow key={item.id}>
                                 <TableCell className="text-center">{idx + 1}</TableCell>
-                                <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
-                                <TableCell className="text-center font-semibold text-cyan-600">{item.gateType}</TableCell>
-                                <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
-
-                                <TableCell className="text-center">{item.truckNo}</TableCell>
-                                <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
-                                <TableCell className="text-center">{item.type}</TableCell>
-                                {(tablesearch === 'OUT' || EditData.length > 0 )? <TableCell className="text-center" >{item.grade}</TableCell> : ''}
-                                <TableCell className="text-center">{item.invoice}</TableCell>
-                                <TableCell className="text-center">{handletimezone(item.invoicedate)}</TableCell>
-                                <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
-
-                                <TableCell className="text-center">{item.vendorName}</TableCell>
-                                <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
-
-                                {(tablesearch === 'OUT' || EditData.length > 0 ) ? <TableCell className="text-center" >{item.totalWt}</TableCell> : ''}
-                                <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0 }</TableCell>
-                                <TableCell className="text-center">{item.editStatus}</TableCell>
+                                <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
+                                        <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
+                                        <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.InputMoisture)} %</TableCell>
+                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalInput)}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.OutputMoisture)} %</TableCell>
+                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalOutput)}</TableCell>
+                                        <TableCell className="text-center font-bold text-purple-500">{formatNumber(item.MoistGain)} %</TableCell>
+                                        <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
+                                        <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
+                            <TableCell className="text-center">{item.noOfOperators}</TableCell>
+                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                        <TableCell className="text-center">{item.CreatedBy}</TableCell>
                                 <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
@@ -464,30 +419,29 @@ const AlmondTable = () => {
                                 </TableRow>
                             ) })): (
 
-                            Data.length > 0 ? (Data.map((item: AlmondPrimaryEntryData, idx) => {
+                            Data.length > 0 ? (Data.map((item: HumidData, idx) => {
 
 
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
-                                        <TableCell className="text-center font-semibold text-cyan-600">{item.gateType}</TableCell>
-                                        <TableCell className="text-center">{handletimezone(item.recevingDate)}</TableCell>
-
-                                        <TableCell className="text-center">{item.truckNo}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.grossWt)}</TableCell>
-                                        <TableCell className="text-center">{item.type}</TableCell>
-                                        {tablesearch === 'OUT' ? <TableCell className="text-center" >{item.grade}</TableCell> : ''}
-                                        <TableCell className="text-center">{item.invoice}</TableCell>
-                                        <TableCell className="text-center">{handletimezone(item.invoicedate)}</TableCell>
-                                        <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
-
-                                        <TableCell className="text-center">{item.vendorName}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
-
-                                        {tablesearch === 'OUT' ? <TableCell className="text-center" >{item.totalWt}</TableCell> : ''}
-                                        <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0}</TableCell>
+                                        <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
+                                        <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
+                                        <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.InputMoisture)} %</TableCell>
+                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalInput)}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.OutputMoisture)} %</TableCell>
+                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalOutput)}</TableCell>
+                                        <TableCell className="text-center font-bold text-purple-500">{formatNumber(item.MoistGain)} %</TableCell>
+                                        <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
+                                        <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
+                            <TableCell className="text-center">{item.noOfOperators}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
+                                        <TableCell className="text-center">{item.CreatedBy}</TableCell>
 
                                         <TableCell className="text-center">
                                             <Popover>
@@ -502,10 +456,10 @@ const AlmondTable = () => {
                                                         <DialogContent>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Almond Entry Modification</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-1'>Humidifier Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            <AlmondModify data={item} />
+                                                            <HumidifierModify data={item} />
                                                         </DialogContent>
                                                     </Dialog>
                                                 </PopoverContent>
@@ -574,17 +528,15 @@ const AlmondTable = () => {
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
-
-
-
-
             </div>
-
 
 
         </>
     )
 
+
+
+
 }
 
-export default AlmondTable
+export default HumidTable;

@@ -21,7 +21,7 @@ const EditRejectAlmond = async (req: Request, res: Response) => {
             }
         });
         if (!rcn) {
-            return res.status(400).json({ message: "Rcn Entry not found" });
+            return res.status(400).json({ message: "Almond Entry not found" });
         }
         const rcnEdit = await almondPrimaryEntryEditModel.destroy({
             where: {
@@ -29,9 +29,9 @@ const EditRejectAlmond = async (req: Request, res: Response) => {
             }
         });
         if (!rcnEdit) {
-            return res.status(400).json({ message: "Rcn Entry not found" });
+            return res.status(400).json({ message: "Almond Entry not found" });
         }
-        return res.status(200).json({ message: "Rcn Entry rejected successfully" });
+        return res.status(200).json({ message: "Almond Entry rejected successfully" });
     }
     catch (err) {
         console.log(err);

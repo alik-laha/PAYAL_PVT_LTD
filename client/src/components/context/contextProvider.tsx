@@ -22,6 +22,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [recevingPackagematerialOverView, setRecevingPacakanMaterialOverView] = useState<SumofpackageMetrialReceving | null>(null)
     const [editScoopingLotWiseData, setEditScoopingLotWiseData] = useState<rcnScoopingData[]>([])
     const [editBormaLotWiseData, setEditBormaLotWiseData] = useState<any[]>([])
+    const [editHumidLotWiseData, setEditHumidLotWiseData] = useState<any[]>([])
     const [searchType, setSearchType] = useState<string>('LotWise')
     const [StorePrimaryOverView, setStorePrimaryOverView] = useState<sumofStorePrimary | null>(null)
     const [RcvVillagePrimaryOverView, setRcvVillagePrimaryOverView] = useState<sumofRcvVillagePrimary | null>(null)
@@ -37,7 +38,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
             setpendingreportCount, recevingPackagematerialOverView, setRecevingPacakanMaterialOverView,
             editScoopingLotWiseData, setEditScoopingLotWiseData, searchType, setSearchType,editBormaLotWiseData,setEditBormaLotWiseData,
             StorePrimaryOverView,setStorePrimaryOverView,GeneralPrimaryOverView,setGeneralPrimaryOverView,editPendingAlmondData,setEditPendingAlmondData
-            ,RcvVillagePrimaryOverView,setRcvVillagePrimaryOverView
+            ,RcvVillagePrimaryOverView,setRcvVillagePrimaryOverView,editHumidLotWiseData,setEditHumidLotWiseData
         }}>
             {children}
         </Context.Provider>

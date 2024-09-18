@@ -173,12 +173,13 @@ const DashboardTable = () => {
             <Table className="mt-1">
                 <TableHeader className="bg-neutral-100 text-stone-950 ">
 
-                    <TableHead className="text-center" >Id</TableHead>
-                    <TableHead className="text-center" >FullNameOfEmployee</TableHead>
-                    <TableHead className="text-center" >Emp ID </TableHead>
-                    <TableHead className="text-center" >User Name </TableHead>
-                    <TableHead className="text-center" >Department </TableHead>
-                    <TableHead className="text-center" >Role </TableHead>
+                    <TableHead className="text-center text-left" >Id</TableHead>
+                    <TableHead className="text-center text-left" >Emp ID </TableHead>
+                    <TableHead className="text-center text-left" >FullNameOfEmployee</TableHead>
+                    
+                    <TableHead className="text-center text-left" >User Name </TableHead>
+                    <TableHead className="text-center text-left" >Department </TableHead>
+                    <TableHead className="text-center text-left" >Role </TableHead>
 
                     <TableHead className="text-center" >Created By </TableHead>
                     <TableHead className="text-center" >Action</TableHead>
@@ -207,11 +208,13 @@ const DashboardTable = () => {
                             return (
                                 <TableRow key={idx}>
                                     <TableCell className="text-center" >{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className="text-center font-semibold text-cyan-600" >{item.employeeName}</TableCell>
-                                    <TableCell className="text-center font-semibold text-red-500" >{item.employeeId}</TableCell>
-                                    <TableCell className="text-center font-semibold " >{item.userName}</TableCell>
-                                    <TableCell className="text-center font-semibold " >{item.dept}</TableCell>
-                                    <TableCell className="text-center font-semibold " >{item.role}</TableCell>
+                                    <TableCell className="text-center font-semibold text-cyan-600" >{item.employeeId}</TableCell>
+                                    <TableCell className="text-center font-semibold text-left" >{item.employeeName}</TableCell>
+                                
+                                    <TableCell className="text-center font-semibold text-red-500 text-left" >{item.userName}</TableCell>
+                                    <TableCell className="text-center text-left " >{item.dept}</TableCell>
+                                    
+                                    <TableCell className="text-center text-left " >{item.role}</TableCell>
                                     <TableCell className="text-center" >{item.createdBy}</TableCell>
 
                                     <TableCell className="text-center" >

@@ -2,12 +2,11 @@
 import { Request, Response } from "express";
 import sequelize from "../../config/databaseConfig";
 
-import RcnBorma from "../../model/bormaModel";
 import LotNo from "../../model/lotNomodel";
 import Humidifier from "../../model/humidfierModel";
 
 
-const CreateEntireBorma = async (req: Request, res: Response) => {
+const CreateEntireHumid= async (req: Request, res: Response) => {
     const timeToMilliseconds = (time: string) => {
         const [hours, minutes] = time.split(':').map(Number);
         return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
@@ -30,12 +29,12 @@ const CreateEntireBorma = async (req: Request, res: Response) => {
 
     try{
     const feeledBy = req.cookies.user;
-    const lineborma = req.body.lineborma
+    const linehumid = req.body.linehumid
     const LotNO = req.body.LotNo
 
     await sequelize.transaction(async (transaction: any) => {
 
-        for (let data of lineborma) 
+        for (let data of linehumid) 
         {
             if (data.otherTime === undefined || data.otherTime === null) {
                 data.otherTime = '00:00'
@@ -50,18 +49,19 @@ const CreateEntireBorma = async (req: Request, res: Response) => {
                 throw new Error('Transaction Aborted 1')
             }
             const Mc_runTime = millisecondsToTime(runtime);
-            const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
-            if(parseFloat(data.TotalInput)<totalOut){
-                res.status(500).json({ message: "Borma Output can't be Greater Than Input" });
+            //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
+            if((parseFloat(data.TotalInput)>parseFloat(data.TotalOutput))
+                ||parseFloat(data.InputMoisture)>parseFloat(data.OutputMoisture)){
+                res.status(500).json({ message: "Output can't be Lower Than Input" });
                 throw new Error('Transaction Aborted due to negative value')
 
             }
             let prcntg:number=0
-            if(data.TotalInput){
-                 prcntg=(((parseFloat(data.TotalInput)-totalOut)/parseFloat(data.TotalInput))*100)
+            if(data.OutputMoisture && data.InputMoisture){
+                 prcntg=(((parseFloat(data.OutputMoisture)-parseFloat(data.InputMoisture))/parseFloat(data.InputMoisture))*100)
             }
             
-            const bormaUpdate=await RcnBorma.update(
+            const humidUpdate=await Humidifier.update(
                 {     
                     date:data.Date,
                     Mc_on: data.Mc_on,
@@ -70,17 +70,11 @@ const CreateEntireBorma = async (req: Request, res: Response) => {
                     Mc_runTime: Mc_runTime,
                     noOfOperators:data.operator,
                     otherTime: data.otherTime,
-                    NoOfTrolley: data.NoOfTrolley,
-                    InputMoisture: data.InputMoisture,
                     OutputMoisture: data.OutputMoisture,
-                    OutputWholes: data.OutputWholes,
-                    OutputPieces: data.OutputPieces,
-                    TotalOutput: totalOut,
-                    BormaLoss: prcntg,
-                    BormaStatus: 1,
-                    Temp:data.Temp,
-                    CreatedBy: feeledBy
-                  
+                    TotalOutput: data.TotalOutput,
+                    MoistGain: prcntg,
+                    Status: 1,
+                    CreatedBy: feeledBy 
                 },
                 {
                     where: {
@@ -88,25 +82,23 @@ const CreateEntireBorma = async (req: Request, res: Response) => {
                     }, transaction
                 }
             );
-            if(bormaUpdate){
-                await Humidifier.create({
-                    id:data.id,
-                    LotNo:data.LotNo,
-                    origin:data.origin,
-                    InputMoisture:data.OutputMoisture,
-                    TotalInput:totalOut,
-                    NoOfTrolley: data.NoOfTrolley,
+            if(humidUpdate){
+                // await Humidifier.create({
+                //     id:data.id,
+                //     LotNo:data.LotNo,
+                //     origin:data.origin,
+                //     InputMoisture:data.OutputMoisture,
+                //     TotalInput:totalOut,
+                //     NoOfTrolley: data.NoOfTrolley,
 
-                },{transaction});
+                // },{transaction});
             }
            
-            
-
         }
        
         const lotupdate = await LotNo.update(
             { 
-              modifiedBy:'Borma'
+              modifiedBy:'Humidifier'
             },
             {
                 where: {
@@ -115,7 +107,7 @@ const CreateEntireBorma = async (req: Request, res: Response) => {
             }
         );
         if(lotupdate){
-            res.status(200).json({ message: "Borma Entry Made Successfully" });
+            res.status(200).json({ message: "Humidification Entry Made Successfully" });
         }
         else{
             console.log('No Need For Update')
@@ -127,7 +119,7 @@ const CreateEntireBorma = async (req: Request, res: Response) => {
     catch(error) {
         if(!res.headersSent){
             console.log(error)
-            return res.status(500).json({ message: "Error while creating Borma Entry" ,error});
+            return res.status(500).json({ message: "Error while creating Humidification Entry" ,error});
         }
     }
     
@@ -136,4 +128,4 @@ const CreateEntireBorma = async (req: Request, res: Response) => {
 }
 
 
-export default CreateEntireBorma;
+export default CreateEntireHumid;
