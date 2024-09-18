@@ -76,8 +76,8 @@ function App() {
     'Security','GatePassManager',
     'MaintainanceSupervisor','MaintainanceManager',
     'QCSupervisor', 'QCManager', 
-    'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','BormaSuperVisor',
-    'PeelingSuperVisor','VillageSupervisor']} />}>
+    'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','BormaSupervisor',
+    'PeelingSupervisor','VillageSupervisor']} />}>
 
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
