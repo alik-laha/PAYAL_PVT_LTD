@@ -122,12 +122,12 @@ function App() {
           <Route path='/dashboard/rcnScooping' element={<RCNScooping />} />
         </Route>
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'BormaSuperVisor', 'ProductionManager']} />}>
+          'BormaSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/RcnBorma' element={<RCNBorma />} />
           
         </Route>
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'PeelingSuperVisor', 'ProductionManager']} />}>
+          'PeelingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/Humidifier' element={<Humidifier />} />
           
         </Route>

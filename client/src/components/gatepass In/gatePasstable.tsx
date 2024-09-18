@@ -1,7 +1,7 @@
 import { FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight, FaSearch } from "react-icons/fa";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { format, toZonedTime } from 'date-fns-tz'
 import React from "react";
 import {  SelectGatePassType, pageNo, pagelimit, pendingCheckRole, sectionDataonTypeGate } from "../common/exportData";

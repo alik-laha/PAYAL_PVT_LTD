@@ -7,8 +7,8 @@ export const Role: string[] = ['Director', 'FactoryManager',
     'Security','GatePassManager',
     'MaintainanceSupervisor','MaintainanceManager',
     'QCSupervisor', 'QCManager', 
-    'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','BormaSuperVisor',
-    'PeelingSuperVisor','VillageSupervisor'
+    'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','BormaSupervisor',
+    'PeelingSupervisor','VillageSupervisor'
 ]
 export const PermissionRol = {
     Director: ['Employee', 'Dashboard User', 'Asset', 'VendorSKU',
@@ -42,8 +42,8 @@ export const PermissionRol = {
     ProductionManager:['Grading','Boiling','Scooping','Borma','Humidifier','Peeling','Receiving Village Entry'],
     MaintainanceManager:['Cleaning'],
     CleaningSupervisor:['Cleaning'],
-    BormaSuperVisor:['Borma'],
-    PeelingSuperVisor:['Humidifier','Peeling',],
+    BormaSupervisor:['Borma'],
+    PeelingSupervisor:['Humidifier','Peeling',],
     VillageSupervisor:['Receiving Village Entry'],
     Security:['Gatepass'],
     GatePassManager:['Gatepass','RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
@@ -90,7 +90,7 @@ export const roleDataonDept = {
     //Maintainance: ['CleaningSupervisor', 'MaintainanceManager'],
     QualityControl: ['QCSupervisor', 'QCManager'],
     Production: ['ProductionManager', 'GradingSupervisor', 
-        'BoilingSupervisor', 'ScoopingSupervisor','BormaSuperVisor','PeelingSuperVisor','VillageSupervisor'],
+        'BoilingSupervisor', 'ScoopingSupervisor','BormaSupervisor','PeelingSupervisor','VillageSupervisor'],
     GatePass:['Security','GatePassManager']
 }
 export const pageNo = 1
