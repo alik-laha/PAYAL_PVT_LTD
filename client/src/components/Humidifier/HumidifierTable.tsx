@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Origin, pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
 import Context from "../context/context";
 import axios from "axios";
-import { HumidData, BormaExcelData, pendingCheckRoles, PermissionRole, HumidExcelData } from "@/type/type";
+import { HumidData, pendingCheckRoles, PermissionRole, HumidExcelData } from "@/type/type";
 import { Input } from "../ui/input";
 import { FaSearch } from "react-icons/fa";
 import { Button } from "../ui/button";
@@ -142,7 +142,7 @@ const HumidTable = () => {
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
-            transformed = data1.rcnEntries.map((item: BormaData, idx: number) => ({
+            transformed = data1.rcnEntries.map((item: HumidData, idx: number) => ({
                 SL_No: idx + 1,
                 LotNo: item.LotNo,
                 date: handletimezone(item.date),

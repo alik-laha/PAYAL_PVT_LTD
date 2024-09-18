@@ -565,13 +565,13 @@ export interface PermissionRole {
     GradingSupervisor: string[];
     BoilingSupervisor: string[];
     ScoopingSupervisor: string[];
-    BormaSupervisor:string[];
+   
     PeelingSupervisor:string[];
     VillageSupervisor:string[];
     ProductionManager:string[];
     MaintainanceManager:string[];
     CleaningSupervisor:string[];
-    BormaSuperVisor:string[];
+    BormaSupervisor:string[];
     Security:string[];
     GatePassManager:string[];
 
