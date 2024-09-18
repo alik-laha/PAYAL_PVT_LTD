@@ -24,6 +24,7 @@ import Loader from '../common/Loader';
 import { HumidpendingLotData, pendingCheckRoles, PermissionRole } from '@/type/type';
 import RCNHumidCreateForm from './HumidifierCreateForm';
 import { pendingCheckRole } from '../common/exportData';
+import HumidTable from './HumidifierTable';
 
 // import BormaTable from './RCNBormaTable';
 
@@ -133,7 +134,7 @@ const Humidifier = () => {
                     {checkpending('Humidifier') &&  <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> }
 
                 </div>
-                {/* <BormaTable/> */}
+                <HumidTable/>
 
             </div>
         </div>

@@ -420,6 +420,27 @@ export interface HumidData {
     editStatus: string;
     modifiedBy: string;
 }
+export interface HumidExcelData {
+    SL_No: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    TotalInput: string | number;
+    Mc_on: string;
+    Mc_off: string;
+    Mc_breakdown: string;
+    Mc_runTime: string;
+    noOfOperators:string;
+    otherTime: string;
+    NoOfTrolley: string;
+    InputMoisture: string | number;
+    OutputMoisture: string | number;
+    TotalOutput: string | number;
+    MoistGain:string | number;
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string;
+}
 
 export interface ExcelRcnPrimaryEntryData {
     SL_No: number;

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Origin, pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
 import Context from "../context/context";
 import axios from "axios";
-import { BormaData, BormaExcelData, pendingCheckRoles, PermissionRole } from "@/type/type";
+import { HumidData, BormaExcelData, pendingCheckRoles, PermissionRole, HumidExcelData } from "@/type/type";
 import { Input } from "../ui/input";
 import { FaSearch } from "react-icons/fa";
 import { Button } from "../ui/button";
@@ -53,11 +53,12 @@ import {
 } from "@/components/ui/dialog"
 import { CiEdit } from "react-icons/ci";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
-import BormaModify from "./RCNBormaModify";
+// import BormaModify from "./RCNBormaModify";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import HumidifierModify from "./HumidifierModify";
 
-const BormaTable = () => {
+const HumidTable = () => {
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
     const [fromdate, setfromDate] = useState<string>('');
@@ -66,9 +67,9 @@ const BormaTable = () => {
     const currDate = new Date().toLocaleDateString();
     const [origin, setOrigin] = useState<string>("")
     const [blockpagen, setblockpagen] = useState('flex')
-    const [EditData, setEditData] = useState<BormaData[]>([])
+    const [EditData, setEditData] = useState<HumidData[]>([])
     const [blConNo, setBlConNo] = useState<string>("")
-    const { editBormaLotWiseData } = useContext(Context);
+    const { editHumidLotWiseData } = useContext(Context);
     const [Data, setData] = useState<any[]>([])
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
@@ -104,7 +105,7 @@ const BormaTable = () => {
         })
     }, [page])
     const exportToExcel = async () => { 
-        const response = await axios.put('/api/borma/bormaprimarysearch', {
+        const response = await axios.put('/api/humid/humidprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
@@ -113,17 +114,14 @@ const BormaTable = () => {
         const data1 = await response.data
 
         let ws
-        let transformed: BormaExcelData[] = [];
+        let transformed: HumidExcelData[] = [];
         if (EditData.length > 0) {
 
-            transformed = EditData.map((item: BormaData, idx: number) => ({
+            transformed = EditData.map((item: HumidData, idx: number) => ({
                 SL_No: idx + 1,
                 LotNo: item.LotNo,
                 date: handletimezone(item.date),
                 origin: item.origin,
-                InputWholes: formatNumber(item.InputWholes),
-                InputPieces: formatNumber(item.InputPieces),
-                TotalInput: formatNumber(item.TotalInput),
                 Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
                 Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
                 Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),         
@@ -132,12 +130,10 @@ const BormaTable = () => {
                 noOfOperators:item.noOfOperators,
                 NoOfTrolley: item.NoOfTrolley,
                 InputMoisture: formatNumber(item.InputMoisture),   
-                OutputMoisture: formatNumber(item.OutputMoisture),   
-                OutputWholes: formatNumber(item.OutputWholes),   
-                OutputPieces: formatNumber(item.OutputPieces),   
+                OutputMoisture: formatNumber(item.OutputMoisture), 
+                TotalInput: formatNumber(item.TotalInput),    
                 TotalOutput: formatNumber(item.TotalOutput),   
-                BormaLoss: formatNumber(item.BormaLoss),    
-                Temp:item.Temp,
+                MoistGain: formatNumber(item.MoistGain),    
                 CreatedBy: item.CreatedBy,
                 editStatus: item.editStatus,
                 modifiedBy: item.modifiedBy
@@ -151,9 +147,6 @@ const BormaTable = () => {
                 LotNo: item.LotNo,
                 date: handletimezone(item.date),
                 origin: item.origin,
-                InputWholes: formatNumber(item.InputWholes),
-                InputPieces: formatNumber(item.InputPieces),
-                TotalInput: formatNumber(item.TotalInput),
                 Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
                 Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
                 Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),         
@@ -162,12 +155,10 @@ const BormaTable = () => {
                 noOfOperators:item.noOfOperators,
                 NoOfTrolley: item.NoOfTrolley,
                 InputMoisture: formatNumber(item.InputMoisture),   
-                OutputMoisture: formatNumber(item.OutputMoisture),   
-                OutputWholes: formatNumber(item.OutputWholes),   
-                OutputPieces: formatNumber(item.OutputPieces),   
+                OutputMoisture: formatNumber(item.OutputMoisture), 
+                TotalInput: formatNumber(item.TotalInput),    
                 TotalOutput: formatNumber(item.TotalOutput),   
-                BormaLoss: formatNumber(item.BormaLoss),    
-                Temp:item.Temp,
+                MoistGain: formatNumber(item.MoistGain),    
                 CreatedBy: item.CreatedBy,
                 editStatus: item.editStatus,
                 modifiedBy: item.modifiedBy
@@ -180,13 +171,13 @@ const BormaTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Borma_Entry_' + currDate + '.xlsx');
+        saveAs(blob, 'Humidifier_Entry_' + currDate + '.xlsx');
     }
     const handleSearch = async () => {
 
         setEditData([])
         setblockpagen('flex')
-        const response = await axios.put('/api/borma/bormaprimarysearch', {
+        const response = await axios.put('/api/humid/humidprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
@@ -209,13 +200,13 @@ const BormaTable = () => {
 
     }
     useEffect(() => {
-        if (editBormaLotWiseData.length > 0) {
+        if (editHumidLotWiseData.length > 0) {
             //console.log(editPendingData)
-            setEditData(editBormaLotWiseData)
+            setEditData(editHumidLotWiseData)
             setblockpagen('none')
         }
 
-    },[editBormaLotWiseData])
+    },[editHumidLotWiseData])
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
         const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -271,21 +262,21 @@ const BormaTable = () => {
         // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
         return finalTime;
     }
-    const handleApprove = async (item: BormaData) => {
-        const response = await axios.put(`/api/borma/approveeditBorma/${item.id}`)
+    const handleApprove = async (item: HumidData) => {
+        const response = await axios.put(`/api/humid/approveeditHumid/${item.id}`)
         const data = await response.data
-        if (data.message === "Edit Request of Borma Entry is Approved Successfully") {
+        if (data.message === "Edit Request of Humid Entry is Approved Successfully") {
 
             if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).showModal();
             }
         }
     }
-    const handleRejection = async (item: BormaData) => {
-        const response = await axios.delete(`/api/borma/rejectededitBorma/${item.id}`)
+    const handleRejection = async (item: HumidData) => {
+        const response = await axios.delete(`/api/humid/rejectededitHumid/${item.id}`)
         const data = await response.data
         console.log(data)
-        if (data.message === "Borma Entry rejected successfully") {
+        if (data.message === "Humid Entry rejected successfully") {
             //console.log('rejected enter')
             if (rejectsuccessdialog != null) {
                 (rejectsuccessdialog as any).showModal();
@@ -337,7 +328,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
-                {checkpending('Borma') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+                {checkpending('Humidifier') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
@@ -345,21 +336,15 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Id</TableHead>
                         <TableHead className="text-center" >Item_Lot_No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Borma_Date</TableHead>
-                      
-                        <TableHead className="text-center" >Temperature</TableHead>
+                        <TableHead className="text-center" >Humidify_Date</TableHead>
                         <TableHead className="text-center" >Moisture(Input)</TableHead>
-                        <TableHead className="text-center" >Input_Wholes(Kg)</TableHead>
-                        <TableHead className="text-center" >Input_Pieces(Kg)</TableHead>
-                        <TableHead className="text-center " >Total_Input(Kg)</TableHead>
+                        <TableHead className="text-center ">Total_Input(Kg)</TableHead>
                         <TableHead className="text-center" >Moisture(Output)</TableHead>
-                        <TableHead className="text-center" >Output_Wholes(Kg)</TableHead>
-                        <TableHead className="text-center" >Output_Pieces(Kg)</TableHead>
                         <TableHead className="text-center " >Total_Output(Kg)</TableHead>
-                        <TableHead className="text-center" >Borma_Loss</TableHead>
+                        <TableHead className="text-center" >Moisture_Gain</TableHead>
                         <TableHead className="text-center" >No_Of_Trolley</TableHead>
-                        <TableHead className="text-center" >Borma_MC_ON</TableHead>
-                        <TableHead className="text-center" >Borma_MC_OFF</TableHead>
+                        <TableHead className="text-center" >Humidifier_ON</TableHead>
+                        <TableHead className="text-center" >Humidifier_OFF</TableHead>
                         
                         <TableHead className="text-center" >Breakdown Duration</TableHead>
                         <TableHead className="text-center" >Other Duration</TableHead>
@@ -372,7 +357,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableBody>
 
 
-                        {EditData.length > 0 ? (EditData.map((item: BormaData, idx) => {
+                        {EditData.length > 0 ? (EditData.map((item: HumidData, idx) => {
 
                             return (
                                 <TableRow key={item.id}>
@@ -380,19 +365,11 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-
-                                        
-                                        <TableCell className="text-center">{formatNumber(item.Temp)} C</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.InputMoisture)} %</TableCell>
-                                       
-                                        <TableCell className="text-center">{formatNumber(item.InputWholes)}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.InputPieces)}</TableCell>
                                         <TableCell className="text-center font-semibold">{formatNumber(item.TotalInput)}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.OutputMoisture)} %</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.OutputWholes)}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.OutputPieces)}</TableCell>
                                         <TableCell className="text-center font-semibold">{formatNumber(item.TotalOutput)}</TableCell>
-                                        <TableCell className="text-center font-bold text-purple-500">{formatNumber(item.BormaLoss)} %</TableCell>
+                                        <TableCell className="text-center font-bold text-purple-500">{formatNumber(item.MoistGain)} %</TableCell>
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
                                         <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
@@ -400,7 +377,6 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
                             <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
                             <TableCell className="text-center">{item.noOfOperators}</TableCell>
-
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.CreatedBy}</TableCell>
                                 <TableCell className="text-center">
@@ -443,7 +419,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 </TableRow>
                             ) })): (
 
-                            Data.length > 0 ? (Data.map((item: BormaData, idx) => {
+                            Data.length > 0 ? (Data.map((item: HumidData, idx) => {
 
 
                                 return (
@@ -452,19 +428,11 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-
-                                        
-                                        <TableCell className="text-center">{formatNumber(item.Temp)} C</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.InputMoisture)} %</TableCell>
-                                       
-                                        <TableCell className="text-center">{formatNumber(item.InputWholes)}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.InputPieces)}</TableCell>
                                         <TableCell className="text-center font-semibold">{formatNumber(item.TotalInput)}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.OutputMoisture)} %</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.OutputWholes)}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.OutputPieces)}</TableCell>
                                         <TableCell className="text-center font-semibold">{formatNumber(item.TotalOutput)}</TableCell>
-                                        <TableCell className="text-center font-bold text-purple-500">{formatNumber(item.BormaLoss)} %</TableCell>
+                                        <TableCell className="text-center font-bold text-purple-500">{formatNumber(item.MoistGain)} %</TableCell>
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
                                         <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
@@ -472,7 +440,6 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
                             <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
                             <TableCell className="text-center">{item.noOfOperators}</TableCell>
-
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.CreatedBy}</TableCell>
 
@@ -489,10 +456,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogContent>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Borma Entry Modification</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-1'>Humidifier Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            <BormaModify data={item} />
+                                                            <HumidifierModify data={item} />
                                                         </DialogContent>
                                                     </Dialog>
                                                 </PopoverContent>
@@ -572,4 +539,4 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
 }
 
-export default BormaTable;
+export default HumidTable;

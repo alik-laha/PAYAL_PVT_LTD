@@ -57,7 +57,7 @@ const CreateEntireHumid= async (req: Request, res: Response) => {
 
             }
             let prcntg:number=0
-            if(data.TotalInput){
+            if(data.OutputMoisture && data.InputMoisture){
                  prcntg=(((parseFloat(data.OutputMoisture)-parseFloat(data.InputMoisture))/parseFloat(data.InputMoisture))*100)
             }
             
