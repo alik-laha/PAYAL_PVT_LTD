@@ -149,7 +149,7 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingAlmondSupervisor', 'ReceivingManager','GatePassManager']} />}>
           <Route path="/dashboard/AlmondPrimary" element={<Almond />} />
         </Route>
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingAlmondSupervisor', 'ReceivingManager','GatePassManager']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'VillageSupervisor','GatePassManager','ProductionManager']} />}>
           <Route path="/dashboard/RcvVillage" element={<RcvVillage />} />
         </Route>
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>
