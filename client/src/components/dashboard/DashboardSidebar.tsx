@@ -23,6 +23,7 @@ import { PiPackageLight, PiExam } from "react-icons/pi";
 import { GiBoilingBubbles, GiIceCreamScoop, GiGate } from "react-icons/gi";
 import { CgSmartHomeBoiler } from "react-icons/cg";
 import { BsMoisture } from "react-icons/bs";
+import { GiPizzaCutter } from "react-icons/gi";
 const DashboardSidebar = () => {
     // const navigate = useNavigate()
     const Role = localStorage.getItem('role') as keyof PermissionRole
@@ -242,6 +243,7 @@ const DashboardSidebar = () => {
                                     <p className="flex"> <CgSmartHomeBoiler size={20} /><p className="pl-3">  RCN Borma </p></p>
                                 </NavLink>
                             </CollapsibleContent>}
+
                         {renderlink('Humidifier')
 
 
@@ -249,6 +251,15 @@ const DashboardSidebar = () => {
                                 <NavLink to="/dashboard/Humidifier" >
 
                                     <p className="flex"> <BsMoisture size={20} /><p className="pl-3">  RCN Humidifier </p></p>
+                                </NavLink>
+                            </CollapsibleContent>}
+                        {renderlink('Humidifier')
+
+
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/Peeling" >
+
+                                    <p className="flex"> <GiPizzaCutter size={20} /><p className="pl-3">  RCN Peeling </p></p>
                                 </NavLink>
                             </CollapsibleContent>}
 
