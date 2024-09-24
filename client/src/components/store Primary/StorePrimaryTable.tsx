@@ -340,9 +340,9 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                            <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
                            <TableHead className="text-center" >Invoice_No</TableHead>
                            <TableHead className="text-center" >Invoice_Date</TableHead>
-                           <TableHead className="text-center" >Item_Type</TableHead>
-                           <TableHead className="text-center" >Item_Code(SKU)</TableHead>
-                        <TableHead className="text-center" >Vendor_Name</TableHead>
+                           <TableHead className="text-center" >Type_Of_Material</TableHead>
+                           <TableHead className="text-center" >Store_Material_Item_Code(SKU)</TableHead>
+                        <TableHead className="text-center" >Vendor_Name(Store_Item)</TableHead>
                         
                        
                         <TableHead className="text-center" >Invoice_Qty</TableHead>
