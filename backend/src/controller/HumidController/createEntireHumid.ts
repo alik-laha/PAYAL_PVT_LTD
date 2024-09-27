@@ -84,6 +84,7 @@ const CreateEntireHumid= async (req: Request, res: Response) => {
                 }
             );
             if(humidUpdate){
+                
                 // await RcnPeeling.create({
                 //     id:data.id,
                 //     LotNo:data.LotNo,
