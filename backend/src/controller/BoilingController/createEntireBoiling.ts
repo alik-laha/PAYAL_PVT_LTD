@@ -142,10 +142,14 @@ const CreateBoilingEntire = async (req: Request, res: Response) => {
                             group: ['Scooping_Line_Mc']
                         });
                         console.log(finalSum)
+                        console.log(finalSum[0])
+                        console.log(finalSum[0].dataValues.totalNonCut)
+                        console.log(finalSum[0].dataValues.totalUncut)
+                        console.log(finalSum[0].dataValues.totalUnscoop)
                         if(finalSum){
-                            data.openQuantity=finalSum[0].dataValues.totalNonCut?parseFloat(finalSum[0].dataValues.totalNonCut):0+
-                            finalSum[0].dataValues.totalUncut?parseFloat(finalSum[0].dataValues.totalUncut):0+
-                            finalSum[0].dataValues.totalUnscoop?parseFloat(finalSum[0].dataValues.totalUnscoop):0
+                            data.openQuantity=Number(finalSum[0].dataValues.totalNonCut)+
+                            Number(finalSum[0].dataValues.totalUncut)+
+                            Number(finalSum[0].dataValues.totalUnscoop)
                         }
                         else{
                             data.openQuantity=0

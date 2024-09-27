@@ -89,7 +89,7 @@ const CreateEntireHumid= async (req: Request, res: Response) => {
                     LotNo:data.LotNo,
                     origin:data.origin,
                     InputMoisture:data.OutputMoisture,
-                    TotalInput:totalOut,
+                    TotalInput: data.TotalOutput,
                     NoOfTrolley: data.NoOfTrolley,
 
                 },{transaction});
