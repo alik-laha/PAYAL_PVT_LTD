@@ -61,6 +61,7 @@ const Peeling = () => {
         axios.get('/api/humid/getUnHumidEntry/0').then(res => {
             console.log(res)
             setLotData(res.data.scoopingLot)
+            console.log(lotdata)
         })
 
 
