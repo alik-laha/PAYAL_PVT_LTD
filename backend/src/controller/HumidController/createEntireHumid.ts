@@ -4,6 +4,7 @@ import sequelize from "../../config/databaseConfig";
 
 import LotNo from "../../model/lotNomodel";
 import Humidifier from "../../model/humidfierModel";
+//import RcnPeeling from "../../model/peelingModel";
 
 
 const CreateEntireHumid= async (req: Request, res: Response) => {
@@ -83,12 +84,12 @@ const CreateEntireHumid= async (req: Request, res: Response) => {
                 }
             );
             if(humidUpdate){
-                // await Humidifier.create({
+                // await RcnPeeling.create({
                 //     id:data.id,
                 //     LotNo:data.LotNo,
                 //     origin:data.origin,
                 //     InputMoisture:data.OutputMoisture,
-                //     TotalInput:totalOut,
+                //     TotalInput: data.TotalOutput,
                 //     NoOfTrolley: data.NoOfTrolley,
 
                 // },{transaction});

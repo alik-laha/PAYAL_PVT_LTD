@@ -30,6 +30,7 @@ import Almond from './components/Almond/Almond'
 import PackagingMetirialQuality from './components/PM QC/PMQC'
 import RcvVillage from './components/Rcv Village/RcvVillage'
 import Humidifier from './components/Humidifier/Humidifier'
+import Peeling from './components/Peeling/Peeling'
 
 
 
@@ -129,6 +130,11 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'PeelingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/Humidifier' element={<Humidifier />} />
+          
+        </Route>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'PeelingSupervisor', 'ProductionManager']} />}>
+          <Route path='/dashboard/Peeling' element={<Peeling />} />
           
         </Route>
 
