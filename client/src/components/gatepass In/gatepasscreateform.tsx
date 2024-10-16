@@ -121,7 +121,7 @@ if (errorcloseDialogButton) {
 
         try {
             
-            await axios.post(`/api/gatepass/createGatePassEntire`, { data: formData })
+            await axios.post(`createGateP/api/gatepass/assEntire`, { data: formData })
             setErrortext('Gate Pass Created Successfully')
                 if (successdialog) {
                     (successdialog as any).showModal();
@@ -380,7 +380,10 @@ return(
                 
                 <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                
-                </form>
+            </form>
+
+
+
                 <dialog id="successemployeedialog" className="dashboard-modal">
                 <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />

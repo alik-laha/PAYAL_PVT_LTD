@@ -31,6 +31,7 @@ import PackagingMetirialQuality from './components/PM QC/PMQC'
 import RcvVillage from './components/Rcv Village/RcvVillage'
 import Humidifier from './components/Humidifier/Humidifier'
 import Peeling from './components/Peeling/Peeling'
+import Agarbati from './components/Agarbati/Agarbati'
 
 
 
@@ -80,7 +81,7 @@ function App() {
     'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','BormaSupervisor',
     'PeelingSupervisor','VillageSupervisor']} />}>
 
-          <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
         <Route element={<Private allowedRoles={['Director']} />}>
@@ -152,12 +153,25 @@ function App() {
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingGeneralSupervisor', 'ReceivingManager','GatePassManager']} />}>
           <Route path="/dashboard/GeneralStore" element={<GeneralStore />} />
         </Route>
+
+
+        {/* Almond */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingAlmondSupervisor', 'ReceivingManager','GatePassManager']} />}>
           <Route path="/dashboard/AlmondPrimary" element={<Almond />} />
         </Route>
+
+        {/* Agarbati */}    
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingAgarbatiSupervisor', 'ReceivingManager','GatePassManager']} />}>
+          <Route path="/dashboard/AgarbatiPrimary" element={<Agarbati />} />
+        </Route>
+
+        {/* Village */} 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'VillageSupervisor','GatePassManager','ProductionManager']} />}>
           <Route path="/dashboard/RcvVillage" element={<RcvVillage />} />
         </Route>
+
+
+
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>
           <Route path="/dashboard/qc_packaging_metirial" element={<PackagingMetirialQuality />} />
         </Route>

@@ -55,7 +55,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { FcApprove } from "react-icons/fc";
+import { FcApprove,  FcCancel } from "react-icons/fc";
 import { MdOutlineDriveFolderUpload } from "react-icons/md";
 import GatepassApprove from "./gatePassApprove";
 import * as XLSX from 'xlsx'
@@ -546,11 +546,11 @@ const GatePassTable = () => {
                             <Text style={styles.rowqty}>{data.data.DocNo}</Text>
                         </View>
                         <View style={styles.row}>
-                            <Text style={styles.rowdescription}>Gross Weight(Kg)</Text>
+                            <Text style={styles.rowdescription}>{data.data.type==='IN' ?'Gross':'Tare'} Weight(Kg)</Text>
                             <Text style={styles.rowqty}>{formatNumber(data.data.grosswt)}</Text>
                         </View>
                         <View style={styles.row}>
-                            <Text style={styles.rowdescription}>Gross Weight Slip No.</Text>
+                            <Text style={styles.rowdescription}>Weight Slip No.</Text>
                             <Text style={styles.rowqty}>{data.data.grosswtNo}</Text>
                         </View>
                         <View style={styles.row}>
@@ -651,11 +651,11 @@ const GatePassTable = () => {
                   <Text style={stylesSmall.rowqty}>{data.data.DocNo}</Text>
                 </View>
                 <View style={stylesSmall.row}>
-                  <Text style={stylesSmall.rowdescription}>Gross Wt(Kg)</Text>
+                  <Text style={stylesSmall.rowdescription}>{data.data.type==='IN' ?'Gross':'Tare'} Weight(Kg)</Text>
                   <Text style={stylesSmall.rowqty}>{formatNumber(data.data.grosswt)}</Text>
                 </View>
                 <View style={stylesSmall.row}>
-                  <Text style={stylesSmall.rowdescription}>Gross Wt Slip No.</Text>
+                  <Text style={stylesSmall.rowdescription}>Weight Slip No.</Text>
                   <Text style={stylesSmall.rowqty}>{data.data.grosswtNo}</Text>
                 </View>
                 <View style={stylesSmall.row}>
@@ -800,6 +800,26 @@ const GatePassTable = () => {
         })
 
     }
+    const handleGateCanel = (item: GatePassData) => {
+      const outtime=new Date().toTimeString().slice(0,5)
+      const outdate=new Date().toISOString().slice(0,10)
+      axios.put(`/api/gatepass/updateGateCancel/${item.id}`, {outtime,outdate }).then((res) => {
+          setErrorText(res.data.message);
+          console.log(res.data)
+          if(successdialog!=null){
+              (successdialog as any).showModal();
+          }
+
+          //window.location.reload()
+      }).catch((err) => {
+          console.log(err)
+          setErrorText(err.response.data.message)
+          if(errordialog!=null){
+              (errordialog as any).showModal();
+          }
+      })
+
+  }
     const handleNetWeight = (data: GatePassData) => {
         if (!netWeight) {
             setErrView('block')
@@ -1057,11 +1077,11 @@ const GatePassTable = () => {
                                     
                                     <TableCell className="text-center flex">
 
-                                        {item.status==='Closed'? (<button className="bg-red-500  p-2 text-white rounded opacity-40 " disabled={true}>Closed</button>):(<Popover>
+                                            {item.status==='Closed'? (<button className="bg-red-500  p-2 text-white rounded opacity-40 " disabled={true}>Closed</button>):(<Popover>
                                             <PopoverTrigger>
                                                 <button className={`p-2 text-white rounded ${(item.receivingStatus === 0) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.receivingStatus === 0) ? true : false}>Action</button>
                                             </PopoverTrigger>
-
+                                             {/* Net Weight  Gatepass */}
                                             <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                             {!item.netWeight && item.receivingStatus === 1 && item.approvalStatus === 0 && <AlertDialog>
                                                 <AlertDialogTrigger className="flex">
@@ -1086,7 +1106,31 @@ const GatePassTable = () => {
                                                     </AlertDialogContent>
                                                 
                                                 </AlertDialog>}
+                                            
+                                            {/* Cancel Gatepass  */}
+                                            {!item.netWeight && checkpending('Gatepass') && item.approvalStatus === 0 && <AlertDialog>
+                                                <AlertDialogTrigger className="flex">
+                                                        <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >Cancel</button>
+                                                    </AlertDialogTrigger>
 
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle> Do You want to Cancel the Gatepass ?</AlertDialogTitle>
+                                                            <AlertDialogDescription>
+
+                                                                This will Cancel the GatePass
+                                                               
+                                                            </AlertDialogDescription>
+                                                        </AlertDialogHeader>
+
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction onClick={() =>  handleGateCanel(item)}>Continue</AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                
+                                                </AlertDialog>}
+                                            {/* Verify Gatepass   */}
                                             {checkpending('Gatepass') && item.netWeight  && item.receivingStatus === 1 && item.approvalStatus === 0 && <Dialog>
                                                     <DialogTrigger className="flex py-1">
                                                         <MdOutlineDriveFolderUpload size={20} color="green" />  <button className="bg-transparent pl-2 text-left hover:text-green-500" >
@@ -1103,7 +1147,7 @@ const GatePassTable = () => {
                                                     </DialogContent>
                                                 </Dialog>}   
 
-
+                                             {/* Close Gatepass   */} 
                                             {item.receivingStatus === 1 && item.approvalStatus === 1 && <AlertDialog>
                                                 <AlertDialogTrigger className="flex">
                                                         <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >Release</button>

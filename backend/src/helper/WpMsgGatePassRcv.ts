@@ -8,6 +8,7 @@ const Number_IN_ALMOND = process.env.WP_NUMBER_IN_ALMOND ? process.env.WP_NUMBER
 const Number_IN_VILLAGE = process.env.WP_NUMBER_IN_VILLAGE ? process.env.WP_NUMBER_IN_VILLAGE.split(',') : [];
 const WP_NUMBER_SECURITY = process.env.WP_NUMBER_SECURITY ? process.env.WP_NUMBER_SECURITY.split(',') : [];
 const WP_NUMBER_GATEPASS_MANAGER = process.env.WP_NUMBER_GATEPASS_MANAGER ? process.env.WP_NUMBER_GATEPASS_MANAGER.split(',') : [];
+const Number_IN_AGARBATI = process.env.WP_NUMBER_IN_AGARBATI ? process.env.WP_NUMBER_IN_AGARBATI.split(',') : [];
 
 
 const WpMsgGatePassRcv = async (tablename: string, gatepassNo: string, template: string,section:string) => {
@@ -275,6 +276,58 @@ const WpMsgGatePassRcv = async (tablename: string, gatepassNo: string, template:
         }
         if (section === 'VILLAGE ENTRY') {
             Number_IN_VILLAGE.map((num) => {
+                const data = {
+                    messaging_product: "whatsapp",
+                    to: num,
+                    type: "template",
+                    template: {
+                        name: template,
+                        language: {
+                            code: "en"
+                        },
+                        components: [
+                            {
+                                type: "body",
+                                parameters: [
+                                    {
+                                        type: "text",
+                                        text: tablename // This replaces {{1}}
+                                    },
+                                    {
+                                        type: "text",
+                                        text: gatepassNo // This replaces {{2}}
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+                try {
+                    axios.post(process.env.WP_API_URL!, data, {
+                        headers: {
+                            'Authorization': `Bearer ${process.env.WP_API_TOKEN}`,
+                            'Content-Type': 'application/json'
+                        }
+                    }).then((response) => {
+                        console.log(response)
+                        return response
+                    }).catch((err) => {
+                        console.log(err)
+                        return err
+                    })
+
+                }
+                catch {
+                    (err: any) => {
+                        console.log(err)
+                        return err
+                    }
+                }
+
+            })
+        }
+        if (section === 'AGARBATI ENTRY') {
+            Number_IN_AGARBATI.map((num) => {
                 const data = {
                     messaging_product: "whatsapp",
                     to: num,
