@@ -878,6 +878,10 @@ const GatePassTable = () => {
         
       tabnew='Village' 
   }
+  else if(tab==='Agarbati'){
+        
+    tabnew='Agarbati' 
+}
         
        
        const returnString=tabnew

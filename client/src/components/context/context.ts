@@ -46,6 +46,8 @@ interface ContextType {
     setEditHumidLotWiseData: (data: any[]) => void;
     editPendingAlmondData: AlmondPrimaryEntryData[];
     setEditPendingAlmondData: (data: AlmondPrimaryEntryData[]) => void;
+    editPendingAgarbatiData: AlmondPrimaryEntryData[];
+    setEditPendingAgarbatiData: (data: AlmondPrimaryEntryData[]) => void;
 }
 
 const Context = createContext<ContextType>({
@@ -90,7 +92,9 @@ const Context = createContext<ContextType>({
     editPendingAlmondData: [],
     setEditPendingAlmondData: () => {},
     RcvVillagePrimaryOverView:(null),
-    setRcvVillagePrimaryOverView: () => {}
+    setRcvVillagePrimaryOverView: () => {},
+    editPendingAgarbatiData: [],
+    setEditPendingAgarbatiData: () => {}
 
 });
 

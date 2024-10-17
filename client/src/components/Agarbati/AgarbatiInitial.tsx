@@ -19,24 +19,20 @@ import {
 
 import axios from "axios";
 import { useState } from "react";
-
-import AlmondPrimaryEntryForm from "./AlmondCreateForm";
-
-
-
+import AgarbatiPrimaryEntryForm from "./AgarbatiCreateForm";
 
 interface lotPropsdata{
     gatePassNo:string;
 
 }
 
-const AlmondInitialForm = (props: any) => {
+const AgarbatiInitialForm = (props: any) => {
     const [rcnData, setrcnData]  = useState<[]>([])
 
     //let scoopdata:ScoopData[]=[]
     console.log(props)
     const handleLineEntry = async (gatePassNo:string) => {
-        axios.get(`/api/almondPrimary/getAlmondByGatePass/${gatePassNo}`).then(res=>{
+        axios.get(`/api/agarbatiPrimary/getAgarbatiByGatePass/${gatePassNo}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.rcnmainLot)){
             //scoopdata=res.data.scoopingLot
@@ -79,13 +75,13 @@ const AlmondInitialForm = (props: any) => {
                                         <TableCell className="text-center">
                                             <Dialog>
                                                 <DialogTrigger>
-                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} >+ Add </Button></DialogTrigger>
-                                              <DialogContent className='max-w-2xl'>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)}>+ Add </Button></DialogTrigger>
+                                           <DialogContent className='max-w-3xl'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Almond Entry/Exit</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Agarbati Entry/Exit</p></DialogTitle>
 
                                                     </DialogHeader>
-                                                <AlmondPrimaryEntryForm rcn={rcnData}/>
+                                                <AgarbatiPrimaryEntryForm rcn={rcnData}/>
                                                     
                                                 </DialogContent>
                                             </Dialog>
@@ -115,4 +111,4 @@ const AlmondInitialForm = (props: any) => {
 
 
 }
-export default AlmondInitialForm
+export default AgarbatiInitialForm

@@ -472,6 +472,10 @@ export interface SumofAllTypeDataAlmond {
     type: string;
     totalBags: number;
 }
+export interface SumofAllTypeDataAgarbati {
+    type: string;
+    totalBags: number;
+}
 
 export interface EmployeeData {
     id: number;
@@ -565,7 +569,6 @@ export interface PermissionRole {
     GradingSupervisor: string[];
     BoilingSupervisor: string[];
     ScoopingSupervisor: string[];
-   
     PeelingSupervisor:string[];
     VillageSupervisor:string[];
     ProductionManager:string[];
