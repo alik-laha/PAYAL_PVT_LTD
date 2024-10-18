@@ -14,7 +14,7 @@ try{
       const section = req.body.section;
     
       // Save the new sequence to the database,'Packaging Material'
-      const gatepassupdate=await gatePassMaster.update({receivingStatus:1}, {
+      const gatepassupdate=await gatePassMaster.update({receivingStatus:1,status:'Pending_NetWeight'}, {
         where: {
             gatePassNo: gatePassNo,
             section:section
@@ -43,7 +43,7 @@ try{
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
             if(section==='Village'){
-                const data = await WpMsgGatePassRcv("Village Receiving/Dispatch", gatePassNo,"rcv_dispatch_complt",'Almond Dispatch')
+                const data = await WpMsgGatePassRcv("Village Receiving/Dispatch", gatePassNo,"rcv_dispatch_complt",'Village Dispatch')
                 console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }

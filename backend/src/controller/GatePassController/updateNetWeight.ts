@@ -7,6 +7,7 @@ import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
 import generalPrimaryModel from "../../model/generalPrimaryModel";
 import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
+import RcvVillageModel from "../../model/RcvVillageModel";
 
 
 
@@ -17,7 +18,7 @@ const updateNetWeight = async (req: Request, res: Response) => {
         const gatepassupdate = await gatePassMaster.update(
             { 
                 netWeight:netWeight,
-                status:'Pending Approval'
+                status:'Pending_Verification'
             },
             {
                 where: {
@@ -132,13 +133,28 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 }
                 
             }
-            
-        }
+            if (section==='Village') {
+
+                const generalupdate = await RcvVillageModel.update(
+                    { 
+                        netWeight:netWeight,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo:gatepassNo
+                        },
+                    }
+                );
         
-     
-
-
-
+                if(generalupdate){
+                    const data = await WpMsgGatePassRcv("Village Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Village Entry/Dispatch')
+            console.log(data)
+                    return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
+                }
+                
+            }        
+        }
     }
  catch (err) {
     console.log(err)

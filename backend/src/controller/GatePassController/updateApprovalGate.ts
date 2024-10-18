@@ -7,6 +7,7 @@ import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
 import generalPrimaryModel from "../../model/generalPrimaryModel";
 import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
+import RcvVillageModel from "../../model/RcvVillageModel";
 
 
 
@@ -33,7 +34,7 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                     approvalStatus: 1,
                     modifiedBy: feeledBy,
                     netWeight: netwt,
-                    status: 'Approved'
+                    status: 'Pending_Release'
                 },
                 {
                     where: {
@@ -147,6 +148,27 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                     return res.status(200).json({ message: "Gate Pass Details Modified and Approved Successfully" });
                 }
             }
+            if (section === 'Village' ) {
+                const generalupdate = await RcvVillageModel.update(
+                    {
+                        grossWt: grossWt,
+                        truckNo: vehicle,
+                        netWeight: netwt,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo: gatepassNo
+                        },
+                    }
+                );
+
+                if (generalupdate) {
+                    const data = await WpMsgGatePassRcv("Village Rcv/Dispatch", gatepassNo,"gatepass_release",'Village Item Rcv/Dispatch')
+                    console.log(data)
+                    return res.status(200).json({ message: "Gate Pass Details Modified and Approved Successfully" });
+                }
+            }
         }
         else{
             const gatepassupdate=await gatePassMaster.update(
@@ -155,7 +177,7 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                     approvalStatus:1,
                     Remarks:remarks,
                     modifiedBy: feeledBy,
-                    status:'Approved'
+                    status:'Pending_Release'
                 },
                 {
                     where: {
@@ -189,6 +211,12 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                 }
                 if (section === 'Almond'){
                     const data = await WpMsgGatePassRcv("Almond Rcv/Dispatch", gatepassNo,"gatepass_release",'Almond Rcv/Dispatch')
+                    console.log(data)
+                return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
+
+                }
+                if (section === 'Village'){
+                    const data = await WpMsgGatePassRcv("Village Rcv/Dispatch", gatepassNo,"gatepass_release",'Village Rcv/Dispatch')
                     console.log(data)
                 return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
 

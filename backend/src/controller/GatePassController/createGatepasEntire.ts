@@ -44,7 +44,8 @@ try{
                         driverContact:data.driverContact,
                         securityName: data.SecName,
                         section: data.section,
-                        createdBy: feeledBy
+                        createdBy: feeledBy,
+                        status:'Pending_Receiving'
                     },{transaction});
 
                     if (GatePassEntry)

@@ -78,7 +78,7 @@ const RCNBoilingTable = () => {
     const [Data, setData] = useState<BoilingEntryData[]>([])
     const [page, setPage] = useState(pageNo)
     const [EditData, setEditData] = useState<BoilingEntryData[]>([])
-    const limit = pagelimit
+    const limit = 10
     const { editPendingBoilingData, setEditPendingBoilingData } = useContext(Context);
     const [blockpagen, setblockpagen] = useState('flex')
     const currDate = new Date().toLocaleDateString();

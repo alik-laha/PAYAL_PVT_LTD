@@ -503,7 +503,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
  
     return (
         <>
-        <div className="px-5 py-2 overflow-auto">
+        <div className="px-5 py-2 overflow-auto max-h-screen">
             <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit2}>
                <div className="mx-8 flex flex-col gap-0.5"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>

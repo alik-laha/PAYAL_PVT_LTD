@@ -1,14 +1,7 @@
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+
 import { useState, useRef, useEffect,   } from "react"
 import {
     Table,
@@ -38,20 +31,15 @@ interface SectionRowData{
     //remarks:string;
     totalWt:number;
     totalBill:number;
-    noOfBags:number;
+   // noOfBags:number;
 }
 
 const AgarbatiPrimaryEntryForm = (props:Props) => {
     
     const [errortext, setErrorText] = useState<string>("")
-
-    
     const [gateType, setGateType] = useState<string>("")
     const blNoRef = useRef<HTMLInputElement>(null)
     const conNoRef = useRef<HTMLInputElement>(null)
-
-
-
     const [id, setId] = useState<number>()
     const [date, setDate] = useState<string>('')
     const [gatepass, setGatePass] = useState<string>('')
@@ -61,7 +49,7 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
     const [grade,setGrade]=useState<findskutypeData[]>([])
     const [isdisable,setisdisable]=useState<boolean>(false)
 
-    const noOfBagsRef = useRef<HTMLInputElement>(null)
+    //const noOfBagsRef = useRef<HTMLInputElement>(null)
     //console.log(props)
 
     useEffect(() => {  
@@ -161,12 +149,12 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
         try {
             if (formData.length === 1) {
                 for (var data of formData) {
-                    await axios.put(`/api/almondPrimary/updateRcvAlmond/${id}`, { data })
+                    await axios.put(`/api/almondPrimary/updateRcvAgarbati/${id}`, { data })
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", {
                         gatePassNo: gatepass,
-                        section: 'Almond'
+                        section: 'Agarbati'
                     })
-                    setErrorText('Almond Items Dispatched Successfully')
+                    setErrorText('Agarbati Items Recceived/Dispatched Successfully')
                     if (successdialog) {
                         (successdialog as any).showModal();
                     }
@@ -178,9 +166,9 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
                 await axios.put(`/api/almondPrimary/updateRcvAlmondEntire/${id}`, { formData })
                 await axios.post("/api/gatepass/updateRcvDisptchStatus", {
                     gatePassNo: gatepass,
-                    section: 'Almond'
+                    section: 'Agarbati'
                 })
-                setErrorText('Almond Items Dispatched Successfully')
+                setErrorText('Agarbati Items Recceived/Dispatched Successfully')
                 if (successdialog) {
                     (successdialog as any).showModal();
                 }
@@ -301,7 +289,7 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
                             <TableHead className="text-center" >Grade</TableHead>                      
                            
                            
-                            <TableHead className="text-center" >Qty(Pc)</TableHead>                  
+                            <TableHead className="text-center" >Bag_Count/Piece_Count</TableHead>                  
                             <TableHead className="text-center" >Weight(Kg)</TableHead> 
                             <TableHead className="text-center" >Bill Amount</TableHead>           
                             <TableHead className="text-center" >Action</TableHead>
