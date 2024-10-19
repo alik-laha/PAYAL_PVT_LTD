@@ -34,7 +34,7 @@ const sumofAllTypeAlmond = async (req: Request, res: Response): Promise<Response
             where: {
                
                 [Op.or]: [
-                    { editStatus: 'Accepted' },
+                    { editStatus: 'Approved' },
                     { editStatus: 'N/A' }
                 ],status:1,gateType:'IN',
                 recevingDate: {

@@ -302,7 +302,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
             <dialog id="rcneditscsDialog" className="dashboard-modal">
                 <button id="rcnscscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification of Almond Entry is Requested </p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification of Agarbati Entry is Requested </p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

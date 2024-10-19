@@ -34,7 +34,7 @@ const sumofAllTypeAgarbati = async (req: Request, res: Response): Promise<Respon
             where: {
                
                 [Op.or]: [
-                    { editStatus: 'Accepted' },
+                    { editStatus: 'Approved' },
                     { editStatus: 'N/A' }
                 ],status:1,gateType:'IN',
                 recevingDate: {
