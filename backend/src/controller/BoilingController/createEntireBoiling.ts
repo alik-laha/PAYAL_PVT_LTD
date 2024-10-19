@@ -162,7 +162,7 @@ const CreateBoilingEntire = async (req: Request, res: Response) => {
                 }
                 const processedFormDataArray = processFormData(formDataBoil);
                 const formData2 = processedFormDataArray.map(row => ({
-                    rcvQuantity: (parseFloat(row.size) * 80),
+                    rcvQuantity: (parseFloat(row.size) * 1),
                     ...row
                 }))
                 for (let data2 of formData2) {

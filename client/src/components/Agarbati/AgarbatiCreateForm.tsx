@@ -149,7 +149,7 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
         try {
             if (formData.length === 1) {
                 for (var data of formData) {
-                    await axios.put(`/api/almondPrimary/updateRcvAgarbati/${id}`, { data })
+                    await axios.put(`/api/agarbatiPrimary/updateRcvAgarbati/${id}`, { data })
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", {
                         gatePassNo: gatepass,
                         section: 'Agarbati'
@@ -163,7 +163,7 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
             }
 
             else if (formData.length > 1) {
-                await axios.put(`/api/almondPrimary/updateRcvAlmondEntire/${id}`, { formData })
+                await axios.put(`/api/agarbatiPrimary/updateRcvAgarbatiEntire/${id}`, { formData })
                 await axios.post("/api/gatepass/updateRcvDisptchStatus", {
                     gatePassNo: gatepass,
                     section: 'Agarbati'
@@ -289,9 +289,9 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
                             <TableHead className="text-center" >Grade</TableHead>                      
                            
                            
-                            <TableHead className="text-center" >Bag_Count/Piece_Count</TableHead>                  
-                            <TableHead className="text-center" >Weight(Kg)</TableHead> 
-                            <TableHead className="text-center" >Bill Amount</TableHead>           
+                            <TableHead className="text-center" >Bag/Piece</TableHead>                  
+                            <TableHead className="text-center" >Line_Weight(Kg)</TableHead> 
+                            <TableHead className="text-center" >Bill_Amount</TableHead>           
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>
                         {rows.map((row, index) => {

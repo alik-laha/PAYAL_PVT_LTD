@@ -20,6 +20,7 @@ import Loader from '../common/Loader';
 import { pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
 import AgarbatiInitialForm from './AgarbatiInitial';
+import AgarbatiTable from './AgarbatiTable';
 
 //import AlmondTable from './AlmondTable';
 
@@ -112,7 +113,7 @@ const Agarbati = () => {
                         Pending Edit ({data.CountPendingEdit})</Button>}
 
                 </div>
-                {/* <AlmondTable /> */}
+                <AgarbatiTable />
 
             </div>
         </div>

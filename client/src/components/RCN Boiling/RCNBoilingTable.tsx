@@ -405,7 +405,7 @@ const RCNBoilingTable = () => {
                     <TableHead className="text-center" >Machine_Name</TableHead>
                  
                     <TableHead className="text-center" >Size</TableHead>
-                    <TableHead className="text-center" >Qty_(Bag)</TableHead>
+                    <TableHead className="text-center" >Qty_(Kg)</TableHead>
                     <TableHead className="text-center" >Pressure</TableHead>
                     <TableHead className="text-center" >Moisture</TableHead>
                     <TableHead className="text-center" >Cooking Time</TableHead>

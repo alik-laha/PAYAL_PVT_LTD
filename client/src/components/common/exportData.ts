@@ -112,6 +112,7 @@ export const sectionDataonTypeGate = {
 }
 export const SelectGatePassType = ["IN","OUT"]
 export const SKUSection = ['PackagingMaterial', 'Store' ,'General','Almond','Village','Agarbati']
+export const SectionStatusAll = ['Pending_Receiving', 'Pending_NetWeight' ,'Pending_Verification','Pending_Release','Closed','Cancelled']
 export const SKUUnit = ['Pc','Kg','Mtr','SqMtr','Ft','SqFt','Bag','Bucket','Ltr','Coil','None']
 export const SelectTypeSKUVendor = ["SKU","Vendor"]
 

@@ -84,25 +84,25 @@ const RCNBoiling = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                 <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
-                        A <br /><p>{data.data[0].totalA ? data.data[0].totalA : 0} Bag</p>
+                        A <br /><p>{data.data[0].totalA ? parseFloat(data.data[0].totalA).toFixed(2) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                        B <br /><p>{data.data[0].totalB ? data.data[0].totalB : 0} Bag</p>
+                        B <br /><p>{data.data[0].totalB ? parseFloat(data.data[0].totalB).toFixed(2) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
-                        C <br /><p>{data.data[0].totalC ? data.data[0].totalC : 0} Bag</p>
+                        C <br /><p>{data.data[0].totalC ? parseFloat(data.data[0].totalC).toFixed(2) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-sky-500 hover:bg-orange-400">
-                        D <br /><p>{data.data[0].totalD ? data.data[0].totalD : 0} Bag</p>
+                        D <br /><p>{data.data[0].totalD ? parseFloat(data.data[0].totalD).toFixed(2) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
-                        E <br /><p>{data.data[0].totalE ? data.data[0].totalE : 0} Bag</p>
+                        E <br /><p>{data.data[0].totalE ? parseFloat(data.data[0].totalE).toFixed(2) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
-                        F <br /><p>{data.data[0].totalF ? data.data[0].totalF : 0} Bag</p>
+                        F <br /><p>{data.data[0].totalF ? parseFloat(data.data[0].totalF).toFixed(2) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
-                        G <br /><p>{data.data[0].totalG ? data.data[0].totalG : 0} Bag</p>
+                        G <br /><p>{data.data[0].totalG ? parseFloat(data.data[0].totalG).toFixed(2) : 0} Kg</p>
                     </div>
                     
 

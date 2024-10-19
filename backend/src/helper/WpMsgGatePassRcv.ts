@@ -9,6 +9,7 @@ const Number_IN_VILLAGE = process.env.WP_NUMBER_IN_VILLAGE ? process.env.WP_NUMB
 const WP_NUMBER_SECURITY = process.env.WP_NUMBER_SECURITY ? process.env.WP_NUMBER_SECURITY.split(',') : [];
 const WP_NUMBER_GATEPASS_MANAGER = process.env.WP_NUMBER_GATEPASS_MANAGER ? process.env.WP_NUMBER_GATEPASS_MANAGER.split(',') : [];
 const Number_IN_AGARBATI = process.env.WP_NUMBER_IN_AGARBATI ? process.env.WP_NUMBER_IN_AGARBATI.split(',') : [];
+const Number_IN_GATEPASS_ADMIN = process.env.WP_NUMBER_GATEPASS_ADMIN ? process.env.WP_NUMBER_GATEPASS_ADMIN.split(',') : [];
 
 
 const WpMsgGatePassRcv = async (tablename: string, gatepassNo: string, template: string,section:string) => {
@@ -513,6 +514,122 @@ const WpMsgGatePassRcv = async (tablename: string, gatepassNo: string, template:
                                 {
                                     type: "text",
                                     text: tablename // This replaces {{2}}
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+            try {
+                axios.post(process.env.WP_API_URL!, data, {
+                    headers: {
+                        'Authorization': `Bearer ${process.env.WP_API_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    }
+                }).then((response) => {
+                    console.log(response)
+                    return response
+                }).catch((err) => {
+                    console.log(err)
+                    return err
+                })
+
+            }
+            catch {
+                (err: any) => {
+                    console.log(err)
+                    return err
+                }
+            }
+
+        })
+
+    }
+    if ( template === 'gatepass_modify') {
+
+        Number_IN_GATEPASS_ADMIN.map((num) => {
+            const data = {
+                messaging_product: "whatsapp",
+                to: num,
+                type: "template",
+                template: {
+                    name: template,
+                    language: {
+                        code: "en"
+                    },
+                    components: [
+                        {
+                            type: "body",
+                            parameters: [
+                                {
+                                    type: "text",
+                                    text: gatepassNo // This replaces {{1}}
+                                },
+                                {
+                                    type: "text",
+                                    text: tablename // This replaces {{2}}
+                                },
+                                {
+                                    type: "text",
+                                    text: section // This replaces {{3}}
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+            try {
+                axios.post(process.env.WP_API_URL!, data, {
+                    headers: {
+                        'Authorization': `Bearer ${process.env.WP_API_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    }
+                }).then((response) => {
+                    console.log(response)
+                    return response
+                }).catch((err) => {
+                    console.log(err)
+                    return err
+                })
+
+            }
+            catch {
+                (err: any) => {
+                    console.log(err)
+                    return err
+                }
+            }
+
+        })
+
+    }
+    if ( template === 'cancel_gatepass') {
+
+        Number_IN_GATEPASS_ADMIN.map((num) => {
+            const data = {
+                messaging_product: "whatsapp",
+                to: num,
+                type: "template",
+                template: {
+                    name: template,
+                    language: {
+                        code: "en"
+                    },
+                    components: [
+                        {
+                            type: "body",
+                            parameters: [
+                                {
+                                    type: "text",
+                                    text: gatepassNo // This replaces {{1}}
+                                },
+                                {
+                                    type: "text",
+                                    text: tablename // This replaces {{2}}
+                                },
+                                {
+                                    type: "text",
+                                    text: section // This replaces {{3}}
                                 }
                             ]
                         }

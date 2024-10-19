@@ -95,7 +95,7 @@ const approveEditBoiling = async (req: Request, res: Response) => {
                    
                     if (linecount > 0) {
                         const rcnscooping = await RcnScooping.update({
-                            Receiving_Qty: (parseFloat(Size) * 80),
+                            Receiving_Qty: (parseFloat(Size) * 1),
                             origin: origin,
                             SizeName: SizeName,
                             Size: Size,
@@ -150,7 +150,7 @@ const approveEditBoiling = async (req: Request, res: Response) => {
                                 }, 0);
                             }
                             const rcnscooping = await RcnScooping.update({
-                                Receiving_Qty: (parseFloat(Size) * 80),
+                                Receiving_Qty: (parseFloat(Size) * 1),
                                 origin: origin,
                                 SizeName: SizeName,
                                 Size: Size,
@@ -160,7 +160,7 @@ const approveEditBoiling = async (req: Request, res: Response) => {
                         }
                         else {
                             const rcnscooping = await RcnScooping.update({
-                                Receiving_Qty: (parseFloat(Size) * 80),
+                                Receiving_Qty: (parseFloat(Size) * 1),
                                 origin: origin,
                                 SizeName: SizeName,
                                 Size: Size,
@@ -177,7 +177,7 @@ const approveEditBoiling = async (req: Request, res: Response) => {
                 }
                 else{
                     const rcnscooping = await RcnScooping.update({
-                        Receiving_Qty: (parseFloat(Size) * 80),
+                        Receiving_Qty: (parseFloat(Size) * 1),
                         origin: origin,
                         SizeName: SizeName,
                         Size: Size,

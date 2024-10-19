@@ -72,7 +72,7 @@ const updateRcvAgarbatiEntire = async (req: Request, res: Response) => {
     } catch (error) {
         if(!res.headersSent){
             console.log(error)
-            return res.status(500).json({ message: "internal error while creating Village Entry" ,error});
+            return res.status(500).json({ message: "internal error while creating Agarbati Entry" ,error});
         }
    
 

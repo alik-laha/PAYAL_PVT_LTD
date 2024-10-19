@@ -381,18 +381,18 @@ const AlmondTable = () => {
                         <TableHead className="text-center" >Receiving_Date</TableHead>
                         <TableHead className="text-center" >Vehicle_No</TableHead>
 
-                        <TableHead className="text-center" >Initial_Weight</TableHead>
+                        <TableHead className="text-center" >Initial_Weight(Kg)</TableHead>
                         <TableHead className="text-center" >Type</TableHead>
                         {(tablesearch === 'OUT' || EditData.length > 0) ? <TableHead className="text-center" >Grade</TableHead> : ''}
                         <TableHead className="text-center" >Invoice_No.</TableHead>
                         <TableHead className="text-center" >Invoice_Date</TableHead>
 
-                        <TableHead className="text-center" >Net_Weight</TableHead>
+                        <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
 
-                        <TableHead className="text-center" >Vendor Name</TableHead>
+                        <TableHead className="text-center" >Vendor_Name</TableHead>
                         <TableHead className="text-center" >Bag/Item_Count</TableHead>
-                        {(tablesearch === 'OUT' || EditData.length > 0 )? <TableHead className="text-center" >Row_Weight</TableHead> : ''}
-                        <TableHead className="text-center" >Bill_Amount</TableHead>
+                        {(tablesearch === 'OUT' || EditData.length > 0 )? <TableHead className="text-center" >Row_Weight(Kg)</TableHead> : ''}
+                        <TableHead className="text-center" >Bill_Amount(Rs)</TableHead>
                         <TableHead className="text-center" >Edit Status </TableHead>
 
                         <TableHead className="text-center" >Action</TableHead>

@@ -8,6 +8,7 @@ import storePrimaryModel from "../../model/storePrimaryModel";
 import generalPrimaryModel from "../../model/generalPrimaryModel";
 import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
 import RcvVillageModel from "../../model/RcvVillageModel";
+import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
 
 
 
@@ -149,6 +150,27 @@ const updateNetWeight = async (req: Request, res: Response) => {
         
                 if(generalupdate){
                     const data = await WpMsgGatePassRcv("Village Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Village Entry/Dispatch')
+            console.log(data)
+                    return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
+                }
+                
+            } 
+            if (section==='Agarbati') {
+
+                const generalupdate = await agarbatiPrimaryEntryModel.update(
+                    { 
+                        netWeight:netWeight,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo:gatepassNo
+                        },
+                    }
+                );
+        
+                if(generalupdate){
+                    const data = await WpMsgGatePassRcv("Agarbati Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Agarbati Entry/Dispatch')
             console.log(data)
                     return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
                 }

@@ -6,7 +6,7 @@ import gatePassMaster from "../../model/gatePassMasterModel";
 
 const SearchGatePass = async (req: Request, res: Response) => {
     try {
-        const { blConNo, fromDate, toDate, section,type } = req.body;
+        const { blConNo, fromDate, toDate, section,type,sectionstatus } = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
         const size = parseInt(req.query.limit as string, 10) || 0;
 
@@ -44,6 +44,12 @@ const SearchGatePass = async (req: Request, res: Response) => {
             whereClause.push({
                 type:type
             })
+        }
+        if(sectionstatus){
+            whereClause.push({
+                status:sectionstatus
+            })
+
         }
   
         // Convert the array to an object for the where condition

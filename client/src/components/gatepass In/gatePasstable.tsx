@@ -4,7 +4,7 @@ import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
 import { format, toZonedTime } from 'date-fns-tz'
 import React from "react";
-import { SelectGatePassType, pageNo, pagelimit, pendingCheckRole, sectionDataonTypeGate } from "../common/exportData";
+import { SectionStatusAll, SelectGatePassType, pageNo, pagelimit, pendingCheckRole, sectionDataonTypeGate } from "../common/exportData";
 import axios from "axios";
 import { LuDownload } from "react-icons/lu";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
@@ -62,6 +62,7 @@ import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
 import { Document, Page, Text, View, PDFDownloadLink, StyleSheet, Image } from '@react-pdf/renderer';
 import GatepassApproveFinal from "./gatePassApproveFinal";
+import { Textarea } from "../ui/textarea";
 interface pdfprops {
   data: GatePassData;
 }
@@ -73,6 +74,7 @@ const GatePassTable = () => {
   const [hidetodate, sethidetoDate] = useState<string>('');
   const [blConNo, setBlConNo] = useState<string>("")
   const [section, setSection] = useState<string>("")
+  const [sectionstatus, setSectionstatus] = useState<string>("")
   const [type, settype] = useState<string>("")
   const [blockpagen, setblockpagen] = useState('flex')
   const [Data, setData] = useState<GatePassData[]>([])
@@ -740,7 +742,8 @@ const GatePassTable = () => {
       section: section,
       fromDate: fromdate,
       toDate: todate,
-      type: type
+      type: type,
+      sectionstatus: sectionstatus
     }, {
       params: {
         page: page,
@@ -805,7 +808,7 @@ const GatePassTable = () => {
 
   }
   const handleGateCanel = (data: GatePassData) => {
-    
+
     if (!cancelremark) {
       setErrView('block')
       return
@@ -917,8 +920,12 @@ const GatePassTable = () => {
         'Id': index + 1,
         'GatePassNo': item.gatePassNo,
         'Type': item.type,
-        'Date': handletimezone(item.date),
+        'Section': item.section,
+        'Status': item.status,
+        'Entry_Date': handletimezone(item.date),
         'In_Time': handleAMPM(item.time),
+        'Exit_Date':handletimezone(item.exitdate),
+        'OutTime': item.OutTime === null ? '' : (handleAMPM(item.OutTime)),
         'Gross_Or_Tare_Wt': item.grosswt,
         'DocNo': item.DocNo,
         'Gross_Or_Tare_Wt_Bill': item.grosswtNo,
@@ -926,18 +933,10 @@ const GatePassTable = () => {
         'DriverName': item.driverName,
         'DriverContact': item.driverContact,
         'SecurityName': item.securityName,
-        'Section': item.section,
-        'ReceivingStatus': item.receivingStatus === 1 ? 'Completed' : 'Pending',
         'NetWeight': item.netWeight,
-        'ApprovalStatus': item.approvalStatus === 1 ? 'Completed' : 'Pending',
         'BillAmount': item.billAmount,
-
-        'Status': item.status,
         'Verified_By': item.modifiedBy,
-        'OutTime': item.OutTime === null ? '' : (handleAMPM(item.OutTime)),
         'Remarks': item.Remarks
-
-
       }
     })
     //setTransformedData(transformed);
@@ -964,11 +963,12 @@ const GatePassTable = () => {
             {props.count})</Button> } */}
       <div className="ml-5 mt-5 ">
 
+
         <div className="flex flexbox-search">
 
-          <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" GatePass/Doc No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+          <Input className="no-padding w-1/7 flexbox-search-width" placeholder=" GatePass/Doc No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
 
-          <select className='flexbox-search-width flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+          <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
             onChange={(e) => setSection(e.target.value)} value={section}>
             <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
@@ -1008,6 +1008,24 @@ const GatePassTable = () => {
               </option>
             ))}
           </select>
+          <select className='flexbox-search-width flex h-8 w-1/7  items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+            onChange={(e) => setSectionstatus(e.target.value)} value={sectionstatus}>
+            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Status (All)
+            </option>
+            {
+              SectionStatusAll.map((item) => {
+                return (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                )
+              })
+            }
+
+
+          </select>
 
 
           <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
@@ -1022,12 +1040,12 @@ const GatePassTable = () => {
 
             <TableHead className="text-center" >Entry(In/Out)</TableHead>
             <TableHead className="text-center" >Rcv/Dispatch_Section</TableHead>
-            
+
             <TableHead className="text-center" >Receiving/Dispatch</TableHead>
             <TableHead className="text-center" >NetWeight_Entry</TableHead>
             <TableHead className="text-center" >Verification/Approval</TableHead>
             <TableHead className="text-center" >Closure</TableHead>
-          
+
             <TableHead className="text-center" >Gate_Entry_Date</TableHead>
             <TableHead className="text-center" >Entry_Time</TableHead>
             <TableHead className="text-center" >Gate_Exit_Date</TableHead>
@@ -1043,9 +1061,10 @@ const GatePassTable = () => {
             <TableHead className="text-center" >GatePass_Status</TableHead>
             <TableHead className="text-center" >Verified/Approved_By</TableHead>
             <TableHead className="text-center" >Remarks</TableHead>
-           
-            <TableHead className="text-center" >Action</TableHead>
-            {Role !== 'Security' && <TableHead className="text-center" >Admin</TableHead>}
+
+            <TableHead className="text-center" >Normal Action</TableHead>
+            {Role !== 'Security' && <TableHead className="text-center" >Special Action</TableHead>}
+            <TableHead className="text-center" >Slip</TableHead>
           </TableHeader>
           <TableBody>
 
@@ -1061,7 +1080,7 @@ const GatePassTable = () => {
 
                   <TableCell className="text-center  font-semibold mt-3 flex"> {item.type === 'IN' ? <FaRegArrowAltCircleRight color="blue" size={22} className="mr-5 " /> : <FaRegArrowAltCircleLeft color='red' size={22} className="mr-2" />} {item.type}</TableCell>
                   <TableCell className="text-center font-semibold shadow-md ">{handlesection(item.section)}</TableCell>
-                  
+
                   <TableCell className="text-center ">
                     {item.receivingStatus === 0 ? (
                       <button className="bg-red-500 rounded shadow-md drop-shadow-lg p-1 text-white  fix-button-width-rcnprimary">Pending</button>
@@ -1090,8 +1109,8 @@ const GatePassTable = () => {
                       <button className="bg-green-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
                     )}
                   </TableCell>
-                
-                 
+
+
                   <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
                   <TableCell className="text-center  font-semibold">{handleAMPM(item.time)}</TableCell>
                   <TableCell className="text-center">{item.exitdate ? (handletimezone(item.exitdate)) : ''}</TableCell>
@@ -1104,23 +1123,28 @@ const GatePassTable = () => {
                   <TableCell className="text-center">{item.driverContact}</TableCell>
                   <TableCell className="text-center">{item.securityName}</TableCell>
                   <TableCell className="text-center font-semibold">{item.netWeight ? formatNumber(item.netWeight) : 0} kg </TableCell>
-                  {item.status !== 'Cancelled' ? 
-                         <TableCell className="text-center font-semibold text-yellow-600">{item.status}</TableCell> :   
-                         <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Cancelled</button>}
+                  {item.status !== 'Cancelled' ?
+                    <TableCell className="text-center font-semibold text-yellow-600">{item.status}</TableCell> :
+                    <TableCell className="text-center ">
+                      <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Cancelled</button>
+                    </TableCell>}
+
                   <TableCell className="text-center">{item.modifiedBy}</TableCell>
                   <TableCell className="text-center">{item.Remarks}</TableCell>
-                 
 
 
-                  <TableCell className="text-center flex">
 
-                    {item.status === 'Closed' ? (<button className="bg-red-500  p-2 text-white rounded opacity-40 " disabled={true}>Closed</button>) : (<Popover>
+                  <TableCell className="text-center">
+
+                    {item.status!=='Cancelled' && (item.status === 'Closed' ?
+                     (<button className="bg-red-500  p-2 text-white rounded opacity-40 " disabled={true}>Closed</button>) : 
+                     (<Popover>
                       <PopoverTrigger>
                         <button className={`p-2 text-white rounded ${(item.receivingStatus === 0) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.receivingStatus === 0) ? true : false}>Action</button>
                       </PopoverTrigger>
 
-                      
-                      
+
+
                       <PopoverContent className="flex flex-col w-30 text-sm font-medium">
 
                         {/* Net Weight  Gatepass */}
@@ -1135,7 +1159,7 @@ const GatePassTable = () => {
                               <AlertDialogDescription>
 
                                 This will Link Corresponding Receiving Section
-                                <Input type="number" placeholder="Net Weight" className='mt-3 w-100 text-center justify-center items-center' value={netWeight} onChange={(e) => setNetWeight(Number(e.target.value))} required />
+                                <Input type="number" style={{color:'black'}} placeholder="Net Weight" className='mt-3 w-100 text-center justify-center items-center' value={netWeight} onChange={(e) => setNetWeight(Number(e.target.value))} required />
                                 <span id="nameError" className={`text-red-500 pt-2 font-bold ${errview}`}>Net Weight is Required</span>
                               </AlertDialogDescription>
                             </AlertDialogHeader>
@@ -1148,26 +1172,26 @@ const GatePassTable = () => {
 
                         </AlertDialog>}
 
-                       
+
 
                         {/* Verify Gatepass   */}
 
-                        {checkpending('Gatepass') && item.netWeight && item.receivingStatus === 1 && item.approvalStatus === 0 && 
-                        <Dialog>
-                          <DialogTrigger className="flex py-1">
-                            <MdOutlineDriveFolderUpload size={20} color="green" />  <button className="bg-transparent pl-2 text-left hover:text-green-500" >
-                              Verify GatePass</button>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogHeader>
-                              <DialogTitle>
-                                <p className='text-1xl pb-1 text-center mt-5'>Gate Pass Verification </p>
-                              </DialogTitle>
-                            </DialogHeader>
-                            {/* <QCreportForm data={item} /> */}
-                            <GatepassApprove data={item} />
-                          </DialogContent>
-                        </Dialog>}
+                        {checkpending('Gatepass') && item.netWeight && item.receivingStatus === 1 && item.approvalStatus === 0 &&
+                          <Dialog>
+                            <DialogTrigger className="flex py-1">
+                              <MdOutlineDriveFolderUpload size={20} color="green" />  <button className="bg-transparent pl-2 text-left hover:text-green-500" >
+                                Verify GatePass</button>
+                            </DialogTrigger>
+                            <DialogContent>
+                              <DialogHeader>
+                                <DialogTitle>
+                                  <p className='text-1xl pb-1 text-center mt-5'>Gate Pass Verification </p>
+                                </DialogTitle>
+                              </DialogHeader>
+                              {/* <QCreportForm data={item} /> */}
+                              <GatepassApprove data={item} />
+                            </DialogContent>
+                          </Dialog>}
 
                         {/* Close Gatepass   */}
                         {item.receivingStatus === 1 && item.approvalStatus === 1 && <AlertDialog>
@@ -1195,28 +1219,21 @@ const GatePassTable = () => {
 
                       </PopoverContent>
 
-                    </Popover>)}
-                    {Role !== 'Security' && item.status === 'Closed' && <button className='bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4'
-                      style={{ background: 'orange', color: 'white', float: 'right' }}>
-                      <PDFDownloadLink document={<MyDocument data={item} />} fileName={"Gate_Pass_Report_" + item.gatePassNo + ".pdf"} >
-                        {({ loading }) => (loading ? <LuDownload size={18} /> : <LuDownload size={18} />)}
-                      </PDFDownloadLink></button>}
+                    </Popover>))}
 
-                    {!item.netWeight && item.receivingStatus === 0 && item.approvalStatus === 0 && <button className='bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4'
-                      style={{ background: 'grey', color: 'white', float: 'right' }}>
-                      <PDFDownloadLink document={<MyDocument2 data={item} />} fileName={"Gate_Pass_Initial_Report_" + item.gatePassNo + ".pdf"} >
-                        {({ loading }) => (loading ? <LuDownload size={18} /> : <LuDownload size={18} />)}
-                      </PDFDownloadLink></button>}
+                    
 
                   </TableCell>
 
                   {Role !== 'Security' && <TableCell className="text-center">
-                    <Popover>
-                    <PopoverTrigger>
+                    {item.status!=='Cancelled' && <Popover>
+                      <PopoverTrigger>
                         <button className='p-2 text-white rounded bg-red-500' >Action</button>
-                    </PopoverTrigger>
-                    <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                    {item.status !== 'Closed' && <AlertDialog>
+                      </PopoverTrigger>
+                      <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+
+                        {/* Gatepass Cancel */}
+                        {item.receivingStatus === 0 && <AlertDialog>
                           <AlertDialogTrigger className="flex">
                             <FcCancel size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >Gate Pass Cancel</button>
                           </AlertDialogTrigger>
@@ -1227,7 +1244,7 @@ const GatePassTable = () => {
                               <AlertDialogDescription>
 
                                 This will Delete Corresponding Receiving Section
-                                <Input placeholder="Cancel Remark" className='mt-3 w-100 text-center justify-center items-center' value={cancelremark} onChange={(e) => setCancelremark(Number(e.target.value))} required />
+                                <Textarea style={{color:'black'}} placeholder="Cancel Remark" className='mt-3 w-100 text-center justify-center items-center' value={cancelremark} onChange={(e) => setCancelremark(e.target.value)} required />
                                 <span id="nameError" className={`text-red-500 pt-2 font-bold ${errview}`}>Cancel Reason is Required</span>
                               </AlertDialogDescription>
                             </AlertDialogHeader>
@@ -1239,6 +1256,8 @@ const GatePassTable = () => {
                           </AlertDialogContent>
 
                         </AlertDialog>}
+
+                        {/* Gatepass Cancel */}
                         {item.status === 'Closed' && <Dialog>
                           <DialogTrigger className="flex py-1">
                             <MdOutlineDriveFolderUpload size={20} color="green" />  <button className="bg-transparent pl-2 text-left hover:text-green-500" >
@@ -1255,18 +1274,32 @@ const GatePassTable = () => {
                           </DialogContent>
                         </Dialog>}
 
-                    </PopoverContent>
-
-                    
+                      </PopoverContent>
 
 
 
 
-                    </Popover>
 
-                    
+
+                    </Popover>}
+
+
 
                   </TableCell>}
+
+                  <TableCell>
+                  {item.status!=='Cancelled' && Role !== 'Security' && item.status === 'Closed' && <button className='bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4'
+                      style={{ background: 'orange', color: 'white', float: 'right' }}>
+                      <PDFDownloadLink document={<MyDocument data={item} />} fileName={"Gate_Pass_Report_" + item.gatePassNo + ".pdf"} >
+                        {({ loading }) => (loading ? <LuDownload size={18} /> : <LuDownload size={18} />)}
+                      </PDFDownloadLink></button>}
+
+                    {item.status!=='Cancelled' && !item.netWeight && item.receivingStatus === 0 && item.approvalStatus === 0 && <button className='bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4'
+                      style={{ background: 'grey', color: 'white', float: 'right' }}>
+                      <PDFDownloadLink document={<MyDocument2 data={item} />} fileName={"Gate_Pass_Initial_Report_" + item.gatePassNo + ".pdf"} >
+                        {({ loading }) => (loading ? <LuDownload size={18} /> : <LuDownload size={18} />)}
+                      </PDFDownloadLink></button>}
+                  </TableCell>
 
                 </TableRow>)
 
