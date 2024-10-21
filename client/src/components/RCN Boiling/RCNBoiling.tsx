@@ -84,25 +84,25 @@ const RCNBoiling = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                 <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
-                        A <br /><p>{data.data[0].totalA ? parseFloat(data.data[0].totalA).toFixed(2) : 0} Kg</p>
+                        A <br /><p>{data.data[0].totalA ? (parseFloat(data.data[0].totalA)/80).toFixed(2) : 0} Bag</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                        B <br /><p>{data.data[0].totalB ? parseFloat(data.data[0].totalB).toFixed(2) : 0} Kg</p>
+                        B <br /><p>{data.data[0].totalB ? (parseFloat(data.data[0].totalB)/80).toFixed(2) : 0} Bag</p>
                     </div>
                     <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
-                        C <br /><p>{data.data[0].totalC ? parseFloat(data.data[0].totalC).toFixed(2) : 0} Kg</p>
+                        C <br /><p>{data.data[0].totalC ? (parseFloat(data.data[0].totalC)/80).toFixed(2) : 0} Bag</p>
                     </div>
                     <div className="flexbox-tile bg-sky-500 hover:bg-orange-400">
-                        D <br /><p>{data.data[0].totalD ? parseFloat(data.data[0].totalD).toFixed(2) : 0} Kg</p>
+                        D <br /><p>{data.data[0].totalD ? (parseFloat(data.data[0].totalD)/80).toFixed(2) : 0} Bag</p>
                     </div>
                     <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
-                        E <br /><p>{data.data[0].totalE ? parseFloat(data.data[0].totalE).toFixed(2) : 0} Kg</p>
+                        E <br /><p>{data.data[0].totalE ? (parseFloat(data.data[0].totalE)/80).toFixed(2) : 0} Bag</p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
-                        F <br /><p>{data.data[0].totalF ? parseFloat(data.data[0].totalF).toFixed(2) : 0} Kg</p>
+                        F <br /><p>{data.data[0].totalF ? (parseFloat(data.data[0].totalF)/80).toFixed(2) : 0} Bag</p>
                     </div>
                     <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
-                        G <br /><p>{data.data[0].totalG ? parseFloat(data.data[0].totalG).toFixed(2) : 0} Kg</p>
+                        G <br /><p>{data.data[0].totalG ? (parseFloat(data.data[0].totalG)/80).toFixed(2) : 0} Bag</p>
                     </div>
                     
 

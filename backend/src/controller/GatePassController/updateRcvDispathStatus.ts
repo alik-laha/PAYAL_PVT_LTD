@@ -23,32 +23,32 @@ try{
         if(gatepassupdate){
 
             if(section==='PackagingMaterial'){
-                const data = await WpMsgGatePassRcv("Packaging Material Receiving", gatePassNo,"rcv_dispatch_complt",'Packaging Material IN')
+                const data = await WpMsgGatePassRcv("Packaging Material", gatePassNo,"rcv_dispatch_complt",'Packaging Material IN')
                 console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
             if(section==='Store'){
-                const data = await WpMsgGatePassRcv("Store Item Receiving/Dispatch", gatePassNo,"rcv_dispatch_complt",'Store Rcv/Dispatch')
+                const data = await WpMsgGatePassRcv("Store Item", gatePassNo,"rcv_dispatch_complt",'Store Rcv/Dispatch')
                 console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
             if(section==='General'){
-                const data = await WpMsgGatePassRcv("General Item Receiving/Dispatch", gatePassNo,"rcv_dispatch_complt",'General Rcv/Dispatch')
+                const data = await WpMsgGatePassRcv("General Item", gatePassNo,"rcv_dispatch_complt",'General Rcv/Dispatch')
                 console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
             if(section==='Almond'){
-                const data = await WpMsgGatePassRcv("Almond Receiving/Dispatch", gatePassNo,"rcv_dispatch_complt",'Almond Rcv/Dispatch')
+                const data = await WpMsgGatePassRcv("Almond", gatePassNo,"rcv_dispatch_complt",'Almond Rcv/Dispatch')
                 console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
             if(section==='Village'){
-                const data = await WpMsgGatePassRcv("Village Receiving/Dispatch", gatePassNo,"rcv_dispatch_complt",'Village Rcv/Dispatch')
+                const data = await WpMsgGatePassRcv("Village", gatePassNo,"rcv_dispatch_complt",'Village Rcv/Dispatch')
                 console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
             if(section==='Agarbati'){
-                const data = await WpMsgGatePassRcv("Agarbati Receiving/Dispatch", gatePassNo,"rcv_dispatch_complt",'Agarbati Rcv/Dispatch')
+                const data = await WpMsgGatePassRcv("Agarbati", gatePassNo,"rcv_dispatch_complt",'Agarbati Rcv/Dispatch')
                 console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }

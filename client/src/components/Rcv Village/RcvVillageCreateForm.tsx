@@ -130,7 +130,7 @@ const RcvVillagePrimaryEntry = (props:Props) => {
                         await axios.put(`/api/rcvVillage/updateRcvVillage/${id}`, {data })
                         await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
                             section:'Village' })
-                            setErrortext('Village Item Received/Dispatched Successfully')
+                            setErrortext('Village Items Received/Dispatched Successfully')
                         if(successdialog){
                             (successdialog as any).showModal();
                         }
@@ -143,7 +143,7 @@ const RcvVillagePrimaryEntry = (props:Props) => {
                     await axios.put(`/api/rcvVillage/updateRcvVillageEntire/${id}`, {formData })
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
                         section:'Village' })
-                        setErrortext('Store Item Received/Dispatched Successfully')
+                        setErrortext('Village Items Received/Dispatched Successfully')
                     if(successdialog){
                         (successdialog as any).showModal();
                     }

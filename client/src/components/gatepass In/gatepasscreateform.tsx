@@ -121,8 +121,8 @@ if (errorcloseDialogButton) {
 
         try {
             
-            await axios.post(`/api/gatepass/createGatePassEntire`, { data: formData })
-            setErrortext('Gate Pass Created Successfully')
+            const res=await axios.post(`/api/gatepass/createGatePassEntire`, { data: formData })
+            setErrortext(res.data.message)
                 if (successdialog) {
                     (successdialog as any).showModal();
                 }

@@ -396,7 +396,7 @@ const GeneralPrimaryEntry = (props: Props) => {
 
 
                                 <TableHead className="text-center" >Total_Weight(Kg)</TableHead>
-                                <TableHead className="text-center" >Bill Amount</TableHead>
+                                <TableHead className="text-center" >Bill_Amount(Rs)</TableHead>
                                 <TableHead className="text-center w-30" >Remarks</TableHead>
                                 <TableHead className="text-center" >Action</TableHead>
                             </TableHeader>
