@@ -50,7 +50,7 @@ const updateAlmondPrimaryEntry = async (req: Request, res: Response) => {
                 }
             });
             if (gatepassupdate) {
-                const data = await WpMsgGatePassRcv("Almond Entry", gatepass, "rcv_dispatch_complt", 'Almond IN/OUT')
+                const data = await WpMsgGatePassRcv("Almond", gatepass, "rcv_dispatch_complt", 'Almond IN/OUT')
                 console.log(data)
                 res.status(201).json({ message: "Almond Primary Entry is Created Successfully" });
 

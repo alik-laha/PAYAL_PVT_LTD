@@ -22,7 +22,7 @@ interface ScoopingRowData{
     SizeName: string;
     Size: string;
     Scooping_Line_Mc: string;
-    Opening_Qty:string;
+    Opening_Qty:number;
     Receiving_Qty: number;
     Wholes:string;
     Broken: string;
@@ -128,7 +128,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
             LotNo,  
             origin,
             
-            Opening_Qty:parseFloat(Opening_Qty),
+            Opening_Qty:Opening_Qty,
             Receiving_Qty:Receiving_Qty,
             Wholes:parseFloat(Wholes),
             Broken:parseFloat(Broken),
@@ -257,7 +257,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
             id:item.id,
             LotNo:item.LotNo,
             Scooping_Line_Mc:item.Scooping_Line_Mc,
-            Opening_Qty:item.Opening_Qty,
+            Opening_Qty:parseFloat(item.Opening_Qty),
             Receiving_Qty:parseFloat(item.Receiving_Qty),
             Wholes:'',
             Broken:'',
@@ -296,7 +296,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
     }
 
     const handletransfer = async (index:number,field:string,fieldvalue:number|string) => {
-        if(rows[index].Transfer_Qty>rows[index].Receiving_Qty){
+        if(rows[index].Transfer_Qty>(Number(rows[index].Receiving_Qty)+Number(rows[index].Opening_Qty))){
             setErrortext('Transfer Amount is Greater than Receiving Amount')
             rows[index].Transfer_Qty=0
             const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
@@ -309,7 +309,14 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         const newRows = [...rows]
         newRows[index] = { ...newRows[index], [field]: fieldvalue };
         rows[index] = newRows[index]
-        rows[index].Receiving_Qty-= rows[index].Transfer_Qty
+        if(rows[index].Transfer_Qty>rows[index].Receiving_Qty){
+            rows[index].Opening_Qty-= rows[index].Transfer_Qty-rows[index].Receiving_Qty
+            rows[index].Receiving_Qty=0
+        }
+        else{
+            rows[index].Receiving_Qty-= rows[index].Transfer_Qty
+        }
+        
         handleRowChange(index,'Receiving_Qty',rows[index].Receiving_Qty)
         rows[parseInt(rows[index].Transfer_To)-1].Receiving_Qty+=
         Number(rows[index].Transfer_Qty)

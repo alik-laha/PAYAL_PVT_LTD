@@ -226,25 +226,25 @@ const updateApprovalGate = async (req: Request, res: Response) => {
 
                 }
                 if (section === 'General'){
-                    const data = await WpMsgGatePassRcv("General Item Rcv/Dispatch", gatepassNo,"gatepass_release",'General Item Rcv/Dispatch')
+                    const data = await WpMsgGatePassRcv("General Item Entry/Dispatch", gatepassNo,"gatepass_release",'General Item Rcv/Dispatch')
                     console.log(data)
                 return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
 
                 }
                 if (section === 'Almond'){
-                    const data = await WpMsgGatePassRcv("Almond Rcv/Dispatch", gatepassNo,"gatepass_release",'Almond Rcv/Dispatch')
+                    const data = await WpMsgGatePassRcv("Almond Entry/Dispatch", gatepassNo,"gatepass_release",'Almond Rcv/Dispatch')
                     console.log(data)
                 return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
 
                 }
                 if (section === 'Village'){
-                    const data = await WpMsgGatePassRcv("Village Rcv/Dispatch", gatepassNo,"gatepass_release",'Village Rcv/Dispatch')
+                    const data = await WpMsgGatePassRcv("Village Entry/Dispatch", gatepassNo,"gatepass_release",'Village Rcv/Dispatch')
                     console.log(data)
                 return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
 
                 }
                 if (section === 'Agarbati'){
-                    const data = await WpMsgGatePassRcv("Agarbati Rcv/Dispatch", gatepassNo,"gatepass_release",'Agarbati Rcv/Dispatch')
+                    const data = await WpMsgGatePassRcv("Agarbati Entry/Dispatch", gatepassNo,"gatepass_release",'Agarbati Rcv/Dispatch')
                     console.log(data)
                 return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
 
