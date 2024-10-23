@@ -37,7 +37,7 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 });
         
                 if(rcndelete){
-                    const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepassNo,"cancel_gatepass",feeledBy)
+                    const data = await WpMsgGatePassRcv("RCN Incoming", gatepassNo,"cancel_gatepass",feeledBy)
             console.log(data)
                     return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }
@@ -66,7 +66,7 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 });
         
                 if(pmdelete){
-                    const data = await WpMsgGatePassRcv("Store Rcv/Dispatch", gatepassNo,"cancel_gatepass",feeledBy)
+                    const data = await WpMsgGatePassRcv("Store Item", gatepassNo,"cancel_gatepass",feeledBy)
             console.log(data)
                     return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }
@@ -81,7 +81,7 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 });
         
                 if(pmdelete){
-                    const data = await WpMsgGatePassRcv("General Rcv/Dispatch", gatepassNo,"cancel_gatepass",feeledBy)
+                    const data = await WpMsgGatePassRcv("General Item", gatepassNo,"cancel_gatepass",feeledBy)
             console.log(data)
                     return res.status(201).json({  message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }
@@ -96,7 +96,7 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 });
         
                 if(pmdelete){
-                    const data = await WpMsgGatePassRcv("Almond Rcv/Dispatch", gatepassNo,"cancel_gatepass",feeledBy)
+                    const data = await WpMsgGatePassRcv("Almond", gatepassNo,"cancel_gatepass",feeledBy)
             console.log(data)
                     return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }
@@ -111,7 +111,7 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 });
         
                 if(pmdelete){
-                    const data = await WpMsgGatePassRcv("Village Rcv/Dispatch", gatepassNo,"cancel_gatepass",feeledBy)
+                    const data = await WpMsgGatePassRcv("Village", gatepassNo,"cancel_gatepass",feeledBy)
             console.log(data)
                     return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }
@@ -126,7 +126,7 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 });
         
                 if(pmdelete){
-                    const data = await WpMsgGatePassRcv("Agarbati Rcv/Dispatch", gatepassNo,"cancel_gatepass",feeledBy)
+                    const data = await WpMsgGatePassRcv("Agarbati", gatepassNo,"cancel_gatepass",feeledBy)
             console.log(data)
                     return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }

@@ -296,8 +296,8 @@ const RCNScoopingLineCreateForm = (props:Props) => {
     }
 
     const handletransfer = async (index:number,field:string,fieldvalue:number|string) => {
-        if(rows[index].Transfer_Qty>(Number(rows[index].Receiving_Qty)+Number(rows[index].Opening_Qty))){
-            setErrortext('Transfer Amount is Greater than Receiving Amount')
+        if(rows[index].Transfer_Qty>(rows[index].Receiving_Qty+rows[index].Opening_Qty)){
+            setErrortext('Transfer Amount is Greater than Total Receiving and Opening Amount')
             rows[index].Transfer_Qty=0
             const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
             dialogerror.showModal()
