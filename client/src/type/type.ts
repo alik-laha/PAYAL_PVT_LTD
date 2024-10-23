@@ -92,6 +92,28 @@ export interface AlmondPrimaryEntryData {
     totalBill:string;  
  
 }
+export interface AgarbatiPrimaryEntryData {
+   
+    approvedBy: string;
+    id: number;
+    recevingDate: string;
+    noOfBags: string;
+    truckNo: string;
+    netWeight: string;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string;
+    status:number;
+    gateType: string,
+    invoicedate: string;  
+    invoice: string;  
+    grade: string;  
+    type: string;  
+    vendorName: string;  
+    totalWt:string;  
+    totalBill:string;  
+}
 export interface BormaEntryData {
    
             id: number;
@@ -147,6 +169,28 @@ export interface RcvVillagePrimaryEntryData {
 }
 
 export interface AlmondPrimaryExcelEntryData {
+   
+    ApprovedBy: string;
+    id: number;
+    ReceivingDate: string;
+    Item_Count: string;
+    Vehicle_No: string;
+    netWeight: string|number;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string|number;
+    gateType: string,
+    invoicedate: string;  
+    invoice: string;  
+    grade: string;  
+    type: string;  
+    vendorName: string;  
+    totalWt:string|number;  
+    totalBill:string|number;  
+ 
+}
+export interface AgarbatiPrimaryExcelEntryData {
    
     ApprovedBy: string;
     id: number;
@@ -472,6 +516,10 @@ export interface SumofAllTypeDataAlmond {
     type: string;
     totalBags: number;
 }
+export interface SumofAllTypeDataAgarbati {
+    type: string;
+    totalBags: number;
+}
 
 export interface EmployeeData {
     id: number;
@@ -565,7 +613,6 @@ export interface PermissionRole {
     GradingSupervisor: string[];
     BoilingSupervisor: string[];
     ScoopingSupervisor: string[];
-   
     PeelingSupervisor:string[];
     VillageSupervisor:string[];
     ProductionManager:string[];
@@ -969,7 +1016,7 @@ export interface GatePassExcelData {
     Id: number;
     GatePassNo: string;
     Type:string;
-    Date: string;
+    Entry_Date: string;
     In_Time: string;
     Gross_Or_Tare_Wt: string;
     DocNo: string;
@@ -979,9 +1026,8 @@ export interface GatePassExcelData {
     DriverContact: string;
     SecurityName: string;
     Section: string;
-    ReceivingStatus: number;
     NetWeight: string;
-    ApprovalStatus: number;
+    Exit_Date: string;
     BillAmount: string;
     Status: string;
     Verified_By: string;

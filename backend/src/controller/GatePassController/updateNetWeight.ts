@@ -7,6 +7,8 @@ import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
 import generalPrimaryModel from "../../model/generalPrimaryModel";
 import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
+import RcvVillageModel from "../../model/RcvVillageModel";
+import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
 
 
 
@@ -17,7 +19,7 @@ const updateNetWeight = async (req: Request, res: Response) => {
         const gatepassupdate = await gatePassMaster.update(
             { 
                 netWeight:netWeight,
-                status:'Pending Approval'
+                status:'Pending_Verification'
             },
             {
                 where: {
@@ -44,7 +46,7 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 if(rcnincomingUpdate){
                     const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepassNo,"verify_gatepass_final",'RCN Cashew IN')
             console.log(data)
-                    return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
+                    return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }
                 
             }
@@ -65,7 +67,7 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 if(pmupdate){
                     const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatepassNo,"verify_gatepass_final",'Packaging Material Incoming')
             console.log(data)
-                    return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
+                    return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }
                 
             }
@@ -86,7 +88,7 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 if(pmupdate){
                     const data = await WpMsgGatePassRcv("Store Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Store Entry/Dispatch')
             console.log(data)
-                    return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
+                    return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }
                 
             }
@@ -107,7 +109,7 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 if(generalupdate){
                     const data = await WpMsgGatePassRcv("General Item Entry/Dispatch", gatepassNo,"verify_gatepass_final",'General Item Entry/Dispatch')
             console.log(data)
-                    return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
+                    return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }
                 
             }
@@ -128,17 +130,53 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 if(generalupdate){
                     const data = await WpMsgGatePassRcv("Almond Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Almond Entry/Dispatch')
             console.log(data)
-                    return res.status(201).json({ message: `NetWeight of Gatepass ID ${gatepassNo} is Updated` });
+                    return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }
                 
             }
-            
-        }
+            if (section==='Village') {
+
+                const generalupdate = await RcvVillageModel.update(
+                    { 
+                        netWeight:netWeight,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo:gatepassNo
+                        },
+                    }
+                );
         
-     
+                if(generalupdate){
+                    const data = await WpMsgGatePassRcv("Village Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Village Entry/Dispatch')
+            console.log(data)
+                    return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
+                }
+                
+            } 
+            if (section==='Agarbati') {
 
-
-
+                const generalupdate = await agarbatiPrimaryEntryModel.update(
+                    { 
+                        netWeight:netWeight,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo:gatepassNo
+                        },
+                    }
+                );
+        
+                if(generalupdate){
+                    const data = await WpMsgGatePassRcv("Agarbati Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Agarbati Entry/Dispatch')
+            console.log(data)
+                    return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
+                }
+                
+            }        
+        }
     }
  catch (err) {
     console.log(err)

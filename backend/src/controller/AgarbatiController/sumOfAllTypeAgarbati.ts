@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import sequelize from "../../config/databaseConfig";
 
 import { Op } from "sequelize";
-import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
-import almondPrimaryEntryEditModel from "../../model/almondPrimaryEditModel";
+import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
+import agarbatiPrimaryEntryEditModel from "../../model/agarbatiPrimaryEditModel";
 
-const sumofAllTypeAlmond = async (req: Request, res: Response): Promise<Response> => {
+const sumofAllTypeAgarbati = async (req: Request, res: Response): Promise<Response> => {
     try {
         const today = new Date();
         let Year = today.getFullYear()
@@ -26,10 +26,10 @@ const sumofAllTypeAlmond = async (req: Request, res: Response): Promise<Response
             today.setHours(today.getHours()+5);
             today.setMinutes(today.getMinutes()+30);
         }
-        const AllOriginRcnPrimary = await almondPrimaryEntryModel.findAll({
+        const AllOriginRcnPrimary = await agarbatiPrimaryEntryModel.findAll({
             attributes: [
                 'type',
-                [sequelize.fn('sum', sequelize.col('noOfBags')), 'totalBags']
+                [sequelize.fn('sum', sequelize.col('totalWt')), 'totalBags']
             ],
             where: {
                
@@ -44,7 +44,7 @@ const sumofAllTypeAlmond = async (req: Request, res: Response): Promise<Response
             group: ['type']
         });
 
-        const CountPendingEdit = await almondPrimaryEntryEditModel.count();
+        const CountPendingEdit = await agarbatiPrimaryEntryEditModel.count();
 
         // Send the result as a response
         return res.status(200).json({ AllOriginRcnPrimary, CountPendingEdit });
@@ -54,4 +54,4 @@ const sumofAllTypeAlmond = async (req: Request, res: Response): Promise<Response
     }
    
 };
-export default sumofAllTypeAlmond
+export default sumofAllTypeAgarbati

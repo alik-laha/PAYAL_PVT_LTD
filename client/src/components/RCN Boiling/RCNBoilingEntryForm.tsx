@@ -484,7 +484,7 @@ const RCNBoilingEntryForm = () =>
                                     
                                         
                                         <TableCell className="text-center">
-                                        <Input  value={row.size} placeholder="Bag" onChange={(e) => handleRowChange(index,'size',e.target.value)} required />
+                                        <Input  value={row.size} placeholder="Kg" onChange={(e) => handleRowChange(index,'size',e.target.value)} required />
                                         </TableCell>
                         
                                      

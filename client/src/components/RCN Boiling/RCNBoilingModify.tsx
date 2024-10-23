@@ -263,7 +263,7 @@ const RCNBoilingModify = (props: RCnBoilingModifyProps) => {
                         </SelectContent>
                     </Select>
             </div>
-            <div className="flex"><Label className="w-2/4 pt-1">Boiling Qty</Label>
+            <div className="flex"><Label className="w-2/4 pt-1">Boiling Qty(Kg)</Label>
             <Input className="w-2/4 text-center" placeholder="Boiling Qty." value={size} onChange={(e) => setsize(e.target.value)} required/> </div>
              <div className="flex"><Label className="w-2/4 pt-1">No. Of Labour</Label>
             <Input className="w-2/4 text-center" placeholder="No. Of Employees" value={noOfEmployees} onChange={(e) => setNoOfEmployees(e.target.value)} required/> </div>

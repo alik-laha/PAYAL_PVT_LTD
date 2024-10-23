@@ -23,7 +23,10 @@ import { PiPackageLight, PiExam } from "react-icons/pi";
 import { GiBoilingBubbles, GiIceCreamScoop, GiGate } from "react-icons/gi";
 import { CgSmartHomeBoiler } from "react-icons/cg";
 import { BsMoisture } from "react-icons/bs";
+import { GiChopsticks } from "react-icons/gi";
 //import { GiPizzaCutter } from "react-icons/gi";
+
+
 const DashboardSidebar = () => {
     // const navigate = useNavigate()
     const Role = localStorage.getItem('role') as keyof PermissionRole
@@ -149,6 +152,16 @@ const DashboardSidebar = () => {
                                     </NavLink>
 
                                 </CollapsibleContent>}
+
+
+                                {renderlink('Receiving Agarbati Entry')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/AgarbatiPrimary" >
+
+                                        <p className="flex"><GiChopsticks size={20} /> <p className="pl-3">   Agarbatti </p></p>
+                                    </NavLink>
+
+                                </CollapsibleContent>}    
 
 
 

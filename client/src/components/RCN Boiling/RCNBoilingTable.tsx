@@ -78,7 +78,7 @@ const RCNBoilingTable = () => {
     const [Data, setData] = useState<BoilingEntryData[]>([])
     const [page, setPage] = useState(pageNo)
     const [EditData, setEditData] = useState<BoilingEntryData[]>([])
-    const limit = pagelimit
+    const limit = 10
     const { editPendingBoilingData, setEditPendingBoilingData } = useContext(Context);
     const [blockpagen, setblockpagen] = useState('flex')
     const currDate = new Date().toLocaleDateString();
@@ -405,7 +405,7 @@ const RCNBoilingTable = () => {
                     <TableHead className="text-center" >Machine_Name</TableHead>
                  
                     <TableHead className="text-center" >Size</TableHead>
-                    <TableHead className="text-center" >Qty_(Bag)</TableHead>
+                    <TableHead className="text-center" >Qty_(Kg)</TableHead>
                     <TableHead className="text-center" >Pressure</TableHead>
                     <TableHead className="text-center" >Moisture</TableHead>
                     <TableHead className="text-center" >Cooking Time</TableHead>

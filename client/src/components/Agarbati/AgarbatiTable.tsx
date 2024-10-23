@@ -2,7 +2,7 @@ import axios from "axios";
 import { pagelimit, pageNo, pendingCheckRole, SelectGatePassType } from "../common/exportData";
 import { useContext, useEffect, useState } from "react";
 import { Input } from "../ui/input";
-import { AlmondPrimaryEntryData, AlmondPrimaryExcelEntryData, findskutypeData, pendingCheckRoles, PermissionRole } from "@/type/type";
+import { AgarbatiPrimaryEntryData, AgarbatiPrimaryExcelEntryData, findskutypeData, pendingCheckRoles, PermissionRole } from "@/type/type";
 import { format, toZonedTime } from 'date-fns-tz'
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
@@ -53,17 +53,18 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { FcApprove, FcDisapprove } from "react-icons/fc";
-import AlmondModify from "./AlmondModify";
+// import AlmondModify from "./AlmondModify";
 
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import AgarbatiModify from "./AgarbatiModify";
 
 
-const AlmondTable = () => {
+const AgarbatiTable = () => {
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
-    const [selectType, setselectType] = useState<string>("IN")
-    const [tablesearch, settablesearch] = useState<string>("IN")
+    const [selectType, setselectType] = useState<string>("")
+
     const [fromdate, setfromDate] = useState<string>('');
     const [todate, settoDate] = useState<string>('');
     const [hidetodate, sethidetoDate] = useState<string>('');
@@ -75,8 +76,8 @@ const AlmondTable = () => {
     const [sku, setsku] = useState<findskutypeData[]>([])
     const [grade, setGrade] = useState<findskutypeData[]>([])
 
-    const [EditData, setEditData] = useState<AlmondPrimaryEntryData[]>([])
-    const { editPendingAlmondData } = useContext(Context);
+    const [EditData, setEditData] = useState<AgarbatiPrimaryEntryData[]>([])
+    const { editPendingAgarbatiData } = useContext(Context);
     const [blockpagen, setblockpagen] = useState('flex')
 
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
@@ -114,10 +115,10 @@ const AlmondTable = () => {
     }, [page])
 
     const handleSearch = async () => {
-        settablesearch(selectType)
+        
         setEditData([])
         setblockpagen('flex')
-        const response = await axios.put('/api/almondPrimary/almondprimarysearch', {
+        const response = await axios.put('/api/agarbatiPrimary/agarbatiprimarysearch', {
             searchitem: blConNo,
             gatetype: selectType,
             fromDate: fromdate,
@@ -141,15 +142,15 @@ const AlmondTable = () => {
 
     }
     useEffect(() => {
-        if (editPendingAlmondData.length > 0) {
+        if (editPendingAgarbatiData.length > 0) {
             //console.log(editPendingData)
-            setEditData(editPendingAlmondData)
+            setEditData(editPendingAgarbatiData)
             setblockpagen('none')
         }
-    }, [editPendingAlmondData])
+    }, [editPendingAgarbatiData])
 
     useEffect(() => {
-        axios.put('/api/vendorSKU/getItembySection/Almond Type', { section: 'Almond' })
+        axios.put('/api/vendorSKU/getItembySection/Agarbati Type', { section: 'Agarbati' })
             .then(res => {
                 //console.log(res.data)
                 setsku(res.data)
@@ -160,7 +161,7 @@ const AlmondTable = () => {
             })
     }, [])
     useEffect(() => {
-        axios.put('/api/vendorSKU/getItembySection/Almond Grade', { section: 'Almond' })
+        axios.put('/api/vendorSKU/getItembySection/Agarbati Grade', { section: 'Agarbati' })
             .then(res => {
                 //console.log(res.data)
                 setGrade(res.data)
@@ -171,11 +172,11 @@ const AlmondTable = () => {
             })
     }, [])
 
-    const handleRejection = async (item: AlmondPrimaryEntryData) => {
-        const response = await axios.delete(`/api/almondPrimary/rejectededitAlmond/${item.id}`)
+    const handleRejection = async (item: AgarbatiPrimaryEntryData) => {
+        const response = await axios.delete(`/api/agarbatiPrimary/rejectededitAgarbati/${item.id}`)
         const data = await response.data
         console.log(data)
-        if (data.message === "Almond Entry rejected successfully") {
+        if (data.message === "Agarbati Entry rejected successfully") {
             //console.log('rejected enter')
             if (rejectsuccessdialog != null) {
                 (rejectsuccessdialog as any).showModal();
@@ -184,7 +185,7 @@ const AlmondTable = () => {
     }
 
     const exportToExcel = async () => {
-        const response = await axios.put('/api/almondPrimary/almondprimarysearch', {
+        const response = await axios.put('/api/agarbatiPrimary/agarbatiprimarysearch', {
             searchitem: blConNo,
             gatetype: selectType,
             fromDate: fromdate,
@@ -195,10 +196,10 @@ const AlmondTable = () => {
         const data1 = await response.data
 
         let ws
-        let transformed: AlmondPrimaryExcelEntryData[] = [];
+        let transformed: AgarbatiPrimaryExcelEntryData[] = [];
         if (EditData.length > 0) {
 
-            transformed = EditData.map((item: AlmondPrimaryEntryData, idx: number) => ({
+            transformed = EditData.map((item: AgarbatiPrimaryEntryData, idx: number) => ({
                
                 
                 id: idx + 1,
@@ -223,7 +224,7 @@ const AlmondTable = () => {
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
-            transformed = data1.rcnEntries.map((item: AlmondPrimaryEntryData, idx: number) => ({
+            transformed = data1.rcnEntries.map((item: AgarbatiPrimaryEntryData, idx: number) => ({
                 id: idx + 1,
                 gatePassNo:item.gatePassNo,
                 gateType:item.gateType,
@@ -249,14 +250,14 @@ const AlmondTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Almond_Primary_Entry_' + currDate + '.xlsx');
+        saveAs(blob, 'Agarbati_Primary_Entry_' + currDate + '.xlsx');
 
 
     }
-    const handleApprove = async (item: AlmondPrimaryEntryData) => {
-        const response = await axios.put(`/api/almondPrimary/approveeditAlmond/${item.id}`)
+    const handleApprove = async (item: AgarbatiPrimaryEntryData) => {
+        const response = await axios.put(`/api/agarbatiPrimary/approveeditAgarbati/${item.id}`)
         const data = await response.data
-        if (data.message === "Edit Request of Almond Entry is Approved Successfully") {
+        if (data.message === "Edit Request of Agarbati Entry is Approved Successfully") {
 
             if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).showModal();
@@ -356,7 +357,8 @@ const AlmondTable = () => {
                     <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setselectType(e.target.value)} value={selectType}>
-
+<option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>In/Out (All)</option>
                         {SelectGatePassType.map((data, index) => (
                             <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
             py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
@@ -383,7 +385,7 @@ const AlmondTable = () => {
 
                         <TableHead className="text-center" >Initial_Weight(Kg)</TableHead>
                         <TableHead className="text-center" >Type</TableHead>
-                        {(tablesearch === 'OUT' || EditData.length > 0) ? <TableHead className="text-center" >Grade</TableHead> : ''}
+                      <TableHead className="text-center" >Grade</TableHead> 
                         <TableHead className="text-center" >Invoice_No.</TableHead>
                         <TableHead className="text-center" >Invoice_Date</TableHead>
 
@@ -391,7 +393,7 @@ const AlmondTable = () => {
 
                         <TableHead className="text-center" >Vendor_Name</TableHead>
                         <TableHead className="text-center" >Bag/Item_Count</TableHead>
-                        {(tablesearch === 'OUT' || EditData.length > 0 )? <TableHead className="text-center" >Row_Weight(Kg)</TableHead> : ''}
+                        <TableHead className="text-center" >Row_Weight(Kg)</TableHead> 
                         <TableHead className="text-center" >Bill_Amount(Rs)</TableHead>
                         <TableHead className="text-center" >Edit Status </TableHead>
 
@@ -401,7 +403,7 @@ const AlmondTable = () => {
                     <TableBody>
 
 
-                        {EditData.length > 0 ? (EditData.map((item: AlmondPrimaryEntryData, idx) => {
+                        {EditData.length > 0 ? (EditData.map((item: AgarbatiPrimaryEntryData, idx) => {
 
                             return (
                                 <TableRow key={item.id}>
@@ -413,7 +415,7 @@ const AlmondTable = () => {
                                 <TableCell className="text-center">{item.truckNo}</TableCell>
                                 <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
                                 <TableCell className="text-center">{item.type}</TableCell>
-                                {(tablesearch === 'OUT' || EditData.length > 0 )? <TableCell className="text-center" >{item.grade}</TableCell> : ''}
+                               <TableCell className="text-center" >{item.grade}</TableCell> 
                                 <TableCell className="text-center">{item.invoice}</TableCell>
                                 <TableCell className="text-center">{handletimezone(item.invoicedate)}</TableCell>
                                 <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
@@ -421,7 +423,7 @@ const AlmondTable = () => {
                                 <TableCell className="text-center">{item.vendorName}</TableCell>
                                 <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
 
-                                {(tablesearch === 'OUT' || EditData.length > 0 ) ? <TableCell className="text-center" >{item.totalWt}</TableCell> : ''}
+                            <TableCell className="text-center" >{item.totalWt}</TableCell> 
                                 <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0 }</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
                                 <TableCell className="text-center">
@@ -464,7 +466,7 @@ const AlmondTable = () => {
                                 </TableRow>
                             ) })): (
 
-                            Data.length > 0 ? (Data.map((item: AlmondPrimaryEntryData, idx) => {
+                            Data.length > 0 ? (Data.map((item: AgarbatiPrimaryEntryData, idx) => {
 
 
                                 return (
@@ -477,7 +479,7 @@ const AlmondTable = () => {
                                         <TableCell className="text-center">{item.truckNo}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.grossWt)}</TableCell>
                                         <TableCell className="text-center">{item.type}</TableCell>
-                                        {tablesearch === 'OUT' ? <TableCell className="text-center" >{item.grade}</TableCell> : ''}
+                                     <TableCell className="text-center" >{item.grade}</TableCell> 
                                         <TableCell className="text-center">{item.invoice}</TableCell>
                                         <TableCell className="text-center">{handletimezone(item.invoicedate)}</TableCell>
                                         <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
@@ -485,7 +487,7 @@ const AlmondTable = () => {
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
 
-                                        {tablesearch === 'OUT' ? <TableCell className="text-center" >{item.totalWt}</TableCell> : ''}
+                                      <TableCell className="text-center" >{item.totalWt}</TableCell> 
                                         <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
 
@@ -502,10 +504,10 @@ const AlmondTable = () => {
                                                         <DialogContent>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Almond Entry Modification</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-1'>Agarbati Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            <AlmondModify data={item} />
+                                                            <AgarbatiModify data={item} />
                                                         </DialogContent>
                                                     </Dialog>
                                                 </PopoverContent>
@@ -587,4 +589,4 @@ const AlmondTable = () => {
 
 }
 
-export default AlmondTable
+export default AgarbatiTable

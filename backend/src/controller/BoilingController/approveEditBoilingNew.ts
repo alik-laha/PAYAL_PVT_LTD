@@ -81,7 +81,7 @@ try{
 
                 }
                 const scoopingupdate = await RcnScooping.update({
-                    Receiving_Qty: (parseFloat(Size) * 80),
+                    Receiving_Qty: (parseFloat(Size) * 1),
                     origin: origin,
                     SizeName: SizeName,
                     Size: Size,

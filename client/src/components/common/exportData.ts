@@ -80,13 +80,14 @@ export const rcvCheckRole = {
     StorePrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingStoreSupervisor'],
     GeneralPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingGeneralSupervisor'],
     AlmondPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingAlmondSupervisor'],
+    AgarbatiPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingAgarbatiSupervisor'],
     VillagePrimaryEntry:['Director', 'FactoryManager','VillageSupervisor','ProductionManager'],
  
 }
 export const roleDataonDept = {
     Admin: ['Director', 'FactoryManager'],
     Receiving: ['ReceivingManager','ReceivingSupervisor', 'ReceivingPMSupervisor', 'ReceivingAlmondSupervisor',
-         'ReceivingStoreSupervisor','ReceivingGeneralSupervisor'],
+         'ReceivingStoreSupervisor','ReceivingGeneralSupervisor','ReceivingAgarbatiSupervisor'],
     //Maintainance: ['CleaningSupervisor', 'MaintainanceManager'],
     QualityControl: ['QCSupervisor', 'QCManager'],
     Production: ['ProductionManager', 'GradingSupervisor', 
@@ -96,7 +97,7 @@ export const roleDataonDept = {
 export const pageNo = 1
 export const pagelimit = 8
 export const timerLogout = 43200
-export const Section = ['Boiling', 'Grading', 'Scooping','Borma']
+export const Section = ['Boiling', 'Grading', 'Scooping','Borma','Humidifier']
 export const MachineStatus = ['Active', 'Inactive', 'Discarded']
 export const Size = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 export const Session_LogoutTime_Hr = 12
@@ -106,11 +107,12 @@ export const SelectType = ["LineWise","LotWise"]
 
 
 export const sectionDataonTypeGate = {
-    IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond','Village'],
-    OUT: ["Store",'General','Almond','Village'],
+    IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond','Village','Agarbati'],
+    OUT: ["Store",'General','Almond','Village','Agarbati'],
 }
 export const SelectGatePassType = ["IN","OUT"]
-export const SKUSection = ['PackagingMaterial', 'Store' ,'General','Almond','Village']
+export const SKUSection = ['PackagingMaterial', 'Store' ,'General','Almond','Village','Agarbati']
+export const SectionStatusAll = ['Pending_Receiving', 'Pending_NetWeight' ,'Pending_Verification','Pending_Release','Closed','Cancelled']
 export const SKUUnit = ['Pc','Kg','Mtr','SqMtr','Ft','SqFt','Bag','Bucket','Ltr','Coil','None']
 export const SelectTypeSKUVendor = ["SKU","Vendor"]
 
@@ -119,7 +121,8 @@ export const TypeOnSection = {
     Store:['ElectricalSpare','MechanicalSpare','Stationary','Chemical','Civil','Machine','Miscellaneous','Asset'],
     General:['Fuel','Civil','General','Miscellaneous'],
     Almond:['Almond Type','Almond Grade'],
-    Village:['Item Type','Item Name']
+    Village:['Item Type','Item Name'],
+    Agarbati:['Agarbati Type','Agarbati Grade']
 
 }
 

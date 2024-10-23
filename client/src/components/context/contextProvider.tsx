@@ -1,7 +1,8 @@
 import Context from "./context.ts";
 import { ReactNode } from "react";
 import { useState } from "react";
-import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving, rcnScoopingData,sumofStorePrimary, sumofGeneralPrimary, AlmondPrimaryEntryData, sumofRcvVillagePrimary } from "../../type/type";
+import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving,
+     rcnScoopingData,sumofStorePrimary, sumofGeneralPrimary, AlmondPrimaryEntryData, sumofRcvVillagePrimary, AgarbatiPrimaryEntryData } from "../../type/type";
 
 interface ContextProviderProps {
     children: ReactNode;
@@ -28,6 +29,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [RcvVillagePrimaryOverView, setRcvVillagePrimaryOverView] = useState<sumofRcvVillagePrimary | null>(null)
     const [GeneralPrimaryOverView, setGeneralPrimaryOverView] = useState<sumofGeneralPrimary | null>(null)
     const [editPendingAlmondData, setEditPendingAlmondData] = useState<AlmondPrimaryEntryData[]>([])
+    const [editPendingAgarbatiData, setEditPendingAgarbatiData] = useState<AgarbatiPrimaryEntryData[]>([])
 
     return (
         <Context.Provider value={{
@@ -38,7 +40,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
             setpendingreportCount, recevingPackagematerialOverView, setRecevingPacakanMaterialOverView,
             editScoopingLotWiseData, setEditScoopingLotWiseData, searchType, setSearchType,editBormaLotWiseData,setEditBormaLotWiseData,
             StorePrimaryOverView,setStorePrimaryOverView,GeneralPrimaryOverView,setGeneralPrimaryOverView,editPendingAlmondData,setEditPendingAlmondData
-            ,RcvVillagePrimaryOverView,setRcvVillagePrimaryOverView,editHumidLotWiseData,setEditHumidLotWiseData
+            ,RcvVillagePrimaryOverView,setRcvVillagePrimaryOverView,editHumidLotWiseData,setEditHumidLotWiseData,editPendingAgarbatiData,setEditPendingAgarbatiData
         }}>
             {children}
         </Context.Provider>

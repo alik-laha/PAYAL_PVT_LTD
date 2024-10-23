@@ -49,9 +49,11 @@ const GatepassIn = () => {
                         Completed <br /><p>{data.completed} </p>
                     </div>
                     <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
-                       Pending Rcv/Disptch<br /><p>{data.PendingRcv}</p>
+                       Pending Rcv/Dispatch<br /><p>{data.PendingRcv}</p>
                     </div>
-                    
+                    <div className="flexbox-tile bg-purple-500 hover:bg-orange-400">
+                       Pending NetWeight<br /><p>{data.PendingNtWt} </p>
+                    </div>
                     <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
                         Pending Approval<br /><p>{data.Pendingapprove} </p>
                     </div>

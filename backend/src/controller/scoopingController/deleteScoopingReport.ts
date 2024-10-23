@@ -12,7 +12,7 @@ const deleteScoopingReport = async (req: Request, res: Response) => {
     const LotNo = req.body.lotNo
     await RcnScooping.update(
         {
-            Receiving_Qty:sequelize.literal('80*Size'),
+            Receiving_Qty:sequelize.literal('1*Size'),
             date: null,
             Wholes:null,
             Broken:null,
