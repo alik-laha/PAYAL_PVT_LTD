@@ -19,7 +19,7 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
-import { Size, pageNo, pagelimit, pendingCheckRole } from "../common/exportData"
+import { Size, pageNo, pendingCheckRole } from "../common/exportData"
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 
 
