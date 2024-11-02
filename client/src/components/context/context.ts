@@ -22,7 +22,9 @@ interface ContextType {
     setAllNewMachines: (data: AssetData[]) => void;
     editPendiningGrinderData: GradingData[];
     editPendingBoilingData: BoilingEntryData[];
+    editPendiningIssueItemData: GradingData[];
     setEditPendiningGrinderData: (data: GradingData[]) => void;
+    setEditPendiningIssueItemData: (data: GradingData[]) => void;
     setEditPendingBoilingData: (data: BoilingEntryData[]) => void;
     pendingqccount: number;
     setpendingqcCount: (pendingqccount: number) => void;
@@ -73,7 +75,9 @@ const Context = createContext<ContextType>({
     dept: '',
     setDept: () => { },
     editPendiningGrinderData: [],
+    editPendiningIssueItemData: [],
     setEditPendiningGrinderData: () => { },
+    setEditPendiningIssueItemData: () => { },
     editPendingBoilingData: [],
     setEditPendingBoilingData: () => { },
     setRecevingPacakanMaterialOverView: () => { },

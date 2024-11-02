@@ -24,6 +24,7 @@ import { GiBoilingBubbles, GiIceCreamScoop, GiGate } from "react-icons/gi";
 import { CgSmartHomeBoiler } from "react-icons/cg";
 import { BsMoisture } from "react-icons/bs";
 import { GiChopsticks } from "react-icons/gi";
+import { IoArrowRedoOutline } from "react-icons/io5";
 //import { GiPizzaCutter } from "react-icons/gi";
 
 
@@ -132,6 +133,14 @@ const DashboardSidebar = () => {
                                     {renderlink('Dashboard User')}
                                     <NavLink to="/dashboard/vendorSKU" >
                                         <p className="flex"><TbSitemap size={20} /> <p className="pl-3">Item/Vendor Mapping</p></p>
+                                    </NavLink>
+                                </CollapsibleContent>}
+                            
+                                {renderlink('Store Issue')
+                                && <CollapsibleContent className="Items-pvt">
+                                    {renderlink('Dashboard User')}
+                                    <NavLink to="/dashboard/StoreIssue" >
+                                        <p className="flex"><IoArrowRedoOutline size={20} /> <p className="pl-3">Item Issue</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 

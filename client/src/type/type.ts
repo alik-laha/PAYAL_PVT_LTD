@@ -607,7 +607,7 @@ export interface PermissionRole {
     ReceivingStoreSupervisor: string[];
     ReceivingAgarbatiSupervisor:string[];
     ReceivingGeneralSupervisor:string[];
-    ReceivingPurchaseSupervisor:string[];
+    ReceivingOilMillSupervisor:string[];
     QCSupervisor: string[];
     QCManager: string[];
     GradingSupervisor: string[];
