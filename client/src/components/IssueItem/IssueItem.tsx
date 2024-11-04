@@ -15,6 +15,7 @@ import { useContext } from "react";
 import Context from "../context/context";
 import Loader from "../common/Loader";
 import UseQueryData from "../common/dataFetcher";
+import IssueCreateForm from "./IssueCreate";
 
 const IssueItem = () => {
     const { setEditPendiningIssueItemData } = useContext(Context)
@@ -52,8 +53,22 @@ const IssueItem = () => {
             <div>
                 <DashboardHeader />
                 <DashboardSidebar />
+               
                 <div className='dashboard-main-container'>
+                <div className="flexbox-header">
+                    {
 
+                        data.data && data.data.map((item: any) => {
+                            return (
+                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-600" key={item.type}>
+                                    {item.type} <br /><p>{item.totalBags} Bag</p>
+                                </div>
+                            )
+                        })
+
+                    }
+
+                </div>
                 <p className='text-lg font-semibold text-center py-1 '>ITEM ISSUE</p>
                 <div>
                     <Dialog>
@@ -64,7 +79,7 @@ const IssueItem = () => {
 
                             </DialogHeader>
 
-                            {/* <RcnGradingCreateForm /> */}
+                            <IssueCreateForm />
                         </DialogContent>
                     </Dialog>
 

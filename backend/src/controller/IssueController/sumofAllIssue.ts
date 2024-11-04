@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import RcnGrading from "../../model/RcnGradingModel";
-import RcnGradingEdit from "../../model/RcnGradingEditModel";
+
 import sequelize from "../../config/databaseConfig";
 import { Op } from "sequelize";
+import ItemIssueEdit from "../../model/itemIssueEdit";
+import ItemIssue from "../../model/itemissueModel";
 
 const sumOfallIssue = async (req: Request, res: Response) => {
 
@@ -28,27 +30,29 @@ const sumOfallIssue = async (req: Request, res: Response) => {
             today.setMinutes(today.getMinutes()+30);
         }
 
-        const data = await RcnGrading.findAll({
+        
+
+       
+        const data = await ItemIssue.count({
             attributes: [
-                [sequelize.fn('sum', sequelize.col('A')), 'totalA'],
-                [sequelize.fn('sum', sequelize.col('B')), 'totalB'],
-                [sequelize.fn('sum', sequelize.col('C')), 'totalC'],
-                [sequelize.fn('sum', sequelize.col('D')), 'totalD'],
-                [sequelize.fn('sum', sequelize.col('E')), 'totalE'],
-                [sequelize.fn('sum', sequelize.col('F')), 'totalF'],
-                [sequelize.fn('sum', sequelize.col('G')), 'totalG'],
-                [sequelize.fn('sum', sequelize.col('dust')), 'totalDust']
+                'sectionunit',
+                
             ],
             where: {
+               
                 [Op.or]: [
-                    { editStatus: "Approved" },
-                    { editStatus: "NA" }
-                ], date: {
+                    { editStatus: 'Approved' },
+                    { editStatus: 'NA' }
+                ],
+                date: {
                     [Op.between]: [targetDate, today]
                 }
-            }
+            },
+            group: ['sectionunit']
         });
-        const EditData = await RcnGradingEdit.count()
+
+
+        const EditData = await ItemIssueEdit.count()
         if (data) {
             return res.status(200).json({ data, EditData });
         }
