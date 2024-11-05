@@ -243,7 +243,15 @@ const IssueCreateForm = () => {
 
      const handleRowquantityChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
-        
+        if(Number(e.target.value)>rows[index].leftqty){
+
+            setErrortext('Issue Amount is Greater Than Left Amount')
+            rows[index].quantity=0
+            const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+            dialogerror.showModal()
+           // console.log(rows)
+            return
+        }
         rows[index].totalprice=rows[index].unitprice*Number(e.target.value)
         handleRowChange(index,'quantity',e.target.value)
        
@@ -253,6 +261,16 @@ const IssueCreateForm = () => {
         
         rows[index].totalprice=rows[index].quantity*Number(e.target.value)
         handleRowChange(index,'unitprice',e.target.value)
+       
+     }
+
+     const handleRowdamageChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        if(e.target.value!=='Yes'){
+            rows[index].damageunit=''
+        }
+        
+        handleRowChange(index,'damagestatus ',e.target.value)
        
      }
     return (
@@ -401,7 +419,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             <select className="text-center flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
-focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'damagestatus', e.target.value)}
+focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowdamageChange(index, e)}
                                                     value={row.damagestatus} required>
                                                     <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
     focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Return Status</option>

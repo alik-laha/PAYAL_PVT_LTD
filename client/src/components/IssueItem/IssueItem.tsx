@@ -8,8 +8,8 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { Button } from "../ui/button";
-import { pendingCheckRoles, PermissionRole } from "@/type/type";
-import { pendingCheckRole } from "../common/exportData";
+import { pendingCheckRoles, PermissionRole, rcvCheckRoles } from "@/type/type";
+import { pendingCheckRole, rcvCheckRole } from "../common/exportData";
 import axios from "axios";
 import { useContext } from "react";
 import Context from "../context/context";
@@ -19,10 +19,21 @@ import IssueCreateForm from "./IssueCreate";
 
 const IssueItem = () => {
     const { setEditPendiningIssueItemData } = useContext(Context)
+    const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {
-        const Role = localStorage.getItem('role') as keyof PermissionRole
+        
         //console.log(Role)
         if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+            return true
+        }
+        else {
+            return false;
+        }
+
+    }
+    const checkreceiving = (tab: string) => {
+        //console.log(Role)
+        if (rcvCheckRole[tab as keyof rcvCheckRoles].includes(Role)) {
             return true
         }
         else {
@@ -71,7 +82,7 @@ const IssueItem = () => {
                 </div>
                 <p className='text-lg font-semibold text-center py-1 '>ITEM ISSUE</p>
                 <div>
-                    <Dialog>
+                {checkreceiving('StorePrimaryEntry') && <Dialog>
                         <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-red-500 mb-2 mt-5 ml-4" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-4xl' style={{display:'block'}}>
                             <DialogHeader>
@@ -81,7 +92,7 @@ const IssueItem = () => {
 
                             <IssueCreateForm />
                         </DialogContent>
-                    </Dialog>
+                    </Dialog>}
 
 
                     {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button>}
