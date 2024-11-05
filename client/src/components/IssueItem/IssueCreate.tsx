@@ -196,7 +196,7 @@ const IssueCreateForm = () => {
             }
             return
         }
-        handleRowChange(index,'sku',e.target.value)
+        handleRowChange(index,'material',e.target.value)
         setActvskuindex(index)
         if (e.target.value.length > 0 && skudata.length > 0) {
             setSkuView("block")
@@ -270,7 +270,7 @@ const IssueCreateForm = () => {
             rows[index].damageunit=''
         }
         
-        handleRowChange(index,'damagestatus ',e.target.value)
+        handleRowChange(index,'damagestatus',e.target.value)
        
      }
     return (
@@ -447,7 +447,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             </TableCell>
                                             <TableCell className="text-center" >
                                           
-                                          <Input value={row.damageunit} placeholder="unit" required onChange={(e) => {
+                                          <Input value={row.damageunit} placeholder="unit" onChange={(e) => {
                                                   handleRowChange(index, 'damageunit', e.target.value)
                                               }}   className="bg-yellow-100"/> 
                                             </TableCell>

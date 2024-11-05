@@ -16,6 +16,7 @@ import Context from "../context/context";
 import Loader from "../common/Loader";
 import UseQueryData from "../common/dataFetcher";
 import IssueCreateForm from "./IssueCreate";
+import IssueTable from "./IssueTable";
 
 const IssueItem = () => {
     const { setEditPendiningIssueItemData } = useContext(Context)
@@ -98,6 +99,7 @@ const IssueItem = () => {
                     {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button>}
 
                 </div>
+             <IssueTable/>
                 </div>
             </div>
 
