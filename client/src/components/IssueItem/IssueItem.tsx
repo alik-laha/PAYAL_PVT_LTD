@@ -58,10 +58,10 @@ const IssueItem = () => {
                 <div className="flexbox-header">
                     {
 
-                        data.data && data.data.map((item: any) => {
+                        data.data && data.data.map((item: any,idx:any) => {
                             return (
-                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-600" key={item.type}>
-                                    {item.type} <br /><p>{item.totalBags} Bag</p>
+                                <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-600" key={idx}>
+                                    {item.sectionunit} <br /><p>{item.count} </p>
                                 </div>
                             )
                         })

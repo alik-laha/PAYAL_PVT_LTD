@@ -35,7 +35,7 @@ const sumOfallIssue = async (req: Request, res: Response) => {
        
         const data = await ItemIssue.count({
             attributes: [
-                'sectionunit',
+                'sectionunit'
                 
             ],
             where: {

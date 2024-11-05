@@ -240,6 +240,21 @@ const IssueCreateForm = () => {
         
          setSkuView("none")
      }
+
+     const handleRowquantityChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        
+        rows[index].totalprice=rows[index].unitprice*Number(e.target.value)
+        handleRowChange(index,'quantity',e.target.value)
+       
+     }
+     const handleRowunitPriceChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        
+        rows[index].totalprice=rows[index].quantity*Number(e.target.value)
+        handleRowChange(index,'unitprice',e.target.value)
+       
+     }
     return (
         <>
             <div className="px-5 mt-4">
@@ -247,12 +262,12 @@ const IssueCreateForm = () => {
 
                     <div className="mx-8 flex flex-col gap-1">
                         <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Date(*)</Label>
+                            <Label className="w-2/4 pt-1">Issue Date(*)</Label>
                             <Input type='date' className="w-2/4 text-center justify-center" placeholder="Vehicle No" ref={dateIssueref} required />
                         </div>
                         <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Issue to User</Label>
-                            <Input className="w-2/4 text-center" placeholder="User Name" ref={usernameRef} />
+                            <Label className="w-2/4 pt-1">Issue to User(*)</Label>
+                            <Input className="w-2/4 text-center" placeholder="User Name" ref={usernameRef} required/>
                         </div>
                     </div>
 
@@ -328,21 +343,21 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                   handleRowChange(index, 'unit', e.target.value)
                                               }}   className="bg-yellow-100"/> 
                                             </TableCell>
-                                                <TableCell className="text-red-500">{row.leftqty}</TableCell>
+                                                <TableCell className="text-red-500 font-semibold">{row.leftqty}</TableCell>
                                                 <TableCell className="text-center" >
                                                 <Input value={row.unitprice} placeholder="Amount" type="number"
                                                     onChange={(e) => {
-                                                        handleRowChange(index, 'unitprice', e.target.value)
+                                                        handleRowunitPriceChange(index, e)
                                                     }} />
                                             </TableCell>
                                                 <TableCell className="text-center" >
                                                 <Input value={row.quantity} placeholder="Qty." type='number'
                                                     onChange={(e) => {
-                                                        handleRowChange(index, 'quantity', e.target.value)
+                                                        handleRowquantityChange(index,  e)
                                                     }} required/>
                                             </TableCell>
                                             <TableCell className="text-center" >
-                                                <Input value={row.totalprice} placeholder="Amount" type="number"
+                                                <Input value={row.totalprice} placeholder="Amount" type="number" readOnly
                                                   />
                                             </TableCell>
                                             
