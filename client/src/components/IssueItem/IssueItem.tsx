@@ -73,7 +73,7 @@ const IssueItem = () => {
                 <div>
                     <Dialog>
                         <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-red-500 mb-2 mt-5 ml-4" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>
-                        <DialogContent className='max-w-2xl'>
+                        <DialogContent className='max-w-4xl' style={{display:'block'}}>
                             <DialogHeader>
                                 <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Item Issue Form</p></DialogTitle>
 
