@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { Input } from "../ui/input";
 import React from "react";
 import axios from "axios";
-import { findskutypeData, IssueItemData, pendingCheckRoles, PermissionRole } from "@/type/type";
+import { findskutypeData, IssueItemData, IssueItemDaywiseData, pendingCheckRoles, PermissionRole } from "@/type/type";
 import { pagelimit, pageNo, pendingCheckRole, SelectTypeIssue } from "../common/exportData";
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
@@ -41,8 +41,12 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import { CiEdit } from "react-icons/ci";
-import RcnTableLineWise from "../RCN Scooping/RcnScoopingTableLineWise";
+
 import { LuDownload } from "react-icons/lu";
+import IssueDayWiseTable from "./IssueDayWiseTable";
+
+
+
 const IssueTable = () => {
     const [unit, setUnit] = useState<string>("")
     const [section, setSection] = useState<string>("")
@@ -64,7 +68,7 @@ const IssueTable = () => {
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialog') as HTMLInputElement;
     const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialog') as HTMLInputElement;
     const [ItemWiseData, setItemWiseData] = useState<IssueItemData[]>([])
-    const [DayWiseData, setDayWiseData] = useState<any[]>([])
+    const [DayWiseData, setDayWiseData] = useState<IssueItemDaywiseData[]>([])
     //const [transformedData, setTransformedData] = useState<ExcelRcnPrimaryEntryData[]>([]);
 
     if (rejectcloseDialogButton) {
@@ -266,7 +270,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
             </div>
-            {checkpending('Scooping') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" ><LuDownload size={18} /></Button>  </span>}
+            {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" ><LuDownload size={18} /></Button>  </span>}
             {tablesearch === "ItemWise" ? (
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -424,7 +428,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             </TableRow>)
                         )}
                     </TableBody>
-                </Table>) : null
+                </Table>) : (<IssueDayWiseTable DayWise={DayWiseData} page={page} />)
             }
 
             <Pagination style={{ display: blockpagen }} className="pt-5 ">

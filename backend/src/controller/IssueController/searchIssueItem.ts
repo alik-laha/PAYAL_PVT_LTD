@@ -99,7 +99,8 @@ const SearchIssueItem = async (req: Request, res: Response) => {
                         
                     ],
                     where:where2,
-                    group: ['date','sectionunit','category']
+                    group: ['date','sectionunit','category'],
+                    order: [['date', 'DESC'], ['sectionunit', 'ASC'],['category', 'ASC']]
                 });
 
             }
@@ -123,7 +124,8 @@ const SearchIssueItem = async (req: Request, res: Response) => {
                         
                     ],
                     where: where2,
-                    group: ['date','sectionunit','category'],limit,
+                    group: ['date','sectionunit','category'],
+                    order: [['date', 'DESC'], ['sectionunit', 'ASC'],['category', 'ASC']],limit,
                     offset
                 });
 

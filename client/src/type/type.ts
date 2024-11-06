@@ -704,6 +704,12 @@ export interface IssueItemData {
   
 
 }
+export interface IssueItemDaywiseData {
+    date: string;
+    category: string; 
+    totalIssuePrice:string;
+    sectionunit: string;
+}
 
 export interface pendingCheckRoles {
     RCNPrimary: string[];
