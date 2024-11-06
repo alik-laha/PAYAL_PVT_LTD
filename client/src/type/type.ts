@@ -681,6 +681,29 @@ export interface GradingData {
     feeledBy: string;
     modifiedBy: string;
 }
+export interface IssueItemData {
+    id: number;
+    issueID: string;
+    date: string;
+    category: string;
+    materialName: string;
+    quantity: string;
+    itemunit: string;
+    unitPrice: string;
+    totalPrice:string;
+    section: string;
+    sectionunit: string;
+    issueUser: string;
+    damagereturn: string;
+    damagequantity: string;
+    damageunit: string;
+    remarks: string;
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy:string;
+  
+
+}
 
 export interface pendingCheckRoles {
     RCNPrimary: string[];

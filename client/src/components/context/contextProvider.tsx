@@ -2,7 +2,8 @@ import Context from "./context.ts";
 import { ReactNode } from "react";
 import { useState } from "react";
 import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving,
-     rcnScoopingData,sumofStorePrimary, sumofGeneralPrimary, AlmondPrimaryEntryData, sumofRcvVillagePrimary, AgarbatiPrimaryEntryData } from "../../type/type";
+     rcnScoopingData,sumofStorePrimary, sumofGeneralPrimary, AlmondPrimaryEntryData, sumofRcvVillagePrimary, AgarbatiPrimaryEntryData, 
+     IssueItemData} from "../../type/type";
 
 interface ContextProviderProps {
     children: ReactNode;
@@ -30,7 +31,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [GeneralPrimaryOverView, setGeneralPrimaryOverView] = useState<sumofGeneralPrimary | null>(null)
     const [editPendingAlmondData, setEditPendingAlmondData] = useState<AlmondPrimaryEntryData[]>([])
     const [editPendingAgarbatiData, setEditPendingAgarbatiData] = useState<AgarbatiPrimaryEntryData[]>([])
-    const [editPendiningIssueItemData, setEditPendiningIssueItemData] = useState<GradingData[]>([])
+    const [editPendiningIssueItemData, setEditPendiningIssueItemData] = useState<IssueItemData[]>([])
 
     return (
         <Context.Provider value={{
