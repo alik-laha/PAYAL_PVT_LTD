@@ -44,6 +44,7 @@ import { CiEdit } from "react-icons/ci";
 
 import { LuDownload } from "react-icons/lu";
 import IssueDayWiseTable from "./IssueDayWiseTable";
+import IssueModify from "./IssueModify";
 
 
 
@@ -393,16 +394,16 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                     <Dialog>
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >View</button>
+                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                         </DialogTrigger>
                                                         <DialogContent className='max-w-3xl'>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>Line Wise Scooping Modify</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-5'>Issue Item Modify</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             {/* <RCNLineCreateEditForm scoop={scoopdata} /> */}
-                                                            {/* <RcnPrimaryModify data={item} /> */}
+                                                            <IssueModify data={item} />
                                                         </DialogContent>
                                                     </Dialog>
                                                 </PopoverContent>
@@ -411,6 +412,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     </TableRow>
                                 );
                             })) : (<TableRow>
+                                 <TableCell></TableCell>
+                                <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
@@ -419,6 +422,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
