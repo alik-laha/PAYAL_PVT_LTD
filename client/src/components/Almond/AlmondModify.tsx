@@ -228,9 +228,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                         value={almondtype} required>
                         {/* <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
     focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Grade</option> */}
-                        {/* {GatePassSection.map((item: any,idx:number) => (
-        <option key={idx} value={item}>{item}</option>
-    ))} */}
+                     
                         {sku ? (
                             sku.map((item: findskutypeData) => (
                                 <option key={item.sku} value={item.sku}>{item.sku}</option>

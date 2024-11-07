@@ -38,6 +38,8 @@ import { Input } from "../ui/input";
 import axios from "axios";
 import { findskutypeData, SkuData } from "@/type/type";
 import { Button } from "../ui/button";
+import { IssueStatus, TypeOnSection } from "../common/exportData";
+import { ScrollArea } from "../ui/scroll-area";
 
 const IssueModify = (props: IssueModifyProps) => {
     const [issueID, setIssueID] = useState<string>("")
@@ -57,7 +59,13 @@ const IssueModify = (props: IssueModifyProps) => {
     const [date, setDate] = useState<string>()
     const [errortext, setErrorText] = useState<string>("")
 
+    
+    const [sku,setsku]=useState<findskutypeData[]>([])
+    const [grade,setGrade]=useState<findskutypeData[]>([])
+   
+
     useEffect(() => {
+        console.log(props)
         setIssueID(props.data.issueID)
         setcategory(props.data.category)
         setmaterial(props.data.materialName)
@@ -73,10 +81,10 @@ const IssueModify = (props: IssueModifyProps) => {
         setdamageUnit(props.data.damageunit)
         setremarks(props.data.remarks)
         setDate(props.data.date.slice(0, 10))
+      
   
     }, [])
-    const [sku,setsku]=useState<findskutypeData[]>([])
-    const [grade,setGrade]=useState<findskutypeData[]>([])
+
     useEffect(() => {
         axios.put('/api/vendorSKU/getItembySection/Issue Section',{section:'Issue'})
             .then(res => {
@@ -99,6 +107,11 @@ const IssueModify = (props: IssueModifyProps) => {
                 console.log(err)
             })            
     }, [])
+
+    useEffect(() => {
+        setTotPrice((parseFloat(quantity)*parseFloat(unitprice)).toFixed(2)  )
+              
+    }, [quantity,unitprice])
 
     const [isdisable,setisdisable]=useState<boolean>(false)
     const successdialog = document.getElementById('rcneditscsDialog') as HTMLInputElement;
@@ -148,17 +161,157 @@ const IssueModify = (props: IssueModifyProps) => {
 
         });
     }
+     const type='Store'
+     const handleSkuidClick = (item: SkuData) => {
+        setmaterial(item.sku)
+        setitemunit(item.unit)
+        setSkuView("none")
+    }
+
+    const handleRowdamageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        e.preventDefault()
+        if(e.target.value!=='Yes'){
+            setdamageUnit('')
+        }
+        if(e.target.value=='Yes'){
+            setdamageUnit(props.data.itemunit)
+        }
+        setdamage(e.target.value)
+     
+       
+     }
 
     return (
         <div className="pl-10 pr-10">
             <form className='flex flex-col gap-1 '>
-            <div className="flex mt-2"><Label className="w-2/4 mt-2">Issue ID</Label>
-                 <Input className="w-2/4 bg-yellow-100 text-center font-semibold" placeholder="Issue ID" value={issueID} readOnly /> </div>
+                <div className="flex mt-2"><Label className="w-2/4 mt-2">Issue ID</Label>
+                 <Input className="w-2/4 bg-yellow-100 text-center font-semibold" placeholder="Issue ID" value={issueID} readOnly /> 
+                 </div>
                  
                 <div className="flex">
                     <Label className="w-2/4 mt-2">Date of Issue</Label>
                     <Input className="w-2/4 text-center bg-yellow-100 justify-center" placeholder="Date Of Issue" type="date" value={date } readOnly/>
                 </div>
+
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Section Unit</Label>
+
+                    <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
+px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => setSectionUnit(e.target.value)}
+                        value={sectionunit} required>
+                        {/* <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Grade</option> */}
+ 
+                        {grade ? (
+                            grade.map((item: findskutypeData) => (
+                                <option key={item.sku} value={item.sku}>{item.sku}</option>
+                            ))
+                        ) : null}
+                    </select>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Section</Label>
+
+                    <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
+px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>  setsection(e.target.value)}
+                                                    value={section} required>
+                                                    {/* <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Unit</option> */}
+       
+                                               {sku.map((item) => (
+                                                            <option key={item.sku} value={item.sku}>{item.sku}</option>
+                                                        ))} 
+                                                    
+                                                </select>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Category</Label>
+
+                    <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
+px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>  setcategory(e.target.value)}
+                                                    value={category} required>
+                                                    {/* <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Unit</option> */}
+       
+       {type ? (
+                                                        TypeOnSection[type as keyof typeof TypeOnSection].map((item) => (
+                                                            <option key={item} value={item}>{item}</option>
+                                                        ))
+                                                    ) : null}
+                                                    
+                                                </select>
+                </div>
+                <div className="flex"><Label className="w-2/4  pt-1">Material Name</Label>
+                        <Input className="w-2/4 text-center" placeholder="SKU" required value={material} onChange={handleSkuchange} /> </div>
+                    <ScrollArea className="max-h-24 w-2/4 overflow-scroll w-30 dropdown-content" style={{ display: skuview }}>
+                        {
+                            skudata.map((item: SkuData) => (
+                                <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleSkuidClick(item)}>
+                                    <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.sku}</p>
+                                    <p className="text-sm py-1 focus:text-base">{item.unit}</p>
+                                </div>
+                            ))
+                        }
+                    </ScrollArea>
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Unit</Label>
+                    <Input className="w-2/4 text-center  justify-center" placeholder="Unit"  value={itemunit } onChange={(e)=> setitemunit(e.target.value)}/>
+                </div>
+                
+
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Issue Quantity</Label>
+                    <Input className="w-2/4 text-center justify-center" placeholder="Qty" value={quantity } onChange={(e)=> setquantity(e.target.value)}/>
+                </div>
+
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Unit Price</Label>
+                    <Input className="w-2/4 text-center justify-center" placeholder="Unit Price" value={unitprice } onChange={(e)=> setUnitPrice(e.target.value)}/>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Total Price</Label>
+                    <Input className="w-2/4 text-center justify-center bg-yellow-100" placeholder="Total Price" value={totPrice } readOnly/>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Issued To User</Label>
+                    <Input className="w-2/4 text-center justify-center" placeholder="User" value={user } onChange={(e)=> setUser(e.target.value)}/>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Damage Status</Label>
+
+                    <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
+px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>  handleRowdamageChange(e)}
+                                                    value={damage} required>
+                                                    {/* <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Unit</option> */}
+       
+                                               {IssueStatus.map((item) => (
+                                                            <option key={item} value={item}>{item}</option>
+                                                        ))} 
+                                                    
+                                                </select>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Damage Quantity</Label>
+                    <Input className="w-2/4 text-center justify-center" placeholder="Qty" value={damageqty } onChange={(e)=> setdamageQty(e.target.value)}/>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Damage Unit</Label>
+                    <Input className="w-2/4 text-center justify-center" placeholder="Unit" value={damageunit } onChange={(e)=> setdamageUnit(e.target.value)}/>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Remarks</Label>
+                    <Input className="w-2/4 text-center justify-center" placeholder="Remarks" value={remarks } onChange={(e)=> setremarks(e.target.value)}/>
+                </div>
+
                 
                
                
@@ -168,7 +321,7 @@ const IssueModify = (props: IssueModifyProps) => {
             <dialog id="rcneditscsDialog" className="dashboard-modal">
                 <button id="rcnscscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification of RCN Primary Entry is Requested </p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification of Issue Item Entry is Requested </p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

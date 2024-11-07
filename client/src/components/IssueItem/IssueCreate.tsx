@@ -24,7 +24,7 @@ interface SectionRowData {
     quantity: number;
     unit: string;
     unitprice: number;
-    totalprice: number;
+    totalprice: string;
     section: string;
     sectionunit: string;
     leftqty:number;
@@ -144,6 +144,9 @@ const IssueCreateForm = () => {
             else {
                 setErrortext('An Unexpected Error Occured in Creating Issue Item')
             }
+            if(errordialog){
+                (errordialog as any).showModal()
+            }
         }
         finally {
             setisdisable(false)
@@ -252,22 +255,26 @@ const IssueCreateForm = () => {
            // console.log(rows)
             return
         }
-        rows[index].totalprice=rows[index].unitprice*Number(e.target.value)
+        rows[index].totalprice=(rows[index].unitprice*Number(e.target.value)).toFixed(2)
         handleRowChange(index,'quantity',e.target.value)
        
      }
      const handleRowunitPriceChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         
-        rows[index].totalprice=rows[index].quantity*Number(e.target.value)
+        rows[index].totalprice=(rows[index].quantity*Number(e.target.value)).toFixed(2)
         handleRowChange(index,'unitprice',e.target.value)
        
      }
 
-     const handleRowdamageChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+     const handleRowdamageChange = (index:number,e: React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault()
         if(e.target.value!=='Yes'){
             rows[index].damageunit=''
+        }
+        if(e.target.value==='Yes'){
+            rows[index].damageunit=rows[index].unit
+            
         }
         
         handleRowChange(index,'damagestatus',e.target.value)
@@ -295,6 +302,8 @@ const IssueCreateForm = () => {
                         <Table className="mt-1 ">
                             <TableHeader className="bg-neutral-100 text-stone-950" >
                                 <TableHead className="text-center" >Sl. No.</TableHead>
+                                <TableHead className="text-center" >Section Unit</TableHead>
+                                <TableHead className="text-center" >Section</TableHead>
                                 <TableHead className="text-center" >Category</TableHead>
                                 <TableHead className="text-center" >SKU/Item_Name</TableHead>
                                 <TableHead className="text-center" >Unit</TableHead>
@@ -304,8 +313,7 @@ const IssueCreateForm = () => {
                                 
                               
                                 <TableHead className="text-center" >Total_Price(Rs)</TableHead>
-                                <TableHead className="text-center" >Section_Unit</TableHead>
-                                <TableHead className="text-center" >Section</TableHead>
+                               
                                 
                                 <TableHead className="text-center" >Damage Return</TableHead>
                                 <TableHead className="text-center" >Damage_Qty</TableHead>
@@ -320,6 +328,42 @@ const IssueCreateForm = () => {
                                         <TableBody>
                                             <TableRow key={index} className="boiling-row-height">
                                                 <TableCell>{index + 1}</TableCell>
+                                                <TableCell className="text-center " >
+                                            <select className="text-center flex h-8 rounded-md border border-input bg-background 
+px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'sectionunit', e.target.value)}
+                                                    value={row.sectionunit} required>
+                                                    <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Issue Unit</option>
+                                                    {/* {GatePassSection.map((item: any,idx:number) => (
+        <option key={idx} value={item}>{item}</option>
+    ))} */}
+                                                    {grade ? (
+                                                        grade.map((item:findskutypeData) => (
+                                                            <option key={item.sku} value={item.sku}>{item.sku}</option>
+                                                        ))
+                                                    ) : null}
+                                                </select>
+                                            </TableCell>
+                                            <TableCell className="text-center " >
+                                            <select className="text-center flex h-8 rounded-md border border-input bg-background 
+px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'section', e.target.value)}
+                                                    value={row.section} required>
+                                                    <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Section</option>
+                                                    {/* {GatePassSection.map((item: any,idx:number) => (
+        <option key={idx} value={item}>{item}</option>
+    ))} */}
+                                                    {sku ? (
+                                                        sku.map((item:findskutypeData) => (
+                                                            <option key={item.sku} value={item.sku}>{item.sku}</option>
+                                                        ))
+                                                    ) : null}
+                                                </select>
+                                            </TableCell>
                                                 <TableCell className="text-center " >
 
 
@@ -357,18 +401,18 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             </TableCell>
                                             <TableCell className="text-center" >
                                           
-                                          <Input value={row.unit} placeholder="unit" required onChange={(e) => {
+                                            <Input value={row.unit} placeholder="unit" required onChange={(e) => {
                                                   handleRowChange(index, 'unit', e.target.value)
                                               }}   className="bg-yellow-100"/> 
                                             </TableCell>
-                                                <TableCell className="text-red-500 font-semibold">{row.leftqty}</TableCell>
-                                                <TableCell className="text-center" >
+                                            <TableCell className="text-red-500 font-semibold">{row.leftqty}</TableCell>
+                                            <TableCell className="text-center" >
                                                 <Input value={row.unitprice} placeholder="Amount" type="number"
                                                     onChange={(e) => {
                                                         handleRowunitPriceChange(index, e)
                                                     }} />
                                             </TableCell>
-                                                <TableCell className="text-center" >
+                                            <TableCell className="text-center" >
                                                 <Input value={row.quantity} placeholder="Qty." type='number'
                                                     onChange={(e) => {
                                                         handleRowquantityChange(index,  e)
@@ -379,42 +423,8 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                   />
                                             </TableCell>
                                             
-                                            <TableCell className="text-center " >
-                                            <select className="text-center flex h-8 rounded-md border border-input bg-background 
-px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
-placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
-focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'sectionunit', e.target.value)}
-                                                    value={row.sectionunit} required>
-                                                    <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
-    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Section Unit</option>
-                                                    {/* {GatePassSection.map((item: any,idx:number) => (
-        <option key={idx} value={item}>{item}</option>
-    ))} */}
-                                                    {grade ? (
-                                                        grade.map((item:findskutypeData) => (
-                                                            <option key={item.sku} value={item.sku}>{item.sku}</option>
-                                                        ))
-                                                    ) : null}
-                                                </select>
-                                            </TableCell>
-                                            <TableCell className="text-center " >
-                                            <select className="text-center flex h-8 rounded-md border border-input bg-background 
-px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
-placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
-focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'section', e.target.value)}
-                                                    value={row.section} required>
-                                                    <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
-    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Section</option>
-                                                    {/* {GatePassSection.map((item: any,idx:number) => (
-        <option key={idx} value={item}>{item}</option>
-    ))} */}
-                                                    {sku ? (
-                                                        sku.map((item:findskutypeData) => (
-                                                            <option key={item.sku} value={item.sku}>{item.sku}</option>
-                                                        ))
-                                                    ) : null}
-                                                </select>
-                                            </TableCell>
+                                          
+                                            
                                             <TableCell className="text-center " >
                                             <select className="text-center flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 

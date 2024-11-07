@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import ItemIssue from "../../model/itemissueModel";
 import sequelize from "../../config/databaseConfig";
+import SkuModel from "../../model/SkuModel";
 
 const CreateIssueEntire = async (req: Request, res: Response) => {
     try{
@@ -16,7 +17,11 @@ const CreateIssueEntire = async (req: Request, res: Response) => {
 
           await sequelize.transaction( async (transaction) =>{
             for (let data of formData){
-
+                let skuData = await SkuModel.findOne({ where: { sku: data.material, type: data.category, section: 'Store' } });
+                if (!skuData) {
+                    res.status(500).json({ message: "Material Does Not Exist" });
+                    throw new Error('Transaction Aborted')
+                }
                await ItemIssue.create({
                     issueID:finalIssueNo,
                     date:data.Date,

@@ -127,7 +127,7 @@ const DashboardSidebar = () => {
                     {Role !== 'Security' && rendersection('Receiving') &&
                         <Collapsible >
                             <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25} />
-                                <p>Receiving</p></CollapsibleTrigger>
+                                <p>Logistics</p></CollapsibleTrigger>
                             {renderlink('VendorSKU')
                                 && <CollapsibleContent className="Items-pvt">
                                     {renderlink('Dashboard User')}
@@ -140,7 +140,7 @@ const DashboardSidebar = () => {
                                 && <CollapsibleContent className="Items-pvt">
                                     {renderlink('Dashboard User')}
                                     <NavLink to="/dashboard/StoreIssue" >
-                                        <p className="flex"><IoArrowRedoOutline size={20} /> <p className="pl-3">Item Issue</p></p>
+                                        <p className="flex"><IoArrowRedoOutline size={20} /> <p className="pl-3">Store Item Issue</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -148,7 +148,7 @@ const DashboardSidebar = () => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/rcnprimaryentry" >
 
-                                        <p className="flex"><LuDonut size={20} /> <p className="pl-3"> Raw Cachew </p></p>
+                                        <p className="flex"><LuDonut size={20} /> <p className="pl-3"> Raw Cachew (In)</p></p>
 
                                     </NavLink>
 
@@ -157,7 +157,7 @@ const DashboardSidebar = () => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/AlmondPrimary" >
 
-                                        <p className="flex"><TbBrandPeanut size={20} /> <p className="pl-3">   Almond </p></p>
+                                        <p className="flex"><TbBrandPeanut size={20} /> <p className="pl-3"> Almond (In & Out) </p></p>
                                     </NavLink>
 
                                 </CollapsibleContent>}
@@ -167,7 +167,7 @@ const DashboardSidebar = () => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/AgarbatiPrimary" >
 
-                                        <p className="flex"><GiChopsticks size={20} /> <p className="pl-3">   Agarbatti </p></p>
+                                        <p className="flex"><GiChopsticks size={20} /> <p className="pl-3">   Agarbatti (In & Out)</p></p>
                                     </NavLink>
 
                                 </CollapsibleContent>}    
@@ -179,7 +179,7 @@ const DashboardSidebar = () => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/recevingpackagingMaterial" >
 
-                                        <p className="flex"><GoPackageDependents size={20} /><p className="pl-3">  Packaging Material</p></p>
+                                        <p className="flex"><GoPackageDependents size={20} /><p className="pl-3">  Packaging Material (Out)</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -187,17 +187,20 @@ const DashboardSidebar = () => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/storePrimary" >
 
-                                        <p className="flex"><MdOutlineStorefront size={20} /><p className="pl-3">    Store Items </p></p>
+                                        <p className="flex"><MdOutlineStorefront size={20} /><p className="pl-3">    Store Items (In & Out)</p></p>
                                     </NavLink>
 
                                 </CollapsibleContent>}
+
+
+                              
 
 
                             {renderlink('Receiving Civil Entry')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/GeneralStore" >
 
-                                        <p className="flex"><PiPackageLight size={20} /><p className="pl-3"> General Items </p></p>
+                                        <p className="flex"><PiPackageLight size={20} /><p className="pl-3"> General Items (In & Out)</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
                             {/* 
