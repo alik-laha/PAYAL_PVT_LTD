@@ -180,17 +180,40 @@ const IssueModify = (props: IssueModifyProps) => {
      
        
      }
+     
+     const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        console.log("submit")
+        setisdisable(true)
+        axios.post(`/api/issue/editStoreIssue/${props.data.id}`, { 
+            category, material,quantity,itemunit,unitprice,totPrice,section,sectionunit,user,damage,damageqty,damageunit,remarks,date})
+            .then((res) => {
+                if (res.status === 201) {
+                    (successdialog as any).showModal();
+                }
+            }
+            )
+            .catch((err) => {
+                console.log(err)
+                const errorText = err.response.data.message;
+                setErrorText(errorText);
+                (errordialog as any).showModal();
+            }).finally(()=>{
+                setisdisable(false)
+            })
+
+    }
 
     return (
         <div className="pl-10 pr-10">
-            <form className='flex flex-col gap-1 '>
+            <form className='flex flex-col gap-1 ' onSubmit={handleSubmit}>
                 <div className="flex mt-2"><Label className="w-2/4 mt-2">Issue ID</Label>
                  <Input className="w-2/4 bg-yellow-100 text-center font-semibold" placeholder="Issue ID" value={issueID} readOnly /> 
                  </div>
                  
                 <div className="flex">
                     <Label className="w-2/4 mt-2">Date of Issue</Label>
-                    <Input className="w-2/4 text-center bg-yellow-100 justify-center" placeholder="Date Of Issue" type="date" value={date } readOnly/>
+                    <Input className="w-2/4 text-center justify-center" placeholder="Date Of Issue" type="date" value={date } onChange={(e)=> setDate(e.target.value)}/>
                 </div>
 
                 <div className="flex">
@@ -276,7 +299,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 mt-2">Total Price</Label>
-                    <Input className="w-2/4 text-center justify-center bg-yellow-100" placeholder="Total Price" value={totPrice } readOnly/>
+                    <Input className="w-2/4 text-center justify-center" placeholder="Total Price" value={totPrice } readOnly/>
                 </div>
                 <div className="flex">
                     <Label className="w-2/4 mt-2">Issued To User</Label>

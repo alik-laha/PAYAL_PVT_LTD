@@ -4,6 +4,7 @@ import GetAllIssueEditPendingData from '../controller/IssueController/getallIssu
 import sumOfallIssue from '../controller/IssueController/sumofAllIssue';
 import CreateIssueEntire from '../controller/IssueController/createIssueEntire';
 import SearchIssueItem from '../controller/IssueController/searchIssueItem';
+import editstoreIssue from '../controller/IssueController/editStoreIssue';
 const router = express.Router();
 
 
@@ -11,4 +12,5 @@ router.get("/getPendingIssueData", jwtVerify, GetAllIssueEditPendingData)
 router.get("/sumofallIssueUnit", jwtVerify, sumOfallIssue)
 router.post("/createIssueItemEntire", jwtVerify, CreateIssueEntire)
 router.post("/searchItemIssue", jwtVerify, SearchIssueItem)
+router.post("/editStoreIssue/:id",jwtVerify, editstoreIssue)
 export default router
