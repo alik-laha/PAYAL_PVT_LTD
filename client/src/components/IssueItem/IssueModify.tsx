@@ -23,14 +23,7 @@ interface IssueModifyProps {
     modifiedBy:string;
     }
 }
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { Label } from "../ui/label";
@@ -58,7 +51,7 @@ const IssueModify = (props: IssueModifyProps) => {
     const [remarks, setremarks] = useState<string>("")
     const [date, setDate] = useState<string>()
     const [errortext, setErrorText] = useState<string>("")
-
+    const [leftqty, setleftQty] = useState<number>(0)
     
     const [sku,setsku]=useState<findskutypeData[]>([])
     const [grade,setGrade]=useState<findskutypeData[]>([])
@@ -97,6 +90,21 @@ const IssueModify = (props: IssueModifyProps) => {
             })            
     }, [])
     useEffect(() => {
+        axios.post("/api/vendorSKU/skudataCountfind", { sku: props.data.materialName })
+            .then((res) => {
+                console.log(res)
+                if (res.status === 200) {
+                    setleftQty(Number(res.data.finalSum)+Number(props.data.quantity))
+                }
+            })
+            .catch((err) => {
+                if (err.response.status === 404) {
+                    setleftQty(0)
+                }
+                
+            })          
+    }, [])
+    useEffect(() => {
         axios.put('/api/vendorSKU/getItembySection/Issue Unit',{section:'Issue'})
             .then(res => {
                 //console.log(res.data)
@@ -109,6 +117,7 @@ const IssueModify = (props: IssueModifyProps) => {
     }, [])
 
     useEffect(() => {
+
         setTotPrice((parseFloat(quantity)*parseFloat(unitprice)).toFixed(2)  )
               
     }, [quantity,unitprice])
@@ -163,6 +172,26 @@ const IssueModify = (props: IssueModifyProps) => {
     }
      const type='Store'
      const handleSkuidClick = (item: SkuData) => {
+
+        axios.post("/api/vendorSKU/skudataCountfind", { sku: item.sku })
+            .then((res) => {
+                console.log(res)
+                if (res.status === 200) {
+
+                    if (item.sku===props.data.materialName){
+                        setleftQty(Number(res.data.finalSum)+Number(props.data.quantity))
+                    }else{
+                        setleftQty(res.data.finalSum)
+                    }
+                 
+                }
+            })
+            .catch((err) => {
+                if (err.response.status === 404) {
+                    setleftQty(0)
+                }
+                
+            })
         setmaterial(item.sku)
         setitemunit(item.unit)
         setSkuView("none")
@@ -177,6 +206,23 @@ const IssueModify = (props: IssueModifyProps) => {
             setdamageUnit(props.data.itemunit)
         }
         setdamage(e.target.value)
+     
+       
+     }
+
+     const handlequantity = (e: React.ChangeEvent<HTMLInputElement>) => {
+       
+        if(Number(e.target.value)>leftqty){
+
+            setErrorText('Issue Amount is Greater Than Left Amount')
+            setquantity(props.data.quantity)
+            const dialogerror = document.getElementById("rcnediterrDialog") as HTMLDialogElement
+            dialogerror.showModal()
+           // console.log(rows)
+            return
+        }
+       
+        setquantity(e.target.value)
      
        
      }
@@ -270,7 +316,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                     
                                                 </select>
                 </div>
-                <div className="flex"><Label className="w-2/4  pt-1">Material Name</Label>
+                <div className="flex"><Label className="w-2/4  mt-2">Material Name</Label>
                         <Input className="w-2/4 text-center" placeholder="SKU" required value={material} onChange={handleSkuchange} /> </div>
                     <ScrollArea className="max-h-24 w-2/4 overflow-scroll w-30 dropdown-content" style={{ display: skuview }}>
                         {
@@ -287,16 +333,17 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                     <Input className="w-2/4 text-center  justify-center" placeholder="Unit"  value={itemunit } onChange={(e)=> setitemunit(e.target.value)}/>
                 </div>
                 
-
-                <div className="flex">
-                    <Label className="w-2/4 mt-2">Issue Quantity</Label>
-                    <Input className="w-2/4 text-center justify-center" placeholder="Qty" value={quantity } onChange={(e)=> setquantity(e.target.value)}/>
-                </div>
-
                 <div className="flex">
                     <Label className="w-2/4 mt-2">Unit Price</Label>
                     <Input className="w-2/4 text-center justify-center" placeholder="Unit Price" value={unitprice } onChange={(e)=> setUnitPrice(e.target.value)}/>
                 </div>
+                <div className="flex">
+                    <Label className="w-1/4 mt-2">Issue Quantity</Label>
+                    <Label className="w-1/4 mt-2 text-red-500">Left Quantity :{leftqty}</Label> 
+                    <Input className="w-2/4 text-center justify-center" placeholder="Qty" value={quantity } onChange={(e)=> handlequantity(e)}/>
+                </div>
+
+                
                 <div className="flex">
                     <Label className="w-2/4 mt-2">Total Price</Label>
                     <Input className="w-2/4 text-center justify-center" placeholder="Total Price" value={totPrice } readOnly/>
@@ -338,7 +385,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                 
                
                
-                <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
+                <Button className="bg-orange-500  mt-6 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
             </form>
 
             <dialog id="rcneditscsDialog" className="dashboard-modal">
