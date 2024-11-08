@@ -12,7 +12,7 @@ const rejectIssuePrimaryEdit = async (req: Request, res: Response) => {
         if(EditPackagingMaterialdata){
             const packageMaterialData = await ItemIssue.update({
                 editStatus: "Rejected",
-                approvedBy: req.cookies.user,
+                modifiedBy: req.cookies.user,
             }, { where: { id } });
 
 

@@ -975,6 +975,7 @@ export interface ExcelStorePrimaryData {
     Remarks:string;
 }
 
+
 export interface ScoopingExcelData {
     SL_No: number;
     LotNo: string;

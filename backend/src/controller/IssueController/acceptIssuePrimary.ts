@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import {  StoreIssueData, storeRcvData } from "../../type/type";
+import {  StoreIssueData } from "../../type/type";
 import ItemIssueEdit from "../../model/itemIssueEdit";
 import ItemIssue from "../../model/itemissueModel";
 
@@ -8,7 +8,7 @@ import ItemIssue from "../../model/itemissueModel";
 const acceptIssueEditPrimary = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
-
+        const approvedBy= req.cookies.user
         const editPackageMaterial: StoreIssueData = await ItemIssueEdit.findOne({ where: { id } }) as unknown as StoreIssueData;
         if (!editPackageMaterial) return res.status(404).json({ message: "edit Issue material not found" });
         
@@ -39,7 +39,8 @@ const acceptIssueEditPrimary = async (req: Request, res: Response) => {
             damageunit:editPackageMaterial.damageunit,
             remarks:editPackageMaterial.remarks,
             editStatus: "Approved",
-            CreatedBy:editPackageMaterial.CreatedBy
+            CreatedBy:editPackageMaterial.CreatedBy,
+            modifiedBy:approvedBy
 
         }, { where: { id } });
         if (!updatePackageMaterial) return res.status(500).json({ message: "internal error while accepting Item Issue Edit" });

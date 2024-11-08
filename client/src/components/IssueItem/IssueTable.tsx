@@ -2,10 +2,12 @@ import { useContext, useEffect } from "react";
 import { Input } from "../ui/input";
 import React from "react";
 import axios from "axios";
-import { findskutypeData, IssueItemData, IssueItemDaywiseData, pendingCheckRoles, PermissionRole } from "@/type/type";
+import {  findskutypeData, IssueItemData, IssueItemDaywiseData, pendingCheckRoles, PermissionRole } from "@/type/type";
 import { pagelimit, pageNo, pendingCheckRole, SelectTypeIssue } from "../common/exportData";
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 import Context from "../context/context";
 import {
     Pagination,
@@ -45,7 +47,20 @@ import { CiEdit } from "react-icons/ci";
 import { LuDownload } from "react-icons/lu";
 import IssueDayWiseTable from "./IssueDayWiseTable";
 import IssueModify from "./IssueModify";
+import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
+import cross from '../../assets/Static_Images/error_img.png'
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
 
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { FcApprove, FcDisapprove } from "react-icons/fc";
 
 
 const IssueTable = () => {
@@ -63,29 +78,31 @@ const IssueTable = () => {
     const [EditData, setEditData] = useState<IssueItemData[]>([])
     const limit = pagelimit
     const [tablesearch, settablesearch] = useState<string>("ItemWise")
-    const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
-    const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
+  
     const { editPendiningIssueItemData } = useContext(Context);
-    const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialog') as HTMLInputElement;
-    const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialog') as HTMLInputElement;
+
     const [ItemWiseData, setItemWiseData] = useState<IssueItemData[]>([])
     const [DayWiseData, setDayWiseData] = useState<IssueItemDaywiseData[]>([])
     //const [transformedData, setTransformedData] = useState<ExcelRcnPrimaryEntryData[]>([]);
-
-    if (rejectcloseDialogButton) {
-        rejectcloseDialogButton.addEventListener('click', () => {
-            if (rejectsuccessdialog != null) {
-                (rejectsuccessdialog as any).close();
+    const currDate = new Date().toLocaleDateString();
+    const successdialog = document.getElementById('recevingeditapprove') as HTMLInputElement;
+    const closeDialogButton = document.getElementById('recevingeditapproveclose') as HTMLInputElement;
+    const errordialog = document.getElementById('recevingeditreject') as HTMLInputElement;
+    const errorcloseDialogButton = document.getElementById('recevingeditrejectclose') as HTMLInputElement;
+    if (closeDialogButton) {
+        closeDialogButton.addEventListener('click', () => {
+            if (successdialog != null) {
+                (successdialog as any).close();
                 window.location.reload()
             }
 
 
         });
     }
-    if (approvecloseDialogButton) {
-        approvecloseDialogButton.addEventListener('click', () => {
-            if (approvesuccessdialog != null) {
-                (approvesuccessdialog as any).close();
+    if (errorcloseDialogButton) {
+        errorcloseDialogButton.addEventListener('click', () => {
+            if (errordialog != null) {
+                (errordialog as any).close();
                 window.location.reload()
             }
 
@@ -190,6 +207,90 @@ const IssueTable = () => {
     function formatNumber(num: any) {
         return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
     }
+    const exportToExcel = async () => {
+       
+        const response = await axios.post('/api/issue/searchItemIssue', {
+            isssueId: blConNo,
+            unit: unit,
+            section: section,
+            fromDate: fromdate,
+            toDate: todate,
+            type: selectType
+
+        })
+        const data = await response.data
+        let ws
+        let transformed: any[] = [];
+        if (editPendiningIssueItemData.length>0 ) {
+            console.log('Hi')
+            transformed = editPendiningIssueItemData.map((item: IssueItemData,idx:number) => ({
+                Sl_No: idx+1,
+                IssueID:item.issueID,
+                Issue_Date:handletimezone(item.date),
+                Section_Unit: item.sectionunit,
+                Section:item.section,
+                Category:item.category,
+                Material_Name:item.materialName,
+                Unit:item.itemunit,
+                Qty:formatNumber(parseFloat(item.quantity)),
+                Unit_Price: formatNumber(parseFloat(item.unitPrice)),
+                Total_Price:formatNumber(parseFloat(item.totalPrice)),
+              Issued_To:item.issueUser,
+              Damage_Status:item.damagereturn,
+              Damage_Qty:formatNumber(parseFloat(item.damagequantity)),
+              DamageUnit:item.damageunit,
+                Remarks:item.remarks,
+                Edit_Status: item.editStatus,
+                Created_By: item.CreatedBy,
+                Approved_Or_Rejected_By: item.modifiedBy
+            }));
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        if(DayWiseData.length>0){
+            transformed = DayWiseData.map((item: IssueItemDaywiseData,idx:number) => ({
+                Sl_No: idx+1,
+                Issue_Date:handletimezone(item.date),
+                
+                Section_Unit: item.sectionunit,
+                Category:item.category,
+           
+                Total_Price:formatNumber(parseFloat(item.totalIssuePrice))
+            }));
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        else {
+            transformed = data.map((item: IssueItemData,idx:number) => ({
+                
+                Sl_No: idx+1,
+                IssueID:item.issueID,
+                Issue_Date:handletimezone(item.date),
+                Section_Unit: item.sectionunit,
+                Section:item.section,
+                Category:item.category,
+                Material_Name:item.materialName,
+                Unit:item.itemunit,
+                Qty:formatNumber(parseFloat(item.quantity)),
+                Unit_Price: formatNumber(parseFloat(item.unitPrice)),
+                Total_Price:formatNumber(parseFloat(item.totalPrice)),
+              Issued_To:item.issueUser,
+              Damage_Status:item.damagereturn,
+              Damage_Qty:formatNumber(parseFloat(item.damagequantity)),
+              DamageUnit:item.damageunit,
+                Remarks:item.remarks,
+                Edit_Status: item.editStatus,
+                Created_By: item.CreatedBy,
+                Approved_Or_Rejected_By: item.modifiedBy
+
+            }));
+            // setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'Store_Item_Issue_' + currDate + '.xlsx');
+    }
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {
         //console.log(Role)
@@ -200,6 +301,32 @@ const IssueTable = () => {
             return false;
         }
 
+    }
+    const handleApprove = (item: number) => {
+        console.log(item)
+        axios.get(`/api/issue/acceptEditIssuePrimary/${item}`)
+            .then((res) => {
+                console.log(res)
+                if (res.status === 200) {
+                    (successdialog as any).showModal();
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    const handleRejection = (item: number) => {
+        axios.get(`/api/issue/rejectEditIssuePrimary/${item}`)
+            .then((res) => {
+                console.log(res)
+                if (res.status === 200) {
+                    (errordialog as any).showModal();
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
     return (
         <div className="ml-5 mt-5 ">
@@ -271,7 +398,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
             </div>
-            {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" ><LuDownload size={18} /></Button>  </span>}
+            {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
             {tablesearch === "ItemWise" ? (
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -296,7 +423,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Remarks</TableHead>
                         <TableHead className="text-center" >EditStatus</TableHead>
                         <TableHead className="text-center" >Created_By</TableHead>
-                        <TableHead className="text-center" >Modified_By</TableHead>
+                        <TableHead className="text-center" >Actioned_By</TableHead>
                       
                         <TableHead className="text-center" >Action</TableHead>
                     </TableHeader>
@@ -332,23 +459,37 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center">
                                             <Popover>
                                                 <PopoverTrigger>
-                                                    <button className='p-2 text-white rounded bg-cyan-500' >Action</button>
+                                                    <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
                                                 </PopoverTrigger>
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                    <Dialog>
-                                                        <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Approve/Revert</button>
-                                                        </DialogTrigger>
-                                                        <DialogContent className='max-w-3xl'>
-                                                            <DialogHeader>
-                                                                <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center '>Issue Approve/Revert</p>
-                                                                </DialogTitle>
-                                                            </DialogHeader>
-                                                            {/* <RCNLineCreateApproveForm scoop={scoopeditdata} /> */}
-                                                            {/* <RcnPrimaryModify data={item} /> */}
-                                                        </DialogContent>
-                                                    </Dialog>
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger className="flex">
+                                                            <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent>
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <AlertDialogAction onClick={() => handleApprove(item.id)}>Continue</AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger className="flex mt-2">
+                                                            <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent>
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <AlertDialogAction onClick={() => handleRejection(item.id)}>Continue</AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
                                                 </PopoverContent>
                                             </Popover>
                                         </TableCell>
@@ -356,7 +497,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 );
                             })
                         ) : (
-                            console.log(ItemWiseData),
+                           
                             ItemWiseData.length > 0 ? (ItemWiseData.map((item: IssueItemData, idx) => {
 
                                 return (
@@ -460,6 +601,21 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
+            <dialog id="recevingeditapprove" className="dashboard-modal">
+                    <button id="recevingeditapproveclose" className="dashboard-modal-close-btn ">X </button>
+                    <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                        <p id="modal-text" className="pl-3 mt-1 font-medium">Modification Request has Been Approved</p></span>
+
+                    {/* <!-- Add more elements as needed --> */}
+                </dialog>
+
+                <dialog id="recevingeditreject" className="dashboard-modal">
+                    <button id="recevingeditrejectclose" className="dashboard-modal-close-btn ">X </button>
+                    <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                        <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Modification Request has Been Reverted</p></span>
+
+                    {/* <!-- Add more elements as needed --> */}
+                </dialog>
         </div>
     )
 }
