@@ -32,6 +32,7 @@ import RcvVillage from './components/Rcv Village/RcvVillage'
 import Humidifier from './components/Humidifier/Humidifier'
 import Peeling from './components/Peeling/Peeling'
 import Agarbati from './components/Agarbati/Agarbati'
+import IssueItem from './components/IssueItem/IssueItem'
 
 
 
@@ -72,104 +73,131 @@ function App() {
         <Route path='/' element={<Navigate to={"/dashboard"} replace />} />
         <Route path="/login" element={<Login />} />
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 
-    'ReceivingSupervisor', 'ReceivingPMSupervisor','ReceivingManager', 'ReceivingAlmondSupervisor', 'ReceivingStoreSupervisor', 
-    'ReceivingAgarbatiSupervisor','ReceivingGeneralSupervisor','ReceivingPurchaseSupervisor',
-    'Security','GatePassManager',
-    'MaintainanceSupervisor','MaintainanceManager',
-    'QCSupervisor', 'QCManager', 
-    'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','BormaSupervisor',
-    'PeelingSupervisor','VillageSupervisor']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'ReceivingSupervisor', 'ReceivingPMSupervisor', 'ReceivingManager', 'ReceivingAlmondSupervisor', 'ReceivingStoreSupervisor',
+          'ReceivingAgarbatiSupervisor', 'ReceivingGeneralSupervisor', 'ReceivingOilMillSupervisor',
+          'Security', 'GatePassManager',
+          'MaintainanceSupervisor', 'MaintainanceManager',
+          'QCSupervisor', 'QCManager',
+          'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager', 'BormaSupervisor',
+          'PeelingSupervisor', 'VillageSupervisor']} />}>
 
-        <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
+        {/* User */}
         <Route element={<Private allowedRoles={['Director']} />}>
           <Route path="/dashboard/user" element={<DashboardUser />} />
         </Route>
 
+        {/* Employee */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager']} />}>
           <Route path="/dashboard/employee" element={<Employee />} />
         </Route>
 
+        {/* Asset */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager']} />}>
           <Route path="/dashboard/machine" element={<Machine />} />
         </Route>
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager','ReceivingManager']} />}>
+
+        {/* GatePass*/}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'Security', 'GatePassManager']} />}>
+          <Route path='/dashboard/gatepassIn' element={<GatepassIn />} />
+        </Route>
+
+        {/* Vendor SKU*/}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingManager']} />}>
           <Route path="/dashboard/vendorSKU" element={<VendorSKU />} />
         </Route>
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager','GatePassManager']} />}>
+        {/* Store Issue*/}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingManager','ReceivingStoreSupervisor']} />}>
+          <Route path="/dashboard/StoreIssue" element={<IssueItem />} />
+        </Route>
+
+        {/* Receiving RCN */}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager', 'GatePassManager']} />}>
           <Route path="/dashboard/rcnprimaryentry" element={<RcnPrimaryEntry />} />
         </Route>
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingPMSupervisor', 'ReceivingManager','GatePassManager']} />}>
+        {/* Receiving Store */}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingStoreSupervisor', 'ReceivingManager', 'GatePassManager']} />}>
+          <Route path="/dashboard/storePrimary" element={<StorePrimary />} />
+        </Route>
+
+        {/* Receiving General */}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingGeneralSupervisor', 'ReceivingManager', 'GatePassManager']} />}>
+          <Route path="/dashboard/GeneralStore" element={<GeneralStore />} />
+        </Route>
+
+        {/* Receiving Almond */}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingAlmondSupervisor', 'ReceivingManager', 'GatePassManager']} />}>
+          <Route path="/dashboard/AlmondPrimary" element={<Almond />} />
+        </Route>
+
+        {/* Receiving Agarbati */}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingAgarbatiSupervisor', 'ReceivingManager', 'GatePassManager']} />}>
+          <Route path="/dashboard/AgarbatiPrimary" element={<Agarbati />} />
+        </Route>
+
+        {/* Receiving Village */}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'VillageSupervisor', 'GatePassManager', 'ProductionManager']} />}>
+          <Route path="/dashboard/RcvVillage" element={<RcvVillage />} />
+        </Route>
+
+        {/* Receiving PM */}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingPMSupervisor', 'ReceivingManager', 'GatePassManager']} />}>
           <Route path="/dashboard/recevingpackagingMaterial" element={<PackagingMetirialReceiving />} />
         </Route>
 
+        {/* Quality RCN */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>
           <Route path="/dashboard/qcRCN" element={<QCRcn />} />
         </Route>
 
+        {/* Production Grading */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'GradingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/rcnGrading' element={<RcnGrading />} />
         </Route>
 
+        {/* Production Boiling */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'BoilingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/rcnBoiling' element={<RCNBoiling />} />
         </Route>
+
+        {/* Production Scooping */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'ScoopingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/rcnScooping' element={<RCNScooping />} />
         </Route>
+
+        {/* Production Borma */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'BormaSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/RcnBorma' element={<RCNBorma />} />
-          
+
         </Route>
+
+        {/* Production Humidifier */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'PeelingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/Humidifier' element={<Humidifier />} />
-          
+
         </Route>
+
+
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'PeelingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/Peeling' element={<Peeling />} />
-          
+
         </Route>
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'CleaningSupervisor', 'MaintainanceManager']} />}>
           <Route path='/dashboard/cleaning' element={<Cleaning />} />
         </Route>
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'Security','GatePassManager']} />}>
-          <Route path='/dashboard/gatepassIn' element={<GatepassIn />} />
-        </Route>
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingStoreSupervisor', 'ReceivingManager','GatePassManager']} />}>
-          <Route path="/dashboard/storePrimary" element={<StorePrimary />} />
-        </Route>
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingGeneralSupervisor', 'ReceivingManager','GatePassManager']} />}>
-          <Route path="/dashboard/GeneralStore" element={<GeneralStore />} />
-        </Route>
-
-
-        {/* Almond */}
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingAlmondSupervisor', 'ReceivingManager','GatePassManager']} />}>
-          <Route path="/dashboard/AlmondPrimary" element={<Almond />} />
-        </Route>
-
-        {/* Agarbati */}    
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingAgarbatiSupervisor', 'ReceivingManager','GatePassManager']} />}>
-          <Route path="/dashboard/AgarbatiPrimary" element={<Agarbati />} />
-        </Route>
-
-        {/* Village */} 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'VillageSupervisor','GatePassManager','ProductionManager']} />}>
-          <Route path="/dashboard/RcvVillage" element={<RcvVillage />} />
-        </Route>
-
 
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>

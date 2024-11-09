@@ -24,6 +24,7 @@ import { GiBoilingBubbles, GiIceCreamScoop, GiGate } from "react-icons/gi";
 import { CgSmartHomeBoiler } from "react-icons/cg";
 import { BsMoisture } from "react-icons/bs";
 import { GiChopsticks } from "react-icons/gi";
+import { IoArrowRedoOutline } from "react-icons/io5";
 //import { GiPizzaCutter } from "react-icons/gi";
 
 
@@ -126,12 +127,46 @@ const DashboardSidebar = () => {
                     {Role !== 'Security' && rendersection('Receiving') &&
                         <Collapsible >
                             <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25} />
-                                <p>Receiving</p></CollapsibleTrigger>
+                                <p>Logistics</p></CollapsibleTrigger>
                             {renderlink('VendorSKU')
                                 && <CollapsibleContent className="Items-pvt">
                                     {renderlink('Dashboard User')}
                                     <NavLink to="/dashboard/vendorSKU" >
                                         <p className="flex"><TbSitemap size={20} /> <p className="pl-3">Item/Vendor Mapping</p></p>
+                                    </NavLink>
+                                </CollapsibleContent>}
+
+
+                                {renderlink('Receiving Store Entry')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/storePrimary" >
+
+                                        <p className="flex"><MdOutlineStorefront size={20} /><p className="pl-3">    Store Item </p></p>
+                                    </NavLink>
+
+                                </CollapsibleContent>}
+                            
+                                {renderlink('Store Issue')
+                                && <CollapsibleContent className="Items-pvt">
+                                    {renderlink('Dashboard User')}
+                                    <NavLink to="/dashboard/StoreIssue" >
+                                        <p className="flex"><IoArrowRedoOutline size={20} /> <p className="pl-3">Store Item Issue</p></p>
+                                    </NavLink>
+                                </CollapsibleContent>}
+
+                                {renderlink('Receiving Civil Entry')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/GeneralStore" >
+
+                                        <p className="flex"><PiPackageLight size={22} /><p className="pl-3"> General Item </p></p>
+                                    </NavLink>
+                                </CollapsibleContent>}
+
+                                {renderlink('Receiving Packaging Entry')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/recevingpackagingMaterial" >
+
+                                        <p className="flex"><GoPackageDependents size={18} /><p className="pl-3">  Packaging Material </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -144,11 +179,12 @@ const DashboardSidebar = () => {
                                     </NavLink>
 
                                 </CollapsibleContent>}
+                               
                             {renderlink('Receiving Almond Entry')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/AlmondPrimary" >
 
-                                        <p className="flex"><TbBrandPeanut size={20} /> <p className="pl-3">   Almond </p></p>
+                                        <p className="flex"><TbBrandPeanut size={20} /> <p className="pl-3"> Almond  </p></p>
                                     </NavLink>
 
                                 </CollapsibleContent>}
@@ -166,31 +202,15 @@ const DashboardSidebar = () => {
 
 
 
-                            {renderlink('Receiving Packaging Entry')
-                                && <CollapsibleContent className="Items-pvt">
-                                    <NavLink to="/dashboard/recevingpackagingMaterial" >
+                           
 
-                                        <p className="flex"><GoPackageDependents size={20} /><p className="pl-3">  Packaging Material</p></p>
-                                    </NavLink>
-                                </CollapsibleContent>}
-
-                            {renderlink('Receiving Store Entry')
-                                && <CollapsibleContent className="Items-pvt">
-                                    <NavLink to="/dashboard/storePrimary" >
-
-                                        <p className="flex"><MdOutlineStorefront size={20} /><p className="pl-3">    Store Items </p></p>
-                                    </NavLink>
-
-                                </CollapsibleContent>}
+                          
 
 
-                            {renderlink('Receiving Civil Entry')
-                                && <CollapsibleContent className="Items-pvt">
-                                    <NavLink to="/dashboard/GeneralStore" >
+                              
 
-                                        <p className="flex"><PiPackageLight size={20} /><p className="pl-3"> General Items </p></p>
-                                    </NavLink>
-                                </CollapsibleContent>}
+
+                           
                             {/* 
                         
 

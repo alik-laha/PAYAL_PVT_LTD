@@ -607,7 +607,7 @@ export interface PermissionRole {
     ReceivingStoreSupervisor: string[];
     ReceivingAgarbatiSupervisor:string[];
     ReceivingGeneralSupervisor:string[];
-    ReceivingPurchaseSupervisor:string[];
+    ReceivingOilMillSupervisor:string[];
     QCSupervisor: string[];
     QCManager: string[];
     GradingSupervisor: string[];
@@ -680,6 +680,35 @@ export interface GradingData {
     editStatus: string;
     feeledBy: string;
     modifiedBy: string;
+}
+export interface IssueItemData {
+    id: number;
+    issueID: string;
+    date: string;
+    category: string;
+    materialName: string;
+    quantity: string;
+    itemunit: string;
+    unitPrice: string;
+    totalPrice:string;
+    section: string;
+    sectionunit: string;
+    issueUser: string;
+    damagereturn: string;
+    damagequantity: string;
+    damageunit: string;
+    remarks: string;
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy:string;
+  
+
+}
+export interface IssueItemDaywiseData {
+    date: string;
+    category: string; 
+    totalIssuePrice:string;
+    sectionunit: string;
 }
 
 export interface pendingCheckRoles {
@@ -945,6 +974,7 @@ export interface ExcelStorePrimaryData {
     Vehicle_No:string;
     Remarks:string;
 }
+
 
 export interface ScoopingExcelData {
     SL_No: number;

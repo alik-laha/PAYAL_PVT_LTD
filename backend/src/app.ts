@@ -24,6 +24,7 @@ import almondRouter from "./router/almondRouter";
 import RcvVillageRouter from "./router/RcvVillageRouter";
 import HumidRouter from "./router/HumidRouter";
 import agarbatiRouter from "./router/agarbatiRouter";
+import issueRouter from "./router/issueRouter";
 
 
 
@@ -57,5 +58,6 @@ app.use('/api/almondPrimary', almondRouter)
 app.use('/api/rcvVillage', RcvVillageRouter)
 app.use('/api/agarbatiPrimary', agarbatiRouter)
 app.use("/api/qcpackage", qcPackageMaterialRouter)
+app.use("/api/issue", issueRouter)
 
 export default app
