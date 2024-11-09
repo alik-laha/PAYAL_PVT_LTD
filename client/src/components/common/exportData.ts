@@ -125,7 +125,7 @@ export const TypeOnSection = {
     Almond:['Almond Type','Almond Grade'],
     Village:['Item Type','Item Name'],
     Agarbati:['Agarbati Type','Agarbati Grade'],
-    Issue:['Issue Unit','Issue Section']
+    Issue:['Issue Unit','Issue Section','Issue SubSection']
 
 }
 

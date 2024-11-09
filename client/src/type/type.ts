@@ -692,6 +692,7 @@ export interface IssueItemData {
     unitPrice: string;
     totalPrice:string;
     section: string;
+    subsection: string;
     sectionunit: string;
     issueUser: string;
     damagereturn: string;

@@ -12,6 +12,7 @@ interface IssueModifyProps {
     unitPrice: string;
     totalPrice:string;
     section: string;
+    subsection: string;
     sectionunit: string;
     issueUser: string;
     damagereturn: string;
@@ -44,6 +45,7 @@ const IssueModify = (props: IssueModifyProps) => {
     const [totPrice, setTotPrice] = useState<string>("")
     const [section, setsection] = useState<string>("")
     const [sectionunit, setSectionUnit] = useState<string>("")
+    const [subsection, setsubsection] = useState<string>("")
     const [user, setUser] = useState<string>("")
     const [damage, setdamage] = useState<string>("")
     const [damageqty, setdamageQty] = useState<string>("")
@@ -55,6 +57,7 @@ const IssueModify = (props: IssueModifyProps) => {
     
     const [sku,setsku]=useState<findskutypeData[]>([])
     const [grade,setGrade]=useState<findskutypeData[]>([])
+    const [subgrade,setsubGrade]=useState<findskutypeData[]>([])
    
 
     useEffect(() => {
@@ -67,6 +70,7 @@ const IssueModify = (props: IssueModifyProps) => {
         setUnitPrice(props.data.unitPrice)
         setTotPrice(props.data.totalPrice)
         setsection(props.data.section)
+        setsubsection(props.data.subsection)
         setSectionUnit(props.data.sectionunit)
         setUser(props.data.issueUser)
         setdamage(props.data.damagereturn)
@@ -109,6 +113,17 @@ const IssueModify = (props: IssueModifyProps) => {
             .then(res => {
                 //console.log(res.data)
                 setGrade(res.data)
+                //console.log(sku)
+            })
+            .catch(err => {
+                console.log(err)
+            })            
+    }, [])
+    useEffect(() => {
+        axios.put('/api/vendorSKU/getItembySection/Issue SubSection',{section:'Issue'})
+            .then(res => {
+                //console.log(res.data)
+                setsubGrade(res.data)
                 //console.log(sku)
             })
             .catch(err => {
@@ -232,7 +247,7 @@ const IssueModify = (props: IssueModifyProps) => {
         console.log("submit")
         setisdisable(true)
         axios.post(`/api/issue/editStoreIssue/${props.data.id}`, { 
-            category, material,quantity,itemunit,unitprice,totPrice,section,sectionunit,user,damage,damageqty,damageunit,remarks,date})
+            category, material,quantity,itemunit,unitprice,totPrice,section,sectionunit,user,damage,damageqty,damageunit,remarks,date,subsection})
             .then((res) => {
                 if (res.status === 201) {
                     (successdialog as any).showModal();
@@ -292,6 +307,23 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
     focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Unit</option> */}
        
                                                {sku.map((item) => (
+                                                            <option key={item.sku} value={item.sku}>{item.sku}</option>
+                                                        ))} 
+                                                    
+                                                </select>
+                </div>
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Sub Section</Label>
+
+                    <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
+px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) =>  setsubsection(e.target.value)}
+                                                    value={subsection} required>
+                                                    {/* <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Unit</option> */}
+       
+                                               {subgrade.map((item) => (
                                                             <option key={item.sku} value={item.sku}>{item.sku}</option>
                                                         ))} 
                                                     

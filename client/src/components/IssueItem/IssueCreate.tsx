@@ -26,6 +26,7 @@ interface SectionRowData {
     unitprice: number;
     totalprice: string;
     section: string;
+    subsection: string;
     sectionunit: string;
     leftqty:number;
     damagestatus: string;
@@ -44,6 +45,7 @@ const IssueCreateForm = () => {
     const [isdisable, setisdisable] = useState<boolean>(false)
     const [sku,setsku]=useState<findskutypeData[]>([])
     const [grade,setGrade]=useState<findskutypeData[]>([])
+    const [subgrade,setSubGrade]=useState<findskutypeData[]>([])
     const [actvskuindex,setActvskuindex]=useState<number>()
     const [rows, setRows] = useState<SectionRowData[]>([{
         category: '',
@@ -58,7 +60,8 @@ const IssueCreateForm = () => {
         damagestatus: '',
         damageqty: 0,
         damageunit: '',
-        remarks: ''
+        remarks: '',
+        subsection:''
     }
     ]);
 
@@ -81,7 +84,8 @@ const IssueCreateForm = () => {
             damagestatus: '',
             damageqty: 0,
             damageunit: '',
-            remarks: ''
+            remarks: '',
+            subsection:''
         }])
     }
 
@@ -106,6 +110,17 @@ const IssueCreateForm = () => {
             .then(res => {
                 //console.log(res.data)
                 setGrade(res.data)
+                //console.log(sku)
+            })
+            .catch(err => {
+                console.log(err)
+            })            
+    }, [])
+    useEffect(() => {
+        axios.put('/api/vendorSKU/getItembySection/Issue SubSection',{section:'Issue'})
+            .then(res => {
+                //console.log(res.data)
+                setSubGrade(res.data)
                 //console.log(sku)
             })
             .catch(err => {
@@ -304,6 +319,7 @@ const IssueCreateForm = () => {
                                 <TableHead className="text-center" >Sl. No.</TableHead>
                                 <TableHead className="text-center" >Section Unit</TableHead>
                                 <TableHead className="text-center" >Section</TableHead>
+                                <TableHead className="text-center" >Sub_Section</TableHead>
                                 <TableHead className="text-center" >Category</TableHead>
                                 <TableHead className="text-center" >SKU/Item_Name</TableHead>
                                 <TableHead className="text-center" >Unit</TableHead>
@@ -359,6 +375,24 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
     ))} */}
                                                     {sku ? (
                                                         sku.map((item:findskutypeData) => (
+                                                            <option key={item.sku} value={item.sku}>{item.sku}</option>
+                                                        ))
+                                                    ) : null}
+                                                </select>
+                                            </TableCell>
+                                            <TableCell className="text-center " >
+                                            <select className="text-center flex h-8 rounded-md border border-input bg-background 
+px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'subsection', e.target.value)}
+                                                    value={row.subsection} required>
+                                                    <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
+    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Sub Section</option>
+                                                    {/* {GatePassSection.map((item: any,idx:number) => (
+        <option key={idx} value={item}>{item}</option>
+    ))} */}
+                                                    {subgrade ? (
+                                                        subgrade.map((item:findskutypeData) => (
                                                             <option key={item.sku} value={item.sku}>{item.sku}</option>
                                                         ))
                                                     ) : null}
