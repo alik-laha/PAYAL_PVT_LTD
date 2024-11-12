@@ -13,14 +13,14 @@ export const Role: string[] = ['Director', 'FactoryManager',
 export const PermissionRol = {
     Director: ['Employee', 'Dashboard User', 'Asset', 'VendorSKU','Store Issue',
         'RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
-        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Oilimill Entry','Receiving Village Entry',
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving OilMill Entry','Receiving Village Entry',
         'RCN Incoming QC', 
         'Grading', 'Boiling', 'Scooping','Borma','Humidifier','Peeling',
         'Cleaning',
         'Gatepass'],
     FactoryManager: ['Employee', 'Asset','VendorSKU', 'Store Issue',
         'RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
-        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Oilimill Entry','Receiving Village Entry',
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving OilMill Entry','Receiving Village Entry',
         'RCN Incoming QC', 
         'Grading', 'Boiling', 'Scooping','Borma','Humidifier','Peeling',
         'Cleaning',
@@ -28,12 +28,12 @@ export const PermissionRol = {
     ReceivingSupervisor: ['RCN Primary Entry'],
     ReceivingPMSupervisor: ['Receiving Packaging Entry'],
     ReceivingManager: ['RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
-        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Oilimill Entry','VendorSKU','Store Issue'],
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving OilMill Entry','VendorSKU','Store Issue'],
     ReceivingAlmondSupervisor:['Receiving Almond Entry'],
     ReceivingStoreSupervisor: ['Receiving Store Entry','Store Issue'],
     ReceivingAgarbatiSupervisor:['Receiving Agarbati Entry'],
     ReceivingGeneralSupervisor:['Receiving Civil Entry'],
-    ReceivingOilMillSupervisor:['Receiving Oilimill Entry'],
+    ReceivingOilMillSupervisor:['Receiving OilMill Entry'],
     QCSupervisor: ['RCN Incoming QC'],
     QCManager: ['RCN Incoming QC'],
     GradingSupervisor: ['Grading'],
@@ -113,7 +113,7 @@ export const sectionDataonTypeGate = {
     OUT: ["Store",'General','Almond','Village','Agarbati','OilMill'],
 }
 export const SelectGatePassType = ["IN","OUT"]
-export const SKUSection = ['PackagingMaterial', 'Store' ,'General','Almond','Village','Agarbati','Issue']
+export const SKUSection = ['PackagingMaterial', 'Store' ,'General','Almond','Village','Agarbati','Issue','OilMill']
 export const SectionStatusAll = ['Pending_Receiving', 'Pending_NetWeight' ,'Pending_Verification','Pending_Release','Closed','Cancelled']
 export const SKUUnit = ['Pc','Kg','Mtr','SqMtr','Ft','SqFt','Bag','Bucket','Ltr','Coil','None']
 export const SelectTypeSKUVendor = ["SKU","Vendor"]
@@ -125,7 +125,7 @@ export const TypeOnSection = {
     Almond:['Almond Type','Almond Grade'],
     Village:['Item Type','Item Name'],
     Agarbati:['Agarbati Type','Agarbati Grade'],
-    Issue:['Issue Unit','Issue Section','Issue SubSection']
-
+    Issue:['Issue Unit','Issue Section','Issue SubSection'],
+    OilMill:['Item Type']
 }
 

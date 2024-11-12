@@ -197,7 +197,16 @@ const DashboardSidebar = () => {
                                         <p className="flex"><GiChopsticks size={20} /> <p className="pl-3">   Agarbatti </p></p>
                                     </NavLink>
 
-                                </CollapsibleContent>}    
+                                </CollapsibleContent>} 
+
+                                 {renderlink('Receiving OilMill Entry')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/OilMill" >
+
+                                        <p className="flex"><GiChopsticks size={20} /> <p className="pl-3">   OilMill </p></p>
+                                    </NavLink>
+
+                                </CollapsibleContent>}     
 
 
 

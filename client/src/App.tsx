@@ -33,6 +33,7 @@ import Humidifier from './components/Humidifier/Humidifier'
 import Peeling from './components/Peeling/Peeling'
 import Agarbati from './components/Agarbati/Agarbati'
 import IssueItem from './components/IssueItem/IssueItem'
+import OilMill from './components/OilMill/OilMill'
 
 
 
@@ -144,6 +145,11 @@ function App() {
         {/* Receiving Village */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'VillageSupervisor', 'GatePassManager', 'ProductionManager']} />}>
           <Route path="/dashboard/RcvVillage" element={<RcvVillage />} />
+        </Route>
+
+        {/* Receiving OilMill */}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingOilMillSupervisor', 'GatePassManager', 'ReceivingManager']} />}>
+          <Route path="/dashboard/OilMill" element={<OilMill />} />
         </Route>
 
         {/* Receiving PM */}

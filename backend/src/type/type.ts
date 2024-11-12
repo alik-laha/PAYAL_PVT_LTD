@@ -233,6 +233,7 @@ export interface StoreIssueData {
     CreatedBy: string;
     editStatus: string;
     modifiedBy:string;
+    subsection:string;
 
 }
 export interface AlmondrcvData {

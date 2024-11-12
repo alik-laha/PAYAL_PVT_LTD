@@ -10,6 +10,7 @@ import generalPrimaryModel from "../../model/generalPrimaryModel";
 import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
 import RcvVillageModel from "../../model/RcvVillageModel";
 import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
+import oilMillModel from "../../model/oilMillModel";
 
 
 
@@ -159,6 +160,24 @@ try{
                     
                             if(agarbatiEntry){
                                 const data = await WpMsgGatePassRcv("Agarbati", gatepassNo,"gatepass_rcv_dispatch_final",'AGARBATI ENTRY')
+                            console.log(data)
+                               // return res.status(200).json({ message: "Village Item Entry Created Successfully" });
+                            }
+                            
+                        }
+                        if (data.section==='OilMill') {
+                            const oilmill = await oilMillModel.create({
+                                gatePassNo: gatepassNo,
+                                recevingDate: data.Date,
+                                grossWt:data.grossWt,
+                                truckNo:data.vehicle,  
+                                gateType:data.type
+                    
+                            },{transaction});
+                            
+                    
+                            if(oilmill){
+                                const data = await WpMsgGatePassRcv("OilMill", gatepassNo,"gatepass_rcv_dispatch_final",'OILMILL ENTRY')
                             console.log(data)
                                // return res.status(200).json({ message: "Village Item Entry Created Successfully" });
                             }
