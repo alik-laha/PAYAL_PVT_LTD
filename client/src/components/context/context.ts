@@ -52,6 +52,8 @@ interface ContextType {
     setEditPendingAlmondData: (data: AlmondPrimaryEntryData[]) => void;
     editPendingAgarbatiData: AgarbatiPrimaryEntryData[];
     setEditPendingAgarbatiData: (data: AgarbatiPrimaryEntryData[]) => void;
+    editPendingOilMillData: AlmondPrimaryEntryData[];
+    setEditPendingOilMillData: (data: AlmondPrimaryEntryData[]) => void;
 }
 
 const Context = createContext<ContextType>({
@@ -100,7 +102,9 @@ const Context = createContext<ContextType>({
     RcvVillagePrimaryOverView:(null),
     setRcvVillagePrimaryOverView: () => {},
     editPendingAgarbatiData: [],
-    setEditPendingAgarbatiData: () => {}
+    setEditPendingAgarbatiData: () => {},
+    editPendingOilMillData: [],
+    setEditPendingOilMillData: () => {}
 
 });
 

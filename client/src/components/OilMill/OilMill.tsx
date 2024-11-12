@@ -24,14 +24,14 @@ import { pendingCheckRoles } from "@/type/type";
 
 
 const OilMill = () => {
-    const { setEditPendingAlmondData } = useContext(Context);
+    const { setEditPendingOilMillData } = useContext(Context);
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const [lotdata, setLotData] = useState<rcnpendingLotData[]>([])
 
     const handleEditFetch = async () => {
-        const Data = await axios.get('/api/almondPrimary/getAlmondeditpending');
+        const Data = await axios.get('/api/oilMill/getoilMilleditpending');
         console.log(Data)
-        setEditPendingAlmondData(Data.data);
+        setEditPendingOilMillData(Data.data);
     };
 
     const checkpending = (tab: string) => {
@@ -55,7 +55,7 @@ const OilMill = () => {
 
     }
     
-    const { data, isLoading, error } = UseQueryData('/api/almondPrimary/sumofAllAlmondEntry', 'GET', 'AllOriginAlmondPrimary');
+    const { data, isLoading, error } = UseQueryData('/api/oilMill/sumofAllOilMillEntry', 'GET', 'AllOriginOilMillPrimary');
     if (isLoading) {
         return <Loader />
     }
@@ -64,7 +64,7 @@ const OilMill = () => {
         return <div>Error</div>;
     }
     const handleOpenLotNo = async () => {
-        axios.get('/api/almondPrimary/getAlmondNotEntried/0').then(res => {
+        axios.get('/api/oilMill/getOilMillNotEntried/0').then(res => {
             console.log(res)
             setLotData(res.data.rcnLot)
         })
@@ -95,7 +95,7 @@ const OilMill = () => {
 
 
                 <div>
-                {checkreceiving('AlmondPrimaryEntry') && <Dialog>
+                {checkreceiving('OilMillPrimaryEntry') && <Dialog>
                         <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>

@@ -732,7 +732,8 @@ export interface rcvCheckRoles {
     AlmondPrimaryEntry:string[];
     GeneralPrimaryEntry:string[];
     VillagePrimaryEntry:string[];
-    
+    OilMillPrimaryEntry:string[];
+    AgarbatiPrimaryEntry:string[];
 }
 
 export interface GradingExcelData {

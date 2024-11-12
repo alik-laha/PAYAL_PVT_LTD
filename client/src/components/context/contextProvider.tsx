@@ -30,6 +30,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [RcvVillagePrimaryOverView, setRcvVillagePrimaryOverView] = useState<sumofRcvVillagePrimary | null>(null)
     const [GeneralPrimaryOverView, setGeneralPrimaryOverView] = useState<sumofGeneralPrimary | null>(null)
     const [editPendingAlmondData, setEditPendingAlmondData] = useState<AlmondPrimaryEntryData[]>([])
+    const [editPendingOilMillData, setEditPendingOilMillData] = useState<AlmondPrimaryEntryData[]>([])
     const [editPendingAgarbatiData, setEditPendingAgarbatiData] = useState<AgarbatiPrimaryEntryData[]>([])
     const [editPendiningIssueItemData, setEditPendiningIssueItemData] = useState<IssueItemData[]>([])
 
@@ -42,7 +43,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
             setpendingreportCount, recevingPackagematerialOverView, setRecevingPacakanMaterialOverView,editPendiningIssueItemData,setEditPendiningIssueItemData,
             editScoopingLotWiseData, setEditScoopingLotWiseData, searchType, setSearchType,editBormaLotWiseData,setEditBormaLotWiseData,
             StorePrimaryOverView,setStorePrimaryOverView,GeneralPrimaryOverView,setGeneralPrimaryOverView,editPendingAlmondData,setEditPendingAlmondData
-            ,RcvVillagePrimaryOverView,setRcvVillagePrimaryOverView,editHumidLotWiseData,setEditHumidLotWiseData,editPendingAgarbatiData,setEditPendingAgarbatiData
+            ,RcvVillagePrimaryOverView,setRcvVillagePrimaryOverView,editHumidLotWiseData,setEditHumidLotWiseData,editPendingAgarbatiData,setEditPendingAgarbatiData,
+            editPendingOilMillData,setEditPendingOilMillData
         }}>
             {children}
         </Context.Provider>

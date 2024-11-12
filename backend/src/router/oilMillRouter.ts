@@ -1,0 +1,42 @@
+import express from 'express';
+import jwtVerify from '../middleWare/JwtAuthantication';
+import sumofAllTypeAlmond from '../controller/almondController/sumofAlmondEntry';
+import getUnEntriedAlmond from '../controller/almondController/getUntriedAlmond';
+import getAlmondByGatePass from '../controller/almondController/getAlmondByGatePass';
+import updateAlmondPrimaryEntry from '../controller/almondController/updateAlmondEntry';
+import updateAlmondExit from '../controller/almondController/updateAlmondExit';
+import createAlmondExit from '../controller/almondController/createAlmondExit';
+import deleteAlmondPrimary from '../controller/almondController/deleteAlmondByGatePass';
+import SearchAlmondPrimary from '../controller/almondController/searchAlmond';
+import getAllAlmondEditPending from '../controller/almondController/getAllAlmondEditPending';
+import EditAlmondEntry from '../controller/almondController/EditAlmondEntry';
+import approveAlmond from '../controller/almondController/approveAlmondEntry';
+import EditRejectAlmond from '../controller/almondController/rejectAlmondEntry';
+import updateRcvAlmondEntire from '../controller/almondController/createAlmondEntire';
+import getAllOilMillEditPending from '../controller/OilMillController/getOilMillEditPending';
+import sumofAllTypeOilMill from '../controller/OilMillController/sumOfAllOilMillPending';
+import getUnEntriedOilMill from '../controller/OilMillController/getUnEntriedOilMill';
+const router = express.Router();
+
+router.get('/sumofAllOilMillEntry', jwtVerify, sumofAllTypeOilMill);
+router.get("/getOilMillNotEntried/:status", jwtVerify, getUnEntriedOilMill)
+router.get("/getAlmondByGatePass/:lotNO", jwtVerify, getAlmondByGatePass)
+router.post('/updateAlmondEntry', jwtVerify, updateAlmondPrimaryEntry);
+router.put("/updateRcvAlmond/:id",jwtVerify, updateAlmondExit)
+router.post("/createAlmondPrimary",jwtVerify, createAlmondExit)
+router.post("/deleteAlmondByID", jwtVerify, deleteAlmondPrimary)
+
+router.put('/almondprimarysearch', jwtVerify, SearchAlmondPrimary);
+router.get('/getoilMilleditpending', jwtVerify, getAllOilMillEditPending);
+
+router.post("/updateAlmond/:id",jwtVerify, EditAlmondEntry)
+
+//Edit Reject Rcn Entry by Id
+router.delete('/rejectededitAlmond/:id', jwtVerify, EditRejectAlmond);
+
+//Edit Approve Rcn Entry by Id
+router.put("/approveeditAlmond/:id", jwtVerify, approveAlmond);
+
+router.put("/updateRcvAlmondEntire/:id",jwtVerify, updateRcvAlmondEntire)
+
+export default router;

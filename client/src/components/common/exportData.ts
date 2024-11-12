@@ -82,6 +82,7 @@ export const rcvCheckRole = {
     AlmondPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingAlmondSupervisor'],
     AgarbatiPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingAgarbatiSupervisor'],
     VillagePrimaryEntry:['Director', 'FactoryManager','VillageSupervisor','ProductionManager'],
+    OilMillPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingOilMillSupervisor'],
  
 }
 export const roleDataonDept = {
