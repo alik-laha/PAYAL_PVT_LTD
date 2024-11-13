@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import sequelize from "../../config/databaseConfig";
-import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
+import oilMillModel from "../../model/oilMillModel";
 
 const getUnEntriedOilMill = async (req: Request, res: Response) => {
 
     try {
         const status = req.params.status;
-        const rcnLot = await almondPrimaryEntryModel.findAll({
+        const rcnLot = await oilMillModel.findAll({
             
             attributes:[[sequelize.fn('DISTINCT',sequelize.col('gatePassNo')),'gatePassNo']],
             where: {
@@ -15,10 +15,10 @@ const getUnEntriedOilMill = async (req: Request, res: Response) => {
 
         });
         if(rcnLot){
-            res.status(200).json({ message: "UnEntried Almond Found", rcnLot });
+            res.status(200).json({ message: "UnEntried OilMill Found", rcnLot });
         }
         else{
-            res.status(500).json({ message: "Error in Finding Almond Entry"});
+            res.status(500).json({ message: "Error in Finding OilMill Entry"});
         }
        
 

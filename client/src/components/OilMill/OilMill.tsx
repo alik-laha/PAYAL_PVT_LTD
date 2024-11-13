@@ -19,6 +19,8 @@ import axios from 'axios';
 import Loader from '../common/Loader';
 import { pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
+import OilMillInitialForm from './OilMillInitial';
+import OilMillTable from './OilMillTable';
 // import AlmondInitialForm from './AlmondInitial';
 // import AlmondTable from './AlmondTable';
 
@@ -103,7 +105,7 @@ const OilMill = () => {
                                
                             </DialogHeader>
                           
-                            {/* <AlmondInitialForm props={lotdata}/> */}
+                            <OilMillInitialForm props={lotdata}/>
                         </DialogContent>
                     </Dialog>}
 
@@ -111,7 +113,7 @@ const OilMill = () => {
                         Pending Edit ({data.CountPendingEdit})</Button>}
 
                 </div>
-                {/* <AlmondTable /> */}
+                <OilMillTable />
 
             </div>
         </div>

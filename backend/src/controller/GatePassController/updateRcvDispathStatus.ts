@@ -52,6 +52,11 @@ try{
                 console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
+            if(section==='OilMill'){
+                const data = await WpMsgGatePassRcv("OilMill", gatePassNo,"rcv_dispatch_complt",'OilMill Dispatch')
+                console.log(data)
+                res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
+            }
 
            
         }

@@ -166,7 +166,7 @@ const SKUCreateForm = () =>{
                  
 
                     <div className="flex"><Label className="w-2/4  pt-1">Unit</Label>
-                    <Input className="w-2/4 text-center" placeholder="unit"  onChange={(e) => setUnit(e.target.value)} required/> </div>
+                    <Input className="w-2/4 text-center" placeholder="unit" value={unit} onChange={(e) => setUnit(e.target.value)} required/> </div>
                   
                   
                 
