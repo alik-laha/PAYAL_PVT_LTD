@@ -2,7 +2,7 @@ import axios from "axios";
 import { pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
 import { useContext, useEffect, useState } from "react";
 import { Input } from "../ui/input";
-import { AgarbatiPrimaryEntryData, OilMillPrimaryExcelEntryData, findskutypeData, OilMillPrimaryEntryData, pendingCheckRoles, PermissionRole } from "@/type/type";
+import {  OilMillPrimaryExcelEntryData, findskutypeData, OilMillPrimaryEntryData, pendingCheckRoles, PermissionRole } from "@/type/type";
 import { format, toZonedTime } from 'date-fns-tz'
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
