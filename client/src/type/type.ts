@@ -237,7 +237,7 @@ export interface AgarbatiPrimaryExcelEntryData {
 }
 export interface OilMillPrimaryExcelEntryData {
    
-    ApprovedBy: string;
+    ActionedBy: string;
     id: number;
     ReceivingDate: string;
     Item_Count: string;

@@ -62,6 +62,29 @@ export interface AgarbatiModifyProps {
     totalBill:string;  
 
 }
+export interface OilMillModifyProps {
+    approvedBy: string;
+    id: number;
+    recevingDate: string;
+    quantity: string;
+    truckNo: string;
+    netWeight: string;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string;
+    status:number;
+    systemBags:string;  
+    gateType: string,
+    invoicedate: string;  
+    invoice: string;  
+  
+    type: string;  
+    vendorName: string;  
+    totalWt:string;  
+    totalBill:string;  
+
+}
 
 export interface qcapproveprops {
     rcnStatus: string;

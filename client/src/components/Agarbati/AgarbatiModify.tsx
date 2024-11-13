@@ -184,7 +184,7 @@ const AgarbatiModify = (props: AlmondPrimaryModifyProps) => {
         }else{
             vendortype='Party'
         }
-        axios.post(`/api/vendorSKU/vendornamefind/Almond/`, { vendorName: e.target.value,type:vendortype  })
+        axios.post(`/api/vendorSKU/vendornamefind/Agarbati/`, { vendorName: e.target.value,type:vendortype  })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {

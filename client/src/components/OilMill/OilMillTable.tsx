@@ -57,6 +57,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import OilMillModify from "./OilMillModify";
 // import AgarbatiModify from "./AgarbatiModify";
 
 
@@ -175,12 +176,13 @@ const OilMillTable = () => {
     }
 
     const exportToExcel = async () => {
-        const response = await axios.put('/api/agarbatiPrimary/agarbatiprimarysearch', {
+        const response = await axios.put('/api/oilMill/oilMillprimarysearch', {
             searchitem: blConNo,
-       
+          
             fromDate: fromdate,
             toDate: todate,
             almondtype: origin,
+            
           
         })
         const data1 = await response.data
@@ -207,7 +209,7 @@ const OilMillTable = () => {
                 totalWt:item.totalWt ? formatNumber(item.totalWt):0 ,
                 totalBill:item.totalBill ? formatNumber(item.totalBill):0 ,
                 Item_Count:item.quantity,
-                editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
+                editStatus:item.editStatus,createdBy:item.createdBy,ActionedBy:item.approvedBy
     
             }));
             //setTransformedData(transformed);
@@ -230,7 +232,7 @@ const OilMillTable = () => {
                 totalWt:item.totalWt ? formatNumber(item.totalWt):0 ,
                 totalBill:item.totalBill ? formatNumber(item.totalBill):0 ,
                 Item_Count:item.quantity,
-                editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
+                editStatus:item.editStatus,createdBy:item.createdBy,ActionedBy:item.approvedBy
 
             }));
             // setTransformedData(transformed);
@@ -361,7 +363,7 @@ const OilMillTable = () => {
 
                         <TableHead className="text-center" >Vendor_Name</TableHead>
                         <TableHead className="text-center" >Bag/Item_Count</TableHead>
-                        <TableHead className="text-center" >Row_Weight(Kg)</TableHead> 
+                        <TableHead className="text-center" >Row_Weight</TableHead> 
                         <TableHead className="text-center" >Bill_Amount(Rs)</TableHead>
                         <TableHead className="text-center" >Edit Status </TableHead>
 
@@ -475,7 +477,7 @@ const OilMillTable = () => {
                                                                     <p className='text-1xl pb-1 text-center mt-1'>OilMill Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            {/* <AgarbatiModify data={item} /> */}
+                                                            <OilMillModify data={item} />
                                                         </DialogContent>
                                                     </Dialog>
                                                 </PopoverContent>

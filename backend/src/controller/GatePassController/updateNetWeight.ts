@@ -9,6 +9,7 @@ import generalPrimaryModel from "../../model/generalPrimaryModel";
 import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
 import RcvVillageModel from "../../model/RcvVillageModel";
 import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
+import oilMillModel from "../../model/oilMillModel";
 
 
 
@@ -171,6 +172,27 @@ const updateNetWeight = async (req: Request, res: Response) => {
         
                 if(generalupdate){
                     const data = await WpMsgGatePassRcv("Agarbati Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Agarbati Entry/Dispatch')
+            console.log(data)
+                    return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
+                }
+                
+            }  
+            if (section==='OilMill') {
+
+                const generalupdate = await oilMillModel.update(
+                    { 
+                        netWeight:netWeight,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo:gatepassNo
+                        },
+                    }
+                );
+        
+                if(generalupdate){
+                    const data = await WpMsgGatePassRcv("OilMill Dispatch", gatepassNo,"verify_gatepass_final",'OilMill Dispatch')
             console.log(data)
                     return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }
