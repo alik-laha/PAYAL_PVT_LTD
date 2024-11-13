@@ -2,7 +2,8 @@ import { createContext } from 'react';
 import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving,
      rcnScoopingData ,sumofStorePrimary, sumofGeneralPrimary, AlmondPrimaryEntryData, sumofRcvVillagePrimary,
      AgarbatiPrimaryEntryData,
-     IssueItemData} from '../../type/type';
+     IssueItemData,
+     OilMillPrimaryEntryData} from '../../type/type';
 
 interface ContextType {
     editPendingData: EditPendingData[];
@@ -52,6 +53,8 @@ interface ContextType {
     setEditPendingAlmondData: (data: AlmondPrimaryEntryData[]) => void;
     editPendingAgarbatiData: AgarbatiPrimaryEntryData[];
     setEditPendingAgarbatiData: (data: AgarbatiPrimaryEntryData[]) => void;
+    editPendingOilMillData: OilMillPrimaryEntryData[];
+    setEditPendingOilMillData: (data: OilMillPrimaryEntryData[]) => void;
 }
 
 const Context = createContext<ContextType>({
@@ -100,7 +103,9 @@ const Context = createContext<ContextType>({
     RcvVillagePrimaryOverView:(null),
     setRcvVillagePrimaryOverView: () => {},
     editPendingAgarbatiData: [],
-    setEditPendingAgarbatiData: () => {}
+    setEditPendingAgarbatiData: () => {},
+    editPendingOilMillData: [],
+    setEditPendingOilMillData: () => {}
 
 });
 

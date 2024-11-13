@@ -25,6 +25,7 @@ import RcvVillageRouter from "./router/RcvVillageRouter";
 import HumidRouter from "./router/HumidRouter";
 import agarbatiRouter from "./router/agarbatiRouter";
 import issueRouter from "./router/issueRouter";
+import oilMillRouter from "./router/oilMillRouter";
 
 
 
@@ -59,5 +60,6 @@ app.use('/api/rcvVillage', RcvVillageRouter)
 app.use('/api/agarbatiPrimary', agarbatiRouter)
 app.use("/api/qcpackage", qcPackageMaterialRouter)
 app.use("/api/issue", issueRouter)
+app.use("/api/oilMill", oilMillRouter)
 
 export default app

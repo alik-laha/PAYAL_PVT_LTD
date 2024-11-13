@@ -9,6 +9,7 @@ import generalPrimaryModel from "../../model/generalPrimaryModel";
 import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
 import RcvVillageModel from "../../model/RcvVillageModel";
 import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
+import oilMillModel from "../../model/oilMillModel";
 
 
 
@@ -192,6 +193,27 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
                     return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
                 }
             }
+            if (section === 'OilMill' ) {
+                const generalupdate = await oilMillModel.update(
+                    {
+                        grossWt: grossWt,
+                        truckNo: vehicle,
+                        netWeight: netwt,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo: gatepassNo
+                        },
+                    }
+                );
+
+                if (generalupdate) {
+                    const data = await WpMsgGatePassRcv("OilMill Dispatch", gatepassNo,"gatepass_modify",feeledBy)
+                    console.log(data)
+                    return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
+                }
+            }
         }
         else{
             const gatepassupdate=await gatePassMaster.update(
@@ -246,6 +268,12 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
                     }
                     if (section === 'Agarbati'){
                         const data = await WpMsgGatePassRcv("Agarbati", gatepassNo,"gatepass_modify",feeledBy)
+                        console.log(data)
+                        return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
+    
+                    }
+                    if (section === 'OilMill'){
+                        const data = await WpMsgGatePassRcv("OilMill", gatepassNo,"gatepass_modify",feeledBy)
                         console.log(data)
                         return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
     

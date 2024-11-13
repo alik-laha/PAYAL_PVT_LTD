@@ -43,14 +43,14 @@ const SearchBoiling = async (req: Request, res: Response) => {
         if (limit === 0 && offset === 0) {
             GradingEntries = await RcnBoiling.findAll({
                 where,
-                order: [['LotNo','DESC'],['date', 'DESC']], // Order by date descending
+                order: [['id','DESC']], // Order by date descending
 
             });
         }
         else {
             GradingEntries = await RcnBoiling.findAll({
                 where,
-                order: [['LotNo','DESC'],['date', 'DESC']], // Order by date descending
+                order: [['id','DESC']], // Order by date descending
                 limit,
                 offset
             });

@@ -66,6 +66,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 const IssueTable = () => {
     const [unit, setUnit] = useState<string>("")
     const [section, setSection] = useState<string>("")
+    const [subsection, setSubSection] = useState<string>("")
     const [selectType, setselectType] = useState<string>("ItemWise")
     const [fromdate, setfromDate] = React.useState<string>('');
     const [todate, settoDate] = React.useState<string>('');
@@ -73,6 +74,7 @@ const IssueTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const [sku,setsku]=useState<findskutypeData[]>([])
     const [grade,setGrade]=useState<findskutypeData[]>([])
+    const [subgrade,setsubGrade]=useState<findskutypeData[]>([])
     const [page, setPage] = useState(pageNo)
     const [blockpagen, setblockpagen] = useState('flex')
     const [EditData, setEditData] = useState<IssueItemData[]>([])
@@ -141,6 +143,17 @@ const IssueTable = () => {
             .then(res => {
                 //console.log(res.data)
                 setGrade(res.data)
+                //console.log(sku)
+            })
+            .catch(err => {
+                console.log(err)
+            })            
+    }, [])
+    useEffect(() => {
+        axios.put('/api/vendorSKU/getItembySection/Issue SubSection',{section:'Issue'})
+            .then(res => {
+                //console.log(res.data)
+                setsubGrade(res.data)
                 //console.log(sku)
             })
             .catch(err => {
@@ -229,6 +242,7 @@ const IssueTable = () => {
                 Issue_Date:handletimezone(item.date),
                 Section_Unit: item.sectionunit,
                 Section:item.section,
+                Subsection:item.subsection,
                 Category:item.category,
                 Material_Name:item.materialName,
                 Unit:item.itemunit,
@@ -266,6 +280,7 @@ const IssueTable = () => {
                 Issue_Date:handletimezone(item.date),
                 Section_Unit: item.sectionunit,
                 Section:item.section,
+                SubSection:item.subsection,
                 Category:item.category,
                 Material_Name:item.materialName,
                 Unit:item.itemunit,
@@ -375,7 +390,20 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         </option>
                     ))}
                 </select>
-                <select className='flexbox-search-width no-margin-left-absolute font-semibold flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                    onChange={(e) => setSubSection(e.target.value)} value={subsection}>
+                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Sub Section (All)</option>
+                    {subgrade.map((data, index) => (
+                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data.sku} key={index}>
+                            {data.sku}
+                        </option>
+                    ))}
+                </select>
+                
+                <select className='flexbox-search-width flex h-8 w-1/7 ml-10 font-semibold qc-responsive-right responsive-no-margin items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                     onChange={(e) => {
                         setselectType(e.target.value)
@@ -389,6 +417,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         </option>
                     ))}
                 </select>
+             
 
 
                 
@@ -409,6 +438,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     
                         <TableHead className="text-center" >Issue_Unit</TableHead>
                         <TableHead className="text-center" >Issue_Section</TableHead>
+                        
+                        <TableHead className="text-center" >Issue_Subsection</TableHead>
                         <TableHead className="text-center" >Category</TableHead>
                         <TableHead className="text-center" >Issue_Material_Name</TableHead>
                         <TableHead className="text-center" >Issue_Quantity</TableHead>
@@ -439,6 +470,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                        
                                         <TableCell className="text-center ">{item.sectionunit}</TableCell>
                                         <TableCell className="text-center ">{item.section}</TableCell>
+                                        <TableCell className="text-center ">{item.subsection}</TableCell>
+                                        
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.category}</TableCell>
                                         <TableCell className="text-center ">{item.materialName}</TableCell>
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.quantity))} </TableCell>
@@ -508,6 +541,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                       
                                         <TableCell className="text-center ">{item.sectionunit}</TableCell>
                                         <TableCell className="text-center ">{item.section}</TableCell>
+                                        <TableCell className="text-center ">{item.subsection}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.category}</TableCell>
                                         <TableCell className="text-center ">{item.materialName}</TableCell>
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.quantity))} </TableCell>

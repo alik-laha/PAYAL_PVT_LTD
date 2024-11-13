@@ -92,6 +92,29 @@ export interface AlmondPrimaryEntryData {
     totalBill:string;  
  
 }
+export interface OilMillPrimaryEntryData {
+   
+    approvedBy: string;
+    id: number;
+    recevingDate: string;
+    quantity: string;
+    truckNo: string;
+    netWeight: string;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string;
+    status:number;
+    gateType: string,
+    invoicedate: string;  
+    invoice: string;  
+
+    type: string;  
+    vendorName: string;  
+    totalWt:string;  
+    totalBill:string;  
+ 
+}
 export interface AgarbatiPrimaryEntryData {
    
     approvedBy: string;
@@ -206,6 +229,28 @@ export interface AgarbatiPrimaryExcelEntryData {
     invoicedate: string;  
     invoice: string;  
     grade: string;  
+    type: string;  
+    vendorName: string;  
+    totalWt:string|number;  
+    totalBill:string|number;  
+ 
+}
+export interface OilMillPrimaryExcelEntryData {
+   
+    ActionedBy: string;
+    id: number;
+    ReceivingDate: string;
+    Item_Count: string;
+    Vehicle_No: string;
+    netWeight: string|number;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string|number;
+
+    invoicedate: string;  
+    invoice: string;  
+  
     type: string;  
     vendorName: string;  
     totalWt:string|number;  
@@ -692,6 +737,7 @@ export interface IssueItemData {
     unitPrice: string;
     totalPrice:string;
     section: string;
+    subsection: string;
     sectionunit: string;
     issueUser: string;
     damagereturn: string;
@@ -731,7 +777,8 @@ export interface rcvCheckRoles {
     AlmondPrimaryEntry:string[];
     GeneralPrimaryEntry:string[];
     VillagePrimaryEntry:string[];
-    
+    OilMillPrimaryEntry:string[];
+    AgarbatiPrimaryEntry:string[];
 }
 
 export interface GradingExcelData {

@@ -32,6 +32,7 @@ const acceptIssueEditPrimary = async (req: Request, res: Response) => {
             unitPrice:editPackageMaterial.unitPrice,
             totalPrice:editPackageMaterial.totalPrice,
             section:editPackageMaterial.section,
+            subsection:editPackageMaterial.subsection,
             sectionunit:editPackageMaterial.sectionunit,
             issueUser:editPackageMaterial.issueUser,
             damagereturn:editPackageMaterial.damagereturn,

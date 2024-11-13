@@ -11,14 +11,14 @@ import { PermissionRol, PermissionDep } from "../common/exportData";
 import { PermissionRole, PermissionDept } from "@/type/type";
 import {
     MdOutlineAdminPanelSettings, MdOutlineStorefront, MdGrading,
-    MdHolidayVillage, MdCallReceived, MdOutlineFactory
+    MdHolidayVillage, MdCallReceived, MdOutlineFactory,MdOutlineOilBarrel 
 } from "react-icons/md";
 import { IoIosNavigate, IoMdSettings } from "react-icons/io";
 import { LuDonut, LuBadgeCheck } from "react-icons/lu";
 import { GoPackageDependents } from "react-icons/go";
 import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
 import { BiSolidUserPlus } from "react-icons/bi";
-import { FaUserTie } from "react-icons/fa";
+import { FaUserTie  } from "react-icons/fa";
 import { PiPackageLight, PiExam } from "react-icons/pi";
 import { GiBoilingBubbles, GiIceCreamScoop, GiGate } from "react-icons/gi";
 import { CgSmartHomeBoiler } from "react-icons/cg";
@@ -197,7 +197,16 @@ const DashboardSidebar = () => {
                                         <p className="flex"><GiChopsticks size={20} /> <p className="pl-3">   Agarbatti </p></p>
                                     </NavLink>
 
-                                </CollapsibleContent>}    
+                                </CollapsibleContent>} 
+
+                                 {renderlink('Receiving OilMill Entry')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/OilMill" >
+
+                                        <p className="flex"><MdOutlineOilBarrel  size={22} /> <p className="pl-3">   OilMill </p></p>
+                                    </NavLink>
+
+                                </CollapsibleContent>}     
 
 
 

@@ -15,7 +15,7 @@ interface AlmondPrimaryModifyProps {
         approvedBy: string;
         id: number;
         recevingDate: string;
-        noOfBags: string;
+        quantity: string;
         truckNo: string;
         netWeight: string;
         editStatus: string;
@@ -26,7 +26,7 @@ interface AlmondPrimaryModifyProps {
         gateType: string,
         invoicedate: string;  
         invoice: string;  
-        grade: string;  
+     
         type: string;  
         vendorName: string;  
         totalWt:string;  
@@ -35,14 +35,14 @@ interface AlmondPrimaryModifyProps {
 }
 
 
-const AgarbatiModify = (props: AlmondPrimaryModifyProps) => {
+const OilMillModify = (props: AlmondPrimaryModifyProps) => {
 
     const [weight, setweight] = useState<string>("")
    
     const [gatePassNo, setgatePassNo] = useState<string>("")
     const [grossWt, setgrossWt] = useState<string>("")
     const [almondtype, setalmondtype] = useState<string>("")
-    const [almondgrade, setalmondgrade] = useState<string>("")
+  
     const [gatetype, setGateType] = useState<string>("")
     const [truckNo, setTruckNo] = useState<string>("")
     const [noOfBags, setNoOfBags] = useState<string>("")
@@ -50,7 +50,7 @@ const AgarbatiModify = (props: AlmondPrimaryModifyProps) => {
     const [invoicedate, setinvoicedate] = useState<string>('')
     const [netWeight, setNetWeight] = useState<string>("")
     const [sku, setsku] = useState<findskutypeData[]>()
-    const [grade, setGrade] = useState<findskutypeData[]>()
+
     const [billamt, setBillamt] = useState<string>("")
     
     const [errortext, setErrorText] = useState<string>("")
@@ -88,7 +88,7 @@ const AgarbatiModify = (props: AlmondPrimaryModifyProps) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         setisdisable(true)
-        axios.post(`/api/agarbatiPrimary/updateAgarbati/${props.data.id}`, { gatePassNo,gatetype,almondtype,almondgrade,
+        axios.post(`/api/oilMill/updateOilMill/${props.data.id}`, { gatePassNo,gatetype,almondtype,
             grossWt, netWeight, truckNo, noOfBags,VendorNam: VendorName, weight, invoice, invoicedate,date,totalBill:billamt })
             .then((res) => {
                 console.log(res)
@@ -127,8 +127,8 @@ const AgarbatiModify = (props: AlmondPrimaryModifyProps) => {
         setalmondtype(props.data.type)
         setinvoice(props.data.invoice)
         setinvoicedate(props.data.invoicedate.slice(0,10))
-        setalmondgrade(props.data.grade)
-        setNoOfBags(props.data.noOfBags)
+
+        setNoOfBags(props.data.quantity)
     setweight(props.data.totalWt)
 
         setNetWeight(props.data.netWeight)
@@ -142,7 +142,7 @@ const AgarbatiModify = (props: AlmondPrimaryModifyProps) => {
 
     }, [])
     useEffect(() => {
-        axios.put('/api/vendorSKU/getItembySection/Agarbati Type',{section:'Agarbati'})
+        axios.put('/api/vendorSKU/getItembySection/Item Type',{section:'OilMill'})
             .then(res => {
                 //console.log(res.data)
                 setsku(res.data)
@@ -152,17 +152,7 @@ const AgarbatiModify = (props: AlmondPrimaryModifyProps) => {
                 console.log(err)
             })            
     }, [])
-    useEffect(() => {
-        axios.put('/api/vendorSKU/getItembySection/Agarbati Grade',{section:'Agarbati'})
-            .then(res => {
-                //console.log(res.data)
-                setGrade(res.data)
-                //console.log(sku)
-            })
-            .catch(err => {
-                console.log(err)
-            })            
-    }, [])
+  
   
     const handleVendoridClick = (item: VendorData) => {
         setVendorName(item.vendorName)
@@ -184,7 +174,7 @@ const AgarbatiModify = (props: AlmondPrimaryModifyProps) => {
         }else{
             vendortype='Party'
         }
-        axios.post(`/api/vendorSKU/vendornamefind/Agarbati/`, { vendorName: e.target.value,type:vendortype  })
+        axios.post(`/api/vendorSKU/vendornamefind/OilMill/`, { vendorName: e.target.value,type:vendortype  })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -220,7 +210,7 @@ const AgarbatiModify = (props: AlmondPrimaryModifyProps) => {
                     <Input className="w-2/4 text-center bg-yellow-100" placeholder="Net Weight" type="number" value={netWeight} readOnly />
                 </div> */}
 
-                <div className="flex"><Label className="w-2/4 mt-2">Agarbati Type</Label>
+                <div className="flex"><Label className="w-2/4 mt-2">Item Type</Label>
                     <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
@@ -239,24 +229,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                     </select>
                     {/* <Input   placeholder="Origin"/>  */}</div>
 
-          <div className="flex"><Label className="w-2/4 mt-2">Agarbati Grade</Label>
-                    <select className="text-center w-2/4 flex h-8 rounded-md border border-input bg-background 
-px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
-placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
-focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => setalmondgrade(e.target.value)}
-                        value={almondgrade} required>
-                        {/* <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
-    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Grade</option> */}
-                        {/* {GatePassSection.map((item: any,idx:number) => (
-        <option key={idx} value={item}>{item}</option>
-    ))} */}
-                        {grade ? (
-                            grade.map((item: findskutypeData) => (
-                                <option key={item.sku} value={item.sku}>{item.sku}</option>
-                            ))
-                        ) : null}
-                    </select>
-                    {/* <Input   placeholder="Origin"/>  */}</div>  
+        
                     <div className="flex"><Label className="w-2/4  pt-2">{gatetype==='IN'? 'Vendor': 'Party'} Name</Label>
                     <Input className="w-2/4 text-center" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} />    </div>
                     <ScrollArea className="max-h-28 w-2/4 overflow-scroll w-30 dropdown-content" style={{ display: vendorNameView}}>
@@ -302,7 +275,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
             <dialog id="rcneditscsDialog" className="dashboard-modal">
                 <button id="rcnscscloseDialog" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification of Agarbati Entry is Requested </p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification of OilMill Entry is Requested </p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
@@ -322,4 +295,4 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
 
 
 }
-export default AgarbatiModify
+export default OilMillModify

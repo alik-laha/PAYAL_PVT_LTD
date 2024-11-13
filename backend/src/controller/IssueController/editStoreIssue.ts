@@ -15,7 +15,7 @@ const editstoreIssue = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const createdBynew= req.cookies.user
-        const {  category, material,quantity,itemunit,unitprice,totPrice,section,sectionunit,user,damage,damageqty,damageunit,remarks,date } = req.body;
+        const {  category, material,quantity,itemunit,unitprice,totPrice,section,sectionunit,user,damage,damageqty,damageunit,remarks,date,subsection } = req.body;
         if (!id) return res.status(400).json({ message: "id is required" });
         // let vendortype:string
         // if(gateType==='IN'){
@@ -49,6 +49,7 @@ const editstoreIssue = async (req: Request, res: Response) => {
             unitPrice:unitprice,
             totalPrice:totPrice,
             section:section,
+            subsection:subsection,
             sectionunit:sectionunit,
             issueUser:user,
             damagereturn:damage,

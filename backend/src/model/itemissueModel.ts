@@ -49,7 +49,11 @@ const ItemIssue = sequelize.define('itemIssue', {
     },
     sectionunit: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
+    },
+    subsection: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
     issueUser:{
         type: DataTypes.STRING,

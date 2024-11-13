@@ -32,6 +32,7 @@ const CreateIssueEntire = async (req: Request, res: Response) => {
                     unitPrice:data.unitprice,
                     totalPrice:data.totalprice,
                     section:data.section,
+                    subsection:data.subsection,
                     sectionunit:data.sectionunit,
                     issueUser:data.User,
                     damagereturn:data.damagestatus,
