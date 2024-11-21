@@ -49,6 +49,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import { FaEye } from "react-icons/fa";
 // import { FcApprove, FcDisapprove } from "react-icons/fc"
 // import { MdOutlineDriveFolderUpload } from "react-icons/md";
 // import { LiaEdit } from "react-icons/lia";
@@ -62,6 +63,7 @@ import { PermissionRole, pendingCheckRoles, PackagingMeterialQc } from "@/type/t
 // import * as XLSX from 'xlsx';
 import { CiEdit } from "react-icons/ci"
 import PackagingMetirialQcEditForm from "./packageMeterialModify"
+import { LuDownload } from "react-icons/lu"
 
 
 const QCPackageMaterialTable = () => {
@@ -431,10 +433,12 @@ const QCPackageMaterialTable = () => {
                     <TableHead className="text-center" >Seal Condition</TableHead>
                     <TableHead className="text-center" >Labeling Condition</TableHead>
                     <TableHead className="text-center" >COA</TableHead>
+                    <TableHead className="text-center" >Download</TableHead>
                     <TableHead className="text-center" >FoodGrade Certificate</TableHead>
+                    <TableHead className="text-center" >Download</TableHead>
                     <TableHead className="text-center" >Remarks</TableHead>
-                    <TableHead className="text-center" >FoodGrade Report Download</TableHead>
-                    <TableHead className="text-center" >Coa Report Download</TableHead>
+                   
+                    
                     <TableHead className="text-center" >Damage Image</TableHead>
 
                     <TableHead className="text-center" >Report By</TableHead>
@@ -608,7 +612,7 @@ const QCPackageMaterialTable = () => {
                                         <TableCell className="text-center font-bold">{item.avgWeight}</TableCell>
                                         <TableCell className="text-center   ">{
                                             item.leakageTest === "Pass" ? (
-                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
+                                                <button className="bg-orange-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
                                             ) : (
                                                 item.leakageTest === "Fail" ? (
                                                     <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
@@ -636,29 +640,37 @@ const QCPackageMaterialTable = () => {
                                                 <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.labelingCondition}</button>
                                             ) : (null)
                                         )}</TableCell>
-                                        <TableCell className="text-center">{item.coa === "Yes" ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.coa}</button>
-                                        ) : (
-                                            item.coa === "" ? (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button>
-                                            ) : (null)
-                                        )}</TableCell>
-                                        <TableCell className="text-center">{item.foodGradeCirtiicate === "Yes" ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.foodGradeCirtiicate}</button>
-                                        ) : (
-                                            item.foodGradeCirtiicate === "" ? (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button>
-                                            ) : (null)
-                                        )}</TableCell>
-                                        <TableCell className="text-center">{item.remarks}</TableCell>
-                                        <TableCell className="text-center">
-                                            {item.foodGradeCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}>{item.foodGradeCirtificateStatus}</button> : item.foodGradeCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}
+                                        <TableCell className="text-center ">
+                                            { item.qualityStatus && (item.coa === "Yes" ? (
+                                            <Input type="checkbox" className="h-5" checked/>
+                                        ) : <Input type="checkbox" className="h-5" checked={false}/>)}
+                                        
+                                     
                                         </TableCell>
-                                        <TableCell className="text-center">{item.coaCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => handleDownload(item.coaCirtificateFile)}>{item.coaCirtificateStatus}</button> : item.coaCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}</TableCell>
+                                        <TableCell>
+                                        {item.coaCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4' style={{ background: 'orange', color: 'white', float: 'right' }} 
+                                         onClick={() => handleDownload(item.coaCirtificateFile)}><LuDownload size={18} /></button> : 
+                                       null}
+                                        </TableCell>
+
+
+                                        <TableCell className="text-center ">{ item.qualityStatus && (item.foodGradeCirtiicate === "Yes" ? (
+                                       <Input type="checkbox" className="h-5" checked/> ) : <Input type="checkbox" className="h-5" checked={false}/>)
+                                        }
+                                        </TableCell>
+                                       
+                                        <TableCell>
+                                        {item.foodGradeCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4' 
+                                        style={{ background: 'orange', color: 'white', float: 'right' }} 
+                                        onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}><LuDownload size={18} /></button>
+                                             : null}
+                                        </TableCell>
+                                        <TableCell className="text-center">{item.remarks}</TableCell>
+                                        
                                         <TableCell className="text-center">
                                             {
                                                (item.damageFile && item.damageFile.length > 3) ? (
-                                                    <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => viewImage(JSON.parse(item.damageFile))}>View</button>
+                                                    <button onClick={() => viewImage(JSON.parse(item.damageFile))}><FaEye size={20}/></button>
                                                 ) : (
                                                    ''
                                                 )

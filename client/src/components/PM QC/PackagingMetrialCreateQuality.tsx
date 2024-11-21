@@ -2,7 +2,7 @@ import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 
 import { Button } from "../ui/button"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import axios from "axios"
@@ -22,10 +22,13 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
     const [coa, setCoa] = useState('')
     const [foodGradeCirtiicate, setFoodGradeCirtiicate] = useState('')
     const [remarks, setRemarks] = useState('')
+    const [coaview, setCOAview] = useState('none')
+    const [foodview, setFoodView] = useState('none')
     const [foodGradeCirtiFicateFile, setFoodGradeCirtiFicateFile] = useState<any>()
     const [damagePartsImage, setDamagePartsImage] = useState<any>()
     const [coaCirtificateFile, setCoaCirtificateFile] = useState<any>()
     const dateRef = useRef<HTMLInputElement>(null)
+    const [ischecked, setischecked] = useState<boolean>(false)
 
     const successdialog = document.getElementById('packageMetrialQc') as HTMLInputElement;
     const errordialog = document.getElementById('packagingMetirialQcError') as HTMLInputElement;
@@ -112,6 +115,24 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
             setDamagePartsImage(e.target.files)
         }
     }
+    const handlecheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setischecked(e.target.checked)
+    }
+    useEffect(() => {  
+       if(coa==='Yes'){
+        setCOAview('block')
+       }
+       else{
+        setCOAview('none')
+       }
+       if(foodGradeCirtiicate==='Yes'){
+        setFoodView('block')
+       }
+       else{
+        setFoodView('none')
+       }
+        
+    }, [coa,foodGradeCirtiicate]);
 
     return (
         <>
@@ -270,6 +291,12 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                                 Yes
                             </option>
                         </select></div>
+
+                        <div className="flex  py-4" style={{display:coaview}}>
+                       
+                        <input type="file" className='w-2/4 text-center text-sm float-right' accept="application/pdf,.xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple onChange={handleCoaFileChamge} />
+                    </div>
+
                     <div className="flex"><Label className="w-2/4  pt-2">Food Grade Certificate</Label>
                         <select className=' flex text-center h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
@@ -289,23 +316,27 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                             </option>
                         </select></div>
 
+
+                        <div className="flex py-4 " style={{display:foodview}}>
+                        {/* <Label className="w-2/4 pt-2 ">Upload FoodGrade Certificate</Label> */}
+                        <input type="file" className='w-2/4 text-center text-sm float-right' accept="application/pdf,.xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onChange={handleFoodGradeUpload} />
+                    </div>
+
                         <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
                         <Textarea className="w-2/4 " placeholder="Remarks" required value={remarks} onChange={(e) => setRemarks(e.target.value)} /> </div>    
-                    <div className="flex pt-4">
-                        <Label className="w-2/4 pt-2 ">Upload FoodGrade Certificate</Label>
-                        <input type="file" className='w-2/4 text-center text-sm' accept="application/pdf,.xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onChange={handleFoodGradeUpload} />
-                    </div>
-                    <div className="flex  pt-1">
-                        <Label className="w-2/4 pt-2 ">Upload COA</Label>
-                        <input type="file" className='w-2/4 text-center text-sm' accept="application/pdf,.xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple onChange={handleCoaFileChamge} />
-                    </div>
+                   
+                   
                     
              
                    
 
                     <div className="flex pt-1">
-                        <Label className="w-2/4 pt-2 ">Upload Damage Image</Label>
-                        <input type="file" className='w-2/4 text-center text-sm' accept="image/png, image/jpeg, image/jpg" multiple onChange={handleDamagePartsImage} />
+                        <Label className="w-2/4 pt-2 ">Damage Part</Label>
+                        <div className="flex flex-column">
+                        <input type="checkbox" checked={ischecked} onChange={handlecheckbox} />
+                        {ischecked && <input type="file" className='w-2/4 text-center text-sm' accept="image/png, image/jpeg, image/jpg" multiple onChange={handleDamagePartsImage} />}
+                        </div>
+                       
                     </div>
 
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
@@ -317,7 +348,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
             <dialog id="packageMetrialQc" className="dashboard-modal">
                 <button id="packageMetrialQccross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Packaging Material is Received Successfully</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">Quality Report is Uploaded Successfully</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
@@ -325,7 +356,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
             <dialog id="packagingMetirialQcError" className="dashboard-modal">
                 <button id="packagigQcerrorcross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Error In Receiving Packaging Material</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Error In Uploading Quality Report</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
