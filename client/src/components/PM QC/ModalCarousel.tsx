@@ -1,4 +1,4 @@
-import { Key, useEffect, useState } from "react";
+import { Key, useState } from "react";
 
 const Carousel = (props: { slides: any[]; }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
