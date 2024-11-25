@@ -339,13 +339,14 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                         </select></div>
 
 
-                        <div className="flex py-4 " style={{display:foodview}}>
+                    <div className="flex py-4 " style={{display:foodview}}>
                         {/* <Label className="w-2/4 pt-2 ">Upload FoodGrade Certificate</Label> */}
                         <input type="file" className='w-2/4 text-center text-sm float-right' accept="application/pdf,.xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onChange={handleFoodGradeUpload} />
                     </div>
 
                         <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
-                        <Textarea className="w-2/4 " placeholder="Remarks" required value={remarks} onChange={(e) => setRemarks(e.target.value)} /> </div>    
+                        <Textarea className="w-2/4 " placeholder="Remarks" required value={remarks} onChange={(e) => setRemarks(e.target.value)} /> 
+                        </div>    
                    
                    
                     

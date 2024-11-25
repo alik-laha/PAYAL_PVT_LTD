@@ -47,7 +47,12 @@ const ViewQcPackageMaterial = async (req: Request, res: Response) => {
                     order: [['testingDate', 'DESC']], // Order by date descending
                     include: [{
                         model: recevingPackageMaterial,
-                        required: true
+                        required: true,
+                        where: {
+                            editStatus: {
+                                [Op.notLike]: 'Pending'
+                            }
+                        }
                     }]
 
                 });
@@ -64,6 +69,9 @@ const ViewQcPackageMaterial = async (req: Request, res: Response) => {
                         where: {
                             qualityStatus: {
                                 [Op.like]: false
+                            },
+                            editStatus: {
+                                [Op.notLike]: 'Pending'
                             }
                         }
                     }]

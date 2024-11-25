@@ -64,6 +64,8 @@ import { PermissionRole, pendingCheckRoles, PackagingMeterialQc } from "@/type/t
 import { CiEdit } from "react-icons/ci"
 import PackagingMetirialQcEditForm from "./packageMeterialModify"
 import { LuDownload } from "react-icons/lu"
+import ModalCarousel from "./ModalCarousel"
+import Carousel from "./ModalCarousel"
 
 
 const QCPackageMaterialTable = () => {
@@ -90,6 +92,7 @@ const QCPackageMaterialTable = () => {
     const imageCross = document.getElementById('ImageCross') as HTMLInputElement;
     //const [transformedData, setTransformedData] = useState<QcRcnEntryExcelData[]>([]);
     const Role = localStorage.getItem('role') as keyof PermissionRole
+    // const [isModalOpen, setModalOpen] = useState(false);
     // const currDate = new Date().toLocaleDateString();
 
     // const exportToExcel = async () => {
@@ -363,6 +366,7 @@ const QCPackageMaterialTable = () => {
         if (imageView != null) {
             (imageView as any).showModal();
         }
+        // setModalOpen(true)
     }
 
     function formatNumber(num: string) {
@@ -409,7 +413,8 @@ const QCPackageMaterialTable = () => {
 
                     <TableHead className="text-center" >Id</TableHead>
                     <TableHead className="text-center" >GatePass_No</TableHead>
-                    <TableHead className="text-center" >Receving_Date</TableHead>
+                    <TableHead className="text-center" >Receiving_Date</TableHead>
+                    <TableHead className="text-center" >QC Status</TableHead>
                     <TableHead className="text-center" >Invoice_No</TableHead>
                     <TableHead className="text-center" >Invoice_Date </TableHead>
 
@@ -419,15 +424,6 @@ const QCPackageMaterialTable = () => {
                     <TableHead className="text-center" >Quantity</TableHead>
                     <TableHead className="text-center" >Unit</TableHead>
                     <TableHead className="text-center" >Vendor_Name</TableHead>
-                    <TableHead className="text-center" >QC Status</TableHead>
-                 
-
-                    <TableHead className="text-center" >Testing_Date</TableHead>
-                    <TableHead className="text-center" >Length</TableHead>
-                    <TableHead className="text-center" >Width</TableHead>
-                    <TableHead className="text-center" >Height</TableHead>
-                    <TableHead className="text-center" >Gsm</TableHead>
-                    <TableHead className="text-center" >Avg_Weight</TableHead>
                     <TableHead className="text-center" >Leakage Test</TableHead>
                     <TableHead className="text-center" >Drop Test</TableHead>
                     <TableHead className="text-center" >Seal Condition</TableHead>
@@ -436,6 +432,15 @@ const QCPackageMaterialTable = () => {
                     <TableHead className="text-center" >Download</TableHead>
                     <TableHead className="text-center" >FoodGrade Certificate</TableHead>
                     <TableHead className="text-center" >Download</TableHead>
+                 
+
+                    <TableHead className="text-center" >Testing_Date</TableHead>
+                    <TableHead className="text-center" >Length(mm)</TableHead>
+                    <TableHead className="text-center" >Width(mm)</TableHead>
+                    <TableHead className="text-center" >Height(mm)</TableHead>
+                    <TableHead className="text-center" >Gsm</TableHead>
+                    <TableHead className="text-center" >Avg_Weight()gm</TableHead>
+                
                     <TableHead className="text-center" >Remarks</TableHead>
                    
                     
@@ -453,88 +458,103 @@ const QCPackageMaterialTable = () => {
                         (pendingData.map((item: PackagingMeterialQc, idx: number) => {
                             return (
                                 <TableRow key={item.id}>
-                                    <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                    <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
-                                    <TableCell className="text-center">{handletimezone(item.packagingMaterialreceving.invoicedate)}</TableCell>
-
-                                    <TableCell className="text-center">{item.packagingMaterialreceving.invoice}</TableCell>
-                                    <TableCell className="text-center">{item.packagingMaterialreceving.sku}</TableCell>
-                                    <TableCell className="text-center">{item.packagingMaterialreceving.vendorName}</TableCell>
-                                    <TableCell className="text-center">{item.packagingMaterialreceving.quantity}</TableCell>
-                                    <TableCell className="text-center">{item.packagingMaterialreceving.unit}</TableCell>
-                                    <TableCell className="text-center">
-                                        {item.packagingMaterialreceving.qualityStatus ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">Done</button>
-                                        ) : (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">Pending</button>
-                                        )}
-                                    </TableCell>
-                                    <TableCell className="text-center">{item.packagingMaterialreceving.createdBy}</TableCell>
-                                    <TableCell className="text-center font-bold">{handletimezone(item.testingDate)}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.length}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.width}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.height}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.gsm}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.avgWeight}</TableCell>
-                                    <TableCell className="text-center font-bold">{
-                                        item.leakageTest === "Pass" ? (
-                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
-                                        ) : (
-                                            item.leakageTest === "Fail" ? (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
-                                            ) : (null)
-                                        )
-                                    }</TableCell>
-                                    <TableCell className="text-center font-bold">{item.dropTest === "Pass" ? (
-                                        <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.dropTest}</button>
-                                    ) : (
-                                        item.dropTest === "Fail" ? (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.dropTest}</button>
-                                        ) : (null)
-                                    )}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{item.sealCondition === "OK" ? (
-                                        <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.sealCondition}</button>
-                                    ) : (
-                                        item.sealCondition === "Not OK" ? (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.sealCondition}</button>
-                                        ) : (null)
-                                    )}</TableCell>
-                                    <TableCell className="text-center">{item.labelingCondition === "OK" ? (
-                                        <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.labelingCondition}</button>
-                                    ) : (
-                                        item.labelingCondition === "Not OK" ? (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.labelingCondition}</button>
-                                        ) : (null)
-                                    )}</TableCell>
-                                    <TableCell className="text-center">{item.coa === "Yes" ? (
-                                        <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.coa}</button>
-                                    ) : (
-                                        item.coa === "" ? (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button>
-                                        ) : (null)
-                                    )}</TableCell>
-                                    <TableCell className="text-center">{item.foodGradeCirtiicate === "Yes" ? (
-                                        <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.foodGradeCirtiicate}</button>
-                                    ) : (
-                                        item.foodGradeCirtiicate === "" ? (
-                                            <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button>
-                                        ) : (null)
-                                    )}</TableCell>
-                                    <TableCell className="text-center">{item.remarks}</TableCell>
-                                    <TableCell className="text-center">
-                                        {item.foodGradeCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}>{item.foodGradeCirtificateStatus}</button> : item.foodGradeCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}
-                                    </TableCell>
-                                    <TableCell className="text-center">{item.coaCirtificateStatus === "Uploaded" ? <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => handleDownload(item.coaCirtificateFile)}>{item.coaCirtificateStatus}</button> : item.coaCirtificateStatus === "NA" ? <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button> : null}</TableCell>
-                                    <TableCell className="text-center">
-                                        {
-                                            JSON.parse(item.damageFile).length > 0 ? (
-                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary" onClick={() => viewImage(JSON.parse(item.damageFile))}>View</button>
+                                    <TableCell className="text-center">{idx + 1}</TableCell>
+                                    <TableCell className="text-center font-semibold ">{item.packagingMaterialreceving.gatePassNo}</TableCell>
+                                        <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
+                                        <TableCell className="text-center">
+                                            {item.packagingMaterialreceving.qualityStatus ? (
+                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">Done</button>
                                             ) : (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">NA</button>
-                                            )
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">Pending</button>
+                                            )}
+                                        </TableCell>
+                                        <TableCell className="text-center">{item.packagingMaterialreceving.invoice}</TableCell>
+                                        <TableCell className="text-center">{handletimezone(item.packagingMaterialreceving.invoicedate)}</TableCell>
 
+                                        
+                                        <TableCell className="text-center">{item.packagingMaterialreceving.sku}</TableCell>
+                                        
+                                        <TableCell className="text-center">{formatNumber(item.packagingMaterialreceving.quantity)}</TableCell>
+                                        
+                                        <TableCell className="text-center">{item.packagingMaterialreceving.unit}</TableCell>
+                                        <TableCell className="text-center">{item.packagingMaterialreceving.vendorName}</TableCell>
+                                        
+                          
+                                       
+                                        <TableCell className="text-center   ">{
+                                            item.leakageTest === "Pass" ? (
+                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
+                                            ) : (
+                                                item.leakageTest === "Fail" ? (
+                                                    <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
+                                                ) : 'NA'
+                                            )
+                                        }</TableCell>
+                                        <TableCell className="text-center ">{item.dropTest === "Pass" ? (
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.dropTest}</button>
+                                        ) : (
+                                            item.dropTest === "Fail" ? (
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.dropTest}</button>
+                                            ) : 'NA'
+                                        )}</TableCell>
+                                        <TableCell className="text-center ">{item.sealCondition === "OK" ? (
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.sealCondition}</button>
+                                        ) : (
+                                            item.sealCondition === "Not OK" ? (
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.sealCondition}</button>
+                                            ) : 'NA'
+                                        )}</TableCell>
+                                        <TableCell className="text-center">{item.labelingCondition === "OK" ? (
+                                            <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.labelingCondition}</button>
+                                        ) : (
+                                            item.labelingCondition === "Not OK" ? (
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.labelingCondition}</button>
+                                            ) : 'NA'
+                                        )}</TableCell>
+                                        <TableCell className="text-center ">
+                                            { item.qualityStatus && (item.coa === "Yes" ? (
+                                            <Input type="checkbox" className="h-4" checked/>
+                                        ) : <Input type="checkbox" className="h-4" checked={false}/>)}
+                                        
+                                     
+                                        </TableCell>
+                                        <TableCell className="text-center ">
+                                        {item.coaCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-6 px-1 text-white rounded  w-6 text-sm ' 
+                                        style={{ background: 'orange', color: 'white' }} 
+                                         onClick={() => handleDownload(item.coaCirtificateFile)}><LuDownload size={15} /></button> : 
+                                       null}
+                                        </TableCell>
+
+
+                                        <TableCell className="text-center ">{ item.qualityStatus && (item.foodGradeCirtiicate === "Yes" ? (
+                                       <Input type="checkbox" className="h-4" checked/> ) : <Input type="checkbox" className="h-4" checked={false}/>)
                                         }
-                                    </TableCell>
+                                        </TableCell>
+                                       
+                                        <TableCell className="text-center ">
+                                        {item.foodGradeCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-6 px-1 text-white rounded  w-6 text-sm ' 
+                                        style={{ background: 'orange', color: 'white' }} 
+                                        onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}><LuDownload size={15} /></button>
+                                             : null}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold">{item.testingDate ? handletimezone(item.testingDate):''}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.length}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.width}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.height}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.gsm}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.avgWeight}</TableCell>
+                                        <TableCell className="text-center">{item.remarks}</TableCell>
+                                        
+                                        <TableCell className="text-center">
+                                            {
+                                               (item.damageFile && item.damageFile.length > 3) ? (
+                                                    <button onClick={() => viewImage(JSON.parse(item.damageFile))}><FaEye size={20}/></button>
+                                                ) : (
+                                                   ''
+                                                )
+
+                                            }
+                                        </TableCell>
                                     <TableCell className="text-center">{item.createdBy}</TableCell>
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
                                     <TableCell className="text-center">
@@ -586,6 +606,13 @@ const QCPackageMaterialTable = () => {
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold ">{item.packagingMaterialreceving.gatePassNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.packagingMaterialreceving.recevingDate)}</TableCell>
+                                        <TableCell className="text-center">
+                                            {item.packagingMaterialreceving.qualityStatus ? (
+                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">Done</button>
+                                            ) : (
+                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">Pending</button>
+                                            )}
+                                        </TableCell>
                                         <TableCell className="text-center">{item.packagingMaterialreceving.invoice}</TableCell>
                                         <TableCell className="text-center">{handletimezone(item.packagingMaterialreceving.invoicedate)}</TableCell>
 
@@ -596,27 +623,16 @@ const QCPackageMaterialTable = () => {
                                         
                                         <TableCell className="text-center">{item.packagingMaterialreceving.unit}</TableCell>
                                         <TableCell className="text-center">{item.packagingMaterialreceving.vendorName}</TableCell>
-                                        <TableCell className="text-center">
-                                            {item.packagingMaterialreceving.qualityStatus ? (
-                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">Done</button>
-                                            ) : (
-                                                <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">Pending</button>
-                                            )}
-                                        </TableCell>
+                                        
                           
-                                        <TableCell className="text-center font-bold">{item.testingDate ? handletimezone(item.testingDate):''}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.length}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.width}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.height}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.gsm}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.avgWeight}</TableCell>
+                                       
                                         <TableCell className="text-center   ">{
                                             item.leakageTest === "Pass" ? (
-                                                <button className="bg-orange-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
+                                                <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
                                             ) : (
                                                 item.leakageTest === "Fail" ? (
                                                     <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.leakageTest}</button>
-                                                ) : (null)
+                                                ) : 'NA'
                                             )
                                         }</TableCell>
                                         <TableCell className="text-center ">{item.dropTest === "Pass" ? (
@@ -624,47 +640,54 @@ const QCPackageMaterialTable = () => {
                                         ) : (
                                             item.dropTest === "Fail" ? (
                                                 <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.dropTest}</button>
-                                            ) : (null)
+                                            ) : 'NA'
                                         )}</TableCell>
-                                        <TableCell className="text-center  text-red-500">{item.sealCondition === "OK" ? (
+                                        <TableCell className="text-center ">{item.sealCondition === "OK" ? (
                                             <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.sealCondition}</button>
                                         ) : (
                                             item.sealCondition === "Not OK" ? (
                                                 <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.sealCondition}</button>
-                                            ) : (null)
+                                            ) : 'NA'
                                         )}</TableCell>
                                         <TableCell className="text-center">{item.labelingCondition === "OK" ? (
                                             <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.labelingCondition}</button>
                                         ) : (
                                             item.labelingCondition === "Not OK" ? (
                                                 <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.labelingCondition}</button>
-                                            ) : (null)
+                                            ) : 'NA'
                                         )}</TableCell>
                                         <TableCell className="text-center ">
                                             { item.qualityStatus && (item.coa === "Yes" ? (
-                                            <Input type="checkbox" className="h-5" checked/>
-                                        ) : <Input type="checkbox" className="h-5" checked={false}/>)}
+                                            <Input type="checkbox" className="h-4" checked/>
+                                        ) : <Input type="checkbox" className="h-4" checked={false}/>)}
                                         
                                      
                                         </TableCell>
-                                        <TableCell>
-                                        {item.coaCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4' style={{ background: 'orange', color: 'white', float: 'right' }} 
-                                         onClick={() => handleDownload(item.coaCirtificateFile)}><LuDownload size={18} /></button> : 
+                                        <TableCell className="text-center ">
+                                        {item.coaCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-6 px-1 text-white rounded  w-6 text-sm ' 
+                                        style={{ background: 'orange', color: 'white' }} 
+                                         onClick={() => handleDownload(item.coaCirtificateFile)}><LuDownload size={15} /></button> : 
                                        null}
                                         </TableCell>
 
 
                                         <TableCell className="text-center ">{ item.qualityStatus && (item.foodGradeCirtiicate === "Yes" ? (
-                                       <Input type="checkbox" className="h-5" checked/> ) : <Input type="checkbox" className="h-5" checked={false}/>)
+                                       <Input type="checkbox" className="h-4" checked/> ) : <Input type="checkbox" className="h-4" checked={false}/>)
                                         }
                                         </TableCell>
                                        
-                                        <TableCell>
-                                        {item.foodGradeCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-8 p-2 text-white rounded  w-30 text-sm  mx-4' 
-                                        style={{ background: 'orange', color: 'white', float: 'right' }} 
-                                        onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}><LuDownload size={18} /></button>
+                                        <TableCell className="text-center ">
+                                        {item.foodGradeCirtificateStatus === "Uploaded" ? <button className='bg-green-700 h-6 px-1 text-white rounded  w-6 text-sm ' 
+                                        style={{ background: 'orange', color: 'white' }} 
+                                        onClick={() => handleDownload(item.foodGradeCirtiFicateFile)}><LuDownload size={15} /></button>
                                              : null}
                                         </TableCell>
+                                        <TableCell className="text-center font-semibold">{item.testingDate ? handletimezone(item.testingDate):''}</TableCell>
+                                        <TableCell className="text-center ">{item.length}</TableCell>
+                                        <TableCell className="text-center ">{item.width}</TableCell>
+                                        <TableCell className="text-center ">{item.height}</TableCell>
+                                        <TableCell className="text-center ">{item.gsm}</TableCell>
+                                        <TableCell className="text-center ">{item.avgWeight}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         
                                         <TableCell className="text-center">
@@ -808,15 +831,25 @@ const QCPackageMaterialTable = () => {
             <dialog id="ImageView" className="dashboard-modal">
                 <button id="ImageCross" className="dashboard-modal-close-btn ">X </button>
                 <div className="flex flex-wrap">
-                    {images.map((item, idx) => {
+
+                    <div className="gallery-main text-1xl">
+                        <Carousel slides={images} />
+                    </div>
+                    {/* {images.map((item, idx) => {
                         return (
                             <img key={idx} src={`/api/cleaning/view?filename=${item}`} alt="image" className="w-2/4 h-2/4 p-2" />
                         )
-                    })}
+                    })} */}
                 </div>
+
+
+
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
+         
+
+
         </div>
     )
 
