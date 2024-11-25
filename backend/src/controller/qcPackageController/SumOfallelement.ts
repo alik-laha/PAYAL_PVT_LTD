@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
 import QualityPackageMaterial from "../../model/qualityPacjkageMaterial";
+import { Op } from "sequelize";
 
 const SumOfallelement = async (req: Request, res: Response) => {
     try {
@@ -11,7 +12,10 @@ const SumOfallelement = async (req: Request, res: Response) => {
         })
         const QCnotEntered = await PackagingMaterial.count({
             where: {
-                qualityStatus: false
+                qualityStatus: false,
+                editStatus: {
+                    [Op.notLike]: 'Pending'
+                }
             }
         })
         return res.status(200).json({ editCount: editDataCount, QualityNotEntered: QCnotEntered })

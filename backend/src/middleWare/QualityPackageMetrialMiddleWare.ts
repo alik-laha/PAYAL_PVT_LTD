@@ -16,14 +16,14 @@ const QualityPackageMetrialMiddleWare = (req: Request, res: Response, next: Next
         });
 
         const upload = multer({ storage }).fields([
-            { name: 'foodGradeCirtiFicateFile', maxCount: 1 },
-            { name: 'coaCirtificateFile', maxCount: 1 },
+            { name: 'foodGradeCertificate', maxCount: 1 },
+            { name: 'coaCertificate', maxCount: 1 },
             { name: 'damagePartsImage', maxCount: 10 }
         ]);
 
         upload(req, res, (err) => {
             if (err) {
-                return res.status(500).json({ msg: 'Error uploading file', error: err });
+                return res.status(500).json({ Message: 'Error uploading file', error: err });
             }
             next();
         });

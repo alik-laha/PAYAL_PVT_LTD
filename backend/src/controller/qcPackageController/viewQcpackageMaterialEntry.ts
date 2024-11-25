@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Op } from "sequelize";
 import recevingPackageMaterial from "../../model/recevingPackagingMaterialModel"
 import QualityPackageMaterial from "../../model/qualityPacjkageMaterial";
+import QualityEditPackageMaterial from "../../model/editQualityPackageMaterial";
 
 
 const ViewQcPackageMaterial = async (req: Request, res: Response) => {
@@ -44,10 +45,15 @@ const ViewQcPackageMaterial = async (req: Request, res: Response) => {
             if (qualityStatus) {
                 rcnEntries = await QualityPackageMaterial.findAll({
                     where,
-                    order: [['testingDate', 'DESC']], // Order by date descending
+                    order: [['id', 'DESC']], // Order by date descending
                     include: [{
                         model: recevingPackageMaterial,
-                        required: true
+                        required: true,
+                        where: {
+                            editStatus: {
+                                [Op.notLike]: 'Pending'
+                            }
+                        }
                     }]
 
                 });
@@ -57,13 +63,16 @@ const ViewQcPackageMaterial = async (req: Request, res: Response) => {
 
             else {
                 rcnEntries = await QualityPackageMaterial.findAll({
-                    order: [['testingDate', 'DESC']], // Order by date descending
+                    order: [['id', 'DESC']], // Order by date descending
                     include: [{
                         model: recevingPackageMaterial,
                         required: true,
                         where: {
                             qualityStatus: {
                                 [Op.like]: false
+                            },
+                            editStatus: {
+                                [Op.notLike]: 'Pending'
                             }
                         }
                     }]
@@ -82,7 +91,7 @@ const ViewQcPackageMaterial = async (req: Request, res: Response) => {
         // }
         else {
             rcnEntries = await QualityPackageMaterial.findAll({
-                order: [['testingDate', 'DESC']], // Order by date descending
+                order: [['id', 'DESC']], // Order by date descending
                 limit: limit,
                 offset: offset,
                 include: [{
@@ -94,7 +103,7 @@ const ViewQcPackageMaterial = async (req: Request, res: Response) => {
 
 
         }
-        const CountPendingEdit = await QualityPackageMaterial.count();
+        const CountPendingEdit = await QualityEditPackageMaterial.count();
 
         return res.status(200).json({ msg: 'Rcn Entry found', rcnEntries, CountPendingEdit })
 

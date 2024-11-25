@@ -2,7 +2,7 @@ import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 
 import { Button } from "../ui/button"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import axios from "axios"
@@ -22,10 +22,15 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
     const [coa, setCoa] = useState('')
     const [foodGradeCirtiicate, setFoodGradeCirtiicate] = useState('')
     const [remarks, setRemarks] = useState('')
+    const [coaview, setCOAview] = useState('none')
+    const [foodview, setFoodView] = useState('none')
+ 
     const [foodGradeCirtiFicateFile, setFoodGradeCirtiFicateFile] = useState<any>()
     const [damagePartsImage, setDamagePartsImage] = useState<any>()
     const [coaCirtificateFile, setCoaCirtificateFile] = useState<any>()
     const dateRef = useRef<HTMLInputElement>(null)
+    const [ischecked, setischecked] = useState<boolean>(false)
+    const [errortext, setErrortext] = useState('')
 
     const successdialog = document.getElementById('packageMetrialQc') as HTMLInputElement;
     const errordialog = document.getElementById('packagingMetirialQcError') as HTMLInputElement;
@@ -53,6 +58,20 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
     }
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        if (foodGradeCirtiicate==='Yes' && !foodGradeCirtiFicateFile) {
+            setErrortext('Please Upload Food Grade Certificate')
+            if (errordialog != null) {
+                (errordialog as any).showModal();
+            }
+            return
+        }
+        if (coa==='Yes' && !coaCirtificateFile) {
+            setErrortext('Please Upload COA')
+            if (errordialog != null) {
+                (errordialog as any).showModal();
+            }
+            return
+        }
         const testingDate = dateRef.current?.value
         const formData = new FormData()
         formData.append('length', length.toString())
@@ -67,8 +86,8 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
         formData.append('coa', coa)
         formData.append('foodGradeCirtiicate', foodGradeCirtiicate)
         formData.append('remarks', remarks)
-        formData.append('foodGradeCirtiFicateFile', foodGradeCirtiFicateFile)
-        formData.append('coaCirtificateFile', coaCirtificateFile)
+        formData.append('foodGradeCertificate', foodGradeCirtiFicateFile)
+        formData.append('coaCertificate', coaCirtificateFile)
         formData.append('testingDate', testingDate as string)
         if (damagePartsImage) {
             for (let i = 0; i < damagePartsImage.length; i++) {
@@ -84,13 +103,16 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                     }
                 }
                 else {
+                    setErrortext('Error In Uploading PM Quality Report')
                     if (errordialog != null) {
+                        
                         (errordialog as any).showModal();
                     }
                 }
             })
             .catch((err) => {
                 console.log(err)
+                setErrortext('Error In Uploading PM Quality Report')
                 if (errordialog != null) {
                     (errordialog as any).showModal();
                 }
@@ -112,6 +134,25 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
             setDamagePartsImage(e.target.files)
         }
     }
+    const handlecheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+      
+        setischecked(e.target.checked)
+    }
+    useEffect(() => {  
+       if(coa==='Yes'){
+        setCOAview('block')
+       }
+       else{
+        setCOAview('none')
+       }
+       if(foodGradeCirtiicate==='Yes'){
+        setFoodView('block')
+       }
+       else{
+        setFoodView('none')
+       }
+        
+    }, [coa,foodGradeCirtiicate]);
 
     return (
         <>
@@ -121,18 +162,19 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                     <div className="flex mt-2"><Label className="w-2/4  pt-2">Testing Date</Label>
                         <Input className="w-2/4 justify-center" placeholder="Testing Date" required ref={dateRef} type="date" />
                     </div>
+                    
                     <div className="flex">
-                    <Label className="w-2/4  pt-2">Width</Label>
+                       
+                        <Label className="w-2/4  pt-2">Length (mm)</Label>
+                        <Input className="w-2/4 justify-center text-center" placeholder="Length" required type="number" step="0.01" value={length} onChange={(e) => setLength(parseFloat(e.target.value))} />
+                    </div>
+                    <div className="flex">
+                    <Label className="w-2/4  pt-2">Width (mm)</Label>
                     <Input className="w-2/4 text-center" placeholder="Width" required value={width} type="number"  onChange={(e) => setWidth(parseFloat(e.target.value))} />
                     </div>
                     <div className="flex">
                        
-                        <Label className="w-2/4  pt-2">Length</Label>
-                        <Input className="w-2/4 justify-center text-center" placeholder="Length" required type="number" step="0.01" value={length} onChange={(e) => setLength(parseFloat(e.target.value))} />
-                    </div>
-                    <div className="flex">
-                       
-                    <Label className="w-2/4  pt-2">Height</Label>
+                    <Label className="w-2/4  pt-2">Height (mm)</Label>
                     <Input className="w-2/4 text-center" placeholder="Height" required value={height} type="number" step="0.01" onChange={(e) => setHeight(parseFloat(e.target.value))}  />
                    </div>
 
@@ -142,7 +184,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                         <Input className="w-2/4 text-center" placeholder="GSM" required value={gsm} type="number" onChange={(e) => setGsm(parseFloat(e.target.value))} step="0.01" />
                     </div>
 
-                    <div className="flex"><Label className="w-2/4  pt-2">Avg Weight</Label>
+                    <div className="flex"><Label className="w-2/4  pt-2">Avg Weight (gm)</Label>
                         <Input className="w-2/4 text-center" placeholder="Avg Weight" required value={avgWeight} type="number" onChange={(e) => setAvgWeight(parseFloat(e.target.value))} step="0.01" /> </div>
 
                         <div className="flex">
@@ -199,6 +241,32 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                         </select>
                     </div>
                     <div className="flex">
+                       
+                       <Label className="w-2/4  pt-2">Seal Condition</Label>
+                       <select className=' flex h-8 w-2/4 text-center items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                   ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
+                   disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                           onChange={(e) => setSealCondition(e.target.value)} value={sealCondition} >
+
+                           <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                           py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                               value="">
+                               NA
+                           </option>
+                           <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                           py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                               value="OK">
+                               OK
+                           </option>
+                           <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                           py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                               value="Not OK">
+                               Not Ok
+                           </option>
+
+                       </select>
+                   </div>
+                    <div className="flex">
                         
                     <Label className="w-2/4  pt-2">Labeling Condition</Label>
                     <select className=' flex h-8 w-2/4 items-center text-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
@@ -226,32 +294,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                     </div>
 
 
-                    <div className="flex">
-                       
-                        <Label className="w-2/4  pt-2">Seal Condition</Label>
-                        <select className=' flex h-8 w-2/4 text-center items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
-                    disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                            onChange={(e) => setSealCondition(e.target.value)} value={sealCondition} >
-
-                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                                value="">
-                                NA
-                            </option>
-                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                                value="OK">
-                                OK
-                            </option>
-                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                                value="Not OK">
-                                Not Ok
-                            </option>
-
-                        </select>
-                    </div>
+                  
 
                     <div className="flex"><Label className="w-2/4  pt-2">Coa Report</Label>
                         <select className=' flex h-8 w-2/4 text-center items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
@@ -270,6 +313,12 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                                 Yes
                             </option>
                         </select></div>
+
+                    <div className="flex  py-4" style={{display:coaview}}>
+                       
+                        <input type="file" className='w-2/4 text-center text-sm float-right' accept="application/pdf,.xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple onChange={handleCoaFileChamge} />
+                    </div>
+
                     <div className="flex"><Label className="w-2/4  pt-2">Food Grade Certificate</Label>
                         <select className=' flex text-center h-8 w-2/4 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
@@ -289,23 +338,32 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                             </option>
                         </select></div>
 
+
+                    <div className="flex py-4 " style={{display:foodview}}>
+                        {/* <Label className="w-2/4 pt-2 ">Upload FoodGrade Certificate</Label> */}
+                        <input type="file" className='w-2/4 text-center text-sm float-right' accept="application/pdf,.xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onChange={handleFoodGradeUpload} />
+                    </div>
+
                         <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
-                        <Textarea className="w-2/4 " placeholder="Remarks" required value={remarks} onChange={(e) => setRemarks(e.target.value)} /> </div>    
-                    <div className="flex pt-4">
-                        <Label className="w-2/4 pt-2 ">Upload FoodGrade Certificate</Label>
-                        <input type="file" className='w-2/4 text-center text-sm' accept="application/pdf,.xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onChange={handleFoodGradeUpload} />
-                    </div>
-                    <div className="flex  pt-1">
-                        <Label className="w-2/4 pt-2 ">Upload COA</Label>
-                        <input type="file" className='w-2/4 text-center text-sm' accept="application/pdf,.xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple onChange={handleCoaFileChamge} />
-                    </div>
+                        <Textarea className="w-2/4 " placeholder="Remarks" required value={remarks} onChange={(e) => setRemarks(e.target.value)} /> 
+                        </div>    
+                   
+                   
                     
              
                    
 
                     <div className="flex pt-1">
-                        <Label className="w-2/4 pt-2 ">Upload Damage Image</Label>
-                        <input type="file" className='w-2/4 text-center text-sm' accept="image/png, image/jpeg, image/jpg" multiple onChange={handleDamagePartsImage} />
+                        <Label className="w-2/4 pt-2 ">Damage Part</Label>
+                        <div className="flex py-2">
+                        <input className="" type="checkbox" checked={ischecked} onChange={handlecheckbox} />
+                        
+                        </div>
+                       
+                    </div>
+                    <div className="block " >
+                        {/* <Label className="w-2/4 pt-2 ">Upload FoodGrade Certificate</Label> */}
+                        {ischecked && <input type="file" className='w-2/4 text-center text-sm float-right' accept="image/png, image/jpeg, image/jpg" multiple onChange={handleDamagePartsImage} />}
                     </div>
 
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
@@ -317,7 +375,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
             <dialog id="packageMetrialQc" className="dashboard-modal">
                 <button id="packageMetrialQccross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Packaging Material is Received Successfully</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">Quality Report is Uploaded Successfully</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
@@ -325,7 +383,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
             <dialog id="packagingMetirialQcError" className="dashboard-modal">
                 <button id="packagigQcerrorcross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Error In Receiving Packaging Material</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

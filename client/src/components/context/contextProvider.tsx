@@ -22,6 +22,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [editPendingBoilingData, setEditPendingBoilingData] = useState<BoilingEntryData[]>([])
     const [pendingqccount, setpendingqcCount] = useState<number>(0)
     const [pendingreportcount, setpendingreportCount] = useState<number>(0)
+
     const [recevingPackagematerialOverView, setRecevingPacakanMaterialOverView] = useState<SumofpackageMetrialReceving | null>(null)
     const [editScoopingLotWiseData, setEditScoopingLotWiseData] = useState<rcnScoopingData[]>([])
     const [editBormaLotWiseData, setEditBormaLotWiseData] = useState<any[]>([])

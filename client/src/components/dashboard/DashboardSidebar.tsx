@@ -11,7 +11,7 @@ import { PermissionRol, PermissionDep } from "../common/exportData";
 import { PermissionRole, PermissionDept } from "@/type/type";
 import {
     MdOutlineAdminPanelSettings, MdOutlineStorefront, MdGrading,
-    MdHolidayVillage, MdCallReceived, MdOutlineFactory,MdOutlineOilBarrel 
+    MdHolidayVillage, MdCallReceived, MdOutlineFactory,MdOutlineOilBarrel ,MdOutlineHighQuality 
 } from "react-icons/md";
 import { IoIosNavigate, IoMdSettings } from "react-icons/io";
 import { LuDonut, LuBadgeCheck } from "react-icons/lu";
@@ -211,33 +211,12 @@ const DashboardSidebar = () => {
 
 
 
-                           
-
-                          
-
-
-                              
-
-
-                           
-                            {/* 
-                        
-
-                           
-                                {renderlink('Receiving Agarbati Entry')
-                            && <CollapsibleContent className="Items-pvt">
-                                <NavLink to="/dashboard/recevingpackagingMaterial" >
-                                    AgarBati
-                                </NavLink>
-                                </CollapsibleContent>}
-
-
-                                {renderlink('Receiving Purchase Entry')
+                                {/* {renderlink('Receiving Purchase Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/recevingpackagingMaterial" >
                                     Purchase/Credit Note
                                 </NavLink>
-                                </CollapsibleContent>} */}
+                                </CollapsibleContent>}  */}
 
 
 
@@ -333,12 +312,13 @@ const DashboardSidebar = () => {
 
                                 </NavLink>
                             </CollapsibleContent>}
-                        {/* {renderlink('RCN Incoming QC')
+                        {renderlink('RCN Incoming QC')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/qc_packaging_metirial" >
-                                  Packaging Materials QC
+                                <p className="flex"> <MdOutlineHighQuality  size={20} /><p className="pl-3">  Packaging Material QC </p></p>
+                                  
                                 </NavLink>
-                            </CollapsibleContent>} */}
+                            </CollapsibleContent>}
 
 
                     </Collapsible>}
