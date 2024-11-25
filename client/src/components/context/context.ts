@@ -32,6 +32,7 @@ interface ContextType {
     setpendingqcCount: (pendingqccount: number) => void;
     pendingreportcount: number;
     setpendingreportCount: (pendingreportcount: number) => void;
+  
     recevingPackagematerialOverView: SumofpackageMetrialReceving | null;
     
     setRecevingPacakanMaterialOverView: (data: SumofpackageMetrialReceving | null) => void;
@@ -70,6 +71,7 @@ const Context = createContext<ContextType>({
     setpendingqcCount: () => { },
     pendingreportcount: 0,
     setpendingreportCount: () => { },
+  
     generateCaptcha: '',
     setGenerateCaptcha: () => { },
     typedCaptcha: '',

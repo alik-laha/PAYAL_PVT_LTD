@@ -11,11 +11,11 @@ const CreateQcPackagingMaterial = async (req: Request, res: Response) => {
         let foodGradeCirtiFicateFile: string = "";
         let coaCirtificateFile: string = "";
         let damagePartsImage: any[] = [];
-        if (files.foodGradeCirtiFicateFile) {
-            foodGradeCirtiFicateFile = files.foodGradeCirtiFicateFile[0].path;
+        if (files.foodGradeCertificate) {
+            foodGradeCirtiFicateFile = files.foodGradeCertificate[0].path;
         }
-        if (files.coaCirtificateFile) {
-            coaCirtificateFile = files.coaCirtificateFile[0].path;
+        if (files.coaCertificate) {
+            coaCirtificateFile = files.coaCertificate[0].path;
         }
         if (files.damagePartsImage) {
             files.damagePartsImage.map((file: any) => damagePartsImage.push(file.path));

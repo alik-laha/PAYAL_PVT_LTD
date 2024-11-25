@@ -29,6 +29,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
     const [coaCirtificateFile, setCoaCirtificateFile] = useState<any>()
     const dateRef = useRef<HTMLInputElement>(null)
     const [ischecked, setischecked] = useState<boolean>(false)
+    const [errortext, setErrortext] = useState('')
 
     const successdialog = document.getElementById('packageMetrialQc') as HTMLInputElement;
     const errordialog = document.getElementById('packagingMetirialQcError') as HTMLInputElement;
@@ -56,6 +57,20 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
     }
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+        if (foodGradeCirtiicate==='Yes' && !foodGradeCirtiFicateFile) {
+            setErrortext('Please Upload Food Grade Certificate')
+            if (errordialog != null) {
+                (errordialog as any).showModal();
+            }
+            return
+        }
+        if (coa==='Yes' && !coaCirtificateFile) {
+            setErrortext('Please Upload COA')
+            if (errordialog != null) {
+                (errordialog as any).showModal();
+            }
+            return
+        }
         const testingDate = dateRef.current?.value
         const formData = new FormData()
         formData.append('length', length.toString())
@@ -70,8 +85,8 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
         formData.append('coa', coa)
         formData.append('foodGradeCirtiicate', foodGradeCirtiicate)
         formData.append('remarks', remarks)
-        formData.append('foodGradeCirtiFicateFile', foodGradeCirtiFicateFile)
-        formData.append('coaCirtificateFile', coaCirtificateFile)
+        formData.append('foodGradeCertificate', foodGradeCirtiFicateFile)
+        formData.append('coaCertificate', coaCirtificateFile)
         formData.append('testingDate', testingDate as string)
         if (damagePartsImage) {
             for (let i = 0; i < damagePartsImage.length; i++) {
@@ -87,13 +102,16 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                     }
                 }
                 else {
+                    setErrortext('Error In Uploading PM Quality Report')
                     if (errordialog != null) {
+                        
                         (errordialog as any).showModal();
                     }
                 }
             })
             .catch((err) => {
                 console.log(err)
+                setErrortext('Error In Uploading PM Quality Report')
                 if (errordialog != null) {
                     (errordialog as any).showModal();
                 }
@@ -142,18 +160,19 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                     <div className="flex mt-2"><Label className="w-2/4  pt-2">Testing Date</Label>
                         <Input className="w-2/4 justify-center" placeholder="Testing Date" required ref={dateRef} type="date" />
                     </div>
+                    
                     <div className="flex">
-                    <Label className="w-2/4  pt-2">Width</Label>
+                       
+                        <Label className="w-2/4  pt-2">Length (mm)</Label>
+                        <Input className="w-2/4 justify-center text-center" placeholder="Length" required type="number" step="0.01" value={length} onChange={(e) => setLength(parseFloat(e.target.value))} />
+                    </div>
+                    <div className="flex">
+                    <Label className="w-2/4  pt-2">Width (mm)</Label>
                     <Input className="w-2/4 text-center" placeholder="Width" required value={width} type="number"  onChange={(e) => setWidth(parseFloat(e.target.value))} />
                     </div>
                     <div className="flex">
                        
-                        <Label className="w-2/4  pt-2">Length</Label>
-                        <Input className="w-2/4 justify-center text-center" placeholder="Length" required type="number" step="0.01" value={length} onChange={(e) => setLength(parseFloat(e.target.value))} />
-                    </div>
-                    <div className="flex">
-                       
-                    <Label className="w-2/4  pt-2">Height</Label>
+                    <Label className="w-2/4  pt-2">Height (mm)</Label>
                     <Input className="w-2/4 text-center" placeholder="Height" required value={height} type="number" step="0.01" onChange={(e) => setHeight(parseFloat(e.target.value))}  />
                    </div>
 
@@ -163,7 +182,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                         <Input className="w-2/4 text-center" placeholder="GSM" required value={gsm} type="number" onChange={(e) => setGsm(parseFloat(e.target.value))} step="0.01" />
                     </div>
 
-                    <div className="flex"><Label className="w-2/4  pt-2">Avg Weight</Label>
+                    <div className="flex"><Label className="w-2/4  pt-2">Avg Weight (gm)</Label>
                         <Input className="w-2/4 text-center" placeholder="Avg Weight" required value={avgWeight} type="number" onChange={(e) => setAvgWeight(parseFloat(e.target.value))} step="0.01" /> </div>
 
                         <div className="flex">
@@ -220,6 +239,32 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                         </select>
                     </div>
                     <div className="flex">
+                       
+                       <Label className="w-2/4  pt-2">Seal Condition</Label>
+                       <select className=' flex h-8 w-2/4 text-center items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                   ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
+                   disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                           onChange={(e) => setSealCondition(e.target.value)} value={sealCondition} >
+
+                           <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                           py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                               value="">
+                               NA
+                           </option>
+                           <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                           py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                               value="OK">
+                               OK
+                           </option>
+                           <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
+                           py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+                               value="Not OK">
+                               Not Ok
+                           </option>
+
+                       </select>
+                   </div>
+                    <div className="flex">
                         
                     <Label className="w-2/4  pt-2">Labeling Condition</Label>
                     <select className=' flex h-8 w-2/4 items-center text-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
@@ -247,32 +292,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                     </div>
 
 
-                    <div className="flex">
-                       
-                        <Label className="w-2/4  pt-2">Seal Condition</Label>
-                        <select className=' flex h-8 w-2/4 text-center items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 
-                    disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                            onChange={(e) => setSealCondition(e.target.value)} value={sealCondition} >
-
-                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                                value="">
-                                NA
-                            </option>
-                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                                value="OK">
-                                OK
-                            </option>
-                            <option className='relative flex w-1/3 cursor-default select-none items-center rounded-sm 
-                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
-                                value="Not OK">
-                                Not Ok
-                            </option>
-
-                        </select>
-                    </div>
+                  
 
                     <div className="flex"><Label className="w-2/4  pt-2">Coa Report</Label>
                         <select className=' flex h-8 w-2/4 text-center items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
@@ -356,7 +376,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
             <dialog id="packagingMetirialQcError" className="dashboard-modal">
                 <button id="packagigQcerrorcross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Error In Uploading Quality Report</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
