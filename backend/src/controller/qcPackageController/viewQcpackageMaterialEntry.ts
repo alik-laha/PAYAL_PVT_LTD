@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Op } from "sequelize";
 import recevingPackageMaterial from "../../model/recevingPackagingMaterialModel"
 import QualityPackageMaterial from "../../model/qualityPacjkageMaterial";
+import QualityEditPackageMaterial from "../../model/editQualityPackageMaterial";
 
 
 const ViewQcPackageMaterial = async (req: Request, res: Response) => {
@@ -102,7 +103,7 @@ const ViewQcPackageMaterial = async (req: Request, res: Response) => {
 
 
         }
-        const CountPendingEdit = await QualityPackageMaterial.count();
+        const CountPendingEdit = await QualityEditPackageMaterial.count();
 
         return res.status(200).json({ msg: 'Rcn Entry found', rcnEntries, CountPendingEdit })
 
