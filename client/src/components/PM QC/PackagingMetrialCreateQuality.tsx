@@ -24,6 +24,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
     const [remarks, setRemarks] = useState('')
     const [coaview, setCOAview] = useState('none')
     const [foodview, setFoodView] = useState('none')
+ 
     const [foodGradeCirtiFicateFile, setFoodGradeCirtiFicateFile] = useState<any>()
     const [damagePartsImage, setDamagePartsImage] = useState<any>()
     const [coaCirtificateFile, setCoaCirtificateFile] = useState<any>()
@@ -134,6 +135,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
         }
     }
     const handlecheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+      
         setischecked(e.target.checked)
     }
     useEffect(() => {  
@@ -312,7 +314,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                             </option>
                         </select></div>
 
-                        <div className="flex  py-4" style={{display:coaview}}>
+                    <div className="flex  py-4" style={{display:coaview}}>
                        
                         <input type="file" className='w-2/4 text-center text-sm float-right' accept="application/pdf,.xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple onChange={handleCoaFileChamge} />
                     </div>
@@ -352,11 +354,15 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
 
                     <div className="flex pt-1">
                         <Label className="w-2/4 pt-2 ">Damage Part</Label>
-                        <div className="flex flex-column">
-                        <input type="checkbox" checked={ischecked} onChange={handlecheckbox} />
-                        {ischecked && <input type="file" className='w-2/4 text-center text-sm' accept="image/png, image/jpeg, image/jpg" multiple onChange={handleDamagePartsImage} />}
+                        <div className="flex py-2">
+                        <input className="" type="checkbox" checked={ischecked} onChange={handlecheckbox} />
+                        
                         </div>
                        
+                    </div>
+                    <div className="block " >
+                        {/* <Label className="w-2/4 pt-2 ">Upload FoodGrade Certificate</Label> */}
+                        {ischecked && <input type="file" className='w-2/4 text-center text-sm float-right' accept="image/png, image/jpeg, image/jpg" multiple onChange={handleDamagePartsImage} />}
                     </div>
 
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center">Submit</Button>
