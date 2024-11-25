@@ -15,7 +15,7 @@ const SumOfallelement = async (req: Request, res: Response) => {
                 qualityStatus: false,
                 editStatus: {
                     [Op.notLike]: 'Pending'
-                }
+                },status:1
             }
         })
         return res.status(200).json({ editCount: editDataCount, QualityNotEntered: QCnotEntered })
