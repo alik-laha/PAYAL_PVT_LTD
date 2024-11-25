@@ -44,7 +44,7 @@ const ViewQcPackageMaterial = async (req: Request, res: Response) => {
             if (qualityStatus) {
                 rcnEntries = await QualityPackageMaterial.findAll({
                     where,
-                    order: [['testingDate', 'DESC']], // Order by date descending
+                    order: [['id', 'DESC']], // Order by date descending
                     include: [{
                         model: recevingPackageMaterial,
                         required: true,
@@ -62,7 +62,7 @@ const ViewQcPackageMaterial = async (req: Request, res: Response) => {
 
             else {
                 rcnEntries = await QualityPackageMaterial.findAll({
-                    order: [['testingDate', 'DESC']], // Order by date descending
+                    order: [['id', 'DESC']], // Order by date descending
                     include: [{
                         model: recevingPackageMaterial,
                         required: true,
@@ -90,7 +90,7 @@ const ViewQcPackageMaterial = async (req: Request, res: Response) => {
         // }
         else {
             rcnEntries = await QualityPackageMaterial.findAll({
-                order: [['testingDate', 'DESC']], // Order by date descending
+                order: [['id', 'DESC']], // Order by date descending
                 limit: limit,
                 offset: offset,
                 include: [{
