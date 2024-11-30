@@ -2,8 +2,8 @@ import { useContext, useEffect } from "react";
 import { Input } from "../ui/input";
 import React from "react";
 import axios from "axios";
-import {  findskutypeData, IssueItemData, IssueItemDaywiseData, pendingCheckRoles, PermissionRole } from "@/type/type";
-import { pagelimit, pageNo, pendingCheckRole, SelectTypeIssue } from "../common/exportData";
+import {  findskutypeData, IssueItemData, IssueItemDaywiseData, pendingCheckRoles, PermissionRole, QCWaterData } from "@/type/type";
+import { pagelimit, pageNo, pendingCheckRole, QC_Boiler, SelectTypeIssue } from "../common/exportData";
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
 import * as XLSX from 'xlsx';
@@ -66,25 +66,23 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 const QCWaterTable = () => {
     const [unit, setUnit] = useState<string>("")
     const [section, setSection] = useState<string>("")
-    const [subsection, setSubSection] = useState<string>("")
-    const [selectType, setselectType] = useState<string>("ItemWise")
+   
+    const [selectType, setselectType] = useState<string>('')
     const [fromdate, setfromDate] = React.useState<string>('');
     const [todate, settoDate] = React.useState<string>('');
     const [hidetodate, sethidetoDate] = React.useState<string>('');
-    const [blConNo, setBlConNo] = useState<string>("")
-    const [sku,setsku]=useState<findskutypeData[]>([])
-    const [grade,setGrade]=useState<findskutypeData[]>([])
-    const [subgrade,setsubGrade]=useState<findskutypeData[]>([])
+   
+  
     const [page, setPage] = useState(pageNo)
     const [blockpagen, setblockpagen] = useState('flex')
-    const [EditData, setEditData] = useState<IssueItemData[]>([])
+    const [EditData, setEditData] = useState<QCWaterData[]>([])
     const limit = pagelimit
    
   
     const { editPendiningIssueItemData } = useContext(Context);
 
-    const [ItemWiseData, setItemWiseData] = useState<IssueItemData[]>([])
-    const [DayWiseData, setDayWiseData] = useState<IssueItemDaywiseData[]>([])
+    const [ItemWiseData, setItemWiseData] = useState<QCWaterData[]>([])
+ 
     //const [transformedData, setTransformedData] = useState<ExcelRcnPrimaryEntryData[]>([]);
     const currDate = new Date().toLocaleDateString();
     const successdialog = document.getElementById('recevingeditapprove') as HTMLInputElement;
@@ -150,10 +148,8 @@ const QCWaterTable = () => {
         setEditData([])
         //setSearchType(selectType)
      
-        const response = await axios.post('/api/issue/searchItemIssue', {
-            isssueId: blConNo,
-            unit: unit,
-            section: section,
+        const response = await axios.post('/api/qcWater/searchQCWater', {
+          
             fromDate: fromdate,
             toDate: todate,
             type: selectType
@@ -165,18 +161,16 @@ const QCWaterTable = () => {
             }
         })
         const data = await response.data
+        setItemWiseData(data)
         //console.log(data)
         if (data.length === 0 && page > 1) {
             setPage((prev) => prev - 1)
 
         }
-        if (selectType === 'ItemWise') {
-            setItemWiseData(data)
-        }
-        else {
-            // setData(data)
-            setDayWiseData(data)
-        }
+      
+           
+        
+       
 
     }
     function handletimezone(date: string | Date) {
@@ -311,23 +305,29 @@ const QCWaterTable = () => {
                 console.log(err)
             })
     }
+    const handleAMPM = (time: string) => {
+
+        let [hours, minutes] = time.split(':').map(Number);
+        let period = ' AM';
+
+        if (hours === 0) {
+            hours = 12;
+        } else if (hours === 12) {
+            period = ' PM';
+        } else if (hours > 12) {
+            hours -= 12;
+            period = ' PM';
+        }
+        const finalTime = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + period.toString()
+
+        // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
+        return finalTime;
+    }
     return (
         <div className="ml-5 mt-5 ">
             <div className="flex flexbox-search" >
 
-                <Input className="no-padding w-1/7 flexbox-search-width" placeholder=" Issue No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
-                <select className='flexbox-search-width flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setUnit(e.target.value)} value={unit}>
-                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Unit (All)</option>
-                    {sku.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data.sku} key={index}>
-                            {data.sku}
-                        </option>
-                    ))}
-                </select>
+                
                 
                 <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
                 <Input className="w-1/7 flexbox-search-width-calender"
@@ -346,45 +346,22 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                 />
                 
-                <select className='flexbox-search-width flex h-8 w-1/7 ml-10 qc-responsive-right responsive-no-margin items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setSection(e.target.value)} value={section}>
-                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Section (All)</option>
-                    {grade.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data.sku} key={index}>
-                            {data.sku}
-                        </option>
-                    ))}
-                </select>
-                <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => setSubSection(e.target.value)} value={subsection}>
-                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Sub Section (All)</option>
-                    {subgrade.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data.sku} key={index}>
-                            {data.sku}
-                        </option>
-                    ))}
-                </select>
-                
-                <select className='flexbox-search-width flex h-8 w-1/7 ml-10 font-semibold qc-responsive-right responsive-no-margin items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className='flexbox-search-width flex h-8 w-1/5 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                    onChange={(e) => {
-                        setselectType(e.target.value)
-
-                    }} value={selectType}>
-
-                    {SelectTypeIssue.map((data, index) => (
+                    onChange={(e) => setselectType(e.target.value)} value={selectType}>
+                    <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Boiler (All)</option>
+                    {QC_Boiler.map((data, index) => (
                         <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
             py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
                             {data}
                         </option>
                     ))}
                 </select>
+                
+                
+
+                
              
 
 
@@ -395,31 +372,30 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
             </div>
-            {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
-            {tablesearch === "ItemWise" ? (
+            {checkpending('QCRCN') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+           
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Id</TableHead>
-                        <TableHead className="text-center" >IssueID</TableHead>
+                      
                         
-                        <TableHead className="text-center" >Date_Of_Issue</TableHead>
+                        <TableHead className="text-center" >Date_Of_Testing</TableHead>
                     
-                        <TableHead className="text-center" >Issue_Unit</TableHead>
-                        <TableHead className="text-center" >Issue_Section</TableHead>
+                        <TableHead className="text-center" >Testing_Time</TableHead>
+                        <TableHead className="text-center" >Feed_Water_PH</TableHead>
                         
-                        <TableHead className="text-center" >Issue_Subsection</TableHead>
-                        <TableHead className="text-center" >Category</TableHead>
-                        <TableHead className="text-center" >Issue_Material_Name</TableHead>
-                        <TableHead className="text-center" >Issue_Quantity</TableHead>
-                        <TableHead className="text-center" >Unit</TableHead>
-                        <TableHead className="text-center" >Unit_Price</TableHead>
-                        <TableHead className="text-center" >Total_Price</TableHead>
+                        <TableHead className="text-center" >Feed_Water_TDS</TableHead>
+                        <TableHead className="text-center" >Feed_Water_Hardness</TableHead>
+                        <TableHead className="text-center" >Boiler_Type</TableHead>
+                        <TableHead className="text-center" >Boiler_PH</TableHead>
+                        <TableHead className="text-center" >Boiler_TDS</TableHead>
+                        <TableHead className="text-center" >Blown_Down_Time_(Day_Shift)</TableHead>
+                        <TableHead className="text-center" >Blown_Down_Time_(Night_Shift)</TableHead>
                         
-                        <TableHead className="text-center" >Issued_To_User</TableHead>
-                        <TableHead className="text-center" >Damage_Return </TableHead>
-                        <TableHead className="text-center" >Damage_Quantity</TableHead>
-                        <TableHead className="text-center" >damage_Unit</TableHead>
+                        <TableHead className="text-center" >Water_Used</TableHead>
+                        <TableHead className="text-center" >Water_Reading </TableHead>
                         <TableHead className="text-center" >Remarks</TableHead>
+                      
                         <TableHead className="text-center" >EditStatus</TableHead>
                         <TableHead className="text-center" >Created_By</TableHead>
                         <TableHead className="text-center" >Actioned_By</TableHead>
@@ -428,35 +404,31 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     </TableHeader>
                     <TableBody>
                         {EditData.length > 0 ? (
-                            EditData.map((item: IssueItemData, idx) => {
+                            EditData.map((item: QCWaterData, idx) => {
 
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold text-orange-600">{item.issueID}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                       
-                                        <TableCell className="text-center ">{item.sectionunit}</TableCell>
-                                        <TableCell className="text-center ">{item.section}</TableCell>
-                                        <TableCell className="text-center ">{item.subsection}</TableCell>
-                                        
-                                        <TableCell className="text-center font-semibold text-cyan-500">{item.category}</TableCell>
-                                        <TableCell className="text-center ">{item.materialName}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.quantity))} </TableCell>
-                                        <TableCell className="text-center ">{item.itemunit}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.unitPrice))} </TableCell>
-
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.totalPrice))} </TableCell>
-                                
-                                        <TableCell className="text-center ">{item.issueUser}</TableCell>
-                                        <TableCell className="text-center ">{item.damagereturn}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.damagequantity))} </TableCell>
-                                        <TableCell className="text-center ">{item.damageunit}</TableCell>
-                                        <TableCell className="text-center ">{item.remarks}</TableCell>
-                                        
-                                        <TableCell className="text-center ">{item.editStatus}</TableCell>
-                                        <TableCell className="text-center ">{item.CreatedBy}</TableCell>
-                                        <TableCell className="text-center ">{item.modifiedBy}</TableCell>
+                                      
+                                      <TableCell className="text-center ">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
+                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.feedph))}</TableCell>
+                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.feedtds))}</TableCell>
+                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.feedhardness))}</TableCell>
+                                      <TableCell className="text-center font-semibold text-cyan-500">{item.boilertype}</TableCell>
+                                      <TableCell className="text-center">{formatNumber(parseFloat(item.ph))} </TableCell>
+                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.tds))}</TableCell>
+                                      <TableCell className="text-center">{item.day} </TableCell>
+                                      <TableCell className="text-center">{item.night} </TableCell>
+                                      
+                                      
+                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.wateruse))}</TableCell>
+                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.reading))}</TableCell>
+                                      <TableCell className="text-center">{item.remarks} </TableCell>
+                                  
+                                      <TableCell className="text-center ">{item.editStatus}</TableCell>
+                                      <TableCell className="text-center ">{item.CreatedBy}</TableCell>
+                                      <TableCell className="text-center ">{item.modifiedBy}</TableCell>
                                         <TableCell className="text-center">
                                             <Popover>
                                                 <PopoverTrigger>
@@ -499,34 +471,33 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             })
                         ) : (
                            
-                            ItemWiseData.length > 0 ? (ItemWiseData.map((item: IssueItemData, idx) => {
+                            ItemWiseData.length > 0 ? (ItemWiseData.map((item: QCWaterData, idx) => {
 
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold text-orange-600">{item.issueID}</TableCell>
+                                       
+                                    
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                       
-                                        <TableCell className="text-center ">{item.sectionunit}</TableCell>
-                                        <TableCell className="text-center ">{item.section}</TableCell>
-                                        <TableCell className="text-center ">{item.subsection}</TableCell>
-                                        <TableCell className="text-center font-semibold text-cyan-500">{item.category}</TableCell>
-                                        <TableCell className="text-center ">{item.materialName}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.quantity))} </TableCell>
-                                        <TableCell className="text-center ">{item.itemunit}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.unitPrice))} </TableCell>
-
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.totalPrice))} </TableCell>
-                                        
-                                        <TableCell className="text-center ">{item.issueUser}</TableCell>
-                                        <TableCell className="text-center ">{item.damagereturn}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.damagequantity))} </TableCell>
-                                        <TableCell className="text-center ">{item.damageunit}</TableCell>
-                                        <TableCell className="text-center ">{item.remarks}</TableCell>
-                                        
-                                        <TableCell className="text-center ">{item.editStatus}</TableCell>
-                                        <TableCell className="text-center ">{item.CreatedBy}</TableCell>
-                                        <TableCell className="text-center ">{item.modifiedBy}</TableCell>
+                                      <TableCell className="text-center ">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
+                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.feedph))}</TableCell>
+                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.feedtds))}</TableCell>
+                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.feedhardness))}</TableCell>
+                                      <TableCell className="text-center font-semibold text-cyan-500">{item.boilertype}</TableCell>
+                                      <TableCell className="text-center">{formatNumber(parseFloat(item.ph))} </TableCell>
+                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.tds))}</TableCell>
+                                      <TableCell className="text-center">{item.day} </TableCell>
+                                      <TableCell className="text-center">{item.night} </TableCell>
+                                      
+                                      
+                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.wateruse))}</TableCell>
+                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.reading))}</TableCell>
+                                      <TableCell className="text-center">{item.remarks} </TableCell>
+                                  
+                                      <TableCell className="text-center ">{item.editStatus}</TableCell>
+                                      <TableCell className="text-center ">{item.CreatedBy}</TableCell>
+                                      <TableCell className="text-center ">{item.modifiedBy}</TableCell>
 
 
                                         <TableCell className="text-center">
@@ -546,7 +517,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             {/* <RCNLineCreateEditForm scoop={scoopdata} /> */}
-                                                            <IssueModify data={item} />
+                                                            {/* <IssueModify data={item} /> */}
                                                         </DialogContent>
                                                     </Dialog>
                                                 </PopoverContent>
@@ -576,8 +547,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             </TableRow>)
                         )}
                     </TableBody>
-                </Table>) : (<IssueDayWiseTable DayWise={DayWiseData} page={page} />)
-            }
+                </Table>
 
             <Pagination style={{ display: blockpagen }} className="pt-5 ">
                 <PaginationContent>

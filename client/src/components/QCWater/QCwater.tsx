@@ -16,7 +16,7 @@ import Context from "../context/context";
 import Loader from "../common/Loader";
 import UseQueryData from "../common/dataFetcher";
 import QCWaterCreate from "./QCWaterCreate";
-import QCWaterTable from "./QCTable";
+import QCWaterTable from "./QCWaterTable";
 
 // import IssueTable from "./IssueTable";
 
