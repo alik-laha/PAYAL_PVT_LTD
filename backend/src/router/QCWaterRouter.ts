@@ -1,6 +1,6 @@
 import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
-import GetAllIssueEditPendingData from '../controller/IssueController/getallIssuePending';
+
 import sumOfallIssue from '../controller/IssueController/sumofAllIssue';
 
 import editstoreIssue from '../controller/IssueController/editStoreIssue';
@@ -8,10 +8,11 @@ import acceptIssueEditPrimary from '../controller/IssueController/acceptIssuePri
 import rejectIssuePrimaryEdit from '../controller/IssueController/rejectIssuePrimary';
 import CreateQCWaterEntire from '../controller/QCWaterController/createQCWater';
 import SearchQCWater from '../controller/QCWaterController/searchQCWater';
+import GetAllQCWaterEditPendingData from '../controller/QCWaterController/getPendingQCWater';
 const router = express.Router();
 
 
-// router.get("/getPendingIssueData", jwtVerify, GetAllIssueEditPendingData)
+ router.get("/getPendingQCWaterData", jwtVerify, GetAllQCWaterEditPendingData)
 // router.get("/sumofallIssueUnit", jwtVerify, sumOfallIssue)
 router.post("/createQCWaterEntire", jwtVerify, CreateQCWaterEntire)
 router.post("/searchQCWater", jwtVerify, SearchQCWater)

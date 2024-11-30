@@ -21,7 +21,7 @@ import QCWaterTable from "./QCWaterTable";
 // import IssueTable from "./IssueTable";
 
 const QCWater = () => {
-    const { setEditPendiningIssueItemData } = useContext(Context)
+    const { setEditPendiningQCWaterData } = useContext(Context)
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {
         
@@ -34,21 +34,12 @@ const QCWater = () => {
         }
 
     }
-    const checkreceiving = (tab: string) => {
-        //console.log(Role)
-        if (rcvCheckRole[tab as keyof rcvCheckRoles].includes(Role)) {
-            return true
-        }
-        else {
-            return false;
-        }
-
-    }
+  
 
     const handleEditFetch = async () => {
-        axios.get('/api/issue/getPendingIssueData')
+        axios.get('/api/qcWater/getPendingQCWaterData')
             .then(res => {
-                setEditPendiningIssueItemData(res.data.data)
+                setEditPendiningQCWaterData(res.data.data)
             })
             .catch(err => {
                 console.log(err)
@@ -85,7 +76,7 @@ const QCWater = () => {
                 </div>
                 <p className='text-lg font-semibold text-center py-1 '>QC Water</p>
                 <div>
-                {checkreceiving('StorePrimaryEntry') && <Dialog>
+                <Dialog>
                         <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-red-500 mb-2 mt-5 ml-4" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-3xl' style={{display:'block'}}>
                             <DialogHeader>
@@ -95,7 +86,7 @@ const QCWater = () => {
 
                             <QCWaterCreate />
                         </DialogContent>
-                    </Dialog>}
+                    </Dialog>
 
 
                     {checkpending('QCRCN') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button>}
