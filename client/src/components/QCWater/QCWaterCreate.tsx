@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import {
@@ -96,27 +96,31 @@ const QCWaterCreate = () => {
 
         const hasduplicate = sections.some((item, index) => sections.indexOf(item) !== index);
         if (hasduplicate) {
-            setErrortext('Boiler type Can not be Same')
+            setErrortext('Boiler Type Can not be Same')
             if (errordialog != null) {
                 (errordialog as any).showModal();
             }
             return
         }
         const dateissue = dateIssueref.current?.value
-       
+        const phwater = phRef.current?.value
+        const tdswater = tdsRef.current?.value
+        const hardwater = hardnessRef.current?.value
 
         setisdisable(true)
         const formData = rows.map(row => ({
 
             Date: dateissue,
-            User: mc_on,
-
+            Time: mc_on,
+            waterPh:phwater,
+            waterTDS:tdswater,
+            waterHardness:hardwater,
             ...row
         }))
 
         try {
 
-            const res = await axios.post(`/api/issue/createIssueItemEntire`, { data: formData })
+            const res = await axios.post(`/api/qcwater/createQCWaterEntire`, { data: formData })
             setErrortext(res.data.message)
             if (successdialog) {
                 (successdialog as any).showModal();
@@ -179,7 +183,7 @@ const QCWaterCreate = () => {
                             <Input type='date' className="w-2/4 text-center justify-center" placeholder="Vehicle No" ref={dateIssueref} required />
                         </div>
                         <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Time</Label>
+                            <Label className="w-2/4 pt-1">Testing Time</Label>
                             <div className="w-2/4 text-center items-center justify-center" ><TimePicker onChange={handleonchangeon} value={mc_on}/> </div>                        </div>
                         <div className="flex mt-1">
                             <Label className="w-2/4 pt-1">Feed-Water PH</Label>

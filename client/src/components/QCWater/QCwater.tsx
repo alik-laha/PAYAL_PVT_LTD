@@ -16,6 +16,7 @@ import Context from "../context/context";
 import Loader from "../common/Loader";
 import UseQueryData from "../common/dataFetcher";
 import QCWaterCreate from "./QCWaterCreate";
+import QCWaterTable from "./QCTable";
 
 // import IssueTable from "./IssueTable";
 
@@ -100,7 +101,7 @@ const QCWater = () => {
                     {checkpending('QCRCN') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button>}
 
                 </div>
-             {/* <IssueTable/> */}
+             <QCWaterTable/>
                 </div>
             </div>
 
