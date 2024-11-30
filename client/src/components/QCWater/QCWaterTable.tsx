@@ -79,7 +79,7 @@ const QCWaterTable = () => {
     const limit = pagelimit
    
   
-    const { editPendiningIssueItemData } = useContext(Context);
+    const { editPendiningQCWaterData } = useContext(Context);
 
     const [ItemWiseData, setItemWiseData] = useState<QCWaterData[]>([])
  
@@ -135,12 +135,12 @@ const QCWaterTable = () => {
     }, [page])
 
     useEffect(() => {
-        if (editPendiningIssueItemData.length>0) {
+        if (editPendiningQCWaterData.length>0) {
             //console.log(editPendingData)
-            setEditData(editPendiningIssueItemData)
+            setEditData(editPendiningQCWaterData)
             setblockpagen('none')
         }
-    }, [editPendiningIssueItemData])
+    }, [editPendiningQCWaterData])
 
     const handleSearch = async () => {
         //console.log('search button pressed')
@@ -185,9 +185,7 @@ const QCWaterTable = () => {
     const exportToExcel = async () => {
        
         const response = await axios.post('/api/issue/searchItemIssue', {
-            isssueId: blConNo,
-            unit: unit,
-            section: section,
+           
             fromDate: fromdate,
             toDate: todate,
             type: selectType
@@ -196,9 +194,9 @@ const QCWaterTable = () => {
         const data = await response.data
         let ws
         let transformed: any[] = [];
-        if (editPendiningIssueItemData.length>0 ) {
+        if (editPendiningQCWaterData.length>0 ) {
             console.log('Hi')
-            transformed = editPendiningIssueItemData.map((item: IssueItemData,idx:number) => ({
+            transformed = editPendiningQCWaterData.map((item: IssueItemData,idx:number) => ({
                 Sl_No: idx+1,
                 IssueID:item.issueID,
                 Issue_Date:handletimezone(item.date),
