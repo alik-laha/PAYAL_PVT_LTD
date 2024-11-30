@@ -91,7 +91,7 @@ const RcnPrimaryEntry = () => {
 
                 </div>
 
-
+                <p className='text-lg font-semibold text-center py-1 '>RCN INCOMING</p>
 
                 <div>
                 {checkreceiving('RCNPrimaryEntry') && <Dialog>

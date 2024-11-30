@@ -45,7 +45,7 @@ const QCRcn = () => {
 
                 </div>
 
-
+                <p className='text-lg font-semibold text-center py-1 '>QC RCN </p>
                 <QCRcnTable/>
                 </div>
             

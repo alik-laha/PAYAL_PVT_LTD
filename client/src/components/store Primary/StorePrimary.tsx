@@ -53,6 +53,7 @@ const StorePrimary = () => {
                         Financial Year Entry <br /><p>{StorePrimaryOverView?.sumofStorePrimary}</p>
                     </div>
                 </div>
+                <p className='text-lg font-semibold text-center py-1 '>STORE ITEM</p>
                 {checkreceiving('StorePrimaryEntry') && <Dialog>
                 <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left"
                 onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>

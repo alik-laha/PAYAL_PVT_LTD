@@ -379,8 +379,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Receiving_Date</TableHead>
                         <TableHead className="text-center" >Vehicle_No</TableHead>
                         <TableHead className="text-center" >Initial_Weight</TableHead>
-                        <TableHead className="text-center" >Item_Type</TableHead>
-                        <TableHead className="text-center" >Item_Name</TableHead> 
+                        <TableHead className="text-center" >Village_Item_Type</TableHead>
+                        <TableHead className="text-center" >Village_Item_Name</TableHead> 
                         <TableHead className="text-center" >Doc_No.</TableHead>            
                         <TableHead className="text-center" >Net_Weight</TableHead>
                         <TableHead className="text-center" >Vendor_Name</TableHead>
