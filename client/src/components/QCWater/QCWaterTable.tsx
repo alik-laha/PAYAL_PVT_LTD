@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { Input } from "../ui/input";
 import React from "react";
 import axios from "axios";
-import {  findskutypeData, IssueItemData, IssueItemDaywiseData, pendingCheckRoles, PermissionRole, QCWaterData } from "@/type/type";
+import {  pendingCheckRoles, PermissionRole, QCWaterData } from "@/type/type";
 import { pagelimit, pageNo, pendingCheckRole, QC_Boiler } from "../common/exportData";
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";

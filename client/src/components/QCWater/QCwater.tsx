@@ -8,8 +8,8 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { Button } from "../ui/button";
-import { pendingCheckRoles, PermissionRole, rcvCheckRoles } from "@/type/type";
-import { pendingCheckRole, rcvCheckRole } from "../common/exportData";
+import { pendingCheckRoles, PermissionRole} from "@/type/type";
+import { pendingCheckRole } from "../common/exportData";
 import axios from "axios";
 import { useContext } from "react";
 import Context from "../context/context";
