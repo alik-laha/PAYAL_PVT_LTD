@@ -750,6 +750,29 @@ export interface IssueItemData {
   
 
 }
+export interface QCWaterData {
+
+    id: number;
+    date: string;
+    Mc_on: string;
+    feedph: string;
+    feedtds: string;
+    feedhardness: string;
+    boilertype: string;
+    ph: string;
+    tds: string;
+    day: string;
+    night: string;
+    wateruse: string;
+    reading: string;
+    remarks: string;
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy:string;
+    
+  
+
+}
 export interface IssueItemDaywiseData {
     date: string;
     category: string; 

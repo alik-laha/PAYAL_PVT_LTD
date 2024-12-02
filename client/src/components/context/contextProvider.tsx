@@ -4,7 +4,8 @@ import { useState } from "react";
 import { AssetData, EditPendingData, GradingData, BoilingEntryData, SumofpackageMetrialReceving,
      rcnScoopingData,sumofStorePrimary, sumofGeneralPrimary, AlmondPrimaryEntryData, sumofRcvVillagePrimary, AgarbatiPrimaryEntryData, 
      IssueItemData,
-     OilMillPrimaryEntryData} from "../../type/type";
+     OilMillPrimaryEntryData,
+     QCWaterData} from "../../type/type";
 
 interface ContextProviderProps {
     children: ReactNode;
@@ -35,6 +36,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [editPendingOilMillData, setEditPendingOilMillData] = useState<OilMillPrimaryEntryData[]>([])
     const [editPendingAgarbatiData, setEditPendingAgarbatiData] = useState<AgarbatiPrimaryEntryData[]>([])
     const [editPendiningIssueItemData, setEditPendiningIssueItemData] = useState<IssueItemData[]>([])
+    const [editPendiningQCWaterData, setEditPendiningQCWaterData] = useState<QCWaterData[]>([])
 
     return (
         <Context.Provider value={{
@@ -46,7 +48,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
             editScoopingLotWiseData, setEditScoopingLotWiseData, searchType, setSearchType,editBormaLotWiseData,setEditBormaLotWiseData,
             StorePrimaryOverView,setStorePrimaryOverView,GeneralPrimaryOverView,setGeneralPrimaryOverView,editPendingAlmondData,setEditPendingAlmondData
             ,RcvVillagePrimaryOverView,setRcvVillagePrimaryOverView,editHumidLotWiseData,setEditHumidLotWiseData,editPendingAgarbatiData,setEditPendingAgarbatiData,
-            editPendingOilMillData,setEditPendingOilMillData
+            editPendingOilMillData,setEditPendingOilMillData,editPendiningQCWaterData, setEditPendiningQCWaterData
         }}>
             {children}
         </Context.Provider>

@@ -44,7 +44,7 @@ const Machine = () => {
                         Discarded <br /><p>{data.Dicarded}</p>
                     </div>
                 </div>
-              
+                <p className='text-lg font-semibold text-center py-1 '>ASSET</p>
 
 
                 <Dialog>

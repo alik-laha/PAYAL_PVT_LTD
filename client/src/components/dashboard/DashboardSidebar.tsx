@@ -18,8 +18,8 @@ import { LuDonut, LuBadgeCheck } from "react-icons/lu";
 import { GoPackageDependents } from "react-icons/go";
 import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
 import { BiSolidUserPlus } from "react-icons/bi";
-import { FaUserTie  } from "react-icons/fa";
-import { PiPackageLight, PiExam } from "react-icons/pi";
+import { FaUserTie,FaWater  ,FaAcquisitionsIncorporated  } from "react-icons/fa";
+import { PiPackageLight } from "react-icons/pi";
 import { GiBoilingBubbles, GiIceCreamScoop, GiGate } from "react-icons/gi";
 import { CgSmartHomeBoiler } from "react-icons/cg";
 import { BsMoisture } from "react-icons/bs";
@@ -308,7 +308,7 @@ const DashboardSidebar = () => {
                         {renderlink('RCN Incoming QC')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/qcRCN" >
-                                    <p className="flex"> <PiExam size={20} /><p className="pl-3">  RCN Incoming QC </p></p>
+                                    <p className="flex"> <FaAcquisitionsIncorporated  size={20} /><p className="pl-3">  RCN Incoming QC </p></p>
 
                                 </NavLink>
                             </CollapsibleContent>}
@@ -316,6 +316,13 @@ const DashboardSidebar = () => {
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/qc_packaging_metirial" >
                                 <p className="flex"> <MdOutlineHighQuality  size={20} /><p className="pl-3">  Packaging Material QC </p></p>
+                                  
+                                </NavLink>
+                            </CollapsibleContent>}
+                        {renderlink('RCN Incoming QC')
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/qc_water" >
+                                <p className="flex"> <FaWater   size={20} /><p className="pl-3">  Water QC </p></p>
                                   
                                 </NavLink>
                             </CollapsibleContent>}

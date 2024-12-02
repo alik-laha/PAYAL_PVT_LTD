@@ -3,7 +3,8 @@ import { AssetData, EditPendingData, GradingData, BoilingEntryData, Sumofpackage
      rcnScoopingData ,sumofStorePrimary, sumofGeneralPrimary, AlmondPrimaryEntryData, sumofRcvVillagePrimary,
      AgarbatiPrimaryEntryData,
      IssueItemData,
-     OilMillPrimaryEntryData} from '../../type/type';
+     OilMillPrimaryEntryData,
+     QCWaterData} from '../../type/type';
 
 interface ContextType {
     editPendingData: EditPendingData[];
@@ -25,8 +26,10 @@ interface ContextType {
     editPendiningGrinderData: GradingData[];
     editPendingBoilingData: BoilingEntryData[];
     editPendiningIssueItemData: IssueItemData[];
+    editPendiningQCWaterData:QCWaterData[];
     setEditPendiningGrinderData: (data: GradingData[]) => void;
     setEditPendiningIssueItemData: (data: IssueItemData[]) => void;
+    setEditPendiningQCWaterData: (data: QCWaterData[]) => void;
     setEditPendingBoilingData: (data: BoilingEntryData[]) => void;
     pendingqccount: number;
     setpendingqcCount: (pendingqccount: number) => void;
@@ -82,8 +85,10 @@ const Context = createContext<ContextType>({
     setDept: () => { },
     editPendiningGrinderData: [],
     editPendiningIssueItemData: [],
+    editPendiningQCWaterData: [],
     setEditPendiningGrinderData: () => { },
     setEditPendiningIssueItemData: () => { },
+    setEditPendiningQCWaterData:() => { },
     editPendingBoilingData: [],
     setEditPendingBoilingData: () => { },
     setRecevingPacakanMaterialOverView: () => { },

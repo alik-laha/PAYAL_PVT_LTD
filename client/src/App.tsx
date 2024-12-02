@@ -34,6 +34,7 @@ import Peeling from './components/Peeling/Peeling'
 import Agarbati from './components/Agarbati/Agarbati'
 import IssueItem from './components/IssueItem/IssueItem'
 import OilMill from './components/OilMill/OilMill'
+import QCWater from './components/QCWater/QCwater'
 
 
 
@@ -162,6 +163,17 @@ function App() {
           <Route path="/dashboard/qcRCN" element={<QCRcn />} />
         </Route>
 
+        {/* Quality PM */}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>
+          <Route path="/dashboard/qc_packaging_metirial" element={<PackagingMetirialQuality />} />
+        </Route>
+
+
+        {/* Quality Water */}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>
+          <Route path="/dashboard/qc_water" element={<QCWater />} />
+        </Route>
+
         {/* Production Grading */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'GradingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/rcnGrading' element={<RcnGrading />} />
@@ -206,9 +218,7 @@ function App() {
         </Route>
 
 
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'QCSupervisor', 'QCManager']} />}>
-          <Route path="/dashboard/qc_packaging_metirial" element={<PackagingMetirialQuality />} />
-        </Route>
+        
 
         <Route path="/dashboard/userprofile" element={<ViewProfile />} />
       </Routes>

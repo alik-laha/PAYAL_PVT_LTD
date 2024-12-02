@@ -92,7 +92,7 @@ const Almond = () => {
 
                 </div>
 
-
+                <p className='text-lg font-semibold text-center py-1 '>ALMOND</p>
 
                 <div>
                 {checkreceiving('AlmondPrimaryEntry') && <Dialog>

@@ -94,7 +94,7 @@ const Agarbati = () => {
 
                 </div>
 
-
+                <p className='text-lg font-semibold text-center py-1 '>AGARBATI</p>
 
                 <div>
                 {checkreceiving('AgarbatiPrimaryEntry') && <Dialog>
