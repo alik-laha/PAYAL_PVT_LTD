@@ -45,7 +45,7 @@ const QCWater = () => {
                 console.log(err)
             })
     }
-    const { data, isLoading, error } = UseQueryData('/api/issue/sumofallIssueUnit', 'GET', 'AllSectionIssueSum');
+    const { data, isLoading, error } = UseQueryData('/api/qcWater/sumofallQCWater', 'GET', 'AllBoilerQCWaterSum');
     if (isLoading) {
         return <Loader />
     }
@@ -66,7 +66,7 @@ const QCWater = () => {
                         data.data && data.data.map((item: any,idx:any) => {
                             return (
                                 <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-600" key={idx}>
-                                    {item.sectionunit} <br /><p>{item.count} </p>
+                                    {item.boilertype} <br /><p>{item.count} </p>
                                 </div>
                             )
                         })

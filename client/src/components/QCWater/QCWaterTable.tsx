@@ -61,11 +61,11 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { FcApprove, FcDisapprove } from "react-icons/fc";
+import QCWaterModify from "./QCWaterModify";
 
 
 const QCWaterTable = () => {
-    const [unit, setUnit] = useState<string>("")
-    const [section, setSection] = useState<string>("")
+ 
    
     const [selectType, setselectType] = useState<string>('')
     const [fromdate, setfromDate] = React.useState<string>('');
@@ -184,8 +184,8 @@ const QCWaterTable = () => {
     }
     const exportToExcel = async () => {
        
-        const response = await axios.post('/api/issue/searchItemIssue', {
-           
+        const response = await axios.post('/api/qcWater/searchQCWater', {
+          
             fromDate: fromdate,
             toDate: todate,
             type: selectType
@@ -196,23 +196,22 @@ const QCWaterTable = () => {
         let transformed: any[] = [];
         if (editPendiningQCWaterData.length>0 ) {
             console.log('Hi')
-            transformed = editPendiningQCWaterData.map((item: IssueItemData,idx:number) => ({
+            transformed = editPendiningQCWaterData.map((item: QCWaterData,idx:number) => ({
                 Sl_No: idx+1,
-                IssueID:item.issueID,
-                Issue_Date:handletimezone(item.date),
-                Section_Unit: item.sectionunit,
-                Section:item.section,
-                Subsection:item.subsection,
-                Category:item.category,
-                Material_Name:item.materialName,
-                Unit:item.itemunit,
-                Qty:formatNumber(parseFloat(item.quantity)),
-                Unit_Price: formatNumber(parseFloat(item.unitPrice)),
-                Total_Price:formatNumber(parseFloat(item.totalPrice)),
-              Issued_To:item.issueUser,
-              Damage_Status:item.damagereturn,
-              Damage_Qty:formatNumber(parseFloat(item.damagequantity)),
-              DamageUnit:item.damageunit,
+               
+                Testing_Date:handletimezone(item.date),
+                Testing_Time: handleAMPM(item.Mc_on.slice(0, 5)),
+                Feed_Water_PH:formatNumber(parseFloat(item.feedph)),
+                Feed_Water_TDS:formatNumber(parseFloat(item.feedtds)),
+                Feed_Water_Hardness:formatNumber(parseFloat(item.feedhardness)),
+                Boiler_Type:item.boilertype,
+                Blown_Down_Time_Day_Shift:item.day,
+                Blown_Down_Time_Night_Shift:item.night,
+                Boiler_PH: formatNumber(parseFloat(item.ph)),
+                Boiler_TDS:formatNumber(parseFloat(item.tds)),
+              Water_Used:formatNumber(parseFloat(item.wateruse)),
+              Water_Reading:formatNumber(parseFloat(item.reading)),
+             
                 Remarks:item.remarks,
                 Edit_Status: item.editStatus,
                 Created_By: item.CreatedBy,
@@ -220,37 +219,23 @@ const QCWaterTable = () => {
             }));
             ws = XLSX.utils.json_to_sheet(transformed);
         }
-        if(DayWiseData.length>0){
-            transformed = DayWiseData.map((item: IssueItemDaywiseData,idx:number) => ({
-                Sl_No: idx+1,
-                Issue_Date:handletimezone(item.date),
-                
-                Section_Unit: item.sectionunit,
-                Category:item.category,
-           
-                Total_Price:formatNumber(parseFloat(item.totalIssuePrice))
-            }));
-            ws = XLSX.utils.json_to_sheet(transformed);
-        }
         else {
-            transformed = data.map((item: IssueItemData,idx:number) => ({
+            transformed = data.map((item: QCWaterData,idx:number) => ({
                 
                 Sl_No: idx+1,
-                IssueID:item.issueID,
-                Issue_Date:handletimezone(item.date),
-                Section_Unit: item.sectionunit,
-                Section:item.section,
-                SubSection:item.subsection,
-                Category:item.category,
-                Material_Name:item.materialName,
-                Unit:item.itemunit,
-                Qty:formatNumber(parseFloat(item.quantity)),
-                Unit_Price: formatNumber(parseFloat(item.unitPrice)),
-                Total_Price:formatNumber(parseFloat(item.totalPrice)),
-              Issued_To:item.issueUser,
-              Damage_Status:item.damagereturn,
-              Damage_Qty:formatNumber(parseFloat(item.damagequantity)),
-              DamageUnit:item.damageunit,
+                Testing_Date:handletimezone(item.date),
+                Testing_Time: handleAMPM(item.Mc_on.slice(0, 5)),
+                Feed_Water_PH:formatNumber(parseFloat(item.feedph)),
+                Feed_Water_TDS:formatNumber(parseFloat(item.feedtds)),
+                Feed_Water_Hardness:formatNumber(parseFloat(item.feedhardness)),
+                Boiler_Type:item.boilertype,
+                Blown_Down_Time_Day_Shift:item.day,
+                Blown_Down_Time_Night_Shift:item.night,
+                Boiler_PH: formatNumber(parseFloat(item.ph)),
+                Boiler_TDS:formatNumber(parseFloat(item.tds)),
+              Water_Used:formatNumber(parseFloat(item.wateruse)),
+              Water_Reading:formatNumber(parseFloat(item.reading)),
+             
                 Remarks:item.remarks,
                 Edit_Status: item.editStatus,
                 Created_By: item.CreatedBy,
@@ -264,7 +249,7 @@ const QCWaterTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Store_Item_Issue_' + currDate + '.xlsx');
+        saveAs(blob, 'QC_Water_Report' + currDate + '.xlsx');
     }
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {
@@ -279,7 +264,7 @@ const QCWaterTable = () => {
     }
     const handleApprove = (item: number) => {
         console.log(item)
-        axios.get(`/api/issue/acceptEditIssuePrimary/${item}`)
+        axios.get(`/api/qcWater/acceptEditQCWaterPrimary/${item}`)
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -292,7 +277,7 @@ const QCWaterTable = () => {
     }
 
     const handleRejection = (item: number) => {
-        axios.get(`/api/issue/rejectEditIssuePrimary/${item}`)
+        axios.get(`/api/qcWater/rejectEditQCWaterPrimary/${item}`)
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -511,11 +496,11 @@ const QCWaterTable = () => {
                                                         <DialogContent className='max-w-3xl'>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-5'>Issue Item Modify</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-5'>QC Water Modify</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             {/* <RCNLineCreateEditForm scoop={scoopdata} /> */}
-                                                            {/* <IssueModify data={item} /> */}
+                                                            <QCWaterModify data={item} />
                                                         </DialogContent>
                                                     </Dialog>
                                                 </PopoverContent>

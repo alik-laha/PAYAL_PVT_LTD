@@ -1,22 +1,21 @@
 import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
 
-import sumOfallIssue from '../controller/IssueController/sumofAllIssue';
-
-import editstoreIssue from '../controller/IssueController/editStoreIssue';
-import acceptIssueEditPrimary from '../controller/IssueController/acceptIssuePrimary';
-import rejectIssuePrimaryEdit from '../controller/IssueController/rejectIssuePrimary';
 import CreateQCWaterEntire from '../controller/QCWaterController/createQCWater';
 import SearchQCWater from '../controller/QCWaterController/searchQCWater';
 import GetAllQCWaterEditPendingData from '../controller/QCWaterController/getPendingQCWater';
+import acceptQCWaterEditPrimary from '../controller/QCWaterController/acceptQCWater';
+import editQCWater from '../controller/QCWaterController/editQCWater';
+import rejectQCWaterPrimaryEdit from '../controller/QCWaterController/rejectQCWater';
+import sumOfallQCWater from '../controller/QCWaterController/sumOfallQCWater';
 const router = express.Router();
 
 
  router.get("/getPendingQCWaterData", jwtVerify, GetAllQCWaterEditPendingData)
-// router.get("/sumofallIssueUnit", jwtVerify, sumOfallIssue)
+ router.get("/sumofallQCWater", jwtVerify, sumOfallQCWater)
 router.post("/createQCWaterEntire", jwtVerify, CreateQCWaterEntire)
 router.post("/searchQCWater", jwtVerify, SearchQCWater)
-router.post("/editStoreIssue/:id",jwtVerify, editstoreIssue)
-router.get('/acceptEditIssuePrimary/:id', jwtVerify,acceptIssueEditPrimary)
-router.get("/rejectEditIssuePrimary/:id",jwtVerify, rejectIssuePrimaryEdit)
+router.post("/editQCWater/:id",jwtVerify, editQCWater)
+router.get('/acceptEditQCWaterPrimary/:id', jwtVerify,acceptQCWaterEditPrimary)
+router.get("/rejectEditQCWaterPrimary/:id",jwtVerify, rejectQCWaterPrimaryEdit)
 export default router

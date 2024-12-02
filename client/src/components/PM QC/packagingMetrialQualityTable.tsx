@@ -438,7 +438,7 @@ const QCPackageMaterialTable = () => {
                     <TableHead className="text-center" >Width(mm)</TableHead>
                     <TableHead className="text-center" >Height(mm)</TableHead>
                     <TableHead className="text-center" >Gsm</TableHead>
-                    <TableHead className="text-center" >Avg_Weight()gm</TableHead>
+                    <TableHead className="text-center" >Avg_Weight(gm)</TableHead>
                 
                     <TableHead className="text-center" >Remarks</TableHead>
                    

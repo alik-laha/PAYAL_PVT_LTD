@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { Op } from "sequelize";
-import ItemIssueEdit from "../../model/itemIssueEdit";
-import ItemIssue from "../../model/itemissueModel";
+import QCWater from "../../model/QCWaterModel";
+import QCWaterEdit from "../../model/QCWaterEditModel";
 
-const sumOfallIssue = async (req: Request, res: Response) => {
+const sumOfallQCWater = async (req: Request, res: Response) => {
 
     
     try {
@@ -30,9 +30,9 @@ const sumOfallIssue = async (req: Request, res: Response) => {
         
 
        
-        const data = await ItemIssue.count({
+        const data = await QCWater.count({
             attributes: [
-                'sectionunit'
+                'boilertype'
                 
             ],
             where: {
@@ -45,11 +45,11 @@ const sumOfallIssue = async (req: Request, res: Response) => {
                     [Op.between]: [targetDate, today]
                 }
             },
-            group: ['sectionunit']
+            group: ['boilertype']
         });
 
 
-        const EditData = await ItemIssueEdit.count()
+        const EditData = await QCWaterEdit.count()
         if (data) {
             return res.status(200).json({ data, EditData });
         }
@@ -58,4 +58,4 @@ const sumOfallIssue = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "Internal Server Error", err });
     }
 }
-export default sumOfallIssue;
+export default sumOfallQCWater;
