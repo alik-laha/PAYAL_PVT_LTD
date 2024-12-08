@@ -23,6 +23,7 @@ import {  PeelingData } from "@/type/type";
 
 
 import cross from '../../assets/Static_Images/error_img.png'
+import RCNPeelingCreateForm from "./PeelingCreateForm";
 //import RCNHumidLineCreateForm from "./HumidifierLineCreateForm";
 
 interface lotPropsdata{
@@ -103,11 +104,11 @@ const PeelingInitial = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger>
                                             { idx==0 &&  <DialogContent className='max-w-7xl'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Humidifier Line Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Peeling Line Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 
-                                                    {/* <RCNHumidLineCreateForm borma={bormaData}/> */}
+                                                    <RCNPeelingCreateForm borma={bormaData}/>
                                                 </DialogContent>}
                                             </Dialog>
                                         </TableCell>

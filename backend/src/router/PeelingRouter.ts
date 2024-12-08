@@ -15,13 +15,14 @@ import approveHumid from "../controller/HumidController/approveEditHumid";
 import EditRejectHumid from "../controller/HumidController/RejectEditHumid";
 import getPeelingLot from "../controller/PeelingController/getUnpeeledEntry";
 import getPeelingBylot from "../controller/PeelingController/getPeeledByLot";
+import CreateEntirePeel from "../controller/PeelingController/createEntirePeeling";
 const router = express()
 
 router.get("/getUnPeelingEntry/:status", jwtVerify, getPeelingLot)
 router.get("/findEditHumidAll", jwtVerify, findEditHumidAll)
 router.get("/sumofallhumid", jwtVerify, sumOfallHumid)
 router.get("/getPeelingByLot/:lotNO", jwtVerify, getPeelingBylot)
-router.post("/createEntireHumid", jwtVerify, CreateEntireHumid)
+router.post("/createEntirePeeling", jwtVerify, CreateEntirePeel)
 router.put('/humidprimarysearch', jwtVerify, SearchRCNHumid);
 router.post("/updateHumid/:id",jwtVerify, updateHumid)
 // //Edit Reject Rcn Entry by Id

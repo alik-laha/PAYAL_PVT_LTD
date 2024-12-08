@@ -544,6 +544,7 @@ export interface PeelingData {
             pressure: string;
             moisture: string;
             peelingTime: string;
+            difference:string;
 }
 export interface HumidExcelData {
     SL_No: number;

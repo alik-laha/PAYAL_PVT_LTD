@@ -160,6 +160,10 @@ const RcnPeeling = sequelize.define('rcnPeeling', {
         type: DataTypes.STRING,
         allowNull: true
     } ,
+    difference: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    } 
 
 });
 export default RcnPeeling;
