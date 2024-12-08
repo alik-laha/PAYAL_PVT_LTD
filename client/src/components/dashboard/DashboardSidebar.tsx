@@ -20,7 +20,7 @@ import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { FaUserTie,FaWater  ,FaAcquisitionsIncorporated  } from "react-icons/fa";
 import { PiPackageLight } from "react-icons/pi";
-import { GiBoilingBubbles, GiIceCreamScoop, GiGate } from "react-icons/gi";
+import { GiBoilingBubbles, GiIceCreamScoop, GiGate, GiPizzaCutter } from "react-icons/gi";
 import { CgSmartHomeBoiler } from "react-icons/cg";
 import { BsMoisture } from "react-icons/bs";
 import { GiChopsticks } from "react-icons/gi";
@@ -274,7 +274,7 @@ const DashboardSidebar = () => {
                                     <p className="flex"> <BsMoisture size={20} /><p className="pl-3">  RCN Humidifier </p></p>
                                 </NavLink>
                             </CollapsibleContent>}
-                        {/* {renderlink('Humidifier')
+                        {renderlink('Humidifier')
 
 
                             && <CollapsibleContent className="Items-pvt">
@@ -282,8 +282,7 @@ const DashboardSidebar = () => {
 
                                     <p className="flex"> <GiPizzaCutter size={20} /><p className="pl-3">  RCN Peeling </p></p>
                                 </NavLink>
-                            </CollapsibleContent>} */}
-
+                            </CollapsibleContent>} 
 
                         {renderlink('Receiving Village Entry')
                             && <CollapsibleContent className="Items-pvt">

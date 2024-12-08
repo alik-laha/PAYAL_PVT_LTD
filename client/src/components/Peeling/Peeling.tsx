@@ -24,6 +24,7 @@ import Loader from '../common/Loader';
 import { HumidpendingLotData, pendingCheckRoles, PermissionRole } from '@/type/type';
 // import RCNHumidCreateForm from './HumidifierCreateForm';
 import { pendingCheckRole } from '../common/exportData';
+import PeelingInitial from './PeelingInitial';
 // import HumidTable from './HumidifierTable';
 
 // import BormaTable from './RCNBormaTable';
@@ -58,7 +59,7 @@ const Peeling = () => {
     console.log(data)
 
     const handleOpenLotNo = async () => {
-        axios.get('/api/humid/getUnHumidEntry/0').then(res => {
+        axios.get('/api/peeling/getUnPeelingEntry/0').then(res => {
             console.log(res)
             setLotData(res.data.scoopingLot)
             console.log(lotdata)
@@ -123,11 +124,11 @@ const Peeling = () => {
                         <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>RCN Humidifier Entry Form</p></DialogTitle>
+                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>RCN Peeling Entry Form</p></DialogTitle>
 
                             </DialogHeader>
 
-                            {/* <RCNHumidCreateForm props={lotdata} /> */}
+                            <PeelingInitial props={lotdata} />
                         </DialogContent>
                     </Dialog>
 
