@@ -8,7 +8,7 @@ import RcnPeeling from "../../model/peelingModel";
 //import RcnPeeling from "../../model/peelingModel";
 
 
-const CreateEntireHumid= async (req: Request, res: Response) => {
+const CreateEntirePeel= async (req: Request, res: Response) => {
     const timeToMilliseconds = (time: string) => {
         const [hours, minutes] = time.split(':').map(Number);
         return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
@@ -52,29 +52,46 @@ const CreateEntireHumid= async (req: Request, res: Response) => {
             }
             const Mc_runTime = millisecondsToTime(runtime);
             //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
-            if((parseFloat(data.TotalInput)>parseFloat(data.TotalOutput))
-                ||parseFloat(data.InputMoisture)>parseFloat(data.OutputMoisture)){
-                res.status(500).json({ message: "Output can't be Lower Than Input" });
-                throw new Error('Transaction Aborted due to negative value')
-
-            }
-            let prcntg:number=0
-            if(data.OutputMoisture && data.InputMoisture){
-                 prcntg=(((parseFloat(data.OutputMoisture)-parseFloat(data.InputMoisture))/parseFloat(data.InputMoisture))*100)
-            }
+         
+           
             
-            const humidUpdate=await Humidifier.update(
+            const humidUpdate=await RcnPeeling.update(
                 {     
                     date:data.Date,
                     Mc_on: data.Mc_on,
                     Mc_off: data.Mc_off,
                     Mc_breakdown: data.Mc_breakdown,
                     Mc_runTime: Mc_runTime,
-                    noOfOperators:data.operator,
+                  
                     otherTime: data.otherTime,
-                    OutputMoisture: data.OutputMoisture,
-                    TotalOutput: data.TotalOutput,
-                    MoistGain: prcntg,
+                   
+
+                    WholesPeel: data.WholesPeel,
+                    WholesUnpeel:data.WholesUnpeel,
+                    DP: data.DP,
+                    DS: data.DS,
+                    DP1: data.DP1,
+                    JJH: data.JJH,
+                    SJH: data.SJH,
+                    SJH1: data.SJH1,
+                    JH1: data.JH1,
+                    JK_K: data.JK_K,
+                    SP1: data.SP1,
+                   
+                    Husk:data.Husk,
+                    Rejection: data.Rejection,
+                    UnpeelPiece:data.UnpeelPiece,
+                    Big_Taiho:data.Big_Taiho,
+                   
+                    NoOfTrolley: data.NoOfTrolley,
+                    pressure:data.pressure,
+                    moisture: data.moisture,
+                    peelingTime: data.peelingTime,
+                    difference:parseFloat(data.TotalInput)-(parseFloat(data.WholesPeel)+parseFloat(data.WholesUnpeel)+parseFloat(data.DP)+parseFloat(data.DS)+parseFloat(data.DP1
+                        +parseFloat(data.JJH)+parseFloat(data.SJH)+parseFloat(data.SJH1)+parseFloat(data.JH1)+parseFloat(data.JK_K)+parseFloat(data.SP1)
+                        +parseFloat(data.Husk)+parseFloat(data.Rejection)+parseFloat(data.UnpeelPiece)+parseFloat(data.Big_Taiho)
+                    )),
+
                     Status: 1,
                     CreatedBy: feeledBy 
                 },
@@ -84,25 +101,25 @@ const CreateEntireHumid= async (req: Request, res: Response) => {
                     }, transaction
                 }
             );
-            if(humidUpdate){
+            // if(humidUpdate){
                 
-                await RcnPeeling.create({
-                    id:data.id,
-                    LotNo:data.LotNo,
-                    origin:data.origin,
-                    //InputMoisture:data.OutputMoisture,
-                    TotalInput: data.TotalOutput,
-                    noOfOperators:data.operator
-                    //NoOfTrolley: data.NoOfTrolley,
+            //     await RcnPeeling.create({
+            //         id:data.id,
+            //         LotNo:data.LotNo,
+            //         origin:data.origin,
+            //         //InputMoisture:data.OutputMoisture,
+            //         TotalInput: data.TotalOutput,
+            //         noOfOperators:data.operator
+            //         //NoOfTrolley: data.NoOfTrolley,
 
-                },{transaction});
-            }
+            //     },{transaction});
+            // }
            
         }
        
         const lotupdate = await LotNo.update(
             { 
-              modifiedBy:'Humidifier'
+              modifiedBy:'Peeling'
             },
             {
                 where: {
@@ -111,7 +128,7 @@ const CreateEntireHumid= async (req: Request, res: Response) => {
             }
         );
         if(lotupdate){
-            res.status(200).json({ message: "Humidification Entry Made Successfully" });
+            res.status(200).json({ message: "Peeling Entry Made Successfully" });
         }
         else{
             console.log('No Need For Update')
@@ -123,7 +140,7 @@ const CreateEntireHumid= async (req: Request, res: Response) => {
     catch(error) {
         if(!res.headersSent){
             console.log(error)
-            return res.status(500).json({ message: "Error while creating Humidification Entry" ,error});
+            return res.status(500).json({ message: "Error while creating Peeling Entry" ,error});
         }
     }
     
@@ -132,4 +149,4 @@ const CreateEntireHumid= async (req: Request, res: Response) => {
 }
 
 
-export default CreateEntireHumid;
+export default CreateEntirePeel;

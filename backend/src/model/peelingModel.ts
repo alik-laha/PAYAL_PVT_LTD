@@ -41,62 +41,63 @@ const RcnPeeling = sequelize.define('rcnPeeling', {
     TotalInput: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     WholesPeel: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
+        
     },
     WholesUnpeel: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     DP: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     DS: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     DP1: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     JJH: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     SJH: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     SJH1: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     JH1: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     JK_K: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     SP1: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     Mc_on: {
         type: DataTypes.TIME,
@@ -105,22 +106,22 @@ const RcnPeeling = sequelize.define('rcnPeeling', {
     Husk: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     Rejection: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     UnpeelPiece: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     Big_Taiho: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     Mc_off: {
         type: DataTypes.TIME,
@@ -147,5 +148,22 @@ const RcnPeeling = sequelize.define('rcnPeeling', {
         type: DataTypes.INTEGER,
         allowNull: true
     },
+    pressure: {
+        type: DataTypes.STRING,
+        allowNull: true
+    } ,
+    moisture: {
+        type: DataTypes.STRING,
+        allowNull: true
+    } ,
+    peelingTime: {
+        type: DataTypes.STRING,
+        allowNull: true
+    } ,
+    difference: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    } 
+
 });
 export default RcnPeeling;

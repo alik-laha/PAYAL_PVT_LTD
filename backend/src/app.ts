@@ -27,6 +27,7 @@ import agarbatiRouter from "./router/agarbatiRouter";
 import issueRouter from "./router/issueRouter";
 import oilMillRouter from "./router/oilMillRouter";
 import QCWaterRouter from "./router/QCWaterRouter";
+import PeelingRouter from "./router/PeelingRouter";
 
 
 
@@ -63,4 +64,5 @@ app.use("/api/qcpackage", qcPackageMaterialRouter)
 app.use("/api/issue", issueRouter)
 app.use("/api/oilMill", oilMillRouter)
 app.use("/api/qcWater", QCWaterRouter)
+app.use("/api/peeling", PeelingRouter)
 export default app

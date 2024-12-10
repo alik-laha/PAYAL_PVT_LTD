@@ -282,8 +282,7 @@ const DashboardSidebar = () => {
 
                                     <p className="flex"> <GiPizzaCutter size={20} /><p className="pl-3">  RCN Peeling </p></p>
                                 </NavLink>
-                            </CollapsibleContent>} */}
-
+                            </CollapsibleContent>}  */}
 
                         {renderlink('Receiving Village Entry')
                             && <CollapsibleContent className="Items-pvt">
