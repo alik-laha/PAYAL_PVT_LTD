@@ -5,7 +5,8 @@ const downloadData = async (req: Request, res: Response) => {
 
         const path = req.query.path as string;
         console.log(path);
-        return res.download(`./${path}`);
+        const filename='QC-Package-Report-Download.pdf'
+        return res.download(`${path}`,filename);
     }
     catch (err) {
         console.log(err);
