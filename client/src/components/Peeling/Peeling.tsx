@@ -25,6 +25,7 @@ import { HumidpendingLotData, pendingCheckRoles, PermissionRole } from '@/type/t
 // import RCNHumidCreateForm from './HumidifierCreateForm';
 import { pendingCheckRole } from '../common/exportData';
 import PeelingInitial from './PeelingInitial';
+import PeelingTable from './PeelingTable';
 // import HumidTable from './HumidifierTable';
 
 // import BormaTable from './RCNBormaTable';
@@ -32,17 +33,17 @@ import PeelingInitial from './PeelingInitial';
 
 const Peeling = () => {
 
-    const { setEditHumidLotWiseData } = useContext(Context)
+    const { setEditPeelingLotWiseData } = useContext(Context)
     const [lotdata, setLotData] = useState<HumidpendingLotData[]>([])
 
 
 
-    const { data, isLoading, error } = UseQueryData('/api/humid/sumofallhumid', 'GET', 'AllHumidSum');
+    const { data, isLoading, error } = UseQueryData('/api/peeling/sumofallpeel', 'GET', 'AllPeelingSum');
     const handleEditFetch = async () => {
 
-        axios.get("/api/humid/findEditHumidAll").then(res => {
+        axios.get("/api/peeling/findEditPeelingAll").then(res => {
             console.log(res)
-            setEditHumidLotWiseData(res.data.scoopingAllEdit)
+            setEditPeelingLotWiseData(res.data.scoopingAllEdit)
         })
             .catch(err => {
                 console.log(err)
@@ -90,27 +91,29 @@ const Peeling = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
+                <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
+                        Big Taiho <br /><p>{data.data[0].Big_Taiho  ?  formatNumber(parseFloat(data.data[0].Big_Taiho)): 0} Kg</p>
+                    </div>
                     <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
-                        India <br /><p>{data.data[0].India ? formatNumber(Number(data.data[0].India))  : 0} Kg</p>
+                        Mayur <br /><p>{data.data[0].WholesPeel && data.data[0].WholesUnpeel? formatNumber(parseFloat(data.data[0].WholesPeel)+parseFloat(data.data[0].WholesUnpeel))  : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                        Ghana <br /><p>{data.data[0].Ghana? formatNumber(Number(data.data[0].Ghana)) : 0} Kg</p>
+                        DP & DS <br /><p>{data.data[0].DP && data.data[0].DS && data.data[0].DP1? formatNumber(parseFloat(data.data[0].DP)+parseFloat(data.data[0].DS)+parseFloat(data.data[0].DP1))  : 0}  Kg</p>
                     </div>
                     <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
-                        Togo <br /><p>{data.data[0].Togo? formatNumber(Number(data.data[0].Togo)) : 0} Kg</p>
+                        Sorting <br /><p>{data.data[0].SJH && data.data[0].JJH && data.data[0].SJH1 &&
+                        data.data[0].SP1 && data.data[0].JK_K && data.data[0].JH1? formatNumber
+                        (parseFloat(data.data[0].SJH)+parseFloat(data.data[0].SJH1)+parseFloat(data.data[0].JJH)
+                        +parseFloat(data.data[0].JK_K)+parseFloat(data.data[0].SP1)+parseFloat(data.data[0].JH1))  : 0}  Kg</p>
                     </div>
                     <div className="flexbox-tile bg-sky-500 hover:bg-orange-400">
-                        Tanzania <br /><p>{data.data[0].Tanzania ? formatNumber(Number(data.data[0].Tanzania)) : 0} Kg</p>
+                        Village <br /><p>{data.data[0].UnpeelPiece ? formatNumber(parseFloat(data.data[0].UnpeelPiece)) : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
-                        Nigeria <br /><p>{data.data[0].Nigeria  ? formatNumber(Number(data.data[0].Nigeria)) : 0} Kg</p>
+                        Husk <br /><p>{data.data[0].Husk  ? formatNumber(parseFloat(data.data[0].Husk)) : 0} Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
-                        Benin <br /><p>{data.data[0].Benin  ?  formatNumber(Number(data.data[0].Benin)): 0} Kg</p>
-                    </div>
-                    <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
-                        IVC <br /><p>{data.data[0].IVC ?  formatNumber(Number(data.data[0].IVC)) : 0} Kg</p>
-                    </div>
+                 
+                    
 
 
 
@@ -136,7 +139,7 @@ const Peeling = () => {
                     {checkpending('Humidifier') &&  <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> }
 
                 </div>
-                {/* <HumidTable/> */}
+                <PeelingTable/>
 
             </div>
         </div>
