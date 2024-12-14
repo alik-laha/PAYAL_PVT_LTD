@@ -35,9 +35,6 @@ const Peeling = () => {
 
     const { setEditPeelingLotWiseData } = useContext(Context)
     const [lotdata, setLotData] = useState<HumidpendingLotData[]>([])
-
-
-
     const { data, isLoading, error } = UseQueryData('/api/peeling/sumofallpeel', 'GET', 'AllPeelingSum');
     const handleEditFetch = async () => {
 

@@ -56,6 +56,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 // import BormaModify from "./RCNBormaModify";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import PeelingModify from "./PeelingModify";
 //import HumidifierModify from "./HumidifierModify";
 
 const PeelingTable = () => {
@@ -283,6 +284,14 @@ const PeelingTable = () => {
             }
         }
     }
+
+    const formatNumberWithSign = (number: number) => {
+        if (number > 0) {
+            return `+${number}`;
+        } else {
+            return `${number}`;
+        }
+    };
     return (
         <>
 
@@ -343,9 +352,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center " >Moisture(Min-Max)</TableHead>
                         <TableHead className="text-center" >Peeling_Time</TableHead>
                         <TableHead className="text-center" >No_Of_Trolley</TableHead>
+                        <TableHead className="text-center" >Pieces Unpeel</TableHead>
                         <TableHead className="text-center" >Wholes Peel</TableHead>
                         <TableHead className="text-center" >Wholes UnPeel</TableHead>
-                        <TableHead className="text-center" >Pieces Unpeel</TableHead>
+                       
                         <TableHead className="text-center" >DP</TableHead>
                         <TableHead className="text-center" >DS</TableHead>
                         <TableHead className="text-center" >DP1</TableHead>
@@ -358,7 +368,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Husk</TableHead>
                         <TableHead className="text-center" >Rejection</TableHead>
                         <TableHead className="text-center" >Big_Taiho</TableHead>
-
+                        <TableHead className="text-center" >Difference</TableHead>
                         <TableHead className="text-center" >Peeling_ON</TableHead>
                         <TableHead className="text-center" >Peeling_OFF</TableHead>
                         
@@ -388,21 +398,25 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center  ">{item.peelingTime} </TableCell>
                                       
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.WholesPeel)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.WholesUnpeel)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.UnpeelPiece)}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.DP)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.DS)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.DP1)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.JJH)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.SJH)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.SJH1)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.JK_K)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.SP1)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.JH1)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.Husk)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.Rejection)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.Big_Taiho)}</TableCell>
+                                        <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell>
+                                        <TableCell className="text-center bg-green-100">{formatNumber(item.WholesPeel)}</TableCell>
+                                        <TableCell className="text-center bg-green-100">{formatNumber(item.WholesUnpeel)}</TableCell>
+                                        
+                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.DP)}</TableCell>
+                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.DS)}</TableCell>
+                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.DP1)}</TableCell>
+                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.JJH)}</TableCell>
+                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.SJH)}</TableCell>
+                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.SJH1)}</TableCell>
+                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.JK_K)}</TableCell>
+                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.SP1)}</TableCell>
+                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.JH1)}</TableCell>
+                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.Husk)}</TableCell>
+                                        <TableCell className="text-center bg-green-100">{formatNumber(item.Rejection)}</TableCell>
+                                        <TableCell className="text-center bg-red-100">{formatNumber(item.Big_Taiho)}</TableCell>
+                                        {Number(item.difference) < 0 ? (<TableCell className="text-center font-bold text-red-600">{formatNumberWithSign(Number(item.difference))} </TableCell>)
+                                        : (<TableCell className="text-center font-bold text-green-600">{formatNumberWithSign(Number(item.difference))} </TableCell>)}
+                                        <TableCell className="text-center">{formatNumber(item.Big_Taiho)}</TableCell>
                                         <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
@@ -469,21 +483,24 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center  ">{item.peelingTime} </TableCell>
                                       
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.WholesPeel)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.WholesUnpeel)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.UnpeelPiece)}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.DP)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.DS)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.DP1)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.JJH)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.SJH)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.SJH1)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.JK_K)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.SP1)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.JH1)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.Husk)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.Rejection)}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.Big_Taiho)}</TableCell>
+                                        <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell>
+                                        <TableCell className="text-center bg-green-100">{formatNumber(item.WholesPeel)}</TableCell>
+                                        <TableCell className="text-center bg-green-100">{formatNumber(item.WholesUnpeel)}</TableCell>
+                                        
+                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.DP)}</TableCell>
+                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.DS)}</TableCell>
+                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.DP1)}</TableCell>
+                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.JJH)}</TableCell>
+                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.SJH)}</TableCell>
+                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.SJH1)}</TableCell>
+                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.JK_K)}</TableCell>
+                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.SP1)}</TableCell>
+                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.JH1)}</TableCell>
+                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.Husk)}</TableCell>
+                                        <TableCell className="text-center bg-green-100">{formatNumber(item.Rejection)}</TableCell>
+                                        <TableCell className="text-center bg-red-100">{formatNumber(item.Big_Taiho)}</TableCell>
+                                        {Number(item.difference) < 0 ? (<TableCell className="text-center font-bold text-red-600">{formatNumberWithSign(Number(item.difference))} </TableCell>)
+                                        : (<TableCell className="text-center font-bold text-green-600">{formatNumberWithSign(Number(item.difference))} </TableCell>)}
 
                                         <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
@@ -507,10 +524,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogContent>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Humidifier Entry Modification</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-1'>Peeling Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            {/* <HumidifierModify data={item} /> */}
+                                                            <PeelingModify data={item} />
                                                         </DialogContent>
                                                     </Dialog>
                                                 </PopoverContent>
