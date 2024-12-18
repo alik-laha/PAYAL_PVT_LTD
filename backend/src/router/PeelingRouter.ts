@@ -1,34 +1,31 @@
 import express from "express"
 import jwtVerify from "../middleWare/JwtAuthantication";
 
-
-
-
-import sumOfallHumid from "../controller/HumidController/sumOfallHumid";
-import findEditHumidAll from "../controller/HumidController/getHumidAll";
-import getHumidLot from "../controller/HumidController/getHumidLot";
-import getHumidBylot from "../controller/HumidController/getHumidByLot";
-import CreateEntireHumid from "../controller/HumidController/createEntireHumid";
-import SearchRCNHumid from "../controller/HumidController/searchHumid";
 import updateHumid from "../controller/HumidController/updateHumid";
-import approveHumid from "../controller/HumidController/approveEditHumid";
-import EditRejectHumid from "../controller/HumidController/RejectEditHumid";
+
+
 import getPeelingLot from "../controller/PeelingController/getUnpeeledEntry";
 import getPeelingBylot from "../controller/PeelingController/getPeeledByLot";
 import CreateEntirePeel from "../controller/PeelingController/createEntirePeeling";
+import sumOfallPeel from "../controller/PeelingController/sumOfallPeeling";
+import findEditPeelingAll from "../controller/PeelingController/getEditPendingPeeling";
+import SearchRCNPeeling from "../controller/PeelingController/peelingSearch";
+import EditRejectPeeling from "../controller/PeelingController/rejectPeeling";
+import approvePeeling from "../controller/PeelingController/approvepeeling";
+import updatePeeling from "../controller/PeelingController/updatePeeling";
 const router = express()
 
 router.get("/getUnPeelingEntry/:status", jwtVerify, getPeelingLot)
-router.get("/findEditHumidAll", jwtVerify, findEditHumidAll)
-router.get("/sumofallhumid", jwtVerify, sumOfallHumid)
+router.get("/findEditPeelingAll", jwtVerify, findEditPeelingAll)
+router.get("/sumofallpeel", jwtVerify, sumOfallPeel)
 router.get("/getPeelingByLot/:lotNO", jwtVerify, getPeelingBylot)
 router.post("/createEntirePeeling", jwtVerify, CreateEntirePeel)
-router.put('/humidprimarysearch', jwtVerify, SearchRCNHumid);
-router.post("/updateHumid/:id",jwtVerify, updateHumid)
+router.put('/peelingprimarysearch', jwtVerify, SearchRCNPeeling);
+router.post("/updatePeeling/:id",jwtVerify, updatePeeling)
 // //Edit Reject Rcn Entry by Id
-router.delete('/rejectededitHumid/:id', jwtVerify, EditRejectHumid);
+router.delete('/rejectededitPeeling/:id', jwtVerify, EditRejectPeeling);
 //Edit Approve Rcn Entry by Id
-router.put("/approveeditHumid/:id", jwtVerify, approveHumid);
+router.put("/approveeditPeeling/:id", jwtVerify, approvePeeling);
 
 
 export default router

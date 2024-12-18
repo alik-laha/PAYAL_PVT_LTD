@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 import sequelize from "../../config/databaseConfig";
 
 import LotNo from "../../model/lotNomodel";
-import Humidifier from "../../model/humidfierModel";
 import RcnPeeling from "../../model/peelingModel";
 //import RcnPeeling from "../../model/peelingModel";
 
@@ -53,6 +52,26 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
             const Mc_runTime = millisecondsToTime(runtime);
             //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
          
+            if(parseFloat(data.TotalInput)< (parseFloat(data.WholesPeel)
+                +parseFloat(data.WholesUnpeel)
+                +parseFloat(data.DP)
+                +parseFloat(data.DS)
+                +parseFloat(data.DP1)
+                +parseFloat(data.JJH)
+                +parseFloat(data.SJH)
+                +parseFloat(data.SJH1)
+                +parseFloat(data.JH1)
+                +parseFloat(data.JK_K)
+                +parseFloat(data.SP1)
+                +parseFloat(data.Husk)
+                +parseFloat(data.Rejection)
+                +parseFloat(data.UnpeelPiece)
+                +parseFloat(data.Big_Taiho)))
+               {
+                res.status(500).json({ message: "Backlog can't be Greater Than Input" });
+                throw new Error('Transaction Aborted due to negative value')
+
+            }
            
             
             const humidUpdate=await RcnPeeling.update(
@@ -77,20 +96,30 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
                     JH1: data.JH1,
                     JK_K: data.JK_K,
                     SP1: data.SP1,
-                   
                     Husk:data.Husk,
                     Rejection: data.Rejection,
                     UnpeelPiece:data.UnpeelPiece,
                     Big_Taiho:data.Big_Taiho,
-                   
                     NoOfTrolley: data.NoOfTrolley,
                     pressure:data.pressure,
                     moisture: data.moisture,
                     peelingTime: data.peelingTime,
-                    difference:parseFloat(data.TotalInput)-(parseFloat(data.WholesPeel)+parseFloat(data.WholesUnpeel)+parseFloat(data.DP)+parseFloat(data.DS)+parseFloat(data.DP1
-                        +parseFloat(data.JJH)+parseFloat(data.SJH)+parseFloat(data.SJH1)+parseFloat(data.JH1)+parseFloat(data.JK_K)+parseFloat(data.SP1)
-                        +parseFloat(data.Husk)+parseFloat(data.Rejection)+parseFloat(data.UnpeelPiece)+parseFloat(data.Big_Taiho)
-                    )),
+                    difference:parseFloat(data.TotalInput)-
+                    (parseFloat(data.WholesPeel)
+                    +parseFloat(data.WholesUnpeel)
+                    +parseFloat(data.DP)
+                    +parseFloat(data.DS)
+                    +parseFloat(data.DP1)
+                    +parseFloat(data.JJH)
+                    +parseFloat(data.SJH)
+                    +parseFloat(data.SJH1)
+                    +parseFloat(data.JH1)
+                    +parseFloat(data.JK_K)
+                    +parseFloat(data.SP1)
+                    +parseFloat(data.Husk)
+                    +parseFloat(data.Rejection)
+                    +parseFloat(data.UnpeelPiece)
+                    +parseFloat(data.Big_Taiho)),
 
                     Status: 1,
                     CreatedBy: feeledBy 

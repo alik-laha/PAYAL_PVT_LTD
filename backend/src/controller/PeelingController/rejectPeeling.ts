@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import Humidifier from "../../model/humidfierModel";
-import HumidifierEdit from "../../model/humidierEditModel";
+import RcnEditPeeling from "../../model/peelingEditModel";
+import RcnPeeling from "../../model/peelingModel";
 
 
-const EditRejectHumid = async (req: Request, res: Response) => {
+const EditRejectPeeling = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
          const rejectedBy = req.cookies.user;
@@ -12,7 +12,7 @@ const EditRejectHumid = async (req: Request, res: Response) => {
         if (!id || !rejectedBy) {
             return res.status(400).json({ message: "Please provide the id or rejected By" });
         }
-        const rcn = await Humidifier.update({
+        const rcn = await RcnPeeling.update({
             editStatus: "NA",
             modifiedBy:rejectedBy
         }, {
@@ -21,21 +21,21 @@ const EditRejectHumid = async (req: Request, res: Response) => {
             }
         });
         if (!rcn) {
-            return res.status(400).json({ message: "Humid Entry not found" });
+            return res.status(400).json({ message: "Peeling Entry not found" });
         }
-        const rcnEdit = await HumidifierEdit.destroy({
+        const rcnEdit = await RcnEditPeeling.destroy({
             where: {
                 id
             }
         });
         if (!rcnEdit) {
-            return res.status(400).json({ message: "Humid Entry not found" });
+            return res.status(400).json({ message: "Peeling Entry not found" });
         }
-        return res.status(200).json({ message: "Humid Entry rejected successfully" });
+        return res.status(200).json({ message: "Peeling Entry rejected successfully" });
     }
     catch (err) {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error", error: err });
     }
 }
-export default EditRejectHumid;
+export default EditRejectPeeling;

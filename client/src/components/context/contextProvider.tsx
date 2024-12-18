@@ -37,6 +37,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [editPendingAgarbatiData, setEditPendingAgarbatiData] = useState<AgarbatiPrimaryEntryData[]>([])
     const [editPendiningIssueItemData, setEditPendiningIssueItemData] = useState<IssueItemData[]>([])
     const [editPendiningQCWaterData, setEditPendiningQCWaterData] = useState<QCWaterData[]>([])
+    const [editPeelingLotWiseData, setEditPeelingLotWiseData] = useState<any[]>([])
 
     return (
         <Context.Provider value={{
@@ -48,7 +49,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
             editScoopingLotWiseData, setEditScoopingLotWiseData, searchType, setSearchType,editBormaLotWiseData,setEditBormaLotWiseData,
             StorePrimaryOverView,setStorePrimaryOverView,GeneralPrimaryOverView,setGeneralPrimaryOverView,editPendingAlmondData,setEditPendingAlmondData
             ,RcvVillagePrimaryOverView,setRcvVillagePrimaryOverView,editHumidLotWiseData,setEditHumidLotWiseData,editPendingAgarbatiData,setEditPendingAgarbatiData,
-            editPendingOilMillData,setEditPendingOilMillData,editPendiningQCWaterData, setEditPendiningQCWaterData
+            editPendingOilMillData,setEditPendingOilMillData,editPendiningQCWaterData, setEditPendiningQCWaterData,
+            editPeelingLotWiseData, setEditPeelingLotWiseData
         }}>
             {children}
         </Context.Provider>

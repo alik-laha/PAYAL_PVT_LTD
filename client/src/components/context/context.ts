@@ -53,6 +53,8 @@ interface ContextType {
     setEditBormaLotWiseData: (data: any[]) => void;
     editHumidLotWiseData: any[];
     setEditHumidLotWiseData: (data: any[]) => void;
+    editPeelingLotWiseData: any[];
+    setEditPeelingLotWiseData: (data: any[]) => void;
     editPendingAlmondData: AlmondPrimaryEntryData[];
     setEditPendingAlmondData: (data: AlmondPrimaryEntryData[]) => void;
     editPendingAgarbatiData: AgarbatiPrimaryEntryData[];
@@ -103,6 +105,8 @@ const Context = createContext<ContextType>({
     searchType: '',
     editBormaLotWiseData: [],
     setEditBormaLotWiseData: () => {},
+    editPeelingLotWiseData: [],
+    setEditPeelingLotWiseData: () => {},
     editHumidLotWiseData: [],
     setEditHumidLotWiseData: () => {},
     editPendingAlmondData: [],

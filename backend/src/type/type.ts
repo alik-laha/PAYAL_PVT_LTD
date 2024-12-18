@@ -359,6 +359,43 @@ export interface HumidrcvData {
     modifiedBy: string;
 
 }
+export interface PeelingRcvData {
+    id: number;
+            LotNo: string;
+            date: string;
+            origin: string;
+            CreatedBy: string;
+            editStatus: string;
+            modifiedBy: string;
+            Status:string;
+            TotalInput: string;
+            WholesPeel: string;
+            WholesUnpeel:string;
+            DP: string;
+            DS: string;
+            DP1: string;
+            JJH: string;
+            SJH: string;
+            SJH1: string;
+            JH1: string;
+            JK_K: string;
+            SP1: string;
+            Mc_on: string;
+            Husk: string;
+            Rejection: string;
+            UnpeelPiece: string;
+            Big_Taiho: string;
+            Mc_off: string;
+            Mc_breakdown: string;
+            Mc_runTime: string;
+            noOfOperators: string;
+            otherTime: string;
+            NoOfTrolley: string;
+            pressure: string;
+            moisture: string;
+            peelingTime: string;
+            difference:string;
+}
 export interface VillageRcvData {
     approvedBy: string;
     id: number;
