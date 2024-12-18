@@ -160,8 +160,9 @@ const PeelingModify = (props: PeelingModifyProps) => {
             return
         }
         setisdisable(true)
-        axios.post(`/api/humid/updateHumid/${props.data.id}`, {origin,iptot,lotNo,
-            ipmositure, opmositure,optot,
+        axios.post(`/api/peeling/updatePeeling/${props.data.id}`, {origin,iptot,lotNo,pres,moist,peeltime,
+            wholepeel,wholeunpeel,pieceunpeel,dp,dp1,ds,sjh,sjh1,jjh,jkK,jh1,sp1,husk,rejection,bigT,
+            
             Mc_off, Mc_on, Mc_breakdown, otherTime, trolley, noOfEmployees, date
         })
             .then((res) => {
@@ -211,28 +212,58 @@ const PeelingModify = (props: PeelingModifyProps) => {
                         <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Kg" value={iptot} readOnly /></div>
 
                         <div className="flex"><Label className="w-2/4 mt-2">Pressure</Label>
-                        <Input className="w-2/4 text-center" placeholder="Pressure" value={pres} onChange={(e) => setPres(e.target.value)} /> </div>
+                        <Input className="w-2/4 text-center" placeholder="Pressure" value={pres} onChange={(e) => setPres(e.target.value)} required/> </div>
                         
                         
                         <div className="flex"><Label className="w-2/4 mt-2">Moisture(Min-Max) </Label>
-                        <Input className="w-2/4 text-center" placeholder="%" value={moist} onChange={(e) => setMoist(e.target.value)} /> </div>  
+                        <Input className="w-2/4 text-center" placeholder="%" value={moist} onChange={(e) => setMoist(e.target.value)} required/> </div>  
                 
                         <div className="flex"><Label className="w-2/4 mt-2">Peeling-Time(Min-Max) </Label>
-                        <Input className="w-2/4 text-center" placeholder="%" value={peeltime} onChange={(e) => setPeelTime(e.target.value)} /> </div> 
+                        <Input className="w-2/4 text-center" placeholder="%" value={peeltime} onChange={(e) => setPeelTime(e.target.value)} required/> </div> 
 
 
     
                  
                     <div className="flex"><Label className="w-2/4 mt-2">No of Trolley</Label>
-                        <Input className="w-2/4 text-center" placeholder="Trolley" value={trolley} onChange={(e) => settrolley(e.target.value)} /> </div>
+                        <Input className="w-2/4 text-center" placeholder="Trolley" value={trolley} onChange={(e) => settrolley(e.target.value)} required/> </div>
                     <div className="flex"><Label className="w-2/4 mt-2">No Of Operator</Label>
                         <Input className="w-2/4 text-center bg-yellow-100" placeholder="Operator" value={noOfEmployees} onChange={(e) => setNoOfEmployees(e.target.value)} readOnly/> </div>
-                    <div className="flex pt-2">
+
                     <div className="flex"><Label className="w-2/4 mt-2">Wholes Peel (Kg)</Label>
-                        <Input className="w-2/4 text-center" placeholder="Kg" value={wholepeel} onChange={(e) => setwholepeel(e.target.value)} /> </div>
+                        <Input className="w-2/4 text-center" placeholder="Kg" value={wholepeel} onChange={(e) => setwholepeel(e.target.value)} required/> </div>
 
                     <div className="flex"><Label className="w-2/4 mt-2">Wholes Unpeel</Label>
-                        <Input className="w-2/4 text-center" placeholder="kg" value={wholeunpeel} onChange={(e) => setwholeunpeel(e.target.value)} /> </div>
+                        <Input className="w-2/4 text-center" placeholder="kg" value={wholeunpeel} onChange={(e) => setwholeunpeel(e.target.value)} required/> </div>
+
+                        <div className="flex"><Label className="w-2/4 mt-2">Pieces Unpeel</Label>
+                        <Input className="w-2/4 text-center" placeholder="kg" value={pieceunpeel} onChange={(e) => setpieceunpeel(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">DP</Label>
+                        <Input className="w-2/4 text-center" placeholder="kg" value={dp} onChange={(e) => setdp(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">DP1</Label>
+                        <Input className="w-2/4 text-center" placeholder="kg" value={dp1} onChange={(e) => setdp1(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">DS</Label>
+                        <Input className="w-2/4 text-center" placeholder="kg" value={ds} onChange={(e) => setds(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">SJH</Label>
+                        <Input className="w-2/4 text-center" placeholder="kg" value={sjh} onChange={(e) => setsjh(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">SJH1</Label>
+                        <Input className="w-2/4 text-center" placeholder="kg" value={sjh1} onChange={(e) => setsjh1(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">SP1</Label>
+                        <Input className="w-2/4 text-center" placeholder="kg" value={sp1} onChange={(e) => setsp1(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">JJH</Label>
+                        <Input className="w-2/4 text-center" placeholder="kg" value={jjh} onChange={(e) => setjjh(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">JK/K</Label>
+                        <Input className="w-2/4 text-center" placeholder="kg" value={jkK} onChange={(e) => setjkK(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">JH1</Label>
+                        <Input className="w-2/4 text-center" placeholder="kg" value={jh1} onChange={(e) => setsjh1(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">Husk</Label>
+                        <Input className="w-2/4 text-center" placeholder="kg" value={husk} onChange={(e) => sethusk(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">Rejection</Label>
+                        <Input className="w-2/4 text-center" placeholder="kg" value={rejection} onChange={(e) => setrejection(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">Big_Taiho</Label>
+                        <Input className="w-2/4 text-center" placeholder="kg" value={bigT} onChange={(e) => setbigT(e.target.value)} required/> </div>
+                    
+                    
+                    <div className="flex">  
                         <Label className="w-2/4 pt-1 ">MC ON  </Label>
                         <div className="w-2/4 text-center items-center justify-center" ><TimePicker onChange={handleonchangeon} value={Mc_on} /> </div>
                     </div>

@@ -12,6 +12,7 @@ import findEditPeelingAll from "../controller/PeelingController/getEditPendingPe
 import SearchRCNPeeling from "../controller/PeelingController/peelingSearch";
 import EditRejectPeeling from "../controller/PeelingController/rejectPeeling";
 import approvePeeling from "../controller/PeelingController/approvepeeling";
+import updatePeeling from "../controller/PeelingController/updatePeeling";
 const router = express()
 
 router.get("/getUnPeelingEntry/:status", jwtVerify, getPeelingLot)
@@ -20,7 +21,7 @@ router.get("/sumofallpeel", jwtVerify, sumOfallPeel)
 router.get("/getPeelingByLot/:lotNO", jwtVerify, getPeelingBylot)
 router.post("/createEntirePeeling", jwtVerify, CreateEntirePeel)
 router.put('/peelingprimarysearch', jwtVerify, SearchRCNPeeling);
-router.post("/updateHumid/:id",jwtVerify, updateHumid)
+router.post("/updatePeeling/:id",jwtVerify, updatePeeling)
 // //Edit Reject Rcn Entry by Id
 router.delete('/rejectededitPeeling/:id', jwtVerify, EditRejectPeeling);
 //Edit Approve Rcn Entry by Id
