@@ -151,7 +151,7 @@ const PeelingModify = (props: PeelingModifyProps) => {
         e.preventDefault()
         const resStatus = await axios.post('/api/boiling/getStatusBoiling', { lotNo: props.data.LotNo})
         console.log(resStatus)
-        if (resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy !== 'Humidifier') {
+        if (resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy !== 'Peeling') {
             setErrorText(`Lot has Already Crossed ${resStatus.data.lotStatus.modifiedBy} Section`)
             if(errordialog){
                 (errordialog as any).showModal()
@@ -209,22 +209,30 @@ const PeelingModify = (props: PeelingModifyProps) => {
                    
                     <div className="flex"><Label className="w-2/4 mt-2" > Total Input (Kg)</Label>
                         <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Kg" value={iptot} readOnly /></div>
-                        <div className="flex"><Label className="w-2/4 mt-2">Total Output (Kg)</Label>
-                        <Input className="w-2/4 text-center" placeholder="Kg" value={optot} onChange={(e) => setoptot(e.target.value)} /> </div>
 
-                    <div className="flex"><Label className="w-2/4 mt-2">Input Moisture (%)</Label>
-                        <Input className="w-2/4 text-center" placeholder="Moisture" value={ipmositure} onChange={(e) => setipmoisture(e.target.value)} /> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">Pressure</Label>
+                        <Input className="w-2/4 text-center" placeholder="Pressure" value={pres} onChange={(e) => setPres(e.target.value)} /> </div>
+                        
+                        
+                        <div className="flex"><Label className="w-2/4 mt-2">Moisture(Min-Max) </Label>
+                        <Input className="w-2/4 text-center" placeholder="%" value={moist} onChange={(e) => setMoist(e.target.value)} /> </div>  
                 
-                  
-                    <div className="flex"><Label className="w-2/4 mt-2">Output Moisture (%)</Label>
-                        <Input className="w-2/4 text-center" placeholder="Piece" value={opmositure} onChange={(e) => setopmoisture(e.target.value)} /> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">Peeling-Time(Min-Max) </Label>
+                        <Input className="w-2/4 text-center" placeholder="%" value={peeltime} onChange={(e) => setPeelTime(e.target.value)} /> </div> 
+
+
+    
                  
                     <div className="flex"><Label className="w-2/4 mt-2">No of Trolley</Label>
                         <Input className="w-2/4 text-center" placeholder="Trolley" value={trolley} onChange={(e) => settrolley(e.target.value)} /> </div>
                     <div className="flex"><Label className="w-2/4 mt-2">No Of Operator</Label>
-                        <Input className="w-2/4 text-center" placeholder="Operator" value={noOfEmployees} onChange={(e) => setNoOfEmployees(e.target.value)} /> </div>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Operator" value={noOfEmployees} onChange={(e) => setNoOfEmployees(e.target.value)} readOnly/> </div>
                     <div className="flex pt-2">
+                    <div className="flex"><Label className="w-2/4 mt-2">Wholes Peel (Kg)</Label>
+                        <Input className="w-2/4 text-center" placeholder="Kg" value={wholepeel} onChange={(e) => setwholepeel(e.target.value)} /> </div>
 
+                    <div className="flex"><Label className="w-2/4 mt-2">Wholes Unpeel</Label>
+                        <Input className="w-2/4 text-center" placeholder="kg" value={wholeunpeel} onChange={(e) => setwholeunpeel(e.target.value)} /> </div>
                         <Label className="w-2/4 pt-1 ">MC ON  </Label>
                         <div className="w-2/4 text-center items-center justify-center" ><TimePicker onChange={handleonchangeon} value={Mc_on} /> </div>
                     </div>

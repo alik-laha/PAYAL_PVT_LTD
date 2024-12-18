@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Origin, pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
 import Context from "../context/context";
 import axios from "axios";
-import { HumidData, pendingCheckRoles, PermissionRole, HumidExcelData, PeelingData } from "@/type/type";
+import {  pendingCheckRoles, PermissionRole, PeelingData } from "@/type/type";
 import { Input } from "../ui/input";
 import { FaSearch } from "react-icons/fa";
 import { Button } from "../ui/button";
@@ -115,14 +115,32 @@ const PeelingTable = () => {
         const data1 = await response.data
 
         let ws
-        let transformed: HumidExcelData[] = [];
+        let transformed: any[] = [];
         if (EditData.length > 0) {
-
-            transformed = EditData.map((item: HumidData, idx: number) => ({
+            transformed = EditData.map((item: PeelingData, idx: number) => ({
                 SL_No: idx + 1,
                 LotNo: item.LotNo,
                 date: handletimezone(item.date),
                 origin: item.origin,
+                Total_Input:formatNumber(item.TotalInput),
+                Pressure:formatNumber(item.pressure),
+                Moisture:item.moisture ,
+                Peeling_Time:item.peelingTime,
+                Unpeel_Piece:formatNumber(item.UnpeelPiece),
+                WholesPeel: formatNumber(item.WholesPeel),
+                WholesUnpeel:formatNumber(item.WholesUnpeel),
+                DP: formatNumber(item.DP),
+                DS: formatNumber(item.DS),
+                DP1:formatNumber(item.DP1),
+                JJH: formatNumber(item.JJH),
+                SJH: formatNumber(item.SJH),
+                SJH1:formatNumber(item.SJH1),
+                JK_K:formatNumber(item.JK_K),
+                SP1:formatNumber(item.SP1),
+               JH1:formatNumber(item.JH1),
+               Husk:formatNumber(item.Husk),
+               Rejection: formatNumber(item.Rejection),
+               Big_Taiho: formatNumber(item.Big_Taiho),
                 Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
                 Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
                 Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),         
@@ -130,11 +148,7 @@ const PeelingTable = () => {
                 Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
                 noOfOperators:item.noOfOperators,
                 NoOfTrolley: item.NoOfTrolley,
-                InputMoisture: formatNumber(item.InputMoisture),   
-                OutputMoisture: formatNumber(item.OutputMoisture), 
-                TotalInput: formatNumber(item.TotalInput),    
-                TotalOutput: formatNumber(item.TotalOutput),   
-                MoistGain: formatNumber(item.MoistGain),    
+                Backlog:formatNumber(item.difference),
                 CreatedBy: item.CreatedBy,
                 editStatus: item.editStatus,
                 modifiedBy: item.modifiedBy
@@ -143,11 +157,30 @@ const PeelingTable = () => {
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
-            transformed = data1.rcnEntries.map((item: HumidData, idx: number) => ({
+            transformed = data1.rcnEntries.map((item: PeelingData, idx: number) => ({
                 SL_No: idx + 1,
                 LotNo: item.LotNo,
                 date: handletimezone(item.date),
                 origin: item.origin,
+                Total_Input:formatNumber(item.TotalInput),
+                Pressure:formatNumber(item.pressure),
+                Moisture:item.moisture ,
+                Peeling_Time:item.peelingTime,
+                Unpeel_Piece:formatNumber(item.UnpeelPiece),
+                WholesPeel: formatNumber(item.WholesPeel),
+                WholesUnpeel:formatNumber(item.WholesUnpeel),
+                DP: formatNumber(item.DP),
+                DS: formatNumber(item.DS),
+                DP1:formatNumber(item.DP1),
+                JJH: formatNumber(item.JJH),
+                SJH: formatNumber(item.SJH),
+                SJH1:formatNumber(item.SJH1),
+                JK_K:formatNumber(item.JK_K),
+                SP1:formatNumber(item.SP1),
+               JH1:formatNumber(item.JH1),
+               Husk:formatNumber(item.Husk),
+               Rejection: formatNumber(item.Rejection),
+               Big_Taiho: formatNumber(item.Big_Taiho),
                 Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
                 Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
                 Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),         
@@ -155,11 +188,7 @@ const PeelingTable = () => {
                 Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
                 noOfOperators:item.noOfOperators,
                 NoOfTrolley: item.NoOfTrolley,
-                InputMoisture: formatNumber(item.InputMoisture),   
-                OutputMoisture: formatNumber(item.OutputMoisture), 
-                TotalInput: formatNumber(item.TotalInput),    
-                TotalOutput: formatNumber(item.TotalOutput),   
-                MoistGain: formatNumber(item.MoistGain),    
+                Backlog:formatNumber(item.difference),
                 CreatedBy: item.CreatedBy,
                 editStatus: item.editStatus,
                 modifiedBy: item.modifiedBy
@@ -172,7 +201,7 @@ const PeelingTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Humidifier_Entry_' + currDate + '.xlsx');
+        saveAs(blob, 'Peeling_Entry_' + currDate + '.xlsx');
     }
     const handleSearch = async () => {
 
@@ -264,9 +293,9 @@ const PeelingTable = () => {
         return finalTime;
     }
     const handleApprove = async (item: PeelingData) => {
-        const response = await axios.put(`/api/humid/approveeditHumid/${item.id}`)
+        const response = await axios.put(`/api/peeling/approveeditPeeling/${item.id}`)
         const data = await response.data
-        if (data.message === "Edit Request of Humid Entry is Approved Successfully") {
+        if (data.message === "Edit Request of Peeling Entry is Approved Successfully") {
 
             if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).showModal();
@@ -274,10 +303,10 @@ const PeelingTable = () => {
         }
     }
     const handleRejection = async (item: PeelingData) => {
-        const response = await axios.delete(`/api/humid/rejectededitHumid/${item.id}`)
+        const response = await axios.delete(`/api/peeling/rejectededitPeeling/${item.id}`)
         const data = await response.data
         console.log(data)
-        if (data.message === "Humid Entry rejected successfully") {
+        if (data.message === "Peeling Entry rejected successfully") {
             //console.log('rejected enter')
             if (rejectsuccessdialog != null) {
                 (rejectsuccessdialog as any).showModal();
@@ -368,7 +397,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Husk</TableHead>
                         <TableHead className="text-center" >Rejection</TableHead>
                         <TableHead className="text-center" >Big_Taiho</TableHead>
-                        <TableHead className="text-center" >Difference</TableHead>
+                        <TableHead className="text-center" >Backlog</TableHead>
                         <TableHead className="text-center" >Peeling_ON</TableHead>
                         <TableHead className="text-center" >Peeling_OFF</TableHead>
                         

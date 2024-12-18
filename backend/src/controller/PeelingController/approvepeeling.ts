@@ -1,0 +1,83 @@
+import { Request, Response } from "express";
+import {   PeelingRcvData } from "../../type/type";
+import RcnEditPeeling from "../../model/peelingEditModel";
+import RcnPeeling from "../../model/peelingModel";
+
+const approvePeeling = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const approvedBy = req.cookies.user;
+        // const approvedBy = "RC Admin 1";
+        if (!id || !approvedBy) {
+            return res.status(400).json({ message: "Please provide the id or approved by" });
+        }
+        const data: PeelingRcvData | null = await RcnEditPeeling.findOne({
+            where: {
+                id
+            }
+        }) as PeelingRcvData | null;
+        if (!data) {
+            return res.status(400).json({ message: "Peeling Entry not found" });
+        }
+        const bormaEdit = await RcnPeeling.update({
+            date: data.date,
+            Mc_on: data.Mc_on,
+            Mc_off: data.Mc_off,
+            Mc_breakdown: data.Mc_breakdown,
+            Mc_runTime: data.Mc_runTime,
+           
+            otherTime: data.otherTime,
+            NoOfTrolley: data.NoOfTrolley,
+            WholesPeel: data.WholesPeel,
+            WholesUnpeel:data.WholesUnpeel,
+            DP: data.DP,
+            DS: data.DS,
+            DP1: data.DP1,
+            JJH: data.JJH,
+            SJH: data.SJH,
+            SJH1: data.SJH1,
+            JH1: data.JH1,
+            JK_K: data.JK_K,
+            SP1: data.SP1,
+            Husk:data.Husk,
+            Rejection: data.Rejection,
+            UnpeelPiece:data.UnpeelPiece,
+            Big_Taiho:data.Big_Taiho,
+            pressure:data.pressure,
+            moisture: data.moisture,
+            peelingTime: data.peelingTime,
+            difference:data.difference,
+            Status: 1,
+            CreatedBy: data.CreatedBy,
+            editStatus: "Approved",
+            modifiedBy:approvedBy,
+
+
+
+        }, {
+            where: {
+                id
+            }
+        });
+        if (!bormaEdit) {
+            return res.status(400).json({ message: "Peeling Entry is not found" });
+        }
+        const bormaEditDelete = await RcnEditPeeling.destroy({
+            where: {
+                id
+            }
+        });
+        if (!bormaEditDelete) {
+            return res.status(400).json({ message: "Peeling Entry is not found" });
+        }
+
+
+        return res.status(200).json({ message: "Edit Request of Peeling Entry is Approved Successfully" });
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
+}
+export default approvePeeling;

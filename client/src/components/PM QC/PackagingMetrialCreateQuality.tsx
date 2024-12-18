@@ -345,7 +345,7 @@ const PackagingMetirialQcCreateForm = ({ id }: { id: number }) => {
                     </div>
 
                         <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
-                        <Textarea className="w-2/4 " placeholder="Remarks" required value={remarks} onChange={(e) => setRemarks(e.target.value)} /> 
+                        <Textarea className="w-2/4 " placeholder="Remarks" value={remarks} onChange={(e) => setRemarks(e.target.value)} /> 
                         </div>    
                    
                    
