@@ -254,7 +254,7 @@ const PeelingModify = (props: PeelingModifyProps) => {
                         <div className="flex"><Label className="w-2/4 mt-2">JK/K</Label>
                         <Input className="w-2/4 text-center" placeholder="kg" value={jkK} onChange={(e) => setjkK(e.target.value)} required/> </div>
                         <div className="flex"><Label className="w-2/4 mt-2">JH1</Label>
-                        <Input className="w-2/4 text-center" placeholder="kg" value={jh1} onChange={(e) => setsjh1(e.target.value)} required/> </div>
+                        <Input className="w-2/4 text-center" placeholder="kg" value={jh1} onChange={(e) => setjh1(e.target.value)} required/> </div>
                         <div className="flex"><Label className="w-2/4 mt-2">Husk</Label>
                         <Input className="w-2/4 text-center" placeholder="kg" value={husk} onChange={(e) => sethusk(e.target.value)} required/> </div>
                         <div className="flex"><Label className="w-2/4 mt-2">Rejection</Label>
@@ -289,7 +289,7 @@ const PeelingModify = (props: PeelingModifyProps) => {
                 <dialog id="rcneditscsDialog" className="dashboard-modal">
                     <button id="rcnscscloseDialog" className="dashboard-modal-close-btn ">X </button>
                     <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                        <p id="modal-text" className="pl-3 mt-1 font-medium">Modification of Humidifier Entry is Requested </p></span>
+                        <p id="modal-text" className="pl-3 mt-1 font-medium">Modification of Peeling Entry is Requested </p></span>
 
                     {/* <!-- Add more elements as needed --> */}
                 </dialog>

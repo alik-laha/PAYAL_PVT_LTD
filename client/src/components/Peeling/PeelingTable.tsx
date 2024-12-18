@@ -445,7 +445,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.Big_Taiho)}</TableCell>
                                         {Number(item.difference) < 0 ? (<TableCell className="text-center font-bold text-red-600">{formatNumberWithSign(Number(item.difference))} </TableCell>)
                                         : (<TableCell className="text-center font-bold text-green-600">{formatNumberWithSign(Number(item.difference))} </TableCell>)}
-                                        <TableCell className="text-center">{formatNumber(item.Big_Taiho)}</TableCell>
+                                        
                                         <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
