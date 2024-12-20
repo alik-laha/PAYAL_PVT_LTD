@@ -65,7 +65,7 @@ const approveBorma = async (req: Request, res: Response) => {
                             id
                         }
                     });
-                    if (!bormaEditDelete) {
+                    if (bormaEditDelete) {
                         
                         return res.status(200).json({ message: "Edit Request of Borma Entry is Approved Successfully" });
                     }

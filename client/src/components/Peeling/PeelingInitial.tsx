@@ -34,8 +34,8 @@ const PeelingInitial = (props: any) => {
     const [bormaData, setBormaData ]  = useState<PeelingData[]>([])
     const [errortext, seterrorText] = useState<string>('');
     
-    const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialog') as HTMLInputElement;
-    const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialog') as HTMLInputElement;
+    const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialogPeel') as HTMLInputElement;
+    const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialogPeel') as HTMLInputElement;
     //let scoopdata:ScoopData[]=[]
     if (rejectcloseDialogButton) {
         rejectcloseDialogButton.addEventListener('click', () => {
@@ -54,7 +54,7 @@ const PeelingInitial = (props: any) => {
         console.log(resStatus)
         if (resStatus.data.count && resStatus.data.count >0) 
             {
-                seterrorText(`Modification of Lot is Pending in Previous Section`)
+                seterrorText('Modification of Lot is Pending in Previous Section')
                 if (rejectsuccessdialog != null) {
                     (rejectsuccessdialog as any).showModal();
                 }
@@ -129,8 +129,8 @@ const PeelingInitial = (props: any) => {
 
 
             </div>
-            <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
-                <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
+            <dialog id="rcneditapproveRejectDialogPeel" className="dashboard-modal">
+                <button id="rcneditRejectcloseDialogPeel" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
                     <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
 
