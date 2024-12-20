@@ -83,8 +83,9 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
                     Mc_runTime: Mc_runTime,
                   
                     otherTime: data.otherTime,
-                   
-
+                    noOfdayOperators:data.dayoperator,
+                    noOfnightOperators:data.nightoperator,
+                    noOfhuskOperators:data.huskoperator,
                     WholesPeel: data.WholesPeel,
                     WholesUnpeel:data.WholesUnpeel,
                     DP: data.DP,

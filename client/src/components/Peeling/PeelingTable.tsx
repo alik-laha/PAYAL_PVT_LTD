@@ -147,6 +147,9 @@ const PeelingTable = () => {
                 otherTime: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
                 Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
                 noOfOperators:item.noOfOperators,
+                noOfOperators_Day:item.noOfdayOperators,
+                noOfOperators_Night:item.noOfnightOperators,
+                noOfOperators_Husk:item.noOfhuskOperators,
                 NoOfTrolley: item.NoOfTrolley,
                 Backlog:formatNumber(item.difference),
                 CreatedBy: item.CreatedBy,
@@ -187,6 +190,9 @@ const PeelingTable = () => {
                 otherTime: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
                 Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
                 noOfOperators:item.noOfOperators,
+                noOfOperators_Day:item.noOfdayOperators,
+                noOfOperators_Night:item.noOfnightOperators,
+                noOfOperators_Husk:item.noOfhuskOperators,
                 NoOfTrolley: item.NoOfTrolley,
                 Backlog:formatNumber(item.difference),
                 CreatedBy: item.CreatedBy,
@@ -405,6 +411,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Other Duration</TableHead>
                         <TableHead className="text-center" >Run Duration</TableHead>
                         <TableHead className="text-center" >No_Of_Operator</TableHead>
+                        <TableHead className="text-center" >No_Of_Operator(Day)</TableHead>
+                        <TableHead className="text-center" >No_Of_Operator(Night)</TableHead>
+                        <TableHead className="text-center" >No_Of_Operator(Husk)</TableHead>
                         <TableHead className="text-center" >Edit Status </TableHead>
                         <TableHead className="text-center" >Created By </TableHead>
                         <TableHead className="text-center" >Action</TableHead>
@@ -452,6 +461,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
                             <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
                             <TableCell className="text-center">{item.noOfOperators}</TableCell>
+                            <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
+                            <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
+                            <TableCell className="text-center">{item.noOfhuskOperators}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.CreatedBy}</TableCell>
                                 <TableCell className="text-center">
@@ -537,6 +549,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
                             <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
                             <TableCell className="text-center">{item.noOfOperators}</TableCell>
+                            <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
+                            <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
+                            <TableCell className="text-center">{item.noOfhuskOperators}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.CreatedBy}</TableCell>
 

@@ -539,6 +539,9 @@ export interface PeelingData {
             Mc_breakdown: string;
             Mc_runTime: string;
             noOfOperators: string;
+            noOfdayOperators:string;
+            noOfnightOperators:string;
+            noOfhuskOperators:string;
             otherTime: string;
             NoOfTrolley: string;
             pressure: string;

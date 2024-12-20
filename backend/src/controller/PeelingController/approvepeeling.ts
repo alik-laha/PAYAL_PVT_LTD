@@ -25,7 +25,9 @@ const approvePeeling = async (req: Request, res: Response) => {
             Mc_off: data.Mc_off,
             Mc_breakdown: data.Mc_breakdown,
             Mc_runTime: data.Mc_runTime,
-           
+            noOfdayOperators:data.noOfdayOperators,
+                noOfnightOperators:data.noOfnightOperators,
+                noOfhuskOperators:data.noOfhuskOperators,
             otherTime: data.otherTime,
             NoOfTrolley: data.NoOfTrolley,
             WholesPeel: data.WholesPeel,

@@ -59,9 +59,12 @@ const CreateEntireHumid= async (req: Request, res: Response) => {
 
             }
             let prcntg:number=0
-            if(data.OutputMoisture && data.InputMoisture){
-                 prcntg=(((parseFloat(data.OutputMoisture)-parseFloat(data.InputMoisture))/parseFloat(data.InputMoisture))*100)
-            }
+            // if(data.OutputMoisture && data.InputMoisture){
+            //      prcntg=(((parseFloat(data.OutputMoisture)-parseFloat(data.InputMoisture))/parseFloat(data.InputMoisture))*100)
+            // }
+            if(data.TotalOutput && data.TotalInput){
+                prcntg=(((parseFloat(data.TotalOutput)-parseFloat(data.TotalInput))/parseFloat(data.TotalInput))*100)
+           }
             
             const humidUpdate=await Humidifier.update(
                 {     

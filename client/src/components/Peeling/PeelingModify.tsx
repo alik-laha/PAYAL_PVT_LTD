@@ -41,6 +41,9 @@ interface PeelingModifyProps {
             Mc_breakdown: string;
             Mc_runTime: string;
             noOfOperators: string;
+            noOfdayOperators:string;
+            noOfnightOperators:string;
+            noOfhuskOperators:string;
             otherTime: string;
             NoOfTrolley: string;
             pressure: string;
@@ -74,8 +77,10 @@ const PeelingModify = (props: PeelingModifyProps) => {
     const [moist, setMoist] = useState('')
     const [peeltime, setPeelTime] = useState('')
 
+    const [dayOp, setDayOp] = useState('')
+    const [nightOp, setNightOp] = useState('')
+    const [huskOp, sethuskOp] = useState('')
 
-   
     const [trolley, settrolley] = useState('')
     const [origin, setOrigin] = useState('')
     const [Mc_on, setMc_on] = useState('')
@@ -107,6 +112,10 @@ const PeelingModify = (props: PeelingModifyProps) => {
         setjjh(props.data.JJH)
         setjkK(props.data.JK_K)
         setsp1(props.data.SP1)
+
+        setDayOp(props.data.noOfdayOperators)
+        setNightOp(props.data.noOfnightOperators)
+        sethuskOp(props.data.noOfhuskOperators)
 
         setbigT(props.data.Big_Taiho)
         sethusk(props.data.Husk)
@@ -160,7 +169,7 @@ const PeelingModify = (props: PeelingModifyProps) => {
             return
         }
         setisdisable(true)
-        axios.post(`/api/peeling/updatePeeling/${props.data.id}`, {origin,iptot,lotNo,pres,moist,peeltime,
+        axios.post(`/api/peeling/updatePeeling/${props.data.id}`, {origin,iptot,lotNo,pres,moist,peeltime,dayOp,nightOp,huskOp,
             wholepeel,wholeunpeel,pieceunpeel,dp,dp1,ds,sjh,sjh1,jjh,jkK,jh1,sp1,husk,rejection,bigT,
             
             Mc_off, Mc_on, Mc_breakdown, otherTime, trolley, noOfEmployees, date
@@ -228,6 +237,13 @@ const PeelingModify = (props: PeelingModifyProps) => {
                         <Input className="w-2/4 text-center" placeholder="Trolley" value={trolley} onChange={(e) => settrolley(e.target.value)} required/> </div>
                     <div className="flex"><Label className="w-2/4 mt-2">No Of Operator</Label>
                         <Input className="w-2/4 text-center bg-yellow-100" placeholder="Operator" value={noOfEmployees} onChange={(e) => setNoOfEmployees(e.target.value)} readOnly/> </div>
+
+                        <div className="flex"><Label className="w-2/4 mt-2">No Of Operator(Day)</Label>
+                        <Input className="w-2/4 text-center " placeholder="Operator" value={dayOp} onChange={(e) => setDayOp(e.target.value)} /> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">No Of Operator(Night)</Label>
+                        <Input className="w-2/4 text-center " placeholder="Operator" value={nightOp} onChange={(e) => setNightOp(e.target.value)} /> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">No Of Operator(Husk)</Label>
+                        <Input className="w-2/4 text-center " placeholder="Operator" value={huskOp} onChange={(e) => sethuskOp(e.target.value)} /> </div>
 
                     <div className="flex"><Label className="w-2/4 mt-2">Wholes Peel (Kg)</Label>
                         <Input className="w-2/4 text-center" placeholder="Kg" value={wholepeel} onChange={(e) => setwholepeel(e.target.value)} required/> </div>
