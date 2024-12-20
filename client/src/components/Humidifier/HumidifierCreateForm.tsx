@@ -33,13 +33,13 @@ const RCNHumidCreateForm = (props: any) => {
     const [bormaData, setBormaData ]  = useState<HumidData[]>([])
     const [errortext, seterrorText] = useState<string>('');
     
-    const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialog') as HTMLInputElement;
-    const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialog') as HTMLInputElement;
+    const rejectsuccessdialoghumid = document.getElementById('rcneditapproveRejectDialoghumid') as HTMLInputElement;
+    const rejectcloseDialogButtonhumid = document.getElementById('rcneditRejectcloseDialoghumid') as HTMLInputElement;
     //let scoopdata:ScoopData[]=[]
-    if (rejectcloseDialogButton) {
-        rejectcloseDialogButton.addEventListener('click', () => {
-            if (rejectsuccessdialog != null) {
-                (rejectsuccessdialog as any).close();
+    if (rejectcloseDialogButtonhumid) {
+        rejectcloseDialogButtonhumid.addEventListener('click', () => {
+            if (rejectsuccessdialoghumid != null) {
+                (rejectsuccessdialoghumid as any).close();
                 //window.location.reload()
             }
 
@@ -53,9 +53,9 @@ const RCNHumidCreateForm = (props: any) => {
         console.log(resStatus)
         if (resStatus.data.count && resStatus.data.count >0) 
             {
-                seterrorText(`Modification of Lot is Pending in Previous Section`)
-                if (rejectsuccessdialog != null) {
-                    (rejectsuccessdialog as any).showModal();
+                seterrorText('Modification of Lot is Pending in Previous Section')
+                if (rejectsuccessdialoghumid != null) {
+                    (rejectsuccessdialoghumid as any).showModal();
                 }
                 return
             }
@@ -128,8 +128,8 @@ const RCNHumidCreateForm = (props: any) => {
 
 
             </div>
-            <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
-                <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
+            <dialog id="rcneditapproveRejectDialoghumid" className="dashboard-modal">
+                <button id="rcneditRejectcloseDialoghumid" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
                     <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
 

@@ -32,7 +32,7 @@ const updatePeeling = async (req: Request, res: Response) => {
         const id = req.params.id;
         const createdBynew= req.cookies.user
         console.log('Reached Here')
-        const {  origin,iptot,lotNo,pres,moist,peeltime,
+        const {  origin,iptot,lotNo,pres,moist,peeltime,dayOp,nightOp,huskOp,
             wholepeel,wholeunpeel,pieceunpeel,dp,dp1,ds,sjh,sjh1,jjh,jkK,jh1,sp1,husk,rejection,bigT,
             
             Mc_off, Mc_on,  trolley, noOfEmployees, date } = req.body;
@@ -89,6 +89,9 @@ const updatePeeling = async (req: Request, res: Response) => {
                 Mc_breakdown: Mc_breakdown,
                 Mc_runTime: Mc_runTime,
                 noOfOperators:noOfEmployees,
+                noOfdayOperators:dayOp,
+                noOfnightOperators:nightOp,
+                noOfhuskOperators:huskOp,
                 otherTime: otherTime,
                 NoOfTrolley: trolley,
                 WholesPeel:wholepeel,

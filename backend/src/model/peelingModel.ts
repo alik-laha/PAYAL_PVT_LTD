@@ -139,6 +139,18 @@ const RcnPeeling = sequelize.define('rcnPeeling', {
         type: DataTypes.INTEGER,
         allowNull: true
     },
+    noOfdayOperators:{
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
+    noOfnightOperators:{
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
+    noOfhuskOperators:{
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
     otherTime: {
         type: DataTypes.TIME,
         allowNull: true

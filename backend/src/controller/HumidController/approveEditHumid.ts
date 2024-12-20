@@ -3,6 +3,7 @@ import {  HumidrcvData } from "../../type/type";
 
 import HumidifierEdit from "../../model/humidierEditModel";
 import Humidifier from "../../model/humidfierModel";
+import RcnPeeling from "../../model/peelingModel";
 
 const approveHumid = async (req: Request, res: Response) => {
     try {
@@ -20,44 +21,61 @@ const approveHumid = async (req: Request, res: Response) => {
         if (!data) {
             return res.status(400).json({ message: "Humid Entry not found" });
         }
-        const bormaEdit = await Humidifier.update({
-            date: data.date,
-            Mc_on: data.Mc_on,
-            Mc_off: data.Mc_off,
-            Mc_breakdown: data.Mc_breakdown,
-            Mc_runTime: data.Mc_runTime,
-            noOfOperators: data.noOfOperators,
-            otherTime: data.otherTime,
-            NoOfTrolley: data.NoOfTrolley,
-            InputMoisture: data.InputMoisture,
-            OutputMoisture: data.OutputMoisture,
-            TotalOutput: data.TotalOutput,
-            MoistGain: data.MoistGain,
-            Status: 1,
-            CreatedBy: data.CreatedBy,
-            editStatus: "Approved",
-            modifiedBy:approvedBy
-
-        }, {
-            where: {
-                id
+        else{
+            const bormaEdit = await Humidifier.update({
+                date: data.date,
+                Mc_on: data.Mc_on,
+                Mc_off: data.Mc_off,
+                Mc_breakdown: data.Mc_breakdown,
+                Mc_runTime: data.Mc_runTime,
+                noOfOperators: data.noOfOperators,
+                otherTime: data.otherTime,
+                NoOfTrolley: data.NoOfTrolley,
+                InputMoisture: data.InputMoisture,
+                OutputMoisture: data.OutputMoisture,
+                TotalOutput: data.TotalOutput,
+                MoistGain: data.MoistGain,
+                Status: 1,
+                CreatedBy: data.CreatedBy,
+                editStatus: "Approved",
+                modifiedBy:approvedBy
+    
+            }, {
+                where: {
+                    id
+                }
+            });
+            if(bormaEdit)
+            {
+                await RcnPeeling.update(
+                    {  
+                        TotalInput: data.TotalOutput,
+                        noOfOperators:data.noOfOperators
+                    },
+                    {
+                        where: {
+                            id:id
+                        }
+                    });
+                    const bormaEditDelete = await HumidifierEdit.destroy({
+                        where: {
+                            id
+                        }
+                    });
+                    if (bormaEditDelete) {
+                        return res.status(200).json({ message: "Edit Request of Humid Entry is Approved Successfully" });
+                    }
+                    else{
+                        return res.status(400).json({ message: "Humid Entry is not found" });
+                        
+                    }
             }
-        });
-        if (!bormaEdit) {
-            return res.status(400).json({ message: "Humid Entry is not found" });
-        }
-        const bormaEditDelete = await HumidifierEdit.destroy({
-            where: {
-                id
+            else 
+            {
+                return res.status(400).json({ message: "Humid Entry is not found" });
             }
-        });
-        if (!bormaEditDelete) {
-            return res.status(400).json({ message: "Humid Entry is not found" });
         }
-
-
-        return res.status(200).json({ message: "Edit Request of Humid Entry is Approved Successfully" });
-
+       
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error", error: err });

@@ -60,9 +60,12 @@ const updateHumid = async (req: Request, res: Response) => {
 
             }
             let prcntg:number=0
-            if(ipmositure && opmositure){
-                 prcntg=(((parseFloat(opmositure)-parseFloat(ipmositure))/parseFloat(ipmositure))*100)
-            }
+            // if(ipmositure && opmositure){
+            //      prcntg=(((parseFloat(opmositure)-parseFloat(ipmositure))/parseFloat(ipmositure))*100)
+            // }
+            if(iptot && optot){
+                prcntg=(((parseFloat(optot)-parseFloat(iptot))/parseFloat(iptot))*100)
+           }
             const editPackageMaterial = await HumidifierEdit.create({
                 id: packageMaterialData.id,
                 origin:origin,
