@@ -82,7 +82,7 @@ function App() {
           'MaintainanceSupervisor', 'MaintainanceManager',
           'QCSupervisor', 'QCManager',
           'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager', 'BormaSupervisor',
-          'PeelingSupervisor', 'VillageSupervisor']} />}>
+          'PeelingSupervisor', 'MayurSupervisor','VillageSupervisor']} />}>
 
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
@@ -205,12 +205,20 @@ function App() {
 
         </Route>
 
-
+        {/* Peeling Humidifier */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'PeelingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/Peeling' element={<Peeling />} />
 
         </Route>
+
+        {/* Mayur Humidifier */}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'MayurSupervisor', 'ProductionManager']} />}>
+          <Route path='/dashboard/Mayur' element={<Peeling />} />
+
+        </Route>
+        
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'CleaningSupervisor', 'MaintainanceManager']} />}>
