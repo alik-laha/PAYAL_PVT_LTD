@@ -44,6 +44,7 @@ const sumOfallPeel = async (req: Request, res: Response) => {
                 [sequelize.fn('sum', sequelize.col('SP1')), 'SP1'],
                 [sequelize.fn('sum', sequelize.col('Husk')), 'Husk'],
                 [sequelize.fn('sum', sequelize.col('Big_Taiho')), 'Big_Taiho'],
+                [sequelize.fn('sum', sequelize.col('difference')), 'Backlog'],
                 [sequelize.fn('sum', sequelize.col('UnpeelPiece')), 'UnpeelPiece']
                
             ],

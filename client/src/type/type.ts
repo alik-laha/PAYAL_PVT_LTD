@@ -549,6 +549,58 @@ export interface PeelingData {
             peelingTime: string;
             difference:string;
 }
+export interface MayurData {
+    id: number;
+    LotNo: string;
+    date: string | null;
+    origin: string;
+    altid: number;
+    rcv_wholespeel: string;
+    rcv_wholesunpeel: string;
+    rcv_DPDS: string | null;
+    rcv_sorting: string | null;
+    issue_pw_w: string | null;
+    issue_w_lot: string | null;
+    issue_ww: string | null;
+    issue_rejection: string | null;
+    issue_village: string | null;
+    issue_bigTaiho: string | null;
+    issue_LW: string | null;
+    issue_JB: string | null;
+    entry_backlog: string | null;
+    current_backlog: string | null;
+    Mc_on_133: string | null;
+    Mc_off_133: string | null;
+    Mc_breakdown_133: string | null;
+    Mc_runTime_133: string | null;
+    otherTime_133: string | null;
+    Mc_on_331: string | null;
+    Mc_off_331: string | null;
+    Mc_breakdown_331: string | null;
+    Mc_runTime_331: string | null;
+    otherTime_331: string | null;
+    Mc_on_292: string | null;
+    Mc_off_292: string | null;
+    Mc_breakdown_292: string | null;
+    Mc_runTime_292: string | null;
+    otherTime_292: string | null;
+    Mc_on_293: string | null;
+    Mc_off_293: string | null;
+    Mc_breakdown_293: string | null;
+    Mc_runTime_293: string | null;
+    otherTime_293: string | null;
+    Status: number;
+    latest: number;
+    mixingLot: string | null;
+    CreatedBy: string | null;
+    editStatus: string;
+    modifiedBy: string | null;
+    createdAt: string;
+    updatedAt: string;
+}
+
+
+
 export interface HumidExcelData {
     SL_No: number;
     LotNo: string;

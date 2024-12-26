@@ -91,7 +91,7 @@ const Peeling = () => {
                 <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
                         Big Taiho <br /><p>{data.data[0].Big_Taiho  ?  formatNumber(parseFloat(data.data[0].Big_Taiho)): 0} Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-cyan-500 hover:bg-orange-400">
                         Mayur <br /><p>{data.data[0].WholesPeel && data.data[0].WholesUnpeel? formatNumber(parseFloat(data.data[0].WholesPeel)+parseFloat(data.data[0].WholesUnpeel))  : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
@@ -108,6 +108,9 @@ const Peeling = () => {
                     </div>
                     <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
                         Husk <br /><p>{data.data[0].Husk  ? formatNumber(parseFloat(data.data[0].Husk)) : 0} Kg</p>
+                    </div>
+                    <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+                        Backlog <br /><p>{data.data[0].Backlog  ? formatNumber(parseFloat(data.data[0].Backlog)) : 0} Kg</p>
                     </div>
                  
                     

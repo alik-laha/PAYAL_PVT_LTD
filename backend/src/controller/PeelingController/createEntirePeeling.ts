@@ -150,12 +150,13 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
              if(humidUpdate){
                 
                 await Mayur.create({
-                    id:data.id,
+                  
                     LotNo:data.LotNo,
                     origin:data.origin,
                     TotalInput: data.TotalOutput,
                     rcv_wholespeel: data.WholesPeel,
-                    rcv_wholesunpeel: data.WholesUnpeel
+                    rcv_wholesunpeel: data.WholesUnpeel,
+                    current_backlog:parseFloat(data.WholesPeel)+parseFloat(data.WholesUnpeel),
                  },{transaction});
              }
            

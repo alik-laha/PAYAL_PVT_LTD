@@ -19,10 +19,11 @@ import {
 
 import axios from "axios";
 import { useState } from "react";
-import {  PeelingData } from "@/type/type";
+import {  MayurData } from "@/type/type";
 
 
 import cross from '../../assets/Static_Images/error_img.png'
+import RCNMayurCreateForm from "./MayurCreateForm";
 //import RCNPeelingCreateForm from "./PeelingCreateForm";
 //import RCNHumidLineCreateForm from "./HumidifierLineCreateForm";
 
@@ -32,7 +33,7 @@ interface lotPropsdata{
 }
 
 const MayurInitial = (props: any) => {
-    const [bormaData, setBormaData ]  = useState<PeelingData[]>([])
+    const [bormaData, setBormaData ]  = useState<MayurData[]>([])
     const [errortext, seterrorText] = useState<string>('');
     
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialogPeel') as HTMLInputElement;
@@ -50,7 +51,7 @@ const MayurInitial = (props: any) => {
     }
     //let scoopdata:ScoopData[]=[]
     console.log(props)
-    const handleLineEntry = async (lotNO:string) => {
+    const handleLineEntry = async (lotNO:string,origin:string) => {
         const resStatus = await axios.post('/api/boiling/pendingLotCount', { lotNo: lotNO,section:'Peeling'})
         console.log(resStatus)
         if (resStatus.data.count && resStatus.data.count >0) 
@@ -82,7 +83,7 @@ const MayurInitial = (props: any) => {
                         <TableHead className="text-center" >Sl. No.</TableHead>
                         <TableHead className="text-center" >Lot No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Status</TableHead>
+                        
                         <TableHead className="text-center" >Action</TableHead>
 
 
@@ -96,24 +97,24 @@ const MayurInitial = (props: any) => {
                                         <TableCell className="text-center">
                                             {idx + 1}
                                         </TableCell>
-                                        <TableCell className="text-center font-semibold">
+                                        <TableCell className="text-center font-semibold text-red-500">
                                             {item.LotNo}
                                         </TableCell>
                                         <TableCell className="text-center font-semibold text-blue-500">
                                             {item.origin}
                                         </TableCell>
-                                        <TableCell className="text-center"><Button className="bg-orange-500 h-8 text-white rounded-md">Pending</Button></TableCell>
+                                        
                                         <TableCell className="text-center">
                                             <Dialog>
                                                 <DialogTrigger>
-                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)}> Issue </Button></DialogTrigger>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
                                           <DialogContent className='max-w-7xl'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Peeling Line Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Mayur Line Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 
-                                                    {/* <RCNPeelingCreateForm borma={bormaData}/> */}
+                                                    <RCNMayurCreateForm borma={bormaData}/>
                                                 </DialogContent>
                                             </Dialog>
                                         </TableCell>

@@ -1,11 +1,11 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig";
 
-const Mayur = sequelize.define('mayur', {
+const MayurEdit = sequelize.define('mayurEdit', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement:true
+        
     },
     LotNo:{
         type: DataTypes.STRING,
@@ -215,4 +215,4 @@ const Mayur = sequelize.define('mayur', {
 
 
 });
-export default Mayur;
+export default MayurEdit;
