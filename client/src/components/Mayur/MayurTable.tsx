@@ -372,18 +372,21 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
-                {checkpending('Humidifier') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+                {checkpending('Mayur') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
                         <TableHead className="text-center" >Id</TableHead>
+                        <TableHead className="text-center" >Issue_Type</TableHead>
+                        
                         <TableHead className="text-center" >Item_Lot_No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
+                        <TableHead className="text-center" >Issue_No</TableHead>
                         <TableHead className="text-center" >Mayur_Entry_Date</TableHead>
                        
-                        <TableHead className="text-center">Receive Wholes_Peel</TableHead>
-                    <TableHead className="text-center">Receive Wholes_Unpeel</TableHead>
+                        <TableHead className="text-center">Wholes Peel</TableHead>
+                    <TableHead className="text-center">Wholes Unpeel</TableHead>
                     <TableHead className="text-center">Receive Peeling</TableHead>
                     <TableHead className="text-center">Receive DPDS</TableHead>
                     <TableHead className="text-center">Receive Sorting</TableHead>
@@ -395,22 +398,32 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue Big_Taiho</TableHead>
                     <TableHead className="text-center">Issue LW</TableHead>
                     <TableHead className="text-center">Issue JB</TableHead>
-                    <TableHead className="text-center">Mc On 133</TableHead>
-                    <TableHead className="text-center">Mc Off 133</TableHead>
+                    <TableHead className="text-center">Entry Backlog</TableHead>
+                    <TableHead className="text-center">Current Backlog</TableHead>
+                    <TableHead className="text-center">Mc_On_133</TableHead>
+                    <TableHead className="text-center">Mc_Off_133</TableHead>
                     <TableHead className="text-center">Mc_Breakdown 133</TableHead>
                     <TableHead className="text-center">Other_Time 133</TableHead>
-                    <TableHead className="text-center">Mc On 331</TableHead>
-                    <TableHead className="text-center">Mc Off 331</TableHead>
+                    <TableHead className="text-center">Mc_On_331</TableHead>
+                    <TableHead className="text-center">Mc_Off_331</TableHead>
                     <TableHead className="text-center">Mc_Breakdown 331</TableHead>
                     <TableHead className="text-center">Other_Time 331</TableHead>
-                    <TableHead className="text-center">Mc On 292</TableHead>
-                    <TableHead className="text-center">Mc Off 292</TableHead>
+                    <TableHead className="text-center">Mc_On_292</TableHead>
+                    <TableHead className="text-center">Mc_Off_292</TableHead>
                     <TableHead className="text-center">Mc_Breakdown 292</TableHead>
                     <TableHead className="text-center">Other_Time 292</TableHead>
-                    <TableHead className="text-center">Mc On 293</TableHead>
-                    <TableHead className="text-center">Mc Off 293</TableHead>
+                    <TableHead className="text-center">Mc_On_293</TableHead>
+                    <TableHead className="text-center">Mc_Off_293</TableHead>
                     <TableHead className="text-center">Mc_Breakdown 293</TableHead>
                     <TableHead className="text-center">Other_Time 293</TableHead>
+                    <TableHead className="text-center">Runtime_133</TableHead>
+                    <TableHead className="text-center">Runtime_331</TableHead>
+                    <TableHead className="text-center">Runtime_292</TableHead>
+                    <TableHead className="text-center">Runtime_293</TableHead>
+               
+                    <TableHead className="text-center">Operator_Day</TableHead>
+                    <TableHead className="text-center">Operator_Night</TableHead>
+                   
                         <TableHead className="text-center" >Edit Status </TableHead>
                         <TableHead className="text-center" >Created By </TableHead>
                         <TableHead className="text-center" >Action</TableHead>
@@ -418,49 +431,75 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableBody>
 
 
-                        {EditData.length > 0 ? (EditData.map((item: PeelingData, idx) => {
+                        {EditData.length > 0 ? (EditData.map((item: MayurData, idx) => {
 
                             return (
                                 <TableRow key={item.id}>
                                 <TableCell className="text-center">{idx + 1}</TableCell>
+                                <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
+                                
                                 <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
+                                
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
+                                        <TableCell className="text-center font-bold ">{item.altid}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                       
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalInput)}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.pressure)} </TableCell>
-                                        <TableCell className="text-center ">{item.moisture} %</TableCell>
-                                        <TableCell className="text-center  ">{item.peelingTime} </TableCell>
+                                        <TableCell className="text-center font-semibold">{formatNumber(item.rcv_wholespeel)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{formatNumber(item.rcv_wholesunpeel)}</TableCell>
+                                        <TableCell className="text-center font-semibold bg-red-100">{Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel))}</TableCell>
                                       
-                                        <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
-                                        <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell>
-                                        <TableCell className="text-center bg-green-100">{formatNumber(item.WholesPeel)}</TableCell>
-                                        <TableCell className="text-center bg-green-100">{formatNumber(item.WholesUnpeel)}</TableCell>
+                                        <TableCell className="text-center font-semibold bg-red-100">{item.rcv_DPDS ? formatNumber(item.rcv_DPDS) :0}</TableCell>
+                                        <TableCell className="text-center font-semibold bg-red-100">{item.rcv_sorting ?formatNumber(item.rcv_sorting):0}</TableCell>
+                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_pw_w)}</TableCell>
                                         
-                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.DP)}</TableCell>
-                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.DS)}</TableCell>
-                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.DP1)}</TableCell>
-                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.JJH)}</TableCell>
-                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.SJH)}</TableCell>
-                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.SJH1)}</TableCell>
-                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.JK_K)}</TableCell>
-                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.SP1)}</TableCell>
-                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.JH1)}</TableCell>
-                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.Husk)}</TableCell>
-                                        <TableCell className="text-center bg-green-100">{formatNumber(item.Rejection)}</TableCell>
-                                        <TableCell className="text-center bg-red-100">{formatNumber(item.Big_Taiho)}</TableCell>
-                                        {Number(item.difference) < 0 ? (<TableCell className="text-center font-bold text-red-600">{formatNumberWithSign(Number(item.difference))} </TableCell>)
-                                        : (<TableCell className="text-center font-bold text-green-600">{formatNumberWithSign(Number(item.difference))} </TableCell>)}
+                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_w_lot)}</TableCell>
+                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_ww)}</TableCell>
+                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_rejection)}</TableCell>
+                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_village)}</TableCell>
+                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
+                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_LW)}</TableCell>
+                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_JB)}</TableCell>
+                                 
+                                        {Number(item.entry_backlog) < 0 ? (<TableCell className="text-center font-bold text-red-600">{formatNumberWithSign(Number(item.entry_backlog))} </TableCell>)
+                                        : (<TableCell className="text-center font-bold text-green-600">{formatNumberWithSign(Number(item.entry_backlog))} </TableCell>)}
+                                               
+                                               
+                                        {Number(item.current_backlog) < 0 ? (<TableCell className="text-center font-bold text-red-600">{formatNumberWithSign(Number(item.current_backlog))} </TableCell>)
+                                        : (<TableCell className="text-center font-bold text-green-600">{formatNumberWithSign(Number(item.current_backlog))} </TableCell>)}
                                         
-                                        <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
-                            <TableCell className="text-center">{item.noOfOperators}</TableCell>
+                                        
+                                        
+                                        <TableCell className="text-center">{handleAMPM(item.Mc_on_133.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{handleAMPM(item.Mc_off_133.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{item.Mc_breakdown_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            <TableCell className="text-center">{item.otherTime_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            
+                            
+                            <TableCell className="text-center">{handleAMPM(item.Mc_on_331.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{handleAMPM(item.Mc_off_331.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{item.Mc_breakdown_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            <TableCell className="text-center">{item.otherTime_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            
+                            
+                            <TableCell className="text-center">{handleAMPM(item.Mc_on_292.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{handleAMPM(item.Mc_off_292.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{item.Mc_breakdown_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            <TableCell className="text-center">{item.otherTime_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            
+                            <TableCell className="text-center">{handleAMPM(item.Mc_on_293.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{handleAMPM(item.Mc_off_293.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{item.Mc_breakdown_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            <TableCell className="text-center">{item.otherTime_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            
+                            
+                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_133.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
+                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_331.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
+                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_292.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
+                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_293.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
+
                             <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                             <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
-                            <TableCell className="text-center">{item.noOfhuskOperators}</TableCell>
+                       
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.CreatedBy}</TableCell>
                                 <TableCell className="text-center">
@@ -503,7 +542,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 </TableRow>
                             ) })): (
 
-                            Data.length > 0 ? (Data.map((item: PeelingData, idx) => {
+                            Data.length > 0 ? (Data.map((item: MayurData, idx) => {
                              
                               
                       
@@ -511,44 +550,68 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                        <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
+                                        
                                         <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
+                                        <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                       
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalInput)}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.pressure)} </TableCell>
-                                        <TableCell className="text-center ">{item.moisture} %</TableCell>
-                                        <TableCell className="text-center  ">{item.peelingTime} </TableCell>
+                                        <TableCell className="text-center font-semibold">{formatNumber(item.rcv_wholespeel)}</TableCell>
+                                        <TableCell className="text-center font-semibold">{formatNumber(item.rcv_wholesunpeel)}</TableCell>
+                                        <TableCell className="text-center font-semibold bg-red-100">{Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel))}</TableCell>
                                       
-                                        <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
-                                        <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell>
-                                        <TableCell className="text-center bg-green-100">{formatNumber(item.WholesPeel)}</TableCell>
-                                        <TableCell className="text-center bg-green-100">{formatNumber(item.WholesUnpeel)}</TableCell>
+                                        <TableCell className="text-center font-semibold bg-red-100">{item.rcv_DPDS ? formatNumber(item.rcv_DPDS) :0}</TableCell>
+                                        <TableCell className="text-center font-semibold bg-red-100">{item.rcv_sorting ?formatNumber(item.rcv_sorting):0}</TableCell>
+                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_pw_w)}</TableCell>
                                         
-                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.DP)}</TableCell>
-                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.DS)}</TableCell>
-                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.DP1)}</TableCell>
-                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.JJH)}</TableCell>
-                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.SJH)}</TableCell>
-                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.SJH1)}</TableCell>
-                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.JK_K)}</TableCell>
-                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.SP1)}</TableCell>
-                                        <TableCell className="text-center bg-cyan-100">{formatNumber(item.JH1)}</TableCell>
-                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.Husk)}</TableCell>
-                                        <TableCell className="text-center bg-green-100">{formatNumber(item.Rejection)}</TableCell>
-                                        <TableCell className="text-center bg-red-100">{formatNumber(item.Big_Taiho)}</TableCell>
-                                        {Number(item.difference) < 0 ? (<TableCell className="text-center font-bold text-red-600">{formatNumberWithSign(Number(item.difference))} </TableCell>)
-                                        : (<TableCell className="text-center font-bold text-green-600">{formatNumberWithSign(Number(item.difference))} </TableCell>)}
+                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_w_lot)}</TableCell>
+                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_ww)}</TableCell>
+                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_rejection)}</TableCell>
+                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_village)}</TableCell>
+                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
+                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_LW)}</TableCell>
+                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_JB)}</TableCell>
+                                 
+                                        {Number(item.entry_backlog) < 0 ? (<TableCell className="text-center font-bold text-red-600">{formatNumberWithSign(Number(item.entry_backlog))} </TableCell>)
+                                        : (<TableCell className="text-center font-bold text-green-600">{formatNumberWithSign(Number(item.entry_backlog))} </TableCell>)}
+                                               
+                                               
+                                        {Number(item.current_backlog) < 0 ? (<TableCell className="text-center font-bold text-red-600">{formatNumberWithSign(Number(item.current_backlog))} </TableCell>)
+                                        : (<TableCell className="text-center font-bold text-green-600">{formatNumberWithSign(Number(item.current_backlog))} </TableCell>)}
+                                        
+                                        
+                                        
+                                        <TableCell className="text-center">{handleAMPM(item.Mc_on_133.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{handleAMPM(item.Mc_off_133.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{item.Mc_breakdown_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            <TableCell className="text-center">{item.otherTime_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            
+                            
+                            <TableCell className="text-center">{handleAMPM(item.Mc_on_331.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{handleAMPM(item.Mc_off_331.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{item.Mc_breakdown_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            <TableCell className="text-center">{item.otherTime_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            
+                            
+                            <TableCell className="text-center">{handleAMPM(item.Mc_on_292.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{handleAMPM(item.Mc_off_292.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{item.Mc_breakdown_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            <TableCell className="text-center">{item.otherTime_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            
+                            <TableCell className="text-center">{handleAMPM(item.Mc_on_293.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{handleAMPM(item.Mc_off_293.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{item.Mc_breakdown_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            <TableCell className="text-center">{item.otherTime_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
+                            
+                            
+                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_133.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
+                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_331.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
+                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_292.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
+                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_293.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
 
-                                        <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
-                            <TableCell className="text-center">{item.noOfOperators}</TableCell>
                             <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                             <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
-                            <TableCell className="text-center">{item.noOfhuskOperators}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.CreatedBy}</TableCell>
 

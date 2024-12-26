@@ -336,7 +336,7 @@ export const sumOfallMayur = async (req: Request, res: Response) => {
                 }
             }
         });
-        const EditData = await Mayur.count()
+        const EditData = await MayurEdit.count()
         if (data) {
             return res.status(200).json({ data, EditData });
         }
