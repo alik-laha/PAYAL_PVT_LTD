@@ -56,6 +56,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 // import BormaModify from "./RCNBormaModify";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import RCNMayurReCreateForm from "./MayurReissueForm";
 //import PeelingModify from "./PeelingModify";
 //import HumidifierModify from "./HumidifierModify";
 
@@ -633,8 +634,24 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                             </DialogHeader>
                                                             {/* <PeelingModify data={item} /> */}
                                                         </DialogContent>
+                                                        
+                                                    </Dialog>
+                                                    <Dialog>
+                                                        <DialogTrigger className="flex"><CiEdit size={20} />
+                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
+                                                        </DialogTrigger>
+                                                        <DialogContent>
+                                                            <DialogHeader>
+                                                                <DialogTitle>
+                                                                    <p className='text-1xl pb-1 text-center mt-1'>Peeling Entry Modification</p>
+                                                                </DialogTitle>
+                                                            </DialogHeader>
+                                                            <RCNMayurReCreateForm borma={item} />
+                                                        </DialogContent>
+                                                        
                                                     </Dialog>
                                                 </PopoverContent>
+                                                
                                             </Popover>
                                         </TableCell>
                                     </TableRow>

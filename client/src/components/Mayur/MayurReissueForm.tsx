@@ -11,7 +11,7 @@ import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 
 interface Props {
-    borma: MayurData[]       
+    borma: MayurData      
 }
 
 
@@ -22,10 +22,7 @@ interface mayurRowData{
     date: string | Date;
     origin: string;
     
-    rcv_wholespeel: string;
-    rcv_wholesunpeel: string;
-    rcv_sorting:string|null;
-    rcv_DPDS:string|null;
+    
     issue_pw_w: number;
     issue_w_lot: number;
     issue_ww: number;
@@ -67,7 +64,7 @@ import axios from "axios";
 import FormRow from "../common/FormRowTime";
 
 
-const RCNMayurCreateForm = (props:Props) => {
+const RCNMayurReCreateForm = (props:Props) => {
     //console.log(props)
     const DateRef = useRef<HTMLInputElement>(null);
     const dayOpRef = useRef<HTMLInputElement>(null);
@@ -106,10 +103,7 @@ const RCNMayurCreateForm = (props:Props) => {
             date: item.date,
             origin: item.origin,
           
-            rcv_wholespeel: item.rcv_wholespeel,
-            rcv_wholesunpeel: item.rcv_wholesunpeel,
-            rcv_sorting: item.rcv_sorting,
-            rcv_DPDS: item.rcv_DPDS,
+            
             issue_pw_w: 0,
             issue_w_lot: 0,
             issue_ww: 0,
@@ -244,8 +238,7 @@ const RCNMayurCreateForm = (props:Props) => {
                     <TableHead className="text-center">Lot_No</TableHead>
               
                     <TableHead className="text-center">Origin</TableHead>
-                    <TableHead className="text-center">Receive Wholes_Peel</TableHead>
-                    <TableHead className="text-center">Receive Wholes_Unpeel</TableHead>
+                 
                     
                    
                     <TableHead className="text-center">Issue PW_W</TableHead>
@@ -283,8 +276,7 @@ const RCNMayurCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
 
-                                        <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_wholespeel)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_wholesunpeel)} Kg</TableCell>
+                                      
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_w} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_w', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_lot} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_lot', e.target.value)} required /></TableCell>
@@ -357,4 +349,4 @@ const RCNMayurCreateForm = (props:Props) => {
           </>
     )
 }
-export default RCNMayurCreateForm;
+export default RCNMayurReCreateForm;
