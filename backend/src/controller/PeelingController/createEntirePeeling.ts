@@ -4,6 +4,7 @@ import sequelize from "../../config/databaseConfig";
 
 import LotNo from "../../model/lotNomodel";
 import RcnPeeling from "../../model/peelingModel";
+import Mayur from "../../model/mayurModel";
 //import RcnPeeling from "../../model/peelingModel";
 
 
@@ -146,19 +147,17 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
                     }, transaction
                 }
             );
-            // if(humidUpdate){
+             if(humidUpdate){
                 
-            //     await RcnPeeling.create({
-            //         id:data.id,
-            //         LotNo:data.LotNo,
-            //         origin:data.origin,
-            //         //InputMoisture:data.OutputMoisture,
-            //         TotalInput: data.TotalOutput,
-            //         noOfOperators:data.operator
-            //         //NoOfTrolley: data.NoOfTrolley,
-
-            //     },{transaction});
-            // }
+                await Mayur.create({
+                    id:data.id,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    TotalInput: data.TotalOutput,
+                    rcv_wholespeel: data.WholesPeel,
+                    rcv_wholesunpeel: data.WholesUnpeel
+                 },{transaction});
+             }
            
         }
        

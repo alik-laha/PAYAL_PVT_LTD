@@ -19,7 +19,7 @@ import { GoPackageDependents } from "react-icons/go";
 import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { FaUserTie,FaWater  ,FaAcquisitionsIncorporated  } from "react-icons/fa";
-import { PiPackageLight } from "react-icons/pi";
+import { PiPackageLight,PiWashingMachineLight } from "react-icons/pi";
 import { GiBoilingBubbles, GiIceCreamScoop, GiGate, GiPizzaCutter } from "react-icons/gi";
 import { CgSmartHomeBoiler } from "react-icons/cg";
 import { BsMoisture } from "react-icons/bs";
@@ -280,7 +280,17 @@ const DashboardSidebar = () => {
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/Peeling" >
 
-                                    <p className="flex"> <GiPizzaCutter size={20} /><p className="pl-3">  RCN Peeling </p></p>
+                                    <p className="flex"> < PiWashingMachineLight size={20} /><p className="pl-3">  RCN Peeling </p></p>
+                                </NavLink>
+                            </CollapsibleContent>} 
+
+                        {renderlink('Mayur')
+
+
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/Mayur" >
+
+                                    <p className="flex"> <GiPizzaCutter  size={20} /><p className="pl-3">  Mayur </p></p>
                                 </NavLink>
                             </CollapsibleContent>} 
 

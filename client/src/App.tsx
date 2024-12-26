@@ -35,6 +35,7 @@ import Agarbati from './components/Agarbati/Agarbati'
 import IssueItem from './components/IssueItem/IssueItem'
 import OilMill from './components/OilMill/OilMill'
 import QCWater from './components/QCWater/QCwater'
+import Mayur from './components/Mayur/Mayur'
 
 
 
@@ -205,17 +206,17 @@ function App() {
 
         </Route>
 
-        {/* Peeling Humidifier */}
+        {/* Production Peeling  */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'PeelingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/Peeling' element={<Peeling />} />
 
         </Route>
 
-        {/* Mayur Humidifier */}
+        {/*Production Mayur  */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'MayurSupervisor', 'ProductionManager']} />}>
-          <Route path='/dashboard/Mayur' element={<Peeling />} />
+          <Route path='/dashboard/Mayur' element={<Mayur />} />
 
         </Route>
         

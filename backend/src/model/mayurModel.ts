@@ -5,6 +5,7 @@ const Mayur = sequelize.define('mayur', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement:true
     },
     LotNo:{
         type: DataTypes.STRING,
@@ -19,6 +20,80 @@ const Mayur = sequelize.define('mayur', {
         type: DataTypes.STRING,
         allowNull: false
     }, 
+    altid: {
+        type: DataTypes.INTEGER,
+        defaultValue:1
+    },
+    rcv_wholespeel: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: false
+    },
+    rcv_wholesunpeel: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: false
+    },
+    rcv_DPDS: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    rcv_sorting: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_pw_w: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_w_lot: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ww: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_rejection: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_village: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_bigTaiho: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_LW: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_JB: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    entry_backlog: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    current_backlog: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
     Mc_on_133: {
         type: DataTypes.TIME,
         allowNull: true
@@ -99,7 +174,21 @@ const Mayur = sequelize.define('mayur', {
         type: DataTypes.TIME,
         allowNull: true
     },
-    
+
+    Status: 
+    {
+        type:DataTypes.INTEGER,
+        defaultValue: 0
+    }, 
+    latest: 
+    {
+        type:DataTypes.INTEGER,
+        defaultValue: 0
+    }, 
+    mixingLot: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     
     CreatedBy: {
         type: DataTypes.STRING,
