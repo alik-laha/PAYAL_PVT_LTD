@@ -19,7 +19,7 @@ interface mayurRowData{
     
     id: number;
     LotNo: string;
-    
+    alt_id:number;
     origin: string;
 
     rcv_peeling:string;
@@ -106,7 +106,7 @@ const RCNMayurReCreateForm = (props:Props) => {
         const initialform =  {
             id: props.borma[0].id,
             LotNo: props.borma[0].LotNo,
-            
+            alt_id:props.borma[0].altid,
             origin: props.borma[0].origin,
 
             rcv_sorting:props.borma[0].rcv_sorting,
@@ -159,6 +159,15 @@ const RCNMayurReCreateForm = (props:Props) => {
     }
     const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
+        if(Number(rows[0].rcv_peeling) !== (Number(rows[0].rcv_wholespeel) + Number(rows[0].rcv_wholesunpeel))){
+            setErrortext('Total of Wholes Peeling and Unpeeling should be equal to Opening Balance')
+           
+            const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+            dialogerror.showModal()
+           // console.log(rows)
+            return
+
+        }
         setisdisable(true)
         props.borma.map((item: MayurData, idx: number) => {
             rows[idx].id=item.id

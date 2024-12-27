@@ -396,71 +396,110 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                 throw new Error('Transaction Aborted due to negative value')
 
             }
-           
-            
-            const humidUpdate=await Mayur.update(
-                {     
-                    date:data.Date,
-                    Mc_on_133: data.Mc_on_133,
-                    Mc_off_133: data.Mc_off_133,
-                    Mc_breakdown_133: data.Mc_breakdown_133,
-                    Mc_runTime_133: Mc_runTime1,
-                    Mc_on_331: data.Mc_on_331,
-                    Mc_off_331: data.Mc_off_331,
-                    Mc_breakdown_331: data.Mc_breakdown_331,
-                    Mc_runTime_331: Mc_runTime2,
-                    Mc_on_292: data.Mc_on_292,
-                    Mc_off_292: data.Mc_off_292,
-                    Mc_breakdown_292: data.Mc_breakdown_292,
-                    Mc_runTime_292: Mc_runTime3,
-                    Mc_on_293: data.Mc_on_293,
-                    Mc_off_293: data.Mc_off_293,
-                    Mc_breakdown_293: data.Mc_breakdown_293,
-                    Mc_runTime_293: Mc_runTime4,
-                    otherTime_133: data.otherTime_133,
-                    otherTime_331: data.otherTime_331,
-                    otherTime_292: data.otherTime_292,
-                    otherTime_293: data.otherTime_293,
-                    noOfdayOperators:data.dayoperator,
-                    noOfnightOperators:data.nightoperator,
-                    
-                    issue_pw_w: data.issue_pw_w,
-                    issue_w_lot:data.issue_w_lot,
-                    issue_ww: data.issue_ww,
-                    issue_rejection: data.issue_rejection,
-                    issue_village: data.issue_village,
-                    issue_bigTaiho: data.issue_bigTaiho,
-                    issue_LW: data.issue_LW,
-                    issue_JB: data.issue_JB,
-                  
-                    entry_backlog:(parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel))- (parseFloat(data.issue_pw_w)
-                    +parseFloat(data.issue_w_lot)
-                    +parseFloat(data.issue_ww)
-                    +parseFloat(data.issue_rejection)
-                    +parseFloat(data.issue_village)
-                    +parseFloat(data.issue_bigTaiho)
-                    +parseFloat(data.issue_LW)
-                    +parseFloat(data.issue_JB)
-                   ),
-                   current_backlog:(parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel)+(data.rcv_DPDS? parseFloat(data.rcv_DPDS):0)+
-                   (data.rcv_sorting?parseFloat(data.rcv_sorting):0)+(data.rcv_village?parseFloat(data.rcv_village):0))- (parseFloat(data.issue_pw_w)
-                   +parseFloat(data.issue_w_lot)
-                   +parseFloat(data.issue_ww)
-                   +parseFloat(data.issue_rejection)
-                   +parseFloat(data.issue_village)
-                   +parseFloat(data.issue_bigTaiho)
-                   +parseFloat(data.issue_LW)
-                   +parseFloat(data.issue_JB)
-                  ),
-                    Status: 1,
-                    CreatedBy: feeledBy 
-                },
+            const mayurupdate=await Mayur.update(
                 {
+                    latest:0
+                    
+                },{
                     where: {
                         id: data.id
                     }, transaction
                 }
+                   
+                
             );
+            if(mayurupdate)
+            {
+                const reissuecreate=await Mayur.create(
+                    {     
+                        date:data.Date,
+                        alt_id:parseInt(data.alt_id)+1,
+                        LotNo:data.LotNo,
+                        origin:data.origin,
+                        rcv_wholespeel:data.rcv_wholespeel,
+                        rcv_wholesunpeel:data.rcv_wholesunpeel,
+                        Mc_on_133: data.Mc_on_133,
+                        Mc_off_133: data.Mc_off_133,
+                        Mc_breakdown_133: data.Mc_breakdown_133,
+                        Mc_runTime_133: Mc_runTime1,
+                        Mc_on_331: data.Mc_on_331,
+                        Mc_off_331: data.Mc_off_331,
+                        Mc_breakdown_331: data.Mc_breakdown_331,
+                        Mc_runTime_331: Mc_runTime2,
+                        Mc_on_292: data.Mc_on_292,
+                        Mc_off_292: data.Mc_off_292,
+                        Mc_breakdown_292: data.Mc_breakdown_292,
+                        Mc_runTime_292: Mc_runTime3,
+                        Mc_on_293: data.Mc_on_293,
+                        Mc_off_293: data.Mc_off_293,
+                        Mc_breakdown_293: data.Mc_breakdown_293,
+                        Mc_runTime_293: Mc_runTime4,
+                        otherTime_133: data.otherTime_133,
+                        otherTime_331: data.otherTime_331,
+                        otherTime_292: data.otherTime_292,
+                        otherTime_293: data.otherTime_293,
+                        noOfdayOperators:data.dayoperator,
+                        noOfnightOperators:data.nightoperator,
+                        
+                        issue_pw_w: data.issue_pw_w,
+                        issue_w_lot:data.issue_w_lot,
+                        issue_ww: data.issue_ww,
+                        issue_rejection: data.issue_rejection,
+                        issue_village: data.issue_village,
+                        issue_bigTaiho: data.issue_bigTaiho,
+                        issue_LW: data.issue_LW,
+                        issue_JB: data.issue_JB,
+                      
+                        entry_backlog:(parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel))- (parseFloat(data.issue_pw_w)
+                        +parseFloat(data.issue_w_lot)
+                        +parseFloat(data.issue_ww)
+                        +parseFloat(data.issue_rejection)
+                        +parseFloat(data.issue_village)
+                        +parseFloat(data.issue_bigTaiho)
+                        +parseFloat(data.issue_LW)
+                        +parseFloat(data.issue_JB)
+                       ),
+                       current_backlog:(parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel)+(data.rcv_DPDS? parseFloat(data.rcv_DPDS):0)+
+                       (data.rcv_sorting?parseFloat(data.rcv_sorting):0)+(data.rcv_village?parseFloat(data.rcv_village):0))- (parseFloat(data.issue_pw_w)
+                       +parseFloat(data.issue_w_lot)
+                       +parseFloat(data.issue_ww)
+                       +parseFloat(data.issue_rejection)
+                       +parseFloat(data.issue_village)
+                       +parseFloat(data.issue_bigTaiho)
+                       +parseFloat(data.issue_LW)
+                       +parseFloat(data.issue_JB)
+                      ),
+                        Status: 1,
+                        CreatedBy: feeledBy 
+                    },
+                    {
+                        transaction
+                    }
+                );
+                if(reissuecreate){
+                    const lotupdate = await LotNo.update(
+                        { 
+                          modifiedBy:'Group1'
+                        },
+                        {
+                            where: {
+                                lotNo:LotNO
+                            },transaction
+                        }
+                    );
+                    if(lotupdate){
+                        res.status(200).json({ message: "Mayur Re Issue Entry Made Successfully" });
+                    }
+                    else{
+                        console.log('No Need For Update')
+                    }
+                }
+                else{
+                    return res.status(500).json({ message: "Error while creating Mayur Re Issue Entry"});
+                }
+            }
+            
+            
             //  if(humidUpdate){
                 
             //     await Mayur.create({
@@ -476,22 +515,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
            
         }
        
-        const lotupdate = await LotNo.update(
-            { 
-              modifiedBy:'Group1'
-            },
-            {
-                where: {
-                    lotNo:LotNO
-                },transaction
-            }
-        );
-        if(lotupdate){
-            res.status(200).json({ message: "Mayur Entry Made Successfully" });
-        }
-        else{
-            console.log('No Need For Update')
-        }
+        
 
 
     })

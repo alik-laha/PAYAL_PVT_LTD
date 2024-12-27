@@ -560,13 +560,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                       
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.rcv_wholespeel)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.rcv_wholesunpeel)}</TableCell>
-                                        <TableCell className="text-center font-semibold bg-red-100">{Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel))}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_wholespeel)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_wholesunpeel)}</TableCell>
+                                        <TableCell className="text-center  bg-red-100">{Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel))}</TableCell>
                                       
-                                        <TableCell className="text-center font-semibold bg-red-100">{item.rcv_DPDS ? formatNumber(item.rcv_DPDS) :0}</TableCell>
-                                        <TableCell className="text-center font-semibold bg-red-100">{item.rcv_sorting ?formatNumber(item.rcv_sorting):0}</TableCell>
-                                        <TableCell className="text-center font-semibold bg-red-100">{item.rcv_village ?formatNumber(item.rcv_village):0}</TableCell>
+                                        <TableCell className="text-center  bg-red-100">{item.rcv_DPDS ? formatNumber(item.rcv_DPDS) :0}</TableCell>
+                                        <TableCell className="text-center  bg-red-100">{item.rcv_sorting ?formatNumber(item.rcv_sorting):0}</TableCell>
+                                        <TableCell className="text-center  bg-red-100">{item.rcv_village ?formatNumber(item.rcv_village):0}</TableCell>
                                         <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_pw_w)}</TableCell>
                                         
                                         <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_w_lot)}</TableCell>
