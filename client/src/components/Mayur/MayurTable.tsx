@@ -57,6 +57,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import RCNMayurReCreateForm from "./MayurReissueForm";
+import RCNMayurEditForm from "./MayurEditForm";
 //import PeelingModify from "./PeelingModify";
 //import HumidifierModify from "./HumidifierModify";
 
@@ -622,20 +623,20 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center">
                                             <Popover>
                                                 <PopoverTrigger>
-                                                    <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
+                                                    <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
                                                 </PopoverTrigger>
                                                 <PopoverContent className="flex flex-col text-sm w-30 font-medium">
                                                     <Dialog>
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                         </DialogTrigger>
-                                                        <DialogContent>
+                                                        <DialogContent className="max-w-7xl">
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            {/* <PeelingModify data={item} /> */}
+                                                            <RCNMayurEditForm borma={[item]} />
                                                         </DialogContent>
                                                         
                                                     </Dialog>

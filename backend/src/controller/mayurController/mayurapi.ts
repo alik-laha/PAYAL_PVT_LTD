@@ -413,7 +413,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                 const reissuecreate=await Mayur.create(
                     {     
                         date:data.Date,
-                        alt_id:parseInt(data.alt_id)+1,
+                        altid:parseInt(data.alt_id)+1,
                         LotNo:data.LotNo,
                         origin:data.origin,
                         rcv_wholespeel:data.rcv_wholespeel,

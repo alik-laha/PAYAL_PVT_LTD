@@ -552,7 +552,7 @@ export interface PeelingData {
 export interface MayurData {
     id: number;
     LotNo: string;
-    date: string | Date;
+    date: string ;
     origin: string;
     altid: number;
     rcv_wholespeel: string;

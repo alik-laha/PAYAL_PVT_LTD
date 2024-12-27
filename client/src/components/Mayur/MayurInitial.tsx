@@ -56,9 +56,19 @@ const MayurInitial = (props: any) => {
         console.log(resStatus)
         if (resStatus.data.count && resStatus.data.count >0) 
             {
-                seterrorText('Modification of Lot is Pending in Previous Section')
+                seterrorText('Modification of Lot is Pending in Peeling Section')
                 if (rejectsuccessdialog != null) {
                     (rejectsuccessdialog as any).showModal();
+                }
+                return
+            }
+        const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: lotNO,section:'DPDS',origin:origin})
+        console.log(resStatus1)
+        if (resStatus1.data.count && resStatus1.data.count >0) 
+            {
+                seterrorText('Modification of Lot is Pending in Linked DPDS Section')
+                if (rejectsuccessdialog != null) {
+                        (rejectsuccessdialog as any).showModal();
                 }
                 return
             }
