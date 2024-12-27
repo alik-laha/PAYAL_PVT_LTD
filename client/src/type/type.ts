@@ -559,6 +559,7 @@ export interface MayurData {
     rcv_wholesunpeel: string;
      rcv_DPDS: string;
         rcv_sorting: string;
+        rcv_village: string;
         issue_pw_w: string;
         issue_w_lot: string;
         issue_ww: string;

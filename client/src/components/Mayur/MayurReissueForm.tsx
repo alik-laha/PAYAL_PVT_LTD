@@ -11,7 +11,7 @@ import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 
 interface Props {
-    borma: MayurData      
+    borma: MayurData[]      
 }
 
 
@@ -19,9 +19,15 @@ interface mayurRowData{
     
     id: number;
     LotNo: string;
-    date: string | Date;
-    origin: string;
     
+    origin: string;
+
+    rcv_peeling:string;
+    rcv_wholespeel: number;
+    rcv_wholesunpeel: number;
+    rcv_sorting:string|null;
+    rcv_DPDS:string|null;
+    rcv_village:string|null;
     
     issue_pw_w: number;
     issue_w_lot: number;
@@ -97,13 +103,18 @@ const RCNMayurReCreateForm = (props:Props) => {
     useEffect(() => { 
 
       
-        const initialform = props.borma.map((item: MayurData) => ({
-            id: item.id,
-            LotNo: item.LotNo,
-            date: item.date,
-            origin: item.origin,
-          
+        const initialform =  {
+            id: props.borma[0].id,
+            LotNo: props.borma[0].LotNo,
             
+            origin: props.borma[0].origin,
+
+            rcv_sorting:props.borma[0].rcv_sorting,
+            rcv_DPDS:props.borma[0].rcv_DPDS,
+            rcv_village:props.borma[0].rcv_village,
+            rcv_peeling:props.borma[0].current_backlog,
+            rcv_wholespeel: 0,
+            rcv_wholesunpeel: 0,
             issue_pw_w: 0,
             issue_w_lot: 0,
             issue_ww: 0,
@@ -129,10 +140,11 @@ const RCNMayurReCreateForm = (props:Props) => {
             Mc_off_293: '00:00',
             Mc_breakdown_293: '00:00',
             otherTime_293: '00:00',
-        }));
+        };
+        
       
         //console.log(initialform)
-        setRows(initialform)
+        setRows([initialform])
            //console.log(props.borma[0])
       
         //console.log(rows)
@@ -168,7 +180,7 @@ const RCNMayurReCreateForm = (props:Props) => {
             }))
         
             try {
-                const initialhumid = await axios.post('/api/mayur/createEntireMayur', { linehumid:formData,
+                const initialhumid = await axios.post('/api/mayur/createReissueMayur', { linehumid:formData,
                     LotNo:props.borma[0].LotNo
                  })
                 console.log(initialhumid)         
@@ -239,7 +251,9 @@ const RCNMayurReCreateForm = (props:Props) => {
               
                     <TableHead className="text-center">Origin</TableHead>
                  
-                    
+                    <TableHead className="text-center">Opening</TableHead>
+                    <TableHead className="text-center">Opening Wholes_Peel</TableHead>
+                    <TableHead className="text-center">Opening Wholes_UnPeel</TableHead>
                    
                     <TableHead className="text-center">Issue PW_W</TableHead>
                     <TableHead className="text-center">Issue W_Lot</TableHead>
@@ -276,7 +290,10 @@ const RCNMayurReCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
 
-                                      
+                                        <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_peeling)} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-red-100' type="number" value={row.rcv_wholespeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholespeel', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-red-100' type="number" value={row.rcv_wholesunpeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholesunpeel', e.target.value)} required /></TableCell>
+
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_w} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_w', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_lot} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_lot', e.target.value)} required /></TableCell>

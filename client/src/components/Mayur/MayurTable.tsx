@@ -386,11 +386,12 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Issue_No</TableHead>
                         <TableHead className="text-center" >Mayur_Entry_Date</TableHead>
                        
-                        <TableHead className="text-center">Wholes Peel</TableHead>
-                    <TableHead className="text-center">Wholes Unpeel</TableHead>
+                        <TableHead className="text-center">Opening Wholes_Peel</TableHead>
+                    <TableHead className="text-center">Opening Wholes_Unpeel</TableHead>
                     <TableHead className="text-center">Receive Peeling</TableHead>
                     <TableHead className="text-center">Receive DPDS</TableHead>
                     <TableHead className="text-center">Receive Sorting</TableHead>
+                    <TableHead className="text-center">Receive Village</TableHead>
                     <TableHead className="text-center">Issue PW_W</TableHead>
                     <TableHead className="text-center">Issue W_Lot</TableHead>
                     <TableHead className="text-center">Issue WW</TableHead>
@@ -451,6 +452,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                       
                                         <TableCell className="text-center font-semibold bg-red-100">{item.rcv_DPDS ? formatNumber(item.rcv_DPDS) :0}</TableCell>
                                         <TableCell className="text-center font-semibold bg-red-100">{item.rcv_sorting ?formatNumber(item.rcv_sorting):0}</TableCell>
+                                        <TableCell className="text-center font-semibold bg-red-100">{item.rcv_village ?formatNumber(item.rcv_village):0}</TableCell>
                                         <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_pw_w)}</TableCell>
                                         
                                         <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_w_lot)}</TableCell>
@@ -564,6 +566,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                       
                                         <TableCell className="text-center font-semibold bg-red-100">{item.rcv_DPDS ? formatNumber(item.rcv_DPDS) :0}</TableCell>
                                         <TableCell className="text-center font-semibold bg-red-100">{item.rcv_sorting ?formatNumber(item.rcv_sorting):0}</TableCell>
+                                        <TableCell className="text-center font-semibold bg-red-100">{item.rcv_village ?formatNumber(item.rcv_village):0}</TableCell>
                                         <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_pw_w)}</TableCell>
                                         
                                         <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_w_lot)}</TableCell>
@@ -621,7 +624,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                 <PopoverTrigger>
                                                     <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' ? true : false}>Action</button>
                                                 </PopoverTrigger>
-                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                                <PopoverContent className="flex flex-col text-sm w-30 font-medium">
                                                     <Dialog>
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
@@ -629,7 +632,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogContent>
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Peeling Entry Modification</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             {/* <PeelingModify data={item} /> */}
@@ -640,13 +643,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
                                                         </DialogTrigger>
-                                                        <DialogContent>
+                                                        <DialogContent className="max-w-7xl">
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Peeling Entry Modification</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Reissue</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            <RCNMayurReCreateForm borma={item} />
+                                                            <RCNMayurReCreateForm borma={[item]} />
                                                         </DialogContent>
                                                         
                                                     </Dialog>

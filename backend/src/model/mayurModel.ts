@@ -44,6 +44,11 @@ const Mayur = sequelize.define('mayur', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
+    rcv_village: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
     issue_pw_w: 
     {
         type: DataTypes.DECIMAL(10,2),

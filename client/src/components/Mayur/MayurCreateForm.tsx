@@ -19,13 +19,14 @@ interface mayurRowData{
     
     id: number;
     LotNo: string;
-    date: string | Date;
+   
     origin: string;
     
     rcv_wholespeel: string;
     rcv_wholesunpeel: string;
     rcv_sorting:string|null;
     rcv_DPDS:string|null;
+    rcv_village:string|null;
     issue_pw_w: number;
     issue_w_lot: number;
     issue_ww: number;
@@ -103,13 +104,14 @@ const RCNMayurCreateForm = (props:Props) => {
         const initialform = props.borma.map((item: MayurData) => ({
             id: item.id,
             LotNo: item.LotNo,
-            date: item.date,
+            
             origin: item.origin,
           
             rcv_wholespeel: item.rcv_wholespeel,
             rcv_wholesunpeel: item.rcv_wholesunpeel,
             rcv_sorting: item.rcv_sorting,
             rcv_DPDS: item.rcv_DPDS,
+            rcv_village:item.rcv_village,
             issue_pw_w: 0,
             issue_w_lot: 0,
             issue_ww: 0,
