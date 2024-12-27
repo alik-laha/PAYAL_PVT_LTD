@@ -159,6 +159,16 @@ const RCNMayurReCreateForm = (props:Props) => {
     }
     const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
+        const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: props.borma[0].LotNo,section:'DPDS',origin:props.borma[0].origin})
+        console.log(resStatus1)
+        if (resStatus1.data.count && resStatus1.data.count >0) 
+            {
+                setErrortext('Modification of Lot is Pending in Linked DPDS Section')
+                const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                dialogerror.showModal()
+               // console.log(rows)
+                return
+            }
         if(Number(rows[0].rcv_peeling) !== (Number(rows[0].rcv_wholespeel) + Number(rows[0].rcv_wholesunpeel))){
             setErrortext('Total of Wholes Peeling and Unpeeling should be equal to Opening Balance')
            

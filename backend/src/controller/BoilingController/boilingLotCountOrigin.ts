@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
-import RcnBoilingEdit from "../../model/RcnBoilingEditModel";
-import RcnAllEditScooping from "../../model/scoopingAllEditModel";
-import RcnBormaEdit from "../../model/bormaEditModel";
-import HumidifierEdit from "../../model/humidierEditModel";
-import RcnEditPeeling from "../../model/peelingEditModel";
+
+import MayurEdit from "../../model/mayureditModel";
 
 
 
@@ -15,7 +12,7 @@ const countPendingLotOrigin = async (req: Request, res: Response) => {
         let count: number = 0
       
         if (section === 'DPDS') {
-            count = await RcnEditPeeling.count({ where: { LotNo: lotNo ,origin:origin} });
+            count = await MayurEdit.count({ where: { LotNo: lotNo ,origin:origin} });
         }
 
         return res.status(200).json({ message: "Pending Count", count })

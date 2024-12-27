@@ -172,7 +172,7 @@ const RCNMayurEditForm = (props:Props) => {
         const resStatus = await axios.post('/api/boiling/getStatusBoiling', { lotNo: props.borma[0].LotNo})
         console.log(resStatus)
         if (resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy !== 'Mayur') {
-            setErrortext(`Lot has Already Crossed ${resStatus.data.lotStatus.modifiedBy} Section`)
+            setErrortext(`Lot has Already Reached ${resStatus.data.lotStatus.modifiedBy} Section`)
             if(errordialog){
                 (errordialog as any).showModal()
             }
