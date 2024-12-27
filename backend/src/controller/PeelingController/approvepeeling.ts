@@ -87,7 +87,7 @@ const approvePeeling = async (req: Request, res: Response) => {
                     },
                     {
                         where: {
-                            LotNo:LotNo,origin:origin
+                            LotNo:LotNo,origin:origin,latest:1
                         }
                     })
                 return res.status(200).json({ message: "Edit Request of Peeling Entry is Approved Successfully" });

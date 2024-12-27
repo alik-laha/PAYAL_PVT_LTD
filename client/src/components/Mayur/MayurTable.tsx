@@ -51,7 +51,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { CiEdit } from "react-icons/ci";
+import { CiBoxes, CiCrop, CiEdit } from "react-icons/ci";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 // import BormaModify from "./RCNBormaModify";
 import { saveAs } from 'file-saver';
@@ -300,21 +300,21 @@ const MayurTable = () => {
         // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
         return finalTime;
     }
-    const handleApprove = async (item: PeelingData) => {
-        const response = await axios.put(`/api/peeling/approveeditPeeling/${item.id}`)
+    const handleApprove = async (item: MayurData) => {
+        const response = await axios.put(`/api/mayur/approveeditMayur/${item.id}/${item.LotNo}/${item.origin}`)
         const data = await response.data
-        if (data.message === "Edit Request of Peeling Entry is Approved Successfully") {
+        if (data.message === "Edit Request of Mayur Entry is Approved Successfully") {
 
             if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).showModal();
             }
         }
     }
-    const handleRejection = async (item: PeelingData) => {
-        const response = await axios.delete(`/api/peeling/rejectededitPeeling/${item.id}`)
+    const handleRejection = async (item: MayurData) => {
+        const response = await axios.delete(`/api/mayur/rejectededitMayur/${item.id}`)
         const data = await response.data
         console.log(data)
-        if (data.message === "Peeling Entry rejected successfully") {
+        if (data.message === "Mayur Entry rejected successfully") {
             //console.log('rejected enter')
             if (rejectsuccessdialog != null) {
                 (rejectsuccessdialog as any).showModal();
@@ -641,13 +641,27 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         
                                                     </Dialog>
                                                     <Dialog>
-                                                        <DialogTrigger className="flex"><CiEdit size={20} />
+                                                        <DialogTrigger className="flex"><CiBoxes size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
                                                         </DialogTrigger>
                                                         <DialogContent className="max-w-7xl">
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Reissue</p>
+                                                                </DialogTitle>
+                                                            </DialogHeader>
+                                                            <RCNMayurReCreateForm borma={[item]} />
+                                                        </DialogContent>
+                                                        
+                                                    </Dialog>
+                                                    <Dialog>
+                                                        <DialogTrigger className="flex"><CiCrop size={20} />
+                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
+                                                        </DialogTrigger>
+                                                        <DialogContent className="max-w-7xl">
+                                                            <DialogHeader>
+                                                                <DialogTitle>
+                                                                    <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             <RCNMayurReCreateForm borma={[item]} />

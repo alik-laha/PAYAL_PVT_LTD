@@ -873,3 +873,145 @@ export const updateEntireMayur= async (req: Request, res: Response) => {
 
 }
 
+export const approveMayur = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const LotNo = req.params.LotNo;
+        const origin = req.params.origin;
+        const approvedBy = req.cookies.user;
+        // const approvedBy = "RC Admin 1";
+        if (!id || !approvedBy) {
+            return res.status(400).json({ message: "Please provide the id or approved by" });
+        }
+        const data = await MayurEdit.findOne({
+            where: {
+                id
+            }
+        }) as any;
+        if (!data) {
+            return res.status(400).json({ message: "Peeling Entry not found" });
+        }
+        const bormaEdit = await Mayur.update({
+            date:data.date,
+            Mc_on_133: data.Mc_on_133,
+            Mc_off_133: data.Mc_off_133,
+            Mc_breakdown_133: data.Mc_breakdown_133,
+            Mc_runTime_133: data.Mc_runTime_133,
+            Mc_on_331: data.Mc_on_331,
+            Mc_off_331: data.Mc_off_331,
+            Mc_breakdown_331: data.Mc_breakdown_331,
+            Mc_runTime_331: data.Mc_runTime_331,
+            Mc_on_292: data.Mc_on_292,
+            Mc_off_292: data.Mc_off_292,
+            Mc_breakdown_292: data.Mc_breakdown_292,
+            Mc_runTime_292: data.Mc_runTime_331,
+            Mc_on_293: data.Mc_on_293,
+            Mc_off_293: data.Mc_off_293,
+            Mc_breakdown_293: data.Mc_breakdown_293,
+            Mc_runTime_293: data.Mc_runTime_331,
+            otherTime_133: data.otherTime_133,
+            otherTime_331: data.otherTime_331,
+            otherTime_292: data.otherTime_292,
+            otherTime_293: data.otherTime_293,
+            noOfdayOperators:data.noOfdayOperators,
+            noOfnightOperators:data.noOfnightOperators,
+            
+            issue_pw_w: data.issue_pw_w,
+            issue_w_lot:data.issue_w_lot,
+            issue_ww: data.issue_ww,
+            issue_rejection: data.issue_rejection,
+            issue_village: data.issue_village,
+            issue_bigTaiho: data.issue_bigTaiho,
+            issue_LW: data.issue_LW,
+            issue_JB: data.issue_JB,
+          
+            entry_backlog:data.entry_backlog,
+           current_backlog:data.current_backlog,
+            CreatedBy: data.CreatedBy,
+            editStatus: "Approved",
+            modifiedBy:approvedBy,
+
+
+
+        }, {
+            where: {
+                id
+            }
+        });
+        if (!bormaEdit) {
+            return res.status(400).json({ message: "Mayur Entry is not found" });
+        }
+        else{
+            const bormaEditDelete = await MayurEdit.destroy({
+                where: {
+                    id
+                }
+            });
+            if (!bormaEditDelete) {
+                return res.status(400).json({ message: "Mayur Entry is not found" });
+            }
+            else{
+
+
+                // await Mayur.update(
+                //     {  
+                //         rcv_wholespeel: data.WholesPeel,
+                //         rcv_wholesunpeel: data.WholesUnpeel,
+                //         current_backlog:parseFloat(data.WholesPeel)+parseFloat(data.WholesUnpeel),
+                //     },
+                //     {
+                //         where: {
+                //             LotNo:LotNo,origin:origin,latest:1
+                //         }
+                //     })
+                return res.status(200).json({ message: "Edit Request of Mayur Entry is Approved Successfully" });
+            }
+        }
+        
+
+
+        
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
+}
+
+export const EditRejectMayur = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+         const rejectedBy = req.cookies.user;
+
+
+        if (!id || !rejectedBy) {
+            return res.status(400).json({ message: "Please provide the id or rejected By" });
+        }
+        const rcn = await Mayur.update({
+            editStatus: "NA",
+            modifiedBy:rejectedBy
+        }, {
+            where: {
+                id
+            }
+        });
+        if (!rcn) {
+            return res.status(400).json({ message: "Mayur Entry not found" });
+        }
+        const rcnEdit = await MayurEdit.destroy({
+            where: {
+                id
+            }
+        });
+        if (!rcnEdit) {
+            return res.status(400).json({ message: "Mayur Entry not found" });
+        }
+        return res.status(200).json({ message: "Mayur Entry rejected successfully" });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+}
+

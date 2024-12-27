@@ -2,10 +2,9 @@ import express from "express"
 import jwtVerify from "../middleWare/JwtAuthantication";
 
 
-import EditRejectPeeling from "../controller/PeelingController/rejectPeeling";
-import approvePeeling from "../controller/PeelingController/approvepeeling";
 
-import { CreateEntireMayur, CreateReissueMayur, findEditMayurAll, getMayurBylotorigin, getMayurLot, SearchRCNMayur, sumOfallMayur, updateEntireMayur } from "../controller/mayurController/mayurapi";
+import { approveMayur, CreateEntireMayur, CreateReissueMayur, EditRejectMayur, findEditMayurAll, 
+    getMayurBylotorigin, getMayurLot, SearchRCNMayur, sumOfallMayur, updateEntireMayur } from "../controller/mayurController/mayurapi";
 const router = express()
 
 router.get("/getUnMayurEntry/:status", jwtVerify, getMayurLot)
@@ -17,9 +16,9 @@ router.post("/createReissueMayur", jwtVerify, CreateReissueMayur)
 router.put('/mayurprimarysearch', jwtVerify, SearchRCNMayur);
 router.post("/updateMayur",jwtVerify, updateEntireMayur)
 // //Edit Reject Rcn Entry by Id
-router.delete('/rejectededitPeeling/:id', jwtVerify, EditRejectPeeling);
+router.delete('/rejectededitMayur/:id', jwtVerify, EditRejectMayur);
 //Edit Approve Rcn Entry by Id
-router.put("/approveeditPeeling/:id", jwtVerify, approvePeeling);
+router.put("/approveeditMayur/:id/:LotNo/:origin", jwtVerify, approveMayur);
 
 
 export default router
