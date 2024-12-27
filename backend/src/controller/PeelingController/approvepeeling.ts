@@ -2,10 +2,13 @@ import { Request, Response } from "express";
 import {   PeelingRcvData } from "../../type/type";
 import RcnEditPeeling from "../../model/peelingEditModel";
 import RcnPeeling from "../../model/peelingModel";
+import Mayur from "../../model/mayurModel";
 
 const approvePeeling = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
+        const LotNo = req.params.LotNo;
+        const origin = req.params.origin;
         const approvedBy = req.cookies.user;
         // const approvedBy = "RC Admin 1";
         if (!id || !approvedBy) {
@@ -64,17 +67,36 @@ const approvePeeling = async (req: Request, res: Response) => {
         if (!bormaEdit) {
             return res.status(400).json({ message: "Peeling Entry is not found" });
         }
-        const bormaEditDelete = await RcnEditPeeling.destroy({
-            where: {
-                id
+        else{
+            const bormaEditDelete = await RcnEditPeeling.destroy({
+                where: {
+                    id
+                }
+            });
+            if (!bormaEditDelete) {
+                return res.status(400).json({ message: "Peeling Entry is not found" });
             }
-        });
-        if (!bormaEditDelete) {
-            return res.status(400).json({ message: "Peeling Entry is not found" });
+            else{
+
+
+                await Mayur.update(
+                    {  
+                        rcv_wholespeel: data.WholesPeel,
+                        rcv_wholesunpeel: data.WholesUnpeel,
+                        current_backlog:parseFloat(data.WholesPeel)+parseFloat(data.WholesUnpeel),
+                    },
+                    {
+                        where: {
+                            LotNo:LotNo,origin:origin
+                        }
+                    })
+                return res.status(200).json({ message: "Edit Request of Peeling Entry is Approved Successfully" });
+            }
         }
+        
 
 
-        return res.status(200).json({ message: "Edit Request of Peeling Entry is Approved Successfully" });
+        
 
     } catch (err) {
         console.log(err);
