@@ -30,6 +30,7 @@ import RCNMayurCreateForm from "./MayurCreateForm";
 interface lotPropsdata{
     LotNo:string;
     origin:string;
+    current_backlog:string;
 }
 
 const MayurInitial = (props: any) => {
@@ -93,7 +94,7 @@ const MayurInitial = (props: any) => {
                         <TableHead className="text-center" >Sl. No.</TableHead>
                         <TableHead className="text-center" >Lot No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
-                        
+                        <TableHead className="text-center" >Current_Backlog</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
 
 
@@ -112,6 +113,9 @@ const MayurInitial = (props: any) => {
                                         </TableCell>
                                         <TableCell className="text-center font-semibold text-blue-500">
                                             {item.origin}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold ">
+                                            {item.current_backlog}
                                         </TableCell>
                                         
                                         <TableCell className="text-center">

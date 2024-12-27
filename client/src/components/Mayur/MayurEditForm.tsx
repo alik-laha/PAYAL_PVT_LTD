@@ -169,7 +169,16 @@ const RCNMayurEditForm = (props:Props) => {
     }
     const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
-        
+        const resStatus = await axios.post('/api/boiling/getStatusBoiling', { lotNo: props.borma[0].LotNo})
+        console.log(resStatus)
+        if (resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy !== 'Mayur') {
+            setErrortext(`Lot has Already Crossed ${resStatus.data.lotStatus.modifiedBy} Section`)
+            if(errordialog){
+                (errordialog as any).showModal()
+            }
+            
+            return
+        }
         setisdisable(true)
         props.borma.map((item: MayurData, idx: number) => {
             rows[idx].id=item.id
@@ -196,7 +205,7 @@ const RCNMayurEditForm = (props:Props) => {
                  })
                 console.log(initialhumid)         
                     setErrortext(initialhumid.data.message)
-                    if (initialhumid.status === 200) {
+                    if (initialhumid.status === 201) {
                         const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
                         dialog2.showModal()
                         setTimeout(() => {

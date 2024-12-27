@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
 import WhatsappMsg from "../../helper/WhatsappMsg";
-import { HumidrcvData, PeelingRcvData } from "../../type/type";
+import {  PeelingRcvData } from "../../type/type";
 import sequelize from "../../config/databaseConfig";
-import Humidifier from "../../model/humidfierModel";
-import HumidifierEdit from "../../model/humidierEditModel";
+
 import RcnPeeling from "../../model/peelingModel";
 import RcnEditPeeling from "../../model/peelingEditModel";
 //import VendorName from "../../model/vendorNameModel";
