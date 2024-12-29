@@ -392,9 +392,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
             const Mc_runTime4 = millisecondsToTime(runtime4);
             //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
          
-            if((parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel)+
-            (data.rcv_DPDS? parseFloat(data.rcv_DPDS):0)+
-            (data.rcv_sorting?parseFloat(data.rcv_sorting):0)+(data.rcv_village?parseFloat(data.rcv_village):0))< (parseFloat(data.issue_pw_w)
+            if(parseFloat(data.rcv_peeling)< (parseFloat(data.issue_pw_w)
                 +parseFloat(data.issue_w_lot)
                 +parseFloat(data.issue_ww)
                 +parseFloat(data.issue_rejection)
@@ -470,7 +468,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         issue_LW: data.issue_LW,
                         issue_JB: data.issue_JB,
                       
-                        entry_backlog:(parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel))- (parseFloat(data.issue_pw_w)
+                        entry_backlog:parseFloat(data.rcv_peeling)- (parseFloat(data.issue_pw_w)
                         +parseFloat(data.issue_w_lot)
                         +parseFloat(data.issue_ww)
                         +parseFloat(data.issue_rejection)
@@ -479,7 +477,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         +parseFloat(data.issue_LW)
                         +parseFloat(data.issue_JB)
                        ),
-                       current_backlog:(parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel))- (parseFloat(data.issue_pw_w)
+                       current_backlog:parseFloat(data.rcv_peeling)- (parseFloat(data.issue_pw_w)
                        +parseFloat(data.issue_w_lot)
                        +parseFloat(data.issue_ww)
                        +parseFloat(data.issue_rejection)

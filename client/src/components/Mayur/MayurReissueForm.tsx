@@ -25,9 +25,9 @@ interface mayurRowData{
     rcv_peeling:string;
     rcv_wholespeel: number;
     rcv_wholesunpeel: number;
-    rcv_sorting:string|null;
-    rcv_DPDS:string|null;
-    rcv_village:string|null;
+    rcv_sorting:string;
+    rcv_DPDS:string;
+    rcv_village:string;
     
     issue_pw_w: number;
     issue_w_lot: number;
@@ -169,8 +169,10 @@ const RCNMayurReCreateForm = (props:Props) => {
            // console.log(rows)
             return
             }
-        if(Number(rows[0].rcv_peeling) !== (Number(rows[0].rcv_wholespeel) + Number(rows[0].rcv_wholesunpeel))){
-            setErrortext('Total of Wholes Peeling and Unpeeling should be equal to Opening Balance')
+        if((Number(rows[0].rcv_peeling) - ((rows[0].rcv_DPDS ? Number(rows[0].rcv_DPDS) : 0) +
+        (rows[0].rcv_village ? Number(rows[0].rcv_village):0)+(rows[0].rcv_sorting ? Number(rows[0].rcv_sorting):0)))
+         !== (Number(rows[0].rcv_wholespeel) + Number(rows[0].rcv_wholesunpeel))){
+            setErrortext('Total of Wholes Peeling and Unpeeling should be equal to  Peeling Opening Balance')
            
             const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
             dialogerror.showModal()
@@ -279,10 +281,13 @@ const RCNMayurReCreateForm = (props:Props) => {
               
                     <TableHead className="text-center">Origin</TableHead>
                  
-                    <TableHead className="text-center">Opening</TableHead>
-                    <TableHead className="text-center">Opening Wholes_Peel</TableHead>
-                    <TableHead className="text-center">Opening Wholes_UnPeel</TableHead>
-                   
+                    <TableHead className="text-center">Total Opening</TableHead>
+                    <TableHead className="text-center">Peeling Opening</TableHead>
+                    <TableHead className="text-center">Peeling Wholes_Peel</TableHead>
+                    <TableHead className="text-center">Peeling Wholes_UnPeel</TableHead>
+                    <TableHead className="text-center">Rcv DPDS</TableHead>
+                    <TableHead className="text-center">Rcv Village</TableHead>
+                    <TableHead className="text-center">Rcv Sorting</TableHead>
                     <TableHead className="text-center">Issue PW_W</TableHead>
                     <TableHead className="text-center">Issue W_Lot</TableHead>
                     <TableHead className="text-center">Issue WW</TableHead>
@@ -318,10 +323,15 @@ const RCNMayurReCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
 
-                                        <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_peeling)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_peeling)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_peeling)) - ((row.rcv_DPDS ? Number(formatNumber(row.rcv_DPDS)) : 0) +
+                                        (row.rcv_village ? Number(formatNumber(row.rcv_village)):0)+(row.rcv_sorting ? Number(formatNumber(row.rcv_sorting)):0))} Kg</TableCell>
+
                                         <TableCell className="text-center"> <Input className='bg-red-100' type="number" value={row.rcv_wholespeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholespeel', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-red-100' type="number" value={row.rcv_wholesunpeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholesunpeel', e.target.value)} required /></TableCell>
-
+                                        <TableCell className="text-center font-semibold ">{row.rcv_DPDS ? formatNumber(row.rcv_DPDS):0} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold ">{row.rcv_village ? formatNumber(row.rcv_village):0} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold ">{row.rcv_sorting ? formatNumber(row.rcv_sorting):0} Kg</TableCell>
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_w} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_w', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_lot} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_lot', e.target.value)} required /></TableCell>
