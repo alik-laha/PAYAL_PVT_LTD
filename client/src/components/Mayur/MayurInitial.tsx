@@ -63,18 +63,19 @@ const MayurInitial = (props: any) => {
                 }
                 return
             }
-        const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: lotNO,section:'DPDS',origin:origin})
+        const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: lotNO,origin:origin})
         console.log(resStatus1)
-        if (resStatus1.data.count && resStatus1.data.count >0) 
+        if (resStatus1.data.scoopingLot && resStatus1.data.scoopingLot[0].editStatus ==='Pending') 
             {
-                seterrorText('Modification of Lot is Pending in Linked DPDS Section')
+                console.log('Hi')
+                seterrorText(`Modification of Lot is Pending in Linked  ${resStatus1.data.scoopingLot.latest_section} Section`)
                 if (rejectsuccessdialog != null) {
                         (rejectsuccessdialog as any).showModal();
                 }
                 return
             }
            
-        axios.get(`/api/mayur/getMayurByLotOrigin/${lotNO}/${origin}`).then(res=>{
+        await axios.get(`/api/mayur/getMayurByLotOrigin/${lotNO}/${origin}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.scoopingLot)){
             //scoopdata=res.data.scoopingLot

@@ -169,10 +169,11 @@ const RCNMayurEditForm = (props:Props) => {
     }
     const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
-        const resStatus = await axios.post('/api/boiling/getStatusBoiling', { lotNo: props.borma[0].LotNo})
-        console.log(resStatus)
-        if (resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy !== 'Mayur') {
-            setErrortext(`Lot has Already Reached ${resStatus.data.lotStatus.modifiedBy} Section`)
+        const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: props.borma[0].LotNo,origin:props.borma[0].origin})
+        console.log(resStatus1)
+        if (resStatus1.data.scoopingLot[0].latest_section && resStatus1.data.scoopingLot[0].latest_section !=='Mayur') 
+            {
+            setErrortext(`Lot is Already Linked to ${resStatus1.data.scoopingLot[0].latest_section} Section`)
             if(errordialog){
                 (errordialog as any).showModal()
             }

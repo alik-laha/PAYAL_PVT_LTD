@@ -7,6 +7,7 @@ import LotNo from "../../model/lotNomodel";
 import { Op } from "sequelize";
 import MayurEdit from "../../model/mayureditModel";
 import WhatsappMsg from "../../helper/WhatsappMsg";
+import lotoriginmodel from "../../model/lotoriginModel";
 
 export const findEditMayurAll = async (req: Request, res: Response) => {
     try {
@@ -184,9 +185,9 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
             }
            
             
-            const humidUpdate=await Mayur.update(
-                {     
-                    date:data.Date,
+            const humidUpdate = await Mayur.update(
+                {
+                    date: data.Date,
                     Mc_on_133: data.Mc_on_133,
                     Mc_off_133: data.Mc_off_133,
                     Mc_breakdown_133: data.Mc_breakdown_133,
@@ -207,40 +208,40 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                     otherTime_331: data.otherTime_331,
                     otherTime_292: data.otherTime_292,
                     otherTime_293: data.otherTime_293,
-                    noOfdayOperators:data.dayoperator,
-                    noOfnightOperators:data.nightoperator,
-                    
+                    noOfdayOperators: data.dayoperator,
+                    noOfnightOperators: data.nightoperator,
+
                     issue_pw_w: data.issue_pw_w,
-                    issue_w_lot:data.issue_w_lot,
+                    issue_w_lot: data.issue_w_lot,
                     issue_ww: data.issue_ww,
                     issue_rejection: data.issue_rejection,
                     issue_village: data.issue_village,
                     issue_bigTaiho: data.issue_bigTaiho,
                     issue_LW: data.issue_LW,
                     issue_JB: data.issue_JB,
-                  
-                    entry_backlog:(parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel)+(data.rcv_DPDS? parseFloat(data.rcv_DPDS):0)+
-                    (data.rcv_sorting?parseFloat(data.rcv_sorting):0)+(data.rcv_village?parseFloat(data.rcv_village):0))- (parseFloat(data.issue_pw_w)
-                    +parseFloat(data.issue_w_lot)
-                    +parseFloat(data.issue_ww)
-                    +parseFloat(data.issue_rejection)
-                    +parseFloat(data.issue_village)
-                    +parseFloat(data.issue_bigTaiho)
-                    +parseFloat(data.issue_LW)
-                    +parseFloat(data.issue_JB)
-                   ),
-                   current_backlog:(parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel)+(data.rcv_DPDS? parseFloat(data.rcv_DPDS):0)+
-                   (data.rcv_sorting?parseFloat(data.rcv_sorting):0)+(data.rcv_village?parseFloat(data.rcv_village):0))- (parseFloat(data.issue_pw_w)
-                   +parseFloat(data.issue_w_lot)
-                   +parseFloat(data.issue_ww)
-                   +parseFloat(data.issue_rejection)
-                   +parseFloat(data.issue_village)
-                   +parseFloat(data.issue_bigTaiho)
-                   +parseFloat(data.issue_LW)
-                   +parseFloat(data.issue_JB)
-                  ),
+
+                    entry_backlog: (parseFloat(data.rcv_wholespeel) + parseFloat(data.rcv_wholesunpeel) + (data.rcv_DPDS ? parseFloat(data.rcv_DPDS) : 0) +
+                        (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0) + (data.rcv_village ? parseFloat(data.rcv_village) : 0)) - (parseFloat(data.issue_pw_w)
+                            + parseFloat(data.issue_w_lot)
+                            + parseFloat(data.issue_ww)
+                            + parseFloat(data.issue_rejection)
+                            + parseFloat(data.issue_village)
+                            + parseFloat(data.issue_bigTaiho)
+                            + parseFloat(data.issue_LW)
+                            + parseFloat(data.issue_JB)
+                        ),
+                    current_backlog: (parseFloat(data.rcv_wholespeel) + parseFloat(data.rcv_wholesunpeel) + (data.rcv_DPDS ? parseFloat(data.rcv_DPDS) : 0) +
+                        (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0) + (data.rcv_village ? parseFloat(data.rcv_village) : 0)) - (parseFloat(data.issue_pw_w)
+                            + parseFloat(data.issue_w_lot)
+                            + parseFloat(data.issue_ww)
+                            + parseFloat(data.issue_rejection)
+                            + parseFloat(data.issue_village)
+                            + parseFloat(data.issue_bigTaiho)
+                            + parseFloat(data.issue_LW)
+                            + parseFloat(data.issue_JB)
+                        ),
                     Status: 1,
-                    CreatedBy: feeledBy 
+                    CreatedBy: feeledBy
                 },
                 {
                     where: {
@@ -248,37 +249,51 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                     }, transaction
                 }
             );
-            //  if(humidUpdate){
-                
-            //     await Mayur.create({
-            //         id:data.id,
-            //         LotNo:data.LotNo,
-            //         origin:data.origin,
-            //         TotalInput: data.TotalOutput,
-            //         rcv_wholespeel: data.WholesPeel,
-            //         rcv_wholesunpeel: data.WholesUnpeel,
-            //         current_backlog:parseFloat(data.WholesPeel)+parseFloat(data.WholesUnpeel),
-            //      },{transaction});
-            //  }
-           
-        }
-       
-        const lotupdate = await LotNo.update(
-            { 
-              modifiedBy:'Mayur'
-            },
-            {
-                where: {
-                    lotNo:LotNO
-                },transaction
+            if (humidUpdate) {
+
+                // await Mayur.create({
+                //     id: data.id,
+                //     LotNo: data.LotNo,
+                //     origin: data.origin,
+                //     TotalInput: data.TotalOutput,
+                //     rcv_wholespeel: data.WholesPeel,
+                //     rcv_wholesunpeel: data.WholesUnpeel,
+                //     current_backlog: parseFloat(data.WholesPeel) + parseFloat(data.WholesUnpeel),
+                // }, { transaction });
+                await LotNo.update(
+                    { 
+                      modifiedBy:'Next Interconnected'
+                    },
+                    {
+                        where: {
+                            lotNo:LotNO
+                        },transaction
+                    }
+                );
+                const lotupdate = await lotoriginmodel.update(
+                    {
+                        latest_section: 'Mayur',
+                        mayurStatus: 1
+                    },
+                    {
+                        where: {
+                            lotNo: LotNO,
+                            origin: data.origin
+                        }, transaction
+                    }
+                );
+                if (lotupdate) {
+                    res.status(200).json({ message: "Mayur Entry Made Successfully" });
+                }
+                else {
+                    console.log('No Need For Update')
+                }
             }
-        );
-        if(lotupdate){
-            res.status(200).json({ message: "Mayur Entry Made Successfully" });
+
+
         }
-        else{
-            console.log('No Need For Update')
-        }
+
+
 
 
     })
@@ -835,7 +850,18 @@ export const updateEntireMayur= async (req: Request, res: Response) => {
                 }
             );
             
-                
+            await lotoriginmodel.update(
+                { 
+                    editStatus:'Pending',
+                 
+                },
+                {
+                    where: {
+                        lotNo:LotNO,
+                        origin:data.origin
+                    },transaction
+                }
+            );
            const lotupdate= await Mayur.update({
                     editStatus:'Pending'
                 },
@@ -844,10 +870,13 @@ export const updateEntireMayur= async (req: Request, res: Response) => {
                          id: data.id
                      }, transaction
                  });
+
+                 
                  if(lotupdate){
+                   
                     const data = await WhatsappMsg("Mayur", feeledBy,"modify_request","Production")
                     console.log(data)
-                    return res.status(201).json({ message: "Mayur edited successfully" });
+                    return res.status(201).json({ message: "Edit Request of Mayur Entry Raised successfully" });
                
                 }
                 else{
@@ -938,6 +967,18 @@ export const approveMayur = async (req: Request, res: Response) => {
                 id
             }
         });
+        await lotoriginmodel.update(
+            { 
+                editStatus:'NA',
+             
+            },
+            {
+                where: {
+                    lotNo:LotNo,
+                    origin:origin
+                }
+            }
+        );
         if (!bormaEdit) {
             return res.status(400).json({ message: "Mayur Entry is not found" });
         }
@@ -1013,5 +1054,71 @@ export const EditRejectMayur = async (req: Request, res: Response) => {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error", error: err });
     }
+}
+
+export const SearchRCNMayurMix = async (req: Request, res: Response) => {
+    try {
+        const { searchitem,fromDate, toDate, origin} = req.body;
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
+        const offset = (page - 1) * size;
+        const limit = size;
+
+        let whereClause = [];
+
+        // Conditionally add parameters to the whereClause
+        if (searchitem) {
+            whereClause.push({
+                LotNo: {
+                    [Op.like]: `%${searchitem}%`
+                }
+            });
+        }
+        if (fromDate && toDate) {
+            whereClause.push({
+                recevingDate: {
+                    [Op.between]: [fromDate, toDate]
+                }
+            });
+        }
+        if (origin) {
+            whereClause.push({
+                origin: {
+                    [Op.like]: `%${origin}%`
+                }
+            });
+        }
+        whereClause.push({
+            Status: {
+                [Op.eq]: 1
+            }
+        });
+  
+        // Convert the array to an object for the where condition
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+        let rcnEntries
+        if(limit===0 && offset===0){
+             rcnEntries = await Mayur.findAll({
+                where,
+                order: [['LotNo','DESC'],['date', 'DESC']], // Order by date descending
+                
+            });
+        }
+        else{
+             rcnEntries = await Mayur.findAll({
+                where,
+                order: [['LotNo','DESC'],['date', 'DESC']], // Order by date descending
+                limit: limit,
+                offset: offset
+            });
+        }
+       
+        return res.status(200).json({ message: 'Mayur Entry found', rcnEntries })
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: 'Internal server error', error: err })
+    }
+ 
 }
 

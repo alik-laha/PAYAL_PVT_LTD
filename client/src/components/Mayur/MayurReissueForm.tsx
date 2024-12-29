@@ -159,18 +159,27 @@ const RCNMayurReCreateForm = (props:Props) => {
     }
     const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
-        const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: props.borma[0].LotNo,section:'DPDS',origin:props.borma[0].origin})
+        const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: props.borma[0].LotNo,origin:props.borma[0].origin})
         console.log(resStatus1)
-        if (resStatus1.data.count && resStatus1.data.count >0) 
+        if (resStatus1.data.scoopingLot && resStatus1.data.scoopingLot.editStatus ==='Pending') 
             {
-                setErrortext('Modification of Lot is Pending in Linked DPDS Section')
+                setErrortext(`Modification of Lot is Pending in Linked  ${resStatus1.data.scoopingLot.latest_section} Section`)
                 const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
-                dialogerror.showModal()
-               // console.log(rows)
-                return
+            dialogerror.showModal()
+           // console.log(rows)
+            return
             }
         if(Number(rows[0].rcv_peeling) !== (Number(rows[0].rcv_wholespeel) + Number(rows[0].rcv_wholesunpeel))){
             setErrortext('Total of Wholes Peeling and Unpeeling should be equal to Opening Balance')
+           
+            const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+            dialogerror.showModal()
+           // console.log(rows)
+            return
+
+        }
+        if(Number(props.borma[0].current_backlog) <= 0){
+            setErrortext('Backlog Cannot be Zero or Negative While Re-Issue')
            
             const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
             dialogerror.showModal()

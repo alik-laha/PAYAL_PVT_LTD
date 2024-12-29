@@ -5,6 +5,7 @@ import sequelize from "../../config/databaseConfig";
 import LotNo from "../../model/lotNomodel";
 import RcnPeeling from "../../model/peelingModel";
 import Mayur from "../../model/mayurModel";
+import lotoriginmodel from "../../model/lotoriginModel";
 //import RcnPeeling from "../../model/peelingModel";
 
 
@@ -157,6 +158,14 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
                     rcv_wholespeel: data.WholesPeel,
                     rcv_wholesunpeel: data.WholesUnpeel,
                     current_backlog:parseFloat(data.WholesPeel)+parseFloat(data.WholesUnpeel),
+                 },{transaction});
+
+                 await lotoriginmodel.create({
+                  
+                    LotNo:LotNO,
+                    origin:data.origin,
+                    
+                   
                  },{transaction});
              }
            

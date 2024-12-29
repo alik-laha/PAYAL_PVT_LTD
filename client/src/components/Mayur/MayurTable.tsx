@@ -58,6 +58,7 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import RCNMayurReCreateForm from "./MayurReissueForm";
 import RCNMayurEditForm from "./MayurEditForm";
+import RCNMayurReMix from "./MayurMix";
 //import PeelingModify from "./PeelingModify";
 //import HumidifierModify from "./HumidifierModify";
 
@@ -658,13 +659,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogTrigger className="flex"><CiCrop size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
                                                         </DialogTrigger>
-                                                        <DialogContent className="max-w-7xl">
+                                                        <DialogContent className="max-w-4xl">
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            <RCNMayurReCreateForm borma={[item]} />
+                                                            <RCNMayurReMix borma={item} />
                                                         </DialogContent>
                                                         
                                                     </Dialog>

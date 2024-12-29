@@ -161,7 +161,7 @@ const PeelingModify = (props: PeelingModifyProps) => {
         const resStatus = await axios.post('/api/boiling/getStatusBoiling', { lotNo: props.data.LotNo})
         console.log(resStatus)
         if (resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy !== 'Peeling') {
-            setErrorText(`Lot has Already Crossed ${resStatus.data.lotStatus.modifiedBy} Section`)
+            setErrorText(`Lot has Already Reached ${resStatus.data.lotStatus.modifiedBy} Sections`)
             if(errordialog){
                 (errordialog as any).showModal()
             }
