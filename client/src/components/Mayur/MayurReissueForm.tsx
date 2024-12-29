@@ -180,12 +180,12 @@ const RCNMayurReCreateForm = (props:Props) => {
             return
 
         }
-        if(props.borma[0].rcv_DPDS ? Number(props.borma[0].rcv_DPDS):0 < Number(rows[0].rcv_DPDS)
-            || props.borma[0].rcv_village ? Number(props.borma[0].rcv_village):0 < Number(rows[0].rcv_village) 
-            || props.borma[0].rcv_sorting ? Number(props.borma[0].rcv_sorting):0 < Number(rows[0].rcv_sorting
-            || Number(props.borma[0].rcv_wholespeel) < Number(rows[0].rcv_wholespeel) 
-            || Number(props.borma[0].rcv_wholesunpeel) < Number(rows[0].rcv_wholesunpeel)
-        )){
+        if(((props.borma[0].rcv_DPDS ? Number(props.borma[0].rcv_DPDS):0) < Number(rows[0].rcv_DPDS))
+            || ((props.borma[0].rcv_village ? Number(props.borma[0].rcv_village):0) < Number(rows[0].rcv_village)) 
+            || ((props.borma[0].rcv_sorting ? Number(props.borma[0].rcv_sorting):0) < Number(rows[0].rcv_sorting))
+            || (Number(props.borma[0].rcv_wholespeel) < Number(rows[0].rcv_wholespeel) )
+            || (Number(props.borma[0].rcv_wholesunpeel) < Number(rows[0].rcv_wholesunpeel))
+        ){
                setErrortext('Current Receiving should not Exceed Previous Receiving')
               
                const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
