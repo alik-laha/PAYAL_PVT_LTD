@@ -25,9 +25,9 @@ interface mayurRowData{
     rcv_peeling:string;
     rcv_wholespeel: number;
     rcv_wholesunpeel: number;
-    rcv_sorting:string;
-    rcv_DPDS:string;
-    rcv_village:string;
+    rcv_sorting:number;
+    rcv_DPDS:number;
+    rcv_village:number;
     
     issue_pw_w: number;
     issue_w_lot: number;
@@ -109,9 +109,9 @@ const RCNMayurReCreateForm = (props:Props) => {
             alt_id:props.borma[0].altid,
             origin: props.borma[0].origin,
 
-            rcv_sorting:props.borma[0].rcv_sorting,
-            rcv_DPDS:props.borma[0].rcv_DPDS,
-            rcv_village:props.borma[0].rcv_village,
+            rcv_sorting:0,
+            rcv_DPDS:0,
+            rcv_village:0,
             rcv_peeling:props.borma[0].current_backlog,
             rcv_wholespeel: 0,
             rcv_wholesunpeel: 0,
@@ -169,10 +169,10 @@ const RCNMayurReCreateForm = (props:Props) => {
            // console.log(rows)
             return
             }
-        if((Number(rows[0].rcv_peeling) - ((rows[0].rcv_DPDS ? Number(rows[0].rcv_DPDS) : 0) +
-        (rows[0].rcv_village ? Number(rows[0].rcv_village):0)+(rows[0].rcv_sorting ? Number(rows[0].rcv_sorting):0)))
-         !== (Number(rows[0].rcv_wholespeel) + Number(rows[0].rcv_wholesunpeel))){
-            setErrortext('Total of Wholes Peeling and Unpeeling should be equal to  Peeling Opening Balance')
+        if((Number(rows[0].rcv_peeling)
+         !== (Number(rows[0].rcv_wholespeel) + Number(rows[0].rcv_wholesunpeel)+(rows[0].rcv_DPDS ? Number(rows[0].rcv_DPDS) : 0) +
+        (rows[0].rcv_village ? Number(rows[0].rcv_village):0)+(rows[0].rcv_sorting ? Number(rows[0].rcv_sorting):0)))){
+            setErrortext('Total of Current Receiving should be equal to  Peeling Opening Balance')
            
             const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
             dialogerror.showModal()
@@ -180,6 +180,20 @@ const RCNMayurReCreateForm = (props:Props) => {
             return
 
         }
+        if(props.borma[0].rcv_DPDS ? Number(props.borma[0].rcv_DPDS):0 < Number(rows[0].rcv_DPDS)
+            || props.borma[0].rcv_village ? Number(props.borma[0].rcv_village):0 < Number(rows[0].rcv_village) 
+            || props.borma[0].rcv_sorting ? Number(props.borma[0].rcv_sorting):0 < Number(rows[0].rcv_sorting
+            || Number(props.borma[0].rcv_wholespeel) < Number(rows[0].rcv_wholespeel) 
+            || Number(props.borma[0].rcv_wholesunpeel) < Number(rows[0].rcv_wholesunpeel)
+        )){
+               setErrortext('Current Receiving should not Exceed Previous Receiving')
+              
+               const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+               dialogerror.showModal()
+              // console.log(rows)
+               return
+   
+           }
         if(Number(props.borma[0].current_backlog) <= 0){
             setErrortext('Backlog Cannot be Zero or Negative While Re-Issue')
            
@@ -282,12 +296,16 @@ const RCNMayurReCreateForm = (props:Props) => {
                     <TableHead className="text-center">Origin</TableHead>
                  
                     <TableHead className="text-center">Total Opening</TableHead>
-                    <TableHead className="text-center">Peeling Opening</TableHead>
-                    <TableHead className="text-center">Peeling Wholes_Peel</TableHead>
-                    <TableHead className="text-center">Peeling Wholes_UnPeel</TableHead>
-                    <TableHead className="text-center">Rcv DPDS</TableHead>
-                    <TableHead className="text-center">Rcv Village</TableHead>
-                    <TableHead className="text-center">Rcv Sorting</TableHead>
+                    <TableHead className="text-center">Prev Rcv Peeling Wholes_Peel</TableHead>
+                    <TableHead className="text-center">Current Rcv Peeling Wholes_Peel</TableHead>
+                    <TableHead className="text-center">Prev Rcv Peeling Wholes_UnPeel</TableHead>
+                    <TableHead className="text-center">Current Rcv Peeling Wholes_UnPeel</TableHead>
+                    <TableHead className="text-center">Prev Rcv DPDS</TableHead>
+                    <TableHead className="text-center">Current Rcv DPDS</TableHead>
+                    <TableHead className="text-center">Prev Rcv Village</TableHead>
+                    <TableHead className="text-center">Current Rcv Village</TableHead>
+                    <TableHead className="text-center">Prev Rcv Sorting</TableHead>
+                    <TableHead className="text-center">Current Rcv Sorting</TableHead>
                     <TableHead className="text-center">Issue PW_W</TableHead>
                     <TableHead className="text-center">Issue W_Lot</TableHead>
                     <TableHead className="text-center">Issue WW</TableHead>
@@ -320,18 +338,22 @@ const RCNMayurReCreateForm = (props:Props) => {
                                 return (
                                     <TableRow key={idx} className="boiling-row-height-scoop">
                                         <TableCell className="text-center">{idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
+                                        <TableCell className="text-center font-semibold text-blue-500">{row.LotNo}</TableCell>
+                                        <TableCell className="text-center font-semibold ">{row.origin}</TableCell>
 
                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_peeling)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_peeling)) - ((row.rcv_DPDS ? Number(formatNumber(row.rcv_DPDS)) : 0) +
-                                        (row.rcv_village ? Number(formatNumber(row.rcv_village)):0)+(row.rcv_sorting ? Number(formatNumber(row.rcv_sorting)):0))} Kg</TableCell>
-
-                                        <TableCell className="text-center"> <Input className='bg-red-100' type="number" value={row.rcv_wholespeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholespeel', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-red-100' type="number" value={row.rcv_wholesunpeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholesunpeel', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center font-semibold ">{row.rcv_DPDS ? formatNumber(row.rcv_DPDS):0} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold ">{row.rcv_village ? formatNumber(row.rcv_village):0} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold ">{row.rcv_sorting ? formatNumber(row.rcv_sorting):0} Kg</TableCell>
+                                     
+                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(props.borma[0].rcv_wholespeel)} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input  type="number" value={row.rcv_wholespeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholespeel', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(props.borma[0].rcv_wholesunpeel)} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input type="number" value={row.rcv_wholesunpeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholesunpeel', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_DPDS ?formatNumber(props.borma[0].rcv_DPDS):0} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input  type="number" value={row.rcv_DPDS} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_DPDS', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_village ?formatNumber(props.borma[0].rcv_village):0} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input  type="number" value={row.rcv_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_village', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_sorting ?formatNumber(props.borma[0].rcv_sorting):0} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input  type="number" value={row.rcv_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sorting', e.target.value)} required /></TableCell>
+                                     
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_w} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_w', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_lot} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_lot', e.target.value)} required /></TableCell>

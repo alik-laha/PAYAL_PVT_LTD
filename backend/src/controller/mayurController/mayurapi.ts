@@ -436,6 +436,9 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         origin:data.origin,
                         rcv_wholespeel:data.rcv_wholespeel,
                         rcv_wholesunpeel:data.rcv_wholesunpeel,
+                        rcv_DPDS:data.rcv_DPDS,
+                        rcv_sorting:data.rcv_sorting,
+                        rcv_village:data.rcv_village,
                         Mc_on_133: data.Mc_on_133,
                         Mc_off_133: data.Mc_off_133,
                         Mc_breakdown_133: data.Mc_breakdown_133,
@@ -647,14 +650,14 @@ export const SearchRCNMayur = async (req: Request, res: Response) => {
         if(limit===0 && offset===0){
              rcnEntries = await Mayur.findAll({
                 where,
-                order: [['LotNo','DESC'],['date', 'DESC']], // Order by date descending
+                order: [['LotNo','DESC'],['origin','ASC'],['altid', 'ASC']], // Order by date descending
                 
             });
         }
         else{
              rcnEntries = await Mayur.findAll({
                 where,
-                order: [['LotNo','DESC'],['date', 'DESC']], // Order by date descending
+                order: [['LotNo','DESC'],['origin','ASC'],['altid', 'ASC']], // Order by date descending
                 limit: limit,
                 offset: offset
             });

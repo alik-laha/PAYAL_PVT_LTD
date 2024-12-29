@@ -553,7 +553,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                       
 
                                 return (
-                                    <TableRow key={item.id}>
+                                    <TableRow key={item.id} className={`${item.altid==1 ? '' : 'bg-yellow-100'}`}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                         <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
                                         
@@ -564,20 +564,20 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                       
                                         <TableCell className="text-center ">{formatNumber(item.rcv_wholespeel)}</TableCell>
                                         <TableCell className="text-center ">{formatNumber(item.rcv_wholesunpeel)}</TableCell>
-                                        <TableCell className="text-center  bg-red-100">{Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel))}</TableCell>
+                                        <TableCell className={`${item.altid==1 ? 'text-center bg-red-100' : 'text-center bg-yellow-100 '}`}>{Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel))}</TableCell>
                                       
-                                        <TableCell className="text-center  bg-red-100">{item.rcv_DPDS ? formatNumber(item.rcv_DPDS) :0}</TableCell>
-                                        <TableCell className="text-center  bg-red-100">{item.rcv_sorting ?formatNumber(item.rcv_sorting):0}</TableCell>
-                                        <TableCell className="text-center  bg-red-100">{item.rcv_village ?formatNumber(item.rcv_village):0}</TableCell>
-                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_pw_w)}</TableCell>
+                                        <TableCell  className={`${item.altid==1 ? 'text-center bg-red-100' : 'text-center bg-yellow-100 '}`}>{item.rcv_DPDS ? formatNumber(item.rcv_DPDS) :0}</TableCell>
+                                        <TableCell  className={`${item.altid==1 ? 'text-center bg-red-100' : 'text-center bg-yellow-100 '}`}>{item.rcv_sorting ?formatNumber(item.rcv_sorting):0}</TableCell>
+                                        <TableCell  className={`${item.altid==1 ? 'text-center bg-red-100' : 'text-center bg-yellow-100 '}`}>{item.rcv_village ?formatNumber(item.rcv_village):0}</TableCell>
+                                        <TableCell  className={`${item.altid==1 ? 'text-center bg-blue-100' : 'text-center bg-yellow-100 '}`}>{formatNumber(item.issue_pw_w)}</TableCell>
                                         
-                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_w_lot)}</TableCell>
-                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_ww)}</TableCell>
-                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_rejection)}</TableCell>
-                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_village)}</TableCell>
-                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
-                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_LW)}</TableCell>
-                                        <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_JB)}</TableCell>
+                                        <TableCell className={`${item.altid==1 ? 'text-center bg-blue-100' : 'text-center bg-yellow-100 '}`}>{formatNumber(item.issue_w_lot)}</TableCell>
+                                        <TableCell className={`${item.altid==1 ? 'text-center bg-blue-100' : 'text-center bg-yellow-100 '}`}>{formatNumber(item.issue_ww)}</TableCell>
+                                        <TableCell className={`${item.altid==1 ? 'text-center bg-blue-100' : 'text-center bg-yellow-100 '}`}>{formatNumber(item.issue_rejection)}</TableCell>
+                                        <TableCell className={`${item.altid==1 ? 'text-center bg-blue-100' : 'text-center bg-yellow-100 '}`}>{formatNumber(item.issue_village)}</TableCell>
+                                        <TableCell className={`${item.altid==1 ? 'text-center bg-blue-100' : 'text-center bg-yellow-100 '}`}>{formatNumber(item.issue_bigTaiho)}</TableCell>
+                                        <TableCell className={`${item.altid==1 ? 'text-center bg-blue-100' : 'text-center bg-yellow-100 '}`}>{formatNumber(item.issue_LW)}</TableCell>
+                                        <TableCell className={`${item.altid==1 ? 'text-center bg-blue-100' : 'text-center bg-yellow-100 '}`}>{formatNumber(item.issue_JB)}</TableCell>
                                  
                                         {Number(item.entry_backlog) < 0 ? (<TableCell className="text-center font-bold text-red-600">{formatNumberWithSign(Number(item.entry_backlog))} </TableCell>)
                                         : (<TableCell className="text-center font-bold text-green-600">{formatNumberWithSign(Number(item.entry_backlog))} </TableCell>)}
