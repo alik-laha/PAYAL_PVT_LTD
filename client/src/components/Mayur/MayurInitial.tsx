@@ -67,8 +67,8 @@ const MayurInitial = (props: any) => {
         console.log(resStatus1)
         if (resStatus1.data.scoopingLot && resStatus1.data.scoopingLot[0].editStatus ==='Pending') 
             {
-                console.log('Hi')
-                seterrorText(`Modification of Lot is Pending in Linked  ${resStatus1.data.scoopingLot.latest_section} Section`)
+                
+                seterrorText(`Modification of Lot is Pending in Linked  ${resStatus1.data.scoopingLot[0].latest_section} Section`)
                 if (rejectsuccessdialog != null) {
                         (rejectsuccessdialog as any).showModal();
                 }

@@ -161,9 +161,9 @@ const RCNMayurReCreateForm = (props:Props) => {
         e.preventDefault()
         const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: props.borma[0].LotNo,origin:props.borma[0].origin})
         console.log(resStatus1)
-        if (resStatus1.data.scoopingLot && resStatus1.data.scoopingLot.editStatus ==='Pending') 
+        if (resStatus1.data.scoopingLot && resStatus1.data.scoopingLot[0].editStatus ==='Pending') 
             {
-                setErrortext(`Modification of Lot is Pending in Linked  ${resStatus1.data.scoopingLot.latest_section} Section`)
+                setErrortext(`Modification of Lot is Pending in Linked  ${resStatus1.data.scoopingLot[0].latest_section} Section`)
                 const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
             dialogerror.showModal()
            // console.log(rows)
