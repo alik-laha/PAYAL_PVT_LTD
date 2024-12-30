@@ -7,7 +7,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useEffect, useState } from "react";
-import { Origin, pagelimit, pageNo } from "../common/exportData";
+import { Origin, pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
 import axios from "axios";
 import {
     Pagination,
@@ -22,7 +22,11 @@ import { Input } from "../ui/input";
 import { format, toZonedTime } from "date-fns-tz";
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
-import { set } from "lodash";
+
+import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
+import { pendingCheckRoles, PermissionRole } from "@/type/type";
+import { LuDownload } from "react-icons/lu";
 
 const MayurHistoryTable = () => {
      const limit = pagelimit
@@ -37,6 +41,7 @@ const MayurHistoryTable = () => {
         const [origin, setOrigin] = useState<string>("")
         const [blConNo, setBlConNo] = useState<string>("")
         const dropdown=['Incoming','Mixing']
+        const currDate = new Date().toLocaleDateString();
 
         useEffect(() => {
                 handleTransactionSearch()
@@ -128,6 +133,95 @@ const MayurHistoryTable = () => {
             function formatNumber(num: string) {
                 return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
             }
+            const exportToExcel = async () => { 
+
+                if(searchType === 'Incoming'){
+                    const response = await axios.put('/api/mayur/historySearch', {
+                        searchitem: blConNo,
+                        fromDate: fromdate,
+                        toDate: todate,
+                        origin: origin,
+                        section:'Mayur'
+    
+                    })
+                    const data1 = await response.data
+                    let ws
+                    let transformed: any[] = [];
+                    if (data1.rcnEntries.length > 0) {
+                        transformed = data1.rcnEntries.map((item: any, idx: number) => ({
+                            SL_No: idx + 1,
+                            LotNo: item.LotNo,
+                            date: handletimezone(item.date),
+                            origin: item.origin,
+                            Incoming_Section: item.fromSection,
+                            Incoming_Amount: formatNumber(item.amount),
+                            Previous_Backlog_Amount: formatNumber(item.toSectionBeforeBacklog),
+                            After_Backlog_Amount: formatNumber(item.toSectionAfterBacklog),
+                            createdBy: item.createdBy,
+                        }));
+                        //setTransformedData(transformed);
+                        ws = XLSX.utils.json_to_sheet(transformed);
+                        const wb = XLSX.utils.book_new();
+                        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+                        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+                        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+                        saveAs(blob, 'Mayur_Incoming_Entry_' + currDate + '.xlsx');
+                    }
+                    
+                   
+
+                }
+                else{
+                    const response = await axios.put('/api/mayur/historymixSearch', {
+                        searchitem: blConNo,
+                        fromDate: fromdate,
+                        toDate: todate,
+                        origin: origin,
+                        section:'Mayur'
+    
+                    })
+                    const data1 = await response.data
+                    let ws
+                    let transformed: any[] = [];
+                    if (data1.rcnEntries.length > 0) {
+                        transformed = data1.rcnEntries.map((item: any, idx: number) => ({
+                            SL_No: idx + 1,
+                            Mixing_Date: handletimezone(item.date),
+                            Mixing_Amount: formatNumber(item.amount),
+                            Source_Lot_No: item.FromLotNo,
+                            Source_Origin: item.Fromorigin,
+                            Previous_Source_Backlog: formatNumber(item.amountBeforeBacklog),
+                            After_Source_Backlog: formatNumber(item.amountAfterBacklog),
+                            Destination_Lot_No: item.ToLotNo,
+                            Destination_Origin: item.Toorigin,
+                            Previous_Destination_Backlog: formatNumber(item.destamountBeforeBacklog),
+                            After_Destination_Backlog: formatNumber(item.destamountAfterBacklog),
+                            Mixed_By: item.createdBy,
+                        }));
+                        //setTransformedData(transformed);
+                        ws = XLSX.utils.json_to_sheet(transformed);
+                        const wb = XLSX.utils.book_new();
+                        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+                        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+                        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+                        saveAs(blob, 'Mayur_Mixing_Entry_' + currDate + '.xlsx');
+                }
+              
+                
+               
+            }
+        }
+            const Role = localStorage.getItem('role') as keyof PermissionRole
+                const checkpending = (tab: string) => {
+                    //console.log(Role)
+                    if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+                        return true
+                    }
+                    else {
+                        return false;
+                    }
+            
+                }
 
             return (
                 <>
@@ -177,7 +271,7 @@ const MayurHistoryTable = () => {
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleTransactionSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
-               
+                {checkpending('Mayur') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
                     {searchTableType==='Incoming' ? 
                     (<Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
