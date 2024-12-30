@@ -627,7 +627,7 @@ export const SearchRCNMayur = async (req: Request, res: Response) => {
         }
         if (fromDate && toDate) {
             whereClause.push({
-                recevingDate: {
+                date: {
                     [Op.between]: [fromDate, toDate]
                 }
             });
@@ -1125,6 +1125,73 @@ export const SearchRCNMayurMix = async (req: Request, res: Response) => {
 }
 
 export const SearchHistory = async (req: Request, res: Response) => {
+    try {
+        const { searchitem,fromDate, toDate, origin,section} = req.body;
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
+        const offset = (page - 1) * size;
+        const limit = size;
+
+        let whereClause = [];
+
+        // Conditionally add parameters to the whereClause
+        if (searchitem) {
+            whereClause.push({
+                LotNo: {
+                    [Op.like]: `%${searchitem}%`
+                }
+            });
+        }
+        if (fromDate && toDate) {
+            whereClause.push({
+                date: {
+                    [Op.between]: [fromDate, toDate]
+                }
+            });
+        }
+        if (origin) {
+            whereClause.push({
+                origin: {
+                    [Op.like]: `%${origin}%`
+                }
+            });
+        }
+        if (section) {
+            whereClause.push({
+                toSection: {
+                    [Op.like]: `%${section}%`
+                }
+            });
+        }
+  
+        // Convert the array to an object for the where condition
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+        let rcnEntries
+        if(limit===0 && offset===0){
+             rcnEntries = await sectionTransfer.findAll({
+                where,
+                order: [['date','DESC'],['LotNo','ASC']], // Order by date descending
+                
+            });
+        }
+        else{
+             rcnEntries = await sectionTransfer.findAll({
+                where,
+                order: [['date','DESC'],['LotNo','ASC']], // Order by date descending
+                limit: limit,
+                offset: offset
+            });
+        }
+       
+        return res.status(200).json({ message: 'History found', rcnEntries })
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: 'Internal server error', error: err })
+    }
+ 
+}
+export const SearchMixHistory = async (req: Request, res: Response) => {
     try {
         const { searchitem,fromDate, toDate, origin,section} = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;

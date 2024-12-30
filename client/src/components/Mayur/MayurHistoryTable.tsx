@@ -30,9 +30,11 @@ const MayurHistoryTable = () => {
         const [todate, settoDate] = useState<string>('');
         const [hidetodate, sethidetoDate] = useState<string>('');
         const [blockpagen, setblockpagen] = useState('flex')
+        const [searchType, setsearchType] = useState('Incoming')
         const [Data, setData] = useState<any[]>([])
         const [origin, setOrigin] = useState<string>("")
         const [blConNo, setBlConNo] = useState<string>("")
+        const dropdown=['Incoming','Mixing']
 
         useEffect(() => {
                 handleTransactionSearch()
@@ -48,25 +50,51 @@ const MayurHistoryTable = () => {
 
               
                 setblockpagen('flex')
-                const response = await axios.put('/api/mayur/historySearch', {
-                    searchitem: blConNo,
-                    fromDate: fromdate,
-                    toDate: todate,
-                    origin: origin,
-                    section:'Mayur'
-
-                }, {
-                    params: {
-                        page: page,
-                        limit: limit
+                if(searchType === 'Incoming'){
+                    const response = await axios.put('/api/mayur/historySearch', {
+                        searchitem: blConNo,
+                        fromDate: fromdate,
+                        toDate: todate,
+                        origin: origin,
+                        section:'Mayur'
+    
+                    }, {
+                        params: {
+                            page: page,
+                            limit: limit
+                        }
+                    })
+                    const data = await response.data
+                    if (data.rcnEntries.length === 0 && page > 1) {
+                        setPage((prev) => prev - 1)
+            
                     }
-                })
-                const data = await response.data
-                if (data.rcnEntries.length === 0 && page > 1) {
-                    setPage((prev) => prev - 1)
-        
+                    setData(data.rcnEntries)
                 }
-                setData(data.rcnEntries)
+                else{
+                    const response = await axios.post('/api/mayur/mayurmixsearch', {
+                        searchitem: blConNo,
+                        fromDate: fromdate,
+                        toDate: todate,
+                        origin: origin,
+                        section:'Mayur'
+    
+                    }, {
+                        params: {
+                            page: page,
+                            limit: limit
+                        }
+                    })
+                    const data = await response.data
+                    if (data.rcnEntries.length === 0 && page > 1) {
+                        setPage((prev) => prev - 1)
+            
+                    }
+                    setData(data.rcnEntries)
+                }
+                
+                
+                
         
         
             }
@@ -101,6 +129,17 @@ const MayurHistoryTable = () => {
                 <>
                 <div className="ml-5 mt-5 ">
                 <div className="flex flexbox-search">
+                <select className='flexbox-search-width flex h-8 w-1/7 mr-10  items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                                        onChange={(e) => setsearchType(e.target.value)} value={searchType}>
+                 
+                                        {dropdown.map((data, index) => (
+                                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                                {data}
+                                            </option>
+                                        ))}
+                </select>
                 <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
                   <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
@@ -113,7 +152,8 @@ const MayurHistoryTable = () => {
                                                 {data}
                                             </option>
                                         ))}
-                                    </select>
+                </select>
+                
                     <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
                     <Input className="w-1/7 flexbox-search-width-calender"
                         type="date"
@@ -133,8 +173,9 @@ const MayurHistoryTable = () => {
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleTransactionSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
-
-                <Table className="mt-4">
+               
+                    {searchType==='Incoming' ? 
+                    (<Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
@@ -188,7 +229,68 @@ const MayurHistoryTable = () => {
 
                     </TableBody>
 
-                </Table>
+                </Table>):(<Table className="mt-4">
+                    <TableHeader className="bg-neutral-100 text-stone-950 ">
+
+
+                        <TableHead className="text-center" >Id</TableHead>
+                        <TableHead className="text-center" >Source Lot No</TableHead>
+                        <TableHead className="text-center" >Source Origin</TableHead>
+                        <TableHead className="text-center" >Destination Lot No</TableHead>
+                        <TableHead className="text-center" >Destination Origin</TableHead>
+                        <TableHead className="text-center" >Date Of Mixing</TableHead>
+                        <TableHead className="text-center" >Mixing Amount</TableHead>
+                        
+                        <TableHead className="text-center" >Previous Backlog</TableHead>
+                        <TableHead className="text-center" >Current Backlog</TableHead>
+                        <TableHead className="text-center" >Issued By</TableHead>
+                       
+                    
+                
+                    </TableHeader>
+                    <TableBody>
+                    {Data.length > 0 ? (Data.map((item: any, idx) => {
+                      return (
+                                 <TableRow key={item.id} >
+                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                     <TableCell className="text-center font-bold text-cyan-500">{item.LotNo}</TableCell>
+                                     
+                                     <TableCell className="text-center font-bold ">{item.origin}</TableCell>
+                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                     <TableCell className="text-center font-semibold">{formatNumber(item.amount)}</TableCell>
+                                     <TableCell className="text-center font-semibold ">{item.fromSection}</TableCell>
+                                     <TableCell className="text-center font-semibold text-red-500">{item.toSectionBeforeBacklog}</TableCell>
+                                     <TableCell className="text-center font-semibold text-green-500">{item.toSectionAfterBacklog}</TableCell>
+                                     <TableCell className="text-center font-semibold">{item.createdBy}</TableCell>
+                                  
+                                   
+                                    
+                               
+                                    
+                                 </TableRow>
+                             );
+                         })) : (<TableRow>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                            
+                             <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                           
+                         </TableRow>)}
+
+                    </TableBody>
+
+                </Table>)}
+                
+                
+                 
+            
+                
                 <Pagination style={{ display: blockpagen }} className="pt-5 ">
                     <PaginationContent>
                         <PaginationItem>
