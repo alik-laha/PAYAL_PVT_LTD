@@ -7,7 +7,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useEffect, useState } from "react";
-import { pagelimit, pageNo } from "../common/exportData";
+import { Origin, pagelimit, pageNo } from "../common/exportData";
 import axios from "axios";
 import {
     Pagination,
@@ -31,6 +31,8 @@ const MayurHistoryTable = () => {
         const [hidetodate, sethidetoDate] = useState<string>('');
         const [blockpagen, setblockpagen] = useState('flex')
         const [Data, setData] = useState<any[]>([])
+        const [origin, setOrigin] = useState<string>("")
+        const [blConNo, setBlConNo] = useState<string>("")
 
         useEffect(() => {
                 handleTransactionSearch()
@@ -46,13 +48,13 @@ const MayurHistoryTable = () => {
 
               
                 setblockpagen('flex')
-                const response = await axios.put('/api/mayur/mayurprimarysearch', {
-                   
+                const response = await axios.put('/api/mayur/historySearch', {
+                    searchitem: blConNo,
                     fromDate: fromdate,
                     toDate: todate,
-                    
-        
-        
+                    origin: origin,
+                    section:'Mayur'
+
                 }, {
                     params: {
                         page: page,
@@ -99,7 +101,19 @@ const MayurHistoryTable = () => {
                 <>
                 <div className="ml-5 mt-5 ">
                 <div className="flex flexbox-search">
-
+                <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                  <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                                        onChange={(e) => setOrigin(e.target.value)} value={origin}>
+                  <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
+                                        {Origin.map((data, index) => (
+                                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                                {data}
+                                            </option>
+                                        ))}
+                                    </select>
                     <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
                     <Input className="w-1/7 flexbox-search-width-calender"
                         type="date"
@@ -125,6 +139,8 @@ const MayurHistoryTable = () => {
 
 
                         <TableHead className="text-center" >Id</TableHead>
+                        <TableHead className="text-center" >Lot No</TableHead>
+                        <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Date Of Transfer</TableHead>
                         <TableHead className="text-center" >Transfer Amount</TableHead>
                         <TableHead className="text-center" >Section</TableHead>
@@ -140,14 +156,18 @@ const MayurHistoryTable = () => {
                       return (
                                  <TableRow key={item.id} >
                                      <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                     <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
+                                     <TableCell className="text-center font-bold text-cyan-500">{item.LotNo}</TableCell>
                                      
-                                     <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
-                                     <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
-                                     <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
+                                     <TableCell className="text-center font-bold ">{item.origin}</TableCell>
                                      <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                     <TableCell className="text-center font-semibold">{formatNumber(item.amount)}</TableCell>
+                                     <TableCell className="text-center font-semibold ">{item.fromSection}</TableCell>
+                                     <TableCell className="text-center font-semibold text-red-500">{item.toSectionBeforeBacklog}</TableCell>
+                                     <TableCell className="text-center font-semibold text-green-500">{item.toSectionAfterBacklog}</TableCell>
+                                     <TableCell className="text-center font-semibold">{item.createdBy}</TableCell>
+                                  
                                    
-                                     <TableCell className="text-center ">{formatNumber(item.rcv_wholespeel)}</TableCell>
+                                    
                                
                                     
                                  </TableRow>
@@ -157,18 +177,13 @@ const MayurHistoryTable = () => {
                              <TableCell></TableCell>
                              <TableCell></TableCell>
                              <TableCell></TableCell>
-                             <TableCell></TableCell>
-                             <TableCell></TableCell>
-                             <TableCell></TableCell>
-                             <TableCell></TableCell>
+                            
                              <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
                              <TableCell></TableCell>
                              <TableCell></TableCell>
                              <TableCell></TableCell>
                              <TableCell></TableCell>
-                             <TableCell></TableCell>
-                             <TableCell></TableCell>
-                             <TableCell></TableCell>
+                           
                          </TableRow>)}
 
                     </TableBody>
