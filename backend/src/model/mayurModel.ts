@@ -24,6 +24,11 @@ const Mayur = sequelize.define('mayur', {
         type: DataTypes.INTEGER,
         defaultValue:1
     },
+    rcv_transfer: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
     rcv_wholespeel: 
     {
         type: DataTypes.DECIMAL(10,2),

@@ -137,7 +137,7 @@ const Mayur = () => {
                 <p className='text-lg font-semibold text-center '>Mayur</p>
                 <div>
                     <Dialog>
-                        <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4 no-margin-left responsive-button-adjust" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
                                 <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Mayur Entry Form</p></DialogTitle>
@@ -149,8 +149,8 @@ const Mayur = () => {
                     </Dialog>
 
 
-                    {checkpending('Mayur') &&  <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> }
-                    <Button className="bg-blue-400 mb-2 ml-8 responsive-button-adjust" onClick={handleTransferFetch}> {maintable==='block' ? 'Incoming History':'Main Entry '}</Button>
+                    {checkpending('Mayur') &&  <Button className="bg-orange-400 mb-2 ml-4 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> }
+                    <Button className="bg-blue-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {maintable==='block' ? 'Incoming/Mixing':'Main Entry '}</Button>
                 </div>
                 <div style={{ display: maintable }}>
                     <MayurTable/>

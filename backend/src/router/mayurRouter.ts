@@ -4,7 +4,7 @@ import jwtVerify from "../middleWare/JwtAuthantication";
 
 
 import { approveMayur, CreateEntireMayur, CreateReissueMayur, EditRejectMayur, findEditMayurAll, 
-    getMayurBylotorigin, getMayurLot, SearchHistory, SearchRCNMayur, SearchRCNMayurMix, sumOfallMayur, updateEntireMayur } from "../controller/mayurController/mayurapi";
+    getMayurBylotorigin, getMayurLot, SearchHistory, SearchMixHistory, SearchRCNMayur, SearchRCNMayurMix, sumOfallMayur, updateEntireMayur } from "../controller/mayurController/mayurapi";
 const router = express()
 
 router.get("/getUnMayurEntry/:status", jwtVerify, getMayurLot)
@@ -22,6 +22,7 @@ router.put("/approveeditMayur/:id/:LotNo/:origin", jwtVerify, approveMayur);
 
 router.post('/mayurmixsearch', jwtVerify, SearchRCNMayurMix);
 router.put('/historySearch', jwtVerify, SearchHistory);
+router.put('/historymixSearch', jwtVerify, SearchMixHistory);
 
 
 export default router

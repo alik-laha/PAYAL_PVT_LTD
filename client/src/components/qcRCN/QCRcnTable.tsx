@@ -474,7 +474,7 @@ const QCRcnTable = () => {
                                     <TableCell className="text-center">{idx + 1}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                    <TableCell className="text-center font-semibold">{item.rcnEntry.gatePassNo}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-600">{item.rcnEntry.gatePassNo}</TableCell>
                                     <TableCell className="text-center">{item.blNo}</TableCell>
                                     <TableCell className="text-center">{item.conNo}</TableCell>
                                     <TableCell className="text-center">{item.rcnEntry.truckNo}</TableCell>
@@ -610,7 +610,7 @@ const QCRcnTable = () => {
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.rcnEntry.gatePassNo}</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{item.rcnEntry.gatePassNo}</TableCell>
                                         <TableCell className="text-center">{item.blNo}</TableCell>
                                         <TableCell className="text-center">{item.conNo}</TableCell>
                                         <TableCell className="text-center">{item.rcnEntry.truckNo}</TableCell>

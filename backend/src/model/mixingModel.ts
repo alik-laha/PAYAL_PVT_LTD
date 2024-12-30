@@ -46,6 +46,14 @@ const mixingModel = sequelize.define('mixingModel', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: false
     },
+    destamountBeforeBacklog: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: false
+    },
+    destamountAfterBacklog: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: false
+    },
     createdBy: {
         type: DataTypes.STRING,
         allowNull: false

@@ -9,6 +9,7 @@ import MayurEdit from "../../model/mayureditModel";
 import WhatsappMsg from "../../helper/WhatsappMsg";
 import lotoriginmodel from "../../model/lotoriginModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
+import mixingModel from "../../model/mixingModel";
 
 export const findEditMayurAll = async (req: Request, res: Response) => {
     try {
@@ -162,7 +163,8 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
             //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
          
             if((parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel)+(data.rcv_DPDS? parseFloat(data.rcv_DPDS):0)+
-            (data.rcv_sorting?parseFloat(data.rcv_sorting):0)+(data.rcv_village?parseFloat(data.rcv_village):0))< (parseFloat(data.issue_pw_w)
+            (data.rcv_sorting?parseFloat(data.rcv_sorting):0)+(data.rcv_village?parseFloat(data.rcv_village):0)+
+            (data.rcv_transfer?parseFloat(data.rcv_transfer):0))< (parseFloat(data.issue_pw_w)
                 +parseFloat(data.issue_w_lot)
                 +parseFloat(data.issue_ww)
                 +parseFloat(data.issue_rejection)
@@ -222,7 +224,8 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                     issue_JB: data.issue_JB,
 
                     entry_backlog: (parseFloat(data.rcv_wholespeel) + parseFloat(data.rcv_wholesunpeel) + (data.rcv_DPDS ? parseFloat(data.rcv_DPDS) : 0) +
-                        (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0) + (data.rcv_village ? parseFloat(data.rcv_village) : 0)) - (parseFloat(data.issue_pw_w)
+                        (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0) + (data.rcv_village ? parseFloat(data.rcv_village) : 0)
+                    +(data.rcv_transfer ? parseFloat(data.rcv_transfer) : 0)) - (parseFloat(data.issue_pw_w)
                             + parseFloat(data.issue_w_lot)
                             + parseFloat(data.issue_ww)
                             + parseFloat(data.issue_rejection)
@@ -232,7 +235,8 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                             + parseFloat(data.issue_JB)
                         ),
                     current_backlog: (parseFloat(data.rcv_wholespeel) + parseFloat(data.rcv_wholesunpeel) + (data.rcv_DPDS ? parseFloat(data.rcv_DPDS) : 0) +
-                        (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0) + (data.rcv_village ? parseFloat(data.rcv_village) : 0)) - (parseFloat(data.issue_pw_w)
+                        (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0) + (data.rcv_village ? parseFloat(data.rcv_village) : 0)
+                    +(data.rcv_transfer ? parseFloat(data.rcv_transfer) : 0)) - (parseFloat(data.issue_pw_w)
                             + parseFloat(data.issue_w_lot)
                             + parseFloat(data.issue_ww)
                             + parseFloat(data.issue_rejection)
@@ -440,6 +444,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         rcv_DPDS:data.rcv_DPDS,
                         rcv_sorting:data.rcv_sorting,
                         rcv_village:data.rcv_village,
+                        rcv_transfer:data.rcv_transfer,
                         Mc_on_133: data.Mc_on_133,
                         Mc_off_133: data.Mc_off_133,
                         Mc_breakdown_133: data.Mc_breakdown_133,
@@ -1204,28 +1209,28 @@ export const SearchMixHistory = async (req: Request, res: Response) => {
         // Conditionally add parameters to the whereClause
         if (searchitem) {
             whereClause.push({
-                LotNo: {
+                FromLotNo: {
                     [Op.like]: `%${searchitem}%`
                 }
             });
         }
         if (fromDate && toDate) {
             whereClause.push({
-                recevingDate: {
+                date: {
                     [Op.between]: [fromDate, toDate]
                 }
             });
         }
         if (origin) {
             whereClause.push({
-                origin: {
+                Fromorigin: {
                     [Op.like]: `%${origin}%`
                 }
             });
         }
         if (section) {
             whereClause.push({
-                toSection: {
+                Section: {
                     [Op.like]: `%${section}%`
                 }
             });
@@ -1235,22 +1240,22 @@ export const SearchMixHistory = async (req: Request, res: Response) => {
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let rcnEntries
         if(limit===0 && offset===0){
-             rcnEntries = await sectionTransfer.findAll({
+             rcnEntries = await mixingModel.findAll({
                 where,
-                order: [['date','DESC'],['LotNo','ASC']], // Order by date descending
+                order: [['date','DESC'],['FromLotNo','ASC']], // Order by date descending
                 
             });
         }
         else{
-             rcnEntries = await sectionTransfer.findAll({
+             rcnEntries = await mixingModel.findAll({
                 where,
-                order: [['date','DESC'],['LotNo','ASC']], // Order by date descending
+                order: [['date','DESC'],['FromLotNo','ASC']], // Order by date descending
                 limit: limit,
                 offset: offset
             });
         }
        
-        return res.status(200).json({ message: 'History found', rcnEntries })
+        return res.status(200).json({ message: 'Mixing History found', rcnEntries })
     }
     catch (err) {
         console.log(err)

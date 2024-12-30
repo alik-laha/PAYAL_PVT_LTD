@@ -375,14 +375,14 @@ const QCPackageMaterialTable = () => {
         // disabled={pendingqccount === 0 ? true : false}
         <div className="ml-5 mt-5 ">
             <Button className="bg-lime-500 mb-5 mt-5 max-w-52 responsive-button-adjust" onClick={handleSearchPendingQC} >Pending QC ({sumOfallelement ? sumOfallelement.QualityNotEntered : 0})</Button>
-            {checkpending('QCRCN') && <Button className="bg-orange-400 mb-5 ml-4 max-w-52 responsive-button-adjust responsive-no-margin" onClick={handleSearchPendingEdit} disabled={counteditpending === 0 ? true : false}>
+            {checkpending('QCRCN') && <Button className="bg-orange-400 mb-5 ml-4 max-w-52 responsive-button-adjust " onClick={handleSearchPendingEdit} disabled={counteditpending === 0 ? true : false}>
                 Pending Edit ({sumOfallelement ? sumOfallelement.editCount : 0})</Button>}
 
             <div className="flex flexbox-search">
 
 
 
-                <Input className="no-padding w-1/5 flexbox-search-width" placeholder=" Sku. / VendorName." value={searchData} onChange={(e) => setSearchData(e.target.value)} />
+                
 
                 <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left">From </label>
                 <Input className="w-1/6 flexbox-search-width-calender"
@@ -400,6 +400,7 @@ const QCPackageMaterialTable = () => {
                     placeholder="To Date"
 
                 />
+                <Input className="no-padding w-1/5 ml-10 flexbox-search-width no-margin-left-absolute" placeholder=" Sku. / VendorName." value={searchData} onChange={(e) => setSearchData(e.target.value)} />
 
 
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>

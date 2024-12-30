@@ -394,6 +394,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Receive DPDS</TableHead>
                     <TableHead className="text-center">Receive Sorting</TableHead>
                     <TableHead className="text-center">Receive Village</TableHead>
+                    <TableHead className="text-center">Receive Mixing</TableHead>
                     <TableHead className="text-center">Issue PW_W</TableHead>
                     <TableHead className="text-center">Issue W_Lot</TableHead>
                     <TableHead className="text-center">Issue WW</TableHead>
@@ -455,6 +456,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-semibold bg-red-100">{item.rcv_DPDS ? formatNumber(item.rcv_DPDS) :0}</TableCell>
                                         <TableCell className="text-center font-semibold bg-red-100">{item.rcv_sorting ?formatNumber(item.rcv_sorting):0}</TableCell>
                                         <TableCell className="text-center font-semibold bg-red-100">{item.rcv_village ?formatNumber(item.rcv_village):0}</TableCell>
+                                        <TableCell className="text-center font-semibold bg-red-100">{item.rcv_transfer ?formatNumber(item.rcv_transfer):0}</TableCell>
                                         <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_pw_w)}</TableCell>
                                         
                                         <TableCell className="text-center bg-blue-100">{formatNumber(item.issue_w_lot)}</TableCell>
@@ -569,6 +571,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell  className="text-center ">{item.rcv_DPDS ? formatNumber(item.rcv_DPDS) :0}</TableCell>
                                         <TableCell className="text-center ">{item.rcv_sorting ?formatNumber(item.rcv_sorting):0}</TableCell>
                                         <TableCell className="text-center ">{item.rcv_village ?formatNumber(item.rcv_village):0}</TableCell>
+                                        <TableCell className="text-center ">{item.rcv_transfer ?formatNumber(item.rcv_transfer):0}</TableCell>
+
                                         <TableCell className="text-center ">{formatNumber(item.issue_pw_w)}</TableCell>
                                         
                                         <TableCell className="text-center ">{formatNumber(item.issue_w_lot)}</TableCell>

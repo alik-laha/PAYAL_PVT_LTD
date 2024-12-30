@@ -22,6 +22,7 @@ import { Input } from "../ui/input";
 import { format, toZonedTime } from "date-fns-tz";
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
+import { set } from "lodash";
 
 const MayurHistoryTable = () => {
      const limit = pagelimit
@@ -31,6 +32,7 @@ const MayurHistoryTable = () => {
         const [hidetodate, sethidetoDate] = useState<string>('');
         const [blockpagen, setblockpagen] = useState('flex')
         const [searchType, setsearchType] = useState('Incoming')
+        const [searchTableType, setsearchtableType] = useState('Incoming')
         const [Data, setData] = useState<any[]>([])
         const [origin, setOrigin] = useState<string>("")
         const [blConNo, setBlConNo] = useState<string>("")
@@ -70,9 +72,10 @@ const MayurHistoryTable = () => {
             
                     }
                     setData(data.rcnEntries)
+                    setsearchtableType('Incoming')
                 }
                 else{
-                    const response = await axios.post('/api/mayur/mayurmixsearch', {
+                    const response = await axios.put('/api/mayur/historymixSearch', {
                         searchitem: blConNo,
                         fromDate: fromdate,
                         toDate: todate,
@@ -91,6 +94,7 @@ const MayurHistoryTable = () => {
             
                     }
                     setData(data.rcnEntries)
+                    setsearchtableType('Mixing')
                 }
                 
                 
@@ -174,7 +178,7 @@ const MayurHistoryTable = () => {
 
                 </div>
                
-                    {searchType==='Incoming' ? 
+                    {searchTableType==='Incoming' ? 
                     (<Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
@@ -183,8 +187,9 @@ const MayurHistoryTable = () => {
                         <TableHead className="text-center" >Lot No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Date Of Transfer</TableHead>
-                        <TableHead className="text-center" >Transfer Amount</TableHead>
                         <TableHead className="text-center" >Section</TableHead>
+                        <TableHead className="text-center" >Transfer Amount</TableHead>
+                       
                         <TableHead className="text-center" >Previous Backlog</TableHead>
                         <TableHead className="text-center" >Current Backlog</TableHead>
                         <TableHead className="text-center" >Issued By</TableHead>
@@ -199,12 +204,13 @@ const MayurHistoryTable = () => {
                                      <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                      <TableCell className="text-center font-bold text-cyan-500">{item.LotNo}</TableCell>
                                      
-                                     <TableCell className="text-center font-bold ">{item.origin}</TableCell>
-                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                     <TableCell className="text-center font-semibold">{formatNumber(item.amount)}</TableCell>
-                                     <TableCell className="text-center font-semibold ">{item.fromSection}</TableCell>
-                                     <TableCell className="text-center font-semibold text-red-500">{item.toSectionBeforeBacklog}</TableCell>
-                                     <TableCell className="text-center font-semibold text-green-500">{item.toSectionAfterBacklog}</TableCell>
+                                     <TableCell className="text-center font-semibold ">{item.origin}</TableCell>
+                                     <TableCell className="text-center ">{handletimezone(item.date)}</TableCell>
+                                     <TableCell className="text-center  ">{item.fromSection}</TableCell>
+                                     <TableCell className="text-center ">{formatNumber(item.amount)}</TableCell>
+                                     
+                                     <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.toSectionBeforeBacklog)}</TableCell>
+                                     <TableCell className="text-center font-semibold text-green-500">{formatNumber(item.toSectionAfterBacklog)}</TableCell>
                                      <TableCell className="text-center font-semibold">{item.createdBy}</TableCell>
                                   
                                    
@@ -234,16 +240,21 @@ const MayurHistoryTable = () => {
 
 
                         <TableHead className="text-center" >Id</TableHead>
-                        <TableHead className="text-center" >Source Lot No</TableHead>
+                        <TableHead className="text-center" >Mixing_Date</TableHead>
+                        <TableHead className="text-center" >Mixing Amount</TableHead>
+                        <TableHead className="text-center" >Source_Lot No</TableHead>
                         <TableHead className="text-center" >Source Origin</TableHead>
+                       
+                       
+                    
+                        
+                        <TableHead className="text-center" >Previous Source  Backlog</TableHead>
+                        <TableHead className="text-center" >After Source  Backlog</TableHead>
                         <TableHead className="text-center" >Destination Lot No</TableHead>
                         <TableHead className="text-center" >Destination Origin</TableHead>
-                        <TableHead className="text-center" >Date Of Mixing</TableHead>
-                        <TableHead className="text-center" >Mixing Amount</TableHead>
-                        
-                        <TableHead className="text-center" >Previous Backlog</TableHead>
-                        <TableHead className="text-center" >Current Backlog</TableHead>
-                        <TableHead className="text-center" >Issued By</TableHead>
+                        <TableHead className="text-center" >Previous Destination  Backlog</TableHead>
+                        <TableHead className="text-center" >After Destination  Backlog</TableHead>
+                        <TableHead className="text-center" >Mixed_By</TableHead>
                        
                     
                 
@@ -253,15 +264,24 @@ const MayurHistoryTable = () => {
                       return (
                                  <TableRow key={item.id} >
                                      <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                     <TableCell className="text-center font-bold text-cyan-500">{item.LotNo}</TableCell>
-                                     
-                                     <TableCell className="text-center font-bold ">{item.origin}</TableCell>
                                      <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                      <TableCell className="text-center font-semibold">{formatNumber(item.amount)}</TableCell>
-                                     <TableCell className="text-center font-semibold ">{item.fromSection}</TableCell>
-                                     <TableCell className="text-center font-semibold text-red-500">{item.toSectionBeforeBacklog}</TableCell>
-                                     <TableCell className="text-center font-semibold text-green-500">{item.toSectionAfterBacklog}</TableCell>
-                                     <TableCell className="text-center font-semibold">{item.createdBy}</TableCell>
+                                     <TableCell className="text-center font-bold text-red-500">{item.FromLotNo}</TableCell>
+                                     <TableCell className="text-center  ">{item.Fromorigin}</TableCell>
+                                  
+
+                                     
+                                    
+                                     <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.amountBeforeBacklog)}</TableCell>
+                                     <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.amountAfterBacklog)}</TableCell>
+                                     
+                                     <TableCell className="text-center font-bold text-green-500">{item.ToLotNo}</TableCell>
+                                     
+                                     <TableCell className="text-center ">{item.Toorigin}</TableCell>
+                                     <TableCell className="text-center font-semibold text-green-500">{formatNumber(item.destamountBeforeBacklog)}</TableCell>
+                                     <TableCell className="text-center font-semibold text-green-500">{formatNumber(item.destamountAfterBacklog)}</TableCell>
+                                   
+                                     <TableCell className="text-center ">{item.createdBy}</TableCell>
                                   
                                    
                                     
