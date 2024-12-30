@@ -109,7 +109,7 @@ const MayurTable = () => {
         })
     }, [page])
     const exportToExcel = async () => { 
-        const response = await axios.put('/api/peeling/peelingprimarysearch', {
+        const response = await axios.put('/api/mayur/mayurprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
@@ -120,87 +120,112 @@ const MayurTable = () => {
         let ws
         let transformed: any[] = [];
         if (EditData.length > 0) {
-            transformed = EditData.map((item: PeelingData, idx: number) => ({
-                SL_No: idx + 1,
-                LotNo: item.LotNo,
-                date: handletimezone(item.date),
-                origin: item.origin,
-                Total_Input:formatNumber(item.TotalInput),
-                Pressure:formatNumber(item.pressure),
-                Moisture:item.moisture ,
-                Peeling_Time:item.peelingTime,
-                Unpeel_Piece:formatNumber(item.UnpeelPiece),
-                WholesPeel: formatNumber(item.WholesPeel),
-                WholesUnpeel:formatNumber(item.WholesUnpeel),
-                DP: formatNumber(item.DP),
-                DS: formatNumber(item.DS),
-                DP1:formatNumber(item.DP1),
-                JJH: formatNumber(item.JJH),
-                SJH: formatNumber(item.SJH),
-                SJH1:formatNumber(item.SJH1),
-                JK_K:formatNumber(item.JK_K),
-                SP1:formatNumber(item.SP1),
-               JH1:formatNumber(item.JH1),
-               Husk:formatNumber(item.Husk),
-               Rejection: formatNumber(item.Rejection),
-               Big_Taiho: formatNumber(item.Big_Taiho),
-                Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
-                Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
-                Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),         
-                otherTime: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
-                Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
-                noOfOperators:item.noOfOperators,
-                noOfOperators_Day:item.noOfdayOperators,
-                noOfOperators_Night:item.noOfnightOperators,
-                noOfOperators_Husk:item.noOfhuskOperators,
-                NoOfTrolley: item.NoOfTrolley,
-                Backlog:formatNumber(item.difference),
-                CreatedBy: item.CreatedBy,
-                editStatus: item.editStatus,
-                modifiedBy: item.modifiedBy
+            transformed = EditData.map((item: MayurData, idx: number) => ({
+            Sl_No: idx + 1, 
+            Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
+            Item_Lot_No: item.LotNo,
+            Origin: item.origin,
+            Issue_No: item.altid,
+            Mayur_Entry_Date: handletimezone(item.date),
+            Mixing_Lot: item.mixingLot,
+            Opening_Wholes_Peel: formatNumber(item.rcv_wholespeel),
+            Opening_Wholes_Unpeel: formatNumber(item.rcv_wholesunpeel),
+            Receive_Peeling: Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel)),
+            Receive_DPDS: item.rcv_DPDS ? formatNumber(item.rcv_DPDS) : 0,
+            Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
+            Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
+            Receive_Mixing: item.rcv_transfer ? formatNumber(item.rcv_transfer) : 0,
+            Issue_PW_W: formatNumber(item.issue_pw_w),
+            Issue_W_Lot: formatNumber(item.issue_w_lot),
+            Issue_WW: formatNumber(item.issue_ww),
+            Issue_Rejection: formatNumber(item.issue_rejection),
+            Issue_Village: formatNumber(item.issue_village),
+            Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
+            Issue_LW: formatNumber(item.issue_LW),
+            Issue_JB: formatNumber(item.issue_JB),
+            Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
+            Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+            Mc_On_133: handleAMPM(item.Mc_on_133.slice(0, 5)),
+            Mc_Off_133: handleAMPM(item.Mc_off_133.slice(0, 5)),
+            Mc_Breakdown_133: item.Mc_breakdown_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Other_Time_133: item.otherTime_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Mc_On_331: handleAMPM(item.Mc_on_331.slice(0, 5)),
+            Mc_Off_331: handleAMPM(item.Mc_off_331.slice(0, 5)),
+            Mc_Breakdown_331: item.Mc_breakdown_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Other_Time_331: item.otherTime_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Mc_On_292: handleAMPM(item.Mc_on_292.slice(0, 5)),
+            Mc_Off_292: handleAMPM(item.Mc_off_292.slice(0, 5)),
+            Mc_Breakdown_292: item.Mc_breakdown_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Other_Time_292: item.otherTime_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Mc_On_293: handleAMPM(item.Mc_on_293.slice(0, 5)),
+            Mc_Off_293: handleAMPM(item.Mc_off_293.slice(0, 5)),
+            Mc_Breakdown_293: item.Mc_breakdown_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Other_Time_293: item.otherTime_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Runtime_133: item.Mc_runTime_133.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+            Runtime_331: item.Mc_runTime_331.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+            Runtime_292: item.Mc_runTime_292.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+            Runtime_293: item.Mc_runTime_293.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+            Operator_Day: item.noOfdayOperators,
+            Operator_Night: item.noOfnightOperators,
+            Edit_Status: item.editStatus,
+            Created_By: item.CreatedBy,
+            Modified_By: item.modifiedBy 
+
             }));
             //setTransformedData(transformed);
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
-            transformed = data1.rcnEntries.map((item: PeelingData, idx: number) => ({
-                SL_No: idx + 1,
-                LotNo: item.LotNo,
-                date: handletimezone(item.date),
-                origin: item.origin,
-                Total_Input:formatNumber(item.TotalInput),
-                Pressure:formatNumber(item.pressure),
-                Moisture:item.moisture ,
-                Peeling_Time:item.peelingTime,
-                Unpeel_Piece:formatNumber(item.UnpeelPiece),
-                WholesPeel: formatNumber(item.WholesPeel),
-                WholesUnpeel:formatNumber(item.WholesUnpeel),
-                DP: formatNumber(item.DP),
-                DS: formatNumber(item.DS),
-                DP1:formatNumber(item.DP1),
-                JJH: formatNumber(item.JJH),
-                SJH: formatNumber(item.SJH),
-                SJH1:formatNumber(item.SJH1),
-                JK_K:formatNumber(item.JK_K),
-                SP1:formatNumber(item.SP1),
-               JH1:formatNumber(item.JH1),
-               Husk:formatNumber(item.Husk),
-               Rejection: formatNumber(item.Rejection),
-               Big_Taiho: formatNumber(item.Big_Taiho),
-                Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
-                Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
-                Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),         
-                otherTime: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
-                Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
-                noOfOperators:item.noOfOperators,
-                noOfOperators_Day:item.noOfdayOperators,
-                noOfOperators_Night:item.noOfnightOperators,
-                noOfOperators_Husk:item.noOfhuskOperators,
-                NoOfTrolley: item.NoOfTrolley,
-                Backlog:formatNumber(item.difference),
-                CreatedBy: item.CreatedBy,
-                editStatus: item.editStatus,
-                modifiedBy: item.modifiedBy
+            transformed = data1.rcnEntries.map((item: MayurData, idx: number) => ({
+                Sl_No: idx + 1, 
+                Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
+                Item_Lot_No: item.LotNo,
+                Origin: item.origin,
+                Issue_No: item.altid,
+                Mayur_Entry_Date: handletimezone(item.date),
+                Mixing_Lot: item.mixingLot,
+                Opening_Wholes_Peel: formatNumber(item.rcv_wholespeel),
+                Opening_Wholes_Unpeel: formatNumber(item.rcv_wholesunpeel),
+                Receive_Peeling: Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel)),
+                Receive_DPDS: item.rcv_DPDS ? formatNumber(item.rcv_DPDS) : 0,
+                Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
+                Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
+                Receive_Mixing: item.rcv_transfer ? formatNumber(item.rcv_transfer) : 0,
+                Issue_PW_W: formatNumber(item.issue_pw_w),
+                Issue_W_Lot: formatNumber(item.issue_w_lot),
+                Issue_WW: formatNumber(item.issue_ww),
+                Issue_Rejection: formatNumber(item.issue_rejection),
+                Issue_Village: formatNumber(item.issue_village),
+                Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
+                Issue_LW: formatNumber(item.issue_LW),
+                Issue_JB: formatNumber(item.issue_JB),
+                Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
+                Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                Mc_On_133: handleAMPM(item.Mc_on_133.slice(0, 5)),
+                Mc_Off_133: handleAMPM(item.Mc_off_133.slice(0, 5)),
+                Mc_Breakdown_133: item.Mc_breakdown_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Other_Time_133: item.otherTime_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Mc_On_331: handleAMPM(item.Mc_on_331.slice(0, 5)),
+                Mc_Off_331: handleAMPM(item.Mc_off_331.slice(0, 5)),
+                Mc_Breakdown_331: item.Mc_breakdown_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Other_Time_331: item.otherTime_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Mc_On_292: handleAMPM(item.Mc_on_292.slice(0, 5)),
+                Mc_Off_292: handleAMPM(item.Mc_off_292.slice(0, 5)),
+                Mc_Breakdown_292: item.Mc_breakdown_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Other_Time_292: item.otherTime_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Mc_On_293: handleAMPM(item.Mc_on_293.slice(0, 5)),
+                Mc_Off_293: handleAMPM(item.Mc_off_293.slice(0, 5)),
+                Mc_Breakdown_293: item.Mc_breakdown_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Other_Time_293: item.otherTime_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Runtime_133: item.Mc_runTime_133.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                Runtime_331: item.Mc_runTime_331.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                Runtime_292: item.Mc_runTime_292.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                Runtime_293: item.Mc_runTime_293.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                Operator_Day: item.noOfdayOperators,
+                Operator_Night: item.noOfnightOperators,
+                Edit_Status: item.editStatus,
+                Created_By: item.CreatedBy,
+                Modified_By: item.modifiedBy
 
             }));
             // setTransformedData(transformed);
@@ -210,7 +235,7 @@ const MayurTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Peeling_Entry_' + currDate + '.xlsx');
+        saveAs(blob, 'Mayur_Entry_' + currDate + '.xlsx');
     }
     const handleSearch = async () => {
 
@@ -387,7 +412,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Issue_No</TableHead>
                         <TableHead className="text-center" >Mayur_Entry_Date</TableHead>
-                       
+                        <TableHead className="text-center" >Mixing_Lot</TableHead>
                         <TableHead className="text-center">Opening Wholes_Peel</TableHead>
                     <TableHead className="text-center">Opening Wholes_Unpeel</TableHead>
                     <TableHead className="text-center">Receive Peeling</TableHead>
@@ -448,7 +473,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
                                         <TableCell className="text-center font-bold ">{item.altid}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                      
+                                        <TableCell className="text-center font-semibold">{item.mixingLot}</TableCell>
                                         <TableCell className="text-center font-semibold">{formatNumber(item.rcv_wholespeel)}</TableCell>
                                         <TableCell className="text-center font-semibold">{formatNumber(item.rcv_wholesunpeel)}</TableCell>
                                         <TableCell className="text-center font-semibold bg-red-100">{Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel))}</TableCell>
@@ -563,7 +588,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                      
+                                        <TableCell className="text-center font-semibold">{item.mixingLot}</TableCell>
                                         <TableCell className="text-center ">{formatNumber(item.rcv_wholespeel)}</TableCell>
                                         <TableCell className="text-center ">{formatNumber(item.rcv_wholesunpeel)}</TableCell>
                                         <TableCell className="text-center ">{Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel))}</TableCell>

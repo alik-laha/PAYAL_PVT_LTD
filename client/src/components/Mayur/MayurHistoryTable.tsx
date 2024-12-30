@@ -227,17 +227,7 @@ const MayurHistoryTable = () => {
                 <>
                 <div className="ml-5 mt-5 ">
                 <div className="flex flexbox-search">
-                <select className='flexbox-search-width flex h-8 w-1/7 mr-10  items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                                        onChange={(e) => setsearchType(e.target.value)} value={searchType}>
-                 
-                                        {dropdown.map((data, index) => (
-                                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                                                {data}
-                                            </option>
-                                        ))}
-                </select>
+                
                 <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
                   <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
@@ -268,6 +258,17 @@ const MayurHistoryTable = () => {
                         placeholder="To Date"
 
                     />
+                    <select className='flexbox-search-width flex h-8 w-1/7 mr-10 ml-10 no-margin-left items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                                        onChange={(e) => setsearchType(e.target.value)} value={searchType}>
+                 
+                                        {dropdown.map((data, index) => (
+                                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                                {data}
+                                            </option>
+                                        ))}
+                </select>
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleTransactionSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>

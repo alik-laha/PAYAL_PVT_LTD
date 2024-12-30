@@ -21,7 +21,7 @@ interface mayurRowData{
     LotNo: string;
    
     origin: string;
-    
+    mixing_lot: string;
     rcv_wholespeel: string;
     rcv_wholesunpeel: string;
     rcv_sorting:string|null;
@@ -67,6 +67,7 @@ import { Input } from "../ui/input"
 import {   useEffect, useRef, useState } from "react"
 import axios from "axios";
 import FormRow from "../common/FormRowTime";
+import { mixin } from "lodash";
 
 
 const RCNMayurCreateForm = (props:Props) => {
@@ -107,7 +108,7 @@ const RCNMayurCreateForm = (props:Props) => {
             LotNo: item.LotNo,
             
             origin: item.origin,
-          
+          mixing_lot: item.mixingLot,
             rcv_wholespeel: item.rcv_wholespeel,
             rcv_wholesunpeel: item.rcv_wholesunpeel,
             rcv_sorting: item.rcv_sorting,
