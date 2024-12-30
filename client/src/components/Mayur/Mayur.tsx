@@ -26,6 +26,7 @@ import {  pendingCheckRoles, PermissionRole } from '@/type/type';
 import { pendingCheckRole } from '../common/exportData';
 import MayurInitial from './MayurInitial';
 import MayurTable from './MayurTable';
+import MayurHistoryTable from './MayurHistoryTable';
 
 
 
@@ -33,6 +34,8 @@ const Mayur = () => {
 
     const { setEditMayurLotWiseData } = useContext(Context)
     const [lotdata, setLotData] = useState<any[]>([])
+    const [maintable, setMainTable] = useState<string>('block')
+    const [historytable, setHistoryTable] = useState<string>('none')
     const { data, isLoading, error } = UseQueryData('/api/mayur/sumofallMayur', 'GET', 'AllMayurSum');
     const handleEditFetch = async () => {
 
@@ -51,6 +54,16 @@ const Mayur = () => {
 
     if (error) {
         return <div>Error</div>;
+    }
+    const handleTransferFetch =  () => {
+        if(maintable === 'block'){
+            setMainTable('none')
+            setHistoryTable('block')
+        }
+        else{
+            setMainTable('block')
+            setHistoryTable('none')
+        }
     }
     console.log(data)
 
@@ -137,9 +150,15 @@ const Mayur = () => {
 
 
                     {checkpending('Mayur') &&  <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> }
-
+                    <Button className="bg-blue-400 mb-2 ml-8 responsive-button-adjust" onClick={handleTransferFetch}> {maintable==='block' ? 'Incoming History':'Main Entry '}</Button>
                 </div>
-                <MayurTable/>
+                <div style={{ display: maintable }}>
+                    <MayurTable/>
+                </div>
+                <div style={{ display: historytable }}>
+                    <MayurHistoryTable/>
+                </div>
+                
 
             </div>
         </div>
