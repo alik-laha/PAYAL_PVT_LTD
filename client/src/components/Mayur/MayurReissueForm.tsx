@@ -21,7 +21,7 @@ interface mayurRowData{
     LotNo: string;
     alt_id:number;
     origin: string;
-
+    mixingLot:string|null;
     rcv_peeling:string;
     rcv_wholespeel: number;
     rcv_wholesunpeel: number;
@@ -70,6 +70,7 @@ import axios from "axios";
 import FormRow from "../common/FormRowTime";
 
 
+
 const RCNMayurReCreateForm = (props:Props) => {
     //console.log(props)
     const DateRef = useRef<HTMLInputElement>(null);
@@ -108,7 +109,7 @@ const RCNMayurReCreateForm = (props:Props) => {
             LotNo: props.borma[0].LotNo,
             alt_id:props.borma[0].altid,
             origin: props.borma[0].origin,
-
+            mixingLot:props.borma[0].mixingLot,
             rcv_sorting:0,
             rcv_DPDS:0,
             rcv_village:0,
@@ -296,7 +297,7 @@ const RCNMayurReCreateForm = (props:Props) => {
                     <TableHead className="text-center">Lot_No</TableHead>
               
                     <TableHead className="text-center">Origin</TableHead>
-                 
+                    <TableHead className="text-center">Mixed_Lot</TableHead>
                     <TableHead className="text-center">Total Opening</TableHead>
                     <TableHead className="text-center">Prev Rcv Peeling Wholes_Peel</TableHead>
                     <TableHead className="text-center">Current Rcv Peeling Wholes_Peel</TableHead>
@@ -344,7 +345,7 @@ const RCNMayurReCreateForm = (props:Props) => {
                                         <TableCell className="text-center">{idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-blue-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold ">{row.origin}</TableCell>
-
+                                        <TableCell className="text-center font-semibold ">{row.mixingLot}</TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_peeling)} Kg</TableCell>
                                      
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber(props.borma[0].rcv_wholespeel)} Kg</TableCell>

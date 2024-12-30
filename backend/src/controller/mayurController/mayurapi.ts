@@ -439,6 +439,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         altid:parseInt(data.alt_id)+1,
                         LotNo:data.LotNo,
                         origin:data.origin,
+                        mixingLot:data.mixingLot,
                         rcv_wholespeel:data.rcv_wholespeel,
                         rcv_wholesunpeel:data.rcv_wholesunpeel,
                         rcv_DPDS:data.rcv_DPDS,
@@ -1065,29 +1066,17 @@ export const EditRejectMayur = async (req: Request, res: Response) => {
 
 export const SearchRCNMayurMix = async (req: Request, res: Response) => {
     try {
-        const { searchitem,fromDate, toDate, origin} = req.body;
-        const page = parseInt(req.query.page as string, 10) || 0;
-        const size = parseInt(req.query.limit as string, 10) || 0;
-        const offset = (page - 1) * size;
-        const limit = size;
-
+        const { lotNo, origin} = req.body;
+       
         let whereClause = [];
 
         // Conditionally add parameters to the whereClause
-        if (searchitem) {
+        if (lotNo) {
             whereClause.push({
-                LotNo: {
-                    [Op.like]: `%${searchitem}%`
-                }
+                LotNo: lotNo
             });
         }
-        if (fromDate && toDate) {
-            whereClause.push({
-                recevingDate: {
-                    [Op.between]: [fromDate, toDate]
-                }
-            });
-        }
+     
         if (origin) {
             whereClause.push({
                 origin: {
@@ -1096,7 +1085,7 @@ export const SearchRCNMayurMix = async (req: Request, res: Response) => {
             });
         }
         whereClause.push({
-            Status: {
+            latest: {
                 [Op.eq]: 1
             }
         });
@@ -1104,23 +1093,17 @@ export const SearchRCNMayurMix = async (req: Request, res: Response) => {
         // Convert the array to an object for the where condition
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let rcnEntries
-        if(limit===0 && offset===0){
-             rcnEntries = await Mayur.findAll({
-                where,
-                order: [['LotNo','DESC'],['date', 'DESC']], // Order by date descending
+        
+             rcnEntries = await Mayur.findOne({
+                attributes: ['current_backlog'],
+                where
+                
                 
             });
-        }
-        else{
-             rcnEntries = await Mayur.findAll({
-                where,
-                order: [['LotNo','DESC'],['date', 'DESC']], // Order by date descending
-                limit: limit,
-                offset: offset
-            });
-        }
+        
+        
        
-        return res.status(200).json({ message: 'Mayur Entry found', rcnEntries })
+        return res.status(200).json({ message: 'Mix Entry found', rcnEntries })
     }
     catch (err) {
         console.log(err)

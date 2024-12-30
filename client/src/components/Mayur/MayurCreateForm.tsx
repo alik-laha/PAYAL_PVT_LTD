@@ -21,7 +21,7 @@ interface mayurRowData{
     LotNo: string;
    
     origin: string;
-    mixing_lot: string;
+    mixing_lot: string|null;
     rcv_wholespeel: string;
     rcv_wholesunpeel: string;
     rcv_sorting:string|null;
@@ -67,7 +67,7 @@ import { Input } from "../ui/input"
 import {   useEffect, useRef, useState } from "react"
 import axios from "axios";
 import FormRow from "../common/FormRowTime";
-import { mixin } from "lodash";
+
 
 
 const RCNMayurCreateForm = (props:Props) => {
@@ -108,7 +108,7 @@ const RCNMayurCreateForm = (props:Props) => {
             LotNo: item.LotNo,
             
             origin: item.origin,
-          mixing_lot: item.mixingLot,
+            mixing_lot: item.mixingLot,
             rcv_wholespeel: item.rcv_wholespeel,
             rcv_wholesunpeel: item.rcv_wholesunpeel,
             rcv_sorting: item.rcv_sorting,
@@ -249,10 +249,12 @@ const RCNMayurCreateForm = (props:Props) => {
                     <TableHead className="text-center">Lot_No</TableHead>
               
                     <TableHead className="text-center">Origin</TableHead>
+                    <TableHead className="text-center">Mixed_Lot</TableHead>
+                    <TableHead className="text-center">Receive Mixing</TableHead>
                     <TableHead className="text-center">Receive DPDS</TableHead>
                     <TableHead className="text-center">Receive Sorting</TableHead>
                     <TableHead className="text-center">Receive Village</TableHead>
-                    <TableHead className="text-center">Receive Mixing</TableHead>
+                   
                     <TableHead className="text-center">Receive Wholes_Peel</TableHead>
                     <TableHead className="text-center">Receive Wholes_Unpeel</TableHead>
                    
@@ -291,10 +293,12 @@ const RCNMayurCreateForm = (props:Props) => {
                                         <TableCell className="text-center">{idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{row.mixing_lot}</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_transfer ? formatNumber(row.rcv_transfer):0} Kg</TableCell>
+
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_DPDS ? formatNumber(row.rcv_DPDS):0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_sorting ? formatNumber(row.rcv_sorting):0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_village ? formatNumber(row.rcv_village):0} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_transfer ? formatNumber(row.rcv_transfer):0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_wholespeel)} Kg</TableCell>
                                         <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_wholesunpeel)} Kg</TableCell>
                                         

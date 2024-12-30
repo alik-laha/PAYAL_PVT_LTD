@@ -21,18 +21,17 @@ interface Props {
 }
 const RCNMayurReMix = (props:Props) => {
 
-        const [sourcewholespeel, setSourcewholespeel] = useState<string>("");
-        const [sourcewholecut, setSourcewholecut] = useState<string>("");
+      
         const [sourcebacklog, setSourcebacklog] = useState<string>("");
-        const [destwholecut, setdestwholecut] = useState<string>("");
-        const [destwholespeel, setdestwholespeel] = useState<string>("");
+        const [successflag, setSuccessflag] = useState<string>('none');
+        
         const [destbacklog, setdestbacklog] = useState<string>("");
         const [destlot, setdestlot] = useState<string>("");
         const [destorigin, setdestorigin] = useState<string>("");
+        const [destamount, setdestamount] = useState<string>("");
 
         useEffect(() => {
-            setSourcewholespeel(props.borma.rcv_wholespeel);
-            setSourcewholecut(props.borma.rcv_wholesunpeel);
+           
             setSourcebacklog(props.borma.current_backlog);
             
         }, [props.borma]);
@@ -41,9 +40,18 @@ const RCNMayurReMix = (props:Props) => {
 
             const response = await axios.post('/api/mayur/mayurmixsearch', {
                 lotNo: destlot,
-                origin: destlot,
+                origin: destorigin,
             })
-            const data = await response.data
+            const data1 = await response.data
+            console.log(data1.rcnEntries.current_backlog)
+            if(data1.rcnEntries.current_backlog){
+                setSuccessflag('flex')
+                setdestbacklog(data1.rcnEntries.current_backlog)
+            }
+            else{
+                setSuccessflag('none')
+                setdestbacklog('NA')
+            }
 
         }
 
@@ -74,6 +82,14 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
                 </div>
 
+                <div className="flex mt-5 mx-8" style={{ display: successflag }}>
+                <Label className="w-1/5 pt-2 text-cyan-500">Transfer Amount</Label>
+                <Input className="w-1/5 justify-center" placeholder="Amount" value={destamount} onChange={(e) => setdestamount(e.target.value)} required /> 
+                
+
+                </div>
+                
+
                 <Table className="mt-3">
 
 
@@ -83,32 +99,33 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center">Type</TableHead>
                         <TableHead className="text-center">Lot_No</TableHead>
                         <TableHead className="text-center">Origin</TableHead>
-                        <TableHead className="text-center">Current Wholes_Peel</TableHead>
-                        <TableHead className="text-center">Current Wholes_UnPeel</TableHead>
+                      
                         <TableHead className="text-center">Current Backlog</TableHead>
+                        <TableHead className="text-center">Final Backlog</TableHead>
                     </TableHeader>
                     <TableBody>
                         <TableRow className="boiling-row-height-scoop">
                         <TableCell className="text-center ">1</TableCell>
-                        <TableCell className="text-center "><CircleArrowLeft size={25} color="red"/></TableCell>
+                        <TableCell className="text-center font-bold text-red-500  flex">Source<CircleArrowRight size={30} color="red"/>  </TableCell>
                         
                             <TableCell className="text-center font-semibold ">{props.borma.LotNo}</TableCell>
                             <TableCell className="text-center font-semibold text-cyan-500">{props.borma.origin}</TableCell>
-                            <TableCell className="text-center font-semibold">{sourcewholespeel}</TableCell>
-                            <TableCell className="text-center font-semibold">{sourcewholecut}</TableCell>
+                           
                             <TableCell className="text-center font-semibold">{sourcebacklog}</TableCell>
+                            <TableCell className="text-center font-semibold">{destbacklog ? (parseFloat(sourcebacklog) - parseFloat(destamount)):'NA'}</TableCell>
                         </TableRow>
                         <TableRow className="boiling-row-height-scoop">
                         <TableCell className="text-center ">2</TableCell>
-                        <TableCell className="text-center font-bold"><CircleArrowRight size={25} color="green"/></TableCell>
+                        <TableCell className="text-center font-bold text-green-500  flex">Target<CircleArrowLeft size={30} color="green"/></TableCell>
                             <TableCell className="text-center font-semibold ">{destlot ? destlot :'NA'}</TableCell>
                             <TableCell className="text-center font-semibold text-cyan-500">{destorigin ? destorigin :'NA'}</TableCell>
-                            <TableCell className="text-center font-semibold">{destwholespeel ? destwholespeel : 'NA'}</TableCell>
-                            <TableCell className="text-center font-semibold">{destwholecut ? destwholecut :'NA'}</TableCell>
+                      
                             <TableCell className="text-center font-semibold">{destbacklog ? destbacklog :'NA'}</TableCell>
+                            <TableCell className="text-center font-semibold">{destbacklog ? (parseFloat(destbacklog) + parseFloat(destamount)):'NA'}</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
+                <span className="w-100 text-center ml-6 no-margin "><Button className="bg-slate-500 h-8" onClick={handleSearch}> Mix</Button></span>
             </div>
         </>
     )
