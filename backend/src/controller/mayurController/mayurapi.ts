@@ -1095,7 +1095,7 @@ export const SearchRCNMayurMix = async (req: Request, res: Response) => {
         let rcnEntries
         
              rcnEntries = await Mayur.findOne({
-                attributes: ['current_backlog'],
+                attributes: ['rcv_transfer','current_backlog','rcv_wholespeel','rcv_wholesunpeel','rcv_DPDS','rcv_sorting','rcv_village'],
                 where
                 
                 
