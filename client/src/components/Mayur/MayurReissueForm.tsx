@@ -28,7 +28,7 @@ interface mayurRowData{
     rcv_sorting:number;
     rcv_DPDS:number;
     rcv_village:number;
-    rcv_transfer:number;
+    rcv_transfer:string|null;
     issue_pw_w: number;
     issue_w_lot: number;
     issue_ww: number;
@@ -113,7 +113,7 @@ const RCNMayurReCreateForm = (props:Props) => {
             rcv_sorting:0,
             rcv_DPDS:0,
             rcv_village:0,
-            rcv_transfer:0,
+            rcv_transfer:props.borma[0].rcv_transfer,
             rcv_peeling:props.borma[0].current_backlog,
             rcv_wholespeel: 0,
             rcv_wholesunpeel: 0,
@@ -173,7 +173,7 @@ const RCNMayurReCreateForm = (props:Props) => {
             }
         if((Number(rows[0].rcv_peeling)
          !== (Number(rows[0].rcv_wholespeel) + Number(rows[0].rcv_wholesunpeel)+(rows[0].rcv_DPDS ? Number(rows[0].rcv_DPDS) : 0) +
-        (rows[0].rcv_village ? Number(rows[0].rcv_village):0)+Number(rows[0].rcv_transfer)+(rows[0].rcv_sorting ? Number(rows[0].rcv_sorting):0)))){
+        (rows[0].rcv_village ? Number(rows[0].rcv_village):0)+(rows[0].rcv_sorting ? Number(rows[0].rcv_sorting):0)))){
             setErrortext('Total Current Receiving Value should be equal to Peeling Opening Balance')
            
             const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
@@ -187,7 +187,7 @@ const RCNMayurReCreateForm = (props:Props) => {
             || ((props.borma[0].rcv_sorting ? Number(props.borma[0].rcv_sorting):0) < Number(rows[0].rcv_sorting))
             || (Number(props.borma[0].rcv_wholespeel) < Number(rows[0].rcv_wholespeel) )
             || (Number(props.borma[0].rcv_wholesunpeel) < Number(rows[0].rcv_wholesunpeel))
-            || (Number(props.borma[0].rcv_transfer) < Number(rows[0].rcv_transfer))
+            
         ){
                setErrortext('Current Receiving should not Exceed Previous Receiving Value')
               
@@ -309,8 +309,7 @@ const RCNMayurReCreateForm = (props:Props) => {
                     <TableHead className="text-center">Current Rcv Village</TableHead>
                     <TableHead className="text-center">Prev Rcv Sorting</TableHead>
                     <TableHead className="text-center">Current Rcv Sorting</TableHead>
-                    <TableHead className="text-center">Prev Rcv Mixing</TableHead>
-                    <TableHead className="text-center">Current Rcv Mixing</TableHead>
+              
                     <TableHead className="text-center">Issue PW_W</TableHead>
                     <TableHead className="text-center">Issue W_Lot</TableHead>
                     <TableHead className="text-center">Issue WW</TableHead>
@@ -358,8 +357,7 @@ const RCNMayurReCreateForm = (props:Props) => {
                                         <TableCell className="text-center"> <Input  type="number" value={row.rcv_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_village', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_sorting ?formatNumber(props.borma[0].rcv_sorting):0} Kg</TableCell>
                                         <TableCell className="text-center"> <Input  type="number" value={row.rcv_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sorting', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_transfer ?formatNumber(props.borma[0].rcv_transfer):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input  type="number" value={row.rcv_transfer} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_transfer', e.target.value)} required /></TableCell>
+                                 
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_w} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_w', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_lot} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_lot', e.target.value)} required /></TableCell>

@@ -163,8 +163,8 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
             //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
          
             if((parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel)+(data.rcv_DPDS? parseFloat(data.rcv_DPDS):0)+
-            (data.rcv_sorting?parseFloat(data.rcv_sorting):0)+(data.rcv_village?parseFloat(data.rcv_village):0)+
-            (data.rcv_transfer?parseFloat(data.rcv_transfer):0))< (parseFloat(data.issue_pw_w)
+            (data.rcv_sorting?parseFloat(data.rcv_sorting):0)+(data.rcv_village?parseFloat(data.rcv_village):0)
+           )< (parseFloat(data.issue_pw_w)
                 +parseFloat(data.issue_w_lot)
                 +parseFloat(data.issue_ww)
                 +parseFloat(data.issue_rejection)
@@ -225,7 +225,7 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
 
                     entry_backlog: (parseFloat(data.rcv_wholespeel) + parseFloat(data.rcv_wholesunpeel) + (data.rcv_DPDS ? parseFloat(data.rcv_DPDS) : 0) +
                         (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0) + (data.rcv_village ? parseFloat(data.rcv_village) : 0)
-                    +(data.rcv_transfer ? parseFloat(data.rcv_transfer) : 0)) - (parseFloat(data.issue_pw_w)
+                    ) - (parseFloat(data.issue_pw_w)
                             + parseFloat(data.issue_w_lot)
                             + parseFloat(data.issue_ww)
                             + parseFloat(data.issue_rejection)
@@ -236,7 +236,7 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                         ),
                     current_backlog: (parseFloat(data.rcv_wholespeel) + parseFloat(data.rcv_wholesunpeel) + (data.rcv_DPDS ? parseFloat(data.rcv_DPDS) : 0) +
                         (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0) + (data.rcv_village ? parseFloat(data.rcv_village) : 0)
-                    +(data.rcv_transfer ? parseFloat(data.rcv_transfer) : 0)) - (parseFloat(data.issue_pw_w)
+                   ) - (parseFloat(data.issue_pw_w)
                             + parseFloat(data.issue_w_lot)
                             + parseFloat(data.issue_ww)
                             + parseFloat(data.issue_rejection)

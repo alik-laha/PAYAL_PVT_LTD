@@ -250,7 +250,7 @@ const RCNMayurCreateForm = (props:Props) => {
               
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
-                    <TableHead className="text-center">Receive Mixing</TableHead>
+                    {/* <TableHead className="text-center">Receive Mixing</TableHead> */}
                     <TableHead className="text-center">Receive DPDS</TableHead>
                     <TableHead className="text-center">Receive Sorting</TableHead>
                     <TableHead className="text-center">Receive Village</TableHead>
@@ -294,7 +294,7 @@ const RCNMayurCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.mixing_lot}</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_transfer ? formatNumber(row.rcv_transfer):0} Kg</TableCell>
+                                        {/* <TableCell className="text-center font-semibold text-green-500">{row.rcv_transfer ? formatNumber(row.rcv_transfer):0} Kg</TableCell> */}
 
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_DPDS ? formatNumber(row.rcv_DPDS):0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_sorting ? formatNumber(row.rcv_sorting):0} Kg</TableCell>
