@@ -149,54 +149,65 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
                 </div>
 
-               
                 <div className="flex mt-5 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/5 pt-2 ">Transfer Amount from Wholes Peel Stock</Label>
-                <Input className="w-1/5 justify-center" placeholder="Amount" type='number' value={sourcercv_wholespeel} onChange={(e) => setsourcercv_wholespeel(Number(e.target.value))} required />
+                <Label className="w-100 pt-2 font-semibold text-red-500">Fill Up Transfer Amount in Details</Label>
+                
+                
                 </div>
 
                 <div className="flex mt-5 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/5 pt-2 ">Transfer Amount from Wholes UnPeel Stock</Label>
-                <Input className="w-1/5 justify-center items-center text-enter" type='number' placeholder="Amount" value={sourcercv_wholesunpeel} onChange={(e) => setsourcercv_wholesunpeel(Number(e.target.value))} required />
+                <Label className="w-1/4 pt-2 text-purple-500">1. Wholes Peel Stock</Label>
+                
+                <Input className="w-1/4 justify-center" placeholder="Amount" type='number' value={sourcercv_wholespeel} onChange={(e) => setsourcercv_wholespeel(Number(e.target.value))} required />
+                <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
+                <Label className="w-1/4 pt-2 text-red-500">{fsourcercv_wholespeel} kg </Label>
                 </div>
+
+                <div className="flex mt-2 mx-8" style={{ display: successflag }}>
+                <Label className="w-1/4 pt-2 text-purple-500">2. UnPeel Stock</Label>
+                <Input className="w-1/4 justify-center items-center text-enter" type='number' placeholder="Amount" value={sourcercv_wholesunpeel} onChange={(e) => setsourcercv_wholesunpeel(Number(e.target.value))} required />
+                <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
+                <Label className="w-1/4 pt-2 text-red-500">{fsourcercv_wholesunpeel} kg </Label>
+                </div>
+
+                <div className="flex mt-2 mx-8" style={{ display: successflag }}>
+                <Label className="w-1/4 pt-2 text-purple-500">3. Mixing Stock </Label>
+                <Input className="w-1/4 justify-center" type='number' placeholder="Amount" value={sourectrcv_transfer} onChange={(e) => setsourcercv_transfer(Number(e.target.value))} required /> 
+                <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
+                <Label className="w-1/4 pt-2 text-red-500">{fsourcercv_transfer} kg </Label>
+
+                </div>
+
+
+                
+                <div className="flex mt-2 mx-8" style={{ display: successflag }}>
+                <Label className="w-1/2 pt-2 text-purple-500">4. DPDS Stock</Label>
+                <Input className="w-1/2 justify-center" placeholder="Amount" type='number' value={sourcercv_DPDS} onChange={(e) => setsourcercv_DPDS(Number(e.target.value))} required /> 
+                
+
+                </div>
+                <div className="flex mt-2 mx-8" style={{ display: successflag }}>
+                <Label className="w-1/2 pt-2 text-purple-500">5. Village Stock</Label>
+                <Input className="w-1/2 justify-center" placeholder="Amount" type='number' value={sourcercv_village} onChange={(e) => setsourcercv_village(Number(e.target.value))} required /> 
+                
+
+                </div>
+                <div className="flex mt-2 mx-8" style={{ display: successflag }}>
+                <Label className="w-1/2 pt-2 text-purple-500">6. Sorting Stock</Label>
+                <Input className="w-1/2 justify-center" placeholder="Amount" type='number' value={sourcercv_sorting} onChange={(e) => setsourcercv_sorting(Number(e.target.value))} required /> 
+                
+
+                </div>
+                
 
                 <div className="flex mt-5 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/5 pt-2 ">Transfer Amount from Mixing Stock </Label>
-                <Input className="w-1/5 justify-center" type='number' placeholder="Amount" value={sourectrcv_transfer} onChange={(e) => setsourcercv_transfer(Number(e.target.value))} required /> 
-                
-
-                </div>
-
-
-                
-                <div className="flex mt-5 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/5 pt-2 ">Transfer Amount from DPDS Stock</Label>
-                <Input className="w-1/5 justify-center" placeholder="Amount" type='number' value={sourcercv_DPDS} onChange={(e) => setsourcercv_DPDS(Number(e.target.value))} required /> 
-                
-
-                </div>
-                <div className="flex mt-5 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/5 pt-2 ">Transfer Amount from Village Stock</Label>
-                <Input className="w-1/5 justify-center" placeholder="Amount" type='number' value={sourcercv_village} onChange={(e) => setsourcercv_village(Number(e.target.value))} required /> 
-                
-
-                </div>
-                <div className="flex mt-5 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/5 pt-2 ">Transfer Amount from Sorting Stock</Label>
-                <Input className="w-1/5 justify-center" placeholder="Amount" type='number' value={sourcercv_sorting} onChange={(e) => setsourcercv_sorting(Number(e.target.value))} required /> 
-                
-
+                <Label className="w-1/2 pt-2 text-red-500"> Total Transfer Amount </Label>
+                <Input className="w-1/2 justify-center items-center text-enter" type='number' placeholder="Amount" value={(sourcercv_wholesunpeel+sourcercv_wholespeel+sourcercv_DPDS+sourcercv_sorting+
+                sourcercv_village+sourectrcv_transfer).toFixed(2)}  required />
                 </div>
                 
 
-                <div className="flex mt-5 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/5 pt-2 text-cyan-500"> Total transfer Amount </Label>
-                <Input className="w-1/5 justify-center items-center text-enter" type='number' placeholder="Amount" value={sourcercv_wholesunpeel+sourcercv_wholespeel+sourcercv_DPDS+sourcercv_sorting+
-                sourcercv_village+sourectrcv_transfer}  required />
-                </div>
-                
-
-                <Table className="mt-3">
+                <Table className="mt-8">
 
 
 
@@ -227,7 +238,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         
                             <TableCell className="text-center font-semibold ">{props.borma.LotNo}</TableCell>
                             <TableCell className="text-center font-semibold text-cyan-500">{props.borma.origin}</TableCell>
-                            <TableCell className="text-center font-semibold text-red-500">{successflag ? fsourcercv_wholespeel:'NA'}</TableCell>
+                            <TableCell className="text-center font-semibold text-red-500">{props.borma.rcv_wholespeel}</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{successflag ? fsourcercv_wholespeel:'NA'}</TableCell>
                             <TableCell className="text-center font-semibold text-red-500">{props.borma.rcv_wholesunpeel}</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{successflag ? fsourcercv_wholesunpeel:'NA'}</TableCell>
