@@ -597,10 +597,66 @@ export interface MayurData {
     CreatedBy: string | null;
     editStatus: string;
     modifiedBy: string | null;
-    createdAt: string;
-    updatedAt: string;
     noOfdayOperators:number;
     noOfnightOperators:number;
+}
+export interface DPDSData {
+ 
+    id: number;
+        LotNo: string;
+        date: string;
+        origin: string;
+        altid: number;
+        rcv_transfer: string;
+        rcv_Sorting: string;
+        rcv_dp: string;
+        rcv_ds: string;
+        rcv_dp1: string;
+        issue_m_ds: string;
+        issue_m_dp: string;
+        issue_k_dp: string;
+        issue_ds_1: string;
+        issue_ds_2: string;
+        issue_sp_2: string;
+        issue_yjh: string;
+        issue_yk: string;
+        issue_kp: string;
+        issue_wp: string;
+        issue_rs: string;
+        issue_dp_2: string;
+        issue_dp_3: string;
+        issue_dp_4: string;
+        issue_dp_3l: string;
+        issue_ss: string;
+        issue_os: string;
+        issue_os1: string;
+        issue_add_1: string;
+        issue_add_2: string;
+        issue_add_3: string;
+        issue_add_4: string;
+        issue_add_5: string;
+        issue_add_6: string;
+        issue_add_7: string;
+        issue_add_8: string;
+        issue_add_9: string;
+        issue_add_10: string;
+        issue_rejection: string;
+        issue_village: string;
+        issue_bigTaiho: string;
+        issue_mayur: string;
+        entry_backlog: string;
+        current_backlog: string;
+        Status: number;
+        latest: number;
+        mixingLot: string|null;
+        noOfdayOperators: number;
+        noOfnightOperators: number;
+        CreatedBy: string;
+        editStatus: string;
+        modifiedBy: string|null;
+
+
+    
 }
 
 

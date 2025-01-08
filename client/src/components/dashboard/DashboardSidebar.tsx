@@ -20,7 +20,9 @@ import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { FaUserTie,FaWater  ,FaAcquisitionsIncorporated  } from "react-icons/fa";
 import { PiPackageLight,PiWashingMachineLight } from "react-icons/pi";
-import { GiBoilingBubbles, GiIceCreamScoop, GiGate, GiPizzaCutter } from "react-icons/gi";
+import { GiBoilingBubbles, GiIceCreamScoop, GiGate, GiBoxingRing} from "react-icons/gi";
+import { AiFillCodeSandboxSquare } from "react-icons/ai";
+
 import { CgSmartHomeBoiler } from "react-icons/cg";
 import { BsMoisture } from "react-icons/bs";
 import { GiChopsticks } from "react-icons/gi";
@@ -290,7 +292,18 @@ const DashboardSidebar = () => {
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/Mayur" >
 
-                                    <p className="flex"> <GiPizzaCutter  size={20} /><p className="pl-3">  Mayur </p></p>
+                                    <p className="flex"> <AiFillCodeSandboxSquare size={20} /><p className="pl-3">  RCN Mayur </p></p>
+                                </NavLink>
+                            </CollapsibleContent>} 
+
+
+                        {renderlink('DPDS')
+
+
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/DPDS" >
+
+                                    <p className="flex"> <GiBoxingRing  size={20} /><p className="pl-3">  RCN DPDS </p></p>
                                 </NavLink>
                             </CollapsibleContent>} 
 

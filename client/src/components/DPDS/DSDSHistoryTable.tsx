@@ -63,7 +63,7 @@ const DPDSHistoryTable = () => {
                         fromDate: fromdate,
                         toDate: todate,
                         origin: origin,
-                        section:'Mayur'
+                        section:'DPDS'
     
                     }, {
                         params: {
@@ -80,12 +80,12 @@ const DPDSHistoryTable = () => {
                     setsearchtableType('Incoming')
                 }
                 else{
-                    const response = await axios.put('/api/mayur/historymixSearch', {
+                    const response = await axios.put('/api/dpds/historymixSearch', {
                         searchitem: blConNo,
                         fromDate: fromdate,
                         toDate: todate,
                         origin: origin,
-                        section:'Mayur'
+                        section:'DPDS'
     
                     }, {
                         params: {
@@ -141,7 +141,7 @@ const DPDSHistoryTable = () => {
                         fromDate: fromdate,
                         toDate: todate,
                         origin: origin,
-                        section:'Mayur'
+                        section:'DPDS'
     
                     })
                     const data1 = await response.data
@@ -165,7 +165,7 @@ const DPDSHistoryTable = () => {
                         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
                         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
                         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-                        saveAs(blob, 'Mayur_Incoming_Entry_' + currDate + '.xlsx');
+                        saveAs(blob, 'DPDS_Incoming_Entry_' + currDate + '.xlsx');
                     }
                     
                    
@@ -177,7 +177,7 @@ const DPDSHistoryTable = () => {
                         fromDate: fromdate,
                         toDate: todate,
                         origin: origin,
-                        section:'Mayur'
+                        section:'DPDS'
     
                     })
                     const data1 = await response.data
@@ -204,7 +204,7 @@ const DPDSHistoryTable = () => {
                         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
                         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
                         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-                        saveAs(blob, 'Mayur_Mixing_Entry_' + currDate + '.xlsx');
+                        saveAs(blob, 'DPDS_Mixing_Entry_' + currDate + '.xlsx');
                 }
               
                 

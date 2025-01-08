@@ -23,7 +23,8 @@ import {  MayurData } from "@/type/type";
 
 
 import cross from '../../assets/Static_Images/error_img.png'
-import RCNMayurCreateForm from "./MayurCreateForm";
+import RCNDPDSCreateForm from "./DPDSCreateForm";
+// import RCNMayurCreateForm from "./MayurCreateForm";
 //import RCNPeelingCreateForm from "./PeelingCreateForm";
 //import RCNHumidLineCreateForm from "./HumidifierLineCreateForm";
 
@@ -34,7 +35,7 @@ interface lotPropsdata{
 }
 
 const DPDSInitial = (props: any) => {
-    const [bormaData, setBormaData ]  = useState<MayurData[]>([])
+    const [bormaData, setBormaData ]  = useState<DPDSData[]>([])
     const [errortext, seterrorText] = useState<string>('');
     
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialogPeel') as HTMLInputElement;
@@ -125,11 +126,11 @@ const DPDSInitial = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
                                           <DialogContent className='max-w-7xl'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Mayur Line Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>DPDS Line Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 
-                                                    <RCNMayurCreateForm borma={bormaData}/>
+                                                    <RCNDPDSCreateForm borma={bormaData}/>
                                                 </DialogContent>
                                             </Dialog>
                                         </TableCell>
@@ -140,7 +141,7 @@ const DPDSInitial = (props: any) => {
                         ) : <TableRow>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Mayur</TableCell>
+                            <TableCell className="text-left  text-red-500 font-semibold">No Pending DPDS</TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             </TableRow>}

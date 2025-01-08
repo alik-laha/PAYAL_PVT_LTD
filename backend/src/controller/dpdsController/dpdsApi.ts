@@ -24,6 +24,85 @@ export const findEditDPDSAll = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Internal server error",error });
     }
 }
+export const sumOfallDPDS = async (req: Request, res: Response) => {
+
+    
+    try {
+
+        const today = new Date();
+        let Year = today.getFullYear()
+
+        const compareDate = new Date(`${Year}-04-01`);
+        compareDate.setHours(0,0,0,0)
+        let targetDate
+        if (today < compareDate) {
+            targetDate = new Date(`${Year - 1}-04-01`);
+        }
+        else{
+            targetDate = new Date(`${Year}-04-01`);
+        }
+        
+        targetDate.setHours(0,0,0,0)
+        if(today.getHours()<5 || (today.getHours()===5 && today.getMinutes()<=30)){
+            today.setHours(today.getHours()+5);
+            today.setMinutes(today.getMinutes()+30);
+        }
+
+        const data = await DPDS.findAll({
+            attributes: [
+                [sequelize.fn('sum', sequelize.col('issue_m_ds')), 'issue_m_ds'],
+                [sequelize.fn('sum', sequelize.col('issue_m_dp')), 'issue_m_dp'],
+                [sequelize.fn('sum', sequelize.col('issue_k_dp')), 'issue_k_dp'],
+              
+                [sequelize.fn('sum', sequelize.col('issue_ds_1')), 'issue_ds_1'],
+                [sequelize.fn('sum', sequelize.col('issue_ds_2')), 'issue_ds_2'],
+                [sequelize.fn('sum', sequelize.col('issue_sp_2')), 'issue_sp_2'],
+                [sequelize.fn('sum', sequelize.col('issue_yjh')), 'issue_yjh'],
+                [sequelize.fn('sum', sequelize.col('issue_kp')), 'issue_kp'],
+                [sequelize.fn('sum', sequelize.col('issue_yk')), 'issue_yk'],
+                [sequelize.fn('sum', sequelize.col('issue_wp')), 'issue_wp'],
+                [sequelize.fn('sum', sequelize.col('issue_rs')), 'issue_rs'],
+                [sequelize.fn('sum', sequelize.col('issue_dp_2')), 'issue_dp_2'],
+                [sequelize.fn('sum', sequelize.col('issue_dp_3')), 'issue_dp_3'],
+                [sequelize.fn('sum', sequelize.col('issue_dp_4')), 'issue_dp_4'],
+                [sequelize.fn('sum', sequelize.col('issue_dp_3l')), 'issue_dp_3l'],
+                [sequelize.fn('sum', sequelize.col('issue_ss')), 'issue_ss'],
+                [sequelize.fn('sum', sequelize.col('issue_os')), 'issue_os'],
+                [sequelize.fn('sum', sequelize.col('issue_os1')), 'issue_os1'],
+                [sequelize.fn('sum', sequelize.col('issue_add_1')), 'issue_add_1'],
+                [sequelize.fn('sum', sequelize.col('issue_add_2')), 'issue_add_2'],
+                [sequelize.fn('sum', sequelize.col('issue_add_3')), 'issue_add_3'],
+                [sequelize.fn('sum', sequelize.col('issue_add_4')), 'issue_add_4'],
+                [sequelize.fn('sum', sequelize.col('issue_add_5')), 'issue_add_5'],
+                [sequelize.fn('sum', sequelize.col('issue_add_6')), 'issue_add_6'],
+                [sequelize.fn('sum', sequelize.col('issue_add_7')), 'issue_add_7'],
+                [sequelize.fn('sum', sequelize.col('issue_add_8')), 'issue_add_8'],
+                [sequelize.fn('sum', sequelize.col('issue_add_9')), 'issue_add_9'],
+                [sequelize.fn('sum', sequelize.col('issue_add_10')), 'issue_add_10'],
+                [sequelize.fn('sum', sequelize.col('issue_rejection')), 'issue_rejection'],
+                [sequelize.fn('sum', sequelize.col('issue_village')), 'issue_village'],
+                [sequelize.fn('sum', sequelize.col('issue_bigTaiho')), 'issue_bigTaiho'],
+                [sequelize.fn('sum', sequelize.col('issue_mayur')), 'issue_mayur'],
+                [sequelize.fn('sum', sequelize.col('current_backlog')), 'current_backlog']
+            ],
+            where: {
+                [Op.or]: [
+                    { editStatus: "Approved" },
+                    { editStatus: "NA" }
+                ], date: {
+                    [Op.between]: [targetDate, today]
+                }
+            }
+        });
+        const EditData = await DPDSEdit.count()
+        if (data) {
+            return res.status(200).json({ data, EditData });
+        }
+    }
+    catch (err) {
+        return res.status(500).json({ message: "Internal Server Error", err });
+    }
+}
 
 export const getDPDSLot = async (req: Request, res: Response) => {
 
@@ -52,12 +131,14 @@ export const getDPDSLot = async (req: Request, res: Response) => {
     }
 
 }
-export const getMayurBylotorigin = async (req: Request, res: Response) => {
+
+
+export const getDPDSBylotorigin = async (req: Request, res: Response) => {
 
     try {
         const lotNO=req.params.lotNO
         const origin=req.params.origin
-        const scoopingLot = await Mayur.findAll({
+        const scoopingLot = await DPDS.findAll({
             where: {
                 LotNo:lotNO,origin:origin
             }, order: [['LotNo', 'ASC']]
@@ -65,10 +146,10 @@ export const getMayurBylotorigin = async (req: Request, res: Response) => {
         }
         );
         if(scoopingLot){
-            res.status(200).json({ message: "Un Mayur Entry", scoopingLot });
+            res.status(200).json({ message: "Un DPDS Entry", scoopingLot });
         }
         else{
-            res.status(500).json({ message: "Error in Finding Mayur Entry"});
+            res.status(500).json({ message: "Error in Finding DPDS Entry"});
         }
        
 
@@ -559,85 +640,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
 
 
 }
-export const sumOfallDPDS = async (req: Request, res: Response) => {
 
-    
-    try {
-
-        const today = new Date();
-        let Year = today.getFullYear()
-
-        const compareDate = new Date(`${Year}-04-01`);
-        compareDate.setHours(0,0,0,0)
-        let targetDate
-        if (today < compareDate) {
-            targetDate = new Date(`${Year - 1}-04-01`);
-        }
-        else{
-            targetDate = new Date(`${Year}-04-01`);
-        }
-        
-        targetDate.setHours(0,0,0,0)
-        if(today.getHours()<5 || (today.getHours()===5 && today.getMinutes()<=30)){
-            today.setHours(today.getHours()+5);
-            today.setMinutes(today.getMinutes()+30);
-        }
-
-        const data = await DPDS.findAll({
-            attributes: [
-                [sequelize.fn('sum', sequelize.col('issue_m_ds')), 'issue_m_ds'],
-                [sequelize.fn('sum', sequelize.col('issue_m_dp')), 'issue_m_dp'],
-                [sequelize.fn('sum', sequelize.col('issue_k_dp')), 'issue_k_dp'],
-                [sequelize.fn('sum', sequelize.col('issue_k_ds')), 'issue_k_ds'],
-                [sequelize.fn('sum', sequelize.col('issue_ds_1')), 'issue_ds_1'],
-                [sequelize.fn('sum', sequelize.col('issue_ds_2')), 'issue_ds_2'],
-                [sequelize.fn('sum', sequelize.col('issue_sp_2')), 'issue_sp_2'],
-                [sequelize.fn('sum', sequelize.col('issue_yjh')), 'issue_yjh'],
-                [sequelize.fn('sum', sequelize.col('issue_kp')), 'issue_kp'],
-                [sequelize.fn('sum', sequelize.col('issue_yk')), 'issue_yk'],
-                [sequelize.fn('sum', sequelize.col('issue_wp')), 'issue_wp'],
-                [sequelize.fn('sum', sequelize.col('issue_rs')), 'issue_rs'],
-                [sequelize.fn('sum', sequelize.col('issue_dp_2')), 'issue_dp_2'],
-                [sequelize.fn('sum', sequelize.col('issue_dp_3')), 'issue_dp_3'],
-                [sequelize.fn('sum', sequelize.col('issue_dp_4')), 'issue_dp_4'],
-                [sequelize.fn('sum', sequelize.col('issue_dp_3l')), 'issue_dp_3l'],
-                [sequelize.fn('sum', sequelize.col('issue_ss')), 'issue_ss'],
-                [sequelize.fn('sum', sequelize.col('issue_os')), 'issue_os'],
-                [sequelize.fn('sum', sequelize.col('issue_os1')), 'issue_os1'],
-                [sequelize.fn('sum', sequelize.col('issue_add_1')), 'issue_add_1'],
-                [sequelize.fn('sum', sequelize.col('issue_add_2')), 'issue_add_2'],
-                [sequelize.fn('sum', sequelize.col('issue_add_3')), 'issue_add_3'],
-                [sequelize.fn('sum', sequelize.col('issue_add_4')), 'issue_add_4'],
-                [sequelize.fn('sum', sequelize.col('issue_add_5')), 'issue_add_5'],
-                [sequelize.fn('sum', sequelize.col('issue_add_6')), 'issue_add_6'],
-                [sequelize.fn('sum', sequelize.col('issue_add_7')), 'issue_add_7'],
-                [sequelize.fn('sum', sequelize.col('issue_add_8')), 'issue_add_8'],
-                [sequelize.fn('sum', sequelize.col('issue_add_9')), 'issue_add_9'],
-                [sequelize.fn('sum', sequelize.col('issue_add_10')), 'issue_add_10'],
-                [sequelize.fn('sum', sequelize.col('issue_rejection')), 'issue_rejection'],
-                [sequelize.fn('sum', sequelize.col('issue_village')), 'issue_village'],
-                [sequelize.fn('sum', sequelize.col('issue_bigTaiho')), 'issue_bigTaiho'],
-                [sequelize.fn('sum', sequelize.col('issue_mayur')), 'issue_mayur'],
-                [sequelize.fn('sum', sequelize.col('current_backlog')), 'current_backlog']
-            ],
-            where: {
-                [Op.or]: [
-                    { editStatus: "Approved" },
-                    { editStatus: "NA" }
-                ], date: {
-                    [Op.between]: [targetDate, today]
-                }
-            }
-        });
-        const EditData = await DPDSEdit.count()
-        if (data) {
-            return res.status(200).json({ data, EditData });
-        }
-    }
-    catch (err) {
-        return res.status(500).json({ message: "Internal Server Error", err });
-    }
-}
 export const SearchRCNMayur = async (req: Request, res: Response) => {
     try {
         const { searchitem,fromDate, toDate, origin} = req.body;

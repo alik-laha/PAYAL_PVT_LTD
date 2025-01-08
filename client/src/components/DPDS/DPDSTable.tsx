@@ -56,9 +56,9 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 // import BormaModify from "./RCNBormaModify";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
-import RCNMayurReCreateForm from "./MayurReissueForm";
-import RCNMayurEditForm from "./MayurEditForm";
-import RCNMayurReMix from "./MayurMix";
+// import RCNMayurReCreateForm from "./MayurReissueForm";
+// import RCNMayurEditForm from "./MayurEditForm";
+// import RCNMayurReMix from "./MayurMix";
 //import PeelingModify from "./PeelingModify";
 //import HumidifierModify from "./HumidifierModify";
 
@@ -666,7 +666,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                     <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            <RCNMayurEditForm borma={[item]} />
+                                                            {/* <RCNMayurEditForm borma={[item]} /> */}
                                                         </DialogContent>
                                                         
                                                     </Dialog>
@@ -680,7 +680,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                     <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Reissue</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            <RCNMayurReCreateForm borma={[item]} />
+                                                            {/* <RCNMayurReCreateForm borma={[item]} /> */}
                                                         </DialogContent>
                                                         
                                                     </Dialog>
@@ -695,7 +695,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                     <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            <RCNMayurReMix borma={item} />
+                                                            {/* <RCNMayurReMix borma={item} /> */}
                                                         </DialogContent>
                                                         
                                                     </Dialog>
