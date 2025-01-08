@@ -5,17 +5,23 @@ import jwtVerify from "../middleWare/JwtAuthantication";
 
 import { approveMayur, CreateEntireMayur, CreateReissueMayur, EditRejectMayur, findEditMayurAll, 
     getMayurBylotorigin, getMayurLot, SearchHistory, SearchMixHistory, SearchRCNMayur, SearchRCNMayurMix, sumOfallMayur, updateEntireMayur } from "../controller/mayurController/mayurapi";
-import { findEditDPDSAll, getDPDSBylotorigin, getDPDSLot, sumOfallDPDS } from "../controller/dpdsController/dpdsApi";
+import { CreateEntireDPDS, findEditDPDSAll, getDPDSBylotorigin, getDPDSLot, sumOfallDPDS } from "../controller/dpdsController/dpdsApi";
 const router = express()
+
 // //DPDS.tsx
 router.get("/getUnDPDSEntry/:status", jwtVerify, getDPDSLot)
 router.get("/findEditDPDSAll", jwtVerify, findEditDPDSAll)
 router.get("/sumofallDPDS", jwtVerify, sumOfallDPDS)
+
 // //DPDSInitial.tsx
 router.get("/getDPDSByLotOrigin/:lotNO/:origin", jwtVerify, getDPDSBylotorigin)
 
-router.post("/createEntireMayur", jwtVerify, CreateEntireMayur)
+// //DPDSCreateForm.tsx
+router.post("/createEntireDPDS", jwtVerify, CreateEntireDPDS)
+
+// //DPDSReiSsueForm.tsx
 router.post("/createReissueMayur", jwtVerify, CreateReissueMayur)
+
 router.put('/mayurprimarysearch', jwtVerify, SearchRCNMayur);
 router.post("/updateMayur",jwtVerify, updateEntireMayur)
 // //Edit Reject Rcn Entry by Id
