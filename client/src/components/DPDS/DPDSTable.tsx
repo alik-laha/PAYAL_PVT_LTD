@@ -62,7 +62,7 @@ import RCNMayurReMix from "./MayurMix";
 //import PeelingModify from "./PeelingModify";
 //import HumidifierModify from "./HumidifierModify";
 
-const MayurTable = () => {
+const DPDSTable = () => {
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
     const [fromdate, setfromDate] = useState<string>('');
@@ -777,4 +777,4 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
 }
 
-export default MayurTable;
+export default DPDSTable;

@@ -299,16 +299,16 @@ const RCNMayurReCreateForm = (props:Props) => {
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
                     <TableHead className="text-center">Total Opening</TableHead>
-                    <TableHead className="text-center">Prev Rcv Peeling Wholes_Peel</TableHead>
-                    <TableHead className="text-center">Current Rcv Peeling Wholes_Peel</TableHead>
-                    <TableHead className="text-center">Prev Rcv Peeling Wholes_UnPeel</TableHead>
-                    <TableHead className="text-center">Current Rcv Peeling Wholes_UnPeel</TableHead>
-                    <TableHead className="text-center">Prev Rcv DPDS</TableHead>
-                    <TableHead className="text-center">Current Rcv DPDS</TableHead>
-                    <TableHead className="text-center">Prev Rcv Village</TableHead>
-                    <TableHead className="text-center">Current Rcv Village</TableHead>
-                    <TableHead className="text-center">Prev Rcv Sorting</TableHead>
-                    <TableHead className="text-center">Current Rcv Sorting</TableHead>
+                    <TableHead className="text-center">Previous  Wholes_Peel</TableHead>
+                    <TableHead className="text-center">Current  Wholes_Peel</TableHead>
+                    <TableHead className="text-center">Previous  Wholes_UnPeel</TableHead>
+                    <TableHead className="text-center">Current  Wholes_UnPeel</TableHead>
+                    <TableHead className="text-center">Previous DPDS</TableHead>
+                    <TableHead className="text-center">Current DPDS</TableHead>
+                    <TableHead className="text-center">Previous Village</TableHead>
+                    <TableHead className="text-center">Current Village</TableHead>
+                    <TableHead className="text-center">Previous Sorting</TableHead>
+                    <TableHead className="text-center">Current Sorting</TableHead>
               
                     <TableHead className="text-center">Issue PW_W</TableHead>
                     <TableHead className="text-center">Issue W_Lot</TableHead>

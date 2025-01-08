@@ -8,21 +8,21 @@ export const Role: string[] = ['Director', 'FactoryManager',
     'MaintainanceSupervisor','MaintainanceManager',
     'QCSupervisor', 'QCManager', 
     'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','BormaSupervisor',
-    'PeelingSupervisor','VillageSupervisor'
+    'PeelingSupervisor','VillageSupervisor','MayurSupervisor','SortingSupervisor'
 ]
 export const PermissionRol = {
     Director: ['Employee', 'Dashboard User', 'Asset', 'VendorSKU','Store Issue',
         'RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
         'Receiving Agarbati Entry','Receiving Civil Entry','Receiving OilMill Entry','Receiving Village Entry',
         'RCN Incoming QC', 
-        'Grading', 'Boiling', 'Scooping','Borma','Humidifier','Peeling','Mayur',
+        'Grading', 'Boiling', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS',
         'Cleaning',
         'Gatepass'],
     FactoryManager: ['Employee', 'Asset','VendorSKU', 'Store Issue',
         'RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
         'Receiving Agarbati Entry','Receiving Civil Entry','Receiving OilMill Entry','Receiving Village Entry',
         'RCN Incoming QC', 
-        'Grading', 'Boiling', 'Scooping','Borma','Humidifier','Peeling','Mayur',
+        'Grading', 'Boiling', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS',
         'Cleaning',
         'Gatepass'],
     ReceivingSupervisor: ['RCN Primary Entry'],
@@ -45,6 +45,7 @@ export const PermissionRol = {
     BormaSupervisor:['Borma'],
     PeelingSupervisor:['Humidifier','Peeling'],
     MayurSupervisor:['Mayur'],
+    SortingSupervisor:['Sorting','DPDS'],
     VillageSupervisor:['Receiving Village Entry'],
     Security:['Gatepass'],
     GatePassManager:['Gatepass','RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
@@ -71,6 +72,8 @@ export const pendingCheckRole = {
     Humidifier: ['Director', 'FactoryManager', 'ProductionManager'],
     Peeling:['Director', 'FactoryManager', 'ProductionManager'],
     Mayur:['Director', 'FactoryManager', 'ProductionManager'],
+    Sorting:['Director', 'FactoryManager', 'ProductionManager'],
+    DPDS:['Director', 'FactoryManager', 'ProductionManager'],
     Village: ['Director', 'FactoryManager', 'ProductionManager'],
     Gatepass: ['Director', 'FactoryManager', 'GatePassManager'],
    
@@ -94,7 +97,7 @@ export const roleDataonDept = {
     //Maintainance: ['CleaningSupervisor', 'MaintainanceManager'],
     QualityControl: ['QCSupervisor', 'QCManager'],
     Production: ['ProductionManager', 'GradingSupervisor', 
-        'BoilingSupervisor', 'ScoopingSupervisor','BormaSupervisor','PeelingSupervisor','MayurSupervisor','VillageSupervisor'],
+        'BoilingSupervisor', 'ScoopingSupervisor','BormaSupervisor','PeelingSupervisor','MayurSupervisor','VillageSupervisor','SortingSupervisor'],
     GatePass:['Security','GatePassManager']
 }
 export const pageNo = 1

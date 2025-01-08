@@ -35,9 +35,7 @@ interface ContextType {
     setpendingqcCount: (pendingqccount: number) => void;
     pendingreportcount: number;
     setpendingreportCount: (pendingreportcount: number) => void;
-  
     recevingPackagematerialOverView: SumofpackageMetrialReceving | null;
-    
     setRecevingPacakanMaterialOverView: (data: SumofpackageMetrialReceving | null) => void;
     StorePrimaryOverView:sumofStorePrimary| null;
     setStorePrimaryOverView: (data: sumofStorePrimary | null) => void;
@@ -57,6 +55,8 @@ interface ContextType {
     setEditPeelingLotWiseData: (data: any[]) => void;
     editMayurLotWiseData: any[];
     setEditMayurLotWiseData: (data: any[]) => void;
+    editDPDSLotWiseData: any[];
+    setEditDPDSLotWiseData: (data: any[]) => void;
     editPendingAlmondData: AlmondPrimaryEntryData[];
     setEditPendingAlmondData: (data: AlmondPrimaryEntryData[]) => void;
     editPendingAgarbatiData: AgarbatiPrimaryEntryData[];
@@ -120,7 +120,9 @@ const Context = createContext<ContextType>({
     editPendingAgarbatiData: [],
     setEditPendingAgarbatiData: () => {},
     editPendingOilMillData: [],
-    setEditPendingOilMillData: () => {}
+    setEditPendingOilMillData: () => {},
+    editDPDSLotWiseData: [],
+    setEditDPDSLotWiseData: () => {},
 
 });
 

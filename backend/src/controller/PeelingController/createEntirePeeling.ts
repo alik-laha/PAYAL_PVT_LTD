@@ -6,6 +6,7 @@ import LotNo from "../../model/lotNomodel";
 import RcnPeeling from "../../model/peelingModel";
 import Mayur from "../../model/mayurModel";
 import lotoriginmodel from "../../model/lotoriginModel";
+import DPDS from "../../model/dpdsmodel";
 //import RcnPeeling from "../../model/peelingModel";
 
 
@@ -160,12 +161,22 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
                     current_backlog:parseFloat(data.WholesPeel)+parseFloat(data.WholesUnpeel),
                  },{transaction});
 
-                 await lotoriginmodel.create({
+
+                await DPDS.create({
                   
-                    LotNo:LotNO,
+                    LotNo:data.LotNo,
                     origin:data.origin,
                     
+                    rcv_dp: data.DP,
+                    rcv_ds: data.DS,
+                    rcv_dp1: data.DP1,
                    
+                    current_backlog:parseFloat(data.DP)+parseFloat(data.DS)+parseFloat(data.DP1),
+                 },{transaction});
+
+                await lotoriginmodel.create({              
+                    LotNo:LotNO,
+                    origin:data.origin,   
                  },{transaction});
              }
            
