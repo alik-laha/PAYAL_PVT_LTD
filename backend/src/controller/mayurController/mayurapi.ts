@@ -77,6 +77,33 @@ export const getMayurBylotorigin = async (req: Request, res: Response) => {
     }
 
 }
+export const getMayurBylotoriginMix = async (req: Request, res: Response) => {
+
+    try {
+        const lotNO=req.params.lotNO
+        const origin=req.params.origin
+        const scoopingLot = await Mayur.findOne({
+            where: {
+                LotNo:lotNO,origin:origin
+            }, order: [['LotNo', 'ASC']]
+
+        }
+        );
+        if(scoopingLot){
+            res.status(200).json({ message: "Un Mayur Entry", scoopingLot });
+        }
+        else{
+            res.status(500).json({ message: "Error in Finding Mayur Entry"});
+        }
+       
+
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
+}
 
 export const CreateEntireMayur= async (req: Request, res: Response) => {
     const timeToMilliseconds = (time: string) => {
@@ -1095,7 +1122,7 @@ export const SearchRCNMayurMix = async (req: Request, res: Response) => {
         let rcnEntries
         
              rcnEntries = await Mayur.findOne({
-                attributes: ['rcv_transfer','current_backlog','rcv_wholespeel','rcv_wholesunpeel','rcv_DPDS','rcv_sorting','rcv_village'],
+                attributes: ['id','rcv_transfer','current_backlog','rcv_wholespeel','rcv_wholesunpeel','rcv_DPDS','rcv_sorting','rcv_village'],
                 where
                 
                 
@@ -1244,6 +1271,112 @@ export const SearchMixHistory = async (req: Request, res: Response) => {
         console.log(err)
         return res.status(500).json({ message: 'Internal server error', error: err })
     }
+ 
+}
+
+export const CreateMix = async (req: Request, res: Response) => {
+
+        try{
+            const createdBy = req.cookies.user;
+            const sourceid= req.body.fsourceid;
+            const sourcelot= req.body.fsourcelot;
+            const sourceorigin= req.body.fsourceorigin;
+            const source_rcv_wholepeel= req.body.fsourcercv_wholespeel;
+            const source_rcv_wholeunpeel= req.body.fsourcercv_wholesunpeel;
+            const source_dpds= req.body.fsourcercv_DPDS;
+            const source_village= req.body.fsourcercv_village;
+            const source_sorting= req.body.fsourcercv_sorting;
+            const source_backlog= req.body.fsourcebacklog;
+
+            const transfer_amount =req.body.amount
+
+            const destid= req.body.destid;
+            const destlot= req.body.destlot;
+            const destorigin= req.body.destorigin;
+            const dest_rcv_wholepeel= req.body.destrcv_wholespeel;
+            const dest_rcv_wholeunpeel= req.body.destrcv_wholesunpeel;
+            const dest_dpds= req.body.destrcv_DPDS;
+            const dest_village= req.body.destrcv_village;
+            const dest_sorting= req.body.destrcv_sorting;
+            const dest_backlog= req.body.destbacklog;
+
+            const b_soucre_backlog= req.body.bsourcebacklog;
+            const b_dest_backlog= req.body.bdestbacklog;
+
+
+            await sequelize.transaction(async (transaction: any) => {
+   
+                const sourceupdate=await Mayur.update(
+                    { 
+                        rcv_wholespeel: source_rcv_wholepeel,
+                        rcv_wholesunpeel: source_rcv_wholeunpeel,
+                        rcv_DPDS:source_dpds,
+                        rcv_sorting:source_sorting,
+                        rcv_village:source_village,
+                        current_backlog:source_backlog,                   
+                    },
+                    {
+                        where: {
+                            id:sourceid
+                        }, transaction
+                    }
+                );
+                const destupdate=await Mayur.update(
+                    { 
+                        rcv_wholespeel: dest_rcv_wholepeel,
+                        rcv_wholesunpeel: dest_rcv_wholeunpeel,
+                        rcv_DPDS:dest_dpds,
+                        rcv_sorting:dest_sorting,
+                        rcv_village:dest_village,
+                        current_backlog:dest_backlog, 
+                        mixingLot:sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`)                  
+                    },
+                    {
+                        where: {
+                            id:destid
+                        }, transaction
+                    }
+                );
+                if(sourceupdate && destupdate){
+                    const mixcreate=await mixingModel.create(
+                        {     
+                            FromLotNo:sourcelot,
+                            Fromorigin:sourceorigin,
+                            ToLotNo:destlot,
+                            Toorigin:destorigin,
+                            amount:transfer_amount,
+                            date:new Date(),
+                            Section:'Mayur',
+                            amountBeforeBacklog:b_soucre_backlog,
+                            amountAfterBacklog:source_backlog,
+                            destamountBeforeBacklog: b_dest_backlog,
+                            destamountAfterBacklog: dest_backlog,
+                            createdBy: createdBy,
+                        },
+                        {
+                            transaction
+                        }
+                    );
+                    if(mixcreate){
+                        return res.status(200).json({ message: "Mixing Performed Successfully" });
+
+                    }
+                    else{
+                        return res.status(500).json({ message: "Internal Server Error"});
+                    }
+                }
+                else{
+                    return res.status(500).json({ message: "Internal Server Error"});
+                }
+   
+            })
+
+
+        }
+        catch(err){
+            console.log(err);
+            res.status(500).json({ message: "Internal Server Error", error: err });
+        }
  
 }
 

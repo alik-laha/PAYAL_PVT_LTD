@@ -18,12 +18,14 @@ import {
 } from "@/components/ui/dialog"
 
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {  MayurData } from "@/type/type";
 
 
 import cross from '../../assets/Static_Images/error_img.png'
 import RCNMayurCreateForm from "./MayurCreateForm";
+
+import RCNMayurReMix from "./MayurMix";
 //import RCNPeelingCreateForm from "./PeelingCreateForm";
 //import RCNHumidLineCreateForm from "./HumidifierLineCreateForm";
 
@@ -35,6 +37,7 @@ interface lotPropsdata{
 
 const MayurInitial = (props: any) => {
     const [bormaData, setBormaData ]  = useState<MayurData[]>([])
+    const [bormaData2, setBormaData2 ]  = useState<MayurData>()
     const [errortext, seterrorText] = useState<string>('');
     
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialogPeel') as HTMLInputElement;
@@ -49,6 +52,9 @@ const MayurInitial = (props: any) => {
 
 
         });
+    }
+    function formatNumber(num: string) {
+        return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
     }
     //let scoopdata:ScoopData[]=[]
     console.log(props)
@@ -86,6 +92,44 @@ const MayurInitial = (props: any) => {
             //set(res.data.scoopingLot)
         })
     }
+    const handleLineEntry2 = async (lotNO:string,origin:string) => {
+        
+        const resStatus = await axios.post('/api/boiling/pendingLotCount', { lotNo: lotNO,section:'Peeling'})
+        console.log(resStatus)
+        if (resStatus.data.count && resStatus.data.count >0) 
+            {
+                seterrorText('Modification of Lot is Pending in Peeling Section')
+                if (rejectsuccessdialog != null) {
+                    (rejectsuccessdialog as any).showModal();
+                }
+                return
+            }
+        const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: lotNO,origin:origin})
+        console.log(resStatus1)
+        if (resStatus1.data.scoopingLot && resStatus1.data.scoopingLot[0].editStatus ==='Pending') 
+            {
+                
+                seterrorText(`Modification of Lot is Pending in Linked  ${resStatus1.data.scoopingLot[0].latest_section} Section`)
+                if (rejectsuccessdialog != null) {
+                        (rejectsuccessdialog as any).showModal();
+                }
+                return
+            }
+           
+           const res2=await axios.get(`/api/mayur/getMayurByLotOriginMix/${lotNO}/${origin}`)
+           const data1=await res2.data
+           console.log(res2)
+           console.log(data1)
+           if(Array.isArray(data1.scoopingLot)){
+                setBormaData2(data1.scoopingLot)
+                console.log(bormaData2)
+            
+           }
+             
+            //set(res.data.scoopingLot)
+    
+    }
+  
     return (
         <>
             <div className="pl-10 pr-10 max-h-64 overflow-scroll">
@@ -93,7 +137,7 @@ const MayurInitial = (props: any) => {
                 <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl. No.</TableHead>
-                        <TableHead className="text-center" >Lot No</TableHead>
+                        <TableHead className="text-center" >Current_Lot_No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Current_Backlog</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
@@ -116,13 +160,14 @@ const MayurInitial = (props: any) => {
                                             {item.origin}
                                         </TableCell>
                                         <TableCell className="text-center font-semibold ">
-                                            {item.current_backlog}
+                                            {formatNumber(item.current_backlog)} kg
                                         </TableCell>
                                         
-                                        <TableCell className="text-center">
+                                        <TableCell className="text-center flex">
                                             <Dialog>
                                                 <DialogTrigger>
-                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button>
+                                                </DialogTrigger>
                                           <DialogContent className='max-w-7xl'>
                                                     <DialogHeader>
                                                         <DialogTitle><p className='text-1xl text-center mt-1'>Mayur Line Entry</p></DialogTitle>
@@ -132,6 +177,23 @@ const MayurInitial = (props: any) => {
                                                     <RCNMayurCreateForm borma={bormaData}/>
                                                 </DialogContent>
                                             </Dialog>
+
+                                            <Dialog>
+                                                        <DialogTrigger className="flex">
+                                                            <Button className="bg-green-500 h-8 rounded-md ml-2" onClick={()=>handleLineEntry2(item.LotNo,item.origin)}>Mix</Button>
+                                                        </DialogTrigger>
+                                                        <DialogContent className="max-w-4xl">
+                                                            <DialogHeader>
+                                                                <DialogTitle>
+                                                                    {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}
+                                                                    <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
+                                                                </DialogTitle>
+                                                            </DialogHeader>
+                                                            <RCNMayurReMix borma={bormaData2} />
+                                                        </DialogContent>
+                                                        
+                                                    </Dialog>
+                                            
                                         </TableCell>
 
                                     </TableRow>

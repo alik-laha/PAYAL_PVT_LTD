@@ -414,7 +414,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Mayur_Entry_Date</TableHead>
 
                         <TableHead className="text-center" >Mixed_Lot</TableHead>
-                        <TableHead className="text-center" >Mixed Amount</TableHead>
+                        {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
                         <TableHead className="text-center">Opening Wholes_Peel</TableHead>
                     <TableHead className="text-center">Opening Wholes_Unpeel</TableHead>
                     <TableHead className="text-center">Receive Peeling</TableHead>
@@ -469,14 +469,14 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableRow key={item.id}>
                                 <TableCell className="text-center">{idx + 1}</TableCell>
                                 <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
-                                
-                                <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
+                                        
+                                        <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                   
                                         <TableCell className="text-center ">{item.mixingLot}</TableCell>
-                                        <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell>
+                                        {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
                                         <TableCell className="text-center ">{formatNumber(item.rcv_wholespeel)}</TableCell>
                                         <TableCell className="text-center  ">{formatNumber(item.rcv_wholesunpeel)}</TableCell>
                                         <TableCell className="text-center font-bold text-green-600">{Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel))}</TableCell>
@@ -591,7 +591,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                   
                                         <TableCell className="text-center ">{item.mixingLot}</TableCell>
-                                        <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell>
+                                        {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
                                         <TableCell className="text-center ">{formatNumber(item.rcv_wholespeel)}</TableCell>
                                         <TableCell className="text-center  ">{formatNumber(item.rcv_wholesunpeel)}</TableCell>
                                         <TableCell className="text-center font-bold text-green-600">{Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel))}</TableCell>

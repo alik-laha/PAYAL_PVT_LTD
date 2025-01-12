@@ -180,7 +180,6 @@ const RCNMayurReCreateForm = (props:Props) => {
             dialogerror.showModal()
            // console.log(rows)
             return
-
         }
         if(((props.borma[0].rcv_DPDS ? Number(props.borma[0].rcv_DPDS):0) < Number(rows[0].rcv_DPDS))
             || ((props.borma[0].rcv_village ? Number(props.borma[0].rcv_village):0) < Number(rows[0].rcv_village)) 
@@ -400,7 +399,7 @@ const RCNMayurReCreateForm = (props:Props) => {
                   
                    
                   </form>
-                  <dialog id="successemployeedialog" className="dashboard-modal">
+            <dialog id="successemployeedialog" className="dashboard-modal">
                   <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                   <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
                       <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
