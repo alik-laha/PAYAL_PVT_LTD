@@ -413,7 +413,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Issue_No</TableHead>
                         <TableHead className="text-center" >Mayur_Entry_Date</TableHead>
 
-                        <TableHead className="text-center" >Mixed_Lot</TableHead>
+                        <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                         {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
                         <TableHead className="text-center">Opening Wholes_Peel</TableHead>
                     <TableHead className="text-center">Opening Wholes_Unpeel</TableHead>

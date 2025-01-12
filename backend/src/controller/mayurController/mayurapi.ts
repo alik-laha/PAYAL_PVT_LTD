@@ -1321,53 +1321,114 @@ export const CreateMix = async (req: Request, res: Response) => {
                         }, transaction
                     }
                 );
-                const destupdate=await Mayur.update(
-                    { 
-                        rcv_wholespeel: dest_rcv_wholepeel,
-                        rcv_wholesunpeel: dest_rcv_wholeunpeel,
-                        rcv_DPDS:dest_dpds,
-                        rcv_sorting:dest_sorting,
-                        rcv_village:dest_village,
-                        current_backlog:dest_backlog, 
-                        mixingLot:sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`)                  
+                const destdata=await Mayur.findOne({
+                    attributes: ['mixingLot'],
+                    where: {
+                        id:destid
+            
                     },
-                    {
-                        where: {
-                            id:destid
-                        }, transaction
-                    }
-                );
-                if(sourceupdate && destupdate){
-                    const mixcreate=await mixingModel.create(
-                        {     
-                            FromLotNo:sourcelot,
-                            Fromorigin:sourceorigin,
-                            ToLotNo:destlot,
-                            Toorigin:destorigin,
-                            amount:transfer_amount,
-                            date:new Date(),
-                            Section:'Mayur',
-                            amountBeforeBacklog:b_soucre_backlog,
-                            amountAfterBacklog:source_backlog,
-                            destamountBeforeBacklog: b_dest_backlog,
-                            destamountAfterBacklog: dest_backlog,
-                            createdBy: createdBy,
+            
+                });
+                if (destdata && destdata.dataValues.mixingLot){
+                    const destupdate=await Mayur.update(
+                        { 
+                            rcv_wholespeel: dest_rcv_wholepeel,
+                            rcv_wholesunpeel: dest_rcv_wholeunpeel,
+                            rcv_DPDS:dest_dpds,
+                            rcv_sorting:dest_sorting,
+                            rcv_village:dest_village,
+                            current_backlog:dest_backlog, 
+                            mixingLot:sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`)                  
                         },
                         {
-                            transaction
+                            where: {
+                                id:destid
+                            }, transaction
                         }
                     );
-                    if(mixcreate){
-                        return res.status(200).json({ message: "Mixing Performed Successfully" });
-
+                    if(sourceupdate && destupdate){
+                        const mixcreate=await mixingModel.create(
+                            {     
+                                FromLotNo:sourcelot,
+                                Fromorigin:sourceorigin,
+                                ToLotNo:destlot,
+                                Toorigin:destorigin,
+                                amount:transfer_amount,
+                                date:new Date(),
+                                Section:'Mayur',
+                                amountBeforeBacklog:b_soucre_backlog,
+                                amountAfterBacklog:source_backlog,
+                                destamountBeforeBacklog: b_dest_backlog,
+                                destamountAfterBacklog: dest_backlog,
+                                createdBy: createdBy,
+                            },
+                            {
+                                transaction
+                            }
+                        );
+                        if(mixcreate){
+                            return res.status(200).json({ message: "Mixing Performed Successfully" });
+    
+                        }
+                        else{
+                            return res.status(500).json({ message: "Internal Server Error"});
+                        }
                     }
                     else{
                         return res.status(500).json({ message: "Internal Server Error"});
                     }
                 }
                 else{
-                    return res.status(500).json({ message: "Internal Server Error"});
+                    const destupdate=await Mayur.update(
+                        { 
+                            rcv_wholespeel: dest_rcv_wholepeel,
+                            rcv_wholesunpeel: dest_rcv_wholeunpeel,
+                            rcv_DPDS:dest_dpds,
+                            rcv_sorting:dest_sorting,
+                            rcv_village:dest_village,
+                            current_backlog:dest_backlog, 
+                            mixingLot:`${sourcelot}(${sourceorigin})`             
+                        },
+                        {
+                            where: {
+                                id:destid
+                            }, transaction
+                        }
+                    );
+                    if(sourceupdate && destupdate){
+                        const mixcreate=await mixingModel.create(
+                            {     
+                                FromLotNo:sourcelot,
+                                Fromorigin:sourceorigin,
+                                ToLotNo:destlot,
+                                Toorigin:destorigin,
+                                amount:transfer_amount,
+                                date:new Date(),
+                                Section:'Mayur',
+                                amountBeforeBacklog:b_soucre_backlog,
+                                amountAfterBacklog:source_backlog,
+                                destamountBeforeBacklog: b_dest_backlog,
+                                destamountAfterBacklog: dest_backlog,
+                                createdBy: createdBy,
+                            },
+                            {
+                                transaction
+                            }
+                        );
+                        if(mixcreate){
+                            return res.status(200).json({ message: "Mixing Performed Successfully" });
+    
+                        }
+                        else{
+                            return res.status(500).json({ message: "Internal Server Error"});
+                        }
+                    }
+                    else{
+                        return res.status(500).json({ message: "Internal Server Error"});
+                    }
                 }
+
+               
    
             })
 
