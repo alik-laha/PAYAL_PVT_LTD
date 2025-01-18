@@ -272,7 +272,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
                 </div>
                 <div className="flex mt-2 ml-5" >
-                <Label className="w-100 pt-2 font-semibold ml-3">(Maximum Total {sourceactualbacklog} Kg can be Transfered)</Label>
+                <Label className="w-100 pt-2 font-semibold ml-3">(Total Upto {sourceactualbacklog} Kg can be Transfered)</Label>
                 </div>
                 <div className="flex mt-5 mx-8" style={{ display: successflag }}>
                 <Label className="w-100 pt-2 font-semibold text-red-500">Fill Up Transfer Amount in Details </Label>
@@ -335,10 +335,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center">Type</TableHead>
                         <TableHead className="text-center">Lot_No</TableHead>
                         <TableHead className="text-center">Origin</TableHead>
-                        <TableHead className="text-center">Previous Wholes_Peel </TableHead>
-                    <TableHead className="text-center">Current Wholes_Peel </TableHead>
-                    <TableHead className="text-center">Previous Wholes_UnPeeled </TableHead>
-                    <TableHead className="text-center">Current Wholes_Peel </TableHead>
+                        <TableHead className="text-center">Previous Peel </TableHead>
+                    <TableHead className="text-center">Current Peel </TableHead>
+                    <TableHead className="text-center">Previous UnPeel </TableHead>
+                    <TableHead className="text-center">Current UnPeel </TableHead>
                
                       <TableHead className="text-center">Previous DPDS </TableHead>                     
                       <TableHead className="text-center">Current DPDS </TableHead>
@@ -355,37 +355,37 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableCell className="text-center font-semibold  flex">Source<CircleArrowRight size={30} color="red"/>  </TableCell>
                         
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ?props.borma.LotNo :''}</TableCell>
-                            <TableCell className="text-center font-semibold text-cyan-500">{props.borma ?props.borma.origin:''}</TableCell>
-                            <TableCell className="text-center  ">{props.borma ? props.borma.rcv_wholespeel :0}</TableCell>
-                            <TableCell className="text-center font-semibold ">{successflag ? fsourcercv_wholespeel:'NA'}</TableCell>
-                            <TableCell className="text-center  ">{props.borma  ? props.borma.rcv_wholesunpeel :0}</TableCell>
-                            <TableCell className="text-center font-semibold ">{successflag ? fsourcercv_wholesunpeel:'NA'}</TableCell>
+                            <TableCell className="text-center font-semibold text-red-500">{props.borma ?props.borma.origin:''}</TableCell>
+                            <TableCell className="text-center  bg-cyan-100">{props.borma ? props.borma.rcv_wholespeel :0}</TableCell>
+                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? fsourcercv_wholespeel:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-red-100">{props.borma  ? props.borma.rcv_wholesunpeel :0}</TableCell>
+                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? fsourcercv_wholesunpeel:'NA'}</TableCell>
                        
-                            <TableCell className="text-center  ">{props.borma ? props.borma.rcv_DPDS:0}</TableCell>
-                            <TableCell className="text-center font-semibold ">{successflag ? fsourcercv_DPDS:'NA'}</TableCell>
-                            <TableCell className="text-center  ">{props.borma ? props.borma.rcv_village:0}</TableCell>
-                            <TableCell className="text-center font-semibold ">{successflag ? fsourcercv_village:'NA'}</TableCell>
-                            <TableCell className="text-center  ">{props.borma? props.borma.rcv_sorting:0}</TableCell>
-                            <TableCell className="text-center font-semibold ">{successflag ? fsourcercv_sorting:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-yellow-100">{props.borma ? props.borma.rcv_DPDS:0}</TableCell>
+                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? fsourcercv_DPDS:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-purple-100">{props.borma ? props.borma.rcv_village:0}</TableCell>
+                            <TableCell className="text-center bg-purple-100 font-semibold ">{successflag ? fsourcercv_village:'NA'}</TableCell>
+                            <TableCell className="text-center bg-green-100 ">{props.borma? props.borma.rcv_sorting:0}</TableCell>
+                            <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? fsourcercv_sorting:'NA'}</TableCell>
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ? props.borma.current_backlog :0 }</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{successflag ? fsourcebacklog:'NA'}</TableCell>
                         </TableRow>
                         <TableRow className="boiling-row-height-scoop">
                         <TableCell className="text-center ">2</TableCell>
                         <TableCell className="text-center font-semibold  flex">Target<CircleArrowLeft size={30} color="green"/></TableCell>
-                            <TableCell className="text-center font-semibold text-green-500 ">{destlot ? destlot :'NA'}</TableCell>
-                            <TableCell className="text-center font-semibold text-cyan-500">{destorigin ? destorigin :'NA'}</TableCell>
-                            <TableCell className="text-center  ">{datarcv.rcv_wholespeel}</TableCell>
-                            <TableCell className="text-center font-semibold ">{successflag ? destrcv_wholespeel:'NA'}</TableCell>
-                            <TableCell className="text-center  ">{datarcv.rcv_wholesunpeel}</TableCell>
-                            <TableCell className="text-center font-semibold ">{successflag ? destrcv_wholesunpeel:'NA'}</TableCell>
+                            <TableCell className="text-center font-semibold text-green-600 ">{destlot ? destlot :'NA'}</TableCell>
+                            <TableCell className="text-center font-semibold text-green-500">{destorigin ? destorigin :'NA'}</TableCell>
+                            <TableCell className="text-center  bg-cyan-100">{datarcv.rcv_wholespeel}</TableCell>
+                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_wholespeel:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-red-100 ">{datarcv.rcv_wholesunpeel}</TableCell>
+                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_wholesunpeel:'NA'}</TableCell>
                         
-                            <TableCell className="text-center  ">{datarcv.rcv_DPDS ?datarcv.rcv_DPDS :''}</TableCell>
-                            <TableCell className="text-center font-semibold ">{successflag ? destrcv_DPDS:'NA'}</TableCell>
-                            <TableCell className="text-center ">{datarcv.rcv_village ? datarcv.rcv_village:''}</TableCell>
-                            <TableCell className="text-center font-semibold ">{successflag ? destrcv_village:'NA'}</TableCell>
-                            <TableCell className="text-center  ">{datarcv.rcv_sorting ? datarcv.rcv_sorting:''}</TableCell>
-                            <TableCell className="text-center font-semibold ">{successflag ? destrcv_sorting:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_DPDS ?datarcv.rcv_DPDS :''}</TableCell>
+                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_DPDS:'NA'}</TableCell>
+                            <TableCell className="text-center bg-purple-100">{datarcv.rcv_village ? datarcv.rcv_village:''}</TableCell>
+                            <TableCell className="text-center bg-purple-100 font-semibold ">{successflag ? destrcv_village:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-green-100">{datarcv.rcv_sorting ? datarcv.rcv_sorting:''}</TableCell>
+                            <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? destrcv_sorting:'NA'}</TableCell>
                             <TableCell className="text-center font-semibold text-red-500">{datarcv.current_backlog ? datarcv.current_backlog : ''}</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{successflag ? destbacklog:'NA'}</TableCell>
 
