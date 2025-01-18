@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Origin, pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
 import Context from "../context/context";
 import axios from "axios";
-import {  pendingCheckRoles, PermissionRole, MayurData } from "@/type/type";
+import {  pendingCheckRoles, PermissionRole, MayurData, DPDSData } from "@/type/type";
 import { Input } from "../ui/input";
 import { FaSearch } from "react-icons/fa";
 import { Button } from "../ui/button";
@@ -56,6 +56,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 // import BormaModify from "./RCNBormaModify";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import RCNDPDSReMix from "./RCNDPDSMIx";
 // import RCNMayurReCreateForm from "./MayurReissueForm";
 // import RCNMayurEditForm from "./MayurEditForm";
 // import RCNMayurReMix from "./MayurMix";
@@ -71,9 +72,9 @@ const DPDSTable = () => {
     const currDate = new Date().toLocaleDateString();
     const [origin, setOrigin] = useState<string>("")
     const [blockpagen, setblockpagen] = useState('flex')
-    const [EditData, setEditData] = useState<MayurData[]>([])
+    const [EditData, setEditData] = useState<DPDSData[]>([])
     const [blConNo, setBlConNo] = useState<string>("")
-    const { editMayurLotWiseData } = useContext(Context);
+    const { editDPDSLotWiseData } = useContext(Context);
     const [Data, setData] = useState<any[]>([])
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
@@ -109,7 +110,7 @@ const DPDSTable = () => {
         })
     }, [page])
     const exportToExcel = async () => { 
-        const response = await axios.put('/api/mayur/mayurprimarysearch', {
+        const response = await axios.put('/api/dpds/dpdsprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
@@ -241,7 +242,7 @@ const DPDSTable = () => {
 
         setEditData([])
         setblockpagen('flex')
-        const response = await axios.put('/api/mayur/mayurprimarysearch', {
+        const response = await axios.put('/api/dpds/dpdsprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
@@ -264,13 +265,13 @@ const DPDSTable = () => {
 
     }
     useEffect(() => {
-        if (editMayurLotWiseData.length > 0) {
+        if (editDPDSLotWiseData.length > 0) {
             //console.log(editPendingData)
-            setEditData(editMayurLotWiseData)
+            setEditData(editDPDSLotWiseData)
             setblockpagen('none')
         }
 
-    },[editMayurLotWiseData])
+    },[editDPDSLotWiseData])
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
         const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -326,21 +327,21 @@ const DPDSTable = () => {
         // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
         return finalTime;
     }
-    const handleApprove = async (item: MayurData) => {
-        const response = await axios.put(`/api/mayur/approveeditMayur/${item.id}/${item.LotNo}/${item.origin}`)
+    const handleApprove = async (item: DPDSData) => {
+        const response = await axios.put(`/api/dpds/approveeditDPDS/${item.id}/${item.LotNo}/${item.origin}`)
         const data = await response.data
-        if (data.message === "Edit Request of Mayur Entry is Approved Successfully") {
+        if (data.message === "Edit Request of DPDS Entry is Approved Successfully") {
 
             if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).showModal();
             }
         }
     }
-    const handleRejection = async (item: MayurData) => {
-        const response = await axios.delete(`/api/mayur/rejectededitMayur/${item.id}`)
+    const handleRejection = async (item: DPDSData) => {
+        const response = await axios.delete(`/api/dpds/rejectededitDPDS/${item.id}`)
         const data = await response.data
         console.log(data)
-        if (data.message === "Mayur Entry rejected successfully") {
+        if (data.message === "DPDS Entry rejected successfully") {
             //console.log('rejected enter')
             if (rejectsuccessdialog != null) {
                 (rejectsuccessdialog as any).showModal();
@@ -358,418 +359,366 @@ const DPDSTable = () => {
     return (
         <>
 
-            <div className="ml-5 mt-5 ">
-                <div className="flex flexbox-search">
+        <div className="ml-5 mt-5 ">
+            <div className="flex flexbox-search">
 
-                    <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
 
-                    <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setOrigin(e.target.value)} value={origin}>
-  <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
-                        {Origin.map((data, index) => (
-                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                    onChange={(e) => setOrigin(e.target.value)} value={origin}>
+<option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+    py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
+                    {Origin.map((data, index) => (
+                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
 py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
-                                {data}
-                            </option>
-                        ))}
-                    </select>
+                            {data}
+                        </option>
+                    ))}
+                </select>
 
 
-                    <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
-                    <Input className="w-1/7 flexbox-search-width-calender"
-                        type="date"
-                        value={fromdate}
-                        onChange={(e) => setfromDate(e.target.value)}
-                        placeholder="From Date"
+                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
+                <Input className="w-1/7 flexbox-search-width-calender"
+                    type="date"
+                    value={fromdate}
+                    onChange={(e) => setfromDate(e.target.value)}
+                    placeholder="From Date"
 
-                    />
-                    <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                    <Input className="w-1/7 flexbox-search-width-calender"
-                        type="date"
-                        value={hidetodate}
-                        onChange={handleTodate}
-                        placeholder="To Date"
+                />
+                <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
+                <Input className="w-1/7 flexbox-search-width-calender"
+                    type="date"
+                    value={hidetodate}
+                    onChange={handleTodate}
+                    placeholder="To Date"
 
-                    />
+                />
 
-                   
-
-
-                    <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
-
-                </div>
-                {checkpending('Mayur') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
-                <Table className="mt-4">
-                    <TableHeader className="bg-neutral-100 text-stone-950 ">
-
-
-                        <TableHead className="text-center" >Id</TableHead>
-                        <TableHead className="text-center" >Issue_Type</TableHead>
-                        
-                        <TableHead className="text-center" >Item_Lot_No</TableHead>
-                        <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Issue_No</TableHead>
-                        <TableHead className="text-center" >Mayur_Entry_Date</TableHead>
-
-                        <TableHead className="text-center" >Mixed_Lot</TableHead>
-                        <TableHead className="text-center" >Mixed Amount</TableHead>
-                        <TableHead className="text-center">Opening Wholes_Peel</TableHead>
-                    <TableHead className="text-center">Opening Wholes_Unpeel</TableHead>
-                    <TableHead className="text-center">Receive Peeling</TableHead>
-                    <TableHead className="text-center">Receive DPDS</TableHead>
-                    <TableHead className="text-center">Receive Sorting</TableHead>
-                    <TableHead className="text-center">Receive Village</TableHead>
-                   
-                    <TableHead className="text-center">Issue PW_W</TableHead>
-                    <TableHead className="text-center">Issue W_Lot</TableHead>
-                    <TableHead className="text-center">Issue WW</TableHead>
-                    <TableHead className="text-center">Issue Rejection</TableHead>
-                    <TableHead className="text-center">Issue Village</TableHead>
-                    <TableHead className="text-center">Issue Big_Taiho</TableHead>
-                    <TableHead className="text-center">Issue LW</TableHead>
-                    <TableHead className="text-center">Issue JB</TableHead>
-                    <TableHead className="text-center">Entry_Backlog</TableHead>
-                    <TableHead className="text-center">Current_Backlog</TableHead>
-                    <TableHead className="text-center">Mc_On_133</TableHead>
-                    <TableHead className="text-center">Mc_Off_133</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 133</TableHead>
-                    <TableHead className="text-center">Other_Time 133</TableHead>
-                    <TableHead className="text-center">Mc_On_331</TableHead>
-                    <TableHead className="text-center">Mc_Off_331</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 331</TableHead>
-                    <TableHead className="text-center">Other_Time 331</TableHead>
-                    <TableHead className="text-center">Mc_On_292</TableHead>
-                    <TableHead className="text-center">Mc_Off_292</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 292</TableHead>
-                    <TableHead className="text-center">Other_Time 292</TableHead>
-                    <TableHead className="text-center">Mc_On_293</TableHead>
-                    <TableHead className="text-center">Mc_Off_293</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 293</TableHead>
-                    <TableHead className="text-center">Other_Time 293</TableHead>
-                    <TableHead className="text-center">Runtime_133</TableHead>
-                    <TableHead className="text-center">Runtime_331</TableHead>
-                    <TableHead className="text-center">Runtime_292</TableHead>
-                    <TableHead className="text-center">Runtime_293</TableHead>
                
-                    <TableHead className="text-center">Operator_Day</TableHead>
-                    <TableHead className="text-center">Operator_Night</TableHead>
-                   
-                        <TableHead className="text-center" >Edit Status </TableHead>
-                        <TableHead className="text-center" >Created By </TableHead>
-                        <TableHead className="text-center" >Action</TableHead>
-                    </TableHeader>
-                    <TableBody>
 
 
-                        {EditData.length > 0 ? (EditData.map((item: MayurData, idx) => {
+                <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
+
+            </div>
+            {checkpending('DPDS') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+            <Table className="mt-4">
+                <TableHeader className="bg-neutral-100 text-stone-950 ">
+
+
+                    <TableHead className="text-center" >Id</TableHead>
+                    <TableHead className="text-center" >Issue_Type</TableHead>
+                    
+                    <TableHead className="text-center" >Item_Lot_No</TableHead>
+                    <TableHead className="text-center" >Origin</TableHead>
+                    <TableHead className="text-center" >Issue_No</TableHead>
+                    <TableHead className="text-center" >DPDS_Entry_Date</TableHead>
+
+                    <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
+                    {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
+                    <TableHead className="text-center">Opening DP</TableHead>
+                <TableHead className="text-center">Opening DS</TableHead>
+                <TableHead className="text-center">Opening DP1</TableHead>
+                <TableHead className="text-center">Receive Peeling</TableHead>
+                <TableHead className="text-center">Receive Sorting</TableHead>
+                <TableHead className="text-center">Issue M_DS</TableHead>
+                <TableHead className="text-center">Issue M_DP</TableHead>
+                <TableHead className="text-center">Issue K_DP</TableHead>
+                <TableHead className="text-center">Issue DS_1</TableHead>
+                <TableHead className="text-center">Issue DS_2</TableHead>
+                <TableHead className="text-center">Issue SP_2</TableHead>
+                <TableHead className="text-center">Issue YJH</TableHead>
+                <TableHead className="text-center">Issue YK</TableHead>
+                <TableHead className="text-center">Issue KP</TableHead>
+                <TableHead className="text-center">Issue WP</TableHead>
+                <TableHead className="text-center">Issue RS</TableHead>
+                <TableHead className="text-center">Issue DP_2</TableHead>
+                <TableHead className="text-center">Issue DP_3</TableHead>
+                <TableHead className="text-center">Issue DP_4</TableHead>
+                <TableHead className="text-center">Issue DP_3L</TableHead>
+                <TableHead className="text-center">Issue SS</TableHead>
+                <TableHead className="text-center">Issue OS</TableHead>
+                <TableHead className="text-center">Issue OS1</TableHead>
+                <TableHead className="text-center">Issue Rejection</TableHead>
+                <TableHead className="text-center">Issue Village</TableHead>
+                <TableHead className="text-center">Issue Big_Taiho</TableHead>
+                <TableHead className="text-center">Issue Mayur</TableHead>
+                <TableHead className="text-center">Entry_Backlog</TableHead>
+                <TableHead className="text-center">Current_Backlog</TableHead>
+             
+           
+                <TableHead className="text-center">Operator_Day</TableHead>
+                <TableHead className="text-center">Operator_Night</TableHead>
+               
+                    <TableHead className="text-center" >Edit Status </TableHead>
+                    <TableHead className="text-center" >Created By </TableHead>
+                    <TableHead className="text-center" >Action</TableHead>
+                </TableHeader>
+                <TableBody>
+
+
+                    {EditData.length > 0 ? (EditData.map((item: DPDSData, idx) => {
+
+                        return (
+                            <TableRow key={item.id}>
+                            <TableCell className="text-center">{idx + 1}</TableCell>
+                            <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
+                                    
+                                    <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
+                                    <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
+                                    <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
+                                    <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                              
+                                    <TableCell className="text-center ">{item.mixingLot}</TableCell>
+                                    {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
+                                    <TableCell className="text-center ">{formatNumber(item.rcv_dp)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.rcv_ds)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.rcv_dp1)}</TableCell>
+                                    <TableCell className="text-center font-bold text-green-600">{Number(formatNumber(item.rcv_dp)) + Number(formatNumber(item.rcv_ds))+ Number(formatNumber(item.rcv_dp1))}</TableCell>
+                                    <TableCell  className="text-center font-bold text-green-600">{item.rcv_Sorting ? formatNumber(item.rcv_Sorting) :0}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_m_ds)}</TableCell>       
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_m_dp)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_k_dp)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ds_1)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ds_2)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_sp_2)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_yjh)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_yk)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_kp)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_wp)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_rs)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_dp_2)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_dp_3)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_dp_4)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_dp_3l)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ss)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_os)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_os1)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_rejection)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_village)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_bigTaiho)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_mayur)}</TableCell>
+                                   
+                                    <TableCell className="text-center font-bold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell>
+                                           
+                                    <TableCell className="text-center font-bold text-blue-600">{formatNumber(item.current_backlog)}kg</TableCell>
+                        <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
+                        <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
+                                    <TableCell className="text-center">{item.editStatus}</TableCell>
+                                    <TableCell className="text-center">{item.CreatedBy}</TableCell>
+
+                            <TableCell className="text-center">
+                                    <Popover>
+                                        <PopoverTrigger>
+                                            <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                            <AlertDialog>
+                                                <AlertDialogTrigger className="flex">
+                                                    <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                            <AlertDialog>
+                                                <AlertDialogTrigger className="flex mt-2">
+                                                    <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                        </PopoverContent>
+                                    </Popover>
+                                </TableCell>
+                            </TableRow>
+                        ) })): (
+
+                        Data.length > 0 ? (Data.map((item: DPDSData, idx) => {
+                         
+                          
+                  
 
                             return (
-                                <TableRow key={item.id}>
-                                <TableCell className="text-center">{idx + 1}</TableCell>
-                                <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
-                                
-                                <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
-                                        <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                        <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
-                                        <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                  
-                                        <TableCell className="text-center ">{item.mixingLot}</TableCell>
-                                        <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.rcv_wholespeel)}</TableCell>
-                                        <TableCell className="text-center  ">{formatNumber(item.rcv_wholesunpeel)}</TableCell>
-                                        <TableCell className="text-center font-bold text-green-600">{Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel))}</TableCell>
-                                      
-                                        <TableCell  className="text-center font-bold text-green-600">{item.rcv_DPDS ? formatNumber(item.rcv_DPDS) :0}</TableCell>
-                                        <TableCell className="text-center font-bold text-green-600">{item.rcv_sorting ?formatNumber(item.rcv_sorting):0}</TableCell>
-                                        <TableCell className="text-center font-bold text-green-600">{item.rcv_village ?formatNumber(item.rcv_village):0}</TableCell>
-                                      
+                                <TableRow key={item.id} className={`${item.altid==1 ? '' : 'bg-yellow-100 hover:bg-yellow-200'}`}>
+                                    <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                    <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
+                                    
+                                    <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
+                                    <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
+                                    <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
+                                    <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                              
+                                    <TableCell className="text-center ">{item.mixingLot}</TableCell>
+                                    {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
+                                    <TableCell className="text-center ">{formatNumber(item.rcv_dp)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.rcv_ds)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.rcv_dp1)}</TableCell>
+                                    <TableCell className="text-center font-bold text-green-600">{Number(formatNumber(item.rcv_dp)) + Number(formatNumber(item.rcv_ds))+ Number(formatNumber(item.rcv_dp1))}</TableCell>
+                                    <TableCell  className="text-center font-bold text-green-600">{item.rcv_Sorting ? formatNumber(item.rcv_Sorting) :0}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_m_ds)}</TableCell>       
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_m_dp)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_k_dp)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ds_1)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ds_2)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_sp_2)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_yjh)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_yk)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_kp)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_wp)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_rs)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_dp_2)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_dp_3)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_dp_4)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_dp_3l)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ss)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_os)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_os1)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_rejection)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_village)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_bigTaiho)}</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_mayur)}</TableCell>
+                                    <TableCell className="text-center font-bold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell>
+                                           
+                                           <TableCell className="text-center font-bold text-blue-600">{formatNumber(item.current_backlog)}kg</TableCell>
+                        <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
+                        <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
+                                    <TableCell className="text-center">{item.editStatus}</TableCell>
+                                    <TableCell className="text-center">{item.CreatedBy}</TableCell>
 
-                                        <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_w)}</TableCell>
-                                        
-                                        <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_lot)}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww)}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_rejection)}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_village)}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_bigTaiho)}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_LW)}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_JB)}</TableCell>
-                                 
-                                       
-                                        <TableCell className="text-center font-bold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell>
-                                               
-                                        <TableCell className="text-center font-bold text-blue-600">{formatNumber(item.current_backlog)}kg</TableCell>
-                                        
-                                        
-                                        <TableCell className="text-center">{handleAMPM(item.Mc_on_133.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{handleAMPM(item.Mc_off_133.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{item.Mc_breakdown_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center">{item.otherTime_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            
-                            
-                            <TableCell className="text-center">{handleAMPM(item.Mc_on_331.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{handleAMPM(item.Mc_off_331.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{item.Mc_breakdown_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center">{item.otherTime_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            
-                            
-                            <TableCell className="text-center">{handleAMPM(item.Mc_on_292.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{handleAMPM(item.Mc_off_292.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{item.Mc_breakdown_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center">{item.otherTime_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            
-                            <TableCell className="text-center">{handleAMPM(item.Mc_on_293.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{handleAMPM(item.Mc_off_293.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{item.Mc_breakdown_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center">{item.otherTime_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            
-                            
-                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_133.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
-                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_331.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
-                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_292.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
-                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_293.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
-
-                            <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
-                            <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
-                                        <TableCell className="text-center">{item.CreatedBy}</TableCell>
-
-                                <TableCell className="text-center">
+                                    <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
-                                                <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
                                             </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex">
-                                                        <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                                <AlertDialog>
-                                                    <AlertDialogTrigger className="flex mt-2">
-                                                        <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <AlertDialogHeader>
-                                                            <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                        </AlertDialogHeader>
-                                                        <AlertDialogFooter>
-                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                            <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
-                                                        </AlertDialogFooter>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
+                                            <PopoverContent className="flex flex-col text-sm w-30 font-medium">
+                                                <Dialog>
+                                                    <DialogTrigger className="flex"><CiEdit size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-7xl">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Modification</p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        {/* <RCNMayurEditForm borma={[item]} /> */}
+                                                    </DialogContent>
+                                                    
+                                                </Dialog>
+                                                <Dialog>
+                                                    <DialogTrigger className="flex"><CiBoxes size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-7xl">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Reissue</p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        {/* <RCNMayurReCreateForm borma={[item]} /> */}
+                                                    </DialogContent>
+                                                    
+                                                </Dialog>
+                                                <Dialog>
+                                                    <DialogTrigger className="flex"><CiCrop size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-4xl">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}
+                                                                <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        <RCNDPDSReMix borma={item} />
+                                                    </DialogContent>
+                                                    
+                                                </Dialog>
                                             </PopoverContent>
+                                            
                                         </Popover>
                                     </TableCell>
                                 </TableRow>
-                            ) })): (
+                            );
+                        })) : (<TableRow>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                        </TableRow>)
+                    )}
+                </TableBody>
 
-                            Data.length > 0 ? (Data.map((item: MayurData, idx) => {
-                             
-                              
-                      
+            </Table>
+            <Pagination style={{ display: blockpagen }} className="pt-5 ">
+                <PaginationContent>
+                    <PaginationItem>
+                        <PaginationPrevious onClick={() => setPage((prev) => {
+                            if (prev === 1) {
+                                return prev
+                            }
+                            if (prev <= 0) {
+                                return prev + 1
+                            }
+                            return prev - 1
+                        })} />
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationLink href="#">{page}</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationEllipsis />
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                    </PaginationItem>
+                </PaginationContent>
+            </Pagination>
+            <dialog id="rcneditapproveScsDialog" className="dashboard-modal">
+            <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
+            <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
+                <p id="modal-text" className="pl-3 mt-1 font-medium">Modification Request has Been Approved</p></span>
 
-                                return (
-                                    <TableRow key={item.id} className={`${item.altid==1 ? '' : 'bg-yellow-100 hover:bg-yellow-200'}`}>
-                                        <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                        <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
-                                        
-                                        <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
-                                        <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                        <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
-                                        <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                  
-                                        <TableCell className="text-center ">{item.mixingLot}</TableCell>
-                                        <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(item.rcv_wholespeel)}</TableCell>
-                                        <TableCell className="text-center  ">{formatNumber(item.rcv_wholesunpeel)}</TableCell>
-                                        <TableCell className="text-center font-bold text-green-600">{Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel))}</TableCell>
-                                      
-                                        <TableCell  className="text-center font-bold text-green-600">{item.rcv_DPDS ? formatNumber(item.rcv_DPDS) :0}</TableCell>
-                                        <TableCell className="text-center font-bold text-green-600">{item.rcv_sorting ?formatNumber(item.rcv_sorting):0}</TableCell>
-                                        <TableCell className="text-center font-bold text-green-600">{item.rcv_village ?formatNumber(item.rcv_village):0}</TableCell>
-                                      
+            {/* <!-- Add more elements as needed --> */}
+        </dialog>
 
-                                        <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_w)}</TableCell>
-                                        
-                                        <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_lot)}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww)}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_rejection)}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_village)}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_bigTaiho)}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_LW)}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_JB)}</TableCell>
-                                 
-                                       
-                                        <TableCell className="text-center font-bold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell>
-                                               
-                                        <TableCell className="text-center font-bold text-blue-600">{formatNumber(item.current_backlog)}kg</TableCell>
-                                        
-                                        
-                                        <TableCell className="text-center">{handleAMPM(item.Mc_on_133.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{handleAMPM(item.Mc_off_133.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{item.Mc_breakdown_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center">{item.otherTime_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            
-                            
-                            <TableCell className="text-center">{handleAMPM(item.Mc_on_331.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{handleAMPM(item.Mc_off_331.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{item.Mc_breakdown_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center">{item.otherTime_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            
-                            
-                            <TableCell className="text-center">{handleAMPM(item.Mc_on_292.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{handleAMPM(item.Mc_off_292.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{item.Mc_breakdown_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center">{item.otherTime_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            
-                            <TableCell className="text-center">{handleAMPM(item.Mc_on_293.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{handleAMPM(item.Mc_off_293.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{item.Mc_breakdown_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center">{item.otherTime_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            
-                            
-                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_133.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
-                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_331.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
-                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_292.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
-                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime_293.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
+        <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
+            <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
+            <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Modification Request has Been Reverted</p></span>
 
-                            <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
-                            <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
-                                        <TableCell className="text-center">{item.CreatedBy}</TableCell>
-
-                                        <TableCell className="text-center">
-                                            <Popover>
-                                                <PopoverTrigger>
-                                                    <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="flex flex-col text-sm w-30 font-medium">
-                                                    <Dialog>
-                                                        <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
-                                                        </DialogTrigger>
-                                                        <DialogContent className="max-w-7xl">
-                                                            <DialogHeader>
-                                                                <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Modification</p>
-                                                                </DialogTitle>
-                                                            </DialogHeader>
-                                                            {/* <RCNMayurEditForm borma={[item]} /> */}
-                                                        </DialogContent>
-                                                        
-                                                    </Dialog>
-                                                    <Dialog>
-                                                        <DialogTrigger className="flex"><CiBoxes size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
-                                                        </DialogTrigger>
-                                                        <DialogContent className="max-w-7xl">
-                                                            <DialogHeader>
-                                                                <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Reissue</p>
-                                                                </DialogTitle>
-                                                            </DialogHeader>
-                                                            {/* <RCNMayurReCreateForm borma={[item]} /> */}
-                                                        </DialogContent>
-                                                        
-                                                    </Dialog>
-                                                    <Dialog>
-                                                        <DialogTrigger className="flex"><CiCrop size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
-                                                        </DialogTrigger>
-                                                        <DialogContent className="max-w-4xl">
-                                                            <DialogHeader>
-                                                                <DialogTitle>
-                                                                    {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}
-                                                                    <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
-                                                                </DialogTitle>
-                                                            </DialogHeader>
-                                                            {/* <RCNMayurReMix borma={item} /> */}
-                                                        </DialogContent>
-                                                        
-                                                    </Dialog>
-                                                </PopoverContent>
-                                                
-                                            </Popover>
-                                        </TableCell>
-                                    </TableRow>
-                                );
-                            })) : (<TableRow>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                            </TableRow>)
-                        )}
-                    </TableBody>
-
-                </Table>
-                <Pagination style={{ display: blockpagen }} className="pt-5 ">
-                    <PaginationContent>
-                        <PaginationItem>
-                            <PaginationPrevious onClick={() => setPage((prev) => {
-                                if (prev === 1) {
-                                    return prev
-                                }
-                                if (prev <= 0) {
-                                    return prev + 1
-                                }
-                                return prev - 1
-                            })} />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink href="#">{page}</PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationEllipsis />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
-                        </PaginationItem>
-                    </PaginationContent>
-                </Pagination>
-                <dialog id="rcneditapproveScsDialog" className="dashboard-modal">
-                <button id="rcneditScscloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification Request has Been Approved</p></span>
-
-                {/* <!-- Add more elements as needed --> */}
-            </dialog>
-
-            <dialog id="rcneditapproveRejectDialog" className="dashboard-modal">
-                <button id="rcneditRejectcloseDialog" className="dashboard-modal-close-btn ">X </button>
-                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
-                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">Modification Request has Been Reverted</p></span>
-
-                {/* <!-- Add more elements as needed --> */}
-            </dialog>
-            </div>
+            {/* <!-- Add more elements as needed --> */}
+        </dialog>
+        </div>
 
 
-        </>
+    </>
     )
 
 

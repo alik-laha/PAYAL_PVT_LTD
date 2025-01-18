@@ -127,7 +127,7 @@ const DPDS = () => {
                         Village <br /><p>{data.data[0].issue_village ? formatNumber(parseFloat(data.data[0].issue_village))  : 0}  Kg</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                        Mayur <br /><p>{data.data[0].issue_LW ? formatNumber(parseFloat(data.data[0].issue_mayur))  : 0}  Kg</p>
+                        Mayur <br /><p>{data.data[0].issue_mayur ? formatNumber(parseFloat(data.data[0].issue_mayur))  : 0}  Kg</p>
                     </div>
                     
                     <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">

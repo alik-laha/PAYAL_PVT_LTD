@@ -11,6 +11,7 @@ import lotoriginmodel from "../../model/lotoriginModel";
 import DPDS from "../../model/dpdsmodel";
 import DPDSEdit from "../../model/dpdsEditModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
+import mixingModel from "../../model/mixingModel";
 
 // //DPDS.tsx
 export const findEditDPDSAll = async (req: Request, res: Response) => {
@@ -174,14 +175,14 @@ export const CreateEntireDPDS= async (req: Request, res: Response) => {
         for (let data of linehumid) 
         {
             
-         
+             
             if((parseFloat(data.rcv_dp)+parseFloat(data.rcv_ds)+parseFloat(data.rcv_dp1)+(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)
            )< (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
            +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
            parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
            + parseFloat(data.issue_wp)+parseFloat(data.issue_rs)+parseFloat(data.issue_dp_2)
            +parseFloat(data.issue_dp_3)+parseFloat(data.issue_dp_4)+parseFloat(data.issue_dp_3l)
-           +parseFloat(data.issue_ss_1)+parseFloat(data.issue_os)+parseFloat(data.issue_os1)
+           +parseFloat(data.issue_ss)+parseFloat(data.issue_os)+parseFloat(data.issue_os1)
            +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
                +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
@@ -194,7 +195,7 @@ export const CreateEntireDPDS= async (req: Request, res: Response) => {
                 parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
                 + parseFloat(data.issue_wp)+parseFloat(data.issue_rs)+parseFloat(data.issue_dp_2)
                 +parseFloat(data.issue_dp_3)+parseFloat(data.issue_dp_4)+parseFloat(data.issue_dp_3l)
-                +parseFloat(data.issue_ss_1)+parseFloat(data.issue_os)+parseFloat(data.issue_os1)
+                +parseFloat(data.issue_ss)+parseFloat(data.issue_os)+parseFloat(data.issue_os1)
                 +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
                     +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                     +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
@@ -400,252 +401,9 @@ export const CreateEntireDPDS= async (req: Request, res: Response) => {
 
 
 }
-export const CreateReissueMayur= async (req: Request, res: Response) => {
-    const timeToMilliseconds = (time: string) => {
-        const [hours, minutes] = time.split(':').map(Number);
-        return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
-    };
-    // Helper function to convert milliseconds to "HH:MM"
-    const millisecondsToTime = (milliseconds: number) => {
-        const totalMinutes = Math.floor(milliseconds / 60000);
-        const hours = Math.floor(totalMinutes / 60);
-        const minutes = totalMinutes % 60;
-        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-    };
 
-    const CalculatemachineOnOffTime = (time1: string, time2: string) => {
-        const time1InMilliseconds = timeToMilliseconds(time1) - timeToMilliseconds(time2);
-        if (time1InMilliseconds < 0) {
-            return timeToMilliseconds(time1) - timeToMilliseconds(time2) + 24 * 60 * 60 * 1000;
-        }
-        return time1InMilliseconds;
-    }
-
-    try{
-    const feeledBy = req.cookies.user;
-    const linehumid = req.body.linehumid
-    const LotNO = req.body.LotNo
-
-    await sequelize.transaction(async (transaction: any) => {
-
-        for (let data of linehumid) 
-        {
-            if (data.otherTime_133 === undefined || data.otherTime_133 === null) {
-                data.otherTime_133 = '00:00'
-            }
-            if (data.Mc_breakdown_133 === undefined || data.Mc_breakdown_133 === null) {
-                data.Mc_breakdown_133 = '00:00'
-            }
-            if (data.otherTime_331 === undefined || data.otherTime_331 === null) {
-                data.otherTime_331 = '00:00'
-            }
-            if (data.Mc_breakdown_331 === undefined || data.Mc_breakdown_331 === null) {
-                data.Mc_breakdown_331 = '00:00'
-            }
-            if (data.otherTime_292 === undefined || data.otherTime_292 === null) {
-                data.otherTime_292 = '00:00'
-            }
-            if (data.Mc_breakdown_292 === undefined || data.Mc_breakdown_292 === null) {
-                data.Mc_breakdown_292 = '00:00'
-            }
-            if (data.otherTime_293 === undefined || data.otherTime_293 === null) {
-                data.otherTime_293 = '00:00'
-            }
-            if (data.Mc_breakdown_293 === undefined || data.Mc_breakdown_293 === null) {
-                data.Mc_breakdown_293 = '00:00'
-            }
-            const runtime1 = CalculatemachineOnOffTime(data.Mc_off_133, data.Mc_on_133) -
-                (timeToMilliseconds(data.Mc_breakdown_133) + timeToMilliseconds(data.otherTime_133))
-                const runtime2 = CalculatemachineOnOffTime(data.Mc_off_331, data.Mc_on_331) -
-                (timeToMilliseconds(data.Mc_breakdown_331) + timeToMilliseconds(data.otherTime_331))
-                const runtime3 = CalculatemachineOnOffTime(data.Mc_off_292, data.Mc_on_292) -
-                (timeToMilliseconds(data.Mc_breakdown_292) + timeToMilliseconds(data.otherTime_292))
-                const runtime4 = CalculatemachineOnOffTime(data.Mc_off_293, data.Mc_on_293) -
-                (timeToMilliseconds(data.Mc_breakdown_293) + timeToMilliseconds(data.otherTime_293))
-            if (runtime1 < 0) {
-                res.status(500).json({ message: "Machine 133 Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
-            }
-            if (runtime2 < 0) {
-                res.status(500).json({ message: "Machine 331 Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
-            }
-            if (runtime3 < 0) {
-                res.status(500).json({ message: "Machine 292 Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
-            }
-            if (runtime4 < 0) {
-                res.status(500).json({ message: "Machine 293 Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
-            }
-            const Mc_runTime1 = millisecondsToTime(runtime1);
-            const Mc_runTime2 = millisecondsToTime(runtime2);
-            const Mc_runTime3 = millisecondsToTime(runtime3);
-            const Mc_runTime4 = millisecondsToTime(runtime4);
-            //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
-         
-            if(parseFloat(data.rcv_peeling)< (parseFloat(data.issue_pw_w)
-                +parseFloat(data.issue_w_lot)
-                +parseFloat(data.issue_ww)
-                +parseFloat(data.issue_rejection)
-                +parseFloat(data.issue_village)
-                +parseFloat(data.issue_bigTaiho)
-                +parseFloat(data.issue_LW)
-                +parseFloat(data.issue_JB)
-               ))
-               {
-                console.log(parseFloat(data.issue_pw_w)
-                +parseFloat(data.issue_w_lot)
-                +parseFloat(data.issue_ww)
-                +parseFloat(data.issue_rejection)
-                +parseFloat(data.issue_village)
-                +parseFloat(data.issue_bigTaiho)
-                +parseFloat(data.issue_LW)
-                +parseFloat(data.issue_JB))
-                res.status(500).json({ message: "Backlog can't be Greater Than Input" });
-                throw new Error('Transaction Aborted due to negative value')
-
-            }
-            const mayurupdate=await Mayur.update(
-                {
-                    latest:0
-                    
-                },{
-                    where: {
-                        id: data.id
-                    }, transaction
-                }
-                   
-                
-            );
-            if(mayurupdate)
-            {
-                const reissuecreate=await Mayur.create(
-                    {     
-                        date:data.Date,
-                        altid:parseInt(data.alt_id)+1,
-                        LotNo:data.LotNo,
-                        origin:data.origin,
-                        mixingLot:data.mixingLot,
-                        rcv_wholespeel:data.rcv_wholespeel,
-                        rcv_wholesunpeel:data.rcv_wholesunpeel,
-                        rcv_DPDS:data.rcv_DPDS,
-                        rcv_sorting:data.rcv_sorting,
-                        rcv_village:data.rcv_village,
-                        rcv_transfer:data.rcv_transfer,
-                        Mc_on_133: data.Mc_on_133,
-                        Mc_off_133: data.Mc_off_133,
-                        Mc_breakdown_133: data.Mc_breakdown_133,
-                        Mc_runTime_133: Mc_runTime1,
-                        Mc_on_331: data.Mc_on_331,
-                        Mc_off_331: data.Mc_off_331,
-                        Mc_breakdown_331: data.Mc_breakdown_331,
-                        Mc_runTime_331: Mc_runTime2,
-                        Mc_on_292: data.Mc_on_292,
-                        Mc_off_292: data.Mc_off_292,
-                        Mc_breakdown_292: data.Mc_breakdown_292,
-                        Mc_runTime_292: Mc_runTime3,
-                        Mc_on_293: data.Mc_on_293,
-                        Mc_off_293: data.Mc_off_293,
-                        Mc_breakdown_293: data.Mc_breakdown_293,
-                        Mc_runTime_293: Mc_runTime4,
-                        otherTime_133: data.otherTime_133,
-                        otherTime_331: data.otherTime_331,
-                        otherTime_292: data.otherTime_292,
-                        otherTime_293: data.otherTime_293,
-                        noOfdayOperators:data.dayoperator,
-                        noOfnightOperators:data.nightoperator,
-                        
-                        issue_pw_w: data.issue_pw_w,
-                        issue_w_lot:data.issue_w_lot,
-                        issue_ww: data.issue_ww,
-                        issue_rejection: data.issue_rejection,
-                        issue_village: data.issue_village,
-                        issue_bigTaiho: data.issue_bigTaiho,
-                        issue_LW: data.issue_LW,
-                        issue_JB: data.issue_JB,
-                      
-                        entry_backlog:parseFloat(data.rcv_peeling)- (parseFloat(data.issue_pw_w)
-                        +parseFloat(data.issue_w_lot)
-                        +parseFloat(data.issue_ww)
-                        +parseFloat(data.issue_rejection)
-                        +parseFloat(data.issue_village)
-                        +parseFloat(data.issue_bigTaiho)
-                        +parseFloat(data.issue_LW)
-                        +parseFloat(data.issue_JB)
-                       ),
-                       current_backlog:parseFloat(data.rcv_peeling)- (parseFloat(data.issue_pw_w)
-                       +parseFloat(data.issue_w_lot)
-                       +parseFloat(data.issue_ww)
-                       +parseFloat(data.issue_rejection)
-                       +parseFloat(data.issue_village)
-                       +parseFloat(data.issue_bigTaiho)
-                       +parseFloat(data.issue_LW)
-                       +parseFloat(data.issue_JB)
-                      ),
-                        Status: 1,
-                        CreatedBy: feeledBy 
-                    },
-                    {
-                        transaction
-                    }
-                );
-                if(reissuecreate){
-                    const lotupdate = await LotNo.update(
-                        { 
-                          modifiedBy:'Mayur'
-                        },
-                        {
-                            where: {
-                                lotNo:LotNO
-                            },transaction
-                        }
-                    );
-                    if(lotupdate){
-                        res.status(200).json({ message: "Mayur Re Issue Entry Made Successfully" });
-                    }
-                    else{
-                        console.log('No Need For Update')
-                    }
-                }
-                else{
-                    return res.status(500).json({ message: "Error while creating Mayur Re Issue Entry"});
-                }
-            }
-            
-            
-            //  if(humidUpdate){
-                
-            //     await Mayur.create({
-            //         id:data.id,
-            //         LotNo:data.LotNo,
-            //         origin:data.origin,
-            //         TotalInput: data.TotalOutput,
-            //         rcv_wholespeel: data.WholesPeel,
-            //         rcv_wholesunpeel: data.WholesUnpeel,
-            //         current_backlog:parseFloat(data.WholesPeel)+parseFloat(data.WholesUnpeel),
-            //      },{transaction});
-            //  }
-           
-        }
-       
-        
-
-
-    })
-    }
-    catch(error) {
-        if(!res.headersSent){
-            console.log(error)
-            return res.status(500).json({ message: "Error while creating Mayur Entry" ,error});
-        }
-    }
-    
-
-
-}
-
-export const SearchRCNMayur = async (req: Request, res: Response) => {
+// //DPDSTable.tsx
+export const SearchRCNDPDS = async (req: Request, res: Response) => {
     try {
         const { searchitem,fromDate, toDate, origin} = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
@@ -687,14 +445,14 @@ export const SearchRCNMayur = async (req: Request, res: Response) => {
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let rcnEntries
         if(limit===0 && offset===0){
-             rcnEntries = await Mayur.findAll({
+             rcnEntries = await DPDS.findAll({
                 where,
                 order: [['LotNo','DESC'],['origin','ASC'],['altid', 'ASC']], // Order by date descending
                 
             });
         }
         else{
-             rcnEntries = await Mayur.findAll({
+             rcnEntries = await DPDS.findAll({
                 where,
                 order: [['LotNo','DESC'],['origin','ASC'],['altid', 'ASC']], // Order by date descending
                 limit: limit,
@@ -702,7 +460,7 @@ export const SearchRCNMayur = async (req: Request, res: Response) => {
             });
         }
        
-        return res.status(200).json({ message: 'Mayur Entry found', rcnEntries })
+        return res.status(200).json({ message: 'DPDS Entry found', rcnEntries })
     }
     catch (err) {
         console.log(err)
@@ -1095,8 +853,8 @@ export const EditRejectMayur = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Internal Server Error", error: err });
     }
 }
-
-export const SearchRCNMayurMix = async (req: Request, res: Response) => {
+// //RCNDPDSMix.tsx
+export const SearchRCNDPDSMix = async (req: Request, res: Response) => {
     try {
         const { lotNo, origin} = req.body;
        
@@ -1126,8 +884,8 @@ export const SearchRCNMayurMix = async (req: Request, res: Response) => {
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let rcnEntries
         
-             rcnEntries = await Mayur.findOne({
-                attributes: ['rcv_transfer','current_backlog','rcv_wholespeel','rcv_wholesunpeel','rcv_DPDS','rcv_sorting','rcv_village'],
+             rcnEntries = await DPDS.findOne({
+                attributes: ['id','rcv_transfer','current_backlog','rcv_dp','rcv_dp1','rcv_ds','rcv_Sorting','editStatus'],
                 where
                 
                 
@@ -1143,6 +901,179 @@ export const SearchRCNMayurMix = async (req: Request, res: Response) => {
     }
  
 }
+
+export const CreateMixDPDS = async (req: Request, res: Response) => {
+
+    try{
+        console.log(req.body)
+        const createdBy = req.cookies.user;
+        const sourceid= req.body.fsourceid;
+        const sourcelot= req.body.fsourcelot;
+        const sourceorigin= req.body.fsourceorigin;
+        const source_rcv_dp= req.body.fsourcercv_dp;
+        const source_rcv_ds= req.body.fsourcercv_ds;
+        const source_rcv_dp1= req.body.fsourcercv_dp1;
+      
+        const source_sorting= req.body.fsourcercv_sorting;
+        const source_backlog= req.body.fsourcebacklog;
+
+        const transfer_amount =req.body.amount
+
+        const destid= req.body.destid;
+        const destlot= req.body.destlot;
+        const destorigin= req.body.destorigin;
+        const dest_rcv_dp= req.body.destrcv_dp;
+        const dest_rcv_ds= req.body.destrcv_ds;
+        const dest_rcv_dp1= req.body.destrcv_dp1;
+     
+        const dest_sorting= req.body.destrcv_sorting;
+        const dest_backlog= req.body.destbacklog;
+
+        const b_soucre_backlog= req.body.bsourcebacklog;
+        const b_dest_backlog= req.body.bdestbacklog;
+
+
+        await sequelize.transaction(async (transaction: any) => {
+
+            const sourceupdate=await DPDS.update(
+                { 
+                    rcv_dp: source_rcv_dp,
+                    rcv_ds: source_rcv_ds,
+                    rcv_dp1: source_rcv_dp1,
+                  
+                    rcv_Sorting:source_sorting,
+                  
+                    current_backlog:source_backlog,                   
+                },
+                {
+                    where: {
+                        id:sourceid
+                    }, transaction
+                }
+            );
+            const destdata=await DPDS.findOne({
+                attributes: ['mixingLot'],
+                where: {
+                    id:destid
+        
+                },
+        
+            });
+            if (destdata && destdata.dataValues.mixingLot){
+                const destupdate=await DPDS.update(
+                    { 
+                        rcv_dp: dest_rcv_dp,
+                        rcv_ds: dest_rcv_ds,
+                        rcv_dp1: dest_rcv_dp1,
+                        
+                        rcv_Sorting:dest_sorting,
+                        
+                        current_backlog:dest_backlog, 
+                        mixingLot:sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`)                  
+                    },
+                    {
+                        where: {
+                            id:destid
+                        }, transaction
+                    }
+                );
+                if(sourceupdate && destupdate){
+                    const mixcreate=await mixingModel.create(
+                        {     
+                            FromLotNo:sourcelot,
+                            Fromorigin:sourceorigin,
+                            ToLotNo:destlot,
+                            Toorigin:destorigin,
+                            amount:transfer_amount,
+                            date:new Date(),
+                            Section:'DPDS',
+                            amountBeforeBacklog:b_soucre_backlog,
+                            amountAfterBacklog:source_backlog,
+                            destamountBeforeBacklog: b_dest_backlog,
+                            destamountAfterBacklog: dest_backlog,
+                            createdBy: createdBy,
+                        },
+                        {
+                            transaction
+                        }
+                    );
+                    if(mixcreate){
+                        return res.status(200).json({ message: "Mixing Performed Successfully" });
+
+                    }
+                    else{
+                        return res.status(500).json({ message: "Internal Server Error"});
+                    }
+                }
+                else{
+                    return res.status(500).json({ message: "Internal Server Error"});
+                }
+            }
+            else{
+                const destupdate=await DPDS.update(
+                    { 
+                        rcv_dp: dest_rcv_dp,
+                        rcv_ds: dest_rcv_ds,
+                        rcv_dp1:dest_rcv_dp1,
+                        rcv_Sorting:dest_sorting,
+                  
+                        current_backlog:dest_backlog, 
+                        mixingLot:`${sourcelot}(${sourceorigin})`             
+                    },
+                    {
+                        where: {
+                            id:destid
+                        }, transaction
+                    }
+                );
+                if(sourceupdate && destupdate){
+                    const mixcreate=await mixingModel.create(
+                        {     
+                            FromLotNo:sourcelot,
+                            Fromorigin:sourceorigin,
+                            ToLotNo:destlot,
+                            Toorigin:destorigin,
+                            amount:transfer_amount,
+                            date:new Date(),
+                            Section:'DPDS',
+                            amountBeforeBacklog:b_soucre_backlog,
+                            amountAfterBacklog:source_backlog,
+                            destamountBeforeBacklog: b_dest_backlog,
+                            destamountAfterBacklog: dest_backlog,
+                            createdBy: createdBy,
+                        },
+                        {
+                            transaction
+                        }
+                    );
+                    if(mixcreate){
+                        return res.status(200).json({ message: "Mixing Performed Successfully" });
+
+                    }
+                    else{
+                        return res.status(500).json({ message: "Internal Server Error"});
+                    }
+                }
+                else{
+                    return res.status(500).json({ message: "Internal Server Error"});
+                }
+            }
+
+           
+
+        })
+
+
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
+}
+
+
+
 
 
 
