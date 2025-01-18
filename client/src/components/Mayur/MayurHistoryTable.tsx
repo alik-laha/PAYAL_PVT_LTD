@@ -153,6 +153,7 @@ const MayurHistoryTable = () => {
                             LotNo: item.LotNo,
                             date: handletimezone(item.date),
                             origin: item.origin,
+                            Issue_No:item.issueid,
                             Incoming_Section: item.fromSection,
                             Incoming_Amount: formatNumber(item.amount),
                             Previous_Backlog_Amount: formatNumber(item.toSectionBeforeBacklog),
@@ -282,6 +283,7 @@ const MayurHistoryTable = () => {
                         <TableHead className="text-center" >Lot No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Date Of Transfer</TableHead>
+                        <TableHead className="text-center" >Issue No</TableHead>
                         <TableHead className="text-center" >Section</TableHead>
                         <TableHead className="text-center" >Transfer Amount</TableHead>
                        
@@ -301,6 +303,7 @@ const MayurHistoryTable = () => {
                                      
                                      <TableCell className="text-center font-semibold ">{item.origin}</TableCell>
                                      <TableCell className="text-center ">{handletimezone(item.date)}</TableCell>
+                                     <TableCell className="text-center  ">{item.issueid}</TableCell>
                                      <TableCell className="text-center  ">{item.fromSection}</TableCell>
                                      <TableCell className="text-center ">{formatNumber(item.amount)}</TableCell>
                                      

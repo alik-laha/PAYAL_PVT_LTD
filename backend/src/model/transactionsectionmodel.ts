@@ -10,7 +10,7 @@ const sectionTransfer = sequelize.define('sectionTransfer', {
     },
     issueid: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: false
     },
 
     LotNo:{
