@@ -106,7 +106,6 @@ const RCNMayurCreateForm = (props:Props) => {
         const initialform = props.borma.map((item: MayurData) => ({
             id: item.id,
             LotNo: item.LotNo,
-            
             origin: item.origin,
             mixing_lot: item.mixingLot,
             rcv_wholespeel: item.rcv_wholespeel,
@@ -123,7 +122,6 @@ const RCNMayurCreateForm = (props:Props) => {
             issue_bigTaiho: 0,
             issue_LW: 0,
             issue_JB: 0,
-      
             Mc_on_133: '00:00',
             Mc_off_133: '00:00',
             Mc_breakdown_133: '00:00',

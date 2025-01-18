@@ -3,11 +3,11 @@ import jwtVerify from "../middleWare/JwtAuthantication";
 
 
 
-import { approveMayur, CreateReissueMayur, EditRejectMayur, 
+import { approveMayur, 
      SearchHistory, 
-     SearchMixHistory, 
-     updateEntireMayur } from "../controller/mayurController/mayurapi";
-import { CreateEntireDPDS, CreateMixDPDS, CreateReissueDPDS, findEditDPDSAll, getDPDSBylotorigin, getDPDSLot, SearchRCNDPDS, SearchRCNDPDSMix, sumOfallDPDS } from "../controller/dpdsController/dpdsApi";
+     SearchMixHistory
+      } from "../controller/mayurController/mayurapi";
+import { CreateEntireDPDS, CreateMixDPDS, CreateReissueDPDS, EditRejectDPDS, findEditDPDSAll, getDPDSBylotorigin, getDPDSLot, SearchRCNDPDS, SearchRCNDPDSMix, sumOfallDPDS, updateEntireDPDS } from "../controller/dpdsController/dpdsApi";
 const router = express()
 
 // //DPDS.tsx
@@ -26,8 +26,8 @@ router.post("/createReissueDPDS", jwtVerify, CreateReissueDPDS)
 
 // //DPDStable.tsx
 router.put('/dpdsprimarysearch', jwtVerify, SearchRCNDPDS);
-router.post("/updateMayur",jwtVerify, updateEntireMayur)
-router.delete('/rejectededitMayur/:id', jwtVerify, EditRejectMayur);
+router.post("/updateDPDS",jwtVerify, updateEntireDPDS)
+router.delete('/rejectededitDPDS/:id/:LotNo/:origin', jwtVerify, EditRejectDPDS);
 router.put("/approveeditMayur/:id/:LotNo/:origin", jwtVerify, approveMayur);
 
 // //DPDSMix.tsx

@@ -1066,6 +1066,8 @@ export const EditRejectMayur = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
          const rejectedBy = req.cookies.user;
+         const LotNo = req.params.LotNo;
+         const origin = req.params.origin;
 
 
         if (!id || !rejectedBy) {
@@ -1082,6 +1084,18 @@ export const EditRejectMayur = async (req: Request, res: Response) => {
         if (!rcn) {
             return res.status(400).json({ message: "Mayur Entry not found" });
         }
+        await lotoriginmodel.update(
+            { 
+                editStatus:'NA',
+             
+            },
+            {
+                where: {
+                    lotNo:LotNo,
+                    origin:origin
+                }
+            }
+        );
         const rcnEdit = await MayurEdit.destroy({
             where: {
                 id

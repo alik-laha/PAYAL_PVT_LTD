@@ -57,6 +57,7 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import RCNDPDSReMix from "./RCNDPDSMIx";
 import RCNDPDSReCreateForm from "./DPDSRecreate";
+import DPDSEditForm from "./DPDSEditForm";
 
 
 const DPDSTable = () => {
@@ -334,7 +335,7 @@ const DPDSTable = () => {
         }
     }
     const handleRejection = async (item: DPDSData) => {
-        const response = await axios.delete(`/api/dpds/rejectededitDPDS/${item.id}`)
+        const response = await axios.delete(`/api/dpds/rejectededitDPDS/${item.id}/${item.LotNo}/${item.origin}`)
         const data = await response.data
         console.log(data)
         if (data.message === "DPDS Entry rejected successfully") {
@@ -608,10 +609,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-7xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Modification</p>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>DPDS Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <RCNMayurEditForm borma={[item]} /> */}
+                                                        <DPDSEditForm borma={[item]} />
                                                     </DialogContent>
                                                     
                                                 </Dialog>

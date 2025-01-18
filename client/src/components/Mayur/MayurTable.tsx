@@ -337,7 +337,7 @@ const MayurTable = () => {
         }
     }
     const handleRejection = async (item: MayurData) => {
-        const response = await axios.delete(`/api/mayur/rejectededitMayur/${item.id}`)
+        const response = await axios.delete(`/api/mayur/rejectededitMayur/${item.id}/${item.LotNo}/${item.origin}`)
         const data = await response.data
         console.log(data)
         if (data.message === "Mayur Entry rejected successfully") {

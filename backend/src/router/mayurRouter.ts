@@ -17,7 +17,7 @@ router.post("/createReissueMayur", jwtVerify, CreateReissueMayur)
 router.put('/mayurprimarysearch', jwtVerify, SearchRCNMayur);
 router.post("/updateMayur",jwtVerify, updateEntireMayur)
 // //Edit Reject Rcn Entry by Id
-router.delete('/rejectededitMayur/:id', jwtVerify, EditRejectMayur);
+router.delete('/rejectededitMayur/:id/:LotNo/:origin', jwtVerify, EditRejectMayur);
 //Edit Approve Rcn Entry by Id
 router.put("/approveeditMayur/:id/:LotNo/:origin", jwtVerify, approveMayur);
 

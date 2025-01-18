@@ -21,8 +21,8 @@ interface mayurRowData{
     LotNo: string;
     alt_id:number;
     origin: string;
-
     mixingLot:string|null;
+
     rcv_wholespeel: string;
     rcv_wholesunpeel: string;
     rcv_sorting:string|null;
@@ -119,6 +119,7 @@ const RCNMayurEditForm = (props:Props) => {
             alt_id:props.borma[0].altid,
             origin: props.borma[0].origin,
             mixingLot: props.borma[0].mixingLot,
+            
             rcv_sorting:props.borma[0].rcv_sorting,
             rcv_DPDS:props.borma[0].rcv_DPDS,
             rcv_village:props.borma[0].rcv_village,
