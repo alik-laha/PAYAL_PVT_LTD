@@ -174,7 +174,7 @@ const RCNMayurReCreateForm = (props:Props) => {
         if((Number(rows[0].rcv_peeling)
          !== (Number(rows[0].rcv_wholespeel) + Number(rows[0].rcv_wholesunpeel)+(rows[0].rcv_DPDS ? Number(rows[0].rcv_DPDS) : 0) +
         (rows[0].rcv_village ? Number(rows[0].rcv_village):0)+(rows[0].rcv_sorting ? Number(rows[0].rcv_sorting):0)))){
-            setErrortext('Total Current Receiving Value should be equal to Peeling Opening Balance')
+            setErrortext('Total Receiving Balance should be equal to Opening Balance')
            
             const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
             dialogerror.showModal()

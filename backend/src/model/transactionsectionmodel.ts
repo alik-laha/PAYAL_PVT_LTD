@@ -8,6 +8,11 @@ const sectionTransfer = sequelize.define('sectionTransfer', {
         primaryKey: true,
         autoIncrement:true
     },
+    issueid: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
+
     LotNo:{
         type: DataTypes.STRING,
         allowNull: false

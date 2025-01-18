@@ -960,7 +960,7 @@ export const approveMayur = async (req: Request, res: Response) => {
             }
         }) as any;
         if (!data) {
-            return res.status(400).json({ message: "Peeling Entry not found" });
+            return res.status(400).json({ message: "Mayur Edit Entry not found" });
         }
         const bormaEdit = await Mayur.update({
             date:data.date,

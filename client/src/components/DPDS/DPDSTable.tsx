@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Origin, pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
 import Context from "../context/context";
 import axios from "axios";
-import {  pendingCheckRoles, PermissionRole, MayurData, DPDSData } from "@/type/type";
+import {  pendingCheckRoles, PermissionRole, DPDSData } from "@/type/type";
 import { Input } from "../ui/input";
 import { FaSearch } from "react-icons/fa";
 import { Button } from "../ui/button";
@@ -118,51 +118,50 @@ const DPDSTable = () => {
         let ws
         let transformed: any[] = [];
         if (EditData.length > 0) {
-            transformed = EditData.map((item: MayurData, idx: number) => ({
+            transformed = EditData.map((item: DPDSData, idx: number) => ({
             Sl_No: idx + 1, 
             Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
             Item_Lot_No: item.LotNo,
             Origin: item.origin,
             Issue_No: item.altid,
-            Mayur_Entry_Date: handletimezone(item.date),
+            DPDS_Entry_Date: handletimezone(item.date),
             Mixing_Lot: item.mixingLot,
-            Opening_Wholes_Peel: formatNumber(item.rcv_wholespeel),
-            Opening_Wholes_Unpeel: formatNumber(item.rcv_wholesunpeel),
-            Receive_Peeling: Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel)),
-            Receive_DPDS: item.rcv_DPDS ? formatNumber(item.rcv_DPDS) : 0,
-            Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
-            Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-            Receive_Mixing: item.rcv_transfer ? formatNumber(item.rcv_transfer) : 0,
-            Issue_PW_W: formatNumber(item.issue_pw_w),
-            Issue_W_Lot: formatNumber(item.issue_w_lot),
-            Issue_WW: formatNumber(item.issue_ww),
+            Opening_DP: formatNumber(item.rcv_dp),
+            Opening_DS: formatNumber(item.rcv_ds),
+            Opening_DP1: formatNumber(item.rcv_dp1),
+            Receive_Peeling: Number(formatNumber(item.rcv_dp)) + Number(formatNumber(item.rcv_ds))+ Number(formatNumber(item.rcv_dp1)),
+           
+            Receive_Sorting: item.rcv_Sorting ? formatNumber(item.rcv_Sorting) : 0,
+            
+            Issue_M_DS: formatNumber(item.issue_m_ds),
+            Issue_M_DP: formatNumber(item.issue_m_dp),
+            Issue_K_DP: formatNumber(item.issue_k_dp),
+            Issue_DS1: formatNumber(item.issue_ds_1),
+            Issue_DS2: formatNumber(item.issue_ds_2),
+            Issue_SP2: formatNumber(item.issue_sp_2),
+            Issue_YJH: formatNumber(item.issue_yjh),
+            Issue_YK: formatNumber(item.issue_yk),
+            Issue_KP: formatNumber(item.issue_kp),
+            Issue_WP: formatNumber(item.issue_wp),
+            Issue_RS: formatNumber(item.issue_rs),
+           
+            Issue_DP2: formatNumber(item.issue_dp_2),
+            Issue_DP3: formatNumber(item.issue_dp_3),
+            Issue_DP4: formatNumber(item.issue_dp_4),
+            Issue_3L: formatNumber(item.issue_dp_3l),
+           
+            Issue_SS: formatNumber(item.issue_ss),
+            Issue_OS: formatNumber(item.issue_os),
+            Issue_OS1: formatNumber(item.issue_os1),
+
             Issue_Rejection: formatNumber(item.issue_rejection),
             Issue_Village: formatNumber(item.issue_village),
             Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
-            Issue_LW: formatNumber(item.issue_LW),
-            Issue_JB: formatNumber(item.issue_JB),
+            Issue_Mayur: formatNumber(item.issue_mayur),
+      
             Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
             Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
-            Mc_On_133: handleAMPM(item.Mc_on_133.slice(0, 5)),
-            Mc_Off_133: handleAMPM(item.Mc_off_133.slice(0, 5)),
-            Mc_Breakdown_133: item.Mc_breakdown_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Other_Time_133: item.otherTime_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Mc_On_331: handleAMPM(item.Mc_on_331.slice(0, 5)),
-            Mc_Off_331: handleAMPM(item.Mc_off_331.slice(0, 5)),
-            Mc_Breakdown_331: item.Mc_breakdown_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Other_Time_331: item.otherTime_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Mc_On_292: handleAMPM(item.Mc_on_292.slice(0, 5)),
-            Mc_Off_292: handleAMPM(item.Mc_off_292.slice(0, 5)),
-            Mc_Breakdown_292: item.Mc_breakdown_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Other_Time_292: item.otherTime_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Mc_On_293: handleAMPM(item.Mc_on_293.slice(0, 5)),
-            Mc_Off_293: handleAMPM(item.Mc_off_293.slice(0, 5)),
-            Mc_Breakdown_293: item.Mc_breakdown_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Other_Time_293: item.otherTime_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Runtime_133: item.Mc_runTime_133.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-            Runtime_331: item.Mc_runTime_331.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-            Runtime_292: item.Mc_runTime_292.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-            Runtime_293: item.Mc_runTime_293.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+           
             Operator_Day: item.noOfdayOperators,
             Operator_Night: item.noOfnightOperators,
             Edit_Status: item.editStatus,
@@ -174,56 +173,55 @@ const DPDSTable = () => {
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
-            transformed = data1.rcnEntries.map((item: MayurData, idx: number) => ({
+            transformed = data1.rcnEntries.map((item: DPDSData, idx: number) => ({
                 Sl_No: idx + 1, 
-                Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
-                Item_Lot_No: item.LotNo,
-                Origin: item.origin,
-                Issue_No: item.altid,
-                Mayur_Entry_Date: handletimezone(item.date),
-                Mixing_Lot: item.mixingLot,
-                Opening_Wholes_Peel: formatNumber(item.rcv_wholespeel),
-                Opening_Wholes_Unpeel: formatNumber(item.rcv_wholesunpeel),
-                Receive_Peeling: Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel)),
-                Receive_DPDS: item.rcv_DPDS ? formatNumber(item.rcv_DPDS) : 0,
-                Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
-                Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-                Receive_Mixing: item.rcv_transfer ? formatNumber(item.rcv_transfer) : 0,
-                Issue_PW_W: formatNumber(item.issue_pw_w),
-                Issue_W_Lot: formatNumber(item.issue_w_lot),
-                Issue_WW: formatNumber(item.issue_ww),
-                Issue_Rejection: formatNumber(item.issue_rejection),
-                Issue_Village: formatNumber(item.issue_village),
-                Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
-                Issue_LW: formatNumber(item.issue_LW),
-                Issue_JB: formatNumber(item.issue_JB),
-                Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
-                Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
-                Mc_On_133: handleAMPM(item.Mc_on_133.slice(0, 5)),
-                Mc_Off_133: handleAMPM(item.Mc_off_133.slice(0, 5)),
-                Mc_Breakdown_133: item.Mc_breakdown_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                Other_Time_133: item.otherTime_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                Mc_On_331: handleAMPM(item.Mc_on_331.slice(0, 5)),
-                Mc_Off_331: handleAMPM(item.Mc_off_331.slice(0, 5)),
-                Mc_Breakdown_331: item.Mc_breakdown_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                Other_Time_331: item.otherTime_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                Mc_On_292: handleAMPM(item.Mc_on_292.slice(0, 5)),
-                Mc_Off_292: handleAMPM(item.Mc_off_292.slice(0, 5)),
-                Mc_Breakdown_292: item.Mc_breakdown_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                Other_Time_292: item.otherTime_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                Mc_On_293: handleAMPM(item.Mc_on_293.slice(0, 5)),
-                Mc_Off_293: handleAMPM(item.Mc_off_293.slice(0, 5)),
-                Mc_Breakdown_293: item.Mc_breakdown_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                Other_Time_293: item.otherTime_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                Runtime_133: item.Mc_runTime_133.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-                Runtime_331: item.Mc_runTime_331.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-                Runtime_292: item.Mc_runTime_292.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-                Runtime_293: item.Mc_runTime_293.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-                Operator_Day: item.noOfdayOperators,
-                Operator_Night: item.noOfnightOperators,
-                Edit_Status: item.editStatus,
-                Created_By: item.CreatedBy,
-                Modified_By: item.modifiedBy
+            Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
+            Item_Lot_No: item.LotNo,
+            Origin: item.origin,
+            Issue_No: item.altid,
+            DPDS_Entry_Date: handletimezone(item.date),
+            Mixing_Lot: item.mixingLot,
+            Opening_DP: formatNumber(item.rcv_dp),
+            Opening_DS: formatNumber(item.rcv_ds),
+            Opening_DP1: formatNumber(item.rcv_dp1),
+            Receive_Peeling: Number(formatNumber(item.rcv_dp)) + Number(formatNumber(item.rcv_ds))+ Number(formatNumber(item.rcv_dp1)),
+           
+            Receive_Sorting: item.rcv_Sorting ? formatNumber(item.rcv_Sorting) : 0,
+            
+            Issue_M_DS: formatNumber(item.issue_m_ds),
+            Issue_M_DP: formatNumber(item.issue_m_dp),
+            Issue_K_DP: formatNumber(item.issue_k_dp),
+            Issue_DS1: formatNumber(item.issue_ds_1),
+            Issue_DS2: formatNumber(item.issue_ds_2),
+            Issue_SP2: formatNumber(item.issue_sp_2),
+            Issue_YJH: formatNumber(item.issue_yjh),
+            Issue_YK: formatNumber(item.issue_yk),
+            Issue_KP: formatNumber(item.issue_kp),
+            Issue_WP: formatNumber(item.issue_wp),
+            Issue_RS: formatNumber(item.issue_rs),
+           
+            Issue_DP2: formatNumber(item.issue_dp_2),
+            Issue_DP3: formatNumber(item.issue_dp_3),
+            Issue_DP4: formatNumber(item.issue_dp_4),
+            Issue_3L: formatNumber(item.issue_dp_3l),
+           
+            Issue_SS: formatNumber(item.issue_ss),
+            Issue_OS: formatNumber(item.issue_os),
+            Issue_OS1: formatNumber(item.issue_os1),
+
+            Issue_Rejection: formatNumber(item.issue_rejection),
+            Issue_Village: formatNumber(item.issue_village),
+            Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
+            Issue_Mayur: formatNumber(item.issue_mayur),
+      
+            Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
+            Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+           
+            Operator_Day: item.noOfdayOperators,
+            Operator_Night: item.noOfnightOperators,
+            Edit_Status: item.editStatus,
+            Created_By: item.CreatedBy,
+            Modified_By: item.modifiedBy 
 
             }));
             // setTransformedData(transformed);
@@ -233,7 +231,7 @@ const DPDSTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Mayur_Entry_' + currDate + '.xlsx');
+        saveAs(blob, 'DPDS_Entry_' + currDate + '.xlsx');
     }
     const handleSearch = async () => {
 
@@ -306,24 +304,7 @@ const DPDSTable = () => {
         sethidetoDate(selected)
         settoDate(nextday)
     }
-    const handleAMPM = (time: string) => {
-
-        let [hours, minutes] = time.split(':').map(Number);
-        let period = ' AM';
-
-        if (hours === 0) {
-            hours = 12;
-        } else if (hours === 12) {
-            period = ' PM';
-        } else if (hours > 12) {
-            hours -= 12;
-            period = ' PM';
-        }
-        const finalTime = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + period.toString()
-
-        // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
-        return finalTime;
-    }
+ 
     const handleApprove = async (item: DPDSData) => {
         const response = await axios.put(`/api/dpds/approveeditDPDS/${item.id}/${item.LotNo}/${item.origin}`)
         const data = await response.data
@@ -623,7 +604,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-7xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Reissue</p>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>DPDS Entry Reissue</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <RCNDPDSReCreateForm borma={[item]} />

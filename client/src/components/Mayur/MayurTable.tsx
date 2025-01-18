@@ -134,7 +134,7 @@ const MayurTable = () => {
             Receive_DPDS: item.rcv_DPDS ? formatNumber(item.rcv_DPDS) : 0,
             Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
             Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-            Receive_Mixing: item.rcv_transfer ? formatNumber(item.rcv_transfer) : 0,
+          
             Issue_PW_W: formatNumber(item.issue_pw_w),
             Issue_W_Lot: formatNumber(item.issue_w_lot),
             Issue_WW: formatNumber(item.issue_ww),
@@ -190,7 +190,7 @@ const MayurTable = () => {
                 Receive_DPDS: item.rcv_DPDS ? formatNumber(item.rcv_DPDS) : 0,
                 Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
                 Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-                Receive_Mixing: item.rcv_transfer ? formatNumber(item.rcv_transfer) : 0,
+               
                 Issue_PW_W: formatNumber(item.issue_pw_w),
                 Issue_W_Lot: formatNumber(item.issue_w_lot),
                 Issue_WW: formatNumber(item.issue_ww),

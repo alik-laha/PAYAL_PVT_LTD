@@ -66,13 +66,13 @@ interface DPDSRowData{
 }
 
 
-import {   DPDSData, MayurData } from "@/type/type"
+import {   DPDSData } from "@/type/type"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import {   useEffect, useRef, useState } from "react"
 import axios from "axios";
-import FormRow from "../common/FormRowTime";
+
 
 
 
@@ -189,7 +189,7 @@ const RCNDPDSReCreateForm = (props:Props) => {
         if((Number(rows[0].rcv_peeling)
          !== (Number(rows[0].rcv_dp) + Number(rows[0].rcv_dp1)+Number(rows[0].rcv_ds)+
         (rows[0].rcv_Sorting ? Number(rows[0].rcv_Sorting) : 0) ))){
-            setErrortext('Total Current Receiving Value should be equal to Peeling Opening Balance')
+            setErrortext('Total Current Receiving Balance should be equal to Opening Balance')
            
             const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
             dialogerror.showModal()

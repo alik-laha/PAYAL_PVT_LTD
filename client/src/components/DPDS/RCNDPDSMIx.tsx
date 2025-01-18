@@ -1,4 +1,4 @@
-import { DPDSData, MayurData } from "@/type/type";
+import { DPDSData } from "@/type/type";
 import { useEffect, useState } from "react";
 import {
     Table,

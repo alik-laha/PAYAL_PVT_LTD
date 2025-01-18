@@ -19,14 +19,10 @@ import {
 
 import axios from "axios";
 import { useState } from "react";
-import {  MayurData } from "@/type/type";
-
-
 import cross from '../../assets/Static_Images/error_img.png'
 import RCNDPDSCreateForm from "./DPDSCreateForm";
-// import RCNMayurCreateForm from "./MayurCreateForm";
-//import RCNPeelingCreateForm from "./PeelingCreateForm";
-//import RCNHumidLineCreateForm from "./HumidifierLineCreateForm";
+import { DPDSData } from "@/type/type";
+
 
 interface lotPropsdata{
     LotNo:string;

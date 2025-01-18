@@ -3,11 +3,11 @@ import jwtVerify from "../middleWare/JwtAuthantication";
 
 
 
-import { approveMayur, 
+import { 
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import { CreateEntireDPDS, CreateMixDPDS, CreateReissueDPDS, EditRejectDPDS, findEditDPDSAll, getDPDSBylotorigin, getDPDSLot, SearchRCNDPDS, SearchRCNDPDSMix, sumOfallDPDS, updateEntireDPDS } from "../controller/dpdsController/dpdsApi";
+import { approveDPDS, CreateEntireDPDS, CreateMixDPDS, CreateReissueDPDS, EditRejectDPDS, findEditDPDSAll, getDPDSBylotorigin, getDPDSLot, SearchRCNDPDS, SearchRCNDPDSMix, sumOfallDPDS, updateEntireDPDS } from "../controller/dpdsController/dpdsApi";
 const router = express()
 
 // //DPDS.tsx
@@ -28,7 +28,7 @@ router.post("/createReissueDPDS", jwtVerify, CreateReissueDPDS)
 router.put('/dpdsprimarysearch', jwtVerify, SearchRCNDPDS);
 router.post("/updateDPDS",jwtVerify, updateEntireDPDS)
 router.delete('/rejectededitDPDS/:id/:LotNo/:origin', jwtVerify, EditRejectDPDS);
-router.put("/approveeditMayur/:id/:LotNo/:origin", jwtVerify, approveMayur);
+router.put("/approveeditDPDS/:id/:LotNo/:origin", jwtVerify, approveDPDS);
 
 // //DPDSMix.tsx
 router.post('/dpdsmixsearch', jwtVerify, SearchRCNDPDSMix);

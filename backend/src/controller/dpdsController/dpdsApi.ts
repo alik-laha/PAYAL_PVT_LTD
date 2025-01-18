@@ -5,13 +5,13 @@ import Mayur from "../../model/mayurModel";
 import sequelize from "../../config/databaseConfig";
 import LotNo from "../../model/lotNomodel";
 import { Op } from "sequelize";
-import MayurEdit from "../../model/mayureditModel";
 import WhatsappMsg from "../../helper/WhatsappMsg";
 import lotoriginmodel from "../../model/lotoriginModel";
 import DPDS from "../../model/dpdsmodel";
 import DPDSEdit from "../../model/dpdsEditModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import mixingModel from "../../model/mixingModel";
+import { diskStorage } from "multer";
 
 // //DPDS.tsx
 export const findEditDPDSAll = async (req: Request, res: Response) => {
@@ -295,6 +295,7 @@ export const CreateEntireDPDS= async (req: Request, res: Response) => {
                         LotNo:LotNO,
                         origin:data.origin,
                         amount:data.issue_mayur,
+                        issueid:1,
                         date:data.Date,
                         fromSection:'DPDS',
                         toSection:'Mayur',
@@ -515,7 +516,7 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                         mixingLot:data.mixingLot,
                         rcv_dp: data.rcv_dp,
                         rcv_ds: data.rcv_ds,
-                        rcv_dp1: data.rcv_ds,
+                        rcv_dp1: data.rcv_dp1,
                         rcv_Sorting:data.rcv_Sorting,
                         noOfdayOperators:data.dayoperator,
                         noOfnightOperators:data.nightoperator,
@@ -609,7 +610,8 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                         toSection:'Mayur',
                         toSectionBeforeBacklog:backlog.dataValues.current_backlog,
                         toSectionAfterBacklog:parseFloat(backlog.dataValues.current_backlog)+parseFloat(data.issue_mayur),
-                        createdBy: feeledBy
+                        createdBy: feeledBy,
+                        issueid:parseInt(data.alt_id)+1,
                         },{transaction});
                         if(backlog.dataValues.rcv_DPDS)
                             {
@@ -875,7 +877,7 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
 
 }
 
-export const approveMayur = async (req: Request, res: Response) => {
+export const approveDPDS = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const LotNo = req.params.LotNo;
@@ -885,106 +887,159 @@ export const approveMayur = async (req: Request, res: Response) => {
         if (!id || !approvedBy) {
             return res.status(400).json({ message: "Please provide the id or approved by" });
         }
-        const data = await MayurEdit.findOne({
+        const data = await DPDSEdit.findOne({
             where: {
                 id
             }
         }) as any;
+        
         if (!data) {
-            return res.status(400).json({ message: "Peeling Entry not found" });
-        }
-        const bormaEdit = await Mayur.update({
-            date:data.date,
-            Mc_on_133: data.Mc_on_133,
-            Mc_off_133: data.Mc_off_133,
-            Mc_breakdown_133: data.Mc_breakdown_133,
-            Mc_runTime_133: data.Mc_runTime_133,
-            Mc_on_331: data.Mc_on_331,
-            Mc_off_331: data.Mc_off_331,
-            Mc_breakdown_331: data.Mc_breakdown_331,
-            Mc_runTime_331: data.Mc_runTime_331,
-            Mc_on_292: data.Mc_on_292,
-            Mc_off_292: data.Mc_off_292,
-            Mc_breakdown_292: data.Mc_breakdown_292,
-            Mc_runTime_292: data.Mc_runTime_331,
-            Mc_on_293: data.Mc_on_293,
-            Mc_off_293: data.Mc_off_293,
-            Mc_breakdown_293: data.Mc_breakdown_293,
-            Mc_runTime_293: data.Mc_runTime_331,
-            otherTime_133: data.otherTime_133,
-            otherTime_331: data.otherTime_331,
-            otherTime_292: data.otherTime_292,
-            otherTime_293: data.otherTime_293,
-            noOfdayOperators:data.noOfdayOperators,
-            noOfnightOperators:data.noOfnightOperators,
-            
-            issue_pw_w: data.issue_pw_w,
-            issue_w_lot:data.issue_w_lot,
-            issue_ww: data.issue_ww,
-            issue_rejection: data.issue_rejection,
-            issue_village: data.issue_village,
-            issue_bigTaiho: data.issue_bigTaiho,
-            issue_LW: data.issue_LW,
-            issue_JB: data.issue_JB,
-          
-            entry_backlog:data.entry_backlog,
-           current_backlog:data.current_backlog,
-            CreatedBy: data.CreatedBy,
-            editStatus: "Approved",
-            modifiedBy:approvedBy,
-
-
-
-        }, {
-            where: {
-                id
-            }
-        });
-        await lotoriginmodel.update(
-            { 
-                editStatus:'NA',
-             
-            },
-            {
-                where: {
-                    lotNo:LotNo,
-                    origin:origin
-                }
-            }
-        );
-        if (!bormaEdit) {
-            return res.status(400).json({ message: "Mayur Entry is not found" });
+            return res.status(400).json({ message: "DPDS Edit Entry not found" });
         }
         else{
-            const bormaEditDelete = await MayurEdit.destroy({
+            const transferMayurdata = await sectionTransfer.findOne({
                 where: {
-                    id
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'DPDS',
+                    toSection:'Mayur'
                 }
-            });
-            if (!bormaEditDelete) {
-                return res.status(400).json({ message: "Mayur Entry is not found" });
+            }) as any
+            if(transferMayurdata){
+                await sequelize.transaction(async (transaction: any) => {
+
+                    const bormaEdit = await DPDS.update({
+                        date:data.date,
+                     
+                        noOfdayOperators:data.noOfdayOperators,
+                        noOfnightOperators:data.noOfnightOperators,
+                        
+                        issue_m_ds: data.issue_m_ds,
+                        issue_m_dp: data.issue_m_dp,
+                        issue_k_dp: data.issue_k_dp,
+                        issue_ds_1: data.issue_ds_1,
+                        issue_ds_2: data.issue_ds_2,
+                        issue_sp_2: data.issue_sp_2,
+                        issue_yjh: data.issue_yjh,
+                        issue_yk: data.issue_yk,
+                        issue_kp: data.issue_kp,
+                        issue_wp: data.issue_wp,
+                        issue_rs: data.issue_rs,
+                        issue_dp_2: data.issue_dp_2,
+                        issue_dp_3: data.issue_dp_3,
+                        issue_dp_4: data.issue_dp_4,
+                        issue_dp_3l: data.issue_dp_3l,
+                        issue_ss: data.issue_ss,
+                        issue_os: data.issue_os,
+                        issue_os1: data.issue_os1,
+                        issue_add_1: data.issue_add_1,
+                        issue_add_2: data.issue_add_2,
+                        issue_add_3:data.issue_add_3,
+                        issue_add_4: data.issue_add_4,
+                        issue_add_5: data.issue_add_5,
+                        issue_add_6: data.issue_add_6,
+                        issue_add_7: data.issue_add_7,
+                        issue_add_8: data.issue_add_8,
+                        issue_add_9: data.issue_add_9,
+                        issue_add_10: data.issue_add_10,
+                        issue_rejection: data.issue_rejection,
+                        issue_village: data.issue_village,
+                        issue_bigTaiho: data.issue_bigTaiho,
+                        issue_mayur: data.issue_mayur, 
+                      
+                        entry_backlog:data.entry_backlog,
+                       current_backlog:data.current_backlog,
+                        CreatedBy: data.CreatedBy,
+                        editStatus: "Approved",
+                        modifiedBy:approvedBy,
+            
+            
+            
+                    }, {
+                        where: {
+                            id
+                        }, transaction
+                    });
+                    if(bormaEdit){
+                        console.log(transferMayurdata)
+
+                        if(parseFloat(transferMayurdata.amount)!==parseFloat(data.issue_mayur)){
+                            console.log('Needs Update In Mayur')
+                            const difference_mayur=parseFloat(data.issue_mayur)-parseFloat(transferMayurdata.amount)
+                            console.log(difference_mayur)
+                            const backlog = await Mayur.findOne({
+                                attributes: ['current_backlog','rcv_DPDS'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await Mayur.update(
+                                    {
+                                        rcv_DPDS: sequelize.literal(`rcv_DPDS+ ${difference_mayur}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_mayur}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_mayur,
+                                    toSectionBeforeBacklog:transferMayurdata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferMayurdata.toSectionBeforeBacklog)+parseFloat(data.issue_mayur)
+                        
+                                }, {
+                                    where: {
+                                        id:transferMayurdata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated Mayur Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+                        
+                        await lotoriginmodel.update(
+                            { 
+                                editStatus:'NA',
+                             
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin
+                                },transaction
+                            }
+                        );
+                        await DPDSEdit.destroy({
+                            where: {
+                                id
+                            },transaction
+                        });
+                        return res.status(200).json({ message: "Edit Request of DPDS Entry is Approved Successfully" });
+                    }
+                    
+                })
             }
             else{
-
-
-                // await Mayur.update(
-                //     {  
-                //         rcv_wholespeel: data.WholesPeel,
-                //         rcv_wholesunpeel: data.WholesUnpeel,
-                //         current_backlog:parseFloat(data.WholesPeel)+parseFloat(data.WholesUnpeel),
-                //     },
-                //     {
-                //         where: {
-                //             LotNo:LotNo,origin:origin,latest:1
-                //         }
-                //     })
-                return res.status(200).json({ message: "Edit Request of Mayur Entry is Approved Successfully" });
+                return res.status(400).json({ message: "DPDS Transfer Entry is not found" });
             }
+            
         }
-        
-
-
-        
 
     } catch (err) {
         console.log(err);

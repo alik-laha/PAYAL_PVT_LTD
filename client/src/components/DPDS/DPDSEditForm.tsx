@@ -87,6 +87,8 @@ const DPDSEditForm = (props:Props) => {
     const closeDialogButton = document.getElementById('empcloseDialog') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('errorempcloseDialog') as HTMLInputElement;
     const [isdisable,setisdisable]=useState<boolean>(false)
+
+
     if (closeDialogButton) {
         closeDialogButton.addEventListener('click', () => {
             if (successdialog != null) {
