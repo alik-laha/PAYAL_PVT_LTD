@@ -53,15 +53,11 @@ import {
 } from "@/components/ui/dialog"
 import { CiBoxes, CiCrop, CiEdit } from "react-icons/ci";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
-// import BormaModify from "./RCNBormaModify";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import RCNDPDSReMix from "./RCNDPDSMIx";
-// import RCNMayurReCreateForm from "./MayurReissueForm";
-// import RCNMayurEditForm from "./MayurEditForm";
-// import RCNMayurReMix from "./MayurMix";
-//import PeelingModify from "./PeelingModify";
-//import HumidifierModify from "./HumidifierModify";
+import RCNDPDSReCreateForm from "./DPDSRecreate";
+
 
 const DPDSTable = () => {
     const limit = pagelimit
@@ -403,7 +399,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
             </div>
             {checkpending('DPDS') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
             <Table className="mt-4">
-                <TableHeader className="bg-neutral-100 text-stone-950 ">
+                <TableHeader className="bg-neutral-200 text-stone-950 ">
 
 
                     <TableHead className="text-center" >Id</TableHead>
@@ -553,7 +549,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                   
 
                             return (
-                                <TableRow key={item.id} className={`${item.altid==1 ? '' : 'bg-yellow-100 hover:bg-yellow-200'}`}>
+                                <TableRow key={item.id} className={`${item.latest==1 ? '' : 'opacity-50 hover:bg-gray-200 bg-gray-200'}`}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
                                     
@@ -629,7 +625,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Reissue</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <RCNMayurReCreateForm borma={[item]} /> */}
+                                                        <RCNDPDSReCreateForm borma={[item]} />
                                                     </DialogContent>
                                                     
                                                 </Dialog>

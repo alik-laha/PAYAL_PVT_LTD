@@ -18,16 +18,13 @@ import {
 } from "@/components/ui/dialog"
 
 import axios from "axios";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import {  MayurData } from "@/type/type";
 
 
 import cross from '../../assets/Static_Images/error_img.png'
 import RCNMayurCreateForm from "./MayurCreateForm";
 
-import RCNMayurReMix from "./MayurMix";
-//import RCNPeelingCreateForm from "./PeelingCreateForm";
-//import RCNHumidLineCreateForm from "./HumidifierLineCreateForm";
 
 interface lotPropsdata{
     LotNo:string;

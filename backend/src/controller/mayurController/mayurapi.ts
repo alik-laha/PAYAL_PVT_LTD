@@ -531,13 +531,14 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                     }
                 );
                 if(reissuecreate){
-                    const lotupdate = await LotNo.update(
+                    const lotupdate = await await lotoriginmodel.update(
                         { 
-                          modifiedBy:'Mayur'
+                           latest_section: 'Mayur'
                         },
                         {
                             where: {
-                                lotNo:LotNO
+                                lotNo:LotNO,
+                                origin:data.origin
                             },transaction
                         }
                     );

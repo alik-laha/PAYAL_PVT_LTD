@@ -100,25 +100,25 @@ const Mayur = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                 <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
-                        Hamsa <br /><p>{data.data[0].issue_pw_w && data.data[0].issue_w_lot && data.data[0].issue_ww ? formatNumber
+                        Issue Hamsa <br /><p>{data.data[0].issue_pw_w && data.data[0].issue_w_lot && data.data[0].issue_ww ? formatNumber
                         (parseFloat(data.data[0].issue_pw_w)+parseFloat(data.data[0].issue_w_lot)+parseFloat(data.data[0].issue_ww)
                         )  : 0}  Kg</p>
                     </div>
                
                     <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
-                        Big Taiho <br /><p>{data.data[0].issue_bigTaiho ? formatNumber(parseFloat(data.data[0].issue_bigTaiho))  : 0} Kg</p>
+                    Issue Big Taiho <br /><p>{data.data[0].issue_bigTaiho ? formatNumber(parseFloat(data.data[0].issue_bigTaiho))  : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                        Village <br /><p>{data.data[0].issue_village ? formatNumber(parseFloat(data.data[0].issue_village))  : 0}  Kg</p>
+                    Issue Village <br /><p>{data.data[0].issue_village ? formatNumber(parseFloat(data.data[0].issue_village))  : 0}  Kg</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                        LW <br /><p>{data.data[0].issue_LW ? formatNumber(parseFloat(data.data[0].issue_LW))  : 0}  Kg</p>
+                    Issue LW <br /><p>{data.data[0].issue_LW ? formatNumber(parseFloat(data.data[0].issue_LW))  : 0}  Kg</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                        JB <br /><p>{data.data[0].issue_JB ? formatNumber(parseFloat(data.data[0].issue_JB))  : 0}  Kg</p>
+                    Issue JB <br /><p>{data.data[0].issue_JB ? formatNumber(parseFloat(data.data[0].issue_JB))  : 0}  Kg</p>
                     </div>
                     <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
-                        Rejection <br /><p>{data.data[0].issue_rejection  ?  formatNumber(parseFloat(data.data[0].issue_rejection)): 0} Kg</p>
+                    Issue Rejection <br /><p>{data.data[0].issue_rejection  ?  formatNumber(parseFloat(data.data[0].issue_rejection)): 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-cyan-500 hover:bg-orange-400">
                         Backlog <br /><p>{data.data[0].current_backlog  ?  formatNumber(parseFloat(data.data[0].current_backlog)): 0} Kg</p>

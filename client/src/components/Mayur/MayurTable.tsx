@@ -402,7 +402,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 </div>
                 {checkpending('Mayur') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
                 <Table className="mt-4">
-                    <TableHeader className="bg-neutral-100 text-stone-950 ">
+                    <TableHeader className="bg-neutral-200 text-stone-950 ">
 
 
                         <TableHead className="text-center" >Id</TableHead>
@@ -581,7 +581,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                       
 
                                 return (
-                                    <TableRow key={item.id} className={`${item.altid==1 ? '' : 'bg-yellow-100 hover:bg-yellow-200'}`}>
+                                    <TableRow key={item.id} className={`${item.latest==1 ? '' : 'opacity-50 hover:bg-gray-200 bg-gray-200'}`}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                         <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
                                         

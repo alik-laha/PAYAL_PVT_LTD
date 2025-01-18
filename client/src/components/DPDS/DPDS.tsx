@@ -97,11 +97,11 @@ const DPDS = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                 <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
-                        Packing <br /><p>{data.data[0].issue_m_ds && data.data[0].issue_m_dp && data.data[0].issue_k_dp 
+                        Issue Packing <br /><p>{data.data[0].issue_m_ds && data.data[0].issue_m_dp && data.data[0].issue_k_dp 
                         && data.data[0].issue_ds_1 && data.data[0].issue_ds_2 && data.data[0].issue_sp_2 && data.data[0].issue_yjh 
                         && data.data[0].issue_yk && data.data[0].issue_kp && data.data[0].issue_wp && data.data[0].issue_rs && data.data[0].issue_dp_2
                         && data.data[0].issue_dp_3 && data.data[0].issue_dp_4 && data.data[0].issue_dp_3l
-                        && data.data[0].issue_ss_1 && data.data[0].issue_os && data.data[0].issue_os1
+                        && data.data[0].issue_ss && data.data[0].issue_os && data.data[0].issue_os1
                         && data.data[0].issue_add_1 && data.data[0].issue_add_2 && data.data[0].issue_add_3
                         && data.data[0].issue_add_4 && data.data[0].issue_add_5 && data.data[0].issue_add_6
                         && data.data[0].issue_add_7 && data.data[0].issue_add_8 && data.data[0].issue_add_9
@@ -111,7 +111,7 @@ const DPDS = () => {
                         parseFloat(data.data[0].issue_yjh)+parseFloat(data.data[0].issue_yk)+parseFloat(data.data[0].issue_kp)
                         + parseFloat(data.data[0].issue_wp)+parseFloat(data.data[0].issue_rs)+parseFloat(data.data[0].issue_dp_2)
                         +parseFloat(data.data[0].issue_dp_3)+parseFloat(data.data[0].issue_dp_4)+parseFloat(data.data[0].issue_dp_3l)
-                        +parseFloat(data.data[0].issue_ss_1)+parseFloat(data.data[0].issue_os)+parseFloat(data.data[0].issue_os1)
+                        +parseFloat(data.data[0].issue_ss)+parseFloat(data.data[0].issue_os)+parseFloat(data.data[0].issue_os1)
                         +parseFloat(data.data[0].issue_add_1)+parseFloat(data.data[0].issue_add_2)+parseFloat(data.data[0].issue_add_3)
                             +parseFloat(data.data[0].issue_add_4)+parseFloat(data.data[0].issue_add_5)+parseFloat(data.data[0].issue_add_6)
                             +parseFloat(data.data[0].issue_add_7)+parseFloat(data.data[0].issue_add_8)+parseFloat(data.data[0].issue_add_9)
@@ -121,20 +121,20 @@ const DPDS = () => {
                     </div>
                
                     <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
-                        Big Taiho <br /><p>{data.data[0].issue_bigTaiho ? formatNumber(parseFloat(data.data[0].issue_bigTaiho))  : 0} Kg</p>
+                    Issue Big Taiho <br /><p>{data.data[0].issue_bigTaiho ? formatNumber(parseFloat(data.data[0].issue_bigTaiho))  : 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                        Village <br /><p>{data.data[0].issue_village ? formatNumber(parseFloat(data.data[0].issue_village))  : 0}  Kg</p>
+                    Issue Village <br /><p>{data.data[0].issue_village ? formatNumber(parseFloat(data.data[0].issue_village))  : 0}  Kg</p>
                     </div>
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                        Mayur <br /><p>{data.data[0].issue_mayur ? formatNumber(parseFloat(data.data[0].issue_mayur))  : 0}  Kg</p>
+                    Issue Mayur <br /><p>{data.data[0].issue_mayur ? formatNumber(parseFloat(data.data[0].issue_mayur))  : 0}  Kg</p>
                     </div>
                     
                     <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
-                        Rejection <br /><p>{data.data[0].issue_rejection  ?  formatNumber(parseFloat(data.data[0].issue_rejection)): 0} Kg</p>
+                    Issue Rejection <br /><p>{data.data[0].issue_rejection  ?  formatNumber(parseFloat(data.data[0].issue_rejection)): 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-cyan-500 hover:bg-orange-400">
-                        Backlog <br /><p>{data.data[0].current_backlog  ?  formatNumber(parseFloat(data.data[0].current_backlog)): 0} Kg</p>
+                    Current Backlog <br /><p>{data.data[0].current_backlog  ?  formatNumber(parseFloat(data.data[0].current_backlog)): 0} Kg</p>
                     </div>
                   
                    
