@@ -23,7 +23,7 @@ const SearchRCNBorma = async (req: Request, res: Response) => {
         }
         if (fromDate && toDate) {
             whereClause.push({
-                recevingDate: {
+                date: {
                     [Op.between]: [fromDate, toDate]
                 }
             });

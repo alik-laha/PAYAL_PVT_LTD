@@ -17,6 +17,7 @@ import CreateBoilingEntire from "../controller/BoilingController/createEntireBoi
 import approveEditBoilingNew from "../controller/BoilingController/approveEditBoilingNew";
 import deleteLotNoNew from "../controller/BoilingController/deleteLotNoNew";
 import countPendingLot from "../controller/BoilingController/boilinglotcountpending";
+import countPendingLotOrigin from "../controller/BoilingController/boilingLotCountOrigin";
 const router = express.Router();
 
 router.post("/createBoiling", jwtVerify,BoilingMiddleWare, CreateBoiling)
@@ -36,4 +37,5 @@ router.delete('/deleteLotNoEntire/:id', jwtVerify, deleteLotNoNew)
 
 router.post('/createEntireBoiling', jwtVerify, CreateBoilingEntire)
 router.post('/pendingLotCount', jwtVerify, countPendingLot)
+router.post('/pendingLotCountOrigin', jwtVerify, countPendingLotOrigin)
 export default router;

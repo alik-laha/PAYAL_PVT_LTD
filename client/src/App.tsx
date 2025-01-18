@@ -35,6 +35,8 @@ import Agarbati from './components/Agarbati/Agarbati'
 import IssueItem from './components/IssueItem/IssueItem'
 import OilMill from './components/OilMill/OilMill'
 import QCWater from './components/QCWater/QCwater'
+import Mayur from './components/Mayur/Mayur'
+import DPDS from './components/DPDS/DPDS'
 
 
 
@@ -82,7 +84,7 @@ function App() {
           'MaintainanceSupervisor', 'MaintainanceManager',
           'QCSupervisor', 'QCManager',
           'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager', 'BormaSupervisor',
-          'PeelingSupervisor', 'VillageSupervisor']} />}>
+          'PeelingSupervisor', 'MayurSupervisor','VillageSupervisor','SortingSupervisor']} />}>
 
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
@@ -205,12 +207,27 @@ function App() {
 
         </Route>
 
-
+        {/* Production Peeling  */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'PeelingSupervisor', 'ProductionManager']} />}>
           <Route path='/dashboard/Peeling' element={<Peeling />} />
 
         </Route>
+
+        {/*Production Mayur  */}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'MayurSupervisor', 'ProductionManager']} />}>
+          <Route path='/dashboard/Mayur' element={<Mayur />} />
+
+        </Route>
+
+      {/*Production DPDS  */}
+      <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'SortingSupervisor', 'ProductionManager']} />}>
+          <Route path='/dashboard/DPDS' element={<DPDS />} />
+
+        </Route>
+        
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'CleaningSupervisor', 'MaintainanceManager']} />}>

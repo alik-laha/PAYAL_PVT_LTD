@@ -3,6 +3,7 @@ import RcnBoilingEdit from "../../model/RcnBoilingEditModel";
 import RcnAllEditScooping from "../../model/scoopingAllEditModel";
 import RcnBormaEdit from "../../model/bormaEditModel";
 import HumidifierEdit from "../../model/humidierEditModel";
+import RcnEditPeeling from "../../model/peelingEditModel";
 
 
 
@@ -22,6 +23,9 @@ const countPendingLot = async (req: Request, res: Response) => {
         }
         if (section === 'Humidifier') {
             count = await HumidifierEdit.count({ where: { LotNo: lotNo } });
+        }
+        if (section === 'Peeling') {
+            count = await RcnEditPeeling.count({ where: { LotNo: lotNo } });
         }
 
         return res.status(200).json({ message: "Pending Count", count })

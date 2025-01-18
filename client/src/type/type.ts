@@ -549,6 +549,118 @@ export interface PeelingData {
             peelingTime: string;
             difference:string;
 }
+export interface MayurData {
+    id: number;
+    LotNo: string;
+    date: string ;
+    origin: string;
+    altid: number;
+    rcv_wholespeel: string;
+    rcv_wholesunpeel: string;
+     rcv_DPDS: string;
+     rcv_transfer: string;
+        rcv_sorting: string;
+        rcv_village: string;
+        issue_pw_w: string;
+        issue_w_lot: string;
+        issue_ww: string;
+        issue_rejection: string;
+        issue_village: string;
+        issue_bigTaiho: string;
+        issue_LW: string;
+        issue_JB: string;
+        entry_backlog: string;
+        current_backlog: string;
+        Mc_on_133: string;
+        Mc_off_133: string;
+        Mc_breakdown_133: string;
+        Mc_runTime_133: string;
+        otherTime_133: string;
+        Mc_on_331: string;
+        Mc_off_331: string;
+        Mc_breakdown_331: string;
+        Mc_runTime_331: string;
+        otherTime_331: string;
+        Mc_on_292: string;
+        Mc_off_292: string;
+        Mc_breakdown_292: string;
+        Mc_runTime_292: string;
+        otherTime_292: string;
+        Mc_on_293: string;
+        Mc_off_293: string;
+        Mc_breakdown_293: string;
+        Mc_runTime_293: string;
+        otherTime_293: string;
+    Status: number;
+    latest: number;
+    mixingLot: string | null;
+    CreatedBy: string | null;
+    editStatus: string;
+    modifiedBy: string | null;
+    noOfdayOperators:number;
+    noOfnightOperators:number;
+}
+export interface DPDSData {
+ 
+    id: number;
+        LotNo: string;
+        date: string;
+        origin: string;
+        altid: number;
+        rcv_transfer: string;
+        rcv_Sorting: string;
+        rcv_dp: string;
+        rcv_ds: string;
+        rcv_dp1: string;
+        issue_m_ds: string;
+        issue_m_dp: string;
+        issue_k_dp: string;
+        issue_ds_1: string;
+        issue_ds_2: string;
+        issue_sp_2: string;
+        issue_yjh: string;
+        issue_yk: string;
+        issue_kp: string;
+        issue_wp: string;
+        issue_rs: string;
+        issue_dp_2: string;
+        issue_dp_3: string;
+        issue_dp_4: string;
+        issue_dp_3l: string;
+        issue_ss: string;
+        issue_os: string;
+        issue_os1: string;
+        issue_add_1: string;
+        issue_add_2: string;
+        issue_add_3: string;
+        issue_add_4: string;
+        issue_add_5: string;
+        issue_add_6: string;
+        issue_add_7: string;
+        issue_add_8: string;
+        issue_add_9: string;
+        issue_add_10: string;
+        issue_rejection: string;
+        issue_village: string;
+        issue_bigTaiho: string;
+        issue_mayur: string;
+        entry_backlog: string;
+        current_backlog: string;
+        Status: number;
+        latest: number;
+        mixingLot: string|null;
+        noOfdayOperators: number;
+        noOfnightOperators: number;
+        CreatedBy: string;
+        editStatus: string;
+        modifiedBy: string|null;
+
+
+    
+}
+
+
+
 export interface HumidExcelData {
     SL_No: number;
     LotNo: string;

@@ -1,8 +1,6 @@
 import express from "express"
 import jwtVerify from "../middleWare/JwtAuthantication";
 
-import updateHumid from "../controller/HumidController/updateHumid";
-
 
 import getPeelingLot from "../controller/PeelingController/getUnpeeledEntry";
 import getPeelingBylot from "../controller/PeelingController/getPeeledByLot";
@@ -25,7 +23,7 @@ router.post("/updatePeeling/:id",jwtVerify, updatePeeling)
 // //Edit Reject Rcn Entry by Id
 router.delete('/rejectededitPeeling/:id', jwtVerify, EditRejectPeeling);
 //Edit Approve Rcn Entry by Id
-router.put("/approveeditPeeling/:id", jwtVerify, approvePeeling);
+router.put("/approveeditPeeling/:id/:LotNo/:origin", jwtVerify, approvePeeling);
 
 
 export default router

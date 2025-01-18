@@ -299,7 +299,7 @@ const PeelingTable = () => {
         return finalTime;
     }
     const handleApprove = async (item: PeelingData) => {
-        const response = await axios.put(`/api/peeling/approveeditPeeling/${item.id}`)
+        const response = await axios.put(`/api/peeling/approveeditPeeling/${item.id}/${item.LotNo}/${item.origin}`)
         const data = await response.data
         if (data.message === "Edit Request of Peeling Entry is Approved Successfully") {
 

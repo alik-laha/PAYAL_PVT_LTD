@@ -85,7 +85,7 @@ const QCWater = () => {
                 <p className='text-lg font-semibold text-center py-1 '>QC Water</p>
                 <div>
                 <Dialog>
-                        <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-red-500 mb-2 mt-5 ml-4" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>
+                        <DialogTrigger disabled= {data.EditData>0?true:false}>   <Button className="bg-red-500 mb-2 mt-5 responsive-button-adjust no-margin-left ml-4" disabled= {data.EditData>0?true:false}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-3xl' style={{display:'block'}}>
                             <DialogHeader>
                                 <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>QC Water</p></DialogTitle>
@@ -98,9 +98,9 @@ const QCWater = () => {
                    
 
 
-                    {checkpending('QCRCN') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button>}
+                    {checkpending('QCRCN') && <Button className="bg-orange-400 mb-2 ml-4 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button>}
                     <Dialog>
-                        <DialogTrigger>   <Button className="bg-blue-500 mb-2 mt-5 ml-8" >Parameters</Button></DialogTrigger>
+                        <DialogTrigger>   <Button className="bg-blue-500 mb-2 mt-2 ml-4 responsive-button-adjust no-margin-left" >Parameters</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl' style={{display:'block'}}>
                             <DialogHeader>
                                 <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Feed Water Parameters</p></DialogTitle>

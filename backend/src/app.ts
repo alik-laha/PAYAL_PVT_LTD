@@ -28,6 +28,8 @@ import issueRouter from "./router/issueRouter";
 import oilMillRouter from "./router/oilMillRouter";
 import QCWaterRouter from "./router/QCWaterRouter";
 import PeelingRouter from "./router/PeelingRouter";
+import mayurRouter from "./router/mayurRouter";
+import dpdsRouter from "./router/dpdsRouter";
 
 
 
@@ -65,4 +67,6 @@ app.use("/api/issue", issueRouter)
 app.use("/api/oilMill", oilMillRouter)
 app.use("/api/qcWater", QCWaterRouter)
 app.use("/api/peeling", PeelingRouter)
+app.use("/api/mayur", mayurRouter)
+app.use("/api/dpds", dpdsRouter)
 export default app

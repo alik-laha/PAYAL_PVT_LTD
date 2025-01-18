@@ -4,6 +4,9 @@ import sequelize from "../../config/databaseConfig";
 
 import LotNo from "../../model/lotNomodel";
 import RcnPeeling from "../../model/peelingModel";
+import Mayur from "../../model/mayurModel";
+import lotoriginmodel from "../../model/lotoriginModel";
+import DPDS from "../../model/dpdsmodel";
 //import RcnPeeling from "../../model/peelingModel";
 
 
@@ -146,19 +149,36 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
                     }, transaction
                 }
             );
-            // if(humidUpdate){
+             if(humidUpdate){
                 
-            //     await RcnPeeling.create({
-            //         id:data.id,
-            //         LotNo:data.LotNo,
-            //         origin:data.origin,
-            //         //InputMoisture:data.OutputMoisture,
-            //         TotalInput: data.TotalOutput,
-            //         noOfOperators:data.operator
-            //         //NoOfTrolley: data.NoOfTrolley,
+                await Mayur.create({
+                  
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    
+                    rcv_wholespeel: data.WholesPeel,
+                    rcv_wholesunpeel: data.WholesUnpeel,
+                    current_backlog:parseFloat(data.WholesPeel)+parseFloat(data.WholesUnpeel),
+                 },{transaction});
 
-            //     },{transaction});
-            // }
+
+                await DPDS.create({
+                  
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    
+                    rcv_dp: data.DP,
+                    rcv_ds: data.DS,
+                    rcv_dp1: data.DP1,
+                   
+                    current_backlog:parseFloat(data.DP)+parseFloat(data.DS)+parseFloat(data.DP1),
+                 },{transaction});
+
+                await lotoriginmodel.create({              
+                    LotNo:LotNO,
+                    origin:data.origin,   
+                 },{transaction});
+             }
            
         }
        
