@@ -44,7 +44,8 @@ const RCNDPDSReMix = (props:Props) => {
         const [fsourcebacklog, setfSourcebacklog] = useState<string>('');
         
         const [successflag, setSuccessflag] = useState<string>('none');
-        
+        const [successflagtable, setSuccessflagtable] = useState<string>('none');
+
         const [destbacklog, setdestbacklog] = useState<string>("");
         const [destlot, setdestlot] = useState<string>("");
         const [destid, setdestid] = useState<number>(0);
@@ -109,10 +110,12 @@ const RCNDPDSReMix = (props:Props) => {
 
         const handleSearch = async () => {
             setSuccessflag('none')
+            setSuccessflagtable('none')
             if(Number(destlot.split("-")[1])<Number(props.borma.LotNo.split("-")[1])){
                 
-                if(successflag==='block'){
+                if(successflag==='flex'){
                     setSuccessflag('none') 
+                    setSuccessflagtable('none')
                     setErrortext('Mixing Cant be performed with Previous Lot')
                     const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
                     dialogerror.showModal()
@@ -120,6 +123,7 @@ const RCNDPDSReMix = (props:Props) => {
                 }
                 else{
                     setSuccessflag('none') 
+                    setSuccessflagtable('none')
                     setErrortext('Mixing Cant be performed with Previous Lot')
                     const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
                     dialogerror.showModal()
@@ -138,6 +142,7 @@ const RCNDPDSReMix = (props:Props) => {
             //console.log(data1.rcnEntries.current_backlog)
             if(data1.rcnEntries && data1.rcnEntries.current_backlog && data1.rcnEntries.editStatus!=='Pending'){
                 setSuccessflag('flex')
+                setSuccessflagtable('contents')
                 setdatarcv(data1.rcnEntries)
                 setdestid(data1.rcnEntries.id)
                 setdestbacklog(data1.rcnEntries.current_backlog)
@@ -151,6 +156,7 @@ const RCNDPDSReMix = (props:Props) => {
             }
             else if(data1.rcnEntries && data1.rcnEntries.current_backlog && data1.rcnEntries.editStatus==='Pending'){
                 setSuccessflag('none')
+                setSuccessflagtable('none')
                 setdestbacklog('NA')
                 setErrortext('Target Lot & Origin is in Pending Modification')
                 const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
@@ -160,6 +166,7 @@ const RCNDPDSReMix = (props:Props) => {
             else{
 
                 setSuccessflag('none')
+                setSuccessflagtable('none')
                 setdestbacklog('NA')
                 setErrortext('Target Lot & Origin Not found')
                 const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
@@ -366,7 +373,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ? props.borma.current_backlog :0 }</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{successflag ? fsourcebacklog:'NA'}</TableCell>
                         </TableRow>
-                        <TableRow className="boiling-row-height-scoop">
+                        <TableRow className="boiling-row-height-scoop" style={{ display: successflagtable }}>
                         <TableCell className="text-center ">2</TableCell>
                         <TableCell className="text-center font-semibold  flex">Target<CircleArrowLeft size={30} color="green"/></TableCell>
                             <TableCell className="text-center font-semibold text-green-600 ">{destlot ? destlot :'NA'}</TableCell>
