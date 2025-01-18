@@ -146,7 +146,7 @@ const RCNMayurReMix = (props:Props) => {
             const data1 = await response.data
       
             //console.log(data1.rcnEntries.current_backlog)
-            if(data1.rcnEntries && data1.rcnEntries.current_backlog){
+            if(data1.rcnEntries && data1.rcnEntries.current_backlog && data1.rcnEntries.editStatus!=='Pending'){
                 setSuccessflag('flex')
                 setdatarcv(data1.rcnEntries)
                 setdestid(data1.rcnEntries.id)
@@ -157,6 +157,14 @@ const RCNMayurReMix = (props:Props) => {
                 setdestrcv_wholespeel(data1.rcnEntries.rcv_wholespeel ? data1.rcnEntries.rcv_wholespeel :0)
                 setdestrcv_wholesunpeel(data1.rcnEntries.rcv_wholesunpeel ? data1.rcnEntries.rcv_wholesunpeel :0)
                setdestbacklog(data1.rcnEntries.current_backlog)
+            }
+            else if(data1.rcnEntries && data1.rcnEntries.current_backlog && data1.rcnEntries.editStatus==='Pending'){
+                setSuccessflag('none')
+                setdestbacklog('NA')
+                setErrortext('Target Lot & Origin is in Pending Modification')
+                const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                dialogerror.showModal()
+                return
             }
             else{
 
@@ -263,10 +271,12 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
                 </div>
-
+                <div className="flex mt-2 ml-5" >
+                <Label className="w-100 pt-2 font-semibold ml-3">(Maximum Total {sourceactualbacklog} Kg can be Transfered)</Label>
+                </div>
                 <div className="flex mt-5 mx-8" style={{ display: successflag }}>
                 <Label className="w-100 pt-2 font-semibold text-red-500">Fill Up Transfer Amount in Details </Label>
-                <Label className="w-100 pt-2 font-semibold ml-3">(Maximum Total {sourceactualbacklog} Kg can be Transfered)</Label>
+                {/* <Label className="w-100 pt-2 font-semibold ml-3">(Maximum Total {sourceactualbacklog} Kg can be Transfered)</Label> */}
                 
                 </div>
 

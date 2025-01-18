@@ -792,7 +792,8 @@ export const updateEntireMayur= async (req: Request, res: Response) => {
             const Mc_runTime4 = millisecondsToTime(runtime4);
             //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
          
-            if((parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel))< (parseFloat(data.issue_pw_w)
+            if((parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel)+(data.rcv_DPDS? parseFloat(data.rcv_DPDS):0)+
+            (data.rcv_sorting?parseFloat(data.rcv_sorting):0)+(data.rcv_village?parseFloat(data.rcv_village):0))< (parseFloat(data.issue_pw_w)
                 +parseFloat(data.issue_w_lot)
                 +parseFloat(data.issue_ww)
                 +parseFloat(data.issue_rejection)
@@ -821,8 +822,12 @@ export const updateEntireMayur= async (req: Request, res: Response) => {
                     id:data.id,
                     date:data.Date,
                     LotNo:LotNO,
+                    altid:data.alt_id,
+                    rcv_DPDS:data.rcv_DPDS,
+                    rcv_sorting:data.rcv_sorting,
+                    rcv_village:data.rcv_village,
                     origin:data.origin,
-                  
+                    mixingLot:data.mixingLot,
                     rcv_wholespeel: data.rcv_wholespeel,
                     rcv_wholesunpeel: data.rcv_wholesunpeel,
                     Mc_on_133: data.Mc_on_133,
@@ -857,7 +862,8 @@ export const updateEntireMayur= async (req: Request, res: Response) => {
                     issue_LW: data.issue_LW,
                     issue_JB: data.issue_JB,
                   
-                    entry_backlog:(parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel))- (parseFloat(data.issue_pw_w)
+                    entry_backlog:(parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel)+ (data.rcv_DPDS ? parseFloat(data.rcv_DPDS) : 0) +
+                    (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0) + (data.rcv_village ? parseFloat(data.rcv_village) : 0))- (parseFloat(data.issue_pw_w)
                     +parseFloat(data.issue_w_lot)
                     +parseFloat(data.issue_ww)
                     +parseFloat(data.issue_rejection)
@@ -1122,7 +1128,7 @@ export const SearchRCNMayurMix = async (req: Request, res: Response) => {
         let rcnEntries
         
              rcnEntries = await Mayur.findOne({
-                attributes: ['id','rcv_transfer','current_backlog','rcv_wholespeel','rcv_wholesunpeel','rcv_DPDS','rcv_sorting','rcv_village'],
+                attributes: ['id','rcv_transfer','current_backlog','rcv_wholespeel','rcv_wholesunpeel','rcv_DPDS','rcv_sorting','rcv_village','editStatus'],
                 where
                 
                 

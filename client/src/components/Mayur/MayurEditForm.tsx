@@ -22,7 +22,7 @@ interface mayurRowData{
     alt_id:number;
     origin: string;
 
-    
+    mixingLot:string|null;
     rcv_wholespeel: string;
     rcv_wholesunpeel: string;
     rcv_sorting:string|null;
@@ -118,7 +118,7 @@ const RCNMayurEditForm = (props:Props) => {
             LotNo: props.borma[0].LotNo,
             alt_id:props.borma[0].altid,
             origin: props.borma[0].origin,
-
+            mixingLot: props.borma[0].mixingLot,
             rcv_sorting:props.borma[0].rcv_sorting,
             rcv_DPDS:props.borma[0].rcv_DPDS,
             rcv_village:props.borma[0].rcv_village,
@@ -271,7 +271,10 @@ const RCNMayurEditForm = (props:Props) => {
                     <TableHead className="text-center">Lot_No</TableHead>
               
                     <TableHead className="text-center">Origin</TableHead>
-                 
+                    <TableHead className="text-center">Mixed_Lot</TableHead>
+                    <TableHead className="text-center">Receive DPDS</TableHead>
+                    <TableHead className="text-center">Receive Sorting</TableHead>
+                    <TableHead className="text-center">Receive Village</TableHead>
                    
                     <TableHead className="text-center">Opening Wholes_Peel</TableHead>
                     <TableHead className="text-center">Opening Wholes_UnPeel</TableHead>
@@ -310,7 +313,10 @@ const RCNMayurEditForm = (props:Props) => {
                                         <TableCell className="text-center">{idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
-
+                                        <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_DPDS ? formatNumber(row.rcv_DPDS):0} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_sorting ? formatNumber(row.rcv_sorting):0} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_village ? formatNumber(row.rcv_village):0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_wholespeel)} Kg</TableCell>
                                         <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_wholesunpeel)} Kg</TableCell>
                                        
