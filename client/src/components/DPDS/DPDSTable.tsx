@@ -72,7 +72,7 @@ const DPDSTable = () => {
     const [EditData, setEditData] = useState<DPDSData[]>([])
     const [blConNo, setBlConNo] = useState<string>("")
     const { editDPDSLotWiseData } = useContext(Context);
-    const [Data, setData] = useState<any[]>([])
+    const [Data, setData] = useState<DPDSData[]>([])
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 

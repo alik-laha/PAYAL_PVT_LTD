@@ -71,7 +71,7 @@ const PeelingTable = () => {
     const [EditData, setEditData] = useState<PeelingData[]>([])
     const [blConNo, setBlConNo] = useState<string>("")
     const { editPeelingLotWiseData } = useContext(Context);
-    const [Data, setData] = useState<any[]>([])
+    const [Data, setData] = useState<PeelingData[]>([])
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 
