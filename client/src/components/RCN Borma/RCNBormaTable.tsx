@@ -69,7 +69,7 @@ const BormaTable = () => {
     const [EditData, setEditData] = useState<BormaData[]>([])
     const [blConNo, setBlConNo] = useState<string>("")
     const { editBormaLotWiseData } = useContext(Context);
-    const [Data, setData] = useState<any[]>([])
+    const [Data, setData] = useState<BormaData[]>([])
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 
