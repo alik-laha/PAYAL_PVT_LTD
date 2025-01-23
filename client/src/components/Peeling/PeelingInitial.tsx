@@ -101,6 +101,18 @@ const PeelingInitial = (props: any) => {
                                         <TableCell className="text-center">
                                             <Dialog>
                                                 <DialogTrigger>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)} >+ Add </Button></DialogTrigger>
+                                            <DialogContent className='max-w-7xl'>
+                                                    <DialogHeader>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Peeling Line Entry</p></DialogTitle>
+
+                                                    </DialogHeader>
+                                                
+                                                    <RCNPeelingCreateForm borma={bormaData}/>
+                                                </DialogContent>
+                                            </Dialog>
+                                            {/* <Dialog>
+                                                <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger>
                                             { idx==0 &&  <DialogContent className='max-w-7xl'>
                                                     <DialogHeader>
@@ -110,7 +122,7 @@ const PeelingInitial = (props: any) => {
                                                 
                                                     <RCNPeelingCreateForm borma={bormaData}/>
                                                 </DialogContent>}
-                                            </Dialog>
+                                            </Dialog> */}
                                         </TableCell>
 
                                     </TableRow>

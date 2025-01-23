@@ -98,16 +98,27 @@ const RCNBormaCreateForm = (props: any) => {
                                         <TableCell className="text-center"><Button className="bg-orange-500 h-8 text-white rounded-md">Pending</Button></TableCell>
                                         <TableCell className="text-center">
                                             <Dialog>
-                                                <DialogTrigger>
-                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger>
-                                            { idx==0 &&  <DialogContent className='max-w-7xl'>
+                                                {/* <DialogTrigger>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger> */}
+
+                                                 <DialogTrigger>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)} >+ Add </Button></DialogTrigger>   
+                                            {/* { idx==0 &&  <DialogContent className='max-w-7xl'>
                                                     <DialogHeader>
                                                         <DialogTitle><p className='text-1xl text-center mt-1'>Borma Line Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 
                                                     <RCNBormaLineCreateForm borma={bormaData}/>
-                                                </DialogContent>}
+                                                </DialogContent>} */}
+                                            <DialogContent className='max-w-7xl'>
+                                                    <DialogHeader>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Borma Line Entry</p></DialogTitle>
+
+                                                    </DialogHeader>
+                                                
+                                                    <RCNBormaLineCreateForm borma={bormaData}/>
+                                                </DialogContent>
                                             </Dialog>
                                         </TableCell>
 

@@ -74,7 +74,7 @@ const MayurTable = () => {
     const [EditData, setEditData] = useState<MayurData[]>([])
     const [blConNo, setBlConNo] = useState<string>("")
     const { editMayurLotWiseData } = useContext(Context);
-    const [Data, setData] = useState<any[]>([])
+    const [Data, setData] = useState<MayurData[]>([])
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 

@@ -98,7 +98,7 @@ const RCNHumidCreateForm = (props: any) => {
 
                                         <TableCell className="text-center"><Button className="bg-orange-500 h-8 text-white rounded-md">Pending</Button></TableCell>
                                         <TableCell className="text-center">
-                                            <Dialog>
+                                            {/* <Dialog>
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)} disabled={idx!=0?true:false}>+ Add </Button></DialogTrigger>
                                             { idx==0 &&  <DialogContent className='max-w-7xl'>
@@ -109,6 +109,18 @@ const RCNHumidCreateForm = (props: any) => {
                                                 
                                                     <RCNHumidLineCreateForm borma={bormaData}/>
                                                 </DialogContent>}
+                                            </Dialog> */}
+                                            <Dialog>
+                                                <DialogTrigger>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo)}>+ Add </Button></DialogTrigger>
+                                         <DialogContent className='max-w-7xl'>
+                                                    <DialogHeader>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Humidifier Line Entry</p></DialogTitle>
+
+                                                    </DialogHeader>
+                                                
+                                                    <RCNHumidLineCreateForm borma={bormaData}/>
+                                                </DialogContent>
                                             </Dialog>
                                         </TableCell>
 
