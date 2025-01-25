@@ -254,8 +254,9 @@ const RCNDPDSCreateForm = (props:Props) => {
               
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
-                  
+                    <TableHead className="text-center">Rcv Big Taiho</TableHead>
                     <TableHead className="text-center">Rcv Sorting</TableHead>
+                    
                     <TableHead className="text-center">Rcv DP</TableHead>
                     <TableHead className="text-center">Rcv DS</TableHead>
                     <TableHead className="text-center">Rcv DP1</TableHead>
@@ -304,7 +305,7 @@ const RCNDPDSCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
-                                        {/* <TableCell className="text-center font-semibold text-red-500">{row.rcv_transfer ? formatNumber(row.rcv_transfer) :''} </TableCell> */}
+                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_transfer ? formatNumber(row.rcv_transfer) :0} </TableCell>
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_Sorting ? formatNumber(row.rcv_Sorting):0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_dp)} Kg</TableCell>
                                         <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_ds)} Kg</TableCell>

@@ -36,12 +36,15 @@ const RCNDPDSReMix = (props:Props) => {
         const [sourcercv_ds, setsourcercv_ds] = useState<number>(0);
         const [sourcercv_dp1, setsourcercv_dp1] = useState<number>(0);
         const [sourcercv_sorting, setsourcercv_sorting] = useState<number>(0);
-     
+        const [sourcercv_bigT, setsourcercv_bigT] = useState<number>(0);
+
         const [fsourcercv_dp, setfsourcercv_dp] = useState<string>();
         const [fsourcercv_ds, setfsourcercv_ds] = useState<string>();
         const [fsourcercv_dp1, setfsourcercv_dp1] = useState<string>();
         const [fsourcercv_sorting, setfsourcercv_sorting] = useState<string>('0');
         const [fsourcebacklog, setfSourcebacklog] = useState<string>('');
+        const [fsourcercv_bigT, setfsourcercv_bigT] = useState<string>('0');
+        
         
         const [successflag, setSuccessflag] = useState<string>('none');
         const [successflagtable, setSuccessflagtable] = useState<string>('none');
@@ -53,7 +56,8 @@ const RCNDPDSReMix = (props:Props) => {
         const [destrcv_ds, setdestrcv_ds] = useState<string>("");
         const [destrcv_dp1, setdestrcv_dp1] = useState<string>("");
         const [destrcv_sorting, setdestrcv_sorting] = useState<string>("");
-       
+        const [destrcv_bigT, setdestrcv_bigT] = useState<string>("");
+
         const [destorigin, setdestorigin] = useState<string>("");
         const [sourceactualbacklog, setsourceactualbacklog] = useState<string>("");
        
@@ -85,6 +89,8 @@ const RCNDPDSReMix = (props:Props) => {
         const [datarcv, setdatarcv] = useState<RCNEntries>({} as RCNEntries);
         useEffect(() => {
             setfsourcercv_sorting(props.borma ?((props.borma.rcv_Sorting ?Number(props.borma.rcv_Sorting):0)-sourcercv_sorting).toFixed(2):'');
+            setfsourcercv_bigT(props.borma ?((props.borma.rcv_transfer ?Number(props.borma.rcv_transfer):0)-sourcercv_bigT).toFixed(2):'');
+
             setfsourcercv_dp(props.borma ?(Number(props.borma.rcv_dp)-sourcercv_dp).toFixed(2):'');
             setfsourcercv_ds(props.borma ?(Number(props.borma.rcv_ds)-sourcercv_ds).toFixed(2):'');
             setfsourcercv_dp1(props.borma ?(Number(props.borma.rcv_dp1)-sourcercv_dp1).toFixed(2):'');

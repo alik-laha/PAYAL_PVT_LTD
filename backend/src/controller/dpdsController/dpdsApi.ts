@@ -175,6 +175,7 @@ export const CreateEntireDPDS= async (req: Request, res: Response) => {
         for (let data of linehumid) 
         {     
             if((parseFloat(data.rcv_dp)+parseFloat(data.rcv_ds)+parseFloat(data.rcv_dp1)+(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)
+                +(data.rcv_transfer? parseFloat(data.rcv_transfer):0)
            )< (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
            +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
            parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
@@ -241,7 +242,7 @@ export const CreateEntireDPDS= async (req: Request, res: Response) => {
                     issue_bigTaiho: data.issue_bigTaiho,
                     issue_mayur: data.issue_mayur, 
                     entry_backlog: (parseFloat(data.rcv_dp)+parseFloat(data.rcv_ds)+parseFloat(data.rcv_dp1)
-                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)) 
+                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)+(data.rcv_transfer? parseFloat(data.rcv_transfer):0)) 
                     - (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
                     +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
                     parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
@@ -255,7 +256,7 @@ export const CreateEntireDPDS= async (req: Request, res: Response) => {
                     +parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_mayur)
                         ),
                     current_backlog: (parseFloat(data.rcv_dp)+parseFloat(data.rcv_ds)+parseFloat(data.rcv_dp1)
-                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)) 
+                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)+(data.rcv_transfer? parseFloat(data.rcv_transfer):0)) 
                     - (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
                     +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
                     parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
@@ -518,6 +519,7 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                         rcv_ds: data.rcv_ds,
                         rcv_dp1: data.rcv_dp1,
                         rcv_Sorting:data.rcv_Sorting,
+                        
                         noOfdayOperators:data.dayoperator,
                         noOfnightOperators:data.nightoperator,
                         rcv_transfer:data.rcv_transfer,
@@ -710,7 +712,7 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
          
          
             if((parseFloat(data.rcv_dp)+parseFloat(data.rcv_ds)+parseFloat(data.rcv_dp1)+(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)
-            )< (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
+            +(data.rcv_transfer? parseFloat(data.rcv_transfer):0))< (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
             +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
             parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
             + parseFloat(data.issue_wp)+parseFloat(data.issue_rs)+parseFloat(data.issue_dp_2)
@@ -752,7 +754,7 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
                     rcv_ds: data.rcv_ds,
                     rcv_dp1: data.rcv_ds,
                     rcv_Sorting:data.rcv_Sorting,
-
+                    rcv_transfer:data.rcv_transfer,
                     noOfdayOperators: data.dayoperator,
                     noOfnightOperators: data.nightoperator,
                     issue_m_ds: data.issue_m_ds,
@@ -788,7 +790,7 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
                     issue_bigTaiho: data.issue_bigTaiho,
                     issue_mayur: data.issue_mayur, 
                     entry_backlog: (parseFloat(data.rcv_dp)+parseFloat(data.rcv_ds)+parseFloat(data.rcv_dp1)
-                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)) 
+                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)+(data.rcv_transfer? parseFloat(data.rcv_transfer):0)) 
                     - (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
                     +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
                     parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
@@ -802,7 +804,7 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
                     +parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_mayur)
                         ),
                     current_backlog: (parseFloat(data.rcv_dp)+parseFloat(data.rcv_ds)+parseFloat(data.rcv_dp1)
-                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)) 
+                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)+(data.rcv_transfer? parseFloat(data.rcv_transfer):0)) 
                     - (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
                     +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
                     parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)

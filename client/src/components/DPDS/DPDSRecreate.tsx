@@ -21,7 +21,7 @@ interface DPDSRowData{
     LotNo: string;
     origin: string;
     alt_id:number;
-    rcv_transfer: string|null;
+    rcv_transfer: number;
     rcv_Sorting: number;
     rcv_dp: number;
     rcv_ds: number;
@@ -118,7 +118,7 @@ const RCNDPDSReCreateForm = (props:Props) => {
             rcv_sorting:0,
             rcv_DPDS:0,
             rcv_village:0,
-            rcv_transfer:props.borma[0].rcv_transfer,
+            rcv_transfer:0,
             rcv_peeling:props.borma[0].current_backlog,
             rcv_Sorting: 0 ,
             rcv_dp: 0 ,
@@ -188,7 +188,7 @@ const RCNDPDSReCreateForm = (props:Props) => {
             }
         if((Number(rows[0].rcv_peeling)
          !== (Number(rows[0].rcv_dp) + Number(rows[0].rcv_dp1)+Number(rows[0].rcv_ds)+
-        (rows[0].rcv_Sorting ? Number(rows[0].rcv_Sorting) : 0) ))){
+        (rows[0].rcv_Sorting ? Number(rows[0].rcv_Sorting) : 0)+(rows[0].rcv_transfer ? Number(rows[0].rcv_transfer) : 0) ))){
             setErrortext('Total Current Receiving Balance should be equal to Opening Balance')
            
             const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
@@ -197,7 +197,8 @@ const RCNDPDSReCreateForm = (props:Props) => {
             return
         }
         if(
-         ((props.borma[0].rcv_Sorting ? Number(props.borma[0].rcv_Sorting):0) < Number(rows[0].rcv_Sorting))
+         ((props.borma[0].rcv_Sorting ? Number(props.borma[0].rcv_Sorting):0) < Number(rows[0].rcv_Sorting)) ||
+         ((props.borma[0].rcv_transfer ? Number(props.borma[0].rcv_transfer):0) < Number(rows[0].rcv_transfer))
             || (Number(props.borma[0].rcv_dp) < Number(rows[0].rcv_dp) )
             || (Number(props.borma[0].rcv_ds) < Number(rows[0].rcv_ds) )
             || (Number(props.borma[0].rcv_dp1) < Number(rows[0].rcv_dp1))
@@ -322,6 +323,8 @@ const RCNDPDSReCreateForm = (props:Props) => {
                
                     <TableHead className="text-center">Previous Sorting</TableHead>
                     <TableHead className="text-center">Current Sorting</TableHead>
+                    <TableHead className="text-center">Previous BigTaiho</TableHead>
+                    <TableHead className="text-center">Current BigTaiho</TableHead>
               
                     <TableHead className="text-center">Issue M DS</TableHead>
                     <TableHead className="text-center">Issue M DP</TableHead>
@@ -378,6 +381,8 @@ const RCNDPDSReCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_Sorting ?formatNumber(props.borma[0].rcv_Sorting):0} Kg</TableCell>
                                         <TableCell className="text-center"> <Input  type="number" value={row.rcv_Sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_Sorting', e.target.value)} required /></TableCell>
                                  
+                                        <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_transfer ?formatNumber(props.borma[0].rcv_transfer):0} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input  type="number" value={row.rcv_transfer} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_transfer', e.target.value)} required /></TableCell>
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_m_ds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_m_ds', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_m_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_m_dp', e.target.value)} required /></TableCell>
