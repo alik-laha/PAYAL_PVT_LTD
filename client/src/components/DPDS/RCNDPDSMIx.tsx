@@ -153,7 +153,7 @@ const RCNDPDSReMix = (props:Props) => {
                 setdestbacklog(data1.rcnEntries.current_backlog)
                
                 setdestrcv_sorting(data1.rcnEntries.rcv_Sorting ? data1.rcnEntries.rcv_Sorting :0)
-            
+                setdestrcv_bigT(data1.rcnEntries.rcv_transfer ? data1.rcnEntries.rcv_transfer :0)
                 setdestrcv_dp(data1.rcnEntries.rcv_dp ? data1.rcnEntries.rcv_dp :0)
                 setdestrcv_dp1(data1.rcnEntries.rcv_dp1 ? data1.rcnEntries.rcv_dp1 :0)
                 setdestrcv_ds(data1.rcnEntries.rcv_ds ? data1.rcnEntries.rcv_ds :0)
