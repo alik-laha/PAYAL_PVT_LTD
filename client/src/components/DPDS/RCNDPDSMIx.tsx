@@ -90,19 +90,18 @@ const RCNDPDSReMix = (props:Props) => {
         useEffect(() => {
             setfsourcercv_sorting(props.borma ?((props.borma.rcv_Sorting ?Number(props.borma.rcv_Sorting):0)-sourcercv_sorting).toFixed(2):'');
             setfsourcercv_bigT(props.borma ?((props.borma.rcv_transfer ?Number(props.borma.rcv_transfer):0)-sourcercv_bigT).toFixed(2):'');
-
             setfsourcercv_dp(props.borma ?(Number(props.borma.rcv_dp)-sourcercv_dp).toFixed(2):'');
             setfsourcercv_ds(props.borma ?(Number(props.borma.rcv_ds)-sourcercv_ds).toFixed(2):'');
             setfsourcercv_dp1(props.borma ?(Number(props.borma.rcv_dp1)-sourcercv_dp1).toFixed(2):'');
-            setfSourcebacklog(props.borma ?(Number(props.borma.current_backlog) - (sourcercv_dp+sourcercv_ds+sourcercv_sorting+sourcercv_dp1)).toFixed(2):'');
+            setfSourcebacklog(props.borma ?(Number(props.borma.current_backlog) - (sourcercv_dp+sourcercv_ds+sourcercv_sorting+sourcercv_dp1+sourcercv_bigT)).toFixed(2):'');
+            
             setdestrcv_sorting(((datarcv.rcv_Sorting ?Number(datarcv.rcv_Sorting):0)+sourcercv_sorting).toFixed(2));
-         
+            setdestrcv_bigT(((datarcv.rcv_transfer ?Number(datarcv.rcv_transfer):0)+sourcercv_bigT).toFixed(2));
             setdestrcv_dp(((datarcv.rcv_dp?Number(datarcv.rcv_dp):0)+sourcercv_dp).toFixed(2));
             setdestrcv_ds(((datarcv.rcv_ds?Number(datarcv.rcv_ds):0)+sourcercv_ds).toFixed(2));
             setdestrcv_dp1(((datarcv.rcv_dp1?Number(datarcv.rcv_dp1):0)+sourcercv_dp1).toFixed(2));
-            setdestrcv_sorting(((datarcv.rcv_Sorting?Number(datarcv.rcv_Sorting):0)+sourcercv_sorting).toFixed(2));
-            setdestbacklog(((datarcv.current_backlog?Number(datarcv.current_backlog):0) + (sourcercv_dp+sourcercv_ds+sourcercv_dp1+sourcercv_sorting)).toFixed(2));
-        }, [ sourcercv_dp, sourcercv_ds, sourcercv_dp1, sourcercv_sorting]);
+            setdestbacklog(((datarcv.current_backlog?Number(datarcv.current_backlog):0) + (sourcercv_dp+sourcercv_ds+sourcercv_dp1+sourcercv_sorting+sourcercv_bigT)).toFixed(2));
+        }, [ sourcercv_dp, sourcercv_ds, sourcercv_dp1, sourcercv_sorting,sourcercv_bigT]);
 
         useEffect(() => {
          
