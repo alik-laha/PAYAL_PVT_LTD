@@ -227,6 +227,13 @@ function App() {
           <Route path='/dashboard/DPDS' element={<DPDS />} />
 
         </Route>
+
+        {/*Production BigTaiho  */}
+      <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'PeelingSupervisor', 'ProductionManager']} />}>
+          <Route path='/dashboard/BigTaiho' element={<DPDS />} />
+
+        </Route>
         
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
