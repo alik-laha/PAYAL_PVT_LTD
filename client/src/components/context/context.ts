@@ -57,6 +57,8 @@ interface ContextType {
     setEditMayurLotWiseData: (data: any[]) => void;
     editDPDSLotWiseData: any[];
     setEditDPDSLotWiseData: (data: any[]) => void;
+    editBigTaihoLotWiseData: any[];
+    setEditBigTaihoLotWiseData: (data: any[]) => void;
     editPendingAlmondData: AlmondPrimaryEntryData[];
     setEditPendingAlmondData: (data: AlmondPrimaryEntryData[]) => void;
     editPendingAgarbatiData: AgarbatiPrimaryEntryData[];
@@ -123,6 +125,8 @@ const Context = createContext<ContextType>({
     setEditPendingOilMillData: () => {},
     editDPDSLotWiseData: [],
     setEditDPDSLotWiseData: () => {},
+    editBigTaihoLotWiseData: [],
+    setEditBigTaihoLotWiseData: () => {}
 
 });
 

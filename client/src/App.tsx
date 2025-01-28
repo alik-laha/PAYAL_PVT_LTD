@@ -37,6 +37,7 @@ import OilMill from './components/OilMill/OilMill'
 import QCWater from './components/QCWater/QCwater'
 import Mayur from './components/Mayur/Mayur'
 import DPDS from './components/DPDS/DPDS'
+import BigTaiho from './components/bigTaiho/BigTaiho'
 
 
 
@@ -231,7 +232,7 @@ function App() {
         {/*Production BigTaiho  */}
       <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'PeelingSupervisor', 'ProductionManager']} />}>
-          <Route path='/dashboard/BigTaiho' element={<DPDS />} />
+          <Route path='/dashboard/BigTaiho' element={<BigTaiho />} />
 
         </Route>
         
