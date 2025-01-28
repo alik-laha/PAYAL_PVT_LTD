@@ -132,7 +132,8 @@ const DPDSTable = () => {
             Receive_Peeling: Number(formatNumber(item.rcv_dp)) + Number(formatNumber(item.rcv_ds))+ Number(formatNumber(item.rcv_dp1)),
            
             Receive_Sorting: item.rcv_Sorting ? formatNumber(item.rcv_Sorting) : 0,
-            
+            Receive_BigTaiho: item.rcv_transfer ? formatNumber(item.rcv_transfer) : 0,
+
             Issue_M_DS: formatNumber(item.issue_m_ds),
             Issue_M_DP: formatNumber(item.issue_m_dp),
             Issue_K_DP: formatNumber(item.issue_k_dp),
@@ -187,7 +188,7 @@ const DPDSTable = () => {
             Receive_Peeling: Number(formatNumber(item.rcv_dp)) + Number(formatNumber(item.rcv_ds))+ Number(formatNumber(item.rcv_dp1)),
            
             Receive_Sorting: item.rcv_Sorting ? formatNumber(item.rcv_Sorting) : 0,
-            
+            Receive_BigTaiho: item.rcv_transfer ? formatNumber(item.rcv_transfer) : 0,
             Issue_M_DS: formatNumber(item.issue_m_ds),
             Issue_M_DP: formatNumber(item.issue_m_dp),
             Issue_K_DP: formatNumber(item.issue_k_dp),
@@ -399,6 +400,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <TableHead className="text-center">Opening DP1</TableHead>
                 <TableHead className="text-center">Receive Peeling</TableHead>
                 <TableHead className="text-center">Receive Sorting</TableHead>
+                <TableHead className="text-center">Receive BigTaiho</TableHead>
                 <TableHead className="text-center">Issue M_DS</TableHead>
                 <TableHead className="text-center">Issue M_DP</TableHead>
                 <TableHead className="text-center">Issue K_DP</TableHead>
@@ -454,6 +456,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center  ">{formatNumber(item.rcv_dp1)}</TableCell>
                                     <TableCell className="text-center font-bold text-green-600">{Number(formatNumber(item.rcv_dp)) + Number(formatNumber(item.rcv_ds))+ Number(formatNumber(item.rcv_dp1))}</TableCell>
                                     <TableCell  className="text-center font-bold text-green-600">{item.rcv_Sorting ? formatNumber(item.rcv_Sorting) :0}</TableCell>
+                                    <TableCell  className="text-center font-bold text-green-600">{item.rcv_transfer ? formatNumber(item.rcv_transfer) :0}</TableCell>
+
                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_m_ds)}</TableCell>       
                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_m_dp)}</TableCell>
                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_k_dp)}</TableCell>
@@ -547,6 +551,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center  ">{formatNumber(item.rcv_dp1)}</TableCell>
                                     <TableCell className="text-center font-bold text-green-600">{Number(formatNumber(item.rcv_dp)) + Number(formatNumber(item.rcv_ds))+ Number(formatNumber(item.rcv_dp1))}</TableCell>
                                     <TableCell  className="text-center font-bold text-green-600">{item.rcv_Sorting ? formatNumber(item.rcv_Sorting) :0}</TableCell>
+                                    <TableCell  className="text-center font-bold text-green-600">{item.rcv_transfer ? formatNumber(item.rcv_transfer) :0}</TableCell>
+
                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_m_ds)}</TableCell>       
                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_m_dp)}</TableCell>
                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_k_dp)}</TableCell>

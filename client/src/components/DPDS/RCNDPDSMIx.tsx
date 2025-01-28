@@ -196,7 +196,7 @@ const RCNDPDSReMix = (props:Props) => {
             }
 
             if((Number(fsourcercv_dp) < 0) || (Number(fsourcercv_ds) < 0) || (Number(fsourcercv_dp1) < 0) || 
-                    (Number(fsourcercv_sorting) < 0) || (Number(fsourcebacklog) < 0)){
+                    (Number(fsourcercv_sorting) < 0) || (Number(fsourcebacklog) < 0) || (Number(fsourcercv_bigT) < 0)){
                     setErrortext('Transfer cant Exceed Remaining Stock')
                    
                     const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
@@ -213,17 +213,17 @@ const RCNDPDSReMix = (props:Props) => {
                         destlot,
                         destorigin,
                         destbacklog,
-                        destrcv_sorting,
+                        destrcv_sorting,destrcv_bigT,
                         destrcv_dp,
                         destrcv_ds,
                         destrcv_dp1,
                         fsourceid:props.borma.id,
                         fsourcelot:props.borma.LotNo,
                         fsourceorigin:props.borma.origin,
-                        fsourcebacklog,fsourcercv_sorting,
+                        fsourcebacklog,fsourcercv_sorting,fsourcercv_bigT,
                         fsourcercv_dp,fsourcercv_ds,
                         fsourcercv_dp1,
-                        amount:(sourcercv_dp+sourcercv_ds+sourcercv_dp1+sourcercv_sorting).toFixed(2),
+                        amount:(sourcercv_dp+sourcercv_ds+sourcercv_dp1+sourcercv_sorting+sourcercv_bigT).toFixed(2),
                         bsourcebacklog:props.borma.current_backlog,
                         bdestbacklog:datarcv.current_backlog
                      })
@@ -326,6 +326,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <Label className="w-1/4 pt-2 ">{fsourcercv_sorting} kg </Label>
 
                 </div>
+                <div className="flex mt-2 mx-8" style={{ display: successflag }}>
+                <Label className="w-1/4 pt-2 text-purple-500">5. BigTaiho Stock</Label>
+                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_bigT} onChange={(e) => setsourcercv_bigT(Number(e.target.value))} required /> 
+                <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
+                <Label className="w-1/4 pt-2 ">{fsourcercv_bigT} kg </Label>
+
+                </div>
                 
 
                 <div className="flex mt-5 mx-8" style={{ display: successflag }}>
@@ -355,6 +362,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                   
                       <TableHead className="text-center">Previous Sorting </TableHead>        
                       <TableHead className="text-center">Current Sorting </TableHead>
+                      <TableHead className="text-center">Previous BigTaiho </TableHead>        
+                      <TableHead className="text-center">Current bigTaiho </TableHead>
                        <TableHead className="text-center">Current Backlog</TableHead>
                         <TableHead className="text-center">Final Backlog</TableHead>
                     </TableHeader>
@@ -393,6 +402,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         
                             <TableCell className="text-center  bg-green-100">{datarcv.rcv_Sorting ? datarcv.rcv_Sorting:''}</TableCell>
                             <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? destrcv_sorting:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-green-100">{datarcv.rcv_transfer ? datarcv.rcv_transfer:''}</TableCell>
+                            <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? destrcv_bigT:'NA'}</TableCell>
                             <TableCell className="text-center font-semibold text-red-500">{datarcv.current_backlog ? datarcv.current_backlog : ''}</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{successflag ? destbacklog:'NA'}</TableCell>
                         </TableRow>

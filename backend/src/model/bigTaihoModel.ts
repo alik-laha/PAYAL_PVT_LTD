@@ -63,7 +63,8 @@ const bigTaihoModel = sequelize.define('bigTaiho', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: false
     },
-    rcv_rejection: 
+    
+    rcv_wholes: 
     {
         type: DataTypes.DECIMAL(10,2),
         allowNull: false
@@ -213,12 +214,18 @@ const bigTaihoModel = sequelize.define('bigTaiho', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
-    issue_bigTaiho: 
+    issue_dpds: 
     {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
-    issue_mayur: 
+   
+    issue_husk: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_sorting: 
     {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true

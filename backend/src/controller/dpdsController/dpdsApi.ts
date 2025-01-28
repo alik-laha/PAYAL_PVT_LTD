@@ -1160,6 +1160,7 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
         const source_rcv_dp1= req.body.fsourcercv_dp1;
       
         const source_sorting= req.body.fsourcercv_sorting;
+        const source_bigT= req.body.fsourcercv_bigT;
         const source_backlog= req.body.fsourcebacklog;
 
         const transfer_amount =req.body.amount
@@ -1172,6 +1173,7 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
         const dest_rcv_dp1= req.body.destrcv_dp1;
      
         const dest_sorting= req.body.destrcv_sorting;
+        const dest_bigT= req.body.destrcv_bigT;
         const dest_backlog= req.body.destbacklog;
 
         const b_soucre_backlog= req.body.bsourcebacklog;
@@ -1187,7 +1189,7 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
                     rcv_dp1: source_rcv_dp1,
                   
                     rcv_Sorting:source_sorting,
-                  
+                    rcv_transfer:source_bigT,
                     current_backlog:source_backlog,                   
                 },
                 {
@@ -1212,7 +1214,7 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
                         rcv_dp1: dest_rcv_dp1,
                         
                         rcv_Sorting:dest_sorting,
-                        
+                        rcv_transfer:dest_bigT,
                         current_backlog:dest_backlog, 
                         mixingLot:sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`)                  
                     },
