@@ -163,8 +163,8 @@ const DPDSTable = () => {
             Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
             Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
            
-            Operator_Day: item.noOfdayOperators,
-            Operator_Night: item.noOfnightOperators,
+            No_Labour: item.noOfdayOperators,
+            No_Supervisor: item.noOfnightOperators,
             Edit_Status: item.editStatus,
             Created_By: item.CreatedBy,
             Modified_By: item.modifiedBy 
@@ -218,8 +218,8 @@ const DPDSTable = () => {
             Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
             Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
            
-            Operator_Day: item.noOfdayOperators,
-            Operator_Night: item.noOfnightOperators,
+            No_Labour: item.noOfdayOperators,
+            No_Supervisor: item.noOfnightOperators,
             Edit_Status: item.editStatus,
             Created_By: item.CreatedBy,
             Modified_By: item.modifiedBy 
@@ -427,8 +427,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <TableHead className="text-center">Current_Backlog</TableHead>
              
            
-                <TableHead className="text-center">Operator_Day</TableHead>
-                <TableHead className="text-center">Operator_Night</TableHead>
+                <TableHead className="text-center">Labour</TableHead>
+                <TableHead className="text-center">Supervisor</TableHead>
                
                     <TableHead className="text-center" >Edit Status </TableHead>
                     <TableHead className="text-center" >Created By </TableHead>

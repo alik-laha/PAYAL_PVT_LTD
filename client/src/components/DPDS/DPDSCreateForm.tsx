@@ -234,13 +234,13 @@ const RCNDPDSCreateForm = (props:Props) => {
                 <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
                 <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
                
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Day)</Label>
+                     <div className="flex"><Label className="w-2/4 pt-1">No. of Labour</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
+                    <Input className="w-2/4 text-center" placeholder="No. of labour" ref={dayOpRef}  />
                      </div>
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Night)</Label>
+                     <div className="flex"><Label className="w-2/4 pt-1">No. of Supervisor</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
+                    <Input className="w-2/4 text-center" placeholder="No. of supervisor" ref={nightOpRef}  />
                      </div>
                    
                      
@@ -254,7 +254,7 @@ const RCNDPDSCreateForm = (props:Props) => {
               
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
-                    <TableHead className="text-center">Rcv Big Taiho</TableHead>
+                    <TableHead className="text-center">Rcv Big_Taiho</TableHead>
                     <TableHead className="text-center">Rcv Sorting</TableHead>
                     
                     <TableHead className="text-center">Rcv DP</TableHead>
@@ -305,7 +305,7 @@ const RCNDPDSCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_transfer ? formatNumber(row.rcv_transfer) :0} </TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_transfer ? formatNumber(row.rcv_transfer) :0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_Sorting ? formatNumber(row.rcv_Sorting):0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_dp)} Kg</TableCell>
                                         <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_ds)} Kg</TableCell>
