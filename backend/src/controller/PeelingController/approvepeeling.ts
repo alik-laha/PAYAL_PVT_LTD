@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-import {   PeelingRcvData } from "../../type/type";
+import { PeelingRcvData } from "../../type/type";
 import RcnEditPeeling from "../../model/peelingEditModel";
 import RcnPeeling from "../../model/peelingModel";
 import Mayur from "../../model/mayurModel";
 import DPDS from "../../model/dpdsmodel";
+import bigTaihoModel from "../../model/bigTaihoModel";
 
 const approvePeeling = async (req: Request, res: Response) => {
     try {
@@ -29,13 +30,13 @@ const approvePeeling = async (req: Request, res: Response) => {
             Mc_off: data.Mc_off,
             Mc_breakdown: data.Mc_breakdown,
             Mc_runTime: data.Mc_runTime,
-            noOfdayOperators:data.noOfdayOperators,
-                noOfnightOperators:data.noOfnightOperators,
-                noOfhuskOperators:data.noOfhuskOperators,
+            noOfdayOperators: data.noOfdayOperators,
+            noOfnightOperators: data.noOfnightOperators,
+            noOfhuskOperators: data.noOfhuskOperators,
             otherTime: data.otherTime,
             NoOfTrolley: data.NoOfTrolley,
             WholesPeel: data.WholesPeel,
-            WholesUnpeel:data.WholesUnpeel,
+            WholesUnpeel: data.WholesUnpeel,
             DP: data.DP,
             DS: data.DS,
             DP1: data.DP1,
@@ -45,18 +46,18 @@ const approvePeeling = async (req: Request, res: Response) => {
             JH1: data.JH1,
             JK_K: data.JK_K,
             SP1: data.SP1,
-            Husk:data.Husk,
+            Husk: data.Husk,
             Rejection: data.Rejection,
-            UnpeelPiece:data.UnpeelPiece,
-            Big_Taiho:data.Big_Taiho,
-            pressure:data.pressure,
+            UnpeelPiece: data.UnpeelPiece,
+            Big_Taiho: data.Big_Taiho,
+            pressure: data.pressure,
             moisture: data.moisture,
             peelingTime: data.peelingTime,
-            difference:data.difference,
+            difference: data.difference,
             Status: 1,
             CreatedBy: data.CreatedBy,
             editStatus: "Approved",
-            modifiedBy:approvedBy,
+            modifiedBy: approvedBy,
 
 
 
@@ -68,7 +69,7 @@ const approvePeeling = async (req: Request, res: Response) => {
         if (!bormaEdit) {
             return res.status(400).json({ message: "Peeling Entry is not found" });
         }
-        else{
+        else {
             const bormaEditDelete = await RcnEditPeeling.destroy({
                 where: {
                     id
@@ -77,42 +78,54 @@ const approvePeeling = async (req: Request, res: Response) => {
             if (!bormaEditDelete) {
                 return res.status(400).json({ message: "Peeling Entry is not found" });
             }
-            else{
+            else {
 
 
                 await Mayur.update(
-                    {  
+                    {
                         rcv_wholespeel: data.WholesPeel,
                         rcv_wholesunpeel: data.WholesUnpeel,
-                        current_backlog:parseFloat(data.WholesPeel)+parseFloat(data.WholesUnpeel),
+                        current_backlog: parseFloat(data.WholesPeel) + parseFloat(data.WholesUnpeel),
                     },
                     {
                         where: {
-                            LotNo:LotNo,origin:origin,latest:1
+                            LotNo: LotNo, origin: origin, latest: 1
                         }
                     })
 
 
 
-                    await DPDS.update(
-                        {  
-                            rcv_dp: data.DP,
-                            rcv_ds: data.DS,
-                            rcv_dp1: data.DP1,
-                            current_backlog:parseFloat(data.DP)+parseFloat(data.DS)+parseFloat(data.DP1),
-                        },
-                        {
-                            where: {
-                                LotNo:LotNo,origin:origin,latest:1
-                            }
-                        })    
+                await DPDS.update(
+                    {
+                        rcv_dp: data.DP,
+                        rcv_ds: data.DS,
+                        rcv_dp1: data.DP1,
+                        current_backlog: parseFloat(data.DP) + parseFloat(data.DS) + parseFloat(data.DP1),
+                    },
+                    {
+                        where: {
+                            LotNo: LotNo, origin: origin, latest: 1
+                        }
+                    })
+
+
+                await bigTaihoModel.update(
+                    {
+                        rcv_peeling: data.Big_Taiho,
+                        current_backlog: data.Big_Taiho
+                    },
+                    {
+                        where: {
+                            LotNo: LotNo, origin: origin, latest: 1
+                        }
+                    })
                 return res.status(200).json({ message: "Edit Request of Peeling Entry is Approved Successfully" });
             }
         }
-        
 
 
-        
+
+
 
     } catch (err) {
         console.log(err);
