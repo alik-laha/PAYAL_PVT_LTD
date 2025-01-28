@@ -307,6 +307,19 @@ const DashboardSidebar = () => {
                                 </NavLink>
                             </CollapsibleContent>} 
 
+
+
+
+                        {renderlink('BigTaiho')
+
+
+                            && <CollapsibleContent className="Items-pvt">
+                                <NavLink to="/dashboard/BigTaiho" >
+
+                                    <p className="flex"> <GiBoxingRing size={20} /><p className="pl-3">  RCN BigTaiho </p></p>
+                                </NavLink>
+                            </CollapsibleContent>}     
+
                         {renderlink('Receiving Village Entry')
                             && <CollapsibleContent className="Items-pvt">
                                 <NavLink to="/dashboard/RcvVillage" >
