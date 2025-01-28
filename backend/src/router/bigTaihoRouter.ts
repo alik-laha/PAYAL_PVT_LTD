@@ -1,0 +1,42 @@
+import express from "express"
+import jwtVerify from "../middleWare/JwtAuthantication";
+
+
+
+import { 
+     SearchHistory, 
+     SearchMixHistory
+      } from "../controller/mayurController/mayurapi";
+import { approveDPDS, CreateEntireDPDS, CreateMixDPDS, CreateReissueDPDS, EditRejectDPDS, findEditDPDSAll, getDPDSBylotorigin, getDPDSLot, SearchRCNDPDS, SearchRCNDPDSMix, sumOfallDPDS, updateEntireDPDS } from "../controller/dpdsController/dpdsApi";
+import { findEditBigTaihoSAll, getBigTaihoLot, sumOfallBigTaiho } from "../controller/BigTaihoController/BigTaihoApi";
+const router = express()
+
+// //BigTaiho.tsx
+router.get("/getUnBigTaihoEntry/:status", jwtVerify, getBigTaihoLot)
+router.get("/findEditBigTaihoAll", jwtVerify, findEditBigTaihoSAll)
+router.get("/sumofallBigTaiho", jwtVerify, sumOfallBigTaiho)
+
+// //DPDSInitial.tsx
+router.get("/getDPDSByLotOrigin/:lotNO/:origin", jwtVerify, getDPDSBylotorigin)
+
+// //DPDSCreateForm.tsx
+router.post("/createEntireDPDS", jwtVerify, CreateEntireDPDS)
+
+// //DPDSReiSsueForm.tsx
+router.post("/createReissueDPDS", jwtVerify, CreateReissueDPDS)
+
+// //DPDStable.tsx
+router.put('/dpdsprimarysearch', jwtVerify, SearchRCNDPDS);
+router.post("/updateDPDS",jwtVerify, updateEntireDPDS)
+router.delete('/rejectededitDPDS/:id/:LotNo/:origin', jwtVerify, EditRejectDPDS);
+router.put("/approveeditDPDS/:id/:LotNo/:origin", jwtVerify, approveDPDS);
+
+// //DPDSMix.tsx
+router.post('/dpdsmixsearch', jwtVerify, SearchRCNDPDSMix);
+router.post('/createMixDPDS', jwtVerify, CreateMixDPDS);
+
+//HistoryTable.tsx
+router.put('/historySearch', jwtVerify, SearchHistory);
+router.put('/historymixSearch', jwtVerify, SearchMixHistory);
+
+export default router

@@ -30,6 +30,7 @@ import QCWaterRouter from "./router/QCWaterRouter";
 import PeelingRouter from "./router/PeelingRouter";
 import mayurRouter from "./router/mayurRouter";
 import dpdsRouter from "./router/dpdsRouter";
+import bigTaihoRouter from "./router/bigTaihoRouter";
 
 
 
@@ -69,4 +70,5 @@ app.use("/api/qcWater", QCWaterRouter)
 app.use("/api/peeling", PeelingRouter)
 app.use("/api/mayur", mayurRouter)
 app.use("/api/dpds", dpdsRouter)
+app.use("/api/bigTaiho", bigTaihoRouter)
 export default app
