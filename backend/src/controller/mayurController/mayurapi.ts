@@ -10,6 +10,7 @@ import WhatsappMsg from "../../helper/WhatsappMsg";
 import lotoriginmodel from "../../model/lotoriginModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import mixingModel from "../../model/mixingModel";
+import bigTaihoModel from "../../model/bigTaihoModel";
 
 export const findEditMayurAll = async (req: Request, res: Response) => {
     try {
@@ -283,15 +284,70 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
             );
             if (humidUpdate) {
 
-                // await Mayur.create({
-                //     id: data.id,
-                //     LotNo: data.LotNo,
-                //     origin: data.origin,
-                //     TotalInput: data.TotalOutput,
-                //     rcv_wholespeel: data.WholesPeel,
-                //     rcv_wholesunpeel: data.WholesUnpeel,
-                //     current_backlog: parseFloat(data.WholesPeel) + parseFloat(data.WholesUnpeel),
-                // }, { transaction });
+                const bigT_backlog = await bigTaihoModel.findOne({
+                    attributes: ['current_backlog','rcv_dpds'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(bigT_backlog)
+                if (bigT_backlog && bigT_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_bigTaiho,
+                        issueid:1,
+                        date:data.Date,
+                        fromSection:'Mayur',
+                        toSection:'BigTaiho',
+                        toSectionBeforeBacklog:bigT_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(bigT_backlog.dataValues.current_backlog)+parseFloat(data.issue_bigTaiho),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(bigT_backlog.dataValues.rcv_dpds){
+                        await bigTaihoModel.update(
+                            { 
+                                rcv_dpds:sequelize.literal(`rcv_dpds+ ${data.issue_bigTaiho}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await bigTaihoModel.update(
+                            { 
+                                rcv_dpds:data.issue_bigTaiho,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
+
                 await LotNo.update(
                     { 
                       modifiedBy:'Next Interconnected'
@@ -531,6 +587,72 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                     }
                 );
                 if(reissuecreate){
+
+
+                    const bigT_backlog = await bigTaihoModel.findOne({
+                        attributes: ['current_backlog','rcv_dpds'],
+                        where: {
+                            lotNo:LotNO,
+                            origin: data.origin,
+                            latest:1
+                
+                        },
+                        order: [['LotNo', 'ASC']]
+                
+                    });
+                    console.log(bigT_backlog)
+                    if (bigT_backlog && bigT_backlog.dataValues.current_backlog>=0)
+                    {
+                        await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_bigTaiho,
+                        date:data.Date,
+                        fromSection:'Mayur',
+                        toSection:'BigTaiho',
+                        toSectionBeforeBacklog:bigT_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(bigT_backlog.dataValues.current_backlog)+parseFloat(data.issue_bigTaiho),
+                        createdBy: feeledBy,
+                        issueid:parseInt(data.alt_id)+1,
+                        },{transaction});
+                        if(bigT_backlog.dataValues.rcv_dpds)
+                            {
+                        await bigTaihoModel.update(
+                            { 
+                                rcv_DPDS:sequelize.literal(`rcv_dpds+ ${data.issue_bigTaiho}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                            }
+                        else{
+                        await bigTaihoModel.update(
+                            { 
+                                rcv_dpds:data.issue_bigTaiho,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                            }
+                     
+                       
+                    }
+                    else{
+                        res.status(500).json({ message: "Error In Creating Reissue BigTaiho Transaction History" });
+                        throw new Error('Transaction Aborted')
+                    } 
                     const lotupdate = await await lotoriginmodel.update(
                         { 
                            latest_section: 'Mayur'
@@ -555,18 +677,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
             }
             
             
-            //  if(humidUpdate){
-                
-            //     await Mayur.create({
-            //         id:data.id,
-            //         LotNo:data.LotNo,
-            //         origin:data.origin,
-            //         TotalInput: data.TotalOutput,
-            //         rcv_wholespeel: data.WholesPeel,
-            //         rcv_wholesunpeel: data.WholesUnpeel,
-            //         current_backlog:parseFloat(data.WholesPeel)+parseFloat(data.WholesUnpeel),
-            //      },{transaction});
-            //  }
+           
            
         }
        
@@ -962,98 +1073,143 @@ export const approveMayur = async (req: Request, res: Response) => {
         if (!data) {
             return res.status(400).json({ message: "Mayur Edit Entry not found" });
         }
-        const bormaEdit = await Mayur.update({
-            date:data.date,
-            Mc_on_133: data.Mc_on_133,
-            Mc_off_133: data.Mc_off_133,
-            Mc_breakdown_133: data.Mc_breakdown_133,
-            Mc_runTime_133: data.Mc_runTime_133,
-            Mc_on_331: data.Mc_on_331,
-            Mc_off_331: data.Mc_off_331,
-            Mc_breakdown_331: data.Mc_breakdown_331,
-            Mc_runTime_331: data.Mc_runTime_331,
-            Mc_on_292: data.Mc_on_292,
-            Mc_off_292: data.Mc_off_292,
-            Mc_breakdown_292: data.Mc_breakdown_292,
-            Mc_runTime_292: data.Mc_runTime_331,
-            Mc_on_293: data.Mc_on_293,
-            Mc_off_293: data.Mc_off_293,
-            Mc_breakdown_293: data.Mc_breakdown_293,
-            Mc_runTime_293: data.Mc_runTime_331,
-            otherTime_133: data.otherTime_133,
-            otherTime_331: data.otherTime_331,
-            otherTime_292: data.otherTime_292,
-            otherTime_293: data.otherTime_293,
-            noOfdayOperators:data.noOfdayOperators,
-            noOfnightOperators:data.noOfnightOperators,
-            
-            issue_pw_w: data.issue_pw_w,
-            issue_w_lot:data.issue_w_lot,
-            issue_ww: data.issue_ww,
-            issue_rejection: data.issue_rejection,
-            issue_village: data.issue_village,
-            issue_bigTaiho: data.issue_bigTaiho,
-            issue_LW: data.issue_LW,
-            issue_JB: data.issue_JB,
-          
-            entry_backlog:data.entry_backlog,
-           current_backlog:data.current_backlog,
-            CreatedBy: data.CreatedBy,
-            editStatus: "Approved",
-            modifiedBy:approvedBy,
-
-
-
-        }, {
-            where: {
-                id
-            }
-        });
-        await lotoriginmodel.update(
-            { 
-                editStatus:'NA',
-             
-            },
-            {
-                where: {
-                    lotNo:LotNo,
-                    origin:origin
-                }
-            }
-        );
-        if (!bormaEdit) {
-            return res.status(400).json({ message: "Mayur Entry is not found" });
-        }
         else{
-            const bormaEditDelete = await MayurEdit.destroy({
+            const transferBigTaihodata = await sectionTransfer.findOne({
                 where: {
-                    id
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'Mayur',
+                    toSection:'BigTaiho'
                 }
-            });
-            if (!bormaEditDelete) {
-                return res.status(400).json({ message: "Mayur Entry is not found" });
+            }) as any
+
+            if(transferBigTaihodata){
+                await sequelize.transaction(async (transaction: any) => {
+
+                    const bormaEdit = await Mayur.update({
+                        date:data.date,
+                        Mc_on_133: data.Mc_on_133,
+                        Mc_off_133: data.Mc_off_133,
+                        Mc_breakdown_133: data.Mc_breakdown_133,
+                        Mc_runTime_133: data.Mc_runTime_133,
+                        Mc_on_331: data.Mc_on_331,
+                        Mc_off_331: data.Mc_off_331,
+                        Mc_breakdown_331: data.Mc_breakdown_331,
+                        Mc_runTime_331: data.Mc_runTime_331,
+                        Mc_on_292: data.Mc_on_292,
+                        Mc_off_292: data.Mc_off_292,
+                        Mc_breakdown_292: data.Mc_breakdown_292,
+                        Mc_runTime_292: data.Mc_runTime_331,
+                        Mc_on_293: data.Mc_on_293,
+                        Mc_off_293: data.Mc_off_293,
+                        Mc_breakdown_293: data.Mc_breakdown_293,
+                        Mc_runTime_293: data.Mc_runTime_331,
+                        otherTime_133: data.otherTime_133,
+                        otherTime_331: data.otherTime_331,
+                        otherTime_292: data.otherTime_292,
+                        otherTime_293: data.otherTime_293,
+                        noOfdayOperators:data.noOfdayOperators,
+                        noOfnightOperators:data.noOfnightOperators,
+                        
+                        issue_pw_w: data.issue_pw_w,
+                        issue_w_lot:data.issue_w_lot,
+                        issue_ww: data.issue_ww,
+                        issue_rejection: data.issue_rejection,
+                        issue_village: data.issue_village,
+                        issue_bigTaiho: data.issue_bigTaiho,
+                        issue_LW: data.issue_LW,
+                        issue_JB: data.issue_JB,
+                      
+                        entry_backlog:data.entry_backlog,
+                       current_backlog:data.current_backlog,
+                        CreatedBy: data.CreatedBy,
+                        editStatus: "Approved",
+                        modifiedBy:approvedBy,
+            
+            
+            
+                    }, {
+                        where: {
+                            id
+                        }
+                    });
+                    if(bormaEdit){  
+                        console.log(transferBigTaihodata)
+                        if(parseFloat(transferBigTaihodata.amount)!==parseFloat(data.issue_bigTaiho)){
+                            console.log('Needs Update In bigTaiho')
+                            const difference_bigT=parseFloat(data.issue_bigTaiho)-parseFloat(transferBigTaihodata.amount)
+                            console.log(difference_bigT)
+                            const backlog = await bigTaihoModel.findOne({
+                                attributes: ['current_backlog','rcv_dpds'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await bigTaihoModel.update(
+                                    {
+                                        rcv_dpds: sequelize.literal(`rcv_dpds+ ${difference_bigT}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_bigT}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_bigTaiho,
+                                    toSectionBeforeBacklog:transferBigTaihodata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferBigTaihodata.toSectionBeforeBacklog)+parseFloat(data.issue_bigTaiho)
+                        
+                                }, {
+                                    where: {
+                                        id:transferBigTaihodata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated BigTaiho Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+                        await lotoriginmodel.update(
+                            { 
+                                editStatus:'NA',
+                             
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin
+                                }
+                            }
+                        );
+                        await MayurEdit.destroy({
+                            where: {
+                                id
+                            },transaction
+                        });
+                        return res.status(200).json({ message: "Edit Request of Mayur Entry is Approved Successfully" });
+                    }
+                    
+                })
             }
             else{
-
-
-                // await Mayur.update(
-                //     {  
-                //         rcv_wholespeel: data.WholesPeel,
-                //         rcv_wholesunpeel: data.WholesUnpeel,
-                //         current_backlog:parseFloat(data.WholesPeel)+parseFloat(data.WholesUnpeel),
-                //     },
-                //     {
-                //         where: {
-                //             LotNo:LotNo,origin:origin,latest:1
-                //         }
-                //     })
-                return res.status(200).json({ message: "Edit Request of Mayur Entry is Approved Successfully" });
+                return res.status(400).json({ message: "Mayur Transfer Entry is not found" });
             }
         }
-        
-
-
-        
 
     } catch (err) {
         console.log(err);

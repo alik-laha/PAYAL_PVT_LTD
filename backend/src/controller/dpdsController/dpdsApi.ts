@@ -1044,7 +1044,18 @@ export const approveDPDS = async (req: Request, res: Response) => {
                     toSection:'Mayur'
                 }
             }) as any
-            if(transferMayurdata){
+
+            const transferBigTaihodata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'DPDS',
+                    toSection:'BigTaiho'
+                }
+            }) as any
+
+            if(transferMayurdata && transferBigTaihodata){
                 await sequelize.transaction(async (transaction: any) => {
 
                     const bormaEdit = await DPDS.update({
@@ -1101,7 +1112,7 @@ export const approveDPDS = async (req: Request, res: Response) => {
                     });
                     if(bormaEdit){
                         console.log(transferMayurdata)
-
+                        console.log(transferBigTaihodata)
                         if(parseFloat(transferMayurdata.amount)!==parseFloat(data.issue_mayur)){
                             console.log('Needs Update In Mayur')
                             const difference_mayur=parseFloat(data.issue_mayur)-parseFloat(transferMayurdata.amount)
@@ -1147,6 +1158,55 @@ export const approveDPDS = async (req: Request, res: Response) => {
                                 }
                                 else{
                                     res.status(500).json({ message: "Associated Mayur Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+
+                        if(parseFloat(transferBigTaihodata.amount)!==parseFloat(data.issue_bigTaiho)){
+                            console.log('Needs Update In bigTaiho')
+                            const difference_bigT=parseFloat(data.issue_bigTaiho)-parseFloat(transferBigTaihodata.amount)
+                            console.log(difference_bigT)
+                            const backlog = await bigTaihoModel.findOne({
+                                attributes: ['current_backlog','rcv_dpds'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await bigTaihoModel.update(
+                                    {
+                                        rcv_dpds: sequelize.literal(`rcv_dpds+ ${difference_bigT}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_bigT}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_bigTaiho,
+                                    toSectionBeforeBacklog:transferBigTaihodata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferBigTaihodata.toSectionBeforeBacklog)+parseFloat(data.issue_bigTaiho)
+                        
+                                }, {
+                                    where: {
+                                        id:transferBigTaihodata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated BigTaiho Entry Not Found" });
                                     throw new Error('Transaction Aborted due to Improper Value')
                                 }
                         }

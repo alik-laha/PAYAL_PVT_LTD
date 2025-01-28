@@ -266,13 +266,13 @@ const DPDSEditForm = (props:Props) => {
                 <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
                 <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
                
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Day)</Label>
+                     <div className="flex"><Label className="w-2/4 pt-1">No. of Labour</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
+                    <Input className="w-2/4 text-center" placeholder="No. of labour" ref={dayOpRef}  />
                      </div>
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Night)</Label>
+                     <div className="flex"><Label className="w-2/4 pt-1">No. of Supervisor</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
+                    <Input className="w-2/4 text-center" placeholder="No. of supervisor" ref={nightOpRef}  />
                      </div>
                    
                      
