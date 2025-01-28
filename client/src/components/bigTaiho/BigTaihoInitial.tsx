@@ -21,7 +21,8 @@ import axios from "axios";
 import { useState } from "react";
 import cross from '../../assets/Static_Images/error_img.png'
 // import RCNDPDSCreateForm from "./DPDSCreateForm";
-import { DPDSData } from "@/type/type";
+import { BigTaihoData } from "@/type/type";
+import RCNDBigTaihoCreateForm from "./BigTaihoCreateForm";
 
 
 interface lotPropsdata{
@@ -31,7 +32,7 @@ interface lotPropsdata{
 }
 
 const BigTaihoInitial = (props: any) => {
-    const [bormaData, setBormaData ]  = useState<DPDSData[]>([])
+    const [bormaData, setBormaData ]  = useState<BigTaihoData[]>([])
     const [errortext, seterrorText] = useState<string>('');
     
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialogPeel') as HTMLInputElement;
@@ -72,7 +73,7 @@ const BigTaihoInitial = (props: any) => {
                 return
             }
            
-        await axios.get(`/api/dpds/getDPDSByLotOrigin/${lotNO}/${origin}`).then(res=>{
+        await axios.get(`/api/bigTaiho/getBigTaihoByLotOrigin/${lotNO}/${origin}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.scoopingLot)){
             //scoopdata=res.data.scoopingLot
@@ -126,7 +127,7 @@ const BigTaihoInitial = (props: any) => {
 
                                                     </DialogHeader>
                                                 
-                                                    {/* <RCNDPDSCreateForm borma={bormaData}/> */}
+                                                    <RCNDBigTaihoCreateForm borma={bormaData}/>
                                                 </DialogContent>
                                             </Dialog>
                                         </TableCell>
@@ -137,7 +138,7 @@ const BigTaihoInitial = (props: any) => {
                         ) : <TableRow>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell className="text-left  text-red-500 font-semibold">No Pending DPDS</TableCell>
+                            <TableCell className="text-left  text-red-500 font-semibold">No Pending BigTaiho</TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             </TableRow>}

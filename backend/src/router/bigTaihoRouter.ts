@@ -7,8 +7,8 @@ import {
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import { approveDPDS, CreateEntireDPDS, CreateMixDPDS, CreateReissueDPDS, EditRejectDPDS, findEditDPDSAll, getDPDSBylotorigin, getDPDSLot, SearchRCNDPDS, SearchRCNDPDSMix, sumOfallDPDS, updateEntireDPDS } from "../controller/dpdsController/dpdsApi";
-import { findEditBigTaihoSAll, getBigTaihoLot, sumOfallBigTaiho } from "../controller/BigTaihoController/BigTaihoApi";
+import { approveDPDS, CreateEntireDPDS, CreateMixDPDS, CreateReissueDPDS, EditRejectDPDS,  SearchRCNDPDS, SearchRCNDPDSMix,  updateEntireDPDS } from "../controller/dpdsController/dpdsApi";
+import { findEditBigTaihoSAll, getBigTaihoBylotorigin, getBigTaihoLot, sumOfallBigTaiho } from "../controller/BigTaihoController/BigTaihoApi";
 const router = express()
 
 // //BigTaiho.tsx
@@ -17,7 +17,7 @@ router.get("/findEditBigTaihoAll", jwtVerify, findEditBigTaihoSAll)
 router.get("/sumofallBigTaiho", jwtVerify, sumOfallBigTaiho)
 
 // //DPDSInitial.tsx
-router.get("/getDPDSByLotOrigin/:lotNO/:origin", jwtVerify, getDPDSBylotorigin)
+router.get("/getBigTaihoByLotOrigin/:lotNO/:origin", jwtVerify, getBigTaihoBylotorigin)
 
 // //DPDSCreateForm.tsx
 router.post("/createEntireDPDS", jwtVerify, CreateEntireDPDS)

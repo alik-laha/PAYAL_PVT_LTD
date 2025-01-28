@@ -65,7 +65,7 @@ const BigTaiho = () => {
     console.log(data)
 
     const handleOpenLotNo = async () => {
-        axios.get('/api/dpds/getUnBigTaihoEntry/0').then(res => {
+        axios.get('/api/bigTaiho/getUnBigTaihoEntry/0').then(res => {
             console.log(res)
             setLotData(res.data.scoopingLot)
             console.log(lotdata)
@@ -144,13 +144,6 @@ const BigTaiho = () => {
                     Current Backlog <br /><p>{data.data[0].current_backlog  ?  formatNumber(parseFloat(data.data[0].current_backlog)): 0} Kg</p>
                     </div>
                   
-                   
-                 
-                    
-
-
-
-
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}

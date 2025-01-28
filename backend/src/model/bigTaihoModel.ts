@@ -31,43 +31,43 @@ const bigTaihoModel = sequelize.define('bigTaiho', {
     },
     rcv_peeling:{
         type: DataTypes.DECIMAL(10,2),
-        allowNull: true
+        allowNull: false
     },
     rcv_village: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     rcv_sorting: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     rcv_dpds: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     rcv_mayur: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     rcv_hamsa: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     rcv_lw: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     
     rcv_wholes: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     issue_ssp: 
     {

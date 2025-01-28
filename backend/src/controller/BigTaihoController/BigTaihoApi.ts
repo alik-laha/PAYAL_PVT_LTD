@@ -134,13 +134,13 @@ export const getBigTaihoLot = async (req: Request, res: Response) => {
 
 }
 
-// //DPDSInitial.tsx
-export const getDPDSBylotorigin = async (req: Request, res: Response) => {
+// //BigTaihoInitial.tsx
+export const getBigTaihoBylotorigin = async (req: Request, res: Response) => {
 
     try {
         const lotNO=req.params.lotNO
         const origin=req.params.origin
-        const scoopingLot = await DPDS.findAll({
+        const scoopingLot = await bigTaihoModel.findAll({
             where: {
                 LotNo:lotNO,origin:origin
             }, order: [['LotNo', 'ASC']]
@@ -148,10 +148,10 @@ export const getDPDSBylotorigin = async (req: Request, res: Response) => {
         }
         );
         if(scoopingLot){
-            res.status(200).json({ message: "Un DPDS Entry", scoopingLot });
+            res.status(200).json({ message: "Un BigTaiho Entry", scoopingLot });
         }
         else{
-            res.status(500).json({ message: "Error in Finding DPDS Entry"});
+            res.status(500).json({ message: "Error in Finding BigTaiho Entry"});
         }
        
 
