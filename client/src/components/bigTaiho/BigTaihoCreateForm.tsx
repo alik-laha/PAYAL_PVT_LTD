@@ -61,20 +61,19 @@ interface BigTaihoRowData{
         issue_sorting: number;
         issue_dpds: number;  
         mixingLot: string|null;    
+        
         Mc_on_3: string ;
         Mc_off_3: string ;
         Mc_breakdown_3: string ;
-      
         otherTime_3: string ;
         Mc_on_1: string ;
         Mc_off_1: string ;
         Mc_breakdown_1: string ;
-       
         otherTime_1: string ;
+        
         Mc_on_2: string ;
         Mc_off_2: string ;
         Mc_breakdown_2: string ;
-       
         otherTime_2: string ;   
 }
 
@@ -270,13 +269,13 @@ const RCNDBigTaihoCreateForm = (props:Props) => {
                 <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
                 <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
                
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Labour</Label>
+                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Day)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of labour" ref={dayOpRef}  />
+                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
                      </div>
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Supervisor</Label>
+                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Night)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of supervisor" ref={nightOpRef}  />
+                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
                      </div>
                    
                      

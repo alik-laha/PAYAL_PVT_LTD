@@ -7,9 +7,10 @@ import {
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import { approveDPDS, CreateMixDPDS, CreateReissueDPDS, EditRejectDPDS, SearchRCNDPDSMix,  updateEntireDPDS } from "../controller/dpdsController/dpdsApi";
-import { CreateEntireBigTaiho, findEditBigTaihoSAll, getBigTaihoBylotorigin,
-       getBigTaihoLot, SearchRCNBigTaiho, sumOfallBigTaiho } from "../controller/BigTaihoController/BigTaihoApi";
+import {    updateEntireDPDS } from "../controller/dpdsController/dpdsApi";
+import { approveBigTaiho, CreateEntireBigTaiho, CreateMixBigTaiho, CreateReissueBigTaiho, EditRejectBigTaiho, findEditBigTaihoSAll, getBigTaihoBylotorigin,
+       getBigTaihoLot, SearchRCNBigTaiho, SearchRCNBigTaihoMix, sumOfallBigTaiho, 
+       updateEntireBigTaiho} from "../controller/BigTaihoController/BigTaihoApi";
 const router = express()
 
 // //BigTaiho.tsx
@@ -23,18 +24,18 @@ router.get("/getBigTaihoByLotOrigin/:lotNO/:origin", jwtVerify, getBigTaihoBylot
 // //BigTaihoCreateForm.tsx
 router.post("/createEntireBigTaiho", jwtVerify, CreateEntireBigTaiho)
 
-// //DPDSReiSsueForm.tsx
-router.post("/createReissueDPDS", jwtVerify, CreateReissueDPDS)
+// //BigTaihoReiSsueForm.tsx
+router.post("/createReissueBigTaiho", jwtVerify, CreateReissueBigTaiho)
 
 // //BigTaihotable.tsx
 router.put('/bigTaihoprimarysearch', jwtVerify, SearchRCNBigTaiho);
-router.post("/updateDPDS",jwtVerify, updateEntireDPDS)
-router.delete('/rejectededitDPDS/:id/:LotNo/:origin', jwtVerify, EditRejectDPDS);
-router.put("/approveeditDPDS/:id/:LotNo/:origin", jwtVerify, approveDPDS);
+router.post("/updateBigTaiho",jwtVerify, updateEntireBigTaiho)
+router.delete('/rejectededitBigTaiho/:id/:LotNo/:origin', jwtVerify, EditRejectBigTaiho);
+router.put("/approveeditBigTaiho/:id/:LotNo/:origin", jwtVerify, approveBigTaiho);
 
-// //DPDSMix.tsx
-router.post('/dpdsmixsearch', jwtVerify, SearchRCNDPDSMix);
-router.post('/createMixDPDS', jwtVerify, CreateMixDPDS);
+// //BigTaihoMix.tsx
+router.post('/bigTaihomixsearch', jwtVerify, SearchRCNBigTaihoMix);
+router.post('/createMixBigTaiho', jwtVerify, CreateMixBigTaiho);
 
 //HistoryTable.tsx
 router.put('/historySearch', jwtVerify, SearchHistory);

@@ -808,7 +808,7 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                         }
                 }
                 else{
-                    return res.status(500).json({ message: "Error while creating Mayur Re Issue Entry"});
+                    return res.status(500).json({ message: "Error while creating DPDS Re Issue Entry"});
                 }
             }
             
@@ -1007,7 +1007,7 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
     catch(error) {
         if(!res.headersSent){
             console.log(error)
-            return res.status(500).json({ message: "Error while Editing Mayur Entry" ,error});
+            return res.status(500).json({ message: "Error while Editing DPDS Entry" ,error});
         }
     }
     

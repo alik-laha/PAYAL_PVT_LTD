@@ -1,7 +1,4 @@
 import { Request, Response } from "express";
-
-
-import Mayur from "../../model/mayurModel";
 import sequelize from "../../config/databaseConfig";
 import LotNo from "../../model/lotNomodel";
 import { Op } from "sequelize";
@@ -538,8 +535,28 @@ export const SearchRCNBigTaiho = async (req: Request, res: Response) => {
  
 }
 // //DPDSRecreate.tsx
-export const CreateReissueDPDS= async (req: Request, res: Response) => {
+export const CreateReissueBigTaiho= async (req: Request, res: Response) => {
    
+    const timeToMilliseconds = (time: string) => {
+        const [hours, minutes] = time.split(':').map(Number);
+        return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
+    };
+    // Helper function to convert milliseconds to "HH:MM"
+    const millisecondsToTime = (milliseconds: number) => {
+        const totalMinutes = Math.floor(milliseconds / 60000);
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+    };
+
+    const CalculatemachineOnOffTime = (time1: string, time2: string) => {
+        const time1InMilliseconds = timeToMilliseconds(time1) - timeToMilliseconds(time2);
+        if (time1InMilliseconds < 0) {
+            return timeToMilliseconds(time1) - timeToMilliseconds(time2) + 24 * 60 * 60 * 1000;
+        }
+        return time1InMilliseconds;
+    }
+
 
     try{
     const feeledBy = req.cookies.user;
@@ -550,38 +567,83 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
 
         for (let data of linehumid) 
         {
+            if (data.otherTime_1 === undefined || data.otherTime_1 === null) {
+                data.otherTime_1 = '00:00'
+            }
+            if (data.Mc_breakdown_1 === undefined || data.Mc_breakdown_1 === null) {
+                data.Mc_breakdown_1 = '00:00'
+            }
+            if (data.otherTime_2 === undefined || data.otherTime_2 === null) {
+                data.otherTime_2 = '00:00'
+            }
+            if (data.Mc_breakdown_2 === undefined || data.Mc_breakdown_2 === null) {
+                data.Mc_breakdown_2 = '00:00'
+            }
+            if (data.otherTime_3 === undefined || data.otherTime_3 === null) {
+                data.otherTime_3 = '00:00'
+            }
+            if (data.Mc_breakdown_3 === undefined || data.Mc_breakdown_3 === null) {
+                data.Mc_breakdown_3 = '00:00'
+            }
             
+            const runtime1 = CalculatemachineOnOffTime(data.Mc_off_1, data.Mc_on_1) -
+                (timeToMilliseconds(data.Mc_breakdown_1) + timeToMilliseconds(data.otherTime_1))
+            const runtime2 = CalculatemachineOnOffTime(data.Mc_off_2, data.Mc_on_2) -
+                (timeToMilliseconds(data.Mc_breakdown_2) + timeToMilliseconds(data.otherTime_2))
+            const runtime3 = CalculatemachineOnOffTime(data.Mc_off_3, data.Mc_on_3) -
+                (timeToMilliseconds(data.Mc_breakdown_3) + timeToMilliseconds(data.otherTime_3))
+             
+            if (runtime1 < 0) {
+                res.status(500).json({ message: "Machine BigTaiho Run Time can not be negative" });
+                throw new Error('Transaction Aborted 1')
+            }
+            if (runtime2 < 0) {
+                res.status(500).json({ message: "Machine Spectrum Run Time can not be negative" });
+                throw new Error('Transaction Aborted 1')
+            }
+            if (runtime3 < 0) {
+                res.status(500).json({ message: "Machine Amrita Run Time can not be negative" });
+                throw new Error('Transaction Aborted 1')
+            }
+          
+            
+            const Mc_runTime1 = millisecondsToTime(runtime1);
+            const Mc_runTime2 = millisecondsToTime(runtime2);
+            const Mc_runTime3 = millisecondsToTime(runtime3);
+
+
             //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
-            if(parseFloat(data.rcv_peeling)< (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
-            +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
-            parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
-            + parseFloat(data.issue_wp)+parseFloat(data.issue_rs)+parseFloat(data.issue_dp_2)
-            +parseFloat(data.issue_dp_3)+parseFloat(data.issue_dp_4)+parseFloat(data.issue_dp_3l)
-            +parseFloat(data.issue_ss)+parseFloat(data.issue_os)+parseFloat(data.issue_os1)
-            +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                +parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_mayur)
-                ))
+            if(parseFloat(data.rcv_opening)< (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
+                +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
+                  +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
+                  +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
+                  +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
+                  +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                  +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                  +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
+                  +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
+                  +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+  
+           
+                 ))
                 {
-                 console.log(parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
-                 +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
-                 parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
-                 + parseFloat(data.issue_wp)+parseFloat(data.issue_rs)+parseFloat(data.issue_dp_2)
-                 +parseFloat(data.issue_dp_3)+parseFloat(data.issue_dp_4)+parseFloat(data.issue_dp_3l)
-                 +parseFloat(data.issue_ss)+parseFloat(data.issue_os)+parseFloat(data.issue_os1)
-                 +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                     +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                     +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                     +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                     +parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_mayur))
+                 console.log(parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
+                 +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
+                   +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
+                   +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
+                   +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
+                   +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                   +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                   +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
+                   +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
+                   +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                  )
                  res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                  throw new Error('Transaction Aborted due to negative value')
  
              }
             
-            const dpdsupdate=await DPDS.update(
+            const bigTaihoupdate=await bigTaihoModel.update(
                 {
                     latest:0
                     
@@ -593,41 +655,57 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                    
                 
             );
-            if(dpdsupdate)
+            if(bigTaihoupdate)
             {
-                const reissuecreate=await DPDS.create(
+                const reissuecreate=await bigTaihoModel.create(
                     {     
                         date:data.Date,
                         altid:parseInt(data.alt_id)+1,
                         LotNo:data.LotNo,
                         origin:data.origin,
                         mixingLot:data.mixingLot,
-                        rcv_dp: data.rcv_dp,
-                        rcv_ds: data.rcv_ds,
-                        rcv_dp1: data.rcv_dp1,
-                        rcv_Sorting:data.rcv_Sorting,
-                        
-                        noOfdayOperators:data.dayoperator,
-                        noOfnightOperators:data.nightoperator,
-                        rcv_transfer:data.rcv_transfer,
-                        issue_m_ds: data.issue_m_ds,
-                        issue_m_dp: data.issue_m_dp,
-                        issue_k_dp: data.issue_k_dp,
-                        issue_ds_1: data.issue_ds_1,
-                        issue_ds_2: data.issue_ds_2,
-                        issue_sp_2: data.issue_sp_2,
-                        issue_yjh: data.issue_yjh,
-                        issue_yk: data.issue_yk,
-                        issue_kp: data.issue_kp,
-                        issue_wp: data.issue_wp,
-                        issue_rs: data.issue_rs,
-                        issue_dp_2: data.issue_dp_2,
-                        issue_dp_3: data.issue_dp_3,
-                        issue_dp_4: data.issue_dp_4,
-                        issue_dp_3l: data.issue_dp_3l,
-                        issue_ss: data.issue_ss,
-                        issue_os: data.issue_os,
-                        issue_os1: data.issue_os1,
+                        rcv_peeling: data.rcv_peeling,
+                        rcv_village: data.rcv_village,
+                        rcv_dpds: data.rcv_dpds,
+                        rcv_lw: data.rcv_lw,
+                        rcv_sorting: data.rcv_sorting,
+                        rcv_mayur: data.rcv_mayur,
+                        rcv_hamsa: data.rcv_hamsa,
+                        rcv_wholes: data.rcv_wholes,
+                        noOfdayOperators: data.dayoperator,
+                        noOfnightOperators: data.nightoperator,
+                        Mc_on_1: data.Mc_on_1,
+                        Mc_off_1: data.Mc_off_1,
+                        Mc_runTime_1: Mc_runTime1,
+                        Mc_breakdown_1: data.Mc_breakdown_1,
+                        otherTime_1: data.otherTime_1,
+                        Mc_on_2: data.Mc_on_2,
+                        Mc_off_2: data.Mc_off_2,
+                        Mc_runTime_2: Mc_runTime2,
+                        Mc_breakdown_2: data.Mc_breakdown_2,
+                        otherTime_2: data.otherTime_2,
+                        Mc_on_3: data.Mc_on_3,
+                        Mc_off_3: data.Mc_off_3,
+                        Mc_runTime_3: Mc_runTime3,
+                        Mc_breakdown_3: data.Mc_breakdown_3,
+                        otherTime_3: data.otherTime_3,
+                        issue_ssp: data.issue_ssp,
+                        issue_ssp_small: data.issue_ssp_small,
+                        issue_swp_1: data.issue_swp_1,
+                        issue_wsp: data.issue_wsp,
+                        issue_bits: data.issue_bits,
+                        issue_swp: data.issue_swp,
+                        issue_bb: data.issue_bb,
+                        issue_w_bb: data.issue_w_bb,
+                        issue_bb_A: data.issue_bb_A,
+                        issue_bb1: data.issue_bb1,
+                        issue_bb1_A: data.issue_bb1_A,
+                        issue_bb_2: data.issue_bb_2,
+                        issue_ssp_1: data.issue_ssp_1,
+                        issue_ssp_1_small: data.issue_ssp_1_small,
+                        issue_ssp_2: data.issue_ssp_2,
+                        issue_ssp_2_small: data.issue_ssp_2_small,
+                        issue_sdp: data.issue_sdp,
                         issue_add_1: data.issue_add_1,
                         issue_add_2: data.issue_add_2,
                         issue_add_3:data.issue_add_3,
@@ -640,33 +718,32 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                         issue_add_10: data.issue_add_10,
                         issue_rejection: data.issue_rejection,
                         issue_village: data.issue_village,
-                        issue_bigTaiho: data.issue_bigTaiho,
-                        issue_mayur: data.issue_mayur,
+                        issue_dpds: data.issue_dpds,
+                        issue_husk: data.issue_husk,
+                        issue_sorting: data.issue_sorting,
                       
-                        entry_backlog:parseFloat(data.rcv_peeling)- (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
-                        +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
-                        parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
-                        + parseFloat(data.issue_wp)+parseFloat(data.issue_rs)+parseFloat(data.issue_dp_2)
-                        +parseFloat(data.issue_dp_3)+parseFloat(data.issue_dp_4)+parseFloat(data.issue_dp_3l)
-                        +parseFloat(data.issue_ss)+parseFloat(data.issue_os)+parseFloat(data.issue_os1)
-                        +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                        +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                        +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                        +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                        +parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_mayur)
-                            ),
-                       current_backlog:parseFloat(data.rcv_peeling)- (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
-                       +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
-                       parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
-                       + parseFloat(data.issue_wp)+parseFloat(data.issue_rs)+parseFloat(data.issue_dp_2)
-                       +parseFloat(data.issue_dp_3)+parseFloat(data.issue_dp_4)+parseFloat(data.issue_dp_3l)
-                       +parseFloat(data.issue_ss)+parseFloat(data.issue_os)+parseFloat(data.issue_os1)
-                       +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                       +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                       +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                       +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                       +parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_mayur)
-                           ),
+                        entry_backlog:parseFloat(data.rcv_opening)- (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
+                        +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
+                          +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
+                          +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
+                          +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
+                          +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                          +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                          +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
+                          +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
+                          +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                         ),
+                       current_backlog:parseFloat(data.rcv_opening)- (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
+                       +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
+                         +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
+                         +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
+                         +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
+                         +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                         +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                         +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
+                         +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
+                         +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                        ),
                         Status: 1,
                         CreatedBy: feeledBy 
                     },
@@ -676,8 +753,8 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                 );
                 if(reissuecreate)
                 {
-                    const mayur_backlog = await Mayur.findOne({
-                        attributes: ['current_backlog','rcv_DPDS'],
+                    const dpds_backlog = await DPDS.findOne({
+                        attributes: ['current_backlog','rcv_transfer'],
                         where: {
                             lotNo:LotNO,
                             origin: data.origin,
@@ -687,27 +764,27 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                         order: [['LotNo', 'ASC']]
                 
                     });
-                    console.log(mayur_backlog)
-                    if (mayur_backlog && mayur_backlog.dataValues.current_backlog>=0)
+                    console.log(dpds_backlog)
+                    if (dpds_backlog && dpds_backlog.dataValues.current_backlog>=0)
                     {
                         await sectionTransfer.create({              
                         LotNo:LotNO,
                         origin:data.origin,
-                        amount:data.issue_mayur,
+                        amount:data.issue_dpds,
                         date:data.Date,
-                        fromSection:'DPDS',
-                        toSection:'Mayur',
-                        toSectionBeforeBacklog:mayur_backlog.dataValues.current_backlog,
-                        toSectionAfterBacklog:parseFloat(mayur_backlog.dataValues.current_backlog)+parseFloat(data.issue_mayur),
+                        fromSection:'BigTaiho',
+                        toSection:'DPDS',
+                        toSectionBeforeBacklog:dpds_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(dpds_backlog.dataValues.current_backlog)+parseFloat(data.issue_dpds),
                         createdBy: feeledBy,
                         issueid:parseInt(data.alt_id)+1,
                         },{transaction});
-                        if(mayur_backlog.dataValues.rcv_DPDS)
+                        if(dpds_backlog.dataValues.rcv_transfer)
                             {
-                        await Mayur.update(
+                        await DPDS.update(
                             { 
-                                rcv_DPDS:sequelize.literal(`rcv_DPDS+ ${data.issue_mayur}`),
-                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_mayur}`)
+                                rcv_transfer:sequelize.literal(`rcv_transfer+ ${data.issue_dpds}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_dpds}`)
                             },
                             {
                                 where: {
@@ -719,10 +796,10 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                         );
                             }
                         else{
-                        await Mayur.update(
+                        await DPDS.update(
                             { 
-                                rcv_DPDS:data.issue_mayur,
-                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_mayur}`)
+                                rcv_transfer:data.issue_dpds,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_dpds}`)
                             },
                             {
                                 where: {
@@ -737,79 +814,13 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                        
                     }
                     else{
-                        res.status(500).json({ message: "Error In Creating Reissue Mayur Transaction History" });
+                        res.status(500).json({ message: "Error In Creating Reissue DPDS Transaction History" });
                         throw new Error('Transaction Aborted')
                     }  
-
-                    const bigT_backlog = await bigTaihoModel.findOne({
-                        attributes: ['current_backlog','rcv_dpds'],
-                        where: {
-                            lotNo:LotNO,
-                            origin: data.origin,
-                            latest:1
-                
-                        },
-                        order: [['LotNo', 'ASC']]
-                
-                    });
-                    console.log(bigT_backlog)
-                    if (bigT_backlog && bigT_backlog.dataValues.current_backlog>=0)
-                    {
-                        await sectionTransfer.create({              
-                        LotNo:LotNO,
-                        origin:data.origin,
-                        amount:data.issue_bigTaiho,
-                        date:data.Date,
-                        fromSection:'DPDS',
-                        toSection:'BigTaiho',
-                        toSectionBeforeBacklog:bigT_backlog.dataValues.current_backlog,
-                        toSectionAfterBacklog:parseFloat(bigT_backlog.dataValues.current_backlog)+parseFloat(data.issue_bigTaiho),
-                        createdBy: feeledBy,
-                        issueid:parseInt(data.alt_id)+1,
-                        },{transaction});
-                        if(bigT_backlog.dataValues.rcv_dpds)
-                            {
-                        await bigTaihoModel.update(
-                            { 
-                                rcv_DPDS:sequelize.literal(`rcv_dpds+ ${data.issue_bigTaiho}`),
-                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
-                            },
-                            {
-                                where: {
-                                    lotNo:LotNO,
-                                    origin: data.origin,
-                                    latest:1
-                                },transaction
-                            }
-                        );
-                            }
-                        else{
-                        await bigTaihoModel.update(
-                            { 
-                                rcv_dpds:data.issue_bigTaiho,
-                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
-                            },
-                            {
-                                where: {
-                                    lotNo:LotNO,
-                                    origin: data.origin,
-                                    latest:1
-                                },transaction
-                            }
-                        );
-                            }
-                     
-                       
-                    }
-                    else{
-                        res.status(500).json({ message: "Error In Creating Reissue BigTaiho Transaction History" });
-                        throw new Error('Transaction Aborted')
-                    } 
-
                     const lotupdate = await lotoriginmodel.update(
                         {
-                            latest_section: 'DPDS',
-                            dPDSStatus: 1
+                            latest_section: 'BigTaiho',
+                            bigTaihoStatus: 1
                         },
                         {
                             where: {
@@ -819,14 +830,14 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                         }
                         );
                         if (lotupdate) {
-                        res.status(200).json({ message: "DPDS Re-Issue Entry Made Successfully" });
+                        res.status(200).json({ message: "BigTaiho Re-Issue Entry Made Successfully" });
                         }
                         else {
                         console.log('No Need For Update')
                         }
                 }
                 else{
-                    return res.status(500).json({ message: "Error while creating Mayur Re Issue Entry"});
+                    return res.status(500).json({ message: "Error while creating BigTaiho Re Issue Entry"});
                 }
             }
             
@@ -841,7 +852,7 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
     catch(error) {
         if(!res.headersSent){
             console.log(error)
-            return res.status(500).json({ message: "Error while creating DPDS Re-Issue Entry" ,error});
+            return res.status(500).json({ message: "Error while creating BigTaiho Re-Issue Entry" ,error});
         }
     }
     
@@ -849,8 +860,27 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
 
 }
 
-export const updateEntireDPDS= async (req: Request, res: Response) => {
-   
+export const updateEntireBigTaiho= async (req: Request, res: Response) => {
+    const timeToMilliseconds = (time: string) => {
+        const [hours, minutes] = time.split(':').map(Number);
+        return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
+    };
+    // Helper function to convert milliseconds to "HH:MM"
+    const millisecondsToTime = (milliseconds: number) => {
+        const totalMinutes = Math.floor(milliseconds / 60000);
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+    };
+
+    const CalculatemachineOnOffTime = (time1: string, time2: string) => {
+        const time1InMilliseconds = timeToMilliseconds(time1) - timeToMilliseconds(time2);
+        if (time1InMilliseconds < 0) {
+            return timeToMilliseconds(time1) - timeToMilliseconds(time2) + 24 * 60 * 60 * 1000;
+        }
+        return time1InMilliseconds;
+    }
+
 
     try{
     const feeledBy = req.cookies.user;
@@ -865,38 +895,85 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
         {
          
          
-            if((parseFloat(data.rcv_dp)+parseFloat(data.rcv_ds)+parseFloat(data.rcv_dp1)+(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)
-            +(data.rcv_transfer? parseFloat(data.rcv_transfer):0))< (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
-            +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
-            parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
-            + parseFloat(data.issue_wp)+parseFloat(data.issue_rs)+parseFloat(data.issue_dp_2)
-            +parseFloat(data.issue_dp_3)+parseFloat(data.issue_dp_4)+parseFloat(data.issue_dp_3l)
-            +parseFloat(data.issue_ss)+parseFloat(data.issue_os)+parseFloat(data.issue_os1)
-            +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+            if (data.otherTime_1 === undefined || data.otherTime_1 === null) {
+                data.otherTime_1 = '00:00'
+            }
+            if (data.Mc_breakdown_1 === undefined || data.Mc_breakdown_1 === null) {
+                data.Mc_breakdown_1 = '00:00'
+            }
+            if (data.otherTime_2 === undefined || data.otherTime_2 === null) {
+                data.otherTime_2 = '00:00'
+            }
+            if (data.Mc_breakdown_2 === undefined || data.Mc_breakdown_2 === null) {
+                data.Mc_breakdown_2 = '00:00'
+            }
+            if (data.otherTime_3 === undefined || data.otherTime_3 === null) {
+                data.otherTime_3 = '00:00'
+            }
+            if (data.Mc_breakdown_3 === undefined || data.Mc_breakdown_3 === null) {
+                data.Mc_breakdown_3 = '00:00'
+            }
+            
+            const runtime1 = CalculatemachineOnOffTime(data.Mc_off_1, data.Mc_on_1) -
+                (timeToMilliseconds(data.Mc_breakdown_1) + timeToMilliseconds(data.otherTime_1))
+            const runtime2 = CalculatemachineOnOffTime(data.Mc_off_2, data.Mc_on_2) -
+                (timeToMilliseconds(data.Mc_breakdown_2) + timeToMilliseconds(data.otherTime_2))
+            const runtime3 = CalculatemachineOnOffTime(data.Mc_off_3, data.Mc_on_3) -
+                (timeToMilliseconds(data.Mc_breakdown_3) + timeToMilliseconds(data.otherTime_3))
+             
+            if (runtime1 < 0) {
+                res.status(500).json({ message: "Machine BigTaiho Run Time can not be negative" });
+                throw new Error('Transaction Aborted 1')
+            }
+            if (runtime2 < 0) {
+                res.status(500).json({ message: "Machine Spectrum Run Time can not be negative" });
+                throw new Error('Transaction Aborted 1')
+            }
+            if (runtime3 < 0) {
+                res.status(500).json({ message: "Machine Amrita Run Time can not be negative" });
+                throw new Error('Transaction Aborted 1')
+            }
+          
+            
+            const Mc_runTime1 = millisecondsToTime(runtime1);
+            const Mc_runTime2 = millisecondsToTime(runtime2);
+            const Mc_runTime3 = millisecondsToTime(runtime3);
+         
+            
+            if((parseFloat(data.rcv_peeling)+(data.rcv_village? parseFloat(data.rcv_village):0)
+                +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
+                +(data.rcv_sorting? parseFloat(data.rcv_sorting):0)+(data.rcv_mayur? parseFloat(data.rcv_mayur):0)
+                +(data.rcv_hamsa? parseFloat(data.rcv_hamsa):0) +(data.rcv_wholes? parseFloat(data.rcv_wholes):0)
+           )< (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
+              +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
+                +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
+                +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
+                +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
+                +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
                 +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                 +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                 +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                +parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_mayur)
-                ))
-                {
-                 console.log(parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
-                 +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
-                 parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
-                 + parseFloat(data.issue_wp)+parseFloat(data.issue_rs)+parseFloat(data.issue_dp_2)
-                 +parseFloat(data.issue_dp_3)+parseFloat(data.issue_dp_4)+parseFloat(data.issue_dp_3l)
-                 +parseFloat(data.issue_ss)+parseFloat(data.issue_os)+parseFloat(data.issue_os1)
-                 +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                     +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                     +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                     +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                     +parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_mayur))
-                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
-                 throw new Error('Transaction Aborted due to negative value')
- 
-             }
-           
+                +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+
+         
+               ))
+               {
+                console.log(parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
+                +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
+                  +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
+                  +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
+                  +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
+                  +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                  +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                  +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
+                  +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
+                  +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting))
+                res.status(500).json({ message: "Backlog can't be Greater Than Input" });
+                throw new Error('Transaction Aborted due to negative value')
+
+            }
             
-            await DPDSEdit.create(
+            await bigTaihoEditModel.create(
                 {     
                     id:data.id,
                     date:data.Date,
@@ -904,31 +981,51 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
                     origin:data.origin,
                     altid:data.alt_id,
                     mixingLot:data.mixingLot,
-                    rcv_dp: data.rcv_dp,
-                    rcv_ds: data.rcv_ds,
-                    rcv_dp1: data.rcv_ds,
-                    rcv_Sorting:data.rcv_Sorting,
-                    rcv_transfer:data.rcv_transfer,
+
+                    rcv_peeling: data.rcv_peeling,
+                    rcv_village: data.rcv_village,
+                    rcv_dpds: data.rcv_dpds,
+                    rcv_lw: data.rcv_lw,
+                    rcv_sorting: data.rcv_sorting,
+                    rcv_mayur: data.rcv_mayur,
+                    rcv_hamsa: data.rcv_hamsa,
+                    rcv_wholes: data.rcv_wholes,
+
+                    
                     noOfdayOperators: data.dayoperator,
                     noOfnightOperators: data.nightoperator,
-                    issue_m_ds: data.issue_m_ds,
-                    issue_m_dp: data.issue_m_dp,
-                    issue_k_dp: data.issue_k_dp,
-                    issue_ds_1: data.issue_ds_1,
-                    issue_ds_2: data.issue_ds_2,
-                    issue_sp_2: data.issue_sp_2,
-                    issue_yjh: data.issue_yjh,
-                    issue_yk: data.issue_yk,
-                    issue_kp: data.issue_kp,
-                    issue_wp: data.issue_wp,
-                    issue_rs: data.issue_rs,
-                    issue_dp_2: data.issue_dp_2,
-                    issue_dp_3: data.issue_dp_3,
-                    issue_dp_4: data.issue_dp_4,
-                    issue_dp_3l: data.issue_dp_3l,
-                    issue_ss: data.issue_ss,
-                    issue_os: data.issue_os,
-                    issue_os1: data.issue_os1,
+                    Mc_on_1: data.Mc_on_1,
+                    Mc_off_1: data.Mc_off_1,
+                    Mc_runTime_1: Mc_runTime1,
+                    Mc_breakdown_1: data.Mc_breakdown_1,
+                    otherTime_1: data.otherTime_1,
+                    Mc_on_2: data.Mc_on_2,
+                    Mc_off_2: data.Mc_off_2,
+                    Mc_runTime_2: Mc_runTime2,
+                    Mc_breakdown_2: data.Mc_breakdown_2,
+                    otherTime_2: data.otherTime_2,
+                    Mc_on_3: data.Mc_on_3,
+                    Mc_off_3: data.Mc_off_3,
+                    Mc_runTime_3: Mc_runTime3,
+                    Mc_breakdown_3: data.Mc_breakdown_3,
+                    otherTime_3: data.otherTime_3,
+                    issue_ssp: data.issue_ssp,
+                    issue_ssp_small: data.issue_ssp_small,
+                    issue_swp_1: data.issue_swp_1,
+                    issue_wsp: data.issue_wsp,
+                    issue_bits: data.issue_bits,
+                    issue_swp: data.issue_swp,
+                    issue_bb: data.issue_bb,
+                    issue_w_bb: data.issue_w_bb,
+                    issue_bb_A: data.issue_bb_A,
+                    issue_bb1: data.issue_bb1,
+                    issue_bb1_A: data.issue_bb1_A,
+                    issue_bb_2: data.issue_bb_2,
+                    issue_ssp_1: data.issue_ssp_1,
+                    issue_ssp_1_small: data.issue_ssp_1_small,
+                    issue_ssp_2: data.issue_ssp_2,
+                    issue_ssp_2_small: data.issue_ssp_2_small,
+                    issue_sdp: data.issue_sdp,
                     issue_add_1: data.issue_add_1,
                     issue_add_2: data.issue_add_2,
                     issue_add_3:data.issue_add_3,
@@ -941,37 +1038,41 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
                     issue_add_10: data.issue_add_10,
                     issue_rejection: data.issue_rejection,
                     issue_village: data.issue_village,
-                    issue_bigTaiho: data.issue_bigTaiho,
-                    issue_mayur: data.issue_mayur, 
-                    entry_backlog: (parseFloat(data.rcv_dp)+parseFloat(data.rcv_ds)+parseFloat(data.rcv_dp1)
-                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)+(data.rcv_transfer? parseFloat(data.rcv_transfer):0)) 
-                    - (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
-                    +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
-                    parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
-                    + parseFloat(data.issue_wp)+parseFloat(data.issue_rs)+parseFloat(data.issue_dp_2)
-                    +parseFloat(data.issue_dp_3)+parseFloat(data.issue_dp_4)+parseFloat(data.issue_dp_3l)
-                    +parseFloat(data.issue_ss)+parseFloat(data.issue_os)+parseFloat(data.issue_os1)
-                    +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                    +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                    +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                    +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                    +parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_mayur)
+                    issue_dpds: data.issue_dpds,
+                    issue_husk: data.issue_husk,
+                    issue_sorting: data.issue_sorting,
+
+                    
+                    entry_backlog: (parseFloat(data.rcv_peeling)+(data.rcv_village? parseFloat(data.rcv_village):0)
+                    +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
+                    +(data.rcv_sorting? parseFloat(data.rcv_sorting):0)+(data.rcv_mayur? parseFloat(data.rcv_mayur):0)
+                    +(data.rcv_hamsa? parseFloat(data.rcv_hamsa):0) +(data.rcv_wholes? parseFloat(data.rcv_wholes):0)) 
+                    - (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
+                    +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
+                      +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
+                      +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
+                      +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
+                      +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                      +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                      +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
+                      +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
+                      +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
                         ),
-                    current_backlog: (parseFloat(data.rcv_dp)+parseFloat(data.rcv_ds)+parseFloat(data.rcv_dp1)
-                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)+(data.rcv_transfer? parseFloat(data.rcv_transfer):0)) 
-                    - (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
-                    +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
-                    parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
-                    + parseFloat(data.issue_wp)+parseFloat(data.issue_rs)+parseFloat(data.issue_dp_2)
-                    +parseFloat(data.issue_dp_3)+parseFloat(data.issue_dp_4)+parseFloat(data.issue_dp_3l)
-                    +parseFloat(data.issue_ss)+parseFloat(data.issue_os)+parseFloat(data.issue_os1)
-                    +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                    +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                    +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                    +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                    +parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_mayur)
-                
-                  ),
+                    current_backlog: (parseFloat(data.rcv_peeling)+(data.rcv_village? parseFloat(data.rcv_village):0)
+                    +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
+                    +(data.rcv_sorting? parseFloat(data.rcv_sorting):0)+(data.rcv_mayur? parseFloat(data.rcv_mayur):0)
+                    +(data.rcv_hamsa? parseFloat(data.rcv_hamsa):0) +(data.rcv_wholes? parseFloat(data.rcv_wholes):0)) 
+                    - (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
+                    +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
+                      +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
+                      +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
+                      +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
+                      +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                      +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                      +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
+                      +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
+                      +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                        ),
                     Status: 1,
                     CreatedBy: feeledBy,
                     editStatus:'Pending'
@@ -993,7 +1094,7 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
                     },transaction
                 }
             );
-            const lotupdate= await DPDS.update({
+            const lotupdate= await bigTaihoModel.update({
                     editStatus:'Pending'
                 },
                  {
@@ -1005,9 +1106,9 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
                  
                  if(lotupdate){
                    
-                    const data = await WhatsappMsg("DPDS", feeledBy,"modify_request","Production")
+                    const data = await WhatsappMsg("BigTaiho", feeledBy,"modify_request","Production")
                     console.log(data)
-                    return res.status(201).json({ message: "Edit Request of DPDS Entry Raised successfully" });
+                    return res.status(201).json({ message: "Edit Request of BigTaiho Entry Raised successfully" });
                
                 }
                 else{
@@ -1025,7 +1126,7 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
     catch(error) {
         if(!res.headersSent){
             console.log(error)
-            return res.status(500).json({ message: "Error while Editing Mayur Entry" ,error});
+            return res.status(500).json({ message: "Error while Editing BigTaiho Entry" ,error});
         }
     }
     
@@ -1033,7 +1134,7 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
 
 }
 
-export const approveDPDS = async (req: Request, res: Response) => {
+export const approveBigTaiho = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const LotNo = req.params.LotNo;
@@ -1043,100 +1144,99 @@ export const approveDPDS = async (req: Request, res: Response) => {
         if (!id || !approvedBy) {
             return res.status(400).json({ message: "Please provide the id or approved by" });
         }
-        const data = await DPDSEdit.findOne({
+        const data = await bigTaihoEditModel.findOne({
             where: {
                 id
             }
         }) as any;
         
         if (!data) {
-            return res.status(400).json({ message: "DPDS Edit Entry not found" });
+            return res.status(400).json({ message: "BigTaiho Edit Entry not found" });
         }
         else{
-            const transferMayurdata = await sectionTransfer.findOne({
+            const transferDPDSdata = await sectionTransfer.findOne({
                 where: {
                     issueid:data.altid,
                     LotNo:data.LotNo,
                     origin:data.origin,
-                    fromSection:'DPDS',
-                    toSection:'Mayur'
+                    fromSection:'BigTaiho',
+                    toSection:'DPDS'
                 }
             }) as any
 
-            const transferBigTaihodata = await sectionTransfer.findOne({
-                where: {
-                    issueid:data.altid,
-                    LotNo:data.LotNo,
-                    origin:data.origin,
-                    fromSection:'DPDS',
-                    toSection:'BigTaiho'
-                }
-            }) as any
-
-            if(transferMayurdata && transferBigTaihodata){
+            if(transferDPDSdata){
                 await sequelize.transaction(async (transaction: any) => {
 
-                    const bormaEdit = await DPDS.update({
-                        date:data.date,
-                     
-                        noOfdayOperators:data.noOfdayOperators,
-                        noOfnightOperators:data.noOfnightOperators,
-                        
-                        issue_m_ds: data.issue_m_ds,
-                        issue_m_dp: data.issue_m_dp,
-                        issue_k_dp: data.issue_k_dp,
-                        issue_ds_1: data.issue_ds_1,
-                        issue_ds_2: data.issue_ds_2,
-                        issue_sp_2: data.issue_sp_2,
-                        issue_yjh: data.issue_yjh,
-                        issue_yk: data.issue_yk,
-                        issue_kp: data.issue_kp,
-                        issue_wp: data.issue_wp,
-                        issue_rs: data.issue_rs,
-                        issue_dp_2: data.issue_dp_2,
-                        issue_dp_3: data.issue_dp_3,
-                        issue_dp_4: data.issue_dp_4,
-                        issue_dp_3l: data.issue_dp_3l,
-                        issue_ss: data.issue_ss,
-                        issue_os: data.issue_os,
-                        issue_os1: data.issue_os1,
-                        issue_add_1: data.issue_add_1,
-                        issue_add_2: data.issue_add_2,
-                        issue_add_3:data.issue_add_3,
-                        issue_add_4: data.issue_add_4,
-                        issue_add_5: data.issue_add_5,
-                        issue_add_6: data.issue_add_6,
-                        issue_add_7: data.issue_add_7,
-                        issue_add_8: data.issue_add_8,
-                        issue_add_9: data.issue_add_9,
-                        issue_add_10: data.issue_add_10,
-                        issue_rejection: data.issue_rejection,
-                        issue_village: data.issue_village,
-                        issue_bigTaiho: data.issue_bigTaiho,
-                        issue_mayur: data.issue_mayur, 
-                      
-                        entry_backlog:data.entry_backlog,
-                       current_backlog:data.current_backlog,
-                        CreatedBy: data.CreatedBy,
-                        editStatus: "Approved",
-                        modifiedBy:approvedBy,
-            
-            
-            
+                    const BigTEdit = await bigTaihoModel.update({
+                    date: data.Date,              
+                    noOfdayOperators: data.dayoperator,
+                    noOfnightOperators: data.nightoperator,
+                    Mc_on_1: data.Mc_on_1,
+                    Mc_off_1: data.Mc_off_1,
+                    Mc_runTime_1: data.Mc_runTime_1,
+                    Mc_breakdown_1: data.Mc_breakdown_1,
+                    otherTime_1: data.otherTime_1,
+                    Mc_on_2: data.Mc_on_2,
+                    Mc_off_2: data.Mc_off_2,
+                    Mc_runTime_2: data.Mc_runTime_2,
+                    Mc_breakdown_2: data.Mc_breakdown_2,
+                    otherTime_2: data.otherTime_2,
+                    Mc_on_3: data.Mc_on_3,
+                    Mc_off_3: data.Mc_off_3,
+                    Mc_runTime_3: data.Mc_runTime_3,
+                    Mc_breakdown_3: data.Mc_breakdown_3,
+                    otherTime_3: data.otherTime_3,
+                    issue_ssp: data.issue_ssp,
+                    issue_ssp_small: data.issue_ssp_small,
+                    issue_swp_1: data.issue_swp_1,
+                    issue_wsp: data.issue_wsp,
+                    issue_bits: data.issue_bits,
+                    issue_swp: data.issue_swp,
+                    issue_bb: data.issue_bb,
+                    issue_w_bb: data.issue_w_bb,
+                    issue_bb_A: data.issue_bb_A,
+                    issue_bb1: data.issue_bb1,
+                    issue_bb1_A: data.issue_bb1_A,
+                    issue_bb_2: data.issue_bb_2,
+                    issue_ssp_1: data.issue_ssp_1,
+                    issue_ssp_1_small: data.issue_ssp_1_small,
+                    issue_ssp_2: data.issue_ssp_2,
+                    issue_ssp_2_small: data.issue_ssp_2_small,
+                    issue_sdp: data.issue_sdp,
+                    issue_add_1: data.issue_add_1,
+                    issue_add_2: data.issue_add_2,
+                    issue_add_3:data.issue_add_3,
+                    issue_add_4: data.issue_add_4,
+                    issue_add_5: data.issue_add_5,
+                    issue_add_6: data.issue_add_6,
+                    issue_add_7: data.issue_add_7,
+                    issue_add_8: data.issue_add_8,
+                    issue_add_9: data.issue_add_9,
+                    issue_add_10: data.issue_add_10,
+                    issue_rejection: data.issue_rejection,
+                    issue_village: data.issue_village,
+                    issue_dpds: data.issue_dpds,
+                    issue_husk: data.issue_husk,
+                    issue_sorting: data.issue_sorting,  
+                    entry_backlog:data.entry_backlog,
+                    current_backlog:data.current_backlog,
+                    CreatedBy: data.CreatedBy,
+                    editStatus: "Approved",
+                    modifiedBy:approvedBy,
                     }, {
                         where: {
                             id
                         }, transaction
                     });
-                    if(bormaEdit){
-                        console.log(transferMayurdata)
-                        console.log(transferBigTaihodata)
-                        if(parseFloat(transferMayurdata.amount)!==parseFloat(data.issue_mayur)){
-                            console.log('Needs Update In Mayur')
-                            const difference_mayur=parseFloat(data.issue_mayur)-parseFloat(transferMayurdata.amount)
-                            console.log(difference_mayur)
-                            const backlog = await Mayur.findOne({
-                                attributes: ['current_backlog','rcv_DPDS'],
+                    if(BigTEdit){
+                        console.log(transferDPDSdata)
+                    
+                        if(parseFloat(transferDPDSdata.amount)!==parseFloat(data.issue_dpds)){
+                            console.log('Needs Update In DPDS')
+                            const difference_dpds=parseFloat(data.issue_dpds)-parseFloat(transferDPDSdata.amount)
+                            console.log(difference_dpds)
+                            const backlog = await DPDS.findOne({
+                                attributes: ['current_backlog','rcv_transfer'],
                                 where: {
                                     lotNo:LotNo,
                                     origin:origin,
@@ -1148,10 +1248,10 @@ export const approveDPDS = async (req: Request, res: Response) => {
                             });
                             if (backlog && backlog.dataValues.current_backlog>=0)
                                 {
-                                await Mayur.update(
+                                await DPDS.update(
                                     {
-                                        rcv_DPDS: sequelize.literal(`rcv_DPDS+ ${difference_mayur}`),
-                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_mayur}`)
+                                        rcv_transfer: sequelize.literal(`rcv_transfer+ ${difference_dpds}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_dpds}`)
                                     },
                                     {
                                         where: {
@@ -1164,70 +1264,22 @@ export const approveDPDS = async (req: Request, res: Response) => {
 
                                 await sectionTransfer.update({
                                     date: data.Date,
-                                    amount:data.issue_mayur,
-                                    toSectionBeforeBacklog:transferMayurdata.toSectionBeforeBacklog,
-                                    toSectionAfterBacklog:parseFloat(transferMayurdata.toSectionBeforeBacklog)+parseFloat(data.issue_mayur)
+                                    amount:data.issue_dpds,
+                                    toSectionBeforeBacklog:transferDPDSdata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferDPDSdata.toSectionBeforeBacklog)+parseFloat(data.issue_dpds)
                         
                                 }, {
                                     where: {
-                                        id:transferMayurdata.id
+                                        id:transferDPDSdata.id
                                     },transaction
                                 });
                                 }
                                 else{
-                                    res.status(500).json({ message: "Associated Mayur Entry Not Found" });
+                                    res.status(500).json({ message: "Associated DPDS Entry Not Found" });
                                     throw new Error('Transaction Aborted due to Improper Value')
                                 }
                         }
 
-                        if(parseFloat(transferBigTaihodata.amount)!==parseFloat(data.issue_bigTaiho)){
-                            console.log('Needs Update In bigTaiho')
-                            const difference_bigT=parseFloat(data.issue_bigTaiho)-parseFloat(transferBigTaihodata.amount)
-                            console.log(difference_bigT)
-                            const backlog = await bigTaihoModel.findOne({
-                                attributes: ['current_backlog','rcv_dpds'],
-                                where: {
-                                    lotNo:LotNo,
-                                    origin:origin,
-                                    latest:1
-                        
-                                },
-                                order: [['LotNo', 'ASC']]
-                        
-                            });
-                            if (backlog && backlog.dataValues.current_backlog>=0)
-                                {
-                                await bigTaihoModel.update(
-                                    {
-                                        rcv_dpds: sequelize.literal(`rcv_dpds+ ${difference_bigT}`),
-                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_bigT}`)
-                                    },
-                                    {
-                                        where: {
-                                            lotNo: LotNo,
-                                            origin: origin,
-                                            latest: 1
-                                        }, transaction
-                                    }
-                                );
-
-                                await sectionTransfer.update({
-                                    date: data.Date,
-                                    amount:data.issue_bigTaiho,
-                                    toSectionBeforeBacklog:transferBigTaihodata.toSectionBeforeBacklog,
-                                    toSectionAfterBacklog:parseFloat(transferBigTaihodata.toSectionBeforeBacklog)+parseFloat(data.issue_bigTaiho)
-                        
-                                }, {
-                                    where: {
-                                        id:transferBigTaihodata.id
-                                    },transaction
-                                });
-                                }
-                                else{
-                                    res.status(500).json({ message: "Associated BigTaiho Entry Not Found" });
-                                    throw new Error('Transaction Aborted due to Improper Value')
-                                }
-                        }
                         
                         await lotoriginmodel.update(
                             { 
@@ -1241,12 +1293,12 @@ export const approveDPDS = async (req: Request, res: Response) => {
                                 },transaction
                             }
                         );
-                        await DPDSEdit.destroy({
+                        await bigTaihoEditModel.destroy({
                             where: {
                                 id
                             },transaction
                         });
-                        return res.status(200).json({ message: "Edit Request of DPDS Entry is Approved Successfully" });
+                        return res.status(200).json({ message: "Edit Request of BigTaiho Entry is Approved Successfully" });
                     }
                     
                 })
@@ -1264,7 +1316,7 @@ export const approveDPDS = async (req: Request, res: Response) => {
 
 }
 
-export const EditRejectDPDS = async (req: Request, res: Response) => {
+export const EditRejectBigTaiho = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
          const rejectedBy = req.cookies.user;
@@ -1274,7 +1326,7 @@ export const EditRejectDPDS = async (req: Request, res: Response) => {
         if (!id || !rejectedBy) {
             return res.status(400).json({ message: "Please provide the id or rejected By" });
         }
-        const rcn = await DPDS.update({
+        const rcn = await bigTaihoModel.update({
             editStatus: "NA",
             modifiedBy:rejectedBy
         }, {
@@ -1283,7 +1335,7 @@ export const EditRejectDPDS = async (req: Request, res: Response) => {
             }
         });
         if (!rcn) {
-            return res.status(400).json({ message: "DPDS Entry not found" });
+            return res.status(400).json({ message: "BigTaiho Entry not found" });
         }
         await lotoriginmodel.update(
             { 
@@ -1297,15 +1349,15 @@ export const EditRejectDPDS = async (req: Request, res: Response) => {
                 }
             }
         );
-        const rcnEdit = await DPDSEdit.destroy({
+        const rcnEdit = await bigTaihoEditModel.destroy({
             where: {
                 id
             }
         });
         if (!rcnEdit) {
-            return res.status(400).json({ message: "DPDS Entry not found" });
+            return res.status(400).json({ message: "Big Taiho Entry not found" });
         }
-        return res.status(200).json({ message: "DPDS Entry rejected successfully" });
+        return res.status(200).json({ message: "BigTaiho Entry rejected successfully" });
     }
     catch (err) {
         console.log(err);
@@ -1313,7 +1365,7 @@ export const EditRejectDPDS = async (req: Request, res: Response) => {
     }
 }
 // //RCNDPDSMix.tsx
-export const SearchRCNDPDSMix = async (req: Request, res: Response) => {
+export const SearchRCNBigTaihoMix = async (req: Request, res: Response) => {
     try {
         const { lotNo, origin} = req.body;
        
@@ -1343,8 +1395,9 @@ export const SearchRCNDPDSMix = async (req: Request, res: Response) => {
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let rcnEntries
         
-             rcnEntries = await DPDS.findOne({
-                attributes: ['id','rcv_transfer','current_backlog','rcv_dp','rcv_dp1','rcv_ds','rcv_Sorting','editStatus'],
+             rcnEntries = await bigTaihoModel.findOne({
+                attributes: ['id','rcv_peeling','current_backlog','rcv_sorting','rcv_dpds',
+                    'rcv_village','rcv_mayur','rcv_hamsa','rcv_lw','rcv_wholes','editStatus'],
                 where
                 
                 
@@ -1361,7 +1414,7 @@ export const SearchRCNDPDSMix = async (req: Request, res: Response) => {
  
 }
 
-export const CreateMixDPDS = async (req: Request, res: Response) => {
+export const CreateMixBigTaiho = async (req: Request, res: Response) => {
 
     try{
         console.log(req.body)
@@ -1369,12 +1422,15 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
         const sourceid= req.body.fsourceid;
         const sourcelot= req.body.fsourcelot;
         const sourceorigin= req.body.fsourceorigin;
-        const source_rcv_dp= req.body.fsourcercv_dp;
-        const source_rcv_ds= req.body.fsourcercv_ds;
-        const source_rcv_dp1= req.body.fsourcercv_dp1;
-      
-        const source_sorting= req.body.fsourcercv_sorting;
-        const source_bigT= req.body.fsourcercv_bigT;
+        const source_rcv_peeling= req.body.fsourcercv_peeling;
+        const source_rcv_sorting= req.body.fsourcercv_sorting;
+        const source_rcv_dpds= req.body.fsourcercv_dpds;
+        const source_rcv_village= req.body.fsourcercv_village;
+        const source_rcv_mayur= req.body.fsourcercv_mayur;
+        const source_rcv_hamsa= req.body.fsourcercv_hamsa;
+        const source_rcv_lw= req.body.fsourcercv_lw;
+        const source_rcv_wholes= req.body.fsourcercv_wholes;
+        
         const source_backlog= req.body.fsourcebacklog;
 
         const transfer_amount =req.body.amount
@@ -1382,12 +1438,15 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
         const destid= req.body.destid;
         const destlot= req.body.destlot;
         const destorigin= req.body.destorigin;
-        const dest_rcv_dp= req.body.destrcv_dp;
-        const dest_rcv_ds= req.body.destrcv_ds;
-        const dest_rcv_dp1= req.body.destrcv_dp1;
-     
-        const dest_sorting= req.body.destrcv_sorting;
-        const dest_bigT= req.body.destrcv_bigT;
+        const dest_rcv_peeling= req.body.destrcv_peeling;
+        const dest_rcv_sorting= req.body.destrcv_sorting;
+        const dest_rcv_dpds= req.body.destrcv_dpds;
+        const dest_rcv_village= req.body.destrcv_village;
+        const dest_rcv_mayur= req.body.destrcv_mayur;
+        const dest_rcv_hamsa= req.body.destrcv_hamsa;
+        const dest_rcv_lw= req.body.destrcv_lw;
+        const dest_rcv_wholes= req.body.destrcv_wholes;
+ 
         const dest_backlog= req.body.destbacklog;
 
         const b_soucre_backlog= req.body.bsourcebacklog;
@@ -1396,14 +1455,16 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
 
         await sequelize.transaction(async (transaction: any) => {
 
-            const sourceupdate=await DPDS.update(
+            const sourceupdate=await bigTaihoModel.update(
                 { 
-                    rcv_dp: source_rcv_dp,
-                    rcv_ds: source_rcv_ds,
-                    rcv_dp1: source_rcv_dp1,
-                  
-                    rcv_Sorting:source_sorting,
-                    rcv_transfer:source_bigT,
+                    rcv_peeling: source_rcv_peeling,
+                    rcv_sorting: source_rcv_sorting,
+                    rcv_dpds: source_rcv_dpds,
+                    rcv_village: source_rcv_village,
+                    rcv_mayur: source_rcv_mayur,
+                    rcv_hamsa: source_rcv_hamsa,
+                    rcv_lw: source_rcv_lw,
+                    rcv_wholes: source_rcv_wholes,
                     current_backlog:source_backlog,                   
                 },
                 {
@@ -1412,7 +1473,7 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
                     }, transaction
                 }
             );
-            const destdata=await DPDS.findOne({
+            const destdata=await bigTaihoModel.findOne({
                 attributes: ['mixingLot'],
                 where: {
                     id:destid
@@ -1421,14 +1482,16 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
         
             });
             if (destdata && destdata.dataValues.mixingLot){
-                const destupdate=await DPDS.update(
+                const destupdate=await bigTaihoModel.update(
                     { 
-                        rcv_dp: dest_rcv_dp,
-                        rcv_ds: dest_rcv_ds,
-                        rcv_dp1: dest_rcv_dp1,
-                        
-                        rcv_Sorting:dest_sorting,
-                        rcv_transfer:dest_bigT,
+                        rcv_peeling: dest_rcv_peeling,
+                        rcv_sorting: dest_rcv_sorting,
+                        rcv_dpds: dest_rcv_dpds,
+                        rcv_village: dest_rcv_village,
+                        rcv_mayur: dest_rcv_mayur,
+                        rcv_hamsa: dest_rcv_hamsa,
+                        rcv_lw: dest_rcv_lw,
+                        rcv_wholes: dest_rcv_wholes,
                         current_backlog:dest_backlog, 
                         mixingLot:sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`)                  
                     },
@@ -1447,7 +1510,7 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
                             Toorigin:destorigin,
                             amount:transfer_amount,
                             date:new Date(),
-                            Section:'DPDS',
+                            Section:'BigTaiho',
                             amountBeforeBacklog:b_soucre_backlog,
                             amountAfterBacklog:source_backlog,
                             destamountBeforeBacklog: b_dest_backlog,
@@ -1471,13 +1534,16 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
                 }
             }
             else{
-                const destupdate=await DPDS.update(
+                const destupdate=await bigTaihoModel.update(
                     { 
-                        rcv_dp: dest_rcv_dp,
-                        rcv_ds: dest_rcv_ds,
-                        rcv_dp1:dest_rcv_dp1,
-                        rcv_Sorting:dest_sorting,
-                  
+                        rcv_peeling: dest_rcv_peeling,
+                        rcv_sorting: dest_rcv_sorting,
+                        rcv_dpds: dest_rcv_dpds,
+                        rcv_village: dest_rcv_village,
+                        rcv_mayur: dest_rcv_mayur,
+                        rcv_hamsa: dest_rcv_hamsa,
+                        rcv_lw: dest_rcv_lw,
+                        rcv_wholes: dest_rcv_wholes,
                         current_backlog:dest_backlog, 
                         mixingLot:`${sourcelot}(${sourceorigin})`             
                     },
@@ -1496,7 +1562,7 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
                             Toorigin:destorigin,
                             amount:transfer_amount,
                             date:new Date(),
-                            Section:'DPDS',
+                            Section:'BigTaiho',
                             amountBeforeBacklog:b_soucre_backlog,
                             amountAfterBacklog:source_backlog,
                             destamountBeforeBacklog: b_dest_backlog,

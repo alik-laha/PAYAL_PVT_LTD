@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Origin, pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
 import Context from "../context/context";
 import axios from "axios";
-import {  pendingCheckRoles, PermissionRole, DPDSData, BigTaihoData } from "@/type/type";
+import {  pendingCheckRoles, PermissionRole, BigTaihoData } from "@/type/type";
 import { Input } from "../ui/input";
 import { FaSearch } from "react-icons/fa";
 import { Button } from "../ui/button";
@@ -55,9 +55,10 @@ import { CiBoxes, CiCrop, CiEdit } from "react-icons/ci";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
-// import RCNDPDSReMix from "./RCNDPDSMIx";
-// import RCNDPDSReCreateForm from "./DPDSRecreate";
-// import DPDSEditForm from "./DPDSEditForm";
+import RCNBigTaihoReMix from "./BigTaihoMix";
+import RCNBigTaihoReCreateForm from "./BigTaihoRecreateForm";
+import BigTaihoEditForm from "./BigTaihoEditForm";
+
 
 
 const BigTaihoTable = () => {
@@ -476,8 +477,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Runtime_Amrita</TableHead>
                 
            
-                <TableHead className="text-center">Operator_Day</TableHead>
-                <TableHead className="text-center">Operator_Night</TableHead>
+                    <TableHead className="text-center">Operator_Day</TableHead>
+                    <TableHead className="text-center">Operator_Night</TableHead>
                
                     <TableHead className="text-center" >Edit Status </TableHead>
                     <TableHead className="text-center" >Created By </TableHead>
@@ -692,28 +693,28 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-7xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>DPDS Entry Modification</p>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>BigTaiho Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <DPDSEditForm borma={[item]} /> */}
+                                                        <BigTaihoEditForm borma={[item]} />
                                                     </DialogContent>
                                                     
                                                 </Dialog>
-                                                <Dialog>
+                                                {Number(item.current_backlog) > 0 && <Dialog>
                                                     <DialogTrigger className="flex"><CiBoxes size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
                                                     </DialogTrigger>
                                                     <DialogContent className="max-w-7xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>DPDS Entry Reissue</p>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>BigTaiho Entry Reissue</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <RCNDPDSReCreateForm borma={[item]} /> */}
+                                                        <RCNBigTaihoReCreateForm borma={[item]} />
                                                     </DialogContent>
                                                     
-                                                </Dialog>
-                                                <Dialog>
+                                                </Dialog>}
+                                                {Number(item.current_backlog) > 0 && <Dialog>
                                                     <DialogTrigger className="flex"><CiCrop size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
                                                     </DialogTrigger>
@@ -724,10 +725,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <RCNDPDSReMix borma={item} /> */}
+                                                        <RCNBigTaihoReMix borma={item} />
                                                     </DialogContent>
                                                     
-                                                </Dialog>
+                                                </Dialog>}
                                             </PopoverContent>
                                             
                                         </Popover>

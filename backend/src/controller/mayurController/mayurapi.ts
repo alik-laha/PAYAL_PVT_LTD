@@ -590,7 +590,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
 
 
                     const bigT_backlog = await bigTaihoModel.findOne({
-                        attributes: ['current_backlog','rcv_dpds'],
+                        attributes: ['current_backlog','rcv_mayur'],
                         where: {
                             lotNo:LotNO,
                             origin: data.origin,
@@ -615,11 +615,11 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         createdBy: feeledBy,
                         issueid:parseInt(data.alt_id)+1,
                         },{transaction});
-                        if(bigT_backlog.dataValues.rcv_dpds)
+                        if(bigT_backlog.dataValues.rcv_mayur)
                             {
                         await bigTaihoModel.update(
                             { 
-                                rcv_DPDS:sequelize.literal(`rcv_dpds+ ${data.issue_bigTaiho}`),
+                                rcv_mayur:sequelize.literal(`rcv_dpds+ ${data.issue_bigTaiho}`),
                                 current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
                             },
                             {
@@ -634,7 +634,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         else{
                         await bigTaihoModel.update(
                             { 
-                                rcv_dpds:data.issue_bigTaiho,
+                                rcv_mayur:data.issue_bigTaiho,
                                 current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
                             },
                             {
