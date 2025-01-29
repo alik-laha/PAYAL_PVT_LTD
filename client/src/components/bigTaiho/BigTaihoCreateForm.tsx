@@ -55,10 +55,11 @@ interface BigTaihoRowData{
         issue_add_8: number;
         issue_add_9: number;
         issue_add_10: number;
+        issue_husk: number; 
         issue_rejection: number;
         issue_village: number;
-        issue_bigTaiho: number;
-        issue_mayur: number;  
+        issue_sorting: number;
+        issue_dpds: number;  
         mixingLot: string|null;    
         Mc_on_3: string ;
         Mc_off_3: string ;
@@ -84,6 +85,7 @@ import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import {   useEffect, useRef, useState } from "react"
 import axios from "axios";
+import FormRow from "../common/FormRowTime";
 
 
 
@@ -160,10 +162,11 @@ const RCNDBigTaihoCreateForm = (props:Props) => {
             issue_add_8:  0,
             issue_add_9:  0,
             issue_add_10:  0,
+            issue_husk:  0,
             issue_rejection:  0,
             issue_village:  0,
-            issue_bigTaiho:  0,
-            issue_mayur:  0,
+            issue_dpds:  0,
+            issue_sorting:  0,
             mixingLot: item.mixingLot ,
             Mc_on_1: '00:00',
             Mc_off_1: '00:00',
@@ -324,16 +327,33 @@ const RCNDBigTaihoCreateForm = (props:Props) => {
                     <TableHead className="text-center">Issue Add 8</TableHead>
                     <TableHead className="text-center">Issue Add 9</TableHead>
                     <TableHead className="text-center">Issue Add 10</TableHead> */}
+                    <TableHead className="text-center">Issue Husk</TableHead>
                     <TableHead className="text-center">Issue Rejection</TableHead>
                     <TableHead className="text-center">Issue Village</TableHead>
-                    <TableHead className="text-center">Issue Big Taiho</TableHead>
-                    <TableHead className="text-center">Issue Mayur</TableHead>
+                    <TableHead className="text-center">Issue Sorting</TableHead>
+                    <TableHead className="text-center">Issue DPDS</TableHead>
+
+                    <TableHead className="text-center">Mc On (Taiho)</TableHead>
+                    <TableHead className="text-center">Mc Off (Taiho)</TableHead>
+                    <TableHead className="text-center">Mc_Breakdown (Taiho)</TableHead>
+                    <TableHead className="text-center">Other_Time (Taiho)</TableHead>
+                    <TableHead className="text-center">Mc On (Spectrum)</TableHead>
+                    <TableHead className="text-center">Mc Off (Spectrum)</TableHead>
+                    <TableHead className="text-center">Mc_Breakdown (Spectrum)</TableHead>
+                    <TableHead className="text-center">Other_Time (Spectrum)</TableHead>
+                    <TableHead className="text-center">Mc On (Amrita)</TableHead>
+                    <TableHead className="text-center">Mc Off (Amrita)</TableHead>
+                    <TableHead className="text-center">Mc_Breakdown (Amrita)</TableHead>
+                    <TableHead className="text-center">Other_Time (Amrita)</TableHead>
+                 
+                    
+                 
                     {/* <TableHead className="text-center">Mixed Amount</TableHead> */}
                
                     </TableHeader>
                     <TableBody>
                         {props.borma.length > 0 ? (
-                            rows.map(( row:DPDSRowData,idx:number) => {
+                            rows.map(( row:BigTaihoRowData,idx:number) => {
                               
                                 return (
                                     <TableRow key={idx} className="boiling-row-height-scoop">
@@ -341,32 +361,34 @@ const RCNDBigTaihoCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_transfer ? formatNumber(row.rcv_transfer) :0} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_Sorting ? formatNumber(row.rcv_Sorting):0} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_dp)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_ds)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_dp1)} Kg</TableCell>
-                                        
-                                        {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_m_ds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_m_ds', e.target.value)} required /></TableCell>
-
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_m_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_m_dp', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_k_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_k_dp', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ds_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ds_1', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ds_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ds_2', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_sp_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sp_2', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_yjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_yjh', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_yk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_yk', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_kp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_kp', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_wp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_wp', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_rs} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rs', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_dp_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dp_2', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_dp_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dp_3', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_dp_4} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dp_4', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_dp_3l} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dp_3l', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ss} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ss', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_os} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_os', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_os1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_os1', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{formatNumber(row.rcv_peeling)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_village ? formatNumber(row.rcv_village) :0} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_sorting ? formatNumber(row.rcv_sorting) :0} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_dpds ? formatNumber(row.rcv_dpds) :0} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_mayur ? formatNumber(row.rcv_mayur) :0} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_hamsa ? formatNumber(row.rcv_hamsa) :0} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_lw ? formatNumber(row.rcv_lw) :0} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_wholes ? formatNumber(row.rcv_wholes) :0} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ssp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ssp', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ssp_small} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ssp_small', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_swp_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_swp_1', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_wsp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_wsp', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_bits} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bits', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_swp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_swp', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_bb} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bb', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_bb} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_bb', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_bb_A} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bb_A', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_bb1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bb1', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_bb1_A} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bb1_A', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_bb_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bb_2', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ssp_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ssp_1', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ssp_1_small} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ssp_1_small', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ssp_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ssp_2', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ssp_2_small} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ssp_2_small', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_sdp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sdp', e.target.value)} required /></TableCell>
+                                       
+                                     
+                                   
                                     {/* <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_1', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_2', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_3', e.target.value)} required /></TableCell>
@@ -377,14 +399,29 @@ const RCNDBigTaihoCreateForm = (props:Props) => {
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_8} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_8', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_9} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_9', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_10} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_10', e.target.value)} required /></TableCell> */}
+                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_husk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_husk', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_village', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bigTaiho', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_mayur', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sorting', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_dpds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dpds', e.target.value)} required /></TableCell>
 
 
-
-
+                                    <FormRow idx={idx} row={row} column='Mc_on_1' handleRowChange={handleRowChange}/>
+                                        <FormRow idx={idx} row={row} column='Mc_off_1' handleRowChange={handleRowChange}/>
+                                        <TableCell className="text-center"><Input  value={row.Mc_breakdown_1} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_1',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center"><Input  value={row.otherTime_1} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_1',e.target.value)} type='time'  /></TableCell>
+                                     
+                                        <FormRow idx={idx} row={row} column='Mc_on_2' handleRowChange={handleRowChange}/>
+                                        <FormRow idx={idx} row={row} column='Mc_off_2' handleRowChange={handleRowChange}/>
+                                        <TableCell className="text-center"><Input  value={row.Mc_breakdown_2} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_2',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center"><Input  value={row.otherTime_2} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_2',e.target.value)} type='time'  /></TableCell>
+                                    
+                                        <FormRow idx={idx} row={row} column='Mc_on_3' handleRowChange={handleRowChange}/>
+                                        <FormRow idx={idx} row={row} column='Mc_off_3' handleRowChange={handleRowChange}/>
+                                        <TableCell className="text-center"><Input  value={row.Mc_breakdown_3} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_3',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center"><Input  value={row.otherTime_3} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_3',e.target.value)} type='time'  /></TableCell>
+                                    
+                                        
                                       
                                     
                                     </TableRow>

@@ -285,7 +285,7 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
             if (humidUpdate) {
 
                 const bigT_backlog = await bigTaihoModel.findOne({
-                    attributes: ['current_backlog','rcv_dpds'],
+                    attributes: ['current_backlog','rcv_mayur'],
                     where: {
                         lotNo:LotNO,
                         origin: data.origin,
@@ -309,10 +309,10 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                         toSectionAfterBacklog:parseFloat(bigT_backlog.dataValues.current_backlog)+parseFloat(data.issue_bigTaiho),
                         createdBy: feeledBy
                      },{transaction});
-                     if(bigT_backlog.dataValues.rcv_dpds){
+                     if(bigT_backlog.dataValues.rcv_mayur){
                         await bigTaihoModel.update(
                             { 
-                                rcv_dpds:sequelize.literal(`rcv_dpds+ ${data.issue_bigTaiho}`),
+                                rcv_mayur:sequelize.literal(`rcv_mayur+ ${data.issue_bigTaiho}`),
                                 current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
                             },
                             {
@@ -327,7 +327,7 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                      else{
                         await bigTaihoModel.update(
                             { 
-                                rcv_dpds:data.issue_bigTaiho,
+                                rcv_mayur:data.issue_bigTaiho,
                                 current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
                             },
                             {

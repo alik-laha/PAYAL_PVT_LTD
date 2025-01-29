@@ -7,8 +7,8 @@ import {
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import { approveDPDS, CreateEntireDPDS, CreateMixDPDS, CreateReissueDPDS, EditRejectDPDS,  SearchRCNDPDS, SearchRCNDPDSMix,  updateEntireDPDS } from "../controller/dpdsController/dpdsApi";
-import { findEditBigTaihoSAll, getBigTaihoBylotorigin, getBigTaihoLot, sumOfallBigTaiho } from "../controller/BigTaihoController/BigTaihoApi";
+import { approveDPDS, CreateMixDPDS, CreateReissueDPDS, EditRejectDPDS,  SearchRCNDPDS, SearchRCNDPDSMix,  updateEntireDPDS } from "../controller/dpdsController/dpdsApi";
+import { CreateEntireBigTaiho, findEditBigTaihoSAll, getBigTaihoBylotorigin, getBigTaihoLot, sumOfallBigTaiho } from "../controller/BigTaihoController/BigTaihoApi";
 const router = express()
 
 // //BigTaiho.tsx
@@ -16,11 +16,11 @@ router.get("/getUnBigTaihoEntry/:status", jwtVerify, getBigTaihoLot)
 router.get("/findEditBigTaihoAll", jwtVerify, findEditBigTaihoSAll)
 router.get("/sumofallBigTaiho", jwtVerify, sumOfallBigTaiho)
 
-// //DPDSInitial.tsx
+// //BihTaihoInitial.tsx
 router.get("/getBigTaihoByLotOrigin/:lotNO/:origin", jwtVerify, getBigTaihoBylotorigin)
 
-// //DPDSCreateForm.tsx
-router.post("/createEntireDPDS", jwtVerify, CreateEntireDPDS)
+// //BigTaihoCreateForm.tsx
+router.post("/createEntireBigTaiho", jwtVerify, CreateEntireBigTaiho)
 
 // //DPDSReiSsueForm.tsx
 router.post("/createReissueDPDS", jwtVerify, CreateReissueDPDS)
