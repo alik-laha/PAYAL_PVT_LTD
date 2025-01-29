@@ -546,36 +546,36 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                               
                                     <TableCell className="text-center ">{item.mixingLot}</TableCell>
                                     {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_dp)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.rcv_ds)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.rcv_dp1)}</TableCell>
-                                    <TableCell className="text-center font-bold text-green-600">{Number(formatNumber(item.rcv_dp)) + Number(formatNumber(item.rcv_ds))+ Number(formatNumber(item.rcv_dp1))}</TableCell>
-                                    <TableCell  className="text-center font-bold text-green-600">{item.rcv_Sorting ? formatNumber(item.rcv_Sorting) :0}</TableCell>
-                                    <TableCell  className="text-center font-bold text-green-600">{item.rcv_transfer ? formatNumber(item.rcv_transfer) :0}</TableCell>
+                                    <TableCell className="text-center bg-yellow-100">{formatNumber(item.rcv_dp)}</TableCell>
+                                    <TableCell className="text-center bg-yellow-100 ">{formatNumber(item.rcv_ds)}</TableCell>
+                                    <TableCell className="text-center bg-yellow-100 ">{formatNumber(item.rcv_dp1)}</TableCell>
+                                    <TableCell className="text-center bg-yellow-100 font-bold text-green-600">{Number(formatNumber(item.rcv_dp)) + Number(formatNumber(item.rcv_ds))+ Number(formatNumber(item.rcv_dp1))}</TableCell>
+                                    <TableCell  className="text-center bg-yellow-100 font-bold text-green-600">{item.rcv_Sorting ? formatNumber(item.rcv_Sorting) :0}</TableCell>
+                                    <TableCell  className="text-center bg-yellow-100 font-bold text-green-600">{item.rcv_transfer ? formatNumber(item.rcv_transfer) :0}</TableCell>
 
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_m_ds)}</TableCell>       
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_m_dp)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_k_dp)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ds_1)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ds_2)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_sp_2)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_yjh)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_yk)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_kp)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_wp)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_rs)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_dp_2)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_dp_3)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_dp_4)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_dp_3l)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ss)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_os)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_os1)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_rejection)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_village)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_bigTaiho)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_mayur)}</TableCell>
-                                    <TableCell className="text-center font-bold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_m_ds)}</TableCell>       
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_m_dp)}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_k_dp)}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_ds_1)}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_ds_2)}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_sp_2)}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_yjh)}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_yk)}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_kp)}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_wp)}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_rs)}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_dp_2)}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_dp_3)}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_dp_4)}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_dp_3l)}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_ss)}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_os)}</TableCell>
+                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_os1)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-green-100">{formatNumber(item.issue_rejection)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-cyan-100 ">{formatNumber(item.issue_village)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100 ">{formatNumber(item.issue_bigTaiho)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{formatNumber(item.issue_mayur)}</TableCell>
+                                    <TableCell className="text-center font-bold  text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell>
                                            
                                            <TableCell className="text-center font-bold text-blue-600">{formatNumber(item.current_backlog)}kg</TableCell>
                         <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
@@ -603,7 +603,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     </DialogContent>
                                                     
                                                 </Dialog>
-                                                <Dialog>
+                                                {Number(item.current_backlog) > 0 &&   <Dialog>
                                                     <DialogTrigger className="flex"><CiBoxes size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
                                                     </DialogTrigger>
@@ -616,8 +616,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <RCNDPDSReCreateForm borma={[item]} />
                                                     </DialogContent>
                                                     
-                                                </Dialog>
-                                                <Dialog>
+                                                </Dialog>}
+                                                {Number(item.current_backlog) > 0 &&  <Dialog>
                                                     <DialogTrigger className="flex"><CiCrop size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
                                                     </DialogTrigger>
@@ -631,7 +631,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <RCNDPDSReMix borma={item} />
                                                     </DialogContent>
                                                     
-                                                </Dialog>
+                                                </Dialog>}
                                             </PopoverContent>
                                             
                                         </Popover>

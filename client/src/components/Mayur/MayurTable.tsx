@@ -502,7 +502,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-bold text-blue-600">{formatNumber(item.current_backlog)}kg</TableCell>
                                         
                                         
-                                        <TableCell className="text-center">{handleAMPM(item.Mc_on_133.slice(0, 5))}</TableCell>
+                            <TableCell className="text-center">{handleAMPM(item.Mc_on_133.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off_133.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{item.Mc_breakdown_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
                             <TableCell className="text-center">{item.otherTime_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
@@ -670,7 +670,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         </DialogContent>
                                                         
                                                     </Dialog>
-                                                    <Dialog>
+                                                    {Number(item.current_backlog) > 0 && <Dialog>
                                                         <DialogTrigger className="flex"><CiBoxes size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
                                                         </DialogTrigger>
@@ -683,8 +683,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                             <RCNMayurReCreateForm borma={[item]} />
                                                         </DialogContent>
                                                         
-                                                    </Dialog>
-                                                    <Dialog>
+                                                    </Dialog>}
+                                                    {Number(item.current_backlog) > 0 && <Dialog>
                                                         <DialogTrigger className="flex"><CiCrop size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
                                                         </DialogTrigger>
@@ -698,7 +698,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                             <RCNMayurReMix borma={item} />
                                                         </DialogContent>
                                                         
-                                                    </Dialog>
+                                                    </Dialog>}
                                                 </PopoverContent>
                                                 
                                             </Popover>

@@ -7,8 +7,9 @@ import {
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import { approveDPDS, CreateMixDPDS, CreateReissueDPDS, EditRejectDPDS,  SearchRCNDPDS, SearchRCNDPDSMix,  updateEntireDPDS } from "../controller/dpdsController/dpdsApi";
-import { CreateEntireBigTaiho, findEditBigTaihoSAll, getBigTaihoBylotorigin, getBigTaihoLot, sumOfallBigTaiho } from "../controller/BigTaihoController/BigTaihoApi";
+import { approveDPDS, CreateMixDPDS, CreateReissueDPDS, EditRejectDPDS, SearchRCNDPDSMix,  updateEntireDPDS } from "../controller/dpdsController/dpdsApi";
+import { CreateEntireBigTaiho, findEditBigTaihoSAll, getBigTaihoBylotorigin,
+       getBigTaihoLot, SearchRCNBigTaiho, sumOfallBigTaiho } from "../controller/BigTaihoController/BigTaihoApi";
 const router = express()
 
 // //BigTaiho.tsx
@@ -25,8 +26,8 @@ router.post("/createEntireBigTaiho", jwtVerify, CreateEntireBigTaiho)
 // //DPDSReiSsueForm.tsx
 router.post("/createReissueDPDS", jwtVerify, CreateReissueDPDS)
 
-// //DPDStable.tsx
-router.put('/dpdsprimarysearch', jwtVerify, SearchRCNDPDS);
+// //BigTaihotable.tsx
+router.put('/bigTaihoprimarysearch', jwtVerify, SearchRCNBigTaiho);
 router.post("/updateDPDS",jwtVerify, updateEntireDPDS)
 router.delete('/rejectededitDPDS/:id/:LotNo/:origin', jwtVerify, EditRejectDPDS);
 router.put("/approveeditDPDS/:id/:LotNo/:origin", jwtVerify, approveDPDS);

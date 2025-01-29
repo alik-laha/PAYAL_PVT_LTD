@@ -471,8 +471,8 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
     }
 }
 
-// //DPDSTable.tsx
-export const SearchRCNDPDS = async (req: Request, res: Response) => {
+// //BigTaihoTable.tsx
+export const SearchRCNBigTaiho = async (req: Request, res: Response) => {
     try {
         const { searchitem,fromDate, toDate, origin} = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
@@ -514,14 +514,14 @@ export const SearchRCNDPDS = async (req: Request, res: Response) => {
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let rcnEntries
         if(limit===0 && offset===0){
-             rcnEntries = await DPDS.findAll({
+             rcnEntries = await bigTaihoModel.findAll({
                 where,
                 order: [['LotNo','DESC'],['origin','ASC'],['altid', 'ASC']], // Order by date descending
                 
             });
         }
         else{
-             rcnEntries = await DPDS.findAll({
+             rcnEntries = await bigTaihoModel.findAll({
                 where,
                 order: [['LotNo','DESC'],['origin','ASC'],['altid', 'ASC']], // Order by date descending
                 limit: limit,
@@ -529,7 +529,7 @@ export const SearchRCNDPDS = async (req: Request, res: Response) => {
             });
         }
        
-        return res.status(200).json({ message: 'DPDS Entry found', rcnEntries })
+        return res.status(200).json({ message: 'BigTaiho Entry found', rcnEntries })
     }
     catch (err) {
         console.log(err)
