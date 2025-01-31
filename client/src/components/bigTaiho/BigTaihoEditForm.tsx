@@ -83,7 +83,7 @@ interface BigTaihoRowData{
 }
 
 
-import {   BigTaihoData, DPDSData } from "@/type/type"
+import {   BigTaihoData } from "@/type/type"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
