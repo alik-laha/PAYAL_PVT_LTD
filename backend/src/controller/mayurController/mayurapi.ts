@@ -1141,7 +1141,7 @@ export const approveMayur = async (req: Request, res: Response) => {
                             const difference_bigT=parseFloat(data.issue_bigTaiho)-parseFloat(transferBigTaihodata.amount)
                             console.log(difference_bigT)
                             const backlog = await bigTaihoModel.findOne({
-                                attributes: ['current_backlog','rcv_dpds'],
+                                attributes: ['current_backlog','rcv_mayur'],
                                 where: {
                                     lotNo:LotNo,
                                     origin:origin,
@@ -1155,7 +1155,7 @@ export const approveMayur = async (req: Request, res: Response) => {
                                 {
                                 await bigTaihoModel.update(
                                     {
-                                        rcv_dpds: sequelize.literal(`rcv_dpds+ ${difference_bigT}`),
+                                        rcv_mayur: sequelize.literal(`rcv_dpds+ ${difference_bigT}`),
                                         current_backlog: sequelize.literal(`current_backlog+ ${difference_bigT}`)
                                     },
                                     {

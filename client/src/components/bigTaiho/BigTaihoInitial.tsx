@@ -123,7 +123,7 @@ const BigTaihoInitial = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
                                           <DialogContent className='max-w-7xl'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>DPDS Line Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>BigTaiho Line Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 

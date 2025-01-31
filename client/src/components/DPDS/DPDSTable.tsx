@@ -424,7 +424,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <TableHead className="text-center">Issue Big_Taiho</TableHead>
                 <TableHead className="text-center">Issue Mayur</TableHead>
                 <TableHead className="text-center">Entry_Backlog</TableHead>
-                <TableHead className="text-center">Current_Backlog</TableHead>
+                <TableHead className="text-center font-bold">Current_Backlog</TableHead>
              
            
                 <TableHead className="text-center">Labour</TableHead>
@@ -575,9 +575,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold bg-cyan-100 ">{formatNumber(item.issue_village)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100 ">{formatNumber(item.issue_bigTaiho)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{formatNumber(item.issue_mayur)}</TableCell>
-                                    <TableCell className="text-center font-bold  text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell>
+                                    <TableCell className="text-center font-semibold  text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell>
                                            
-                                           <TableCell className="text-center font-bold text-blue-600">{formatNumber(item.current_backlog)}kg</TableCell>
+                                           <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                         <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                         <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
                                     <TableCell className="text-center">{item.editStatus}</TableCell>

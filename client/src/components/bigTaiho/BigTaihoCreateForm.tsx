@@ -299,21 +299,21 @@ const RCNDBigTaihoCreateForm = (props:Props) => {
                     <TableHead className="text-center">Rcv LW</TableHead>
                     <TableHead className="text-center">Rcv Wholes</TableHead>
                     <TableHead className="text-center">Issue SSP</TableHead>
-                    <TableHead className="text-center">Issue SSP Small</TableHead>
-                    <TableHead className="text-center">Issue SWP 1</TableHead>
+                    <TableHead className="text-center">Issue SSP(Small)</TableHead>
+                    <TableHead className="text-center">Issue SWP_1</TableHead>
                     <TableHead className="text-center">Issue WSP</TableHead>
                     <TableHead className="text-center">Issue Bits</TableHead>
                     <TableHead className="text-center">Issue SWP</TableHead>
                     <TableHead className="text-center">Issue BB</TableHead>
-                    <TableHead className="text-center">Issue W BB</TableHead>
+                    <TableHead className="text-center">Issue W_BB</TableHead>
                     <TableHead className="text-center">Issue BB A</TableHead>
                     <TableHead className="text-center">Issue BB1</TableHead>
-                    <TableHead className="text-center">Issue BB1 A</TableHead>
+                    <TableHead className="text-center">Issue BB1(A)</TableHead>
                     <TableHead className="text-center">Issue BB 2</TableHead>
-                    <TableHead className="text-center">Issue SSP 1</TableHead>
-                    <TableHead className="text-center">Issue SSP 1 Small</TableHead>
-                    <TableHead className="text-center">Issue SSP 2</TableHead>
-                    <TableHead className="text-center">Issue SSP 2 Small</TableHead>
+                    <TableHead className="text-center">Issue SSP_1</TableHead>
+                    <TableHead className="text-center">Issue SSP_1(Small)</TableHead>
+                    <TableHead className="text-center">Issue SSP_2</TableHead>
+                    <TableHead className="text-center">Issue SSP_2(Small)</TableHead>
                     <TableHead className="text-center">Issue SDP</TableHead>
                    
                     {/* <TableHead className="text-center">Issue Add 1</TableHead>
@@ -398,11 +398,11 @@ const RCNDBigTaihoCreateForm = (props:Props) => {
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_8} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_8', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_9} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_9', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_10} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_10', e.target.value)} required /></TableCell> */}
-                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_husk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_husk', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_village', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sorting', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_dpds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dpds', e.target.value)} required /></TableCell>
+                                     <TableCell className="text-center"> <Input className='bg-cyan-100' type="number" value={row.issue_husk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_husk', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-red-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-blue-100' type="number" value={row.issue_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_village', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sorting', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-green-100' type="number" value={row.issue_dpds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dpds', e.target.value)} required /></TableCell>
 
 
                                     <FormRow idx={idx} row={row} column='Mc_on_1' handleRowChange={handleRowChange}/>

@@ -260,9 +260,9 @@ const RCNDPDSCreateForm = (props:Props) => {
                     <TableHead className="text-center">Rcv DP</TableHead>
                     <TableHead className="text-center">Rcv DS</TableHead>
                     <TableHead className="text-center">Rcv DP1</TableHead>
-                    <TableHead className="text-center">Issue M DS</TableHead>
-                    <TableHead className="text-center">Issue M DP</TableHead>
-                    <TableHead className="text-center">Issue K DP</TableHead>
+                    <TableHead className="text-center">Issue M_DS</TableHead>
+                    <TableHead className="text-center">Issue M_DP</TableHead>
+                    <TableHead className="text-center">Issue K_DP</TableHead>
                     <TableHead className="text-center">Issue DS 1</TableHead>
                     <TableHead className="text-center">Issue DS 2</TableHead>
                     <TableHead className="text-center">Issue SP 2</TableHead>
@@ -274,7 +274,7 @@ const RCNDPDSCreateForm = (props:Props) => {
                     <TableHead className="text-center">Issue DP 2</TableHead>
                     <TableHead className="text-center">Issue DP 3</TableHead>
                     <TableHead className="text-center">Issue DP 4</TableHead>
-                    <TableHead className="text-center">Issue DP 3L</TableHead>
+                    <TableHead className="text-center">Issue DP_3L</TableHead>
                     <TableHead className="text-center">Issue SS</TableHead>
                     <TableHead className="text-center">Issue OS</TableHead>
                     <TableHead className="text-center">Issue OS1</TableHead>
@@ -288,10 +288,11 @@ const RCNDPDSCreateForm = (props:Props) => {
                     <TableHead className="text-center">Issue Add 8</TableHead>
                     <TableHead className="text-center">Issue Add 9</TableHead>
                     <TableHead className="text-center">Issue Add 10</TableHead> */}
-                    <TableHead className="text-center">Issue Rejection</TableHead>
+                   
                     <TableHead className="text-center">Issue Village</TableHead>
-                    <TableHead className="text-center">Issue Big Taiho</TableHead>
+                    <TableHead className="text-center">Issue BigTaiho</TableHead>
                     <TableHead className="text-center">Issue Mayur</TableHead>
+                    <TableHead className="text-center">Issue Rejection</TableHead>
                     {/* <TableHead className="text-center">Mixed Amount</TableHead> */}
                
                     </TableHeader>
@@ -341,11 +342,11 @@ const RCNDPDSCreateForm = (props:Props) => {
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_8} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_8', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_9} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_9', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_10} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_10', e.target.value)} required /></TableCell> */}
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_village', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bigTaiho', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_mayur', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-blue-100' type="number" value={row.issue_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_village', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bigTaiho', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-green-100' type="number" value={row.issue_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_mayur', e.target.value)} required /></TableCell>
 
+                                    <TableCell className="text-center"> <Input className='bg-red-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required /></TableCell>
 
 
 

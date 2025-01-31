@@ -433,19 +433,19 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Rcv LW</TableHead>
                     <TableHead className="text-center">Rcv Wholes</TableHead>
                     <TableHead className="text-center">Issue SSP</TableHead>
-                    <TableHead className="text-center">Issue SSP Small</TableHead>
-                    <TableHead className="text-center">Issue SWP 1</TableHead>
+                    <TableHead className="text-center">Issue SSP(Small)</TableHead>
+                    <TableHead className="text-center">Issue SWP_1</TableHead>
                     <TableHead className="text-center">Issue WSP</TableHead>
                     <TableHead className="text-center">Issue Bits</TableHead>
                     <TableHead className="text-center">Issue SWP</TableHead>
                     <TableHead className="text-center">Issue BB</TableHead>
-                    <TableHead className="text-center">Issue W BB</TableHead>
+                    <TableHead className="text-center">Issue W_BB</TableHead>
                     <TableHead className="text-center">Issue BB A</TableHead>
                     <TableHead className="text-center">Issue BB1</TableHead>
-                    <TableHead className="text-center">Issue BB1 A</TableHead>
+                    <TableHead className="text-center">Issue BB1(A)</TableHead>
                     <TableHead className="text-center">Issue BB 2</TableHead>
-                    <TableHead className="text-center">Issue SSP 1</TableHead>
-                    <TableHead className="text-center">Issue SSP 1 Small</TableHead>
+                    <TableHead className="text-center">Issue SSP_1</TableHead>
+                    <TableHead className="text-center">Issue SSP_1(Small)</TableHead>
                     <TableHead className="text-center">Issue SSP 2</TableHead>
                     <TableHead className="text-center">Issue SSP 2 Small</TableHead>
                     <TableHead className="text-center">Issue SDP</TableHead>
@@ -456,7 +456,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue Sorting</TableHead>
                     <TableHead className="text-center">Issue DPDS</TableHead>
                     <TableHead className="text-center">Entry_Backlog</TableHead>
-                    <TableHead className="text-center">Current_Backlog</TableHead>
+                    <TableHead className="text-center font-bold">Current_Backlog</TableHead>
 
                     <TableHead className="text-center">Mc_On_Taiho</TableHead>
                     <TableHead className="text-center">Mc_Off_Taiho</TableHead>
@@ -650,9 +650,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.issue_village)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-purple-100">{formatNumber(item.issue_sorting)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_dpds)}</TableCell>
-                                    <TableCell className="text-center font-bold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell>
+                                    <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell>
                                                
-                                    <TableCell className="text-center font-bold text-blue-600">{formatNumber(item.current_backlog)}kg</TableCell>
+                                    <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on_1.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off_1.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
