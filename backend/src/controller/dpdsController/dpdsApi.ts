@@ -11,6 +11,7 @@ import DPDS from "../../model/dpdsmodel";
 import DPDSEdit from "../../model/dpdsEditModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import mixingModel from "../../model/mixingModel";
+import bigTaihoModel from "../../model/bigTaihoModel";
 
 
 // //DPDS.tsx
@@ -175,6 +176,7 @@ export const CreateEntireDPDS= async (req: Request, res: Response) => {
         for (let data of linehumid) 
         {     
             if((parseFloat(data.rcv_dp)+parseFloat(data.rcv_ds)+parseFloat(data.rcv_dp1)+(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)
+                +(data.rcv_transfer? parseFloat(data.rcv_transfer):0)
            )< (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
            +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
            parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
@@ -241,7 +243,7 @@ export const CreateEntireDPDS= async (req: Request, res: Response) => {
                     issue_bigTaiho: data.issue_bigTaiho,
                     issue_mayur: data.issue_mayur, 
                     entry_backlog: (parseFloat(data.rcv_dp)+parseFloat(data.rcv_ds)+parseFloat(data.rcv_dp1)
-                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)) 
+                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)+(data.rcv_transfer? parseFloat(data.rcv_transfer):0)) 
                     - (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
                     +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
                     parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
@@ -255,7 +257,7 @@ export const CreateEntireDPDS= async (req: Request, res: Response) => {
                     +parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_mayur)
                         ),
                     current_backlog: (parseFloat(data.rcv_dp)+parseFloat(data.rcv_ds)+parseFloat(data.rcv_dp1)
-                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)) 
+                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)+(data.rcv_transfer? parseFloat(data.rcv_transfer):0)) 
                     - (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
                     +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
                     parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
@@ -278,7 +280,7 @@ export const CreateEntireDPDS= async (req: Request, res: Response) => {
                 }
             );
             if (DPDSUpdate) {
-                const backlog = await Mayur.findOne({
+                const mayur_backlog = await Mayur.findOne({
                     attributes: ['current_backlog','rcv_DPDS'],
                     where: {
                         lotNo:LotNO,
@@ -289,8 +291,8 @@ export const CreateEntireDPDS= async (req: Request, res: Response) => {
                     order: [['LotNo', 'ASC']]
             
                 });
-                console.log(backlog)
-                if (backlog && backlog.dataValues.current_backlog>=0){
+                console.log(mayur_backlog)
+                if (mayur_backlog && mayur_backlog.dataValues.current_backlog>=0){
                     await sectionTransfer.create({              
                         LotNo:LotNO,
                         origin:data.origin,
@@ -299,11 +301,11 @@ export const CreateEntireDPDS= async (req: Request, res: Response) => {
                         date:data.Date,
                         fromSection:'DPDS',
                         toSection:'Mayur',
-                        toSectionBeforeBacklog:backlog.dataValues.current_backlog,
-                        toSectionAfterBacklog:parseFloat(backlog.dataValues.current_backlog)+parseFloat(data.issue_mayur),
+                        toSectionBeforeBacklog:mayur_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(mayur_backlog.dataValues.current_backlog)+parseFloat(data.issue_mayur),
                         createdBy: feeledBy
                      },{transaction});
-                     if(backlog.dataValues.rcv_DPDS){
+                     if(mayur_backlog.dataValues.rcv_DPDS){
                         await Mayur.update(
                             { 
                                 rcv_DPDS:sequelize.literal(`rcv_DPDS+ ${data.issue_mayur}`),
@@ -335,39 +337,107 @@ export const CreateEntireDPDS= async (req: Request, res: Response) => {
                      }
                      
 
-                    await LotNo.update(
-                        { 
-                          modifiedBy:'Next Interconnected'
-                        },
-                        {
-                            where: {
-                                lotNo:LotNO
-                            },transaction
-                        }
-                    );
-                    const lotupdate = await lotoriginmodel.update(
-                        {
-                            latest_section: 'DPDS',
-                            dPDSStatus: 1
-                        },
-                        {
-                            where: {
-                                lotNo: LotNO,
-                                origin: data.origin
-                            }, transaction
-                        }
-                    );
-                    if (lotupdate) {
-                        res.status(200).json({ message: "DPDS Entry Made Successfully" });
-                    }
-                    else {
-                        console.log('No Need For Update')
-                    }
+                    
                 }
                 else{
                     res.status(500).json({ message: "Error In Creating Transaction History" });
                     throw new Error('Transaction Aborted')
-                }   
+                } 
+
+
+
+                const bigT_backlog = await bigTaihoModel.findOne({
+                    attributes: ['current_backlog','rcv_dpds'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(bigT_backlog)
+                if (bigT_backlog && bigT_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_bigTaiho,
+                        issueid:1,
+                        date:data.Date,
+                        fromSection:'DPDS',
+                        toSection:'BigTaiho',
+                        toSectionBeforeBacklog:bigT_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(bigT_backlog.dataValues.current_backlog)+parseFloat(data.issue_bigTaiho),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(bigT_backlog.dataValues.rcv_dpds){
+                        await bigTaihoModel.update(
+                            { 
+                                rcv_dpds:sequelize.literal(`rcv_dpds+ ${data.issue_bigTaiho}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await bigTaihoModel.update(
+                            { 
+                                rcv_dpds:data.issue_bigTaiho,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
+                
+                await LotNo.update(
+                    { 
+                      modifiedBy:'Next Interconnected'
+                    },
+                    {
+                        where: {
+                            lotNo:LotNO
+                        },transaction
+                    }
+                );
+                const lotupdate = await lotoriginmodel.update(
+                    {
+                        latest_section: 'DPDS',
+                        dPDSStatus: 1
+                    },
+                    {
+                        where: {
+                            lotNo: LotNO,
+                            origin: data.origin
+                        }, transaction
+                    }
+                );
+                if (lotupdate) {
+                    res.status(200).json({ message: "DPDS Entry Made Successfully" });
+                }
+                else {
+                    console.log('No Need For Update')
+                }
             }
 
 
@@ -518,6 +588,7 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                         rcv_ds: data.rcv_ds,
                         rcv_dp1: data.rcv_dp1,
                         rcv_Sorting:data.rcv_Sorting,
+                        
                         noOfdayOperators:data.dayoperator,
                         noOfnightOperators:data.nightoperator,
                         rcv_transfer:data.rcv_transfer,
@@ -587,7 +658,7 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                 );
                 if(reissuecreate)
                 {
-                    const backlog = await Mayur.findOne({
+                    const mayur_backlog = await Mayur.findOne({
                         attributes: ['current_backlog','rcv_DPDS'],
                         where: {
                             lotNo:LotNO,
@@ -598,8 +669,8 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                         order: [['LotNo', 'ASC']]
                 
                     });
-                    console.log(backlog)
-                    if (backlog && backlog.dataValues.current_backlog>=0)
+                    console.log(mayur_backlog)
+                    if (mayur_backlog && mayur_backlog.dataValues.current_backlog>=0)
                     {
                         await sectionTransfer.create({              
                         LotNo:LotNO,
@@ -608,12 +679,12 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                         date:data.Date,
                         fromSection:'DPDS',
                         toSection:'Mayur',
-                        toSectionBeforeBacklog:backlog.dataValues.current_backlog,
-                        toSectionAfterBacklog:parseFloat(backlog.dataValues.current_backlog)+parseFloat(data.issue_mayur),
+                        toSectionBeforeBacklog:mayur_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(mayur_backlog.dataValues.current_backlog)+parseFloat(data.issue_mayur),
                         createdBy: feeledBy,
                         issueid:parseInt(data.alt_id)+1,
                         },{transaction});
-                        if(backlog.dataValues.rcv_DPDS)
+                        if(mayur_backlog.dataValues.rcv_DPDS)
                             {
                         await Mayur.update(
                             { 
@@ -645,7 +716,79 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                         );
                             }
                      
-                        const lotupdate = await lotoriginmodel.update(
+                       
+                    }
+                    else{
+                        res.status(500).json({ message: "Error In Creating Reissue Mayur Transaction History" });
+                        throw new Error('Transaction Aborted')
+                    }  
+
+                    const bigT_backlog = await bigTaihoModel.findOne({
+                        attributes: ['current_backlog','rcv_dpds'],
+                        where: {
+                            lotNo:LotNO,
+                            origin: data.origin,
+                            latest:1
+                
+                        },
+                        order: [['LotNo', 'ASC']]
+                
+                    });
+                    console.log(bigT_backlog)
+                    if (bigT_backlog && bigT_backlog.dataValues.current_backlog>=0)
+                    {
+                        await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_bigTaiho,
+                        date:data.Date,
+                        fromSection:'DPDS',
+                        toSection:'BigTaiho',
+                        toSectionBeforeBacklog:bigT_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(bigT_backlog.dataValues.current_backlog)+parseFloat(data.issue_bigTaiho),
+                        createdBy: feeledBy,
+                        issueid:parseInt(data.alt_id)+1,
+                        },{transaction});
+                        if(bigT_backlog.dataValues.rcv_dpds)
+                            {
+                        await bigTaihoModel.update(
+                            { 
+                                rcv_DPDS:sequelize.literal(`rcv_dpds+ ${data.issue_bigTaiho}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                            }
+                        else{
+                        await bigTaihoModel.update(
+                            { 
+                                rcv_dpds:data.issue_bigTaiho,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                            }
+                     
+                       
+                    }
+                    else{
+                        res.status(500).json({ message: "Error In Creating Reissue BigTaiho Transaction History" });
+                        throw new Error('Transaction Aborted')
+                    } 
+
+                    const lotupdate = await lotoriginmodel.update(
                         {
                             latest_section: 'DPDS',
                             dPDSStatus: 1
@@ -663,14 +806,9 @@ export const CreateReissueDPDS= async (req: Request, res: Response) => {
                         else {
                         console.log('No Need For Update')
                         }
-                    }
-                    else{
-                        res.status(500).json({ message: "Error In Creating Reissue Transaction History" });
-                        throw new Error('Transaction Aborted')
-                    }  
                 }
                 else{
-                    return res.status(500).json({ message: "Error while creating Mayur Re Issue Entry"});
+                    return res.status(500).json({ message: "Error while creating DPDS Re Issue Entry"});
                 }
             }
             
@@ -710,7 +848,7 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
          
          
             if((parseFloat(data.rcv_dp)+parseFloat(data.rcv_ds)+parseFloat(data.rcv_dp1)+(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)
-            )< (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
+            +(data.rcv_transfer? parseFloat(data.rcv_transfer):0))< (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
             +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
             parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
             + parseFloat(data.issue_wp)+parseFloat(data.issue_rs)+parseFloat(data.issue_dp_2)
@@ -752,7 +890,7 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
                     rcv_ds: data.rcv_ds,
                     rcv_dp1: data.rcv_ds,
                     rcv_Sorting:data.rcv_Sorting,
-
+                    rcv_transfer:data.rcv_transfer,
                     noOfdayOperators: data.dayoperator,
                     noOfnightOperators: data.nightoperator,
                     issue_m_ds: data.issue_m_ds,
@@ -788,7 +926,7 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
                     issue_bigTaiho: data.issue_bigTaiho,
                     issue_mayur: data.issue_mayur, 
                     entry_backlog: (parseFloat(data.rcv_dp)+parseFloat(data.rcv_ds)+parseFloat(data.rcv_dp1)
-                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)) 
+                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)+(data.rcv_transfer? parseFloat(data.rcv_transfer):0)) 
                     - (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
                     +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
                     parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
@@ -802,7 +940,7 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
                     +parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_mayur)
                         ),
                     current_backlog: (parseFloat(data.rcv_dp)+parseFloat(data.rcv_ds)+parseFloat(data.rcv_dp1)
-                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)) 
+                    +(data.rcv_Sorting? parseFloat(data.rcv_Sorting):0)+(data.rcv_transfer? parseFloat(data.rcv_transfer):0)) 
                     - (parseFloat(data.issue_m_ds)+parseFloat(data.issue_m_dp)+parseFloat(data.issue_k_dp)
                     +parseFloat(data.issue_ds_1)+parseFloat(data.issue_ds_2)+parseFloat(data.issue_sp_2)+
                     parseFloat(data.issue_yjh)+parseFloat(data.issue_yk)+parseFloat(data.issue_kp)
@@ -869,7 +1007,7 @@ export const updateEntireDPDS= async (req: Request, res: Response) => {
     catch(error) {
         if(!res.headersSent){
             console.log(error)
-            return res.status(500).json({ message: "Error while Editing Mayur Entry" ,error});
+            return res.status(500).json({ message: "Error while Editing DPDS Entry" ,error});
         }
     }
     
@@ -906,7 +1044,18 @@ export const approveDPDS = async (req: Request, res: Response) => {
                     toSection:'Mayur'
                 }
             }) as any
-            if(transferMayurdata){
+
+            const transferBigTaihodata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'DPDS',
+                    toSection:'BigTaiho'
+                }
+            }) as any
+
+            if(transferMayurdata && transferBigTaihodata){
                 await sequelize.transaction(async (transaction: any) => {
 
                     const bormaEdit = await DPDS.update({
@@ -963,7 +1112,7 @@ export const approveDPDS = async (req: Request, res: Response) => {
                     });
                     if(bormaEdit){
                         console.log(transferMayurdata)
-
+                        console.log(transferBigTaihodata)
                         if(parseFloat(transferMayurdata.amount)!==parseFloat(data.issue_mayur)){
                             console.log('Needs Update In Mayur')
                             const difference_mayur=parseFloat(data.issue_mayur)-parseFloat(transferMayurdata.amount)
@@ -1009,6 +1158,55 @@ export const approveDPDS = async (req: Request, res: Response) => {
                                 }
                                 else{
                                     res.status(500).json({ message: "Associated Mayur Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+
+                        if(parseFloat(transferBigTaihodata.amount)!==parseFloat(data.issue_bigTaiho)){
+                            console.log('Needs Update In bigTaiho')
+                            const difference_bigT=parseFloat(data.issue_bigTaiho)-parseFloat(transferBigTaihodata.amount)
+                            console.log(difference_bigT)
+                            const backlog = await bigTaihoModel.findOne({
+                                attributes: ['current_backlog','rcv_dpds'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await bigTaihoModel.update(
+                                    {
+                                        rcv_dpds: sequelize.literal(`rcv_dpds+ ${difference_bigT}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_bigT}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_bigTaiho,
+                                    toSectionBeforeBacklog:transferBigTaihodata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferBigTaihodata.toSectionBeforeBacklog)+parseFloat(data.issue_bigTaiho)
+                        
+                                }, {
+                                    where: {
+                                        id:transferBigTaihodata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated BigTaiho Entry Not Found" });
                                     throw new Error('Transaction Aborted due to Improper Value')
                                 }
                         }
@@ -1158,6 +1356,7 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
         const source_rcv_dp1= req.body.fsourcercv_dp1;
       
         const source_sorting= req.body.fsourcercv_sorting;
+        const source_bigT= req.body.fsourcercv_bigT;
         const source_backlog= req.body.fsourcebacklog;
 
         const transfer_amount =req.body.amount
@@ -1170,6 +1369,7 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
         const dest_rcv_dp1= req.body.destrcv_dp1;
      
         const dest_sorting= req.body.destrcv_sorting;
+        const dest_bigT= req.body.destrcv_bigT;
         const dest_backlog= req.body.destbacklog;
 
         const b_soucre_backlog= req.body.bsourcebacklog;
@@ -1185,7 +1385,7 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
                     rcv_dp1: source_rcv_dp1,
                   
                     rcv_Sorting:source_sorting,
-                  
+                    rcv_transfer:source_bigT,
                     current_backlog:source_backlog,                   
                 },
                 {
@@ -1210,7 +1410,7 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
                         rcv_dp1: dest_rcv_dp1,
                         
                         rcv_Sorting:dest_sorting,
-                        
+                        rcv_transfer:dest_bigT,
                         current_backlog:dest_backlog, 
                         mixingLot:sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`)                  
                     },

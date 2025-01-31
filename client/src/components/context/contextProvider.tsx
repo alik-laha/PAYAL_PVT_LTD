@@ -5,7 +5,13 @@ import { AssetData, EditPendingData, GradingData, BoilingEntryData, Sumofpackage
      rcnScoopingData,sumofStorePrimary, sumofGeneralPrimary, AlmondPrimaryEntryData, sumofRcvVillagePrimary, AgarbatiPrimaryEntryData, 
      IssueItemData,
      OilMillPrimaryEntryData,
-     QCWaterData} from "../../type/type";
+     QCWaterData,
+     DPDSData,
+     MayurData,
+     PeelingData,
+     HumidData,
+     BormaData,
+     BigTaihoData} from "../../type/type";
 
 interface ContextProviderProps {
     children: ReactNode;
@@ -26,8 +32,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
 
     const [recevingPackagematerialOverView, setRecevingPacakanMaterialOverView] = useState<SumofpackageMetrialReceving | null>(null)
     const [editScoopingLotWiseData, setEditScoopingLotWiseData] = useState<rcnScoopingData[]>([])
-    const [editBormaLotWiseData, setEditBormaLotWiseData] = useState<any[]>([])
-    const [editHumidLotWiseData, setEditHumidLotWiseData] = useState<any[]>([])
+    const [editBormaLotWiseData, setEditBormaLotWiseData] = useState<BormaData[]>([])
+    const [editHumidLotWiseData, setEditHumidLotWiseData] = useState<HumidData[]>([])
     const [searchType, setSearchType] = useState<string>('LotWise')
     const [StorePrimaryOverView, setStorePrimaryOverView] = useState<sumofStorePrimary | null>(null)
     const [RcvVillagePrimaryOverView, setRcvVillagePrimaryOverView] = useState<sumofRcvVillagePrimary | null>(null)
@@ -37,9 +43,10 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [editPendingAgarbatiData, setEditPendingAgarbatiData] = useState<AgarbatiPrimaryEntryData[]>([])
     const [editPendiningIssueItemData, setEditPendiningIssueItemData] = useState<IssueItemData[]>([])
     const [editPendiningQCWaterData, setEditPendiningQCWaterData] = useState<QCWaterData[]>([])
-    const [editPeelingLotWiseData, setEditPeelingLotWiseData] = useState<any[]>([])
-    const [editMayurLotWiseData, setEditMayurLotWiseData] = useState<any[]>([])
-    const [editDPDSLotWiseData, setEditDPDSLotWiseData] = useState<any[]>([])
+    const [editPeelingLotWiseData, setEditPeelingLotWiseData] = useState<PeelingData[]>([])
+    const [editMayurLotWiseData, setEditMayurLotWiseData] = useState<MayurData[]>([])
+    const [editDPDSLotWiseData, setEditDPDSLotWiseData] = useState<DPDSData[]>([])
+    const [editBigTaihoLotWiseData, setEditBigTaihoLotWiseData] = useState<BigTaihoData[]>([])
 
     return (
         <Context.Provider value={{
@@ -52,7 +59,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
             StorePrimaryOverView,setStorePrimaryOverView,GeneralPrimaryOverView,setGeneralPrimaryOverView,editPendingAlmondData,setEditPendingAlmondData
             ,RcvVillagePrimaryOverView,setRcvVillagePrimaryOverView,editHumidLotWiseData,setEditHumidLotWiseData,editPendingAgarbatiData,setEditPendingAgarbatiData,
             editPendingOilMillData,setEditPendingOilMillData,editPendiningQCWaterData, setEditPendiningQCWaterData,
-            editPeelingLotWiseData, setEditPeelingLotWiseData,editMayurLotWiseData,setEditMayurLotWiseData,editDPDSLotWiseData,setEditDPDSLotWiseData
+            editPeelingLotWiseData, setEditPeelingLotWiseData,editMayurLotWiseData,setEditMayurLotWiseData,editDPDSLotWiseData,setEditDPDSLotWiseData,editBigTaihoLotWiseData, setEditBigTaihoLotWiseData
         }}>
             {children}
         </Context.Provider>

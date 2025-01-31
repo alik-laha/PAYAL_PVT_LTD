@@ -36,12 +36,15 @@ const RCNDPDSReMix = (props:Props) => {
         const [sourcercv_ds, setsourcercv_ds] = useState<number>(0);
         const [sourcercv_dp1, setsourcercv_dp1] = useState<number>(0);
         const [sourcercv_sorting, setsourcercv_sorting] = useState<number>(0);
-     
+        const [sourcercv_bigT, setsourcercv_bigT] = useState<number>(0);
+
         const [fsourcercv_dp, setfsourcercv_dp] = useState<string>();
         const [fsourcercv_ds, setfsourcercv_ds] = useState<string>();
         const [fsourcercv_dp1, setfsourcercv_dp1] = useState<string>();
         const [fsourcercv_sorting, setfsourcercv_sorting] = useState<string>('0');
         const [fsourcebacklog, setfSourcebacklog] = useState<string>('');
+        const [fsourcercv_bigT, setfsourcercv_bigT] = useState<string>('0');
+        
         
         const [successflag, setSuccessflag] = useState<string>('none');
         const [successflagtable, setSuccessflagtable] = useState<string>('none');
@@ -53,7 +56,8 @@ const RCNDPDSReMix = (props:Props) => {
         const [destrcv_ds, setdestrcv_ds] = useState<string>("");
         const [destrcv_dp1, setdestrcv_dp1] = useState<string>("");
         const [destrcv_sorting, setdestrcv_sorting] = useState<string>("");
-       
+        const [destrcv_bigT, setdestrcv_bigT] = useState<string>("");
+
         const [destorigin, setdestorigin] = useState<string>("");
         const [sourceactualbacklog, setsourceactualbacklog] = useState<string>("");
        
@@ -85,18 +89,19 @@ const RCNDPDSReMix = (props:Props) => {
         const [datarcv, setdatarcv] = useState<RCNEntries>({} as RCNEntries);
         useEffect(() => {
             setfsourcercv_sorting(props.borma ?((props.borma.rcv_Sorting ?Number(props.borma.rcv_Sorting):0)-sourcercv_sorting).toFixed(2):'');
+            setfsourcercv_bigT(props.borma ?((props.borma.rcv_transfer ?Number(props.borma.rcv_transfer):0)-sourcercv_bigT).toFixed(2):'');
             setfsourcercv_dp(props.borma ?(Number(props.borma.rcv_dp)-sourcercv_dp).toFixed(2):'');
             setfsourcercv_ds(props.borma ?(Number(props.borma.rcv_ds)-sourcercv_ds).toFixed(2):'');
             setfsourcercv_dp1(props.borma ?(Number(props.borma.rcv_dp1)-sourcercv_dp1).toFixed(2):'');
-            setfSourcebacklog(props.borma ?(Number(props.borma.current_backlog) - (sourcercv_dp+sourcercv_ds+sourcercv_sorting+sourcercv_dp1)).toFixed(2):'');
+            setfSourcebacklog(props.borma ?(Number(props.borma.current_backlog) - (sourcercv_dp+sourcercv_ds+sourcercv_sorting+sourcercv_dp1+sourcercv_bigT)).toFixed(2):'');
+            
             setdestrcv_sorting(((datarcv.rcv_Sorting ?Number(datarcv.rcv_Sorting):0)+sourcercv_sorting).toFixed(2));
-         
+            setdestrcv_bigT(((datarcv.rcv_transfer ?Number(datarcv.rcv_transfer):0)+sourcercv_bigT).toFixed(2));
             setdestrcv_dp(((datarcv.rcv_dp?Number(datarcv.rcv_dp):0)+sourcercv_dp).toFixed(2));
             setdestrcv_ds(((datarcv.rcv_ds?Number(datarcv.rcv_ds):0)+sourcercv_ds).toFixed(2));
             setdestrcv_dp1(((datarcv.rcv_dp1?Number(datarcv.rcv_dp1):0)+sourcercv_dp1).toFixed(2));
-            setdestrcv_sorting(((datarcv.rcv_Sorting?Number(datarcv.rcv_Sorting):0)+sourcercv_sorting).toFixed(2));
-            setdestbacklog(((datarcv.current_backlog?Number(datarcv.current_backlog):0) + (sourcercv_dp+sourcercv_ds+sourcercv_dp1+sourcercv_sorting)).toFixed(2));
-        }, [ sourcercv_dp, sourcercv_ds, sourcercv_dp1, sourcercv_sorting]);
+            setdestbacklog(((datarcv.current_backlog?Number(datarcv.current_backlog):0) + (sourcercv_dp+sourcercv_ds+sourcercv_dp1+sourcercv_sorting+sourcercv_bigT)).toFixed(2));
+        }, [ sourcercv_dp, sourcercv_ds, sourcercv_dp1, sourcercv_sorting,sourcercv_bigT]);
 
         useEffect(() => {
          
@@ -148,7 +153,7 @@ const RCNDPDSReMix = (props:Props) => {
                 setdestbacklog(data1.rcnEntries.current_backlog)
                
                 setdestrcv_sorting(data1.rcnEntries.rcv_Sorting ? data1.rcnEntries.rcv_Sorting :0)
-            
+                setdestrcv_bigT(data1.rcnEntries.rcv_transfer ? data1.rcnEntries.rcv_transfer :0)
                 setdestrcv_dp(data1.rcnEntries.rcv_dp ? data1.rcnEntries.rcv_dp :0)
                 setdestrcv_dp1(data1.rcnEntries.rcv_dp1 ? data1.rcnEntries.rcv_dp1 :0)
                 setdestrcv_ds(data1.rcnEntries.rcv_ds ? data1.rcnEntries.rcv_ds :0)
@@ -191,7 +196,7 @@ const RCNDPDSReMix = (props:Props) => {
             }
 
             if((Number(fsourcercv_dp) < 0) || (Number(fsourcercv_ds) < 0) || (Number(fsourcercv_dp1) < 0) || 
-                    (Number(fsourcercv_sorting) < 0) || (Number(fsourcebacklog) < 0)){
+                    (Number(fsourcercv_sorting) < 0) || (Number(fsourcebacklog) < 0) || (Number(fsourcercv_bigT) < 0)){
                     setErrortext('Transfer cant Exceed Remaining Stock')
                    
                     const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
@@ -208,17 +213,17 @@ const RCNDPDSReMix = (props:Props) => {
                         destlot,
                         destorigin,
                         destbacklog,
-                        destrcv_sorting,
+                        destrcv_sorting,destrcv_bigT,
                         destrcv_dp,
                         destrcv_ds,
                         destrcv_dp1,
                         fsourceid:props.borma.id,
                         fsourcelot:props.borma.LotNo,
                         fsourceorigin:props.borma.origin,
-                        fsourcebacklog,fsourcercv_sorting,
+                        fsourcebacklog,fsourcercv_sorting,fsourcercv_bigT,
                         fsourcercv_dp,fsourcercv_ds,
                         fsourcercv_dp1,
-                        amount:(sourcercv_dp+sourcercv_ds+sourcercv_dp1+sourcercv_sorting).toFixed(2),
+                        amount:(sourcercv_dp+sourcercv_ds+sourcercv_dp1+sourcercv_sorting+sourcercv_bigT).toFixed(2),
                         bsourcebacklog:props.borma.current_backlog,
                         bdestbacklog:datarcv.current_backlog
                      })
@@ -321,6 +326,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <Label className="w-1/4 pt-2 ">{fsourcercv_sorting} kg </Label>
 
                 </div>
+                <div className="flex mt-2 mx-8" style={{ display: successflag }}>
+                <Label className="w-1/4 pt-2 text-purple-500">5. BigTaiho Stock</Label>
+                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_bigT} onChange={(e) => setsourcercv_bigT(Number(e.target.value))} required /> 
+                <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
+                <Label className="w-1/4 pt-2 ">{fsourcercv_bigT} kg </Label>
+
+                </div>
                 
 
                 <div className="flex mt-5 mx-8" style={{ display: successflag }}>
@@ -350,6 +362,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                   
                       <TableHead className="text-center">Previous Sorting </TableHead>        
                       <TableHead className="text-center">Current Sorting </TableHead>
+                      <TableHead className="text-center">Previous BigTaiho </TableHead>        
+                      <TableHead className="text-center">Current bigTaiho </TableHead>
                        <TableHead className="text-center">Current Backlog</TableHead>
                         <TableHead className="text-center">Final Backlog</TableHead>
                     </TableHeader>
@@ -388,6 +402,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         
                             <TableCell className="text-center  bg-green-100">{datarcv.rcv_Sorting ? datarcv.rcv_Sorting:''}</TableCell>
                             <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? destrcv_sorting:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-green-100">{datarcv.rcv_transfer ? datarcv.rcv_transfer:''}</TableCell>
+                            <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? destrcv_bigT:'NA'}</TableCell>
                             <TableCell className="text-center font-semibold text-red-500">{datarcv.current_backlog ? datarcv.current_backlog : ''}</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{successflag ? destbacklog:'NA'}</TableCell>
                         </TableRow>

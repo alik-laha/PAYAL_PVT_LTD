@@ -658,6 +658,83 @@ export interface DPDSData {
 
     
 }
+export interface BigTaihoData {
+ 
+    id: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    altid: number;
+    rcv_transfer: string ;
+    rcv_peeling: string;
+    rcv_village: string ;
+    rcv_sorting: string ;
+    rcv_dpds: string ;
+    rcv_mayur: string ;
+    rcv_hamsa: string ;
+    rcv_lw: string ;
+    rcv_wholes: string ;
+    issue_ssp: string ;
+    issue_ssp_small: string ;
+    issue_swp_1: string ;
+    issue_wsp: string ;
+    issue_bits: string ;
+    issue_swp: string ;
+    issue_bb: string ;
+    issue_w_bb: string ;
+    issue_bb_A: string ;
+    issue_bb1: string ;
+    issue_bb1_A: string ;
+    issue_bb_2: string ;
+    issue_ssp_1:string ;
+    issue_ssp_1_small: string ;
+    issue_ssp_2: string ;
+    issue_ssp_2_small: string ;
+    issue_sdp: string ;
+    issue_add_1: string;
+    issue_add_2: string;
+    issue_add_3: string;
+    issue_add_4: string;
+    issue_add_5: string;
+    issue_add_6: string;
+    issue_add_7: string;
+    issue_add_8: string;
+    issue_add_9: string;
+    issue_add_10: string;
+    issue_rejection: string ;
+    issue_village: string ;
+    issue_dpds: string ;
+    issue_husk: string ;
+    issue_sorting: string ;
+    Mc_on_3: string ;
+    Mc_off_3: string ;
+    Mc_breakdown_3: string ;
+    Mc_runTime_3: string ;
+    otherTime_3: string ;
+    Mc_on_1: string ;
+    Mc_off_1: string ;
+    Mc_breakdown_1: string ;
+    Mc_runTime_1: string ;
+    otherTime_1: string ;
+    Mc_on_2: string ;
+    Mc_off_2: string ;
+    Mc_breakdown_2: string ;
+    Mc_runTime_2: string ;
+    otherTime_2: string ;
+    entry_backlog: string;
+    current_backlog: string;
+    Status: number;
+    latest: number;
+    mixingLot: string | null;
+    noOfdayOperators: number;
+    noOfnightOperators: number;
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string | null;
+
+
+    
+}
 
 
 

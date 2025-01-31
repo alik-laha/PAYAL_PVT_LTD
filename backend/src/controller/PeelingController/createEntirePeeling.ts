@@ -7,6 +7,7 @@ import RcnPeeling from "../../model/peelingModel";
 import Mayur from "../../model/mayurModel";
 import lotoriginmodel from "../../model/lotoriginModel";
 import DPDS from "../../model/dpdsmodel";
+import bigTaihoModel from "../../model/bigTaihoModel";
 //import RcnPeeling from "../../model/peelingModel";
 
 
@@ -152,10 +153,8 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
              if(humidUpdate){
                 
                 await Mayur.create({
-                  
                     LotNo:data.LotNo,
                     origin:data.origin,
-                    
                     rcv_wholespeel: data.WholesPeel,
                     rcv_wholesunpeel: data.WholesUnpeel,
                     current_backlog:parseFloat(data.WholesPeel)+parseFloat(data.WholesUnpeel),
@@ -163,15 +162,20 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
 
 
                 await DPDS.create({
-                  
                     LotNo:data.LotNo,
                     origin:data.origin,
-                    
                     rcv_dp: data.DP,
                     rcv_ds: data.DS,
                     rcv_dp1: data.DP1,
-                   
                     current_backlog:parseFloat(data.DP)+parseFloat(data.DS)+parseFloat(data.DP1),
+                 },{transaction});
+
+                 await bigTaihoModel.create({
+                  
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    rcv_peeling: data.Big_Taiho,
+                    current_backlog:data.Big_Taiho,
                  },{transaction});
 
                 await lotoriginmodel.create({              
