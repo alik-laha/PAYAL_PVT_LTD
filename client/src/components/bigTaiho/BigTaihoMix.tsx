@@ -318,17 +318,18 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
                 </div>
-                <div className="flex mt-2 ml-5" >
-                <Label className="w-100 pt-2 font-semibold ml-3">(Total Upto {sourceactualbacklog} Kg can be Transfered)</Label>
-                </div>
-                <div className="flex mt-5 mx-8" style={{ display: successflag }}>
-                <Label className="w-100 pt-2 font-semibold text-red-500">Fill Up Transfer Amount in Details </Label>
+               
+                <div className="flex mt-5  mx-8 pb-2 bg-green-100" style={{ display: successflag }}>
+                <Label className="w-100 pt-2 font-semibold text-red-500 text-base">Fill Up Transfer Amount in Details </Label>
                 {/* <Label className="w-100 pt-2 font-semibold ml-3">(Maximum Total {sourceactualbacklog} Kg can be Transfered)</Label> */}
                 
                 </div>
+                <div className="flex mt-2 ml-5 gtext-center" >
+                <Label className=" w-100 pt-2 font-semibold ml-3 text-center">Maximum {sourceactualbacklog} Kg can be Transfered</Label>
+                </div>
 
                 <div className="flex mt-5 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">1. Peeling Stock</Label>
+                <Label className="w-1/4 pt-2 text-purple-500">1. Peeling Amount</Label>
                 
                 <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_peeling} onChange={(e) => setsourcercv_peeling(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
@@ -336,49 +337,49 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 </div>
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">2. Village Stock</Label>
+                <Label className="w-1/4 pt-2 text-purple-500">2. Village Amount</Label>
                 <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_village} onChange={(e) => setsourcercv_village(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
                 <Label className="w-1/4 pt-2 ">{fsourcercv_village} kg </Label> 
                 </div>
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">3. Sorting Stock</Label>
+                <Label className="w-1/4 pt-2 text-purple-500">3. Sorting Amount</Label>
                 <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_sorting} onChange={(e) => setsourcercv_sorting(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
                 <Label className="w-1/4 pt-2 ">{fsourcercv_sorting} kg </Label>
                 </div>
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">4. DPDS Stock</Label>
+                <Label className="w-1/4 pt-2 text-purple-500">4. DPDS Amount</Label>
                 <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_dpds} onChange={(e) => setsourcercv_dpds(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
                 <Label className="w-1/4 pt-2 ">{fsourcercv_dpds} kg </Label>
                 </div>
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">5. Mayur Stock</Label>
+                <Label className="w-1/4 pt-2 text-purple-500">5. Mayur Amount</Label>
                 <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_mayur} onChange={(e) => setsourcercv_mayur(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
                 <Label className="w-1/4 pt-2 ">{fsourcercv_mayur} kg </Label>
                 </div>
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">6. Hamsa Stock</Label>
+                <Label className="w-1/4 pt-2 text-purple-500">6. Hamsa Amount</Label>
                 <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_hamsa} onChange={(e) => setsourcercv_hamsa(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
                 <Label className="w-1/4 pt-2 ">{fsourcercv_hamsa} kg </Label>
                 </div>
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">7. LW Stock</Label>
+                <Label className="w-1/4 pt-2 text-purple-500">7. LW Amount</Label>
                 <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_lw} onChange={(e) => setsourcercv_lw(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
                 <Label className="w-1/4 pt-2 ">{fsourcercv_lw} kg </Label>
                 </div>
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">8. Wholes Stock</Label>
+                <Label className="w-1/4 pt-2 text-purple-500">8. Wholes Amount</Label>
                 <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_wholes} onChange={(e) => setsourcercv_wholes(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
                 <Label className="w-1/4 pt-2 ">{fsourcercv_wholes} kg </Label>
