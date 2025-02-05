@@ -30,11 +30,11 @@ const hamsaEditModel = sequelize.define('hamsaedit', {
     },
     rcv_pw_w:{
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     rcv_w_lot:{
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     rcv_ww: 
     {

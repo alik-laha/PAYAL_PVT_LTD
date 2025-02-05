@@ -5,7 +5,6 @@ import { Op } from "sequelize";
 import WhatsappMsg from "../../helper/WhatsappMsg";
 import lotoriginmodel from "../../model/lotoriginModel";
 import DPDS from "../../model/dpdsmodel";
-import DPDSEdit from "../../model/dpdsEditModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import mixingModel from "../../model/mixingModel";
 import bigTaihoModel from "../../model/bigTaihoModel";
@@ -131,12 +130,12 @@ export const getHamsaLot = async (req: Request, res: Response) => {
 }
 
 // //BigTaihoInitial.tsx
-export const getBigTaihoBylotorigin = async (req: Request, res: Response) => {
+export const getHamsaBylotorigin = async (req: Request, res: Response) => {
 
     try {
         const lotNO=req.params.lotNO
         const origin=req.params.origin
-        const scoopingLot = await bigTaihoModel.findAll({
+        const scoopingLot = await hamsaModel.findAll({
             where: {
                 LotNo:lotNO,origin:origin
             }, order: [['LotNo', 'ASC']]
@@ -144,10 +143,10 @@ export const getBigTaihoBylotorigin = async (req: Request, res: Response) => {
         }
         );
         if(scoopingLot){
-            res.status(200).json({ message: "Un BigTaiho Entry", scoopingLot });
+            res.status(200).json({ message: "Un Hamsa Entry", scoopingLot });
         }
         else{
-            res.status(500).json({ message: "Error in Finding BigTaiho Entry"});
+            res.status(500).json({ message: "Error in Finding Hamsa Entry"});
         }
        
 

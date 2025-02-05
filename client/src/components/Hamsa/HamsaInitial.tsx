@@ -22,13 +22,16 @@ import { useState } from "react";
 import cross from '../../assets/Static_Images/error_img.png'
 // import RCNDPDSCreateForm from "./DPDSCreateForm";
 import { BigTaihoData } from "@/type/type";
-import RCNDBigTaihoCreateForm from "./BigTaihoCreateForm";
+import HamsaCreateForm from "./HamsaCreateForm";
 
 
 interface lotPropsdata{
     LotNo:string;
     origin:string;
     current_backlog:string;
+    rcv_ww:string;
+    rcv_w_lot:string;
+    rcv_pw_w:string;
 }
 
 const HamsaInitial = (props: any) => {
@@ -51,16 +54,7 @@ const HamsaInitial = (props: any) => {
     //let scoopdata:ScoopData[]=[]
     console.log(props)
     const handleLineEntry = async (lotNO:string,origin:string) => {
-        const resStatus = await axios.post('/api/boiling/pendingLotCount', { lotNo: lotNO,section:'Peeling'})
-        console.log(resStatus)
-        if (resStatus.data.count && resStatus.data.count >0) 
-            {
-                seterrorText('Modification of Lot is Pending in Peeling Section')
-                if (rejectsuccessdialog != null) {
-                    (rejectsuccessdialog as any).showModal();
-                }
-                return
-            }
+        
         const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: lotNO,origin:origin})
         console.log(resStatus1)
         if (resStatus1.data.scoopingLot && resStatus1.data.scoopingLot[0].editStatus ==='Pending') 
@@ -73,7 +67,7 @@ const HamsaInitial = (props: any) => {
                 return
             }
            
-        await axios.get(`/api/bigTaiho/getBigTaihoByLotOrigin/${lotNO}/${origin}`).then(res=>{
+        await axios.get(`/api/hamsa/getHamsaByLotOrigin/${lotNO}/${origin}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.scoopingLot)){
             //scoopdata=res.data.scoopingLot
@@ -101,7 +95,7 @@ const HamsaInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-
+                              if(item.rcv_pw_w && item.rcv_w_lot && item.rcv_ww){
                                 return (
                                     <TableRow key={idx}>
                                         <TableCell className="text-center">
@@ -123,22 +117,25 @@ const HamsaInitial = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
                                           <DialogContent className='max-w-7xl'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>BigTaiho Line Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Hamsa Line Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 
-                                                    <RCNDBigTaihoCreateForm borma={bormaData}/>
+                                                    <HamsaCreateForm borma={bormaData}/>
                                                 </DialogContent>
                                             </Dialog>
                                         </TableCell>
 
                                     </TableRow>
                                 );
+                              }
+                             
+                                
                             })
                         ) : <TableRow>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell className="text-left  text-red-500 font-semibold">No Pending BigTaiho</TableCell>
+                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Hamsa</TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             </TableRow>}

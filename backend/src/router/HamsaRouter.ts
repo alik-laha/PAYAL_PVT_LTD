@@ -7,10 +7,10 @@ import {
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import { approveBigTaiho, CreateEntireBigTaiho, CreateMixBigTaiho, CreateReissueBigTaiho, EditRejectBigTaiho, getBigTaihoBylotorigin,
-        SearchRCNBigTaiho, SearchRCNBigTaihoMix, sumOfallBigTaiho, 
+import { approveBigTaiho, CreateEntireBigTaiho, CreateMixBigTaiho, CreateReissueBigTaiho, EditRejectBigTaiho,
+        SearchRCNBigTaiho, SearchRCNBigTaihoMix, 
        updateEntireBigTaiho} from "../controller/BigTaihoController/BigTaihoApi";
-import { findEditHamsaAll, getHamsaLot, sumOfallHamsa } from "../controller/HamsaController/HamsaApi";
+import { findEditHamsaAll, getHamsaBylotorigin, getHamsaLot, sumOfallHamsa } from "../controller/HamsaController/HamsaApi";
 const router = express()
 
 // //Hamsa.tsx
@@ -18,8 +18,8 @@ router.get("/getUnHamsaEntry/:status", jwtVerify, getHamsaLot)
 router.get("/findEditHamsaAll", jwtVerify, findEditHamsaAll)
 router.get("/sumofallHamsa", jwtVerify, sumOfallHamsa)
 
-// //BihTaihoInitial.tsx
-router.get("/getBigTaihoByLotOrigin/:lotNO/:origin", jwtVerify, getBigTaihoBylotorigin)
+// //HamsaInitial.tsx
+router.get("/getHamsaByLotOrigin/:lotNO/:origin", jwtVerify, getHamsaBylotorigin)
 
 // //BigTaihoCreateForm.tsx
 router.post("/createEntireBigTaiho", jwtVerify, CreateEntireBigTaiho)
