@@ -888,6 +888,8 @@ export interface PermissionRole {
     BoilingSupervisor: string[];
     ScoopingSupervisor: string[];
     PeelingSupervisor:string[];
+    MayurSupervisor:string[];
+    SortingSupervisor:string[];
     VillageSupervisor:string[];
     ProductionManager:string[];
     MaintainanceManager:string[];

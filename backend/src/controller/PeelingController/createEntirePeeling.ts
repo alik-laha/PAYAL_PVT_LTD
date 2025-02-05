@@ -8,6 +8,7 @@ import Mayur from "../../model/mayurModel";
 import lotoriginmodel from "../../model/lotoriginModel";
 import DPDS from "../../model/dpdsmodel";
 import bigTaihoModel from "../../model/bigTaihoModel";
+import hamsaModel from "../../model/hamsamodel";
 //import RcnPeeling from "../../model/peelingModel";
 
 
@@ -176,6 +177,15 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
                     origin:data.origin,
                     rcv_peeling: data.Big_Taiho,
                     current_backlog:data.Big_Taiho,
+                 },{transaction});
+
+
+                 await hamsaModel.create({
+                  
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    
+                    current_backlog:0,
                  },{transaction});
 
                 await lotoriginmodel.create({              

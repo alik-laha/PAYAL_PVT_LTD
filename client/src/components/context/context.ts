@@ -4,7 +4,13 @@ import { AssetData, EditPendingData, GradingData, BoilingEntryData, Sumofpackage
      AgarbatiPrimaryEntryData,
      IssueItemData,
      OilMillPrimaryEntryData,
-     QCWaterData} from '../../type/type';
+     QCWaterData,
+     BormaData,
+     HumidData,
+     PeelingData,
+     MayurData,
+     DPDSData,
+     BigTaihoData} from '../../type/type';
 
 interface ContextType {
     editPendingData: EditPendingData[];
@@ -43,28 +49,31 @@ interface ContextType {
     setRcvVillagePrimaryOverView: (data: sumofRcvVillagePrimary | null) => void;
     GeneralPrimaryOverView:sumofGeneralPrimary| null;
     setGeneralPrimaryOverView: (data: sumofGeneralPrimary | null) => void;
-    editScoopingLotWiseData: rcnScoopingData[];
-    setEditScoopingLotWiseData: (data: rcnScoopingData[]) => void;
-    searchType: string;
-    setSearchType: (data: string) => void;
-    editBormaLotWiseData: any[];
-    setEditBormaLotWiseData: (data: any[]) => void;
-    editHumidLotWiseData: any[];
-    setEditHumidLotWiseData: (data: any[]) => void;
-    editPeelingLotWiseData: any[];
-    setEditPeelingLotWiseData: (data: any[]) => void;
-    editMayurLotWiseData: any[];
-    setEditMayurLotWiseData: (data: any[]) => void;
-    editDPDSLotWiseData: any[];
-    setEditDPDSLotWiseData: (data: any[]) => void;
-    editBigTaihoLotWiseData: any[];
-    setEditBigTaihoLotWiseData: (data: any[]) => void;
     editPendingAlmondData: AlmondPrimaryEntryData[];
     setEditPendingAlmondData: (data: AlmondPrimaryEntryData[]) => void;
     editPendingAgarbatiData: AgarbatiPrimaryEntryData[];
     setEditPendingAgarbatiData: (data: AgarbatiPrimaryEntryData[]) => void;
     editPendingOilMillData: OilMillPrimaryEntryData[];
     setEditPendingOilMillData: (data: OilMillPrimaryEntryData[]) => void;
+    editScoopingLotWiseData: rcnScoopingData[];
+    setEditScoopingLotWiseData: (data: rcnScoopingData[]) => void;
+    searchType: string;
+    setSearchType: (data: string) => void;
+    editBormaLotWiseData: BormaData[];
+    setEditBormaLotWiseData: (data: BormaData[]) => void;
+    editHumidLotWiseData: HumidData[];
+    setEditHumidLotWiseData: (data: HumidData[]) => void;
+    editPeelingLotWiseData: PeelingData[];
+    setEditPeelingLotWiseData: (data: PeelingData[]) => void;
+    editMayurLotWiseData: MayurData[];
+    setEditMayurLotWiseData: (data: MayurData[]) => void;
+    editDPDSLotWiseData: DPDSData[];
+    setEditDPDSLotWiseData: (data: DPDSData[]) => void;
+    editBigTaihoLotWiseData: BigTaihoData[];
+    setEditBigTaihoLotWiseData: (data: BigTaihoData[]) => void;
+    editHamsaLotWiseData: any[];
+    setEditHamsaLotWiseData: (data: any[]) => void;
+    
 }
 
 const Context = createContext<ContextType>({
@@ -126,7 +135,9 @@ const Context = createContext<ContextType>({
     editDPDSLotWiseData: [],
     setEditDPDSLotWiseData: () => {},
     editBigTaihoLotWiseData: [],
-    setEditBigTaihoLotWiseData: () => {}
+    setEditBigTaihoLotWiseData: () => {},
+    editHamsaLotWiseData: [],
+    setEditHamsaLotWiseData: () => {}
 
 });
 

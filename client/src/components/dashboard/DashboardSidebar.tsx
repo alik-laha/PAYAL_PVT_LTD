@@ -292,6 +292,14 @@ const DashboardSidebar = () => {
                                     </NavLink>
                                 </CollapsibleContent>}
 
+
+                            {renderlink('Hamsa')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/Hamsa" >
+                                        <p className="flex"> <GiBoxingRing size={20} /><p className="pl-3">  RCN Hamsa </p></p>
+                                    </NavLink>
+                                </CollapsibleContent>}
+
                             
 
                             {renderlink('Receiving Village Entry')

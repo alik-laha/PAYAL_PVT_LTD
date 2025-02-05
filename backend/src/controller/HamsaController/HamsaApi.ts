@@ -5,16 +5,19 @@ import { Op } from "sequelize";
 import WhatsappMsg from "../../helper/WhatsappMsg";
 import lotoriginmodel from "../../model/lotoriginModel";
 import DPDS from "../../model/dpdsmodel";
+import DPDSEdit from "../../model/dpdsEditModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import mixingModel from "../../model/mixingModel";
 import bigTaihoModel from "../../model/bigTaihoModel";
 import bigTaihoEditModel from "../../model/bigTaihoEditModel";
+import hamsaEditModel from "../../model/hamsaeditModel";
+import hamsaModel from "../../model/hamsamodel";
 
 
 // //BigTaiho.tsx
-export const findEditBigTaihoSAll = async (req: Request, res: Response) => {
+export const findEditHamsaAll = async (req: Request, res: Response) => {
     try {
-        const scoopingAllEdit = await bigTaihoEditModel.findAll({order: [['LotNo', 'DESC'], ['date', 'DESC']] });
+        const scoopingAllEdit = await hamsaEditModel.findAll({order: [['LotNo', 'DESC'], ['date', 'DESC']] });
         if (!scoopingAllEdit) {
             return res.status(400).json({ message: "Not found" });
         }
@@ -23,7 +26,7 @@ export const findEditBigTaihoSAll = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Internal server error",error });
     }
 }
-export const sumOfallBigTaiho = async (req: Request, res: Response) => {
+export const sumOfallHamsa = async (req: Request, res: Response) => {
 
     
     try {
@@ -47,25 +50,26 @@ export const sumOfallBigTaiho = async (req: Request, res: Response) => {
             today.setMinutes(today.getMinutes()+30);
         }
 
-        const data = await bigTaihoModel.findAll({
+        const data = await hamsaModel.findAll({
             attributes: [
-                [sequelize.fn('sum', sequelize.col('issue_ssp')), 'issue_ssp'],
-                [sequelize.fn('sum', sequelize.col('issue_ssp_small')), 'issue_ssp_small'],
-                [sequelize.fn('sum', sequelize.col('issue_swp_1')), 'issue_swp_1'],
-                [sequelize.fn('sum', sequelize.col('issue_wsp')), 'issue_wsp'],
-                [sequelize.fn('sum', sequelize.col('issue_bits')), 'issue_bits'],
-                [sequelize.fn('sum', sequelize.col('issue_swp')), 'issue_swp'],
-                [sequelize.fn('sum', sequelize.col('issue_bb')), 'issue_bb'],
-                [sequelize.fn('sum', sequelize.col('issue_w_bb')), 'issue_w_bb'],
-                [sequelize.fn('sum', sequelize.col('issue_bb_A')), 'issue_bb_A'],
-                [sequelize.fn('sum', sequelize.col('issue_bb1')), 'issue_bb1'],
-                [sequelize.fn('sum', sequelize.col('issue_bb1_A')), 'issue_bb1_A'],
-                [sequelize.fn('sum', sequelize.col('issue_bb_2')), 'issue_bb_2'],
-                [sequelize.fn('sum', sequelize.col('issue_ssp_1')), 'issue_ssp_1'],
-                [sequelize.fn('sum', sequelize.col('issue_ssp_1_small')), 'issue_ssp_1_small'],
-                [sequelize.fn('sum', sequelize.col('issue_ssp_2')), 'issue_ssp_2'],
-                [sequelize.fn('sum', sequelize.col('issue_ssp_2_small')), 'issue_ssp_2_small'],
-                [sequelize.fn('sum', sequelize.col('issue_sdp')), 'issue_sdp'],
+                [sequelize.fn('sum', sequelize.col('issue_pw_210')), 'issue_pw_210'],
+                [sequelize.fn('sum', sequelize.col('issue_w_210')), 'issue_w_210'],
+                [sequelize.fn('sum', sequelize.col('issue_ww_210')), 'issue_ww_210'],
+                [sequelize.fn('sum', sequelize.col('issue_pw_240')), 'issue_pw_240'],
+                [sequelize.fn('sum', sequelize.col('issue_w_240')), 'issue_w_240'],
+                [sequelize.fn('sum', sequelize.col('issue_ww_240')), 'issue_ww_240'],
+                [sequelize.fn('sum', sequelize.col('issue_pw_280')), 'issue_pw_280'],
+                [sequelize.fn('sum', sequelize.col('issue_w_280')), 'issue_w_280'],
+                [sequelize.fn('sum', sequelize.col('issue_ww_280')), 'issue_ww_280'],
+                [sequelize.fn('sum', sequelize.col('issue_pw_320')), 'issue_pw_320'],
+                [sequelize.fn('sum', sequelize.col('issue_w_320')), 'issue_w_320'],
+                [sequelize.fn('sum', sequelize.col('issue_ww_320')), 'issue_ww_320'],
+                [sequelize.fn('sum', sequelize.col('issue_pw_400')), 'issue_pw_400'],
+                [sequelize.fn('sum', sequelize.col('issue_w_400')), 'issue_w_400'],
+                [sequelize.fn('sum', sequelize.col('issue_ww_400')), 'issue_ww_400'],
+                [sequelize.fn('sum', sequelize.col('issue_lw')), 'issue_lw'],
+                [sequelize.fn('sum', sequelize.col('issue_bigTaiho')), 'issue_bigTaiho'],
+                [sequelize.fn('sum', sequelize.col('issue_jb')), 'issue_jb'],
              
                 [sequelize.fn('sum', sequelize.col('issue_add_1')), 'issue_add_1'],
                 [sequelize.fn('sum', sequelize.col('issue_add_2')), 'issue_add_2'],
@@ -77,11 +81,7 @@ export const sumOfallBigTaiho = async (req: Request, res: Response) => {
                 [sequelize.fn('sum', sequelize.col('issue_add_8')), 'issue_add_8'],
                 [sequelize.fn('sum', sequelize.col('issue_add_9')), 'issue_add_9'],
                 [sequelize.fn('sum', sequelize.col('issue_add_10')), 'issue_add_10'],
-                [sequelize.fn('sum', sequelize.col('issue_rejection')), 'issue_rejection'],
-                [sequelize.fn('sum', sequelize.col('issue_village')), 'issue_village'],
-                [sequelize.fn('sum', sequelize.col('issue_dpds')), 'issue_dpds'],
-                [sequelize.fn('sum', sequelize.col('issue_husk')), 'issue_husk'],
-                [sequelize.fn('sum', sequelize.col('issue_sorting')), 'issue_sorting'],
+            
                 [sequelize.fn('sum', sequelize.col('current_backlog')), 'current_backlog']
             ],
             where: {
@@ -93,7 +93,7 @@ export const sumOfallBigTaiho = async (req: Request, res: Response) => {
                 }
             }
         });
-        const EditData = await bigTaihoEditModel.count()
+        const EditData = await hamsaEditModel.count()
         if (data) {
             return res.status(200).json({ data, EditData });
         }
@@ -102,23 +102,23 @@ export const sumOfallBigTaiho = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "Internal Server Error", err });
     }
 }
-export const getBigTaihoLot = async (req: Request, res: Response) => {
+export const getHamsaLot = async (req: Request, res: Response) => {
 
     try {
         const status = req.params.status;
-        const scoopingLot = await bigTaihoModel.findAll({
+        const scoopingLot = await hamsaModel.findAll({
             
-            attributes: ['LotNo', 'origin','current_backlog'],
+            attributes: ['LotNo', 'origin','current_backlog','rcv_pw_w','rcv_w_lot','rcv_ww'],
             where: {
                 Status:status
             }
 
         });
         if(scoopingLot){
-            res.status(200).json({ message: "Un BigTaiho Entry", scoopingLot });
+            res.status(200).json({ message: "Un Hamsa Entry", scoopingLot });
         }
         else{
-            res.status(500).json({ message: "Error in Finding BigTaiho Entry"});
+            res.status(500).json({ message: "Error in Finding Hamsa Entry"});
         }
        
 

@@ -23,22 +23,25 @@ import { pendingCheckRole } from '../common/exportData';
 import BigTaihoTable from './BigTaihoTable';
 import BigTaihoHistoryTable from './BigTaihoHistoryTable';
 import BigTaihoInitial from './BigTaihoInitial';
+import HamsaInitial from './HamsaInitial';
+import HamsaTable from './HamsaTable';
+import HamsaHistoryTable from './HamsaHistory';
 
 
 
 
-const BigTaiho = () => {
+const Hamsa = () => {
 
-    const { setEditBigTaihoLotWiseData } = useContext(Context)
+    const { setEditHamsaLotWiseData } = useContext(Context)
     const [lotdata, setLotData] = useState<any[]>([])
     const [maintable, setMainTable] = useState<string>('block')
     const [historytable, setHistoryTable] = useState<string>('none')
-    const { data, isLoading, error } = UseQueryData('/api/bigTaiho/sumofallBigTaiho', 'GET', 'AllBigTaihoSum');
+    const { data, isLoading, error } = UseQueryData('/api/hamsa/sumofallHamsa', 'GET', 'AllHamsaSum');
     const handleEditFetch = async () => {
 
-        axios.get("/api/bigTaiho/findEditBigTaihoAll").then(res => {
+        axios.get("/api/hamsa/findEditHamsaAll").then(res => {
             console.log(res)
-            setEditBigTaihoLotWiseData(res.data.scoopingAllEdit)
+            setEditHamsaLotWiseData(res.data.scoopingAllEdit)
         })
             .catch(err => {
                 console.log(err)
@@ -65,7 +68,7 @@ const BigTaiho = () => {
     console.log(data)
 
     const handleOpenLotNo = async () => {
-        axios.get('/api/bigTaiho/getUnBigTaihoEntry/0').then(res => {
+        axios.get('/api/hamsa/getUnHamsaEntry/0').then(res => {
             console.log(res)
             setLotData(res.data.scoopingLot)
             console.log(lotdata)
@@ -97,21 +100,21 @@ const BigTaiho = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                 <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
-                        Issue Packing <br /><p>{data.data[0].issue_ssp && data.data[0].issue_ssp_small && data.data[0].issue_swp_1 
-                        && data.data[0].issue_wsp && data.data[0].issue_bits && data.data[0].issue_swp && data.data[0].issue_bb 
-                        && data.data[0].issue_w_bb && data.data[0].issue_bb_A && data.data[0].issue_bb1 && data.data[0].issue_bb1_A && data.data[0].issue_bb_2
-                        && data.data[0].issue_ssp_1 && data.data[0].issue_ssp_1_small && data.data[0].issue_ssp_2
-                        && data.data[0].issue_ssp_2_small && data.data[0].issue_sdp
+                        Issue Wholes <br />
+                        <p>{data.data[0].issue_pw_210 && data.data[0].issue_w_210 && data.data[0].issue_ww_210 
+                        && data.data[0].issue_pw_240 && data.data[0].issue_w_240 && data.data[0].issue_ww_240      
+                        && data.data[0].issue_pw_280 && data.data[0].issue_w_280 && data.data[0].issue_ww_280 
+                        && data.data[0].issue_pw_320 && data.data[0].issue_w_320 && data.data[0].issue_ww_320
+                        && data.data[0].issue_pw_400 && data.data[0].issue_w_400 && data.data[0].issue_ww_400
                         && data.data[0].issue_add_1 && data.data[0].issue_add_2 && data.data[0].issue_add_3
                         && data.data[0].issue_add_4 && data.data[0].issue_add_5 && data.data[0].issue_add_6
                         && data.data[0].issue_add_7 && data.data[0].issue_add_8 && data.data[0].issue_add_9
                         && data.data[0].issue_add_10 
-                        ? formatNumber(parseFloat(data.data[0].issue_ssp)+parseFloat(data.data[0].issue_ssp_small)+parseFloat(data.data[0].issue_swp_1)
-                        +parseFloat(data.data[0].issue_wsp)+parseFloat(data.data[0].issue_bits)+parseFloat(data.data[0].issue_swp)+
-                        parseFloat(data.data[0].issue_bb)+parseFloat(data.data[0].issue_w_bb)+parseFloat(data.data[0].issue_bb_A)
-                        + parseFloat(data.data[0].issue_bb1)+parseFloat(data.data[0].issue_bb1_A)+parseFloat(data.data[0].issue_bb_2)
-                        +parseFloat(data.data[0].issue_ssp_1)+parseFloat(data.data[0].issue_ssp_1_small)+parseFloat(data.data[0].issue_ssp_2)
-                        +parseFloat(data.data[0].issue_ssp_2_small)+parseFloat(data.data[0].issue_sdp)
+                        ? formatNumber(parseFloat(data.data[0].issue_pw_210)+parseFloat(data.data[0].issue_w_210)+parseFloat(data.data[0].issue_ww_210)
+                        +parseFloat(data.data[0].issue_pw_240)+parseFloat(data.data[0].issue_w_240)+parseFloat(data.data[0].issue_ww_240)
+                        +parseFloat(data.data[0].issue_pw_280)+parseFloat(data.data[0].issue_w_280)+parseFloat(data.data[0].issue_ww_280)
+                        +parseFloat(data.data[0].issue_pw_320)+parseFloat(data.data[0].issue_w_320)+parseFloat(data.data[0].issue_ww_320)
+                        +parseFloat(data.data[0].issue_pw_400)+parseFloat(data.data[0].issue_w_400)+parseFloat(data.data[0].issue_ww_400)
                         +parseFloat(data.data[0].issue_add_1)+parseFloat(data.data[0].issue_add_2)+parseFloat(data.data[0].issue_add_3)
                             +parseFloat(data.data[0].issue_add_4)+parseFloat(data.data[0].issue_add_5)+parseFloat(data.data[0].issue_add_6)
                             +parseFloat(data.data[0].issue_add_7)+parseFloat(data.data[0].issue_add_8)+parseFloat(data.data[0].issue_add_9)
@@ -122,24 +125,17 @@ const BigTaiho = () => {
                
 
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                    Issue Sorting <br /><p>{data.data[0].issue_sorting ? formatNumber(parseFloat(data.data[0].issue_sorting))  : 0}  Kg</p>
+                    Issue LW <br /><p>{data.data[0].issue_lw ? formatNumber(parseFloat(data.data[0].issue_lw))  : 0}  Kg</p>
                     </div>
                     
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                    Issue Village <br /><p>{data.data[0].issue_village ? formatNumber(parseFloat(data.data[0].issue_village))  : 0}  Kg</p>
+                    Issue BigTaiho <br /><p>{data.data[0].issue_bigTaiho ? formatNumber(parseFloat(data.data[0].issue_bigTaiho))  : 0}  Kg</p>
                     </div>
 
                     <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
-                    Issue DPDS <br /><p>{data.data[0].issue_dpds ? formatNumber(parseFloat(data.data[0].issue_dpds))  : 0}  Kg</p>
+                    Issue JB <br /><p>{data.data[0].issue_jb? formatNumber(parseFloat(data.data[0].issue_jb))  : 0}  Kg</p>
                     </div>
                     
-                
-                    <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
-                    Issue Rejection <br /><p>{data.data[0].issue_rejection  ?  formatNumber(parseFloat(data.data[0].issue_rejection)): 0} Kg</p>
-                    </div>
-                    <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
-                    Issue Husk <br /><p>{data.data[0].issue_husk  ?  formatNumber(parseFloat(data.data[0].issue_husk)): 0} Kg</p>
-                    </div>
                     <div className="flexbox-tile bg-cyan-500 hover:bg-orange-400">
                     Current Backlog <br /><p>{data.data[0].current_backlog  ?  formatNumber(parseFloat(data.data[0].current_backlog)): 0} Kg</p>
                     </div>
@@ -147,29 +143,29 @@ const BigTaiho = () => {
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg font-semibold text-center '>Current F.Y. Report (BIG-TAIHO)</p>
+                <p className='text-lg font-semibold text-center '>Current F.Y. Report (HAMSA)</p>
                 <div>
                     <Dialog>
                         <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4 no-margin-left responsive-button-adjust" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>BigTaiho Entry Form</p></DialogTitle>
+                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Hamsa Entry Form</p></DialogTitle>
 
                             </DialogHeader>
 
-                            <BigTaihoInitial props={lotdata} />
+                            <HamsaInitial props={lotdata} />
                         </DialogContent>
                     </Dialog>
 
 
-                    {checkpending('BigTaiho') &&  <Button className="bg-orange-400 mb-2 ml-4 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> }
+                    {checkpending('Hamsa') &&  <Button className="bg-orange-400 mb-2 ml-4 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> }
                     <Button className="bg-blue-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {maintable==='block' ? 'Incoming/Mixing':'Main Entry '}</Button>
                 </div>
                 <div style={{ display: maintable }}>
-                    <BigTaihoTable/>
+                    <HamsaTable/>
                 </div>
                 <div style={{ display: historytable }}>
-                    <BigTaihoHistoryTable/>
+                    <HamsaHistoryTable/>
                 </div>
                 
 
@@ -179,4 +175,4 @@ const BigTaiho = () => {
 
     )
 }
-export default BigTaiho;
+export default Hamsa;

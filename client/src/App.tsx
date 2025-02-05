@@ -38,6 +38,7 @@ import QCWater from './components/QCWater/QCwater'
 import Mayur from './components/Mayur/Mayur'
 import DPDS from './components/DPDS/DPDS'
 import BigTaiho from './components/bigTaiho/BigTaiho'
+import Hamsa from './components/Hamsa/Hamsa'
 
 
 
@@ -236,6 +237,12 @@ function App() {
 
         </Route>
         
+        {/*Production Hamsa  */}
+      <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'MayurSupervisor', 'ProductionManager']} />}>
+          <Route path='/dashboard/Hamsa' element={<Hamsa />} />
+
+        </Route>
 
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'CleaningSupervisor', 'MaintainanceManager']} />}>
