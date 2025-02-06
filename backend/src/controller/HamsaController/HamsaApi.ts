@@ -159,7 +159,7 @@ export const getHamsaBylotorigin = async (req: Request, res: Response) => {
 }
 
 // //BigTaihoCreateForm.tsx
-export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
+export const CreateEntireHamsa= async (req: Request, res: Response) => {
    
     const timeToMilliseconds = (time: string) => {
         const [hours, minutes] = time.split(':').map(Number);
@@ -208,6 +208,29 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
             if (data.Mc_breakdown_3 === undefined || data.Mc_breakdown_3 === null) {
                 data.Mc_breakdown_3 = '00:00'
             }
+            if (data.otherTime_4 === undefined || data.otherTime_4 === null) {
+                data.otherTime_4 = '00:00'
+            }
+
+            if (data.Mc_breakdown_4 === undefined || data.Mc_breakdown_4 === null) {
+                data.Mc_breakdown_4 = '00:00'
+            }
+
+            if (data.otherTime_4 === undefined || data.otherTime_4 === null) {
+                data.otherTime_4 = '00:00'
+            }
+            if (data.otherTime_5 === undefined || data.otherTime_5 === null) {
+                data.otherTime_5 = '00:00'
+            }
+            if (data.Mc_breakdown_5 === undefined || data.Mc_breakdown_5 === null) {
+                data.Mc_breakdown_5 = '00:00'
+            }
+            if (data.otherTime_6 === undefined || data.otherTime_6 === null) {
+                data.otherTime_6 = '00:00'
+            }
+            if (data.Mc_breakdown_6 === undefined || data.Mc_breakdown_6 === null) {
+                data.Mc_breakdown_6 = '00:00'
+            }
             
             const runtime1 = CalculatemachineOnOffTime(data.Mc_off_1, data.Mc_on_1) -
                 (timeToMilliseconds(data.Mc_breakdown_1) + timeToMilliseconds(data.otherTime_1))
@@ -215,17 +238,38 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                 (timeToMilliseconds(data.Mc_breakdown_2) + timeToMilliseconds(data.otherTime_2))
             const runtime3 = CalculatemachineOnOffTime(data.Mc_off_3, data.Mc_on_3) -
                 (timeToMilliseconds(data.Mc_breakdown_3) + timeToMilliseconds(data.otherTime_3))
+
+            const runtime4= CalculatemachineOnOffTime(data.Mc_off_4, data.Mc_on_4) -
+                (timeToMilliseconds(data.Mc_breakdown_4) + timeToMilliseconds(data.otherTime_4))
+            
+            const runtime5 = CalculatemachineOnOffTime(data.Mc_off_5, data.Mc_on_5) -
+                (timeToMilliseconds(data.Mc_breakdown_5) + timeToMilliseconds(data.otherTime_5))
+
+            const runtime6 = CalculatemachineOnOffTime(data.Mc_off_6, data.Mc_on_6) -
+                (timeToMilliseconds(data.Mc_breakdown_6) + timeToMilliseconds(data.otherTime_6))
              
             if (runtime1 < 0) {
-                res.status(500).json({ message: "Machine BigTaiho Run Time can not be negative" });
+                res.status(500).json({ message: "Machine Hamsa-1 Run Time can not be negative" });
                 throw new Error('Transaction Aborted 1')
             }
             if (runtime2 < 0) {
-                res.status(500).json({ message: "Machine Spectrum Run Time can not be negative" });
+                res.status(500).json({ message: "Machine Hamsa-2 Run Time can not be negative" });
                 throw new Error('Transaction Aborted 1')
             }
             if (runtime3 < 0) {
-                res.status(500).json({ message: "Machine Amrita Run Time can not be negative" });
+                res.status(500).json({ message: "Machine Hamsa-3 Run Time can not be negative" });
+                throw new Error('Transaction Aborted 1')
+            }
+            if (runtime4 < 0) {
+                res.status(500).json({ message: "Machine Hamsa-4 Run Time can not be negative" });
+                throw new Error('Transaction Aborted 1')
+            }
+            if (runtime5 < 0) {
+                res.status(500).json({ message: "Machine Hamsa-5 Run Time can not be negative" });
+                throw new Error('Transaction Aborted 1')
+            }
+            if (runtime6 < 0) {
+                res.status(500).json({ message: "Machine Spectrum Run Time can not be negative" });
                 throw new Error('Transaction Aborted 1')
             }
           
@@ -233,41 +277,44 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
             const Mc_runTime1 = millisecondsToTime(runtime1);
             const Mc_runTime2 = millisecondsToTime(runtime2);
             const Mc_runTime3 = millisecondsToTime(runtime3);
+            const Mc_runTime4 = millisecondsToTime(runtime4);
+            const Mc_runTime5 = millisecondsToTime(runtime5);
+            const Mc_runTime6 = millisecondsToTime(runtime6);
          
             
-            if((parseFloat(data.rcv_peeling)+(data.rcv_village? parseFloat(data.rcv_village):0)
-                +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
-                +(data.rcv_sorting? parseFloat(data.rcv_sorting):0)+(data.rcv_mayur? parseFloat(data.rcv_mayur):0)
-                +(data.rcv_hamsa? parseFloat(data.rcv_hamsa):0) +(data.rcv_wholes? parseFloat(data.rcv_wholes):0)
-           )< (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
-              +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
-                +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
-                +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
-                +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+            if((parseFloat(data.rcv_pw_w)+parseFloat(data.rcv_w_lot)+parseFloat(data.rcv_ww)
+                +(data.rcv_village? parseFloat(data.rcv_village):0)
+                +(data.rcv_lw? parseFloat(data.rcv_lw):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
+               
+           )< (parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+           +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
+              +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)+parseFloat(data.issue_ww_320)
+                +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)+parseFloat(data.issue_ww_400)
+                +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
                 +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                 +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                +parseFloat(data.issue_add_10)+parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)
+                +parseFloat(data.issue_jb)
 
          
                ))
                {
-                console.log(parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
-                +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
-                  +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
-                  +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
-                  +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                  +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                  +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                  +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                  +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                  +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting))
+                console.log(parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
+                   +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                     +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)+parseFloat(data.issue_ww_320)
+                     +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)+parseFloat(data.issue_ww_400)
+                     +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                     +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                     +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
+                     +parseFloat(data.issue_add_10)+parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)
+                     +parseFloat(data.issue_jb))
                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                 throw new Error('Transaction Aborted due to negative value')
 
             }
-            const BigTaihoUpdate = await bigTaihoModel.update(
+            const HamsaUpdate = await hamsaModel.update(
                 {
                     date: data.Date,              
                     noOfdayOperators: data.dayoperator,
@@ -287,23 +334,39 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                     Mc_runTime_3: Mc_runTime3,
                     Mc_breakdown_3: data.Mc_breakdown_3,
                     otherTime_3: data.otherTime_3,
-                    issue_ssp: data.issue_ssp,
-                    issue_ssp_small: data.issue_ssp_small,
-                    issue_swp_1: data.issue_swp_1,
-                    issue_wsp: data.issue_wsp,
-                    issue_bits: data.issue_bits,
-                    issue_swp: data.issue_swp,
-                    issue_bb: data.issue_bb,
-                    issue_w_bb: data.issue_w_bb,
-                    issue_bb_A: data.issue_bb_A,
-                    issue_bb1: data.issue_bb1,
-                    issue_bb1_A: data.issue_bb1_A,
-                    issue_bb_2: data.issue_bb_2,
-                    issue_ssp_1: data.issue_ssp_1,
-                    issue_ssp_1_small: data.issue_ssp_1_small,
-                    issue_ssp_2: data.issue_ssp_2,
-                    issue_ssp_2_small: data.issue_ssp_2_small,
-                    issue_sdp: data.issue_sdp,
+                    Mc_on_4: data.Mc_on_4,
+                    Mc_off_4: data.Mc_off_4,
+                    Mc_runTime_4: Mc_runTime4,
+                    Mc_breakdown_4: data.Mc_breakdown_4,
+                    otherTime_4: data.otherTime_4,
+                    Mc_on_5: data.Mc_on_5,
+                    Mc_off_5: data.Mc_off_5,
+                    Mc_runTime_5: Mc_runTime5,
+                    Mc_breakdown_5: data.Mc_breakdown_5,
+                    otherTime_5: data.otherTime_5,
+                    Mc_on_6: data.Mc_on_6,
+                    Mc_off_6: data.Mc_off_6,
+                    Mc_runTime_6: Mc_runTime6,
+                    Mc_breakdown_6: data.Mc_breakdown_6,
+                    otherTime_6: data.otherTime_6,
+
+                    issue_pw_210: data.issue_pw_210,
+                    issue_w_210: data.issue_w_210,
+                    issue_ww_210: data.issue_ww_210,
+                    issue_pw_240:data.issue_pw_240,
+                    issue_w_240: data.issue_w_240,
+                    issue_ww_240: data.issue_ww_240,
+                    issue_pw_280:data.issue_pw_280,
+                    issue_w_280:   data.issue_w_280,
+                    issue_ww_280: data.issue_ww_280,
+                    issue_pw_320:data.issue_pw_320,
+                    issue_w_320: data.issue_w_320,
+                    issue_ww_320: data.issue_ww_320,
+                    issue_pw_400: data.issue_pw_400,
+                    issue_w_400:  data.issue_w_400,
+                    issue_ww_400:  data.issue_ww_400,
+                   
+                    
                     issue_add_1: data.issue_add_1,
                     issue_add_2: data.issue_add_2,
                     issue_add_3:data.issue_add_3,
@@ -314,42 +377,41 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                     issue_add_8: data.issue_add_8,
                     issue_add_9: data.issue_add_9,
                     issue_add_10: data.issue_add_10,
-                    issue_rejection: data.issue_rejection,
-                    issue_village: data.issue_village,
-                    issue_dpds: data.issue_dpds,
-                    issue_husk: data.issue_husk,
-                    issue_sorting: data.issue_sorting,
+                  
+                   
+                    issue_lw: data.issue_lw,
+                    issue_bigTaiho: data.issue_bigTaiho,
+                    issue_jb: data.issue_jb,
+                   
 
                     
-                    entry_backlog: (parseFloat(data.rcv_peeling)+(data.rcv_village? parseFloat(data.rcv_village):0)
-                    +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
-                    +(data.rcv_sorting? parseFloat(data.rcv_sorting):0)+(data.rcv_mayur? parseFloat(data.rcv_mayur):0)
-                    +(data.rcv_hamsa? parseFloat(data.rcv_hamsa):0) +(data.rcv_wholes? parseFloat(data.rcv_wholes):0)) 
-                    - (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
-                    +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
-                      +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
-                      +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
-                      +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                      +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                      +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                      +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                      +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                      +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                    entry_backlog: (parseFloat(data.rcv_pw_w)+parseFloat(data.rcv_w_lot)+parseFloat(data.rcv_ww)
+                    +(data.rcv_village? parseFloat(data.rcv_village):0)
+                    +(data.rcv_lw? parseFloat(data.rcv_lw):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0))
+                    - (parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                    +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
+                       +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                         +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)+parseFloat(data.issue_ww_320)
+                         +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)+parseFloat(data.issue_ww_400)
+                         +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                         +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                         +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
+                         +parseFloat(data.issue_add_10)+parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)
+                         +parseFloat(data.issue_jb)
                         ),
-                    current_backlog: (parseFloat(data.rcv_peeling)+(data.rcv_village? parseFloat(data.rcv_village):0)
-                    +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
-                    +(data.rcv_sorting? parseFloat(data.rcv_sorting):0)+(data.rcv_mayur? parseFloat(data.rcv_mayur):0)
-                    +(data.rcv_hamsa? parseFloat(data.rcv_hamsa):0) +(data.rcv_wholes? parseFloat(data.rcv_wholes):0)) 
-                    - (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
-                    +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
-                      +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
-                      +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
-                      +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                      +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                      +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                      +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                      +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                      +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                    current_backlog: (parseFloat(data.rcv_pw_w)+parseFloat(data.rcv_w_lot)+parseFloat(data.rcv_ww)
+                    +(data.rcv_village? parseFloat(data.rcv_village):0)
+                    +(data.rcv_lw? parseFloat(data.rcv_lw):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0))
+                    - (parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                    +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
+                       +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                         +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)+parseFloat(data.issue_ww_320)
+                         +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)+parseFloat(data.issue_ww_400)
+                         +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                         +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                         +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
+                         +parseFloat(data.issue_add_10)+parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)
+                         +parseFloat(data.issue_jb)
                         ),
                     Status: 1,
                     CreatedBy: feeledBy
@@ -360,9 +422,9 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                     }, transaction
                 }
             );
-            if (BigTaihoUpdate) {
-                const dpds_backlog = await DPDS.findOne({
-                    attributes: ['current_backlog','rcv_transfer'],
+            if (HamsaUpdate) {
+                const bigT_backlog = await bigTaihoModel.findOne({
+                    attributes: ['current_backlog','rcv_dpds'],
                     where: {
                         lotNo:LotNO,
                         origin: data.origin,
@@ -372,25 +434,25 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                     order: [['LotNo', 'ASC']]
             
                 });
-                console.log(dpds_backlog)
-                if (dpds_backlog && dpds_backlog.dataValues.current_backlog>=0){
+                console.log(bigT_backlog)
+                if (bigT_backlog && bigT_backlog.dataValues.current_backlog>=0){
                     await sectionTransfer.create({              
                         LotNo:LotNO,
                         origin:data.origin,
-                        amount:data.issue_dpds,
+                        amount:data.issue_bigTaiho,
                         issueid:1,
                         date:data.Date,
-                        fromSection:'BigTaiho',
-                        toSection:'DPDS',
-                        toSectionBeforeBacklog:dpds_backlog.dataValues.current_backlog,
-                        toSectionAfterBacklog:parseFloat(dpds_backlog.dataValues.current_backlog)+parseFloat(data.issue_dpds),
+                        fromSection:'DPDS',
+                        toSection:'BigTaiho',
+                        toSectionBeforeBacklog:bigT_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(bigT_backlog.dataValues.current_backlog)+parseFloat(data.issue_bigTaiho),
                         createdBy: feeledBy
                      },{transaction});
-                     if(dpds_backlog.dataValues.rcv_transfer){
-                        await DPDS.update(
+                     if(bigT_backlog.dataValues.rcv_dpds){
+                        await bigTaihoModel.update(
                             { 
-                                rcv_transfer:sequelize.literal(`rcv_transfer+ ${data.issue_dpds}`),
-                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_dpds}`)
+                                rcv_dpds:sequelize.literal(`rcv_dpds+ ${data.issue_bigTaiho}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
                             },
                             {
                                 where: {
@@ -402,10 +464,10 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                         );
                      }
                      else{
-                        await DPDS.update(
+                        await bigTaihoModel.update(
                             { 
-                                rcv_transfer:data.issue_dpds,
-                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_dpds}`)
+                                rcv_dpds:data.issue_bigTaiho,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
                             },
                             {
                                 where: {
@@ -416,7 +478,9 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                             }
                         );
                      }
-                          
+                     
+
+                    
                 }
                 else{
                     res.status(500).json({ message: "Error In Creating Transaction History" });

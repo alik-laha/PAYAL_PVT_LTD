@@ -749,23 +749,24 @@ export interface HamsaData {
     rcv_ww: string ;
     rcv_lw: string ;
     rcv_village: string ;
-    issue_ssp: string ;
-    issue_ssp_small: string ;
-    issue_swp_1: string ;
-    issue_wsp: string ;
-    issue_bits: string ;
-    issue_swp: string ;
-    issue_bb: string ;
-    issue_w_bb: string ;
-    issue_bb_A: string ;
-    issue_bb1: string ;
-    issue_bb1_A: string ;
-    issue_bb_2: string ;
-    issue_ssp_1:string ;
-    issue_ssp_1_small: string ;
-    issue_ssp_2: string ;
-    issue_ssp_2_small: string ;
-    issue_sdp: string ;
+    issue_pw_210: string ;
+    issue_w_210: string ;
+    issue_ww_210: string ;
+    issue_pw_240:string;
+    issue_w_240: string ;
+    issue_ww_240: string ;
+    issue_pw_280:string;
+    issue_w_280: string ;
+    issue_ww_280: string ;
+    issue_pw_320:string;
+    issue_w_320: string ;
+    issue_ww_320: string ;
+    issue_pw_400:string;
+    issue_w_400: string ;
+    issue_ww_400: string ;
+    issue_lw:string;
+    issue_bigTaiho: string ;
+    issue_jb:string;
     issue_add_1: string;
     issue_add_2: string;
     issue_add_3: string;
@@ -827,40 +828,6 @@ export interface HamsaData {
     editStatus: string;
     modifiedBy: string | null;
 
-   
-    "rcv_pw_w": "20.00",
-    "rcv_w_lot": "30.00",
-    "rcv_ww": "20.00",
-    "rcv_lw": null,
-    "rcv_village": null,
-   
-    "issue_pw_210": null,
-    "issue_w_210": null,
-    "issue_ww_210": null,
-    "issue_pw_240": null,
-    "issue_w_240": null,
-    "issue_ww_240": null,
-    "issue_pw_280": null,
-    "issue_w_280": null,
-    "issue_ww_280": null,
-    "issue_pw_320": null,
-    "issue_w_320": null,
-    "issue_ww_320": null,
-    "issue_pw_400": null,
-    "issue_w_400": null,
-    "issue_ww_400": null,
-    "issue_lw": null,
-    "issue_bigTaiho": null,
-    "issue_jb": null,
- 
- 
-  
-   
- 
-  
-
-
-    
 }
 
 

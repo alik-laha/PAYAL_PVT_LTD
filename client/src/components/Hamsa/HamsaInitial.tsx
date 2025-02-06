@@ -21,7 +21,7 @@ import axios from "axios";
 import { useState } from "react";
 import cross from '../../assets/Static_Images/error_img.png'
 // import RCNDPDSCreateForm from "./DPDSCreateForm";
-import { BigTaihoData } from "@/type/type";
+import { BigTaihoData, HamsaData } from "@/type/type";
 import HamsaCreateForm from "./HamsaCreateForm";
 
 
@@ -35,7 +35,7 @@ interface lotPropsdata{
 }
 
 const HamsaInitial = (props: any) => {
-    const [bormaData, setBormaData ]  = useState<BigTaihoData[]>([])
+    const [bormaData, setBormaData ]  = useState<HamsaData[]>([])
     const [errortext, seterrorText] = useState<string>('');
     
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialogPeel') as HTMLInputElement;
