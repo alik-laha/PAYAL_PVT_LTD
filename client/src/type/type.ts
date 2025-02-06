@@ -735,6 +735,133 @@ export interface BigTaihoData {
 
     
 }
+export interface HamsaData {
+ 
+    id: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    altid: number;
+    rcv_transfer: string ;
+    rcv_transfer_2: string;
+    rcv_pw_w: string ;
+    rcv_w_lot: string ;
+    rcv_ww: string ;
+    rcv_lw: string ;
+    rcv_village: string ;
+    issue_ssp: string ;
+    issue_ssp_small: string ;
+    issue_swp_1: string ;
+    issue_wsp: string ;
+    issue_bits: string ;
+    issue_swp: string ;
+    issue_bb: string ;
+    issue_w_bb: string ;
+    issue_bb_A: string ;
+    issue_bb1: string ;
+    issue_bb1_A: string ;
+    issue_bb_2: string ;
+    issue_ssp_1:string ;
+    issue_ssp_1_small: string ;
+    issue_ssp_2: string ;
+    issue_ssp_2_small: string ;
+    issue_sdp: string ;
+    issue_add_1: string;
+    issue_add_2: string;
+    issue_add_3: string;
+    issue_add_4: string;
+    issue_add_5: string;
+    issue_add_6: string;
+    issue_add_7: string;
+    issue_add_8: string;
+    issue_add_9: string;
+    issue_add_10: string;
+    issue_rejection: string ;
+    issue_village: string ;
+    issue_dpds: string ;
+    issue_husk: string ;
+    issue_sorting: string ;
+    Mc_on_3: string ;
+    Mc_off_3: string ;
+    Mc_breakdown_3: string ;
+    Mc_runTime_3: string ;
+    otherTime_3: string ;
+    Mc_on_1: string ;
+    Mc_off_1: string ;
+    Mc_breakdown_1: string ;
+    Mc_runTime_1: string ;
+    otherTime_1: string ;
+    Mc_on_2: string ;
+    Mc_off_2: string ;
+    Mc_breakdown_2: string ;
+    Mc_runTime_2: string ;
+    otherTime_2: string ;
+    Mc_on_4: string ;
+    Mc_off_4: string ;
+    Mc_breakdown_4: string ;
+    Mc_runTime_4: string ;
+    otherTime_4: string ;
+    Mc_on_5: string ;
+    Mc_off_5: string ;
+    Mc_breakdown_5: string ;
+    Mc_runTime_5: string ;
+    otherTime_5: string ;
+    Mc_on_6: string ;
+    Mc_off_6: string ;
+    Mc_breakdown_6: string ;
+    Mc_runTime_6: string ;
+    otherTime_6: string ;
+    Mc_on_7: string ;
+    Mc_off_7: string ;
+    Mc_breakdown_7: string ;
+    Mc_runTime_7: string ;
+    otherTime_7: string ;
+    entry_backlog: string;
+    current_backlog: string;
+    Status: number;
+    latest: number;
+    mixingLot: string | null;
+    noOfdayOperators: number;
+    noOfnightOperators: number;
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string | null;
+
+   
+    "rcv_pw_w": "20.00",
+    "rcv_w_lot": "30.00",
+    "rcv_ww": "20.00",
+    "rcv_lw": null,
+    "rcv_village": null,
+   
+    "issue_pw_210": null,
+    "issue_w_210": null,
+    "issue_ww_210": null,
+    "issue_pw_240": null,
+    "issue_w_240": null,
+    "issue_ww_240": null,
+    "issue_pw_280": null,
+    "issue_w_280": null,
+    "issue_ww_280": null,
+    "issue_pw_320": null,
+    "issue_w_320": null,
+    "issue_ww_320": null,
+    "issue_pw_400": null,
+    "issue_w_400": null,
+    "issue_ww_400": null,
+    "issue_lw": null,
+    "issue_bigTaiho": null,
+    "issue_jb": null,
+ 
+ 
+  
+   
+ 
+  
+
+
+    
+}
 
 
 

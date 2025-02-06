@@ -63,7 +63,7 @@ const HamsaHistoryTable = () => {
                         fromDate: fromdate,
                         toDate: todate,
                         origin: origin,
-                        section:'BigTaiho'
+                        section:'Hamsa'
     
                     }, {
                         params: {
@@ -85,7 +85,7 @@ const HamsaHistoryTable = () => {
                         fromDate: fromdate,
                         toDate: todate,
                         origin: origin,
-                        section:'BigTaiho'
+                        section:'Hamsa'
     
                     }, {
                         params: {
@@ -141,7 +141,7 @@ const HamsaHistoryTable = () => {
                         fromDate: fromdate,
                         toDate: todate,
                         origin: origin,
-                        section:'BigTaiho'
+                        section:'Hamsa'
     
                     })
                     const data1 = await response.data
@@ -166,7 +166,7 @@ const HamsaHistoryTable = () => {
                         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
                         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
                         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-                        saveAs(blob, 'BigTaiho_Incoming_Entry_' + currDate + '.xlsx');
+                        saveAs(blob, 'Hamsa_Incoming_Entry_' + currDate + '.xlsx');
                     }
                     
                    
@@ -178,7 +178,7 @@ const HamsaHistoryTable = () => {
                         fromDate: fromdate,
                         toDate: todate,
                         origin: origin,
-                        section:'BigTaiho'
+                        section:'Hamsa'
     
                     })
                     const data1 = await response.data
@@ -205,7 +205,7 @@ const HamsaHistoryTable = () => {
                         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
                         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
                         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-                        saveAs(blob, 'BigTaiho_Mixing_Entry_' + currDate + '.xlsx');
+                        saveAs(blob, 'Hamsa_Mixing_Entry_' + currDate + '.xlsx');
                 }
               
                 
