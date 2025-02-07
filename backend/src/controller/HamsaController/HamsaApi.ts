@@ -129,7 +129,7 @@ export const getHamsaLot = async (req: Request, res: Response) => {
 
 }
 
-// //BigTaihoInitial.tsx
+// //HamsaInitial.tsx
 export const getHamsaBylotorigin = async (req: Request, res: Response) => {
 
     try {
@@ -530,8 +530,8 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
     }
 }
 
-// //BigTaihoTable.tsx
-export const SearchRCNBigTaiho = async (req: Request, res: Response) => {
+// //HamsaTable.tsx
+export const SearchRCNHamsa = async (req: Request, res: Response) => {
     try {
         const { searchitem,fromDate, toDate, origin} = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
@@ -573,14 +573,14 @@ export const SearchRCNBigTaiho = async (req: Request, res: Response) => {
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let rcnEntries
         if(limit===0 && offset===0){
-             rcnEntries = await bigTaihoModel.findAll({
+             rcnEntries = await hamsaModel.findAll({
                 where,
                 order: [['LotNo','DESC'],['origin','ASC'],['altid', 'ASC']], // Order by date descending
                 
             });
         }
         else{
-             rcnEntries = await bigTaihoModel.findAll({
+             rcnEntries = await hamsaModel.findAll({
                 where,
                 order: [['LotNo','DESC'],['origin','ASC'],['altid', 'ASC']], // Order by date descending
                 limit: limit,
@@ -588,7 +588,7 @@ export const SearchRCNBigTaiho = async (req: Request, res: Response) => {
             });
         }
        
-        return res.status(200).json({ message: 'BigTaiho Entry found', rcnEntries })
+        return res.status(200).json({ message: 'Hamsa Entry found', rcnEntries })
     }
     catch (err) {
         console.log(err)
@@ -1196,7 +1196,7 @@ export const updateEntireBigTaiho= async (req: Request, res: Response) => {
 
 }
 
-export const approveBigTaiho = async (req: Request, res: Response) => {
+export const approveHamsa = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const LotNo = req.params.LotNo;
@@ -1206,80 +1206,97 @@ export const approveBigTaiho = async (req: Request, res: Response) => {
         if (!id || !approvedBy) {
             return res.status(400).json({ message: "Please provide the id or approved by" });
         }
-        const data = await bigTaihoEditModel.findOne({
+        const data = await hamsaEditModel.findOne({
             where: {
                 id
             }
         }) as any;
         
         if (!data) {
-            return res.status(400).json({ message: "BigTaiho Edit Entry not found" });
+            return res.status(400).json({ message: "Hamsa Edit Entry not found" });
         }
         else{
-            const transferDPDSdata = await sectionTransfer.findOne({
+            const transferBigTdata = await sectionTransfer.findOne({
                 where: {
                     issueid:data.altid,
                     LotNo:data.LotNo,
                     origin:data.origin,
-                    fromSection:'BigTaiho',
-                    toSection:'DPDS'
+                    fromSection:'Hamsa',
+                    toSection:'BigTaiho'
                 }
             }) as any
 
-            if(transferDPDSdata){
+            if(transferBigTdata){
                 await sequelize.transaction(async (transaction: any) => {
 
-                    const BigTEdit = await bigTaihoModel.update({
-                    date: data.Date,              
-                    noOfdayOperators: data.dayoperator,
-                    noOfnightOperators: data.nightoperator,
-                    Mc_on_1: data.Mc_on_1,
-                    Mc_off_1: data.Mc_off_1,
-                    Mc_runTime_1: data.Mc_runTime_1,
-                    Mc_breakdown_1: data.Mc_breakdown_1,
-                    otherTime_1: data.otherTime_1,
-                    Mc_on_2: data.Mc_on_2,
-                    Mc_off_2: data.Mc_off_2,
-                    Mc_runTime_2: data.Mc_runTime_2,
-                    Mc_breakdown_2: data.Mc_breakdown_2,
-                    otherTime_2: data.otherTime_2,
-                    Mc_on_3: data.Mc_on_3,
-                    Mc_off_3: data.Mc_off_3,
-                    Mc_runTime_3: data.Mc_runTime_3,
-                    Mc_breakdown_3: data.Mc_breakdown_3,
-                    otherTime_3: data.otherTime_3,
-                    issue_ssp: data.issue_ssp,
-                    issue_ssp_small: data.issue_ssp_small,
-                    issue_swp_1: data.issue_swp_1,
-                    issue_wsp: data.issue_wsp,
-                    issue_bits: data.issue_bits,
-                    issue_swp: data.issue_swp,
-                    issue_bb: data.issue_bb,
-                    issue_w_bb: data.issue_w_bb,
-                    issue_bb_A: data.issue_bb_A,
-                    issue_bb1: data.issue_bb1,
-                    issue_bb1_A: data.issue_bb1_A,
-                    issue_bb_2: data.issue_bb_2,
-                    issue_ssp_1: data.issue_ssp_1,
-                    issue_ssp_1_small: data.issue_ssp_1_small,
-                    issue_ssp_2: data.issue_ssp_2,
-                    issue_ssp_2_small: data.issue_ssp_2_small,
-                    issue_sdp: data.issue_sdp,
-                    issue_add_1: data.issue_add_1,
-                    issue_add_2: data.issue_add_2,
-                    issue_add_3:data.issue_add_3,
-                    issue_add_4: data.issue_add_4,
-                    issue_add_5: data.issue_add_5,
-                    issue_add_6: data.issue_add_6,
-                    issue_add_7: data.issue_add_7,
-                    issue_add_8: data.issue_add_8,
-                    issue_add_9: data.issue_add_9,
-                    issue_add_10: data.issue_add_10,
-                    issue_rejection: data.issue_rejection,
-                    issue_village: data.issue_village,
-                    issue_dpds: data.issue_dpds,
-                    issue_husk: data.issue_husk,
-                    issue_sorting: data.issue_sorting,  
+                    const BigTEdit = await hamsaModel.update({
+                        date: data.Date,              
+                        noOfdayOperators: data.dayoperator,
+                        noOfnightOperators: data.nightoperator,
+                        Mc_on_1: data.Mc_on_1,
+                        Mc_off_1: data.Mc_off_1,
+                        Mc_runTime_1: Mc_runTime1,
+                        Mc_breakdown_1: data.Mc_breakdown_1,
+                        otherTime_1: data.otherTime_1,
+                        Mc_on_2: data.Mc_on_2,
+                        Mc_off_2: data.Mc_off_2,
+                        Mc_runTime_2: Mc_runTime2,
+                        Mc_breakdown_2: data.Mc_breakdown_2,
+                        otherTime_2: data.otherTime_2,
+                        Mc_on_3: data.Mc_on_3,
+                        Mc_off_3: data.Mc_off_3,
+                        Mc_runTime_3: Mc_runTime3,
+                        Mc_breakdown_3: data.Mc_breakdown_3,
+                        otherTime_3: data.otherTime_3,
+                        Mc_on_4: data.Mc_on_4,
+                        Mc_off_4: data.Mc_off_4,
+                        Mc_runTime_4: Mc_runTime4,
+                        Mc_breakdown_4: data.Mc_breakdown_4,
+                        otherTime_4: data.otherTime_4,
+                        Mc_on_5: data.Mc_on_5,
+                        Mc_off_5: data.Mc_off_5,
+                        Mc_runTime_5: Mc_runTime5,
+                        Mc_breakdown_5: data.Mc_breakdown_5,
+                        otherTime_5: data.otherTime_5,
+                        Mc_on_6: data.Mc_on_6,
+                        Mc_off_6: data.Mc_off_6,
+                        Mc_runTime_6: Mc_runTime6,
+                        Mc_breakdown_6: data.Mc_breakdown_6,
+                        otherTime_6: data.otherTime_6,
+    
+                        issue_pw_210: data.issue_pw_210,
+                        issue_w_210: data.issue_w_210,
+                        issue_ww_210: data.issue_ww_210,
+                        issue_pw_240:data.issue_pw_240,
+                        issue_w_240: data.issue_w_240,
+                        issue_ww_240: data.issue_ww_240,
+                        issue_pw_280:data.issue_pw_280,
+                        issue_w_280:   data.issue_w_280,
+                        issue_ww_280: data.issue_ww_280,
+                        issue_pw_320:data.issue_pw_320,
+                        issue_w_320: data.issue_w_320,
+                        issue_ww_320: data.issue_ww_320,
+                        issue_pw_400: data.issue_pw_400,
+                        issue_w_400:  data.issue_w_400,
+                        issue_ww_400:  data.issue_ww_400,
+                       
+                        
+                        issue_add_1: data.issue_add_1,
+                        issue_add_2: data.issue_add_2,
+                        issue_add_3:data.issue_add_3,
+                        issue_add_4: data.issue_add_4,
+                        issue_add_5: data.issue_add_5,
+                        issue_add_6: data.issue_add_6,
+                        issue_add_7: data.issue_add_7,
+                        issue_add_8: data.issue_add_8,
+                        issue_add_9: data.issue_add_9,
+                        issue_add_10: data.issue_add_10,
+                      
+                       
+                        issue_lw: data.issue_lw,
+                        issue_bigTaiho: data.issue_bigTaiho,
+                        issue_jb: data.issue_jb,
+                        
                     entry_backlog:data.entry_backlog,
                     current_backlog:data.current_backlog,
                     CreatedBy: data.CreatedBy,
@@ -1378,7 +1395,7 @@ export const approveBigTaiho = async (req: Request, res: Response) => {
 
 }
 
-export const EditRejectBigTaiho = async (req: Request, res: Response) => {
+export const EditRejectHamsa = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
          const rejectedBy = req.cookies.user;
@@ -1388,7 +1405,7 @@ export const EditRejectBigTaiho = async (req: Request, res: Response) => {
         if (!id || !rejectedBy) {
             return res.status(400).json({ message: "Please provide the id or rejected By" });
         }
-        const rcn = await bigTaihoModel.update({
+        const rcn = await hamsaModel.update({
             editStatus: "NA",
             modifiedBy:rejectedBy
         }, {
@@ -1397,7 +1414,7 @@ export const EditRejectBigTaiho = async (req: Request, res: Response) => {
             }
         });
         if (!rcn) {
-            return res.status(400).json({ message: "BigTaiho Entry not found" });
+            return res.status(400).json({ message: "Hamsa Entry not found" });
         }
         await lotoriginmodel.update(
             { 
@@ -1411,15 +1428,15 @@ export const EditRejectBigTaiho = async (req: Request, res: Response) => {
                 }
             }
         );
-        const rcnEdit = await bigTaihoEditModel.destroy({
+        const rcnEdit = await hamsaEditModel.destroy({
             where: {
                 id
             }
         });
         if (!rcnEdit) {
-            return res.status(400).json({ message: "Big Taiho Entry not found" });
+            return res.status(400).json({ message: "Hamsa Entry not found" });
         }
-        return res.status(200).json({ message: "BigTaiho Entry rejected successfully" });
+        return res.status(200).json({ message: "Hamsa Entry rejected successfully" });
     }
     catch (err) {
         console.log(err);
