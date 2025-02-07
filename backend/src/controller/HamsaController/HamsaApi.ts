@@ -158,7 +158,7 @@ export const getHamsaBylotorigin = async (req: Request, res: Response) => {
 
 }
 
-// //BigTaihoCreateForm.tsx
+// //HamsaCreateForm.tsx
 export const CreateEntireHamsa= async (req: Request, res: Response) => {
    
     const timeToMilliseconds = (time: string) => {
@@ -424,7 +424,7 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
             );
             if (HamsaUpdate) {
                 const bigT_backlog = await bigTaihoModel.findOne({
-                    attributes: ['current_backlog','rcv_dpds'],
+                    attributes: ['current_backlog','rcv_hamsa'],
                     where: {
                         lotNo:LotNO,
                         origin: data.origin,
@@ -442,16 +442,16 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
                         amount:data.issue_bigTaiho,
                         issueid:1,
                         date:data.Date,
-                        fromSection:'DPDS',
+                        fromSection:'Hamsa',
                         toSection:'BigTaiho',
                         toSectionBeforeBacklog:bigT_backlog.dataValues.current_backlog,
                         toSectionAfterBacklog:parseFloat(bigT_backlog.dataValues.current_backlog)+parseFloat(data.issue_bigTaiho),
                         createdBy: feeledBy
                      },{transaction});
-                     if(bigT_backlog.dataValues.rcv_dpds){
+                     if(bigT_backlog.dataValues.rcv_hamsa){
                         await bigTaihoModel.update(
                             { 
-                                rcv_dpds:sequelize.literal(`rcv_dpds+ ${data.issue_bigTaiho}`),
+                                rcv_hamsa:sequelize.literal(`rcv_hamsa+ ${data.issue_bigTaiho}`),
                                 current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
                             },
                             {
@@ -466,7 +466,7 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
                      else{
                         await bigTaihoModel.update(
                             { 
-                                rcv_dpds:data.issue_bigTaiho,
+                                rcv_hamsa:data.issue_bigTaiho,
                                 current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
                             },
                             {
@@ -499,8 +499,8 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
                 );
                 const lotupdate = await lotoriginmodel.update(
                     {
-                        latest_section: 'BigTaiho',
-                        bigTaihoStatus: 1
+                        latest_section: 'Hamsa',
+                        hansaStatus: 1
                     },
                     {
                         where: {
@@ -510,7 +510,7 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
                     }
                 );
                 if (lotupdate) {
-                    res.status(200).json({ message: "BigTaiho Entry Made Successfully" });
+                    res.status(200).json({ message: "Hamsa Entry Made Successfully" });
                 }
                 else {
                     console.log('No Need For Update')

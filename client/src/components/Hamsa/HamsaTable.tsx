@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Origin, pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
 import Context from "../context/context";
 import axios from "axios";
-import {  pendingCheckRoles, PermissionRole, BigTaihoData } from "@/type/type";
+import {  pendingCheckRoles, PermissionRole, BigTaihoData, HamsaData } from "@/type/type";
 import { Input } from "../ui/input";
 import { FaSearch } from "react-icons/fa";
 import { Button } from "../ui/button";
@@ -55,9 +55,7 @@ import { CiBoxes, CiCrop, CiEdit } from "react-icons/ci";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
-import RCNBigTaihoReMix from "./BigTaihoMix";
-import RCNBigTaihoReCreateForm from "./BigTaihoRecreateForm";
-import BigTaihoEditForm from "./BigTaihoEditForm";
+
 
 
 
@@ -70,10 +68,10 @@ const HamsaTable = () => {
     const currDate = new Date().toLocaleDateString();
     const [origin, setOrigin] = useState<string>("")
     const [blockpagen, setblockpagen] = useState('flex')
-    const [EditData, setEditData] = useState<BigTaihoData[]>([])
+    const [EditData, setEditData] = useState<HamsaData[]>([])
     const [blConNo, setBlConNo] = useState<string>("")
-    const { editBigTaihoLotWiseData } = useContext(Context);
-    const [Data, setData] = useState<BigTaihoData[]>([])
+    const { editHamsaLotWiseData } = useContext(Context);
+    const [Data, setData] = useState<HamsaData[]>([])
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 
@@ -108,7 +106,7 @@ const HamsaTable = () => {
         })
     }, [page])
     const exportToExcel = async () => { 
-        const response = await axios.put('/api/bigTaiho/bigTaihoprimarysearch', {
+        const response = await axios.put('/api/hamsa/hamsaprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
@@ -119,7 +117,7 @@ const HamsaTable = () => {
         let ws
         let transformed: any[] = [];
         if (EditData.length > 0) {
-            transformed = EditData.map((item: BigTaihoData, idx: number) => ({
+            transformed = EditData.map((item: HamsaData, idx: number) => ({
             Sl_No: idx + 1, 
             Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
             Item_Lot_No: item.LotNo,
@@ -127,49 +125,64 @@ const HamsaTable = () => {
             Issue_No: item.altid,
             DPDS_Entry_Date: handletimezone(item.date),
             Mixing_Lot: item.mixingLot,
-          
-            Receive_Peeling: formatNumber(item.rcv_peeling),
-            Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
+            Receive_PW_W: formatNumber(item.rcv_pw_w),
+            Receive_W_LOT: formatNumber(item.rcv_w_lot),
+            Receive_WW: formatNumber(item.rcv_ww),
             Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-            Receive_DPDS: item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0,
-            Receive_Mayur: item.rcv_mayur ? formatNumber(item.rcv_mayur) : 0,
-            Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
             Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
-            Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-
-            
-            Issue_ssp: formatNumber(item.issue_ssp),
-            Issue_ssp_small: formatNumber(item.issue_ssp_small),
-            Issue_swp_1: formatNumber(item.issue_swp_1),
-            Issue_wsp: formatNumber(item.issue_wsp),
-            Issue_bits: formatNumber(item.issue_bits),
-            Issue_swp: formatNumber(item.issue_swp),
-            Issue_bb: formatNumber(item.issue_bb),
-            Issue_w_bb: formatNumber(item.issue_w_bb),
-            Issue_bb_A: formatNumber(item.issue_bb_A),
-            Issue_bb_1: formatNumber(item.issue_bb1),
-            Issue_bb1_A: formatNumber(item.issue_bb1_A),
-            Issue_bb_2: formatNumber(item.issue_bb_2),
-            Issue_ssp1: formatNumber(item.issue_ssp_1),
-            Issue_ssp1_small: formatNumber(item.issue_ssp_1_small),
-            Issue_ssp2: formatNumber(item.issue_ssp_2),
-            Issue_ssp2_small: formatNumber(item.issue_ssp_2_small),
-            Issue_sdp: formatNumber(item.issue_sdp),
-
-
-
-            
-
-
-            Issue_Husk: formatNumber(item.issue_husk),
-            Issue_Rejection: formatNumber(item.issue_rejection),
+            issue_pw_210: formatNumber(item.issue_pw_210),
+            issue_w_210: formatNumber(item.issue_w_210),
+            issue_ww_210: formatNumber(item.issue_ww_210),
+            issue_pw_240: formatNumber(item.issue_pw_240),
+            issue_w_240: formatNumber(item.issue_w_240),
+            issue_ww_240: formatNumber(item.issue_ww_240),
+            issue_pw_280: formatNumber(item.issue_pw_280),
+            issue_w_280: formatNumber(item.issue_w_280),
+            issue_ww_280: formatNumber(item.issue_ww_280),
+            issue_pw_320: formatNumber(item.issue_pw_320),
+            issue_w_320: formatNumber(item.issue_w_320),
+            issue_ww_320: formatNumber(item.issue_ww_320),
+            issue_pw_400: formatNumber(item.issue_pw_400),
+            issue_w_400: formatNumber(item.issue_w_400),
+            issue_ww_400: formatNumber(item.issue_ww_400),
             Issue_Village: formatNumber(item.issue_village),
-            Issue_Sorting: formatNumber(item.issue_sorting),
-            Issue_DPDS: formatNumber(item.issue_dpds),
-      
+            Issue_BigTaiho: formatNumber(item.issue_bigTaiho),
+            Issue_LW: formatNumber(item.issue_lw),
             Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
             Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
-           
+            Mc_On_Hamsa_1: handleAMPM(item.Mc_on_1.slice(0, 5)),
+            Mc_Off_Hamsa_1: handleAMPM(item.Mc_off_1.slice(0, 5)),
+            Mc_Breakdown_Hamsa_1: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Other_Time_Hamsa_1: item.otherTime_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Mc_On_Hamsa_2: handleAMPM(item.Mc_on_2.slice(0, 5)),
+            Mc_Off_Hamsa_2: handleAMPM(item.Mc_off_2.slice(0, 5)),
+            Mc_Breakdown_Hamsa_2: item.Mc_breakdown_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Other_Time_Hamsa_2: item.otherTime_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Mc_On_Hamsa_3: handleAMPM(item.Mc_on_3.slice(0, 5)),
+            Mc_Off_Hamsa_3: handleAMPM(item.Mc_off_3.slice(0, 5)),
+            Mc_Breakdown_Hamsa_3: item.Mc_breakdown_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Other_Time_Hamsa_3: item.otherTime_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Mc_On_Hamsa_4: handleAMPM(item.Mc_on_4.slice(0, 5)),
+            Mc_Off_Hamsa_4: handleAMPM(item.Mc_off_4.slice(0, 5)),
+            Mc_Breakdown_Hamsa_4: item.Mc_breakdown_4.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Other_Time_Hamsa_4: item.otherTime_4.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Mc_On_Hamsa_5: handleAMPM(item.Mc_on_5.slice(0, 5)),
+            Mc_Off_Hamsa_5: handleAMPM(item.Mc_off_5.slice(0, 5)),
+            Mc_Breakdown_Hamsa_5: item.Mc_breakdown_5.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Other_Time_Hamsa_5: item.otherTime_5.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Mc_On_Spectrum: handleAMPM(item.Mc_on_6.slice(0, 5)),
+            Mc_Off_Spectrum: handleAMPM(item.Mc_off_6.slice(0, 5)),
+            Mc_Breakdown_Spectrum: item.Mc_breakdown_6.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Other_Time_Spectrum: item.otherTime_6.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            
+            Runtime_Hamsa_1: item.Mc_runTime_1.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+            Runtime_Hamsa_2: item.Mc_runTime_2.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+            Runtime_Hamsa_3: item.Mc_runTime_3.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+            Runtime_Hamsa_4: item.Mc_runTime_4.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+            
+            Runtime_Hamsa_5: item.Mc_runTime_5.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+            Runtime_Spectrum: item.Mc_runTime_6.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+            
             Operator_Day: item.noOfdayOperators,
             Operator_Night: item.noOfnightOperators,
             Edit_Status: item.editStatus,
@@ -181,59 +194,77 @@ const HamsaTable = () => {
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
-            transformed = data1.rcnEntries.map((item: BigTaihoData, idx: number) => ({
-             Sl_No: idx + 1, 
-            Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
-            Item_Lot_No: item.LotNo,
-            Origin: item.origin,
-            Issue_No: item.altid,
-            DPDS_Entry_Date: handletimezone(item.date),
-            Mixing_Lot: item.mixingLot,
-          
-            Receive_Peeling: formatNumber(item.rcv_peeling),
-            Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
-            Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-            Receive_DPDS: item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0,
-            Receive_Mayur: item.rcv_mayur ? formatNumber(item.rcv_mayur) : 0,
-            Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
-            Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
-            Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-
-            
-            Issue_ssp: formatNumber(item.issue_ssp),
-            Issue_ssp_small: formatNumber(item.issue_ssp_small),
-            Issue_swp_1: formatNumber(item.issue_swp_1),
-            Issue_wsp: formatNumber(item.issue_wsp),
-            Issue_bits: formatNumber(item.issue_bits),
-            Issue_swp: formatNumber(item.issue_swp),
-            Issue_bb: formatNumber(item.issue_bb),
-            Issue_w_bb: formatNumber(item.issue_w_bb),
-            Issue_bb_A: formatNumber(item.issue_bb_A),
-            Issue_bb_1: formatNumber(item.issue_bb1),
-            Issue_bb1_A: formatNumber(item.issue_bb1_A),
-            Issue_bb_2: formatNumber(item.issue_bb_2),
-            Issue_ssp1: formatNumber(item.issue_ssp_1),
-            Issue_ssp1_small: formatNumber(item.issue_ssp_1_small),
-            Issue_ssp2: formatNumber(item.issue_ssp_2),
-            Issue_ssp2_small: formatNumber(item.issue_ssp_2_small),
-            Issue_sdp: formatNumber(item.issue_sdp),
-            
-
-
-            Issue_Husk: formatNumber(item.issue_husk),
-            Issue_Rejection: formatNumber(item.issue_rejection),
-            Issue_Village: formatNumber(item.issue_village),
-            Issue_Sorting: formatNumber(item.issue_sorting),
-            Issue_DPDS: formatNumber(item.issue_dpds),
-      
-            Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
-            Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
-           
-            Operator_Day: item.noOfdayOperators,
-            Operator_Night: item.noOfnightOperators,
-            Edit_Status: item.editStatus,
-            Created_By: item.CreatedBy,
-            Modified_By: item.modifiedBy 
+            transformed = data1.rcnEntries.map((item: HamsaData, idx: number) => ({
+                Sl_No: idx + 1, 
+                Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
+                Item_Lot_No: item.LotNo,
+                Origin: item.origin,
+                Issue_No: item.altid,
+                DPDS_Entry_Date: handletimezone(item.date),
+                Mixing_Lot: item.mixingLot,
+                Receive_PW_W: formatNumber(item.rcv_pw_w),
+                Receive_W_LOT: formatNumber(item.rcv_w_lot),
+                Receive_WW: formatNumber(item.rcv_ww),
+                Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
+                Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
+                issue_pw_210: formatNumber(item.issue_pw_210),
+                issue_w_210: formatNumber(item.issue_w_210),
+                issue_ww_210: formatNumber(item.issue_ww_210),
+                issue_pw_240: formatNumber(item.issue_pw_240),
+                issue_w_240: formatNumber(item.issue_w_240),
+                issue_ww_240: formatNumber(item.issue_ww_240),
+                issue_pw_280: formatNumber(item.issue_pw_280),
+                issue_w_280: formatNumber(item.issue_w_280),
+                issue_ww_280: formatNumber(item.issue_ww_280),
+                issue_pw_320: formatNumber(item.issue_pw_320),
+                issue_w_320: formatNumber(item.issue_w_320),
+                issue_ww_320: formatNumber(item.issue_ww_320),
+                issue_pw_400: formatNumber(item.issue_pw_400),
+                issue_w_400: formatNumber(item.issue_w_400),
+                issue_ww_400: formatNumber(item.issue_ww_400),
+                Issue_Village: formatNumber(item.issue_village),
+                Issue_BigTaiho: formatNumber(item.issue_bigTaiho),
+                Issue_LW: formatNumber(item.issue_lw),
+                Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
+                Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                Mc_On_Hamsa_1: handleAMPM(item.Mc_on_1.slice(0, 5)),
+                Mc_Off_Hamsa_1: handleAMPM(item.Mc_off_1.slice(0, 5)),
+                Mc_Breakdown_Hamsa_1: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Other_Time_Hamsa_1: item.otherTime_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Mc_On_Hamsa_2: handleAMPM(item.Mc_on_2.slice(0, 5)),
+                Mc_Off_Hamsa_2: handleAMPM(item.Mc_off_2.slice(0, 5)),
+                Mc_Breakdown_Hamsa_2: item.Mc_breakdown_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Other_Time_Hamsa_2: item.otherTime_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Mc_On_Hamsa_3: handleAMPM(item.Mc_on_3.slice(0, 5)),
+                Mc_Off_Hamsa_3: handleAMPM(item.Mc_off_3.slice(0, 5)),
+                Mc_Breakdown_Hamsa_3: item.Mc_breakdown_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Other_Time_Hamsa_3: item.otherTime_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Mc_On_Hamsa_4: handleAMPM(item.Mc_on_4.slice(0, 5)),
+                Mc_Off_Hamsa_4: handleAMPM(item.Mc_off_4.slice(0, 5)),
+                Mc_Breakdown_Hamsa_4: item.Mc_breakdown_4.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Other_Time_Hamsa_4: item.otherTime_4.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Mc_On_Hamsa_5: handleAMPM(item.Mc_on_5.slice(0, 5)),
+                Mc_Off_Hamsa_5: handleAMPM(item.Mc_off_5.slice(0, 5)),
+                Mc_Breakdown_Hamsa_5: item.Mc_breakdown_5.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Other_Time_Hamsa_5: item.otherTime_5.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Mc_On_Spectrum: handleAMPM(item.Mc_on_6.slice(0, 5)),
+                Mc_Off_Spectrum: handleAMPM(item.Mc_off_6.slice(0, 5)),
+                Mc_Breakdown_Spectrum: item.Mc_breakdown_6.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                Other_Time_Spectrum: item.otherTime_6.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                
+                Runtime_Hamsa_1: item.Mc_runTime_1.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                Runtime_Hamsa_2: item.Mc_runTime_2.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                Runtime_Hamsa_3: item.Mc_runTime_3.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                Runtime_Hamsa_4: item.Mc_runTime_4.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                
+                Runtime_Hamsa_5: item.Mc_runTime_5.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                Runtime_Spectrum: item.Mc_runTime_6.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                
+                Operator_Day: item.noOfdayOperators,
+                Operator_Night: item.noOfnightOperators,
+                Edit_Status: item.editStatus,
+                Created_By: item.CreatedBy,
+                Modified_By: item.modifiedBy 
 
             }));
             // setTransformedData(transformed);
@@ -243,13 +274,13 @@ const HamsaTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'BigTaiho_Entry_' + currDate + '.xlsx');
+        saveAs(blob, 'Hamsa_Entry_' + currDate + '.xlsx');
     }
     const handleSearch = async () => {
 
         setEditData([])
         setblockpagen('flex')
-        const response = await axios.put('/api/bigTaiho/bigTaihoprimarysearch', {
+        const response = await axios.put('/api/hamsa/hamsaprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
@@ -272,13 +303,13 @@ const HamsaTable = () => {
 
     }
     useEffect(() => {
-        if (editBigTaihoLotWiseData.length > 0) {
+        if (editHamsaLotWiseData.length > 0) {
             //console.log(editPendingData)
-            setEditData(editBigTaihoLotWiseData)
+            setEditData(editHamsaLotWiseData)
             setblockpagen('none')
         }
 
-    },[editBigTaihoLotWiseData])
+    },[editHamsaLotWiseData])
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
         const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -317,21 +348,21 @@ const HamsaTable = () => {
         settoDate(nextday)
     }
  
-    const handleApprove = async (item: BigTaihoData) => {
-        const response = await axios.put(`/api/bigTaiho/approveeditBigTaiho/${item.id}/${item.LotNo}/${item.origin}`)
+    const handleApprove = async (item: HamsaData) => {
+        const response = await axios.put(`/api/hamsa/approveeditHamsa/${item.id}/${item.LotNo}/${item.origin}`)
         const data = await response.data
-        if (data.message === "Edit Request of BigTaiho Entry is Approved Successfully") {
+        if (data.message === "Edit Request of Hamsa Entry is Approved Successfully") {
 
             if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).showModal();
             }
         }
     }
-    const handleRejection = async (item: BigTaihoData) => {
-        const response = await axios.delete(`/api/bigTaiho/rejectededitBigTaiho/${item.id}/${item.LotNo}/${item.origin}`)
+    const handleRejection = async (item: HamsaData) => {
+        const response = await axios.delete(`/api/hamsa/rejectededitHamsa/${item.id}/${item.LotNo}/${item.origin}`)
         const data = await response.data
         console.log(data)
-        if (data.message === "BigTaiho Entry rejected successfully") {
+        if (data.message === "Hamsa Entry rejected successfully") {
             //console.log('rejected enter')
             if (rejectsuccessdialog != null) {
                 (rejectsuccessdialog as any).showModal();
@@ -409,7 +440,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
             </div>
-            {checkpending('BigTaiho') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+            {checkpending('Hamsa') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-200 text-stone-950 ">
 
@@ -424,57 +455,74 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                     <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
-                    <TableHead className="text-center">Rcv Peeling</TableHead>
+                    <TableHead className="text-center">Rcv PW_W</TableHead>
+                    <TableHead className="text-center">Rcv W_Lot</TableHead>
+                    <TableHead className="text-center">Rcv WW</TableHead>
                     <TableHead className="text-center">Rcv Village</TableHead>
-                    <TableHead className="text-center">Rcv Sorting</TableHead>
-                    <TableHead className="text-center">Rcv DPDS</TableHead>
-                    <TableHead className="text-center">Rcv Mayur</TableHead>
-                    <TableHead className="text-center">Rcv Hamsa</TableHead>
                     <TableHead className="text-center">Rcv LW</TableHead>
-                    <TableHead className="text-center">Rcv Wholes</TableHead>
-                    <TableHead className="text-center">Issue SSP</TableHead>
-                    <TableHead className="text-center">Issue SSP(Small)</TableHead>
-                    <TableHead className="text-center">Issue SWP_1</TableHead>
-                    <TableHead className="text-center">Issue WSP</TableHead>
-                    <TableHead className="text-center">Issue Bits</TableHead>
-                    <TableHead className="text-center">Issue SWP</TableHead>
-                    <TableHead className="text-center">Issue BB</TableHead>
-                    <TableHead className="text-center">Issue W_BB</TableHead>
-                    <TableHead className="text-center">Issue BB A</TableHead>
-                    <TableHead className="text-center">Issue BB1</TableHead>
-                    <TableHead className="text-center">Issue BB1(A)</TableHead>
-                    <TableHead className="text-center">Issue BB 2</TableHead>
-                    <TableHead className="text-center">Issue SSP_1</TableHead>
-                    <TableHead className="text-center">Issue SSP_1(Small)</TableHead>
-                    <TableHead className="text-center">Issue SSP 2</TableHead>
-                    <TableHead className="text-center">Issue SSP 2 Small</TableHead>
-                    <TableHead className="text-center">Issue SDP</TableHead>
-
-                    <TableHead className="text-center">Issue Husk</TableHead>
-                    <TableHead className="text-center">Issue Rejection</TableHead>
-                    <TableHead className="text-center">Issue Village</TableHead>
-                    <TableHead className="text-center">Issue Sorting</TableHead>
-                    <TableHead className="text-center">Issue DPDS</TableHead>
+                    
+                    <TableHead className="text-center">Issue PW_210</TableHead>
+                    <TableHead className="text-center">Issue W_210</TableHead>
+                    <TableHead className="text-center">Issue WW_210</TableHead>
+                    <TableHead className="text-center">Issue PW_240</TableHead>
+                    <TableHead className="text-center">Issue W_240</TableHead>
+                    <TableHead className="text-center">Issue WW_240</TableHead>
+                    <TableHead className="text-center">Issue PW_280</TableHead>
+                    <TableHead className="text-center">Issue W_280</TableHead>
+                    <TableHead className="text-center">Issue WW_280</TableHead>
+                    <TableHead className="text-center">Issue PW_320</TableHead>
+                    <TableHead className="text-center">Issue W_320</TableHead>
+                    <TableHead className="text-center">Issue WW_320</TableHead>
+                    <TableHead className="text-center">Issue PW_400</TableHead>
+                    <TableHead className="text-center">Issue W_400</TableHead>
+                    <TableHead className="text-center">Issue WW_400</TableHead>
+                     {/* <TableHead className="text-center">Issue Add 1</TableHead>
+                    <TableHead className="text-center">Issue Add 2</TableHead>
+                    <TableHead className="text-center">Issue Add 3</TableHead>
+                    <TableHead className="text-center">Issue Add 4</TableHead>
+                    <TableHead className="text-center">Issue Add 5</TableHead>
+                    <TableHead className="text-center">Issue Add 6</TableHead>
+                    <TableHead className="text-center">Issue Add 7</TableHead>
+                    <TableHead className="text-center">Issue Add 8</TableHead>
+                    <TableHead className="text-center">Issue Add 9</TableHead>
+                    <TableHead className="text-center">Issue Add 10</TableHead> */}
+                    <TableHead className="text-center">Issue LW</TableHead>
+                    <TableHead className="text-center">Issue BigTaiho</TableHead>
+                    <TableHead className="text-center">Issue JB</TableHead>
                     <TableHead className="text-center">Entry_Backlog</TableHead>
                     <TableHead className="text-center font-bold">Current_Backlog</TableHead>
-
-                    <TableHead className="text-center">Mc_On_Taiho</TableHead>
-                    <TableHead className="text-center">Mc_Off_Taiho</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown Taiho</TableHead>
-                    <TableHead className="text-center">Other_Time Taiho</TableHead>
-                    <TableHead className="text-center">Mc_On_Spectrum</TableHead>
-                    <TableHead className="text-center">Mc_Off_Spectrum</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown Spectrum</TableHead>
-                    <TableHead className="text-center">Other_Time Spectrum</TableHead>
-                    <TableHead className="text-center">Mc_On_Amrita</TableHead>
-                    <TableHead className="text-center">Mc_Off_Amrita</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown Amrita</TableHead>
-                    <TableHead className="text-center">Other_Time Amrita</TableHead>
+                    <TableHead className="text-center">Mc On (Hamsa-1)</TableHead>
+                    <TableHead className="text-center">Mc Off (Hamsa-1)</TableHead>
+                    <TableHead className="text-center">Mc_Breakdown (Hamsa-1)</TableHead>
+                    <TableHead className="text-center">Other_Time (Hamsa-1)</TableHead>
+                    <TableHead className="text-center">Mc On (Hamsa-2)</TableHead>
+                    <TableHead className="text-center">Mc Off (Hamsa-2)</TableHead>
+                    <TableHead className="text-center">Mc_Breakdown (Hamsa-2)</TableHead>
+                    <TableHead className="text-center">Other_Time (Hamsa-2)</TableHead>
+                    <TableHead className="text-center">Mc On (Hamsa-3)</TableHead>
+                    <TableHead className="text-center">Mc Off (Hamsa-3)</TableHead>
+                    <TableHead className="text-center">Mc_Breakdown (Hamsa-3)</TableHead>
+                    <TableHead className="text-center">Other_Time (Hamsa-3)</TableHead>
+                    <TableHead className="text-center">Mc On (Hamsa-4)</TableHead>
+                    <TableHead className="text-center">Mc Off (Hamsa-4)</TableHead>
+                    <TableHead className="text-center">Mc_Breakdown (Hamsa-4)</TableHead>
+                    <TableHead className="text-center">Other_Time (Hamsa-4)</TableHead>
+                    <TableHead className="text-center">Mc On (Hamsa-5)</TableHead>
+                    <TableHead className="text-center">Mc Off (Hamsa-5)</TableHead>
+                    <TableHead className="text-center">Mc_Breakdown (Hamsa-5)</TableHead>
+                    <TableHead className="text-center">Other_Time (Hamsa-5)</TableHead>
+                    <TableHead className="text-center">Mc On (Spectrum)</TableHead>
+                    <TableHead className="text-center">Mc Off (Spectrum)</TableHead>
+                    <TableHead className="text-center">Mc_Breakdown (Spectrum)</TableHead>
+                    <TableHead className="text-center">Other_Time (Spectrum)</TableHead>
                    
                    
-                    <TableHead className="text-center">Runtime_Taiho</TableHead>
+                    <TableHead className="text-center">Runtime_Hamsa_1</TableHead>
+                    <TableHead className="text-center">Runtime_Hamsa_2</TableHead>
+                    <TableHead className="text-center">Runtime_Hamsa_3</TableHead>
+                    <TableHead className="text-center">Runtime_Hamsa_4</TableHead>
+                    <TableHead className="text-center">Runtime_Hamsa_5</TableHead>
                     <TableHead className="text-center">Runtime_Spectrum</TableHead>
-                    <TableHead className="text-center">Runtime_Amrita</TableHead>
                 
            
                     <TableHead className="text-center">Operator_Day</TableHead>
@@ -487,7 +535,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <TableBody>
 
 
-                    {EditData.length > 0 ? (EditData.map((item: BigTaihoData, idx) => {
+                    {EditData.length > 0 ? (EditData.map((item: HamsaData, idx) => {
 
                         return (
                             <TableRow key={item.id}>

@@ -127,7 +127,6 @@ const BigTaihoTable = () => {
             Issue_No: item.altid,
             DPDS_Entry_Date: handletimezone(item.date),
             Mixing_Lot: item.mixingLot,
-          
             Receive_Peeling: formatNumber(item.rcv_peeling),
             Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
             Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
@@ -136,8 +135,6 @@ const BigTaihoTable = () => {
             Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
             Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
             Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-
-            
             Issue_ssp: formatNumber(item.issue_ssp),
             Issue_ssp_small: formatNumber(item.issue_ssp_small),
             Issue_swp_1: formatNumber(item.issue_swp_1),
@@ -155,27 +152,30 @@ const BigTaihoTable = () => {
             Issue_ssp2: formatNumber(item.issue_ssp_2),
             Issue_ssp2_small: formatNumber(item.issue_ssp_2_small),
             Issue_sdp: formatNumber(item.issue_sdp),
-
-
-
-            
-
-
             Issue_Husk: formatNumber(item.issue_husk),
             Issue_Rejection: formatNumber(item.issue_rejection),
             Issue_Village: formatNumber(item.issue_village),
             Issue_Sorting: formatNumber(item.issue_sorting),
-            Issue_DPDS: formatNumber(item.issue_dpds),
-      
+            Issue_DPDS: formatNumber(item.issue_dpds), 
             Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
             Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
-           
+            Mc_On_Taiho: handleAMPM(item.Mc_on_1.slice(0, 5)),
+            Mc_Off_Taiho: handleAMPM(item.Mc_off_1.slice(0, 5)),
+            Mc_Breakdown_Taiho: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Other_Time_Taiho: item.otherTime_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Mc_On_Spectrum: handleAMPM(item.Mc_on_2.slice(0, 5)),
+            Mc_Off_Spectrum: handleAMPM(item.Mc_off_2.slice(0, 5)),
+            Mc_Breakdown_Spectrum: item.Mc_breakdown_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Other_Time_Spectrum: item.otherTime_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Mc_On_Hamsa_Amrita: handleAMPM(item.Mc_on_3.slice(0, 5)),
+            Mc_Off_Hamsa_Amrita: handleAMPM(item.Mc_off_3.slice(0, 5)),
+            Mc_Breakdown_Amrita: item.Mc_breakdown_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Other_Time_Amrita: item.otherTime_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
             Operator_Day: item.noOfdayOperators,
             Operator_Night: item.noOfnightOperators,
             Edit_Status: item.editStatus,
             Created_By: item.CreatedBy,
             Modified_By: item.modifiedBy 
-
             }));
             //setTransformedData(transformed);
             ws = XLSX.utils.json_to_sheet(transformed);
@@ -228,7 +228,18 @@ const BigTaihoTable = () => {
       
             Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
             Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
-           
+            Mc_On_Taiho: handleAMPM(item.Mc_on_1.slice(0, 5)),
+            Mc_Off_Taiho: handleAMPM(item.Mc_off_1.slice(0, 5)),
+            Mc_Breakdown_Taiho: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Other_Time_Taiho: item.otherTime_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Mc_On_Spectrum: handleAMPM(item.Mc_on_2.slice(0, 5)),
+            Mc_Off_Spectrum: handleAMPM(item.Mc_off_2.slice(0, 5)),
+            Mc_Breakdown_Spectrum: item.Mc_breakdown_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Other_Time_Spectrum: item.otherTime_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Mc_On_Hamsa_Amrita: handleAMPM(item.Mc_on_3.slice(0, 5)),
+            Mc_Off_Hamsa_Amrita: handleAMPM(item.Mc_off_3.slice(0, 5)),
+            Mc_Breakdown_Amrita: item.Mc_breakdown_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+            Other_Time_Amrita: item.otherTime_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
             Operator_Day: item.noOfdayOperators,
             Operator_Night: item.noOfnightOperators,
             Edit_Status: item.editStatus,

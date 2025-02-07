@@ -140,7 +140,7 @@ const Hamsa = () => {
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg font-semibold text-center '>Current F.Y. Report (HAMSA)</p>
+                <p className='text-lg font-semibold text-center capitalize'>CURRENT F.Y. REPORT (HAMSA)</p>
                 <div>
                     <Dialog>
                         <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4 no-margin-left responsive-button-adjust" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>

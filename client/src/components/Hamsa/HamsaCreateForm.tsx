@@ -403,11 +403,11 @@ const HamsaCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{formatNumber(row.rcv_pw_w)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{formatNumber(row.rcv_w_lot)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{formatNumber(row.rcv_ww)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_village ? formatNumber(row.rcv_village) :0} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_lw ? formatNumber(row.rcv_lw) :0} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-600 bg-yellow-100">{formatNumber(row.rcv_pw_w)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-600 bg-yellow-100">{formatNumber(row.rcv_w_lot)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-600 bg-yellow-100">{formatNumber(row.rcv_ww)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-600">{row.rcv_village ? formatNumber(row.rcv_village) :0} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-600">{row.rcv_lw ? formatNumber(row.rcv_lw) :0} Kg</TableCell>
                                         
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_210', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_210', e.target.value)} required /></TableCell>
