@@ -4,7 +4,6 @@ import LotNo from "../../model/lotNomodel";
 import { Op } from "sequelize";
 import WhatsappMsg from "../../helper/WhatsappMsg";
 import lotoriginmodel from "../../model/lotoriginModel";
-import DPDS from "../../model/dpdsmodel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import mixingModel from "../../model/mixingModel";
 import bigTaihoModel from "../../model/bigTaihoModel";
@@ -1469,7 +1468,7 @@ export const EditRejectHamsa = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Internal Server Error", error: err });
     }
 }
-// //RCNDPDSMix.tsx
+// //HamsaMix.tsx
 export const SearchRCNHamsaMix = async (req: Request, res: Response) => {
     try {
         const { lotNo, origin} = req.body;
@@ -1519,7 +1518,7 @@ export const SearchRCNHamsaMix = async (req: Request, res: Response) => {
  
 }
 
-export const CreateMixBigTaiho = async (req: Request, res: Response) => {
+export const CreateMixHamsa = async (req: Request, res: Response) => {
 
     try{
         console.log(req.body)
@@ -1527,15 +1526,12 @@ export const CreateMixBigTaiho = async (req: Request, res: Response) => {
         const sourceid= req.body.fsourceid;
         const sourcelot= req.body.fsourcelot;
         const sourceorigin= req.body.fsourceorigin;
-        const source_rcv_peeling= req.body.fsourcercv_peeling;
-        const source_rcv_sorting= req.body.fsourcercv_sorting;
-        const source_rcv_dpds= req.body.fsourcercv_dpds;
-        const source_rcv_village= req.body.fsourcercv_village;
-        const source_rcv_mayur= req.body.fsourcercv_mayur;
-        const source_rcv_hamsa= req.body.fsourcercv_hamsa;
+        const source_rcv_pw =req.body.fsourcercv_pw_w;
+        const source_rcv_w= req.body.fsourcercv_w;
+        const source_rcv_ww= req.body.fsourcercv_ww;
         const source_rcv_lw= req.body.fsourcercv_lw;
-        const source_rcv_wholes= req.body.fsourcercv_wholes;
-        
+        const source_rcv_village= req.body.fsourcercv_village;
+    
         const source_backlog= req.body.fsourcebacklog;
 
         const transfer_amount =req.body.amount
@@ -1543,14 +1539,11 @@ export const CreateMixBigTaiho = async (req: Request, res: Response) => {
         const destid= req.body.destid;
         const destlot= req.body.destlot;
         const destorigin= req.body.destorigin;
-        const dest_rcv_peeling= req.body.destrcv_peeling;
-        const dest_rcv_sorting= req.body.destrcv_sorting;
-        const dest_rcv_dpds= req.body.destrcv_dpds;
+        const dest_rcv_pw= req.body.destrcv_pw_w;
+        const dest_rcv_w= req.body.destrcv_w;
+        const dest_rcv_ww= req.body.destrcv_ww;
         const dest_rcv_village= req.body.destrcv_village;
-        const dest_rcv_mayur= req.body.destrcv_mayur;
-        const dest_rcv_hamsa= req.body.destrcv_hamsa;
         const dest_rcv_lw= req.body.destrcv_lw;
-        const dest_rcv_wholes= req.body.destrcv_wholes;
  
         const dest_backlog= req.body.destbacklog;
 
@@ -1560,16 +1553,13 @@ export const CreateMixBigTaiho = async (req: Request, res: Response) => {
 
         await sequelize.transaction(async (transaction: any) => {
 
-            const sourceupdate=await bigTaihoModel.update(
+            const sourceupdate=await hamsaModel.update(
                 { 
-                    rcv_peeling: source_rcv_peeling,
-                    rcv_sorting: source_rcv_sorting,
-                    rcv_dpds: source_rcv_dpds,
+                    rcv_pw_w: source_rcv_pw,
+                    rcv_w_lot: source_rcv_w,
+                    rcv_ww: source_rcv_ww,
                     rcv_village: source_rcv_village,
-                    rcv_mayur: source_rcv_mayur,
-                    rcv_hamsa: source_rcv_hamsa,
                     rcv_lw: source_rcv_lw,
-                    rcv_wholes: source_rcv_wholes,
                     current_backlog:source_backlog,                   
                 },
                 {
@@ -1578,7 +1568,7 @@ export const CreateMixBigTaiho = async (req: Request, res: Response) => {
                     }, transaction
                 }
             );
-            const destdata=await bigTaihoModel.findOne({
+            const destdata=await hamsaModel.findOne({
                 attributes: ['mixingLot'],
                 where: {
                     id:destid
@@ -1587,16 +1577,13 @@ export const CreateMixBigTaiho = async (req: Request, res: Response) => {
         
             });
             if (destdata && destdata.dataValues.mixingLot){
-                const destupdate=await bigTaihoModel.update(
+                const destupdate=await hamsaModel.update(
                     { 
-                        rcv_peeling: dest_rcv_peeling,
-                        rcv_sorting: dest_rcv_sorting,
-                        rcv_dpds: dest_rcv_dpds,
+                        rcv_pw_w: dest_rcv_pw,
+                        rcv_w_lot: dest_rcv_w,
+                        rcv_ww: dest_rcv_ww,
                         rcv_village: dest_rcv_village,
-                        rcv_mayur: dest_rcv_mayur,
-                        rcv_hamsa: dest_rcv_hamsa,
                         rcv_lw: dest_rcv_lw,
-                        rcv_wholes: dest_rcv_wholes,
                         current_backlog:dest_backlog, 
                         mixingLot:sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`)                  
                     },
@@ -1615,7 +1602,7 @@ export const CreateMixBigTaiho = async (req: Request, res: Response) => {
                             Toorigin:destorigin,
                             amount:transfer_amount,
                             date:new Date(),
-                            Section:'BigTaiho',
+                            Section:'Hamsa',
                             amountBeforeBacklog:b_soucre_backlog,
                             amountAfterBacklog:source_backlog,
                             destamountBeforeBacklog: b_dest_backlog,
@@ -1639,16 +1626,13 @@ export const CreateMixBigTaiho = async (req: Request, res: Response) => {
                 }
             }
             else{
-                const destupdate=await bigTaihoModel.update(
+                const destupdate=await hamsaModel.update(
                     { 
-                        rcv_peeling: dest_rcv_peeling,
-                        rcv_sorting: dest_rcv_sorting,
-                        rcv_dpds: dest_rcv_dpds,
+                        rcv_pw_w: dest_rcv_pw,
+                        rcv_w_lot: dest_rcv_w,
+                        rcv_ww: dest_rcv_ww,
                         rcv_village: dest_rcv_village,
-                        rcv_mayur: dest_rcv_mayur,
-                        rcv_hamsa: dest_rcv_hamsa,
                         rcv_lw: dest_rcv_lw,
-                        rcv_wholes: dest_rcv_wholes,
                         current_backlog:dest_backlog, 
                         mixingLot:`${sourcelot}(${sourceorigin})`             
                     },
@@ -1667,7 +1651,7 @@ export const CreateMixBigTaiho = async (req: Request, res: Response) => {
                             Toorigin:destorigin,
                             amount:transfer_amount,
                             date:new Date(),
-                            Section:'BigTaiho',
+                            Section:'Hamsa',
                             amountBeforeBacklog:b_soucre_backlog,
                             amountAfterBacklog:source_backlog,
                             destamountBeforeBacklog: b_dest_backlog,

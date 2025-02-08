@@ -1,4 +1,4 @@
-import { BigTaihoData, HamsaData  } from "@/type/type";
+import {  HamsaData  } from "@/type/type";
 import { useEffect, useState } from "react";
 import {
     Table,
@@ -220,7 +220,7 @@ const RCNHamsaReMix = (props:Props) => {
 
                 setisdisable(true)
                 try {
-                    const initialhumid = await axios.post('/api/bigTaiho/createMixBigTaiho', {
+                    const initialhumid = await axios.post('/api/hamsa/createMixHamsa', {
                         destid,
                         destlot,
                         destorigin,

@@ -8,7 +8,7 @@ import {
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
 import { CreateMixBigTaiho, updateEntireBigTaiho} from "../controller/BigTaihoController/BigTaihoApi";
-import { approveHamsa, CreateEntireHamsa, CreateReissueHamsa, EditRejectHamsa, findEditHamsaAll, getHamsaBylotorigin, getHamsaLot, SearchRCNHamsa, SearchRCNHamsaMix, sumOfallHamsa } from "../controller/HamsaController/HamsaApi";
+import { approveHamsa, CreateEntireHamsa, CreateMixHamsa, CreateReissueHamsa, EditRejectHamsa, findEditHamsaAll, getHamsaBylotorigin, getHamsaLot, SearchRCNHamsa, SearchRCNHamsaMix, sumOfallHamsa } from "../controller/HamsaController/HamsaApi";
 const router = express()
 
 // //Hamsa.tsx
@@ -33,7 +33,7 @@ router.put("/approveeditHamsa/:id/:LotNo/:origin", jwtVerify, approveHamsa);
 
 // //HamsaMix.tsx
 router.post('/hamsamixsearch', jwtVerify, SearchRCNHamsaMix);
-router.post('/createMixBigTaiho', jwtVerify, CreateMixBigTaiho);
+router.post('/createMixHamsa', jwtVerify, CreateMixHamsa);
 
 //HistoryTable.tsx
 router.put('/historySearch', jwtVerify, SearchHistory);
