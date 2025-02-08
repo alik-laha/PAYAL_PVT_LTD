@@ -445,33 +445,33 @@ const HamsaCreateForm = (props:Props) => {
 
                                     <FormRow idx={idx} row={row} column='Mc_on_1' handleRowChange={handleRowChange}/>
                                         <FormRow idx={idx} row={row} column='Mc_off_1' handleRowChange={handleRowChange}/>
-                                        <TableCell className="text-center"><Input  value={row.Mc_breakdown_1} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_1',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center"><Input  value={row.otherTime_1} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_1',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center bg-purple-300"><Input  value={row.Mc_breakdown_1} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_1',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center bg-purple-300"><Input  value={row.otherTime_1} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_1',e.target.value)} type='time'  /></TableCell>
                                      
                                         <FormRow idx={idx} row={row} column='Mc_on_2' handleRowChange={handleRowChange}/>
                                         <FormRow idx={idx} row={row} column='Mc_off_2' handleRowChange={handleRowChange}/>
-                                        <TableCell className="text-center"><Input  value={row.Mc_breakdown_2} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_2',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center"><Input  value={row.otherTime_2} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_2',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center bg-purple-300"><Input  value={row.Mc_breakdown_2} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_2',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center bg-purple-300"><Input  value={row.otherTime_2} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_2',e.target.value)} type='time'  /></TableCell>
                                     
                                         <FormRow idx={idx} row={row} column='Mc_on_3' handleRowChange={handleRowChange}/>
                                         <FormRow idx={idx} row={row} column='Mc_off_3' handleRowChange={handleRowChange}/>
-                                        <TableCell className="text-center"><Input  value={row.Mc_breakdown_3} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_3',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center"><Input  value={row.otherTime_3} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_3',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center bg-purple-300"><Input  value={row.Mc_breakdown_3} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_3',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center bg-purple-300"><Input  value={row.otherTime_3} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_3',e.target.value)} type='time'  /></TableCell>
                                     
                                         <FormRow idx={idx} row={row} column='Mc_on_4' handleRowChange={handleRowChange}/>
                                         <FormRow idx={idx} row={row} column='Mc_off_4' handleRowChange={handleRowChange}/>
-                                        <TableCell className="text-center"><Input  value={row.Mc_breakdown_4} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_4',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center"><Input  value={row.otherTime_4} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_4',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center bg-purple-300"><Input  value={row.Mc_breakdown_4} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_4',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center bg-purple-300"><Input  value={row.otherTime_4} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_4',e.target.value)} type='time'  /></TableCell>
                                       
                                         <FormRow idx={idx} row={row} column='Mc_on_5' handleRowChange={handleRowChange}/>
                                         <FormRow idx={idx} row={row} column='Mc_off_5' handleRowChange={handleRowChange}/>
-                                        <TableCell className="text-center"><Input  value={row.Mc_breakdown_5} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_5',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center"><Input  value={row.otherTime_5} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_5',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center bg-purple-300"><Input  value={row.Mc_breakdown_5} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_5',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center bg-purple-300"><Input  value={row.otherTime_5} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_5',e.target.value)} type='time'  /></TableCell>
 
                                         <FormRow idx={idx} row={row} column='Mc_on_6' handleRowChange={handleRowChange}/>
                                         <FormRow idx={idx} row={row} column='Mc_off_6' handleRowChange={handleRowChange}/>
-                                        <TableCell className="text-center"><Input  value={row.Mc_breakdown_6} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_6',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center"><Input  value={row.otherTime_6} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_6',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center bg-purple-300"><Input  value={row.Mc_breakdown_6} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_6',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center bg-purple-300"><Input  value={row.otherTime_6} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_6',e.target.value)} type='time'  /></TableCell>
                                         
                                     
                                     </TableRow>

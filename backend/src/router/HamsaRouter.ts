@@ -7,10 +7,8 @@ import {
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import { approveBigTaiho, CreateMixBigTaiho, CreateReissueBigTaiho, EditRejectBigTaiho,
-        SearchRCNBigTaiho, SearchRCNBigTaihoMix, 
-       updateEntireBigTaiho} from "../controller/BigTaihoController/BigTaihoApi";
-import { CreateEntireHamsa, EditRejectHamsa, findEditHamsaAll, getHamsaBylotorigin, getHamsaLot, SearchRCNHamsa, sumOfallHamsa } from "../controller/HamsaController/HamsaApi";
+import { CreateMixBigTaiho, updateEntireBigTaiho} from "../controller/BigTaihoController/BigTaihoApi";
+import { approveHamsa, CreateEntireHamsa, CreateReissueHamsa, EditRejectHamsa, findEditHamsaAll, getHamsaBylotorigin, getHamsaLot, SearchRCNHamsa, SearchRCNHamsaMix, sumOfallHamsa } from "../controller/HamsaController/HamsaApi";
 const router = express()
 
 // //Hamsa.tsx
@@ -24,17 +22,17 @@ router.get("/getHamsaByLotOrigin/:lotNO/:origin", jwtVerify, getHamsaBylotorigin
 // //HamsaCreateForm.tsx
 router.post("/createEntireHamsa", jwtVerify, CreateEntireHamsa)
 
-// //BigTaihoReiSsueForm.tsx
-router.post("/createReissueBigTaiho", jwtVerify, CreateReissueBigTaiho)
+// //HamsaReiSsueForm.tsx
+router.post("/createReissueHamsa", jwtVerify, CreateReissueHamsa)
 
-// //BigTaihotable.tsx
+// //Hamsatable.tsx
 router.put('/hamsaprimarysearch', jwtVerify, SearchRCNHamsa);
 router.post("/updateBigTaiho",jwtVerify, updateEntireBigTaiho)
 router.delete('/rejectededitHamsa/:id/:LotNo/:origin', jwtVerify, EditRejectHamsa);
-router.put("/approveeditHamsa/:id/:LotNo/:origin", jwtVerify, approveBigTaiho);
+router.put("/approveeditHamsa/:id/:LotNo/:origin", jwtVerify, approveHamsa);
 
-// //BigTaihoMix.tsx
-router.post('/bigTaihomixsearch', jwtVerify, SearchRCNBigTaihoMix);
+// //HamsaMix.tsx
+router.post('/hamsamixsearch', jwtVerify, SearchRCNHamsaMix);
 router.post('/createMixBigTaiho', jwtVerify, CreateMixBigTaiho);
 
 //HistoryTable.tsx
