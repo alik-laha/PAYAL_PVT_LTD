@@ -21,7 +21,7 @@ import axios from "axios";
 import { useState } from "react";
 import cross from '../../assets/Static_Images/error_img.png'
 // import RCNDPDSCreateForm from "./DPDSCreateForm";
-import { BigTaihoData, HamsaData } from "@/type/type";
+import {  HamsaData } from "@/type/type";
 import HamsaCreateForm from "./HamsaCreateForm";
 
 
@@ -95,7 +95,8 @@ const HamsaInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-                              if(item.rcv_pw_w && item.rcv_w_lot && item.rcv_ww){
+                              if(((item.rcv_pw_w ?parseFloat(item.rcv_pw_w):0)+ (item.rcv_w_lot ?parseFloat(item.rcv_w_lot):0 )
+                              +(item.rcv_ww ?parseFloat(item.rcv_ww):0))>0){
                                 return (
                                     <TableRow key={idx}>
                                         <TableCell className="text-center">

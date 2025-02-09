@@ -30,6 +30,8 @@ interface lotPropsdata{
     LotNo:string;
     origin:string;
     current_backlog:string;
+    rcv_wholespeel:string;
+    rcv_wholesunpeel:string;
 }
 
 const MayurInitial = (props: any) => {
@@ -108,43 +110,45 @@ const MayurInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-
-                                return (
-                                    <TableRow key={idx}>
-                                        <TableCell className="text-center">
-                                            {idx + 1}
-                                        </TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500">
-                                            {item.LotNo}
-                                        </TableCell>
-                                        <TableCell className="text-center font-semibold text-blue-500">
-                                            {item.origin}
-                                        </TableCell>
-                                        <TableCell className="text-center font-semibold ">
-                                            {formatNumber(item.current_backlog)} kg
-                                        </TableCell>
-                                        
-                                        <TableCell className="text-center flex">
-                                            <Dialog>
-                                                <DialogTrigger>
-                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button>
-                                                </DialogTrigger>
-                                          <DialogContent className='max-w-7xl'>
-                                                    <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Mayur Line Entry</p></DialogTitle>
-
-                                                    </DialogHeader>
-                                                
-                                                    <RCNMayurCreateForm borma={bormaData}/>
-                                                </DialogContent>
-                                            </Dialog>
-
-                                           
+                                if((Number(item.rcv_wholespeel)+ Number(item.rcv_wholesunpeel))>0 ){
+                                    return (
+                                        <TableRow key={idx}>
+                                            <TableCell className="text-center">
+                                                {idx + 1}
+                                            </TableCell>
+                                            <TableCell className="text-center font-semibold text-red-500">
+                                                {item.LotNo}
+                                            </TableCell>
+                                            <TableCell className="text-center font-semibold text-blue-500">
+                                                {item.origin}
+                                            </TableCell>
+                                            <TableCell className="text-center font-semibold ">
+                                                {formatNumber(item.current_backlog)} kg
+                                            </TableCell>
                                             
-                                        </TableCell>
-
-                                    </TableRow>
-                                );
+                                            <TableCell className="text-center flex">
+                                                <Dialog>
+                                                    <DialogTrigger>
+                                                        <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button>
+                                                    </DialogTrigger>
+                                              <DialogContent className='max-w-7xl'>
+                                                        <DialogHeader>
+                                                            <DialogTitle><p className='text-1xl text-center mt-1'>Mayur Line Entry</p></DialogTitle>
+    
+                                                        </DialogHeader>
+                                                    
+                                                        <RCNMayurCreateForm borma={bormaData}/>
+                                                    </DialogContent>
+                                                </Dialog>
+    
+                                               
+                                                
+                                            </TableCell>
+    
+                                        </TableRow>
+                                    );
+                               }
+                                
                             })
                         ) : <TableRow>
                             <TableCell></TableCell>

@@ -777,11 +777,6 @@ export interface HamsaData {
     issue_add_8: string;
     issue_add_9: string;
     issue_add_10: string;
-    issue_rejection: string ;
-    issue_village: string ;
-    issue_dpds: string ;
-    issue_husk: string ;
-    issue_sorting: string ;
     Mc_on_3: string ;
     Mc_off_3: string ;
     Mc_breakdown_3: string ;

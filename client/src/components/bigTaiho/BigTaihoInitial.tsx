@@ -29,6 +29,7 @@ interface lotPropsdata{
     LotNo:string;
     origin:string;
     current_backlog:string;
+    rcv_peeling:string;
 }
 
 const BigTaihoInitial = (props: any) => {
@@ -101,39 +102,41 @@ const BigTaihoInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-
-                                return (
-                                    <TableRow key={idx}>
-                                        <TableCell className="text-center">
-                                            {idx + 1}
-                                        </TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500">
-                                            {item.LotNo}
-                                        </TableCell>
-                                        <TableCell className="text-center font-semibold text-blue-500">
-                                            {item.origin}
-                                        </TableCell>
-                                        <TableCell className="text-center font-semibold ">
-                                            {item.current_backlog}
-                                        </TableCell>
-                                        
-                                        <TableCell className="text-center">
-                                            <Dialog>
-                                                <DialogTrigger>
-                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
-                                          <DialogContent className='max-w-7xl'>
-                                                    <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>BigTaiho Line Entry</p></DialogTitle>
-
-                                                    </DialogHeader>
-                                                
-                                                    <RCNDBigTaihoCreateForm borma={bormaData}/>
-                                                </DialogContent>
-                                            </Dialog>
-                                        </TableCell>
-
-                                    </TableRow>
-                                );
+                                if(parseFloat(item.current_backlog)>0 ){
+                                    return (
+                                        <TableRow key={idx}>
+                                            <TableCell className="text-center">
+                                                {idx + 1}
+                                            </TableCell>
+                                            <TableCell className="text-center font-semibold text-red-500">
+                                                {item.LotNo}
+                                            </TableCell>
+                                            <TableCell className="text-center font-semibold text-blue-500">
+                                                {item.origin}
+                                            </TableCell>
+                                            <TableCell className="text-center font-semibold ">
+                                                {item.current_backlog}
+                                            </TableCell>
+                                            
+                                            <TableCell className="text-center">
+                                                <Dialog>
+                                                    <DialogTrigger>
+                                                        <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
+                                              <DialogContent className='max-w-7xl'>
+                                                        <DialogHeader>
+                                                            <DialogTitle><p className='text-1xl text-center mt-1'>BigTaiho Line Entry</p></DialogTitle>
+    
+                                                        </DialogHeader>
+                                                    
+                                                        <RCNDBigTaihoCreateForm borma={bormaData}/>
+                                                    </DialogContent>
+                                                </Dialog>
+                                            </TableCell>
+    
+                                        </TableRow>
+                                    );
+                                }
+                                
                             })
                         ) : <TableRow>
                             <TableCell></TableCell>

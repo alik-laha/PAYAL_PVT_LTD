@@ -435,14 +435,14 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                     <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
-                    <TableHead className="text-center">Rcv Peeling</TableHead>
-                    <TableHead className="text-center">Rcv Village</TableHead>
-                    <TableHead className="text-center">Rcv Sorting</TableHead>
-                    <TableHead className="text-center">Rcv DPDS</TableHead>
-                    <TableHead className="text-center">Rcv Mayur</TableHead>
-                    <TableHead className="text-center">Rcv Hamsa</TableHead>
-                    <TableHead className="text-center">Rcv LW</TableHead>
-                    <TableHead className="text-center">Rcv Wholes</TableHead>
+                    <TableHead className="text-center">Receive Peeling</TableHead>
+                    <TableHead className="text-center">Receive Village</TableHead>
+                    <TableHead className="text-center">Receive Sorting</TableHead>
+                    <TableHead className="text-center">Receive DPDS</TableHead>
+                    <TableHead className="text-center">Receive Mayur</TableHead>
+                    <TableHead className="text-center">Receive Hamsa</TableHead>
+                    <TableHead className="text-center">Receive LW</TableHead>
+                    <TableHead className="text-center">Receive Wholes</TableHead>
                     <TableHead className="text-center">Issue SSP</TableHead>
                     <TableHead className="text-center">Issue SSP(Small)</TableHead>
                     <TableHead className="text-center">Issue SWP_1</TableHead>
@@ -457,8 +457,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue BB 2</TableHead>
                     <TableHead className="text-center">Issue SSP_1</TableHead>
                     <TableHead className="text-center">Issue SSP_1(Small)</TableHead>
-                    <TableHead className="text-center">Issue SSP 2</TableHead>
-                    <TableHead className="text-center">Issue SSP 2 Small</TableHead>
+                    <TableHead className="text-center">Issue SSP_2</TableHead>
+                    <TableHead className="text-center">Issue SSP_2(Small)</TableHead>
                     <TableHead className="text-center">Issue SDP</TableHead>
 
                     <TableHead className="text-center">Issue Husk</TableHead>
@@ -656,10 +656,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_ssp_2)}</TableCell>
                                     <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_ssp_2_small)}</TableCell>
                                     <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_sdp)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-green-100">{formatNumber(item.issue_husk)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_husk)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.issue_village)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-purple-100">{formatNumber(item.issue_sorting)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_village)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_sorting)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_dpds)}</TableCell>
                                     <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell>
                                                

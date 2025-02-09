@@ -56,6 +56,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import RCNHamsaReMix from "./HamsaMix";
+import HamsaReCreateForm from "./HamsaRecreateForm";
 
 
 
@@ -456,12 +457,12 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                     <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
-                    <TableHead className="text-center">Rcv PW_W</TableHead>
-                    <TableHead className="text-center">Rcv W_Lot</TableHead>
-                    <TableHead className="text-center">Rcv WW</TableHead>
-                    <TableHead className="text-center">Rcv Mayur</TableHead>
-                    <TableHead className="text-center">Rcv Village</TableHead>
-                    <TableHead className="text-center">Rcv LW</TableHead>
+                    <TableHead className="text-center">Receive PW_W</TableHead>
+                    <TableHead className="text-center">Receive W_Lot</TableHead>
+                    <TableHead className="text-center">Receive WW</TableHead>
+                    <TableHead className="text-center">Receive Mayur</TableHead>
+                    <TableHead className="text-center">Receive Village</TableHead>
+                    <TableHead className="text-center">Receive LW</TableHead>
                     
                     <TableHead className="text-center">Issue PW_210</TableHead>
                     <TableHead className="text-center">Issue W_210</TableHead>
@@ -675,12 +676,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 </TableCell>
                             </TableRow>
                         ) })): (
-
                         Data.length > 0 ? (Data.map((item: HamsaData, idx) => {
-                         
-                          
-                  
-
                             return (
                                 <TableRow key={item.id} className={`${item.latest==1 ? '' : 'opacity-50 hover:bg-gray-200 bg-gray-200'}`}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
@@ -716,13 +712,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_400)}</TableCell>
                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_400)}</TableCell>
                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_400)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-100">{Number(item.issue_pw_210)+Number(item.issue_w_210)
+                                    <TableCell className="text-center font-semibold bg-red-100">{Number(item.issue_pw_210)+Number(item.issue_w_210)
                                        +Number(item.issue_ww_210)+Number(item.issue_pw_240)+Number(item.issue_w_240)+Number(item.issue_ww_240)+Number(item.issue_pw_280) 
                                        +Number(item.issue_w_280)+Number(item.issue_ww_280)+Number(item.issue_pw_320)+Number(item.issue_w_320)
                                        +Number(item.issue_ww_320)+Number(item.issue_pw_400)+Number(item.issue_w_400)+Number(item.issue_ww_400)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.issue_lw)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_lw)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-purple-100">{formatNumber(item.issue_jb)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_jb)}</TableCell>
                      
                                     <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell>
                                                
@@ -803,7 +799,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 <p className='text-1xl pb-1 text-center mt-1'>BigTaiho Entry Reissue</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <RCNBigTaihoReCreateForm borma={[item]} /> */}
+                                                        <HamsaReCreateForm borma={[item]} />
                                                     </DialogContent>
                                                     
                                                 </Dialog>}

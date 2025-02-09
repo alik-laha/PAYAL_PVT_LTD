@@ -85,7 +85,7 @@ function App() {
           'Security', 'GatePassManager',
           'MaintainanceSupervisor', 'MaintainanceManager',
           'QCSupervisor', 'QCManager',
-          'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager', 'BormaSupervisor',
+          'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','DeputyProductionManager', 'BormaSupervisor',
           'PeelingSupervisor', 'MayurSupervisor','VillageSupervisor','SortingSupervisor']} />}>
 
           <Route path="/dashboard" element={<Dashboard />} />
@@ -148,7 +148,7 @@ function App() {
         </Route>
 
         {/* Receiving Village */}
-        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'VillageSupervisor', 'GatePassManager', 'ProductionManager']} />}>
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'DeputyProductionManager','VillageSupervisor', 'GatePassManager', 'ProductionManager']} />}>
           <Route path="/dashboard/RcvVillage" element={<RcvVillage />} />
         </Route>
 
@@ -197,49 +197,49 @@ function App() {
 
         {/* Production Borma */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'BormaSupervisor', 'ProductionManager']} />}>
+          'BormaSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
           <Route path='/dashboard/RcnBorma' element={<RCNBorma />} />
 
         </Route>
 
         {/* Production Humidifier */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'PeelingSupervisor', 'ProductionManager']} />}>
+          'PeelingSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
           <Route path='/dashboard/Humidifier' element={<Humidifier />} />
 
         </Route>
 
         {/* Production Peeling  */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'PeelingSupervisor', 'ProductionManager']} />}>
+          'PeelingSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
           <Route path='/dashboard/Peeling' element={<Peeling />} />
 
         </Route>
 
         {/*Production Mayur  */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'MayurSupervisor', 'ProductionManager']} />}>
+          'MayurSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
           <Route path='/dashboard/Mayur' element={<Mayur />} />
 
         </Route>
 
       {/*Production DPDS  */}
       <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'SortingSupervisor', 'ProductionManager']} />}>
+          'SortingSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
           <Route path='/dashboard/DPDS' element={<DPDS />} />
 
         </Route>
 
         {/*Production BigTaiho  */}
       <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'PeelingSupervisor', 'ProductionManager']} />}>
+          'PeelingSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
           <Route path='/dashboard/BigTaiho' element={<BigTaiho />} />
 
         </Route>
         
         {/*Production Hamsa  */}
       <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'MayurSupervisor', 'ProductionManager']} />}>
+          'MayurSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
           <Route path='/dashboard/Hamsa' element={<Hamsa />} />
 
         </Route>

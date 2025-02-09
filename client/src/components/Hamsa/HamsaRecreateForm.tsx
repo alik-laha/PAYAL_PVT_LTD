@@ -11,82 +11,86 @@ import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 
 interface Props {
-    borma: HamsaData[]       
+    borma: HamsaData[]      
 }
 
 
 interface HamsaRowData{
-        id: number;
-        LotNo: string;
-        origin: string;
-        rcv_transfer: string|null;
-        rcv_transfer_2: string;
-        rcv_pw_w: string;
-        rcv_w_lot: string;
-        rcv_ww: string;
-        rcv_lw: string|null;
-        rcv_village: string|null;   
-        issue_pw_210: number ;
-        issue_w_210: number ;
-        issue_ww_210: number ;
-        issue_pw_240:number;
-        issue_w_240: number ;
-        issue_ww_240: number ;
-        issue_pw_280:number;
-        issue_w_280: number ;
-        issue_ww_280: number ;
-        issue_pw_320:number;
-        issue_w_320: number ;
-        issue_ww_320: number ;
-        issue_pw_400:number;
-        issue_w_400: number ;
-        issue_ww_400: number ;
-        issue_lw:number;
-        issue_bigTaiho: number ;
-        issue_jb:number;
-        issue_add_1: number;
-        issue_add_2: number;
-        issue_add_3: number;
-        issue_add_4: number;
-        issue_add_5: number;
-        issue_add_6: number;
-        issue_add_7: number;
-        issue_add_8: number;
-        issue_add_9: number;
-        issue_add_10: number; 
-        mixingLot: string|null;    
-        Mc_on_1: string ;
-        Mc_off_1: string ;
-        Mc_breakdown_1: string ;
-        otherTime_1: string ;
-        Mc_on_2: string ;
-        Mc_off_2: string ;
-        Mc_breakdown_2: string ;
-        otherTime_2: string ;
-        Mc_on_3: string ;
-        Mc_off_3: string ;
-        Mc_breakdown_3: string ;
-        otherTime_3: string ;
-        Mc_on_4: string ;
-        Mc_off_4: string ;
-        Mc_breakdown_4: string ;
-        otherTime_4: string ;
-        Mc_on_5: string ;
-        Mc_off_5: string ;
-        Mc_breakdown_5: string ;
-        otherTime_5: string ;
-        Mc_on_6: string ;
-        Mc_off_6: string ;
-        Mc_breakdown_6: string ;
-        otherTime_6: string ;
-        Mc_on_7: string ;
-        Mc_off_7: string ;
-        Mc_breakdown_7: string ;
-        otherTime_7: string ;   
+    
+    id: number;
+    LotNo: string;
+    origin: string;
+    alt_id: number;
+    rcv_pw_w: number;
+    rcv_w_lot: number;
+    rcv_ww: number;
+    rcv_transfer: string | null;
+    rcv_transfer_2: string | null;
+    rcv_village: number;
+    rcv_lw: number;
+    rcv_opening: string;
+    issue_pw_210: number ;
+    issue_w_210: number ;
+    issue_ww_210: number ;
+    issue_pw_240:number;
+    issue_w_240: number ;
+    issue_ww_240: number ;
+    issue_pw_280:number;
+    issue_w_280: number ;
+    issue_ww_280: number ;
+    issue_pw_320:number;
+    issue_w_320: number ;
+    issue_ww_320: number ;
+    issue_pw_400:number;
+    issue_w_400: number ;
+    issue_ww_400: number ;
+
+    issue_add_1: number;
+    issue_add_2: number;
+    issue_add_3: number;
+    issue_add_4: number;
+    issue_add_5: number;
+    issue_add_6: number;
+    issue_add_7: number;
+    issue_add_8: number;
+    issue_add_9: number;
+    issue_add_10: number;
+    issue_lw:number;
+    issue_bigTaiho: number ;
+    issue_jb:number;
+    mixingLot: string | null;
+    Mc_on_1: string;
+    Mc_off_1: string;
+    Mc_breakdown_1: string;
+    otherTime_1: string;
+    Mc_on_2: string;
+    Mc_off_2: string;
+    Mc_breakdown_2: string;
+    otherTime_2: string;  
+    Mc_on_3: string;
+    Mc_off_3: string;
+    Mc_breakdown_3: string;
+    otherTime_3: string;
+    Mc_on_4: string ;
+    Mc_off_4: string ;
+    Mc_breakdown_4: string ;
+    otherTime_4: string ;
+    Mc_on_5: string ;
+    Mc_off_5: string ;
+    Mc_breakdown_5: string ;
+    otherTime_5: string ;
+    Mc_on_6: string ;
+    Mc_off_6: string ;
+    Mc_breakdown_6: string ;
+    otherTime_6: string ;
+    Mc_on_7: string ;
+    Mc_off_7: string ;
+    Mc_breakdown_7: string ;
+    otherTime_7: string ;    
 }
 
 
-import {    HamsaData } from "@/type/type"
+import {   BigTaihoData, HamsaData } from "@/type/type"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
@@ -96,7 +100,8 @@ import FormRow from "../common/FormRowTime";
 
 
 
-const HamsaCreateForm = (props:Props) => {
+
+const HamsaReCreateForm = (props:Props) => {
     //console.log(props)
     const DateRef = useRef<HTMLInputElement>(null);
     const dayOpRef = useRef<HTMLInputElement>(null);
@@ -129,17 +134,20 @@ const HamsaCreateForm = (props:Props) => {
     useEffect(() => { 
 
       
-        const initialform = props.borma.map((item: HamsaData) => ({
-            id: item.id,
-            LotNo: item.LotNo,
-            origin: item.origin,
-            rcv_transfer: item.rcv_transfer,
-            rcv_transfer_2: item.rcv_transfer_2,
-            rcv_pw_w: item.rcv_pw_w,
-            rcv_w_lot: item.rcv_w_lot,
-            rcv_ww: item.rcv_ww,
-            rcv_lw: item.rcv_lw,
-            rcv_village: item.rcv_village, 
+        const initialform =  {
+            id: props.borma[0].id,
+            LotNo: props.borma[0].LotNo,
+            alt_id:props.borma[0].altid,
+            origin: props.borma[0].origin,
+            mixingLot:props.borma[0].mixingLot,
+            rcv_transfer:props.borma[0].rcv_transfer,
+            rcv_transfer_2:props.borma[0].rcv_transfer_2,
+            rcv_opening:props.borma[0].current_backlog,
+            rcv_pw_w: 0,
+            rcv_w_lot: 0,
+            rcv_ww: 0,
+            rcv_village: 0,
+            rcv_lw: 0,
             issue_pw_210: 0,
             issue_w_210: 0,
             issue_ww_210: 0,
@@ -167,48 +175,40 @@ const HamsaCreateForm = (props:Props) => {
             issue_add_7:  0,
             issue_add_8:  0,
             issue_add_9:  0,
-            issue_add_10:  0,
-            mixingLot: item.mixingLot ,
-            
+            issue_add_10:  0, 
             Mc_on_1: '00:00',
             Mc_off_1: '00:00',
             Mc_breakdown_1: '00:00',
-            otherTime_1: '00:00',
-            
+            otherTime_1: '00:00',    
             Mc_on_2: '00:00',
             Mc_off_2: '00:00',
             Mc_breakdown_2: '00:00',
-            otherTime_2: '00:00',
-            
+            otherTime_2: '00:00', 
             Mc_on_3: '00:00',
             Mc_off_3: '00:00',
             Mc_breakdown_3: '00:00',
             otherTime_3: '00:00',
-            
             Mc_on_4: '00:00',
             Mc_off_4: '00:00',
             Mc_breakdown_4: '00:00',
             otherTime_4: '00:00',
-            
             Mc_on_5: '00:00',
             Mc_off_5: '00:00',
             Mc_breakdown_5: '00:00',
             otherTime_5: '00:00',
-
             Mc_on_6: '00:00',
             Mc_off_6: '00:00',
             Mc_breakdown_6: '00:00',
             otherTime_6: '00:00',
-
             Mc_on_7: '00:00',
             Mc_off_7: '00:00',
             Mc_breakdown_7: '00:00',
             otherTime_7: '00:00',
-
-        }));
+        };
+        
       
         //console.log(initialform)
-        setRows(initialform)
+        setRows([initialform])
            //console.log(props.borma[0])
       
         //console.log(rows)
@@ -223,6 +223,50 @@ const HamsaCreateForm = (props:Props) => {
     }
     const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
+        const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: props.borma[0].LotNo,origin:props.borma[0].origin})
+        console.log(resStatus1)
+        if (resStatus1.data.scoopingLot && resStatus1.data.scoopingLot[0].editStatus ==='Pending') 
+            {
+                setErrortext(`Modification of Lot is Pending in Linked  ${resStatus1.data.scoopingLot[0].latest_section} Section`)
+                const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+            dialogerror.showModal()
+           // console.log(rows)
+            return
+            }
+        if((Number(rows[0].rcv_opening)
+         !== (Number(rows[0].rcv_pw_w) + Number(rows[0].rcv_w_lot)+Number(rows[0].rcv_ww)+
+        (rows[0].rcv_village ? Number(rows[0].rcv_village) : 0)+
+        (rows[0].rcv_lw ? Number(rows[0].rcv_lw) : 0) ))){
+            setErrortext('Total Current Receiving Balance should be equal to Opening Balance')       
+            const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+            dialogerror.showModal()
+           // console.log(rows)
+            return
+        }
+        if( ((props.borma[0].rcv_village ? Number(props.borma[0].rcv_village):0) < Number(rows[0].rcv_village)) ||
+            ((props.borma[0].rcv_lw ? Number(props.borma[0].rcv_lw):0) < Number(rows[0].rcv_lw)) ||
+            (Number(props.borma[0].rcv_pw_w) < Number(rows[0].rcv_pw_w)) ||
+            (Number(props.borma[0].rcv_w_lot) < Number(rows[0].rcv_w_lot)) ||
+            (Number(props.borma[0].rcv_ww) < Number(rows[0].rcv_ww))
+            
+        ){
+               setErrortext('Current Receiving should not Exceed Previous Receiving Value')
+              
+               const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+               dialogerror.showModal()
+              // console.log(rows)
+               return
+   
+           }
+        if(Number(props.borma[0].current_backlog) <= 0){
+            setErrortext('Backlog Cannot be Zero or Negative While Re-Issue')
+           
+            const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+            dialogerror.showModal()
+           // console.log(rows)
+            return
+
+        }
         setisdisable(true)
         props.borma.map((item: HamsaData, idx: number) => {
             rows[idx].id=item.id
@@ -244,7 +288,7 @@ const HamsaCreateForm = (props:Props) => {
             }))
         
             try {
-                const initialhumid = await axios.post('/api/hamsa/createEntireHamsa', { linehumid:formData,
+                const initialhumid = await axios.post('/api/hamsa/createReissueHamsa', { linehumid:formData,
                     LotNo:props.borma[0].LotNo
                  })
                 console.log(initialhumid)         
@@ -297,11 +341,11 @@ const HamsaCreateForm = (props:Props) => {
                
                      <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Day)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
+                    <Input className="w-2/4 text-center" placeholder="No. of Operator(Day)" ref={dayOpRef}  />
                      </div>
                      <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Night)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
+                    <Input className="w-2/4 text-center" placeholder="No. of Operator(Night)" ref={nightOpRef}  />
                      </div>
                    
                      
@@ -312,16 +356,19 @@ const HamsaCreateForm = (props:Props) => {
                    <TableHeader className="bg-neutral-100 text-stone-950 ">
                     <TableHead className="text-center">Sl. No.</TableHead>
                     <TableHead className="text-center">Lot_No</TableHead>
-              
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
-                  
-                    <TableHead className="text-center">Rcv PW_W</TableHead>
-                    <TableHead className="text-center">Rcv W_Lot</TableHead>
-                    <TableHead className="text-center">Rcv WW</TableHead>
-                    <TableHead className="text-center">Rcv Village</TableHead>
-                    <TableHead className="text-center">Rcv LW</TableHead>
-                    
+                    <TableHead className="text-center">Total Opening</TableHead>
+                    <TableHead className="text-center">Previous PW_W</TableHead>
+                    <TableHead className="text-center">Current PW_W</TableHead>
+                    <TableHead className="text-center">Previous W_Lot</TableHead>
+                    <TableHead className="text-center">Current W_Lot</TableHead>
+                    <TableHead className="text-center">Previous WW</TableHead>
+                    <TableHead className="text-center">Current WW</TableHead>
+                    <TableHead className="text-center">Previous Village</TableHead>
+                    <TableHead className="text-center">Current Village</TableHead>
+                    <TableHead className="text-center">Previous LW</TableHead>
+                    <TableHead className="text-center">Current LW</TableHead>
                     <TableHead className="text-center">Issue PW_210</TableHead>
                     <TableHead className="text-center">Issue W_210</TableHead>
                     <TableHead className="text-center">Issue WW_210</TableHead>
@@ -374,9 +421,6 @@ const HamsaCreateForm = (props:Props) => {
                     <TableHead className="text-center">Mc Off (Spectrum)</TableHead>
                     <TableHead className="text-center">Mc_Breakdown (Spectrum)</TableHead>
                     <TableHead className="text-center">Other_Time (Spectrum)</TableHead>
-                 
-                    {/* <TableHead className="text-center">Mixed Amount</TableHead> */}
-               
                     </TableHeader>
                     <TableBody>
                         {props.borma.length > 0 ? (
@@ -385,15 +429,24 @@ const HamsaCreateForm = (props:Props) => {
                                 return (
                                     <TableRow key={idx} className="boiling-row-height-scoop">
                                         <TableCell className="text-center">{idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-600 bg-yellow-100">{formatNumber(row.rcv_pw_w)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-600 bg-yellow-100">{formatNumber(row.rcv_w_lot)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-600 bg-yellow-100">{formatNumber(row.rcv_ww)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-600">{row.rcv_village ? formatNumber(row.rcv_village) :0} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-600">{row.rcv_lw ? formatNumber(row.rcv_lw) :0} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-blue-500">{row.LotNo}</TableCell>
+                                        <TableCell className="text-center font-semibold ">{row.origin}</TableCell>
+                                        <TableCell className="text-center font-semibold ">{row.mixingLot}</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_opening)} Kg</TableCell>
+                                     
+                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(props.borma[0].rcv_pw_w)} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input  type="number" value={row.rcv_pw_w} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_pw_w', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(props.borma[0].rcv_w_lot)} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input  type="number" value={row.rcv_w_lot} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_w_lot', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(props.borma[0].rcv_ww)} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input  type="number" value={row.rcv_ww} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_ww', e.target.value)} required /></TableCell>
                                         
+                                        <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_village ?formatNumber(props.borma[0].rcv_village):0} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input type="number" value={row.rcv_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_village', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_lw ?formatNumber(props.borma[0].rcv_lw):0} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input  type="number" value={row.rcv_lw} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_lw', e.target.value)} required /></TableCell>
+
+                                        {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_210', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_210', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ww_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_210', e.target.value)} required /></TableCell>
@@ -454,7 +507,6 @@ const HamsaCreateForm = (props:Props) => {
                                         <TableCell className="text-center bg-purple-300"><Input  value={row.Mc_breakdown_6} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_6',e.target.value)} type='time'  /></TableCell>
                                         <TableCell className="text-center bg-purple-300"><Input  value={row.otherTime_6} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_6',e.target.value)} type='time'  /></TableCell>
                                         
-                                    
                                     </TableRow>
                                 );
                             })
@@ -465,7 +517,7 @@ const HamsaCreateForm = (props:Props) => {
                   
                    
                   </form>
-                  <dialog id="successemployeedialog" className="dashboard-modal">
+            <dialog id="successemployeedialog" className="dashboard-modal">
                   <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                   <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
                       <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
@@ -495,4 +547,4 @@ const HamsaCreateForm = (props:Props) => {
           </>
     )
 }
-export default HamsaCreateForm;
+export default HamsaReCreateForm;
