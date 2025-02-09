@@ -8,6 +8,8 @@ import Mayur from "../../model/mayurModel";
 import lotoriginmodel from "../../model/lotoriginModel";
 import DPDS from "../../model/dpdsmodel";
 import bigTaihoModel from "../../model/bigTaihoModel";
+import hamsaModel from "../../model/hamsamodel";
+import SortingModel from "../../model/sortingModel";
 //import RcnPeeling from "../../model/peelingModel";
 
 
@@ -93,7 +95,7 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
             }
            
             
-            const humidUpdate=await RcnPeeling.update(
+            const peelingUpdate=await RcnPeeling.update(
                 {     
                     date:data.Date,
                     Mc_on: data.Mc_on,
@@ -150,7 +152,7 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
                     }, transaction
                 }
             );
-             if(humidUpdate){
+             if(peelingUpdate){
                 
                 await Mayur.create({
                     LotNo:data.LotNo,
@@ -176,6 +178,29 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
                     origin:data.origin,
                     rcv_peeling: data.Big_Taiho,
                     current_backlog:data.Big_Taiho,
+                 },{transaction});
+
+
+                 await SortingModel.create({           
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    rcv_jjh: data.JJH,
+                    rcv_sjh: data.SJH,
+                    rcv_sjh1: data.SJH1,
+                    rcv_jh1: data.JH1,
+                    rcv_jk_k: data.JK_K,
+                    rcv_sp1: data.SP1,
+                    current_backlog:parseFloat(data.JJH)+parseFloat(data.SJH)+parseFloat(data.SJH1)
+                    +parseFloat(data.JH1)+parseFloat(data.JK_K)+parseFloat(data.SP1),
+                 },{transaction});
+
+
+                 await hamsaModel.create({
+                  
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    
+                    current_backlog:0,
                  },{transaction});
 
                 await lotoriginmodel.create({              

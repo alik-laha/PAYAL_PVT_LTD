@@ -47,6 +47,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [editMayurLotWiseData, setEditMayurLotWiseData] = useState<MayurData[]>([])
     const [editDPDSLotWiseData, setEditDPDSLotWiseData] = useState<DPDSData[]>([])
     const [editBigTaihoLotWiseData, setEditBigTaihoLotWiseData] = useState<BigTaihoData[]>([])
+    const [editHamsaLotWiseData, setEditHamsaLotWiseData] = useState<any[]>([])
 
     return (
         <Context.Provider value={{
@@ -59,7 +60,9 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
             StorePrimaryOverView,setStorePrimaryOverView,GeneralPrimaryOverView,setGeneralPrimaryOverView,editPendingAlmondData,setEditPendingAlmondData
             ,RcvVillagePrimaryOverView,setRcvVillagePrimaryOverView,editHumidLotWiseData,setEditHumidLotWiseData,editPendingAgarbatiData,setEditPendingAgarbatiData,
             editPendingOilMillData,setEditPendingOilMillData,editPendiningQCWaterData, setEditPendiningQCWaterData,
-            editPeelingLotWiseData, setEditPeelingLotWiseData,editMayurLotWiseData,setEditMayurLotWiseData,editDPDSLotWiseData,setEditDPDSLotWiseData,editBigTaihoLotWiseData, setEditBigTaihoLotWiseData
+            editPeelingLotWiseData, setEditPeelingLotWiseData,editMayurLotWiseData,setEditMayurLotWiseData,
+            editDPDSLotWiseData,setEditDPDSLotWiseData,editBigTaihoLotWiseData, setEditBigTaihoLotWiseData,
+            editHamsaLotWiseData,setEditHamsaLotWiseData
         }}>
             {children}
         </Context.Provider>

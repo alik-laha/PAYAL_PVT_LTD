@@ -5,6 +5,7 @@ import RcnPeeling from "../../model/peelingModel";
 import Mayur from "../../model/mayurModel";
 import DPDS from "../../model/dpdsmodel";
 import bigTaihoModel from "../../model/bigTaihoModel";
+import SortingModel from "../../model/sortingModel";
 
 const approvePeeling = async (req: Request, res: Response) => {
     try {
@@ -107,6 +108,23 @@ const approvePeeling = async (req: Request, res: Response) => {
                             LotNo: LotNo, origin: origin, latest: 1
                         }
                     })
+
+                await SortingModel.update(
+                        {
+                            rcv_jjh: data.JJH,
+                            rcv_sjh: data.SJH,
+                            rcv_sjh1: data.SJH1,
+                            rcv_jh1: data.JH1,
+                            rcv_jk_k: data.JK_K,
+                            rcv_sp1: data.SP1,
+                            current_backlog:parseFloat(data.JJH)+parseFloat(data.SJH)+parseFloat(data.SJH1)
+                            +parseFloat(data.JH1)+parseFloat(data.JK_K)+parseFloat(data.SP1),
+                        },
+                        {
+                            where: {
+                                LotNo: LotNo, origin: origin, latest: 1
+                            }
+                        })
 
 
                 await bigTaihoModel.update(

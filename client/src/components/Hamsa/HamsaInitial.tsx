@@ -18,25 +18,24 @@ import {
 } from "@/components/ui/dialog"
 
 import axios from "axios";
-import {  useState } from "react";
-import {  MayurData } from "@/type/type";
-
-
+import { useState } from "react";
 import cross from '../../assets/Static_Images/error_img.png'
-import RCNMayurCreateForm from "./MayurCreateForm";
+// import RCNDPDSCreateForm from "./DPDSCreateForm";
+import {  HamsaData } from "@/type/type";
+import HamsaCreateForm from "./HamsaCreateForm";
 
 
 interface lotPropsdata{
     LotNo:string;
     origin:string;
     current_backlog:string;
-    rcv_wholespeel:string;
-    rcv_wholesunpeel:string;
+    rcv_ww:string;
+    rcv_w_lot:string;
+    rcv_pw_w:string;
 }
 
-const MayurInitial = (props: any) => {
-    const [bormaData, setBormaData ]  = useState<MayurData[]>([])
-   
+const HamsaInitial = (props: any) => {
+    const [bormaData, setBormaData ]  = useState<HamsaData[]>([])
     const [errortext, seterrorText] = useState<string>('');
     
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialogPeel') as HTMLInputElement;
@@ -52,22 +51,10 @@ const MayurInitial = (props: any) => {
 
         });
     }
-    function formatNumber(num: string) {
-        return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
-    }
     //let scoopdata:ScoopData[]=[]
     console.log(props)
     const handleLineEntry = async (lotNO:string,origin:string) => {
-        const resStatus = await axios.post('/api/boiling/pendingLotCount', { lotNo: lotNO,section:'Peeling'})
-        console.log(resStatus)
-        if (resStatus.data.count && resStatus.data.count >0) 
-            {
-                seterrorText('Modification of Lot is Pending in Peeling Section')
-                if (rejectsuccessdialog != null) {
-                    (rejectsuccessdialog as any).showModal();
-                }
-                return
-            }
+        
         const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: lotNO,origin:origin})
         console.log(resStatus1)
         if (resStatus1.data.scoopingLot && resStatus1.data.scoopingLot[0].editStatus ==='Pending') 
@@ -80,7 +67,7 @@ const MayurInitial = (props: any) => {
                 return
             }
            
-        await axios.get(`/api/mayur/getMayurByLotOrigin/${lotNO}/${origin}`).then(res=>{
+        await axios.get(`/api/hamsa/getHamsaByLotOrigin/${lotNO}/${origin}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.scoopingLot)){
             //scoopdata=res.data.scoopingLot
@@ -91,8 +78,6 @@ const MayurInitial = (props: any) => {
             //set(res.data.scoopingLot)
         })
     }
-   
-  
     return (
         <>
             <div className="pl-10 pr-10 max-h-64 overflow-scroll">
@@ -100,7 +85,7 @@ const MayurInitial = (props: any) => {
                 <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl. No.</TableHead>
-                        <TableHead className="text-center" >Current_Lot_No</TableHead>
+                        <TableHead className="text-center" >Lot No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Current_Backlog</TableHead>
                         <TableHead className="text-center" >Action</TableHead>
@@ -110,50 +95,48 @@ const MayurInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-                                if((Number(item.rcv_wholespeel)+ Number(item.rcv_wholesunpeel))>0 ){
-                                    return (
-                                        <TableRow key={idx}>
-                                            <TableCell className="text-center">
-                                                {idx + 1}
-                                            </TableCell>
-                                            <TableCell className="text-center font-semibold text-red-500">
-                                                {item.LotNo}
-                                            </TableCell>
-                                            <TableCell className="text-center font-semibold text-blue-500">
-                                                {item.origin}
-                                            </TableCell>
-                                            <TableCell className="text-center font-semibold ">
-                                                {formatNumber(item.current_backlog)} kg
-                                            </TableCell>
-                                            
-                                            <TableCell className="text-center flex">
-                                                <Dialog>
-                                                    <DialogTrigger>
-                                                        <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button>
-                                                    </DialogTrigger>
-                                              <DialogContent className='max-w-7xl'>
-                                                        <DialogHeader>
-                                                            <DialogTitle><p className='text-1xl text-center mt-1'>Mayur Line Entry</p></DialogTitle>
-    
-                                                        </DialogHeader>
-                                                    
-                                                        <RCNMayurCreateForm borma={bormaData}/>
-                                                    </DialogContent>
-                                                </Dialog>
-    
-                                               
+                              if(((item.rcv_pw_w ?parseFloat(item.rcv_pw_w):0)+ (item.rcv_w_lot ?parseFloat(item.rcv_w_lot):0 )
+                              +(item.rcv_ww ?parseFloat(item.rcv_ww):0))>0){
+                                return (
+                                    <TableRow key={idx}>
+                                        <TableCell className="text-center">
+                                            {idx + 1}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">
+                                            {item.LotNo}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold text-blue-500">
+                                            {item.origin}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold ">
+                                            {item.current_backlog}
+                                        </TableCell>
+                                        
+                                        <TableCell className="text-center">
+                                            <Dialog>
+                                                <DialogTrigger>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
+                                          <DialogContent className='max-w-7xl'>
+                                                    <DialogHeader>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Hamsa Line Entry</p></DialogTitle>
+
+                                                    </DialogHeader>
                                                 
-                                            </TableCell>
-    
-                                        </TableRow>
-                                    );
-                               }
+                                                    <HamsaCreateForm borma={bormaData}/>
+                                                </DialogContent>
+                                            </Dialog>
+                                        </TableCell>
+
+                                    </TableRow>
+                                );
+                              }
+                             
                                 
                             })
                         ) : <TableRow>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Mayur</TableCell>
+                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Hamsa</TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             </TableRow>}
@@ -177,4 +160,4 @@ const MayurInitial = (props: any) => {
 
 
 }
-export default MayurInitial
+export default HamsaInitial

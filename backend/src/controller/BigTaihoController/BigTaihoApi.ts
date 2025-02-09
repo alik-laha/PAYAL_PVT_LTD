@@ -5,11 +5,11 @@ import { Op } from "sequelize";
 import WhatsappMsg from "../../helper/WhatsappMsg";
 import lotoriginmodel from "../../model/lotoriginModel";
 import DPDS from "../../model/dpdsmodel";
-import DPDSEdit from "../../model/dpdsEditModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import mixingModel from "../../model/mixingModel";
 import bigTaihoModel from "../../model/bigTaihoModel";
 import bigTaihoEditModel from "../../model/bigTaihoEditModel";
+import SortingModel from "../../model/sortingModel";
 
 
 // //BigTaiho.tsx
@@ -421,7 +421,69 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                           
                 }
                 else{
-                    res.status(500).json({ message: "Error In Creating Transaction History" });
+                    res.status(500).json({ message: "Error In Creating DPDS Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
+
+                const sorting_backlog = await SortingModel.findOne({
+                    attributes: ['current_backlog','rcv_bigTaiho'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(sorting_backlog)
+                if (sorting_backlog && sorting_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_sorting,
+                        issueid:1,
+                        date:data.Date,
+                        fromSection:'BigTaiho',
+                        toSection:'Sorting',
+                        toSectionBeforeBacklog:dpds_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(dpds_backlog.dataValues.current_backlog)+parseFloat(data.issue_sorting),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(dpds_backlog.dataValues.rcv_bigTaiho){
+                        await SortingModel.update(
+                            { 
+                                rcv_bigTaiho:sequelize.literal(`rcv_bigTaiho+ ${data.issue_sorting}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_sorting}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await SortingModel.update(
+                            { 
+                                rcv_bigTaiho:data.issue_sorting,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_sorting}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                          
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Sorting Transaction History" });
                     throw new Error('Transaction Aborted')
                 } 
   
@@ -816,7 +878,72 @@ export const CreateReissueBigTaiho= async (req: Request, res: Response) => {
                     else{
                         res.status(500).json({ message: "Error In Creating Reissue DPDS Transaction History" });
                         throw new Error('Transaction Aborted')
-                    }  
+                    } 
+                    
+                    
+
+                    const sorting_backlog = await SortingModel.findOne({
+                        attributes: ['current_backlog','rcv_bigTaiho'],
+                        where: {
+                            lotNo:LotNO,
+                            origin: data.origin,
+                            latest:1
+                
+                        },
+                        order: [['LotNo', 'ASC']]
+                
+                    });
+                    console.log(sorting_backlog)
+                    if (sorting_backlog && sorting_backlog.dataValues.current_backlog>=0){
+                        await sectionTransfer.create({              
+                            LotNo:LotNO,
+                            origin:data.origin,
+                            amount:data.issue_sorting,
+                            issueid:parseInt(data.alt_id)+1,
+                            date:data.Date,
+                            fromSection:'BigTaiho',
+                            toSection:'Sorting',
+                            toSectionBeforeBacklog:dpds_backlog.dataValues.current_backlog,
+                            toSectionAfterBacklog:parseFloat(dpds_backlog.dataValues.current_backlog)+parseFloat(data.issue_sorting),
+                            createdBy: feeledBy
+                         },{transaction});
+                         if(dpds_backlog.dataValues.rcv_bigTaiho){
+                            await SortingModel.update(
+                                { 
+                                    rcv_bigTaiho:sequelize.literal(`rcv_bigTaiho+ ${data.issue_sorting}`),
+                                    current_backlog:sequelize.literal(`current_backlog+ ${data.issue_sorting}`)
+                                },
+                                {
+                                    where: {
+                                        lotNo:LotNO,
+                                        origin: data.origin,
+                                        latest:1
+                                    },transaction
+                                }
+                            );
+                         }
+                         else{
+                            await SortingModel.update(
+                                { 
+                                    rcv_bigTaiho:data.issue_sorting,
+                                    current_backlog:sequelize.literal(`current_backlog+ ${data.issue_sorting}`)
+                                },
+                                {
+                                    where: {
+                                        lotNo:LotNO,
+                                        origin: data.origin,
+                                        latest:1
+                                    },transaction
+                                }
+                            );
+                         }
+                              
+                    }
+                    else{
+                        res.status(500).json({ message: "Error In Creating Sorting Transaction History" });
+                        throw new Error('Transaction Aborted')
+                    } 
+
                     const lotupdate = await lotoriginmodel.update(
                         {
                             latest_section: 'BigTaiho',
@@ -1164,7 +1291,18 @@ export const approveBigTaiho = async (req: Request, res: Response) => {
                 }
             }) as any
 
-            if(transferDPDSdata){
+
+            const transferSortingdata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'BigTaiho',
+                    toSection:'Sorting'
+                }
+            }) as any
+
+            if(transferDPDSdata && transferSortingdata){
                 await sequelize.transaction(async (transaction: any) => {
 
                     const BigTEdit = await bigTaihoModel.update({
@@ -1230,7 +1368,6 @@ export const approveBigTaiho = async (req: Request, res: Response) => {
                     });
                     if(BigTEdit){
                         console.log(transferDPDSdata)
-                    
                         if(parseFloat(transferDPDSdata.amount)!==parseFloat(data.issue_dpds)){
                             console.log('Needs Update In DPDS')
                             const difference_dpds=parseFloat(data.issue_dpds)-parseFloat(transferDPDSdata.amount)
@@ -1279,8 +1416,54 @@ export const approveBigTaiho = async (req: Request, res: Response) => {
                                     throw new Error('Transaction Aborted due to Improper Value')
                                 }
                         }
-
+                        if(parseFloat(transferSortingdata.amount)!==parseFloat(data.issue_sorting)){
+                            console.log('Needs Update In Sorting')
+                            const difference_sorting=parseFloat(data.issue_sorting)-parseFloat(transferSortingdata.amount)
+                            console.log(difference_sorting)
+                            const backlog = await SortingModel.findOne({
+                                attributes: ['current_backlog','rcv_bigTaiho'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
                         
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await SortingModel.update(
+                                    {
+                                        rcv_bigTaiho: sequelize.literal(`rcv_bigTaiho+ ${difference_sorting}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_sorting}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_sorting,
+                                    toSectionBeforeBacklog:transferSortingdata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferSortingdata.toSectionBeforeBacklog)+parseFloat(data.issue_sorting)
+                        
+                                }, {
+                                    where: {
+                                        id:transferSortingdata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated Sorting Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
                         await lotoriginmodel.update(
                             { 
                                 editStatus:'NA',

@@ -1,4 +1,4 @@
-import { BigTaihoData  } from "@/type/type";
+import {  HamsaData  } from "@/type/type";
 import { useEffect, useState } from "react";
 import {
     Table,
@@ -18,42 +18,34 @@ import { CircleArrowLeft, CircleArrowRight } from "lucide-react";
 import axios from "axios";
 
 interface Props {
-    borma: BigTaihoData     
+    borma: HamsaData     
 }
 interface RCNEntries {
-    rcv_peeling: string;
+    rcv_pw_w: string;
+    rcv_w_lot: string;
+    rcv_ww: string;
     rcv_village: string;
-    rcv_sorting: string;
-    rcv_dpds: string;
-    rcv_mayur: string;
-    rcv_hamsa: string;
     rcv_lw: string;
-    rcv_wholes: string;
     current_backlog: string;
 }
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
-const RCNBigTaihoReMix = (props:Props) => {
+const RCNHamsaReMix = (props:Props) => {
 
-        const [sourcercv_peeling, setsourcercv_peeling] = useState<number>(0);
+        const [sourcercv_pw_w, setsourcercv_pw] = useState<number>(0);
+        const [sourcercv_w, setsourcercv_w] = useState<number>(0);
+        const [sourcercv_ww, setsourcercv_ww] = useState<number>(0);
         const [sourcercv_village, setsourcercv_village] = useState<number>(0);
-        const [sourcercv_sorting, setsourcercv_sorting] = useState<number>(0);
-        const [sourcercv_dpds, setsourcercv_dpds] = useState<number>(0);
-        const [sourcercv_mayur, setsourcercv_mayur] = useState<number>(0);
-        const [sourcercv_hamsa, setsourcercv_hamsa] = useState<number>(0);
         const [sourcercv_lw, setsourcercv_lw] = useState<number>(0);
-        const [sourcercv_wholes, setsourcercv_wholes] = useState<number>(0);
+
 
        
 
-        const [fsourcercv_peeling, setfsourcercv_peeling] = useState<string>();
-        const [fsourcercv_village, setfsourcercv_village] = useState<string>('0');
-        const [fsourcercv_sorting, setfsourcercv_sorting] = useState<string>('0');
-        const [fsourcercv_dpds, setfsourcercv_dpds] = useState<string>('0');
-        const [fsourcercv_mayur, setfsourcercv_mayur] = useState<string>('0');
-        const [fsourcercv_hamsa, setfsourcercv_hamsa] = useState<string>('0');
+        const [fsourcercv_pw_w, setfsourcercv_pw_w] = useState<string>();
+        const [fsourcercv_w, setfsourcercv_w] = useState<string>();
+        const [fsourcercv_ww, setfsourcercv_ww] = useState<string>();
         const [fsourcercv_lw, setfsourcercv_lw] = useState<string>('0');
-        const [fsourcercv_wholes, setfsourcercv_wholes] = useState<string>('0');
+        const [fsourcercv_village, setfsourcercv_village] = useState<string>('0');
         const [fsourcebacklog, setfSourcebacklog] = useState<string>('');
         
         
@@ -65,14 +57,11 @@ const RCNBigTaihoReMix = (props:Props) => {
         const [destlot, setdestlot] = useState<string>("");
         const [destid, setdestid] = useState<number>(0);
 
-        const [destrcv_peeling, setdestrcv_peeling] = useState<string>("");
-        const [destrcv_village, setdestrcv_village] = useState<string>("");
-        const [destrcv_sorting, setdestrcv_sorting] = useState<string>("");
-        const [destrcv_dpds, setdestrcv_dpds] = useState<string>("");
-        const [destrcv_mayur, setdestrcv_mayur] = useState<string>("");
-        const [destrcv_hamsa, setdestrcv_hamsa] = useState<string>("");
+        const [destrcv_pw_w, setdestrcv_pw_w] = useState<string>("");
+        const [destrcv_w, setdestrcv_w] = useState<string>("");
+        const [destrcv_ww, setdestrcv_ww] = useState<string>("");
         const [destrcv_lw, setdestrcv_lw] = useState<string>("");
-        const [destrcv_wholes, setdestrcv_wholes] = useState<string>("");
+        const [destrcv_village, setdestrcv_village] = useState<string>("");
        
 
         const [destorigin, setdestorigin] = useState<string>("");
@@ -105,39 +94,31 @@ const RCNBigTaihoReMix = (props:Props) => {
         }
         const [datarcv, setdatarcv] = useState<RCNEntries>({} as RCNEntries);
         useEffect(() => {
-            setfsourcercv_sorting(props.borma ?((props.borma.rcv_sorting ?Number(props.borma.rcv_sorting):0)-sourcercv_sorting).toFixed(2):'');
-            setfsourcercv_village(props.borma ?((props.borma.rcv_village ?Number(props.borma.rcv_village):0)-sourcercv_village).toFixed(2):'');
-            setfsourcercv_dpds(props.borma ?((props.borma.rcv_dpds ?Number(props.borma.rcv_dpds):0)-sourcercv_dpds).toFixed(2):'');
-            setfsourcercv_mayur(props.borma ?((props.borma.rcv_mayur ?Number(props.borma.rcv_mayur):0)-sourcercv_mayur).toFixed(2):'');
-            setfsourcercv_hamsa(props.borma ?((props.borma.rcv_hamsa ?Number(props.borma.rcv_hamsa):0)-sourcercv_hamsa).toFixed(2):'');
+            setfsourcercv_pw_w(props.borma ?((props.borma.rcv_pw_w ?Number(props.borma.rcv_pw_w):0)-sourcercv_pw_w).toFixed(2):'');
+            setfsourcercv_w(props.borma ?((props.borma.rcv_w_lot ?Number(props.borma.rcv_w_lot):0)-sourcercv_w).toFixed(2):'');
+            setfsourcercv_ww(props.borma ?((props.borma.rcv_ww ?Number(props.borma.rcv_ww):0)-sourcercv_ww).toFixed(2):'');
             setfsourcercv_lw(props.borma ?((props.borma.rcv_lw ?Number(props.borma.rcv_lw):0)-sourcercv_lw).toFixed(2):'');
-            setfsourcercv_wholes(props.borma ?((props.borma.rcv_wholes ?Number(props.borma.rcv_wholes):0)-sourcercv_wholes).toFixed(2):'');
-            setfsourcercv_peeling(props.borma ?(Number(props.borma.rcv_peeling)-sourcercv_peeling).toFixed(2):'');
+            setfsourcercv_village(props.borma ?((props.borma.rcv_village ?Number(props.borma.rcv_village):0)-sourcercv_village).toFixed(2):''); 
             setfSourcebacklog(props.borma ?(Number(props.borma.current_backlog) - 
-            (sourcercv_peeling+sourcercv_village+sourcercv_sorting+sourcercv_dpds+
-            sourcercv_mayur+sourcercv_hamsa+sourcercv_lw+sourcercv_wholes)).toFixed(2):'');
+            (sourcercv_pw_w+sourcercv_village+sourcercv_w+sourcercv_ww+
+            sourcercv_lw)).toFixed(2):'');
             
-            setdestrcv_sorting(((datarcv.rcv_sorting ?Number(datarcv.rcv_sorting):0)+sourcercv_sorting).toFixed(2));
-            setdestrcv_village(((datarcv.rcv_village ?Number(datarcv.rcv_village):0)+sourcercv_village).toFixed(2));
-            setdestrcv_dpds(((datarcv.rcv_dpds ?Number(datarcv.rcv_dpds):0)+sourcercv_dpds).toFixed(2));
-            setdestrcv_mayur(((datarcv.rcv_mayur ?Number(datarcv.rcv_mayur):0)+sourcercv_mayur).toFixed(2));
-            setdestrcv_hamsa(((datarcv.rcv_hamsa ?Number(datarcv.rcv_hamsa):0)+sourcercv_hamsa).toFixed(2));
+            setdestrcv_pw_w(((datarcv.rcv_pw_w ?Number(datarcv.rcv_pw_w):0)+sourcercv_pw_w).toFixed(2));
+            setdestrcv_w(((datarcv.rcv_w_lot ?Number(datarcv.rcv_w_lot):0)+sourcercv_w).toFixed(2));
+            setdestrcv_ww(((datarcv.rcv_ww ?Number(datarcv.rcv_ww):0)+sourcercv_ww).toFixed(2));
             setdestrcv_lw(((datarcv.rcv_lw ?Number(datarcv.rcv_lw):0)+sourcercv_lw).toFixed(2));
-            setdestrcv_wholes(((datarcv.rcv_wholes ?Number(datarcv.rcv_wholes):0)+sourcercv_wholes).toFixed(2));
-            setdestrcv_peeling(((datarcv.rcv_peeling ?Number(datarcv.rcv_peeling):0)+sourcercv_peeling).toFixed(2));
-            setdestbacklog(((datarcv.current_backlog?Number(datarcv.current_backlog):0) + (sourcercv_peeling+sourcercv_village+sourcercv_sorting+sourcercv_dpds+
-                sourcercv_mayur+sourcercv_hamsa+sourcercv_lw+sourcercv_wholes)).toFixed(2));
-        }, [ sourcercv_peeling,sourcercv_village,sourcercv_sorting,sourcercv_dpds,sourcercv_mayur,sourcercv_hamsa,sourcercv_lw,sourcercv_wholes]);
+            setdestrcv_village(((datarcv.rcv_village ?Number(datarcv.rcv_village):0)+sourcercv_village).toFixed(2));
+         
+            setdestbacklog(((datarcv.current_backlog?Number(datarcv.current_backlog):0) + (sourcercv_pw_w+sourcercv_village+sourcercv_w+sourcercv_ww+
+                sourcercv_lw)).toFixed(2));
+        }, [ sourcercv_pw_w,sourcercv_village,sourcercv_lw,sourcercv_w,sourcercv_ww]);
 
         useEffect(() => {
-            setfsourcercv_peeling(props.borma ? props.borma.rcv_peeling:'');
+            setfsourcercv_pw_w(props.borma ? props.borma.rcv_pw_w:'');
             setfsourcercv_village(props.borma ? props.borma.rcv_village:'');
-            setfsourcercv_sorting(props.borma ? props.borma.rcv_sorting:'');
-            setfsourcercv_dpds(props.borma ?props.borma.rcv_dpds:'');
-            setfsourcercv_mayur(props.borma ?props.borma.rcv_mayur:'');
-            setfsourcercv_hamsa(props.borma ?props.borma.rcv_hamsa:'');
+            setfsourcercv_ww(props.borma ? props.borma.rcv_ww:'');
+            setfsourcercv_w(props.borma ?props.borma.rcv_w_lot:'');
             setfsourcercv_lw(props.borma ?props.borma.rcv_lw:'');
-            setfsourcercv_wholes(props.borma ?props.borma.rcv_wholes:'');
             setfSourcebacklog(props.borma ?props.borma.current_backlog:'');
             setsourceactualbacklog(props.borma ?props.borma.current_backlog:'')
         }, [ props.borma]);
@@ -167,7 +148,8 @@ const RCNBigTaihoReMix = (props:Props) => {
                
             }
 
-            const response = await axios.post('/api/bigTaiho/bigTaihomixsearch', {
+
+            const response = await axios.post('/api/hamsa/hamsamixsearch', {
                 lotNo: destlot,
                 origin: destorigin,
             })
@@ -181,14 +163,12 @@ const RCNBigTaihoReMix = (props:Props) => {
                 setdestid(data1.rcnEntries.id)
                 setdestbacklog(data1.rcnEntries.current_backlog)
                
-                setdestrcv_sorting(data1.rcnEntries.rcv_sorting ? data1.rcnEntries.rcv_sorting :0)
+          
                 setdestrcv_village(data1.rcnEntries.rcv_village ? data1.rcnEntries.rcv_village :0)
-                setdestrcv_dpds(data1.rcnEntries.rcv_dpds ? data1.rcnEntries.rcv_dpds :0)
-                setdestrcv_mayur(data1.rcnEntries.rcv_mayur ? data1.rcnEntries.rcv_mayur :0)
-                setdestrcv_hamsa(data1.rcnEntries.rcv_hamsa ? data1.rcnEntries.rcv_hamsa :0)
+                setdestrcv_pw_w(data1.rcnEntries.rcv_pw_w ? data1.rcnEntries.rcv_pw_w :0)
+                setdestrcv_w(data1.rcnEntries.rcv_w_lot ? data1.rcnEntries.rcv_w_lot :0)
+                setdestrcv_ww(data1.rcnEntries.rcv_ww ? data1.rcnEntries.rcv_ww :0)
                 setdestrcv_lw(data1.rcnEntries.rcv_lw ? data1.rcnEntries.rcv_lw :0)
-                setdestrcv_wholes(data1.rcnEntries.rcv_wholes ? data1.rcnEntries.rcv_wholes :0)
-                setdestrcv_peeling(data1.rcnEntries.rcv_peeling ? data1.rcnEntries.rcv_peeling :0)
                setdestbacklog(data1.rcnEntries.current_backlog)
             }
             else if(data1.rcnEntries && data1.rcnEntries.current_backlog && data1.rcnEntries.editStatus==='Pending'){
@@ -227,9 +207,8 @@ const RCNBigTaihoReMix = (props:Props) => {
                 return
             }
 
-            if((Number(fsourcercv_peeling) < 0) || (Number(fsourcercv_village) < 0) || (Number(fsourcercv_sorting) < 0)  
-            || (Number(fsourcercv_dpds) < 0)  || (Number(fsourcercv_lw) < 0)|| (Number(fsourcercv_wholes) < 0) ||
-            (Number(fsourcercv_mayur) < 0) || (Number(fsourcebacklog) < 0) || (Number(fsourcercv_hamsa) < 0)){
+            if((Number(fsourcercv_pw_w) < 0) || (Number(fsourcercv_w) < 0) || (Number(fsourcercv_ww) < 0)  
+            || (Number(fsourcercv_village) < 0)  || (Number(fsourcercv_lw) < 0)){
                     setErrortext('Transfer cant Exceed Remaining Stock')
                    
                     const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
@@ -241,19 +220,19 @@ const RCNBigTaihoReMix = (props:Props) => {
 
                 setisdisable(true)
                 try {
-                    const initialhumid = await axios.post('/api/bigTaiho/createMixBigTaiho', {
+                    const initialhumid = await axios.post('/api/hamsa/createMixHamsa', {
                         destid,
                         destlot,
                         destorigin,
                         destbacklog,
-                        destrcv_sorting,destrcv_peeling,destrcv_village,destrcv_dpds,destrcv_mayur,destrcv_hamsa,destrcv_lw,destrcv_wholes,
+                        destrcv_pw_w,destrcv_w,destrcv_ww,destrcv_village,destrcv_lw,
                         fsourceid:props.borma.id,
                         fsourcelot:props.borma.LotNo,
                         fsourceorigin:props.borma.origin,
                         fsourcebacklog,
-                        fsourcercv_sorting,fsourcercv_peeling,fsourcercv_village,fsourcercv_dpds,fsourcercv_mayur,fsourcercv_hamsa,fsourcercv_lw,fsourcercv_wholes,
-                        amount:(sourcercv_peeling+sourcercv_village+sourcercv_sorting+sourcercv_dpds+
-                            sourcercv_mayur+sourcercv_hamsa+sourcercv_lw+sourcercv_wholes).toFixed(2),
+                        fsourcercv_pw_w,fsourcercv_w,fsourcercv_ww,fsourcercv_village,fsourcercv_lw,
+                        amount:(sourcercv_pw_w+sourcercv_village+sourcercv_w+sourcercv_ww+
+                            sourcercv_lw).toFixed(2),
                         bsourcebacklog:props.borma.current_backlog,
                         bdestbacklog:datarcv.current_backlog
                      })
@@ -329,67 +308,52 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 </div>
 
                 <div className="flex mt-5 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">1. Peeling Amount</Label>
+                <Label className="w-1/4 pt-2 text-purple-500">1. PW Amount</Label>
                 
-                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_peeling} onChange={(e) => setsourcercv_peeling(Number(e.target.value))} required />
+                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_pw_w} 
+                onChange={(e) => setsourcercv_pw(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
-                <Label className="w-1/4 pt-2 ">{fsourcercv_peeling} kg </Label>
+                <Label className="w-1/4 pt-2 ">{fsourcercv_pw_w} kg </Label>
                 </div>
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">2. Village Amount</Label>
-                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_village} onChange={(e) => setsourcercv_village(Number(e.target.value))} required />
+                <Label className="w-1/4 pt-2 text-purple-500">2. W Lot Amount</Label>
+                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_w} onChange={(e) => setsourcercv_w(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
-                <Label className="w-1/4 pt-2 ">{fsourcercv_village} kg </Label> 
+                <Label className="w-1/4 pt-2 ">{fsourcercv_w} kg </Label> 
                 </div>
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">3. Sorting Amount</Label>
-                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_sorting} onChange={(e) => setsourcercv_sorting(Number(e.target.value))} required />
+                <Label className="w-1/4 pt-2 text-purple-500">3. WW Amount</Label>
+                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_ww} 
+                onChange={(e) => setsourcercv_ww(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
-                <Label className="w-1/4 pt-2 ">{fsourcercv_sorting} kg </Label>
+                <Label className="w-1/4 pt-2 ">{fsourcercv_ww} kg </Label>
                 </div>
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">4. DPDS Amount</Label>
-                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_dpds} onChange={(e) => setsourcercv_dpds(Number(e.target.value))} required />
-                <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
-                <Label className="w-1/4 pt-2 ">{fsourcercv_dpds} kg </Label>
-                </div>
-
-                <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">5. Mayur Amount</Label>
-                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_mayur} onChange={(e) => setsourcercv_mayur(Number(e.target.value))} required />
-                <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
-                <Label className="w-1/4 pt-2 ">{fsourcercv_mayur} kg </Label>
-                </div>
-
-                <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">6. Hamsa Amount</Label>
-                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_hamsa} onChange={(e) => setsourcercv_hamsa(Number(e.target.value))} required />
-                <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
-                <Label className="w-1/4 pt-2 ">{fsourcercv_hamsa} kg </Label>
-                </div>
-
-                <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">7. LW Amount</Label>
+                <Label className="w-1/4 pt-2 text-purple-500">4. LW Amount</Label>
                 <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_lw} onChange={(e) => setsourcercv_lw(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
                 <Label className="w-1/4 pt-2 ">{fsourcercv_lw} kg </Label>
                 </div>
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">8. Wholes Amount</Label>
-                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_wholes} onChange={(e) => setsourcercv_wholes(Number(e.target.value))} required />
+                <Label className="w-1/4 pt-2 text-purple-500">5. Village Amount</Label>
+                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_village} 
+                onChange={(e) => setsourcercv_village(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
-                <Label className="w-1/4 pt-2 ">{fsourcercv_wholes} kg </Label>
+                <Label className="w-1/4 pt-2 ">{fsourcercv_village} kg </Label>
                 </div>
+
+               
                 
 
                 <div className="flex mt-5 mx-8" style={{ display: successflag }}>
                 <Label className="w-1/4 pt-2 "> Total Transfer Amount </Label>
-                <Input className="w-1/4 justify-center items-center text-center bg-yellow-100" type='number' placeholder="Amount" value={(sourcercv_peeling+sourcercv_village+sourcercv_sorting+sourcercv_dpds+
-                            sourcercv_mayur+sourcercv_hamsa+sourcercv_lw+sourcercv_wholes).toFixed(2)}  required />
+                <Input className="w-1/4 justify-center items-center text-center bg-yellow-100" type='number' placeholder="Amount" 
+                value={(sourcercv_pw_w+sourcercv_village+sourcercv_w+sourcercv_ww+
+                    sourcercv_lw).toFixed(2)}  required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Final Backlog : </Label>
                 <Label className="w-1/4 pt-2  ">{fsourcebacklog} kg </Label>
                 </div>
@@ -404,24 +368,19 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center">Type</TableHead>
                         <TableHead className="text-center">Lot_No</TableHead>
                         <TableHead className="text-center">Origin</TableHead>
-                        <TableHead className="text-center">Previous Peeling </TableHead>
-                    <TableHead className="text-center">Current Peeling </TableHead>
-                    <TableHead className="text-center">Previous Village </TableHead>
-                    <TableHead className="text-center">Current Village </TableHead>
+                        <TableHead className="text-center">Previous PW_W </TableHead>
+                    <TableHead className="text-center">Current PW_W </TableHead>
+                    <TableHead className="text-center">Previous W_LOT </TableHead>
+                    <TableHead className="text-center">Current W_LOT </TableHead>
                
-                      <TableHead className="text-center">Previous Sorting </TableHead>                     
-                      <TableHead className="text-center">Current Sorting </TableHead>
-                  
-                      <TableHead className="text-center">Previous DPDS </TableHead>        
-                      <TableHead className="text-center">Current DPDS </TableHead>
-                      <TableHead className="text-center">Previous Mayur </TableHead>        
-                      <TableHead className="text-center">Current Mayur </TableHead>
-                      <TableHead className="text-center">Previous Hamsa </TableHead>        
-                      <TableHead className="text-center">Current Hamsa </TableHead>
+                      <TableHead className="text-center">Previous WW </TableHead>                     
+                      <TableHead className="text-center">Current WW </TableHead>
                       <TableHead className="text-center">Previous LW </TableHead>        
                       <TableHead className="text-center">Current LW </TableHead>
-                      <TableHead className="text-center">Previous Wholes </TableHead>        
-                      <TableHead className="text-center">Current Wholes </TableHead>
+                      <TableHead className="text-center">Previous Village </TableHead>        
+                      <TableHead className="text-center">Current Village </TableHead>
+                      
+                
                        <TableHead className="text-center">Current Backlog</TableHead>
                         <TableHead className="text-center">Final Backlog</TableHead>
                     </TableHeader>
@@ -432,22 +391,17 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ?props.borma.LotNo :''}</TableCell>
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ?props.borma.origin:''}</TableCell>
-                            <TableCell className="text-center  bg-cyan-100">{props.borma ? props.borma.rcv_peeling :0}</TableCell>
-                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? fsourcercv_peeling:'NA'}</TableCell>
-                            <TableCell className="text-center  bg-red-100">{props.borma  ? props.borma.rcv_village :0}</TableCell>
-                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? fsourcercv_village:'NA'}</TableCell>                    
-                            <TableCell className="text-center  bg-yellow-100">{props.borma ? props.borma.rcv_sorting:0}</TableCell>
-                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? fsourcercv_sorting:'NA'}</TableCell>                           
-                            <TableCell className="text-center bg-green-100 ">{props.borma? props.borma.rcv_dpds:0}</TableCell>
-                            <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? fsourcercv_dpds:'NA'}</TableCell>
-                            <TableCell className="text-center  bg-red-100">{props.borma  ? props.borma.rcv_mayur :0}</TableCell>
-                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? fsourcercv_mayur:'NA'}</TableCell>                 
-                            <TableCell className="text-center  bg-yellow-100">{props.borma ? props.borma.rcv_hamsa:0}</TableCell>
-                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? fsourcercv_hamsa:'NA'}</TableCell>                            
+                            <TableCell className="text-center  bg-cyan-100">{props.borma ? props.borma.rcv_pw_w :0}</TableCell>
+                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? fsourcercv_pw_w:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-red-100">{props.borma  ? props.borma.rcv_w_lot :0}</TableCell>
+                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? fsourcercv_w:'NA'}</TableCell>                    
+                            <TableCell className="text-center  bg-yellow-100">{props.borma ? props.borma.rcv_ww:0}</TableCell>
+                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? fsourcercv_ww:'NA'}</TableCell>                           
                             <TableCell className="text-center bg-green-100 ">{props.borma? props.borma.rcv_lw:0}</TableCell>
                             <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? fsourcercv_lw:'NA'}</TableCell>
-                            <TableCell className="text-center bg-yellow-100 ">{props.borma? props.borma.rcv_wholes:0}</TableCell>
-                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? fsourcercv_wholes:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-red-100">{props.borma  ? props.borma.rcv_village :0}</TableCell>
+                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? fsourcercv_village:'NA'}</TableCell>                 
+                            
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ? props.borma.current_backlog :0 }</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{successflag ? fsourcebacklog:'NA'}</TableCell>
                         </TableRow>
@@ -456,22 +410,16 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableCell className="text-center font-semibold  flex">Target<CircleArrowLeft size={30} color="green"/></TableCell>
                             <TableCell className="text-center font-semibold text-green-600 ">{destlot ? destlot :'NA'}</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{destorigin ? destorigin :'NA'}</TableCell>
-                            <TableCell className="text-center  bg-cyan-100">{datarcv.rcv_peeling}</TableCell>
-                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_peeling:'NA'}</TableCell>
-                            <TableCell className="text-center  bg-red-100 ">{successflag ? datarcv.rcv_village:''}</TableCell>
-                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_village:'NA'}</TableCell>                    
-                            <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_sorting ?datarcv.rcv_sorting :''}</TableCell>
-                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_sorting:'NA'}</TableCell>                      
-                            <TableCell className="text-center  bg-green-100">{datarcv.rcv_dpds ? datarcv.rcv_dpds:''}</TableCell>
-                            <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? destrcv_dpds:'NA'}</TableCell>
-                            <TableCell className="text-center  bg-red-100">{datarcv.rcv_mayur ? datarcv.rcv_mayur:''}</TableCell>
-                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_mayur:'NA'}</TableCell>
-                            <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_hamsa ?datarcv.rcv_hamsa :''}</TableCell>
-                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_hamsa:'NA'}</TableCell>                      
+                            <TableCell className="text-center  bg-cyan-100">{datarcv.rcv_pw_w}</TableCell>
+                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_pw_w:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-red-100 ">{successflag ? datarcv.rcv_w_lot:''}</TableCell>
+                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_w:'NA'}</TableCell>                    
+                            <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_ww ?datarcv.rcv_ww :''}</TableCell>
+                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_ww:'NA'}</TableCell>                      
                             <TableCell className="text-center  bg-green-100">{datarcv.rcv_lw ? datarcv.rcv_lw:''}</TableCell>
                             <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? destrcv_lw:'NA'}</TableCell>
-                            <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_wholes ? datarcv.rcv_wholes:''}</TableCell>
-                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_wholes:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-red-100">{datarcv.rcv_village ? datarcv.rcv_village:''}</TableCell>
+                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_village:'NA'}</TableCell>
                             <TableCell className="text-center font-semibold text-red-500">{datarcv.current_backlog ? datarcv.current_backlog : ''}</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{successflag ? destbacklog:'NA'}</TableCell>
                         </TableRow>
@@ -503,4 +451,4 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
     )
 
 }
-export default RCNBigTaihoReMix
+export default RCNHamsaReMix

@@ -288,17 +288,18 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
                 </div>
-                <div className="flex mt-2 ml-5" >
-                <Label className="w-100 pt-2 font-semibold ml-3">(Total Upto {sourceactualbacklog} Kg can be Transfered)</Label>
-                </div>
-                <div className="flex mt-5 mx-8" style={{ display: successflag }}>
-                <Label className="w-100 pt-2 font-semibold text-red-500">Fill Up Transfer Amount in Details </Label>
+                
+                <div className="flex mt-5 mx-8 bg-green-100 pb-2 " style={{ display: successflag }}>
+                <Label className="w-100 pt-2 font-semibold text-red-500 text-base">Fill Up Transfer Amount in Details </Label>
                 {/* <Label className="w-100 pt-2 font-semibold ml-3">(Maximum Total {sourceactualbacklog} Kg can be Transfered)</Label> */}
                 
                 </div>
+                <div className="flex mt-2 ml-5" >
+                <Label className="w-100 pt-2 font-semibold ml-3">Maximum {sourceactualbacklog} Kg can be Transfered</Label>
+                </div>
 
                 <div className="flex mt-5 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">1. DP Stock</Label>
+                <Label className="w-1/4 pt-2 text-purple-500">1. DP Amount</Label>
                 
                 <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_dp} onChange={(e) => setsourcercv_dp(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
@@ -306,13 +307,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 </div>
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">2. DS Stock</Label>
+                <Label className="w-1/4 pt-2 text-purple-500">2. DS Amount</Label>
                 <Input className="w-1/4 justify-center items-center text-center" type='number' placeholder="Amount" value={sourcercv_ds} onChange={(e) => setsourcercv_ds(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
                 <Label className="w-1/4 pt-2 ">{fsourcercv_ds} kg </Label>
                 </div>          
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">3. DP1 Stock</Label>
+                <Label className="w-1/4 pt-2 text-purple-500">3. DP1 Amount</Label>
                 <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_dp1} onChange={(e) => setsourcercv_dp1(Number(e.target.value))} required /> 
                 
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
@@ -320,14 +321,14 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 </div>
                 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">4. Sorting Stock</Label>
+                <Label className="w-1/4 pt-2 text-purple-500">4. Sorting Amount</Label>
                 <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_sorting} onChange={(e) => setsourcercv_sorting(Number(e.target.value))} required /> 
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
                 <Label className="w-1/4 pt-2 ">{fsourcercv_sorting} kg </Label>
 
                 </div>
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">5. BigTaiho Stock</Label>
+                <Label className="w-1/4 pt-2 text-purple-500">5. BigTaiho Amount</Label>
                 <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_bigT} onChange={(e) => setsourcercv_bigT(Number(e.target.value))} required /> 
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
                 <Label className="w-1/4 pt-2 ">{fsourcercv_bigT} kg </Label>
@@ -384,6 +385,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             
                             <TableCell className="text-center bg-green-100 ">{props.borma? props.borma.rcv_Sorting:0}</TableCell>
                             <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? fsourcercv_sorting:'NA'}</TableCell>
+                            <TableCell className="text-center bg-green-100 ">{props.borma? props.borma.rcv_transfer:0}</TableCell>
+                            <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? fsourcercv_bigT:'NA'}</TableCell>
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ? props.borma.current_backlog :0 }</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{successflag ? fsourcebacklog:'NA'}</TableCell>
                         </TableRow>

@@ -735,6 +735,95 @@ export interface BigTaihoData {
 
     
 }
+export interface HamsaData {
+ 
+    id: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    altid: number;
+    rcv_transfer: string ;
+    rcv_transfer_2: string;
+    rcv_pw_w: string ;
+    rcv_w_lot: string ;
+    rcv_ww: string ;
+    rcv_lw: string ;
+    rcv_village: string ;
+    issue_pw_210: string ;
+    issue_w_210: string ;
+    issue_ww_210: string ;
+    issue_pw_240:string;
+    issue_w_240: string ;
+    issue_ww_240: string ;
+    issue_pw_280:string;
+    issue_w_280: string ;
+    issue_ww_280: string ;
+    issue_pw_320:string;
+    issue_w_320: string ;
+    issue_ww_320: string ;
+    issue_pw_400:string;
+    issue_w_400: string ;
+    issue_ww_400: string ;
+    issue_lw:string;
+    issue_bigTaiho: string ;
+    issue_jb:string;
+    issue_add_1: string;
+    issue_add_2: string;
+    issue_add_3: string;
+    issue_add_4: string;
+    issue_add_5: string;
+    issue_add_6: string;
+    issue_add_7: string;
+    issue_add_8: string;
+    issue_add_9: string;
+    issue_add_10: string;
+    Mc_on_3: string ;
+    Mc_off_3: string ;
+    Mc_breakdown_3: string ;
+    Mc_runTime_3: string ;
+    otherTime_3: string ;
+    Mc_on_1: string ;
+    Mc_off_1: string ;
+    Mc_breakdown_1: string ;
+    Mc_runTime_1: string ;
+    otherTime_1: string ;
+    Mc_on_2: string ;
+    Mc_off_2: string ;
+    Mc_breakdown_2: string ;
+    Mc_runTime_2: string ;
+    otherTime_2: string ;
+    Mc_on_4: string ;
+    Mc_off_4: string ;
+    Mc_breakdown_4: string ;
+    Mc_runTime_4: string ;
+    otherTime_4: string ;
+    Mc_on_5: string ;
+    Mc_off_5: string ;
+    Mc_breakdown_5: string ;
+    Mc_runTime_5: string ;
+    otherTime_5: string ;
+    Mc_on_6: string ;
+    Mc_off_6: string ;
+    Mc_breakdown_6: string ;
+    Mc_runTime_6: string ;
+    otherTime_6: string ;
+    Mc_on_7: string ;
+    Mc_off_7: string ;
+    Mc_breakdown_7: string ;
+    Mc_runTime_7: string ;
+    otherTime_7: string ;
+    entry_backlog: string;
+    current_backlog: string;
+    Status: number;
+    latest: number;
+    mixingLot: string | null;
+    noOfdayOperators: number;
+    noOfnightOperators: number;
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string | null;
+
+}
 
 
 
@@ -888,6 +977,8 @@ export interface PermissionRole {
     BoilingSupervisor: string[];
     ScoopingSupervisor: string[];
     PeelingSupervisor:string[];
+    MayurSupervisor:string[];
+    SortingSupervisor:string[];
     VillageSupervisor:string[];
     ProductionManager:string[];
     MaintainanceManager:string[];

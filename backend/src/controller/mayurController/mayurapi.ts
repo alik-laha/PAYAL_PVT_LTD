@@ -11,6 +11,8 @@ import lotoriginmodel from "../../model/lotoriginModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import mixingModel from "../../model/mixingModel";
 import bigTaihoModel from "../../model/bigTaihoModel";
+import hamsaModel from "../../model/hamsamodel";
+
 
 export const findEditMayurAll = async (req: Request, res: Response) => {
     try {
@@ -30,7 +32,7 @@ export const getMayurLot = async (req: Request, res: Response) => {
         const status = req.params.status;
         const scoopingLot = await Mayur.findAll({
             
-            attributes: ['LotNo', 'origin','current_backlog'],
+            attributes: ['LotNo', 'origin','current_backlog','rcv_wholespeel','rcv_wholesunpeel'],
             where: {
                 Status:status
             }
@@ -216,7 +218,7 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
             }
            
             
-            const humidUpdate = await Mayur.update(
+            const mayurUpdate = await Mayur.update(
                 {
                     date: data.Date,
                     Mc_on_133: data.Mc_on_133,
@@ -282,8 +284,9 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                     }, transaction
                 }
             );
-            if (humidUpdate) {
+            if (mayurUpdate) {
 
+                // BigTaiho Out
                 const bigT_backlog = await bigTaihoModel.findOne({
                     attributes: ['current_backlog','rcv_mayur'],
                     where: {
@@ -347,8 +350,44 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                     res.status(500).json({ message: "Error In Creating Transaction History" });
                     throw new Error('Transaction Aborted')
                 } 
-
-                await LotNo.update(
+                // Hamsa Out
+                const hamsa_backlog = await hamsaModel.findOne({
+                    attributes: ['current_backlog'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(hamsa_backlog)
+                if (hamsa_backlog && hamsa_backlog.dataValues.current_backlog>=0){   
+                        await hamsaModel.update(
+                            { 
+                                rcv_pw_w:data.issue_pw_w,
+                                rcv_w_lot:data.issue_w_lot,
+                                rcv_ww:data.issue_ww,
+                                current_backlog:sequelize.literal(`current_backlog+ ${parseFloat(data.issue_pw_w)+parseFloat(data.issue_w_lot)+parseFloat(data.issue_ww)}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     
+                     
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Hamsa Entry" });
+                    throw new Error('Transaction Aborted')
+                } 
+                //Lot Update
+                const lotupdate =await LotNo.update(
                     { 
                       modifiedBy:'Next Interconnected'
                     },
@@ -358,7 +397,7 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                         },transaction
                     }
                 );
-                const lotupdate = await lotoriginmodel.update(
+                const lotoriginupdate = await lotoriginmodel.update(
                     {
                         latest_section: 'Mayur',
                         mayurStatus: 1
@@ -370,7 +409,7 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                         }, transaction
                     }
                 );
-                if (lotupdate) {
+                if (lotupdate && lotoriginupdate) {
                     res.status(200).json({ message: "Mayur Entry Made Successfully" });
                 }
                 else {
@@ -619,7 +658,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                             {
                         await bigTaihoModel.update(
                             { 
-                                rcv_mayur:sequelize.literal(`rcv_dpds+ ${data.issue_bigTaiho}`),
+                                rcv_mayur:sequelize.literal(`rcv_mayur+ ${data.issue_bigTaiho}`),
                                 current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
                             },
                             {
@@ -653,6 +692,78 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         res.status(500).json({ message: "Error In Creating Reissue BigTaiho Transaction History" });
                         throw new Error('Transaction Aborted')
                     } 
+
+                    // Hamsa Out
+                const hamsa_backlog = await hamsaModel.findOne({
+                    attributes: ['current_backlog','rcv_pw_w','rcv_w_lot','rcv_ww'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(hamsa_backlog)
+                if (hamsa_backlog && hamsa_backlog.dataValues.current_backlog>=0){  
+                    
+                    if(hamsa_backlog.dataValues.rcv_pw_w && hamsa_backlog.dataValues.rcv_w_lot && hamsa_backlog.dataValues.rcv_ww)
+                        {
+                            await hamsaModel.update(
+                                { 
+                                    rcv_pw_w:sequelize.literal(`rcv_pw_w+ ${data.issue_pw_w}`),
+                                    rcv_w_lot:sequelize.literal(`rcv_w_lot+ ${data.issue_w_lot}`),
+                                    rcv_ww:sequelize.literal(`rcv_ww+ ${data.issue_ww}`),
+                                    current_backlog:sequelize.literal(`current_backlog+ ${parseFloat(data.issue_pw_w)+parseFloat(data.issue_w_lot)+parseFloat(data.issue_ww)}`)
+                                },
+                                {
+                                    where: {
+                                        lotNo:LotNO,
+                                        origin: data.origin,
+                                        latest:1
+                                    },transaction
+                                }
+                            );
+                        }
+                        else{
+                            await hamsaModel.update(
+                                { 
+                                    rcv_pw_w:data.issue_pw_w,
+                                    rcv_w_lot:data.issue_w_lot,
+                                    rcv_ww:data.issue_ww,
+                                    current_backlog:sequelize.literal(`current_backlog+ ${parseFloat(data.issue_pw_w)+parseFloat(data.issue_w_lot)+parseFloat(data.issue_ww)}`)
+                                },
+                                {
+                                    where: {
+                                        lotNo:LotNO,
+                                        origin: data.origin,
+                                        latest:1
+                                    },transaction
+                                }
+                            );
+
+
+                        }
+
+
+
+
+                        
+                     
+                     
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Hamsa Entry" });
+                    throw new Error('Transaction Aborted')
+                } 
+
+
+
+
+
+
+
                     const lotupdate = await await lotoriginmodel.update(
                         { 
                            latest_section: 'Mayur'
@@ -1155,7 +1266,7 @@ export const approveMayur = async (req: Request, res: Response) => {
                                 {
                                 await bigTaihoModel.update(
                                     {
-                                        rcv_mayur: sequelize.literal(`rcv_dpds+ ${difference_bigT}`),
+                                        rcv_mayur: sequelize.literal(`rcv_mayur+ ${difference_bigT}`),
                                         current_backlog: sequelize.literal(`current_backlog+ ${difference_bigT}`)
                                     },
                                     {
@@ -1362,14 +1473,14 @@ export const SearchHistory = async (req: Request, res: Response) => {
         if(limit===0 && offset===0){
              rcnEntries = await sectionTransfer.findAll({
                 where,
-                order: [['date','DESC'],['LotNo','ASC']], // Order by date descending
+                order: [['LotNo','DESC'],['origin','ASC'],['issueid','ASC']], // Order by date descending
                 
             });
         }
         else{
              rcnEntries = await sectionTransfer.findAll({
                 where,
-                order: [['date','DESC'],['LotNo','ASC']], // Order by date descending
+                order: [['LotNo','DESC'],['origin','ASC'],['issueid','ASC']], // Order by date descending
                 limit: limit,
                 offset: offset
             });
