@@ -1473,14 +1473,14 @@ export const SearchHistory = async (req: Request, res: Response) => {
         if(limit===0 && offset===0){
              rcnEntries = await sectionTransfer.findAll({
                 where,
-                order: [['date','DESC'],['LotNo','ASC']], // Order by date descending
+                order: [['LotNo','DESC'],['origin','ASC'],['issueid','ASC']], // Order by date descending
                 
             });
         }
         else{
              rcnEntries = await sectionTransfer.findAll({
                 where,
-                order: [['date','DESC'],['LotNo','ASC']], // Order by date descending
+                order: [['LotNo','DESC'],['origin','ASC'],['issueid','ASC']], // Order by date descending
                 limit: limit,
                 offset: offset
             });
