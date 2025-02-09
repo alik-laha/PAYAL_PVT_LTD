@@ -90,7 +90,7 @@ interface HamsaRowData{
 }
 
 
-import {   BigTaihoData, HamsaData } from "@/type/type"
+import {    HamsaData } from "@/type/type"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
