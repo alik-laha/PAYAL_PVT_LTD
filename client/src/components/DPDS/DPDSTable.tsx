@@ -454,7 +454,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.rcv_dp)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.rcv_ds)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.rcv_dp1)}</TableCell>
-                                    <TableCell className="text-center font-bold text-green-600">{Number(formatNumber(item.rcv_dp)) + Number(formatNumber(item.rcv_ds))+ Number(formatNumber(item.rcv_dp1))}</TableCell>
+                                    <TableCell className="text-center font-bold text-green-600">
+                                    {formatNumber((parseFloat(item.rcv_dp) +parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1)).toString())}
+                                    </TableCell>
                                     <TableCell  className="text-center font-bold text-green-600">{item.rcv_Sorting ? formatNumber(item.rcv_Sorting) :0}</TableCell>
                                     <TableCell  className="text-center font-bold text-green-600">{item.rcv_transfer ? formatNumber(item.rcv_transfer) :0}</TableCell>
 
@@ -549,7 +551,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.rcv_dp)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.rcv_ds)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.rcv_dp1)}</TableCell>
-                                    <TableCell className="text-center bg-yellow-100 font-bold text-green-600">{Number(formatNumber(item.rcv_dp)) + Number(formatNumber(item.rcv_ds))+ Number(formatNumber(item.rcv_dp1))}</TableCell>
+                                    <TableCell className="text-center font-bold text-green-600">
+                                    {formatNumber((parseFloat(item.rcv_dp) +parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1)).toString())}
+                                    </TableCell>
                                     <TableCell  className="text-center bg-yellow-100 font-bold text-green-600">{item.rcv_Sorting ? formatNumber(item.rcv_Sorting) :0}</TableCell>
                                     <TableCell  className="text-center bg-yellow-100 font-bold text-green-600">{item.rcv_transfer ? formatNumber(item.rcv_transfer) :0}</TableCell>
 

@@ -347,6 +347,7 @@ const MayurTable = () => {
             }
         }
     }
+   
 
     const formatNumberWithSign = (number: number) => {
         if (number > 0) {
@@ -481,7 +482,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
                                         <TableCell className="text-center ">{formatNumber(item.rcv_wholespeel)}</TableCell>
                                         <TableCell className="text-center  ">{formatNumber(item.rcv_wholesunpeel)}</TableCell>
-                                        <TableCell className="text-center font-bold text-green-600">{Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel))}</TableCell>
+                                        <TableCell className="text-center font-bold text-green-600">{formatNumber((parseFloat(item.rcv_wholespeel) + parseFloat(item.rcv_wholesunpeel)).toString())}</TableCell>
                                       
                                         <TableCell  className="text-center font-bold text-green-600">{item.rcv_DPDS ? formatNumber(item.rcv_DPDS) :0}</TableCell>
                                         <TableCell className="text-center font-bold text-green-600">{item.rcv_sorting ?formatNumber(item.rcv_sorting):0}</TableCell>
@@ -492,7 +493,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         
                                         <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_lot)}</TableCell>
                                         <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww)}</TableCell>
-                                        <TableCell className="text-center font-bold ">{Number(item.issue_ww)+Number(item.issue_w_lot)+Number(item.issue_pw_w)}</TableCell>
+                                        <TableCell className="text-center font-bold ">{formatNumber((parseFloat(item.issue_pw_w) + parseFloat(item.issue_w_lot)+parseFloat(item.issue_ww)).toString())}</TableCell>
                                         <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_rejection)}</TableCell>
                                         <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_village)}</TableCell>
                                         
