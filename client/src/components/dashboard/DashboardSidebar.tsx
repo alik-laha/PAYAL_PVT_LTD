@@ -18,7 +18,7 @@ import { LuDonut, LuBadgeCheck } from "react-icons/lu";
 import { GoPackageDependents } from "react-icons/go";
 import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
 import { BiSolidUserPlus } from "react-icons/bi";
-import { FaUserTie, FaWater, FaAcquisitionsIncorporated } from "react-icons/fa";
+import { FaUserTie, FaWater, FaSortAmountDownAlt ,FaAcquisitionsIncorporated } from "react-icons/fa";
 import { PiPackageLight, PiWashingMachineLight } from "react-icons/pi";
 import { GiBoilingBubbles, GiIceCreamScoop, GiGate, GiBoxingRing,GiVendingMachine } from "react-icons/gi";
 import { AiFillCodeSandboxSquare, AiOutlineProduct } from "react-icons/ai";
@@ -290,6 +290,13 @@ const DashboardSidebar = () => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/DPDS" >
                                         <p className="flex"> <GiBoxingRing size={20} /><p className="pl-3">  RCN DPDS </p></p>
+                                    </NavLink>
+                                </CollapsibleContent>}
+
+                            {renderlink('Sorting')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/Sorting" >
+                                        <p className="flex"> <FaSortAmountDownAlt size={20} /><p className="pl-3">  RCN Sorting </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 

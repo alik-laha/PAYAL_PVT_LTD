@@ -9,21 +9,23 @@ import mixingModel from "../../model/mixingModel";
 import bigTaihoModel from "../../model/bigTaihoModel";
 import hamsaEditModel from "../../model/hamsaeditModel";
 import hamsaModel from "../../model/hamsamodel";
+import SortingModel from "../../model/sortingModel";
+import SortingEditModel from "../../model/sortingEditModel";
 
 
-// //Hamsa.tsx
-export const findEditHamsaAll = async (req: Request, res: Response) => {
+// //Sorting.tsx
+export const findEditSortingAll = async (req: Request, res: Response) => {
     try {
-        const scoopingAllEdit = await hamsaEditModel.findAll({order: [['LotNo', 'DESC'], ['date', 'DESC']] });
+        const scoopingAllEdit = await SortingEditModel.findAll({order: [['LotNo', 'DESC'], ['date', 'DESC']] });
         if (!scoopingAllEdit) {
             return res.status(400).json({ message: "Not found" });
         }
-        res.status(200).json({ message: "findEditHamsaAll", scoopingAllEdit });
+        res.status(200).json({ message: "findEditSortingAll", scoopingAllEdit });
     } catch (error) {
         res.status(500).json({ message: "Internal server error",error });
     }
 }
-export const sumOfallHamsa = async (req: Request, res: Response) => {
+export const sumOfallSorting = async (req: Request, res: Response) => {
 
     
     try {
@@ -47,26 +49,27 @@ export const sumOfallHamsa = async (req: Request, res: Response) => {
             today.setMinutes(today.getMinutes()+30);
         }
 
-        const data = await hamsaModel.findAll({
+        const data = await SortingModel.findAll({
             attributes: [
-                [sequelize.fn('sum', sequelize.col('issue_pw_210')), 'issue_pw_210'],
-                [sequelize.fn('sum', sequelize.col('issue_w_210')), 'issue_w_210'],
-                [sequelize.fn('sum', sequelize.col('issue_ww_210')), 'issue_ww_210'],
-                [sequelize.fn('sum', sequelize.col('issue_pw_240')), 'issue_pw_240'],
-                [sequelize.fn('sum', sequelize.col('issue_w_240')), 'issue_w_240'],
-                [sequelize.fn('sum', sequelize.col('issue_ww_240')), 'issue_ww_240'],
-                [sequelize.fn('sum', sequelize.col('issue_pw_280')), 'issue_pw_280'],
-                [sequelize.fn('sum', sequelize.col('issue_w_280')), 'issue_w_280'],
-                [sequelize.fn('sum', sequelize.col('issue_ww_280')), 'issue_ww_280'],
-                [sequelize.fn('sum', sequelize.col('issue_pw_320')), 'issue_pw_320'],
-                [sequelize.fn('sum', sequelize.col('issue_w_320')), 'issue_w_320'],
-                [sequelize.fn('sum', sequelize.col('issue_ww_320')), 'issue_ww_320'],
-                [sequelize.fn('sum', sequelize.col('issue_pw_400')), 'issue_pw_400'],
-                [sequelize.fn('sum', sequelize.col('issue_w_400')), 'issue_w_400'],
-                [sequelize.fn('sum', sequelize.col('issue_ww_400')), 'issue_ww_400'],
-                [sequelize.fn('sum', sequelize.col('issue_lw')), 'issue_lw'],
+                [sequelize.fn('sum', sequelize.col('issue_jjh')), 'issue_jjh'],
+                [sequelize.fn('sum', sequelize.col('issue_jjh1')), 'issue_jjh1'],
+                [sequelize.fn('sum', sequelize.col('issue_sjh')), 'issue_sjh'],
+                [sequelize.fn('sum', sequelize.col('issue_jk')), 'issue_jk'],
+                [sequelize.fn('sum', sequelize.col('issue_jk1')), 'issue_jk1'],
+                [sequelize.fn('sum', sequelize.col('issue_k')), 'issue_k'],
+                [sequelize.fn('sum', sequelize.col('issue_k1')), 'issue_k1'],
+                [sequelize.fn('sum', sequelize.col('issue_lwp1')), 'issue_lwp1'],
+                [sequelize.fn('sum', sequelize.col('issue_lwp')), 'issue_lwp'],
+                [sequelize.fn('sum', sequelize.col('issue_s')), 'issue_s'],
+                [sequelize.fn('sum', sequelize.col('issue_ss')), 'issue_ss'],
+                [sequelize.fn('sum', sequelize.col('issue_yk')), 'issue_yk'],
+                [sequelize.fn('sum', sequelize.col('issue_sp2')), 'issue_sp2'],
+                [sequelize.fn('sum', sequelize.col('issue_kp')), 'issue_kp'],
+                [sequelize.fn('sum', sequelize.col('issue_rejection')), 'issue_rejection'],
+                [sequelize.fn('sum', sequelize.col('issue_village')), 'issue_village'],
                 [sequelize.fn('sum', sequelize.col('issue_bigTaiho')), 'issue_bigTaiho'],
-                [sequelize.fn('sum', sequelize.col('issue_jb')), 'issue_jb'],
+                [sequelize.fn('sum', sequelize.col('issue_mayur')), 'issue_mayur'],
+                [sequelize.fn('sum', sequelize.col('issue_dpds')), 'issue_dpds'],
              
                 [sequelize.fn('sum', sequelize.col('issue_add_1')), 'issue_add_1'],
                 [sequelize.fn('sum', sequelize.col('issue_add_2')), 'issue_add_2'],
@@ -90,7 +93,7 @@ export const sumOfallHamsa = async (req: Request, res: Response) => {
                 }
             }
         });
-        const EditData = await hamsaEditModel.count()
+        const EditData = await SortingEditModel.count()
         if (data) {
             return res.status(200).json({ data, EditData });
         }
@@ -99,23 +102,23 @@ export const sumOfallHamsa = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "Internal Server Error", err });
     }
 }
-export const getHamsaLot = async (req: Request, res: Response) => {
+export const getSortingLot = async (req: Request, res: Response) => {
 
     try {
         const status = req.params.status;
-        const scoopingLot = await hamsaModel.findAll({
+        const scoopingLot = await SortingModel.findAll({
             
-            attributes: ['LotNo', 'origin','current_backlog','rcv_pw_w','rcv_w_lot','rcv_ww'],
+            attributes: ['LotNo', 'origin','current_backlog','rcv_jjh','rcv_sjh','rcv_sjh1','rcv_jh1','rcv_jk_k','rcv_sp1'],
             where: {
                 Status:status
             }
 
         });
         if(scoopingLot){
-            res.status(200).json({ message: "Un Hamsa Entry", scoopingLot });
+            res.status(200).json({ message: "Un Sorting Entry", scoopingLot });
         }
         else{
-            res.status(500).json({ message: "Error in Finding Hamsa Entry"});
+            res.status(500).json({ message: "Error in Finding Sorting Entry"});
         }
        
 
@@ -127,13 +130,13 @@ export const getHamsaLot = async (req: Request, res: Response) => {
 
 }
 
-// //HamsaInitial.tsx
+// //SortingInitial.tsx
 export const getHamsaBylotorigin = async (req: Request, res: Response) => {
 
     try {
         const lotNO=req.params.lotNO
         const origin=req.params.origin
-        const scoopingLot = await hamsaModel.findAll({
+        const scoopingLot = await SortingModel.findAll({
             where: {
                 LotNo:lotNO,origin:origin
             }, order: [['LotNo', 'ASC']]
@@ -141,10 +144,10 @@ export const getHamsaBylotorigin = async (req: Request, res: Response) => {
         }
         );
         if(scoopingLot){
-            res.status(200).json({ message: "Un Hamsa Entry", scoopingLot });
+            res.status(200).json({ message: "Un Sorting Entry", scoopingLot });
         }
         else{
-            res.status(500).json({ message: "Error in Finding Hamsa Entry"});
+            res.status(500).json({ message: "Error in Finding Sorting Entry"});
         }
        
 
