@@ -286,6 +286,13 @@ const DashboardSidebar = () => {
                                     </NavLink>
                                 </CollapsibleContent>}
 
+                                {renderlink('Hamsa')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/Hamsa" >
+                                        <p className="flex"> <GiVendingMachine size={20} /><p className="pl-3">  RCN Hamsa </p></p>
+                                    </NavLink>
+                                </CollapsibleContent>}
+
                             {renderlink('DPDS')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/DPDS" >
@@ -301,12 +308,7 @@ const DashboardSidebar = () => {
                                 </CollapsibleContent>}
 
 
-                            {renderlink('Hamsa')
-                                && <CollapsibleContent className="Items-pvt">
-                                    <NavLink to="/dashboard/Hamsa" >
-                                        <p className="flex"> <GiVendingMachine size={20} /><p className="pl-3">  RCN Hamsa </p></p>
-                                    </NavLink>
-                                </CollapsibleContent>}
+                           
 
                             
 

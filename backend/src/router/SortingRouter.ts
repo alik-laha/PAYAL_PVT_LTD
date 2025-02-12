@@ -8,8 +8,8 @@ import {
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
 import { approveHamsa, CreateEntireHamsa, CreateMixHamsa, CreateReissueHamsa, EditRejectHamsa,  
-      getHamsaBylotorigin, SearchRCNHamsa, SearchRCNHamsaMix, updateEntireHamsa } from "../controller/HamsaController/HamsaApi";
-import { findEditSortingAll, getSortingLot, sumOfallSorting } from "../controller/SortingController/SortingApi";
+       SearchRCNHamsa, SearchRCNHamsaMix, updateEntireHamsa } from "../controller/HamsaController/HamsaApi";
+import { findEditSortingAll, getSortingBylotorigin, getSortingLot, sumOfallSorting } from "../controller/SortingController/SortingApi";
 const router = express()
 
 // //Sorting.tsx
@@ -18,7 +18,7 @@ router.get("/findEditSortingAll", jwtVerify, findEditSortingAll)
 router.get("/sumofallSorting", jwtVerify, sumOfallSorting)
 
 // //HamsaInitial.tsx
-router.get("/getHamsaByLotOrigin/:lotNO/:origin", jwtVerify, getHamsaBylotorigin)
+router.get("/getSortingByLotOrigin/:lotNO/:origin", jwtVerify, getSortingBylotorigin)
 
 // //HamsaCreateForm.tsx
 router.post("/createEntireHamsa", jwtVerify, CreateEntireHamsa)

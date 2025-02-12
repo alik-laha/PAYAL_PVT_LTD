@@ -21,7 +21,7 @@ import axios from "axios";
 import { useState } from "react";
 import cross from '../../assets/Static_Images/error_img.png'
 // import RCNDPDSCreateForm from "./DPDSCreateForm";
-import {  HamsaData } from "@/type/type";
+import {  SortingData } from "@/type/type";
 import SortingCreateForm from "./SortingCreateForm";
 
 
@@ -38,7 +38,7 @@ interface lotPropsdata{
 }
 
 const SortingInitial = (props: any) => {
-    const [bormaData, setBormaData ]  = useState<HamsaData[]>([])
+    const [bormaData, setBormaData ]  = useState<SortingData[]>([])
     const [errortext, seterrorText] = useState<string>('');
     
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialogPeel') as HTMLInputElement;

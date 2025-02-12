@@ -825,6 +825,63 @@ export interface HamsaData {
 
 }
 
+export interface SortingData {
+ 
+    id: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    altid: number;
+    rcv_transfer: string;
+    rcv_bigTaiho: string;
+    rcv_jjh: string;
+    rcv_sjh: string;
+    rcv_sjh1: string;
+    rcv_jh1: string;
+    rcv_jk_k: string;
+    rcv_sp1: string;
+    issue_jjh: string;
+    issue_jjh1: string;
+    issue_sjh: string;
+    issue_jk: string;
+    issue_jk1: string;
+    issue_k: string;
+    issue_k1: string;
+    issue_lwp1: string;
+    issue_lwp: string;
+    issue_s: string;
+    issue_ss: string;
+    issue_yk: string;
+    issue_sp2: string;
+    issue_kp: string;
+    issue_add_1: string;
+    issue_add_2: string;
+    issue_add_3: string;
+    issue_add_4: string;
+    issue_add_5: string;
+    issue_add_6: string;
+    issue_add_7: string;
+    issue_add_8: string;
+    issue_add_9: string;
+    issue_add_10: string;
+    issue_rejection: string;
+    issue_village: string;
+    issue_bigTaiho: string;
+    issue_mayur: string;
+    issue_dpds: string;
+    entry_backlog: string;
+    current_backlog: string;
+    Status: number;
+    latest: number;
+    mixingLot: string | null;
+    noOfdayOperators: number;
+    noOfnightOperators: number;
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string | null;
+
+}
+
 
 
 export interface HumidExcelData {
