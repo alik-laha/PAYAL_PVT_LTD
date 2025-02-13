@@ -20,11 +20,9 @@ import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
 import {  pendingCheckRoles, PermissionRole } from '@/type/type';
 import { pendingCheckRole } from '../common/exportData';
-import HamsaInitial from './HamsaInitial';
-import HamsaTable from './HamsaTable';
-import HamsaHistoryTable from './HamsaHistory';
 import SortingInitial from './SortingInitial';
 import SortingHistoryTable from './SortingHistory';
+import SortingTable from './SortingTable';
 
 
 
@@ -125,7 +123,7 @@ const Sorting = () => {
                     Issue Mayur <br /><p>{data.data[0].issue_mayur ? formatNumber(parseFloat(data.data[0].issue_mayur))  : 0}  Kg</p>
                     </div>
 
-                    <div className="flexbox-tile bg-brown-500 hover:bg-red-400">
+                    <div className="flexbox-tile bg-red-500 hover:bg-red-400">
                     Issue DPDS <br /><p>{data.data[0].issue_dpds? formatNumber(parseFloat(data.data[0].issue_dpds))  : 0}  Kg</p>
                     </div>
 
@@ -148,7 +146,7 @@ const Sorting = () => {
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg font-semibold text-center capitalize'>CURRENT F.Y. REPORT (Sorting)</p>
+                <p className='text-lg font-semibold text-center capitalize'>CURRENT F.Y. REPORT (SORTING)</p>
                 <div>
                     <Dialog>
                         <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4 no-margin-left responsive-button-adjust" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
@@ -163,11 +161,11 @@ const Sorting = () => {
                     </Dialog>
 
 
-                    {checkpending('Hamsa') &&  <Button className="bg-orange-400 mb-2 ml-4 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> }
+                    {checkpending('Sorting') &&  <Button className="bg-orange-400 mb-2 ml-4 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> }
                     <Button className="bg-blue-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {maintable==='block' ? 'Incoming/Mixing':'Main Entry '}</Button>
                 </div>
                 <div style={{ display: maintable }}>
-                    {/* <HamsaTable/> */}
+                    <SortingTable/>
                 </div>
                 <div style={{ display: historytable }}>
                     <SortingHistoryTable/>

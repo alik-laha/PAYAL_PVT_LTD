@@ -495,7 +495,7 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
 }
 
 // //HamsaTable.tsx
-export const SearchRCNHamsa = async (req: Request, res: Response) => {
+export const SearchRCNSorting = async (req: Request, res: Response) => {
     try {
         const { searchitem,fromDate, toDate, origin} = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
@@ -537,14 +537,14 @@ export const SearchRCNHamsa = async (req: Request, res: Response) => {
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let rcnEntries
         if(limit===0 && offset===0){
-             rcnEntries = await hamsaModel.findAll({
+             rcnEntries = await SortingModel.findAll({
                 where,
                 order: [['LotNo','DESC'],['origin','ASC'],['altid', 'ASC']], // Order by date descending
                 
             });
         }
         else{
-             rcnEntries = await hamsaModel.findAll({
+             rcnEntries = await SortingModel.findAll({
                 where,
                 order: [['LotNo','DESC'],['origin','ASC'],['altid', 'ASC']], // Order by date descending
                 limit: limit,
@@ -552,7 +552,7 @@ export const SearchRCNHamsa = async (req: Request, res: Response) => {
             });
         }
        
-        return res.status(200).json({ message: 'Hamsa Entry found', rcnEntries })
+        return res.status(200).json({ message: 'Sorting Entry found', rcnEntries })
     }
     catch (err) {
         console.log(err)

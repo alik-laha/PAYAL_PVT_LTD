@@ -67,7 +67,7 @@ import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import {   useEffect, useRef, useState } from "react"
 import axios from "axios";
-import FormRow from "../common/FormRowTime";
+
 
 
 
@@ -234,9 +234,9 @@ const SortingCreateForm = (props:Props) => {
                 <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
                 <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
                
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Female</Label>
+                     <div className="flex"><Label className="w-2/4 pt-1">No. of Labour</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Female" ref={dayOpRef}  />
+                    <Input className="w-2/4 text-center" placeholder="No. of Labour" ref={dayOpRef}  />
                      </div>
                      {/* <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Night)</Label>
                     <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required />
@@ -261,6 +261,7 @@ const SortingCreateForm = (props:Props) => {
                     <TableHead className="text-center">Receive JH1</TableHead>
                     <TableHead className="text-center">Receive JK_K</TableHead>
                     <TableHead className="text-center">Receive SP1</TableHead>
+                    <TableHead className="text-center">Receive Peeling</TableHead>
                     <TableHead className="text-center">Receive BigTaiho</TableHead>
                     
                     <TableHead className="text-center">Issue JJH</TableHead>
@@ -311,6 +312,9 @@ const SortingCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-green-600 bg-yellow-100">{formatNumber(row.rcv_jh1)} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-600 bg-yellow-100">{formatNumber(row.rcv_jk_k)} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-600 bg-yellow-100">{formatNumber(row.rcv_sp1)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-600  ">{formatNumber((parseFloat(row.rcv_jjh) +
+                                         parseFloat(row.rcv_sjh)+parseFloat(row.rcv_sjh1)+parseFloat(row.rcv_jh1) +
+                                         parseFloat(row.rcv_jk_k)+parseFloat(row.rcv_sp1)).toString())} kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-600">{row.rcv_bigTaiho ? formatNumber(row.rcv_bigTaiho) :0} Kg</TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_jjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jjh', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_jjh1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jjh1', e.target.value)} required /></TableCell>

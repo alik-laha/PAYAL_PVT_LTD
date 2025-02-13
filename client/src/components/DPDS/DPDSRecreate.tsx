@@ -326,8 +326,8 @@ const RCNDPDSReCreateForm = (props:Props) => {
                     <TableHead className="text-center">Previous BigTaiho</TableHead>
                     <TableHead className="text-center">Current BigTaiho</TableHead>
               
-                    <TableHead className="text-center">Issue M DS</TableHead>
-                    <TableHead className="text-center">Issue M DP</TableHead>
+                    <TableHead className="text-center">Issue M_DS</TableHead>
+                    <TableHead className="text-center">Issue M_DP</TableHead>
                     <TableHead className="text-center">Issue K DP</TableHead>
                     <TableHead className="text-center">Issue DS 1</TableHead>
                     <TableHead className="text-center">Issue DS 2</TableHead>
@@ -356,7 +356,7 @@ const RCNDPDSReCreateForm = (props:Props) => {
                     <TableHead className="text-center">Issue Add 10</TableHead> */}
                     <TableHead className="text-center">Issue Rejection</TableHead>
                     <TableHead className="text-center">Issue Village</TableHead>
-                    <TableHead className="text-center">Issue Big Taiho</TableHead>
+                    <TableHead className="text-center">Issue BigTaiho</TableHead>
                     <TableHead className="text-center">Issue Mayur</TableHead>
                     </TableHeader>
                     <TableBody>
