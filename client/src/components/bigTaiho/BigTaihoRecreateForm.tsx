@@ -332,7 +332,7 @@ const RCNBigTaihoReCreateForm = (props:Props) => {
     useEffect(() => { 
 
         if(rows[0]){
-            rows[0].issue_add_4=((rows[0].rcv_peeling ? Number(rows[0].rcv_peeling):0)*((100-Number(rows[0].issue_add_3))/100)) 
+            rows[0].issue_add_4=((rows[0].rcv_peeling ? Number(rows[0].rcv_peeling):0)-rows[0].issue_add_2) 
         }
         
     }, [rows[0]]); 
