@@ -440,12 +440,13 @@ const RCNScoopingTable = () => {
                         <TableHead className="text-center" >Uncut(Kg)</TableHead>
                         <TableHead className="text-center" >Unscoop(Kg)</TableHead>
                         <TableHead className="text-center" >NonCut(Kg)</TableHead>
-                        <TableHead className="text-center" >KOR</TableHead>
-                        <TableHead className="text-center" >Bag Cutting</TableHead>
                         <TableHead className="text-center" >Wholes(kg)</TableHead>
                         <TableHead className="text-center" >Broken(Kg)</TableHead>
                         <TableHead className="text-center" >Rejection (Kg)</TableHead>
                         <TableHead className="text-center" >RCNDust (Kg) </TableHead>
+                        <TableHead className="text-center" >KOR</TableHead>
+                        <TableHead className="text-center" >Bag Cutting</TableHead>
+                       
                         
                        
                         <TableHead className="text-center" >Female (Common)</TableHead>
@@ -477,13 +478,14 @@ const RCNScoopingTable = () => {
 
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.Unscoop))} </TableCell>
                                         <TableCell className="text-center ">{formatNumber(parseFloat(item.NonCut))} </TableCell>
-                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.KOR))}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.TotBagCutting))}</TableCell>
-                                      
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.Wholes))} </TableCell>
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.Broken))} </TableCell>
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.Rejection))} </TableCell>
                                         <TableCell className="text-center ">{formatNumber(parseFloat(item.Dust))} </TableCell>
+                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.KOR))}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(parseFloat(item.TotBagCutting))}</TableCell>
+                                      
+                                       
                                       
                                         
                                         <TableCell className="text-center ">{item.noOfLadies}</TableCell>
@@ -538,13 +540,13 @@ const RCNScoopingTable = () => {
                                         <TableCell className="text-center  bg-yellow-100">{formatNumber(parseFloat(item.Uncut))} </TableCell>
                                         <TableCell className="text-center  bg-yellow-100">{formatNumber(parseFloat(item.Unscoop))} </TableCell>
                                         <TableCell className="text-center  bg-yellow-100">{formatNumber(parseFloat(item.NonCut))} </TableCell>
-                                        
-                                        <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(parseFloat(item.KOR))}</TableCell>
-                                        <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.TotBagCutting))}</TableCell>
                                         <TableCell className="text-center font-semibold bg-green-100">{formatNumber(parseFloat(item.Wholes))} </TableCell>
                                         <TableCell className="text-center font-semibold bg-green-100">{formatNumber(parseFloat(item.Broken))} </TableCell>
                                         <TableCell className="text-center font-semibold bg-red-100">{formatNumber(parseFloat(item.Rejection))} </TableCell>
-                                        <TableCell className="text-center font-semibold bg-cyan-100">{formatNumber(parseFloat(item.Dust))} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-red-100">{formatNumber(parseFloat(item.Dust))} </TableCell>
+                                        <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(parseFloat(item.KOR))}</TableCell>
+                                        <TableCell className="text-center font-semibold">{formatNumber(parseFloat(item.TotBagCutting))}</TableCell>
+                                        
                                         
                                         <TableCell className="text-center ">{item.noOfLadies}</TableCell>
                                         <TableCell className="text-center">{item.noOfGents}</TableCell>

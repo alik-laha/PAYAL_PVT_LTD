@@ -299,9 +299,9 @@ const RCNMayurReCreateForm = (props:Props) => {
                     <TableHead className="text-center">Mixed_Lot</TableHead>
                     <TableHead className="text-center">Total Opening</TableHead>
                     <TableHead className="text-center">Previous Wholes_Peel</TableHead>
-                    <TableHead className="text-center">Current Wholes_Peel</TableHead>
-                    <TableHead className="text-center">Previous Wholes_UnPeel</TableHead>
-                    <TableHead className="text-center">Current Wholes_UnPeel</TableHead>
+                    <TableHead className="text-center">Current Peel</TableHead>
+                    <TableHead className="text-center">Previous Wholes_Unpeel</TableHead>
+                    <TableHead className="text-center">Current Unpeel</TableHead>
                     <TableHead className="text-center">Previous DPDS</TableHead>
                     <TableHead className="text-center">Current DPDS</TableHead>
                     <TableHead className="text-center">Previous Village</TableHead>

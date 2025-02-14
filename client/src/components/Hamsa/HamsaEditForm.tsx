@@ -331,11 +331,12 @@ const HamsaEditForm = (props:Props) => {
               
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
-                    <TableHead className="text-center">Rcv PW_W</TableHead>
-                    <TableHead className="text-center">Rcv W_Lot</TableHead>
-                    <TableHead className="text-center">Rcv WW</TableHead>
-                    <TableHead className="text-center">Rcv Village</TableHead>
-                    <TableHead className="text-center">Rcv LW</TableHead>
+                    <TableHead className="text-center">Receive PW_W</TableHead>
+                    <TableHead className="text-center">Receive W_Lot</TableHead>
+                    <TableHead className="text-center">Receive WW</TableHead>
+                    <TableHead className="text-center">Receive Peeling</TableHead>
+                    <TableHead className="text-center">Receive Village</TableHead>
+                    <TableHead className="text-center">Receive LW</TableHead>
                     
                     <TableHead className="text-center">Issue PW_210</TableHead>
                     <TableHead className="text-center">Issue W_210</TableHead>
@@ -401,9 +402,11 @@ const HamsaEditForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-600 bg-yellow-100">{formatNumber(row.rcv_pw_w)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-600 bg-yellow-100">{formatNumber(row.rcv_w_lot)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-600 bg-yellow-100">{formatNumber(row.rcv_ww)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_pw_w)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_w_lot)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_ww)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{formatNumber((Number(row.rcv_pw_w)+Number(row.rcv_w_lot)+Number(row.rcv_ww)).toString())} Kg</TableCell>
+
                                         <TableCell className="text-center font-semibold text-green-600">{row.rcv_village ? formatNumber(row.rcv_village) :0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-600">{row.rcv_lw ? formatNumber(row.rcv_lw) :0} Kg</TableCell>
                                         
@@ -433,9 +436,9 @@ const HamsaEditForm = (props:Props) => {
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_8} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_8', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_9} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_9', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_10} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_10', e.target.value)} required /></TableCell> */}
-                                     <TableCell className="text-center"> <Input className='bg-cyan-100' type="number" value={row.issue_lw} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_lw', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-red-100' type="number" value={row.issue_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bigTaiho', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-blue-100' type="number" value={row.issue_jb} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jb', e.target.value)} required /></TableCell>
+                                     <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_lw} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_lw', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bigTaiho', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_jb} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jb', e.target.value)} required /></TableCell>
 
 
                                     <FormRow idx={idx} row={row} column='Mc_on_1' handleRowChange={handleRowChange}/>

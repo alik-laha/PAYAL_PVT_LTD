@@ -160,7 +160,6 @@ const DPDSTable = () => {
             Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
             Issue_Mayur: formatNumber(item.issue_mayur),
       
-            Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
             Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
            
             No_Labour: item.noOfdayOperators,
@@ -215,7 +214,6 @@ const DPDSTable = () => {
             Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
             Issue_Mayur: formatNumber(item.issue_mayur),
       
-            Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
             Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
            
             No_Labour: item.noOfdayOperators,

@@ -254,12 +254,14 @@ const RCNDPDSCreateForm = (props:Props) => {
               
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
-                    <TableHead className="text-center">Receive Big_Taiho</TableHead>
-                    <TableHead className="text-center">Receive Sorting</TableHead>
-                    
                     <TableHead className="text-center">Receive DP</TableHead>
                     <TableHead className="text-center">Receive DS</TableHead>
                     <TableHead className="text-center">Receive DP1</TableHead>
+                    <TableHead className="text-center">Receive Peeling</TableHead>
+                    <TableHead className="text-center">Receive Big_Taiho</TableHead>
+                    <TableHead className="text-center">Receive Sorting</TableHead>
+                    
+                   
                     <TableHead className="text-center">Issue M_DS</TableHead>
                     <TableHead className="text-center">Issue M_DP</TableHead>
                     <TableHead className="text-center">Issue K_DP</TableHead>
@@ -306,11 +308,14 @@ const RCNDPDSCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_dp)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_ds)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_dp1)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{formatNumber((Number(row.rcv_dp)+Number(row.rcv_ds)+Number(row.rcv_dp1)).toString())} Kg</TableCell>
+
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_transfer ? formatNumber(row.rcv_transfer) :0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_Sorting ? formatNumber(row.rcv_Sorting):0} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_dp)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_ds)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_dp1)} Kg</TableCell>
+                                       
                                         
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_m_ds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_m_ds', e.target.value)} required /></TableCell>

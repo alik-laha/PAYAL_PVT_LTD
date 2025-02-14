@@ -377,21 +377,21 @@ const RCNBigTaihoReCreateForm = (props:Props) => {
                    
               
                     <TableHead className="text-center">Issue SSP</TableHead>
-                    <TableHead className="text-center">Issue SSP Small</TableHead>
-                    <TableHead className="text-center">Issue SWP 1</TableHead>
+                    <TableHead className="text-center">Issue SSP(Small)</TableHead>
+                    <TableHead className="text-center">Issue SWP_1</TableHead>
                     <TableHead className="text-center">Issue WSP</TableHead>
                     <TableHead className="text-center">Issue Bits</TableHead>
                     <TableHead className="text-center">Issue SWP</TableHead>
                     <TableHead className="text-center">Issue BB</TableHead>
-                    <TableHead className="text-center">Issue W BB</TableHead>
+                    <TableHead className="text-center">Issue W_BB</TableHead>
                     <TableHead className="text-center">Issue BB A</TableHead>
                     <TableHead className="text-center">Issue BB1</TableHead>
-                    <TableHead className="text-center">Issue BB1 A</TableHead>
+                    <TableHead className="text-center">Issue BB1(A)</TableHead>
                     <TableHead className="text-center">Issue BB 2</TableHead>
-                    <TableHead className="text-center">Issue SSP 1</TableHead>
-                    <TableHead className="text-center">Issue SSP 1 Small</TableHead>
-                    <TableHead className="text-center">Issue SSP 2</TableHead>
-                    <TableHead className="text-center">Issue SSP 2 Small</TableHead>
+                    <TableHead className="text-center">Issue SSP_1</TableHead>
+                    <TableHead className="text-center">Issue SSP_1(Small)</TableHead>
+                    <TableHead className="text-center">Issue SSP_2</TableHead>
+                    <TableHead className="text-center">Issue SSP_2(Small)</TableHead>
                     <TableHead className="text-center">Issue SDP</TableHead>
                     {/* <TableHead className="text-center">Issue Add 1</TableHead>
                     <TableHead className="text-center">Issue Add 2</TableHead>
@@ -435,26 +435,26 @@ const RCNBigTaihoReCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_opening)} Kg</TableCell>
                                      
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber(props.borma[0].rcv_peeling)} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input  type="number" value={row.rcv_peeling} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_peeling', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_peeling} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_peeling', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_sorting ?formatNumber(props.borma[0].rcv_sorting):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input type="number" value={row.rcv_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sorting', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sorting', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_village ?formatNumber(props.borma[0].rcv_village):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input type="number" value={row.rcv_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_village', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_village', e.target.value)} required /></TableCell>
                                        
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_dpds ?formatNumber(props.borma[0].rcv_dpds):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input  type="number" value={row.rcv_dpds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_dpds', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_dpds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_dpds', e.target.value)} required /></TableCell>
                                  
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_mayur ?formatNumber(props.borma[0].rcv_mayur):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input  type="number" value={row.rcv_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_mayur', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_mayur', e.target.value)} required /></TableCell>
 
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_hamsa ?formatNumber(props.borma[0].rcv_hamsa):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input  type="number" value={row.rcv_hamsa} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_hamsa', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-green-100"  type="number" value={row.rcv_hamsa} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_hamsa', e.target.value)} required /></TableCell>
 
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_lw ?formatNumber(props.borma[0].rcv_lw):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input  type="number" value={row.rcv_lw} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_lw', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_lw} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_lw', e.target.value)} required /></TableCell>
 
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_wholes ?formatNumber(props.borma[0].rcv_wholes):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input  type="number" value={row.rcv_wholes} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholes', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_wholes} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholes', e.target.value)} required /></TableCell>
 
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ssp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ssp', e.target.value)} required /></TableCell>
@@ -484,11 +484,11 @@ const RCNBigTaihoReCreateForm = (props:Props) => {
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_8} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_8', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_9} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_9', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_10} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_10', e.target.value)} required /></TableCell> */}
-                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_husk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_husk', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_village', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sorting', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_dpds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dpds', e.target.value)} required /></TableCell>
+                                     <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_husk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_husk', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_village', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sorting', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_dpds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dpds', e.target.value)} required /></TableCell>
 
 
                                     <FormRow idx={idx} row={row} column='Mc_on_1' handleRowChange={handleRowChange}/>

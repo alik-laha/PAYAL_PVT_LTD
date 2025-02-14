@@ -153,7 +153,6 @@ const HamsaTable = () => {
             Issue_JB: formatNumber(item.issue_jb),
             Issue_BigTaiho: formatNumber(item.issue_bigTaiho),
             Issue_LW: formatNumber(item.issue_lw),
-            Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
             Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
             Mc_On_Hamsa_1: handleAMPM(item.Mc_on_1.slice(0, 5)),
             Mc_Off_Hamsa_1: handleAMPM(item.Mc_off_1.slice(0, 5)),
@@ -230,7 +229,6 @@ const HamsaTable = () => {
                 Issue_JB: formatNumber(item.issue_jb),
                 Issue_BigTaiho: formatNumber(item.issue_bigTaiho),
                 Issue_LW: formatNumber(item.issue_lw),
-                Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
                 Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
                 Mc_On_Hamsa_1: handleAMPM(item.Mc_on_1.slice(0, 5)),
                 Mc_Off_Hamsa_1: handleAMPM(item.Mc_off_1.slice(0, 5)),
@@ -550,7 +548,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableCell className="text-center">{idx + 1}</TableCell>
                             <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
                                     
-                                    <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
+                            <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
@@ -560,29 +558,29 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.rcv_pw_w)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.rcv_w_lot)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.rcv_ww)}</TableCell>
-                                    <TableCell className="text-center bg-yellow-100">{formatNumber((parseFloat(item.rcv_pw_w) +
+                                    <TableCell className="text-center  font-semibold bg-yellow-100">{formatNumber((parseFloat(item.rcv_pw_w) +
                                      parseFloat(item.rcv_w_lot)+parseFloat(item.rcv_ww)).toString())}</TableCell>
-                                    <TableCell className="text-center font-bold bg-yellow-100 text-green-600">{item.rcv_village ? formatNumber(item.rcv_village) :0}</TableCell>
-                                    <TableCell className="text-center font-bold bg-yellow-100 text-green-600">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_village ? formatNumber(item.rcv_village) :0}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
                                     
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_210)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_210)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_210)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_240)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_240)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_240)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_280)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_280)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_280)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_320)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_320)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_320)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_add_1)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_add_2)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_add_3)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_400)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_400)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_400)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_210)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_210)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_ww_210)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_240)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_240)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_240)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_280)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_280)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_ww_280)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_320)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_320)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_ww_320)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_1)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_2)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_3)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_400)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_400)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_ww_400)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_pw_210) +
                                      parseFloat(item.issue_w_210)+parseFloat(item.issue_ww_210)+
                                      parseFloat(item.issue_pw_240) +parseFloat(item.issue_w_240)+parseFloat(item.issue_ww_240)+
@@ -590,9 +588,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                      parseFloat(item.issue_pw_320) +parseFloat(item.issue_w_320)+parseFloat(item.issue_ww_320)+
                                      parseFloat(item.issue_add_1) +parseFloat(item.issue_add_2)+parseFloat(item.issue_add_3)+
                                      parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)).toString())}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.issue_lw)}</TableCell>
-                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_bigTaiho)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-purple-500">{formatNumber(item.issue_jb)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_lw)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_jb)}</TableCell>
                      
                                     {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
                                                
@@ -702,29 +700,29 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.rcv_pw_w)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.rcv_w_lot)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.rcv_ww)}</TableCell>
-                                    <TableCell className="text-center text-green-600 font-bold bg-yellow-100">{formatNumber((parseFloat(item.rcv_pw_w) +
+                                    <TableCell className="text-center  font-semibold bg-yellow-100">{formatNumber((parseFloat(item.rcv_pw_w) +
                                      parseFloat(item.rcv_w_lot)+parseFloat(item.rcv_ww)).toString())}</TableCell>
-                                    <TableCell className="text-center font-bold bg-yellow-100 text-green-600">{item.rcv_village ? formatNumber(item.rcv_village) :0}</TableCell>
-                                    <TableCell className="text-center font-bold bg-yellow-100 text-green-600">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_village ? formatNumber(item.rcv_village) :0}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
                                     
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_210)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_210)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_210)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_240)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_240)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_240)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_280)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_280)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_280)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_320)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_320)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_320)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_add_1)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_add_2)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_add_3)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_400)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_400)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_400)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_210)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_210)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_ww_210)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_240)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_240)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_240)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_280)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_280)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_ww_280)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_320)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_320)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_ww_320)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_1)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_2)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_3)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_400)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_400)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_ww_400)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_pw_210) +
                                      parseFloat(item.issue_w_210)+parseFloat(item.issue_ww_210)+
                                      parseFloat(item.issue_pw_240) +parseFloat(item.issue_w_240)+parseFloat(item.issue_ww_240)+
@@ -798,7 +796,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-7xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>BigTaiho Entry Modification</p>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>Hamsa Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <HamsaEditForm borma={[item]} />
@@ -812,7 +810,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-7xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>BigTaiho Entry Reissue</p>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>Hamsa Entry Reissue</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <HamsaReCreateForm borma={[item]} />

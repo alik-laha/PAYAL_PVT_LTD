@@ -446,11 +446,11 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                         date:data.Date,
                         fromSection:'BigTaiho',
                         toSection:'Sorting',
-                        toSectionBeforeBacklog:dpds_backlog.dataValues.current_backlog,
-                        toSectionAfterBacklog:parseFloat(dpds_backlog.dataValues.current_backlog)+parseFloat(data.issue_sorting),
+                        toSectionBeforeBacklog:sorting_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(sorting_backlog.dataValues.current_backlog)+parseFloat(data.issue_sorting),
                         createdBy: feeledBy
                      },{transaction});
-                     if(dpds_backlog.dataValues.rcv_bigTaiho){
+                     if(sorting_backlog.dataValues.rcv_bigTaiho){
                         await SortingModel.update(
                             { 
                                 rcv_bigTaiho:sequelize.literal(`rcv_bigTaiho+ ${data.issue_sorting}`),
@@ -903,11 +903,11 @@ export const CreateReissueBigTaiho= async (req: Request, res: Response) => {
                             date:data.Date,
                             fromSection:'BigTaiho',
                             toSection:'Sorting',
-                            toSectionBeforeBacklog:dpds_backlog.dataValues.current_backlog,
-                            toSectionAfterBacklog:parseFloat(dpds_backlog.dataValues.current_backlog)+parseFloat(data.issue_sorting),
+                            toSectionBeforeBacklog:sorting_backlog.dataValues.current_backlog,
+                            toSectionAfterBacklog:parseFloat(sorting_backlog.dataValues.current_backlog)+parseFloat(data.issue_sorting),
                             createdBy: feeledBy
                          },{transaction});
-                         if(dpds_backlog.dataValues.rcv_bigTaiho){
+                         if(sorting_backlog.dataValues.rcv_bigTaiho){
                             await SortingModel.update(
                                 { 
                                     rcv_bigTaiho:sequelize.literal(`rcv_bigTaiho+ ${data.issue_sorting}`),

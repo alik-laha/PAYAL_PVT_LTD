@@ -119,7 +119,7 @@ const DPDSInitial = (props: any) => {
                                                 {item.origin}
                                             </TableCell>
                                             <TableCell className="text-center font-semibold ">
-                                                {formatNumber(item.current_backlog)}
+                                                {formatNumber(item.current_backlog)} Kg
                                             </TableCell>
                                             
                                             <TableCell className="text-center">
