@@ -289,7 +289,8 @@ const RCNMayurReCreateForm = (props:Props) => {
                      
                    
                 </div>
-            
+                <div className="my-2 text-md flex font-semibold text-red-500 ml-8">[ Current WholesPeel + Current WholesUnpeel + Current DPDS + Current Village + Current Sorting] should be equal to {props.borma[0].current_backlog} Kg</div>
+
                    <Table className="mt-3">
                    <TableHeader className="bg-neutral-100 text-stone-950 ">
                     <TableHead className="text-center">Sl. No.</TableHead>

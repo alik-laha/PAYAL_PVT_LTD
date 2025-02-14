@@ -128,6 +128,9 @@ const BigTaihoTable = () => {
             DPDS_Entry_Date: handletimezone(item.date),
             Mixing_Lot: item.mixingLot,
             Receive_Peeling: formatNumber(item.rcv_peeling),
+            Borma_Peeling: formatNumber(item.issue_add_4),
+            Borma_Loss_Kg: formatNumber(item.issue_add_2),
+            Borma_Loss_Percentage: formatNumber(item.issue_add_3),
             Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
             Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
             Receive_DPDS: item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0,
@@ -190,6 +193,9 @@ const BigTaihoTable = () => {
             Mixing_Lot: item.mixingLot,
           
             Receive_Peeling: formatNumber(item.rcv_peeling),
+            Borma_Peeling: formatNumber(item.issue_add_4),
+            Borma_Loss_Kg: formatNumber(item.issue_add_2),
+            Borma_Loss_Percentage: formatNumber(item.issue_add_3),
             Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
             Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
             Receive_DPDS: item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0,
@@ -434,6 +440,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
                     <TableHead className="text-center">Receive Peeling</TableHead>
+                    
+                    <TableHead className="text-center">Borma_Loss(Kg)</TableHead>
+                    <TableHead className="text-center">Borma_Loss(%)</TableHead>
+                    <TableHead className="text-center">Peeling Borma</TableHead>
                     <TableHead className="text-center">Receive Village</TableHead>
                     <TableHead className="text-center">Receive Sorting</TableHead>
                     <TableHead className="text-center">Receive DPDS</TableHead>
@@ -513,7 +523,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{item.mixingLot}</TableCell>
                                     {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
                                     <TableCell className="text-center bg-yellow-100 font-semibold ">{formatNumber(item.rcv_peeling)}</TableCell>
-                                  
+                                   
+                                    <TableCell className="text-center font-semibold bg-yellow-200 text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500 bg-yellow-200">{formatNumber(item.issue_add_3)} %</TableCell>
+                                    <TableCell className="text-center bg-yellow-100 font-semibold ">{formatNumber(item.issue_add_4)}</TableCell>
                                     <TableCell  className="text-center bg-yellow-100 font-semibold ">{item.rcv_sorting ? formatNumber(item.rcv_sorting) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_village ? formatNumber(item.rcv_village) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_dpds ? formatNumber(item.rcv_dpds) :0}</TableCell>
@@ -631,7 +644,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{item.mixingLot}</TableCell>
                                     {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
                                     <TableCell className="text-center bg-yellow-100 font-semibold ">{formatNumber(item.rcv_peeling)}</TableCell>
-                                  
+                                    <TableCell className="text-center font-semibold bg-yellow-200 text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500 bg-yellow-200">{formatNumber(item.issue_add_3)} %</TableCell>
+                                    <TableCell className="text-center bg-yellow-100 font-semibold ">{formatNumber(item.issue_add_4)}</TableCell>
+
                                     <TableCell  className="text-center bg-yellow-100 font-semibold ">{item.rcv_sorting ? formatNumber(item.rcv_sorting) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_village ? formatNumber(item.rcv_village) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_dpds ? formatNumber(item.rcv_dpds) :0}</TableCell>

@@ -52,8 +52,8 @@ interface DPDSRowData{
         issue_os: string;
         issue_os1: string;
         issue_add_1: string;
-        issue_add_2: string;
-        issue_add_3: string;
+        issue_add_2: string|number;
+        issue_add_3: string|number;
         issue_add_4: string;
         issue_add_5: string;
         issue_add_6: string;
@@ -126,8 +126,6 @@ const DPDSEditForm = (props:Props) => {
             rows[index].rcv_dpN=(Number(rows[index].rcv_dp)*((100-Number(rows[index].issue_add_3))/100)).toString()
             rows[index].rcv_dp1N=(Number(rows[index].rcv_dp1)*((100-Number(rows[index].issue_add_3))/100)).toString()
             rows[index].rcv_dsN=(Number(rows[index].rcv_ds)*((100-Number(rows[index].issue_add_3))/100)).toString()
-        
-        
         }
         handleRowChange(index,'issue_add_1',e.target.value)
     }

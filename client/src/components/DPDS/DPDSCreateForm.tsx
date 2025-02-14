@@ -243,7 +243,7 @@ const RCNDPDSCreateForm = (props:Props) => {
         }
         if(rows[0].issue_add_1){
             rows[index].issue_add_2=((Number(rows[index].rcv_dp)+Number(rows[index].rcv_ds)+Number(rows[index].rcv_dp1))-Number(e.target.value))
-            rows[index].issue_add_3=((Number(rows[index].issue_add_2)/(Number(rows[index].rcv_dp)+Number(rows[index].rcv_ds)+Number(rows[index].rcv_dp1)))*100)
+            rows[index].issue_add_3=(Number(rows[index].issue_add_2)/(Number(rows[index].rcv_dp)+Number(rows[index].rcv_ds)+Number(rows[index].rcv_dp1)))*100
             rows[index].rcv_dpN=(Number(rows[index].rcv_dp)*((100-Number(rows[index].issue_add_3))/100)).toString()
             rows[index].rcv_dp1N=(Number(rows[index].rcv_dp1)*((100-Number(rows[index].issue_add_3))/100)).toString()
             rows[index].rcv_dsN=(Number(rows[index].rcv_ds)*((100-Number(rows[index].issue_add_3))/100)).toString()

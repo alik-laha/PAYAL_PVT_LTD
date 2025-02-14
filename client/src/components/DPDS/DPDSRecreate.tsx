@@ -122,7 +122,7 @@ const RCNDPDSReCreateForm = (props:Props) => {
             rcv_peeling:props.borma[0].current_backlog,
             rcv_Sorting: 0 ,
             rcv_dp: 0 ,
-            rcv_ds: 0 ,
+            rcv_ds: 0,
             rcv_dp1: 0 ,
             issue_m_ds:  0,
             issue_m_dp:  0,
@@ -288,7 +288,7 @@ const RCNDPDSReCreateForm = (props:Props) => {
     useEffect(() => { 
 
         if(rows[0]){
-            rows[0].issue_add_4=((rows[0].rcv_dp ? Number(rows[0].rcv_dp):0)*((100-Number(rows[0].issue_add_3))/100))  
+            rows[0].issue_add_4=((rows[0].rcv_dp ? Number(rows[0].rcv_dp):0)*((100-Number(rows[0].issue_add_3))/100)) 
             rows[0].issue_add_5=(Number(rows[0].rcv_ds)*((100-Number(rows[0].issue_add_3))/100))
             rows[0].issue_add_6=(Number(rows[0].rcv_dp1)*((100-Number(rows[0].issue_add_3))/100))
         }
@@ -336,6 +336,9 @@ const RCNDPDSReCreateForm = (props:Props) => {
                      
                    
                 </div>
+                <div className="my-2 text-sm flex font-semibold text-red-600 ">
+                * Current  [  DP +  DS + DP1 + Sorting + BigTaiho ] should be equal to {props.borma[0].current_backlog} Kg</div>
+
             
                    <Table className="mt-3">
                    <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -345,15 +348,18 @@ const RCNDPDSReCreateForm = (props:Props) => {
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
                     <TableHead className="text-center">Opening_Backlog</TableHead>
-                    <TableHead className="text-center">Actual_Backlog</TableHead>
+                    <TableHead className="text-center">Actual_Backlog (Borma)</TableHead>
                     <TableHead className="text-center">Borma Loss(Kg)</TableHead>
                     <TableHead className="text-center">Borma Loss(%)</TableHead>
                     
                     <TableHead className="text-center">Previous DP</TableHead>
+             
                     <TableHead className="text-center">Current DP</TableHead>
                     <TableHead className="text-center">Previous DS</TableHead>
+             
                     <TableHead className="text-center">Current DS</TableHead>
                     <TableHead className="text-center">Previous DP1</TableHead>
+                 
                     <TableHead className="text-center">Current DP1</TableHead>
                
                     <TableHead className="text-center">Previous Sorting</TableHead>
@@ -412,11 +418,12 @@ const RCNDPDSReCreateForm = (props:Props) => {
                                         <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
 
-                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_4)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].rcv_dp)} Kg</TableCell>
                                         <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_dp', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_5)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].rcv_ds)} Kg</TableCell>
                                         <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_ds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_ds', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_6)} Kg</TableCell>
+                                        
+                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].rcv_dp1)} Kg</TableCell>
                                         <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_dp1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_dp1', e.target.value)} required /></TableCell>
                                        
                                         <TableCell className="text-center font-semibold ">{props.borma[0].rcv_Sorting ?formatNumber(props.borma[0].rcv_Sorting):0} Kg</TableCell>
@@ -455,6 +462,7 @@ const RCNDPDSReCreateForm = (props:Props) => {
                         ) : null}
                     </TableBody>
                 </Table>  
+
                 <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                   
                    

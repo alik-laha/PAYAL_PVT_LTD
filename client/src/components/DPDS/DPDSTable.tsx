@@ -407,14 +407,15 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <TableHead className="text-center"> DS Opening</TableHead>
                 <TableHead className="text-center"> DP1 Opening</TableHead>
                 
+                
+                <TableHead className="text-center">Peeling Opening</TableHead>
+                
+                <TableHead className="text-center">Borma_Loss(Kg)</TableHead>
+                <TableHead className="text-center">Borma_Loss(%)</TableHead>
                 <TableHead className="text-center"> DP (Borma)</TableHead>
                 <TableHead className="text-center"> DS (Borma)</TableHead>
                 <TableHead className="text-center"> DP1 (Borma)</TableHead>
-                <TableHead className="text-center">Peeling Opening</TableHead>
-                <TableHead className="text-center">Peeling Borma</TableHead>
-                <TableHead className="text-center">Borma_Loss(Kg)</TableHead>
-                <TableHead className="text-center">Borma_Loss(%)</TableHead>
-                
+                <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
                 <TableHead className="text-center">Receive Sorting</TableHead>
                 <TableHead className="text-center">Receive BigTaiho</TableHead>
                 <TableHead className="text-center">Issue M_DS</TableHead>
@@ -471,18 +472,19 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center  ">{formatNumber(item.rcv_ds)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.rcv_dp1)}</TableCell>
                                    
+                                    
+                                    <TableCell className="text-center text-center bg-yellow-100 font-semibold">
+                                    {formatNumber((parseFloat(item.rcv_dp) +parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1)).toString())}
+                                    </TableCell>
+                                   
+                                    <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_add_4)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_add_5)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_add_6)}</TableCell>
                                     <TableCell className="text-center text-center bg-yellow-100 font-semibold">
-                                    {formatNumber((parseFloat(item.rcv_dp) +parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1)).toString())}
-                                    </TableCell>
-                                    <TableCell className="text-center text-center bg-yellow-100 font-semibold">
                                     {formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)).toString())}
                                     </TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-200 text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500 bg-yellow-200">{formatNumber(item.issue_add_3)} %</TableCell>
-                                    
                                     
                                     <TableCell  className="text-center bg-yellow-100 font-semibold">{item.rcv_Sorting ? formatNumber(item.rcv_Sorting) :0}</TableCell>
                                     <TableCell  className="text-center bg-yellow-100 font-semibold ">{item.rcv_transfer ? formatNumber(item.rcv_transfer) :0}</TableCell>
@@ -579,18 +581,19 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center  ">{formatNumber(item.rcv_ds)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.rcv_dp1)}</TableCell>
                                    
+                                    
+                                    <TableCell className="text-center text-center  font-semibold">
+                                    {formatNumber((parseFloat(item.rcv_dp) +parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1)).toString())}
+                                    </TableCell>
+                                    
+                                    <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_add_4)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_add_5)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_add_6)}</TableCell>
                                     <TableCell className="text-center text-center bg-yellow-100 font-semibold">
-                                    {formatNumber((parseFloat(item.rcv_dp) +parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1)).toString())}
-                                    </TableCell>
-                                    <TableCell className="text-center text-center bg-yellow-100 font-semibold">
                                     {formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)).toString())}
                                     </TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-200 text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500 bg-yellow-200">{formatNumber(item.issue_add_3)} %</TableCell>
-                                    
                                     
                                     <TableCell  className="text-center bg-yellow-100 font-semibold">{item.rcv_Sorting ? formatNumber(item.rcv_Sorting) :0}</TableCell>
                                     <TableCell  className="text-center bg-yellow-100 font-semibold ">{item.rcv_transfer ? formatNumber(item.rcv_transfer) :0}</TableCell>
