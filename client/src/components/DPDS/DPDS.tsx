@@ -102,8 +102,7 @@ const DPDS = () => {
                         && data.data[0].issue_yk && data.data[0].issue_kp && data.data[0].issue_wp && data.data[0].issue_rs && data.data[0].issue_dp_2
                         && data.data[0].issue_dp_3 && data.data[0].issue_dp_4 && data.data[0].issue_dp_3l
                         && data.data[0].issue_ss && data.data[0].issue_os && data.data[0].issue_os1
-                        && data.data[0].issue_add_1 && data.data[0].issue_add_2 && data.data[0].issue_add_3
-                        && data.data[0].issue_add_4 && data.data[0].issue_add_5 && data.data[0].issue_add_6
+                        
                         && data.data[0].issue_add_7 && data.data[0].issue_add_8 && data.data[0].issue_add_9
                         && data.data[0].issue_add_10 
                         ? formatNumber(parseFloat(data.data[0].issue_m_ds)+parseFloat(data.data[0].issue_m_dp)+parseFloat(data.data[0].issue_k_dp)
@@ -112,8 +111,7 @@ const DPDS = () => {
                         + parseFloat(data.data[0].issue_wp)+parseFloat(data.data[0].issue_rs)+parseFloat(data.data[0].issue_dp_2)
                         +parseFloat(data.data[0].issue_dp_3)+parseFloat(data.data[0].issue_dp_4)+parseFloat(data.data[0].issue_dp_3l)
                         +parseFloat(data.data[0].issue_ss)+parseFloat(data.data[0].issue_os)+parseFloat(data.data[0].issue_os1)
-                        +parseFloat(data.data[0].issue_add_1)+parseFloat(data.data[0].issue_add_2)+parseFloat(data.data[0].issue_add_3)
-                            +parseFloat(data.data[0].issue_add_4)+parseFloat(data.data[0].issue_add_5)+parseFloat(data.data[0].issue_add_6)
+                        +
                             +parseFloat(data.data[0].issue_add_7)+parseFloat(data.data[0].issue_add_8)+parseFloat(data.data[0].issue_add_9)
                             +parseFloat(data.data[0].issue_add_10)): 0} Kg</p>
                   

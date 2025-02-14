@@ -28,6 +28,9 @@ interface DPDSRowData{
         rcv_dp: string;
         rcv_ds: string;
         rcv_dp1: string;
+        rcv_dpN: string|number;
+        rcv_dsN: string|number;
+        rcv_dp1N: string|number;
 
 
         issue_m_ds: string;
@@ -107,6 +110,27 @@ const DPDSEditForm = (props:Props) => {
 
         });
     }
+
+    const handleOpeningChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+
+        if (Number(e.target.value)>((Number(rows[index].rcv_dp)+Number(rows[index].rcv_ds)+Number(rows[index].rcv_dp1)))) {
+            setErrortext('Borma Weight Cant be Higher Than Receiving !')
+            if (errordialog != null) {
+                (errordialog as any).showModal();
+            }
+            return
+        }
+        if(rows[0].issue_add_1){
+            rows[index].issue_add_2=((Number(rows[index].rcv_dp)+Number(rows[index].rcv_ds)+Number(rows[index].rcv_dp1))-Number(e.target.value))
+            rows[index].issue_add_3=((Number(rows[index].issue_add_2)/(Number(rows[index].rcv_dp)+Number(rows[index].rcv_ds)+Number(rows[index].rcv_dp1)))*100)
+            rows[index].rcv_dpN=(Number(rows[index].rcv_dp)*((100-Number(rows[index].issue_add_3))/100)).toString()
+            rows[index].rcv_dp1N=(Number(rows[index].rcv_dp1)*((100-Number(rows[index].issue_add_3))/100)).toString()
+            rows[index].rcv_dsN=(Number(rows[index].rcv_ds)*((100-Number(rows[index].issue_add_3))/100)).toString()
+        
+        
+        }
+        handleRowChange(index,'issue_add_1',e.target.value)
+    }
     useEffect(() => { 
         if(DateRef.current) {
             DateRef.current.value = props.borma[0].date.slice(0,10)
@@ -132,6 +156,9 @@ const DPDSEditForm = (props:Props) => {
             rcv_dp: props.borma[0].rcv_dp ,
             rcv_ds: props.borma[0].rcv_ds ,
             rcv_dp1: props.borma[0].rcv_dp1 ,
+            rcv_dpN:  props.borma[0].issue_add_4,
+            rcv_dsN:  props.borma[0].issue_add_5,
+            rcv_dp1N:  props.borma[0].issue_add_6,
             issue_m_ds:  props.borma[0].issue_m_ds,
             issue_m_dp:  props.borma[0].issue_m_dp,
             issue_k_dp:  props.borma[0].issue_k_dp,
@@ -289,9 +316,16 @@ const DPDSEditForm = (props:Props) => {
                     <TableHead className="text-center">Receive DP</TableHead>
                     <TableHead className="text-center">Receive DS</TableHead>
                     <TableHead className="text-center">Receive DP1</TableHead>
-                    <TableHead className="text-center">Receive Peeling</TableHead>
-                    <TableHead className="text-center">Receive BigTaiho</TableHead>
+                    <TableHead className="text-center">Receive DP(Borma)</TableHead>
+                    <TableHead className="text-center">Receive DS(Borma)</TableHead>
+                    <TableHead className="text-center">Receive DP1(Borma)</TableHead>
+                    <TableHead className="text-center">Receive Big_Taiho</TableHead>
                     <TableHead className="text-center">Receive Sorting</TableHead>
+                    <TableHead className="text-center">Receive Peeling</TableHead>
+                    <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
+            
+                    <TableHead className="text-center">Borma Loss(Kg)</TableHead>
+                    <TableHead className="text-center">Borma Loss(%)</TableHead>
                    
                    
                     <TableHead className="text-center">Issue M_DS</TableHead>
@@ -340,11 +374,21 @@ const DPDSEditForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_dp)} Kg</TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_ds)} Kg</TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_dp1)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{formatNumber((Number(row.rcv_dp)+Number(row.rcv_ds)+Number(row.rcv_dp1)).toString())} Kg</TableCell>
-
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_dpN.toString())} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_dsN.toString())} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_dp1N.toString())} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_transfer ? formatNumber(row.rcv_transfer) :0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_Sorting ? formatNumber(row.rcv_Sorting):0} Kg</TableCell>
+                                       
+                                        <TableCell className="text-center font-bold text-green-600">{formatNumber((Number(row.rcv_dp)+Number(row.rcv_ds)
+                                        +Number(row.rcv_dp1)).toString())} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-blue-100' type="number" 
+                                        value={formatNumber(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /></TableCell>
+                                           
                                         
+                                        
+                                        <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
                                         
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_m_ds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_m_ds', e.target.value)} required /></TableCell>
