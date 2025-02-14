@@ -237,7 +237,7 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
             const Mc_runTime3 = millisecondsToTime(runtime3);
          
             
-            if((parseFloat(data.rcv_peeling)+(data.rcv_village? parseFloat(data.rcv_village):0)
+            if((parseFloat(data.rcv_peelingN)+(data.rcv_village? parseFloat(data.rcv_village):0)
                 +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
                 +(data.rcv_sorting? parseFloat(data.rcv_sorting):0)+(data.rcv_mayur? parseFloat(data.rcv_mayur):0)
                 +(data.rcv_hamsa? parseFloat(data.rcv_hamsa):0) +(data.rcv_wholes? parseFloat(data.rcv_wholes):0)
@@ -246,8 +246,8 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                 +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
                 +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
                 +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) 
+                +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                 +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                 +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
                 +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
@@ -260,8 +260,8 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                   +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
                   +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
                   +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                  +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                  +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                  +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) 
+                  +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                   +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                   +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
                   +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting))
@@ -309,7 +309,7 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                     issue_add_1: data.issue_add_1,
                     issue_add_2: data.issue_add_2,
                     issue_add_3:data.issue_add_3,
-                    issue_add_4: data.issue_add_4,
+                    issue_add_4: data.rcv_peelingN,
                     issue_add_5: data.issue_add_5,
                     issue_add_6: data.issue_add_6,
                     issue_add_7: data.issue_add_7,
@@ -323,7 +323,7 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                     issue_sorting: data.issue_sorting,
 
                     
-                    entry_backlog: (parseFloat(data.rcv_peeling)+(data.rcv_village? parseFloat(data.rcv_village):0)
+                    entry_backlog: (parseFloat(data.rcv_peelingN)+(data.rcv_village? parseFloat(data.rcv_village):0)
                     +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
                     +(data.rcv_sorting? parseFloat(data.rcv_sorting):0)+(data.rcv_mayur? parseFloat(data.rcv_mayur):0)
                     +(data.rcv_hamsa? parseFloat(data.rcv_hamsa):0) +(data.rcv_wholes? parseFloat(data.rcv_wholes):0)) 
@@ -332,13 +332,13 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                       +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
                       +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
                       +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                      +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                      +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                      +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) 
+                      +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                       +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                       +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
                       +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
                         ),
-                    current_backlog: (parseFloat(data.rcv_peeling)+(data.rcv_village? parseFloat(data.rcv_village):0)
+                    current_backlog: (parseFloat(data.rcv_peelingN)+(data.rcv_village? parseFloat(data.rcv_village):0)
                     +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
                     +(data.rcv_sorting? parseFloat(data.rcv_sorting):0)+(data.rcv_mayur? parseFloat(data.rcv_mayur):0)
                     +(data.rcv_hamsa? parseFloat(data.rcv_hamsa):0) +(data.rcv_wholes? parseFloat(data.rcv_wholes):0)) 
@@ -347,8 +347,8 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                       +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
                       +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
                       +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                      +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                      +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                      +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp)
+                      +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                       +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                       +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
                       +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
@@ -446,11 +446,11 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                         date:data.Date,
                         fromSection:'BigTaiho',
                         toSection:'Sorting',
-                        toSectionBeforeBacklog:dpds_backlog.dataValues.current_backlog,
-                        toSectionAfterBacklog:parseFloat(dpds_backlog.dataValues.current_backlog)+parseFloat(data.issue_sorting),
+                        toSectionBeforeBacklog:sorting_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(sorting_backlog.dataValues.current_backlog)+parseFloat(data.issue_sorting),
                         createdBy: feeledBy
                      },{transaction});
-                     if(dpds_backlog.dataValues.rcv_bigTaiho){
+                     if(sorting_backlog.dataValues.rcv_bigTaiho){
                         await SortingModel.update(
                             { 
                                 rcv_bigTaiho:sequelize.literal(`rcv_bigTaiho+ ${data.issue_sorting}`),
@@ -675,13 +675,13 @@ export const CreateReissueBigTaiho= async (req: Request, res: Response) => {
 
 
             //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
-            if(parseFloat(data.rcv_opening)< (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
+            if(parseFloat(data.issue_add_1)< (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
                 +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
                   +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
                   +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
                   +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                  +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                  +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                  +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) 
+                  +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                   +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                   +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
                   +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
@@ -694,8 +694,8 @@ export const CreateReissueBigTaiho= async (req: Request, res: Response) => {
                    +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
                    +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
                    +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                   +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                   +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                   +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) 
+                   +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                    +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                    +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
                    +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
@@ -784,24 +784,24 @@ export const CreateReissueBigTaiho= async (req: Request, res: Response) => {
                         issue_husk: data.issue_husk,
                         issue_sorting: data.issue_sorting,
                       
-                        entry_backlog:parseFloat(data.rcv_opening)- (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
+                        entry_backlog:parseFloat(data.issue_add_1)- (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
                         +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
                           +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
                           +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
                           +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                          +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                          +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                          +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) 
+                          +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                           +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                           +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
                           +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
                          ),
-                       current_backlog:parseFloat(data.rcv_opening)- (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
+                       current_backlog:parseFloat(data.issue_add_1)- (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
                        +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
                          +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
                          +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
                          +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                         +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                         +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                         +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) 
+                         +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                          +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                          +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
                          +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
@@ -903,11 +903,11 @@ export const CreateReissueBigTaiho= async (req: Request, res: Response) => {
                             date:data.Date,
                             fromSection:'BigTaiho',
                             toSection:'Sorting',
-                            toSectionBeforeBacklog:dpds_backlog.dataValues.current_backlog,
-                            toSectionAfterBacklog:parseFloat(dpds_backlog.dataValues.current_backlog)+parseFloat(data.issue_sorting),
+                            toSectionBeforeBacklog:sorting_backlog.dataValues.current_backlog,
+                            toSectionAfterBacklog:parseFloat(sorting_backlog.dataValues.current_backlog)+parseFloat(data.issue_sorting),
                             createdBy: feeledBy
                          },{transaction});
-                         if(dpds_backlog.dataValues.rcv_bigTaiho){
+                         if(sorting_backlog.dataValues.rcv_bigTaiho){
                             await SortingModel.update(
                                 { 
                                     rcv_bigTaiho:sequelize.literal(`rcv_bigTaiho+ ${data.issue_sorting}`),
@@ -1067,7 +1067,7 @@ export const updateEntireBigTaiho= async (req: Request, res: Response) => {
             const Mc_runTime3 = millisecondsToTime(runtime3);
          
             
-            if((parseFloat(data.rcv_peeling)+(data.rcv_village? parseFloat(data.rcv_village):0)
+            if((parseFloat(data.rcv_peelingN)+(data.rcv_village? parseFloat(data.rcv_village):0)
                 +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
                 +(data.rcv_sorting? parseFloat(data.rcv_sorting):0)+(data.rcv_mayur? parseFloat(data.rcv_mayur):0)
                 +(data.rcv_hamsa? parseFloat(data.rcv_hamsa):0) +(data.rcv_wholes? parseFloat(data.rcv_wholes):0)
@@ -1076,8 +1076,8 @@ export const updateEntireBigTaiho= async (req: Request, res: Response) => {
                 +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
                 +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
                 +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) 
+                +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                 +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                 +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
                 +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
@@ -1090,8 +1090,8 @@ export const updateEntireBigTaiho= async (req: Request, res: Response) => {
                   +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
                   +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
                   +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                  +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                  +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                  +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp)
+                  +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                   +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                   +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
                   +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting))
@@ -1156,7 +1156,7 @@ export const updateEntireBigTaiho= async (req: Request, res: Response) => {
                     issue_add_1: data.issue_add_1,
                     issue_add_2: data.issue_add_2,
                     issue_add_3:data.issue_add_3,
-                    issue_add_4: data.issue_add_4,
+                    issue_add_4: data.rcv_peelingN,
                     issue_add_5: data.issue_add_5,
                     issue_add_6: data.issue_add_6,
                     issue_add_7: data.issue_add_7,
@@ -1170,7 +1170,7 @@ export const updateEntireBigTaiho= async (req: Request, res: Response) => {
                     issue_sorting: data.issue_sorting,
 
                     
-                    entry_backlog: (parseFloat(data.rcv_peeling)+(data.rcv_village? parseFloat(data.rcv_village):0)
+                    entry_backlog: (parseFloat(data.rcv_peelingN)+(data.rcv_village? parseFloat(data.rcv_village):0)
                     +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
                     +(data.rcv_sorting? parseFloat(data.rcv_sorting):0)+(data.rcv_mayur? parseFloat(data.rcv_mayur):0)
                     +(data.rcv_hamsa? parseFloat(data.rcv_hamsa):0) +(data.rcv_wholes? parseFloat(data.rcv_wholes):0)) 
@@ -1179,13 +1179,13 @@ export const updateEntireBigTaiho= async (req: Request, res: Response) => {
                       +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
                       +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
                       +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                      +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                      +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                      +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) 
+                      +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                       +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                       +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
                       +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
                         ),
-                    current_backlog: (parseFloat(data.rcv_peeling)+(data.rcv_village? parseFloat(data.rcv_village):0)
+                    current_backlog: (parseFloat(data.rcv_peelingN)+(data.rcv_village? parseFloat(data.rcv_village):0)
                     +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
                     +(data.rcv_sorting? parseFloat(data.rcv_sorting):0)+(data.rcv_mayur? parseFloat(data.rcv_mayur):0)
                     +(data.rcv_hamsa? parseFloat(data.rcv_hamsa):0) +(data.rcv_wholes? parseFloat(data.rcv_wholes):0)) 
@@ -1194,8 +1194,8 @@ export const updateEntireBigTaiho= async (req: Request, res: Response) => {
                       +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
                       +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
                       +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                      +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                      +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
+                      +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) 
+                      +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                       +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                       +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
                       +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)

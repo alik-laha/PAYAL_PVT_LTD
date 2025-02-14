@@ -18,7 +18,7 @@ import { LuDonut, LuBadgeCheck } from "react-icons/lu";
 import { GoPackageDependents } from "react-icons/go";
 import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
 import { BiSolidUserPlus } from "react-icons/bi";
-import { FaUserTie, FaWater, FaAcquisitionsIncorporated } from "react-icons/fa";
+import { FaUserTie, FaWater, FaSortAmountDownAlt ,FaAcquisitionsIncorporated } from "react-icons/fa";
 import { PiPackageLight, PiWashingMachineLight } from "react-icons/pi";
 import { GiBoilingBubbles, GiIceCreamScoop, GiGate, GiBoxingRing,GiVendingMachine } from "react-icons/gi";
 import { AiFillCodeSandboxSquare, AiOutlineProduct } from "react-icons/ai";
@@ -286,6 +286,13 @@ const DashboardSidebar = () => {
                                     </NavLink>
                                 </CollapsibleContent>}
 
+                                {renderlink('Hamsa')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/Hamsa" >
+                                        <p className="flex"> <GiVendingMachine size={20} /><p className="pl-3">  RCN Hamsa </p></p>
+                                    </NavLink>
+                                </CollapsibleContent>}
+
                             {renderlink('DPDS')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/DPDS" >
@@ -293,13 +300,15 @@ const DashboardSidebar = () => {
                                     </NavLink>
                                 </CollapsibleContent>}
 
-
-                            {renderlink('Hamsa')
+                            {renderlink('Sorting')
                                 && <CollapsibleContent className="Items-pvt">
-                                    <NavLink to="/dashboard/Hamsa" >
-                                        <p className="flex"> <GiVendingMachine size={20} /><p className="pl-3">  RCN Hamsa </p></p>
+                                    <NavLink to="/dashboard/Sorting" >
+                                        <p className="flex"> <FaSortAmountDownAlt size={20} /><p className="pl-3">  RCN Sorting </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
+
+
+                           
 
                             
 

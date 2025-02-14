@@ -37,7 +37,6 @@ import {
     AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
-
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
@@ -145,13 +144,15 @@ const HamsaTable = () => {
             issue_pw_320: formatNumber(item.issue_pw_320),
             issue_w_320: formatNumber(item.issue_w_320),
             issue_ww_320: formatNumber(item.issue_ww_320),
+            issue_pw_360: formatNumber(item.issue_add_1),
+            issue_w_360: formatNumber(item.issue_add_2),
+            issue_ww_360: formatNumber(item.issue_add_3),
             issue_pw_400: formatNumber(item.issue_pw_400),
             issue_w_400: formatNumber(item.issue_w_400),
             issue_ww_400: formatNumber(item.issue_ww_400),
             Issue_JB: formatNumber(item.issue_jb),
             Issue_BigTaiho: formatNumber(item.issue_bigTaiho),
             Issue_LW: formatNumber(item.issue_lw),
-            Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
             Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
             Mc_On_Hamsa_1: handleAMPM(item.Mc_on_1.slice(0, 5)),
             Mc_Off_Hamsa_1: handleAMPM(item.Mc_off_1.slice(0, 5)),
@@ -177,15 +178,12 @@ const HamsaTable = () => {
             Mc_Off_Spectrum: handleAMPM(item.Mc_off_6.slice(0, 5)),
             Mc_Breakdown_Spectrum: item.Mc_breakdown_6.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
             Other_Time_Spectrum: item.otherTime_6.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            
             Runtime_Hamsa_1: item.Mc_runTime_1.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
             Runtime_Hamsa_2: item.Mc_runTime_2.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
             Runtime_Hamsa_3: item.Mc_runTime_3.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
             Runtime_Hamsa_4: item.Mc_runTime_4.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-            
             Runtime_Hamsa_5: item.Mc_runTime_5.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-            Runtime_Spectrum: item.Mc_runTime_6.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-            
+            Runtime_Spectrum: item.Mc_runTime_6.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',  
             Operator_Day: item.noOfdayOperators,
             Operator_Night: item.noOfnightOperators,
             Edit_Status: item.editStatus,
@@ -222,13 +220,15 @@ const HamsaTable = () => {
                 issue_pw_320: formatNumber(item.issue_pw_320),
                 issue_w_320: formatNumber(item.issue_w_320),
                 issue_ww_320: formatNumber(item.issue_ww_320),
+                issue_pw_360: formatNumber(item.issue_add_1),
+                issue_w_360: formatNumber(item.issue_add_2),
+                issue_ww_360: formatNumber(item.issue_add_3),
                 issue_pw_400: formatNumber(item.issue_pw_400),
                 issue_w_400: formatNumber(item.issue_w_400),
                 issue_ww_400: formatNumber(item.issue_ww_400),
                 Issue_JB: formatNumber(item.issue_jb),
                 Issue_BigTaiho: formatNumber(item.issue_bigTaiho),
                 Issue_LW: formatNumber(item.issue_lw),
-                Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
                 Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
                 Mc_On_Hamsa_1: handleAMPM(item.Mc_on_1.slice(0, 5)),
                 Mc_Off_Hamsa_1: handleAMPM(item.Mc_off_1.slice(0, 5)),
@@ -477,13 +477,14 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue PW_320</TableHead>
                     <TableHead className="text-center">Issue W_320</TableHead>
                     <TableHead className="text-center">Issue WW_320</TableHead>
+                    <TableHead className="text-center">Issue PW_360</TableHead>
+                    <TableHead className="text-center">Issue W_360</TableHead>
+                    <TableHead className="text-center">Issue WW_360</TableHead>
                     <TableHead className="text-center">Issue PW_400</TableHead>
                     <TableHead className="text-center">Issue W_400</TableHead>
                     <TableHead className="text-center">Issue WW_400</TableHead>
-                     {/* <TableHead className="text-center">Issue Add 1</TableHead>
-                    <TableHead className="text-center">Issue Add 2</TableHead>
-                    <TableHead className="text-center">Issue Add 3</TableHead>
-                    <TableHead className="text-center">Issue Add 4</TableHead>
+                 
+                    {/* <TableHead className="text-center">Issue Add 4</TableHead>
                     <TableHead className="text-center">Issue Add 5</TableHead>
                     <TableHead className="text-center">Issue Add 6</TableHead>
                     <TableHead className="text-center">Issue Add 7</TableHead>
@@ -494,7 +495,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue LW</TableHead>
                     <TableHead className="text-center">Issue BigTaiho</TableHead>
                     <TableHead className="text-center">Issue JB</TableHead>
-                    <TableHead className="text-center">Entry_Backlog</TableHead>
+                    {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
                     <TableHead className="text-center font-bold">Current_Backlog</TableHead>
                     <TableHead className="text-center">Mc On (Hamsa_1)</TableHead>
                     <TableHead className="text-center">Mc Off (Hamsa_1)</TableHead>
@@ -547,7 +548,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableCell className="text-center">{idx + 1}</TableCell>
                             <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
                                     
-                                    <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
+                            <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
@@ -557,35 +558,41 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.rcv_pw_w)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.rcv_w_lot)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.rcv_ww)}</TableCell>
-                                    <TableCell className="text-center bg-yellow-100">{Number(formatNumber(item.rcv_pw_w))+
-                                    Number(formatNumber(item.rcv_w_lot))+Number(formatNumber(item.rcv_ww))}</TableCell>
-                                    <TableCell className="text-center font-bold bg-yellow-100 text-green-600">{item.rcv_village ? formatNumber(item.rcv_village) :0}</TableCell>
-                                    <TableCell className="text-center font-bold bg-yellow-100 text-green-600">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
+                                    <TableCell className="text-center  font-semibold bg-yellow-100">{formatNumber((parseFloat(item.rcv_pw_w) +
+                                     parseFloat(item.rcv_w_lot)+parseFloat(item.rcv_ww)).toString())}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_village ? formatNumber(item.rcv_village) :0}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
                                     
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_210)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_210)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_210)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_240)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_240)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_240)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_280)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_280)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_280)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_320)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_320)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_320)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_400)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_400)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_400)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-100">{Number(item.issue_pw_210)+Number(item.issue_w_210)
-                                       +Number(item.issue_ww_210)+Number(item.issue_pw_240)+Number(item.issue_w_240)+Number(item.issue_ww_240)+Number(item.issue_pw_280) 
-                                       +Number(item.issue_w_280)+Number(item.issue_ww_280)+Number(item.issue_pw_320)+Number(item.issue_w_320)
-                                       +Number(item.issue_ww_320)+Number(item.issue_pw_400)+Number(item.issue_w_400)+Number(item.issue_ww_400)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.issue_lw)}</TableCell>
-                                    <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_bigTaiho)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-purple-500">{formatNumber(item.issue_jb)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_210)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_210)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_ww_210)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_240)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_240)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_240)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_280)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_280)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_ww_280)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_320)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_320)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_ww_320)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_1)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_2)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_3)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_400)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_400)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_ww_400)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_pw_210) +
+                                     parseFloat(item.issue_w_210)+parseFloat(item.issue_ww_210)+
+                                     parseFloat(item.issue_pw_240) +parseFloat(item.issue_w_240)+parseFloat(item.issue_ww_240)+
+                                     parseFloat(item.issue_pw_280) +parseFloat(item.issue_w_280)+parseFloat(item.issue_ww_280)+
+                                     parseFloat(item.issue_pw_320) +parseFloat(item.issue_w_320)+parseFloat(item.issue_ww_320)+
+                                     parseFloat(item.issue_add_1) +parseFloat(item.issue_add_2)+parseFloat(item.issue_add_3)+
+                                     parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)).toString())}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_lw)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_jb)}</TableCell>
                      
-                                    <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell>
+                                    {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
                                                
                                     <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on_1.slice(0, 5))}</TableCell>
@@ -693,35 +700,41 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.rcv_pw_w)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.rcv_w_lot)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.rcv_ww)}</TableCell>
-                                    <TableCell className="text-center text-green-600 font-bold bg-yellow-100">{Number(formatNumber(item.rcv_pw_w))+
-                                    Number(formatNumber(item.rcv_w_lot))+Number(formatNumber(item.rcv_ww))}</TableCell>
-                                    <TableCell className="text-center font-bold bg-yellow-100 text-green-600">{item.rcv_village ? formatNumber(item.rcv_village) :0}</TableCell>
-                                    <TableCell className="text-center font-bold bg-yellow-100 text-green-600">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
+                                    <TableCell className="text-center  font-semibold bg-yellow-100">{formatNumber((parseFloat(item.rcv_pw_w) +
+                                     parseFloat(item.rcv_w_lot)+parseFloat(item.rcv_ww)).toString())}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_village ? formatNumber(item.rcv_village) :0}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
                                     
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_210)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_210)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_210)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_240)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_240)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_240)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_280)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_280)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_280)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_320)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_320)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_320)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_pw_400)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_w_400)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ww_400)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-red-100">{Number(item.issue_pw_210)+Number(item.issue_w_210)
-                                       +Number(item.issue_ww_210)+Number(item.issue_pw_240)+Number(item.issue_w_240)+Number(item.issue_ww_240)+Number(item.issue_pw_280) 
-                                       +Number(item.issue_w_280)+Number(item.issue_ww_280)+Number(item.issue_pw_320)+Number(item.issue_w_320)
-                                       +Number(item.issue_ww_320)+Number(item.issue_pw_400)+Number(item.issue_w_400)+Number(item.issue_ww_400)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_210)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_210)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_ww_210)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_240)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_240)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_240)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_280)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_280)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_ww_280)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_320)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_320)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_ww_320)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_1)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_2)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_3)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_pw_400)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_w_400)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_ww_400)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_pw_210) +
+                                     parseFloat(item.issue_w_210)+parseFloat(item.issue_ww_210)+
+                                     parseFloat(item.issue_pw_240) +parseFloat(item.issue_w_240)+parseFloat(item.issue_ww_240)+
+                                     parseFloat(item.issue_pw_280) +parseFloat(item.issue_w_280)+parseFloat(item.issue_ww_280)+
+                                     parseFloat(item.issue_pw_320) +parseFloat(item.issue_w_320)+parseFloat(item.issue_ww_320)+
+                                     parseFloat(item.issue_add_1) +parseFloat(item.issue_add_2)+parseFloat(item.issue_add_3)+
+                                     parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_lw)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_jb)}</TableCell>
                      
-                                    <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell>
+                                    {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
                                                
                                     <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on_1.slice(0, 5))}</TableCell>
@@ -783,7 +796,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-7xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>BigTaiho Entry Modification</p>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>Hamsa Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <HamsaEditForm borma={[item]} />
@@ -797,7 +810,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-7xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>BigTaiho Entry Reissue</p>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>Hamsa Entry Reissue</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         <HamsaReCreateForm borma={[item]} />

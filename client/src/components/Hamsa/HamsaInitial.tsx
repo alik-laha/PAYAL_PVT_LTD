@@ -78,6 +78,9 @@ const HamsaInitial = (props: any) => {
             //set(res.data.scoopingLot)
         })
     }
+    function formatNumber(num: string) {
+        return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
+    }
     return (
         <>
             <div className="pl-10 pr-10 max-h-64 overflow-scroll">
@@ -109,7 +112,7 @@ const HamsaInitial = (props: any) => {
                                             {item.origin}
                                         </TableCell>
                                         <TableCell className="text-center font-semibold ">
-                                            {item.current_backlog}
+                                        {formatNumber(item.current_backlog)} Kg
                                         </TableCell>
                                         
                                         <TableCell className="text-center">

@@ -21,6 +21,7 @@ interface BigTaihoRowData{
         origin: string;
         rcv_transfer: string|null;
         rcv_peeling: string;
+        rcv_peelingN: string|number;
         rcv_village: string|null;
         rcv_sorting: string|null;
         rcv_dpds: string|null;
@@ -45,9 +46,9 @@ interface BigTaihoRowData{
     issue_ssp_2: number;
     issue_ssp_2_small: number;
     issue_sdp: number;
-        issue_add_1: number;
-        issue_add_2: number;
-        issue_add_3: number;
+        issue_add_1: string|number;
+        issue_add_2: string|number;
+        issue_add_3: string|number;
         issue_add_4: number;
         issue_add_5: number;
         issue_add_6: number;
@@ -127,6 +128,7 @@ const RCNDBigTaihoCreateForm = (props:Props) => {
             origin: item.origin,
             rcv_transfer: item.rcv_transfer,
             rcv_peeling: item.rcv_peeling,
+            rcv_peelingN: item.rcv_peeling,
             rcv_village: item.rcv_village,
             rcv_sorting: item.rcv_sorting,
             rcv_dpds: item.rcv_dpds,
@@ -151,9 +153,9 @@ const RCNDBigTaihoCreateForm = (props:Props) => {
             issue_ssp_2: 0,
             issue_ssp_2_small: 0,
             issue_sdp: 0,
-            issue_add_1: 0,
-            issue_add_2:  0,
-            issue_add_3:  0,
+            issue_add_1: formatNumber(item.rcv_peeling),
+            issue_add_2:  '0',
+            issue_add_3:  '0',
             issue_add_4:  0,
             issue_add_5:  0,
             issue_add_6:  0,
@@ -258,6 +260,27 @@ const RCNDBigTaihoCreateForm = (props:Props) => {
         return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
     }
 
+    const handleOpeningChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+
+        if (Number(e.target.value)>(Number(rows[index].rcv_peeling))) {
+            setErrortext('Borma Weight Cant be Higher Than Receiving !')
+            if (errordialog != null) {
+                (errordialog as any).showModal();
+            }
+            return
+        }
+        if(rows[0].issue_add_1){
+            rows[index].issue_add_2=(Number(rows[index].rcv_peeling)-Number(e.target.value))
+            rows[index].issue_add_3=(Number(rows[index].issue_add_2)/Number(rows[index].rcv_peeling))*100
+            rows[index].rcv_peelingN=(Number(rows[index].rcv_peeling)*((100-Number(rows[index].issue_add_3))/100)).toString()
+          
+        
+        
+        }
+        handleRowChange(index,'issue_add_1',e.target.value)
+    }
+ 
+
  
     return (
         <>
@@ -290,14 +313,18 @@ const RCNDBigTaihoCreateForm = (props:Props) => {
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
                   
-                    <TableHead className="text-center">Rcv Peeling</TableHead>
-                    <TableHead className="text-center">Rcv Village</TableHead>
-                    <TableHead className="text-center">Rcv Sorting</TableHead>
-                    <TableHead className="text-center">Rcv DPDS</TableHead>
-                    <TableHead className="text-center">Rcv Mayur</TableHead>
-                    <TableHead className="text-center">Rcv Hamsa</TableHead>
-                    <TableHead className="text-center">Rcv LW</TableHead>
-                    <TableHead className="text-center">Rcv Wholes</TableHead>
+                  
+                    <TableHead className="text-center">Receive Village</TableHead>
+                    <TableHead className="text-center">Receive Sorting</TableHead>
+                    <TableHead className="text-center">Receive DPDS</TableHead>
+                    <TableHead className="text-center">Receive Mayur</TableHead>
+                    <TableHead className="text-center">Receive Hamsa</TableHead>
+                    <TableHead className="text-center">Receive LW</TableHead>
+                    <TableHead className="text-center">Receive Wholes</TableHead>
+                    <TableHead className="text-center">Receive Peeling</TableHead>
+                    <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
+                    <TableHead className="text-center">Borma Loss(Kg)</TableHead>
+                    <TableHead className="text-center">Borma Loss(%)</TableHead>
                     <TableHead className="text-center">Issue SSP</TableHead>
                     <TableHead className="text-center">Issue SSP(Small)</TableHead>
                     <TableHead className="text-center">Issue SWP_1</TableHead>
@@ -360,7 +387,6 @@ const RCNDBigTaihoCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{formatNumber(row.rcv_peeling)} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_village ? formatNumber(row.rcv_village) :0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_sorting ? formatNumber(row.rcv_sorting) :0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_dpds ? formatNumber(row.rcv_dpds) :0} Kg</TableCell>
@@ -368,6 +394,13 @@ const RCNDBigTaihoCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_hamsa ? formatNumber(row.rcv_hamsa) :0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_lw ? formatNumber(row.rcv_lw) :0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_wholes ? formatNumber(row.rcv_wholes) :0} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-600">{formatNumber(row.rcv_peeling)} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-blue-100' type="number" 
+                                        value={formatNumber(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /></TableCell>
+                                        <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
+                                        
+                                        
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ssp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ssp', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ssp_small} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ssp_small', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_swp_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_swp_1', e.target.value)} required /></TableCell>
@@ -398,11 +431,11 @@ const RCNDBigTaihoCreateForm = (props:Props) => {
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_8} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_8', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_9} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_9', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_10} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_10', e.target.value)} required /></TableCell> */}
-                                     <TableCell className="text-center"> <Input className='bg-cyan-100' type="number" value={row.issue_husk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_husk', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-red-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-blue-100' type="number" value={row.issue_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_village', e.target.value)} required /></TableCell>
+                                     <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_husk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_husk', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_village', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sorting', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-green-100' type="number" value={row.issue_dpds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dpds', e.target.value)} required /></TableCell>
+                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_dpds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dpds', e.target.value)} required /></TableCell>
 
 
                                     <FormRow idx={idx} row={row} column='Mc_on_1' handleRowChange={handleRowChange}/>

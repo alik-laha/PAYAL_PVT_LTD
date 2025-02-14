@@ -346,13 +346,16 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Item_Lot_No</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Borma_Date</TableHead>
-                      
                         <TableHead className="text-center" >Temperature</TableHead>
-                        <TableHead className="text-center" >Moisture(Input)</TableHead>
+                        <TableHead className="text-center" >Moisture(Input)</TableHead> 
+                        <TableHead className="text-center" >Moisture(Output)</TableHead>
+                       
+                        <TableHead className="text-center " >Total_Input(Kg)</TableHead>
+                    
+                      
                         <TableHead className="text-center" >Input_Wholes(Kg)</TableHead>
                         <TableHead className="text-center" >Input_Pieces(Kg)</TableHead>
-                        <TableHead className="text-center " >Total_Input(Kg)</TableHead>
-                        <TableHead className="text-center" >Moisture(Output)</TableHead>
+                       
                         <TableHead className="text-center" >Output_Wholes(Kg)</TableHead>
                         <TableHead className="text-center" >Output_Pieces(Kg)</TableHead>
                         <TableHead className="text-center " >Total_Output(Kg)</TableHead>
@@ -382,17 +385,22 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
 
                                         
+                                   
+                                        
                                         <TableCell className="text-center">{formatNumber(item.Temp)} C</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.InputMoisture)} %</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.OutputMoisture)} %</TableCell>
+                                        <TableCell className="text-center bg-green-100 font-semibold">{formatNumber(item.TotalInput)} Kg</TableCell>
+
+                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.InputWholes)} Kg</TableCell>
+                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.InputPieces)} Kg</TableCell>
+                                        
                                        
-                                        <TableCell className="text-center">{formatNumber(item.InputWholes)}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.InputPieces)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalInput)}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.OutputMoisture)} %</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.OutputWholes)}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.OutputPieces)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalOutput)}</TableCell>
-                                        <TableCell className="text-center font-bold text-purple-500">{formatNumber(item.BormaLoss)} %</TableCell>
+                                        <TableCell className="text-center bg-red-100">{formatNumber(item.OutputWholes)} Kg</TableCell>
+                                        <TableCell className="text-center bg-red-100">{formatNumber(item.OutputPieces)} Kg</TableCell>
+                                        <TableCell className="text-center bg-green-100 font-semibold">{formatNumber(item.TotalOutput)} Kg</TableCell>
+
+                                        <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.BormaLoss)} %</TableCell>
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
                                         <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
@@ -454,17 +462,22 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
 
                                         
+                                       
+                                        
                                         <TableCell className="text-center">{formatNumber(item.Temp)} C</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.InputMoisture)} %</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.OutputMoisture)} %</TableCell>
+                                        <TableCell className="text-center bg-green-100 font-semibold">{formatNumber(item.TotalInput)} Kg</TableCell>
+
+                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.InputWholes)} Kg</TableCell>
+                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.InputPieces)} Kg</TableCell>
+                                        
                                        
-                                        <TableCell className="text-center">{formatNumber(item.InputWholes)}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.InputPieces)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalInput)}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.OutputMoisture)} %</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.OutputWholes)}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.OutputPieces)}</TableCell>
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalOutput)}</TableCell>
-                                        <TableCell className="text-center font-bold text-purple-500">{formatNumber(item.BormaLoss)} %</TableCell>
+                                        <TableCell className="text-center bg-red-100">{formatNumber(item.OutputWholes)} Kg</TableCell>
+                                        <TableCell className="text-center bg-red-100">{formatNumber(item.OutputPieces)} Kg</TableCell>
+                                        <TableCell className="text-center bg-green-100 font-semibold">{formatNumber(item.TotalOutput)} Kg</TableCell>
+
+                                        <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.BormaLoss)} %</TableCell>
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
                                         <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>

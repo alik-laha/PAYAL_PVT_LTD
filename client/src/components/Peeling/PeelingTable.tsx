@@ -382,11 +382,12 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Peeling_Date</TableHead>
                        
-                        <TableHead className="text-center ">Total_Input(Kg)</TableHead>
+                       
                         <TableHead className="text-center" >Pressure</TableHead>
                         <TableHead className="text-center " >Moisture(Min-Max)</TableHead>
                         <TableHead className="text-center" >Peeling_Time</TableHead>
                         <TableHead className="text-center" >No_Of_Trolley</TableHead>
+                        <TableHead className="text-center ">Total_Input(Kg)</TableHead>
                         <TableHead className="text-center" >Pieces Unpeel</TableHead>
                         <TableHead className="text-center" >Wholes Peel</TableHead>
                         <TableHead className="text-center" >Wholes UnPeel</TableHead>
@@ -403,17 +404,17 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Husk</TableHead>
                         <TableHead className="text-center" >Rejection</TableHead>
                         <TableHead className="text-center" >Big_Taiho</TableHead>
-                        <TableHead className="text-center" >Backlog</TableHead>
+                        <TableHead className="text-center" >Error</TableHead>
                         <TableHead className="text-center" >Peeling_ON</TableHead>
                         <TableHead className="text-center" >Peeling_OFF</TableHead>
                         
                         <TableHead className="text-center" >Breakdown Duration</TableHead>
                         <TableHead className="text-center" >Other Duration</TableHead>
                         <TableHead className="text-center" >Run Duration</TableHead>
-                        <TableHead className="text-center" >No_Of_Operator</TableHead>
-                        <TableHead className="text-center" >No_Of_Operator(Day)</TableHead>
-                        <TableHead className="text-center" >No_Of_Operator(Night)</TableHead>
-                        <TableHead className="text-center" >No_Of_Operator(Husk)</TableHead>
+                        <TableHead className="text-center" >No Of Operator</TableHead>
+                        <TableHead className="text-center" >Operator(Day)</TableHead>
+                        <TableHead className="text-center" >Operator(Night)</TableHead>
+                        <TableHead className="text-center" >Operator(Husk)</TableHead>
                         <TableHead className="text-center" >Edit Status </TableHead>
                         <TableHead className="text-center" >Created By </TableHead>
                         <TableHead className="text-center" >Action</TableHead>
@@ -430,12 +431,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                       
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalInput)}</TableCell>
+                                       
                                         <TableCell className="text-center">{formatNumber(item.pressure)} </TableCell>
                                         <TableCell className="text-center ">{item.moisture} %</TableCell>
                                         <TableCell className="text-center  ">{item.peelingTime} </TableCell>
                                       
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
+                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalInput)}</TableCell>
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesPeel)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesUnpeel)}</TableCell>
@@ -452,8 +454,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center bg-yellow-100">{formatNumber(item.Husk)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.Rejection)}</TableCell>
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.Big_Taiho)}</TableCell>
-                                        {Number(item.difference) < 0 ? (<TableCell className="text-center font-bold text-red-600">{formatNumberWithSign(Number(item.difference))} </TableCell>)
-                                        : (<TableCell className="text-center font-bold text-green-600">{formatNumberWithSign(Number(item.difference))} </TableCell>)}
+                                        {Number(item.difference) < 0 ? (<TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumberWithSign(Number(item.difference))} </TableCell>)
+                                        : (<TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumberWithSign(Number(item.difference))} </TableCell>)}
                                         
                                         <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
@@ -518,12 +520,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                       
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalInput)}</TableCell>
+                                       
                                         <TableCell className="text-center">{formatNumber(item.pressure)} </TableCell>
                                         <TableCell className="text-center ">{item.moisture} %</TableCell>
                                         <TableCell className="text-center  ">{item.peelingTime} </TableCell>
                                       
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
+                                        <TableCell className="text-center text-green-700 font-semibold">{formatNumber(item.TotalInput)} kg</TableCell>
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.UnpeelPiece)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesPeel)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.WholesUnpeel)}</TableCell>
@@ -540,8 +543,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center bg-yellow-100">{formatNumber(item.Husk)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.Rejection)}</TableCell>
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.Big_Taiho)}</TableCell>
-                                        {Number(item.difference) < 0 ? (<TableCell className="text-center font-bold text-red-600">{formatNumberWithSign(Number(item.difference))} </TableCell>)
-                                        : (<TableCell className="text-center font-bold text-green-600">{formatNumberWithSign(Number(item.difference))} </TableCell>)}
+                                        {Number(item.difference) < 0 ? (<TableCell className="ttext-center font-bold bg-blue-500 text-white">{formatNumberWithSign(Number(item.difference))} </TableCell>)
+                                        : (<TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumberWithSign(Number(item.difference))} </TableCell>)}
 
                                         <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>

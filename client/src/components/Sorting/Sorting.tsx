@@ -20,25 +20,25 @@ import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
 import {  pendingCheckRoles, PermissionRole } from '@/type/type';
 import { pendingCheckRole } from '../common/exportData';
-import DPDSInitial from './DPDSInitial';
-import DPDSTable from './DPDSTable';
-import DPDSHistoryTable from './DSDSHistoryTable';
+import SortingInitial from './SortingInitial';
+import SortingHistoryTable from './SortingHistory';
+import SortingTable from './SortingTable';
 
 
 
 
-const DPDS = () => {
+const Sorting = () => {
 
-    const { setEditDPDSLotWiseData } = useContext(Context)
+    const { setEditSortingLotWiseData } = useContext(Context)
     const [lotdata, setLotData] = useState<any[]>([])
     const [maintable, setMainTable] = useState<string>('block')
     const [historytable, setHistoryTable] = useState<string>('none')
-    const { data, isLoading, error } = UseQueryData('/api/dpds/sumofallDPDS', 'GET', 'AllDPDSSum');
+    const { data, isLoading, error } = UseQueryData('/api/sorting/sumofallSorting', 'GET', 'AllSortingSum');
     const handleEditFetch = async () => {
 
-        axios.get("/api/dpds/findEditDPDSAll").then(res => {
+        axios.get("/api/sorting/findEditSortingAll").then(res => {
             console.log(res)
-            setEditDPDSLotWiseData(res.data.scoopingAllEdit)
+            setEditSortingLotWiseData(res.data.scoopingAllEdit)
         })
             .catch(err => {
                 console.log(err)
@@ -65,7 +65,7 @@ const DPDS = () => {
     console.log(data)
 
     const handleOpenLotNo = async () => {
-        axios.get('/api/dpds/getUnDPDSEntry/0').then(res => {
+        axios.get('/api/sorting/getUnSortingEntry/0').then(res => {
             console.log(res)
             setLotData(res.data.scoopingLot)
             console.log(lotdata)
@@ -97,77 +97,74 @@ const DPDS = () => {
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
                 <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
-                        Issue Packing <br /><p>{data.data[0].issue_m_ds && data.data[0].issue_m_dp && data.data[0].issue_k_dp 
-                        && data.data[0].issue_ds_1 && data.data[0].issue_ds_2 && data.data[0].issue_sp_2 && data.data[0].issue_yjh 
-                        && data.data[0].issue_yk && data.data[0].issue_kp && data.data[0].issue_wp && data.data[0].issue_rs && data.data[0].issue_dp_2
-                        && data.data[0].issue_dp_3 && data.data[0].issue_dp_4 && data.data[0].issue_dp_3l
-                        && data.data[0].issue_ss && data.data[0].issue_os && data.data[0].issue_os1
-                        
-                        && data.data[0].issue_add_7 && data.data[0].issue_add_8 && data.data[0].issue_add_9
+                        Issue Packing <br />
+                        <p>{data.data[0].issue_jjh && data.data[0].issue_jjh1 && data.data[0].issue_sjh && data.data[0].issue_jk 
+                        && data.data[0].issue_jk1 && data.data[0].issue_k && data.data[0].issue_k1 && data.data[0].issue_lwp
+                        && data.data[0].issue_lwp1 && data.data[0].issue_s && data.data[0].issue_ss && data.data[0].issue_yk
+                        && data.data[0].issue_sp2 && data.data[0].issue_kp 
+                       
                         && data.data[0].issue_add_10 
-                        ? formatNumber(parseFloat(data.data[0].issue_m_ds)+parseFloat(data.data[0].issue_m_dp)+parseFloat(data.data[0].issue_k_dp)
-                        +parseFloat(data.data[0].issue_ds_1)+parseFloat(data.data[0].issue_ds_2)+parseFloat(data.data[0].issue_sp_2)+
-                        parseFloat(data.data[0].issue_yjh)+parseFloat(data.data[0].issue_yk)+parseFloat(data.data[0].issue_kp)
-                        + parseFloat(data.data[0].issue_wp)+parseFloat(data.data[0].issue_rs)+parseFloat(data.data[0].issue_dp_2)
-                        +parseFloat(data.data[0].issue_dp_3)+parseFloat(data.data[0].issue_dp_4)+parseFloat(data.data[0].issue_dp_3l)
-                        +parseFloat(data.data[0].issue_ss)+parseFloat(data.data[0].issue_os)+parseFloat(data.data[0].issue_os1)
-                        +
-                            +parseFloat(data.data[0].issue_add_7)+parseFloat(data.data[0].issue_add_8)+parseFloat(data.data[0].issue_add_9)
+                        ? formatNumber(parseFloat(data.data[0].issue_jjh)+parseFloat(data.data[0].issue_jjh1)+parseFloat(data.data[0].issue_sjh)
+                            +parseFloat(data.data[0].issue_jk)+parseFloat(data.data[0].issue_jk1)+parseFloat(data.data[0].issue_k)
+                            +parseFloat(data.data[0].issue_k1)+parseFloat(data.data[0].issue_lwp)+parseFloat(data.data[0].issue_lwp1)
+                            +parseFloat(data.data[0].issue_s)+parseFloat(data.data[0].issue_ss)+parseFloat(data.data[0].issue_yk)
+                            +parseFloat(data.data[0].issue_sp2)+parseFloat(data.data[0].issue_kp)
+                            +parseFloat(data.data[0].issue_add_9)
                             +parseFloat(data.data[0].issue_add_10)): 0} Kg</p>
                   
                         
                     </div>
                
-                    <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
-                    Issue Big Taiho <br /><p>{data.data[0].issue_bigTaiho ? formatNumber(parseFloat(data.data[0].issue_bigTaiho))  : 0} Kg</p>
+                    <div className="flexbox-tile bg-orange-500 hover:bg-red-400">
+                    Issue Mayur <br /><p>{data.data[0].issue_mayur ? formatNumber(parseFloat(data.data[0].issue_mayur))  : 0}  Kg</p>
                     </div>
+
+                    <div className="flexbox-tile bg-red-500 hover:bg-red-400">
+                    Issue DPDS <br /><p>{data.data[0].issue_dpds? formatNumber(parseFloat(data.data[0].issue_dpds))  : 0}  Kg</p>
+                    </div>
+
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
                     Issue Village <br /><p>{data.data[0].issue_village ? formatNumber(parseFloat(data.data[0].issue_village))  : 0}  Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                    Issue Mayur <br /><p>{data.data[0].issue_mayur ? formatNumber(parseFloat(data.data[0].issue_mayur))  : 0}  Kg</p>
+                    
+                    <div className="flexbox-tile bg-orange-500 hover:bg-red-400">
+                    Issue BigTaiho <br /><p>{data.data[0].issue_bigTaiho ? formatNumber(parseFloat(data.data[0].issue_bigTaiho))  : 0}  Kg</p>
+                    </div>
+
+                    <div className="flexbox-tile bg-green-500 hover:bg-cyan-400">
+                    Issue Rejection <br /><p>{data.data[0].issue_rejection? formatNumber(parseFloat(data.data[0].issue_rejection))  : 0}  Kg</p>
                     </div>
                     
-                    <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
-                    Issue Rejection <br /><p>{data.data[0].issue_rejection  ?  formatNumber(parseFloat(data.data[0].issue_rejection)): 0} Kg</p>
-                    </div>
-                    <div className="flexbox-tile bg-cyan-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-cyan-500 hover:bg-blue-400">
                     Current Backlog <br /><p>{data.data[0].current_backlog  ?  formatNumber(parseFloat(data.data[0].current_backlog)): 0} Kg</p>
                     </div>
                   
-                   
-                 
-                    
-
-
-
-
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg font-semibold text-center '>CURRENT F.Y. REPORT (DPDS)</p>
+                <p className='text-lg font-semibold text-center capitalize'>CURRENT F.Y. REPORT (SORTING)</p>
                 <div>
                     <Dialog>
                         <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4 no-margin-left responsive-button-adjust" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>DPDS Entry Form</p></DialogTitle>
+                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Sorting Entry Form</p></DialogTitle>
 
                             </DialogHeader>
 
-                            <DPDSInitial props={lotdata} />
+                            <SortingInitial props={lotdata} />
                         </DialogContent>
                     </Dialog>
 
 
-                    {checkpending('DPDS') &&  <Button className="bg-orange-400 mb-2 ml-4 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> }
+                    {checkpending('Sorting') &&  <Button className="bg-orange-400 mb-2 ml-4 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> }
                     <Button className="bg-blue-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {maintable==='block' ? 'Incoming/Mixing':'Main Entry '}</Button>
                 </div>
                 <div style={{ display: maintable }}>
-                    <DPDSTable/>
+                    <SortingTable/>
                 </div>
                 <div style={{ display: historytable }}>
-                    <DPDSHistoryTable/>
+                    <SortingHistoryTable/>
                 </div>
                 
 
@@ -177,4 +174,4 @@ const DPDS = () => {
 
     )
 }
-export default DPDS;
+export default Sorting;

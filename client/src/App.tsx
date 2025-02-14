@@ -39,6 +39,7 @@ import Mayur from './components/Mayur/Mayur'
 import DPDS from './components/DPDS/DPDS'
 import BigTaiho from './components/bigTaiho/BigTaiho'
 import Hamsa from './components/Hamsa/Hamsa'
+import Sorting from './components/Sorting/Sorting'
 
 
 
@@ -241,6 +242,13 @@ function App() {
       <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'MayurSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
           <Route path='/dashboard/Hamsa' element={<Hamsa />} />
+
+        </Route>
+
+        {/*Production Sorting  */}
+      <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'SortingSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
+          <Route path='/dashboard/Sorting' element={<Sorting />} />
 
         </Route>
 

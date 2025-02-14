@@ -338,8 +338,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Humidify_Date</TableHead>
                         <TableHead className="text-center" >Moisture(Input)</TableHead>
-                        <TableHead className="text-center ">Total_Input(Kg)</TableHead>
                         <TableHead className="text-center" >Moisture(Output)</TableHead>
+                        <TableHead className="text-center ">Total_Input(Kg)</TableHead>
+                        
                         <TableHead className="text-center " >Total_Output(Kg)</TableHead>
                         <TableHead className="text-center" >Moisture_Gain</TableHead>
                         <TableHead className="text-center" >No_Of_Trolley</TableHead>
@@ -366,10 +367,11 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.InputMoisture)} %</TableCell>
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalInput)}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.OutputMoisture)} %</TableCell>
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalOutput)}</TableCell>
-                                        <TableCell className="text-center font-bold text-purple-500">{formatNumber(item.MoistGain)} %</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.TotalInput)}</TableCell>
+                                        
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.TotalOutput)}</TableCell>
+                                        <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.MoistGain)} %</TableCell>
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
                                         <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
@@ -429,10 +431,11 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.InputMoisture)} %</TableCell>
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalInput)}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.OutputMoisture)} %</TableCell>
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.TotalOutput)}</TableCell>
-                                        <TableCell className="text-center font-bold text-purple-500">{formatNumber(item.MoistGain)} %</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.TotalInput)}</TableCell>
+                                        
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.TotalOutput)}</TableCell>
+                                        <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.MoistGain)} %</TableCell>
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
                                         <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
