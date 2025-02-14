@@ -174,16 +174,14 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
 
         for (let data of linehumid) 
         {           
-            if((parseFloat(data.rcv_sjh)+parseFloat(data.rcv_sjh1)+parseFloat(data.rcv_jjh)+parseFloat(data.rcv_jh1)
-                +parseFloat(data.rcv_jk_k)+parseFloat(data.rcv_sp1) +(data.rcv_bigTaiho? parseFloat(data.rcv_bigTaiho):0))
+            if((parseFloat(data.rcv_sjhN)+parseFloat(data.rcv_sjh1N)+parseFloat(data.rcv_jjhN)+parseFloat(data.rcv_jh1N)
+                +parseFloat(data.rcv_jk_kN)+parseFloat(data.rcv_sp1N) +(data.rcv_bigTaiho? parseFloat(data.rcv_bigTaiho):0))
             < (parseFloat(data.issue_jjh)
             +parseFloat(data.issue_jjh1)+parseFloat(data.issue_sjh)+parseFloat(data.issue_jk)+parseFloat(data.issue_jk1)
             +parseFloat(data.issue_k)+parseFloat(data.issue_k1)+parseFloat(data.issue_lwp1)+parseFloat(data.issue_lwp)
             +parseFloat(data.issue_s)+parseFloat(data.issue_ss)+parseFloat(data.issue_yk)+parseFloat(data.issue_sp2)
             +parseFloat(data.issue_kp)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
-            +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)+parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)
-            +parseFloat(data.issue_add_3)+parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-            +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)+parseFloat(data.issue_add_10)
+            +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)+parseFloat(data.issue_add_10)
         ))
                
                {
@@ -192,9 +190,7 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
                 +parseFloat(data.issue_k)+parseFloat(data.issue_k1)+parseFloat(data.issue_lwp1)+parseFloat(data.issue_lwp)
                 +parseFloat(data.issue_s)+parseFloat(data.issue_ss)+parseFloat(data.issue_yk)+parseFloat(data.issue_sp2)
                 +parseFloat(data.issue_kp)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
-                +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)+parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)
-                +parseFloat(data.issue_add_3)+parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)+parseFloat(data.issue_add_10))
+                +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)+parseFloat(data.issue_add_10))
                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                 throw new Error('Transaction Aborted due to negative value')
 
@@ -227,35 +223,33 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
                     issue_add_1: data.issue_add_1,
                     issue_add_2: data.issue_add_2,
                     issue_add_3:data.issue_add_3,
-                    issue_add_4: data.issue_add_4,
-                    issue_add_5: data.issue_add_5,
-                    issue_add_6: data.issue_add_6,
-                    issue_add_7: data.issue_add_7,
-                    issue_add_8: data.issue_add_8,
-                    issue_add_9: data.issue_add_9,
+                    issue_add_4: data.rcv_jjhN,
+                    issue_add_5: data.rcv_sjhN,
+                    issue_add_6: data.rcv_sjh1N,
+                    issue_add_7: data.rcv_jh1N,
+                    issue_add_8: data.rcv_jk_kN,
+                    issue_add_9: data.rcv_sp1N,
                     issue_add_10: data.issue_add_10,        
                     issue_lw: data.issue_lw,
-                    entry_backlog: (parseFloat(data.rcv_sjh)+parseFloat(data.rcv_sjh1)+parseFloat(data.rcv_jjh)+parseFloat(data.rcv_jh1)
-                    +parseFloat(data.rcv_jk_k)+parseFloat(data.rcv_sp1) +(data.rcv_bigTaiho? parseFloat(data.rcv_bigTaiho):0))
+                    entry_backlog: (parseFloat(data.rcv_sjhN)+parseFloat(data.rcv_sjh1N)+parseFloat(data.rcv_jjhN)+parseFloat(data.rcv_jh1N)
+                    +parseFloat(data.rcv_jk_kN)+parseFloat(data.rcv_sp1N) +(data.rcv_bigTaiho? parseFloat(data.rcv_bigTaiho):0))
                     - (parseFloat(data.issue_jjh)
                     +parseFloat(data.issue_jjh1)+parseFloat(data.issue_sjh)+parseFloat(data.issue_jk)+parseFloat(data.issue_jk1)
                     +parseFloat(data.issue_k)+parseFloat(data.issue_k1)+parseFloat(data.issue_lwp1)+parseFloat(data.issue_lwp)
                     +parseFloat(data.issue_s)+parseFloat(data.issue_ss)+parseFloat(data.issue_yk)+parseFloat(data.issue_sp2)
                     +parseFloat(data.issue_kp)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
-                    +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)+parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)
-                    +parseFloat(data.issue_add_3)+parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                    +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)+parseFloat(data.issue_add_10)
+                    +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)
+                    +parseFloat(data.issue_add_10)
                         ),
-                    current_backlog: (parseFloat(data.rcv_sjh)+parseFloat(data.rcv_sjh1)+parseFloat(data.rcv_jjh)+parseFloat(data.rcv_jh1)
-                    +parseFloat(data.rcv_jk_k)+parseFloat(data.rcv_sp1) +(data.rcv_bigTaiho? parseFloat(data.rcv_bigTaiho):0))
+                    current_backlog: (parseFloat(data.rcv_sjhN)+parseFloat(data.rcv_sjh1N)+parseFloat(data.rcv_jjhN)+parseFloat(data.rcv_jh1N)
+                    +parseFloat(data.rcv_jk_kN)+parseFloat(data.rcv_sp1N) +(data.rcv_bigTaiho? parseFloat(data.rcv_bigTaiho):0))
                     - (parseFloat(data.issue_jjh)
                     +parseFloat(data.issue_jjh1)+parseFloat(data.issue_sjh)+parseFloat(data.issue_jk)+parseFloat(data.issue_jk1)
                     +parseFloat(data.issue_k)+parseFloat(data.issue_k1)+parseFloat(data.issue_lwp1)+parseFloat(data.issue_lwp)
                     +parseFloat(data.issue_s)+parseFloat(data.issue_ss)+parseFloat(data.issue_yk)+parseFloat(data.issue_sp2)
                     +parseFloat(data.issue_kp)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
-                    +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)+parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)
-                    +parseFloat(data.issue_add_3)+parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                    +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)+parseFloat(data.issue_add_10)
+                    +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)
+                    +parseFloat(data.issue_add_10)
                        
                         ),
                     Status: 1,
@@ -489,7 +483,7 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
     catch(error) {
         if(!res.headersSent){
             console.log(error)
-            return res.status(500).json({ message: "Error while creating BigTaiho Entry" ,error});
+            return res.status(500).json({ message: "Error while creating Sorting Entry" ,error});
         }
     }
 }

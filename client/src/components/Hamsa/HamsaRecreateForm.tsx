@@ -351,6 +351,8 @@ const HamsaReCreateForm = (props:Props) => {
                      
                    
                 </div>
+                <div className="my-2 text-sm flex font-semibold text-red-500 ">* Current [ PW (W) + W  + WW + Village + LW ] should be equal to {props.borma[0].current_backlog} Kg</div>
+
             
                    <Table className="mt-3">
                    <TableHeader className="bg-neutral-100 text-stone-950 ">

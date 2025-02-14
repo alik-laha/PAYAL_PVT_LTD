@@ -474,7 +474,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                    
                                     
                                     <TableCell className="text-center text-center font-semibold">
-                                    {formatNumber((parseFloat(item.rcv_dp) +parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1)).toString())} Kg
+                                    {formatNumber((parseFloat(item.rcv_dp) +parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1)).toString())} 
                                     </TableCell>
                                    
                                     <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
@@ -583,7 +583,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                    
                                     
                                     <TableCell className="text-center text-center  font-semibold">
-                                    {formatNumber((parseFloat(item.rcv_dp) +parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1)).toString())} Kg
+                                    {formatNumber((parseFloat(item.rcv_dp) +parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1)).toString())} 
                                     </TableCell>
                                     
                                     <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>

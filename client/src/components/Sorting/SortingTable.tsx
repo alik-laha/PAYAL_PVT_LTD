@@ -382,13 +382,23 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                     <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
-                    <TableHead className="text-center">Receive SJH</TableHead>
-                    <TableHead className="text-center">Receive JJH</TableHead>
-                    <TableHead className="text-center">Receive JJH1</TableHead>
-                    <TableHead className="text-center">Receive JH1</TableHead>
-                    <TableHead className="text-center">Receive JK_K</TableHead>
-                    <TableHead className="text-center">Receive SP1</TableHead>
-                    <TableHead className="text-center">Receive Peeling</TableHead>
+                    <TableHead className="text-center">Opening JJH</TableHead>
+                    <TableHead className="text-center">Opening SJH1</TableHead>
+                    <TableHead className="text-center">Opening SJH1</TableHead>
+                    <TableHead className="text-center">Opening JH1</TableHead>
+                    <TableHead className="text-center">Opening JK_K</TableHead>
+                    <TableHead className="text-center">Opening SP1</TableHead>
+                    <TableHead className="text-center">Opening Peeling</TableHead>
+                    <TableHead className="text-center">Borma_Loss(Kg)</TableHead>
+                    <TableHead className="text-center">Borma_Loss(%)</TableHead>
+                    <TableHead className="text-center"> SJH (Borma)</TableHead>
+                <TableHead className="text-center"> DS (Borma)</TableHead>
+                <TableHead className="text-center"> DP1 (Borma)</TableHead>
+               
+                <TableHead className="text-center"> DP (Borma)</TableHead>
+                <TableHead className="text-center"> DS (Borma)</TableHead>
+                <TableHead className="text-center"> DP1 (Borma)</TableHead>
+                <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
                     <TableHead className="text-center">Receive BigTaiho</TableHead>
                     
                     <TableHead className="text-center">Issue JJH</TableHead>
@@ -455,6 +465,18 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-bold bg-yellow-100 text-green-600">{formatNumber((parseFloat(item.rcv_jjh) +
                                      parseFloat(item.rcv_sjh)+parseFloat(item.rcv_sjh1)+parseFloat(item.rcv_jh1)+parseFloat(item.rcv_jk_k)+
                                      parseFloat(item.rcv_sp1)).toString())}</TableCell>
+                                     <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_add_4)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_5)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_6)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_add_7)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_8)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_9)}</TableCell>
+                                    <TableCell className="text-center text-center bg-yellow-100 font-semibold">
+                                    {formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
+                                +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)).toString())}
+                                    </TableCell>
                                     <TableCell className="text-center font-bold bg-yellow-100 text-green-600">{item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) :0}</TableCell>
                                 
                                     
@@ -548,27 +570,40 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.rcv_jh1)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.rcv_jk_k)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.rcv_sp1)}</TableCell>
-                                    <TableCell className="text-center font-bold bg-yellow-100 text-green-600">{formatNumber((parseFloat(item.rcv_jjh) +
+                                    <TableCell className="text-center font-semibold ">{formatNumber((parseFloat(item.rcv_jjh) +
                                      parseFloat(item.rcv_sjh)+parseFloat(item.rcv_sjh1)+parseFloat(item.rcv_jh1)+parseFloat(item.rcv_jk_k)+
                                      parseFloat(item.rcv_sp1)).toString())}</TableCell>
-                                    <TableCell className="text-center font-bold bg-yellow-100 text-green-600">{item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) :0}</TableCell>
+                                     <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_add_4)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_5)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_6)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_add_7)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_8)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_9)}</TableCell>
+                                    <TableCell className="text-center text-center bg-yellow-100 font-semibold">
+                                    {formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
+                                +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)).toString())}
+                                    </TableCell>
+                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) :0}</TableCell>
                                 
                                     
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_jjh)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_jjh1)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_sjh)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_jk)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_jk1)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_k)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_k1)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_lwp)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_lwp1)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_s)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_ss)}</TableCell>
+                                    
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_jjh)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_jjh1)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_sjh)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_jk)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_jk1)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_k)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_k1)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_lwp)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_lwp1)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_s)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_ss)}</TableCell>
                                    
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_yk)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_sp2)}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_kp)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_yk)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_sp2)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_kp)}</TableCell>
                                    
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_village)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_mayur)}</TableCell>

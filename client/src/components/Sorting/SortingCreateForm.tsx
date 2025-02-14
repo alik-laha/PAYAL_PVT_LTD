@@ -26,6 +26,12 @@ interface SortingRowData{
         rcv_sp1: string;
         rcv_jk_k: string; 
         rcv_jh1: string;
+        rcv_jjhN: string|number;
+        rcv_sjhN: string|number;
+        rcv_sjh1N: string|number;
+        rcv_sp1N: string|number;
+        rcv_jk_kN: string|number; 
+        rcv_jh1N: string|number;
         rcv_bigTaiho:string|null;
         issue_jjh: number ;
         issue_jjh1: number ;
@@ -46,9 +52,9 @@ interface SortingRowData{
         issue_bigTaiho: number ;
         issue_dpds:number;
         issue_rejection:number;
-        issue_add_1: number;
-        issue_add_2: number;
-        issue_add_3: number;
+        issue_add_1: string|number;
+        issue_add_2: string|number;
+        issue_add_3:string|number;
         issue_add_4: number;
         issue_add_5: number;
         issue_add_6: number;
@@ -113,6 +119,12 @@ const SortingCreateForm = (props:Props) => {
             rcv_sp1:  item.rcv_sp1,
             rcv_jk_k:  item.rcv_jk_k,
             rcv_jh1:  item.rcv_jh1,
+            rcv_jjhN:  item.rcv_jjh,
+            rcv_sjhN:  item.rcv_sjh,
+            rcv_sjh1N:  item.rcv_sjh1,
+            rcv_sp1N:  item.rcv_sp1,
+            rcv_jk_kN:  item.rcv_jk_k,
+            rcv_jh1N:  item.rcv_jh1,
             rcv_bigTaiho:item.rcv_bigTaiho,
             issue_jjh: 0,
             issue_jjh1: 0,
@@ -133,9 +145,10 @@ const SortingCreateForm = (props:Props) => {
             issue_bigTaiho:0,
             issue_dpds:0,
             issue_rejection:0,
-            issue_add_1: 0,
-            issue_add_2:  0,
-            issue_add_3:  0,
+            issue_add_1: formatNumber((Number(item.rcv_jjh)+Number(item.rcv_sjh)+Number(item.rcv_sjh1)
+            +Number(item.rcv_jk_k)+Number(item.rcv_jh1)+Number(item.rcv_sp1)).toString()),
+            issue_add_2:  '0',
+            issue_add_3:  '0',
             issue_add_4:  0,
             issue_add_5:  0,
             issue_add_6:  0,
@@ -222,6 +235,32 @@ const SortingCreateForm = (props:Props) => {
     function formatNumber(num: string) {
         return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
     }
+    const handleOpeningChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+
+        if (Number(e.target.value)>((Number(rows[index].rcv_jjh)+Number(rows[index].rcv_sjh)+Number(rows[index].rcv_sjh1)+Number(rows[index].rcv_sp1)
+            +Number(rows[index].rcv_jk_k)+Number(rows[index].rcv_jh1)))) {
+            setErrortext('Borma Weight Cant be Higher Than Receiving !')
+            if (errordialog != null) {
+                (errordialog as any).showModal();
+            }
+            return
+        }
+        if(rows[0].issue_add_1){
+            rows[index].issue_add_2=((Number(rows[index].rcv_jjh)+Number(rows[index].rcv_sjh)+Number(rows[index].rcv_sjh1)
+            +Number(rows[index].rcv_jk_k)+Number(rows[index].rcv_sp1)+Number(rows[index].rcv_jh1))-Number(e.target.value))
+            rows[index].issue_add_3=(Number(rows[index].issue_add_2)/(Number(rows[index].rcv_jjh)+Number(rows[index].rcv_sjh)+Number(rows[index].rcv_sjh1)
+            +Number(rows[index].rcv_jk_k)+Number(rows[index].rcv_sp1)+Number(rows[index].rcv_jh1)))*100
+            rows[index].rcv_jjhN=(Number(rows[index].rcv_jjh)*((100-Number(rows[index].issue_add_3))/100)).toString()
+            rows[index].rcv_sjhN=(Number(rows[index].rcv_sjh)*((100-Number(rows[index].issue_add_3))/100)).toString()
+            rows[index].rcv_sjh1N=(Number(rows[index].rcv_sjh1)*((100-Number(rows[index].issue_add_3))/100)).toString()
+            rows[index].rcv_sp1N=(Number(rows[index].rcv_sp1)*((100-Number(rows[index].issue_add_3))/100)).toString()
+            rows[index].rcv_jh1N=(Number(rows[index].rcv_jh1)*((100-Number(rows[index].issue_add_3))/100)).toString()
+            rows[index].rcv_jk_kN=(Number(rows[index].rcv_jk_k)*((100-Number(rows[index].issue_add_3))/100)).toString()
+        
+        
+        }
+        handleRowChange(index,'issue_add_1',e.target.value)
+    }
 
  
     return (
@@ -255,14 +294,24 @@ const SortingCreateForm = (props:Props) => {
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
                   
-                    <TableHead className="text-center">Receive SJH</TableHead>
                     <TableHead className="text-center">Receive JJH</TableHead>
-                    <TableHead className="text-center">Receive JJH1</TableHead>
+                    <TableHead className="text-center">Receive SJH</TableHead>
+                    <TableHead className="text-center">Receive SJH1</TableHead>
                     <TableHead className="text-center">Receive JH1</TableHead>
                     <TableHead className="text-center">Receive JK_K</TableHead>
                     <TableHead className="text-center">Receive SP1</TableHead>
-                    <TableHead className="text-center">Receive Peeling</TableHead>
+                    <TableHead className="text-center">Receive JJH(Borma)</TableHead>
+                    <TableHead className="text-center">Receive SJH(Borma)</TableHead>
+                    <TableHead className="text-center">Receive SJH1(Borma)</TableHead>
+                    <TableHead className="text-center">Receive JH1(Borma)</TableHead>
+                    <TableHead className="text-center">Receive JK_K(Borma)</TableHead>
+                    <TableHead className="text-center">Receive SP1(Borma)</TableHead>
                     <TableHead className="text-center">Receive BigTaiho</TableHead>
+                    <TableHead className="text-center">Receive Peeling</TableHead>
+                    <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
+                    <TableHead className="text-center">Borma Loss(Kg)</TableHead>
+                    <TableHead className="text-center">Borma Loss(%)</TableHead>
+   
                     
                     <TableHead className="text-center">Issue JJH</TableHead>
                     <TableHead className="text-center">Issue JJH1</TableHead>
@@ -306,16 +355,27 @@ const SortingCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
-                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_jjh)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_sjh)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_sjh1)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_jh1)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_jk_k)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_sp1)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-600  ">{formatNumber((parseFloat(row.rcv_jjh) +
+                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_jjh)} </TableCell>
+                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_sjh)} </TableCell>
+                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_sjh1)} </TableCell>
+                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_jh1)} </TableCell>
+                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_jk_k)} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_sp1)} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_jjhN.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_sjhN.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_sjh1N.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_jh1N.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_jk_kN.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_sp1N.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_bigTaiho ? formatNumber(row.rcv_bigTaiho) :0} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100 text-green-600  ">{formatNumber((parseFloat(row.rcv_jjh) +
                                          parseFloat(row.rcv_sjh)+parseFloat(row.rcv_sjh1)+parseFloat(row.rcv_jh1) +
                                          parseFloat(row.rcv_jk_k)+parseFloat(row.rcv_sp1)).toString())} kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-600">{row.rcv_bigTaiho ? formatNumber(row.rcv_bigTaiho) :0} Kg</TableCell>
+
+                                   <TableCell className="text-center"> <Input className='bg-blue-100' type="number" 
+                                        value={formatNumber(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /></TableCell>
+  <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
+  <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_jjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jjh', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_jjh1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jjh1', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_sjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sjh', e.target.value)} required /></TableCell>
