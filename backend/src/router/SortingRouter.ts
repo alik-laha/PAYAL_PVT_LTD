@@ -9,7 +9,7 @@ import {
       } from "../controller/mayurController/mayurapi";
 import { approveHamsa, CreateMixHamsa, CreateReissueHamsa, EditRejectHamsa,  
        SearchRCNHamsa, SearchRCNHamsaMix, updateEntireHamsa } from "../controller/HamsaController/HamsaApi";
-import { CreateEntireSorting, findEditSortingAll, getSortingBylotorigin, 
+import { CreateEntireSorting, CreateMixSorting, findEditSortingAll, getSortingBylotorigin, 
        getSortingLot, SearchRCNSorting, SearchRCNSortingMix, sumOfallSorting } from "../controller/SortingController/SortingApi";
 const router = express()
 
@@ -33,9 +33,9 @@ router.post("/updateHamsa",jwtVerify, updateEntireHamsa)
 router.delete('/rejectededitHamsa/:id/:LotNo/:origin', jwtVerify, EditRejectHamsa);
 router.put("/approveeditHamsa/:id/:LotNo/:origin", jwtVerify, approveHamsa);
 
-// //HamsaMix.tsx
+// //SortingMix.tsx
 router.post('/sortingmixsearch', jwtVerify, SearchRCNSortingMix);
-router.post('/createMixHamsa', jwtVerify, CreateMixHamsa);
+router.post('/createMixSorting', jwtVerify, CreateMixSorting);
 
 //HistoryTable.tsx
 router.put('/historySearch', jwtVerify, SearchHistory);

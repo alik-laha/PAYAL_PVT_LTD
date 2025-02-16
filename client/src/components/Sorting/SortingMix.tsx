@@ -118,9 +118,9 @@ const RCNSortingReMix = (props:Props) => {
          
          
             setdestbacklog(((datarcv.current_backlog?Number(datarcv.current_backlog):0) + 
-            (sourcercv_sjh+sourcercv_sjh1+sourcercv_jjh+sourcercv_jjh+sourcercv_jjh+sourcercv_sp1+
+            (sourcercv_sjh+sourcercv_sjh1+sourcercv_jjh+sourcercv_jh1+sourcercv_jkk+sourcercv_sp1+
                 sourcercv_bigt)).toFixed(2));
-        }, [ sourcercv_sjh,sourcercv_sjh1,sourcercv_jjh,sourcercv_jjh,sourcercv_jjh,sourcercv_sp1,sourcercv_bigt]);
+        }, [ sourcercv_sjh,sourcercv_sjh1,sourcercv_jjh,sourcercv_jh1,sourcercv_jkk,sourcercv_sp1,sourcercv_bigt]);
 
         useEffect(() => {
             setfsourcercv_sjh(props.borma ? props.borma.rcv_sjh:'');
@@ -432,12 +432,12 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? fsourcercv_jjh:'NA'}</TableCell>                           
                             <TableCell className="text-center bg-green-100 ">{props.borma? props.borma.rcv_jk_k:0}</TableCell>
                             <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? fsourcercv_jkk:'NA'}</TableCell>
-                            <TableCell className="text-center  bg-red-100">{props.borma  ? props.borma.rcv_sp1 :0}</TableCell>
-                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? fsourcercv_sp1:'NA'}</TableCell>  
-                            <TableCell className="text-center bg-green-100 ">{props.borma? props.borma.rcv_jh1:0}</TableCell>
-                            <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? fsourcercv_jh1:'NA'}</TableCell>
-                            <TableCell className="text-center  bg-red-100">{props.borma  ? props.borma.rcv_bigTaiho :0}</TableCell>
-                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? fsourcercv_bigt:'NA'}</TableCell>                
+                            <TableCell className="text-center  bg-yellow-100">{props.borma  ? props.borma.rcv_sp1 :0}</TableCell>
+                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? fsourcercv_sp1:'NA'}</TableCell>  
+                            <TableCell className="text-center bg-red-100 ">{props.borma? props.borma.rcv_jh1:0}</TableCell>
+                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? fsourcercv_jh1:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-cyan-100">{props.borma  ? props.borma.rcv_bigTaiho :0}</TableCell>
+                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? fsourcercv_bigt:'NA'}</TableCell>                
                             
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ? props.borma.current_backlog :0 }</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{successflag ? fsourcebacklog:'NA'}</TableCell>
@@ -454,21 +454,21 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableCell className="text-center  bg-red-100 ">{successflag ? datarcv.rcv_sjh1:''}</TableCell>
                             <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_sjh1:'NA'}</TableCell> 
 
-                            <TableCell className="text-center  bg-cyan-100">{datarcv.rcv_jjh}</TableCell>
-                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_jjh:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_jjh}</TableCell>
+                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_jjh:'NA'}</TableCell>
 
-                            <TableCell className="text-center  bg-cyan-100">{datarcv.rcv_jk_k}</TableCell>
-                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_jkk:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-green-100">{datarcv.rcv_jk_k}</TableCell>
+                            <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? destrcv_jkk:'NA'}</TableCell>
 
-                            <TableCell className="text-center  bg-cyan-100">{datarcv.rcv_sp1}</TableCell>
-                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_sp1:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_sp1}</TableCell>
+                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_sp1:'NA'}</TableCell>
 
-                            <TableCell className="text-center  bg-cyan-100">{datarcv.rcv_jh1}</TableCell>
-                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_jh1:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-red-100">{datarcv.rcv_jh1}</TableCell>
+                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_jh1:'NA'}</TableCell>
 
                             
-                            <TableCell className="text-center  bg-red-100">{datarcv.rcv_bigTaiho ? datarcv.rcv_bigTaiho:''}</TableCell>
-                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_bigt:'NA'}</TableCell>
+                            <TableCell className="text-center  bg-cyan-100">{datarcv.rcv_bigTaiho ? datarcv.rcv_bigTaiho:''}</TableCell>
+                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_bigt:'NA'}</TableCell>
                             <TableCell className="text-center font-semibold text-red-500">{datarcv.current_backlog ? datarcv.current_backlog : ''}</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{successflag ? destbacklog:'NA'}</TableCell>
                         </TableRow>
