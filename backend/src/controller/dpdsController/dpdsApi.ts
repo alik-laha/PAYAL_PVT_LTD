@@ -1350,55 +1350,118 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
         const dest_sorting = req.body.destrcv_sorting;
         const dest_bigT = req.body.destrcv_bigT;
         const dest_backlog = req.body.destbacklog;
-
+        const destrcv_status = req.body.destrcv_status;
         const b_soucre_backlog = req.body.bsourcebacklog;
         const b_dest_backlog = req.body.bdestbacklog;
 
 
         await sequelize.transaction(async (transaction: any) => {
 
-            const sourceupdate = await DPDS.update(
-                {
-                    rcv_dp: source_rcv_dp,
-                    rcv_ds: source_rcv_ds,
-                    rcv_dp1: source_rcv_dp1,
+            const sourcedata = await DPDS.findOne({
+                attributes: ['rcv_dp','rcv_ds','rcv_dp1','issue_add_4','issue_add_5','issue_add_6'],
+                where: {
+                    id: sourceid
 
-                    rcv_Sorting: source_sorting,
-                    rcv_transfer: source_bigT,
-                    current_backlog: source_backlog,
                 },
-                {
-                    where: {
-                        id: sourceid
-                    }, transaction
-                }
-            );
+
+            });
+            let sourceupdate
+            if(sourcedata){
+                const dpdiff=parseFloat(sourcedata.dataValues.issue_add_4)-parseFloat(source_rcv_dp)
+                const dsdiff=parseFloat(sourcedata.dataValues.issue_add_5)-parseFloat(source_rcv_ds)
+                const dp1diff=parseFloat(sourcedata.dataValues.issue_add_6)-parseFloat(source_rcv_dp1)
+                const totbeforeborma=(parseFloat(sourcedata.dataValues.rcv_dp)-dpdiff)
+                +(parseFloat(sourcedata.dataValues.rcv_ds)-dsdiff)+(parseFloat(sourcedata.dataValues.rcv_dp1)-  dp1diff)
+                const totafterborma=parseFloat(source_rcv_dp)
+                +parseFloat(source_rcv_ds)+parseFloat(source_rcv_dp1)
+
+                
+                sourceupdate = await DPDS.update(
+                    {
+                        rcv_dp: sequelize.literal(`rcv_dp- ${dpdiff}`),
+                        rcv_ds: sequelize.literal(`rcv_ds- ${dsdiff}`),
+                        rcv_dp1: sequelize.literal(`rcv_dp1- ${dp1diff}`),
+                        issue_add_3: ((totbeforeborma-totafterborma)/totbeforeborma)*100,
+                        issue_add_4: source_rcv_dp,
+                        issue_add_5: source_rcv_ds,
+                        issue_add_6: source_rcv_dp1,
+                        rcv_Sorting: source_sorting,
+                        rcv_transfer: source_bigT,
+                        current_backlog: source_backlog,
+                    },
+                    {
+                        where: {
+                            id: sourceid
+                        }, transaction
+                    }
+                );
+            }
+            
             const destdata = await DPDS.findOne({
-                attributes: ['mixingLot'],
+                attributes: ['mixingLot','rcv_dp','rcv_ds','rcv_dp1','issue_add_4','issue_add_5','issue_add_6'],
                 where: {
                     id: destid
 
                 },
 
             });
-            if (destdata && destdata.dataValues.mixingLot) {
-                const destupdate = await DPDS.update(
-                    {
-                        rcv_dp: dest_rcv_dp,
-                        rcv_ds: dest_rcv_ds,
-                        rcv_dp1: dest_rcv_dp1,
 
-                        rcv_Sorting: dest_sorting,
-                        rcv_transfer: dest_bigT,
-                        current_backlog: dest_backlog,
-                        mixingLot: sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`)
-                    },
-                    {
-                        where: {
-                            id: destid
-                        }, transaction
-                    }
-                );
+            if (destdata) {
+                let destupdate
+                if (Number(destrcv_status) === 0) {
+                    destupdate = await DPDS.update(
+                        {
+                            rcv_dp: dest_rcv_dp,
+                            rcv_ds: dest_rcv_ds,
+                            rcv_dp1: dest_rcv_dp1,
+                            rcv_Sorting: dest_sorting,
+                            rcv_transfer: dest_bigT,
+                            current_backlog: dest_backlog,
+                            mixingLot: destdata.dataValues.mixingLot ?
+                            sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`):`${sourcelot}(${sourceorigin})`,
+                        },
+                        {
+                            where: {
+                                id: destid
+                            }, transaction
+                        }
+                    );
+                }
+                else {
+
+                const dpdiffD=parseFloat(dest_rcv_dp)-parseFloat(destdata.dataValues.issue_add_4)
+                const dsdiffD=parseFloat(dest_rcv_ds)-parseFloat(destdata.dataValues.issue_add_5)
+                const dp1diffD=parseFloat(dest_rcv_dp1)-parseFloat(destdata.dataValues.issue_add_6)
+                const totbeforebormaD=(parseFloat(destdata.dataValues.rcv_dp)+dpdiffD)
+                +(parseFloat(destdata.dataValues.rcv_ds)+dsdiffD)+(parseFloat(destdata.dataValues.rcv_dp1)+dp1diffD)
+                const totafterbormaD=parseFloat(dest_rcv_dp)
+                +parseFloat(dest_rcv_ds)+parseFloat(dest_rcv_dp1)
+
+                    destupdate = await DPDS.update(
+                        {
+                            rcv_dp: sequelize.literal(`rcv_dp+ ${dpdiffD}`),
+                            rcv_ds: sequelize.literal(`rcv_ds+ ${dsdiffD}`),
+                            rcv_dp1: sequelize.literal(`rcv_dp1+ ${dp1diffD}`),
+                            issue_add_3: ((totbeforebormaD-totafterbormaD)/totbeforebormaD)*100,
+
+                            issue_add_4: dest_rcv_dp,
+                            issue_add_5: dest_rcv_ds,
+                            issue_add_6: dest_rcv_dp1,
+
+                            rcv_Sorting: dest_sorting,
+                            rcv_transfer: dest_bigT,
+                            current_backlog: dest_backlog,
+                            mixingLot: destdata.dataValues.mixingLot ?
+                            sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`):`${sourcelot}(${sourceorigin})`,
+                        },
+                        {
+                            where: {
+                                id: destid
+                            }, transaction
+                        }
+                    );
+                }
+
                 if (sourceupdate && destupdate) {
                     const mixcreate = await mixingModel.create(
                         {
@@ -1430,56 +1493,10 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
                 else {
                     return res.status(500).json({ message: "Internal Server Error" });
                 }
-            }
-            else {
-                const destupdate = await DPDS.update(
-                    {
-                        rcv_dp: dest_rcv_dp,
-                        rcv_ds: dest_rcv_ds,
-                        rcv_dp1: dest_rcv_dp1,
-                        rcv_Sorting: dest_sorting,
 
-                        current_backlog: dest_backlog,
-                        mixingLot: `${sourcelot}(${sourceorigin})`
-                    },
-                    {
-                        where: {
-                            id: destid
-                        }, transaction
-                    }
-                );
-                if (sourceupdate && destupdate) {
-                    const mixcreate = await mixingModel.create(
-                        {
-                            FromLotNo: sourcelot,
-                            Fromorigin: sourceorigin,
-                            ToLotNo: destlot,
-                            Toorigin: destorigin,
-                            amount: transfer_amount,
-                            date: new Date(),
-                            Section: 'DPDS',
-                            amountBeforeBacklog: b_soucre_backlog,
-                            amountAfterBacklog: source_backlog,
-                            destamountBeforeBacklog: b_dest_backlog,
-                            destamountAfterBacklog: dest_backlog,
-                            createdBy: createdBy,
-                        },
-                        {
-                            transaction
-                        }
-                    );
-                    if (mixcreate) {
-                        return res.status(200).json({ message: "Mixing Performed Successfully" });
 
-                    }
-                    else {
-                        return res.status(500).json({ message: "Internal Server Error" });
-                    }
-                }
-                else {
-                    return res.status(500).json({ message: "Internal Server Error" });
-                }
             }
+            
 
 
 
