@@ -1488,8 +1488,8 @@ export const EditRejectHamsa = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Internal Server Error", error: err });
     }
 }
-// //HamsaMix.tsx
-export const SearchRCNHamsaMix = async (req: Request, res: Response) => {
+// //SortingMix.tsx
+export const SearchRCNSortingMix = async (req: Request, res: Response) => {
     try {
         const { lotNo, origin} = req.body;
        
@@ -1519,9 +1519,9 @@ export const SearchRCNHamsaMix = async (req: Request, res: Response) => {
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let rcnEntries
         
-             rcnEntries = await hamsaModel.findOne({
-                attributes: ['id','rcv_pw_w','current_backlog','rcv_w_lot','rcv_ww',
-                    'rcv_village','rcv_lw','editStatus'],
+             rcnEntries = await SortingModel.findOne({
+                attributes: ['id','rcv_sjh','current_backlog','rcv_sjh1','rcv_jjh','rcv_jk_k','rcv_sp1',
+                    'rcv_bigTaiho','rcv_jh1','editStatus'],
                 where
                 
                 
@@ -1538,7 +1538,7 @@ export const SearchRCNHamsaMix = async (req: Request, res: Response) => {
  
 }
 
-export const CreateMixHamsa = async (req: Request, res: Response) => {
+export const CreateMixSorting = async (req: Request, res: Response) => {
 
     try{
         console.log(req.body)
@@ -1546,11 +1546,13 @@ export const CreateMixHamsa = async (req: Request, res: Response) => {
         const sourceid= req.body.fsourceid;
         const sourcelot= req.body.fsourcelot;
         const sourceorigin= req.body.fsourceorigin;
-        const source_rcv_pw =req.body.fsourcercv_pw_w;
-        const source_rcv_w= req.body.fsourcercv_w;
-        const source_rcv_ww= req.body.fsourcercv_ww;
-        const source_rcv_lw= req.body.fsourcercv_lw;
-        const source_rcv_village= req.body.fsourcercv_village;
+        const source_rcv_sjh =req.body.fsourcercv_sjh;
+        const source_rcv_sjh1= req.body.fsourcercv_sjh1;
+        const source_rcv_jjh= req.body.fsourcercv_jjh;
+        const source_rcv_sp1= req.body.fsourcercv_sp1;
+        const source_rcv_jk_k= req.body.fsourcercv_jkk;
+        const source_rcv_jh1= req.body.fsourcercv_jh1;
+        const source_rcv_bigTaiho= req.body.fsourcercv_bigt;
     
         const source_backlog= req.body.fsourcebacklog;
 
@@ -1559,11 +1561,14 @@ export const CreateMixHamsa = async (req: Request, res: Response) => {
         const destid= req.body.destid;
         const destlot= req.body.destlot;
         const destorigin= req.body.destorigin;
-        const dest_rcv_pw= req.body.destrcv_pw_w;
-        const dest_rcv_w= req.body.destrcv_w;
-        const dest_rcv_ww= req.body.destrcv_ww;
-        const dest_rcv_village= req.body.destrcv_village;
-        const dest_rcv_lw= req.body.destrcv_lw;
+        const dest_rcv_sjh= req.body.destrcv_sjh;
+        const dest_rcv_sjh1= req.body.destrcv_sjh1;
+        const dest_rcv_jjh= req.body.destrcv_jjh;
+        const dest_rcv_jk_k= req.body.destrcv_jkk;
+        const dest_rcv_jh1= req.body.destrcv_jh1;
+        const dest_rcv_sp1= req.body.destrcv_sp1;
+        const dest_rcv_bigTaiho= req.body.destrcv_bigt;
+
  
         const dest_backlog= req.body.destbacklog;
 
@@ -1573,13 +1578,15 @@ export const CreateMixHamsa = async (req: Request, res: Response) => {
 
         await sequelize.transaction(async (transaction: any) => {
 
-            const sourceupdate=await hamsaModel.update(
+            const sourceupdate=await SortingModel.update(
                 { 
-                    rcv_pw_w: source_rcv_pw,
-                    rcv_w_lot: source_rcv_w,
-                    rcv_ww: source_rcv_ww,
-                    rcv_village: source_rcv_village,
-                    rcv_lw: source_rcv_lw,
+                    rcv_sjh: source_rcv_sjh,
+                    rcv_sjh1: source_rcv_sjh1,
+                    rcv_jjh: source_rcv_jjh,
+                    rcv_sp1: source_rcv_sp1,
+                    rcv_jh1: source_rcv_jh1,
+                    rcv_jk_k: source_rcv_jk_k,
+                    rcv_bigTaiho: source_rcv_bigTaiho,
                     current_backlog:source_backlog,                   
                 },
                 {
@@ -1597,13 +1604,15 @@ export const CreateMixHamsa = async (req: Request, res: Response) => {
         
             });
             if (destdata && destdata.dataValues.mixingLot){
-                const destupdate=await hamsaModel.update(
+                const destupdate=await SortingModel.update(
                     { 
-                        rcv_pw_w: dest_rcv_pw,
-                        rcv_w_lot: dest_rcv_w,
-                        rcv_ww: dest_rcv_ww,
-                        rcv_village: dest_rcv_village,
-                        rcv_lw: dest_rcv_lw,
+                        rcv_sjh: dest_rcv_sjh,
+                        rcv_sjh1: dest_rcv_sjh1,
+                        rcv_jjh: dest_rcv_jjh,
+                        rcv_jh1: dest_rcv_jh1,
+                        rcv_sp1: dest_rcv_sp1,
+                        rcv_jk_k: dest_rcv_jk_k,
+                        rcv_bigTaiho: dest_rcv_bigTaiho,
                         current_backlog:dest_backlog, 
                         mixingLot:sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`)                  
                     },
@@ -1622,7 +1631,7 @@ export const CreateMixHamsa = async (req: Request, res: Response) => {
                             Toorigin:destorigin,
                             amount:transfer_amount,
                             date:new Date(),
-                            Section:'Hamsa',
+                            Section:'Sorting',
                             amountBeforeBacklog:b_soucre_backlog,
                             amountAfterBacklog:source_backlog,
                             destamountBeforeBacklog: b_dest_backlog,
@@ -1646,13 +1655,15 @@ export const CreateMixHamsa = async (req: Request, res: Response) => {
                 }
             }
             else{
-                const destupdate=await hamsaModel.update(
+                const destupdate=await SortingModel.update(
                     { 
-                        rcv_pw_w: dest_rcv_pw,
-                        rcv_w_lot: dest_rcv_w,
-                        rcv_ww: dest_rcv_ww,
-                        rcv_village: dest_rcv_village,
-                        rcv_lw: dest_rcv_lw,
+                        rcv_sjh: dest_rcv_sjh,
+                        rcv_sjh1: dest_rcv_sjh1,
+                        rcv_jjh: dest_rcv_jjh,
+                        rcv_jh1: dest_rcv_jh1,
+                        rcv_sp1: dest_rcv_sp1,
+                        rcv_jk_k: dest_rcv_jk_k,
+                        rcv_bigTaiho: dest_rcv_bigTaiho,
                         current_backlog:dest_backlog, 
                         mixingLot:`${sourcelot}(${sourceorigin})`             
                     },
@@ -1671,7 +1682,7 @@ export const CreateMixHamsa = async (req: Request, res: Response) => {
                             Toorigin:destorigin,
                             amount:transfer_amount,
                             date:new Date(),
-                            Section:'Hamsa',
+                            Section:'Sorting',
                             amountBeforeBacklog:b_soucre_backlog,
                             amountAfterBacklog:source_backlog,
                             destamountBeforeBacklog: b_dest_backlog,

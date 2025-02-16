@@ -410,9 +410,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableCell className="text-center font-semibold  flex">Target<CircleArrowLeft size={30} color="green"/></TableCell>
                             <TableCell className="text-center font-semibold text-green-600 ">{destlot ? destlot :'NA'}</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{destorigin ? destorigin :'NA'}</TableCell>
-                            <TableCell className="text-center  bg-cyan-100">{datarcv.rcv_pw_w}</TableCell>
+                            <TableCell className="text-center  bg-cyan-100">{datarcv.rcv_pw_w? datarcv.rcv_pw_w:''}</TableCell>
                             <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_pw_w:'NA'}</TableCell>
-                            <TableCell className="text-center  bg-red-100 ">{successflag ? datarcv.rcv_w_lot:''}</TableCell>
+                            <TableCell className="text-center  bg-red-100 ">{datarcv.rcv_w_lot ? datarcv.rcv_w_lot:''}</TableCell>
                             <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_w:'NA'}</TableCell>                    
                             <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_ww ?datarcv.rcv_ww :''}</TableCell>
                             <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_ww:'NA'}</TableCell>                      
