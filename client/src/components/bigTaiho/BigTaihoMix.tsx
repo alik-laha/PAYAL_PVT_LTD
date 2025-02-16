@@ -30,6 +30,7 @@ interface RCNEntries {
     rcv_lw: string;
     rcv_wholes: string;
     current_backlog: string;
+    issue_add_4:string;
 }
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
@@ -73,7 +74,8 @@ const RCNBigTaihoReMix = (props:Props) => {
         const [destrcv_hamsa, setdestrcv_hamsa] = useState<string>("");
         const [destrcv_lw, setdestrcv_lw] = useState<string>("");
         const [destrcv_wholes, setdestrcv_wholes] = useState<string>("");
-       
+        const [destrcv_peelingN, setdestrcv_peelingN] = useState<string>("");
+        const [destrcv_status, setdestrcv_status] = useState<string>("");
 
         const [destorigin, setdestorigin] = useState<string>("");
         const [sourceactualbacklog, setsourceactualbacklog] = useState<string>("");
@@ -112,7 +114,7 @@ const RCNBigTaihoReMix = (props:Props) => {
             setfsourcercv_hamsa(props.borma ?((props.borma.rcv_hamsa ?Number(props.borma.rcv_hamsa):0)-sourcercv_hamsa).toFixed(2):'');
             setfsourcercv_lw(props.borma ?((props.borma.rcv_lw ?Number(props.borma.rcv_lw):0)-sourcercv_lw).toFixed(2):'');
             setfsourcercv_wholes(props.borma ?((props.borma.rcv_wholes ?Number(props.borma.rcv_wholes):0)-sourcercv_wholes).toFixed(2):'');
-            setfsourcercv_peeling(props.borma ?(Number(props.borma.rcv_peeling)-sourcercv_peeling).toFixed(2):'');
+            setfsourcercv_peeling(props.borma ?(Number(props.borma.issue_add_4)-sourcercv_peeling).toFixed(2):'');
             setfSourcebacklog(props.borma ?(Number(props.borma.current_backlog) - 
             (sourcercv_peeling+sourcercv_village+sourcercv_sorting+sourcercv_dpds+
             sourcercv_mayur+sourcercv_hamsa+sourcercv_lw+sourcercv_wholes)).toFixed(2):'');
@@ -125,12 +127,13 @@ const RCNBigTaihoReMix = (props:Props) => {
             setdestrcv_lw(((datarcv.rcv_lw ?Number(datarcv.rcv_lw):0)+sourcercv_lw).toFixed(2));
             setdestrcv_wholes(((datarcv.rcv_wholes ?Number(datarcv.rcv_wholes):0)+sourcercv_wholes).toFixed(2));
             setdestrcv_peeling(((datarcv.rcv_peeling ?Number(datarcv.rcv_peeling):0)+sourcercv_peeling).toFixed(2));
+            setdestrcv_peelingN(((datarcv.issue_add_4 ?Number(datarcv.rcv_peeling):0)+sourcercv_peeling).toFixed(2));
             setdestbacklog(((datarcv.current_backlog?Number(datarcv.current_backlog):0) + (sourcercv_peeling+sourcercv_village+sourcercv_sorting+sourcercv_dpds+
                 sourcercv_mayur+sourcercv_hamsa+sourcercv_lw+sourcercv_wholes)).toFixed(2));
         }, [ sourcercv_peeling,sourcercv_village,sourcercv_sorting,sourcercv_dpds,sourcercv_mayur,sourcercv_hamsa,sourcercv_lw,sourcercv_wholes]);
 
         useEffect(() => {
-            setfsourcercv_peeling(props.borma ? props.borma.rcv_peeling:'');
+            setfsourcercv_peeling(props.borma ? props.borma.issue_add_4:'');
             setfsourcercv_village(props.borma ? props.borma.rcv_village:'');
             setfsourcercv_sorting(props.borma ? props.borma.rcv_sorting:'');
             setfsourcercv_dpds(props.borma ?props.borma.rcv_dpds:'');
@@ -189,7 +192,9 @@ const RCNBigTaihoReMix = (props:Props) => {
                 setdestrcv_lw(data1.rcnEntries.rcv_lw ? data1.rcnEntries.rcv_lw :0)
                 setdestrcv_wholes(data1.rcnEntries.rcv_wholes ? data1.rcnEntries.rcv_wholes :0)
                 setdestrcv_peeling(data1.rcnEntries.rcv_peeling ? data1.rcnEntries.rcv_peeling :0)
+                setdestrcv_peelingN(data1.rcnEntries.issue_add_4 ? data1.rcnEntries.issue_add_4 :0)
                setdestbacklog(data1.rcnEntries.current_backlog)
+               setdestrcv_status(data1.rcnEntries.Status)
             }
             else if(data1.rcnEntries && data1.rcnEntries.current_backlog && data1.rcnEntries.editStatus==='Pending'){
                 setSuccessflag('none')
@@ -241,32 +246,64 @@ const RCNBigTaihoReMix = (props:Props) => {
 
                 setisdisable(true)
                 try {
-                    const initialhumid = await axios.post('/api/bigTaiho/createMixBigTaiho', {
-                        destid,
-                        destlot,
-                        destorigin,
-                        destbacklog,
-                        destrcv_sorting,destrcv_peeling,destrcv_village,destrcv_dpds,destrcv_mayur,destrcv_hamsa,destrcv_lw,destrcv_wholes,
-                        fsourceid:props.borma.id,
-                        fsourcelot:props.borma.LotNo,
-                        fsourceorigin:props.borma.origin,
-                        fsourcebacklog,
-                        fsourcercv_sorting,fsourcercv_peeling,fsourcercv_village,fsourcercv_dpds,fsourcercv_mayur,fsourcercv_hamsa,fsourcercv_lw,fsourcercv_wholes,
-                        amount:(sourcercv_peeling+sourcercv_village+sourcercv_sorting+sourcercv_dpds+
-                            sourcercv_mayur+sourcercv_hamsa+sourcercv_lw+sourcercv_wholes).toFixed(2),
-                        bsourcebacklog:props.borma.current_backlog,
-                        bdestbacklog:datarcv.current_backlog
-                     })
-                    console.log(initialhumid)         
-                        setErrortext(initialhumid.data.message)
-                        if (initialhumid.status === 200) {
-                            const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
-                            dialog2.showModal()
-                            setTimeout(() => {
-                                dialog2.close()
-                                window.location.reload()
-                            }, 3000)
-                        }
+
+                    if(parseInt(destrcv_status)===0){
+                        const initialhumid = await axios.post('/api/bigTaiho/createMixBigTaiho', {
+                            destid,
+                            destlot,
+                            destorigin,
+                            destbacklog,
+                            destrcv_sorting,destrcv_peeling,destrcv_village,destrcv_dpds,destrcv_mayur,destrcv_hamsa,destrcv_lw,destrcv_wholes,
+                            fsourceid:props.borma.id,
+                            fsourcelot:props.borma.LotNo,
+                            fsourceorigin:props.borma.origin,
+                            fsourcebacklog,
+                            fsourcercv_sorting,fsourcercv_peeling,fsourcercv_village,fsourcercv_dpds,fsourcercv_mayur,fsourcercv_hamsa,fsourcercv_lw,fsourcercv_wholes,destrcv_status
+                            amount:(sourcercv_peeling+sourcercv_village+sourcercv_sorting+sourcercv_dpds+
+                                sourcercv_mayur+sourcercv_hamsa+sourcercv_lw+sourcercv_wholes).toFixed(2),
+                            bsourcebacklog:props.borma.current_backlog,
+                            bdestbacklog:datarcv.current_backlog
+                         })
+                        console.log(initialhumid)         
+                            setErrortext(initialhumid.data.message)
+                            if (initialhumid.status === 200) {
+                                const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                                dialog2.showModal()
+                                setTimeout(() => {
+                                    dialog2.close()
+                                    window.location.reload()
+                                }, 3000)
+                            }
+                    }
+                    else{
+                        const initialhumid = await axios.post('/api/bigTaiho/createMixBigTaiho', {
+                            destid,
+                            destlot,
+                            destorigin,
+                            destbacklog,
+                            destrcv_sorting,destrcv_peeling:destrcv_peelingN,destrcv_village,destrcv_dpds,destrcv_mayur,destrcv_hamsa,destrcv_lw,destrcv_wholes,destrcv_status,
+                            fsourceid:props.borma.id,
+                            fsourcelot:props.borma.LotNo,
+                            fsourceorigin:props.borma.origin,
+                            fsourcebacklog,
+                            fsourcercv_sorting,fsourcercv_peeling,fsourcercv_village,fsourcercv_dpds,fsourcercv_mayur,fsourcercv_hamsa,fsourcercv_lw,fsourcercv_wholes,
+                            amount:(sourcercv_peeling+sourcercv_village+sourcercv_sorting+sourcercv_dpds+
+                                sourcercv_mayur+sourcercv_hamsa+sourcercv_lw+sourcercv_wholes).toFixed(2),
+                            bsourcebacklog:props.borma.current_backlog,
+                            bdestbacklog:datarcv.current_backlog
+                         })
+                        console.log(initialhumid)         
+                            setErrortext(initialhumid.data.message)
+                            if (initialhumid.status === 200) {
+                                const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                                dialog2.showModal()
+                                setTimeout(() => {
+                                    dialog2.close()
+                                    window.location.reload()
+                                }, 3000)
+                            }
+                    }
+                    
                         
                 }
                 catch (err) {
