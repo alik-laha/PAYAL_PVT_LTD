@@ -1304,7 +1304,8 @@ export const SearchRCNDPDSMix = async (req: Request, res: Response) => {
         let rcnEntries
 
         rcnEntries = await DPDS.findOne({
-            attributes: ['id', 'rcv_transfer', 'current_backlog', 'rcv_dp', 'rcv_dp1', 'rcv_ds', 'rcv_Sorting', 'editStatus'],
+            attributes: ['id', 'rcv_transfer', 'current_backlog', 'rcv_dp', 'rcv_dp1',
+                 'rcv_ds', 'rcv_Sorting', 'editStatus','Status','issue_add_4','issue_add_5','issue_add_6'],
             where
 
 
