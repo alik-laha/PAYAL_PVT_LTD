@@ -161,7 +161,7 @@ export const getSortingBylotorigin = async (req: Request, res: Response) => {
 
 }
 
-// //HamsaCreateForm.tsx
+// //SortingCreateForm.tsx
 export const CreateEntireSorting= async (req: Request, res: Response) => {
    
     
@@ -230,7 +230,6 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
                     issue_add_8: data.rcv_jk_kN,
                     issue_add_9: data.rcv_sp1N,
                     issue_add_10: data.issue_add_10,        
-                    issue_lw: data.issue_lw,
                     entry_backlog: (parseFloat(data.rcv_sjhN)+parseFloat(data.rcv_sjh1N)+parseFloat(data.rcv_jjhN)+parseFloat(data.rcv_jh1N)
                     +parseFloat(data.rcv_jk_kN)+parseFloat(data.rcv_sp1N) +(data.rcv_bigTaiho? parseFloat(data.rcv_bigTaiho):0))
                     - (parseFloat(data.issue_jjh)
@@ -409,7 +408,7 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
                         toSectionAfterBacklog:parseFloat(mayur_backlog.dataValues.current_backlog)+parseFloat(data.issue_mayur),
                         createdBy: feeledBy
                      },{transaction});
-                     if(mayur_backlog.dataValues.rcv_Sorting){
+                     if(mayur_backlog.dataValues.rcv_sorting){
                         await Mayur.update(
                             { 
                                 rcv_sorting:sequelize.literal(`rcv_sorting+ ${data.issue_mayur}`),
@@ -488,7 +487,7 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
     }
 }
 
-// //HamsaTable.tsx
+// //SortingTable.tsx
 export const SearchRCNSorting = async (req: Request, res: Response) => {
     try {
         const { searchitem,fromDate, toDate, origin} = req.body;
@@ -554,375 +553,350 @@ export const SearchRCNSorting = async (req: Request, res: Response) => {
     }
  
 }
-// //HamsaRecreate.tsx
-export const CreateReissueHamsa= async (req: Request, res: Response) => {
-   
-    const timeToMilliseconds = (time: string) => {
-        const [hours, minutes] = time.split(':').map(Number);
-        return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
-    };
-    // Helper function to convert milliseconds to "HH:MM"
-    const millisecondsToTime = (milliseconds: number) => {
-        const totalMinutes = Math.floor(milliseconds / 60000);
-        const hours = Math.floor(totalMinutes / 60);
-        const minutes = totalMinutes % 60;
-        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-    };
-
-    const CalculatemachineOnOffTime = (time1: string, time2: string) => {
-        const time1InMilliseconds = timeToMilliseconds(time1) - timeToMilliseconds(time2);
-        if (time1InMilliseconds < 0) {
-            return timeToMilliseconds(time1) - timeToMilliseconds(time2) + 24 * 60 * 60 * 1000;
-        }
-        return time1InMilliseconds;
-    }
+// //SortingRecreate.tsx
+export const CreateReissueSorting = async (req: Request, res: Response) => {
 
 
-    try{
-    const feeledBy = req.cookies.user;
-    const linehumid = req.body.linehumid
-    const LotNO = req.body.LotNo
+    try {
+        const feeledBy = req.cookies.user;
+        const linehumid = req.body.linehumid
+        const LotNO = req.body.LotNo
 
-    await sequelize.transaction(async (transaction: any) => {
+        await sequelize.transaction(async (transaction: any) => {
+            //console.log(linehumid)
+            for (let data of linehumid) {
 
-        for (let data of linehumid) 
-        {
-            if (data.otherTime_1 === undefined || data.otherTime_1 === null) {
-                data.otherTime_1 = '00:00'
-            }
-            if (data.Mc_breakdown_1 === undefined || data.Mc_breakdown_1 === null) {
-                data.Mc_breakdown_1 = '00:00'
-            }
-            if (data.otherTime_2 === undefined || data.otherTime_2 === null) {
-                data.otherTime_2 = '00:00'
-            }
-            if (data.Mc_breakdown_2 === undefined || data.Mc_breakdown_2 === null) {
-                data.Mc_breakdown_2 = '00:00'
-            }
-            if (data.otherTime_3 === undefined || data.otherTime_3 === null) {
-                data.otherTime_3 = '00:00'
-            }
-            if (data.Mc_breakdown_3 === undefined || data.Mc_breakdown_3 === null) {
-                data.Mc_breakdown_3 = '00:00'
-            }
-            if (data.Mc_breakdown_4 === undefined || data.Mc_breakdown_4 === null) {
-                data.Mc_breakdown_4 = '00:00'
-            }
-            if (data.otherTime_4 === undefined || data.otherTime_4 === null) {
-                data.otherTime_4 = '00:00'
-            }
-            if (data.otherTime_5 === undefined || data.otherTime_5 === null) {
-                data.otherTime_5 = '00:00'
-            }
-            if (data.Mc_breakdown_5 === undefined || data.Mc_breakdown_5 === null) {
-                data.Mc_breakdown_5 = '00:00'
-            }
-            if (data.otherTime_6 === undefined || data.otherTime_6 === null) {
-                data.otherTime_6 = '00:00'
-            }
-            if (data.Mc_breakdown_6 === undefined || data.Mc_breakdown_6 === null) {
-                data.Mc_breakdown_6 = '00:00'
-            }
-            
-            const runtime1 = CalculatemachineOnOffTime(data.Mc_off_1, data.Mc_on_1) -
-                (timeToMilliseconds(data.Mc_breakdown_1) + timeToMilliseconds(data.otherTime_1))
-            const runtime2 = CalculatemachineOnOffTime(data.Mc_off_2, data.Mc_on_2) -
-                (timeToMilliseconds(data.Mc_breakdown_2) + timeToMilliseconds(data.otherTime_2))
-            const runtime3 = CalculatemachineOnOffTime(data.Mc_off_3, data.Mc_on_3) -
-                (timeToMilliseconds(data.Mc_breakdown_3) + timeToMilliseconds(data.otherTime_3))
-            const runtime4= CalculatemachineOnOffTime(data.Mc_off_4, data.Mc_on_4) -
-                (timeToMilliseconds(data.Mc_breakdown_4) + timeToMilliseconds(data.otherTime_4))        
-            const runtime5 = CalculatemachineOnOffTime(data.Mc_off_5, data.Mc_on_5) -
-                (timeToMilliseconds(data.Mc_breakdown_5) + timeToMilliseconds(data.otherTime_5))
-            const runtime6 = CalculatemachineOnOffTime(data.Mc_off_6, data.Mc_on_6) -
-                (timeToMilliseconds(data.Mc_breakdown_6) + timeToMilliseconds(data.otherTime_6))
-             
-             
-            if (runtime1 < 0) {
-                res.status(500).json({ message: "Machine BigTaiho Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
-            }
-            if (runtime2 < 0) {
-                res.status(500).json({ message: "Machine Spectrum Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
-            }
-            if (runtime3 < 0) {
-                res.status(500).json({ message: "Machine Amrita Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
-            }
-            if (runtime4 < 0) {
-                res.status(500).json({ message: "Machine Hamsa-4 Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
-            }
-            if (runtime5 < 0) {
-                res.status(500).json({ message: "Machine Hamsa-5 Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
-            }
-            if (runtime6 < 0) {
-                res.status(500).json({ message: "Machine Spectrum Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
-            }
-           
-          
-            
-            const Mc_runTime1 = millisecondsToTime(runtime1);
-            const Mc_runTime2 = millisecondsToTime(runtime2);
-            const Mc_runTime3 = millisecondsToTime(runtime3);
-            const Mc_runTime4 = millisecondsToTime(runtime4);
-            const Mc_runTime5 = millisecondsToTime(runtime5);
-            const Mc_runTime6 = millisecondsToTime(runtime6);
+                //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
+                if (parseFloat(data.issue_add_1) < (parseFloat(data.issue_jjh)
+                    +parseFloat(data.issue_jjh1)+parseFloat(data.issue_sjh)+parseFloat(data.issue_jk)+parseFloat(data.issue_jk1)
+                    +parseFloat(data.issue_k)+parseFloat(data.issue_k1)+parseFloat(data.issue_lwp1)+parseFloat(data.issue_lwp)
+                    +parseFloat(data.issue_s)+parseFloat(data.issue_ss)+parseFloat(data.issue_yk)+parseFloat(data.issue_sp2)
+                    +parseFloat(data.issue_kp)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
+                    +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)+parseFloat(data.issue_add_10)
+                )) {
+                    console.log(parseFloat(data.issue_jjh)
+                    +parseFloat(data.issue_jjh1)+parseFloat(data.issue_sjh)+parseFloat(data.issue_jk)+parseFloat(data.issue_jk1)
+                    +parseFloat(data.issue_k)+parseFloat(data.issue_k1)+parseFloat(data.issue_lwp1)+parseFloat(data.issue_lwp)
+                    +parseFloat(data.issue_s)+parseFloat(data.issue_ss)+parseFloat(data.issue_yk)+parseFloat(data.issue_sp2)
+                    +parseFloat(data.issue_kp)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
+                    +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)+parseFloat(data.issue_add_10))
+                    res.status(500).json({ message: "Backlog can't be Greater Than Input" });
+                    throw new Error('Transaction Aborted due to negative value')
 
+                }
 
-            //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
-            if(parseFloat(data.rcv_opening)< (parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
-                +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
-                   +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
-                     +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)+parseFloat(data.issue_ww_320)
-                     +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)+parseFloat(data.issue_ww_400)
-                     +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                     +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                     +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                     +parseFloat(data.issue_add_10)+parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)
-                     +parseFloat(data.issue_jb)))
-                {
-                 console.log(parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
-                 +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
-                    +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
-                      +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)+parseFloat(data.issue_ww_320)
-                      +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)+parseFloat(data.issue_ww_400)
-                      +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                      +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                      +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                      +parseFloat(data.issue_add_10)+parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)
-                      +parseFloat(data.issue_jb)
-                  )
-                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
-                 throw new Error('Transaction Aborted due to negative value')
- 
-             }
-            
-            const hamsaupdate=await hamsaModel.update(
-                {
-                    latest:0
-                    
-                },{
+                const sortingupdate = await SortingModel.update(
+                    {
+                        latest: 0
+
+                    }, {
                     where: {
                         id: data.id
                     }, transaction
                 }
-                   
-                
-            );
-            if(hamsaupdate)
-            {
-                const reissuecreate=await hamsaModel.create(
-                    {     
-                        date:data.Date,
-                        altid:parseInt(data.alt_id)+1,
-                        LotNo:data.LotNo,
-                        origin:data.origin,
-                        mixingLot:data.mixingLot,
-                        rcv_pw_w:data.rcv_pw_w ,
-                        rcv_w_lot:data.rcv_w_lot,
-                        rcv_ww:data.rcv_ww,
-                        rcv_village:data.rcv_village,
-                        rcv_lw:data.rcv_lw,     
-                        noOfdayOperators: data.dayoperator,
-                        noOfnightOperators: data.nightoperator,
-                        Mc_on_1: data.Mc_on_1,
-                        Mc_off_1: data.Mc_off_1,
-                        Mc_runTime_1: Mc_runTime1,
-                        Mc_breakdown_1: data.Mc_breakdown_1,
-                        otherTime_1: data.otherTime_1,
-                        Mc_on_2: data.Mc_on_2,
-                        Mc_off_2: data.Mc_off_2,
-                        Mc_runTime_2: Mc_runTime2,
-                        Mc_breakdown_2: data.Mc_breakdown_2,
-                        otherTime_2: data.otherTime_2,
-                        Mc_on_3: data.Mc_on_3,
-                        Mc_off_3: data.Mc_off_3,
-                        Mc_runTime_3: Mc_runTime3,
-                        Mc_breakdown_3: data.Mc_breakdown_3,
-                        otherTime_3: data.otherTime_3,
-                        Mc_on_4: data.Mc_on_4,
-                        Mc_off_4: data.Mc_off_4,
-                        Mc_runTime_4: Mc_runTime4,
-                        Mc_breakdown_4: data.Mc_breakdown_4,
-                        otherTime_4: data.otherTime_4,
-                        Mc_on_5: data.Mc_on_5,
-                        Mc_off_5: data.Mc_off_5,
-                        Mc_runTime_5: Mc_runTime5,
-                        Mc_breakdown_5: data.Mc_breakdown_5,
-                        otherTime_5: data.otherTime_5,
-                        Mc_on_6: data.Mc_on_6,
-                        Mc_off_6: data.Mc_off_6,
-                        Mc_runTime_6: Mc_runTime6,
-                        Mc_breakdown_6: data.Mc_breakdown_6,
-                        otherTime_6: data.otherTime_6,
-                        issue_pw_210: data.issue_pw_210,
-                        issue_w_210: data.issue_w_210,
-                        issue_ww_210: data.issue_ww_210,
-                        issue_pw_240:data.issue_pw_240,
-                        issue_w_240: data.issue_w_240,
-                        issue_ww_240: data.issue_ww_240,
-                        issue_pw_280:data.issue_pw_280,
-                        issue_w_280:   data.issue_w_280,
-                        issue_ww_280: data.issue_ww_280,
-                        issue_pw_320:data.issue_pw_320,
-                        issue_w_320: data.issue_w_320,
-                        issue_ww_320: data.issue_ww_320,
-                        issue_pw_400: data.issue_pw_400,
-                        issue_w_400:  data.issue_w_400,
-                        issue_ww_400:  data.issue_ww_400,    
-                        issue_add_1: data.issue_add_1,
-                        issue_add_2: data.issue_add_2,
-                        issue_add_3:data.issue_add_3,
-                        issue_add_4: data.issue_add_4,
-                        issue_add_5: data.issue_add_5,
-                        issue_add_6: data.issue_add_6,
-                        issue_add_7: data.issue_add_7,
-                        issue_add_8: data.issue_add_8,
-                        issue_add_9: data.issue_add_9,
-                        issue_add_10: data.issue_add_10,
-                        issue_lw: data.issue_lw,
-                        issue_bigTaiho: data.issue_bigTaiho,
-                        issue_jb: data.issue_jb,
-                        entry_backlog: parseFloat(data.rcv_opening)
-                        - (parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
-                            +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
-                            +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
-                             +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)+parseFloat(data.issue_ww_320)
-                             +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)+parseFloat(data.issue_ww_400)
-                             +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                             +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                             +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                             +parseFloat(data.issue_add_10)+parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)
-                             +parseFloat(data.issue_jb)
-                            ),
-                        current_backlog: parseFloat(data.rcv_opening)
-                        - (parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
-                             +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
-                             +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
-                             +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)+parseFloat(data.issue_ww_320)
-                             +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)+parseFloat(data.issue_ww_400)
-                             +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                             +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                             +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                             +parseFloat(data.issue_add_10)+parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)
-                             +parseFloat(data.issue_jb)
-                            ),
-                        Status: 1,
-                        CreatedBy: feeledBy 
-                    },
-                    {
-                        transaction
-                    }
+
+
                 );
-                if(reissuecreate)
-                {
-                    const bigT_backlog = await bigTaihoModel.findOne({
-                        attributes: ['current_backlog','rcv_hamsa'],
-                        where: {
-                            lotNo:LotNO,
+                if (sortingupdate) {
+                    const reissuecreate = await SortingModel.create(
+                        {
+                            date: data.Date,
+                            altid: parseInt(data.alt_id) + 1,
+                            LotNo: data.LotNo,
                             origin: data.origin,
-                            latest:1
-                
-                        },
-                        order: [['LotNo', 'ASC']]
-                
-                    });
-                    console.log(bigT_backlog)
-                    if (bigT_backlog && bigT_backlog.dataValues.current_backlog>=0)
-                    {
-                        await sectionTransfer.create({              
-                        LotNo:LotNO,
-                        origin:data.origin,
-                        amount:data.issue_bigTaiho,
-                        date:data.Date,
-                        fromSection:'Hamsa',
-                        toSection:'BigTaiho',
-                        toSectionBeforeBacklog:bigT_backlog.dataValues.current_backlog,
-                        toSectionAfterBacklog:parseFloat(bigT_backlog.dataValues.current_backlog)+parseFloat(data.issue_bigTaiho),
-                        createdBy: feeledBy,
-                        issueid:parseInt(data.alt_id)+1,
-                        },{transaction});
-                        if(bigT_backlog.dataValues.rcv_hamsa)
-                            {
-                        await bigTaihoModel.update(
-                            { 
-                                rcv_hamsa:sequelize.literal(`rcv_hamsa+ ${data.issue_bigTaiho}`),
-                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
-                            },
-                            {
-                                where: {
-                                    lotNo:LotNO,
-                                    origin: data.origin,
-                                    latest:1
-                                },transaction
-                            }
-                        );
-                            }
-                        else{
-                        await bigTaihoModel.update(
-                            { 
-                                rcv_hamsa:data.issue_bigTaiho,
-                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
-                            },
-                            {
-                                where: {
-                                    lotNo:LotNO,
-                                    origin: data.origin,
-                                    latest:1
-                                },transaction
-                            }
-                        );
-                            }
-                     
-                       
-                    }
-                    else{
-                        res.status(500).json({ message: "Error In Creating Reissue Hamsa Transaction History" });
-                        throw new Error('Transaction Aborted')
-                    }  
-                    const lotupdate = await lotoriginmodel.update(
-                        {
-                            latest_section: 'Hamsa',
-                            hansaStatus: 1
+                            mixingLot: data.mixingLot,
+                            rcv_jjh: data.rcv_jjh,
+                            rcv_sjh: data.rcv_sjh,
+                            rcv_sjh1: data.rcv_sjh1,
+                            rcv_jh1: data.rcv_jh1,
+                            rcv_jk_k: data.rcv_jk_k,
+                            rcv_sp1: data.rcv_sp1,
+                            rcv_bigTaiho: data.rcv_bigTaiho,
+                            noOfdayOperators: data.dayoperator,
+                            noOfnightOperators: data.nightoperator,
+                            rcv_transfer: data.rcv_transfer,
+                            issue_sjh: data.issue_sjh,
+                            issue_jjh: data.issue_jjh,
+                            issue_jjh1: data.issue_jjh1,
+                            issue_jk: data.issue_jk,
+                            issue_jk1: data.issue_jk1,
+                            issue_k: data.issue_k,
+                            issue_k1: data.issue_k1,
+                            issue_lwp1: data.issue_lwp1,
+                            issue_lwp: data.issue_lwp,
+                            issue_s: data.issue_s,
+                            issue_ss: data.issue_ss,
+                            issue_yk: data.issue_yk,
+                            issue_sp2: data.issue_sp2,
+                            issue_kp: data.issue_kp,
+                            issue_rejection: data.issue_rejection,
+                            issue_village: data.issue_village,
+                            issue_bigTaiho: data.issue_bigTaiho,
+                            issue_mayur: data.issue_mayur,
+                            issue_dpds: data.issue_dpds,
+                            issue_add_1: data.issue_add_1,
+                            issue_add_2: data.issue_add_2,
+                            issue_add_3: data.issue_add_3,
+                            issue_add_4: data.issue_add_4,
+                            issue_add_5: data.issue_add_5,
+                            issue_add_6: data.issue_add_6,
+                            issue_add_7: data.issue_add_7,
+                            issue_add_8: data.issue_add_8,
+                            issue_add_9: data.issue_add_9,
+                            issue_add_10: data.issue_add_10,
+                            entry_backlog: parseFloat(data.issue_add_1)
+                                - (parseFloat(data.issue_jjh)
+                                    + parseFloat(data.issue_jjh1) + parseFloat(data.issue_sjh) + parseFloat(data.issue_jk) + parseFloat(data.issue_jk1)
+                                    + parseFloat(data.issue_k) + parseFloat(data.issue_k1) + parseFloat(data.issue_lwp1) + parseFloat(data.issue_lwp)
+                                    + parseFloat(data.issue_s) + parseFloat(data.issue_ss) + parseFloat(data.issue_yk) + parseFloat(data.issue_sp2)
+                                    + parseFloat(data.issue_kp) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village) + parseFloat(data.issue_bigTaiho)
+                                    + parseFloat(data.issue_mayur) + parseFloat(data.issue_dpds)
+                                    + parseFloat(data.issue_add_10)
+                                ),
+                            current_backlog: parseFloat(data.issue_add_1) -
+                                 (parseFloat(data.issue_jjh)
+                                    + parseFloat(data.issue_jjh1) + parseFloat(data.issue_sjh) + parseFloat(data.issue_jk) + parseFloat(data.issue_jk1)
+                                    + parseFloat(data.issue_k) + parseFloat(data.issue_k1) + parseFloat(data.issue_lwp1) + parseFloat(data.issue_lwp)
+                                    + parseFloat(data.issue_s) + parseFloat(data.issue_ss) + parseFloat(data.issue_yk) + parseFloat(data.issue_sp2)
+                                    + parseFloat(data.issue_kp) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village) + parseFloat(data.issue_bigTaiho)
+                                    + parseFloat(data.issue_mayur) + parseFloat(data.issue_dpds)
+                                    + parseFloat(data.issue_add_10)),
+
+
+                            Status: 1,
+                            CreatedBy: feeledBy
                         },
                         {
+                            transaction
+                        }
+                    );
+                    if (reissuecreate) {
+                        const mayur_backlog = await Mayur.findOne({
+                            attributes: ['current_backlog', 'rcv_sorting'],
                             where: {
                                 lotNo: LotNO,
-                                origin: data.origin
-                            }, transaction
-                        }
-                        );
-                        if (lotupdate) {
-                        res.status(200).json({ message: "Hamsa Re-Issue Entry Made Successfully" });
+                                origin: data.origin,
+                                latest: 1
+
+                            },
+                            order: [['LotNo', 'ASC']]
+
+                        });
+                        console.log(mayur_backlog)
+                        if (mayur_backlog && mayur_backlog.dataValues.current_backlog >= 0) {
+                            await sectionTransfer.create({
+                                LotNo: LotNO,
+                                origin: data.origin,
+                                amount: data.issue_mayur,
+                                date: data.Date,
+                                fromSection: 'Sorting',
+                                toSection: 'Mayur',
+                                toSectionBeforeBacklog: mayur_backlog.dataValues.current_backlog,
+                                toSectionAfterBacklog: parseFloat(mayur_backlog.dataValues.current_backlog) + parseFloat(data.issue_mayur),
+                                createdBy: feeledBy,
+                                issueid: parseInt(data.alt_id) + 1,
+                            }, { transaction });
+                            if (mayur_backlog.dataValues.rcv_sorting) {
+                                await Mayur.update(
+                                    {
+                                        rcv_sorting: sequelize.literal(`rcv_sorting+ ${data.issue_mayur}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${data.issue_mayur}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNO,
+                                            origin: data.origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+                            }
+                            else {
+                                await Mayur.update(
+                                    {
+                                        rcv_sorting: data.issue_mayur,
+                                        current_backlog: sequelize.literal(`current_backlog+ ${data.issue_mayur}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNO,
+                                            origin: data.origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+                            }
                         }
                         else {
-                        console.log('No Need For Update')
+                            res.status(500).json({ message: "Error In Creating Reissue Mayur Transaction History" });
+                            throw new Error('Transaction Aborted')
                         }
-                }
-                else{
-                    return res.status(500).json({ message: "Error while creating Hamsa Re Issue Entry"});
-                }
-            }
-            
-           
-        }
-       
+
+                        const bigT_backlog = await bigTaihoModel.findOne({
+                            attributes: ['current_backlog', 'rcv_sorting'],
+                            where: {
+                                lotNo: LotNO,
+                                origin: data.origin,
+                                latest: 1
+
+                            },
+                            order: [['LotNo', 'ASC']]
+
+                        });
+                        console.log(bigT_backlog)
+                        if (bigT_backlog && bigT_backlog.dataValues.current_backlog >= 0) {
+                            await sectionTransfer.create({
+                                LotNo: LotNO,
+                                origin: data.origin,
+                                amount: data.issue_bigTaiho,
+                                date: data.Date,
+                                fromSection: 'Sorting',
+                                toSection: 'BigTaiho',
+                                toSectionBeforeBacklog: bigT_backlog.dataValues.current_backlog,
+                                toSectionAfterBacklog: parseFloat(bigT_backlog.dataValues.current_backlog) + parseFloat(data.issue_bigTaiho),
+                                createdBy: feeledBy,
+                                issueid: parseInt(data.alt_id) + 1,
+                            }, { transaction });
+                            if (bigT_backlog.dataValues.rcv_sorting) {
+                                await bigTaihoModel.update(
+                                    {
+                                        rcv_sorting: sequelize.literal(`rcv_sorting+ ${data.issue_bigTaiho}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNO,
+                                            origin: data.origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+                            }
+                            else {
+                                await bigTaihoModel.update(
+                                    {
+                                        rcv_sorting: data.issue_bigTaiho,
+                                        current_backlog: sequelize.literal(`current_backlog+ ${data.issue_bigTaiho}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNO,
+                                            origin: data.origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+                            }
+
+
+                        }
+                        else {
+                            res.status(500).json({ message: "Error In Creating Reissue BigTaiho Transaction History" });
+                            throw new Error('Transaction Aborted')
+                        }
+
+
+                        const dpds_backlog = await DPDS.findOne({
+                            attributes: ['current_backlog','rcv_Sorting'],
+                            where: {
+                                lotNo:LotNO,
+                                origin: data.origin,
+                                latest:1
+                    
+                            },
+                            order: [['LotNo', 'ASC']]
+                    
+                        });
+                        console.log(dpds_backlog)
+                        if (dpds_backlog && dpds_backlog.dataValues.current_backlog>=0){
+                            await sectionTransfer.create({              
+                                LotNo:LotNO,
+                                origin:data.origin,
+                                amount:data.issue_dpds,
+                                issueid: parseInt(data.alt_id) + 1,
+                                date:data.Date,
+                                fromSection:'Sorting',
+                                toSection:'DPDS',
+                                toSectionBeforeBacklog:dpds_backlog.dataValues.current_backlog,
+                                toSectionAfterBacklog:parseFloat(dpds_backlog.dataValues.current_backlog)+parseFloat(data.issue_dpds),
+                                createdBy: feeledBy
+                             },{transaction});
+                             if(dpds_backlog.dataValues.rcv_Sorting){
+                                await DPDS.update(
+                                    { 
+                                        rcv_Sorting:sequelize.literal(`rcv_Sorting+ ${data.issue_dpds}`),
+                                        current_backlog:sequelize.literal(`current_backlog+ ${data.issue_dpds}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo:LotNO,
+                                            origin: data.origin,
+                                            latest:1
+                                        },transaction
+                                    }
+                                );
+                             }
+                             else{
+                                await DPDS.update(
+                                    { 
+                                        rcv_Sorting:data.issue_dpds,
+                                        current_backlog:sequelize.literal(`current_backlog+ ${data.issue_dpds}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo:LotNO,
+                                            origin: data.origin,
+                                            latest:1
+                                        },transaction
+                                    }
+                                );
+                             }   
+                        }
+                        else{
+                            res.status(500).json({ message: "Error In Creating DPDS Transaction History" });
+                            throw new Error('Transaction Aborted')
+                        } 
         
 
+                        const lotupdate = await lotoriginmodel.update(
+                            {
+                                latest_section: 'Sorting',
+                                sortingStatus: 1
+                            },
+                            {
+                                where: {
+                                    lotNo: LotNO,
+                                    origin: data.origin
+                                }, transaction
+                            }
+                        );
+                        if (lotupdate) {
+                            res.status(200).json({ message: "Sorting Re-Issue Entry Made Successfully" });
+                        }
+                        else {
+                            console.log('No Need For Update')
+                        }
+                    }
+                    else {
+                        return res.status(500).json({ message: "Error while creating Sorting Re Issue Entry" });
+                    }
+                }
 
-    })
+
+            }
+
+
+
+
+        })
     }
-    catch(error) {
-        if(!res.headersSent){
+    catch (error) {
+        if (!res.headersSent) {
             console.log(error)
-            return res.status(500).json({ message: "Error while creating Hamsa Re-Issue Entry" ,error});
+            return res.status(500).json({ message: "Error while creating Sorting Re-Issue Entry", error });
         }
     }
-    
+
 
 
 }
@@ -1521,7 +1495,8 @@ export const SearchRCNSortingMix = async (req: Request, res: Response) => {
         
              rcnEntries = await SortingModel.findOne({
                 attributes: ['id','rcv_sjh','current_backlog','rcv_sjh1','rcv_jjh','rcv_jk_k','rcv_sp1',
-                    'rcv_bigTaiho','rcv_jh1','editStatus'],
+                    'rcv_bigTaiho','rcv_jh1','editStatus','Status','issue_add_4','issue_add_5','issue_add_6',
+                'issue_add_7','issue_add_8','issue_add_9'],
                 where
                 
                 
@@ -1568,8 +1543,8 @@ export const CreateMixSorting = async (req: Request, res: Response) => {
         const dest_rcv_jh1= req.body.destrcv_jh1;
         const dest_rcv_sp1= req.body.destrcv_sp1;
         const dest_rcv_bigTaiho= req.body.destrcv_bigt;
+        const destrcv_status = req.body.destrcv_status;
 
- 
         const dest_backlog= req.body.destbacklog;
 
         const b_soucre_backlog= req.body.bsourcebacklog;
@@ -1578,50 +1553,140 @@ export const CreateMixSorting = async (req: Request, res: Response) => {
 
         await sequelize.transaction(async (transaction: any) => {
 
-            const sourceupdate=await SortingModel.update(
-                { 
-                    rcv_sjh: source_rcv_sjh,
-                    rcv_sjh1: source_rcv_sjh1,
-                    rcv_jjh: source_rcv_jjh,
-                    rcv_sp1: source_rcv_sp1,
-                    rcv_jh1: source_rcv_jh1,
-                    rcv_jk_k: source_rcv_jk_k,
-                    rcv_bigTaiho: source_rcv_bigTaiho,
-                    current_backlog:source_backlog,                   
+            const sourcedata = await SortingModel.findOne({
+                attributes: ['rcv_sjh','rcv_sjh1','rcv_jjh','rcv_jk_k','rcv_sp1','rcv_jh1',
+                'rcv_bigTaiho','issue_add_4','issue_add_5','issue_add_6',
+                'issue_add_7','issue_add_8','issue_add_9'],
+                where: {
+                    id: sourceid
+
                 },
-                {
-                    where: {
-                        id:sourceid
-                    }, transaction
-                }
-            );
-            const destdata=await hamsaModel.findOne({
-                attributes: ['mixingLot'],
+
+            });
+
+            let sourceupdate
+
+            if(sourcedata){
+
+                const jjhdiff=parseFloat(sourcedata.dataValues.issue_add_4)-parseFloat(source_rcv_jjh)
+                const sjhdiff=parseFloat(sourcedata.dataValues.issue_add_5)-parseFloat(source_rcv_sjh)
+                const sjh1diff=parseFloat(sourcedata.dataValues.issue_add_6)-parseFloat(source_rcv_sjh1)
+                const jh1diff=parseFloat(sourcedata.dataValues.issue_add_7)-parseFloat(source_rcv_jh1)
+                const jkkdiff=parseFloat(sourcedata.dataValues.issue_add_8)-parseFloat(source_rcv_jk_k)
+                const sp1diff=parseFloat(sourcedata.dataValues.issue_add_9)-parseFloat(source_rcv_sp1)
+
+                const totbeforeborma=(parseFloat(sourcedata.dataValues.rcv_jjh)-jjhdiff)+(parseFloat(sourcedata.dataValues.rcv_sjh)-sjhdiff)
+                +(parseFloat(sourcedata.dataValues.rcv_sjh1)-sjh1diff)+(parseFloat(sourcedata.dataValues.rcv_jh1)-jh1diff)
+                +(parseFloat(sourcedata.dataValues.rcv_jk_k)-jkkdiff)+(parseFloat(sourcedata.dataValues.rcv_sp1)-sp1diff)
+
+                console.log(totbeforeborma)
+                const totafterborma=parseFloat(source_rcv_jjh)+parseFloat(source_rcv_sjh)+parseFloat(source_rcv_sjh1)+
+                parseFloat(source_rcv_jh1)+parseFloat(source_rcv_jk_k)+parseFloat(source_rcv_sp1)
+                console.log(totafterborma)
+                sourceupdate=await SortingModel.update(
+                    { 
+                        rcv_jjh: sequelize.literal(`rcv_jjh- ${jjhdiff}`),
+                        rcv_sjh: sequelize.literal(`rcv_sjh- ${sjhdiff}`),
+                        rcv_sjh1: sequelize.literal(`rcv_sjh1- ${sjh1diff}`),
+                        rcv_jh1: sequelize.literal(`rcv_jh1- ${jh1diff}`),
+                        rcv_jk_k: sequelize.literal(`rcv_jk_k- ${jkkdiff}`),
+                        rcv_sp1: sequelize.literal(`rcv_sp1- ${sp1diff}`),
+                        issue_add_3: ((totbeforeborma-totafterborma)/totbeforeborma)*100,
+                        issue_add_5: source_rcv_sjh,
+                        issue_add_6: source_rcv_sjh1,
+                        issue_add_4: source_rcv_jjh,
+                        issue_add_9: source_rcv_sp1,
+                        issue_add_7: source_rcv_jh1,
+                        issue_add_8: source_rcv_jk_k,
+                        rcv_bigTaiho: source_rcv_bigTaiho,
+                        current_backlog:source_backlog,                   
+                    },
+                    {
+                        where: {
+                            id:sourceid
+                        }, transaction
+                    }
+                );
+            }
+
+            
+            const destdata=await SortingModel.findOne({
+                attributes: ['mixingLot','rcv_sjh','rcv_sjh1','rcv_jjh','rcv_jk_k','rcv_sp1',
+                    'rcv_bigTaiho','rcv_jh1','issue_add_4','issue_add_5','issue_add_6',
+                'issue_add_7','issue_add_8','issue_add_9'],
                 where: {
                     id:destid
         
                 },
         
             });
-            if (destdata && destdata.dataValues.mixingLot){
-                const destupdate=await SortingModel.update(
-                    { 
-                        rcv_sjh: dest_rcv_sjh,
-                        rcv_sjh1: dest_rcv_sjh1,
-                        rcv_jjh: dest_rcv_jjh,
-                        rcv_jh1: dest_rcv_jh1,
-                        rcv_sp1: dest_rcv_sp1,
-                        rcv_jk_k: dest_rcv_jk_k,
-                        rcv_bigTaiho: dest_rcv_bigTaiho,
-                        current_backlog:dest_backlog, 
-                        mixingLot:sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`)                  
-                    },
-                    {
-                        where: {
-                            id:destid
-                        }, transaction
-                    }
-                );
+            if (destdata){
+                let destupdate
+                if (Number(destrcv_status) === 0) {
+                    destupdate=await SortingModel.update(
+                        { 
+                            rcv_sjh: dest_rcv_sjh,
+                            rcv_sjh1: dest_rcv_sjh1,
+                            rcv_jjh: dest_rcv_jjh,
+                            rcv_jh1: dest_rcv_jh1,
+                            rcv_sp1: dest_rcv_sp1,
+                            rcv_jk_k: dest_rcv_jk_k,
+                            rcv_bigTaiho: dest_rcv_bigTaiho,
+                            current_backlog:dest_backlog, 
+                            mixingLot:destdata.dataValues.mixingLot ?
+                            sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`):`${sourcelot}(${sourceorigin})`,                
+                        },
+                        {
+                            where: {
+                                id:destid
+                            }, transaction
+                        }
+                    );
+                }
+                else{
+                    const jjhdiffD=parseFloat(dest_rcv_jjh)-parseFloat(destdata.dataValues.issue_add_4)
+                    const sjhdiffD=parseFloat(dest_rcv_sjh)-parseFloat(destdata.dataValues.issue_add_5)
+                    const sjh1diffD=parseFloat(dest_rcv_sjh1)-parseFloat(destdata.dataValues.issue_add_6)
+                    const jh1diffD=parseFloat(dest_rcv_jh1)-parseFloat(destdata.dataValues.issue_add_7)
+                    const jkkdiffD=parseFloat(dest_rcv_jk_k)-parseFloat(destdata.dataValues.issue_add_8)
+                    const sp1diffD=parseFloat(dest_rcv_sp1)-parseFloat(destdata.dataValues.issue_add_9)
+
+                    const totbeforebormaD=(parseFloat(destdata.dataValues.rcv_jjh)+jjhdiffD)
+                    +(parseFloat(destdata.dataValues.rcv_sjh)+sjhdiffD)+(parseFloat(destdata.dataValues.rcv_sjh1)+  sjh1diffD)+
+                    (parseFloat(destdata.dataValues.rcv_jh1)+jh1diffD)
+                    +(parseFloat(destdata.dataValues.rcv_jk_k)+jkkdiffD)+(parseFloat(destdata.dataValues.rcv_sp1)+  sp1diffD)
+
+                    console.log(totbeforebormaD)
+                    const totafterbormaD=parseFloat(dest_rcv_jjh)+parseFloat(dest_rcv_sjh)+parseFloat(dest_rcv_sjh1)+
+                    parseFloat(dest_rcv_jh1)+parseFloat(dest_rcv_jk_k)+parseFloat(dest_rcv_sp1)
+                    console.log(totafterbormaD)
+                    destupdate=await SortingModel.update(
+                        { 
+                            rcv_jjh: sequelize.literal(`rcv_jjh+ ${jjhdiffD}`),
+                            rcv_sjh: sequelize.literal(`rcv_sjh+ ${sjhdiffD}`),
+                            rcv_sjh1: sequelize.literal(`rcv_sjh1+ ${sjh1diffD}`),
+                            rcv_jh1: sequelize.literal(`rcv_jh1+ ${jh1diffD}`),
+                            rcv_jk_k: sequelize.literal(`rcv_jk_k+ ${jkkdiffD}`),
+                            rcv_sp1: sequelize.literal(`rcv_sp1+ ${sp1diffD}`),
+                            issue_add_3: ((totbeforebormaD - totafterbormaD) / totbeforebormaD) * 100,
+                            issue_add_5: dest_rcv_sjh,
+                            issue_add_6: dest_rcv_sjh1,
+                            issue_add_4: dest_rcv_jjh,
+                            issue_add_9: dest_rcv_jh1,
+                            issue_add_7: dest_rcv_sp1,
+                            issue_add_8: dest_rcv_jk_k,
+                            rcv_bigTaiho: dest_rcv_bigTaiho,
+                            current_backlog: dest_backlog,
+                            mixingLot: destdata.dataValues.mixingLot ?
+                                sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`) : `${sourcelot}(${sourceorigin})`,                
+                        },
+                        {
+                            where: {
+                                id:destid
+                            }, transaction
+                        }
+                    );
+                }
                 if(sourceupdate && destupdate){
                     const mixcreate=await mixingModel.create(
                         {     
@@ -1654,59 +1719,6 @@ export const CreateMixSorting = async (req: Request, res: Response) => {
                     return res.status(500).json({ message: "Internal Server Error"});
                 }
             }
-            else{
-                const destupdate=await SortingModel.update(
-                    { 
-                        rcv_sjh: dest_rcv_sjh,
-                        rcv_sjh1: dest_rcv_sjh1,
-                        rcv_jjh: dest_rcv_jjh,
-                        rcv_jh1: dest_rcv_jh1,
-                        rcv_sp1: dest_rcv_sp1,
-                        rcv_jk_k: dest_rcv_jk_k,
-                        rcv_bigTaiho: dest_rcv_bigTaiho,
-                        current_backlog:dest_backlog, 
-                        mixingLot:`${sourcelot}(${sourceorigin})`             
-                    },
-                    {
-                        where: {
-                            id:destid
-                        }, transaction
-                    }
-                );
-                if(sourceupdate && destupdate){
-                    const mixcreate=await mixingModel.create(
-                        {     
-                            FromLotNo:sourcelot,
-                            Fromorigin:sourceorigin,
-                            ToLotNo:destlot,
-                            Toorigin:destorigin,
-                            amount:transfer_amount,
-                            date:new Date(),
-                            Section:'Sorting',
-                            amountBeforeBacklog:b_soucre_backlog,
-                            amountAfterBacklog:source_backlog,
-                            destamountBeforeBacklog: b_dest_backlog,
-                            destamountAfterBacklog: dest_backlog,
-                            createdBy: createdBy,
-                        },
-                        {
-                            transaction
-                        }
-                    );
-                    if(mixcreate){
-                        return res.status(200).json({ message: "Mixing Performed Successfully" });
-
-                    }
-                    else{
-                        return res.status(500).json({ message: "Internal Server Error"});
-                    }
-                }
-                else{
-                    return res.status(500).json({ message: "Internal Server Error"});
-                }
-            }
-
-           
 
         })
 

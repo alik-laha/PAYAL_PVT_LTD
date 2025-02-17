@@ -937,7 +937,7 @@ export interface SumofAllTypeDataAlmond {
     totalBags: number;
 }
 export interface SumofAllTypeDataAgarbati {
-    type: string;
+    grade: string;
     totalBags: number;
 }
 

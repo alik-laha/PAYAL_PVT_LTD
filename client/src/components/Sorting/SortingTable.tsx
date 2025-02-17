@@ -55,10 +55,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import RCNSortingReMix from "./SortingMix";
-// import RCNHamsaReMix from "./HamsaMix";
-// import HamsaReCreateForm from "./HamsaRecreateForm";
-// import HamsaEditForm from "./HamsaEditForm";
-
+import RCNSortingReCreateForm from "./SortingReissueForm";
 
 
 
@@ -126,62 +123,26 @@ const SortingTable = () => {
             Item_Lot_No: item.LotNo,
             Origin: item.origin,
             Issue_No: item.altid,
-            DPDS_Entry_Date: handletimezone(item.date),
-            Mixing_Lot: item.mixingLot,
-            Receive_JJH: formatNumber(item.rcv_jjh),
-            Receive_SJH: formatNumber(item.rcv_sjh),
-            Receive_SJH1: formatNumber(item.rcv_sjh1),
-            Receive_JK_K: formatNumber(item.rcv_jk_k),
-            Receive_JH1: formatNumber(item.rcv_jh1),
-            Receive_SP1: formatNumber(item.rcv_sp1),
-            Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,   
-            issue_SJH: formatNumber(item.issue_sjh),
-            issue_JJH: formatNumber(item.issue_jjh),
-            issue_JJH1: formatNumber(item.issue_jjh1),
-            issue_jk:formatNumber(item.issue_jk),
-            issue_jk1: formatNumber(item.issue_jk1),
-            issue_k:formatNumber(item.issue_k),
-            issue_k1:formatNumber(item.issue_k1),
-            issue_lwp: formatNumber(item.issue_lwp),
-            issue_lwp1: formatNumber(item.issue_lwp1),
-            issue_s:formatNumber(item.issue_s),
-            issue_ss: formatNumber(item.issue_ss),
-            issue_yk: formatNumber(item.issue_yk),
-            issue_sp2:formatNumber(item.issue_sp2),
-            issue_kp:formatNumber(item.issue_kp),
-            issue_village: formatNumber(item.issue_village),
-            issue_mayur:formatNumber(item.issue_mayur),
-            issue_bigTaiho: formatNumber(item.issue_bigTaiho),
-            issue_dpds:formatNumber(item.issue_dpds),
-            issue_rejection:formatNumber(item.issue_rejection),
-            Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
-            Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
-          
-            Operator_Day: item.noOfdayOperators,
-           
-            Edit_Status: item.editStatus,
-            Created_By: item.CreatedBy,
-            Modified_By: item.modifiedBy 
-
-            }));
-            //setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
-        }
-        else {
-            transformed = data1.rcnEntries.map((item: SortingData, idx: number) => ({
-                Sl_No: idx + 1, 
-                Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
-                Item_Lot_No: item.LotNo,
-                Origin: item.origin,
-                Issue_No: item.altid,
-                DPDS_Entry_Date: handletimezone(item.date),
+            Sorting_Entry_Date: handletimezone(item.date),
                 Mixing_Lot: item.mixingLot,
-                Receive_JJH: formatNumber(item.rcv_jjh),
-                Receive_SJH: formatNumber(item.rcv_sjh),
-                Receive_SJH1: formatNumber(item.rcv_sjh1),
-                Receive_JK_K: formatNumber(item.rcv_jk_k),
-                Receive_JH1: formatNumber(item.rcv_jh1),
-                Receive_SP1: formatNumber(item.rcv_sp1),
+                Opening_JJH: formatNumber(item.rcv_jjh),
+                Opening_SJH: formatNumber(item.rcv_sjh),
+                Opening_SJH1: formatNumber(item.rcv_sjh1),
+                Opening_JK_K: formatNumber(item.rcv_jk_k),
+                Opening_JH1: formatNumber(item.rcv_jh1),
+                Opening_SP1: formatNumber(item.rcv_sp1),
+                Borma_JJH: formatNumber(item.issue_add_4),
+                Borma_SJH: formatNumber(item.issue_add_5),
+                Borma_SJH1: formatNumber(item.issue_add_6),
+                Borma_JK_K: formatNumber(item.issue_add_8),
+                Borma_JH1: formatNumber(item.issue_add_7),
+                Borma_SP1: formatNumber(item.issue_add_9),
+                Receive_Peeling: Number(formatNumber(item.rcv_jjh)) + Number(formatNumber(item.rcv_sjh))+ Number(formatNumber(item.rcv_sjh1))
+                + Number(formatNumber(item.rcv_jk_k))+ Number(formatNumber(item.rcv_jh1))+ Number(formatNumber(item.rcv_sp1)),
+                Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5))+ Number(formatNumber(item.issue_add_6))+
+                Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8))+ Number(formatNumber(item.issue_add_9)),
+                Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                Borma_Loss_Percentage: formatNumber(item.issue_add_3),
                 Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,   
                 issue_SJH: formatNumber(item.issue_sjh),
                 issue_JJH: formatNumber(item.issue_jjh),
@@ -202,10 +163,69 @@ const SortingTable = () => {
                 issue_bigTaiho: formatNumber(item.issue_bigTaiho),
                 issue_dpds:formatNumber(item.issue_dpds),
                 issue_rejection:formatNumber(item.issue_rejection),
-                Entry_Backlog: Number(item.entry_backlog) < 0 ? formatNumberWithSign(Number(item.entry_backlog)) : formatNumberWithSign(Number(item.entry_backlog)),
                 Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
               
-                Operator_Day: item.noOfdayOperators,
+                Labour: item.noOfdayOperators,
+               
+           
+            Edit_Status: item.editStatus,
+            Created_By: item.CreatedBy,
+            Modified_By: item.modifiedBy 
+
+            }));
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        else {
+            transformed = data1.rcnEntries.map((item: SortingData, idx: number) => ({
+                Sl_No: idx + 1, 
+                Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
+                Item_Lot_No: item.LotNo,
+                Origin: item.origin,
+                Issue_No: item.altid,
+                Sorting_Entry_Date: handletimezone(item.date),
+                Mixing_Lot: item.mixingLot,
+                Opening_JJH: formatNumber(item.rcv_jjh),
+                Opening_SJH: formatNumber(item.rcv_sjh),
+                Opening_SJH1: formatNumber(item.rcv_sjh1),
+                Opening_JK_K: formatNumber(item.rcv_jk_k),
+                Opening_JH1: formatNumber(item.rcv_jh1),
+                Opening_SP1: formatNumber(item.rcv_sp1),
+                Borma_JJH: formatNumber(item.issue_add_4),
+                Borma_SJH: formatNumber(item.issue_add_5),
+                Borma_SJH1: formatNumber(item.issue_add_6),
+                Borma_JK_K: formatNumber(item.issue_add_8),
+                Borma_JH1: formatNumber(item.issue_add_7),
+                Borma_SP1: formatNumber(item.issue_add_9),
+                Receive_Peeling: Number(formatNumber(item.rcv_jjh)) + Number(formatNumber(item.rcv_sjh))+ Number(formatNumber(item.rcv_sjh1))
+                + Number(formatNumber(item.rcv_jk_k))+ Number(formatNumber(item.rcv_jh1))+ Number(formatNumber(item.rcv_sp1)),
+                Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5))+ Number(formatNumber(item.issue_add_6))+
+                Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8))+ Number(formatNumber(item.issue_add_9)),
+                Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+                Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,   
+                issue_SJH: formatNumber(item.issue_sjh),
+                issue_JJH: formatNumber(item.issue_jjh),
+                issue_JJH1: formatNumber(item.issue_jjh1),
+                issue_jk:formatNumber(item.issue_jk),
+                issue_jk1: formatNumber(item.issue_jk1),
+                issue_k:formatNumber(item.issue_k),
+                issue_k1:formatNumber(item.issue_k1),
+                issue_lwp: formatNumber(item.issue_lwp),
+                issue_lwp1: formatNumber(item.issue_lwp1),
+                issue_s:formatNumber(item.issue_s),
+                issue_ss: formatNumber(item.issue_ss),
+                issue_yk: formatNumber(item.issue_yk),
+                issue_sp2:formatNumber(item.issue_sp2),
+                issue_kp:formatNumber(item.issue_kp),
+                issue_village: formatNumber(item.issue_village),
+                issue_mayur:formatNumber(item.issue_mayur),
+                issue_bigTaiho: formatNumber(item.issue_bigTaiho),
+                issue_dpds:formatNumber(item.issue_dpds),
+                issue_rejection:formatNumber(item.issue_rejection),
+                Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+              
+                Labour: item.noOfdayOperators,
                
                 Edit_Status: item.editStatus,
                 Created_By: item.CreatedBy,
@@ -650,7 +670,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 <p className='text-1xl pb-1 text-center mt-1'>Sorting Entry Reissue</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <HamsaReCreateForm borma={[item]} /> */}
+                                                        <RCNSortingReCreateForm borma={[item]} />
                                                     </DialogContent>
                                                     
                                                 </Dialog>}

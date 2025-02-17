@@ -343,7 +343,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <Label className="w-1/4 pt-2 "> Total Transfer Amount </Label>
                 <Input className="w-1/4 justify-center items-center text-center bg-yellow-100" type='number' placeholder="Amount" value={(sourcercv_wholesunpeel+sourcercv_wholespeel+sourcercv_DPDS+sourcercv_sorting+
                 sourcercv_village).toFixed(2)}  required />
-                <Label className="w-1/4 pt-2 text-red-500 text-center"> Final Backlog : </Label>
+                <Label className="w-1/4 pt-2 text-red-500 text-center">Source Final Backlog : </Label>
                 <Label className="w-1/4 pt-2  ">{fsourcebacklog} kg </Label>
                 </div>
                 

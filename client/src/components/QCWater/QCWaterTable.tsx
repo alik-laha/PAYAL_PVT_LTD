@@ -396,8 +396,8 @@ const QCWaterTable = () => {
                                       
                                       <TableCell className="text-center ">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                       <TableCell className="text-center ">{formatNumber(parseFloat(item.feedph))}</TableCell>
-                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.feedtds))}</TableCell>
-                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.feedhardness))}</TableCell>
+                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.feedtds))} ppm</TableCell>
+                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.feedhardness))} mg/ltr</TableCell>
                                       <TableCell className="text-center font-semibold text-cyan-500">{item.boilertype}</TableCell>
                                       <TableCell className="text-center">{formatNumber(parseFloat(item.ph))} </TableCell>
                                       <TableCell className="text-center ">{formatNumber(parseFloat(item.tds))}</TableCell>
@@ -465,8 +465,8 @@ const QCWaterTable = () => {
                                       
                                       <TableCell className="text-center ">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
                                       <TableCell className="text-center ">{formatNumber(parseFloat(item.feedph))}</TableCell>
-                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.feedtds))}</TableCell>
-                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.feedhardness))}</TableCell>
+                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.feedtds))} ppm</TableCell>
+                                      <TableCell className="text-center ">{formatNumber(parseFloat(item.feedhardness))} mg/ltr</TableCell>
                                       <TableCell className="text-center font-semibold text-cyan-500">{item.boilertype}</TableCell>
                                       <TableCell className="text-center">{formatNumber(parseFloat(item.ph))} </TableCell>
                                       <TableCell className="text-center ">{formatNumber(parseFloat(item.tds))}</TableCell>
