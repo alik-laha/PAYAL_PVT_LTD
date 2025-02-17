@@ -55,10 +55,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import RCNSortingReMix from "./SortingMix";
-// import RCNHamsaReMix from "./HamsaMix";
-// import HamsaReCreateForm from "./HamsaRecreateForm";
-// import HamsaEditForm from "./HamsaEditForm";
-
+import RCNSortingReCreateForm from "./SortingReissueForm";
 
 
 
@@ -673,7 +670,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 <p className='text-1xl pb-1 text-center mt-1'>Sorting Entry Reissue</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <HamsaReCreateForm borma={[item]} /> */}
+                                                        <RCNSortingReCreateForm borma={[item]} />
                                                     </DialogContent>
                                                     
                                                 </Dialog>}
