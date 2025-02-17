@@ -31,6 +31,7 @@ interface RCNEntries {
     rcv_wholes: string;
     current_backlog: string;
     issue_add_4:string;
+    Status:string;
 }
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
@@ -127,7 +128,7 @@ const RCNBigTaihoReMix = (props:Props) => {
             setdestrcv_lw(((datarcv.rcv_lw ?Number(datarcv.rcv_lw):0)+sourcercv_lw).toFixed(2));
             setdestrcv_wholes(((datarcv.rcv_wholes ?Number(datarcv.rcv_wholes):0)+sourcercv_wholes).toFixed(2));
             setdestrcv_peeling(((datarcv.rcv_peeling ?Number(datarcv.rcv_peeling):0)+sourcercv_peeling).toFixed(2));
-            setdestrcv_peelingN(((datarcv.issue_add_4 ?Number(datarcv.rcv_peeling):0)+sourcercv_peeling).toFixed(2));
+            setdestrcv_peelingN(((datarcv.issue_add_4 ?Number(datarcv.issue_add_4):0)+sourcercv_peeling).toFixed(2));
             setdestbacklog(((datarcv.current_backlog?Number(datarcv.current_backlog):0) + (sourcercv_peeling+sourcercv_village+sourcercv_sorting+sourcercv_dpds+
                 sourcercv_mayur+sourcercv_hamsa+sourcercv_lw+sourcercv_wholes)).toFixed(2));
         }, [ sourcercv_peeling,sourcercv_village,sourcercv_sorting,sourcercv_dpds,sourcercv_mayur,sourcercv_hamsa,sourcercv_lw,sourcercv_wholes]);
@@ -258,7 +259,7 @@ const RCNBigTaihoReMix = (props:Props) => {
                             fsourcelot:props.borma.LotNo,
                             fsourceorigin:props.borma.origin,
                             fsourcebacklog,
-                            fsourcercv_sorting,fsourcercv_peeling,fsourcercv_village,fsourcercv_dpds,fsourcercv_mayur,fsourcercv_hamsa,fsourcercv_lw,fsourcercv_wholes,destrcv_status
+                            fsourcercv_sorting,fsourcercv_peeling,fsourcercv_village,fsourcercv_dpds,fsourcercv_mayur,fsourcercv_hamsa,fsourcercv_lw,fsourcercv_wholes,destrcv_status,
                             amount:(sourcercv_peeling+sourcercv_village+sourcercv_sorting+sourcercv_dpds+
                                 sourcercv_mayur+sourcercv_hamsa+sourcercv_lw+sourcercv_wholes).toFixed(2),
                             bsourcebacklog:props.borma.current_backlog,
@@ -469,7 +470,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ?props.borma.LotNo :''}</TableCell>
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ?props.borma.origin:''}</TableCell>
-                            <TableCell className="text-center  bg-cyan-100">{props.borma ? props.borma.rcv_peeling :0}</TableCell>
+                            <TableCell className="text-center  bg-cyan-100">{props.borma ? props.borma.issue_add_4 :0}</TableCell>
                             <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? fsourcercv_peeling:'NA'}</TableCell>
                             <TableCell className="text-center  bg-red-100">{props.borma  ? props.borma.rcv_village :0}</TableCell>
                             <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? fsourcercv_village:'NA'}</TableCell>                    
@@ -493,8 +494,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableCell className="text-center font-semibold  flex">Target<CircleArrowLeft size={30} color="green"/></TableCell>
                             <TableCell className="text-center font-semibold text-green-600 ">{destlot ? destlot :'NA'}</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{destorigin ? destorigin :'NA'}</TableCell>
-                            <TableCell className="text-center  bg-cyan-100">{datarcv.rcv_peeling}</TableCell>
+                            <TableCell className="text-center  bg-cyan-100">{parseInt(datarcv.Status)===0? datarcv.rcv_peeling :datarcv.issue_add_4}</TableCell>
+                            {parseInt(datarcv.Status)===0 ?
                             <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_peeling:'NA'}</TableCell>
+                            :<TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_peelingN:'NA'}</TableCell>}
                             <TableCell className="text-center  bg-red-100 ">{successflag ? datarcv.rcv_village:''}</TableCell>
                             <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_village:'NA'}</TableCell>                    
                             <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_sorting ?datarcv.rcv_sorting :''}</TableCell>
