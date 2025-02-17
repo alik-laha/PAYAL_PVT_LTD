@@ -1372,8 +1372,7 @@ export const CreateMixDPDS = async (req: Request, res: Response) => {
                 const dp1diff=parseFloat(sourcedata.dataValues.issue_add_6)-parseFloat(source_rcv_dp1)
                 const totbeforeborma=(parseFloat(sourcedata.dataValues.rcv_dp)-dpdiff)
                 +(parseFloat(sourcedata.dataValues.rcv_ds)-dsdiff)+(parseFloat(sourcedata.dataValues.rcv_dp1)-  dp1diff)
-                const totafterborma=parseFloat(source_rcv_dp)
-                +parseFloat(source_rcv_ds)+parseFloat(source_rcv_dp1)
+                const totafterborma=parseFloat(source_rcv_dp)+parseFloat(source_rcv_ds)+parseFloat(source_rcv_dp1)
 
                 
                 sourceupdate = await DPDS.update(

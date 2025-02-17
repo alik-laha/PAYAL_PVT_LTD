@@ -161,7 +161,7 @@ export const getSortingBylotorigin = async (req: Request, res: Response) => {
 
 }
 
-// //HamsaCreateForm.tsx
+// //SortingCreateForm.tsx
 export const CreateEntireSorting= async (req: Request, res: Response) => {
    
     
@@ -488,7 +488,7 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
     }
 }
 
-// //HamsaTable.tsx
+// //SortingTable.tsx
 export const SearchRCNSorting = async (req: Request, res: Response) => {
     try {
         const { searchitem,fromDate, toDate, origin} = req.body;
@@ -1521,7 +1521,8 @@ export const SearchRCNSortingMix = async (req: Request, res: Response) => {
         
              rcnEntries = await SortingModel.findOne({
                 attributes: ['id','rcv_sjh','current_backlog','rcv_sjh1','rcv_jjh','rcv_jk_k','rcv_sp1',
-                    'rcv_bigTaiho','rcv_jh1','editStatus'],
+                    'rcv_bigTaiho','rcv_jh1','editStatus','Status','issue_add_4','issue_add_5','issue_add_6',
+                'issue_add_7','issue_add_8','issue_add_9'],
                 where
                 
                 
@@ -1568,8 +1569,8 @@ export const CreateMixSorting = async (req: Request, res: Response) => {
         const dest_rcv_jh1= req.body.destrcv_jh1;
         const dest_rcv_sp1= req.body.destrcv_sp1;
         const dest_rcv_bigTaiho= req.body.destrcv_bigt;
+        const destrcv_status = req.body.destrcv_status;
 
- 
         const dest_backlog= req.body.destbacklog;
 
         const b_soucre_backlog= req.body.bsourcebacklog;
@@ -1578,50 +1579,135 @@ export const CreateMixSorting = async (req: Request, res: Response) => {
 
         await sequelize.transaction(async (transaction: any) => {
 
-            const sourceupdate=await SortingModel.update(
-                { 
-                    rcv_sjh: source_rcv_sjh,
-                    rcv_sjh1: source_rcv_sjh1,
-                    rcv_jjh: source_rcv_jjh,
-                    rcv_sp1: source_rcv_sp1,
-                    rcv_jh1: source_rcv_jh1,
-                    rcv_jk_k: source_rcv_jk_k,
-                    rcv_bigTaiho: source_rcv_bigTaiho,
-                    current_backlog:source_backlog,                   
+            const sourcedata = await DPDS.findOne({
+                attributes: ['rcv_sjh1','rcv_jjh','rcv_jk_k','rcv_sp1',
+                    'rcv_bigTaiho','rcv_jh1','issue_add_4','issue_add_5','issue_add_6',
+                'issue_add_7','issue_add_8','issue_add_9'],
+                where: {
+                    id: sourceid
+
                 },
-                {
-                    where: {
-                        id:sourceid
-                    }, transaction
-                }
-            );
-            const destdata=await hamsaModel.findOne({
-                attributes: ['mixingLot'],
+
+            });
+
+            let sourceupdate
+
+            if(sourcedata){
+
+                const jjhdiff=parseFloat(sourcedata.dataValues.issue_add_4)-parseFloat(source_rcv_jjh)
+                const sjhdiff=parseFloat(sourcedata.dataValues.issue_add_5)-parseFloat(source_rcv_sjh)
+                const sjh1diff=parseFloat(sourcedata.dataValues.issue_add_6)-parseFloat(source_rcv_sjh1)
+                const jh1diff=parseFloat(sourcedata.dataValues.issue_add_7)-parseFloat(source_rcv_jh1)
+                const jkkdiff=parseFloat(sourcedata.dataValues.issue_add_8)-parseFloat(source_rcv_jk_k)
+                const sp1diff=parseFloat(sourcedata.dataValues.issue_add_9)-parseFloat(source_rcv_sp1)
+                const totbeforeborma=(parseFloat(sourcedata.dataValues.rcv_jjh)+jjhdiff)
+                +(parseFloat(sourcedata.dataValues.rcv_sjh)-sjhdiff)+(parseFloat(sourcedata.dataValues.rcv_sjh1)-  sjh1diff)+
+                (parseFloat(sourcedata.dataValues.rcv_jh1)-jh1diff)
+                +(parseFloat(sourcedata.dataValues.rcv_jk_k)-jkkdiff)+(parseFloat(sourcedata.dataValues.rcv_sp1)-  sp1diff)
+                const totafterborma=parseFloat(source_rcv_jjh)+parseFloat(source_rcv_sjh)+parseFloat(source_rcv_sjh1)+
+                parseFloat(source_rcv_jh1)+parseFloat(source_rcv_jk_k)+parseFloat(source_rcv_sp1)
+
+                sourceupdate=await SortingModel.update(
+                    { 
+                        rcv_jjh: sequelize.literal(`rcv_jjh- ${jjhdiff}`),
+                        rcv_sjh: sequelize.literal(`rcv_sjh- ${sjhdiff}`),
+                        rcv_sjh1: sequelize.literal(`rcv_sjh1- ${sjh1diff}`),
+                        rcv_jh1: sequelize.literal(`rcv_jh1- ${jh1diff}`),
+                        rcv_jk_k: sequelize.literal(`rcv_jk_k- ${jkkdiff}`),
+                        rcv_sp1: sequelize.literal(`rcv_sp1- ${sp1diff}`),
+                        issue_add_3: ((totbeforeborma-totafterborma)/totbeforeborma)*100,
+                        issue_add_5: source_rcv_sjh,
+                        issue_add_6: source_rcv_sjh1,
+                        issue_add_4: source_rcv_jjh,
+                        issue_add_9: source_rcv_sp1,
+                        issue_add_7: source_rcv_jh1,
+                        issue_add_8: source_rcv_jk_k,
+                        rcv_bigTaiho: source_rcv_bigTaiho,
+                        current_backlog:source_backlog,                   
+                    },
+                    {
+                        where: {
+                            id:sourceid
+                        }, transaction
+                    }
+                );
+            }
+
+            
+            const destdata=await SortingModel.findOne({
+                attributes: ['mixingLot','rcv_sjh1','rcv_jjh','rcv_jk_k','rcv_sp1',
+                    'rcv_bigTaiho','rcv_jh1','issue_add_4','issue_add_5','issue_add_6',
+                'issue_add_7','issue_add_8','issue_add_9'],
                 where: {
                     id:destid
         
                 },
         
             });
-            if (destdata && destdata.dataValues.mixingLot){
-                const destupdate=await SortingModel.update(
-                    { 
-                        rcv_sjh: dest_rcv_sjh,
-                        rcv_sjh1: dest_rcv_sjh1,
-                        rcv_jjh: dest_rcv_jjh,
-                        rcv_jh1: dest_rcv_jh1,
-                        rcv_sp1: dest_rcv_sp1,
-                        rcv_jk_k: dest_rcv_jk_k,
-                        rcv_bigTaiho: dest_rcv_bigTaiho,
-                        current_backlog:dest_backlog, 
-                        mixingLot:sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`)                  
-                    },
-                    {
-                        where: {
-                            id:destid
-                        }, transaction
-                    }
-                );
+            if (destdata){
+                let destupdate
+                if (Number(destrcv_status) === 0) {
+                    destupdate=await SortingModel.update(
+                        { 
+                            rcv_sjh: dest_rcv_sjh,
+                            rcv_sjh1: dest_rcv_sjh1,
+                            rcv_jjh: dest_rcv_jjh,
+                            rcv_jh1: dest_rcv_jh1,
+                            rcv_sp1: dest_rcv_sp1,
+                            rcv_jk_k: dest_rcv_jk_k,
+                            rcv_bigTaiho: dest_rcv_bigTaiho,
+                            current_backlog:dest_backlog, 
+                            mixingLot:destdata.dataValues.mixingLot ?
+                            sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`):`${sourcelot}(${sourceorigin})`,                
+                        },
+                        {
+                            where: {
+                                id:destid
+                            }, transaction
+                        }
+                    );
+                }
+                else{
+                    const jjhdiffD=parseFloat(dest_rcv_jjh)-parseFloat(destdata.dataValues.issue_add_4)
+                    const sjhdiffD=parseFloat(dest_rcv_sjh)-parseFloat(destdata.dataValues.issue_add_5)
+                    const sjh1diffD=parseFloat(dest_rcv_sjh1)-parseFloat(destdata.dataValues.issue_add_6)
+                    const jh1diffD=parseFloat(dest_rcv_jh1)-parseFloat(destdata.dataValues.issue_add_7)
+                    const jkkdiffD=parseFloat(dest_rcv_jk_k)-parseFloat(destdata.dataValues.issue_add_8)
+                    const sp1diffD=parseFloat(dest_rcv_sp1)-parseFloat(destdata.dataValues.issue_add_9)
+                    const totbeforebormaD=(parseFloat(destdata.dataValues.rcv_jjh)+jjhdiffD)
+                    +(parseFloat(destdata.dataValues.rcv_sjh)+sjhdiffD)+(parseFloat(destdata.dataValues.rcv_sjh1)+  sjh1diffD)+
+                    (parseFloat(destdata.dataValues.rcv_jh1)+jh1diffD)
+                    +(parseFloat(destdata.dataValues.rcv_jk_k)+jkkdiffD)+(parseFloat(destdata.dataValues.rcv_sp1)+  sp1diffD)
+                    const totafterbormaD=parseFloat(dest_rcv_jjh)+parseFloat(dest_rcv_sjh)+parseFloat(dest_rcv_sjh1)+
+                    parseFloat(dest_rcv_jh1)+parseFloat(dest_rcv_jk_k)+parseFloat(dest_rcv_sp1)
+
+                    destupdate=await SortingModel.update(
+                        { 
+                            rcv_jjh: sequelize.literal(`rcv_jjh+ ${jjhdiffD}`),
+                            rcv_sjh: sequelize.literal(`rcv_sjh+ ${sjhdiffD}`),
+                            rcv_sjh1: sequelize.literal(`rcv_sjh1+ ${sjh1diffD}`),
+                            rcv_jh1: sequelize.literal(`rcv_jh1+ ${jh1diffD}`),
+                            rcv_jk_k: sequelize.literal(`rcv_jk_k+ ${jkkdiffD}`),
+                            rcv_sp1: sequelize.literal(`rcv_sp1+ ${sp1diffD}`),
+                            issue_add_3: ((totbeforebormaD - totafterbormaD) / totbeforebormaD) * 100,
+                            issue_add_5: dest_rcv_sjh,
+                            issue_add_6: dest_rcv_sjh1,
+                            issue_add_4: dest_rcv_jjh,
+                            issue_add_9: dest_rcv_jh1,
+                            issue_add_7: dest_rcv_sp1,
+                            issue_add_8: dest_rcv_jk_k,
+                            rcv_bigTaiho: dest_rcv_bigTaiho,
+                            current_backlog: dest_backlog,
+                            mixingLot: destdata.dataValues.mixingLot ?
+                                sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`) : `${sourcelot}(${sourceorigin})`,                
+                        },
+                        {
+                            where: {
+                                id:destid
+                            }, transaction
+                        }
+                    );
+                }
                 if(sourceupdate && destupdate){
                     const mixcreate=await mixingModel.create(
                         {     
@@ -1654,59 +1740,6 @@ export const CreateMixSorting = async (req: Request, res: Response) => {
                     return res.status(500).json({ message: "Internal Server Error"});
                 }
             }
-            else{
-                const destupdate=await SortingModel.update(
-                    { 
-                        rcv_sjh: dest_rcv_sjh,
-                        rcv_sjh1: dest_rcv_sjh1,
-                        rcv_jjh: dest_rcv_jjh,
-                        rcv_jh1: dest_rcv_jh1,
-                        rcv_sp1: dest_rcv_sp1,
-                        rcv_jk_k: dest_rcv_jk_k,
-                        rcv_bigTaiho: dest_rcv_bigTaiho,
-                        current_backlog:dest_backlog, 
-                        mixingLot:`${sourcelot}(${sourceorigin})`             
-                    },
-                    {
-                        where: {
-                            id:destid
-                        }, transaction
-                    }
-                );
-                if(sourceupdate && destupdate){
-                    const mixcreate=await mixingModel.create(
-                        {     
-                            FromLotNo:sourcelot,
-                            Fromorigin:sourceorigin,
-                            ToLotNo:destlot,
-                            Toorigin:destorigin,
-                            amount:transfer_amount,
-                            date:new Date(),
-                            Section:'Sorting',
-                            amountBeforeBacklog:b_soucre_backlog,
-                            amountAfterBacklog:source_backlog,
-                            destamountBeforeBacklog: b_dest_backlog,
-                            destamountAfterBacklog: dest_backlog,
-                            createdBy: createdBy,
-                        },
-                        {
-                            transaction
-                        }
-                    );
-                    if(mixcreate){
-                        return res.status(200).json({ message: "Mixing Performed Successfully" });
-
-                    }
-                    else{
-                        return res.status(500).json({ message: "Internal Server Error"});
-                    }
-                }
-                else{
-                    return res.status(500).json({ message: "Internal Server Error"});
-                }
-            }
-
-           
 
         })
 
