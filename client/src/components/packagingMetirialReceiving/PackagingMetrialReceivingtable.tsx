@@ -316,14 +316,14 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.packagingMaterial})</Button
                         <TableHead className="text-center" >Sl No</TableHead>
                         <TableHead className="text-center" >GatePass_No.</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
-                        <TableHead className="text-center" >Vehicle_No</TableHead>
+                        <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
                           <TableHead className="text-center" >Gross_Wt(Kg)</TableHead>
                            <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
-                           <TableHead className="text-center" >Invoice_No</TableHead>
+                           <TableHead className="text-center" >Invoice_No(Packaging_Material)</TableHead>
                            <TableHead className="text-center" >Invoice_Date</TableHead>
                            <TableHead className="text-center" >Item_Type</TableHead>
-                           <TableHead className="text-center" >Item_Code(SKU)</TableHead>
-                        <TableHead className="text-center" >Vendor_Name</TableHead>
+                           <TableHead className="text-center" >Item_Code(Packaging_Material_SKU)</TableHead>
+                        <TableHead className="text-center" >Vendor_Name(Packaging_Material)</TableHead>
                         
                        
                         <TableHead className="text-center" >Invoice_Qty</TableHead>

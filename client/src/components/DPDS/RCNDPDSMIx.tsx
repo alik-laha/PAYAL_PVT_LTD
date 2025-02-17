@@ -27,6 +27,10 @@ interface RCNEntries {
     rcv_dp1: string;
     rcv_Sorting: string;
     current_backlog: string;
+    issue_add_4:string;
+    issue_add_5:string;
+    issue_add_6:string;
+    Status:string;
 }
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
@@ -55,8 +59,12 @@ const RCNDPDSReMix = (props:Props) => {
         const [destrcv_dp, setdestrcv_dp] = useState<string>("");
         const [destrcv_ds, setdestrcv_ds] = useState<string>("");
         const [destrcv_dp1, setdestrcv_dp1] = useState<string>("");
+        const [destrcv_dpN, setdestrcv_dpN] = useState<string>("");
+        const [destrcv_dsN, setdestrcv_dsN] = useState<string>("");
+        const [destrcv_dp1N, setdestrcv_dp1N] = useState<string>("");
         const [destrcv_sorting, setdestrcv_sorting] = useState<string>("");
         const [destrcv_bigT, setdestrcv_bigT] = useState<string>("");
+        const [destrcv_status, setdestrcv_status] = useState<string>("");
 
         const [destorigin, setdestorigin] = useState<string>("");
         const [sourceactualbacklog, setsourceactualbacklog] = useState<string>("");
@@ -90,9 +98,9 @@ const RCNDPDSReMix = (props:Props) => {
         useEffect(() => {
             setfsourcercv_sorting(props.borma ?((props.borma.rcv_Sorting ?Number(props.borma.rcv_Sorting):0)-sourcercv_sorting).toFixed(2):'');
             setfsourcercv_bigT(props.borma ?((props.borma.rcv_transfer ?Number(props.borma.rcv_transfer):0)-sourcercv_bigT).toFixed(2):'');
-            setfsourcercv_dp(props.borma ?(Number(props.borma.rcv_dp)-sourcercv_dp).toFixed(2):'');
-            setfsourcercv_ds(props.borma ?(Number(props.borma.rcv_ds)-sourcercv_ds).toFixed(2):'');
-            setfsourcercv_dp1(props.borma ?(Number(props.borma.rcv_dp1)-sourcercv_dp1).toFixed(2):'');
+            setfsourcercv_dp(props.borma ?(Number(props.borma.issue_add_4)-sourcercv_dp).toFixed(2):'');
+            setfsourcercv_ds(props.borma ?(Number(props.borma.issue_add_5)-sourcercv_ds).toFixed(2):'');
+            setfsourcercv_dp1(props.borma ?(Number(props.borma.issue_add_6)-sourcercv_dp1).toFixed(2):'');
             setfSourcebacklog(props.borma ?(Number(props.borma.current_backlog) - (sourcercv_dp+sourcercv_ds+sourcercv_sorting+sourcercv_dp1+sourcercv_bigT)).toFixed(2):'');
             
             setdestrcv_sorting(((datarcv.rcv_Sorting ?Number(datarcv.rcv_Sorting):0)+sourcercv_sorting).toFixed(2));
@@ -100,15 +108,18 @@ const RCNDPDSReMix = (props:Props) => {
             setdestrcv_dp(((datarcv.rcv_dp?Number(datarcv.rcv_dp):0)+sourcercv_dp).toFixed(2));
             setdestrcv_ds(((datarcv.rcv_ds?Number(datarcv.rcv_ds):0)+sourcercv_ds).toFixed(2));
             setdestrcv_dp1(((datarcv.rcv_dp1?Number(datarcv.rcv_dp1):0)+sourcercv_dp1).toFixed(2));
+            setdestrcv_dpN(((datarcv.issue_add_4?Number(datarcv.issue_add_4):0)+sourcercv_dp).toFixed(2));
+            setdestrcv_dsN(((datarcv.issue_add_5?Number(datarcv.issue_add_5):0)+sourcercv_ds).toFixed(2));
+            setdestrcv_dp1N(((datarcv.issue_add_6?Number(datarcv.issue_add_6):0)+sourcercv_dp1).toFixed(2));
             setdestbacklog(((datarcv.current_backlog?Number(datarcv.current_backlog):0) + (sourcercv_dp+sourcercv_ds+sourcercv_dp1+sourcercv_sorting+sourcercv_bigT)).toFixed(2));
         }, [ sourcercv_dp, sourcercv_ds, sourcercv_dp1, sourcercv_sorting,sourcercv_bigT]);
 
         useEffect(() => {
          
             setfsourcercv_sorting(props.borma ? props.borma.rcv_Sorting:'');
-            setfsourcercv_dp(props.borma ?props.borma.rcv_dp:'');
-            setfsourcercv_ds(props.borma ?props.borma.rcv_ds:'');
-            setfsourcercv_dp1(props.borma ?props.borma.rcv_dp1:'');
+            setfsourcercv_dp(props.borma ?props.borma.issue_add_4:'');
+            setfsourcercv_ds(props.borma ?props.borma.issue_add_5:'');
+            setfsourcercv_dp1(props.borma ?props.borma.issue_add_6:'');
             setfSourcebacklog(props.borma ?props.borma.current_backlog:'');
             setsourceactualbacklog(props.borma ?props.borma.current_backlog:'')
         }, [ props.borma]);
@@ -157,6 +168,10 @@ const RCNDPDSReMix = (props:Props) => {
                 setdestrcv_dp(data1.rcnEntries.rcv_dp ? data1.rcnEntries.rcv_dp :0)
                 setdestrcv_dp1(data1.rcnEntries.rcv_dp1 ? data1.rcnEntries.rcv_dp1 :0)
                 setdestrcv_ds(data1.rcnEntries.rcv_ds ? data1.rcnEntries.rcv_ds :0)
+                setdestrcv_dpN(data1.rcnEntries.issue_add_4 ? data1.rcnEntries.issue_add_4 :0)
+                setdestrcv_dp1N(data1.rcnEntries.issue_add_6 ? data1.rcnEntries.issue_add_6 :0)
+                setdestrcv_dsN(data1.rcnEntries.issue_add_5 ? data1.rcnEntries.issue_add_5 :0)
+                setdestrcv_status(data1.rcnEntries.Status)
                setdestbacklog(data1.rcnEntries.current_backlog)
             }
             else if(data1.rcnEntries && data1.rcnEntries.current_backlog && data1.rcnEntries.editStatus==='Pending'){
@@ -208,35 +223,70 @@ const RCNDPDSReMix = (props:Props) => {
 
                 setisdisable(true)
                 try {
-                    const initialhumid = await axios.post('/api/dpds/createMixDPDS', {
-                        destid,
-                        destlot,
-                        destorigin,
-                        destbacklog,
-                        destrcv_sorting,destrcv_bigT,
-                        destrcv_dp,
-                        destrcv_ds,
-                        destrcv_dp1,
-                        fsourceid:props.borma.id,
-                        fsourcelot:props.borma.LotNo,
-                        fsourceorigin:props.borma.origin,
-                        fsourcebacklog,fsourcercv_sorting,fsourcercv_bigT,
-                        fsourcercv_dp,fsourcercv_ds,
-                        fsourcercv_dp1,
-                        amount:(sourcercv_dp+sourcercv_ds+sourcercv_dp1+sourcercv_sorting+sourcercv_bigT).toFixed(2),
-                        bsourcebacklog:props.borma.current_backlog,
-                        bdestbacklog:datarcv.current_backlog
-                     })
-                    console.log(initialhumid)         
-                        setErrortext(initialhumid.data.message)
-                        if (initialhumid.status === 200) {
-                            const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
-                            dialog2.showModal()
-                            setTimeout(() => {
-                                dialog2.close()
-                                window.location.reload()
-                            }, 3000)
-                        }
+
+                    if(parseInt(destrcv_status)===0){
+                        const initialhumid = await axios.post('/api/dpds/createMixDPDS', {
+                            destid,
+                            destlot,
+                            destorigin,
+                            destbacklog,
+                            destrcv_sorting,destrcv_bigT,
+                            destrcv_dp,
+                            destrcv_ds,
+                            destrcv_dp1,destrcv_status,
+                            fsourceid:props.borma.id,
+                            fsourcelot:props.borma.LotNo,
+                            fsourceorigin:props.borma.origin,
+                            fsourcebacklog,fsourcercv_sorting,fsourcercv_bigT,
+                            fsourcercv_dp,fsourcercv_ds,
+                            fsourcercv_dp1,
+                            amount:(sourcercv_dp+sourcercv_ds+sourcercv_dp1+sourcercv_sorting+sourcercv_bigT).toFixed(2),
+                            bsourcebacklog:props.borma.current_backlog,
+                            bdestbacklog:datarcv.current_backlog
+                         })
+                        console.log(initialhumid)         
+                            setErrortext(initialhumid.data.message)
+                            if (initialhumid.status === 200) {
+                                const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                                dialog2.showModal()
+                                setTimeout(() => {
+                                    dialog2.close()
+                                    window.location.reload()
+                                }, 3000)
+                            }
+                    }
+                    else{
+                        const initialhumid = await axios.post('/api/dpds/createMixDPDS', {
+                            destid,
+                            destlot,
+                            destorigin,
+                            destbacklog,
+                            destrcv_sorting,destrcv_bigT,
+                            destrcv_dp:destrcv_dpN,
+                            destrcv_ds:destrcv_dsN,
+                            destrcv_dp1:destrcv_dp1N,destrcv_status,
+                            fsourceid:props.borma.id,
+                            fsourcelot:props.borma.LotNo,
+                            fsourceorigin:props.borma.origin,
+                            fsourcebacklog,fsourcercv_sorting,fsourcercv_bigT,
+                            fsourcercv_dp,fsourcercv_ds,
+                            fsourcercv_dp1,
+                            amount:(sourcercv_dp+sourcercv_ds+sourcercv_dp1+sourcercv_sorting+sourcercv_bigT).toFixed(2),
+                            bsourcebacklog:props.borma.current_backlog,
+                            bdestbacklog:datarcv.current_backlog
+                         })
+                        console.log(initialhumid)         
+                            setErrortext(initialhumid.data.message)
+                            if (initialhumid.status === 200) {
+                                const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                                dialog2.showModal()
+                                setTimeout(() => {
+                                    dialog2.close()
+                                    window.location.reload()
+                                }, 3000)
+                            }
+                    }
+                    
                         
                 }
                 catch (err) {
@@ -375,12 +425,12 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ?props.borma.LotNo :''}</TableCell>
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ?props.borma.origin:''}</TableCell>
-                            <TableCell className="text-center  bg-cyan-100">{props.borma ? props.borma.rcv_dp :0}</TableCell>
+                            <TableCell className="text-center  bg-cyan-100">{props.borma ? props.borma.issue_add_4 :0}</TableCell>
                             <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? fsourcercv_dp:'NA'}</TableCell>
-                            <TableCell className="text-center  bg-red-100">{props.borma  ? props.borma.rcv_ds :0}</TableCell>
+                            <TableCell className="text-center  bg-red-100">{props.borma  ? props.borma.issue_add_5 :0}</TableCell>
                             <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? fsourcercv_ds:'NA'}</TableCell>
                        
-                            <TableCell className="text-center  bg-yellow-100">{props.borma ? props.borma.rcv_dp1:0}</TableCell>
+                            <TableCell className="text-center  bg-yellow-100">{props.borma ? props.borma.issue_add_6:0}</TableCell>
                             <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? fsourcercv_dp1:'NA'}</TableCell>
                             
                             <TableCell className="text-center bg-green-100 ">{props.borma? props.borma.rcv_Sorting:0}</TableCell>
@@ -395,13 +445,22 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableCell className="text-center font-semibold  flex">Target<CircleArrowLeft size={30} color="green"/></TableCell>
                             <TableCell className="text-center font-semibold text-green-600 ">{destlot ? destlot :'NA'}</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{destorigin ? destorigin :'NA'}</TableCell>
-                            <TableCell className="text-center  bg-cyan-100">{datarcv.rcv_dp}</TableCell>
+
+                            <TableCell className="text-center  bg-cyan-100">{parseInt(datarcv.Status)===0? datarcv.rcv_dp :datarcv.issue_add_4}</TableCell>
+                            {parseInt(datarcv.Status)===0 ?
                             <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_dp:'NA'}</TableCell>
-                            <TableCell className="text-center  bg-red-100 ">{datarcv.rcv_ds}</TableCell>
+                            :<TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_dpN:'NA'}</TableCell>}
+                            
+                            <TableCell className="text-center  bg-red-100 ">{parseInt(datarcv.Status)===0? datarcv.rcv_ds :datarcv.issue_add_5}</TableCell>
+                            {parseInt(datarcv.Status)===0 ?
                             <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_ds:'NA'}</TableCell>
-                        
-                            <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_dp1 ?datarcv.rcv_dp1 :''}</TableCell>
+                            :<TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_dsN:'NA'}</TableCell>}
+
+                            
+                            <TableCell className="text-center  bg-yellow-100">{parseInt(datarcv.Status)===0? datarcv.rcv_dp1 :datarcv.issue_add_6}</TableCell>
+                            {parseInt(datarcv.Status)===0 ?
                             <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_dp1:'NA'}</TableCell>
+                            :<TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_dp1N:'NA'}</TableCell>}
                         
                             <TableCell className="text-center  bg-green-100">{datarcv.rcv_Sorting ? datarcv.rcv_Sorting:''}</TableCell>
                             <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? destrcv_sorting:'NA'}</TableCell>

@@ -54,6 +54,7 @@ import { CiBoxes, CiCrop, CiEdit } from "react-icons/ci";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import RCNSortingReMix from "./SortingMix";
 // import RCNHamsaReMix from "./HamsaMix";
 // import HamsaReCreateForm from "./HamsaRecreateForm";
 // import HamsaEditForm from "./HamsaEditForm";
@@ -383,7 +384,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
                     <TableHead className="text-center">Opening JJH</TableHead>
-                    <TableHead className="text-center">Opening SJH1</TableHead>
+                    <TableHead className="text-center">Opening SJH</TableHead>
                     <TableHead className="text-center">Opening SJH1</TableHead>
                     <TableHead className="text-center">Opening JH1</TableHead>
                     <TableHead className="text-center">Opening JK_K</TableHead>
@@ -391,13 +392,12 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Opening Peeling</TableHead>
                     <TableHead className="text-center">Borma_Loss(Kg)</TableHead>
                     <TableHead className="text-center">Borma_Loss(%)</TableHead>
-                    <TableHead className="text-center"> SJH (Borma)</TableHead>
-                <TableHead className="text-center"> DS (Borma)</TableHead>
-                <TableHead className="text-center"> DP1 (Borma)</TableHead>
-               
-                <TableHead className="text-center"> DP (Borma)</TableHead>
-                <TableHead className="text-center"> DS (Borma)</TableHead>
-                <TableHead className="text-center"> DP1 (Borma)</TableHead>
+                    <TableHead className="text-center"> JJH (Borma)</TableHead>
+                <TableHead className="text-center"> SJH (Borma)</TableHead>
+                <TableHead className="text-center"> SJH1 (Borma)</TableHead>
+                <TableHead className="text-center"> JH1 (Borma)</TableHead>
+                <TableHead className="text-center"> JK_K (Borma)</TableHead>
+                <TableHead className="text-center"> SP1 (Borma)</TableHead>
                 <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
                     <TableHead className="text-center">Receive BigTaiho</TableHead>
                     
@@ -665,7 +665,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <RCNHamsaReMix borma={item} /> */}
+                                                        <RCNSortingReMix borma={item} />
                                                     </DialogContent>
                                                     
                                                 </Dialog>}

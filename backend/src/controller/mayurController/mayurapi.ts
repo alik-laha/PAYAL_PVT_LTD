@@ -1466,6 +1466,12 @@ export const SearchHistory = async (req: Request, res: Response) => {
                 }
             });
         }
+
+        whereClause.push({
+            amount: {
+                    [Op.gt]: 0
+                }
+        });
   
         // Convert the array to an object for the where condition
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};

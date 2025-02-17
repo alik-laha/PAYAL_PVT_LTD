@@ -253,21 +253,21 @@ const DashboardSidebar = () => {
                             {renderlink('Borma')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/RcnBorma" >
-                                        <p className="flex"> <CgSmartHomeBoiler size={20} /><p className="pl-3">  RCN Borma </p></p>
+                                        <p className="flex"> <CgSmartHomeBoiler size={20} /><p className="pl-3">  DNW Borma </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
                             {renderlink('Humidifier')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Humidifier" >
-                                        <p className="flex"> <BsMoisture size={20} /><p className="pl-3">  RCN Humidifier </p></p>
+                                        <p className="flex"> <BsMoisture size={20} /><p className="pl-3"> Humidifier </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
                             {renderlink('Peeling')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Peeling" >
-                                        <p className="flex"> < PiWashingMachineLight size={20} /><p className="pl-3">  RCN Peeling </p></p>
+                                        <p className="flex"> < PiWashingMachineLight size={20} /><p className="pl-3"> Peeling </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -275,35 +275,35 @@ const DashboardSidebar = () => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/BigTaiho" >
 
-                                        <p className="flex"> <AiOutlineProduct size={20} /><p className="pl-3">  RCN BigTaiho </p></p>
+                                        <p className="flex"> <AiOutlineProduct size={20} /><p className="pl-3"> BigTaiho </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
                             {renderlink('Mayur')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Mayur" >
-                                        <p className="flex"> <AiFillCodeSandboxSquare size={20} /><p className="pl-3">  RCN Mayur </p></p>
+                                        <p className="flex"> <AiFillCodeSandboxSquare size={20} /><p className="pl-3"> Mayur </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
                                 {renderlink('Hamsa')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Hamsa" >
-                                        <p className="flex"> <GiVendingMachine size={20} /><p className="pl-3">  RCN Hamsa </p></p>
+                                        <p className="flex"> <GiVendingMachine size={20} /><p className="pl-3">  Hamsa </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
                             {renderlink('DPDS')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/DPDS" >
-                                        <p className="flex"> <GiBoxingRing size={20} /><p className="pl-3">  RCN DPDS </p></p>
+                                        <p className="flex"> <GiBoxingRing size={20} /><p className="pl-3">  DP & DS </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
                             {renderlink('Sorting')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Sorting" >
-                                        <p className="flex"> <FaSortAmountDownAlt size={20} /><p className="pl-3">  RCN Sorting </p></p>
+                                        <p className="flex"> <FaSortAmountDownAlt size={20} /><p className="pl-3">  Sorting </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 

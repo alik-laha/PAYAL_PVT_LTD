@@ -379,7 +379,7 @@ const AlmondTable = () => {
 
                         <TableHead className="text-center" >GatePass_Type</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
-                        <TableHead className="text-center" >Vehicle_No</TableHead>
+                        <TableHead className="text-center" >Enrty_Vehicle_No</TableHead>
 
                         <TableHead className="text-center" >Initial_Weight(Kg)</TableHead>
                         <TableHead className="text-center" >Type</TableHead>
@@ -389,7 +389,7 @@ const AlmondTable = () => {
 
                         <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
 
-                        <TableHead className="text-center" >Vendor_Name</TableHead>
+                        <TableHead className="text-center" >Vendor_Name(Almond)</TableHead>
                         <TableHead className="text-center" >Bag/Item_Count</TableHead>
                         {(tablesearch === 'OUT' || EditData.length > 0 )? <TableHead className="text-center" >Row_Weight(Kg)</TableHead> : ''}
                         <TableHead className="text-center" >Bill_Amount(Rs)</TableHead>

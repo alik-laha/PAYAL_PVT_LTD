@@ -381,17 +381,17 @@ const AgarbatiTable = () => {
 
                         <TableHead className="text-center" >GatePass_Type</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
-                        <TableHead className="text-center" >Vehicle_No</TableHead>
+                        <TableHead className="text-center" >Enrty_Vehicle_No</TableHead>
 
                         <TableHead className="text-center" >Initial_Weight(Kg)</TableHead>
-                        <TableHead className="text-center" >Type</TableHead>
-                      <TableHead className="text-center" >Grade</TableHead> 
+                        <TableHead className="text-center" >Agarbati_Type</TableHead>
+                      <TableHead className="text-center" >Agarbati_Grade</TableHead> 
                         <TableHead className="text-center" >Invoice_No.</TableHead>
                         <TableHead className="text-center" >Invoice_Date</TableHead>
 
                         <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
 
-                        <TableHead className="text-center" >Vendor_Name</TableHead>
+                        <TableHead className="text-center" >Vendor_Name(Agarbati)</TableHead>
                         <TableHead className="text-center" >Bag/Item_Count</TableHead>
                         <TableHead className="text-center" >Row_Weight(Kg)</TableHead> 
                         <TableHead className="text-center" >Bill_Amount(Rs)</TableHead>
@@ -423,7 +423,7 @@ const AgarbatiTable = () => {
                                 <TableCell className="text-center">{item.vendorName}</TableCell>
                                 <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
 
-                            <TableCell className="text-center" >{item.totalWt}</TableCell> 
+                                <TableCell className="text-center" >{item.totalWt ?formatNumber(item.totalWt):0}</TableCell> 
                                 <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0 }</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
                                 <TableCell className="text-center">
@@ -487,7 +487,7 @@ const AgarbatiTable = () => {
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
 
-                                      <TableCell className="text-center" >{item.totalWt}</TableCell> 
+                                        <TableCell className="text-center" >{item.totalWt ?formatNumber(item.totalWt):0}</TableCell> 
                                         <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
 

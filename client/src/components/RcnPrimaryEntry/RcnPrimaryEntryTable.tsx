@@ -341,7 +341,7 @@ const RcnPrimaryEntryTable = () => {
                     <TableHead className="text-center" >Date_of_Receiving </TableHead>
                     <TableHead className="text-center" >BL_No.</TableHead>
                     <TableHead className="text-center" >Con_No.</TableHead>
-                    <TableHead className="text-center" >Truck_No.</TableHead>
+                    <TableHead className="text-center" >Enrty_Vehicle_No</TableHead>
                     <TableHead className="text-center" >Gross_Weight(Kg)</TableHead>
                     <TableHead className="text-center" >BL_Weight(Kg)</TableHead>
                     <TableHead className="text-center" >Net_Weight(Kg)</TableHead>

@@ -1064,7 +1064,7 @@ const GatePassTable = () => {
             <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
             <TableHead className="text-center" >GatePass_Status</TableHead>
             <TableHead className="text-center" >Verified/Approved_By</TableHead>
-            <TableHead className="text-center" >Remarks</TableHead>
+            <TableHead className="text-center" >Gatepass_Remarks(Any)</TableHead>
 
             <TableHead className="text-center" >Normal Action</TableHead>
             {Role !== 'Security' && <TableHead className="text-center" >Special Action</TableHead>}

@@ -377,7 +377,7 @@ const QCWaterTable = () => {
                         
                         <TableHead className="text-center" >Water_Used</TableHead>
                         <TableHead className="text-center" >Water_Reading </TableHead>
-                        <TableHead className="text-center" >Remarks</TableHead>
+                        <TableHead className="text-center" >Remarks(QC_Water_Entry)</TableHead>
                       
                         <TableHead className="text-center" >EditStatus</TableHead>
                         <TableHead className="text-center" >Created_By</TableHead>

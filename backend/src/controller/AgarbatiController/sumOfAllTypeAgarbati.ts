@@ -28,7 +28,7 @@ const sumofAllTypeAgarbati = async (req: Request, res: Response): Promise<Respon
         }
         const AllOriginRcnPrimary = await agarbatiPrimaryEntryModel.findAll({
             attributes: [
-                'type',
+                'grade',
                 [sequelize.fn('sum', sequelize.col('totalWt')), 'totalBags']
             ],
             where: {
@@ -41,7 +41,7 @@ const sumofAllTypeAgarbati = async (req: Request, res: Response): Promise<Respon
                     [Op.between]: [targetDate, today]
                 }
             },
-            group: ['type']
+            group: ['grade']
         });
 
         const CountPendingEdit = await agarbatiPrimaryEntryEditModel.count();

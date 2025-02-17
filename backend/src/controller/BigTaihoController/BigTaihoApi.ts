@@ -1580,7 +1580,7 @@ export const SearchRCNBigTaihoMix = async (req: Request, res: Response) => {
         
              rcnEntries = await bigTaihoModel.findOne({
                 attributes: ['id','rcv_peeling','current_backlog','rcv_sorting','rcv_dpds',
-                    'rcv_village','rcv_mayur','rcv_hamsa','rcv_lw','rcv_wholes','editStatus'],
+                    'rcv_village','rcv_mayur','rcv_hamsa','rcv_lw','rcv_wholes','editStatus','Status','issue_add_4'],
                 where
                 
                 
@@ -1599,103 +1599,154 @@ export const SearchRCNBigTaihoMix = async (req: Request, res: Response) => {
 
 export const CreateMixBigTaiho = async (req: Request, res: Response) => {
 
-    try{
+    try {
         console.log(req.body)
         const createdBy = req.cookies.user;
-        const sourceid= req.body.fsourceid;
-        const sourcelot= req.body.fsourcelot;
-        const sourceorigin= req.body.fsourceorigin;
-        const source_rcv_peeling= req.body.fsourcercv_peeling;
-        const source_rcv_sorting= req.body.fsourcercv_sorting;
-        const source_rcv_dpds= req.body.fsourcercv_dpds;
-        const source_rcv_village= req.body.fsourcercv_village;
-        const source_rcv_mayur= req.body.fsourcercv_mayur;
-        const source_rcv_hamsa= req.body.fsourcercv_hamsa;
-        const source_rcv_lw= req.body.fsourcercv_lw;
-        const source_rcv_wholes= req.body.fsourcercv_wholes;
-        
-        const source_backlog= req.body.fsourcebacklog;
+        const sourceid = req.body.fsourceid;
+        const sourcelot = req.body.fsourcelot;
+        const sourceorigin = req.body.fsourceorigin;
+        const source_rcv_peeling = req.body.fsourcercv_peeling;
+        const source_rcv_sorting = req.body.fsourcercv_sorting;
+        const source_rcv_dpds = req.body.fsourcercv_dpds;
+        const source_rcv_village = req.body.fsourcercv_village;
+        const source_rcv_mayur = req.body.fsourcercv_mayur;
+        const source_rcv_hamsa = req.body.fsourcercv_hamsa;
+        const source_rcv_lw = req.body.fsourcercv_lw;
+        const source_rcv_wholes = req.body.fsourcercv_wholes;
+        const destrcv_status = req.body.destrcv_status;
 
-        const transfer_amount =req.body.amount
+        const source_backlog = req.body.fsourcebacklog;
 
-        const destid= req.body.destid;
-        const destlot= req.body.destlot;
-        const destorigin= req.body.destorigin;
-        const dest_rcv_peeling= req.body.destrcv_peeling;
-        const dest_rcv_sorting= req.body.destrcv_sorting;
-        const dest_rcv_dpds= req.body.destrcv_dpds;
-        const dest_rcv_village= req.body.destrcv_village;
-        const dest_rcv_mayur= req.body.destrcv_mayur;
-        const dest_rcv_hamsa= req.body.destrcv_hamsa;
-        const dest_rcv_lw= req.body.destrcv_lw;
-        const dest_rcv_wholes= req.body.destrcv_wholes;
- 
-        const dest_backlog= req.body.destbacklog;
+        const transfer_amount = req.body.amount
 
-        const b_soucre_backlog= req.body.bsourcebacklog;
-        const b_dest_backlog= req.body.bdestbacklog;
+        const destid = req.body.destid;
+        const destlot = req.body.destlot;
+        const destorigin = req.body.destorigin;
+        const dest_rcv_peeling = req.body.destrcv_peeling;
+        const dest_rcv_sorting = req.body.destrcv_sorting;
+        const dest_rcv_dpds = req.body.destrcv_dpds;
+        const dest_rcv_village = req.body.destrcv_village;
+        const dest_rcv_mayur = req.body.destrcv_mayur;
+        const dest_rcv_hamsa = req.body.destrcv_hamsa;
+        const dest_rcv_lw = req.body.destrcv_lw;
+        const dest_rcv_wholes = req.body.destrcv_wholes;
+
+        const dest_backlog = req.body.destbacklog;
+
+        const b_soucre_backlog = req.body.bsourcebacklog;
+        const b_dest_backlog = req.body.bdestbacklog;
 
 
         await sequelize.transaction(async (transaction: any) => {
 
-            const sourceupdate=await bigTaihoModel.update(
-                { 
-                    rcv_peeling: source_rcv_peeling,
-                    rcv_sorting: source_rcv_sorting,
-                    rcv_dpds: source_rcv_dpds,
-                    rcv_village: source_rcv_village,
-                    rcv_mayur: source_rcv_mayur,
-                    rcv_hamsa: source_rcv_hamsa,
-                    rcv_lw: source_rcv_lw,
-                    rcv_wholes: source_rcv_wholes,
-                    current_backlog:source_backlog,                   
-                },
-                {
-                    where: {
-                        id:sourceid
-                    }, transaction
-                }
-            );
-            const destdata=await bigTaihoModel.findOne({
-                attributes: ['mixingLot'],
+            const sourcedata = await bigTaihoModel.findOne({
+                attributes: ['rcv_peeling', 'issue_add_4'],
                 where: {
-                    id:destid
-        
+                    id: sourceid
                 },
-        
             });
-            if (destdata && destdata.dataValues.mixingLot){
-                const destupdate=await bigTaihoModel.update(
-                    { 
-                        rcv_peeling: dest_rcv_peeling,
-                        rcv_sorting: dest_rcv_sorting,
-                        rcv_dpds: dest_rcv_dpds,
-                        rcv_village: dest_rcv_village,
-                        rcv_mayur: dest_rcv_mayur,
-                        rcv_hamsa: dest_rcv_hamsa,
-                        rcv_lw: dest_rcv_lw,
-                        rcv_wholes: dest_rcv_wholes,
-                        current_backlog:dest_backlog, 
-                        mixingLot:sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`)                  
+
+            let sourceupdate
+            if (sourcedata) {
+                const peeldiff = parseFloat(sourcedata.dataValues.issue_add_4) - parseFloat(source_rcv_peeling)
+                const totbeforeborma = parseFloat(sourcedata.dataValues.rcv_peeling) - peeldiff
+                const totafterborma = parseFloat(source_rcv_peeling)
+                sourceupdate = await bigTaihoModel.update(
+                    {
+                        rcv_peeling: sequelize.literal(`rcv_peeling- ${peeldiff}`),
+                        issue_add_3: ((totbeforeborma - totafterborma) / totbeforeborma) * 100,
+                        issue_add_4: source_rcv_peeling,
+                        rcv_sorting: source_rcv_sorting,
+                        rcv_dpds: source_rcv_dpds,
+                        rcv_village: source_rcv_village,
+                        rcv_mayur: source_rcv_mayur,
+                        rcv_hamsa: source_rcv_hamsa,
+                        rcv_lw: source_rcv_lw,
+                        rcv_wholes: source_rcv_wholes,
+                        current_backlog: source_backlog,
                     },
                     {
                         where: {
-                            id:destid
+                            id: sourceid
                         }, transaction
                     }
                 );
-                if(sourceupdate && destupdate){
-                    const mixcreate=await mixingModel.create(
-                        {     
-                            FromLotNo:sourcelot,
-                            Fromorigin:sourceorigin,
-                            ToLotNo:destlot,
-                            Toorigin:destorigin,
-                            amount:transfer_amount,
-                            date:new Date(),
-                            Section:'BigTaiho',
-                            amountBeforeBacklog:b_soucre_backlog,
-                            amountAfterBacklog:source_backlog,
+            }
+            const destdata = await bigTaihoModel.findOne({
+                attributes: ['mixingLot', 'rcv_peeling', 'issue_add_4'],
+                where: {
+                    id: destid
+
+                },
+
+            });
+
+            if (destdata) 
+            {
+                let destupdate
+                if (Number(destrcv_status) === 0) {
+                    destupdate = await bigTaihoModel.update(
+                        {
+                            rcv_peeling: dest_rcv_peeling,
+                            rcv_sorting: dest_rcv_sorting,
+                            rcv_dpds: dest_rcv_dpds,
+                            rcv_village: dest_rcv_village,
+                            rcv_mayur: dest_rcv_mayur,
+                            rcv_hamsa: dest_rcv_hamsa,
+                            rcv_lw: dest_rcv_lw,
+                            rcv_wholes: dest_rcv_wholes,
+                            current_backlog: dest_backlog,
+                            mixingLot: destdata.dataValues.mixingLot ?
+                                sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`) : `${sourcelot}(${sourceorigin})`,
+                        },
+                        {
+                            where: {
+                                id: destid
+                            }, transaction
+                        }
+                    );
+                }
+                else {
+                    const peeldiffD = parseFloat(dest_rcv_peeling) - parseFloat(destdata.dataValues.issue_add_4)
+                    const totbeforebormaD = parseFloat(destdata.dataValues.rcv_peeling) + peeldiffD
+                    const totafterbormaD = parseFloat(dest_rcv_peeling)
+                    destupdate = await bigTaihoModel.update(
+                        {
+                            rcv_peeling: sequelize.literal(`rcv_peeling+ ${peeldiffD}`),
+                            issue_add_3: ((totbeforebormaD - totafterbormaD) / totbeforebormaD) * 100,
+                            issue_add_4: dest_rcv_peeling,
+                            rcv_sorting: dest_rcv_sorting,
+                            rcv_dpds: dest_rcv_dpds,
+                            rcv_village: dest_rcv_village,
+                            rcv_mayur: dest_rcv_mayur,
+                            rcv_hamsa: dest_rcv_hamsa,
+                            rcv_lw: dest_rcv_lw,
+                            rcv_wholes: dest_rcv_wholes,
+                            current_backlog: dest_backlog,
+                            mixingLot: destdata.dataValues.mixingLot ?
+                                sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`) : `${sourcelot}(${sourceorigin})`,
+                        },
+                        {
+                            where: {
+                                id: destid
+                            }, transaction
+                        }
+                    );
+
+                }
+
+                if (sourceupdate && destupdate) {
+                    const mixcreate = await mixingModel.create(
+                        {
+                            FromLotNo: sourcelot,
+                            Fromorigin: sourceorigin,
+                            ToLotNo: destlot,
+                            Toorigin: destorigin,
+                            amount: transfer_amount,
+                            date: new Date(),
+                            Section: 'BigTaiho',
+                            amountBeforeBacklog: b_soucre_backlog,
+                            amountAfterBacklog: source_backlog,
                             destamountBeforeBacklog: b_dest_backlog,
                             destamountAfterBacklog: dest_backlog,
                             createdBy: createdBy,
@@ -1704,78 +1755,23 @@ export const CreateMixBigTaiho = async (req: Request, res: Response) => {
                             transaction
                         }
                     );
-                    if(mixcreate){
+                    if (mixcreate) {
                         return res.status(200).json({ message: "Mixing Performed Successfully" });
 
                     }
-                    else{
-                        return res.status(500).json({ message: "Internal Server Error"});
+                    else {
+                        return res.status(500).json({ message: "Internal Server Error" });
                     }
                 }
-                else{
-                    return res.status(500).json({ message: "Internal Server Error"});
-                }
-            }
-            else{
-                const destupdate=await bigTaihoModel.update(
-                    { 
-                        rcv_peeling: dest_rcv_peeling,
-                        rcv_sorting: dest_rcv_sorting,
-                        rcv_dpds: dest_rcv_dpds,
-                        rcv_village: dest_rcv_village,
-                        rcv_mayur: dest_rcv_mayur,
-                        rcv_hamsa: dest_rcv_hamsa,
-                        rcv_lw: dest_rcv_lw,
-                        rcv_wholes: dest_rcv_wholes,
-                        current_backlog:dest_backlog, 
-                        mixingLot:`${sourcelot}(${sourceorigin})`             
-                    },
-                    {
-                        where: {
-                            id:destid
-                        }, transaction
-                    }
-                );
-                if(sourceupdate && destupdate){
-                    const mixcreate=await mixingModel.create(
-                        {     
-                            FromLotNo:sourcelot,
-                            Fromorigin:sourceorigin,
-                            ToLotNo:destlot,
-                            Toorigin:destorigin,
-                            amount:transfer_amount,
-                            date:new Date(),
-                            Section:'BigTaiho',
-                            amountBeforeBacklog:b_soucre_backlog,
-                            amountAfterBacklog:source_backlog,
-                            destamountBeforeBacklog: b_dest_backlog,
-                            destamountAfterBacklog: dest_backlog,
-                            createdBy: createdBy,
-                        },
-                        {
-                            transaction
-                        }
-                    );
-                    if(mixcreate){
-                        return res.status(200).json({ message: "Mixing Performed Successfully" });
-
-                    }
-                    else{
-                        return res.status(500).json({ message: "Internal Server Error"});
-                    }
-                }
-                else{
-                    return res.status(500).json({ message: "Internal Server Error"});
+                else {
+                    return res.status(500).json({ message: "Internal Server Error" });
                 }
             }
-
-           
-
         })
 
 
     }
-    catch(err){
+    catch (err) {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error", error: err });
     }
