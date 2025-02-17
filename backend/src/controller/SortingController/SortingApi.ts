@@ -644,7 +644,7 @@ export const CreateReissueSorting = async (req: Request, res: Response) => {
                             issue_add_8: data.issue_add_8,
                             issue_add_9: data.issue_add_9,
                             issue_add_10: data.issue_add_10,
-                            entry_backlog: parseFloat(data.issue_add_1) -
+                            entry_backlog: parseFloat(data.issue_add_1)
                                 - (parseFloat(data.issue_jjh)
                                     + parseFloat(data.issue_jjh1) + parseFloat(data.issue_sjh) + parseFloat(data.issue_jk) + parseFloat(data.issue_jk1)
                                     + parseFloat(data.issue_k) + parseFloat(data.issue_k1) + parseFloat(data.issue_lwp1) + parseFloat(data.issue_lwp)
@@ -654,7 +654,7 @@ export const CreateReissueSorting = async (req: Request, res: Response) => {
                                     + parseFloat(data.issue_add_10)
                                 ),
                             current_backlog: parseFloat(data.issue_add_1) -
-                                - (parseFloat(data.issue_jjh)
+                                 (parseFloat(data.issue_jjh)
                                     + parseFloat(data.issue_jjh1) + parseFloat(data.issue_sjh) + parseFloat(data.issue_jk) + parseFloat(data.issue_jk1)
                                     + parseFloat(data.issue_k) + parseFloat(data.issue_k1) + parseFloat(data.issue_lwp1) + parseFloat(data.issue_lwp)
                                     + parseFloat(data.issue_s) + parseFloat(data.issue_ss) + parseFloat(data.issue_yk) + parseFloat(data.issue_sp2)
