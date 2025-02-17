@@ -204,6 +204,7 @@ const RCNSortingReMix = (props:Props) => {
                 setdestrcv_sp1N(data1.rcnEntries.issue_add_9 ? data1.rcnEntries.issue_add_9 :0)
                 setdestrcv_jkkN(data1.rcnEntries.issue_add_8 ? data1.rcnEntries.issue_add_8 :0)
                 setdestrcv_bigt(data1.rcnEntries.rcv_bigTaiho ? data1.rcnEntries.rcv_bigTaiho :0)
+                setdestrcv_status(data1.rcnEntries.Status)
                setdestbacklog(data1.rcnEntries.current_backlog)
             }
             else if(data1.rcnEntries && data1.rcnEntries.current_backlog && data1.rcnEntries.editStatus==='Pending'){
@@ -512,30 +513,30 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_sjh:'NA'}</TableCell>
                             :<TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_sjhN:'NA'}</TableCell>}
 
-                            <TableCell className="text-center  bg-cyan-100">{parseInt(datarcv.Status)===0? datarcv.rcv_sjh1 :datarcv.issue_add_6}</TableCell>
+                            <TableCell className="text-center  bg-red-100">{parseInt(datarcv.Status)===0? datarcv.rcv_sjh1 :datarcv.issue_add_6}</TableCell>
                             {parseInt(datarcv.Status)===0 ?
-                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_sjh1:'NA'}</TableCell>
-                            :<TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_sjh1N:'NA'}</TableCell>}
+                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_sjh1:'NA'}</TableCell>
+                            :<TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_sjh1N:'NA'}</TableCell>}
 
-                            <TableCell className="text-center  bg-cyan-100">{parseInt(datarcv.Status)===0? datarcv.rcv_jjh :datarcv.issue_add_4}</TableCell>
+                            <TableCell className="text-center  bg-yellow-100">{parseInt(datarcv.Status)===0? datarcv.rcv_jjh :datarcv.issue_add_4}</TableCell>
                             {parseInt(datarcv.Status)===0 ?
-                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_jjh:'NA'}</TableCell>
-                            :<TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_jjhN:'NA'}</TableCell>}
+                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_jjh:'NA'}</TableCell>
+                            :<TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_jjhN:'NA'}</TableCell>}
 
-                            <TableCell className="text-center  bg-cyan-100">{parseInt(datarcv.Status)===0? datarcv.rcv_jk_k :datarcv.issue_add_8}</TableCell>
+                            <TableCell className="text-center  bg-green-100">{parseInt(datarcv.Status)===0? datarcv.rcv_jk_k :datarcv.issue_add_8}</TableCell>
                             {parseInt(datarcv.Status)===0 ?
-                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_jkk:'NA'}</TableCell>
-                            :<TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_jkkN:'NA'}</TableCell>}
+                            <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? destrcv_jkk:'NA'}</TableCell>
+                            :<TableCell className="text-center bg-green-100 font-semibold ">{successflag ? destrcv_jkkN:'NA'}</TableCell>}
 
-                            <TableCell className="text-center  bg-cyan-100">{parseInt(datarcv.Status)===0? datarcv.rcv_sp1 :datarcv.issue_add_9}</TableCell>
+                            <TableCell className="text-center  bg-yellow-100">{parseInt(datarcv.Status)===0? datarcv.rcv_sp1 :datarcv.issue_add_9}</TableCell>
                             {parseInt(datarcv.Status)===0 ?
-                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_sp1:'NA'}</TableCell>
-                            :<TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_sp1N:'NA'}</TableCell>}
+                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_sp1:'NA'}</TableCell>
+                            :<TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_sp1N:'NA'}</TableCell>}
 
-                            <TableCell className="text-center  bg-cyan-100">{parseInt(datarcv.Status)===0? datarcv.rcv_jh1 :datarcv.issue_add_7}</TableCell>
+                            <TableCell className="text-center  bg-red-100">{parseInt(datarcv.Status)===0? datarcv.rcv_jh1 :datarcv.issue_add_7}</TableCell>
                             {parseInt(datarcv.Status)===0 ?
-                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_jh1:'NA'}</TableCell>
-                            :<TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_jh1N:'NA'}</TableCell>}
+                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_jh1:'NA'}</TableCell>
+                            :<TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_jh1N:'NA'}</TableCell>}
 
                             
                             <TableCell className="text-center  bg-cyan-100">{datarcv.rcv_bigTaiho ? datarcv.rcv_bigTaiho:''}</TableCell>

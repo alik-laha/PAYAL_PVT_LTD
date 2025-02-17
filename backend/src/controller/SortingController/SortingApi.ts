@@ -1579,9 +1579,9 @@ export const CreateMixSorting = async (req: Request, res: Response) => {
 
         await sequelize.transaction(async (transaction: any) => {
 
-            const sourcedata = await DPDS.findOne({
-                attributes: ['rcv_sjh1','rcv_jjh','rcv_jk_k','rcv_sp1',
-                    'rcv_bigTaiho','rcv_jh1','issue_add_4','issue_add_5','issue_add_6',
+            const sourcedata = await SortingModel.findOne({
+                attributes: ['rcv_sjh','rcv_sjh1','rcv_jjh','rcv_jk_k','rcv_sp1','rcv_jh1',
+                'rcv_bigTaiho','issue_add_4','issue_add_5','issue_add_6',
                 'issue_add_7','issue_add_8','issue_add_9'],
                 where: {
                     id: sourceid
@@ -1600,13 +1600,15 @@ export const CreateMixSorting = async (req: Request, res: Response) => {
                 const jh1diff=parseFloat(sourcedata.dataValues.issue_add_7)-parseFloat(source_rcv_jh1)
                 const jkkdiff=parseFloat(sourcedata.dataValues.issue_add_8)-parseFloat(source_rcv_jk_k)
                 const sp1diff=parseFloat(sourcedata.dataValues.issue_add_9)-parseFloat(source_rcv_sp1)
-                const totbeforeborma=(parseFloat(sourcedata.dataValues.rcv_jjh)+jjhdiff)
-                +(parseFloat(sourcedata.dataValues.rcv_sjh)-sjhdiff)+(parseFloat(sourcedata.dataValues.rcv_sjh1)-  sjh1diff)+
-                (parseFloat(sourcedata.dataValues.rcv_jh1)-jh1diff)
-                +(parseFloat(sourcedata.dataValues.rcv_jk_k)-jkkdiff)+(parseFloat(sourcedata.dataValues.rcv_sp1)-  sp1diff)
+
+                const totbeforeborma=(parseFloat(sourcedata.dataValues.rcv_jjh)-jjhdiff)+(parseFloat(sourcedata.dataValues.rcv_sjh)-sjhdiff)
+                +(parseFloat(sourcedata.dataValues.rcv_sjh1)-sjh1diff)+(parseFloat(sourcedata.dataValues.rcv_jh1)-jh1diff)
+                +(parseFloat(sourcedata.dataValues.rcv_jk_k)-jkkdiff)+(parseFloat(sourcedata.dataValues.rcv_sp1)-sp1diff)
+
+                console.log(totbeforeborma)
                 const totafterborma=parseFloat(source_rcv_jjh)+parseFloat(source_rcv_sjh)+parseFloat(source_rcv_sjh1)+
                 parseFloat(source_rcv_jh1)+parseFloat(source_rcv_jk_k)+parseFloat(source_rcv_sp1)
-
+                console.log(totafterborma)
                 sourceupdate=await SortingModel.update(
                     { 
                         rcv_jjh: sequelize.literal(`rcv_jjh- ${jjhdiff}`),
@@ -1635,7 +1637,7 @@ export const CreateMixSorting = async (req: Request, res: Response) => {
 
             
             const destdata=await SortingModel.findOne({
-                attributes: ['mixingLot','rcv_sjh1','rcv_jjh','rcv_jk_k','rcv_sp1',
+                attributes: ['mixingLot','rcv_sjh','rcv_sjh1','rcv_jjh','rcv_jk_k','rcv_sp1',
                     'rcv_bigTaiho','rcv_jh1','issue_add_4','issue_add_5','issue_add_6',
                 'issue_add_7','issue_add_8','issue_add_9'],
                 where: {
@@ -1674,13 +1676,16 @@ export const CreateMixSorting = async (req: Request, res: Response) => {
                     const jh1diffD=parseFloat(dest_rcv_jh1)-parseFloat(destdata.dataValues.issue_add_7)
                     const jkkdiffD=parseFloat(dest_rcv_jk_k)-parseFloat(destdata.dataValues.issue_add_8)
                     const sp1diffD=parseFloat(dest_rcv_sp1)-parseFloat(destdata.dataValues.issue_add_9)
+
                     const totbeforebormaD=(parseFloat(destdata.dataValues.rcv_jjh)+jjhdiffD)
                     +(parseFloat(destdata.dataValues.rcv_sjh)+sjhdiffD)+(parseFloat(destdata.dataValues.rcv_sjh1)+  sjh1diffD)+
                     (parseFloat(destdata.dataValues.rcv_jh1)+jh1diffD)
                     +(parseFloat(destdata.dataValues.rcv_jk_k)+jkkdiffD)+(parseFloat(destdata.dataValues.rcv_sp1)+  sp1diffD)
+
+                    console.log(totbeforebormaD)
                     const totafterbormaD=parseFloat(dest_rcv_jjh)+parseFloat(dest_rcv_sjh)+parseFloat(dest_rcv_sjh1)+
                     parseFloat(dest_rcv_jh1)+parseFloat(dest_rcv_jk_k)+parseFloat(dest_rcv_sp1)
-
+                    console.log(totafterbormaD)
                     destupdate=await SortingModel.update(
                         { 
                             rcv_jjh: sequelize.literal(`rcv_jjh+ ${jjhdiffD}`),
