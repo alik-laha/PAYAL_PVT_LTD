@@ -415,15 +415,15 @@ const QCPackageMaterialTable = () => {
                     <TableHead className="text-center" >GatePass_No</TableHead>
                     <TableHead className="text-center" >Receiving_Date</TableHead>
                     <TableHead className="text-center" >QC Status</TableHead>
-                    <TableHead className="text-center" >Invoice_No</TableHead>
+                    <TableHead className="text-center" >Invoice_No(Packaging_Material)</TableHead>
                     <TableHead className="text-center" >Invoice_Date </TableHead>
 
                    
-                    <TableHead className="text-center" >Item_Name(Sku)</TableHead>
+                    <TableHead className="text-center" >Item_Name(Packaging_Material_SKU)</TableHead>
                     
                     <TableHead className="text-center" >Quantity</TableHead>
                     <TableHead className="text-center" >Unit</TableHead>
-                    <TableHead className="text-center" >Vendor_Name</TableHead>
+                    <TableHead className="text-center" >Vendor_Name(QC_Packaging_Material)</TableHead>
                     <TableHead className="text-center" >Leakage Test</TableHead>
                     <TableHead className="text-center" >Drop Test</TableHead>
                     <TableHead className="text-center" >Seal Condition</TableHead>
@@ -441,7 +441,7 @@ const QCPackageMaterialTable = () => {
                     <TableHead className="text-center" >Gsm</TableHead>
                     <TableHead className="text-center" >Avg_Weight(gm)</TableHead>
                 
-                    <TableHead className="text-center" >Remarks</TableHead>
+                    <TableHead className="text-center" >Remarks(Regarding_Quality_PM)</TableHead>
                    
                     
                     <TableHead className="text-center" >Damage Image</TableHead>

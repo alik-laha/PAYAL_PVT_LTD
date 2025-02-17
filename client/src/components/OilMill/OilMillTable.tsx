@@ -351,10 +351,10 @@ const OilMillTable = () => {
 
                         <TableHead className="text-center" >GatePass_Type</TableHead>
                         <TableHead className="text-center" >Receiving_Date</TableHead>
-                        <TableHead className="text-center" >Vehicle_No</TableHead>
+                        <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
 
                         <TableHead className="text-center" >Initial_Weight(Kg)</TableHead>
-                        <TableHead className="text-center" >Type</TableHead>
+                        <TableHead className="text-center" >OilMill_Type</TableHead>
                      
                         <TableHead className="text-center" >Invoice_No.</TableHead>
                         <TableHead className="text-center" >Invoice_Date</TableHead>
@@ -393,7 +393,7 @@ const OilMillTable = () => {
                                 <TableCell className="text-center">{item.vendorName}</TableCell>
                                 <TableCell className="text-center font-semibold">{item.quantity}</TableCell>
 
-                            <TableCell className="text-center" >{item.totalWt}</TableCell> 
+                                <TableCell className="text-center" >{item.totalWt ?formatNumber(item.totalWt):0}</TableCell> 
                                 <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0 }</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
                                 <TableCell className="text-center">
@@ -457,7 +457,7 @@ const OilMillTable = () => {
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.quantity}</TableCell>
 
-                                      <TableCell className="text-center" >{item.totalWt}</TableCell> 
+                                      <TableCell className="text-center" >{item.totalWt ?formatNumber(item.totalWt):0}</TableCell> 
                                         <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
 
