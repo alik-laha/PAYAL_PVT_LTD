@@ -138,7 +138,8 @@ const DPDSTable = () => {
             Borma_Loss_Percentage: formatNumber(item.issue_add_3),
             Receive_Sorting: item.rcv_Sorting ? formatNumber(item.rcv_Sorting) : 0,
             Receive_BigTaiho: item.rcv_transfer ? formatNumber(item.rcv_transfer) : 0,
-            Receive_Total: formatNumber(item.issue_add_1),
+            Receive_Total:formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
+            +(item.rcv_Sorting ? parseFloat(item.rcv_Sorting) :0)+(item.rcv_transfer ? parseFloat(item.rcv_transfer) :0)).toString()) ,
             Issue_M_DS: formatNumber(item.issue_m_ds),
             Issue_M_DP: formatNumber(item.issue_m_dp),
             Issue_K_DP: formatNumber(item.issue_k_dp),
@@ -198,7 +199,8 @@ const DPDSTable = () => {
             Borma_Loss_Percentage: formatNumber(item.issue_add_3),
             Receive_Sorting: item.rcv_Sorting ? formatNumber(item.rcv_Sorting) : 0,
             Receive_BigTaiho: item.rcv_transfer ? formatNumber(item.rcv_transfer) : 0,
-            Receive_Total: formatNumber(item.issue_add_1),
+            Receive_Total:formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
+            +(item.rcv_Sorting ? parseFloat(item.rcv_Sorting) :0)+(item.rcv_transfer ? parseFloat(item.rcv_transfer) :0)).toString()) ,
             Issue_M_DS: formatNumber(item.issue_m_ds),
             Issue_M_DP: formatNumber(item.issue_m_dp),
             Issue_K_DP: formatNumber(item.issue_k_dp),
