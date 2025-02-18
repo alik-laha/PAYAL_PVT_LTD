@@ -23,6 +23,7 @@ interface SortingRowData{
     alt_id: number;
     rcv_transfer: number;
     rcv_bigTaiho: number;
+    rcv_bigTaihoN: number;
     rcv_jjh: number;
     rcv_sjh: number;
     rcv_sjh1: number;
@@ -114,6 +115,7 @@ const RCNSortingReCreateForm = (props:Props) => {
             origin: props.borma[0].origin,
             mixingLot:props.borma[0].mixingLot,
             rcv_bigTaiho:0,
+            rcv_bigTaihoN:0,
             rcv_transfer:0,
             rcv_peeling:props.borma[0].current_backlog,
             rcv_jjh: 0,
@@ -295,6 +297,7 @@ const RCNSortingReCreateForm = (props:Props) => {
             rows[0].issue_add_7=((rows[0].rcv_jh1 ? Number(rows[0].rcv_jh1):0)*((100-Number(rows[0].issue_add_3))/100)) 
             rows[0].issue_add_8=(Number(rows[0].rcv_jk_k)*((100-Number(rows[0].issue_add_3))/100))
             rows[0].issue_add_9=(Number(rows[0].rcv_sp1)*((100-Number(rows[0].issue_add_3))/100))
+            rows[0].rcv_bigTaihoN=((rows[0].rcv_bigTaiho ?Number(rows[0].rcv_bigTaiho):0)*((100-Number(rows[0].issue_add_3))/100))
         }
         
     }, [rows[0]]); 

@@ -581,11 +581,11 @@ export const CreateReissueDPDS = async (req: Request, res: Response) => {
                             rcv_dp: data.rcv_dp,
                             rcv_ds: data.rcv_ds,
                             rcv_dp1: data.rcv_dp1,
-                            rcv_Sorting: data.rcv_Sorting,
+                            rcv_Sorting: data.rcv_SortingN,
 
                             noOfdayOperators: data.dayoperator,
                             noOfnightOperators: data.nightoperator,
-                            rcv_transfer: data.rcv_transfer,
+                            rcv_transfer: data.rcv_transferN,
                             issue_m_ds: data.issue_m_ds,
                             issue_m_dp: data.issue_m_dp,
                             issue_k_dp: data.issue_k_dp,

@@ -611,7 +611,7 @@ export const CreateReissueSorting = async (req: Request, res: Response) => {
                             rcv_jh1: data.rcv_jh1,
                             rcv_jk_k: data.rcv_jk_k,
                             rcv_sp1: data.rcv_sp1,
-                            rcv_bigTaiho: data.rcv_bigTaiho,
+                            rcv_bigTaiho: data.rcv_bigTaihoN,
                             noOfdayOperators: data.dayoperator,
                             noOfnightOperators: data.nightoperator,
                             rcv_transfer: data.rcv_transfer,

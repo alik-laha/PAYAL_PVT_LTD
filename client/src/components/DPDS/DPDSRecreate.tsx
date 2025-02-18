@@ -23,6 +23,8 @@ interface DPDSRowData{
     alt_id:number;
     rcv_transfer: number;
     rcv_Sorting: number;
+    rcv_transferN: number;
+    rcv_SortingN: number;
     rcv_dp: number;
     rcv_ds: number;
     rcv_dp1: number;
@@ -115,12 +117,11 @@ const RCNDPDSReCreateForm = (props:Props) => {
             alt_id:props.borma[0].altid,
             origin: props.borma[0].origin,
             mixingLot:props.borma[0].mixingLot,
-            rcv_sorting:0,
-            rcv_DPDS:0,
-            rcv_village:0,
             rcv_transfer:0,
+            rcv_transferN:0,
             rcv_peeling:props.borma[0].current_backlog,
             rcv_Sorting: 0 ,
+            rcv_SortingN: 0 ,
             rcv_dp: 0 ,
             rcv_ds: 0,
             rcv_dp1: 0 ,
@@ -291,6 +292,8 @@ const RCNDPDSReCreateForm = (props:Props) => {
             rows[0].issue_add_4=((rows[0].rcv_dp ? Number(rows[0].rcv_dp):0)*((100-Number(rows[0].issue_add_3))/100)) 
             rows[0].issue_add_5=(Number(rows[0].rcv_ds)*((100-Number(rows[0].issue_add_3))/100))
             rows[0].issue_add_6=(Number(rows[0].rcv_dp1)*((100-Number(rows[0].issue_add_3))/100))
+            rows[0].rcv_SortingN=((rows[0].rcv_Sorting ? Number(rows[0].rcv_Sorting):0)*((100-Number(rows[0].issue_add_3))/100)) 
+            rows[0].rcv_transferN=((rows[0].rcv_transfer ? Number(rows[0].rcv_transfer):0)*((100-Number(rows[0].issue_add_3))/100)) 
         }
         
     }, [rows[0]]); 

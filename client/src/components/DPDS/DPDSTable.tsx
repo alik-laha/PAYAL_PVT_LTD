@@ -138,7 +138,7 @@ const DPDSTable = () => {
             Borma_Loss_Percentage: formatNumber(item.issue_add_3),
             Receive_Sorting: item.rcv_Sorting ? formatNumber(item.rcv_Sorting) : 0,
             Receive_BigTaiho: item.rcv_transfer ? formatNumber(item.rcv_transfer) : 0,
-
+            Receive_Total: formatNumber(item.issue_add_1),
             Issue_M_DS: formatNumber(item.issue_m_ds),
             Issue_M_DP: formatNumber(item.issue_m_dp),
             Issue_K_DP: formatNumber(item.issue_k_dp),
@@ -198,6 +198,7 @@ const DPDSTable = () => {
             Borma_Loss_Percentage: formatNumber(item.issue_add_3),
             Receive_Sorting: item.rcv_Sorting ? formatNumber(item.rcv_Sorting) : 0,
             Receive_BigTaiho: item.rcv_transfer ? formatNumber(item.rcv_transfer) : 0,
+            Receive_Total: formatNumber(item.issue_add_1),
             Issue_M_DS: formatNumber(item.issue_m_ds),
             Issue_M_DP: formatNumber(item.issue_m_dp),
             Issue_K_DP: formatNumber(item.issue_k_dp),
@@ -410,14 +411,15 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 
                 <TableHead className="text-center">Peeling Opening</TableHead>
                 
-                <TableHead className="text-center">Borma_Loss(Kg)</TableHead>
-                <TableHead className="text-center">Borma_Loss(%)</TableHead>
+                <TableHead className="text-center">Peeling Borma_Loss(Kg)</TableHead>
+                <TableHead className="text-center">Peeling Borma_Loss(%)</TableHead>
                 <TableHead className="text-center"> DP (Borma)</TableHead>
                 <TableHead className="text-center"> DS (Borma)</TableHead>
                 <TableHead className="text-center"> DP1 (Borma)</TableHead>
-                <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
-                <TableHead className="text-center">Receive Sorting</TableHead>
-                <TableHead className="text-center">Receive BigTaiho</TableHead>
+                <TableHead className="text-center">Receive_Peeling (Borma)</TableHead>
+                <TableHead className="text-center">Receive_Sorting (Borma)</TableHead>
+                <TableHead className="text-center">Receive_BigTaiho (Borma)</TableHead>
+                <TableHead className="text-center">DPDS_Total_Opening (Borma)</TableHead>
                 <TableHead className="text-center">Issue M_DS</TableHead>
                 <TableHead className="text-center">Issue M_DP</TableHead>
                 <TableHead className="text-center">Issue K_DP</TableHead>
@@ -488,7 +490,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     
                                     <TableCell  className="text-center bg-yellow-100 font-semibold">{item.rcv_Sorting ? formatNumber(item.rcv_Sorting) :0}</TableCell>
                                     <TableCell  className="text-center bg-yellow-100 font-semibold ">{item.rcv_transfer ? formatNumber(item.rcv_transfer) :0}</TableCell>
-
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">
+                                    {formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
+                                +(item.rcv_Sorting ? parseFloat(item.rcv_Sorting) :0)+(item.rcv_transfer ? parseFloat(item.rcv_transfer) :0)).toString())}
+                                    </TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_m_ds)}</TableCell>       
                                     <TableCell className="text-center ">{formatNumber(item.issue_m_dp)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_k_dp)}</TableCell>
@@ -597,7 +602,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     
                                     <TableCell  className="text-center bg-yellow-100 font-semibold">{item.rcv_Sorting ? formatNumber(item.rcv_Sorting) :0}</TableCell>
                                     <TableCell  className="text-center bg-yellow-100 font-semibold ">{item.rcv_transfer ? formatNumber(item.rcv_transfer) :0}</TableCell>
-
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">
+                                    {formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
+                                +(item.rcv_Sorting ? parseFloat(item.rcv_Sorting) :0)+(item.rcv_transfer ? parseFloat(item.rcv_transfer) :0)).toString())}
+                                    </TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_m_ds)}</TableCell>       
                                     <TableCell className="text-center ">{formatNumber(item.issue_m_dp)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_k_dp)}</TableCell>

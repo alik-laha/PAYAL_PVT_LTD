@@ -138,6 +138,14 @@ const BigTaihoTable = () => {
             Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
             Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
             Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+            Receive_Total: (parseFloat(item.issue_add_1) + 
+                (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
+                (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
+                (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
+                (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
+                (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) + 
+                (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) + 
+                (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2),
             Issue_ssp: formatNumber(item.issue_ssp),
             Issue_ssp_small: formatNumber(item.issue_ssp_small),
             Issue_swp_1: formatNumber(item.issue_swp_1),
@@ -203,6 +211,14 @@ const BigTaihoTable = () => {
             Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
             Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
             Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+            Receive_Total: (parseFloat(item.issue_add_1) + 
+                (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
+                (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
+                (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
+                (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
+                (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) + 
+                (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) + 
+                (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2),
 
             
             Issue_ssp: formatNumber(item.issue_ssp),
@@ -451,6 +467,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Receive Hamsa</TableHead>
                     <TableHead className="text-center">Receive LW</TableHead>
                     <TableHead className="text-center">Receive Wholes</TableHead>
+                    <TableHead className="text-center">BigTaiho_Total_Opening (Borma)</TableHead>
                     <TableHead className="text-center">Issue SSP</TableHead>
                     <TableHead className="text-center">Issue SSP(Small)</TableHead>
                     <TableHead className="text-center">Issue SWP_1</TableHead>
@@ -534,6 +551,14 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_hamsa ? formatNumber(item.rcv_hamsa) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) :0}</TableCell>
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">{(parseFloat(item.issue_add_1) + 
+                                        (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
+                                        (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
+                                        (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
+                                        (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
+                                        (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) + 
+                                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) + 
+                                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2)} Kg</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_ssp)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_ssp_small)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_swp_1)}</TableCell>
@@ -655,6 +680,16 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_hamsa ? formatNumber(item.rcv_hamsa) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) :0}</TableCell>
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">{(parseFloat(item.issue_add_1) + 
+                                        (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
+                                        (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
+                                        (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
+                                        (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
+                                        (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) + 
+                                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) + 
+                                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2)} Kg</TableCell>
+
+
                                     <TableCell className="text-center ">{formatNumber(item.issue_ssp)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_ssp_small)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_swp_1)}</TableCell>

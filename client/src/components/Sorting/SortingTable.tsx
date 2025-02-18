@@ -498,7 +498,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)).toString())}
                                     </TableCell>
                                     <TableCell className="text-center font-bold bg-yellow-100 text-green-600">{item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) :0}</TableCell>
-                                
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">{formatNumber(item.issue_add_1)} Kg</TableCell>
+
                                     
                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_jjh)}</TableCell>
                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_jjh1)}</TableCell>
@@ -606,7 +607,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)).toString())}
                                     </TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) :0}</TableCell>
-                                
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">{formatNumber(item.issue_add_1)} Kg</TableCell>
+
                                     
                                     
                                     <TableCell className="text-center  ">{formatNumber(item.issue_jjh)}</TableCell>
