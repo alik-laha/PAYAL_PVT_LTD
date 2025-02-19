@@ -56,6 +56,7 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import RCNSortingReMix from "./SortingMix";
 import RCNSortingReCreateForm from "./SortingReissueForm";
+import SortingEditForm from "./SortingEdit";
 
 
 
@@ -143,7 +144,9 @@ const SortingTable = () => {
                 Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8))+ Number(formatNumber(item.issue_add_9)),
                 Borma_Loss_Kg: formatNumber(item.issue_add_2),
                 Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,   
+                Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0, 
+                Receive_Total:formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
+                +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)+item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) :0).toString()),  
                 issue_SJH: formatNumber(item.issue_sjh),
                 issue_JJH: formatNumber(item.issue_jjh),
                 issue_JJH1: formatNumber(item.issue_jjh1),
@@ -158,6 +161,13 @@ const SortingTable = () => {
                 issue_yk: formatNumber(item.issue_yk),
                 issue_sp2:formatNumber(item.issue_sp2),
                 issue_kp:formatNumber(item.issue_kp),
+                Issue_Packing:formatNumber((
+                    parseFloat(item.issue_jjh)+parseFloat(item.issue_jjh1)+
+                    parseFloat(item.issue_sjh) +parseFloat(item.issue_jk)+parseFloat(item.issue_jk1)+
+                    parseFloat(item.issue_k) +parseFloat(item.issue_k1)+parseFloat(item.issue_lwp)+
+                    parseFloat(item.issue_lwp1) +parseFloat(item.issue_s)+parseFloat(item.issue_ss)+
+                    parseFloat(item.issue_k) +parseFloat(item.issue_yk)+parseFloat(item.issue_sp2)+
+                    parseFloat(item.issue_kp) ).toString()),
                 issue_village: formatNumber(item.issue_village),
                 issue_mayur:formatNumber(item.issue_mayur),
                 issue_bigTaiho: formatNumber(item.issue_bigTaiho),
@@ -204,6 +214,8 @@ const SortingTable = () => {
                 Borma_Loss_Kg: formatNumber(item.issue_add_2),
                 Borma_Loss_Percentage: formatNumber(item.issue_add_3),
                 Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,   
+                Receive_Total:formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
+                +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)+item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) :0).toString()),
                 issue_SJH: formatNumber(item.issue_sjh),
                 issue_JJH: formatNumber(item.issue_jjh),
                 issue_JJH1: formatNumber(item.issue_jjh1),
@@ -218,6 +230,13 @@ const SortingTable = () => {
                 issue_yk: formatNumber(item.issue_yk),
                 issue_sp2:formatNumber(item.issue_sp2),
                 issue_kp:formatNumber(item.issue_kp),
+                Issue_Packing:formatNumber((
+                    parseFloat(item.issue_jjh)+parseFloat(item.issue_jjh1)+
+                    parseFloat(item.issue_sjh) +parseFloat(item.issue_jk)+parseFloat(item.issue_jk1)+
+                    parseFloat(item.issue_k) +parseFloat(item.issue_k1)+parseFloat(item.issue_lwp)+
+                    parseFloat(item.issue_lwp1) +parseFloat(item.issue_s)+parseFloat(item.issue_ss)+
+                    parseFloat(item.issue_k) +parseFloat(item.issue_yk)+parseFloat(item.issue_sp2)+
+                    parseFloat(item.issue_kp) ).toString()),
                 issue_village: formatNumber(item.issue_village),
                 issue_mayur:formatNumber(item.issue_mayur),
                 issue_bigTaiho: formatNumber(item.issue_bigTaiho),
@@ -412,6 +431,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Opening Peeling</TableHead>
                     <TableHead className="text-center">Borma_Loss(Kg)</TableHead>
                     <TableHead className="text-center">Borma_Loss(%)</TableHead>
+                    
                     <TableHead className="text-center"> JJH (Borma)</TableHead>
                 <TableHead className="text-center"> SJH (Borma)</TableHead>
                 <TableHead className="text-center"> SJH1 (Borma)</TableHead>
@@ -420,7 +440,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <TableHead className="text-center"> SP1 (Borma)</TableHead>
                 <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
                     <TableHead className="text-center">Receive BigTaiho</TableHead>
-                    
+                    <TableHead className="text-center">Sorting_Total_Opening (Borma)</TableHead>
                     <TableHead className="text-center">Issue JJH</TableHead>
                     <TableHead className="text-center">Issue JJH1</TableHead>
                     <TableHead className="text-center">Issue SJH</TableHead>
@@ -445,6 +465,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue Add 8</TableHead>
                     <TableHead className="text-center">Issue Add 9</TableHead>
                     <TableHead className="text-center">Issue Add 10</TableHead> */}
+                     <TableHead className="text-center">Issue Packing</TableHead>
                      <TableHead className="text-center">Issue Village</TableHead>
                     <TableHead className="text-center">Issue Mayur</TableHead>
                     <TableHead className="text-center">Issue BigTaiho</TableHead>
@@ -498,7 +519,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)).toString())}
                                     </TableCell>
                                     <TableCell className="text-center font-bold bg-yellow-100 text-green-600">{item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) :0}</TableCell>
-                                    <TableCell className="text-center font-bold bg-green-500 text-white">{formatNumber(item.issue_add_1)} Kg</TableCell>
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">{formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
+                                +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)+item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) :0).toString())
+                                } Kg</TableCell>
 
                                     
                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_jjh)}</TableCell>
@@ -516,7 +539,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_yk)}</TableCell>
                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_sp2)}</TableCell>
                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(item.issue_kp)}</TableCell>
-                                   
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber((
+                                     parseFloat(item.issue_jjh)+parseFloat(item.issue_jjh1)+
+                                     parseFloat(item.issue_sjh) +parseFloat(item.issue_jk)+parseFloat(item.issue_jk1)+
+                                     parseFloat(item.issue_k) +parseFloat(item.issue_k1)+parseFloat(item.issue_lwp)+
+                                     parseFloat(item.issue_lwp1) +parseFloat(item.issue_s)+parseFloat(item.issue_ss)+
+                                     parseFloat(item.issue_k) +parseFloat(item.issue_yk)+parseFloat(item.issue_sp2)+
+                                     parseFloat(item.issue_kp) ).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.issue_village)}</TableCell>
                                     <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_mayur)}</TableCell>
                                     
@@ -606,8 +635,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     {formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
                                 +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)).toString())}
                                     </TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) :0}</TableCell>
-                                    <TableCell className="text-center font-bold bg-green-500 text-white">{formatNumber(item.issue_add_1)} Kg</TableCell>
+                                    <TableCell className="text-center font-bold bg-yellow-100 ">{item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) :0}</TableCell>
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">{formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
+                                +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)+(item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) :0)).toString())
+                                } Kg</TableCell>
 
                                     
                                     
@@ -626,7 +657,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.issue_yk)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_sp2)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_kp)}</TableCell>
-                                   
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber((
+                                     parseFloat(item.issue_jjh)+parseFloat(item.issue_jjh1)+
+                                     parseFloat(item.issue_sjh) +parseFloat(item.issue_jk)+parseFloat(item.issue_jk1)+
+                                     parseFloat(item.issue_k) +parseFloat(item.issue_k1)+parseFloat(item.issue_lwp)+
+                                     parseFloat(item.issue_lwp1) +parseFloat(item.issue_s)+parseFloat(item.issue_ss)+
+                                     parseFloat(item.issue_k) +parseFloat(item.issue_yk)+parseFloat(item.issue_sp2)+
+                                     parseFloat(item.issue_kp) ).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_village)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_mayur)}</TableCell>
                                     
@@ -658,7 +695,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 <p className='text-1xl pb-1 text-center mt-1'>Sorting Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <HamsaEditForm borma={[item]} /> */}
+                                                        <SortingEditForm borma={[item]} />
                                                     </DialogContent>
                                                     
                                                 </Dialog>

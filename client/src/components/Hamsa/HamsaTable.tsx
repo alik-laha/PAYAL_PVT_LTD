@@ -132,6 +132,10 @@ const HamsaTable = () => {
             Receive_WW: formatNumber(item.rcv_ww),
             Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
             Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
+            Receive_Total:(parseFloat(item.rcv_pw_w) +
+            parseFloat(item.rcv_w_lot)+parseFloat(item.rcv_ww)+                                  
+               (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
+               (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)).toFixed(2),
             issue_pw_210: formatNumber(item.issue_pw_210),
             issue_w_210: formatNumber(item.issue_w_210),
             issue_ww_210: formatNumber(item.issue_ww_210),
@@ -150,13 +154,17 @@ const HamsaTable = () => {
             issue_pw_400: formatNumber(item.issue_pw_400),
             issue_w_400: formatNumber(item.issue_w_400),
             issue_ww_400: formatNumber(item.issue_ww_400),
+            Issue_Wholes:formatNumber((parseFloat(item.issue_pw_210) +
+                parseFloat(item.issue_w_210)+parseFloat(item.issue_ww_210)+
+                parseFloat(item.issue_pw_240) +parseFloat(item.issue_w_240)+parseFloat(item.issue_ww_240)+
+                parseFloat(item.issue_pw_280) +parseFloat(item.issue_w_280)+parseFloat(item.issue_ww_280)+
+                parseFloat(item.issue_pw_320) +parseFloat(item.issue_w_320)+parseFloat(item.issue_ww_320)+
+                parseFloat(item.issue_add_1) +parseFloat(item.issue_add_2)+parseFloat(item.issue_add_3)+
+                parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)).toString()),
             Issue_JB: formatNumber(item.issue_jb),
             Issue_BigTaiho: formatNumber(item.issue_bigTaiho),
             Issue_LW: formatNumber(item.issue_lw),
-            Receive_Total:(parseFloat(item.rcv_pw_w) +
-            parseFloat(item.rcv_w_lot)+parseFloat(item.rcv_ww)+                                  
-               (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
-               (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)).toFixed(2),
+            
             Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
             Mc_On_Hamsa_1: handleAMPM(item.Mc_on_1.slice(0, 5)),
             Mc_Off_Hamsa_1: handleAMPM(item.Mc_off_1.slice(0, 5)),
@@ -234,6 +242,13 @@ const HamsaTable = () => {
                 issue_pw_400: formatNumber(item.issue_pw_400),
                 issue_w_400: formatNumber(item.issue_w_400),
                 issue_ww_400: formatNumber(item.issue_ww_400),
+                Issue_Wholes:formatNumber((parseFloat(item.issue_pw_210) +
+                parseFloat(item.issue_w_210)+parseFloat(item.issue_ww_210)+
+                parseFloat(item.issue_pw_240) +parseFloat(item.issue_w_240)+parseFloat(item.issue_ww_240)+
+                parseFloat(item.issue_pw_280) +parseFloat(item.issue_w_280)+parseFloat(item.issue_ww_280)+
+                parseFloat(item.issue_pw_320) +parseFloat(item.issue_w_320)+parseFloat(item.issue_ww_320)+
+                parseFloat(item.issue_add_1) +parseFloat(item.issue_add_2)+parseFloat(item.issue_add_3)+
+                parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)).toString()),
                 Issue_JB: formatNumber(item.issue_jb),
                 Issue_BigTaiho: formatNumber(item.issue_bigTaiho),
                 Issue_LW: formatNumber(item.issue_lw),

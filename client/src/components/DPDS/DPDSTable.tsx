@@ -160,7 +160,13 @@ const DPDSTable = () => {
             Issue_SS: formatNumber(item.issue_ss),
             Issue_OS: formatNumber(item.issue_os),
             Issue_OS1: formatNumber(item.issue_os1),
-
+            Issue_Packing:formatNumber((parseFloat(item.issue_m_ds) +
+            parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
+            parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
+            parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
+            parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
+            parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
+            parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString()),
             Issue_Rejection: formatNumber(item.issue_rejection),
             Issue_Village: formatNumber(item.issue_village),
             Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
@@ -221,7 +227,13 @@ const DPDSTable = () => {
             Issue_SS: formatNumber(item.issue_ss),
             Issue_OS: formatNumber(item.issue_os),
             Issue_OS1: formatNumber(item.issue_os1),
-
+Issue_Packing:formatNumber((parseFloat(item.issue_m_ds) +
+parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
+parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
+parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
+parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
+parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
+parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString()),
             Issue_Rejection: formatNumber(item.issue_rejection),
             Issue_Village: formatNumber(item.issue_village),
             Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
@@ -440,6 +452,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <TableHead className="text-center">Issue SS</TableHead>
                 <TableHead className="text-center">Issue OS</TableHead>
                 <TableHead className="text-center">Issue OS1</TableHead>
+                <TableHead className="text-center">Issue Packing</TableHead>
                 <TableHead className="text-center">Issue Rejection</TableHead>
                 <TableHead className="text-center">Issue Village</TableHead>
                 <TableHead className="text-center">Issue Big_Taiho</TableHead>
@@ -514,6 +527,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.issue_ss)}</TableCell>
                                     <TableCell className="text-center">{formatNumber(item.issue_os)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_os1)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_m_ds) +
+                                     parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
+                                     parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
+                                     parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
+                                     parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
+                                     parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
+                                     parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_village)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
@@ -626,6 +646,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.issue_ss)}</TableCell>
                                     <TableCell className="text-center">{formatNumber(item.issue_os)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_os1)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_m_ds) +
+                                     parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
+                                     parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
+                                     parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
+                                     parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
+                                     parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
+                                     parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100 ">{formatNumber(item.issue_village)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100 ">{formatNumber(item.issue_bigTaiho)}</TableCell>

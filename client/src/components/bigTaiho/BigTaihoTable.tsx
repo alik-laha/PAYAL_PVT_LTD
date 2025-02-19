@@ -163,6 +163,13 @@ const BigTaihoTable = () => {
             Issue_ssp2: formatNumber(item.issue_ssp_2),
             Issue_ssp2_small: formatNumber(item.issue_ssp_2_small),
             Issue_sdp: formatNumber(item.issue_sdp),
+            Issue_Packing:formatNumber((parseFloat(item.issue_ssp) +
+            parseFloat(item.issue_ssp_small)+parseFloat(item.issue_swp_1)+
+            parseFloat(item.issue_wsp) +parseFloat(item.issue_bits)+parseFloat(item.issue_swp)+
+            parseFloat(item.issue_bb) +parseFloat(item.issue_w_bb)+parseFloat(item.issue_bb_A)+
+            parseFloat(item.issue_bb1) +parseFloat(item.issue_bb1_A)+parseFloat(item.issue_bb_2)+
+            parseFloat(item.issue_ssp_1) +parseFloat(item.issue_ssp_1_small)+parseFloat(item.issue_ssp_2)+
+            parseFloat(item.issue_ssp_2_small) +parseFloat(item.issue_sdp)).toString()),
             Issue_Husk: formatNumber(item.issue_husk),
             Issue_Rejection: formatNumber(item.issue_rejection),
             Issue_Village: formatNumber(item.issue_village),
@@ -240,7 +247,13 @@ const BigTaihoTable = () => {
             Issue_sdp: formatNumber(item.issue_sdp),
             
 
-
+            Issue_Packing:formatNumber((parseFloat(item.issue_ssp) +
+            parseFloat(item.issue_ssp_small)+parseFloat(item.issue_swp_1)+
+            parseFloat(item.issue_wsp) +parseFloat(item.issue_bits)+parseFloat(item.issue_swp)+
+            parseFloat(item.issue_bb) +parseFloat(item.issue_w_bb)+parseFloat(item.issue_bb_A)+
+            parseFloat(item.issue_bb1) +parseFloat(item.issue_bb1_A)+parseFloat(item.issue_bb_2)+
+            parseFloat(item.issue_ssp_1) +parseFloat(item.issue_ssp_1_small)+parseFloat(item.issue_ssp_2)+
+            parseFloat(item.issue_ssp_2_small) +parseFloat(item.issue_sdp)).toString()),
             Issue_Husk: formatNumber(item.issue_husk),
             Issue_Rejection: formatNumber(item.issue_rejection),
             Issue_Village: formatNumber(item.issue_village),
@@ -485,7 +498,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue SSP_2</TableHead>
                     <TableHead className="text-center">Issue SSP_2(Small)</TableHead>
                     <TableHead className="text-center">Issue SDP</TableHead>
-
+                    <TableHead className="text-center">Issue Packing</TableHead>
                     <TableHead className="text-center">Issue Husk</TableHead>
                     <TableHead className="text-center">Issue Rejection</TableHead>
                     <TableHead className="text-center">Issue Village</TableHead>
@@ -551,7 +564,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_hamsa ? formatNumber(item.rcv_hamsa) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) :0}</TableCell>
-                                    <TableCell className="text-center font-bold bg-green-500 text-white">{(parseFloat(item.issue_add_1) + 
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">{(parseFloat(item.issue_add_4) + 
                                         (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
                                         (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
                                         (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
@@ -576,6 +589,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.issue_ssp_2)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_ssp_2_small)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_sdp)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_ssp) +
+                                     parseFloat(item.issue_ssp_small)+parseFloat(item.issue_swp_1)+
+                                     parseFloat(item.issue_wsp) +parseFloat(item.issue_bits)+parseFloat(item.issue_swp)+
+                                     parseFloat(item.issue_bb) +parseFloat(item.issue_w_bb)+parseFloat(item.issue_bb_A)+
+                                     parseFloat(item.issue_bb1) +parseFloat(item.issue_bb1_A)+parseFloat(item.issue_bb_2)+
+                                     parseFloat(item.issue_ssp_1) +parseFloat(item.issue_ssp_1_small)+parseFloat(item.issue_ssp_2)+
+                                     parseFloat(item.issue_ssp_2_small) +parseFloat(item.issue_sdp)).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_husk)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_village)}</TableCell>
@@ -680,7 +700,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_hamsa ? formatNumber(item.rcv_hamsa) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) :0}</TableCell>
-                                    <TableCell className="text-center font-bold bg-green-500 text-white">{(parseFloat(item.issue_add_1) + 
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">{(parseFloat(item.issue_add_4) + 
                                         (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
                                         (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
                                         (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
@@ -707,6 +727,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.issue_ssp_2)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_ssp_2_small)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_sdp)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_ssp) +
+                                     parseFloat(item.issue_ssp_small)+parseFloat(item.issue_swp_1)+
+                                     parseFloat(item.issue_wsp) +parseFloat(item.issue_bits)+parseFloat(item.issue_swp)+
+                                     parseFloat(item.issue_bb) +parseFloat(item.issue_w_bb)+parseFloat(item.issue_bb_A)+
+                                     parseFloat(item.issue_bb1) +parseFloat(item.issue_bb1_A)+parseFloat(item.issue_bb_2)+
+                                     parseFloat(item.issue_ssp_1) +parseFloat(item.issue_ssp_1_small)+parseFloat(item.issue_ssp_2)+
+                                     parseFloat(item.issue_ssp_2_small) +parseFloat(item.issue_sdp)).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_husk)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_village)}</TableCell>
