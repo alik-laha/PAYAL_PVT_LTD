@@ -10,6 +10,7 @@ import DPDS from "../../model/dpdsmodel";
 import bigTaihoModel from "../../model/bigTaihoModel";
 import hamsaModel from "../../model/hamsamodel";
 import SortingModel from "../../model/sortingModel";
+import WholesModel from "../../model/wholesModel";
 //import RcnPeeling from "../../model/peelingModel";
 
 
@@ -196,6 +197,14 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
 
 
                  await hamsaModel.create({
+                  
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    
+                    current_backlog:0,
+                 },{transaction});
+
+                 await WholesModel.create({
                   
                     LotNo:data.LotNo,
                     origin:data.origin,
