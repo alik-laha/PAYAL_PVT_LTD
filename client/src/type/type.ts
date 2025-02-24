@@ -1,5 +1,72 @@
 
+export interface PermissionRole {
+    Director: string[];
+    FactoryManager: string[];
+    ReceivingSupervisor: string[];
+    ReceivingPMSupervisor: string[];
+    ReceivingManager: string[];
+    ReceivingAlmondSupervisor:string[];
+    ReceivingStoreSupervisor: string[];
+    ReceivingAgarbatiSupervisor:string[];
+    ReceivingGeneralSupervisor:string[];
+    ReceivingOilMillSupervisor:string[];
+    QCSupervisor: string[];
+    QCManager: string[];
+    GradingSupervisor: string[];
+    BoilingSupervisor: string[];
+    ScoopingSupervisor: string[];
+    PeelingSupervisor:string[];
+    MayurSupervisor:string[];
+    SortingSupervisor:string[];
+    WholesSupervisor:string[];
+    VillageSupervisor:string[];
+    ProductionManager:string[];
+    MaintainanceManager:string[];
+    CleaningSupervisor:string[];
+    BormaSupervisor:string[];
+    Security:string[];
+    GatePassManager:string[];
+    DeputyProductionManager:string[];
 
+}
+
+export interface PermissionDept {
+    Admin: string[];
+    Receiving: string[];
+    Maintainance: string[];
+    Production: string[];
+    QualityControl: string[];
+    GatePass:string[];
+}
+export interface pendingCheckRoles {
+    RCNPrimary: string[];
+    QCRCN: string[];
+    Grading: string[];
+    Boiling: string[];
+    Scooping: string[];
+    Borma: string[];
+    Humidifier:string[];
+    Peeling:string[];
+    Village:string[];
+    Gatepass:string[];
+    Mayur:string[];
+    Hamsa:string[];
+    BigTaiho:string[];
+    Sorting:string[];
+    DPDS:string[];
+    Wholes:string[];
+    
+}
+export interface rcvCheckRoles {
+    RCNPrimaryEntry: string[];
+    PMPrimaryEntry:string[];
+    StorePrimaryEntry:string[];
+    AlmondPrimaryEntry:string[];
+    GeneralPrimaryEntry:string[];
+    VillagePrimaryEntry:string[];
+    OilMillPrimaryEntry:string[];
+    AgarbatiPrimaryEntry:string[];
+}
 export interface DatePickerProps {
     buttonName: string;
     value: Date | undefined;
@@ -1017,43 +1084,7 @@ export interface AssetDataExcel {
     modifiedBy: string;
 }
 
-export interface PermissionRole {
-    Director: string[];
-    FactoryManager: string[];
-    ReceivingSupervisor: string[];
-    ReceivingPMSupervisor: string[];
-    ReceivingManager: string[];
-    ReceivingAlmondSupervisor:string[];
-    ReceivingStoreSupervisor: string[];
-    ReceivingAgarbatiSupervisor:string[];
-    ReceivingGeneralSupervisor:string[];
-    ReceivingOilMillSupervisor:string[];
-    QCSupervisor: string[];
-    QCManager: string[];
-    GradingSupervisor: string[];
-    BoilingSupervisor: string[];
-    ScoopingSupervisor: string[];
-    PeelingSupervisor:string[];
-    MayurSupervisor:string[];
-    SortingSupervisor:string[];
-    VillageSupervisor:string[];
-    ProductionManager:string[];
-    MaintainanceManager:string[];
-    CleaningSupervisor:string[];
-    BormaSupervisor:string[];
-    Security:string[];
-    GatePassManager:string[];
 
-}
-
-export interface PermissionDept {
-    Admin: string[];
-    Receiving: string[];
-    Maintainance: string[];
-    Production: string[];
-    QualityControl: string[];
-    GatePass:string[];
-}
 export interface BoilingEntryData {
     moisture: string;
     id: number;
@@ -1157,29 +1188,7 @@ export interface IssueItemDaywiseData {
     sectionunit: string;
 }
 
-export interface pendingCheckRoles {
-    RCNPrimary: string[];
-    QCRCN: string[];
-    Grading: string[];
-    Boiling: string[];
-    Scooping: string[];
-    Borma: string[];
-    Humidifier:string[];
-    Peeling:string[];
-    Village:string[];
-    Gatepass:string[];
-    
-}
-export interface rcvCheckRoles {
-    RCNPrimaryEntry: string[];
-    PMPrimaryEntry:string[];
-    StorePrimaryEntry:string[];
-    AlmondPrimaryEntry:string[];
-    GeneralPrimaryEntry:string[];
-    VillagePrimaryEntry:string[];
-    OilMillPrimaryEntry:string[];
-    AgarbatiPrimaryEntry:string[];
-}
+
 
 export interface GradingExcelData {
     Sl_No: number;

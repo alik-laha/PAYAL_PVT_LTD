@@ -8,7 +8,7 @@ export const Role: string[] = ['Director', 'FactoryManager',
     'MaintainanceSupervisor','MaintainanceManager',
     'QCSupervisor', 'QCManager', 
     'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor','BormaSupervisor',
-    'PeelingSupervisor','VillageSupervisor','MayurSupervisor','SortingSupervisor', 'ProductionManager','DeputyProductionManager'
+    'PeelingSupervisor','VillageSupervisor','MayurSupervisor','SortingSupervisor', 'WholesSupervisor','ProductionManager','DeputyProductionManager'
 ]
 export const PermissionRol = {
     Director: ['Employee', 'Dashboard User', 'Asset', 'VendorSKU','Store Issue',
@@ -50,6 +50,7 @@ export const PermissionRol = {
     MayurSupervisor:['Mayur','Hamsa'],
     SortingSupervisor:['Sorting','DPDS'],
     VillageSupervisor:['Receiving Village Entry'],
+    WholesSupervisor:['Wholes'],
     Security:['Gatepass'],
     GatePassManager:['Gatepass','RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
         'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','Receiving Village Entry']
@@ -79,6 +80,7 @@ export const pendingCheckRole = {
     BigTaiho:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     Sorting:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     DPDS:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
+    Wholes:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     Village: ['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     Gatepass: ['Director', 'FactoryManager', 'GatePassManager','DeputyProductionManager'],
    
@@ -103,13 +105,13 @@ export const roleDataonDept = {
     QualityControl: ['QCSupervisor', 'QCManager'],
     Production: ['ProductionManager','DeputyProductionManager', 'GradingSupervisor', 
         'BoilingSupervisor', 'ScoopingSupervisor','BormaSupervisor','PeelingSupervisor',
-        'MayurSupervisor','VillageSupervisor','SortingSupervisor'],
+        'MayurSupervisor','VillageSupervisor','SortingSupervisor','WholesSupervisor'],
     GatePass:['Security','GatePassManager']
 }
 export const pageNo = 1
 export const pagelimit = 8
 export const timerLogout = 43200
-export const Section = ['Boiling', 'Grading', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS','BigTaiho','Hamsa','Village']
+export const Section = ['Boiling', 'Grading', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS','BigTaiho','Hamsa','Village','Wholes']
 export const MachineStatus = ['Active', 'Inactive', 'Discarded']
 export const IssueStatus = ['N/A', 'Yes', 'No']
 export const Size = ['A', 'B', 'C', 'D', 'E', 'F', 'G']

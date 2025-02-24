@@ -252,6 +252,13 @@ function App() {
 
         </Route>
 
+        {/*Production Wholes  */}
+      <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'WholesSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
+          <Route path='/dashboard/Wholes' element={<Sorting />} />
+
+        </Route>
+
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'CleaningSupervisor', 'MaintainanceManager']} />}>
           <Route path='/dashboard/cleaning' element={<Cleaning />} />

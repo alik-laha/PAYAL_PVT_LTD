@@ -12,6 +12,7 @@ import sectionTransfer from "../../model/transactionsectionmodel";
 import mixingModel from "../../model/mixingModel";
 import bigTaihoModel from "../../model/bigTaihoModel";
 import hamsaModel from "../../model/hamsamodel";
+import WholesModel from "../../model/wholesModel";
 
 
 export const findEditMayurAll = async (req: Request, res: Response) => {
@@ -347,10 +348,12 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                     
                 }
                 else{
-                    res.status(500).json({ message: "Error In Creating Transaction History" });
+                    res.status(500).json({ message: "Error In Creating BigTaiho Transaction History" });
                     throw new Error('Transaction Aborted')
                 } 
-                // Hamsa Out
+
+
+                // Hamsa Out///////
                 const hamsa_backlog = await hamsaModel.findOne({
                     attributes: ['current_backlog'],
                     where: {
@@ -383,7 +386,72 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                      
                 }
                 else{
-                    res.status(500).json({ message: "Error In Creating Hamsa Entry" });
+                    res.status(500).json({ message: "Error In Creating Hamsa Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
+
+                // Wholes out/////////
+                const wholes_backlog = await WholesModel.findOne({
+                    attributes: ['current_backlog','rcv_jb_mayur'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(wholes_backlog)
+                if (wholes_backlog && wholes_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_JB,
+                        issueid:1,
+                        date:data.Date,
+                        fromSection:'Mayur',
+                        toSection:'Wholes',
+                        toSectionBeforeBacklog:wholes_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(wholes_backlog.dataValues.current_backlog)+parseFloat(data.issue_JB),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(wholes_backlog.dataValues.rcv_jb_mayur){
+                        await WholesModel.update(
+                            { 
+                                rcv_jb_mayur:sequelize.literal(`rcv_jb_mayur+ ${data.issue_JB}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_JB}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await WholesModel.update(
+                            { 
+                                rcv_jb_mayur:data.issue_JB,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_JB}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Wholes Transaction History" });
                     throw new Error('Transaction Aborted')
                 } 
                 //Lot Update
@@ -626,8 +694,6 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                     }
                 );
                 if(reissuecreate){
-
-
                     const bigT_backlog = await bigTaihoModel.findOne({
                         attributes: ['current_backlog','rcv_mayur'],
                         where: {
@@ -690,6 +756,70 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                     }
                     else{
                         res.status(500).json({ message: "Error In Creating Reissue BigTaiho Transaction History" });
+                        throw new Error('Transaction Aborted')
+                    } 
+
+                    // Wholes Out
+                    const wholes_backlog = await WholesModel.findOne({
+                        attributes: ['current_backlog','rcv_jb_mayur'],
+                        where: {
+                            lotNo:LotNO,
+                            origin: data.origin,
+                            latest:1
+                
+                        },
+                        order: [['LotNo', 'ASC']]
+                
+                    });
+                    console.log(wholes_backlog)
+                    if (wholes_backlog && wholes_backlog.dataValues.current_backlog>=0)
+                    {
+                        await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_JB,
+                        date:data.Date,
+                        fromSection:'Mayur',
+                        toSection:'Wholes',
+                        toSectionBeforeBacklog:wholes_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(wholes_backlog.dataValues.current_backlog)+parseFloat(data.issue_JB),
+                        createdBy: feeledBy,
+                        issueid:parseInt(data.alt_id)+1,
+                        },{transaction});
+                        if(wholes_backlog.dataValues.rcv_jb_mayur)
+                            {
+                        await WholesModel.update(
+                            { 
+                                rcv_jb_mayur:sequelize.literal(`rcv_jb_mayur+ ${data.issue_JB}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_JB}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                            }
+                        else{
+                        await WholesModel.update(
+                            { 
+                                rcv_jb_mayur:data.issue_JB,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_JB}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                            }     
+                    }
+                    else{
+                        res.status(500).json({ message: "Error In Creating Reissue Wholes Transaction History" });
                         throw new Error('Transaction Aborted')
                     } 
 
@@ -1195,7 +1325,18 @@ export const approveMayur = async (req: Request, res: Response) => {
                 }
             }) as any
 
-            if(transferBigTaihodata){
+
+            const transferWholesdata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'Mayur',
+                    toSection:'Wholes'
+                }
+            }) as any
+
+            if(transferBigTaihodata && transferWholesdata){
                 await sequelize.transaction(async (transaction: any) => {
 
                     const bormaEdit = await Mayur.update({
@@ -1292,6 +1433,54 @@ export const approveMayur = async (req: Request, res: Response) => {
                                 }
                                 else{
                                     res.status(500).json({ message: "Associated BigTaiho Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+                        if(parseFloat(transferWholesdata.amount)!==parseFloat(data.issue_JB)){
+                            console.log('Needs Update In Wholes')
+                            const difference_Wholes=parseFloat(data.issue_JB)-parseFloat(transferWholesdata.amount)
+                            console.log(difference_Wholes)
+                            const backlog = await WholesModel.findOne({
+                                attributes: ['current_backlog','rcv_jb_mayur'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await WholesModel.update(
+                                    {
+                                        rcv_jb_mayur: sequelize.literal(`rcv_jb_mayur+ ${difference_Wholes}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_Wholes}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_JB,
+                                    toSectionBeforeBacklog:transferWholesdata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferWholesdata.toSectionBeforeBacklog)+parseFloat(data.issue_JB)
+                        
+                                }, {
+                                    where: {
+                                        id:transferWholesdata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated Wholes Entry Not Found" });
                                     throw new Error('Transaction Aborted due to Improper Value')
                                 }
                         }

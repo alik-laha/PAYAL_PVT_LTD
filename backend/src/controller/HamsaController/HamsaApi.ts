@@ -9,6 +9,7 @@ import mixingModel from "../../model/mixingModel";
 import bigTaihoModel from "../../model/bigTaihoModel";
 import hamsaEditModel from "../../model/hamsaeditModel";
 import hamsaModel from "../../model/hamsamodel";
+import WholesModel from "../../model/wholesModel";
 
 
 // //Hamsa.tsx
@@ -408,6 +409,8 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
                 }
             );
             if (HamsaUpdate) {
+
+                // BigTaiho out/////////
                 const bigT_backlog = await bigTaihoModel.findOne({
                     attributes: ['current_backlog','rcv_hamsa'],
                     where: {
@@ -468,6 +471,59 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
                     res.status(500).json({ message: "Error In Creating Transaction History" });
                     throw new Error('Transaction Aborted')
                 } 
+
+
+                 // Wholes Out///////
+                 const wholes_backlog = await WholesModel.findOne({
+                    attributes: ['current_backlog'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(wholes_backlog)
+                if (wholes_backlog && wholes_backlog.dataValues.current_backlog>=0){   
+                        await WholesModel.update(
+                            { 
+                                rcv_pw_210:data.issue_pw_210,
+                                rcv_w_210:data.issue_w_210,
+                                rcv_ww_210:data.issue_ww_210,
+                                rcv_pw_240:data.issue_pw_240,
+                                rcv_w_240:data.issue_w_240,
+                                rcv_ww_240:data.issue_ww_240,
+                                rcv_pw_280:data.issue_pw_280,
+                                rcv_w_280:data.issue_w_280,
+                                rcv_ww_280:data.issue_ww_280,
+                                rcv_pw_320:data.issue_pw_320,
+                                rcv_w_320:data.issue_w_320,
+                                rcv_ww_320:data.issue_ww_320,
+                                rcv_pw_360:data.issue_pw_210,
+                                rcv_w_210:data.issue_w_210,
+                                rcv_ww_210:issue_ww_210,
+                                rcv_ww:data.issue_ww,
+                                current_backlog:sequelize.literal(`current_backlog+ ${parseFloat(data.issue_pw_w)+parseFloat(data.issue_w_lot)+parseFloat(data.issue_ww)}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     
+                     
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Hamsa Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
+
+              
   
                 await LotNo.update(
                     { 
@@ -908,6 +964,75 @@ export const CreateReissueHamsa= async (req: Request, res: Response) => {
                         res.status(500).json({ message: "Error In Creating Reissue Hamsa Transaction History" });
                         throw new Error('Transaction Aborted')
                     }  
+
+
+
+                     // Wholes Out
+                     const wholes_backlog = await WholesModel.findOne({
+                        attributes: ['current_backlog','rcv_jb_hamsa'],
+                        where: {
+                            lotNo:LotNO,
+                            origin: data.origin,
+                            latest:1
+                
+                        },
+                        order: [['LotNo', 'ASC']]
+                
+                    });
+                    console.log(wholes_backlog)
+                    if (wholes_backlog && wholes_backlog.dataValues.current_backlog>=0)
+                    {
+                        await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_jb,
+                        date:data.Date,
+                        fromSection:'Hamsa',
+                        toSection:'Wholes',
+                        toSectionBeforeBacklog:wholes_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(wholes_backlog.dataValues.current_backlog)+parseFloat(data.issue_jb),
+                        createdBy: feeledBy,
+                        issueid:parseInt(data.alt_id)+1,
+                        },{transaction});
+                        if(wholes_backlog.dataValues.rcv_jb_hamsa)
+                            {
+                        await WholesModel.update(
+                            { 
+                                rcv_jb_hamsa:sequelize.literal(`rcv_jb_hamsa+ ${data.issue_jb}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_jb}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                            }
+                        else{
+                        await WholesModel.update(
+                            { 
+                                rcv_jb_hamsa:data.issue_jb,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_jb}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                            }     
+                    }
+                    else{
+                        res.status(500).json({ message: "Error In Creating Reissue Wholes Transaction History" });
+                        throw new Error('Transaction Aborted')
+                    } 
+
+
+
                     const lotupdate = await lotoriginmodel.update(
                         {
                             latest_section: 'Hamsa',
@@ -1295,7 +1420,17 @@ export const approveHamsa = async (req: Request, res: Response) => {
                 }
             }) as any
 
-            if(transferBigTdata){
+            const transferWholesdata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'Hamsa',
+                    toSection:'Wholes'
+                }
+            }) as any
+
+            if(transferBigTdata && transferWholesdata){
                 await sequelize.transaction(async (transaction: any) => {
 
                     const BigTEdit = await hamsaModel.update({
@@ -1428,6 +1563,55 @@ export const approveHamsa = async (req: Request, res: Response) => {
                                 }
                         }
 
+                        if(parseFloat(transferWholesdata.amount)!==parseFloat(data.issue_jb)){
+                            console.log('Needs Update In Wholes')
+                            const difference_Wholes=parseFloat(data.issue_jb)-parseFloat(transferWholesdata.amount)
+                            console.log(difference_Wholes)
+                            const backlog = await WholesModel.findOne({
+                                attributes: ['current_backlog','rcv_jb_hamsa'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await WholesModel.update(
+                                    {
+                                        rcv_jb_hamsa: sequelize.literal(`rcv_jb_hamsa+ ${difference_Wholes}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_Wholes}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_jb,
+                                    toSectionBeforeBacklog:transferWholesdata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferWholesdata.toSectionBeforeBacklog)+parseFloat(data.issue_jb)
+                        
+                                }, {
+                                    where: {
+                                        id:transferWholesdata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated Wholes Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+
                         
                         await lotoriginmodel.update(
                             { 
@@ -1448,6 +1632,8 @@ export const approveHamsa = async (req: Request, res: Response) => {
                         });
                         return res.status(200).json({ message: "Edit Request of Hamsa Entry is Approved Successfully" });
                     }
+
+
                     
                 })
             }
