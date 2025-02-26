@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 
 import { Op } from "sequelize";
-import storePrimaryModel from "../../model/storePrimaryModel";
 import sequelize from "../../config/databaseConfig";
 import ItemIssue from "../../model/itemissueModel";
+import StoreStockModel from "../../model/stoteStock";
 
 
 function formatNumber(num:any) {
@@ -15,27 +15,46 @@ const SkudataCountFind = async (req: Request, res: Response) => {
         let stockSum=0;
         let finalconsumedSum=0;
         const material = req.body.sku
-        const StockStorePrimary = await storePrimaryModel.findAll({
+        // const StockStorePrimary = await storePrimaryModel.findAll({
+        //     attributes: [
+        //         'sku',
+        //         [sequelize.fn('sum', sequelize.col('quantity')), 'totalQuantity']
+        //     ],
+        //     where: {
+                
+        //         [Op.or]: [
+        //             { editStatus: 'Accepted' },
+        //             { editStatus: 'N/A' }
+        //         ],
+        //         sku: {
+        //             [Op.like]: `%${material}%`
+        //         }
+        //     },
+        //     group: ['sku']
+        // });
+
+        // if(StockStorePrimary && StockStorePrimary.length>0){
+        //     if(StockStorePrimary[0].dataValues.totalQuantity){ 
+        //         stockSum = Number(parseFloat(StockStorePrimary[0].dataValues.totalQuantity).toFixed(2));   
+        //     }
+            
+        // }
+
+        const StockStorePrimary = await StoreStockModel.findAll({
             attributes: [
-                'sku',
-                [sequelize.fn('sum', sequelize.col('quantity')), 'totalQuantity']
+                'quantity',
             ],
             where: {
-                
-                [Op.or]: [
-                    { editStatus: 'Accepted' },
-                    { editStatus: 'N/A' }
-                ],
                 sku: {
                     [Op.like]: `%${material}%`
                 }
             },
-            group: ['sku']
+            
         });
 
         if(StockStorePrimary && StockStorePrimary.length>0){
-            if(StockStorePrimary[0].dataValues.totalQuantity){ 
-                stockSum = Number(parseFloat(StockStorePrimary[0].dataValues.totalQuantity).toFixed(2));   
+            if(StockStorePrimary[0].dataValues.quantity){ 
+                stockSum = Number(parseFloat(StockStorePrimary[0].dataValues.quantity).toFixed(2));   
             }
             
         }

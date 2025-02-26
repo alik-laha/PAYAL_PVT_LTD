@@ -7,6 +7,7 @@ import SearchIssueItem from '../controller/IssueController/searchIssueItem';
 import editstoreIssue from '../controller/IssueController/editStoreIssue';
 import acceptIssueEditPrimary from '../controller/IssueController/acceptIssuePrimary';
 import rejectIssuePrimaryEdit from '../controller/IssueController/rejectIssuePrimary';
+import { manualStockUpdate } from '../controller/IssueController/UpdateStockManual';
 const router = express.Router();
 
 
@@ -17,4 +18,5 @@ router.post("/searchItemIssue", jwtVerify, SearchIssueItem)
 router.post("/editStoreIssue/:id",jwtVerify, editstoreIssue)
 router.get('/acceptEditIssuePrimary/:id', jwtVerify,acceptIssueEditPrimary)
 router.get("/rejectEditIssuePrimary/:id",jwtVerify, rejectIssuePrimaryEdit)
+router.post("/update-stock",jwtVerify, manualStockUpdate)
 export default router

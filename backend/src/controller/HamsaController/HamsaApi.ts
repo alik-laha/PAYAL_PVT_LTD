@@ -487,6 +487,39 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
                 });
                 console.log(wholes_backlog)
                 if (wholes_backlog && wholes_backlog.dataValues.current_backlog>=0){   
+
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:parseFloat(data.issue_pw_210)
+                        +parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                    +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)
+                    +parseFloat(data.issue_ww_240)+parseFloat(data.issue_pw_280)
+                    +parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                    +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
+                    +parseFloat(data.issue_ww_320)+parseFloat(data.issue_add_1)
+                    +parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                    +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
+                    +parseFloat(data.issue_ww_400)+parseFloat(data.issue_jb),
+                        issueid:1,
+                        date:data.Date,
+                        fromSection:'Hamsa',
+                        toSection:'Wholes',
+                        toSectionBeforeBacklog:wholes_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(wholes_backlog.dataValues.current_backlog)+parseFloat(data.issue_pw_210)
+                        +parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                    +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)
+                    +parseFloat(data.issue_ww_240)+parseFloat(data.issue_pw_280)
+                    +parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                    +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
+                    +parseFloat(data.issue_ww_320)+parseFloat(data.issue_add_1)
+                    +parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                    +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
+                    +parseFloat(data.issue_ww_400)+parseFloat(data.issue_jb),
+                        createdBy: feeledBy
+                        },{transaction});
+
+
                         await WholesModel.update(
                             { 
                                 rcv_pw_210:data.issue_pw_210,
@@ -501,11 +534,24 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
                                 rcv_pw_320:data.issue_pw_320,
                                 rcv_w_320:data.issue_w_320,
                                 rcv_ww_320:data.issue_ww_320,
-                                rcv_pw_360:data.issue_pw_210,
-                                rcv_w_210:data.issue_w_210,
-                                rcv_ww_210:issue_ww_210,
-                                rcv_ww:data.issue_ww,
-                                current_backlog:sequelize.literal(`current_backlog+ ${parseFloat(data.issue_pw_w)+parseFloat(data.issue_w_lot)+parseFloat(data.issue_ww)}`)
+                                rcv_pw_360:data.issue_add_1,
+                                rcv_w_360:data.issue_add_2,
+                                rcv_ww_360:data.issue_add_3,
+                                rcv_pw_400:data.issue_pw_400,
+                                rcv_w_400:data.issue_w_400,
+                                rcv_ww_400:data.issue_ww_400,
+                                rcv_jb_hamsa:data.issue_jb,
+                                current_backlog:sequelize.literal
+                                (`current_backlog+ ${parseFloat(data.issue_pw_210)
+                                    +parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                                +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)
+                                +parseFloat(data.issue_ww_240)+parseFloat(data.issue_pw_280)
+                                +parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                                +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
+                                +parseFloat(data.issue_ww_320)+parseFloat(data.issue_add_1)
+                                +parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                                +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
+                                +parseFloat(data.issue_ww_400)+parseFloat(data.issue_jb)}`)
                             },
                             {
                                 where: {
@@ -515,17 +561,16 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
                                 },transaction
                             }
                         );
-                     
-                     
+                         
                 }
                 else{
-                    res.status(500).json({ message: "Error In Creating Hamsa Transaction History" });
+                    res.status(500).json({ message: "Error In Creating Wholes Transaction History" });
                     throw new Error('Transaction Aborted')
                 } 
 
               
   
-                await LotNo.update(
+                const lotupdate = await LotNo.update(
                     { 
                       modifiedBy:'Next Interconnected'
                     },
@@ -535,7 +580,7 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
                         },transaction
                     }
                 );
-                const lotupdate = await lotoriginmodel.update(
+                const lotoriginupdate = await lotoriginmodel.update(
                     {
                         latest_section: 'Hamsa',
                         hansaStatus: 1
@@ -547,7 +592,7 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
                         }, transaction
                     }
                 );
-                if (lotupdate) {
+                if (lotupdate && lotoriginupdate) {
                     res.status(200).json({ message: "Hamsa Entry Made Successfully" });
                 }
                 else {
@@ -900,6 +945,7 @@ export const CreateReissueHamsa= async (req: Request, res: Response) => {
                 );
                 if(reissuecreate)
                 {
+                    // BigTaiho Out
                     const bigT_backlog = await bigTaihoModel.findOne({
                         attributes: ['current_backlog','rcv_hamsa'],
                         where: {
@@ -965,11 +1011,16 @@ export const CreateReissueHamsa= async (req: Request, res: Response) => {
                         throw new Error('Transaction Aborted')
                     }  
 
-
-
-                     // Wholes Out
+                    // Wholes Out
                      const wholes_backlog = await WholesModel.findOne({
-                        attributes: ['current_backlog','rcv_jb_hamsa'],
+                        attributes: ['current_backlog','rcv_jb_hamsa'
+                            ,'rcv_pw_210','rcv_w_210','rcv_ww_210',
+                            'rcv_pw_240','rcv_w_240','rcv_ww_240',
+                            'rcv_pw_280','rcv_w_280','rcv_ww_280',
+                            'rcv_pw_320','rcv_w_320','rcv_ww_320',
+                            'rcv_pw_360','rcv_w_360','rcv_ww_360',
+                            'rcv_pw_400','rcv_w_400','rcv_ww_400'
+                        ],
                         where: {
                             lotNo:LotNO,
                             origin: data.origin,
@@ -980,54 +1031,136 @@ export const CreateReissueHamsa= async (req: Request, res: Response) => {
                 
                     });
                     console.log(wholes_backlog)
-                    if (wholes_backlog && wholes_backlog.dataValues.current_backlog>=0)
-                    {
+                    if (wholes_backlog && wholes_backlog.dataValues.current_backlog>=0){  
                         await sectionTransfer.create({              
-                        LotNo:LotNO,
-                        origin:data.origin,
-                        amount:data.issue_jb,
-                        date:data.Date,
-                        fromSection:'Hamsa',
-                        toSection:'Wholes',
-                        toSectionBeforeBacklog:wholes_backlog.dataValues.current_backlog,
-                        toSectionAfterBacklog:parseFloat(wholes_backlog.dataValues.current_backlog)+parseFloat(data.issue_jb),
-                        createdBy: feeledBy,
-                        issueid:parseInt(data.alt_id)+1,
-                        },{transaction});
-                        if(wholes_backlog.dataValues.rcv_jb_hamsa)
+                            LotNo:LotNO,
+                            origin:data.origin,
+                            amount:parseFloat(data.issue_pw_210)
+                            +parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                        +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)
+                        +parseFloat(data.issue_ww_240)+parseFloat(data.issue_pw_280)
+                        +parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                        +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
+                        +parseFloat(data.issue_ww_320)+parseFloat(data.issue_add_1)
+                        +parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                        +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
+                        +parseFloat(data.issue_ww_400)+parseFloat(data.issue_jb),
+                            issueid:parseInt(data.alt_id)+1,
+                            date:data.Date,
+                            fromSection:'Hamsa',
+                            toSection:'Wholes',
+                            toSectionBeforeBacklog:wholes_backlog.dataValues.current_backlog,
+                            toSectionAfterBacklog:parseFloat(wholes_backlog.dataValues.current_backlog)+parseFloat(data.issue_pw_210)
+                            +parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                        +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)
+                        +parseFloat(data.issue_ww_240)+parseFloat(data.issue_pw_280)
+                        +parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                        +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
+                        +parseFloat(data.issue_ww_320)+parseFloat(data.issue_add_1)
+                        +parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                        +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
+                        +parseFloat(data.issue_ww_400)+parseFloat(data.issue_jb),
+                            createdBy: feeledBy
+                         },{transaction});
+
+                        if(wholes_backlog.dataValues.rcv_pw_210 && wholes_backlog.dataValues.rcv_w_210 && wholes_backlog.dataValues.rcv_ww_210
+                            && wholes_backlog.dataValues.rcv_pw_240 && wholes_backlog.dataValues.rcv_w_240 && wholes_backlog.dataValues.rcv_ww_240
+                            && wholes_backlog.dataValues.rcv_pw_280 && wholes_backlog.dataValues.rcv_w_280 && wholes_backlog.dataValues.rcv_ww_280
+                            && wholes_backlog.dataValues.rcv_pw_320 && wholes_backlog.dataValues.rcv_w_320 && wholes_backlog.dataValues.rcv_ww_320
+                            && wholes_backlog.dataValues.rcv_pw_360 && wholes_backlog.dataValues.rcv_w_360 && wholes_backlog.dataValues.rcv_ww_360
+                            && wholes_backlog.dataValues.rcv_pw_400 && wholes_backlog.dataValues.rcv_w_400 && wholes_backlog.dataValues.rcv_ww_400
+                            && wholes_backlog.dataValues.rcv_jb_hamsa
+                        )
                             {
-                        await WholesModel.update(
-                            { 
-                                rcv_jb_hamsa:sequelize.literal(`rcv_jb_hamsa+ ${data.issue_jb}`),
-                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_jb}`)
-                            },
-                            {
-                                where: {
-                                    lotNo:LotNO,
-                                    origin: data.origin,
-                                    latest:1
-                                },transaction
+                                
+                                await WholesModel.update(
+                                    { 
+                                        rcv_pw_210:sequelize.literal(`rcv_pw_210+ ${data.issue_pw_210}`),
+                                        rcv_w_210:sequelize.literal(`rcv_w_210+ ${data.issue_w_210}`),
+                                        rcv_ww_210:sequelize.literal(`rcv_ww_210+ ${data.issue_ww_210}`),
+                                        rcv_pw_240:sequelize.literal(`rcv_pw_240+ ${data.issue_pw_240}`),
+                                        rcv_w_240:sequelize.literal(`rcv_w_240+ ${data.issue_w_240}`),
+                                        rcv_ww_240:sequelize.literal(`rcv_ww_240+ ${data.issue_ww_240}`),
+                                        rcv_pw_280:sequelize.literal(`rcv_pw_280+ ${data.issue_pw_280}`),
+                                        rcv_w_280:sequelize.literal(`rcv_w_280+ ${data.issue_w_280}`),
+                                        rcv_ww_280:sequelize.literal(`rcv_ww_280+ ${data.issue_ww_280}`),
+                                        rcv_pw_320:sequelize.literal(`rcv_pw_320+ ${data.issue_pw_320}`),
+                                        rcv_w_320:sequelize.literal(`rcv_w_320+ ${data.issue_w_320}`),
+                                        rcv_ww_320:sequelize.literal(`rcv_ww_320+ ${data.issue_ww_320}`),
+                                        rcv_pw_360:sequelize.literal(`rcv_pw_360+ ${data.issue_add_1}`),
+                                        rcv_w_360:sequelize.literal(`rcv_w_360+ ${data.issue_add_2}`),
+                                        rcv_ww_360:sequelize.literal(`rcv_ww_360+ ${data.issue_add_3}`),
+                                        rcv_pw_400:sequelize.literal(`rcv_pw_400+ ${data.issue_pw_400}`),
+                                        rcv_w_400:sequelize.literal(`rcv_w_400+ ${data.issue_w_400}`),
+                                        rcv_ww_400:sequelize.literal(`rcv_ww_400+ ${data.issue_ww_400}`),
+                                        rcv_jb_hamsa:sequelize.literal(`rcv_jb_hamsa+ ${data.issue_jb}`),
+
+                                      
+                                        current_backlog:sequelize.literal(`current_backlog+
+                                             ${parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                                            +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
+                                            +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                                            +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)+parseFloat(data.issue_ww_320)
+                                            +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)+parseFloat(data.issue_ww_400)
+                                            +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                                            +parseFloat(data.issue_jb)
+                                        }`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo:LotNO,
+                                            origin: data.origin,
+                                            latest:1
+                                        },transaction
+                                    }
+                                );
                             }
-                        );
-                            }
-                        else{
-                        await WholesModel.update(
-                            { 
-                                rcv_jb_hamsa:data.issue_jb,
-                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_jb}`)
-                            },
-                            {
-                                where: {
-                                    lotNo:LotNO,
-                                    origin: data.origin,
-                                    latest:1
-                                },transaction
-                            }
-                        );
-                            }     
+                            else{
+                                await WholesModel.update(
+                                    { 
+                                        rcv_pw_210:data.issue_pw_210,
+                                        rcv_w_210:data.issue_w_210,
+                                        rcv_ww_210:data.issue_ww_210,
+                                        rcv_pw_240:data.issue_pw_240,
+                                        rcv_w_240:data.issue_w_240,
+                                        rcv_ww_240:data.issue_ww_240,
+                                        rcv_pw_280:data.issue_pw_280,
+                                        rcv_w_280:data.issue_w_280,
+                                        rcv_ww_280:data.issue_ww_280,
+                                        rcv_pw_320:data.issue_pw_320,
+                                        rcv_w_320:data.issue_w_320,
+                                        rcv_ww_320:data.issue_ww_320,
+                                        rcv_pw_360:data.issue_add_1,
+                                        rcv_w_360:data.issue_add_2,
+                                        rcv_ww_360:data.issue_add_3,
+                                        rcv_pw_400:data.issue_pw_400,
+                                        rcv_w_400:data.issue_w_400,
+                                        rcv_ww_400:data.issue_ww_400_A,
+                                        rcv_jb_hamsa:data.issue_jb,
+                                        current_backlog:sequelize.literal(`current_backlog+
+                                            ${parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                                           +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
+                                           +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                                           +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)+parseFloat(data.issue_ww_320)
+                                           +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)+parseFloat(data.issue_ww_400)
+                                           +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                                           +parseFloat(data.issue_jb)
+                                        }`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo:LotNO,
+                                            origin: data.origin,
+                                            latest:1
+                                        },transaction
+                                    }
+                                );
+    
+    
+                            }   
                     }
                     else{
-                        res.status(500).json({ message: "Error In Creating Reissue Wholes Transaction History" });
+                        res.status(500).json({ message: "Error In Creating Wholes Entry" });
                         throw new Error('Transaction Aborted')
                     } 
 
@@ -1055,14 +1188,8 @@ export const CreateReissueHamsa= async (req: Request, res: Response) => {
                 else{
                     return res.status(500).json({ message: "Error while creating Hamsa Re Issue Entry"});
                 }
-            }
-            
-           
+            }     
         }
-       
-        
-
-
     })
     }
     catch(error) {
@@ -1563,12 +1690,31 @@ export const approveHamsa = async (req: Request, res: Response) => {
                                 }
                         }
 
-                        if(parseFloat(transferWholesdata.amount)!==parseFloat(data.issue_jb)){
+                        if(parseFloat(transferWholesdata.amount)!==(parseFloat(data.issue_pw_210)
+                            +parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                        +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)
+                        +parseFloat(data.issue_ww_240)+parseFloat(data.issue_pw_280)
+                        +parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                        +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
+                        +parseFloat(data.issue_ww_320)+parseFloat(data.issue_add_1)
+                        +parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                        +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
+                        +parseFloat(data.issue_ww_400)+parseFloat(data.issue_jb))){
                             console.log('Needs Update In Wholes')
-                            const difference_Wholes=parseFloat(data.issue_jb)-parseFloat(transferWholesdata.amount)
-                            console.log(difference_Wholes)
+                            const difference_total_Wholes=(parseFloat(data.issue_pw_210)
+                            +parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                        +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)
+                        +parseFloat(data.issue_ww_240)+parseFloat(data.issue_pw_280)
+                        +parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                        +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
+                        +parseFloat(data.issue_ww_320)+parseFloat(data.issue_add_1)
+                        +parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                        +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
+                        +parseFloat(data.issue_ww_400)+parseFloat(data.issue_jb))-parseFloat(transferWholesdata.amount)
+
+                            console.log(difference_total_Wholes)
                             const backlog = await WholesModel.findOne({
-                                attributes: ['current_backlog','rcv_jb_hamsa'],
+                                attributes: ['current_backlog'],
                                 where: {
                                     lotNo:LotNo,
                                     origin:origin,
@@ -1582,8 +1728,26 @@ export const approveHamsa = async (req: Request, res: Response) => {
                                 {
                                 await WholesModel.update(
                                     {
-                                        rcv_jb_hamsa: sequelize.literal(`rcv_jb_hamsa+ ${difference_Wholes}`),
-                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_Wholes}`)
+                                        rcv_pw_210:data.issue_pw_210,
+                                        rcv_w_210:data.issue_w_210,
+                                        rcv_ww_210:data.issue_ww_210,
+                                        rcv_pw_240:data.issue_pw_240,
+                                        rcv_w_240:data.issue_w_240,
+                                        rcv_ww_240:data.issue_ww_240,
+                                        rcv_pw_280:data.issue_pw_280,
+                                        rcv_w_280:data.issue_w_280,
+                                        rcv_ww_280:data.issue_ww_280,
+                                        rcv_pw_320:data.issue_pw_320,
+                                        rcv_w_320:data.issue_w_320,
+                                        rcv_ww_320:data.issue_ww_320,
+                                        rcv_pw_360:data.issue_add_1,
+                                        rcv_w_360:data.issue_add_2,
+                                        rcv_ww_360:data.issue_add_3,
+                                        rcv_pw_400:data.issue_pw_400,
+                                        rcv_w_400:data.issue_w_400,
+                                        rcv_ww_400:data.issue_ww_400,
+                                        rcv_jb_hamsa:data.issue_jb,
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_total_Wholes}`)
                                     },
                                     {
                                         where: {
@@ -1596,9 +1760,28 @@ export const approveHamsa = async (req: Request, res: Response) => {
 
                                 await sectionTransfer.update({
                                     date: data.Date,
-                                    amount:data.issue_jb,
+                                    amount:parseFloat(data.issue_pw_210)
+                                    +parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                                +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)
+                                +parseFloat(data.issue_ww_240)+parseFloat(data.issue_pw_280)
+                                +parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                                +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
+                                +parseFloat(data.issue_ww_320)+parseFloat(data.issue_add_1)
+                                +parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                                +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
+                                +parseFloat(data.issue_ww_400)+parseFloat(data.issue_jb),
                                     toSectionBeforeBacklog:transferWholesdata.toSectionBeforeBacklog,
-                                    toSectionAfterBacklog:parseFloat(transferWholesdata.toSectionBeforeBacklog)+parseFloat(data.issue_jb)
+                                    toSectionAfterBacklog:parseFloat(transferWholesdata.toSectionBeforeBacklog)
+                                    +parseFloat(data.issue_pw_210)
+                                    +parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                                +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)
+                                +parseFloat(data.issue_ww_240)+parseFloat(data.issue_pw_280)
+                                +parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                                +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
+                                +parseFloat(data.issue_ww_320)+parseFloat(data.issue_add_1)
+                                +parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                                +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
+                                +parseFloat(data.issue_ww_400)+parseFloat(data.issue_jb)
                         
                                 }, {
                                     where: {
