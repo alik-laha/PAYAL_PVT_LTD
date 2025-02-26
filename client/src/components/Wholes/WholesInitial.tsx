@@ -1,0 +1,201 @@
+
+import { Button } from "@/components/ui/button"
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
+
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+
+import axios from "axios";
+import { useState } from "react";
+import cross from '../../assets/Static_Images/error_img.png'
+// import RCNDPDSCreateForm from "./DPDSCreateForm";
+import {   WholesData } from "@/type/type";
+import WholesCreateForm from "./WholesCreateForm";
+// import HamsaCreateForm from "./HamsaCreateForm";
+
+
+interface lotPropsdata{
+    LotNo: string;
+    origin: string;
+    current_backlog: string;
+    rcv_pw_210: string;
+    rcv_w_210: string;
+    rcv_ww_210: string;
+    rcv_pw_240: string;
+    rcv_w_240: string;
+    rcv_ww_240: string;
+    rcv_pw_280: string;
+    rcv_w_280: string;
+    rcv_ww_280: string;
+    rcv_pw_320: string;
+    rcv_w_320: string;
+    rcv_ww_320: string;
+    rcv_pw_360: string;
+    rcv_w_360: string;
+    rcv_ww_360: string;
+    rcv_pw_400: string;
+    rcv_w_400: string;
+    rcv_ww_400: string;
+    rcv_jb_hamsa: string;
+}
+
+const WholesInitial = (props: any) => {
+    const [bormaData, setBormaData ]  = useState<WholesData[]>([])
+    const [errortext, seterrorText] = useState<string>('');
+    
+    const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialogPeel') as HTMLInputElement;
+    const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialogPeel') as HTMLInputElement;
+    //let scoopdata:ScoopData[]=[]
+    if (rejectcloseDialogButton) {
+        rejectcloseDialogButton.addEventListener('click', () => {
+            if (rejectsuccessdialog != null) {
+                (rejectsuccessdialog as any).close();
+                //window.location.reload()
+            }
+
+
+        });
+    }
+    //let scoopdata:ScoopData[]=[]
+    console.log(props)
+    const handleLineEntry = async (lotNO:string,origin:string) => {
+        
+        const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: lotNO,origin:origin})
+        console.log(resStatus1)
+        if (resStatus1.data.scoopingLot && resStatus1.data.scoopingLot[0].editStatus ==='Pending') 
+            {
+                
+                seterrorText(`Modification of Lot is Pending in Linked  ${resStatus1.data.scoopingLot[0].latest_section} Section`)
+                if (rejectsuccessdialog != null) {
+                        (rejectsuccessdialog as any).showModal();
+                }
+                return
+            }
+           
+        await axios.get(`/api/wholes/getWholesByLotOrigin/${lotNO}/${origin}`).then(res=>{
+           console.log(res)
+           if(Array.isArray(res.data.scoopingLot)){
+            //scoopdata=res.data.scoopingLot
+            setBormaData(res.data.scoopingLot)
+             console.log(bormaData)
+           }
+             
+            //set(res.data.scoopingLot)
+        })
+    }
+    function formatNumber(num: string) {
+        return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
+    }
+    return (
+        <>
+            <div className="pl-10 pr-10 max-h-64 overflow-scroll">
+         
+                <Table className="mt-3">
+                    <TableHeader className="bg-neutral-100 text-stone-950 ">
+                        <TableHead className="text-center" >Sl. No.</TableHead>
+                        <TableHead className="text-center" >Lot No</TableHead>
+                        <TableHead className="text-center" >Origin</TableHead>
+                        <TableHead className="text-center" >Current_Backlog</TableHead>
+                        <TableHead className="text-center" >Action</TableHead>
+
+
+                    </TableHeader>
+                    <TableBody>
+                        {props.props.length > 0 ? (
+                            props.props.map((item: lotPropsdata, idx: number) => {
+                              if(((item.rcv_pw_210 ? parseFloat(item.rcv_pw_210) : 0) + 
+                              (item.rcv_w_210 ? parseFloat(item.rcv_w_210) : 0) + 
+                              (item.rcv_ww_210 ? parseFloat(item.rcv_ww_210) : 0) + 
+                              (item.rcv_pw_240 ? parseFloat(item.rcv_pw_240) : 0) + 
+                              (item.rcv_w_240 ? parseFloat(item.rcv_w_240) : 0) + 
+                              (item.rcv_ww_240 ? parseFloat(item.rcv_ww_240) : 0) + 
+                              (item.rcv_pw_280 ? parseFloat(item.rcv_pw_280) : 0) + 
+                              (item.rcv_w_280 ? parseFloat(item.rcv_w_280) : 0) + 
+                              (item.rcv_ww_280 ? parseFloat(item.rcv_ww_280) : 0) + 
+                              (item.rcv_pw_320 ? parseFloat(item.rcv_pw_320) : 0) + 
+                              (item.rcv_w_320 ? parseFloat(item.rcv_w_320) : 0) + 
+                              (item.rcv_ww_320 ? parseFloat(item.rcv_ww_320) : 0) + 
+                              (item.rcv_pw_360 ? parseFloat(item.rcv_pw_360) : 0) + 
+                              (item.rcv_w_360 ? parseFloat(item.rcv_w_360) : 0) + 
+                              (item.rcv_ww_360 ? parseFloat(item.rcv_ww_360) : 0) + 
+                              (item.rcv_pw_400 ? parseFloat(item.rcv_pw_400) : 0) + 
+                              (item.rcv_w_400 ? parseFloat(item.rcv_w_400) : 0) + 
+                              (item.rcv_ww_400 ? parseFloat(item.rcv_ww_400) : 0) + 
+                             
+                              (item.rcv_jb_hamsa ? parseFloat(item.rcv_jb_hamsa) : 0))>0){
+                                return (
+                                    <TableRow key={idx}>
+                                        <TableCell className="text-center">
+                                            {idx + 1}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">
+                                            {item.LotNo}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold text-blue-500">
+                                            {item.origin}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold ">
+                                        {formatNumber(item.current_backlog)} Kg
+                                        </TableCell>
+                                        
+                                        <TableCell className="text-center">
+                                            <Dialog>
+                                                <DialogTrigger>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
+                                          <DialogContent className='max-w-7xl'>
+                                                    <DialogHeader>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Wholes Line Entry</p></DialogTitle>
+
+                                                    </DialogHeader>
+                                                
+                                                    <WholesCreateForm borma={bormaData}/>
+                                                </DialogContent>
+                                            </Dialog>
+                                        </TableCell>
+
+                                    </TableRow>
+                                );
+                              }
+                             
+                                
+                            })
+                        ) : <TableRow>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Wholes</TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            </TableRow>}
+                    </TableBody>
+                </Table>
+
+
+
+
+            </div>
+            <dialog id="rcneditapproveRejectDialogPeel" className="dashboard-modal">
+                <button id="rcneditRejectcloseDialogPeel" className="dashboard-modal-close-btn ">X </button>
+                <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
+                    <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
+
+                {/* <!-- Add more elements as needed --> */}
+            </dialog>
+        
+        </>
+    )
+
+
+}
+export default WholesInitial

@@ -15,14 +15,14 @@ export const PermissionRol = {
         'RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
         'Receiving Agarbati Entry','Receiving Civil Entry','Receiving OilMill Entry','Receiving Village Entry',
         'RCN Incoming QC', 
-        'Grading', 'Boiling', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS','BigTaiho','Hamsa',
+        'Grading', 'Boiling', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS','BigTaiho','Hamsa','Wholes',
         'Cleaning',
         'Gatepass'],
     FactoryManager: ['Employee', 'Asset','VendorSKU', 'Store Issue',
         'RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
         'Receiving Agarbati Entry','Receiving Civil Entry','Receiving OilMill Entry','Receiving Village Entry',
         'RCN Incoming QC', 
-        'Grading', 'Boiling', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS','BigTaiho','Hamsa',
+        'Grading', 'Boiling', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS','BigTaiho','Hamsa','Wholes',
         'Cleaning',
         'Gatepass'],
     ReceivingSupervisor: ['RCN Primary Entry'],
@@ -39,9 +39,9 @@ export const PermissionRol = {
     GradingSupervisor: ['Grading'],
     BoilingSupervisor: ['Boiling'],
     ScoopingSupervisor: ['Scooping'],
-    ProductionManager:['Grading','Boiling','Scooping','Borma','Humidifier','Peeling','Mayur',
+    ProductionManager:['Grading','Boiling','Scooping','Borma','Humidifier','Peeling','Mayur','Wholes',
         'DPDS','Hamsa','BigTaiho','Sorting','Receiving Village Entry'],
-    DeputyProductionManager : ['Borma','Humidifier','Peeling','Mayur',
+    DeputyProductionManager : ['Borma','Humidifier','Peeling','Mayur','Wholes',
         'DPDS','Hamsa','BigTaiho','Sorting','Receiving Village Entry'], 
     MaintainanceManager:['Cleaning'],
     CleaningSupervisor:['Cleaning'],
@@ -109,7 +109,7 @@ export const roleDataonDept = {
     GatePass:['Security','GatePassManager']
 }
 export const pageNo = 1
-export const pagelimit = 8
+export const pagelimit = 10
 export const timerLogout = 43200
 export const Section = ['Boiling', 'Grading', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS','BigTaiho','Hamsa','Village','Wholes']
 export const MachineStatus = ['Active', 'Inactive', 'Discarded']
