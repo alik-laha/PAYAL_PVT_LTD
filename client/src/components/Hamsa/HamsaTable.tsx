@@ -125,7 +125,7 @@ const HamsaTable = () => {
             Item_Lot_No: item.LotNo,
             Origin: item.origin,
             Issue_No: item.altid,
-            DPDS_Entry_Date: handletimezone(item.date),
+            Hamsa_Entry_Date: handletimezone(item.date),
             Mixing_Lot: item.mixingLot,
             Receive_PW_W: formatNumber(item.rcv_pw_w),
             Receive_W_LOT: formatNumber(item.rcv_w_lot),
@@ -213,7 +213,7 @@ const HamsaTable = () => {
                 Item_Lot_No: item.LotNo,
                 Origin: item.origin,
                 Issue_No: item.altid,
-                DPDS_Entry_Date: handletimezone(item.date),
+                Hamsa_Entry_Date: handletimezone(item.date),
                 Mixing_Lot: item.mixingLot,
                 Receive_PW_W: formatNumber(item.rcv_pw_w),
                 Receive_W_LOT: formatNumber(item.rcv_w_lot),
@@ -506,7 +506,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue PW_400</TableHead>
                     <TableHead className="text-center">Issue W_400</TableHead>
                     <TableHead className="text-center">Issue WW_400</TableHead>
-                 
+                    <TableHead className="text-center">Issue JB</TableHead>
                     {/* <TableHead className="text-center">Issue Add 4</TableHead>
                     <TableHead className="text-center">Issue Add 5</TableHead>
                     <TableHead className="text-center">Issue Add 6</TableHead>
@@ -515,7 +515,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue Add 9</TableHead>
                     <TableHead className="text-center">Issue Add 10</TableHead> */}
                      <TableHead className="text-center">Issue Wholes</TableHead>
-                     <TableHead className="text-center">Issue Wholes(JB)</TableHead>
+                    
                     <TableHead className="text-center">Issue LW</TableHead>
                     <TableHead className="text-center">Issue BigTaiho</TableHead>
                     
@@ -608,14 +608,15 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center  ">{formatNumber(item.issue_pw_400)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_w_400)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_ww_400)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_jb)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_pw_210) +
                                      parseFloat(item.issue_w_210)+parseFloat(item.issue_ww_210)+
                                      parseFloat(item.issue_pw_240) +parseFloat(item.issue_w_240)+parseFloat(item.issue_ww_240)+
                                      parseFloat(item.issue_pw_280) +parseFloat(item.issue_w_280)+parseFloat(item.issue_ww_280)+
                                      parseFloat(item.issue_pw_320) +parseFloat(item.issue_w_320)+parseFloat(item.issue_ww_320)+
                                      parseFloat(item.issue_add_1) +parseFloat(item.issue_add_2)+parseFloat(item.issue_add_3)+
-                                     parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)).toString())}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_jb)}</TableCell>
+                                     parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)+parseFloat(item.issue_jb)).toString())}</TableCell>
+                                  
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_lw)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
                                     
@@ -754,14 +755,15 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center  ">{formatNumber(item.issue_pw_400)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_w_400)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_ww_400)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_jb)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_pw_210) +
                                      parseFloat(item.issue_w_210)+parseFloat(item.issue_ww_210)+
                                      parseFloat(item.issue_pw_240) +parseFloat(item.issue_w_240)+parseFloat(item.issue_ww_240)+
                                      parseFloat(item.issue_pw_280) +parseFloat(item.issue_w_280)+parseFloat(item.issue_ww_280)+
                                      parseFloat(item.issue_pw_320) +parseFloat(item.issue_w_320)+parseFloat(item.issue_ww_320)+
                                      parseFloat(item.issue_add_1) +parseFloat(item.issue_add_2)+parseFloat(item.issue_add_3)+
-                                     parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)).toString())}</TableCell>
-                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_jb)}</TableCell>
+                                     parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)+parseFloat(item.issue_jb)).toString())}</TableCell>
+                                   
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_lw)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
                                    

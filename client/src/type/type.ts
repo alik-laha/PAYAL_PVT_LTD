@@ -992,6 +992,7 @@ noOfdayOperators: string;
 noOfnightOperators: string;
 CreatedBy: string;
 editStatus: string;
+modifiedBy: string | null;
 
 }
 
