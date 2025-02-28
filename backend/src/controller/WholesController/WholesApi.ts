@@ -534,8 +534,8 @@ export const CreateEntireWholes= async (req: Request, res: Response) => {
     }
 }
 
-// //HamsaTable.tsx
-export const SearchRCNHamsa = async (req: Request, res: Response) => {
+// //WholesTable.tsx
+export const SearchRCNWholes = async (req: Request, res: Response) => {
     try {
         const { searchitem,fromDate, toDate, origin} = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
@@ -577,14 +577,14 @@ export const SearchRCNHamsa = async (req: Request, res: Response) => {
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let rcnEntries
         if(limit===0 && offset===0){
-             rcnEntries = await hamsaModel.findAll({
+             rcnEntries = await WholesModel.findAll({
                 where,
                 order: [['LotNo','DESC'],['origin','ASC'],['altid', 'ASC']], // Order by date descending
                 
             });
         }
         else{
-             rcnEntries = await hamsaModel.findAll({
+             rcnEntries = await WholesModel.findAll({
                 where,
                 order: [['LotNo','DESC'],['origin','ASC'],['altid', 'ASC']], // Order by date descending
                 limit: limit,
@@ -592,7 +592,7 @@ export const SearchRCNHamsa = async (req: Request, res: Response) => {
             });
         }
        
-        return res.status(200).json({ message: 'Hamsa Entry found', rcnEntries })
+        return res.status(200).json({ message: 'Wholes Entry found', rcnEntries })
     }
     catch (err) {
         console.log(err)
@@ -1802,8 +1802,8 @@ export const EditRejectHamsa = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Internal Server Error", error: err });
     }
 }
-// //HamsaMix.tsx
-export const SearchRCNHamsaMix = async (req: Request, res: Response) => {
+// //WholesMix.tsx
+export const SearchRCNWholesMix = async (req: Request, res: Response) => {
     try {
         const { lotNo, origin} = req.body;
        
@@ -1833,9 +1833,15 @@ export const SearchRCNHamsaMix = async (req: Request, res: Response) => {
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let rcnEntries
         
-             rcnEntries = await hamsaModel.findOne({
-                attributes: ['id','rcv_pw_w','current_backlog','rcv_w_lot','rcv_ww',
-                    'rcv_village','rcv_lw','editStatus'],
+             rcnEntries = await WholesModel.findOne({
+                attributes: ['id','editStatus','Status',
+                    'rcv_pw_210','rcv_w_210','rcv_ww_210',
+                    'rcv_pw_240','rcv_w_240','rcv_ww_240',
+                    'rcv_pw_280','rcv_w_280','rcv_ww_280',
+                    'rcv_pw_320','rcv_w_320','rcv_ww_320',
+                    'rcv_pw_360','rcv_w_360','rcv_ww_360',
+                    'rcv_pw_400','rcv_w_400','rcv_ww_400','rcv_jb_mayur',
+                    'rcv_jb_hamsa','current_backlog'],
                 where
                 
                 
@@ -1852,93 +1858,156 @@ export const SearchRCNHamsaMix = async (req: Request, res: Response) => {
  
 }
 
-export const CreateMixHamsa = async (req: Request, res: Response) => {
+export const CreateMixWholes = async (req: Request, res: Response) => {
 
-    try{
+    try {
         console.log(req.body)
         const createdBy = req.cookies.user;
-        const sourceid= req.body.fsourceid;
-        const sourcelot= req.body.fsourcelot;
-        const sourceorigin= req.body.fsourceorigin;
-        const source_rcv_pw =req.body.fsourcercv_pw_w;
-        const source_rcv_w= req.body.fsourcercv_w;
-        const source_rcv_ww= req.body.fsourcercv_ww;
-        const source_rcv_lw= req.body.fsourcercv_lw;
-        const source_rcv_village= req.body.fsourcercv_village;
-    
-        const source_backlog= req.body.fsourcebacklog;
+        const sourceid = req.body.fsourceid;
+        const sourcelot = req.body.fsourcelot;
+        const sourceorigin = req.body.fsourceorigin;
+        const source_rcv_pw_210 = req.body.fsourcercv_pw_210;
+        const source_rcv_w_210 = req.body.fsourcercv_w_210;
+        const source_rcv_ww_210 = req.body.fsourcercv_ww_210;
+        const source_rcv_pw_240 = req.body.fsourcercv_pw_240;
+        const source_rcv_w_240 = req.body.fsourcercv_w_240;
+        const source_rcv_ww_240 = req.body.fsourcercv_ww_240;
+        const source_rcv_pw_280 = req.body.fsourcercv_pw_280;
+        const source_rcv_w_280 = req.body.fsourcercv_w_280;
+        const source_rcv_ww_280 = req.body.fsourcercv_ww_280;
+        const source_rcv_pw_320 = req.body.fsourcercv_pw_320;
+        const source_rcv_w_320 = req.body.fsourcercv_w_320;
+        const source_rcv_ww_320 = req.body.fsourcercv_ww_320;
+        const source_rcv_pw_360 = req.body.fsourcercv_pw_360;
+        const source_rcv_w_360 = req.body.fsourcercv_w_360;
+        const source_rcv_ww_360 = req.body.fsourcercv_ww_360;
+        const source_rcv_pw_400 = req.body.fsourcercv_pw_400;
+        const source_rcv_w_400 = req.body.fsourcercv_w_400;
+        const source_rcv_ww_400 = req.body.fsourcercv_ww_400;
+        const source_rcv_jb_mayur = req.body.fsourcercv_jb_mayur;
+        const source_rcv_jb_hamsa = req.body.fsourcercv_jb_hamsa;
 
-        const transfer_amount =req.body.amount
+        const source_backlog = req.body.fsourcebacklog;
 
-        const destid= req.body.destid;
-        const destlot= req.body.destlot;
-        const destorigin= req.body.destorigin;
-        const dest_rcv_pw= req.body.destrcv_pw_w;
-        const dest_rcv_w= req.body.destrcv_w;
-        const dest_rcv_ww= req.body.destrcv_ww;
-        const dest_rcv_village= req.body.destrcv_village;
-        const dest_rcv_lw= req.body.destrcv_lw;
- 
-        const dest_backlog= req.body.destbacklog;
+        const transfer_amount = req.body.amount
 
-        const b_soucre_backlog= req.body.bsourcebacklog;
-        const b_dest_backlog= req.body.bdestbacklog;
+        const destid = req.body.destid;
+        const destlot = req.body.destlot;
+        const destorigin = req.body.destorigin;
+        const dest_rcv_pw_210 = req.body.destrcv_pw_210;
+        const dest_rcv_w_210 = req.body.destrcv_w_210;
+        const dest_rcv_ww_210 = req.body.destrcv_ww_210;
+        const dest_rcv_pw_240 = req.body.destrcv_pw_240;
+        const dest_rcv_w_240 = req.body.destrcv_w_240;
+        const dest_rcv_ww_240 = req.body.destrcv_ww_240;
+        const dest_rcv_pw_280 = req.body.destrcv_pw_280;
+        const dest_rcv_w_280 = req.body.destrcv_w_280;
+        const dest_rcv_ww_280 = req.body.destrcv_ww_280;
+        const dest_rcv_pw_320 = req.body.destrcv_pw_320;
+        const dest_rcv_w_320 = req.body.destrcv_w_320;
+        const dest_rcv_ww_320 = req.body.destrcv_ww_320;
+        const dest_rcv_pw_360 = req.body.destrcv_pw_360;
+        const dest_rcv_w_360 = req.body.destrcv_w_360;
+        const dest_rcv_ww_360 = req.body.destrcv_ww_360;
+        const dest_rcv_pw_400 = req.body.destrcv_pw_400;
+        const dest_rcv_w_400 = req.body.destrcv_w_400;
+        const dest_rcv_ww_400 = req.body.destrcv_ww_400;
+        const dest_rcv_jb_mayur = req.body.destrcv_jb_mayur;
+        const dest_rcv_jb_hamsa = req.body.destrcv_jb_hamsa;
+        const dest_backlog = req.body.destbacklog;
+
+        const b_soucre_backlog = req.body.bsourcebacklog;
+        const b_dest_backlog = req.body.bdestbacklog;
 
 
         await sequelize.transaction(async (transaction: any) => {
 
-            const sourceupdate=await hamsaModel.update(
-                { 
-                    rcv_pw_w: source_rcv_pw,
-                    rcv_w_lot: source_rcv_w,
-                    rcv_ww: source_rcv_ww,
-                    rcv_village: source_rcv_village,
-                    rcv_lw: source_rcv_lw,
-                    current_backlog:source_backlog,                   
+            const sourceupdate = await WholesModel.update(
+                {
+                    rcv_pw_210: source_rcv_pw_210,
+                    rcv_w_210: source_rcv_w_210,
+                    rcv_ww_210: source_rcv_ww_210,
+                    rcv_pw_240: source_rcv_pw_240,
+                    rcv_w_240: source_rcv_w_240,
+                    rcv_ww_240: source_rcv_ww_240,
+                    rcv_pw_280: source_rcv_pw_280,
+                    rcv_w_280: source_rcv_w_280,
+                    rcv_ww_280: source_rcv_ww_280,
+                    rcv_pw_320: source_rcv_pw_320,
+                    rcv_w_320: source_rcv_w_320,
+                    rcv_ww_320: source_rcv_ww_320,
+                    rcv_pw_360: source_rcv_pw_360,
+                    rcv_w_360: source_rcv_w_360,
+                    rcv_ww_360: source_rcv_ww_360,
+                    rcv_pw_400: source_rcv_pw_400,
+                    rcv_w_400: source_rcv_w_400,
+                    rcv_ww_400: source_rcv_ww_400,
+                    rcv_jb_mayur: source_rcv_jb_mayur,
+                    rcv_jb_hamsa: source_rcv_jb_hamsa,
+                    issue_add_1:sequelize.literal(`issue_add_1- ${transfer_amount}`),
+                    issue_add_3: sequelize.literal(`(issue_add_2 / (issue_add_1+${transfer_amount})) * 100`),
+                    current_backlog: source_backlog,
                 },
                 {
                     where: {
-                        id:sourceid
+                        id: sourceid
                     }, transaction
                 }
             );
-            const destdata=await hamsaModel.findOne({
+            const destdata = await WholesModel.findOne({
                 attributes: ['mixingLot'],
                 where: {
-                    id:destid
-        
+                    id: destid
+
                 },
-        
+
             });
-            if (destdata && destdata.dataValues.mixingLot){
-                const destupdate=await hamsaModel.update(
-                    { 
-                        rcv_pw_w: dest_rcv_pw,
-                        rcv_w_lot: dest_rcv_w,
-                        rcv_ww: dest_rcv_ww,
-                        rcv_village: dest_rcv_village,
-                        rcv_lw: dest_rcv_lw,
-                        current_backlog:dest_backlog, 
-                        mixingLot:sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`)                  
+            if (destdata && destdata.dataValues.mixingLot) {
+                const destupdate = await WholesModel.update(
+                    {
+                        rcv_pw_210: dest_rcv_pw_210,
+                        rcv_w_210: dest_rcv_w_210,
+                        rcv_ww_210: dest_rcv_ww_210,
+                        rcv_pw_240: dest_rcv_pw_240,
+                        rcv_w_240: dest_rcv_w_240,
+                        rcv_ww_240: dest_rcv_ww_240,
+                        rcv_pw_280: dest_rcv_pw_280,
+                        rcv_w_280: dest_rcv_w_280,
+                        rcv_ww_280: dest_rcv_ww_280,
+                        rcv_pw_320: dest_rcv_pw_320,
+                        rcv_w_320: dest_rcv_w_320,
+                        rcv_ww_320: dest_rcv_ww_320,
+                        rcv_pw_360: dest_rcv_pw_360,
+                        rcv_w_360: dest_rcv_w_360,
+                        rcv_ww_360: dest_rcv_ww_360,
+                        rcv_pw_400: dest_rcv_pw_400,
+                        rcv_w_400: dest_rcv_w_400,
+                        rcv_ww_400: dest_rcv_ww_400,
+                        rcv_jb_mayur: dest_rcv_jb_mayur,
+                        rcv_jb_hamsa: dest_rcv_jb_hamsa,
+                        current_backlog: dest_backlog,
+                        issue_add_1:sequelize.literal(`issue_add_1+ ${transfer_amount}`),
+                        issue_add_3: sequelize.literal(`(issue_add_2 / (issue_add_1+${transfer_amount})) * 100`),
+                        mixingLot: sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`)
                     },
                     {
                         where: {
-                            id:destid
+                            id: destid
                         }, transaction
                     }
                 );
-                if(sourceupdate && destupdate){
-                    const mixcreate=await mixingModel.create(
-                        {     
-                            FromLotNo:sourcelot,
-                            Fromorigin:sourceorigin,
-                            ToLotNo:destlot,
-                            Toorigin:destorigin,
-                            amount:transfer_amount,
-                            date:new Date(),
-                            Section:'Hamsa',
-                            amountBeforeBacklog:b_soucre_backlog,
-                            amountAfterBacklog:source_backlog,
+                if (sourceupdate && destupdate) {
+                    const mixcreate = await mixingModel.create(
+                        {
+                            FromLotNo: sourcelot,
+                            Fromorigin: sourceorigin,
+                            ToLotNo: destlot,
+                            Toorigin: destorigin,
+                            amount: transfer_amount,
+                            date: new Date(),
+                            Section: 'Wholes',
+                            amountBeforeBacklog: b_soucre_backlog,
+                            amountAfterBacklog: source_backlog,
                             destamountBeforeBacklog: b_dest_backlog,
                             destamountAfterBacklog: dest_backlog,
                             createdBy: createdBy,
@@ -1947,47 +2016,64 @@ export const CreateMixHamsa = async (req: Request, res: Response) => {
                             transaction
                         }
                     );
-                    if(mixcreate){
+                    if (mixcreate) {
                         return res.status(200).json({ message: "Mixing Performed Successfully" });
 
                     }
-                    else{
-                        return res.status(500).json({ message: "Internal Server Error"});
+                    else {
+                        return res.status(500).json({ message: "Internal Server Error" });
                     }
                 }
-                else{
-                    return res.status(500).json({ message: "Internal Server Error"});
+                else {
+                    return res.status(500).json({ message: "Internal Server Error" });
                 }
             }
-            else{
-                const destupdate=await hamsaModel.update(
-                    { 
-                        rcv_pw_w: dest_rcv_pw,
-                        rcv_w_lot: dest_rcv_w,
-                        rcv_ww: dest_rcv_ww,
-                        rcv_village: dest_rcv_village,
-                        rcv_lw: dest_rcv_lw,
-                        current_backlog:dest_backlog, 
-                        mixingLot:`${sourcelot}(${sourceorigin})`             
+            else {
+                const destupdate = await WholesModel.update(
+                    {
+                        rcv_pw_210: dest_rcv_pw_210,
+                        rcv_w_210: dest_rcv_w_210,
+                        rcv_ww_210: dest_rcv_ww_210,
+                        rcv_pw_240: dest_rcv_pw_240,
+                        rcv_w_240: dest_rcv_w_240,
+                        rcv_ww_240: dest_rcv_ww_240,
+                        rcv_pw_280: dest_rcv_pw_280,
+                        rcv_w_280: dest_rcv_w_280,
+                        rcv_ww_280: dest_rcv_ww_280,
+                        rcv_pw_320: dest_rcv_pw_320,
+                        rcv_w_320: dest_rcv_w_320,
+                        rcv_ww_320: dest_rcv_ww_320,
+                        rcv_pw_360: dest_rcv_pw_360,
+                        rcv_w_360: dest_rcv_w_360,
+                        rcv_ww_360: dest_rcv_ww_360,
+                        rcv_pw_400: dest_rcv_pw_400,
+                        rcv_w_400: dest_rcv_w_400,
+                        rcv_ww_400: dest_rcv_ww_400,
+                        rcv_jb_mayur: dest_rcv_jb_mayur,
+                        rcv_jb_hamsa: dest_rcv_jb_hamsa,
+                        current_backlog: dest_backlog,
+                        issue_add_1:sequelize.literal(`issue_add_1+ ${transfer_amount}`),
+                        issue_add_3: sequelize.literal(`(issue_add_2 / (issue_add_1+${transfer_amount})) * 100`),
+                        mixingLot: `${sourcelot}(${sourceorigin})`
                     },
                     {
                         where: {
-                            id:destid
+                            id: destid
                         }, transaction
                     }
                 );
-                if(sourceupdate && destupdate){
-                    const mixcreate=await mixingModel.create(
-                        {     
-                            FromLotNo:sourcelot,
-                            Fromorigin:sourceorigin,
-                            ToLotNo:destlot,
-                            Toorigin:destorigin,
-                            amount:transfer_amount,
-                            date:new Date(),
-                            Section:'Hamsa',
-                            amountBeforeBacklog:b_soucre_backlog,
-                            amountAfterBacklog:source_backlog,
+                if (sourceupdate && destupdate) {
+                    const mixcreate = await mixingModel.create(
+                        {
+                            FromLotNo: sourcelot,
+                            Fromorigin: sourceorigin,
+                            ToLotNo: destlot,
+                            Toorigin: destorigin,
+                            amount: transfer_amount,
+                            date: new Date(),
+                            Section: 'Wholes',
+                            amountBeforeBacklog: b_soucre_backlog,
+                            amountAfterBacklog: source_backlog,
                             destamountBeforeBacklog: b_dest_backlog,
                             destamountAfterBacklog: dest_backlog,
                             createdBy: createdBy,
@@ -1996,26 +2082,26 @@ export const CreateMixHamsa = async (req: Request, res: Response) => {
                             transaction
                         }
                     );
-                    if(mixcreate){
+                    if (mixcreate) {
                         return res.status(200).json({ message: "Mixing Performed Successfully" });
 
                     }
-                    else{
-                        return res.status(500).json({ message: "Internal Server Error"});
+                    else {
+                        return res.status(500).json({ message: "Internal Server Error" });
                     }
                 }
-                else{
-                    return res.status(500).json({ message: "Internal Server Error"});
+                else {
+                    return res.status(500).json({ message: "Internal Server Error" });
                 }
             }
 
-           
+
 
         })
 
 
     }
-    catch(err){
+    catch (err) {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error", error: err });
     }

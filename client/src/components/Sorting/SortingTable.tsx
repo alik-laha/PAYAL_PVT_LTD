@@ -424,6 +424,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
                     <TableHead className="text-center">Opening JJH</TableHead>
                     <TableHead className="text-center">Opening SJH</TableHead>
+                    
                     <TableHead className="text-center">Opening SJH1</TableHead>
                     <TableHead className="text-center">Opening JH1</TableHead>
                     <TableHead className="text-center">Opening JK_K</TableHead>

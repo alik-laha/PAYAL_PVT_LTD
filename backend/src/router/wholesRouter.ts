@@ -7,9 +7,9 @@ import {
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import { approveHamsa, CreateMixHamsa, CreateReissueHamsa, EditRejectHamsa, 
-       SearchRCNHamsa, SearchRCNHamsaMix, updateEntireHamsa } from "../controller/HamsaController/HamsaApi";
-import { CreateEntireWholes, findEditWholesAll, getWholesBylotorigin, getWholesLot, sumOfallWholes } from "../controller/WholesController/WholesApi";
+import { approveHamsa, CreateReissueHamsa, EditRejectHamsa, 
+         updateEntireHamsa } from "../controller/HamsaController/HamsaApi";
+import { CreateEntireWholes, CreateMixWholes, findEditWholesAll, getWholesBylotorigin, getWholesLot, SearchRCNWholes, SearchRCNWholesMix, sumOfallWholes } from "../controller/WholesController/WholesApi";
 const router = express()
 
 // //Wholes.tsx
@@ -26,15 +26,15 @@ router.post("/createEntireWholes", jwtVerify, CreateEntireWholes)
 // //HamsaReiSsueForm.tsx
 router.post("/createReissueHamsa", jwtVerify, CreateReissueHamsa)
 
-// //Hamsatable.tsx
-router.put('/hamsaprimarysearch', jwtVerify, SearchRCNHamsa);
+// //Wholestable.tsx
+router.put('/wholesprimarysearch', jwtVerify, SearchRCNWholes);
 router.post("/updateHamsa",jwtVerify, updateEntireHamsa)
 router.delete('/rejectededitHamsa/:id/:LotNo/:origin', jwtVerify, EditRejectHamsa);
 router.put("/approveeditHamsa/:id/:LotNo/:origin", jwtVerify, approveHamsa);
 
-// //HamsaMix.tsx
-router.post('/hamsamixsearch', jwtVerify, SearchRCNHamsaMix);
-router.post('/createMixHamsa', jwtVerify, CreateMixHamsa);
+// //WholesMix.tsx
+router.post('/wholesmixsearch', jwtVerify, SearchRCNWholesMix);
+router.post('/createMixWholes', jwtVerify, CreateMixWholes);
 
 //HistoryTable.tsx
 router.put('/historySearch', jwtVerify, SearchHistory);
