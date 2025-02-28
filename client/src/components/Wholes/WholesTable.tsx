@@ -55,6 +55,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import RCNWholesReMix from "./WholesMix";
+import RCNWholesReCreateForm from "./WholesRecreateForm";
 
 
 const WholesTable = () => {
@@ -637,11 +638,11 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue Add 8</TableHead>
                     <TableHead className="text-center">Issue Add 9</TableHead>
                     <TableHead className="text-center">Issue Add 10</TableHead> */}
-                        <TableHead className="text-center">Packing</TableHead>
-                        <TableHead className="text-center">Rejection</TableHead>
-                        <TableHead className="text-center">Village</TableHead>
-                        <TableHead className="text-center">LW</TableHead>
-                        <TableHead className="text-center">BigTaiho</TableHead>
+                        <TableHead className="text-center">Issue Packing</TableHead>
+                        <TableHead className="text-center">Issue Rejection</TableHead>
+                        <TableHead className="text-center">Issue Village</TableHead>
+                        <TableHead className="text-center">Issue LW</TableHead>
+                        <TableHead className="text-center">Issue BigTaiho</TableHead>
                         
                         {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
                         <TableHead className="text-center font-bold">Current_Backlog</TableHead>
@@ -1158,7 +1159,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                     <p className='text-1xl pb-1 text-center mt-1'>Hamsa Entry Reissue</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            {/* <HamsaReCreateForm borma={[item]} /> */}
+                                                            <RCNWholesReCreateForm borma={[item]} />
                                                         </DialogContent>
 
                                                     </Dialog>}

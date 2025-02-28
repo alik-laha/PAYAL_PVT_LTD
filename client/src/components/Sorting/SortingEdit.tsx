@@ -11,11 +11,11 @@ import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 
 interface Props {
-    borma: DPDSData[]      
+    borma: SortingData[]      
 }
 
 
-interface DPDSRowData{
+interface SortingRowData{
     
     id: number;
     LotNo: string;
@@ -23,34 +23,41 @@ interface DPDSRowData{
     origin: string;
     mixingLot:string|null;
 
-      rcv_transfer: string|null;
-        rcv_Sorting: string|null;
-        rcv_dp: string;
-        rcv_ds: string;
-        rcv_dp1: string;
-        rcv_dpN: string|number;
-        rcv_dsN: string|number;
-        rcv_dp1N: string|number;
+    rcv_transfer: string|null;
+    rcv_jjh: string;
+    rcv_sjh: string;
+    rcv_sjh1: string;
+    rcv_sp1: string;
+    rcv_jk_k: string; 
+    rcv_jh1: string;
+    rcv_jjhN: string|number;
+    rcv_sjhN: string|number;
+    rcv_sjh1N: string|number;
+    rcv_sp1N: string|number;
+    rcv_jk_kN: string|number; 
+    rcv_jh1N: string|number;
+    rcv_bigTaiho:string|null;
 
 
-        issue_m_ds: string;
-        issue_m_dp: string;
-        issue_k_dp: string;
-        issue_ds_1: string;
-        issue_ds_2: string;
-        issue_sp_2: string;
-        issue_yjh: string;
-        issue_yk: string;
-        issue_kp: string;
-        issue_wp: string;
-        issue_rs: string;
-        issue_dp_2: string;
-        issue_dp_3: string;
-        issue_dp_4: string;
-        issue_dp_3l: string;
-        issue_ss: string;
-        issue_os: string;
-        issue_os1: string;
+    issue_jjh: string;
+    issue_jjh1: string;
+    issue_sjh: string;
+    issue_jk: string;
+    issue_jk1: string;
+    issue_k: string;
+    issue_k1: string;
+    issue_lwp: string;
+    issue_lwp1: string;
+    issue_s: string;
+    issue_ss: string;
+    issue_yk: string;
+    issue_sp2: string;
+    issue_kp: string;
+    issue_village: string;
+    issue_mayur: string;
+    issue_bigTaiho: string;
+    issue_dpds: string;
+    issue_rejection: string;
         issue_add_1: string;
         issue_add_2: string|number;
         issue_add_3: string|number;
@@ -61,15 +68,12 @@ interface DPDSRowData{
         issue_add_8: string;
         issue_add_9: string;
         issue_add_10: string;
-        issue_rejection: string;
-        issue_village: string;
-        issue_bigTaiho: string;
-        issue_mayur: string;
+   
            
 }
 
 
-import {   DPDSData } from "@/type/type"
+import {    SortingData } from "@/type/type"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
@@ -83,7 +87,7 @@ const SortingEditForm = (props:Props) => {
     const DateRef = useRef<HTMLInputElement>(null);
     const dayOpRef = useRef<HTMLInputElement>(null);
     const nightOpRef = useRef<HTMLInputElement>(null);
-    const [rows,setRows]=useState<DPDSRowData[]>([])
+    const [rows,setRows]=useState<SortingRowData[]>([])
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
@@ -113,7 +117,8 @@ const SortingEditForm = (props:Props) => {
 
     const handleOpeningChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
 
-        if (Number(e.target.value)>((Number(rows[index].rcv_dp)+Number(rows[index].rcv_ds)+Number(rows[index].rcv_dp1)))) {
+        if (Number(e.target.value)>((Number(rows[index].rcv_jjh)+Number(rows[index].rcv_sjh)+Number(rows[index].rcv_sjh1)+Number(rows[index].rcv_sp1)
+            +Number(rows[index].rcv_jk_k)+Number(rows[index].rcv_jh1)))) {
             setErrortext('Borma Weight Cant be Higher Than Receiving !')
             if (errordialog != null) {
                 (errordialog as any).showModal();
@@ -121,11 +126,16 @@ const SortingEditForm = (props:Props) => {
             return
         }
         if(rows[0].issue_add_1){
-            rows[index].issue_add_2=((Number(rows[index].rcv_dp)+Number(rows[index].rcv_ds)+Number(rows[index].rcv_dp1))-Number(e.target.value))
-            rows[index].issue_add_3=((Number(rows[index].issue_add_2)/(Number(rows[index].rcv_dp)+Number(rows[index].rcv_ds)+Number(rows[index].rcv_dp1)))*100)
-            rows[index].rcv_dpN=(Number(rows[index].rcv_dp)*((100-Number(rows[index].issue_add_3))/100)).toString()
-            rows[index].rcv_dp1N=(Number(rows[index].rcv_dp1)*((100-Number(rows[index].issue_add_3))/100)).toString()
-            rows[index].rcv_dsN=(Number(rows[index].rcv_ds)*((100-Number(rows[index].issue_add_3))/100)).toString()
+            rows[index].issue_add_2=((Number(rows[index].rcv_jjh)+Number(rows[index].rcv_sjh)+Number(rows[index].rcv_sjh1)
+            +Number(rows[index].rcv_jk_k)+Number(rows[index].rcv_sp1)+Number(rows[index].rcv_jh1))-Number(e.target.value))
+            rows[index].issue_add_3=(Number(rows[index].issue_add_2)/(Number(rows[index].rcv_jjh)+Number(rows[index].rcv_sjh)+Number(rows[index].rcv_sjh1)
+            +Number(rows[index].rcv_jk_k)+Number(rows[index].rcv_sp1)+Number(rows[index].rcv_jh1)))*100
+            rows[index].rcv_jjhN=(Number(rows[index].rcv_jjh)*((100-Number(rows[index].issue_add_3))/100)).toString()
+            rows[index].rcv_sjhN=(Number(rows[index].rcv_sjh)*((100-Number(rows[index].issue_add_3))/100)).toString()
+            rows[index].rcv_sjh1N=(Number(rows[index].rcv_sjh1)*((100-Number(rows[index].issue_add_3))/100)).toString()
+            rows[index].rcv_sp1N=(Number(rows[index].rcv_sp1)*((100-Number(rows[index].issue_add_3))/100)).toString()
+            rows[index].rcv_jh1N=(Number(rows[index].rcv_jh1)*((100-Number(rows[index].issue_add_3))/100)).toString()
+            rows[index].rcv_jk_kN=(Number(rows[index].rcv_jk_k)*((100-Number(rows[index].issue_add_3))/100)).toString()
         }
         handleRowChange(index,'issue_add_1',e.target.value)
     }
@@ -145,50 +155,53 @@ const SortingEditForm = (props:Props) => {
         const initialform =  {
             id: props.borma[0].id,
             LotNo: props.borma[0].LotNo,
-            alt_id:props.borma[0].altid,
+            alt_id: props.borma[0].altid,
             origin: props.borma[0].origin,
             mixingLot: props.borma[0].mixingLot,
 
-            rcv_transfer: props.borma[0].rcv_transfer ,
-            rcv_Sorting: props.borma[0].rcv_Sorting ,
-            rcv_dp: props.borma[0].rcv_dp ,
-            rcv_ds: props.borma[0].rcv_ds ,
-            rcv_dp1: props.borma[0].rcv_dp1 ,
-            rcv_dpN:  props.borma[0].issue_add_4,
-            rcv_dsN:  props.borma[0].issue_add_5,
-            rcv_dp1N:  props.borma[0].issue_add_6,
-            issue_m_ds:  props.borma[0].issue_m_ds,
-            issue_m_dp:  props.borma[0].issue_m_dp,
-            issue_k_dp:  props.borma[0].issue_k_dp,
-            issue_ds_1:  props.borma[0].issue_ds_1,
-            issue_ds_2:  props.borma[0].issue_ds_2,
-            issue_sp_2:  props.borma[0].issue_sp_2,
-            issue_yjh:  props.borma[0].issue_yjh,
-            issue_yk:  props.borma[0].issue_yk,
-            issue_kp:  props.borma[0].issue_kp,
-            issue_wp:  props.borma[0].issue_wp,
-            issue_rs: props.borma[0].issue_rs,
-            issue_dp_2:  props.borma[0].issue_dp_2,
-            issue_dp_3: props.borma[0].issue_dp_3,
-            issue_dp_4:  props.borma[0].issue_dp_4,
-            issue_dp_3l: props.borma[0].issue_dp_3l,
-            issue_ss:  props.borma[0].issue_ss,
-            issue_os:props.borma[0].issue_os,
-            issue_os1:  props.borma[0].issue_os1,
+            rcv_transfer: props.borma[0].rcv_transfer,
+            rcv_jjh: props.borma[0].rcv_jjh,
+            rcv_sjh: props.borma[0].rcv_sjh,
+            rcv_sjh1: props.borma[0].rcv_sjh1,
+            rcv_sp1: props.borma[0].rcv_sp1,
+            rcv_jk_k: props.borma[0].rcv_jk_k,
+            rcv_jh1: props.borma[0].rcv_jh1,
+            rcv_jjhN: props.borma[0].issue_add_4,
+            rcv_sjhN: props.borma[0].issue_add_5,
+            rcv_sjh1N: props.borma[0].issue_add_6,
+            rcv_sp1N: props.borma[0].issue_add_9,
+            rcv_jk_kN: props.borma[0].issue_add_8,
+            rcv_jh1N: props.borma[0].issue_add_7,
+            rcv_bigTaiho: props.borma[0].rcv_bigTaiho,
+            issue_jjh: props.borma[0].issue_jjh,
+            issue_jjh1: props.borma[0].issue_jjh1,
+            issue_sjh: props.borma[0].issue_sjh,
+            issue_jk: props.borma[0].issue_jk,
+            issue_jk1: props.borma[0].issue_jk1,
+            issue_k: props.borma[0].issue_k,
+            issue_k1: props.borma[0].issue_k1,
+            issue_lwp: props.borma[0].issue_lwp,
+            issue_lwp1: props.borma[0].issue_lwp1,
+            issue_s: props.borma[0].issue_s,
+            issue_ss: props.borma[0].issue_ss,
+            issue_yk: props.borma[0].issue_yk,
+            issue_sp2: props.borma[0].issue_sp2,
+            issue_kp: props.borma[0].issue_kp,
+            issue_village: props.borma[0].issue_village,
+            issue_mayur: props.borma[0].issue_mayur,
+            issue_bigTaiho: props.borma[0].issue_bigTaiho,
+            issue_dpds: props.borma[0].issue_dpds,
+            issue_rejection: props.borma[0].issue_rejection,
             issue_add_1: props.borma[0].issue_add_1,
-            issue_add_2:  props.borma[0].issue_add_2,
-            issue_add_3:  props.borma[0].issue_add_3,
-            issue_add_4:  props.borma[0].issue_add_4,
-            issue_add_5:  props.borma[0].issue_add_5,
-            issue_add_6:  props.borma[0].issue_add_6,
-            issue_add_7:  props.borma[0].issue_add_7,
-            issue_add_8:  props.borma[0].issue_add_8,
-            issue_add_9:  props.borma[0].issue_add_9,
-            issue_add_10:  props.borma[0].issue_add_10,
-            issue_rejection:  props.borma[0].issue_rejection,
-            issue_village:  props.borma[0].issue_village,
-            issue_bigTaiho:  props.borma[0].issue_bigTaiho,
-            issue_mayur:  props.borma[0].issue_mayur,
+            issue_add_2: props.borma[0].issue_add_2,
+            issue_add_3: props.borma[0].issue_add_3,
+            issue_add_4: props.borma[0].issue_add_4,
+            issue_add_5: props.borma[0].issue_add_5,
+            issue_add_6: props.borma[0].issue_add_6,
+            issue_add_7: props.borma[0].issue_add_7,
+            issue_add_8: props.borma[0].issue_add_8,
+            issue_add_9: props.borma[0].issue_add_9,
+            issue_add_10: props.borma[0].issue_add_10
         };
         
       
@@ -210,7 +223,7 @@ const SortingEditForm = (props:Props) => {
         e.preventDefault()
         const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: props.borma[0].LotNo,origin:props.borma[0].origin})
         console.log(resStatus1)
-        if (resStatus1.data.scoopingLot[0].latest_section && resStatus1.data.scoopingLot[0].latest_section !=='DPDS') 
+        if (resStatus1.data.scoopingLot[0].latest_section && resStatus1.data.scoopingLot[0].latest_section !=='Sorting') 
             {
             setErrortext(`Lot is Already Linked to ${resStatus1.data.scoopingLot[0].latest_section} Section`)
             if(errordialog){
@@ -220,7 +233,7 @@ const SortingEditForm = (props:Props) => {
             return
         }
         setisdisable(true)
-        props.borma.map((item: DPDSData, idx: number) => {
+        props.borma.map((item: SortingData, idx: number) => {
             rows[idx].id=item.id
         })
         console.log(rows)
@@ -240,7 +253,7 @@ const SortingEditForm = (props:Props) => {
             }))
         
             try {
-                const initialhumid = await axios.post('/api/dpds/updateDPDS', { linehumid:formData,
+                const initialhumid = await axios.post('/api/sorting/updateSorting', { linehumid:formData,
                     LotNo:props.borma[0].LotNo
                  })
                 console.log(initialhumid)         
@@ -293,12 +306,12 @@ const SortingEditForm = (props:Props) => {
                
                      <div className="flex"><Label className="w-2/4 pt-1">No. of Labour</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of labour" ref={dayOpRef}  />
+                    <Input className="w-2/4 text-center" placeholder="No. of Labour" ref={dayOpRef}  />
                      </div>
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Supervisor</Label>
-                    {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of supervisor" ref={nightOpRef}  />
-                     </div>
+                     {/* <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Night)</Label>
+                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required />
+                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
+                     </div> */}
                    
                      
                    
@@ -306,44 +319,45 @@ const SortingEditForm = (props:Props) => {
             
                    <Table className="mt-3">
                    <TableHeader className="bg-neutral-100 text-stone-950 ">
-                   <TableHead className="text-center">Sl. No.</TableHead>
+                    <TableHead className="text-center">Sl. No.</TableHead>
                     <TableHead className="text-center">Lot_No</TableHead>
               
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
-                    <TableHead className="text-center">Receive DP</TableHead>
-                    <TableHead className="text-center">Receive DS</TableHead>
-                    <TableHead className="text-center">Receive DP1</TableHead>
-                    <TableHead className="text-center">Receive DP(Borma)</TableHead>
-                    <TableHead className="text-center">Receive DS(Borma)</TableHead>
-                    <TableHead className="text-center">Receive DP1(Borma)</TableHead>
-                    <TableHead className="text-center">Receive Big_Taiho</TableHead>
-                    <TableHead className="text-center">Receive Sorting</TableHead>
+                  
+                    <TableHead className="text-center">Receive JJH</TableHead>
+                    <TableHead className="text-center">Receive SJH</TableHead>
+                    <TableHead className="text-center">Receive SJH1</TableHead>
+                    <TableHead className="text-center">Receive JH1</TableHead>
+                    <TableHead className="text-center">Receive JK_K</TableHead>
+                    <TableHead className="text-center">Receive SP1</TableHead>
+                    <TableHead className="text-center">Receive JJH(Borma)</TableHead>
+                    <TableHead className="text-center">Receive SJH(Borma)</TableHead>
+                    <TableHead className="text-center">Receive SJH1(Borma)</TableHead>
+                    <TableHead className="text-center">Receive JH1(Borma)</TableHead>
+                    <TableHead className="text-center">Receive JK_K(Borma)</TableHead>
+                    <TableHead className="text-center">Receive SP1(Borma)</TableHead>
+                    <TableHead className="text-center">Receive BigTaiho</TableHead>
                     <TableHead className="text-center">Receive Peeling</TableHead>
                     <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
-            
                     <TableHead className="text-center">Borma Loss(Kg)</TableHead>
                     <TableHead className="text-center">Borma Loss(%)</TableHead>
-                   
-                   
-                    <TableHead className="text-center">Issue M_DS</TableHead>
-                    <TableHead className="text-center">Issue M_DP</TableHead>
-                    <TableHead className="text-center">Issue K DP</TableHead>
-                    <TableHead className="text-center">Issue DS 1</TableHead>
-                    <TableHead className="text-center">Issue DS 2</TableHead>
-                    <TableHead className="text-center">Issue SP 2</TableHead>
-                    <TableHead className="text-center">Issue YJH</TableHead>
-                    <TableHead className="text-center">Issue YK</TableHead>
-                    <TableHead className="text-center">Issue KP</TableHead>
-                    <TableHead className="text-center">Issue WP</TableHead>
-                    <TableHead className="text-center">Issue RS</TableHead>
-                    <TableHead className="text-center">Issue DP 2</TableHead>
-                    <TableHead className="text-center">Issue DP 3</TableHead>
-                    <TableHead className="text-center">Issue DP 4</TableHead>
-                    <TableHead className="text-center">Issue DP_3L</TableHead>
+   
+                    
+                    <TableHead className="text-center">Issue JJH</TableHead>
+                    <TableHead className="text-center">Issue JJH1</TableHead>
+                    <TableHead className="text-center">Issue SJH</TableHead>
+                    <TableHead className="text-center">Issue JK</TableHead>
+                    <TableHead className="text-center">Issue JK1</TableHead>
+                    <TableHead className="text-center">Issue K</TableHead>
+                    <TableHead className="text-center">Issue K1</TableHead>
+                    <TableHead className="text-center">Issue LWP</TableHead>
+                    <TableHead className="text-center">Issue LWP1</TableHead>
+                    <TableHead className="text-center">Issue S</TableHead>
                     <TableHead className="text-center">Issue SS</TableHead>
-                    <TableHead className="text-center">Issue OS</TableHead>
-                    <TableHead className="text-center">Issue OS1</TableHead>
+                    <TableHead className="text-center">Issue YK</TableHead>
+                    <TableHead className="text-center">Issue SP2</TableHead>
+                    <TableHead className="text-center">Issue KP</TableHead>
                     {/* <TableHead className="text-center">Issue Add 1</TableHead>
                     <TableHead className="text-center">Issue Add 2</TableHead>
                     <TableHead className="text-center">Issue Add 3</TableHead>
@@ -354,14 +368,17 @@ const SortingEditForm = (props:Props) => {
                     <TableHead className="text-center">Issue Add 8</TableHead>
                     <TableHead className="text-center">Issue Add 9</TableHead>
                     <TableHead className="text-center">Issue Add 10</TableHead> */}
-                    <TableHead className="text-center">Issue Rejection</TableHead>
                     <TableHead className="text-center">Issue Village</TableHead>
-                    <TableHead className="text-center">Issue BigTaiho</TableHead>
                     <TableHead className="text-center">Issue Mayur</TableHead>
+                    <TableHead className="text-center">Issue BigTaiho</TableHead>
+                    <TableHead className="text-center">Issue DPDS</TableHead>
+                    <TableHead className="text-center">Issue Rejection</TableHead>
+                    {/* <TableHead className="text-center">Mixed Amount</TableHead> */}
+               
                     </TableHeader>
                     <TableBody>
                         {props.borma.length > 0 ? (
-                            rows.map(( row:DPDSRowData,idx:number) => {
+                            rows.map(( row:SortingRowData,idx:number) => {
                               
                                 return (
                                     <TableRow key={idx} className="boiling-row-height-scoop">
@@ -369,46 +386,42 @@ const SortingEditForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_dp)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_ds)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_dp1)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_dpN.toString())} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_dsN.toString())} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_dp1N.toString())} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_transfer ? formatNumber(row.rcv_transfer) :0} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_Sorting ? formatNumber(row.rcv_Sorting):0} Kg</TableCell>
-                                       
-                                        <TableCell className="text-center font-bold text-green-600">{formatNumber((Number(row.rcv_dp)+Number(row.rcv_ds)
-                                        +Number(row.rcv_dp1)).toString())} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-blue-100' type="number" 
-                                        value={formatNumber(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /></TableCell>
-                                           
-                                        
-                                        
-                                        <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
-                                        
-                                        {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_m_ds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_m_ds', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_jjh)} </TableCell>
+                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_sjh)} </TableCell>
+                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_sjh1)} </TableCell>
+                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_jh1)} </TableCell>
+                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_jk_k)} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_sp1)} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_jjhN.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_sjhN.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_sjh1N.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_jh1N.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_jk_kN.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_sp1N.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_bigTaiho ? formatNumber(row.rcv_bigTaiho) :0} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100 text-green-600  ">{formatNumber((parseFloat(row.rcv_jjh) +
+                                         parseFloat(row.rcv_sjh)+parseFloat(row.rcv_sjh1)+parseFloat(row.rcv_jh1) +
+                                         parseFloat(row.rcv_jk_k)+parseFloat(row.rcv_sp1)).toString())} kg</TableCell>
 
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_m_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_m_dp', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_k_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_k_dp', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ds_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ds_1', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ds_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ds_2', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_sp_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sp_2', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_yjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_yjh', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_yk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_yk', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_kp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_kp', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_wp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_wp', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_rs} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rs', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_dp_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dp_2', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_dp_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dp_3', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_dp_4} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dp_4', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_dp_3l} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dp_3l', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ss} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ss', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_os} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_os', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_os1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_os1', e.target.value)} required /></TableCell>
-                                    {/* <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_1', e.target.value)} required /></TableCell>
+                                   <TableCell className="text-center"> <Input className='bg-blue-100' type="number" 
+                                        value={formatNumber(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /></TableCell>
+  <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
+  <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_jjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jjh', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_jjh1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jjh1', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_sjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sjh', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_jk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jk', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_jk1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jk1', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_k} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_k', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_k1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_k1', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_lwp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_lwp', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_lwp1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_lwp1', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_s} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_s', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ss} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ss', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_yk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_yk', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_sp2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sp2', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_kp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_kp', e.target.value)} required /></TableCell>
+                                        {/* <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_1', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_2', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_3', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_4} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_4', e.target.value)} required /></TableCell>
@@ -418,12 +431,12 @@ const SortingEditForm = (props:Props) => {
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_8} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_8', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_9} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_9', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_10} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_10', e.target.value)} required /></TableCell> */}
-                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_village', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bigTaiho', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_mayur', e.target.value)} required /></TableCell>
-
-                                    
+                                         <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_village', e.target.value)} required /></TableCell> 
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_mayur', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bigTaiho', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_dpds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dpds', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required /></TableCell>
+                                        
                                     </TableRow>
                                 );
                             })

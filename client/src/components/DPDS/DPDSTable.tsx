@@ -457,6 +457,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <TableHead className="text-center">Issue Village</TableHead>
                 <TableHead className="text-center">Issue Big_Taiho</TableHead>
                 <TableHead className="text-center">Issue Mayur</TableHead>
+                <TableHead className="text-center font-bold">DPDS Total_Issue(Kg)</TableHead>
                 {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
                 <TableHead className="text-center font-bold">Current_Backlog</TableHead>
              
@@ -534,6 +535,15 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                      parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
                                      parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
                                      parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString())}</TableCell>
+                                     
+                                     <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.issue_m_ds) +
+                                     parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
+                                     parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
+                                     parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
+                                     parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
+                                     parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
+                                     parseFloat(item.issue_rejection) +parseFloat(item.issue_village)+parseFloat(item.issue_bigTaiho)+parseFloat(item.issue_mayur)+
+                                     parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString())} Kg</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_village)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
@@ -658,7 +668,14 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold bg-red-100 ">{formatNumber(item.issue_bigTaiho)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100 ">{formatNumber(item.issue_mayur)}</TableCell>
                                     {/* <TableCell className="text-center font-semibold  text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
-                                           
+                                    <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.issue_m_ds) +
+                                     parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
+                                     parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
+                                     parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
+                                     parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
+                                     parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
+                                     parseFloat(item.issue_rejection) +parseFloat(item.issue_village)+parseFloat(item.issue_bigTaiho)+parseFloat(item.issue_mayur)+
+                                     parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString())} Kg</TableCell>
                                            <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                         <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                         <TableCell className="text-center">{item.noOfnightOperators}</TableCell>

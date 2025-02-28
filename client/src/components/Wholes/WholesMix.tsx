@@ -855,10 +855,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_ww_400 ? datarcv.rcv_ww_400 : ''}</TableCell>
                             <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_ww_400 : 'NA'}</TableCell>
 
-                            <TableCell className="text-center font-semibold text-red-500">{datarcv.rcv_jb_mayur ? datarcv.rcv_jb_mayur : ''}</TableCell>
+                            <TableCell className="text-center bg-cyan-100">{datarcv.rcv_jb_mayur ? datarcv.rcv_jb_mayur : ''}</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{successflag ? destrcv_jb_mayur : 'NA'}</TableCell>
 
-                            <TableCell className="text-center font-semibold text-red-500">{datarcv.rcv_jb_hamsa ? datarcv.rcv_jb_hamsa : ''}</TableCell>
+                            <TableCell className="text-center bg-cyan-100">{datarcv.rcv_jb_hamsa ? datarcv.rcv_jb_hamsa : ''}</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{successflag ? destrcv_jb_hamsa : 'NA'}</TableCell>
 
                             <TableCell className="text-center font-semibold text-green-600 ">{datarcv.current_backlog ? datarcv.current_backlog : ''}</TableCell>
