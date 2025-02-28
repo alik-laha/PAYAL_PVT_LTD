@@ -504,6 +504,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue Village</TableHead>
                     <TableHead className="text-center">Issue Sorting</TableHead>
                     <TableHead className="text-center">Issue DPDS</TableHead>
+                    <TableHead className="text-center font-bold">BigTaiho Total_Issue(kg)</TableHead>
                     {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
                     <TableHead className="text-center font-bold">Current_Backlog</TableHead>
 
@@ -602,7 +603,17 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_sorting)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_dpds)}</TableCell>
                                     {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
-                                               
+                                    
+                                    <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.issue_ssp) +
+                                     parseFloat(item.issue_ssp_small)+parseFloat(item.issue_swp_1)+
+                                     parseFloat(item.issue_wsp) +parseFloat(item.issue_bits)+parseFloat(item.issue_swp)+
+                                     parseFloat(item.issue_bb) +parseFloat(item.issue_w_bb)+parseFloat(item.issue_bb_A)+
+                                     parseFloat(item.issue_bb1) +parseFloat(item.issue_bb1_A)+parseFloat(item.issue_bb_2)+
+                                     parseFloat(item.issue_ssp_1) +parseFloat(item.issue_ssp_1_small)+parseFloat(item.issue_ssp_2)+
+                                     parseFloat(item.issue_husk) +parseFloat(item.issue_rejection)+parseFloat(item.issue_village)+
+                                     parseFloat(item.issue_sorting) +parseFloat(item.issue_dpds)+
+                                     parseFloat(item.issue_ssp_2_small) +parseFloat(item.issue_sdp)).toString())}kg</TableCell>
+
                                     <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on_1.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off_1.slice(0, 5))}</TableCell>
@@ -740,7 +751,15 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_sorting)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_dpds)}</TableCell>
                                     {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
-                                               
+                                    <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.issue_ssp) +
+                                     parseFloat(item.issue_ssp_small)+parseFloat(item.issue_swp_1)+
+                                     parseFloat(item.issue_wsp) +parseFloat(item.issue_bits)+parseFloat(item.issue_swp)+
+                                     parseFloat(item.issue_bb) +parseFloat(item.issue_w_bb)+parseFloat(item.issue_bb_A)+
+                                     parseFloat(item.issue_bb1) +parseFloat(item.issue_bb1_A)+parseFloat(item.issue_bb_2)+
+                                     parseFloat(item.issue_ssp_1) +parseFloat(item.issue_ssp_1_small)+parseFloat(item.issue_ssp_2)+
+                                     parseFloat(item.issue_husk) +parseFloat(item.issue_rejection)+parseFloat(item.issue_village)+
+                                     parseFloat(item.issue_sorting) +parseFloat(item.issue_dpds)+
+                                     parseFloat(item.issue_ssp_2_small) +parseFloat(item.issue_sdp)).toString())}kg</TableCell>
                                     <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on_1.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off_1.slice(0, 5))}</TableCell>

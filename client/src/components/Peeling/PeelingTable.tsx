@@ -404,6 +404,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Husk</TableHead>
                         <TableHead className="text-center" >Rejection</TableHead>
                         <TableHead className="text-center" >Big_Taiho</TableHead>
+                        <TableHead className="text-center font-bold" >Total_Issue(Kg)</TableHead>
                         <TableHead className="text-center" >Total_Backlog</TableHead>
                         <TableHead className="text-center" >Peeling_ON</TableHead>
                         <TableHead className="text-center" >Peeling_OFF</TableHead>
@@ -454,6 +455,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center bg-yellow-100">{formatNumber(item.Husk)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.Rejection)}</TableCell>
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.Big_Taiho)}</TableCell>
+                                        <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.TotalInput)-parseFloat(item.difference)).toString())} Kg</TableCell>
                                         <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.difference)} Kg</TableCell>
                                        
                                         
@@ -543,6 +545,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center bg-yellow-100">{formatNumber(item.Husk)}</TableCell>
                                         <TableCell className="text-center bg-green-100">{formatNumber(item.Rejection)}</TableCell>
                                         <TableCell className="text-center bg-red-100">{formatNumber(item.Big_Taiho)}</TableCell>
+                                        <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.TotalInput)-parseFloat(item.difference)).toString())} Kg</TableCell>
+
                                         <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.difference)} Kg</TableCell>
 
                                         <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
