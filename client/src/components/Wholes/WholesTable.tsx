@@ -550,7 +550,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                         <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                         {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
-                        <TableHead className="text-center">Opening-Wholes</TableHead>
+                        <TableHead className="text-center">Opening_Wholes</TableHead>
                         <TableHead className="text-center">Borma_Loss(Kg)</TableHead>
                         <TableHead className="text-center">Borma_Loss(%)</TableHead>
                         <TableHead className="text-center">Receive PW_210 (Borma)</TableHead>
@@ -668,157 +668,224 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-bold ">{item.altid == 1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
 
                                     <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
-                                    <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
-                                    <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
-                                    <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                        <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
+                                        <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
+                                        <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
 
-                                    <TableCell className="text-center ">{item.mixingLot}</TableCell>
-                                    {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
+                                        <TableCell className="text-center ">{item.mixingLot}</TableCell>
+                                        {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
 
-                                    <TableCell className="text-center font-bold">{formatNumber((parseFloat(item.rcv_pw_210) +
-                                                parseFloat(item.rcv_w_210) +
-                                                parseFloat(item.rcv_ww_210) +
-                                                parseFloat(item.rcv_pw_240) +
-                                                parseFloat(item.rcv_w_240) +
-                                                parseFloat(item.rcv_ww_240) +
-                                                parseFloat(item.rcv_pw_280) +
-                                                parseFloat(item.rcv_w_280) +
-                                                parseFloat(item.rcv_ww_280) +
-                                                parseFloat(item.rcv_pw_320) +
-                                                parseFloat(item.rcv_w_320) +
-                                                parseFloat(item.rcv_ww_320) +
-                                                parseFloat(item.rcv_pw_360) +
-                                                parseFloat(item.rcv_w_360) +
-                                                parseFloat(item.rcv_ww_360) +
-                                                parseFloat(item.rcv_pw_400) +
-                                                parseFloat(item.rcv_w_400) +
-                                                parseFloat(item.rcv_ww_400) +parseFloat(item.rcv_jb_mayur) +
-                                                parseFloat(item.rcv_jb_hamsa) + parseFloat(item.issue_add_2)).toString())} Kg</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
-                                    <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
+                                        <TableCell className="text-center font-bold">{formatNumber(
+                                                (parseFloat(item.current_backlog)+parseFloat(item.issue_pw_150) +
+                                                    parseFloat(item.issue_w_150) +
+                                                    parseFloat(item.issue_ww_150) +
+                                                    parseFloat(item.issue_s_150) +
+                                                    parseFloat(item.issue_aw_150) +
+                                                    parseFloat(item.issue_lw_150) +
+                                                    parseFloat(item.issue_pw_180) +
+                                                    parseFloat(item.issue_w_180) +
+                                                    parseFloat(item.issue_ww_180) +
+                                                    parseFloat(item.issue_s_180) +
+                                                    parseFloat(item.issue_aw_180) +
+                                                    parseFloat(item.issue_lw_180) +
+                                                    parseFloat(item.issue_pw_210) +
+                                                    parseFloat(item.issue_w_210) +
+                                                    parseFloat(item.issue_ww_210) +
+                                                    parseFloat(item.issue_s_210) +
+                                                    parseFloat(item.issue_aw_210) +
+                                                    parseFloat(item.issue_lw_210) +
+                                                    parseFloat(item.issue_pw_240) +
+                                                    parseFloat(item.issue_w_240) +
+                                                    parseFloat(item.issue_ww_240) +
+                                                    parseFloat(item.issue_ww_240_A) +
+                                                    parseFloat(item.issue_aw_240) +
+                                                    parseFloat(item.issue_lw_240) +
+                                                    parseFloat(item.issue_pw_280) +
+                                                    parseFloat(item.issue_w_280) +
+                                                    parseFloat(item.issue_ww_280) +
+                                                    parseFloat(item.issue_ww_280_A) +
+                                                    parseFloat(item.issue_aw_280) +
+                                                    parseFloat(item.issue_lw_280) +
+                                                    parseFloat(item.wholes_double) +
+                                                    parseFloat(item.issue_pw_320) +
+                                                    parseFloat(item.issue_w_320) +
+                                                    parseFloat(item.issue_ww_320) +
+                                                    parseFloat(item.issue_ww_320_A) +
+                                                    parseFloat(item.issue_aw_320) +
+                                                    parseFloat(item.issue_lw_320) +
+                                                    parseFloat(item.issue_pw_360) +
+                                                    parseFloat(item.issue_w_360) +
+                                                    parseFloat(item.issue_ww_360) +
+                                                    parseFloat(item.issue_ww_360_A) +
+                                                    parseFloat(item.issue_aw_360) +
+                                                    parseFloat(item.issue_lw_360) +
+                                                    parseFloat(item.issue_pw_400) +
+                                                    parseFloat(item.issue_w_400) +
+                                                    parseFloat(item.issue_ww_400) +
+                                                    parseFloat(item.issue_ww_400_A) +
+                                                    parseFloat(item.issue_aw_400) +
+                                                    parseFloat(item.issue_lw_400) +
+                                                    parseFloat(item.issue_jjb) +parseFloat(item.issue_add_2)+
+                                                    parseFloat(item.issue_jjb1)+parseFloat(item.issue_rejection)+parseFloat(item.issue_village)+parseFloat(item.issue_lw)+parseFloat(item.issue_bigTaiho))
+                                                    .toString()
+                                            )} Kg</TableCell>
+                                        <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
+                                        <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
 
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_pw_210)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_w_210)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_ww_210)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_pw_240)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_w_240)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_ww_240)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_pw_280)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_w_280)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_ww_280)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_pw_320)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_w_320)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_ww_320)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_pw_360)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_w_360)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_ww_360)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_pw_400)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_w_400)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_ww_400)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_jb_hamsa)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-100">
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_pw_210)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_w_210)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_ww_210)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_pw_240)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_w_240)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_ww_240)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_pw_280)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_w_280)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_ww_280)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_pw_320)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_w_320)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_ww_320)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_pw_360)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_w_360)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_ww_360)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_pw_400)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_w_400)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_ww_400)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.rcv_jb_hamsa)}</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100">
+                                            {formatNumber(
+                                                (parseFloat(item.rcv_pw_210) +
+                                                    parseFloat(item.rcv_w_210) +
+                                                    parseFloat(item.rcv_ww_210) +
+                                                    parseFloat(item.rcv_pw_240) +
+                                                    parseFloat(item.rcv_w_240) +
+                                                    parseFloat(item.rcv_ww_240) +
+                                                    parseFloat(item.rcv_pw_280) +
+                                                    parseFloat(item.rcv_w_280) +
+                                                    parseFloat(item.rcv_ww_280) +
+                                                    parseFloat(item.rcv_pw_320) +
+                                                    parseFloat(item.rcv_w_320) +
+                                                    parseFloat(item.rcv_ww_320) +
+                                                    parseFloat(item.rcv_pw_360) +
+                                                    parseFloat(item.rcv_w_360) +
+                                                    parseFloat(item.rcv_ww_360) +
+                                                    parseFloat(item.rcv_pw_400) +
+                                                    parseFloat(item.rcv_w_400) +
+                                                    parseFloat(item.rcv_ww_400) +
+                                                    parseFloat(item.rcv_jb_hamsa))
+                                                    .toString()
+                                            )}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.rcv_jb_mayur)}</TableCell>
+
+                                        <TableCell className="text-center font-bold bg-green-500 text-white">
                                         {formatNumber(
-                                            (parseFloat(item.rcv_pw_210) +
-                                                parseFloat(item.rcv_w_210) +
-                                                parseFloat(item.rcv_ww_210) +
-                                                parseFloat(item.rcv_pw_240) +
-                                                parseFloat(item.rcv_w_240) +
-                                                parseFloat(item.rcv_ww_240) +
-                                                parseFloat(item.rcv_pw_280) +
-                                                parseFloat(item.rcv_w_280) +
-                                                parseFloat(item.rcv_ww_280) +
-                                                parseFloat(item.rcv_pw_320) +
-                                                parseFloat(item.rcv_w_320) +
-                                                parseFloat(item.rcv_ww_320) +
-                                                parseFloat(item.rcv_pw_360) +
-                                                parseFloat(item.rcv_w_360) +
-                                                parseFloat(item.rcv_ww_360) +
-                                                parseFloat(item.rcv_pw_400) +
-                                                parseFloat(item.rcv_w_400) +
-                                                parseFloat(item.rcv_ww_400) +
-                                                parseFloat(item.rcv_jb_hamsa))
-                                                .toString()
-                                        )}
-                                    </TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.rcv_jb_mayur)}</TableCell>
+                                                (parseFloat(item.current_backlog)+parseFloat(item.issue_pw_150) +
+                                                    parseFloat(item.issue_w_150) +
+                                                    parseFloat(item.issue_ww_150) +
+                                                    parseFloat(item.issue_s_150) +
+                                                    parseFloat(item.issue_aw_150) +
+                                                    parseFloat(item.issue_lw_150) +
+                                                    parseFloat(item.issue_pw_180) +
+                                                    parseFloat(item.issue_w_180) +
+                                                    parseFloat(item.issue_ww_180) +
+                                                    parseFloat(item.issue_s_180) +
+                                                    parseFloat(item.issue_aw_180) +
+                                                    parseFloat(item.issue_lw_180) +
+                                                    parseFloat(item.issue_pw_210) +
+                                                    parseFloat(item.issue_w_210) +
+                                                    parseFloat(item.issue_ww_210) +
+                                                    parseFloat(item.issue_s_210) +
+                                                    parseFloat(item.issue_aw_210) +
+                                                    parseFloat(item.issue_lw_210) +
+                                                    parseFloat(item.issue_pw_240) +
+                                                    parseFloat(item.issue_w_240) +
+                                                    parseFloat(item.issue_ww_240) +
+                                                    parseFloat(item.issue_ww_240_A) +
+                                                    parseFloat(item.issue_aw_240) +
+                                                    parseFloat(item.issue_lw_240) +
+                                                    parseFloat(item.issue_pw_280) +
+                                                    parseFloat(item.issue_w_280) +
+                                                    parseFloat(item.issue_ww_280) +
+                                                    parseFloat(item.issue_ww_280_A) +
+                                                    parseFloat(item.issue_aw_280) +
+                                                    parseFloat(item.issue_lw_280) +
+                                                    parseFloat(item.wholes_double) +
+                                                    parseFloat(item.issue_pw_320) +
+                                                    parseFloat(item.issue_w_320) +
+                                                    parseFloat(item.issue_ww_320) +
+                                                    parseFloat(item.issue_ww_320_A) +
+                                                    parseFloat(item.issue_aw_320) +
+                                                    parseFloat(item.issue_lw_320) +
+                                                    parseFloat(item.issue_pw_360) +
+                                                    parseFloat(item.issue_w_360) +
+                                                    parseFloat(item.issue_ww_360) +
+                                                    parseFloat(item.issue_ww_360_A) +
+                                                    parseFloat(item.issue_aw_360) +
+                                                    parseFloat(item.issue_lw_360) +
+                                                    parseFloat(item.issue_pw_400) +
+                                                    parseFloat(item.issue_w_400) +
+                                                    parseFloat(item.issue_ww_400) +
+                                                    parseFloat(item.issue_ww_400_A) +
+                                                    parseFloat(item.issue_aw_400) +
+                                                    parseFloat(item.issue_lw_400) +
+                                                    parseFloat(item.issue_jjb) +
+                                                    parseFloat(item.issue_jjb1)+parseFloat(item.issue_rejection)+parseFloat(item.issue_village)+parseFloat(item.issue_lw)+parseFloat(item.issue_bigTaiho))
+                                                    .toString()
+                                            )}
+                                        </TableCell>
 
-                                    <TableCell className="text-center font-bold bg-green-500 text-white">
-                                        {formatNumber(
-                                            (parseFloat(item.rcv_pw_210) +
-                                                parseFloat(item.rcv_w_210) +
-                                                parseFloat(item.rcv_ww_210) +
-                                                parseFloat(item.rcv_pw_240) +
-                                                parseFloat(item.rcv_w_240) +
-                                                parseFloat(item.rcv_ww_240) +
-                                                parseFloat(item.rcv_pw_280) +
-                                                parseFloat(item.rcv_w_280) +
-                                                parseFloat(item.rcv_ww_280) +
-                                                parseFloat(item.rcv_pw_320) +
-                                                parseFloat(item.rcv_w_320) +
-                                                parseFloat(item.rcv_ww_320) +
-                                                parseFloat(item.rcv_pw_360) +
-                                                parseFloat(item.rcv_w_360) +
-                                                parseFloat(item.rcv_ww_360) +
-                                                parseFloat(item.rcv_pw_400) +
-                                                parseFloat(item.rcv_w_400) +
-                                                parseFloat(item.rcv_ww_400) +
-                                                parseFloat(item.rcv_jb_hamsa) + parseFloat(item.rcv_jb_mayur))
-                                                .toString()
-                                        )}
-                                    </TableCell>
 
-
-                                    <TableCell className="text-center ">{formatNumber(item.issue_pw_150)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_w_150)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_150)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_s_150)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_aw_150)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_lw_150)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_pw_180)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_w_180)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_180)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_s_180)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_aw_180)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_lw_180)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_pw_210)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_w_210)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_210)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_s_210)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_aw_210)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_lw_210)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_pw_240)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_w_240)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_240)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_240_A)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_aw_240)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_lw_240)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_pw_280)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_w_280)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_280)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_280_A)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_aw_280)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_lw_280)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.wholes_double)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_pw_320)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_w_320)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_320)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_320_A)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_aw_320)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_lw_320)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_pw_360)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_w_360)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_360)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_360_A)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_aw_360)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_lw_360)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_pw_400)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_w_400)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_400)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_ww_400_A)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_aw_400)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_lw_400)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_jjb)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_jjb1)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_pw_150)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_w_150)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_ww_150)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_s_150)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_aw_150)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_lw_150)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_pw_180)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_w_180)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_ww_180)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_s_180)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_aw_180)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_lw_180)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_pw_210)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_w_210)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_ww_210)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_s_210)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_aw_210)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_lw_210)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_pw_240)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_w_240)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_ww_240)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_ww_240_A)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_aw_240)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_lw_240)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_pw_280)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_w_280)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_ww_280)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_ww_280_A)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_aw_280)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_lw_280)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.wholes_double)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_pw_320)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_w_320)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_ww_320)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_ww_320_A)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_aw_320)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_lw_320)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_pw_360)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_w_360)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_ww_360)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_ww_360_A)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_aw_360)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_lw_360)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_pw_400)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_w_400)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_ww_400)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_ww_400_A)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_aw_400)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_lw_400)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_jjb)}</TableCell>
+                                        <TableCell className="text-center ">{formatNumber(item.issue_jjb1)}</TableCell>
 
                                     <TableCell className="text-center font-semibold bg-red-100">
                                         {formatNumber(
@@ -948,26 +1015,60 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center ">{item.mixingLot}</TableCell>
                                         {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
 
-                                        <TableCell className="text-center font-bold">{formatNumber((parseFloat(item.rcv_pw_210) +
-                                                parseFloat(item.rcv_w_210) +
-                                                parseFloat(item.rcv_ww_210) +
-                                                parseFloat(item.rcv_pw_240) +
-                                                parseFloat(item.rcv_w_240) +
-                                                parseFloat(item.rcv_ww_240) +
-                                                parseFloat(item.rcv_pw_280) +
-                                                parseFloat(item.rcv_w_280) +
-                                                parseFloat(item.rcv_ww_280) +
-                                                parseFloat(item.rcv_pw_320) +
-                                                parseFloat(item.rcv_w_320) +
-                                                parseFloat(item.rcv_ww_320) +
-                                                parseFloat(item.rcv_pw_360) +
-                                                parseFloat(item.rcv_w_360) +
-                                                parseFloat(item.rcv_ww_360) +
-                                                parseFloat(item.rcv_pw_400) +
-                                                parseFloat(item.rcv_w_400) +
-                                                parseFloat(item.rcv_ww_400) +
-                                                parseFloat(item.rcv_jb_hamsa)
-                                                +parseFloat(item.rcv_jb_mayur) + parseFloat(item.issue_add_2)).toString())} Kg</TableCell>
+                                        <TableCell className="text-center font-bold">{formatNumber(
+                                                (parseFloat(item.current_backlog)+parseFloat(item.issue_pw_150) +
+                                                    parseFloat(item.issue_w_150) +
+                                                    parseFloat(item.issue_ww_150) +
+                                                    parseFloat(item.issue_s_150) +
+                                                    parseFloat(item.issue_aw_150) +
+                                                    parseFloat(item.issue_lw_150) +
+                                                    parseFloat(item.issue_pw_180) +
+                                                    parseFloat(item.issue_w_180) +
+                                                    parseFloat(item.issue_ww_180) +
+                                                    parseFloat(item.issue_s_180) +
+                                                    parseFloat(item.issue_aw_180) +
+                                                    parseFloat(item.issue_lw_180) +
+                                                    parseFloat(item.issue_pw_210) +
+                                                    parseFloat(item.issue_w_210) +
+                                                    parseFloat(item.issue_ww_210) +
+                                                    parseFloat(item.issue_s_210) +
+                                                    parseFloat(item.issue_aw_210) +
+                                                    parseFloat(item.issue_lw_210) +
+                                                    parseFloat(item.issue_pw_240) +
+                                                    parseFloat(item.issue_w_240) +
+                                                    parseFloat(item.issue_ww_240) +
+                                                    parseFloat(item.issue_ww_240_A) +
+                                                    parseFloat(item.issue_aw_240) +
+                                                    parseFloat(item.issue_lw_240) +
+                                                    parseFloat(item.issue_pw_280) +
+                                                    parseFloat(item.issue_w_280) +
+                                                    parseFloat(item.issue_ww_280) +
+                                                    parseFloat(item.issue_ww_280_A) +
+                                                    parseFloat(item.issue_aw_280) +
+                                                    parseFloat(item.issue_lw_280) +
+                                                    parseFloat(item.wholes_double) +
+                                                    parseFloat(item.issue_pw_320) +
+                                                    parseFloat(item.issue_w_320) +
+                                                    parseFloat(item.issue_ww_320) +
+                                                    parseFloat(item.issue_ww_320_A) +
+                                                    parseFloat(item.issue_aw_320) +
+                                                    parseFloat(item.issue_lw_320) +
+                                                    parseFloat(item.issue_pw_360) +
+                                                    parseFloat(item.issue_w_360) +
+                                                    parseFloat(item.issue_ww_360) +
+                                                    parseFloat(item.issue_ww_360_A) +
+                                                    parseFloat(item.issue_aw_360) +
+                                                    parseFloat(item.issue_lw_360) +
+                                                    parseFloat(item.issue_pw_400) +
+                                                    parseFloat(item.issue_w_400) +
+                                                    parseFloat(item.issue_ww_400) +
+                                                    parseFloat(item.issue_ww_400_A) +
+                                                    parseFloat(item.issue_aw_400) +
+                                                    parseFloat(item.issue_lw_400) +
+                                                    parseFloat(item.issue_jjb) +parseFloat(item.issue_add_2)+
+                                                    parseFloat(item.issue_jjb1)+parseFloat(item.issue_rejection)+parseFloat(item.issue_village)+parseFloat(item.issue_lw)+parseFloat(item.issue_bigTaiho))
+                                                    .toString()
+                                            )} Kg</TableCell>
                                         <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
                                         <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
 
@@ -1017,26 +1118,58 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.rcv_jb_mayur)}</TableCell>
 
                                         <TableCell className="text-center font-bold bg-green-500 text-white">
-                                            {formatNumber(
-                                                (parseFloat(item.rcv_pw_210) +
-                                                    parseFloat(item.rcv_w_210) +
-                                                    parseFloat(item.rcv_ww_210) +
-                                                    parseFloat(item.rcv_pw_240) +
-                                                    parseFloat(item.rcv_w_240) +
-                                                    parseFloat(item.rcv_ww_240) +
-                                                    parseFloat(item.rcv_pw_280) +
-                                                    parseFloat(item.rcv_w_280) +
-                                                    parseFloat(item.rcv_ww_280) +
-                                                    parseFloat(item.rcv_pw_320) +
-                                                    parseFloat(item.rcv_w_320) +
-                                                    parseFloat(item.rcv_ww_320) +
-                                                    parseFloat(item.rcv_pw_360) +
-                                                    parseFloat(item.rcv_w_360) +
-                                                    parseFloat(item.rcv_ww_360) +
-                                                    parseFloat(item.rcv_pw_400) +
-                                                    parseFloat(item.rcv_w_400) +
-                                                    parseFloat(item.rcv_ww_400) +
-                                                    parseFloat(item.rcv_jb_hamsa) + parseFloat(item.rcv_jb_mayur))
+                                        {formatNumber(
+                                                (parseFloat(item.current_backlog)+parseFloat(item.issue_pw_150) +
+                                                    parseFloat(item.issue_w_150) +
+                                                    parseFloat(item.issue_ww_150) +
+                                                    parseFloat(item.issue_s_150) +
+                                                    parseFloat(item.issue_aw_150) +
+                                                    parseFloat(item.issue_lw_150) +
+                                                    parseFloat(item.issue_pw_180) +
+                                                    parseFloat(item.issue_w_180) +
+                                                    parseFloat(item.issue_ww_180) +
+                                                    parseFloat(item.issue_s_180) +
+                                                    parseFloat(item.issue_aw_180) +
+                                                    parseFloat(item.issue_lw_180) +
+                                                    parseFloat(item.issue_pw_210) +
+                                                    parseFloat(item.issue_w_210) +
+                                                    parseFloat(item.issue_ww_210) +
+                                                    parseFloat(item.issue_s_210) +
+                                                    parseFloat(item.issue_aw_210) +
+                                                    parseFloat(item.issue_lw_210) +
+                                                    parseFloat(item.issue_pw_240) +
+                                                    parseFloat(item.issue_w_240) +
+                                                    parseFloat(item.issue_ww_240) +
+                                                    parseFloat(item.issue_ww_240_A) +
+                                                    parseFloat(item.issue_aw_240) +
+                                                    parseFloat(item.issue_lw_240) +
+                                                    parseFloat(item.issue_pw_280) +
+                                                    parseFloat(item.issue_w_280) +
+                                                    parseFloat(item.issue_ww_280) +
+                                                    parseFloat(item.issue_ww_280_A) +
+                                                    parseFloat(item.issue_aw_280) +
+                                                    parseFloat(item.issue_lw_280) +
+                                                    parseFloat(item.wholes_double) +
+                                                    parseFloat(item.issue_pw_320) +
+                                                    parseFloat(item.issue_w_320) +
+                                                    parseFloat(item.issue_ww_320) +
+                                                    parseFloat(item.issue_ww_320_A) +
+                                                    parseFloat(item.issue_aw_320) +
+                                                    parseFloat(item.issue_lw_320) +
+                                                    parseFloat(item.issue_pw_360) +
+                                                    parseFloat(item.issue_w_360) +
+                                                    parseFloat(item.issue_ww_360) +
+                                                    parseFloat(item.issue_ww_360_A) +
+                                                    parseFloat(item.issue_aw_360) +
+                                                    parseFloat(item.issue_lw_360) +
+                                                    parseFloat(item.issue_pw_400) +
+                                                    parseFloat(item.issue_w_400) +
+                                                    parseFloat(item.issue_ww_400) +
+                                                    parseFloat(item.issue_ww_400_A) +
+                                                    parseFloat(item.issue_aw_400) +
+                                                    parseFloat(item.issue_lw_400) +
+                                                    parseFloat(item.issue_jjb) +
+                                                    parseFloat(item.issue_jjb1)+parseFloat(item.issue_rejection)+parseFloat(item.issue_village)+parseFloat(item.issue_lw)+parseFloat(item.issue_bigTaiho))
                                                     .toString()
                                             )}
                                         </TableCell>

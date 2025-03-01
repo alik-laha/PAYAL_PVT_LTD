@@ -11,6 +11,7 @@ import hamsaEditModel from "../../model/hamsaeditModel";
 import hamsaModel from "../../model/hamsamodel";
 import WholesModel from "../../model/wholesModel";
 import WholesEditModel from "../../model/wholesEditModel";
+import rejectionModel from "../../model/rejectionModel";
 
 
 // //Wholes.tsx
@@ -485,6 +486,73 @@ export const CreateEntireWholes= async (req: Request, res: Response) => {
                 }
                 else{
                     res.status(500).json({ message: "Error In Creating BigTaiho Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
+
+
+                // Rejection Out//
+
+                const rejection_backlog = await rejectionModel.findOne({
+                    attributes: ['current_backlog','rcv_wholes'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(rejection_backlog)
+                if (rejection_backlog && rejection_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_rejection,
+                        issueid:1,
+                        date:data.Date,
+                        fromSection:'Wholes',
+                        toSection:'Rejection',
+                        toSectionBeforeBacklog:rejection_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(rejection_backlog.dataValues.current_backlog)+parseFloat(data.issue_rejection),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(rejection_backlog.dataValues.rcv_wholes){
+                        await rejectionModel.update(
+                            { 
+                                rcv_wholes:sequelize.literal(`rcv_wholes+ ${data.issue_rejection}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_rejection}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await rejectionModel.update(
+                            { 
+                                rcv_wholes:data.issue_rejection,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_rejection}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Rejection Transaction History" });
                     throw new Error('Transaction Aborted')
                 } 
 
@@ -1401,7 +1469,7 @@ export const updateEntireWholes= async (req: Request, res: Response) => {
 
 }
 
-export const approveHamsa = async (req: Request, res: Response) => {
+export const approveWholes = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const LotNo = req.params.LotNo;
@@ -1411,14 +1479,14 @@ export const approveHamsa = async (req: Request, res: Response) => {
         if (!id || !approvedBy) {
             return res.status(400).json({ message: "Please provide the id or approved by" });
         }
-        const data = await hamsaEditModel.findOne({
+        const data = await WholesEditModel.findOne({
             where: {
                 id
             }
         }) as any;
         
         if (!data) {
-            return res.status(400).json({ message: "Hamsa Edit Entry not found" });
+            return res.status(400).json({ message: "Wholes Edit Entry not found" });
         }
         else{
             const transferBigTdata = await sectionTransfer.findOne({
@@ -1426,91 +1494,115 @@ export const approveHamsa = async (req: Request, res: Response) => {
                     issueid:data.altid,
                     LotNo:data.LotNo,
                     origin:data.origin,
-                    fromSection:'Hamsa',
+                    fromSection:'Wholes',
                     toSection:'BigTaiho'
                 }
             }) as any
 
-            const transferWholesdata = await sectionTransfer.findOne({
-                where: {
-                    issueid:data.altid,
-                    LotNo:data.LotNo,
-                    origin:data.origin,
-                    fromSection:'Hamsa',
-                    toSection:'Wholes'
-                }
-            }) as any
+            // const transferRejectiondata = await sectionTransfer.findOne({
+            //     where: {
+            //         issueid:data.altid,
+            //         LotNo:data.LotNo,
+            //         origin:data.origin,
+            //         fromSection:'Wholes',
+            //         toSection:'Rejection'
+            //     }
+            // }) as any
 
-            if(transferBigTdata && transferWholesdata){
+            if(transferBigTdata ){
                 await sequelize.transaction(async (transaction: any) => {
 
-                    const BigTEdit = await hamsaModel.update({
+                    const BigTEdit = await WholesModel.update({
                         date: data.Date,              
                         noOfdayOperators: data.dayoperator,
                         noOfnightOperators: data.nightoperator,
-                        Mc_on_1: data.Mc_on_1,
-                        Mc_off_1: data.Mc_off_1,
-                        Mc_runTime_1: data.Mc_runTime1,
-                        Mc_breakdown_1: data.Mc_breakdown_1,
-                        otherTime_1: data.otherTime_1,
-                        Mc_on_2: data.Mc_on_2,
-                        Mc_off_2: data.Mc_off_2,
-                        Mc_runTime_2: data.Mc_runTime2,
-                        Mc_breakdown_2: data.Mc_breakdown_2,
-                        otherTime_2: data.otherTime_2,
-                        Mc_on_3: data.Mc_on_3,
-                        Mc_off_3: data.Mc_off_3,
-                        Mc_runTime_3: data.Mc_runTime3,
-                        Mc_breakdown_3: data.Mc_breakdown_3,
-                        otherTime_3: data.otherTime_3,
-                        Mc_on_4: data.Mc_on_4,
-                        Mc_off_4: data.Mc_off_4,
-                        Mc_runTime_4: data.Mc_runTime4,
-                        Mc_breakdown_4: data.Mc_breakdown_4,
-                        otherTime_4: data.otherTime_4,
-                        Mc_on_5: data.Mc_on_5,
-                        Mc_off_5: data.Mc_off_5,
-                        Mc_runTime_5: data.Mc_runTime5,
-                        Mc_breakdown_5: data.Mc_breakdown_5,
-                        otherTime_5: data.otherTime_5,
-                        Mc_on_6: data.Mc_on_6,
-                        Mc_off_6: data.Mc_off_6,
-                        Mc_runTime_6: data.Mc_runTime6,
-                        Mc_breakdown_6: data.Mc_breakdown_6,
-                        otherTime_6: data.otherTime_6,
+                       
     
-                        issue_pw_210: data.issue_pw_210,
-                        issue_w_210: data.issue_w_210,
-                        issue_ww_210: data.issue_ww_210,
-                        issue_pw_240:data.issue_pw_240,
-                        issue_w_240: data.issue_w_240,
-                        issue_ww_240: data.issue_ww_240,
-                        issue_pw_280:data.issue_pw_280,
-                        issue_w_280:   data.issue_w_280,
-                        issue_ww_280: data.issue_ww_280,
-                        issue_pw_320:data.issue_pw_320,
-                        issue_w_320: data.issue_w_320,
-                        issue_ww_320: data.issue_ww_320,
-                        issue_pw_400: data.issue_pw_400,
-                        issue_w_400:  data.issue_w_400,
-                        issue_ww_400:  data.issue_ww_400,
-                       
-                        
-                        issue_add_1: data.issue_add_1,
-                        issue_add_2: data.issue_add_2,
-                        issue_add_3:data.issue_add_3,
-                        issue_add_4: data.issue_add_4,
-                        issue_add_5: data.issue_add_5,
-                        issue_add_6: data.issue_add_6,
-                        issue_add_7: data.issue_add_7,
-                        issue_add_8: data.issue_add_8,
-                        issue_add_9: data.issue_add_9,
-                        issue_add_10: data.issue_add_10,
-                      
-                       
-                        issue_lw: data.issue_lw,
-                        issue_bigTaiho: data.issue_bigTaiho,
-                        issue_jb: data.issue_jb,
+                        rcv_pw_210 : data.rcv_pw_210,
+                    rcv_w_210 : data.rcv_w_210,
+                    rcv_ww_210 : data.rcv_ww_210,
+                    rcv_pw_240 : data.rcv_pw_240,
+                    rcv_w_240 : data.rcv_w_240,
+                    rcv_ww_240 : data.rcv_ww_240,
+                    rcv_pw_280 : data.rcv_pw_280,
+                    rcv_w_280 : data.rcv_w_280,
+                    rcv_ww_280 : data.rcv_ww_280,
+                    rcv_pw_320 : data.rcv_pw_320,
+                    rcv_w_320 : data.rcv_w_320,
+                    rcv_ww_320 : data.rcv_ww_320,
+                    rcv_pw_360 : data.rcv_pw_360,
+                    rcv_w_360 : data.rcv_w_360,
+                    rcv_ww_360 : data.rcv_ww_360,
+                    rcv_pw_400 : data.rcv_pw_400,
+                    rcv_w_400 : data.rcv_w_400,
+                    rcv_ww_400 : data.rcv_ww_400,
+                    rcv_jb_mayur : data.rcv_jb_mayur,
+                    rcv_jb_hamsa : data.rcv_jb_hamsa,
+                    issue_pw_150 : data.issue_pw_150,
+                    issue_w_150 : data.issue_w_150,
+                    issue_ww_150 : data.issue_ww_150,
+                    issue_s_150 : data.issue_s_150,
+                    issue_aw_150 : data.issue_aw_150,
+                    issue_lw_150 : data.issue_lw_150,
+                    issue_pw_180 : data.issue_pw_180,
+                    issue_w_180 : data.issue_w_180,
+                    issue_ww_180 : data.issue_ww_180,
+                    issue_s_180 : data.issue_s_180,
+                    issue_aw_180 : data.issue_aw_180,
+                    issue_lw_180 : data.issue_lw_180,
+                    issue_pw_210 : data.issue_pw_210,
+                    issue_w_210 : data.issue_w_210,
+                    issue_ww_210 : data.issue_ww_210,
+                    issue_s_210 : data.issue_s_210,
+                    issue_aw_210 : data.issue_aw_210,
+                    issue_lw_210 : data.issue_lw_210,
+                    issue_pw_240 : data.issue_pw_240,
+                    issue_w_240 : data.issue_w_240,
+                    issue_ww_240 : data.issue_ww_240,
+                    issue_ww_240_A : data.issue_ww_240_A,
+                    issue_aw_240 : data.issue_aw_240,
+                    issue_lw_240 : data.issue_lw_240,
+                    issue_pw_280 : data.issue_pw_280,
+                    issue_w_280 : data.issue_w_280,
+                    issue_ww_280 : data.issue_ww_280,
+                    issue_ww_280_A : data.issue_ww_280_A,
+                    issue_aw_280 : data.issue_aw_280,
+                    issue_lw_280 : data.issue_lw_280,
+                    wholes_double : data.wholes_double,
+                    issue_pw_320 : data.issue_pw_320,
+                    issue_w_320 : data.issue_w_320,
+                    issue_ww_320 : data.issue_ww_320,
+                    issue_ww_320_A : data.issue_ww_320_A,
+                    issue_aw_320 : data.issue_aw_320,
+                    issue_lw_320 : data.issue_lw_320,
+                    issue_pw_360 : data.issue_pw_360,
+                    issue_w_360 : data.issue_w_360,
+                    issue_ww_360 : data.issue_ww_360,
+                    issue_ww_360_A : data.issue_ww_360_A,
+                    issue_aw_360 : data.issue_aw_360,
+                    issue_lw_360 : data.issue_lw_360,
+                    issue_pw_400 : data.issue_pw_400,
+                    issue_w_400 : data.issue_w_400,
+                    issue_ww_400 : data.issue_ww_400,
+                    issue_ww_400_A : data.issue_ww_400_A,
+                    issue_aw_400 : data.issue_aw_400,
+                    issue_lw_400 : data.issue_lw_400,
+                    issue_jjb : data.issue_jjb,
+                    issue_jjb1 : data.issue_jjb1,
+                    issue_rejection : data.issue_rejection,
+                    issue_village : data.issue_village,
+                    issue_bigTaiho : data.issue_bigTaiho,
+                    issue_lw : data.issue_lw,
+                    issue_add_1 : data.issue_add_1,
+                    issue_add_2 : data.issue_add_2,
+                    issue_add_3 : data.issue_add_3,
+                    issue_add_4 : data.issue_add_4,
+                    issue_add_5 : data.issue_add_5,
+                    issue_add_6 : data.issue_add_6,
+                    issue_add_7 : data.issue_add_7,
+                    issue_add_8 : data.issue_add_8,
+                    issue_add_9 : data.issue_add_9,
+                    issue_add_10 : data.issue_add_10,
                         
                     entry_backlog:data.entry_backlog,
                     current_backlog:data.current_backlog,
@@ -1530,7 +1622,7 @@ export const approveHamsa = async (req: Request, res: Response) => {
                             const difference_bigT=parseFloat(data.issue_bigTaiho)-parseFloat(transferBigTdata.amount)
                             console.log(difference_bigT)
                             const backlog = await bigTaihoModel.findOne({
-                                attributes: ['current_backlog','rcv_hamsa'],
+                                attributes: ['current_backlog','rcv_wholes'],
                                 where: {
                                     lotNo:LotNo,
                                     origin:origin,
@@ -1544,7 +1636,7 @@ export const approveHamsa = async (req: Request, res: Response) => {
                                 {
                                 await bigTaihoModel.update(
                                     {
-                                        rcv_hamsa: sequelize.literal(`rcv_hamsa+ ${difference_bigT}`),
+                                        rcv_wholes: sequelize.literal(`rcv_wholes+ ${difference_bigT}`),
                                         current_backlog: sequelize.literal(`current_backlog+ ${difference_bigT}`)
                                     },
                                     {
@@ -1574,110 +1666,54 @@ export const approveHamsa = async (req: Request, res: Response) => {
                                 }
                         }
 
-                        if(parseFloat(transferWholesdata.amount)!==(parseFloat(data.issue_pw_210)
-                            +parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
-                        +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)
-                        +parseFloat(data.issue_ww_240)+parseFloat(data.issue_pw_280)
-                        +parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
-                        +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
-                        +parseFloat(data.issue_ww_320)+parseFloat(data.issue_add_1)
-                        +parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                        +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
-                        +parseFloat(data.issue_ww_400)+parseFloat(data.issue_jb))){
-                            console.log('Needs Update In Wholes')
-                            const difference_total_Wholes=(parseFloat(data.issue_pw_210)
-                            +parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
-                        +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)
-                        +parseFloat(data.issue_ww_240)+parseFloat(data.issue_pw_280)
-                        +parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
-                        +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
-                        +parseFloat(data.issue_ww_320)+parseFloat(data.issue_add_1)
-                        +parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                        +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
-                        +parseFloat(data.issue_ww_400)+parseFloat(data.issue_jb))-parseFloat(transferWholesdata.amount)
+                        // if(parseFloat(transferRejectiondata.amount)!==parseFloat(data.issue_rejection)){
+                        //     console.log('Needs Update In Rejection')
+                        //     const difference_rejection=parseFloat(data.issue_rejection)-parseFloat(transferRejectiondata.amount)
+                        //     console.log(difference_rejection)
+                        //     const backlog = await rejectionModel.findOne({
+                        //         attributes: ['current_backlog','rcv_wholes'],
+                        //         where: {
+                        //             lotNo:LotNo,
+                        //             origin:origin,
+                        //             latest:1
+                        
+                        //         },
+                        //         order: [['LotNo', 'ASC']]
+                        
+                        //     });
+                        //     if (backlog && backlog.dataValues.current_backlog>=0)
+                        //         {
+                        //         await rejectionModel.update(
+                        //             {
+                        //                 rcv_wholes: sequelize.literal(`rcv_wholes+ ${difference_rejection}`),
+                        //                 current_backlog: sequelize.literal(`current_backlog+ ${difference_rejection}`)
+                        //             },
+                        //             {
+                        //                 where: {
+                        //                     lotNo: LotNo,
+                        //                     origin: origin,
+                        //                     latest: 1
+                        //                 }, transaction
+                        //             }
+                        //         );
 
-                            console.log(difference_total_Wholes)
-                            const backlog = await WholesModel.findOne({
-                                attributes: ['current_backlog'],
-                                where: {
-                                    lotNo:LotNo,
-                                    origin:origin,
-                                    latest:1
+                        //         await sectionTransfer.update({
+                        //             date: data.Date,
+                        //             amount:data.issue_rejection,
+                        //             toSectionBeforeBacklog:transferRejectiondata.toSectionBeforeBacklog,
+                        //             toSectionAfterBacklog:parseFloat(transferRejectiondata.toSectionBeforeBacklog)+parseFloat(data.issue_rejection)
                         
-                                },
-                                order: [['LotNo', 'ASC']]
-                        
-                            });
-                            if (backlog && backlog.dataValues.current_backlog>=0)
-                                {
-                                await WholesModel.update(
-                                    {
-                                        rcv_pw_210:data.issue_pw_210,
-                                        rcv_w_210:data.issue_w_210,
-                                        rcv_ww_210:data.issue_ww_210,
-                                        rcv_pw_240:data.issue_pw_240,
-                                        rcv_w_240:data.issue_w_240,
-                                        rcv_ww_240:data.issue_ww_240,
-                                        rcv_pw_280:data.issue_pw_280,
-                                        rcv_w_280:data.issue_w_280,
-                                        rcv_ww_280:data.issue_ww_280,
-                                        rcv_pw_320:data.issue_pw_320,
-                                        rcv_w_320:data.issue_w_320,
-                                        rcv_ww_320:data.issue_ww_320,
-                                        rcv_pw_360:data.issue_add_1,
-                                        rcv_w_360:data.issue_add_2,
-                                        rcv_ww_360:data.issue_add_3,
-                                        rcv_pw_400:data.issue_pw_400,
-                                        rcv_w_400:data.issue_w_400,
-                                        rcv_ww_400:data.issue_ww_400,
-                                        rcv_jb_hamsa:data.issue_jb,
-                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_total_Wholes}`)
-                                    },
-                                    {
-                                        where: {
-                                            lotNo: LotNo,
-                                            origin: origin,
-                                            latest: 1
-                                        }, transaction
-                                    }
-                                );
-
-                                await sectionTransfer.update({
-                                    date: data.Date,
-                                    amount:parseFloat(data.issue_pw_210)
-                                    +parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
-                                +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)
-                                +parseFloat(data.issue_ww_240)+parseFloat(data.issue_pw_280)
-                                +parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
-                                +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
-                                +parseFloat(data.issue_ww_320)+parseFloat(data.issue_add_1)
-                                +parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                                +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
-                                +parseFloat(data.issue_ww_400)+parseFloat(data.issue_jb),
-                                    toSectionBeforeBacklog:transferWholesdata.toSectionBeforeBacklog,
-                                    toSectionAfterBacklog:parseFloat(transferWholesdata.toSectionBeforeBacklog)
-                                    +parseFloat(data.issue_pw_210)
-                                    +parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
-                                +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)
-                                +parseFloat(data.issue_ww_240)+parseFloat(data.issue_pw_280)
-                                +parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
-                                +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
-                                +parseFloat(data.issue_ww_320)+parseFloat(data.issue_add_1)
-                                +parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                                +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
-                                +parseFloat(data.issue_ww_400)+parseFloat(data.issue_jb)
-                        
-                                }, {
-                                    where: {
-                                        id:transferWholesdata.id
-                                    },transaction
-                                });
-                                }
-                                else{
-                                    res.status(500).json({ message: "Associated Wholes Entry Not Found" });
-                                    throw new Error('Transaction Aborted due to Improper Value')
-                                }
-                        }
+                        //         }, {
+                        //             where: {
+                        //                 id:transferRejectiondata.id
+                        //             },transaction
+                        //         });
+                        //         }
+                        //         else{
+                        //             res.status(500).json({ message: "Associated Rejection Entry Not Found" });
+                        //             throw new Error('Transaction Aborted due to Improper Value')
+                        //         }
+                        // }
 
                         
                         await lotoriginmodel.update(
@@ -1692,12 +1728,12 @@ export const approveHamsa = async (req: Request, res: Response) => {
                                 },transaction
                             }
                         );
-                        await hamsaEditModel.destroy({
+                        await WholesEditModel.destroy({
                             where: {
                                 id
                             },transaction
                         });
-                        return res.status(200).json({ message: "Edit Request of Hamsa Entry is Approved Successfully" });
+                        return res.status(200).json({ message: "Edit Request of Wholes Entry is Approved Successfully" });
                     }
 
 
@@ -1705,7 +1741,7 @@ export const approveHamsa = async (req: Request, res: Response) => {
                 })
             }
             else{
-                return res.status(400).json({ message: "Hamsa Transfer Entry is not found" });
+                return res.status(400).json({ message: "Wholes Transfer Entry is not found" });
             }
             
         }
@@ -1717,7 +1753,7 @@ export const approveHamsa = async (req: Request, res: Response) => {
 
 }
 
-export const EditRejectHamsa = async (req: Request, res: Response) => {
+export const EditRejectWholes = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
          const rejectedBy = req.cookies.user;
@@ -1727,7 +1763,7 @@ export const EditRejectHamsa = async (req: Request, res: Response) => {
         if (!id || !rejectedBy) {
             return res.status(400).json({ message: "Please provide the id or rejected By" });
         }
-        const rcn = await hamsaModel.update({
+        const rcn = await WholesModel.update({
             editStatus: "NA",
             modifiedBy:rejectedBy
         }, {
@@ -1736,7 +1772,7 @@ export const EditRejectHamsa = async (req: Request, res: Response) => {
             }
         });
         if (!rcn) {
-            return res.status(400).json({ message: "Hamsa Entry not found" });
+            return res.status(400).json({ message: "Wholes Entry not found" });
         }
         await lotoriginmodel.update(
             { 
@@ -1750,15 +1786,15 @@ export const EditRejectHamsa = async (req: Request, res: Response) => {
                 }
             }
         );
-        const rcnEdit = await hamsaEditModel.destroy({
+        const rcnEdit = await WholesEditModel.destroy({
             where: {
                 id
             }
         });
         if (!rcnEdit) {
-            return res.status(400).json({ message: "Hamsa Entry not found" });
+            return res.status(400).json({ message: "Wholes Entry not found" });
         }
-        return res.status(200).json({ message: "Hamsa Entry rejected successfully" });
+        return res.status(200).json({ message: "Wholes Entry rejected successfully" });
     }
     catch (err) {
         console.log(err);
