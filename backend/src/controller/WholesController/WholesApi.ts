@@ -1124,27 +1124,8 @@ export const CreateReissueHamsa= async (req: Request, res: Response) => {
 
 }
 
-export const updateEntireHamsa= async (req: Request, res: Response) => {
-    const timeToMilliseconds = (time: string) => {
-        const [hours, minutes] = time.split(':').map(Number);
-        return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
-    };
-    // Helper function to convert milliseconds to "HH:MM"
-    const millisecondsToTime = (milliseconds: number) => {
-        const totalMinutes = Math.floor(milliseconds / 60000);
-        const hours = Math.floor(totalMinutes / 60);
-        const minutes = totalMinutes % 60;
-        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-    };
-
-    const CalculatemachineOnOffTime = (time1: string, time2: string) => {
-        const time1InMilliseconds = timeToMilliseconds(time1) - timeToMilliseconds(time2);
-        if (time1InMilliseconds < 0) {
-            return timeToMilliseconds(time1) - timeToMilliseconds(time2) + 24 * 60 * 60 * 1000;
-        }
-        return time1InMilliseconds;
-    }
-
+export const updateEntireWholes= async (req: Request, res: Response) => {
+    
 
     try{
     const feeledBy = req.cookies.user;
@@ -1158,126 +1139,62 @@ export const updateEntireHamsa= async (req: Request, res: Response) => {
         for (let data of linehumid) 
         {
          
-         
-            if (data.otherTime_1 === undefined || data.otherTime_1 === null) {
-                data.otherTime_1 = '00:00'
-            }
-            if (data.Mc_breakdown_1 === undefined || data.Mc_breakdown_1 === null) {
-                data.Mc_breakdown_1 = '00:00'
-            }
-            if (data.otherTime_2 === undefined || data.otherTime_2 === null) {
-                data.otherTime_2 = '00:00'
-            }
-            if (data.Mc_breakdown_2 === undefined || data.Mc_breakdown_2 === null) {
-                data.Mc_breakdown_2 = '00:00'
-            }
-            if (data.otherTime_3 === undefined || data.otherTime_3 === null) {
-                data.otherTime_3 = '00:00'
-            }
-            if (data.Mc_breakdown_3 === undefined || data.Mc_breakdown_3 === null) {
-                data.Mc_breakdown_3 = '00:00'
-            }
-
-            if (data.Mc_breakdown_4 === undefined || data.Mc_breakdown_4 === null) {
-                data.Mc_breakdown_4 = '00:00'
-            }
-
-            if (data.otherTime_4 === undefined || data.otherTime_4 === null) {
-                data.otherTime_4 = '00:00'
-            }
-            if (data.otherTime_5 === undefined || data.otherTime_5 === null) {
-                data.otherTime_5 = '00:00'
-            }
-            if (data.Mc_breakdown_5 === undefined || data.Mc_breakdown_5 === null) {
-                data.Mc_breakdown_5 = '00:00'
-            }
-            if (data.otherTime_6 === undefined || data.otherTime_6 === null) {
-                data.otherTime_6 = '00:00'
-            }
-            if (data.Mc_breakdown_6 === undefined || data.Mc_breakdown_6 === null) {
-                data.Mc_breakdown_6 = '00:00'
-            }
-            
-            const runtime1 = CalculatemachineOnOffTime(data.Mc_off_1, data.Mc_on_1) -
-                (timeToMilliseconds(data.Mc_breakdown_1) + timeToMilliseconds(data.otherTime_1))
-            const runtime2 = CalculatemachineOnOffTime(data.Mc_off_2, data.Mc_on_2) -
-                (timeToMilliseconds(data.Mc_breakdown_2) + timeToMilliseconds(data.otherTime_2))
-            const runtime3 = CalculatemachineOnOffTime(data.Mc_off_3, data.Mc_on_3) -
-                (timeToMilliseconds(data.Mc_breakdown_3) + timeToMilliseconds(data.otherTime_3))
-            const runtime4= CalculatemachineOnOffTime(data.Mc_off_4, data.Mc_on_4) -
-                (timeToMilliseconds(data.Mc_breakdown_4) + timeToMilliseconds(data.otherTime_4))   
-            const runtime5 = CalculatemachineOnOffTime(data.Mc_off_5, data.Mc_on_5) -
-                (timeToMilliseconds(data.Mc_breakdown_5) + timeToMilliseconds(data.otherTime_5))
-            const runtime6 = CalculatemachineOnOffTime(data.Mc_off_6, data.Mc_on_6) -
-                (timeToMilliseconds(data.Mc_breakdown_6) + timeToMilliseconds(data.otherTime_6))    
-            if (runtime1 < 0) {
-                res.status(500).json({ message: "Machine Hamsa-1 Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
-            }
-            if (runtime2 < 0) {
-                res.status(500).json({ message: "Machine Hamsa-2 Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
-            }
-            if (runtime3 < 0) {
-                res.status(500).json({ message: "Machine Hamsa-3 Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
-            }
-            if (runtime4 < 0) {
-                res.status(500).json({ message: "Machine Hamsa-4 Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
-            }
-            if (runtime5 < 0) {
-                res.status(500).json({ message: "Machine Hamsa-5 Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
-            }
-            if (runtime6 < 0) {
-                res.status(500).json({ message: "Machine Spectrum Run Time can not be negative" });
-                throw new Error('Transaction Aborted 1')
-            }
-          
-            
-            const Mc_runTime1 = millisecondsToTime(runtime1);
-            const Mc_runTime2 = millisecondsToTime(runtime2);
-            const Mc_runTime3 = millisecondsToTime(runtime3);
-            const Mc_runTime4 = millisecondsToTime(runtime4);
-            const Mc_runTime5 = millisecondsToTime(runtime5);
-            const Mc_runTime6 = millisecondsToTime(runtime6);
-         
-            
-            if((parseFloat(data.rcv_pw_w)+parseFloat(data.rcv_w_lot)+parseFloat(data.rcv_ww)
-                +(data.rcv_village? parseFloat(data.rcv_village):0)
-                +(data.rcv_lw? parseFloat(data.rcv_lw):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
-               
-           )< (parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
-           +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
-              +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
-                +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)+parseFloat(data.issue_ww_320)
-                +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)+parseFloat(data.issue_ww_400)
-                +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                +parseFloat(data.issue_add_10)+parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)
-                +parseFloat(data.issue_jb)
-
-         
-               ))
-               {
-                console.log(parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
-                +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
-                   +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
-                     +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)+parseFloat(data.issue_ww_320)
-                     +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)+parseFloat(data.issue_ww_400)
-                     +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                     +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                     +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                     +parseFloat(data.issue_add_10)+parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)
-                     +parseFloat(data.issue_jb))
-                res.status(500).json({ message: "Backlog can't be Greater Than Input" });
-                throw new Error('Transaction Aborted due to negative value')
+ 
+            if((parseFloat(data.rcv_pw_210)+parseFloat(data.rcv_w_210)+parseFloat(data.rcv_ww_210)
+                +parseFloat(data.rcv_pw_240)+parseFloat(data.rcv_w_240)+parseFloat(data.rcv_ww_240)
+                +parseFloat(data.rcv_pw_280)+parseFloat(data.rcv_w_280)+parseFloat(data.rcv_ww_280)
+                +parseFloat(data.rcv_pw_320)+parseFloat(data.rcv_w_320)+parseFloat(data.rcv_ww_320)
+                +parseFloat(data.rcv_pw_360)+parseFloat(data.rcv_w_360)+parseFloat(data.rcv_ww_360)
+                +parseFloat(data.rcv_pw_400)+parseFloat(data.rcv_w_400)+parseFloat(data.rcv_ww_400)
+                +parseFloat(data.rcv_jb_hamsa)+parseFloat(data.rcv_jb_mayur)
+                   
+               )< (parseFloat(data.issue_pw_150)+parseFloat(data.issue_w_150)+parseFloat(data.issue_ww_150)
+               +parseFloat(data.issue_s_150)+parseFloat(data.issue_aw_150)+parseFloat(data.issue_lw_150)
+                  +parseFloat(data.issue_pw_180)+parseFloat(data.issue_w_180)+parseFloat(data.issue_ww_180)
+                    +parseFloat(data.issue_s_180)+parseFloat(data.issue_aw_180)+parseFloat(data.issue_lw_180)
+                        +parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                            +parseFloat(data.issue_s_210)+parseFloat(data.issue_aw_210)+parseFloat(data.issue_lw_210)
+                            +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
+                                +parseFloat(data.issue_ww_240_A)+parseFloat(data.issue_aw_240)+parseFloat(data.issue_lw_240)
+                                +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                                    +parseFloat(data.issue_ww_280_A)+parseFloat(data.issue_aw_280)+parseFloat(data.issue_lw_280)
+                                    +parseFloat(data.wholes_double)+parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
+                                        +parseFloat(data.issue_ww_320)+parseFloat(data.issue_ww_320_A)+parseFloat(data.issue_aw_320)
+                                        +parseFloat(data.issue_lw_320)+parseFloat(data.issue_pw_360)+parseFloat(data.issue_w_360)
+                                            +parseFloat(data.issue_ww_360)+parseFloat(data.issue_ww_360_A)+parseFloat(data.issue_aw_360)
+                                            +parseFloat(data.issue_lw_360)+parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
+                                                +parseFloat(data.issue_ww_400)+parseFloat(data.issue_ww_400_A)+parseFloat(data.issue_aw_400)
+                                                +parseFloat(data.issue_lw_400)+parseFloat(data.issue_jjb)+parseFloat(data.issue_jjb1)
+                                                    +parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_rejection)
+                                                    +parseFloat(data.issue_village)
+             
+                   ))
+                   {
+                    console.log(parseFloat(data.issue_pw_150)+parseFloat(data.issue_w_150)+parseFloat(data.issue_ww_150)
+                    +parseFloat(data.issue_s_150)+parseFloat(data.issue_aw_150)+parseFloat(data.issue_lw_150)
+                       +parseFloat(data.issue_pw_180)+parseFloat(data.issue_w_180)+parseFloat(data.issue_ww_180)
+                         +parseFloat(data.issue_s_180)+parseFloat(data.issue_aw_180)+parseFloat(data.issue_lw_180)
+                             +parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                                 +parseFloat(data.issue_s_210)+parseFloat(data.issue_aw_210)+parseFloat(data.issue_lw_210)
+                                 +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
+                                     +parseFloat(data.issue_ww_240_A)+parseFloat(data.issue_aw_240)+parseFloat(data.issue_lw_240)
+                                     +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                                         +parseFloat(data.issue_ww_280_A)+parseFloat(data.issue_aw_280)+parseFloat(data.issue_lw_280)
+                                         +parseFloat(data.wholes_double)+parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
+                                             +parseFloat(data.issue_ww_320)+parseFloat(data.issue_ww_320_A)+parseFloat(data.issue_aw_320)
+                                             +parseFloat(data.issue_lw_320)+parseFloat(data.issue_pw_360)+parseFloat(data.issue_w_360)
+                                                 +parseFloat(data.issue_ww_360)+parseFloat(data.issue_ww_360_A)+parseFloat(data.issue_aw_360)
+                                                 +parseFloat(data.issue_lw_360)+parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
+                                                     +parseFloat(data.issue_ww_400)+parseFloat(data.issue_ww_400_A)+parseFloat(data.issue_aw_400)
+                                                     +parseFloat(data.issue_lw_400)+parseFloat(data.issue_jjb)+parseFloat(data.issue_jjb1)
+                                                         +parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_rejection)
+                                                         +parseFloat(data.issue_village))
+                    res.status(500).json({ message: "Backlog can't be Greater Than Input" });
+                    throw new Error('Transaction Aborted due to negative value')
 
             }
             
-            await hamsaEditModel.create(
+            await WholesEditModel.create(
                 {     
                     id:data.id,
                     date:data.Date,
@@ -1285,101 +1202,147 @@ export const updateEntireHamsa= async (req: Request, res: Response) => {
                     origin:data.origin,
                     altid:data.alt_id,
                     mixingLot:data.mixingLot,
-                    rcv_village: data.rcv_village,
-                    rcv_lw: data.rcv_lw,
-                    rcv_pw_w: data.rcv_pw_w,
-                    rcv_w_lot: data.rcv_w_lot,
-                    rcv_ww: data.rcv_ww,           
+                                
                     noOfdayOperators: data.dayoperator,
                     noOfnightOperators: data.nightoperator,
-                    Mc_on_1: data.Mc_on_1,
-                    Mc_off_1: data.Mc_off_1,
-                    Mc_runTime_1: Mc_runTime1,
-                    Mc_breakdown_1: data.Mc_breakdown_1,
-                    otherTime_1: data.otherTime_1,
-                    Mc_on_2: data.Mc_on_2,
-                    Mc_off_2: data.Mc_off_2,
-                    Mc_runTime_2: Mc_runTime2,
-                    Mc_breakdown_2: data.Mc_breakdown_2,
-                    otherTime_2: data.otherTime_2,
-                    Mc_on_3: data.Mc_on_3,
-                    Mc_off_3: data.Mc_off_3,
-                    Mc_runTime_3: Mc_runTime3,
-                    Mc_breakdown_3: data.Mc_breakdown_3,
-                    otherTime_3: data.otherTime_3,
-                    Mc_on_4: data.Mc_on_4,
-                    Mc_off_4: data.Mc_off_4,
-                    Mc_runTime_4: Mc_runTime4,
-                    Mc_breakdown_4: data.Mc_breakdown_4,
-                    otherTime_4: data.otherTime_4,
-                    Mc_on_5: data.Mc_on_5,
-                    Mc_off_5: data.Mc_off_5,
-                    Mc_runTime_5: Mc_runTime5,
-                    Mc_breakdown_5: data.Mc_breakdown_5,
-                    otherTime_5: data.otherTime_5,
-                    Mc_on_6: data.Mc_on_6,
-                    Mc_off_6: data.Mc_off_6,
-                    Mc_runTime_6: Mc_runTime6,
-                    Mc_breakdown_6: data.Mc_breakdown_6,
-                    otherTime_6: data.otherTime_6,
-                    issue_pw_210: data.issue_pw_210,
-                    issue_w_210: data.issue_w_210,
-                    issue_ww_210: data.issue_ww_210,
-                    issue_pw_240:data.issue_pw_240,
-                    issue_w_240: data.issue_w_240,
-                    issue_ww_240: data.issue_ww_240,
-                    issue_pw_280:data.issue_pw_280,
-                    issue_w_280:   data.issue_w_280,
-                    issue_ww_280: data.issue_ww_280,
-                    issue_pw_320:data.issue_pw_320,
-                    issue_w_320: data.issue_w_320,
-                    issue_ww_320: data.issue_ww_320,
-                    issue_pw_400: data.issue_pw_400,
-                    issue_w_400:  data.issue_w_400,
-                    issue_ww_400:  data.issue_ww_400,       
-                    issue_add_1: data.issue_add_1,
-                    issue_add_2: data.issue_add_2,
-                    issue_add_3:data.issue_add_3,
-                    issue_add_4: data.issue_add_4,
-                    issue_add_5: data.issue_add_5,
-                    issue_add_6: data.issue_add_6,
-                    issue_add_7: data.issue_add_7,
-                    issue_add_8: data.issue_add_8,
-                    issue_add_9: data.issue_add_9,
-                    issue_add_10: data.issue_add_10,        
-                    issue_lw: data.issue_lw,
-                    issue_bigTaiho: data.issue_bigTaiho,
-                    issue_jb: data.issue_jb,
-                   
-
-                    
-                    entry_backlog: (parseFloat(data.rcv_pw_w)+parseFloat(data.rcv_w_lot)+parseFloat(data.rcv_ww)
-                    +(data.rcv_village? parseFloat(data.rcv_village):0)
-                    +(data.rcv_lw? parseFloat(data.rcv_lw):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0))
-                    - (parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
-                    +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
-                       +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
-                         +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)+parseFloat(data.issue_ww_320)
-                         +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)+parseFloat(data.issue_ww_400)
-                         +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                         +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                         +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                         +parseFloat(data.issue_add_10)+parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)
-                         +parseFloat(data.issue_jb)
+                    rcv_pw_210 : data.rcv_pw_210,
+                    rcv_w_210 : data.rcv_w_210,
+                    rcv_ww_210 : data.rcv_ww_210,
+                    rcv_pw_240 : data.rcv_pw_240,
+                    rcv_w_240 : data.rcv_w_240,
+                    rcv_ww_240 : data.rcv_ww_240,
+                    rcv_pw_280 : data.rcv_pw_280,
+                    rcv_w_280 : data.rcv_w_280,
+                    rcv_ww_280 : data.rcv_ww_280,
+                    rcv_pw_320 : data.rcv_pw_320,
+                    rcv_w_320 : data.rcv_w_320,
+                    rcv_ww_320 : data.rcv_ww_320,
+                    rcv_pw_360 : data.rcv_pw_360,
+                    rcv_w_360 : data.rcv_w_360,
+                    rcv_ww_360 : data.rcv_ww_360,
+                    rcv_pw_400 : data.rcv_pw_400,
+                    rcv_w_400 : data.rcv_w_400,
+                    rcv_ww_400 : data.rcv_ww_400,
+                    rcv_jb_mayur : data.rcv_jb_mayur,
+                    rcv_jb_hamsa : data.rcv_jb_hamsa,
+                    issue_pw_150 : data.issue_pw_150,
+                    issue_w_150 : data.issue_w_150,
+                    issue_ww_150 : data.issue_ww_150,
+                    issue_s_150 : data.issue_s_150,
+                    issue_aw_150 : data.issue_aw_150,
+                    issue_lw_150 : data.issue_lw_150,
+                    issue_pw_180 : data.issue_pw_180,
+                    issue_w_180 : data.issue_w_180,
+                    issue_ww_180 : data.issue_ww_180,
+                    issue_s_180 : data.issue_s_180,
+                    issue_aw_180 : data.issue_aw_180,
+                    issue_lw_180 : data.issue_lw_180,
+                    issue_pw_210 : data.issue_pw_210,
+                    issue_w_210 : data.issue_w_210,
+                    issue_ww_210 : data.issue_ww_210,
+                    issue_s_210 : data.issue_s_210,
+                    issue_aw_210 : data.issue_aw_210,
+                    issue_lw_210 : data.issue_lw_210,
+                    issue_pw_240 : data.issue_pw_240,
+                    issue_w_240 : data.issue_w_240,
+                    issue_ww_240 : data.issue_ww_240,
+                    issue_ww_240_A : data.issue_ww_240_A,
+                    issue_aw_240 : data.issue_aw_240,
+                    issue_lw_240 : data.issue_lw_240,
+                    issue_pw_280 : data.issue_pw_280,
+                    issue_w_280 : data.issue_w_280,
+                    issue_ww_280 : data.issue_ww_280,
+                    issue_ww_280_A : data.issue_ww_280_A,
+                    issue_aw_280 : data.issue_aw_280,
+                    issue_lw_280 : data.issue_lw_280,
+                    wholes_double : data.wholes_double,
+                    issue_pw_320 : data.issue_pw_320,
+                    issue_w_320 : data.issue_w_320,
+                    issue_ww_320 : data.issue_ww_320,
+                    issue_ww_320_A : data.issue_ww_320_A,
+                    issue_aw_320 : data.issue_aw_320,
+                    issue_lw_320 : data.issue_lw_320,
+                    issue_pw_360 : data.issue_pw_360,
+                    issue_w_360 : data.issue_w_360,
+                    issue_ww_360 : data.issue_ww_360,
+                    issue_ww_360_A : data.issue_ww_360_A,
+                    issue_aw_360 : data.issue_aw_360,
+                    issue_lw_360 : data.issue_lw_360,
+                    issue_pw_400 : data.issue_pw_400,
+                    issue_w_400 : data.issue_w_400,
+                    issue_ww_400 : data.issue_ww_400,
+                    issue_ww_400_A : data.issue_ww_400_A,
+                    issue_aw_400 : data.issue_aw_400,
+                    issue_lw_400 : data.issue_lw_400,
+                    issue_jjb : data.issue_jjb,
+                    issue_jjb1 : data.issue_jjb1,
+                    issue_rejection : data.issue_rejection,
+                    issue_village : data.issue_village,
+                    issue_bigTaiho : data.issue_bigTaiho,
+                    issue_lw : data.issue_lw,
+                    issue_add_1 : data.issue_add_1,
+                    issue_add_2 : data.issue_add_2,
+                    issue_add_3 : data.issue_add_3,
+                    issue_add_4 : data.issue_add_4,
+                    issue_add_5 : data.issue_add_5,
+                    issue_add_6 : data.issue_add_6,
+                    issue_add_7 : data.issue_add_7,
+                    issue_add_8 : data.issue_add_8,
+                    issue_add_9 : data.issue_add_9,
+                    issue_add_10 : data.issue_add_10,
+                    entry_backlog: (parseFloat(data.rcv_pw_210)+parseFloat(data.rcv_w_210)+parseFloat(data.rcv_ww_210)
+                    +parseFloat(data.rcv_pw_240)+parseFloat(data.rcv_w_240)+parseFloat(data.rcv_ww_240)
+                    +parseFloat(data.rcv_pw_280)+parseFloat(data.rcv_w_280)+parseFloat(data.rcv_ww_280)
+                    +parseFloat(data.rcv_pw_320)+parseFloat(data.rcv_w_320)+parseFloat(data.rcv_ww_320)
+                    +parseFloat(data.rcv_pw_360)+parseFloat(data.rcv_w_360)+parseFloat(data.rcv_ww_360)
+                    +parseFloat(data.rcv_pw_400)+parseFloat(data.rcv_w_400)+parseFloat(data.rcv_ww_400)
+                    +parseFloat(data.rcv_jb_hamsa)+parseFloat(data.rcv_jb_mayur))
+                    - (parseFloat(data.issue_pw_150)+parseFloat(data.issue_w_150)+parseFloat(data.issue_ww_150)
+                    +parseFloat(data.issue_s_150)+parseFloat(data.issue_aw_150)+parseFloat(data.issue_lw_150)
+                       +parseFloat(data.issue_pw_180)+parseFloat(data.issue_w_180)+parseFloat(data.issue_ww_180)
+                         +parseFloat(data.issue_s_180)+parseFloat(data.issue_aw_180)+parseFloat(data.issue_lw_180)
+                             +parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                                 +parseFloat(data.issue_s_210)+parseFloat(data.issue_aw_210)+parseFloat(data.issue_lw_210)
+                                 +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
+                                     +parseFloat(data.issue_ww_240_A)+parseFloat(data.issue_aw_240)+parseFloat(data.issue_lw_240)
+                                     +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                                         +parseFloat(data.issue_ww_280_A)+parseFloat(data.issue_aw_280)+parseFloat(data.issue_lw_280)
+                                         +parseFloat(data.wholes_double)+parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
+                                             +parseFloat(data.issue_ww_320)+parseFloat(data.issue_ww_320_A)+parseFloat(data.issue_aw_320)
+                                             +parseFloat(data.issue_lw_320)+parseFloat(data.issue_pw_360)+parseFloat(data.issue_w_360)
+                                                 +parseFloat(data.issue_ww_360)+parseFloat(data.issue_ww_360_A)+parseFloat(data.issue_aw_360)
+                                                 +parseFloat(data.issue_lw_360)+parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
+                                                     +parseFloat(data.issue_ww_400)+parseFloat(data.issue_ww_400_A)+parseFloat(data.issue_aw_400)
+                                                     +parseFloat(data.issue_lw_400)+parseFloat(data.issue_jjb)+parseFloat(data.issue_jjb1)
+                                                         +parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_rejection)
+                                                         +parseFloat(data.issue_village)
                         ),
-                    current_backlog: (parseFloat(data.rcv_pw_w)+parseFloat(data.rcv_w_lot)+parseFloat(data.rcv_ww)
-                    +(data.rcv_village? parseFloat(data.rcv_village):0)
-                    +(data.rcv_lw? parseFloat(data.rcv_lw):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0))
-                    - (parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
-                    +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
-                       +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
-                         +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)+parseFloat(data.issue_ww_320)
-                         +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)+parseFloat(data.issue_ww_400)
-                         +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
-                         +parseFloat(data.issue_add_4)+parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                         +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                         +parseFloat(data.issue_add_10)+parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)
-                         +parseFloat(data.issue_jb)
+                    current_backlog: (parseFloat(data.rcv_pw_210)+parseFloat(data.rcv_w_210)+parseFloat(data.rcv_ww_210)
+                    +parseFloat(data.rcv_pw_240)+parseFloat(data.rcv_w_240)+parseFloat(data.rcv_ww_240)
+                    +parseFloat(data.rcv_pw_280)+parseFloat(data.rcv_w_280)+parseFloat(data.rcv_ww_280)
+                    +parseFloat(data.rcv_pw_320)+parseFloat(data.rcv_w_320)+parseFloat(data.rcv_ww_320)
+                    +parseFloat(data.rcv_pw_360)+parseFloat(data.rcv_w_360)+parseFloat(data.rcv_ww_360)
+                    +parseFloat(data.rcv_pw_400)+parseFloat(data.rcv_w_400)+parseFloat(data.rcv_ww_400)
+                    +parseFloat(data.rcv_jb_hamsa)+parseFloat(data.rcv_jb_mayur))
+                    - (parseFloat(data.issue_pw_150)+parseFloat(data.issue_w_150)+parseFloat(data.issue_ww_150)
+                    +parseFloat(data.issue_s_150)+parseFloat(data.issue_aw_150)+parseFloat(data.issue_lw_150)
+                       +parseFloat(data.issue_pw_180)+parseFloat(data.issue_w_180)+parseFloat(data.issue_ww_180)
+                         +parseFloat(data.issue_s_180)+parseFloat(data.issue_aw_180)+parseFloat(data.issue_lw_180)
+                             +parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                                 +parseFloat(data.issue_s_210)+parseFloat(data.issue_aw_210)+parseFloat(data.issue_lw_210)
+                                 +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
+                                     +parseFloat(data.issue_ww_240_A)+parseFloat(data.issue_aw_240)+parseFloat(data.issue_lw_240)
+                                     +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                                         +parseFloat(data.issue_ww_280_A)+parseFloat(data.issue_aw_280)+parseFloat(data.issue_lw_280)
+                                         +parseFloat(data.wholes_double)+parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)
+                                             +parseFloat(data.issue_ww_320)+parseFloat(data.issue_ww_320_A)+parseFloat(data.issue_aw_320)
+                                             +parseFloat(data.issue_lw_320)+parseFloat(data.issue_pw_360)+parseFloat(data.issue_w_360)
+                                                 +parseFloat(data.issue_ww_360)+parseFloat(data.issue_ww_360_A)+parseFloat(data.issue_aw_360)
+                                                 +parseFloat(data.issue_lw_360)+parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
+                                                     +parseFloat(data.issue_ww_400)+parseFloat(data.issue_ww_400_A)+parseFloat(data.issue_aw_400)
+                                                     +parseFloat(data.issue_lw_400)+parseFloat(data.issue_jjb)+parseFloat(data.issue_jjb1)
+                                                         +parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_rejection)
+                                                         +parseFloat(data.issue_village)
                         ),
                     Status: 1,
                     CreatedBy: feeledBy,
@@ -1402,7 +1365,7 @@ export const updateEntireHamsa= async (req: Request, res: Response) => {
                     },transaction
                 }
             );
-            const lotupdate= await hamsaModel.update({
+            const lotupdate= await WholesModel.update({
                     editStatus:'Pending'
                 },
                  {
@@ -1414,9 +1377,9 @@ export const updateEntireHamsa= async (req: Request, res: Response) => {
                  
                  if(lotupdate){
                    
-                    const data = await WhatsappMsg("Hamsa", feeledBy,"modify_request","Production")
+                    const data = await WhatsappMsg("Wholes Grading", feeledBy,"modify_request","Production")
                     console.log(data)
-                    return res.status(201).json({ message: "Edit Request of Hamsa Entry Raised successfully" });
+                    return res.status(201).json({ message: "Edit Request of Wholes Entry Raised successfully" });
                
                 }
                 else{

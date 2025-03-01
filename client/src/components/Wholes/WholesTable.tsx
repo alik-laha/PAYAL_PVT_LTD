@@ -56,6 +56,7 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import RCNWholesReMix from "./WholesMix";
 import RCNWholesReCreateForm from "./WholesRecreateForm";
+import WholesEditForm from "./WholesModify";
 
 
 const WholesTable = () => {
@@ -674,7 +675,25 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{item.mixingLot}</TableCell>
                                     {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
 
-                                    <TableCell className="text-center font-bold">{formatNumber((parseFloat(item.issue_add_1) + parseFloat(item.issue_add_2)).toString())} Kg</TableCell>
+                                    <TableCell className="text-center font-bold">{formatNumber((parseFloat(item.rcv_pw_210) +
+                                                parseFloat(item.rcv_w_210) +
+                                                parseFloat(item.rcv_ww_210) +
+                                                parseFloat(item.rcv_pw_240) +
+                                                parseFloat(item.rcv_w_240) +
+                                                parseFloat(item.rcv_ww_240) +
+                                                parseFloat(item.rcv_pw_280) +
+                                                parseFloat(item.rcv_w_280) +
+                                                parseFloat(item.rcv_ww_280) +
+                                                parseFloat(item.rcv_pw_320) +
+                                                parseFloat(item.rcv_w_320) +
+                                                parseFloat(item.rcv_ww_320) +
+                                                parseFloat(item.rcv_pw_360) +
+                                                parseFloat(item.rcv_w_360) +
+                                                parseFloat(item.rcv_ww_360) +
+                                                parseFloat(item.rcv_pw_400) +
+                                                parseFloat(item.rcv_w_400) +
+                                                parseFloat(item.rcv_ww_400) +parseFloat(item.rcv_jb_mayur) +
+                                                parseFloat(item.rcv_jb_hamsa) + parseFloat(item.issue_add_2)).toString())} Kg</TableCell>
                                     <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
                                     <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
 
@@ -929,7 +948,26 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center ">{item.mixingLot}</TableCell>
                                         {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
 
-                                        <TableCell className="text-center font-bold">{formatNumber((parseFloat(item.issue_add_1) + parseFloat(item.issue_add_2)).toString())} Kg</TableCell>
+                                        <TableCell className="text-center font-bold">{formatNumber((parseFloat(item.rcv_pw_210) +
+                                                parseFloat(item.rcv_w_210) +
+                                                parseFloat(item.rcv_ww_210) +
+                                                parseFloat(item.rcv_pw_240) +
+                                                parseFloat(item.rcv_w_240) +
+                                                parseFloat(item.rcv_ww_240) +
+                                                parseFloat(item.rcv_pw_280) +
+                                                parseFloat(item.rcv_w_280) +
+                                                parseFloat(item.rcv_ww_280) +
+                                                parseFloat(item.rcv_pw_320) +
+                                                parseFloat(item.rcv_w_320) +
+                                                parseFloat(item.rcv_ww_320) +
+                                                parseFloat(item.rcv_pw_360) +
+                                                parseFloat(item.rcv_w_360) +
+                                                parseFloat(item.rcv_ww_360) +
+                                                parseFloat(item.rcv_pw_400) +
+                                                parseFloat(item.rcv_w_400) +
+                                                parseFloat(item.rcv_ww_400) +
+                                                parseFloat(item.rcv_jb_hamsa)
+                                                +parseFloat(item.rcv_jb_mayur) + parseFloat(item.issue_add_2)).toString())} Kg</TableCell>
                                         <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
                                         <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
 
@@ -1142,10 +1180,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogContent className="max-w-7xl">
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Hamsa Entry Modification</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-1'>Wholes Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            {/* <HamsaEditForm borma={[item]} /> */}
+                                                            <WholesEditForm borma={[item]} />
                                                         </DialogContent>
 
                                                     </Dialog>
@@ -1156,7 +1194,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogContent className="max-w-7xl">
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Hamsa Entry Reissue</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-1'>Wholes Entry Reissue</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
                                                             <RCNWholesReCreateForm borma={[item]} />

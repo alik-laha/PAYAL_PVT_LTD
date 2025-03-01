@@ -10,6 +10,7 @@ import mixingModel from "../../model/mixingModel";
 import bigTaihoModel from "../../model/bigTaihoModel";
 import bigTaihoEditModel from "../../model/bigTaihoEditModel";
 import SortingModel from "../../model/sortingModel";
+import rejectionModel from "../../model/rejectionModel";
 
 
 // //BigTaiho.tsx
@@ -486,6 +487,73 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                     res.status(500).json({ message: "Error In Creating Sorting Transaction History" });
                     throw new Error('Transaction Aborted')
                 } 
+
+
+                // Rejection Out//
+
+                const rejection_backlog = await rejectionModel.findOne({
+                    attributes: ['current_backlog','rcv_bigTaiho'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(rejection_backlog)
+                if (rejection_backlog && rejection_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_rejection,
+                        issueid:1,
+                        date:data.Date,
+                        fromSection:'BigTaiho',
+                        toSection:'Rejection',
+                        toSectionBeforeBacklog:rejection_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(rejection_backlog.dataValues.current_backlog)+parseFloat(data.issue_rejection),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(rejection_backlog.dataValues.rcv_bigTaiho){
+                        await rejectionModel.update(
+                            { 
+                                rcv_bigTaiho:sequelize.literal(`rcv_bigTaiho+ ${data.issue_rejection}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_rejection}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await rejectionModel.update(
+                            { 
+                                rcv_bigTaiho:data.issue_rejection,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_rejection}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Rejection Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
   
                 await LotNo.update(
                     { 
@@ -596,7 +664,7 @@ export const SearchRCNBigTaiho = async (req: Request, res: Response) => {
     }
  
 }
-// //DPDSRecreate.tsx
+// //BigTaihoRecreate.tsx
 export const CreateReissueBigTaiho= async (req: Request, res: Response) => {
    
     const timeToMilliseconds = (time: string) => {
@@ -943,6 +1011,74 @@ export const CreateReissueBigTaiho= async (req: Request, res: Response) => {
                         res.status(500).json({ message: "Error In Creating Sorting Transaction History" });
                         throw new Error('Transaction Aborted')
                     } 
+
+
+
+                     // Rejection Re-Issue//
+
+                const rejection_backlog = await rejectionModel.findOne({
+                    attributes: ['current_backlog','rcv_bigTaiho'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(rejection_backlog)
+                if (rejection_backlog && rejection_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_rejection,
+                        issueid:parseInt(data.alt_id)+1,
+                        date:data.Date,
+                        fromSection:'BigTaiho',
+                        toSection:'Rejection',
+                        toSectionBeforeBacklog:rejection_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(rejection_backlog.dataValues.current_backlog)+parseFloat(data.issue_rejection),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(rejection_backlog.dataValues.rcv_bigTaiho){
+                        await rejectionModel.update(
+                            { 
+                                rcv_bigTaiho:sequelize.literal(`rcv_bigTaiho+ ${data.issue_rejection}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_rejection}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await rejectionModel.update(
+                            { 
+                                rcv_bigTaiho:data.issue_rejection,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_rejection}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Rejection re-Issue Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
 
                     const lotupdate = await lotoriginmodel.update(
                         {
@@ -1302,7 +1438,17 @@ export const approveBigTaiho = async (req: Request, res: Response) => {
                 }
             }) as any
 
-            if(transferDPDSdata && transferSortingdata){
+            const transferRejectiondata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'BigTaiho',
+                    toSection:'Rejection'
+                }
+            }) as any
+
+            if(transferDPDSdata && transferSortingdata && transferRejectiondata){
                 await sequelize.transaction(async (transaction: any) => {
 
                     const BigTEdit = await bigTaihoModel.update({
@@ -1464,6 +1610,55 @@ export const approveBigTaiho = async (req: Request, res: Response) => {
                                     throw new Error('Transaction Aborted due to Improper Value')
                                 }
                         }
+
+                        if(parseFloat(transferRejectiondata.amount)!==parseFloat(data.issue_rejection)){
+                            console.log('Needs Update In Rejection')
+                            const difference_rejection=parseFloat(data.issue_rejection)-parseFloat(transferRejectiondata.amount)
+                            console.log(difference_rejection)
+                            const backlog = await rejectionModel.findOne({
+                                attributes: ['current_backlog','rcv_bigTaiho'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await rejectionModel.update(
+                                    {
+                                        rcv_bigTaiho: sequelize.literal(`rcv_bigTaiho+ ${difference_rejection}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_rejection}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_rejection,
+                                    toSectionBeforeBacklog:transferRejectiondata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferRejectiondata.toSectionBeforeBacklog)+parseFloat(data.issue_rejection)
+                        
+                                }, {
+                                    where: {
+                                        id:transferRejectiondata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated Rejection Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
                         await lotoriginmodel.update(
                             { 
                                 editStatus:'NA',
@@ -1547,7 +1742,7 @@ export const EditRejectBigTaiho = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Internal Server Error", error: err });
     }
 }
-// //RCNDPDSMix.tsx
+// //RCNBigTaihoMix.tsx
 export const SearchRCNBigTaihoMix = async (req: Request, res: Response) => {
     try {
         const { lotNo, origin} = req.body;

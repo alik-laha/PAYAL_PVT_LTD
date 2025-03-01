@@ -7,12 +7,11 @@ import lotoriginmodel from "../../model/lotoriginModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import mixingModel from "../../model/mixingModel";
 import bigTaihoModel from "../../model/bigTaihoModel";
-import hamsaEditModel from "../../model/hamsaeditModel";
-import hamsaModel from "../../model/hamsamodel";
 import SortingModel from "../../model/sortingModel";
 import SortingEditModel from "../../model/sortingEditModel";
 import DPDS from "../../model/dpdsmodel";
 import Mayur from "../../model/mayurModel";
+import rejectionModel from "../../model/rejectionModel";
 
 
 // //Sorting.tsx
@@ -443,6 +442,72 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
                     res.status(500).json({ message: "Error In Creating Mayur Transaction History" });
                     throw new Error('Transaction Aborted')
                 } 
+
+                // Rejection Out//
+
+                const rejection_backlog = await rejectionModel.findOne({
+                    attributes: ['current_backlog','rcv_sorting'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(rejection_backlog)
+                if (rejection_backlog && rejection_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_rejection,
+                        issueid:1,
+                        date:data.Date,
+                        fromSection:'Sorting',
+                        toSection:'Rejection',
+                        toSectionBeforeBacklog:rejection_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(rejection_backlog.dataValues.current_backlog)+parseFloat(data.issue_rejection),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(rejection_backlog.dataValues.rcv_sorting){
+                        await rejectionModel.update(
+                            { 
+                                rcv_sorting:sequelize.literal(`rcv_sorting+ ${data.issue_rejection}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_rejection}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await rejectionModel.update(
+                            { 
+                                rcv_sorting:data.issue_rejection,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_rejection}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Rejection Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
   
                 await LotNo.update(
                     { 
@@ -856,6 +921,73 @@ export const CreateReissueSorting = async (req: Request, res: Response) => {
                             res.status(500).json({ message: "Error In Creating DPDS Transaction History" });
                             throw new Error('Transaction Aborted')
                         } 
+
+
+                          // Rejection Re-Issue//
+
+                const rejection_backlog = await rejectionModel.findOne({
+                    attributes: ['current_backlog','rcv_sorting'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(rejection_backlog)
+                if (rejection_backlog && rejection_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_rejection,
+                        issueid:parseInt(data.alt_id)+1,
+                        date:data.Date,
+                        fromSection:'Sorting',
+                        toSection:'Rejection',
+                        toSectionBeforeBacklog:rejection_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(rejection_backlog.dataValues.current_backlog)+parseFloat(data.issue_rejection),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(rejection_backlog.dataValues.rcv_sorting){
+                        await rejectionModel.update(
+                            { 
+                                rcv_sorting:sequelize.literal(`rcv_sorting+ ${data.issue_rejection}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_rejection}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await rejectionModel.update(
+                            { 
+                                rcv_sorting:data.issue_rejection,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_rejection}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Rejection re-Issue Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
         
 
                         const lotupdate = await lotoriginmodel.update(
@@ -1065,7 +1197,7 @@ export const updateEntireSorting= async (req: Request, res: Response) => {
 
 }
 
-export const approveHamsa = async (req: Request, res: Response) => {
+export const approveSorting = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const LotNo = req.params.LotNo;
@@ -1075,14 +1207,14 @@ export const approveHamsa = async (req: Request, res: Response) => {
         if (!id || !approvedBy) {
             return res.status(400).json({ message: "Please provide the id or approved by" });
         }
-        const data = await hamsaEditModel.findOne({
+        const data = await SortingEditModel.findOne({
             where: {
                 id
             }
         }) as any;
         
         if (!data) {
-            return res.status(400).json({ message: "Hamsa Edit Entry not found" });
+            return res.status(400).json({ message: "Sorting Edit Entry not found" });
         }
         else{
             const transferBigTdata = await sectionTransfer.findOne({
@@ -1090,69 +1222,70 @@ export const approveHamsa = async (req: Request, res: Response) => {
                     issueid:data.altid,
                     LotNo:data.LotNo,
                     origin:data.origin,
-                    fromSection:'Hamsa',
+                    fromSection:'Sorting',
                     toSection:'BigTaiho'
                 }
             }) as any
 
-            if(transferBigTdata){
+            const transferDPDSdata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'Sorting',
+                    toSection:'DPDS'
+                }
+            }) as any
+
+            const transferMayurdata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'Sorting',
+                    toSection:'Mayur'
+                }
+            }) as any
+
+            const transferRejectiondata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'Sorting',
+                    toSection:'Rejection'
+                }
+            }) as any
+
+            if(transferBigTdata && transferMayurdata && transferDPDSdata && transferRejectiondata){
                 await sequelize.transaction(async (transaction: any) => {
 
-                    const BigTEdit = await hamsaModel.update({
+                    const SortingEdit = await SortingModel.update({
                         date: data.Date,              
                         noOfdayOperators: data.dayoperator,
                         noOfnightOperators: data.nightoperator,
-                        Mc_on_1: data.Mc_on_1,
-                        Mc_off_1: data.Mc_off_1,
-                        Mc_runTime_1: data.Mc_runTime1,
-                        Mc_breakdown_1: data.Mc_breakdown_1,
-                        otherTime_1: data.otherTime_1,
-                        Mc_on_2: data.Mc_on_2,
-                        Mc_off_2: data.Mc_off_2,
-                        Mc_runTime_2: data.Mc_runTime2,
-                        Mc_breakdown_2: data.Mc_breakdown_2,
-                        otherTime_2: data.otherTime_2,
-                        Mc_on_3: data.Mc_on_3,
-                        Mc_off_3: data.Mc_off_3,
-                        Mc_runTime_3: data.Mc_runTime3,
-                        Mc_breakdown_3: data.Mc_breakdown_3,
-                        otherTime_3: data.otherTime_3,
-                        Mc_on_4: data.Mc_on_4,
-                        Mc_off_4: data.Mc_off_4,
-                        Mc_runTime_4: data.Mc_runTime4,
-                        Mc_breakdown_4: data.Mc_breakdown_4,
-                        otherTime_4: data.otherTime_4,
-                        Mc_on_5: data.Mc_on_5,
-                        Mc_off_5: data.Mc_off_5,
-                        Mc_runTime_5: data.Mc_runTime5,
-                        Mc_breakdown_5: data.Mc_breakdown_5,
-                        otherTime_5: data.otherTime_5,
-                        Mc_on_6: data.Mc_on_6,
-                        Mc_off_6: data.Mc_off_6,
-                        Mc_runTime_6: data.Mc_runTime6,
-                        Mc_breakdown_6: data.Mc_breakdown_6,
-                        otherTime_6: data.otherTime_6,
-    
-                        issue_pw_210: data.issue_pw_210,
-                        issue_w_210: data.issue_w_210,
-                        issue_ww_210: data.issue_ww_210,
-                        issue_pw_240:data.issue_pw_240,
-                        issue_w_240: data.issue_w_240,
-                        issue_ww_240: data.issue_ww_240,
-                        issue_pw_280:data.issue_pw_280,
-                        issue_w_280:   data.issue_w_280,
-                        issue_ww_280: data.issue_ww_280,
-                        issue_pw_320:data.issue_pw_320,
-                        issue_w_320: data.issue_w_320,
-                        issue_ww_320: data.issue_ww_320,
-                        issue_pw_400: data.issue_pw_400,
-                        issue_w_400:  data.issue_w_400,
-                        issue_ww_400:  data.issue_ww_400,
-                       
-                        
+                        issue_sjh: data.issue_sjh,
+                        issue_jjh: data.issue_jjh,
+                        issue_jjh1: data.issue_jjh1,
+                        issue_jk: data.issue_jk,
+                        issue_jk1: data.issue_jk1,
+                        issue_k: data.issue_k,
+                        issue_k1: data.issue_k1,
+                        issue_lwp1: data.issue_lwp1,
+                        issue_lwp: data.issue_lwp,
+                        issue_s: data.issue_s,
+                        issue_ss: data.issue_ss,
+                        issue_yk: data.issue_yk,
+                        issue_sp2: data.issue_sp2,
+                        issue_kp: data.issue_kp,
+                        issue_rejection: data.issue_rejection,
+                        issue_village: data.issue_village,
+                        issue_bigTaiho: data.issue_bigTaiho,
+                        issue_mayur: data.issue_mayur,
+                        issue_dpds: data.issue_dpds,
                         issue_add_1: data.issue_add_1,
                         issue_add_2: data.issue_add_2,
-                        issue_add_3:data.issue_add_3,
+                        issue_add_3: data.issue_add_3,
                         issue_add_4: data.issue_add_4,
                         issue_add_5: data.issue_add_5,
                         issue_add_6: data.issue_add_6,
@@ -1160,11 +1293,6 @@ export const approveHamsa = async (req: Request, res: Response) => {
                         issue_add_8: data.issue_add_8,
                         issue_add_9: data.issue_add_9,
                         issue_add_10: data.issue_add_10,
-                      
-                       
-                        issue_lw: data.issue_lw,
-                        issue_bigTaiho: data.issue_bigTaiho,
-                        issue_jb: data.issue_jb,
                         
                     entry_backlog:data.entry_backlog,
                     current_backlog:data.current_backlog,
@@ -1176,7 +1304,7 @@ export const approveHamsa = async (req: Request, res: Response) => {
                             id
                         }, transaction
                     });
-                    if(BigTEdit){
+                    if(SortingEdit){
                         console.log(transferBigTdata)
                     
                         if(parseFloat(transferBigTdata.amount)!==parseFloat(data.issue_bigTaiho)){
@@ -1184,7 +1312,7 @@ export const approveHamsa = async (req: Request, res: Response) => {
                             const difference_bigT=parseFloat(data.issue_bigTaiho)-parseFloat(transferBigTdata.amount)
                             console.log(difference_bigT)
                             const backlog = await bigTaihoModel.findOne({
-                                attributes: ['current_backlog','rcv_hamsa'],
+                                attributes: ['current_backlog','rcv_sorting'],
                                 where: {
                                     lotNo:LotNo,
                                     origin:origin,
@@ -1198,7 +1326,7 @@ export const approveHamsa = async (req: Request, res: Response) => {
                                 {
                                 await bigTaihoModel.update(
                                     {
-                                        rcv_hamsa: sequelize.literal(`rcv_hamsa+ ${difference_bigT}`),
+                                        rcv_sorting: sequelize.literal(`rcv_sorting+ ${difference_bigT}`),
                                         current_backlog: sequelize.literal(`current_backlog+ ${difference_bigT}`)
                                     },
                                     {
@@ -1228,6 +1356,153 @@ export const approveHamsa = async (req: Request, res: Response) => {
                                 }
                         }
 
+                        if(parseFloat(transferMayurdata.amount)!==parseFloat(data.issue_mayur)){
+                            console.log('Needs Update In Mayur')
+                            const difference_mayur=parseFloat(data.issue_mayur)-parseFloat(transferMayurdata.amount)
+                            console.log(difference_mayur)
+                            const backlog = await Mayur.findOne({
+                                attributes: ['current_backlog','rcv_sorting'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await Mayur.update(
+                                    {
+                                        rcv_sorting: sequelize.literal(`rcv_sorting+ ${difference_mayur}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_mayur}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_mayur,
+                                    toSectionBeforeBacklog:transferMayurdata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferMayurdata.toSectionBeforeBacklog)+parseFloat(data.issue_mayur)
+                        
+                                }, {
+                                    where: {
+                                        id:transferBigTdata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated Mayur Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+
+                        if(parseFloat(transferDPDSdata.amount)!==parseFloat(data.issue_dpds)){
+                            console.log('Needs Update In DPDS')
+                            const difference_dpds=parseFloat(data.issue_dpds)-parseFloat(transferDPDSdata.amount)
+                            console.log(difference_dpds)
+                            const backlog = await DPDS.findOne({
+                                attributes: ['current_backlog','rcv_Sorting'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await DPDS.update(
+                                    {
+                                        rcv_Sorting: sequelize.literal(`rcv_Sorting+ ${difference_dpds}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_dpds}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_dpds,
+                                    toSectionBeforeBacklog:transferDPDSdata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferDPDSdata.toSectionBeforeBacklog)+parseFloat(data.issue_dpds)
+                        
+                                }, {
+                                    where: {
+                                        id:transferBigTdata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated DPDS Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+
+                        if(parseFloat(transferRejectiondata.amount)!==parseFloat(data.issue_rejection)){
+                            console.log('Needs Update In Rejection')
+                            const difference_rejection=parseFloat(data.issue_rejection)-parseFloat(transferRejectiondata.amount)
+                            console.log(difference_rejection)
+                            const backlog = await rejectionModel.findOne({
+                                attributes: ['current_backlog','rcv_sorting'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await rejectionModel.update(
+                                    {
+                                        rcv_sorting: sequelize.literal(`rcv_sorting+ ${difference_rejection}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_rejection}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_rejection,
+                                    toSectionBeforeBacklog:transferRejectiondata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferRejectiondata.toSectionBeforeBacklog)+parseFloat(data.issue_rejection)
+                        
+                                }, {
+                                    where: {
+                                        id:transferRejectiondata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated Rejection Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+
                         
                         await lotoriginmodel.update(
                             { 
@@ -1241,18 +1516,18 @@ export const approveHamsa = async (req: Request, res: Response) => {
                                 },transaction
                             }
                         );
-                        await hamsaEditModel.destroy({
+                        await SortingEditModel.destroy({
                             where: {
                                 id
                             },transaction
                         });
-                        return res.status(200).json({ message: "Edit Request of Hamsa Entry is Approved Successfully" });
+                        return res.status(200).json({ message: "Edit Request of Sorting Entry is Approved Successfully" });
                     }
                     
                 })
             }
             else{
-                return res.status(400).json({ message: "Hamsa Transfer Entry is not found" });
+                return res.status(400).json({ message: "Sorting Transfer Entry is not found" });
             }
             
         }

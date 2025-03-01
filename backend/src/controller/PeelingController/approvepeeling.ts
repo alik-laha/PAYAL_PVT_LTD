@@ -6,6 +6,7 @@ import Mayur from "../../model/mayurModel";
 import DPDS from "../../model/dpdsmodel";
 import bigTaihoModel from "../../model/bigTaihoModel";
 import SortingModel from "../../model/sortingModel";
+import rejectionModel from "../../model/rejectionModel";
 
 const approvePeeling = async (req: Request, res: Response) => {
     try {
@@ -94,8 +95,6 @@ const approvePeeling = async (req: Request, res: Response) => {
                         }
                     })
 
-
-
                 await DPDS.update(
                     {
                         rcv_dp: data.DP,
@@ -137,6 +136,18 @@ const approvePeeling = async (req: Request, res: Response) => {
                             LotNo: LotNo, origin: origin, latest: 1
                         }
                     })
+
+
+                    await rejectionModel.update(
+                        {
+                            rcv_peeling: data.Rejection,
+                            current_backlog: data.Rejection
+                        },
+                        {
+                            where: {
+                                LotNo: LotNo, origin: origin, latest: 1
+                            }
+                        })
                 return res.status(200).json({ message: "Edit Request of Peeling Entry is Approved Successfully" });
             }
         }

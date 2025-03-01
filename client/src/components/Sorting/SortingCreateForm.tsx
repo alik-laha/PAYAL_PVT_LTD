@@ -19,6 +19,7 @@ interface SortingRowData{
         id: number;
         LotNo: string;
         origin: string;
+        
         rcv_transfer: string|null;
         rcv_jjh: string;
         rcv_sjh: string;

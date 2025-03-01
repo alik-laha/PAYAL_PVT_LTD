@@ -11,6 +11,7 @@ import bigTaihoModel from "../../model/bigTaihoModel";
 import hamsaModel from "../../model/hamsamodel";
 import SortingModel from "../../model/sortingModel";
 import WholesModel from "../../model/wholesModel";
+import rejectionModel from "../../model/rejectionModel";
 //import RcnPeeling from "../../model/peelingModel";
 
 
@@ -179,6 +180,14 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
                     origin:data.origin,
                     rcv_peeling: data.Big_Taiho,
                     current_backlog:data.Big_Taiho,
+                 },{transaction});
+
+                 await rejectionModel.create({
+                  
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    rcv_peeling: data.Rejection,
+                    current_backlog:data.Rejection,
                  },{transaction});
 
 
