@@ -36,17 +36,17 @@ const LWModel = sequelize.define('lowerGrade', {
     rcv_wholes: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     rcv_hamsa: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     rcv_transfer_2: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     issue_kw: 
     {

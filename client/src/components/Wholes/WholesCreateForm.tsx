@@ -606,7 +606,7 @@ const WholesCreateForm = (props: Props) => {
                                             </TableCell>
 
                                             <TableCell className="text-center"> <Input className='bg-blue-100' type="number"
-                                                value={formatNumber(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /></TableCell>
+                                                value={Number(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /></TableCell>
                                             <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
                                             <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
                                             <TableCell className="text-center">

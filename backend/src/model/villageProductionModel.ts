@@ -41,12 +41,12 @@ const villageProduction = sequelize.define('villageProduction', {
     rcv_wholes: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     rcv_lw: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     rcv_sorting:{
         type: DataTypes.DECIMAL(10,2),
@@ -55,17 +55,17 @@ const villageProduction = sequelize.define('villageProduction', {
     rcv_dpds: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     rcv_bigTaiho: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     rcv_rejection: 
     {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false
+        allowNull: true
     },
     issue_mayur: 
     {

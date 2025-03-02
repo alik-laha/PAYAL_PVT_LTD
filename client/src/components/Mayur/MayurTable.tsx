@@ -616,10 +616,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center bg-yellow-100  font-semibold">{item.rcv_sorting ?formatNumber(item.rcv_sorting):0}</TableCell>
                                         <TableCell className="text-center bg-yellow-100  font-semibold">{item.rcv_village ?formatNumber(item.rcv_village):0}</TableCell>
                                       
-                                        <TableCell className="text-center font-bold bg-green-500 text-white ">{(parseFloat(item.rcv_wholespeel) + parseFloat(item.rcv_wholesunpeel)+
+                                        <TableCell className="text-center font-bold bg-green-500 text-white ">{formatNumber((parseFloat(item.rcv_wholespeel) + parseFloat(item.rcv_wholesunpeel)+
                 (item.rcv_DPDS ? parseFloat(item.rcv_DPDS) : 0) + 
                 (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
-                (item.rcv_village ? parseFloat(item.rcv_village) : 0) ).toFixed(2)} Kg</TableCell>
+                (item.rcv_village ? parseFloat(item.rcv_village) : 0) ).toString())} Kg</TableCell>
                                         <TableCell className="text-center  ">{formatNumber(item.issue_pw_w)}</TableCell>
                                         
                                         <TableCell className="text-center  ">{formatNumber(item.issue_w_lot)}</TableCell>
