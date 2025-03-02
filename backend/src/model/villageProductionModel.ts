@@ -143,21 +143,7 @@ const villageProduction = sequelize.define('villageProduction', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
-    issue_add_11: 
-    {
-        type: DataTypes.DECIMAL(10,2),
-        allowNull: true
-    },
-    issue_add_12: 
-    {
-        type: DataTypes.DECIMAL(10,2),
-        allowNull: true
-    },
-    issue_add_13: 
-    {
-        type: DataTypes.DECIMAL(10,2),
-        allowNull: true
-    },
+   
   
     entry_backlog: 
     {

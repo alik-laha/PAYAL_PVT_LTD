@@ -12,6 +12,7 @@ import WholesModel from "../../model/wholesModel";
 import WholesEditModel from "../../model/wholesEditModel";
 import rejectionModel from "../../model/rejectionModel";
 import LWModel from "../../model/lowerGradeModel";
+import villageProduction from "../../model/villageProductionModel";
 
 
 // //Wholes.tsx
@@ -625,6 +626,73 @@ export const CreateEntireWholes= async (req: Request, res: Response) => {
                 }
                 else{
                     res.status(500).json({ message: "Error In Creating LW Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
+
+
+                 //6. Village Out//
+
+                 const vil_backlog = await villageProduction.findOne({
+                    attributes: ['current_backlog','rcv_wholes'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(vil_backlog)
+                if (vil_backlog && vil_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_village,
+                        issueid:1,
+                        date:data.Date,
+                        fromSection:'Wholes',
+                        toSection:'Village',
+                        toSectionBeforeBacklog:vil_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(vil_backlog.dataValues.current_backlog)+parseFloat(data.issue_village),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(vil_backlog.dataValues.rcv_wholes){
+                        await villageProduction.update(
+                            { 
+                                rcv_wholes:sequelize.literal(`rcv_wholes+ ${data.issue_village}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_village}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await villageProduction.update(
+                            { 
+                                rcv_wholes:data.issue_village,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_village}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Village Transaction History" });
                     throw new Error('Transaction Aborted')
                 } 
 
@@ -1592,7 +1660,17 @@ export const approveWholes = async (req: Request, res: Response) => {
                 }
             }) as any
 
-            if(transferBigTdata &&  transferRejectiondata && transferLWdata){
+            const transferVildata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'Wholes',
+                    toSection:'Village'
+                }
+            }) as any
+
+            if(transferBigTdata &&  transferRejectiondata && transferLWdata && transferVildata){
                 await sequelize.transaction(async (transaction: any) => {
 
                     const BigTEdit = await WholesModel.update({
@@ -1843,6 +1921,55 @@ export const approveWholes = async (req: Request, res: Response) => {
                                 }
                                 else{
                                     res.status(500).json({ message: "Associated LW Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+
+                        if(parseFloat(transferVildata.amount)!==parseFloat(data.issue_village)){
+                            console.log('Needs Update In Village')
+                            const difference_vil=parseFloat(data.issue_village)-parseFloat(transferVildata.amount)
+                            console.log(difference_vil)
+                            const backlog = await villageProduction.findOne({
+                                attributes: ['current_backlog','rcv_dpds'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await villageProduction.update(
+                                    {
+                                        rcv_dpds: sequelize.literal(`rcv_dpds+ ${difference_vil}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_vil}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_village,
+                                    toSectionBeforeBacklog:transferVildata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferVildata.toSectionBeforeBacklog)+parseFloat(data.issue_village)
+                        
+                                }, {
+                                    where: {
+                                        id:transferVildata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated Village Entry Not Found" });
                                     throw new Error('Transaction Aborted due to Improper Value')
                                 }
                         }
