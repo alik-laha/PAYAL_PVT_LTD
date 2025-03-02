@@ -138,7 +138,8 @@ const DPDSTable = () => {
             Borma_Loss_Percentage: formatNumber(item.issue_add_3),
             Receive_Sorting: item.rcv_Sorting ? formatNumber(item.rcv_Sorting) : 0,
             Receive_BigTaiho: item.rcv_transfer ? formatNumber(item.rcv_transfer) : 0,
-
+            Receive_Total:formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
+            +(item.rcv_Sorting ? parseFloat(item.rcv_Sorting) :0)+(item.rcv_transfer ? parseFloat(item.rcv_transfer) :0)).toString()) ,
             Issue_M_DS: formatNumber(item.issue_m_ds),
             Issue_M_DP: formatNumber(item.issue_m_dp),
             Issue_K_DP: formatNumber(item.issue_k_dp),
@@ -159,7 +160,13 @@ const DPDSTable = () => {
             Issue_SS: formatNumber(item.issue_ss),
             Issue_OS: formatNumber(item.issue_os),
             Issue_OS1: formatNumber(item.issue_os1),
-
+            Issue_Packing:formatNumber((parseFloat(item.issue_m_ds) +
+            parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
+            parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
+            parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
+            parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
+            parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
+            parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString()),
             Issue_Rejection: formatNumber(item.issue_rejection),
             Issue_Village: formatNumber(item.issue_village),
             Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
@@ -198,6 +205,8 @@ const DPDSTable = () => {
             Borma_Loss_Percentage: formatNumber(item.issue_add_3),
             Receive_Sorting: item.rcv_Sorting ? formatNumber(item.rcv_Sorting) : 0,
             Receive_BigTaiho: item.rcv_transfer ? formatNumber(item.rcv_transfer) : 0,
+            Receive_Total:formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
+            +(item.rcv_Sorting ? parseFloat(item.rcv_Sorting) :0)+(item.rcv_transfer ? parseFloat(item.rcv_transfer) :0)).toString()) ,
             Issue_M_DS: formatNumber(item.issue_m_ds),
             Issue_M_DP: formatNumber(item.issue_m_dp),
             Issue_K_DP: formatNumber(item.issue_k_dp),
@@ -218,7 +227,13 @@ const DPDSTable = () => {
             Issue_SS: formatNumber(item.issue_ss),
             Issue_OS: formatNumber(item.issue_os),
             Issue_OS1: formatNumber(item.issue_os1),
-
+Issue_Packing:formatNumber((parseFloat(item.issue_m_ds) +
+parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
+parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
+parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
+parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
+parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
+parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString()),
             Issue_Rejection: formatNumber(item.issue_rejection),
             Issue_Village: formatNumber(item.issue_village),
             Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
@@ -410,14 +425,15 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 
                 <TableHead className="text-center">Peeling Opening</TableHead>
                 
-                <TableHead className="text-center">Borma_Loss(Kg)</TableHead>
-                <TableHead className="text-center">Borma_Loss(%)</TableHead>
+                <TableHead className="text-center">Peeling Borma_Loss(Kg)</TableHead>
+                <TableHead className="text-center">Peeling Borma_Loss(%)</TableHead>
                 <TableHead className="text-center"> DP (Borma)</TableHead>
                 <TableHead className="text-center"> DS (Borma)</TableHead>
                 <TableHead className="text-center"> DP1 (Borma)</TableHead>
-                <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
-                <TableHead className="text-center">Receive Sorting</TableHead>
-                <TableHead className="text-center">Receive BigTaiho</TableHead>
+                <TableHead className="text-center">Receive_Peeling (Borma)</TableHead>
+                <TableHead className="text-center">Receive_Sorting (Borma)</TableHead>
+                <TableHead className="text-center">Receive_BigTaiho (Borma)</TableHead>
+                <TableHead className="text-center">DPDS_Total_Opening (Borma)</TableHead>
                 <TableHead className="text-center">Issue M_DS</TableHead>
                 <TableHead className="text-center">Issue M_DP</TableHead>
                 <TableHead className="text-center">Issue K_DP</TableHead>
@@ -436,10 +452,12 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <TableHead className="text-center">Issue SS</TableHead>
                 <TableHead className="text-center">Issue OS</TableHead>
                 <TableHead className="text-center">Issue OS1</TableHead>
+                <TableHead className="text-center">Issue Packing</TableHead>
                 <TableHead className="text-center">Issue Rejection</TableHead>
                 <TableHead className="text-center">Issue Village</TableHead>
                 <TableHead className="text-center">Issue Big_Taiho</TableHead>
                 <TableHead className="text-center">Issue Mayur</TableHead>
+                <TableHead className="text-center font-bold">DPDS Total_Issue(Kg)</TableHead>
                 {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
                 <TableHead className="text-center font-bold">Current_Backlog</TableHead>
              
@@ -488,7 +506,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     
                                     <TableCell  className="text-center bg-yellow-100 font-semibold">{item.rcv_Sorting ? formatNumber(item.rcv_Sorting) :0}</TableCell>
                                     <TableCell  className="text-center bg-yellow-100 font-semibold ">{item.rcv_transfer ? formatNumber(item.rcv_transfer) :0}</TableCell>
-
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">
+                                    {formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
+                                +(item.rcv_Sorting ? parseFloat(item.rcv_Sorting) :0)+(item.rcv_transfer ? parseFloat(item.rcv_transfer) :0)).toString())}
+                                    </TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_m_ds)}</TableCell>       
                                     <TableCell className="text-center ">{formatNumber(item.issue_m_dp)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_k_dp)}</TableCell>
@@ -507,6 +528,22 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.issue_ss)}</TableCell>
                                     <TableCell className="text-center">{formatNumber(item.issue_os)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_os1)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_m_ds) +
+                                     parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
+                                     parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
+                                     parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
+                                     parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
+                                     parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
+                                     parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString())}</TableCell>
+                                     
+                                     <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.issue_m_ds) +
+                                     parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
+                                     parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
+                                     parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
+                                     parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
+                                     parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
+                                     parseFloat(item.issue_rejection) +parseFloat(item.issue_village)+parseFloat(item.issue_bigTaiho)+parseFloat(item.issue_mayur)+
+                                     parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString())} Kg</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_village)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
@@ -597,7 +634,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     
                                     <TableCell  className="text-center bg-yellow-100 font-semibold">{item.rcv_Sorting ? formatNumber(item.rcv_Sorting) :0}</TableCell>
                                     <TableCell  className="text-center bg-yellow-100 font-semibold ">{item.rcv_transfer ? formatNumber(item.rcv_transfer) :0}</TableCell>
-
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">
+                                    {formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
+                                +(item.rcv_Sorting ? parseFloat(item.rcv_Sorting) :0)+(item.rcv_transfer ? parseFloat(item.rcv_transfer) :0)).toString())}
+                                    </TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_m_ds)}</TableCell>       
                                     <TableCell className="text-center ">{formatNumber(item.issue_m_dp)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_k_dp)}</TableCell>
@@ -616,12 +656,26 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.issue_ss)}</TableCell>
                                     <TableCell className="text-center">{formatNumber(item.issue_os)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_os1)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_m_ds) +
+                                     parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
+                                     parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
+                                     parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
+                                     parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
+                                     parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
+                                     parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100 ">{formatNumber(item.issue_village)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100 ">{formatNumber(item.issue_bigTaiho)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100 ">{formatNumber(item.issue_mayur)}</TableCell>
                                     {/* <TableCell className="text-center font-semibold  text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
-                                           
+                                    <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.issue_m_ds) +
+                                     parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
+                                     parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
+                                     parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
+                                     parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
+                                     parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
+                                     parseFloat(item.issue_rejection) +parseFloat(item.issue_village)+parseFloat(item.issue_bigTaiho)+parseFloat(item.issue_mayur)+
+                                     parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString())} Kg</TableCell>
                                            <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                         <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                         <TableCell className="text-center">{item.noOfnightOperators}</TableCell>

@@ -106,7 +106,7 @@ const Hamsa = () => {
                         && data.data[0].issue_add_1 && data.data[0].issue_add_2 && data.data[0].issue_add_3
                         && data.data[0].issue_add_4 && data.data[0].issue_add_5 && data.data[0].issue_add_6
                         && data.data[0].issue_add_7 && data.data[0].issue_add_8 && data.data[0].issue_add_9
-                        && data.data[0].issue_add_10 
+                        && data.data[0].issue_add_10  && data.data[0].issue_lw 
                         ? formatNumber(parseFloat(data.data[0].issue_pw_210)+parseFloat(data.data[0].issue_w_210)+parseFloat(data.data[0].issue_ww_210)
                         +parseFloat(data.data[0].issue_pw_240)+parseFloat(data.data[0].issue_w_240)+parseFloat(data.data[0].issue_ww_240)
                         +parseFloat(data.data[0].issue_pw_280)+parseFloat(data.data[0].issue_w_280)+parseFloat(data.data[0].issue_ww_280)
@@ -115,7 +115,7 @@ const Hamsa = () => {
                         +parseFloat(data.data[0].issue_add_1)+parseFloat(data.data[0].issue_add_2)+parseFloat(data.data[0].issue_add_3)
                             +parseFloat(data.data[0].issue_add_4)+parseFloat(data.data[0].issue_add_5)+parseFloat(data.data[0].issue_add_6)
                             +parseFloat(data.data[0].issue_add_7)+parseFloat(data.data[0].issue_add_8)+parseFloat(data.data[0].issue_add_9)
-                            +parseFloat(data.data[0].issue_add_10)): 0} Kg</p>
+                            +parseFloat(data.data[0].issue_add_10)+parseFloat(data.data[0].issue_jb)): 0} Kg</p>
                   
                         
                     </div>
@@ -125,13 +125,11 @@ const Hamsa = () => {
                     Issue LW <br /><p>{data.data[0].issue_lw ? formatNumber(parseFloat(data.data[0].issue_lw))  : 0}  Kg</p>
                     </div>
                     
-                    <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
                     Issue BigTaiho <br /><p>{data.data[0].issue_bigTaiho ? formatNumber(parseFloat(data.data[0].issue_bigTaiho))  : 0}  Kg</p>
                     </div>
 
-                    <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
-                    Issue JB <br /><p>{data.data[0].issue_jb? formatNumber(parseFloat(data.data[0].issue_jb))  : 0}  Kg</p>
-                    </div>
+                   
                     
                     <div className="flexbox-tile bg-cyan-500 hover:bg-orange-400">
                     Current Backlog <br /><p>{data.data[0].current_backlog  ?  formatNumber(parseFloat(data.data[0].current_backlog)): 0} Kg</p>

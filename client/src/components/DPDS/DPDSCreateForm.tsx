@@ -357,7 +357,7 @@ const RCNDPDSCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-bold text-green-600">{formatNumber((Number(row.rcv_dp)+Number(row.rcv_ds)
                                         +Number(row.rcv_dp1)).toString())} Kg</TableCell>
                                         <TableCell className="text-center"> <Input className='bg-blue-100' type="number" 
-                                        value={formatNumber(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /></TableCell>
+                                        value={Number(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /></TableCell>
                                            
                                         
                                         

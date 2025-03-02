@@ -62,7 +62,7 @@ import { PermissionRole, pendingCheckRoles, PackagingMeterialQc } from "@/type/t
 // import { saveAs } from 'file-saver';
 // import * as XLSX from 'xlsx';
 import { CiEdit } from "react-icons/ci"
-import PackagingMetirialQcEditForm from "./packageMeterialModify"
+// import PackagingMetirialQcEditForm from "./packageMeterialModify"
 import { LuDownload } from "react-icons/lu"
 import Carousel from "./ModalCarousel"
 
@@ -722,7 +722,7 @@ const QCPackageMaterialTable = () => {
                                                                         <p className='text-1xl text-center'>To Be Filled Up By Quality Supervisor</p>
                                                                     </DialogDescription>
                                                                 </DialogHeader>
-                                                                <PackagingMetirialQcEditForm data={item} />
+                                                                {/* <PackagingMetirialQcEditForm data={item} /> */}
                                                             </DialogContent>
                                                         </Dialog>
                                                     </div>

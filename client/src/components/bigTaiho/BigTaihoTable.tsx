@@ -138,6 +138,14 @@ const BigTaihoTable = () => {
             Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
             Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
             Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+            Receive_Total: (parseFloat(item.issue_add_1) + 
+                (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
+                (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
+                (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
+                (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
+                (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) + 
+                (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) + 
+                (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2),
             Issue_ssp: formatNumber(item.issue_ssp),
             Issue_ssp_small: formatNumber(item.issue_ssp_small),
             Issue_swp_1: formatNumber(item.issue_swp_1),
@@ -155,6 +163,13 @@ const BigTaihoTable = () => {
             Issue_ssp2: formatNumber(item.issue_ssp_2),
             Issue_ssp2_small: formatNumber(item.issue_ssp_2_small),
             Issue_sdp: formatNumber(item.issue_sdp),
+            Issue_Packing:formatNumber((parseFloat(item.issue_ssp) +
+            parseFloat(item.issue_ssp_small)+parseFloat(item.issue_swp_1)+
+            parseFloat(item.issue_wsp) +parseFloat(item.issue_bits)+parseFloat(item.issue_swp)+
+            parseFloat(item.issue_bb) +parseFloat(item.issue_w_bb)+parseFloat(item.issue_bb_A)+
+            parseFloat(item.issue_bb1) +parseFloat(item.issue_bb1_A)+parseFloat(item.issue_bb_2)+
+            parseFloat(item.issue_ssp_1) +parseFloat(item.issue_ssp_1_small)+parseFloat(item.issue_ssp_2)+
+            parseFloat(item.issue_ssp_2_small) +parseFloat(item.issue_sdp)).toString()),
             Issue_Husk: formatNumber(item.issue_husk),
             Issue_Rejection: formatNumber(item.issue_rejection),
             Issue_Village: formatNumber(item.issue_village),
@@ -203,6 +218,14 @@ const BigTaihoTable = () => {
             Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
             Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
             Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+            Receive_Total: (parseFloat(item.issue_add_1) + 
+                (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
+                (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
+                (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
+                (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
+                (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) + 
+                (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) + 
+                (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2),
 
             
             Issue_ssp: formatNumber(item.issue_ssp),
@@ -224,7 +247,13 @@ const BigTaihoTable = () => {
             Issue_sdp: formatNumber(item.issue_sdp),
             
 
-
+            Issue_Packing:formatNumber((parseFloat(item.issue_ssp) +
+            parseFloat(item.issue_ssp_small)+parseFloat(item.issue_swp_1)+
+            parseFloat(item.issue_wsp) +parseFloat(item.issue_bits)+parseFloat(item.issue_swp)+
+            parseFloat(item.issue_bb) +parseFloat(item.issue_w_bb)+parseFloat(item.issue_bb_A)+
+            parseFloat(item.issue_bb1) +parseFloat(item.issue_bb1_A)+parseFloat(item.issue_bb_2)+
+            parseFloat(item.issue_ssp_1) +parseFloat(item.issue_ssp_1_small)+parseFloat(item.issue_ssp_2)+
+            parseFloat(item.issue_ssp_2_small) +parseFloat(item.issue_sdp)).toString()),
             Issue_Husk: formatNumber(item.issue_husk),
             Issue_Rejection: formatNumber(item.issue_rejection),
             Issue_Village: formatNumber(item.issue_village),
@@ -451,6 +480,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Receive Hamsa</TableHead>
                     <TableHead className="text-center">Receive LW</TableHead>
                     <TableHead className="text-center">Receive Wholes</TableHead>
+                    <TableHead className="text-center">BigTaiho_Total_Opening (Borma)</TableHead>
                     <TableHead className="text-center">Issue SSP</TableHead>
                     <TableHead className="text-center">Issue SSP(Small)</TableHead>
                     <TableHead className="text-center">Issue SWP_1</TableHead>
@@ -468,12 +498,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue SSP_2</TableHead>
                     <TableHead className="text-center">Issue SSP_2(Small)</TableHead>
                     <TableHead className="text-center">Issue SDP</TableHead>
-
+                    <TableHead className="text-center">Issue Packing</TableHead>
                     <TableHead className="text-center">Issue Husk</TableHead>
                     <TableHead className="text-center">Issue Rejection</TableHead>
                     <TableHead className="text-center">Issue Village</TableHead>
                     <TableHead className="text-center">Issue Sorting</TableHead>
                     <TableHead className="text-center">Issue DPDS</TableHead>
+                    <TableHead className="text-center font-bold">BigTaiho Total_Issue(kg)</TableHead>
                     {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
                     <TableHead className="text-center font-bold">Current_Backlog</TableHead>
 
@@ -534,6 +565,14 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_hamsa ? formatNumber(item.rcv_hamsa) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) :0}</TableCell>
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">{(parseFloat(item.issue_add_4) + 
+                                        (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
+                                        (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
+                                        (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
+                                        (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
+                                        (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) + 
+                                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) + 
+                                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2)} Kg</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_ssp)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_ssp_small)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_swp_1)}</TableCell>
@@ -551,13 +590,30 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.issue_ssp_2)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_ssp_2_small)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_sdp)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_ssp) +
+                                     parseFloat(item.issue_ssp_small)+parseFloat(item.issue_swp_1)+
+                                     parseFloat(item.issue_wsp) +parseFloat(item.issue_bits)+parseFloat(item.issue_swp)+
+                                     parseFloat(item.issue_bb) +parseFloat(item.issue_w_bb)+parseFloat(item.issue_bb_A)+
+                                     parseFloat(item.issue_bb1) +parseFloat(item.issue_bb1_A)+parseFloat(item.issue_bb_2)+
+                                     parseFloat(item.issue_ssp_1) +parseFloat(item.issue_ssp_1_small)+parseFloat(item.issue_ssp_2)+
+                                     parseFloat(item.issue_ssp_2_small) +parseFloat(item.issue_sdp)).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_husk)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_village)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_sorting)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_dpds)}</TableCell>
                                     {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
-                                               
+                                    
+                                    <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.issue_ssp) +
+                                     parseFloat(item.issue_ssp_small)+parseFloat(item.issue_swp_1)+
+                                     parseFloat(item.issue_wsp) +parseFloat(item.issue_bits)+parseFloat(item.issue_swp)+
+                                     parseFloat(item.issue_bb) +parseFloat(item.issue_w_bb)+parseFloat(item.issue_bb_A)+
+                                     parseFloat(item.issue_bb1) +parseFloat(item.issue_bb1_A)+parseFloat(item.issue_bb_2)+
+                                     parseFloat(item.issue_ssp_1) +parseFloat(item.issue_ssp_1_small)+parseFloat(item.issue_ssp_2)+
+                                     parseFloat(item.issue_husk) +parseFloat(item.issue_rejection)+parseFloat(item.issue_village)+
+                                     parseFloat(item.issue_sorting) +parseFloat(item.issue_dpds)+
+                                     parseFloat(item.issue_ssp_2_small) +parseFloat(item.issue_sdp)).toString())}kg</TableCell>
+
                                     <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on_1.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off_1.slice(0, 5))}</TableCell>
@@ -655,6 +711,16 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_hamsa ? formatNumber(item.rcv_hamsa) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) :0}</TableCell>
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">{(parseFloat(item.issue_add_4) + 
+                                        (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
+                                        (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
+                                        (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
+                                        (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
+                                        (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) + 
+                                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) + 
+                                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2)} Kg</TableCell>
+
+
                                     <TableCell className="text-center ">{formatNumber(item.issue_ssp)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_ssp_small)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_swp_1)}</TableCell>
@@ -672,13 +738,28 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.issue_ssp_2)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_ssp_2_small)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_sdp)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_ssp) +
+                                     parseFloat(item.issue_ssp_small)+parseFloat(item.issue_swp_1)+
+                                     parseFloat(item.issue_wsp) +parseFloat(item.issue_bits)+parseFloat(item.issue_swp)+
+                                     parseFloat(item.issue_bb) +parseFloat(item.issue_w_bb)+parseFloat(item.issue_bb_A)+
+                                     parseFloat(item.issue_bb1) +parseFloat(item.issue_bb1_A)+parseFloat(item.issue_bb_2)+
+                                     parseFloat(item.issue_ssp_1) +parseFloat(item.issue_ssp_1_small)+parseFloat(item.issue_ssp_2)+
+                                     parseFloat(item.issue_ssp_2_small) +parseFloat(item.issue_sdp)).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_husk)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_village)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_sorting)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_dpds)}</TableCell>
                                     {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
-                                               
+                                    <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.issue_ssp) +
+                                     parseFloat(item.issue_ssp_small)+parseFloat(item.issue_swp_1)+
+                                     parseFloat(item.issue_wsp) +parseFloat(item.issue_bits)+parseFloat(item.issue_swp)+
+                                     parseFloat(item.issue_bb) +parseFloat(item.issue_w_bb)+parseFloat(item.issue_bb_A)+
+                                     parseFloat(item.issue_bb1) +parseFloat(item.issue_bb1_A)+parseFloat(item.issue_bb_2)+
+                                     parseFloat(item.issue_ssp_1) +parseFloat(item.issue_ssp_1_small)+parseFloat(item.issue_ssp_2)+
+                                     parseFloat(item.issue_husk) +parseFloat(item.issue_rejection)+parseFloat(item.issue_village)+
+                                     parseFloat(item.issue_sorting) +parseFloat(item.issue_dpds)+
+                                     parseFloat(item.issue_ssp_2_small) +parseFloat(item.issue_sdp)).toString())}kg</TableCell>
                                     <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on_1.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off_1.slice(0, 5))}</TableCell>

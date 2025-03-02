@@ -40,6 +40,7 @@ import DPDS from './components/DPDS/DPDS'
 import BigTaiho from './components/bigTaiho/BigTaiho'
 import Hamsa from './components/Hamsa/Hamsa'
 import Sorting from './components/Sorting/Sorting'
+import Wholes from './components/Wholes/Wholes'
 
 
 
@@ -87,7 +88,7 @@ function App() {
           'MaintainanceSupervisor', 'MaintainanceManager',
           'QCSupervisor', 'QCManager',
           'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','DeputyProductionManager', 'BormaSupervisor',
-          'PeelingSupervisor', 'MayurSupervisor','VillageSupervisor','SortingSupervisor']} />}>
+          'PeelingSupervisor', 'MayurSupervisor','VillageSupervisor','SortingSupervisor','WholesSupervisor']} />}>
 
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
@@ -249,6 +250,13 @@ function App() {
       <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'SortingSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
           <Route path='/dashboard/Sorting' element={<Sorting />} />
+
+        </Route>
+
+        {/*Production Wholes  */}
+      <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'WholesSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
+          <Route path='/dashboard/Wholes' element={<Wholes />} />
 
         </Route>
 

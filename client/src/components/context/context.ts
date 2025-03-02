@@ -75,6 +75,8 @@ interface ContextType {
     setEditHamsaLotWiseData: (data: any[]) => void;
     editSortingLotWiseData: any[];
     setEditSortingLotWiseData: (data: any[]) => void;
+    editWholesLotWiseData: any[];
+    setEditWholesLotWiseData: (data: any[]) => void;
     
 }
 
@@ -141,7 +143,9 @@ const Context = createContext<ContextType>({
     editHamsaLotWiseData: [],
     setEditHamsaLotWiseData: () => {},
     editSortingLotWiseData: [],
-    setEditSortingLotWiseData: () => {}
+    setEditSortingLotWiseData: () => {},
+    editWholesLotWiseData: [],
+    setEditWholesLotWiseData: () => {}
 
 });
 

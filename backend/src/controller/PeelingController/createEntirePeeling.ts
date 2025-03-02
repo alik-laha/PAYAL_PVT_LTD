@@ -10,6 +10,10 @@ import DPDS from "../../model/dpdsmodel";
 import bigTaihoModel from "../../model/bigTaihoModel";
 import hamsaModel from "../../model/hamsamodel";
 import SortingModel from "../../model/sortingModel";
+import WholesModel from "../../model/wholesModel";
+import rejectionModel from "../../model/rejectionModel";
+import LWModel from "../../model/lowerGradeModel";
+import villageProduction from "../../model/villageProductionModel";
 //import RcnPeeling from "../../model/peelingModel";
 
 
@@ -162,7 +166,6 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
                     current_backlog:parseFloat(data.WholesPeel)+parseFloat(data.WholesUnpeel),
                  },{transaction});
 
-
                 await DPDS.create({
                     LotNo:data.LotNo,
                     origin:data.origin,
@@ -180,6 +183,21 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
                     current_backlog:data.Big_Taiho,
                  },{transaction});
 
+                 await villageProduction.create({
+                  
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    rcv_peeling: data.UnpeelPiece,
+                    current_backlog:data.UnpeelPiece,
+                 },{transaction});
+
+                 await rejectionModel.create({
+                  
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    rcv_peeling: data.Rejection,
+                    current_backlog:data.Rejection,
+                 },{transaction});
 
                  await SortingModel.create({           
                     LotNo:data.LotNo,
@@ -194,8 +212,23 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
                     +parseFloat(data.JH1)+parseFloat(data.JK_K)+parseFloat(data.SP1),
                  },{transaction});
 
-
                  await hamsaModel.create({
+                  
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    
+                    current_backlog:0,
+                 },{transaction});
+
+                 await LWModel.create({
+                  
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    
+                    current_backlog:0,
+                 },{transaction});
+
+                 await WholesModel.create({
                   
                     LotNo:data.LotNo,
                     origin:data.origin,

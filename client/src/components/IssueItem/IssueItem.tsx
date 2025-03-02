@@ -11,14 +11,17 @@ import { Button } from "../ui/button";
 import { pendingCheckRoles, PermissionRole, rcvCheckRoles } from "@/type/type";
 import { pendingCheckRole, rcvCheckRole } from "../common/exportData";
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Context from "../context/context";
 import Loader from "../common/Loader";
 import UseQueryData from "../common/dataFetcher";
 import IssueCreateForm from "./IssueCreate";
 import IssueTable from "./IssueTable";
+import { RxUpdate } from "react-icons/rx";
 
 const IssueItem = () => {
+
+    const [loading, setLoading] = useState(false);
     const { setEditPendiningIssueItemData } = useContext(Context)
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {
@@ -52,6 +55,24 @@ const IssueItem = () => {
                 console.log(err)
             })
     }
+
+    const handleStockUpdateFetch = async () => {
+
+       setLoading(true);
+        try {
+            const response = await fetch('/api/issue/update-stock', {
+                method: 'POST',
+            });
+            const data = await response.json();
+            alert(data.message);
+        } catch (error) {
+            alert('Failed to update stock.');
+        } finally {
+            setLoading(false);
+        }
+    }
+
+
     const { data, isLoading, error } = UseQueryData('/api/issue/sumofallIssueUnit', 'GET', 'AllSectionIssueSum');
     if (isLoading) {
         return <Loader />
@@ -97,7 +118,8 @@ const IssueItem = () => {
 
 
                     {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button>}
-
+                    <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" 
+                    disabled={loading} onClick={handleStockUpdateFetch} >  {loading ? 'Updating...' : 'Update Stock'} <RxUpdate size={20} className="ml-2"/></Button>
                 </div>
              <IssueTable/>
                 </div>

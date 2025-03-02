@@ -1,5 +1,72 @@
 
+export interface PermissionRole {
+    Director: string[];
+    FactoryManager: string[];
+    ReceivingSupervisor: string[];
+    ReceivingPMSupervisor: string[];
+    ReceivingManager: string[];
+    ReceivingAlmondSupervisor:string[];
+    ReceivingStoreSupervisor: string[];
+    ReceivingAgarbatiSupervisor:string[];
+    ReceivingGeneralSupervisor:string[];
+    ReceivingOilMillSupervisor:string[];
+    QCSupervisor: string[];
+    QCManager: string[];
+    GradingSupervisor: string[];
+    BoilingSupervisor: string[];
+    ScoopingSupervisor: string[];
+    PeelingSupervisor:string[];
+    MayurSupervisor:string[];
+    SortingSupervisor:string[];
+    WholesSupervisor:string[];
+    VillageSupervisor:string[];
+    ProductionManager:string[];
+    MaintainanceManager:string[];
+    CleaningSupervisor:string[];
+    BormaSupervisor:string[];
+    Security:string[];
+    GatePassManager:string[];
+    DeputyProductionManager:string[];
 
+}
+
+export interface PermissionDept {
+    Admin: string[];
+    Receiving: string[];
+    Maintainance: string[];
+    Production: string[];
+    QualityControl: string[];
+    GatePass:string[];
+}
+export interface pendingCheckRoles {
+    RCNPrimary: string[];
+    QCRCN: string[];
+    Grading: string[];
+    Boiling: string[];
+    Scooping: string[];
+    Borma: string[];
+    Humidifier:string[];
+    Peeling:string[];
+    Village:string[];
+    Gatepass:string[];
+    Mayur:string[];
+    Hamsa:string[];
+    BigTaiho:string[];
+    Sorting:string[];
+    DPDS:string[];
+    Wholes:string[];
+    
+}
+export interface rcvCheckRoles {
+    RCNPrimaryEntry: string[];
+    PMPrimaryEntry:string[];
+    StorePrimaryEntry:string[];
+    AlmondPrimaryEntry:string[];
+    GeneralPrimaryEntry:string[];
+    VillagePrimaryEntry:string[];
+    OilMillPrimaryEntry:string[];
+    AgarbatiPrimaryEntry:string[];
+}
 export interface DatePickerProps {
     buttonName: string;
     value: Date | undefined;
@@ -824,6 +891,110 @@ export interface HamsaData {
     modifiedBy: string | null;
 
 }
+export interface WholesData {
+ 
+    id: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    altid: number;
+    rcv_pw_210: string;
+rcv_w_210: string;
+rcv_ww_210: string;
+rcv_pw_240: string;
+rcv_w_240: string;
+rcv_ww_240: string;
+rcv_pw_280: string;
+rcv_w_280: string;
+rcv_ww_280: string;
+rcv_pw_320: string;
+rcv_w_320: string;
+rcv_ww_320: string;
+rcv_pw_360: string;
+rcv_w_360: string;
+rcv_ww_360: string;
+rcv_pw_400: string;
+rcv_w_400: string;
+rcv_ww_400: string;
+rcv_jb_mayur: string;
+rcv_jb_hamsa: string;
+issue_pw_150: string;
+issue_w_150: string;
+issue_ww_150: string;
+issue_s_150: string;
+issue_aw_150: string;
+issue_lw_150: string;
+issue_pw_180: string;
+issue_w_180: string;
+issue_ww_180: string;
+issue_s_180: string;
+issue_aw_180: string;
+issue_lw_180: string;
+issue_pw_210: string;
+issue_w_210: string;
+issue_ww_210: string;
+issue_s_210: string;
+issue_aw_210: string;
+issue_lw_210: string;
+issue_pw_240: string;
+issue_w_240: string;
+issue_ww_240: string;
+issue_ww_240_A: string;
+issue_aw_240: string;
+issue_lw_240: string;
+issue_pw_280: string;
+issue_w_280: string;
+issue_ww_280: string;
+issue_ww_280_A: string;
+issue_aw_280: string;
+issue_lw_280: string;
+wholes_double: string;
+issue_pw_320: string;
+issue_w_320: string;
+issue_ww_320: string;
+issue_ww_320_A: string;
+issue_aw_320: string;
+issue_lw_320: string;
+issue_pw_360: string;
+issue_w_360: string;
+issue_ww_360: string;
+issue_ww_360_A: string;
+issue_aw_360: string;
+issue_lw_360: string;
+issue_pw_400: string;
+issue_w_400: string;
+issue_ww_400: string;
+issue_ww_400_A: string;
+issue_aw_400: string;
+issue_lw_400: string;
+issue_jjb: string;
+issue_jjb1: string;
+issue_add_1: string;
+issue_add_2: string;
+issue_add_3: string;
+issue_add_4: string;
+issue_add_5: string;
+issue_add_6: string;
+issue_add_7: string;
+issue_add_8: string;
+issue_add_9: string;
+issue_add_10: string;
+issue_rejection: string;
+issue_village: string;
+issue_bigTaiho: string;
+issue_lw: string;
+entry_backlog: string;
+current_backlog: string;
+Status: number;
+latest: number;
+mixingLot: string|null;
+noOfdayOperators: string;
+noOfnightOperators: string;
+CreatedBy: string;
+editStatus: string;
+modifiedBy: string | null;
+
+}
 
 export interface SortingData {
  
@@ -1017,43 +1188,7 @@ export interface AssetDataExcel {
     modifiedBy: string;
 }
 
-export interface PermissionRole {
-    Director: string[];
-    FactoryManager: string[];
-    ReceivingSupervisor: string[];
-    ReceivingPMSupervisor: string[];
-    ReceivingManager: string[];
-    ReceivingAlmondSupervisor:string[];
-    ReceivingStoreSupervisor: string[];
-    ReceivingAgarbatiSupervisor:string[];
-    ReceivingGeneralSupervisor:string[];
-    ReceivingOilMillSupervisor:string[];
-    QCSupervisor: string[];
-    QCManager: string[];
-    GradingSupervisor: string[];
-    BoilingSupervisor: string[];
-    ScoopingSupervisor: string[];
-    PeelingSupervisor:string[];
-    MayurSupervisor:string[];
-    SortingSupervisor:string[];
-    VillageSupervisor:string[];
-    ProductionManager:string[];
-    MaintainanceManager:string[];
-    CleaningSupervisor:string[];
-    BormaSupervisor:string[];
-    Security:string[];
-    GatePassManager:string[];
 
-}
-
-export interface PermissionDept {
-    Admin: string[];
-    Receiving: string[];
-    Maintainance: string[];
-    Production: string[];
-    QualityControl: string[];
-    GatePass:string[];
-}
 export interface BoilingEntryData {
     moisture: string;
     id: number;
@@ -1157,29 +1292,7 @@ export interface IssueItemDaywiseData {
     sectionunit: string;
 }
 
-export interface pendingCheckRoles {
-    RCNPrimary: string[];
-    QCRCN: string[];
-    Grading: string[];
-    Boiling: string[];
-    Scooping: string[];
-    Borma: string[];
-    Humidifier:string[];
-    Peeling:string[];
-    Village:string[];
-    Gatepass:string[];
-    
-}
-export interface rcvCheckRoles {
-    RCNPrimaryEntry: string[];
-    PMPrimaryEntry:string[];
-    StorePrimaryEntry:string[];
-    AlmondPrimaryEntry:string[];
-    GeneralPrimaryEntry:string[];
-    VillagePrimaryEntry:string[];
-    OilMillPrimaryEntry:string[];
-    AgarbatiPrimaryEntry:string[];
-}
+
 
 export interface GradingExcelData {
     Sl_No: number;

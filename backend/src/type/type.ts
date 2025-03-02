@@ -282,6 +282,14 @@ export interface QCWaterData {
   
 
 }
+
+export interface StoreStockData {
+
+    id: number;
+    sku:string;
+    quantity:string;
+    thresoldquantity:string;
+}
 export interface AlmondrcvData {
     approvedBy: string;
     id: number;

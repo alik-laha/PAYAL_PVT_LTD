@@ -134,7 +134,10 @@ const MayurTable = () => {
             Receive_DPDS: item.rcv_DPDS ? formatNumber(item.rcv_DPDS) : 0,
             Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
             Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-          
+            Receive_Total: (parseFloat(item.rcv_wholespeel) + parseFloat(item.rcv_wholesunpeel)+
+            (item.rcv_DPDS ? parseFloat(item.rcv_DPDS) : 0) + 
+            (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
+            (item.rcv_village ? parseFloat(item.rcv_village) : 0) ).toFixed(2),
             Issue_PW_W: formatNumber(item.issue_pw_w),
             Issue_W_Lot: formatNumber(item.issue_w_lot),
             Issue_WW: formatNumber(item.issue_ww),
@@ -189,7 +192,10 @@ const MayurTable = () => {
                 Receive_DPDS: item.rcv_DPDS ? formatNumber(item.rcv_DPDS) : 0,
                 Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
                 Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-               
+                Receive_Total: (parseFloat(item.rcv_wholespeel) + parseFloat(item.rcv_wholesunpeel)+
+                (item.rcv_DPDS ? parseFloat(item.rcv_DPDS) : 0) + 
+                (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
+                (item.rcv_village ? parseFloat(item.rcv_village) : 0) ).toFixed(2),
                 Issue_PW_W: formatNumber(item.issue_pw_w),
                 Issue_W_Lot: formatNumber(item.issue_w_lot),
                 Issue_WW: formatNumber(item.issue_ww),
@@ -420,7 +426,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Receive DPDS</TableHead>
                     <TableHead className="text-center">Receive Sorting</TableHead>
                     <TableHead className="text-center">Receive Village</TableHead>
-                   
+                    <TableHead className="text-center">Mayur Total_Opening</TableHead>
                     <TableHead className="text-center">Issue PW_W</TableHead>
                     <TableHead className="text-center">Issue W_Lot</TableHead>
                     <TableHead className="text-center">Issue WW</TableHead>
@@ -431,6 +437,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue LW</TableHead>
                     <TableHead className="text-center">Issue JB</TableHead>
                     <TableHead className="text-center">Issue Big_Taiho</TableHead>
+                    <TableHead className="text-center font-bold">Mayur Total_Issue(Kg)</TableHead>
                     {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
                     <TableHead className="text-center font-bold">Current_Backlog</TableHead>
                     <TableHead className="text-center">Mc_On_133</TableHead>
@@ -485,7 +492,12 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell  className="text-center font-semibold bg-yellow-100">{item.rcv_DPDS ? formatNumber(item.rcv_DPDS) :0}</TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-100">{item.rcv_sorting ?formatNumber(item.rcv_sorting):0}</TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-100">{item.rcv_village ?formatNumber(item.rcv_village):0}</TableCell>
-                                      
+                                        <TableCell className="text-center font-bold bg-green-500 text-white ">{(parseFloat(item.rcv_wholespeel) + parseFloat(item.rcv_wholesunpeel)+
+                (item.rcv_DPDS ? parseFloat(item.rcv_DPDS) : 0) + 
+                (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
+                (item.rcv_village ? parseFloat(item.rcv_village) : 0) ).toFixed(2)} Kg</TableCell>
+                                        
+                                        
 
                                         <TableCell className="text-center ">{formatNumber(item.issue_pw_w)}</TableCell>
                                         
@@ -498,7 +510,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center bg-red-100 font-semibold">{formatNumber(item.issue_LW)}</TableCell>
                                         <TableCell className="text-center bg-red-100 font-semibold">{formatNumber(item.issue_JB)}</TableCell>
                                         <TableCell className="text-center bg-red-100 font-semibold">{formatNumber(item.issue_bigTaiho)}</TableCell>
-                                       
+                                        <TableCell className="text-center font-bold bg-red-500 text-white ">{formatNumber((parseFloat(item.issue_pw_w) + parseFloat(item.issue_w_lot)+parseFloat(item.issue_ww)+parseFloat(item.issue_rejection) +parseFloat(item.issue_JB) +parseFloat(item.issue_bigTaiho) 
+                                        + parseFloat(item.issue_village)+parseFloat(item.issue_LW)).toString())} Kg</TableCell>
+
                                         {/* <TableCell className="text-center font-bold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
                                                
                                         <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
@@ -602,7 +616,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center bg-yellow-100  font-semibold">{item.rcv_sorting ?formatNumber(item.rcv_sorting):0}</TableCell>
                                         <TableCell className="text-center bg-yellow-100  font-semibold">{item.rcv_village ?formatNumber(item.rcv_village):0}</TableCell>
                                       
-
+                                        <TableCell className="text-center font-bold bg-green-500 text-white ">{formatNumber((parseFloat(item.rcv_wholespeel) + parseFloat(item.rcv_wholesunpeel)+
+                (item.rcv_DPDS ? parseFloat(item.rcv_DPDS) : 0) + 
+                (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
+                (item.rcv_village ? parseFloat(item.rcv_village) : 0) ).toString())} Kg</TableCell>
                                         <TableCell className="text-center  ">{formatNumber(item.issue_pw_w)}</TableCell>
                                         
                                         <TableCell className="text-center  ">{formatNumber(item.issue_w_lot)}</TableCell>
@@ -615,7 +632,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_LW)}</TableCell>
                                         <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_JB)}</TableCell>
                                         <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
-                                       
+                                        <TableCell className="text-center font-bold bg-yellow-500 text-white ">{formatNumber((parseFloat(item.issue_pw_w) + parseFloat(item.issue_w_lot)+parseFloat(item.issue_ww)+parseFloat(item.issue_rejection) +parseFloat(item.issue_JB) +parseFloat(item.issue_bigTaiho) 
+                                        + parseFloat(item.issue_village)+parseFloat(item.issue_LW)).toString())} Kg</TableCell>
                                         {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
                                                
                                         <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)} kg</TableCell>

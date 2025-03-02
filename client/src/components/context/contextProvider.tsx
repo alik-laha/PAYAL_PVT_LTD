@@ -12,7 +12,8 @@ import { AssetData, EditPendingData, GradingData, BoilingEntryData, Sumofpackage
      HumidData,
      BormaData,
      BigTaihoData,
-     HamsaData} from "../../type/type";
+     HamsaData,
+     SortingData} from "../../type/type";
 
 interface ContextProviderProps {
     children: ReactNode;
@@ -49,7 +50,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [editDPDSLotWiseData, setEditDPDSLotWiseData] = useState<DPDSData[]>([])
     const [editBigTaihoLotWiseData, setEditBigTaihoLotWiseData] = useState<BigTaihoData[]>([])
     const [editHamsaLotWiseData, setEditHamsaLotWiseData] = useState<HamsaData[]>([])
-    const [editSortingLotWiseData, setEditSortingLotWiseData] = useState<any[]>([])
+    const [editSortingLotWiseData, setEditSortingLotWiseData] = useState<SortingData[]>([])
+    const [editWholesLotWiseData, setEditWholesLotWiseData] = useState<any[]>([])
 
     return (
         <Context.Provider value={{
@@ -64,7 +66,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
             editPendingOilMillData,setEditPendingOilMillData,editPendiningQCWaterData, setEditPendiningQCWaterData,
             editPeelingLotWiseData, setEditPeelingLotWiseData,editMayurLotWiseData,setEditMayurLotWiseData,
             editDPDSLotWiseData,setEditDPDSLotWiseData,editBigTaihoLotWiseData, setEditBigTaihoLotWiseData,
-            editHamsaLotWiseData,setEditHamsaLotWiseData,editSortingLotWiseData,setEditSortingLotWiseData
+            editHamsaLotWiseData,setEditHamsaLotWiseData,editSortingLotWiseData,setEditSortingLotWiseData,
+            editWholesLotWiseData,setEditWholesLotWiseData
         }}>
             {children}
         </Context.Provider>

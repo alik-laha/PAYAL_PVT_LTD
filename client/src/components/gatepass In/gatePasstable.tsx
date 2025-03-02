@@ -1134,7 +1134,7 @@ const GatePassTable = () => {
                     </TableCell>}
 
                   <TableCell className="text-center">{item.modifiedBy}</TableCell>
-                  <TableCell className="text-center">{item.Remarks}</TableCell>
+                  <TableCell className="text-justify ">{item.Remarks}</TableCell>
 
 
 

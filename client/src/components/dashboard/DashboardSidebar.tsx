@@ -22,6 +22,7 @@ import { FaUserTie, FaWater, FaSortAmountDownAlt ,FaAcquisitionsIncorporated } f
 import { PiPackageLight, PiWashingMachineLight } from "react-icons/pi";
 import { GiBoilingBubbles, GiIceCreamScoop, GiGate, GiBoxingRing,GiVendingMachine } from "react-icons/gi";
 import { AiFillCodeSandboxSquare, AiOutlineProduct } from "react-icons/ai";
+import { CiPill } from "react-icons/ci";
 
 import { CgSmartHomeBoiler } from "react-icons/cg";
 import { BsMoisture } from "react-icons/bs";
@@ -308,9 +309,15 @@ const DashboardSidebar = () => {
                                 </CollapsibleContent>}
 
 
-                           
+                                {renderlink('Wholes')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/Wholes" >
+                                        <p className="flex"> <CiPill size={20} /><p className="pl-3">  Wholes Grading</p></p>
+                                    </NavLink>
+                                </CollapsibleContent>}
 
-                            
+
+                           
 
                             {renderlink('Receiving Village Entry')
                                 && <CollapsibleContent className="Items-pvt">

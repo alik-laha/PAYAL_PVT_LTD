@@ -125,13 +125,17 @@ const HamsaTable = () => {
             Item_Lot_No: item.LotNo,
             Origin: item.origin,
             Issue_No: item.altid,
-            DPDS_Entry_Date: handletimezone(item.date),
+            Hamsa_Entry_Date: handletimezone(item.date),
             Mixing_Lot: item.mixingLot,
             Receive_PW_W: formatNumber(item.rcv_pw_w),
             Receive_W_LOT: formatNumber(item.rcv_w_lot),
             Receive_WW: formatNumber(item.rcv_ww),
             Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
             Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
+            Receive_Total:(parseFloat(item.rcv_pw_w) +
+            parseFloat(item.rcv_w_lot)+parseFloat(item.rcv_ww)+                                  
+               (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
+               (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)).toFixed(2),
             issue_pw_210: formatNumber(item.issue_pw_210),
             issue_w_210: formatNumber(item.issue_w_210),
             issue_ww_210: formatNumber(item.issue_ww_210),
@@ -150,9 +154,17 @@ const HamsaTable = () => {
             issue_pw_400: formatNumber(item.issue_pw_400),
             issue_w_400: formatNumber(item.issue_w_400),
             issue_ww_400: formatNumber(item.issue_ww_400),
+            Issue_Wholes:formatNumber((parseFloat(item.issue_pw_210) +
+                parseFloat(item.issue_w_210)+parseFloat(item.issue_ww_210)+
+                parseFloat(item.issue_pw_240) +parseFloat(item.issue_w_240)+parseFloat(item.issue_ww_240)+
+                parseFloat(item.issue_pw_280) +parseFloat(item.issue_w_280)+parseFloat(item.issue_ww_280)+
+                parseFloat(item.issue_pw_320) +parseFloat(item.issue_w_320)+parseFloat(item.issue_ww_320)+
+                parseFloat(item.issue_add_1) +parseFloat(item.issue_add_2)+parseFloat(item.issue_add_3)+
+                parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)).toString()),
             Issue_JB: formatNumber(item.issue_jb),
             Issue_BigTaiho: formatNumber(item.issue_bigTaiho),
             Issue_LW: formatNumber(item.issue_lw),
+            
             Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
             Mc_On_Hamsa_1: handleAMPM(item.Mc_on_1.slice(0, 5)),
             Mc_Off_Hamsa_1: handleAMPM(item.Mc_off_1.slice(0, 5)),
@@ -201,13 +213,17 @@ const HamsaTable = () => {
                 Item_Lot_No: item.LotNo,
                 Origin: item.origin,
                 Issue_No: item.altid,
-                DPDS_Entry_Date: handletimezone(item.date),
+                Hamsa_Entry_Date: handletimezone(item.date),
                 Mixing_Lot: item.mixingLot,
                 Receive_PW_W: formatNumber(item.rcv_pw_w),
                 Receive_W_LOT: formatNumber(item.rcv_w_lot),
                 Receive_WW: formatNumber(item.rcv_ww),
                 Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
                 Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
+                Receive_Total:(parseFloat(item.rcv_pw_w) +
+                    parseFloat(item.rcv_w_lot)+parseFloat(item.rcv_ww)+                                  
+                       (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
+                       (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)).toFixed(2),
                 issue_pw_210: formatNumber(item.issue_pw_210),
                 issue_w_210: formatNumber(item.issue_w_210),
                 issue_ww_210: formatNumber(item.issue_ww_210),
@@ -226,6 +242,13 @@ const HamsaTable = () => {
                 issue_pw_400: formatNumber(item.issue_pw_400),
                 issue_w_400: formatNumber(item.issue_w_400),
                 issue_ww_400: formatNumber(item.issue_ww_400),
+                Issue_Wholes:formatNumber((parseFloat(item.issue_pw_210) +
+                parseFloat(item.issue_w_210)+parseFloat(item.issue_ww_210)+
+                parseFloat(item.issue_pw_240) +parseFloat(item.issue_w_240)+parseFloat(item.issue_ww_240)+
+                parseFloat(item.issue_pw_280) +parseFloat(item.issue_w_280)+parseFloat(item.issue_ww_280)+
+                parseFloat(item.issue_pw_320) +parseFloat(item.issue_w_320)+parseFloat(item.issue_ww_320)+
+                parseFloat(item.issue_add_1) +parseFloat(item.issue_add_2)+parseFloat(item.issue_add_3)+
+                parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)).toString()),
                 Issue_JB: formatNumber(item.issue_jb),
                 Issue_BigTaiho: formatNumber(item.issue_bigTaiho),
                 Issue_LW: formatNumber(item.issue_lw),
@@ -454,7 +477,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center" >Item_Lot_No</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
                     <TableHead className="text-center" >Issue_No</TableHead>
-                    <TableHead className="text-center" >BigTaiho_Entry_Date</TableHead>
+                    <TableHead className="text-center" >Hamsa_Entry_Date</TableHead>
 
                     <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
@@ -464,7 +487,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Receive Mayur</TableHead>
                     <TableHead className="text-center">Receive Village</TableHead>
                     <TableHead className="text-center">Receive LW</TableHead>
-                    
+                    <TableHead className="text-center">Hamsa Total_Opening</TableHead>
                     <TableHead className="text-center">Issue PW_210</TableHead>
                     <TableHead className="text-center">Issue W_210</TableHead>
                     <TableHead className="text-center">Issue WW_210</TableHead>
@@ -483,7 +506,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue PW_400</TableHead>
                     <TableHead className="text-center">Issue W_400</TableHead>
                     <TableHead className="text-center">Issue WW_400</TableHead>
-                 
+                    <TableHead className="text-center">Issue JB</TableHead>
                     {/* <TableHead className="text-center">Issue Add 4</TableHead>
                     <TableHead className="text-center">Issue Add 5</TableHead>
                     <TableHead className="text-center">Issue Add 6</TableHead>
@@ -492,9 +515,11 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue Add 9</TableHead>
                     <TableHead className="text-center">Issue Add 10</TableHead> */}
                      <TableHead className="text-center">Issue Wholes</TableHead>
+                    
                     <TableHead className="text-center">Issue LW</TableHead>
                     <TableHead className="text-center">Issue BigTaiho</TableHead>
-                    <TableHead className="text-center">Issue JB</TableHead>
+                    <TableHead className="text-center font-bold">Hamsa Total_Issue(Kg)</TableHead>
+                    
                     {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
                     <TableHead className="text-center font-bold">Current_Backlog</TableHead>
                     <TableHead className="text-center">Mc On (Hamsa_1)</TableHead>
@@ -562,7 +587,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                      parseFloat(item.rcv_w_lot)+parseFloat(item.rcv_ww)).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_village ? formatNumber(item.rcv_village) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
-                                    
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">{(parseFloat(item.rcv_pw_w) +
+                                     parseFloat(item.rcv_w_lot)+parseFloat(item.rcv_ww)+                                  
+                                        (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
+                                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)).toFixed(2)} Kg</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_pw_210)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_w_210)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_ww_210)}</TableCell>
@@ -581,17 +609,25 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center  ">{formatNumber(item.issue_pw_400)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_w_400)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_ww_400)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_jb)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_pw_210) +
                                      parseFloat(item.issue_w_210)+parseFloat(item.issue_ww_210)+
                                      parseFloat(item.issue_pw_240) +parseFloat(item.issue_w_240)+parseFloat(item.issue_ww_240)+
                                      parseFloat(item.issue_pw_280) +parseFloat(item.issue_w_280)+parseFloat(item.issue_ww_280)+
                                      parseFloat(item.issue_pw_320) +parseFloat(item.issue_w_320)+parseFloat(item.issue_ww_320)+
                                      parseFloat(item.issue_add_1) +parseFloat(item.issue_add_2)+parseFloat(item.issue_add_3)+
-                                     parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)).toString())}</TableCell>
+                                     parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)+parseFloat(item.issue_jb)).toString())}</TableCell>
+                                  
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_lw)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_jb)}</TableCell>
-                     
+                                    
+                                    <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.issue_pw_210) + parseFloat(item.issue_lw)+parseFloat(item.issue_bigTaiho)+
+                                     parseFloat(item.issue_w_210)+parseFloat(item.issue_ww_210)+
+                                     parseFloat(item.issue_pw_240) +parseFloat(item.issue_w_240)+parseFloat(item.issue_ww_240)+
+                                     parseFloat(item.issue_pw_280) +parseFloat(item.issue_w_280)+parseFloat(item.issue_ww_280)+
+                                     parseFloat(item.issue_pw_320) +parseFloat(item.issue_w_320)+parseFloat(item.issue_ww_320)+
+                                     parseFloat(item.issue_add_1) +parseFloat(item.issue_add_2)+parseFloat(item.issue_add_3)+
+                                     parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)+parseFloat(item.issue_jb)).toString())} Kg</TableCell>
                                     {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
                                                
                                     <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
@@ -704,7 +740,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                      parseFloat(item.rcv_w_lot)+parseFloat(item.rcv_ww)).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_village ? formatNumber(item.rcv_village) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
-                                    
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">{(parseFloat(item.rcv_pw_w) +
+                                     parseFloat(item.rcv_w_lot)+parseFloat(item.rcv_ww)+                                  
+                                        (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
+                                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)).toFixed(2)} Kg</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_pw_210)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_w_210)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_ww_210)}</TableCell>
@@ -723,17 +762,25 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center  ">{formatNumber(item.issue_pw_400)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_w_400)}</TableCell>
                                     <TableCell className="text-center  ">{formatNumber(item.issue_ww_400)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_jb)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_pw_210) +
                                      parseFloat(item.issue_w_210)+parseFloat(item.issue_ww_210)+
                                      parseFloat(item.issue_pw_240) +parseFloat(item.issue_w_240)+parseFloat(item.issue_ww_240)+
                                      parseFloat(item.issue_pw_280) +parseFloat(item.issue_w_280)+parseFloat(item.issue_ww_280)+
                                      parseFloat(item.issue_pw_320) +parseFloat(item.issue_w_320)+parseFloat(item.issue_ww_320)+
                                      parseFloat(item.issue_add_1) +parseFloat(item.issue_add_2)+parseFloat(item.issue_add_3)+
-                                     parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)).toString())}</TableCell>
+                                     parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)+parseFloat(item.issue_jb)).toString())}</TableCell>
+                                   
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_lw)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_jb)}</TableCell>
-                     
+                                   
+                                    <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.issue_pw_210) + parseFloat(item.issue_lw)+parseFloat(item.issue_bigTaiho)+
+                                     parseFloat(item.issue_w_210)+parseFloat(item.issue_ww_210)+
+                                     parseFloat(item.issue_pw_240) +parseFloat(item.issue_w_240)+parseFloat(item.issue_ww_240)+
+                                     parseFloat(item.issue_pw_280) +parseFloat(item.issue_w_280)+parseFloat(item.issue_ww_280)+
+                                     parseFloat(item.issue_pw_320) +parseFloat(item.issue_w_320)+parseFloat(item.issue_ww_320)+
+                                     parseFloat(item.issue_add_1) +parseFloat(item.issue_add_2)+parseFloat(item.issue_add_3)+
+                                     parseFloat(item.issue_pw_400) +parseFloat(item.issue_w_400)+parseFloat(item.issue_ww_400)+parseFloat(item.issue_jb)).toString())} Kg</TableCell>
                                     {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
                                                
                                     <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>

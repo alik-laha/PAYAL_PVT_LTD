@@ -33,6 +33,7 @@ import dpdsRouter from "./router/dpdsRouter";
 import bigTaihoRouter from "./router/bigTaihoRouter";
 import HamsaRouter from "./router/HamsaRouter";
 import SortingRouter from "./router/SortingRouter";
+import wholesRouter from "./router/wholesRouter";
 
 
 
@@ -75,4 +76,5 @@ app.use("/api/dpds", dpdsRouter)
 app.use("/api/bigTaiho", bigTaihoRouter)
 app.use("/api/hamsa", HamsaRouter)
 app.use("/api/sorting", SortingRouter)
+app.use("/api/wholes", wholesRouter)
 export default app
