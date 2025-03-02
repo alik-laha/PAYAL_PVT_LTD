@@ -7,6 +7,7 @@ import DPDS from "../../model/dpdsmodel";
 import bigTaihoModel from "../../model/bigTaihoModel";
 import SortingModel from "../../model/sortingModel";
 import rejectionModel from "../../model/rejectionModel";
+import villageProduction from "../../model/villageProductionModel";
 
 const approvePeeling = async (req: Request, res: Response) => {
     try {
@@ -136,6 +137,20 @@ const approvePeeling = async (req: Request, res: Response) => {
                             LotNo: LotNo, origin: origin, latest: 1
                         }
                     })
+
+
+                await villageProduction.update(
+                        {
+                            rcv_peeling: data.UnpeelPiece,
+                            current_backlog: data.UnpeelPiece
+                        },
+                        {
+                            where: {
+                                LotNo: LotNo, origin: origin, latest: 1
+                            }
+                        })
+
+
 
 
                     await rejectionModel.update(

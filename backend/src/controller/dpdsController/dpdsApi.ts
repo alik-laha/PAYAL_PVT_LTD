@@ -13,6 +13,7 @@ import sectionTransfer from "../../model/transactionsectionmodel";
 import mixingModel from "../../model/mixingModel";
 import bigTaihoModel from "../../model/bigTaihoModel";
 import rejectionModel from "../../model/rejectionModel";
+import villageProduction from "../../model/villageProductionModel";
 
 
 // //DPDS.tsx
@@ -175,7 +176,9 @@ export const CreateEntireDPDS = async (req: Request, res: Response) => {
         await sequelize.transaction(async (transaction: any) => {
 
             for (let data of linehumid) {
-                if ((parseFloat(data.rcv_dpN) + parseFloat(data.rcv_dsN) + parseFloat(data.rcv_dp1N) + (data.rcv_Sorting ? parseFloat(data.rcv_Sorting) : 0)
+                if ((parseFloat(data.issue_add_1)+
+                    // parseFloat(data.rcv_dpN) + parseFloat(data.rcv_dsN) + parseFloat(data.rcv_dp1N)
+                     + (data.rcv_Sorting ? parseFloat(data.rcv_Sorting) : 0)
                     + (data.rcv_transfer ? parseFloat(data.rcv_transfer) : 0)
                 ) < (parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
                     + parseFloat(data.issue_ds_1) + parseFloat(data.issue_ds_2) + parseFloat(data.issue_sp_2) +
@@ -242,7 +245,8 @@ export const CreateEntireDPDS = async (req: Request, res: Response) => {
                         issue_village: data.issue_village,
                         issue_bigTaiho: data.issue_bigTaiho,
                         issue_mayur: data.issue_mayur,
-                        entry_backlog: (parseFloat(data.rcv_dpN) + parseFloat(data.rcv_dsN) + parseFloat(data.rcv_dp1N)
+                        entry_backlog: (parseFloat(data.issue_add_1)+
+                            //parseFloat(data.rcv_dpN) + parseFloat(data.rcv_dsN) + parseFloat(data.rcv_dp1N)
                             + (data.rcv_Sorting ? parseFloat(data.rcv_Sorting) : 0) + (data.rcv_transfer ? parseFloat(data.rcv_transfer) : 0))
                             - (parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
                                 + parseFloat(data.issue_ds_1) + parseFloat(data.issue_ds_2) + parseFloat(data.issue_sp_2) +
@@ -256,7 +260,8 @@ export const CreateEntireDPDS = async (req: Request, res: Response) => {
                                 + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
                                 + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_mayur)
                             ),
-                        current_backlog: (parseFloat(data.rcv_dpN) + parseFloat(data.rcv_dsN) + parseFloat(data.rcv_dp1N)
+                        current_backlog: (parseFloat(data.issue_add_1)+
+                        //parseFloat(data.rcv_dpN) + parseFloat(data.rcv_dsN) + parseFloat(data.rcv_dp1N)
                             + (data.rcv_Sorting ? parseFloat(data.rcv_Sorting) : 0) + (data.rcv_transfer ? parseFloat(data.rcv_transfer) : 0))
                             - (parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
                                 + parseFloat(data.issue_ds_1) + parseFloat(data.issue_ds_2) + parseFloat(data.issue_sp_2) +
@@ -478,6 +483,72 @@ export const CreateEntireDPDS = async (req: Request, res: Response) => {
                         res.status(500).json({ message: "Error In Creating Transaction History" });
                         throw new Error('Transaction Aborted')
                     }
+
+                    //4. Village Out//
+
+                const vil_backlog = await villageProduction.findOne({
+                    attributes: ['current_backlog','rcv_dpds'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(vil_backlog)
+                if (vil_backlog && vil_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_village,
+                        issueid:1,
+                        date:data.Date,
+                        fromSection:'DPDS',
+                        toSection:'Village',
+                        toSectionBeforeBacklog:vil_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(vil_backlog.dataValues.current_backlog)+parseFloat(data.issue_village),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(vil_backlog.dataValues.rcv_dpds){
+                        await villageProduction.update(
+                            { 
+                                rcv_dpds:sequelize.literal(`rcv_dpds+ ${data.issue_village}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_village}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await villageProduction.update(
+                            { 
+                                rcv_dpds:data.issue_village,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_village}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Village Transaction History" });
+                    throw new Error('Transaction Aborted')
+                }
 
                     await LotNo.update(
                         {
@@ -916,6 +987,72 @@ export const CreateReissueDPDS = async (req: Request, res: Response) => {
                             throw new Error('Transaction Aborted')
                         }
 
+                        //4. Village Re-Issue//
+
+                const vil_backlog = await villageProduction.findOne({
+                    attributes: ['current_backlog','rcv_dpds'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(vil_backlog)
+                if (vil_backlog && vil_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_village,
+                        issueid:parseInt(data.alt_id)+1,
+                        date:data.Date,
+                        fromSection:'DPDS',
+                        toSection:'Village',
+                        toSectionBeforeBacklog:vil_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(vil_backlog.dataValues.current_backlog)+parseFloat(data.issue_village),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(vil_backlog.dataValues.rcv_dpds){
+                        await villageProduction.update(
+                            { 
+                                rcv_dpds:sequelize.literal(`rcv_dpds+ ${data.issue_village}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_village}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await villageProduction.update(
+                            { 
+                                rcv_dpds:data.issue_village,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_village}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Village Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
+
                         const lotupdate = await lotoriginmodel.update(
                             {
                                 latest_section: 'DPDS',
@@ -974,7 +1111,9 @@ export const updateEntireDPDS = async (req: Request, res: Response) => {
             for (let data of linehumid) {
 
 
-                if ((parseFloat(data.rcv_dpN) + parseFloat(data.rcv_dsN) + parseFloat(data.rcv_dp1N) + (data.rcv_Sorting ? parseFloat(data.rcv_Sorting) : 0)
+                if ((
+                    parseFloat(data.rcv_dpN) + parseFloat(data.rcv_dsN) + parseFloat(data.rcv_dp1N) 
+                    + (data.rcv_Sorting ? parseFloat(data.rcv_Sorting) : 0)
                     + (data.rcv_transfer ? parseFloat(data.rcv_transfer) : 0)) < (parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
                         + parseFloat(data.issue_ds_1) + parseFloat(data.issue_ds_2) + parseFloat(data.issue_sp_2) +
                         parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
@@ -1186,7 +1325,17 @@ export const approveDPDS = async (req: Request, res: Response) => {
                 }
             }) as any
 
-            if (transferMayurdata && transferBigTaihodata && transferRejectiondata) {
+            const transferVildata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'DPDS',
+                    toSection:'Village'
+                }
+            }) as any
+
+            if (transferMayurdata && transferBigTaihodata && transferRejectiondata && transferVildata) {
                 await sequelize.transaction(async (transaction: any) => {
 
                     const bormaEdit = await DPDS.update({
@@ -1386,6 +1535,55 @@ export const approveDPDS = async (req: Request, res: Response) => {
                                 }
                                 else{
                                     res.status(500).json({ message: "Associated Rejection Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+
+                        if(parseFloat(transferVildata.amount)!==parseFloat(data.issue_village)){
+                            console.log('Needs Update In Village')
+                            const difference_vil=parseFloat(data.issue_village)-parseFloat(transferVildata.amount)
+                            console.log(difference_vil)
+                            const backlog = await villageProduction.findOne({
+                                attributes: ['current_backlog','rcv_dpds'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await villageProduction.update(
+                                    {
+                                        rcv_dpds: sequelize.literal(`rcv_dpds+ ${difference_vil}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_vil}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_village,
+                                    toSectionBeforeBacklog:transferVildata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferVildata.toSectionBeforeBacklog)+parseFloat(data.issue_village)
+                        
+                                }, {
+                                    where: {
+                                        id:transferVildata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated Village Entry Not Found" });
                                     throw new Error('Transaction Aborted due to Improper Value')
                                 }
                         }

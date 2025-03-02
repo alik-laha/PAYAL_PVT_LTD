@@ -10,6 +10,7 @@ import bigTaihoModel from "../../model/bigTaihoModel";
 import hamsaEditModel from "../../model/hamsaeditModel";
 import hamsaModel from "../../model/hamsamodel";
 import WholesModel from "../../model/wholesModel";
+import LWModel from "../../model/lowerGradeModel";
 
 
 // //Hamsa.tsx
@@ -472,7 +473,6 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
                     throw new Error('Transaction Aborted')
                 } 
 
-
                  // Wholes Out///////
                  const wholes_backlog = await WholesModel.findOne({
                     attributes: ['current_backlog'],
@@ -565,6 +565,73 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
                 }
                 else{
                     res.status(500).json({ message: "Error In Creating Wholes Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
+
+
+                 // LW Out//
+
+                 const LW_backlog = await LWModel.findOne({
+                    attributes: ['current_backlog','rcv_hamsa'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(LW_backlog)
+                if (LW_backlog && LW_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_lw,
+                        issueid:1,
+                        date:data.Date,
+                        fromSection:'Hamsa',
+                        toSection:'LW',
+                        toSectionBeforeBacklog:LW_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(LW_backlog.dataValues.current_backlog)+parseFloat(data.issue_lw),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(LW_backlog.dataValues.rcv_hamsa){
+                        await LWModel.update(
+                            { 
+                                rcv_hamsa:sequelize.literal(`rcv_hamsa+ ${data.issue_lw}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_lw}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await LWModel.update(
+                            { 
+                                rcv_hamsa:data.issue_lw,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_lw}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating LW Transaction History" });
                     throw new Error('Transaction Aborted')
                 } 
 
@@ -1164,6 +1231,72 @@ export const CreateReissueHamsa= async (req: Request, res: Response) => {
                         throw new Error('Transaction Aborted')
                     } 
 
+                     // LW Re-Issue//
+
+                     const LW_backlog = await LWModel.findOne({
+                        attributes: ['current_backlog','rcv_hamsa'],
+                        where: {
+                            lotNo:LotNO,
+                            origin: data.origin,
+                            latest:1
+                
+                        },
+                        order: [['LotNo', 'ASC']]
+                
+                        });
+                        console.log(LW_backlog)
+                        if (LW_backlog && LW_backlog.dataValues.current_backlog>=0){
+                        await sectionTransfer.create({              
+                            LotNo:LotNO,
+                            origin:data.origin,
+                            amount:data.issue_lw,
+                            issueid:parseInt(data.alt_id)+1,
+                            date:data.Date,
+                            fromSection:'Hamsa',
+                            toSection:'LW',
+                            toSectionBeforeBacklog:LW_backlog.dataValues.current_backlog,
+                            toSectionAfterBacklog:parseFloat(LW_backlog.dataValues.current_backlog)+parseFloat(data.issue_lw),
+                            createdBy: feeledBy
+                         },{transaction});
+                         if(LW_backlog.dataValues.rcv_hamsa){
+                            await LWModel.update(
+                                { 
+                                    rcv_hamsa:sequelize.literal(`rcv_hamsa+ ${data.issue_lw}`),
+                                    current_backlog:sequelize.literal(`current_backlog+ ${data.issue_lw}`)
+                                },
+                                {
+                                    where: {
+                                        lotNo:LotNO,
+                                        origin: data.origin,
+                                        latest:1
+                                    },transaction
+                                }
+                            );
+                         }
+                         else{
+                            await LWModel.update(
+                                { 
+                                    rcv_hamsa:data.issue_lw,
+                                    current_backlog:sequelize.literal(`current_backlog+ ${data.issue_lw}`)
+                                },
+                                {
+                                    where: {
+                                        lotNo:LotNO,
+                                        origin: data.origin,
+                                        latest:1
+                                    },transaction
+                                }
+                            );
+                         }
+                         
+    
+                        
+                        }
+                        else{
+                        res.status(500).json({ message: "Error In Creating LW Transaction History" });
+                        throw new Error('Transaction Aborted')
+                    } 
+
 
 
                     const lotupdate = await lotoriginmodel.update(
@@ -1557,7 +1690,17 @@ export const approveHamsa = async (req: Request, res: Response) => {
                 }
             }) as any
 
-            if(transferBigTdata && transferWholesdata){
+            const transferLWdata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'Hamsa',
+                    toSection:'LW'
+                }
+            }) as any
+
+            if(transferBigTdata && transferWholesdata && transferLWdata){
                 await sequelize.transaction(async (transaction: any) => {
 
                     const BigTEdit = await hamsaModel.update({
@@ -1791,6 +1934,55 @@ export const approveHamsa = async (req: Request, res: Response) => {
                                 }
                                 else{
                                     res.status(500).json({ message: "Associated Wholes Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+
+                        if(parseFloat(transferLWdata.amount)!==parseFloat(data.issue_lw)){
+                            console.log('Needs Update In LW')
+                            const difference_lw=parseFloat(data.issue_lw)-parseFloat(transferLWdata.amount)
+                            console.log(difference_lw)
+                            const backlog = await LWModel.findOne({
+                                attributes: ['current_backlog','rcv_hamsa'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await LWModel.update(
+                                    {
+                                        rcv_hamsa: sequelize.literal(`rcv_hamsa+ ${difference_lw}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_lw}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_lw,
+                                    toSectionBeforeBacklog:transferLWdata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferLWdata.toSectionBeforeBacklog)+parseFloat(data.issue_lw)
+                        
+                                }, {
+                                    where: {
+                                        id:transferLWdata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated LW Entry Not Found" });
                                     throw new Error('Transaction Aborted due to Improper Value')
                                 }
                         }

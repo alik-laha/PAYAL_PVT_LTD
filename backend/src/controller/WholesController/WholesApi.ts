@@ -7,11 +7,11 @@ import lotoriginmodel from "../../model/lotoriginModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import mixingModel from "../../model/mixingModel";
 import bigTaihoModel from "../../model/bigTaihoModel";
-import hamsaEditModel from "../../model/hamsaeditModel";
 import hamsaModel from "../../model/hamsamodel";
 import WholesModel from "../../model/wholesModel";
 import WholesEditModel from "../../model/wholesEditModel";
 import rejectionModel from "../../model/rejectionModel";
+import LWModel from "../../model/lowerGradeModel";
 
 
 // //Wholes.tsx
@@ -219,13 +219,15 @@ export const CreateEntireWholes= async (req: Request, res: Response) => {
            
          
             
-            if((parseFloat(data.rcv_pw_210)+parseFloat(data.rcv_w_210)+parseFloat(data.rcv_ww_210)
-            +parseFloat(data.rcv_pw_240)+parseFloat(data.rcv_w_240)+parseFloat(data.rcv_ww_240)
-            +parseFloat(data.rcv_pw_280)+parseFloat(data.rcv_w_280)+parseFloat(data.rcv_ww_280)
-            +parseFloat(data.rcv_pw_320)+parseFloat(data.rcv_w_320)+parseFloat(data.rcv_ww_320)
-            +parseFloat(data.rcv_pw_360)+parseFloat(data.rcv_w_360)+parseFloat(data.rcv_ww_360)
-            +parseFloat(data.rcv_pw_400)+parseFloat(data.rcv_w_400)+parseFloat(data.rcv_ww_400)
-            +parseFloat(data.rcv_jb_hamsa)+parseFloat(data.rcv_jb_mayur)
+            if((parseFloat(data.issue_add_1)
+                
+            //parseFloat(data.rcv_pw_210)+parseFloat(data.rcv_w_210)+parseFloat(data.rcv_ww_210)
+            //+parseFloat(data.rcv_pw_240)+parseFloat(data.rcv_w_240)+parseFloat(data.rcv_ww_240)
+            //+parseFloat(data.rcv_pw_280)+parseFloat(data.rcv_w_280)+parseFloat(data.rcv_ww_280)
+            //+parseFloat(data.rcv_pw_320)+parseFloat(data.rcv_w_320)+parseFloat(data.rcv_ww_320)
+            //+parseFloat(data.rcv_pw_360)+parseFloat(data.rcv_w_360)+parseFloat(data.rcv_ww_360)
+            //+parseFloat(data.rcv_pw_400)+parseFloat(data.rcv_w_400)+parseFloat(data.rcv_ww_400)
+            //+parseFloat(data.rcv_jb_hamsa)+parseFloat(data.rcv_jb_mayur)
                
            )< (parseFloat(data.issue_pw_150)+parseFloat(data.issue_w_150)+parseFloat(data.issue_ww_150)
            +parseFloat(data.issue_s_150)+parseFloat(data.issue_aw_150)+parseFloat(data.issue_lw_150)
@@ -362,13 +364,15 @@ export const CreateEntireWholes= async (req: Request, res: Response) => {
                     issue_add_8 : data.issue_add_8,
                     issue_add_9 : data.issue_add_9,
                     issue_add_10 : data.issue_add_10,
-                    entry_backlog: (parseFloat(data.rcv_pw_210)+parseFloat(data.rcv_w_210)+parseFloat(data.rcv_ww_210)
-                    +parseFloat(data.rcv_pw_240)+parseFloat(data.rcv_w_240)+parseFloat(data.rcv_ww_240)
-                    +parseFloat(data.rcv_pw_280)+parseFloat(data.rcv_w_280)+parseFloat(data.rcv_ww_280)
-                    +parseFloat(data.rcv_pw_320)+parseFloat(data.rcv_w_320)+parseFloat(data.rcv_ww_320)
-                    +parseFloat(data.rcv_pw_360)+parseFloat(data.rcv_w_360)+parseFloat(data.rcv_ww_360)
-                    +parseFloat(data.rcv_pw_400)+parseFloat(data.rcv_w_400)+parseFloat(data.rcv_ww_400)
-                    +parseFloat(data.rcv_jb_hamsa)+parseFloat(data.rcv_jb_mayur))
+                    entry_backlog: (parseFloat(data.issue_add_1)
+                    //parseFloat(data.rcv_pw_210)+parseFloat(data.rcv_w_210)+parseFloat(data.rcv_ww_210)
+                    //+parseFloat(data.rcv_pw_240)+parseFloat(data.rcv_w_240)+parseFloat(data.rcv_ww_240)
+                    //+parseFloat(data.rcv_pw_280)+parseFloat(data.rcv_w_280)+parseFloat(data.rcv_ww_280)
+                    //+parseFloat(data.rcv_pw_320)+parseFloat(data.rcv_w_320)+parseFloat(data.rcv_ww_320)
+                    //+parseFloat(data.rcv_pw_360)+parseFloat(data.rcv_w_360)+parseFloat(data.rcv_ww_360)
+                    //+parseFloat(data.rcv_pw_400)+parseFloat(data.rcv_w_400)+parseFloat(data.rcv_ww_400)
+                    //+parseFloat(data.rcv_jb_hamsa)+parseFloat(data.rcv_jb_mayur)
+                    )
                     - (parseFloat(data.issue_pw_150)+parseFloat(data.issue_w_150)+parseFloat(data.issue_ww_150)
                     +parseFloat(data.issue_s_150)+parseFloat(data.issue_aw_150)+parseFloat(data.issue_lw_150)
                        +parseFloat(data.issue_pw_180)+parseFloat(data.issue_w_180)+parseFloat(data.issue_ww_180)
@@ -389,13 +393,15 @@ export const CreateEntireWholes= async (req: Request, res: Response) => {
                                                          +parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_rejection)
                                                          +parseFloat(data.issue_village)
                         ),
-                    current_backlog: (parseFloat(data.rcv_pw_210)+parseFloat(data.rcv_w_210)+parseFloat(data.rcv_ww_210)
-                    +parseFloat(data.rcv_pw_240)+parseFloat(data.rcv_w_240)+parseFloat(data.rcv_ww_240)
-                    +parseFloat(data.rcv_pw_280)+parseFloat(data.rcv_w_280)+parseFloat(data.rcv_ww_280)
-                    +parseFloat(data.rcv_pw_320)+parseFloat(data.rcv_w_320)+parseFloat(data.rcv_ww_320)
-                    +parseFloat(data.rcv_pw_360)+parseFloat(data.rcv_w_360)+parseFloat(data.rcv_ww_360)
-                    +parseFloat(data.rcv_pw_400)+parseFloat(data.rcv_w_400)+parseFloat(data.rcv_ww_400)
-                    +parseFloat(data.rcv_jb_hamsa)+parseFloat(data.rcv_jb_mayur))
+                    current_backlog: (parseFloat(data.issue_add_1)
+                    //parseFloat(data.rcv_pw_210)+parseFloat(data.rcv_w_210)+parseFloat(data.rcv_ww_210)
+                    //+parseFloat(data.rcv_pw_240)+parseFloat(data.rcv_w_240)+parseFloat(data.rcv_ww_240)
+                    //+parseFloat(data.rcv_pw_280)+parseFloat(data.rcv_w_280)+parseFloat(data.rcv_ww_280)
+                    //+parseFloat(data.rcv_pw_320)+parseFloat(data.rcv_w_320)+parseFloat(data.rcv_ww_320)
+                    //+parseFloat(data.rcv_pw_360)+parseFloat(data.rcv_w_360)+parseFloat(data.rcv_ww_360)
+                    //+parseFloat(data.rcv_pw_400)+parseFloat(data.rcv_w_400)+parseFloat(data.rcv_ww_400)
+                    //+parseFloat(data.rcv_jb_hamsa)+parseFloat(data.rcv_jb_mayur)
+                    )
                     - (parseFloat(data.issue_pw_150)+parseFloat(data.issue_w_150)+parseFloat(data.issue_ww_150)
                     +parseFloat(data.issue_s_150)+parseFloat(data.issue_aw_150)+parseFloat(data.issue_lw_150)
                        +parseFloat(data.issue_pw_180)+parseFloat(data.issue_w_180)+parseFloat(data.issue_ww_180)
@@ -555,6 +561,73 @@ export const CreateEntireWholes= async (req: Request, res: Response) => {
                     res.status(500).json({ message: "Error In Creating Rejection Transaction History" });
                     throw new Error('Transaction Aborted')
                 } 
+
+                 // LW Out//
+
+                 const LW_backlog = await LWModel.findOne({
+                    attributes: ['current_backlog','rcv_wholes'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(LW_backlog)
+                if (LW_backlog && LW_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_lw,
+                        issueid:1,
+                        date:data.Date,
+                        fromSection:'Wholes',
+                        toSection:'LW',
+                        toSectionBeforeBacklog:LW_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(LW_backlog.dataValues.current_backlog)+parseFloat(data.issue_lw),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(LW_backlog.dataValues.rcv_wholes){
+                        await LWModel.update(
+                            { 
+                                rcv_wholes:sequelize.literal(`rcv_wholes+ ${data.issue_lw}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_lw}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await LWModel.update(
+                            { 
+                                rcv_wholes:data.issue_lw,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_lw}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating LW Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
+
 
 
                 
@@ -1499,17 +1572,27 @@ export const approveWholes = async (req: Request, res: Response) => {
                 }
             }) as any
 
-            // const transferRejectiondata = await sectionTransfer.findOne({
-            //     where: {
-            //         issueid:data.altid,
-            //         LotNo:data.LotNo,
-            //         origin:data.origin,
-            //         fromSection:'Wholes',
-            //         toSection:'Rejection'
-            //     }
-            // }) as any
+            const transferRejectiondata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'Wholes',
+                    toSection:'Rejection'
+                }
+            }) as any
 
-            if(transferBigTdata ){
+            const transferLWdata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'Wholes',
+                    toSection:'LW'
+                }
+            }) as any
+
+            if(transferBigTdata &&  transferRejectiondata && transferLWdata){
                 await sequelize.transaction(async (transaction: any) => {
 
                     const BigTEdit = await WholesModel.update({
@@ -1666,54 +1749,103 @@ export const approveWholes = async (req: Request, res: Response) => {
                                 }
                         }
 
-                        // if(parseFloat(transferRejectiondata.amount)!==parseFloat(data.issue_rejection)){
-                        //     console.log('Needs Update In Rejection')
-                        //     const difference_rejection=parseFloat(data.issue_rejection)-parseFloat(transferRejectiondata.amount)
-                        //     console.log(difference_rejection)
-                        //     const backlog = await rejectionModel.findOne({
-                        //         attributes: ['current_backlog','rcv_wholes'],
-                        //         where: {
-                        //             lotNo:LotNo,
-                        //             origin:origin,
-                        //             latest:1
+                        if(parseFloat(transferRejectiondata.amount)!==parseFloat(data.issue_rejection)){
+                            console.log('Needs Update In Rejection')
+                            const difference_rejection=parseFloat(data.issue_rejection)-parseFloat(transferRejectiondata.amount)
+                            console.log(difference_rejection)
+                            const backlog = await rejectionModel.findOne({
+                                attributes: ['current_backlog','rcv_wholes'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
                         
-                        //         },
-                        //         order: [['LotNo', 'ASC']]
+                                },
+                                order: [['LotNo', 'ASC']]
                         
-                        //     });
-                        //     if (backlog && backlog.dataValues.current_backlog>=0)
-                        //         {
-                        //         await rejectionModel.update(
-                        //             {
-                        //                 rcv_wholes: sequelize.literal(`rcv_wholes+ ${difference_rejection}`),
-                        //                 current_backlog: sequelize.literal(`current_backlog+ ${difference_rejection}`)
-                        //             },
-                        //             {
-                        //                 where: {
-                        //                     lotNo: LotNo,
-                        //                     origin: origin,
-                        //                     latest: 1
-                        //                 }, transaction
-                        //             }
-                        //         );
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await rejectionModel.update(
+                                    {
+                                        rcv_wholes: sequelize.literal(`rcv_wholes+ ${difference_rejection}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_rejection}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
 
-                        //         await sectionTransfer.update({
-                        //             date: data.Date,
-                        //             amount:data.issue_rejection,
-                        //             toSectionBeforeBacklog:transferRejectiondata.toSectionBeforeBacklog,
-                        //             toSectionAfterBacklog:parseFloat(transferRejectiondata.toSectionBeforeBacklog)+parseFloat(data.issue_rejection)
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_rejection,
+                                    toSectionBeforeBacklog:transferRejectiondata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferRejectiondata.toSectionBeforeBacklog)+parseFloat(data.issue_rejection)
                         
-                        //         }, {
-                        //             where: {
-                        //                 id:transferRejectiondata.id
-                        //             },transaction
-                        //         });
-                        //         }
-                        //         else{
-                        //             res.status(500).json({ message: "Associated Rejection Entry Not Found" });
-                        //             throw new Error('Transaction Aborted due to Improper Value')
-                        //         }
-                        // }
+                                }, {
+                                    where: {
+                                        id:transferRejectiondata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated Rejection Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+
+                        if(parseFloat(transferLWdata.amount)!==parseFloat(data.issue_lw)){
+                            console.log('Needs Update In LW')
+                            const difference_lw=parseFloat(data.issue_lw)-parseFloat(transferLWdata.amount)
+                            console.log(difference_lw)
+                            const backlog = await LWModel.findOne({
+                                attributes: ['current_backlog','rcv_wholes'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await LWModel.update(
+                                    {
+                                        rcv_wholes: sequelize.literal(`rcv_wholes+ ${difference_lw}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_lw}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_lw,
+                                    toSectionBeforeBacklog:transferLWdata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferLWdata.toSectionBeforeBacklog)+parseFloat(data.issue_lw)
+                        
+                                }, {
+                                    where: {
+                                        id:transferLWdata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated LW Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
 
                         
                         await lotoriginmodel.update(

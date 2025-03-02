@@ -14,6 +14,8 @@ import bigTaihoModel from "../../model/bigTaihoModel";
 import hamsaModel from "../../model/hamsamodel";
 import WholesModel from "../../model/wholesModel";
 import rejectionModel from "../../model/rejectionModel";
+import LWModel from "../../model/lowerGradeModel";
+import villageProduction from "../../model/villageProductionModel";
 
 
 export const findEditMayurAll = async (req: Request, res: Response) => {
@@ -288,7 +290,7 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
             );
             if (mayurUpdate) {
 
-                // BigTaiho Out//
+                //1. BigTaiho Out//
 
                 const bigT_backlog = await bigTaihoModel.findOne({
                     attributes: ['current_backlog','rcv_mayur'],
@@ -354,7 +356,7 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                     throw new Error('Transaction Aborted')
                 } 
 
-                // Rejection Out//
+                //2. Rejection Out//
 
                 const rejection_backlog = await rejectionModel.findOne({
                     attributes: ['current_backlog','rcv_mayur'],
@@ -420,7 +422,7 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                     throw new Error('Transaction Aborted')
                 } 
 
-                // Wholes out//
+                //3. Wholes out//
 
                 const wholes_backlog = await WholesModel.findOne({
                     attributes: ['current_backlog','rcv_jb_mayur'],
@@ -483,7 +485,7 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                     throw new Error('Transaction Aborted')
                 } 
 
-                // Hamsa Out//
+                //4. Hamsa Out//
 
                 const hamsa_backlog = await hamsaModel.findOne({
                     attributes: ['current_backlog'],
@@ -537,6 +539,139 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                 } 
 
 
+                 //5. LW Out//
+
+                 const LW_backlog = await LWModel.findOne({
+                    attributes: ['current_backlog','rcv_mayur'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(LW_backlog)
+                if (LW_backlog && LW_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_LW,
+                        issueid:1,
+                        date:data.Date,
+                        fromSection:'Mayur',
+                        toSection:'LW',
+                        toSectionBeforeBacklog:LW_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(LW_backlog.dataValues.current_backlog)+parseFloat(data.issue_LW),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(LW_backlog.dataValues.rcv_mayur){
+                        await LWModel.update(
+                            { 
+                                rcv_mayur:sequelize.literal(`rcv_mayur+ ${data.issue_LW}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_LW}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await LWModel.update(
+                            { 
+                                rcv_mayur:data.issue_LW,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_LW}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating LW Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
+
+                //6. Village Out//
+
+                const vil_backlog = await villageProduction.findOne({
+                    attributes: ['current_backlog','rcv_mayur'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(vil_backlog)
+                if (vil_backlog && vil_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_village,
+                        issueid:1,
+                        date:data.Date,
+                        fromSection:'Mayur',
+                        toSection:'Village',
+                        toSectionBeforeBacklog:vil_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(vil_backlog.dataValues.current_backlog)+parseFloat(data.issue_village),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(vil_backlog.dataValues.rcv_mayur){
+                        await villageProduction.update(
+                            { 
+                                rcv_mayur:sequelize.literal(`rcv_mayur+ ${data.issue_village}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_village}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await villageProduction.update(
+                            { 
+                                rcv_mayur:data.issue_village,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_village}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Village Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
+
+
                 //Lot Update
                 const lotupdate =await LotNo.update(
                     { 
@@ -567,13 +702,7 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                     console.log('No Need For Update')
                 }
             }
-
-
         }
-
-
-
-
     })
     }
     catch(error) {
@@ -778,7 +907,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                 );
                 if(reissuecreate){
 
-                    //BigTaiho Reissue //
+                    //1.BigTaiho Reissue //
                     const bigT_backlog = await bigTaihoModel.findOne({
                         attributes: ['current_backlog','rcv_mayur'],
                         where: {
@@ -844,9 +973,9 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         throw new Error('Transaction Aborted')
                     } 
 
-                    // Rejection Re-Issue//
+                    //2. Rejection Re-Issue//
 
-                const rejection_backlog = await rejectionModel.findOne({
+                    const rejection_backlog = await rejectionModel.findOne({
                     attributes: ['current_backlog','rcv_mayur'],
                     where: {
                         lotNo:LotNO,
@@ -856,9 +985,9 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                     },
                     order: [['LotNo', 'ASC']]
             
-                });
-                console.log(rejection_backlog)
-                if (rejection_backlog && rejection_backlog.dataValues.current_backlog>=0){
+                    });
+                    console.log(rejection_backlog)
+                    if (rejection_backlog && rejection_backlog.dataValues.current_backlog>=0){
                     await sectionTransfer.create({              
                         LotNo:LotNO,
                         origin:data.origin,
@@ -904,13 +1033,13 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                      
 
                     
-                }
-                else{
+                    }
+                    else{
                     res.status(500).json({ message: "Error In Creating Rejection re-Issue Transaction History" });
                     throw new Error('Transaction Aborted')
-                } 
+                    } 
 
-                    // Wholes Re-Issue //
+                    //3. Wholes Re-Issue //
 
                     const wholes_backlog = await WholesModel.findOne({
                         attributes: ['current_backlog','rcv_jb_mayur'],
@@ -975,7 +1104,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         throw new Error('Transaction Aborted')
                     } 
 
-                    // Hamsa Re-Issue //
+                    //4. Hamsa Re-Issue //
 
                     const hamsa_backlog = await hamsaModel.findOne({
                     attributes: ['current_backlog','rcv_pw_w','rcv_w_lot','rcv_ww'],
@@ -1050,6 +1179,138 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                     res.status(500).json({ message: "Error In Creating Hamsa Entry" });
                     throw new Error('Transaction Aborted')
                     } 
+
+                     //5. LW Re-Issue//
+
+                    const LW_backlog = await LWModel.findOne({
+                    attributes: ['current_backlog','rcv_mayur'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                    });
+                    console.log(LW_backlog)
+                    if (LW_backlog && LW_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_LW,
+                        issueid:parseInt(data.alt_id)+1,
+                        date:data.Date,
+                        fromSection:'Mayur',
+                        toSection:'LW',
+                        toSectionBeforeBacklog:LW_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(LW_backlog.dataValues.current_backlog)+parseFloat(data.issue_LW),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(LW_backlog.dataValues.rcv_mayur){
+                        await LWModel.update(
+                            { 
+                                rcv_mayur:sequelize.literal(`rcv_mayur+ ${data.issue_LW}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_LW}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await LWModel.update(
+                            { 
+                                rcv_mayur:data.issue_LW,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_LW}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                    }
+                    else{
+                    res.status(500).json({ message: "Error In Creating LW Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
+
+                //6. Village Re-Issue//
+
+                const vil_backlog = await villageProduction.findOne({
+                    attributes: ['current_backlog','rcv_mayur'],
+                    where: {
+                        lotNo:LotNO,
+                        origin: data.origin,
+                        latest:1
+            
+                    },
+                    order: [['LotNo', 'ASC']]
+            
+                });
+                console.log(vil_backlog)
+                if (vil_backlog && vil_backlog.dataValues.current_backlog>=0){
+                    await sectionTransfer.create({              
+                        LotNo:LotNO,
+                        origin:data.origin,
+                        amount:data.issue_village,
+                        issueid:parseInt(data.alt_id)+1,
+                        date:data.Date,
+                        fromSection:'Mayur',
+                        toSection:'Village',
+                        toSectionBeforeBacklog:vil_backlog.dataValues.current_backlog,
+                        toSectionAfterBacklog:parseFloat(vil_backlog.dataValues.current_backlog)+parseFloat(data.issue_village),
+                        createdBy: feeledBy
+                     },{transaction});
+                     if(vil_backlog.dataValues.rcv_mayur){
+                        await villageProduction.update(
+                            { 
+                                rcv_mayur:sequelize.literal(`rcv_mayur+ ${data.issue_village}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_village}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     else{
+                        await villageProduction.update(
+                            { 
+                                rcv_mayur:data.issue_village,
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_village}`)
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNO,
+                                    origin: data.origin,
+                                    latest:1
+                                },transaction
+                            }
+                        );
+                     }
+                     
+
+                    
+                }
+                else{
+                    res.status(500).json({ message: "Error In Creating Village Transaction History" });
+                    throw new Error('Transaction Aborted')
+                } 
 
                     const lotupdate = await await lotoriginmodel.update(
                         { 
@@ -1512,7 +1773,28 @@ export const approveMayur = async (req: Request, res: Response) => {
                 }
             }) as any
 
-            if(transferBigTaihodata && transferWholesdata && transferHamsadata && transferRejectiondata){
+            const transferLWdata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'Mayur',
+                    toSection:'LW'
+                }
+            }) as any
+
+            const transferVildata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'Mayur',
+                    toSection:'Village'
+                }
+            }) as any
+
+            if(transferBigTaihodata && transferWholesdata && transferHamsadata 
+                && transferRejectiondata && transferLWdata && transferVildata){
                 await sequelize.transaction(async (transaction: any) => {
 
                     const bormaEdit = await Mayur.update({
@@ -1563,7 +1845,8 @@ export const approveMayur = async (req: Request, res: Response) => {
                         }
                     });
                     if(bormaEdit){  
-                        console.log(transferBigTaihodata)
+                        //
+                        // console.log(transferBigTaihodata)
                         if(parseFloat(transferBigTaihodata.amount)!==parseFloat(data.issue_bigTaiho)){
                             console.log('Needs Update In bigTaiho')
                             const difference_bigT=parseFloat(data.issue_bigTaiho)-parseFloat(transferBigTaihodata.amount)
@@ -1762,6 +2045,106 @@ export const approveMayur = async (req: Request, res: Response) => {
                                     throw new Error('Transaction Aborted due to Improper Value')
                                 }
                         }
+
+                        if(parseFloat(transferLWdata.amount)!==parseFloat(data.issue_LW)){
+                            console.log('Needs Update In LW')
+                            const difference_lw=parseFloat(data.issue_LW)-parseFloat(transferLWdata.amount)
+                            console.log(difference_lw)
+                            const backlog = await LWModel.findOne({
+                                attributes: ['current_backlog','rcv_mayur'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await LWModel.update(
+                                    {
+                                        rcv_mayur: sequelize.literal(`rcv_mayur+ ${difference_lw}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_lw}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_LW,
+                                    toSectionBeforeBacklog:transferLWdata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferLWdata.toSectionBeforeBacklog)+parseFloat(data.issue_LW)
+                        
+                                }, {
+                                    where: {
+                                        id:transferLWdata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated LW Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+                        
+                        if(parseFloat(transferVildata.amount)!==parseFloat(data.issue_village)){
+                            console.log('Needs Update In Village')
+                            const difference_vil=parseFloat(data.issue_village)-parseFloat(transferVildata.amount)
+                            console.log(difference_vil)
+                            const backlog = await villageProduction.findOne({
+                                attributes: ['current_backlog','rcv_mayur'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await villageProduction.update(
+                                    {
+                                        rcv_mayur: sequelize.literal(`rcv_mayur+ ${difference_vil}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_vil}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_village,
+                                    toSectionBeforeBacklog:transferVildata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferVildata.toSectionBeforeBacklog)+parseFloat(data.issue_village)
+                        
+                                }, {
+                                    where: {
+                                        id:transferVildata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated Village Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+
+                        
                         await lotoriginmodel.update(
                             { 
                                 editStatus:'NA',
