@@ -239,6 +239,15 @@ const HamsaEditForm = (props:Props) => {
             
             return
         }
+        if (props.borma[0].mixingLot && props.borma[0].mixingLot !='') 
+            {
+            setErrortext(`Edit can't be Done As Already Mixing is Performed`)
+            if(errordialog){
+                (errordialog as any).showModal()
+            }
+            
+            return
+        }
         setisdisable(true)
         props.borma.map((item: HamsaData, idx: number) => {
             rows[idx].id=item.id
@@ -331,10 +340,10 @@ const HamsaEditForm = (props:Props) => {
               
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
-                    <TableHead className="text-center">Receive PW_W</TableHead>
+                    {/* <TableHead className="text-center">Receive PW_W</TableHead>
                     <TableHead className="text-center">Receive W_Lot</TableHead>
-                    <TableHead className="text-center">Receive WW</TableHead>
-                    <TableHead className="text-center">Receive Peeling</TableHead>
+                    <TableHead className="text-center">Receive WW</TableHead> */}
+                    <TableHead className="text-center">Receive Mayur</TableHead>
                     <TableHead className="text-center">Receive Village</TableHead>
                     <TableHead className="text-center">Receive LW</TableHead>
                     
@@ -402,9 +411,9 @@ const HamsaEditForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
-                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_pw_w)} Kg</TableCell>
+                                        {/* <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_pw_w)} Kg</TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_w_lot)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_ww)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_ww)} Kg</TableCell> */}
                                         <TableCell className="text-center font-semibold text-green-500">{formatNumber((Number(row.rcv_pw_w)+Number(row.rcv_w_lot)+Number(row.rcv_ww)).toString())} Kg</TableCell>
 
                                         <TableCell className="text-center font-semibold text-green-600">{row.rcv_village ? formatNumber(row.rcv_village) :0} Kg</TableCell>

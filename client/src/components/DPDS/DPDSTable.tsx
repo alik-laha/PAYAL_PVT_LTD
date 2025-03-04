@@ -425,8 +425,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 
                 <TableHead className="text-center">Peeling Opening</TableHead>
                 
-                <TableHead className="text-center">Peeling Borma_Loss(Kg)</TableHead>
-                <TableHead className="text-center">Peeling Borma_Loss(%)</TableHead>
+                <TableHead className="text-center"> Borma_Loss(Kg)</TableHead>
+                <TableHead className="text-center"> Borma_Loss(%)</TableHead>
                 <TableHead className="text-center"> DP (Borma)</TableHead>
                 <TableHead className="text-center"> DS (Borma)</TableHead>
                 <TableHead className="text-center"> DP1 (Borma)</TableHead>

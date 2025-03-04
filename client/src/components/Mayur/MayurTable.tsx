@@ -59,6 +59,7 @@ import * as XLSX from 'xlsx';
 import RCNMayurReCreateForm from "./MayurReissueForm";
 import RCNMayurEditForm from "./MayurEditForm";
 import RCNMayurReMix from "./MayurMix";
+//import RCNMayurReCreateEditForm from "./MayurReissueEdit";
 //import PeelingModify from "./PeelingModify";
 //import HumidifierModify from "./HumidifierModify";
 
@@ -688,6 +689,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                     <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
+                                                            {/* {item.altid==1 ?  <RCNMayurEditForm borma={[item]} /> : <RCNMayurReCreateEditForm borma={[item]} />} */}
                                                             <RCNMayurEditForm borma={[item]} />
                                                         </DialogContent>
                                                         

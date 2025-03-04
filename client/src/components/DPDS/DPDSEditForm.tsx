@@ -111,24 +111,24 @@ const DPDSEditForm = (props:Props) => {
         });
     }
 
-    const handleOpeningChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+    // const handleOpeningChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
 
-        if (Number(e.target.value)>((Number(rows[index].rcv_dp)+Number(rows[index].rcv_ds)+Number(rows[index].rcv_dp1)))) {
-            setErrortext('Borma Weight Cant be Higher Than Receiving !')
-            if (errordialog != null) {
-                (errordialog as any).showModal();
-            }
-            return
-        }
-        if(rows[0].issue_add_1){
-            rows[index].issue_add_2=((Number(rows[index].rcv_dp)+Number(rows[index].rcv_ds)+Number(rows[index].rcv_dp1))-Number(e.target.value))
-            rows[index].issue_add_3=((Number(rows[index].issue_add_2)/(Number(rows[index].rcv_dp)+Number(rows[index].rcv_ds)+Number(rows[index].rcv_dp1)))*100)
-            rows[index].rcv_dpN=(Number(rows[index].rcv_dp)*((100-Number(rows[index].issue_add_3))/100)).toString()
-            rows[index].rcv_dp1N=(Number(rows[index].rcv_dp1)*((100-Number(rows[index].issue_add_3))/100)).toString()
-            rows[index].rcv_dsN=(Number(rows[index].rcv_ds)*((100-Number(rows[index].issue_add_3))/100)).toString()
-        }
-        handleRowChange(index,'issue_add_1',e.target.value)
-    }
+    //     if (Number(e.target.value)>((Number(rows[index].rcv_dp)+Number(rows[index].rcv_ds)+Number(rows[index].rcv_dp1)))) {
+    //         setErrortext('Borma Weight Cant be Higher Than Receiving !')
+    //         if (errordialog != null) {
+    //             (errordialog as any).showModal();
+    //         }
+    //         return
+    //     }
+    //     if(rows[0].issue_add_1){
+    //         rows[index].issue_add_2=((Number(rows[index].rcv_dp)+Number(rows[index].rcv_ds)+Number(rows[index].rcv_dp1))-Number(e.target.value))
+    //         rows[index].issue_add_3=((Number(rows[index].issue_add_2)/(Number(rows[index].rcv_dp)+Number(rows[index].rcv_ds)+Number(rows[index].rcv_dp1)))*100)
+    //         rows[index].rcv_dpN=(Number(rows[index].rcv_dp)*((100-Number(rows[index].issue_add_3))/100)).toString()
+    //         rows[index].rcv_dp1N=(Number(rows[index].rcv_dp1)*((100-Number(rows[index].issue_add_3))/100)).toString()
+    //         rows[index].rcv_dsN=(Number(rows[index].rcv_ds)*((100-Number(rows[index].issue_add_3))/100)).toString()
+    //     }
+    //     handleRowChange(index,'issue_add_1',e.target.value)
+    // }
     useEffect(() => { 
         if(DateRef.current) {
             DateRef.current.value = props.borma[0].date.slice(0,10)
@@ -175,7 +175,8 @@ const DPDSEditForm = (props:Props) => {
             issue_ss:  props.borma[0].issue_ss,
             issue_os:props.borma[0].issue_os,
             issue_os1:  props.borma[0].issue_os1,
-            issue_add_1: props.borma[0].issue_add_1,
+            issue_add_1: props.borma[0].altid==1 ?props.borma[0].issue_add_1:(parseFloat(props.borma[0].issue_add_4)
+            +parseFloat(props.borma[0].issue_add_5)+parseFloat(props.borma[0].issue_add_6)).toString(),
             issue_add_2:  props.borma[0].issue_add_2,
             issue_add_3:  props.borma[0].issue_add_3,
             issue_add_4:  props.borma[0].issue_add_4,
@@ -213,6 +214,15 @@ const DPDSEditForm = (props:Props) => {
         if (resStatus1.data.scoopingLot[0].latest_section && resStatus1.data.scoopingLot[0].latest_section !=='DPDS') 
             {
             setErrortext(`Lot is Already Linked to ${resStatus1.data.scoopingLot[0].latest_section} Section`)
+            if(errordialog){
+                (errordialog as any).showModal()
+            }
+            
+            return
+        }
+        if (props.borma[0].mixingLot && props.borma[0].mixingLot !='') 
+            {
+            setErrortext(`Edit can't be Done As Already Mixing is Performed`)
             if(errordialog){
                 (errordialog as any).showModal()
             }
@@ -311,19 +321,21 @@ const DPDSEditForm = (props:Props) => {
               
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
-                    <TableHead className="text-center">Receive DP</TableHead>
+                    {/* <TableHead className="text-center">Receive DP</TableHead>
                     <TableHead className="text-center">Receive DS</TableHead>
                     <TableHead className="text-center">Receive DP1</TableHead>
                     <TableHead className="text-center">Receive DP(Borma)</TableHead>
                     <TableHead className="text-center">Receive DS(Borma)</TableHead>
-                    <TableHead className="text-center">Receive DP1(Borma)</TableHead>
-                    <TableHead className="text-center">Receive Big_Taiho</TableHead>
-                    <TableHead className="text-center">Receive Sorting</TableHead>
+                    <TableHead className="text-center">Receive DP1(Borma)</TableHead> */}
                     <TableHead className="text-center">Receive Peeling</TableHead>
-                    <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
+                    <TableHead className="text-center">Receive Sorting</TableHead>
+                    <TableHead className="text-center">Receive Big_Taiho</TableHead>
             
-                    <TableHead className="text-center">Borma Loss(Kg)</TableHead>
-                    <TableHead className="text-center">Borma Loss(%)</TableHead>
+                 
+                 
+            
+                    {/* <TableHead className="text-center">Borma Loss(Kg)</TableHead>
+                    <TableHead className="text-center">Borma Loss(%)</TableHead> */}
                    
                    
                     <TableHead className="text-center">Issue M_DS</TableHead>
@@ -369,24 +381,26 @@ const DPDSEditForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_dp)} Kg</TableCell>
+                                        {/* <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_dp)} Kg</TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_ds)} Kg</TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_dp1)} Kg</TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_dpN.toString())} Kg</TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_dsN.toString())} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_dp1N.toString())} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_dp1N.toString())} Kg</TableCell> */}
+                                          <TableCell className="text-center font-semibold text-green-500">{row.issue_add_1 ? formatNumber(row.issue_add_1) :0} Kg</TableCell>
+                                          <TableCell className="text-center font-semibold text-green-500">{row.rcv_Sorting ? formatNumber(row.rcv_Sorting):0} Kg</TableCell>
+
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_transfer ? formatNumber(row.rcv_transfer) :0} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_Sorting ? formatNumber(row.rcv_Sorting):0} Kg</TableCell>
                                        
-                                        <TableCell className="text-center font-bold text-green-600">{formatNumber((Number(row.rcv_dp)+Number(row.rcv_ds)
+                                        {/* <TableCell className="text-center font-bold text-green-600">{formatNumber((Number(row.rcv_dp)+Number(row.rcv_ds)
                                         +Number(row.rcv_dp1)).toString())} Kg</TableCell>
                                         <TableCell className="text-center"> <Input className='bg-blue-100' type="number" 
-                                        value={formatNumber(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /></TableCell>
+                                        value={formatNumber(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required readOnly/></TableCell> */}
                                            
                                         
                                         
-                                        <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
+                                        {/* <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell> */}
                                         
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_m_ds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_m_ds', e.target.value)} required /></TableCell>

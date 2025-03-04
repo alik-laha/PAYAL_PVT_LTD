@@ -173,7 +173,8 @@ const BigTaihoEditForm = (props:Props) => {
                 issue_ssp_2: props.borma[0].issue_ssp_2,
                 issue_ssp_2_small: props.borma[0].issue_ssp_2_small,
                 issue_sdp: props.borma[0].issue_sdp,
-                issue_add_1: props.borma[0].issue_add_1,
+                
+                issue_add_1: props.borma[0].altid==1 ?props.borma[0].issue_add_1:props.borma[0].issue_add_4,
                 issue_add_2:  props.borma[0].issue_add_2,
                 issue_add_3:  props.borma[0].issue_add_3,
                 issue_add_4:  props.borma[0].issue_add_4,
@@ -227,6 +228,15 @@ const BigTaihoEditForm = (props:Props) => {
         if (resStatus1.data.scoopingLot[0].latest_section && resStatus1.data.scoopingLot[0].latest_section !=='BigTaiho') 
             {
             setErrortext(`Lot is Already Linked to ${resStatus1.data.scoopingLot[0].latest_section} Section`)
+            if(errordialog){
+                (errordialog as any).showModal()
+            }
+            
+            return
+        }
+        if (props.borma[0].mixingLot && props.borma[0].mixingLot !='') 
+            {
+            setErrortext(`Edit can't be Done As Already Mixing is Performed`)
             if(errordialog){
                 (errordialog as any).showModal()
             }
@@ -293,22 +303,22 @@ const BigTaihoEditForm = (props:Props) => {
     function formatNumber(num: string) {
         return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
     }
-    const handleOpeningChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+    // const handleOpeningChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
 
-        if (Number(e.target.value)>Number(rows[index].rcv_peelingN)) {
-            setErrortext('Borma Weight Cant be Higher Than Receiving !')
-            if (errordialog != null) {
-                (errordialog as any).showModal();
-            }
-            return
-        }
-        if(rows[0].issue_add_1){
-            rows[index].issue_add_2=Number(rows[index].rcv_peeling)-Number(e.target.value)
-            rows[index].issue_add_3=((Number(rows[index].issue_add_2)/Number(rows[index].rcv_peeling))*100)
-            rows[index].rcv_peelingN=(Number(rows[index].rcv_peeling)*((100-Number(rows[index].issue_add_3))/100)).toString()
-        }
-        handleRowChange(index,'issue_add_1',e.target.value)
-    }
+    //     if (Number(e.target.value)>Number(rows[index].rcv_peelingN)) {
+    //         setErrortext('Borma Weight Cant be Higher Than Receiving !')
+    //         if (errordialog != null) {
+    //             (errordialog as any).showModal();
+    //         }
+    //         return
+    //     }
+    //     if(rows[0].issue_add_1){
+    //         rows[index].issue_add_2=Number(rows[index].rcv_peeling)-Number(e.target.value)
+    //         rows[index].issue_add_3=((Number(rows[index].issue_add_2)/Number(rows[index].rcv_peeling))*100)
+    //         rows[index].rcv_peelingN=(Number(rows[index].rcv_peeling)*((100-Number(rows[index].issue_add_3))/100)).toString()
+    //     }
+    //     handleRowChange(index,'issue_add_1',e.target.value)
+    // }
 
  
     return (
@@ -342,10 +352,10 @@ const BigTaihoEditForm = (props:Props) => {
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
                     <TableHead className="text-center">Receive Peeling</TableHead>
-                    <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
+                    {/* <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
             
             <TableHead className="text-center">Borma Loss(Kg)</TableHead>
-            <TableHead className="text-center">Borma Loss(%)</TableHead>
+            <TableHead className="text-center">Borma Loss(%)</TableHead> */}
                     <TableHead className="text-center">Receive Village</TableHead>
                     <TableHead className="text-center">Receive Sorting</TableHead>
                     <TableHead className="text-center">Receive DPDS</TableHead>
@@ -412,14 +422,14 @@ const BigTaihoEditForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
                                         
                                         
-                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_peeling)} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-blue-100' type="number" 
-                                        value={formatNumber(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /></TableCell>
+                                        {/* <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_peeling)} Kg</TableCell> */}
+                                        {/* <TableCell className="text-center"> <Input className='bg-blue-100' type="number" 
+                                        value={formatNumber(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required readOnly/></TableCell> */}
                                            
                                         
-                                        
-                                        <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{formatNumber(row.issue_add_1)} Kg</TableCell>
+                                        {/* <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell> */}
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_village ? formatNumber(row.rcv_village) :0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_sorting ? formatNumber(row.rcv_sorting) :0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_dpds ? formatNumber(row.rcv_dpds) :0} Kg</TableCell>
