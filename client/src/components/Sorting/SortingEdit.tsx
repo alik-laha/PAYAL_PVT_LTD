@@ -115,30 +115,30 @@ const SortingEditForm = (props:Props) => {
         });
     }
 
-    const handleOpeningChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+    // const handleOpeningChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
 
-        if (Number(e.target.value)>((Number(rows[index].rcv_jjh)+Number(rows[index].rcv_sjh)+Number(rows[index].rcv_sjh1)+Number(rows[index].rcv_sp1)
-            +Number(rows[index].rcv_jk_k)+Number(rows[index].rcv_jh1)))) {
-            setErrortext('Borma Weight Cant be Higher Than Receiving !')
-            if (errordialog != null) {
-                (errordialog as any).showModal();
-            }
-            return
-        }
-        if(rows[0].issue_add_1){
-            rows[index].issue_add_2=((Number(rows[index].rcv_jjh)+Number(rows[index].rcv_sjh)+Number(rows[index].rcv_sjh1)
-            +Number(rows[index].rcv_jk_k)+Number(rows[index].rcv_sp1)+Number(rows[index].rcv_jh1))-Number(e.target.value))
-            rows[index].issue_add_3=(Number(rows[index].issue_add_2)/(Number(rows[index].rcv_jjh)+Number(rows[index].rcv_sjh)+Number(rows[index].rcv_sjh1)
-            +Number(rows[index].rcv_jk_k)+Number(rows[index].rcv_sp1)+Number(rows[index].rcv_jh1)))*100
-            rows[index].rcv_jjhN=(Number(rows[index].rcv_jjh)*((100-Number(rows[index].issue_add_3))/100)).toString()
-            rows[index].rcv_sjhN=(Number(rows[index].rcv_sjh)*((100-Number(rows[index].issue_add_3))/100)).toString()
-            rows[index].rcv_sjh1N=(Number(rows[index].rcv_sjh1)*((100-Number(rows[index].issue_add_3))/100)).toString()
-            rows[index].rcv_sp1N=(Number(rows[index].rcv_sp1)*((100-Number(rows[index].issue_add_3))/100)).toString()
-            rows[index].rcv_jh1N=(Number(rows[index].rcv_jh1)*((100-Number(rows[index].issue_add_3))/100)).toString()
-            rows[index].rcv_jk_kN=(Number(rows[index].rcv_jk_k)*((100-Number(rows[index].issue_add_3))/100)).toString()
-        }
-        handleRowChange(index,'issue_add_1',e.target.value)
-    }
+    //     if (Number(e.target.value)>((Number(rows[index].rcv_jjh)+Number(rows[index].rcv_sjh)+Number(rows[index].rcv_sjh1)+Number(rows[index].rcv_sp1)
+    //         +Number(rows[index].rcv_jk_k)+Number(rows[index].rcv_jh1)))) {
+    //         setErrortext('Borma Weight Cant be Higher Than Receiving !')
+    //         if (errordialog != null) {
+    //             (errordialog as any).showModal();
+    //         }
+    //         return
+    //     }
+    //     if(rows[0].issue_add_1){
+    //         rows[index].issue_add_2=((Number(rows[index].rcv_jjh)+Number(rows[index].rcv_sjh)+Number(rows[index].rcv_sjh1)
+    //         +Number(rows[index].rcv_jk_k)+Number(rows[index].rcv_sp1)+Number(rows[index].rcv_jh1))-Number(e.target.value))
+    //         rows[index].issue_add_3=(Number(rows[index].issue_add_2)/(Number(rows[index].rcv_jjh)+Number(rows[index].rcv_sjh)+Number(rows[index].rcv_sjh1)
+    //         +Number(rows[index].rcv_jk_k)+Number(rows[index].rcv_sp1)+Number(rows[index].rcv_jh1)))*100
+    //         rows[index].rcv_jjhN=(Number(rows[index].rcv_jjh)*((100-Number(rows[index].issue_add_3))/100)).toString()
+    //         rows[index].rcv_sjhN=(Number(rows[index].rcv_sjh)*((100-Number(rows[index].issue_add_3))/100)).toString()
+    //         rows[index].rcv_sjh1N=(Number(rows[index].rcv_sjh1)*((100-Number(rows[index].issue_add_3))/100)).toString()
+    //         rows[index].rcv_sp1N=(Number(rows[index].rcv_sp1)*((100-Number(rows[index].issue_add_3))/100)).toString()
+    //         rows[index].rcv_jh1N=(Number(rows[index].rcv_jh1)*((100-Number(rows[index].issue_add_3))/100)).toString()
+    //         rows[index].rcv_jk_kN=(Number(rows[index].rcv_jk_k)*((100-Number(rows[index].issue_add_3))/100)).toString()
+    //     }
+    //     handleRowChange(index,'issue_add_1',e.target.value)
+    // }
     useEffect(() => { 
         if(DateRef.current) {
             DateRef.current.value = props.borma[0].date.slice(0,10)
@@ -192,7 +192,10 @@ const SortingEditForm = (props:Props) => {
             issue_bigTaiho: props.borma[0].issue_bigTaiho,
             issue_dpds: props.borma[0].issue_dpds,
             issue_rejection: props.borma[0].issue_rejection,
-            issue_add_1: props.borma[0].issue_add_1,
+            issue_add_1: props.borma[0].altid==1 ?props.borma[0].issue_add_1:(parseFloat(props.borma[0].issue_add_4)
+             +parseFloat(props.borma[0].issue_add_5)+parseFloat(props.borma[0].issue_add_6)
+             +parseFloat(props.borma[0].issue_add_7)+parseFloat(props.borma[0].issue_add_8)
+             +parseFloat(props.borma[0].issue_add_9)).toString(),
             issue_add_2: props.borma[0].issue_add_2,
             issue_add_3: props.borma[0].issue_add_3,
             issue_add_4: props.borma[0].issue_add_4,
@@ -226,6 +229,15 @@ const SortingEditForm = (props:Props) => {
         if (resStatus1.data.scoopingLot[0].latest_section && resStatus1.data.scoopingLot[0].latest_section !=='Sorting') 
             {
             setErrortext(`Lot is Already Linked to ${resStatus1.data.scoopingLot[0].latest_section} Section`)
+            if(errordialog){
+                (errordialog as any).showModal()
+            }
+            
+            return
+        }
+        if (props.borma[0].mixingLot && props.borma[0].mixingLot !='') 
+            {
+            setErrortext(`Edit can't be Done As Already Mixing is Performed`)
             if(errordialog){
                 (errordialog as any).showModal()
             }
@@ -325,7 +337,7 @@ const SortingEditForm = (props:Props) => {
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
                   
-                    <TableHead className="text-center">Receive JJH</TableHead>
+                    {/* <TableHead className="text-center">Receive JJH</TableHead>
                     <TableHead className="text-center">Receive SJH</TableHead>
                     <TableHead className="text-center">Receive SJH1</TableHead>
                     <TableHead className="text-center">Receive JH1</TableHead>
@@ -336,12 +348,13 @@ const SortingEditForm = (props:Props) => {
                     <TableHead className="text-center">Receive SJH1(Borma)</TableHead>
                     <TableHead className="text-center">Receive JH1(Borma)</TableHead>
                     <TableHead className="text-center">Receive JK_K(Borma)</TableHead>
-                    <TableHead className="text-center">Receive SP1(Borma)</TableHead>
-                    <TableHead className="text-center">Receive BigTaiho</TableHead>
+                    <TableHead className="text-center">Receive SP1(Borma)</TableHead> */}
                     <TableHead className="text-center">Receive Peeling</TableHead>
-                    <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
+                    <TableHead className="text-center">Receive BigTaiho</TableHead>
+                    
+                    {/* <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
                     <TableHead className="text-center">Borma Loss(Kg)</TableHead>
-                    <TableHead className="text-center">Borma Loss(%)</TableHead>
+                    <TableHead className="text-center">Borma Loss(%)</TableHead> */}
    
                     
                     <TableHead className="text-center">Issue JJH</TableHead>
@@ -386,7 +399,7 @@ const SortingEditForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
-                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_jjh)} </TableCell>
+                                        {/* <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_jjh)} </TableCell>
                                         <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_sjh)} </TableCell>
                                         <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_sjh1)} </TableCell>
                                         <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_jh1)} </TableCell>
@@ -397,16 +410,18 @@ const SortingEditForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_sjh1N.toString())} </TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_jh1N.toString())} </TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_jk_kN.toString())} </TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_sp1N.toString())} </TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_bigTaiho ? formatNumber(row.rcv_bigTaiho) :0} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-100 text-green-600  ">{formatNumber((parseFloat(row.rcv_jjh) +
-                                         parseFloat(row.rcv_sjh)+parseFloat(row.rcv_sjh1)+parseFloat(row.rcv_jh1) +
-                                         parseFloat(row.rcv_jk_k)+parseFloat(row.rcv_sp1)).toString())} kg</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_sp1N.toString())} </TableCell> */}
+                                     <TableCell className="text-center font-semibold text-green-500">{row.issue_add_1 ? formatNumber(row.issue_add_1) :0} Kg</TableCell>
 
-                                   <TableCell className="text-center"> <Input className='bg-blue-100' type="number" 
-                                        value={formatNumber(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /></TableCell>
-  <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
-  <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_bigTaiho ? formatNumber(row.rcv_bigTaiho) :0} Kg</TableCell>
+                                        {/* <TableCell className="text-center font-semibold bg-yellow-100 text-green-600  ">{formatNumber((parseFloat(row.rcv_jjh) +
+                                         parseFloat(row.rcv_sjh)+parseFloat(row.rcv_sjh1)+parseFloat(row.rcv_jh1) +
+                                         parseFloat(row.rcv_jk_k)+parseFloat(row.rcv_sp1)).toString())} kg</TableCell> */}
+
+                                   {/* <TableCell className="text-center"> <Input className='bg-blue-100' type="number" 
+                                        value={formatNumber(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /></TableCell> */}
+  {/* <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
+  <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell> */}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_jjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jjh', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_jjh1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jjh1', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_sjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sjh', e.target.value)} required /></TableCell>

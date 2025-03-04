@@ -22,21 +22,21 @@ interface mayurRowData{
     alt_id:number;
     origin: string;
     mixingLot:string|null;
-
-    rcv_wholespeel: string;
-    rcv_wholesunpeel: string;
-    rcv_sorting:string|null;
-    rcv_DPDS:string|null;
-    rcv_village:string|null;
-    
-    issue_pw_w: string;
-    issue_w_lot: string;
-    issue_ww: string;
-    issue_rejection: string;
-    issue_village: string;
-    issue_bigTaiho: string;
-    issue_LW: string;
-    issue_JB: string;
+    rcv_peeling:string;
+    rcv_wholespeel: number;
+    rcv_wholesunpeel: number;
+    rcv_sorting:number;
+    rcv_DPDS:number;
+    rcv_village:number;
+    rcv_transfer:string|null;
+    issue_pw_w: number;
+    issue_w_lot: number;
+    issue_ww: number;
+    issue_rejection: number;
+    issue_village: number;
+    issue_bigTaiho: number;
+    issue_LW: number;
+    issue_JB: number;
 
     Mc_on_133: string ;
     Mc_off_133: string ;
@@ -70,7 +70,8 @@ import axios from "axios";
 import FormRow from "../common/FormRowTime";
 
 
-const RCNMayurEditForm = (props:Props) => {
+
+const RCNMayurReCreateEditForm = (props:Props) => {
     //console.log(props)
     const DateRef = useRef<HTMLInputElement>(null);
     const dayOpRef = useRef<HTMLInputElement>(null);
@@ -101,39 +102,30 @@ const RCNMayurEditForm = (props:Props) => {
         });
     }
     useEffect(() => { 
-        if(DateRef.current) {
-            DateRef.current.value = props.borma[0].date.slice(0,10)
-        }
 
-        if(dayOpRef.current) {
-            dayOpRef.current.value = props.borma[0].noOfdayOperators.toString()
-        }
-
-        if(nightOpRef.current) {
-            nightOpRef.current.value = props.borma[0].noOfnightOperators.toString()
-        }
       
         const initialform =  {
             id: props.borma[0].id,
             LotNo: props.borma[0].LotNo,
             alt_id:props.borma[0].altid,
             origin: props.borma[0].origin,
-            mixingLot: props.borma[0].mixingLot,
-            
-            rcv_sorting:props.borma[0].rcv_sorting,
-            rcv_DPDS:props.borma[0].rcv_DPDS,
-            rcv_village:props.borma[0].rcv_village,
-            
-            rcv_wholespeel: props.borma[0].rcv_wholespeel,
-            rcv_wholesunpeel: props.borma[0].rcv_wholesunpeel,
-            issue_pw_w: props.borma[0].issue_pw_w,
-            issue_w_lot: props.borma[0].issue_w_lot,
-            issue_ww: props.borma[0].issue_ww,
-            issue_rejection: props.borma[0].issue_rejection,
-            issue_village: props.borma[0].issue_village,
-            issue_bigTaiho: props.borma[0].issue_bigTaiho,
-            issue_LW: props.borma[0].issue_LW,
-            issue_JB: props.borma[0].issue_JB,
+            mixingLot:props.borma[0].mixingLot,
+            rcv_sorting:Number(props.borma[0].rcv_sorting),
+            rcv_DPDS:Number(props.borma[0].rcv_DPDS),
+            rcv_village:Number(props.borma[0].rcv_village),
+            rcv_transfer:props.borma[0].rcv_transfer,
+            rcv_peeling:(props.borma[0].rcv_wholespeel) + Number(props.borma[0].rcv_wholesunpeel)+(props.borma[0].rcv_DPDS ? Number(props.borma[0].rcv_DPDS) : 0) +
+            (props.borma[0].rcv_village ? Number(props.borma[0].rcv_village):0)+(props.borma[0].rcv_sorting ? Number(props.borma[0].rcv_sorting):0),
+            rcv_wholespeel: Number(props.borma[0].rcv_wholespeel),
+            rcv_wholesunpeel: Number(props.borma[0].rcv_wholesunpeel),
+            issue_pw_w: Number(props.borma[0].issue_pw_w),
+            issue_w_lot: Number(props.borma[0].issue_w_lot),
+            issue_ww: Number(props.borma[0].issue_ww),
+            issue_rejection: Number(props.borma[0].issue_rejection),
+            issue_village: Number(props.borma[0].issue_village),
+            issue_bigTaiho: Number(props.borma[0].issue_bigTaiho),
+            issue_LW: Number(props.borma[0].issue_LW),
+            issue_JB: Number(props.borma[0].issue_JB),
       
             Mc_on_133: props.borma[0].Mc_on_133,
             Mc_off_133: props.borma[0].Mc_off_133,
@@ -172,23 +164,47 @@ const RCNMayurEditForm = (props:Props) => {
         e.preventDefault()
         const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: props.borma[0].LotNo,origin:props.borma[0].origin})
         console.log(resStatus1)
-        if (resStatus1.data.scoopingLot[0].latest_section && resStatus1.data.scoopingLot[0].latest_section !=='Mayur') 
+        if (resStatus1.data.scoopingLot && resStatus1.data.scoopingLot[0].editStatus ==='Pending') 
             {
-            setErrortext(`Lot is Already Linked to ${resStatus1.data.scoopingLot[0].latest_section} Section`)
-            if(errordialog){
-                (errordialog as any).showModal()
+                setErrortext(`Modification of Lot is Pending in Linked  ${resStatus1.data.scoopingLot[0].latest_section} Section`)
+                const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+            dialogerror.showModal()
+           // console.log(rows)
+            return
             }
-            
+        if((Number(rows[0].rcv_peeling)
+         !== (Number(rows[0].rcv_wholespeel) + Number(rows[0].rcv_wholesunpeel)+(rows[0].rcv_DPDS ? Number(rows[0].rcv_DPDS) : 0) +
+        (rows[0].rcv_village ? Number(rows[0].rcv_village):0)+(rows[0].rcv_sorting ? Number(rows[0].rcv_sorting):0)))){
+            setErrortext('Total Receiving Balance should be equal to Opening Balance')
+           
+            const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+            dialogerror.showModal()
+           // console.log(rows)
             return
         }
-        if (props.borma[0].mixingLot && props.borma[0].mixingLot !='') 
-            {
-            setErrortext(`Edit can't be Done As Already Mixing is Performed`)
-            if(errordialog){
-                (errordialog as any).showModal()
-            }
+        if(((props.borma[0].rcv_DPDS ? Number(props.borma[0].rcv_DPDS):0) < Number(rows[0].rcv_DPDS))
+            || ((props.borma[0].rcv_village ? Number(props.borma[0].rcv_village):0) < Number(rows[0].rcv_village)) 
+            || ((props.borma[0].rcv_sorting ? Number(props.borma[0].rcv_sorting):0) < Number(rows[0].rcv_sorting))
+            || (Number(props.borma[0].rcv_wholespeel) < Number(rows[0].rcv_wholespeel) )
+            || (Number(props.borma[0].rcv_wholesunpeel) < Number(rows[0].rcv_wholesunpeel))
             
+        ){
+               setErrortext('Current Receiving should not Exceed Previous Receiving Value')
+              
+               const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+               dialogerror.showModal()
+              // console.log(rows)
+               return
+   
+           }
+        if(Number(props.borma[0].current_backlog) <= 0){
+            setErrortext('Backlog Cannot be Zero or Negative While Re-Issue')
+           
+            const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+            dialogerror.showModal()
+           // console.log(rows)
             return
+
         }
         setisdisable(true)
         props.borma.map((item: MayurData, idx: number) => {
@@ -211,12 +227,12 @@ const RCNMayurEditForm = (props:Props) => {
             }))
         
             try {
-                const initialhumid = await axios.post('/api/mayur/updateMayur', { linehumid:formData,
+                const initialhumid = await axios.post('/api/mayur/createReissueMayur', { linehumid:formData,
                     LotNo:props.borma[0].LotNo
                  })
                 console.log(initialhumid)         
                     setErrortext(initialhumid.data.message)
-                    if (initialhumid.status === 201) {
+                    if (initialhumid.status === 200) {
                         const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
                         dialog2.showModal()
                         setTimeout(() => {
@@ -274,7 +290,8 @@ const RCNMayurEditForm = (props:Props) => {
                      
                    
                 </div>
-            
+                <div className="my-2 text-sm flex font-semibold text-red-500 ">* Current [ WholesPeel + WholesUnpeel + DPDS + Village + Sorting ] should be equal to {props.borma[0].current_backlog} Kg</div>
+
                    <Table className="mt-3">
                    <TableHeader className="bg-neutral-100 text-stone-950 ">
                     <TableHead className="text-center">Sl. No.</TableHead>
@@ -282,25 +299,27 @@ const RCNMayurEditForm = (props:Props) => {
               
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
-
-                    {/* <TableHead className="text-center">Opening Wholes_Peel</TableHead>
-                    <TableHead className="text-center">Opening Wholes_UnPeel</TableHead> */}
-                    <TableHead className="text-center">Reeive Peeling</TableHead>
-                  
-                    <TableHead className="text-center">Receive DPDS</TableHead>
-                    <TableHead className="text-center">Receive Sorting</TableHead>
-                    <TableHead className="text-center">Receive Village</TableHead>
-                   
-
-                   
+                    <TableHead className="text-center">Total Opening</TableHead>
+                    <TableHead className="text-center">Previous Wholes_Peel</TableHead>
+                    <TableHead className="text-center">Current Peel</TableHead>
+                    <TableHead className="text-center">Previous Wholes_Unpeel</TableHead>
+                    <TableHead className="text-center">Current Unpeel</TableHead>
+                    <TableHead className="text-center">Previous DPDS</TableHead>
+                    <TableHead className="text-center">Current DPDS</TableHead>
+                    <TableHead className="text-center">Previous Village</TableHead>
+                    <TableHead className="text-center">Current Village</TableHead>
+                    <TableHead className="text-center">Previous Sorting</TableHead>
+                    <TableHead className="text-center">Current Sorting</TableHead>
+              
                     <TableHead className="text-center">Issue PW_W</TableHead>
                     <TableHead className="text-center">Issue W_Lot</TableHead>
                     <TableHead className="text-center">Issue WW</TableHead>
-                    <TableHead className="text-center">Issue Rejection</TableHead>
+                    
                     <TableHead className="text-center">Issue Village</TableHead>
                     <TableHead className="text-center">Issue Big_Taiho</TableHead>
                     <TableHead className="text-center">Issue LW</TableHead>
                     <TableHead className="text-center">Issue JB</TableHead>
+                    <TableHead className="text-center">Issue Rejection</TableHead>
                     <TableHead className="text-center">Mc On 133</TableHead>
                     <TableHead className="text-center">Mc Off 133</TableHead>
                     <TableHead className="text-center">Mc_Breakdown 133</TableHead>
@@ -325,27 +344,32 @@ const RCNMayurEditForm = (props:Props) => {
                                 return (
                                     <TableRow key={idx} className="boiling-row-height-scoop">
                                         <TableCell className="text-center">{idx + 1}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
-                                        {/* <TableCell className="text-center bg-yellow-100 font-semibold ">{formatNumber(row.rcv_wholespeel)} Kg</TableCell>
-                                        <TableCell className="text-center bg-yellow-100 font-semibold ">{formatNumber(row.rcv_wholesunpeel)} Kg</TableCell> */}
-                                        <TableCell className="text-center font-semibold text-green-500">{formatNumber((Number(row.rcv_wholespeel)+Number(row.rcv_wholesunpeel)).toString())} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_DPDS ? formatNumber(row.rcv_DPDS):0} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_sorting ? formatNumber(row.rcv_sorting):0} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-500">{row.rcv_village ? formatNumber(row.rcv_village):0} Kg</TableCell>
-                                        
-                                       
+                                        <TableCell className="text-center font-semibold text-blue-500">{row.LotNo}</TableCell>
+                                        <TableCell className="text-center font-semibold ">{row.origin}</TableCell>
+                                        <TableCell className="text-center font-semibold ">{row.mixingLot}</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_peeling)} Kg</TableCell>
+                                     
+                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(props.borma[0].rcv_wholespeel)} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_wholespeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholespeel', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(props.borma[0].rcv_wholesunpeel)} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input type="number" className="bg-green-100" value={row.rcv_wholesunpeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholesunpeel', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_DPDS ?formatNumber(props.borma[0].rcv_DPDS):0} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_DPDS} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_DPDS', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_village ?formatNumber(props.borma[0].rcv_village):0} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_village', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_sorting ?formatNumber(props.borma[0].rcv_sorting):0} Kg</TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sorting', e.target.value)} required /></TableCell>
+                                 
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_w} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_w', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_lot} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_lot', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ww} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_village', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bigTaiho', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_LW} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_LW', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_JB} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_JB', e.target.value)} required /></TableCell>
-                                     
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required /></TableCell>
+
 
 
                                         <FormRow idx={idx} row={row} column='Mc_on_133' handleRowChange={handleRowChange}/>
@@ -378,7 +402,7 @@ const RCNMayurEditForm = (props:Props) => {
                   
                    
                   </form>
-                  <dialog id="successemployeedialog" className="dashboard-modal">
+            <dialog id="successemployeedialog" className="dashboard-modal">
                   <button id="empcloseDialog" className="dashboard-modal-close-btn ">X </button>
                   <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
                       <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p>
@@ -408,4 +432,4 @@ const RCNMayurEditForm = (props:Props) => {
           </>
     )
 }
-export default RCNMayurEditForm;
+export default RCNMayurReCreateEditForm;
