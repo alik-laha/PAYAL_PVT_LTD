@@ -574,7 +574,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                         <TableHead className="text-center">Receive Hamsa_JB (Borma)</TableHead>
                         <TableHead className="text-center">Receive Hamsa (Borma)</TableHead>
-                        <TableHead className="text-center">Receive Mayur_JB (Borma)</TableHead>
+                        <TableHead className="text-center">Receive Mayur (Borma)</TableHead>
 
 
 
@@ -1114,6 +1114,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     parseFloat(item.rcv_jb_hamsa))
                                                     .toString()
                                             )}
+                                            {/* {formatNumber(String(parseFloat(item.issue_add_1)-parseFloat(item.rcv_jb_mayur)))} */}
                                         </TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.rcv_jb_mayur)}</TableCell>
 
@@ -1172,6 +1173,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     parseFloat(item.issue_jjb1)+parseFloat(item.issue_rejection)+parseFloat(item.issue_village)+parseFloat(item.issue_lw)+parseFloat(item.issue_bigTaiho))
                                                     .toString()
                                             )}
+                                            
                                         </TableCell>
 
 

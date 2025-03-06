@@ -41,8 +41,8 @@ interface wholesRowData{
     rcv_pw_400: string | number;
     rcv_w_400: string | number;
     rcv_ww_400: string | number;
-    rcv_jb_mayur: string | number;
-    rcv_jb_hamsa: string | number;
+    rcv_jb_mayur: string ;
+    rcv_jb_hamsa: string ;
 
 
     issue_pw_150: string;
@@ -100,7 +100,7 @@ issue_rejection: string;
 issue_village: string;
 issue_bigTaiho: string;
 issue_lw: string;
-issue_add_1: string|number;
+issue_add_1: string;
 issue_add_2: string|number;
 issue_add_3: string|number;
 issue_add_4: string;
@@ -491,7 +491,7 @@ const WholesEditForm = (props:Props) => {
                                         <TableHead className="text-center">Mixed_Lot</TableHead>
             
             
-                                        <TableHead className="text-center">Receive PW_210 (Borma)</TableHead>
+                                        {/* <TableHead className="text-center">Receive PW_210 (Borma)</TableHead>
                                         <TableHead className="text-center">Receive W_210 (Borma)</TableHead>
                                         <TableHead className="text-center">Receive WW_210 (Borma)</TableHead>
                                         <TableHead className="text-center">Receive PW_240 (Borma)</TableHead>
@@ -508,14 +508,15 @@ const WholesEditForm = (props:Props) => {
                                         <TableHead className="text-center">Receive WW_360 (Borma)</TableHead>
                                         <TableHead className="text-center">Receive PW_400 (Borma)</TableHead>
                                         <TableHead className="text-center">Receive W_400 (Borma)</TableHead>
-                                        <TableHead className="text-center">Receive WW_400 (Borma)</TableHead>
-                                        <TableHead className="text-center">Receive JB_Mayur (Borma)</TableHead>
-                                        <TableHead className="text-center">Receive JB_Hamsa (Borma)</TableHead>
+                                        <TableHead className="text-center">Receive WW_400 (Borma)</TableHead> */}
+                                        <TableHead className="text-center">Receive Hamsa (Borma)</TableHead>
+                                        <TableHead className="text-center">Receive Mayur (Borma)</TableHead>
+                                     
                                         
-                                        <TableHead className="text-center">Total Receive</TableHead>
-                                        <TableHead className="text-center">Total Receive (Borma)</TableHead>
-                                        <TableHead className="text-center">Borma Loss(Kg)</TableHead>
-                                        <TableHead className="text-center">Borma Loss(%)</TableHead>
+                                        {/* <TableHead className="text-center">Total Receive</TableHead>
+                                        <TableHead className="text-center">Total Receive (Borma)</TableHead> */}
+                                        {/* <TableHead className="text-center">Borma Loss(Kg)</TableHead>
+                                        <TableHead className="text-center">Borma Loss(%)</TableHead> */}
             
             
                                         <TableHead className="text-center">PW_150</TableHead>
@@ -597,7 +598,7 @@ const WholesEditForm = (props:Props) => {
                                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                                         <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
-                                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(String(row.rcv_pw_210))} </TableCell>
+                                                        {/* <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(String(row.rcv_pw_210))} </TableCell>
                                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(String(row.rcv_w_210))} </TableCell>
                                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(String(row.rcv_ww_210))} </TableCell>
                                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(String(row.rcv_pw_240))} </TableCell>
@@ -614,19 +615,25 @@ const WholesEditForm = (props:Props) => {
                                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(String(row.rcv_ww_360))} </TableCell>
                                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(String(row.rcv_pw_400))} </TableCell>
                                                         <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(String(row.rcv_w_400))} </TableCell>
-                                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(String(row.rcv_ww_400))} </TableCell>
-                                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(String(row.rcv_jb_mayur))} </TableCell>
-                                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(String(row.rcv_jb_hamsa))} </TableCell>
-                                                        <TableCell className="text-center font-semibold bg-yellow-100 text-green-600">
-                                                            {formatNumber(actualOpen.toString() )} kg
+                                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(String(row.rcv_ww_400))} </TableCell> */}
+                                                       
+                                                        <TableCell className="text-center font-semibold  text-green-600">{formatNumber(String(parseFloat(row.issue_add_1)-parseFloat(row.rcv_jb_mayur)))} </TableCell>
+                                                        <TableCell className="text-center font-semibold text-green-600">{formatNumber(String(row.rcv_jb_mayur))} </TableCell>
+                                                        {/* <TableCell className="text-center font-semibold  text-green-600">
+                                                            {formatNumber(row.issue_add_1.toString() )} kg
                                                
                                            
                                                         </TableCell>
+                                                        <TableCell className="text-center font-semibold  text-green-600">
+                                                            {formatNumber(actualOpen.toString() )} kg
+                                               
+                                           
+                                                        </TableCell> */}
             
-                                                        <TableCell className="text-center"> <Input className='bg-blue-100' type="number"
-                                                            value={formatNumber(row.issue_add_1.toString())} step='0.01' placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /></TableCell>
-                                                        <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
-                                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
+                                                        {/* <TableCell className="text-center"> <Input className='bg-blue-100' type="number"
+                                                            value={formatNumber(row.issue_add_1.toString())} step='0.01' placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /></TableCell> */}
+                                                        {/* <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
+                                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell> */}
                                                         <TableCell className="text-center">
                                                             <Input className='bg-purple-100'
                                                                 type="number"

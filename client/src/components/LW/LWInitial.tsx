@@ -99,26 +99,10 @@ const LWInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-                              if(((item.rcv_pw_210 ? parseFloat(item.rcv_pw_210) : 0) + 
-                              (item.rcv_w_210 ? parseFloat(item.rcv_w_210) : 0) + 
-                              (item.rcv_ww_210 ? parseFloat(item.rcv_ww_210) : 0) + 
-                              (item.rcv_pw_240 ? parseFloat(item.rcv_pw_240) : 0) + 
-                              (item.rcv_w_240 ? parseFloat(item.rcv_w_240) : 0) + 
-                              (item.rcv_ww_240 ? parseFloat(item.rcv_ww_240) : 0) + 
-                              (item.rcv_pw_280 ? parseFloat(item.rcv_pw_280) : 0) + 
-                              (item.rcv_w_280 ? parseFloat(item.rcv_w_280) : 0) + 
-                              (item.rcv_ww_280 ? parseFloat(item.rcv_ww_280) : 0) + 
-                              (item.rcv_pw_320 ? parseFloat(item.rcv_pw_320) : 0) + 
-                              (item.rcv_w_320 ? parseFloat(item.rcv_w_320) : 0) + 
-                              (item.rcv_ww_320 ? parseFloat(item.rcv_ww_320) : 0) + 
-                              (item.rcv_pw_360 ? parseFloat(item.rcv_pw_360) : 0) + 
-                              (item.rcv_w_360 ? parseFloat(item.rcv_w_360) : 0) + 
-                              (item.rcv_ww_360 ? parseFloat(item.rcv_ww_360) : 0) + 
-                              (item.rcv_pw_400 ? parseFloat(item.rcv_pw_400) : 0) + 
-                              (item.rcv_w_400 ? parseFloat(item.rcv_w_400) : 0) + 
-                              (item.rcv_ww_400 ? parseFloat(item.rcv_ww_400) : 0) + 
-                             
-                              (item.rcv_jb_hamsa ? parseFloat(item.rcv_jb_hamsa) : 0))>0){
+                              if(item.rcv_mayur && item.rcv_hamsa && ((item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
+                              (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) + 
+                              (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0) 
+                              )>0){
                                 return (
                                     <TableRow key={idx}>
                                         <TableCell className="text-center">
@@ -140,7 +124,7 @@ const LWInitial = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
                                           <DialogContent className='max-w-9xl'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Wholes Line Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>LW Line Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 

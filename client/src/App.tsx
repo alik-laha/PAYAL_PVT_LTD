@@ -264,7 +264,7 @@ function App() {
         {/*Production LW  */}
       <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'WholesSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
-          <Route path='/dashboard/Wholes' element={<LW />} />
+          <Route path='/dashboard/LW' element={<LW />} />
 
         </Route>
 
