@@ -388,6 +388,15 @@ const WholesEditForm = (props:Props) => {
             
             return
         }
+        if (props.borma[0].mixingLot && props.borma[0].mixingLot !='') 
+            {
+            setErrortext(`Edit can't be Done As Already Mixing is Performed`)
+            if(errordialog){
+                (errordialog as any).showModal()
+            }
+            
+            return
+        }
         setisdisable(true)
         props.borma.map((item: WholesData, idx: number) => {
             rows[idx].id=item.id

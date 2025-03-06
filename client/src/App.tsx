@@ -41,6 +41,7 @@ import BigTaiho from './components/bigTaiho/BigTaiho'
 import Hamsa from './components/Hamsa/Hamsa'
 import Sorting from './components/Sorting/Sorting'
 import Wholes from './components/Wholes/Wholes'
+import LW from './components/LW/LW'
 
 
 
@@ -260,10 +261,19 @@ function App() {
 
         </Route>
 
+        {/*Production LW  */}
+      <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'WholesSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
+          <Route path='/dashboard/Wholes' element={<LW />} />
+
+        </Route>
+
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'CleaningSupervisor', 'MaintainanceManager']} />}>
           <Route path='/dashboard/cleaning' element={<Cleaning />} />
         </Route>
+
+        
 
 
         

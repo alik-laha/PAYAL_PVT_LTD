@@ -20,7 +20,7 @@ import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { FaUserTie, FaWater, FaSortAmountDownAlt ,FaAcquisitionsIncorporated } from "react-icons/fa";
 import { PiPackageLight, PiWashingMachineLight } from "react-icons/pi";
-import { GiBoilingBubbles, GiIceCreamScoop, GiGate, GiBoxingRing,GiVendingMachine } from "react-icons/gi";
+import { GiBoilingBubbles, GiIceCreamScoop, GiGate, GiPillDrop ,GiBoxingRing,GiVendingMachine } from "react-icons/gi";
 import { AiFillCodeSandboxSquare, AiOutlineProduct } from "react-icons/ai";
 import { CiPill } from "react-icons/ci";
 
@@ -316,7 +316,12 @@ const DashboardSidebar = () => {
                                     </NavLink>
                                 </CollapsibleContent>}
 
-
+                                {renderlink('LW')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/LW" >
+                                        <p className="flex"> <GiPillDrop  size={20} /><p className="pl-3">  Lower Grading</p></p>
+                                    </NavLink>
+                                </CollapsibleContent>}
                            
 
                             {renderlink('Receiving Village Entry')

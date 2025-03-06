@@ -146,11 +146,11 @@ const Wholes = () => {
                         Issue LW <br /><p>{data.data[0].issue_lw ? formatNumber(parseFloat(data.data[0].issue_lw)) : 0}  Kg</p>
                     </div>
 
-                    <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
                         Issue BigTaiho <br /><p>{data.data[0].issue_bigTaiho ? formatNumber(parseFloat(data.data[0].issue_bigTaiho)) : 0}  Kg</p>
                     </div>
 
-                    <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
                         Issue Village <br /><p>{data.data[0].issue_village ? formatNumber(parseFloat(data.data[0].issue_village)) : 0}  Kg</p>
                     </div>
 

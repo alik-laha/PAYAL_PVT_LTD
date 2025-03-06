@@ -55,6 +55,7 @@ export interface pendingCheckRoles {
     Sorting:string[];
     DPDS:string[];
     Wholes:string[];
+    LW:string[];
     
 }
 export interface rcvCheckRoles {
