@@ -54,6 +54,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [editSortingLotWiseData, setEditSortingLotWiseData] = useState<SortingData[]>([])
     const [editWholesLotWiseData, setEditWholesLotWiseData] = useState<WholesData[]>([])
     const [editLWLotWiseData, setEditLWLotWiseData] = useState<any[]>([])
+    const [editRejectionLotWiseData, setEditRejectionLotWiseData] = useState<any[]>([])
 
     return (
         <Context.Provider value={{
@@ -69,7 +70,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
             editPeelingLotWiseData, setEditPeelingLotWiseData,editMayurLotWiseData,setEditMayurLotWiseData,
             editDPDSLotWiseData,setEditDPDSLotWiseData,editBigTaihoLotWiseData, setEditBigTaihoLotWiseData,
             editHamsaLotWiseData,setEditHamsaLotWiseData,editSortingLotWiseData,setEditSortingLotWiseData,
-            editWholesLotWiseData,setEditWholesLotWiseData,     editLWLotWiseData,setEditLWLotWiseData
+            editWholesLotWiseData,setEditWholesLotWiseData,editLWLotWiseData,setEditLWLotWiseData,editRejectionLotWiseData,setEditRejectionLotWiseData
         }}>
             {children}
         </Context.Provider>

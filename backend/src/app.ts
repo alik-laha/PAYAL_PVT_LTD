@@ -35,6 +35,7 @@ import HamsaRouter from "./router/HamsaRouter";
 import SortingRouter from "./router/SortingRouter";
 import wholesRouter from "./router/wholesRouter";
 import LWRouter from "./router/LWRouter";
+import RejectionRouter from "./router/RejectionRouter";
 
 
 
@@ -79,4 +80,5 @@ app.use("/api/hamsa", HamsaRouter)
 app.use("/api/sorting", SortingRouter)
 app.use("/api/wholes", wholesRouter)
 app.use("/api/lw", LWRouter)
+app.use("/api/rejection", RejectionRouter)
 export default app

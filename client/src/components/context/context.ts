@@ -79,6 +79,8 @@ interface ContextType {
     setEditWholesLotWiseData: (data: any[]) => void;
     editLWLotWiseData: any[];
     setEditLWLotWiseData: (data: any[]) => void;
+    editRejectionLotWiseData: any[];
+    setEditRejectionLotWiseData: (data: any[]) => void;
     
 }
 
@@ -149,7 +151,9 @@ const Context = createContext<ContextType>({
     editWholesLotWiseData: [],
     setEditWholesLotWiseData: () => {},
     editLWLotWiseData: [],
-    setEditLWLotWiseData: () => {}
+    setEditLWLotWiseData: () => {},
+    editRejectionLotWiseData: [],
+    setEditRejectionLotWiseData: () => {}
 
 });
 
