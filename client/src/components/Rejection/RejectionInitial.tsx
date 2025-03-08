@@ -21,9 +21,7 @@ import axios from "axios";
 import { useState } from "react";
 import cross from '../../assets/Static_Images/error_img.png'
 // import RCNDPDSCreateForm from "./DPDSCreateForm";
-import {   WholesData } from "@/type/type";
-//import WholesCreateForm from "./WholesCreateForm";
-// import HamsaCreateForm from "./HamsaCreateForm";
+import {   RejectionData } from "@/type/type";
 
 
 interface lotPropsdata{
@@ -32,11 +30,16 @@ interface lotPropsdata{
     current_backlog: string;
     rcv_mayur:string;
     rcv_wholes:string;
-    rcv_hamsa:string;
+    rcv_lw:string;
+    rcv_bigTaiho:string;
+    rcv_peeling:string;
+    rcv_dpds:string;
+    rcv_village:string;
+    rcv_sorting:string;
 }
 
 const RejectionInitial = (props: any) => {
-    const [bormaData, setBormaData ]  = useState<WholesData[]>([])
+    const [bormaData, setBormaData ]  = useState<RejectionData[]>([])
     const [errortext, seterrorText] = useState<string>('');
     
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialogPeel') as HTMLInputElement;
@@ -68,7 +71,7 @@ const RejectionInitial = (props: any) => {
                 return
             }
            
-        await axios.get(`/api/lw/getLWByLotOrigin/${lotNO}/${origin}`).then(res=>{
+        await axios.get(`/api/rejection/getRejectionByLotOrigin/${lotNO}/${origin}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.scoopingLot)){
             //scoopdata=res.data.scoopingLot
@@ -99,9 +102,16 @@ const RejectionInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-                              if(item.rcv_mayur && item.rcv_hamsa && ((item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
-                              (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) + 
-                              (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0) 
+                              if(item.rcv_mayur && item.rcv_peeling  && item.rcv_bigTaiho 
+                                && item.rcv_wholes && item.rcv_sorting && item.rcv_dpds 
+                                &&((item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
+                              (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
+                              (item.rcv_peeling ? parseFloat(item.rcv_peeling) : 0) + 
+                              (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0) + 
+                              (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
+                              (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
+                              (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) + 
+                              (item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0) 
                               )>0){
                                 return (
                                     <TableRow key={idx}>
@@ -124,7 +134,7 @@ const RejectionInitial = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
                                           <DialogContent className='max-w-9xl'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>LW Line Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Rejection Line Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 

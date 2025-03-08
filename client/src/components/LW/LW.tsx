@@ -21,12 +21,8 @@ import Loader from '../common/Loader';
 import { pendingCheckRoles, PermissionRole } from '@/type/type';
 import { pendingCheckRole } from '../common/exportData';
 import LWInitial from './LWInitial';
-// import WholesInitial from './WholesInitial';
-// import WholesTable from './WholesTable';
-// import WholesHistoryTable from './WholesHistoryTable';
-
-
-
+import LWHistoryTable from './LWHistory';
+import LWTable from './LWTable';
 
 
 const LW = () => {
@@ -176,10 +172,10 @@ const LW = () => {
                     <Button className="bg-blue-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {maintable === 'block' ? 'Incoming/Mixing' : 'Main Entry '}</Button>
                 </div>
                 <div style={{ display: maintable }}>
-                    {/* <WholesTable /> */}
+                    <LWTable />
                 </div>
                 <div style={{ display: historytable }}>
-                    {/* <WholesHistoryTable /> */}
+                    <LWHistoryTable />
                 </div>
 
 

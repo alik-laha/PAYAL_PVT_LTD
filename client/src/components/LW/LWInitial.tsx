@@ -20,10 +20,10 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import cross from '../../assets/Static_Images/error_img.png'
-// import RCNDPDSCreateForm from "./DPDSCreateForm";
-import {   WholesData } from "@/type/type";
-//import WholesCreateForm from "./WholesCreateForm";
-// import HamsaCreateForm from "./HamsaCreateForm";
+
+import {   LWData } from "@/type/type";
+import LWCreateForm from "./LWCreateForm";
+
 
 
 interface lotPropsdata{
@@ -36,7 +36,7 @@ interface lotPropsdata{
 }
 
 const LWInitial = (props: any) => {
-    const [bormaData, setBormaData ]  = useState<WholesData[]>([])
+    const [bormaData, setBormaData ]  = useState<LWData[]>([])
     const [errortext, seterrorText] = useState<string>('');
     
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialogPeel') as HTMLInputElement;
@@ -99,7 +99,7 @@ const LWInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-                              if(item.rcv_mayur && item.rcv_hamsa && ((item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
+                              if(item.rcv_mayur && item.rcv_hamsa && item.rcv_wholes && ((item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
                               (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) + 
                               (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0) 
                               )>0){
@@ -128,7 +128,7 @@ const LWInitial = (props: any) => {
 
                                                     </DialogHeader>
                                                 
-                                                    {/* <WholesCreateForm borma={bormaData}/> */}
+                                                    <LWCreateForm borma={bormaData}/>
                                                 </DialogContent>
                                             </Dialog>
                                         </TableCell>

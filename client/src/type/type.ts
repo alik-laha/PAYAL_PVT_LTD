@@ -349,8 +349,6 @@ export interface RcvVillagePrimaryExcelEntryData {
  
 }
 
-
-
 export interface rcnScoopingData {
     id: number;
     LotNo: string;
@@ -393,7 +391,6 @@ export interface EditPendingData extends RcnPrimaryEntryData {
     editedBy: string;
 
 }
-
 
 export interface QcRcnEntryExcelData {
     id: number;
@@ -1055,6 +1052,121 @@ export interface SortingData {
 
 }
 
+export interface LWData {
+ 
+    id: number;
+    LotNo: string;
+    date: string;
+    origin: string;
+    altid: number;
+    rcv_transfer: string;
+    rcv_mayur: string;
+    rcv_wholes: string;
+    rcv_hamsa: string;
+    issue_kw: string;
+    issue_kw_1: string;
+    issue_kw_2: string;
+    issue_kn: string;
+    issue_dw: string;
+    issue_dw_1: string;
+    issue_dw_2: string;
+    issue_ow: string;
+    issue_ow_1: string;
+    issue_ow_2: string;
+    issue_jw: string;
+    issue_pw: string;
+    issue_row: string;
+    issue_rej_1: string;
+    issue_lw3_180: string;
+    issue_lw3_210: string;
+    issue_lw3_240: string;
+    issue_lw3_280: string;
+    issue_lw3_360: string;
+    issue_lw2: string;
+    issue_lw4: string;
+    issue_lw5: string;
+    issue_lw6: string;
+    issue_lw7: string;
+    issue_rej_3: string;
+    issue_rej_4: string;
+    issue_jb2: string;
+    issue_sjb: string;
+    issue_k_240: string;
+    issue_k_280: string;
+    issue_k_360: string;
+    issue_pkw: string;
+    issue_bw: string;
+    issue_rw: string;
+    issue_rrw: string;
+    issue_fw: string;
+    issue_lw: string;
+    issue_add_1: string;
+    issue_add_2: string;
+    issue_add_3: string;
+    issue_add_4: string;
+    issue_add_5: string;
+    issue_add_6: string;
+    issue_add_7: string;
+    issue_add_8: string;
+    issue_add_9: string;
+    issue_add_10: string;
+    issue_rejection: string;
+  issue_village: string;
+  issue_bigTaiho: string;
+  issue_hamsa: string;
+    entry_backlog: string;
+    current_backlog: string;
+    Status: number;
+    latest: number;
+    mixingLot: string | null;
+    noOfdayOperators: number;
+    noOfnightOperators: number;
+    CreatedBy: string;
+    editStatus: string;
+    modifiedBy: string | null;
+
+}
+
+export interface RejectionData {
+    id: number;
+    LotNo: string;
+    date: string ;
+    origin: string;
+    altid: number;
+    rcv_peeling: string;
+    rcv_mayur: string;
+     rcv_dpds: string;
+     rcv_wholes: string;
+     rcv_lw: string;
+     rcv_bigTaiho: string;
+        rcv_sorting: string;
+        rcv_village: string;
+        issue_packing: string;
+        issue_village: string;
+        issue_uncut_unscoop: string;
+        issue_shell: string;
+        issue_catelfeed: string;
+        issue_add_1: string;
+        issue_add_2: string;
+        issue_add_3: string;
+        issue_add_4: string;
+        issue_add_5: string;
+        issue_add_6: string;
+        issue_add_7: string;
+        issue_add_8: string;
+        issue_add_9: string;
+        issue_add_10: string;
+        entry_backlog: string;
+        current_backlog: string;
+    Status: number;
+    latest: number;
+    mixingLot: string | null;
+    CreatedBy: string | null;
+    editStatus: string;
+    modifiedBy: string | null;
+    noOfdayOperators:number;
+    noOfnightOperators:number;
+}
 
 
 export interface HumidExcelData {

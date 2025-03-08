@@ -14,7 +14,9 @@ import { AssetData, EditPendingData, GradingData, BoilingEntryData, Sumofpackage
      BigTaihoData,
      HamsaData,
      SortingData,
-     WholesData} from "../../type/type";
+     WholesData,
+     LWData,
+     RejectionData} from "../../type/type";
 
 interface ContextProviderProps {
     children: ReactNode;
@@ -32,7 +34,6 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [editPendingBoilingData, setEditPendingBoilingData] = useState<BoilingEntryData[]>([])
     const [pendingqccount, setpendingqcCount] = useState<number>(0)
     const [pendingreportcount, setpendingreportCount] = useState<number>(0)
-
     const [recevingPackagematerialOverView, setRecevingPacakanMaterialOverView] = useState<SumofpackageMetrialReceving | null>(null)
     const [editScoopingLotWiseData, setEditScoopingLotWiseData] = useState<rcnScoopingData[]>([])
     const [editBormaLotWiseData, setEditBormaLotWiseData] = useState<BormaData[]>([])
@@ -53,8 +54,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [editHamsaLotWiseData, setEditHamsaLotWiseData] = useState<HamsaData[]>([])
     const [editSortingLotWiseData, setEditSortingLotWiseData] = useState<SortingData[]>([])
     const [editWholesLotWiseData, setEditWholesLotWiseData] = useState<WholesData[]>([])
-    const [editLWLotWiseData, setEditLWLotWiseData] = useState<any[]>([])
-    const [editRejectionLotWiseData, setEditRejectionLotWiseData] = useState<any[]>([])
+    const [editLWLotWiseData, setEditLWLotWiseData] = useState<LWData[]>([])
+    const [editRejectionLotWiseData, setEditRejectionLotWiseData] = useState<RejectionData[]>([])
 
     return (
         <Context.Provider value={{
