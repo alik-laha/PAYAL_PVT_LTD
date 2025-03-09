@@ -5,7 +5,8 @@ import {
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import { findEditRejectionAll, getRejectionBylotorigin, getRejectionLot, sumOfallRejection } from "../controller/RejectionController/RejectionApi";
+import { CreateEntireRejection, findEditRejectionAll, 
+      getRejectionBylotorigin, getRejectionLot, sumOfallRejection } from "../controller/RejectionController/RejectionApi";
 
 
 const router = express()
@@ -18,8 +19,8 @@ router.get("/sumofallRejection", jwtVerify, sumOfallRejection)
 // //LWInitial.tsx
 router.get("/getRejectionByLotOrigin/:lotNO/:origin", jwtVerify, getRejectionBylotorigin)
 
-// //LWCreateForm.tsx
-// router.post("/createEntireLW", jwtVerify, CreateEntireLW)
+// //RejectionCreateForm.tsx
+router.post("/createEntireRejection", jwtVerify, CreateEntireRejection)
 
 // // //HamsaReiSsueForm.tsx
 // router.post("/createReissueLW", jwtVerify, CreateReissueLW)

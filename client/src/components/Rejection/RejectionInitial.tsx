@@ -22,6 +22,7 @@ import { useState } from "react";
 import cross from '../../assets/Static_Images/error_img.png'
 // import RCNDPDSCreateForm from "./DPDSCreateForm";
 import {   RejectionData } from "@/type/type";
+import RejectionCreateForm from "./RejectionCreateForm";
 
 
 interface lotPropsdata{
@@ -103,7 +104,7 @@ const RejectionInitial = (props: any) => {
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
                               if(item.rcv_mayur && item.rcv_peeling  && item.rcv_bigTaiho 
-                                && item.rcv_wholes && item.rcv_sorting && item.rcv_dpds 
+                                && item.rcv_wholes && item.rcv_sorting && item.rcv_dpds && item.rcv_lw
                                 &&((item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
                               (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
                               (item.rcv_peeling ? parseFloat(item.rcv_peeling) : 0) + 
@@ -138,7 +139,7 @@ const RejectionInitial = (props: any) => {
 
                                                     </DialogHeader>
                                                 
-                                                    {/* <WholesCreateForm borma={bormaData}/> */}
+                                                    <RejectionCreateForm borma={bormaData}/>
                                                 </DialogContent>
                                             </Dialog>
                                         </TableCell>

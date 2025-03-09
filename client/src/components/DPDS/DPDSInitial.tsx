@@ -31,6 +31,7 @@ interface lotPropsdata{
     rcv_dp:string;
     rcv_ds:string;
     rcv_dp1:string;
+    rcv_Sorting:string;
 }
 
 const DPDSInitial = (props: any) => {
@@ -106,7 +107,7 @@ const DPDSInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-                                if((parseFloat(item.rcv_dp)+ parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1))>0 ){
+                                if(item.rcv_Sorting && (parseFloat(item.rcv_dp)+ parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1))>0 ){
                                     return (
                                         <TableRow key={idx}>
                                             <TableCell className="text-center">

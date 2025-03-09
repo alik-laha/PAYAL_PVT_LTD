@@ -6,8 +6,8 @@ import {
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
 
-import { findEditLWAll, getLWBylotorigin, 
-       getLWLot,  sumOfallLW, 
+import { CreateEntireLW, findEditLWAll, getLWBylotorigin, 
+       getLWLot,  SearchRCNLW,  sumOfallLW, 
        } from "../controller/LWController/LWApi";
 const router = express()
 
@@ -20,13 +20,13 @@ router.get("/sumofallLW", jwtVerify, sumOfallLW)
 router.get("/getLWByLotOrigin/:lotNO/:origin", jwtVerify, getLWBylotorigin)
 
 // //LWCreateForm.tsx
-// router.post("/createEntireLW", jwtVerify, CreateEntireLW)
+ router.post("/createEntireLW", jwtVerify, CreateEntireLW)
 
 // // //HamsaReiSsueForm.tsx
 // router.post("/createReissueLW", jwtVerify, CreateReissueLW)
 
 // // //LWtable.tsx
-// router.put('/lwprimarysearch', jwtVerify, SearchRCNLW);
+ router.put('/lwprimarysearch', jwtVerify, SearchRCNLW);
 // router.post("/updateLW", jwtVerify, updateEntireLW)
 // router.delete('/rejectededitLW/:id/:LotNo/:origin', jwtVerify, EditRejectLW);
 // router.put("/approveeditLW/:id/:LotNo/:origin", jwtVerify, approveLW);

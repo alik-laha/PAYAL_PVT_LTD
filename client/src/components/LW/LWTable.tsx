@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Origin, pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
 import Context from "../context/context";
 import axios from "axios";
-import {  pendingCheckRoles, PermissionRole, SortingData } from "@/type/type";
+import {  LWData, pendingCheckRoles, PermissionRole } from "@/type/type";
 import { Input } from "../ui/input";
 import { FaSearch } from "react-icons/fa";
 import { Button } from "../ui/button";
@@ -54,9 +54,7 @@ import { CiBoxes, CiCrop, CiEdit } from "react-icons/ci";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
-// import RCNSortingReMix from "./SortingMix";
-// import RCNSortingReCreateForm from "./SortingReissueForm";
-// import SortingEditForm from "./SortingEdit";
+
 
 
 
@@ -69,10 +67,10 @@ const LWTable = () => {
     const currDate = new Date().toLocaleDateString();
     const [origin, setOrigin] = useState<string>("")
     const [blockpagen, setblockpagen] = useState('flex')
-    const [EditData, setEditData] = useState<SortingData[]>([])
+    const [EditData, setEditData] = useState<LWData[]>([])
     const [blConNo, setBlConNo] = useState<string>("")
-    const { editSortingLotWiseData } = useContext(Context);
-    const [Data, setData] = useState<SortingData[]>([])
+    const { editLWLotWiseData } = useContext(Context);
+    const [Data, setData] = useState<LWData[]>([])
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 
@@ -107,7 +105,7 @@ const LWTable = () => {
         })
     }, [page])
     const exportToExcel = async () => { 
-        const response = await axios.put('/api/sorting/sortingprimarysearch', {
+        const response = await axios.put('/api/lw/lwprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
@@ -118,64 +116,85 @@ const LWTable = () => {
         let ws
         let transformed: any[] = [];
         if (EditData.length > 0) {
-            transformed = EditData.map((item: SortingData, idx: number) => ({
+            transformed = EditData.map((item: LWData, idx: number) => ({
             Sl_No: idx + 1, 
             Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
             Item_Lot_No: item.LotNo,
             Origin: item.origin,
             Issue_No: item.altid,
-            Sorting_Entry_Date: handletimezone(item.date),
+            LW_Entry_Date: handletimezone(item.date),
                 Mixing_Lot: item.mixingLot,
-                Opening_JJH: formatNumber(item.rcv_jjh),
-                Opening_SJH: formatNumber(item.rcv_sjh),
-                Opening_SJH1: formatNumber(item.rcv_sjh1),
-                Opening_JK_K: formatNumber(item.rcv_jk_k),
-                Opening_JH1: formatNumber(item.rcv_jh1),
-                Opening_SP1: formatNumber(item.rcv_sp1),
-                Borma_JJH: formatNumber(item.issue_add_4),
-                Borma_SJH: formatNumber(item.issue_add_5),
-                Borma_SJH1: formatNumber(item.issue_add_6),
-                Borma_JK_K: formatNumber(item.issue_add_8),
-                Borma_JH1: formatNumber(item.issue_add_7),
-                Borma_SP1: formatNumber(item.issue_add_9),
-                Receive_Peeling: Number(formatNumber(item.rcv_jjh)) + Number(formatNumber(item.rcv_sjh))+ Number(formatNumber(item.rcv_sjh1))
-                + Number(formatNumber(item.rcv_jk_k))+ Number(formatNumber(item.rcv_jh1))+ Number(formatNumber(item.rcv_sp1)),
-                Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5))+ Number(formatNumber(item.issue_add_6))+
-                Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8))+ Number(formatNumber(item.issue_add_9)),
-                Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0, 
-                Receive_Total:formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
-                +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)+item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) :0).toString()),  
-                issue_SJH: formatNumber(item.issue_sjh),
-                issue_JJH: formatNumber(item.issue_jjh),
-                issue_JJH1: formatNumber(item.issue_jjh1),
-                issue_jk:formatNumber(item.issue_jk),
-                issue_jk1: formatNumber(item.issue_jk1),
-                issue_k:formatNumber(item.issue_k),
-                issue_k1:formatNumber(item.issue_k1),
-                issue_lwp: formatNumber(item.issue_lwp),
-                issue_lwp1: formatNumber(item.issue_lwp1),
-                issue_s:formatNumber(item.issue_s),
-                issue_ss: formatNumber(item.issue_ss),
-                issue_yk: formatNumber(item.issue_yk),
-                issue_sp2:formatNumber(item.issue_sp2),
-                issue_kp:formatNumber(item.issue_kp),
+                
+                Opening_Mayur: formatNumber(item.rcv_mayur),
+                Borma_Mayur: formatNumber(item.issue_add_7),
+                Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+                Opening_Hamsa: formatNumber(item.rcv_hamsa),
+                Borma_Hamsa: formatNumber(item.issue_add_8),
+                Hamsa_Borma_Loss_Kg: formatNumber(item.issue_add_5),
+                Hamsa_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
+                Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+                Receive_Total:formatNumber((parseFloat(item.issue_add_7)+parseFloat(item.issue_add_8)
+                +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0).toString()),  
+                issue_kw: formatNumber(item.issue_kw),
+                issue_kw_1: formatNumber(item.issue_kw_1),
+                issue_kw_2: formatNumber(item.issue_kw_2),
+                issue_kn: formatNumber(item.issue_kn),
+                issue_dw: formatNumber(item.issue_dw),
+                issue_dw_1: formatNumber(item.issue_dw_1),
+                issue_dw_2: formatNumber(item.issue_dw_2),
+                issue_ow: formatNumber(item.issue_ow),
+                issue_ow_1: formatNumber(item.issue_ow_1),
+                issue_ow_2: formatNumber(item.issue_ow_2),
+                issue_jw: formatNumber(item.issue_jw),
+                issue_pw: formatNumber(item.issue_pw),
+                issue_row: formatNumber(item.issue_row),
+                issue_rej_1: formatNumber(item.issue_rej_1),
+                issue_lw3_180: formatNumber(item.issue_lw3_180),
+                issue_lw3_210: formatNumber(item.issue_lw3_210),
+                issue_lw3_240: formatNumber(item.issue_lw3_240),
+                issue_lw3_280: formatNumber(item.issue_lw3_280),
+                issue_lw3_360: formatNumber(item.issue_lw3_360),
+                issue_lw2: formatNumber(item.issue_lw2),
+                issue_lw4: formatNumber(item.issue_lw4),
+                issue_lw5: formatNumber(item.issue_lw5),
+                issue_lw6: formatNumber(item.issue_lw6),
+                issue_lw7: formatNumber(item.issue_lw7),
+                issue_rej_3: formatNumber(item.issue_rej_3),
+                issue_rej_4: formatNumber(item.issue_rej_4),
+                issue_jb2: formatNumber(item.issue_jb2),
+                issue_sjb: formatNumber(item.issue_sjb),
+                issue_k_240: formatNumber(item.issue_k_240),
+                issue_k_280: formatNumber(item.issue_k_280),
+                issue_k_360: formatNumber(item.issue_k_360),
+                issue_pkw: formatNumber(item.issue_pkw),
+                issue_bw: formatNumber(item.issue_bw),
+                issue_rw: formatNumber(item.issue_rw),
+                issue_rrw: formatNumber(item.issue_rrw),
+                issue_fw: formatNumber(item.issue_fw),
+                issue_lw: formatNumber(item.issue_lw),
                 Issue_Packing:formatNumber((
-                    parseFloat(item.issue_jjh)+parseFloat(item.issue_jjh1)+
-                    parseFloat(item.issue_sjh) +parseFloat(item.issue_jk)+parseFloat(item.issue_jk1)+
-                    parseFloat(item.issue_k) +parseFloat(item.issue_k1)+parseFloat(item.issue_lwp)+
-                    parseFloat(item.issue_lwp1) +parseFloat(item.issue_s)+parseFloat(item.issue_ss)+
-                    parseFloat(item.issue_k) +parseFloat(item.issue_yk)+parseFloat(item.issue_sp2)+
-                    parseFloat(item.issue_kp) ).toString()),
-                issue_village: formatNumber(item.issue_village),
-                issue_mayur:formatNumber(item.issue_mayur),
+                    parseFloat(item.issue_kw) + parseFloat(item.issue_kw_1) + parseFloat(item.issue_kw_2) + 
+                    parseFloat(item.issue_kn) + parseFloat(item.issue_dw) + parseFloat(item.issue_dw_1) + 
+                    parseFloat(item.issue_dw_2) + parseFloat(item.issue_ow) + parseFloat(item.issue_ow_1) + 
+                    parseFloat(item.issue_ow_2) + parseFloat(item.issue_jw) + parseFloat(item.issue_pw) + 
+                    parseFloat(item.issue_row) + parseFloat(item.issue_rej_1) + parseFloat(item.issue_lw3_180) + 
+                    parseFloat(item.issue_lw3_210) + parseFloat(item.issue_lw3_240) + parseFloat(item.issue_lw3_280) + 
+                    parseFloat(item.issue_lw3_360) + parseFloat(item.issue_lw2) + parseFloat(item.issue_lw4) + 
+                    parseFloat(item.issue_lw5) + parseFloat(item.issue_lw6) + parseFloat(item.issue_lw7) + 
+                    parseFloat(item.issue_rej_3) + parseFloat(item.issue_rej_4) + parseFloat(item.issue_jb2) + 
+                    parseFloat(item.issue_sjb) + parseFloat(item.issue_k_240) + parseFloat(item.issue_k_280) + 
+                    parseFloat(item.issue_k_360) + parseFloat(item.issue_pkw) + parseFloat(item.issue_bw) + 
+                    parseFloat(item.issue_rw) + parseFloat(item.issue_rrw) + parseFloat(item.issue_fw) + 
+                    parseFloat(item.issue_lw) ).toString()),
+                issue_village: formatNumber(item.issue_village),    
                 issue_bigTaiho: formatNumber(item.issue_bigTaiho),
-                issue_dpds:formatNumber(item.issue_dpds),
+                issue_hamsa: formatNumber(item.issue_hamsa),
                 issue_rejection:formatNumber(item.issue_rejection),
                 Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
               
                 Labour: item.noOfdayOperators,
+                Superisor: item.noOfnightOperators,
                
            
             Edit_Status: item.editStatus,
@@ -187,64 +206,86 @@ const LWTable = () => {
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
-            transformed = data1.rcnEntries.map((item: SortingData, idx: number) => ({
+            transformed = data1.rcnEntries.map((item: LWData, idx: number) => ({
                 Sl_No: idx + 1, 
                 Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
                 Item_Lot_No: item.LotNo,
                 Origin: item.origin,
                 Issue_No: item.altid,
-                Sorting_Entry_Date: handletimezone(item.date),
-                Mixing_Lot: item.mixingLot,
-                Opening_JJH: formatNumber(item.rcv_jjh),
-                Opening_SJH: formatNumber(item.rcv_sjh),
-                Opening_SJH1: formatNumber(item.rcv_sjh1),
-                Opening_JK_K: formatNumber(item.rcv_jk_k),
-                Opening_JH1: formatNumber(item.rcv_jh1),
-                Opening_SP1: formatNumber(item.rcv_sp1),
-                Borma_JJH: formatNumber(item.issue_add_4),
-                Borma_SJH: formatNumber(item.issue_add_5),
-                Borma_SJH1: formatNumber(item.issue_add_6),
-                Borma_JK_K: formatNumber(item.issue_add_8),
-                Borma_JH1: formatNumber(item.issue_add_7),
-                Borma_SP1: formatNumber(item.issue_add_9),
-                Receive_Peeling: Number(formatNumber(item.rcv_jjh)) + Number(formatNumber(item.rcv_sjh))+ Number(formatNumber(item.rcv_sjh1))
-                + Number(formatNumber(item.rcv_jk_k))+ Number(formatNumber(item.rcv_jh1))+ Number(formatNumber(item.rcv_sp1)),
-                Borma_Peeling: Number(formatNumber(item.issue_add_4)) + Number(formatNumber(item.issue_add_5))+ Number(formatNumber(item.issue_add_6))+
-                Number(formatNumber(item.issue_add_7)) + Number(formatNumber(item.issue_add_8))+ Number(formatNumber(item.issue_add_9)),
-                Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                Receive_BigTaiho: item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0,   
-                Receive_Total:formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
-                +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)+item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) :0).toString()),
-                issue_SJH: formatNumber(item.issue_sjh),
-                issue_JJH: formatNumber(item.issue_jjh),
-                issue_JJH1: formatNumber(item.issue_jjh1),
-                issue_jk:formatNumber(item.issue_jk),
-                issue_jk1: formatNumber(item.issue_jk1),
-                issue_k:formatNumber(item.issue_k),
-                issue_k1:formatNumber(item.issue_k1),
-                issue_lwp: formatNumber(item.issue_lwp),
-                issue_lwp1: formatNumber(item.issue_lwp1),
-                issue_s:formatNumber(item.issue_s),
-                issue_ss: formatNumber(item.issue_ss),
-                issue_yk: formatNumber(item.issue_yk),
-                issue_sp2:formatNumber(item.issue_sp2),
-                issue_kp:formatNumber(item.issue_kp),
-                Issue_Packing:formatNumber((
-                    parseFloat(item.issue_jjh)+parseFloat(item.issue_jjh1)+
-                    parseFloat(item.issue_sjh) +parseFloat(item.issue_jk)+parseFloat(item.issue_jk1)+
-                    parseFloat(item.issue_k) +parseFloat(item.issue_k1)+parseFloat(item.issue_lwp)+
-                    parseFloat(item.issue_lwp1) +parseFloat(item.issue_s)+parseFloat(item.issue_ss)+
-                    parseFloat(item.issue_k) +parseFloat(item.issue_yk)+parseFloat(item.issue_sp2)+
-                    parseFloat(item.issue_kp) ).toString()),
-                issue_village: formatNumber(item.issue_village),
-                issue_mayur:formatNumber(item.issue_mayur),
-                issue_bigTaiho: formatNumber(item.issue_bigTaiho),
-                issue_dpds:formatNumber(item.issue_dpds),
-                issue_rejection:formatNumber(item.issue_rejection),
-                Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
-              
-                Labour: item.noOfdayOperators,
+                LW_Entry_Date: handletimezone(item.date),
+                    Mixing_Lot: item.mixingLot,
+                    
+                    Opening_Mayur: formatNumber(item.rcv_mayur),
+                    Borma_Mayur: formatNumber(item.issue_add_7),
+                    Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                    Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+                    Opening_Hamsa: formatNumber(item.rcv_hamsa),
+                    Borma_Hamsa: formatNumber(item.issue_add_8),
+                    Hamsa_Borma_Loss_Kg: formatNumber(item.issue_add_5),
+                    Hamsa_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
+                    Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+                    Receive_Total:formatNumber((parseFloat(item.issue_add_7)+parseFloat(item.issue_add_8)
+                    +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0).toString()),  
+                    issue_kw: formatNumber(item.issue_kw),
+                    issue_kw_1: formatNumber(item.issue_kw_1),
+                    issue_kw_2: formatNumber(item.issue_kw_2),
+                    issue_kn: formatNumber(item.issue_kn),
+                    issue_dw: formatNumber(item.issue_dw),
+                    issue_dw_1: formatNumber(item.issue_dw_1),
+                    issue_dw_2: formatNumber(item.issue_dw_2),
+                    issue_ow: formatNumber(item.issue_ow),
+                    issue_ow_1: formatNumber(item.issue_ow_1),
+                    issue_ow_2: formatNumber(item.issue_ow_2),
+                    issue_jw: formatNumber(item.issue_jw),
+                    issue_pw: formatNumber(item.issue_pw),
+                    issue_row: formatNumber(item.issue_row),
+                    issue_rej_1: formatNumber(item.issue_rej_1),
+                    issue_lw3_180: formatNumber(item.issue_lw3_180),
+                    issue_lw3_210: formatNumber(item.issue_lw3_210),
+                    issue_lw3_240: formatNumber(item.issue_lw3_240),
+                    issue_lw3_280: formatNumber(item.issue_lw3_280),
+                    issue_lw3_360: formatNumber(item.issue_lw3_360),
+                    issue_lw2: formatNumber(item.issue_lw2),
+                    issue_lw4: formatNumber(item.issue_lw4),
+                    issue_lw5: formatNumber(item.issue_lw5),
+                    issue_lw6: formatNumber(item.issue_lw6),
+                    issue_lw7: formatNumber(item.issue_lw7),
+                    issue_rej_3: formatNumber(item.issue_rej_3),
+                    issue_rej_4: formatNumber(item.issue_rej_4),
+                    issue_jb2: formatNumber(item.issue_jb2),
+                    issue_sjb: formatNumber(item.issue_sjb),
+                    issue_k_240: formatNumber(item.issue_k_240),
+                    issue_k_280: formatNumber(item.issue_k_280),
+                    issue_k_360: formatNumber(item.issue_k_360),
+                    issue_pkw: formatNumber(item.issue_pkw),
+                    issue_bw: formatNumber(item.issue_bw),
+                    issue_rw: formatNumber(item.issue_rw),
+                    issue_rrw: formatNumber(item.issue_rrw),
+                    issue_fw: formatNumber(item.issue_fw),
+                    issue_lw: formatNumber(item.issue_lw),
+                    Issue_Packing:formatNumber((
+                        parseFloat(item.issue_kw) + parseFloat(item.issue_kw_1) + parseFloat(item.issue_kw_2) + 
+                        parseFloat(item.issue_kn) + parseFloat(item.issue_dw) + parseFloat(item.issue_dw_1) + 
+                        parseFloat(item.issue_dw_2) + parseFloat(item.issue_ow) + parseFloat(item.issue_ow_1) + 
+                        parseFloat(item.issue_ow_2) + parseFloat(item.issue_jw) + parseFloat(item.issue_pw) + 
+                        parseFloat(item.issue_row) + parseFloat(item.issue_rej_1) + parseFloat(item.issue_lw3_180) + 
+                        parseFloat(item.issue_lw3_210) + parseFloat(item.issue_lw3_240) + parseFloat(item.issue_lw3_280) + 
+                        parseFloat(item.issue_lw3_360) + parseFloat(item.issue_lw2) + parseFloat(item.issue_lw4) + 
+                        parseFloat(item.issue_lw5) + parseFloat(item.issue_lw6) + parseFloat(item.issue_lw7) + 
+                        parseFloat(item.issue_rej_3) + parseFloat(item.issue_rej_4) + parseFloat(item.issue_jb2) + 
+                        parseFloat(item.issue_sjb) + parseFloat(item.issue_k_240) + parseFloat(item.issue_k_280) + 
+                        parseFloat(item.issue_k_360) + parseFloat(item.issue_pkw) + parseFloat(item.issue_bw) + 
+                        parseFloat(item.issue_rw) + parseFloat(item.issue_rrw) + parseFloat(item.issue_fw) + 
+                        parseFloat(item.issue_lw) ).toString()),
+                    issue_village: formatNumber(item.issue_village),    
+                    issue_bigTaiho: formatNumber(item.issue_bigTaiho),
+                    issue_hamsa: formatNumber(item.issue_hamsa),
+                    issue_rejection:formatNumber(item.issue_rejection),
+                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                  
+                    Labour: item.noOfdayOperators,
+                    Superisor: item.noOfnightOperators,
+                   
                
                 Edit_Status: item.editStatus,
                 Created_By: item.CreatedBy,
@@ -258,13 +299,13 @@ const LWTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Sorting_Entry_' + currDate + '.xlsx');
+        saveAs(blob, 'LW_Entry_' + currDate + '.xlsx');
     }
     const handleSearch = async () => {
 
         setEditData([])
         setblockpagen('flex')
-        const response = await axios.put('/api/sorting/sortingprimarysearch', {
+        const response = await axios.put('/api/lw/lwprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
@@ -287,13 +328,13 @@ const LWTable = () => {
 
     }
     useEffect(() => {
-        if (editSortingLotWiseData.length > 0) {
+        if (editLWLotWiseData.length > 0) {
             //console.log(editPendingData)
-            setEditData(editSortingLotWiseData)
+            setEditData(editLWLotWiseData)
             setblockpagen('none')
         }
 
-    },[editSortingLotWiseData])
+    },[editLWLotWiseData])
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
         const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -332,21 +373,21 @@ const LWTable = () => {
         settoDate(nextday)
     }
  
-    const handleApprove = async (item: SortingData) => {
-        const response = await axios.put(`/api/sorting/approveeditSorting/${item.id}/${item.LotNo}/${item.origin}`)
+    const handleApprove = async (item: LWData) => {
+        const response = await axios.put(`/api/lw/approveeditLW/${item.id}/${item.LotNo}/${item.origin}`)
         const data = await response.data
-        if (data.message === "Edit Request of Sorting Entry is Approved Successfully") {
+        if (data.message === "Edit Request of LW Entry is Approved Successfully") {
 
             if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).showModal();
             }
         }
     }
-    const handleRejection = async (item: SortingData) => {
-        const response = await axios.delete(`/api/sorting/rejectededitSorting/${item.id}/${item.LotNo}/${item.origin}`)
+    const handleRejection = async (item: LWData) => {
+        const response = await axios.delete(`/api/lw/rejectededitLW/${item.id}/${item.LotNo}/${item.origin}`)
         const data = await response.data
         console.log(data)
-        if (data.message === "Sorting Entry rejected successfully") {
+        if (data.message === "LW Entry rejected successfully") {
             //console.log('rejected enter')
             if (rejectsuccessdialog != null) {
                 (rejectsuccessdialog as any).showModal();
@@ -407,7 +448,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
             </div>
-            {checkpending('Sorting') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+            {checkpending('LW') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-200 text-stone-950 ">
 
@@ -418,44 +459,59 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center" >Item_Lot_No</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
                     <TableHead className="text-center" >Issue_No</TableHead>
-                    <TableHead className="text-center" >BigTaiho_Entry_Date</TableHead>
+                    <TableHead className="text-center" >LW_Entry_Date</TableHead>
 
                     <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
-                    <TableHead className="text-center">Opening JJH</TableHead>
-                    <TableHead className="text-center">Opening SJH</TableHead>
-                    
-                    <TableHead className="text-center">Opening SJH1</TableHead>
-                    <TableHead className="text-center">Opening JH1</TableHead>
-                    <TableHead className="text-center">Opening JK_K</TableHead>
-                    <TableHead className="text-center">Opening SP1</TableHead>
-                    <TableHead className="text-center">Opening Peeling</TableHead>
-                    <TableHead className="text-center">Borma_Loss(Kg)</TableHead>
-                    <TableHead className="text-center">Borma_Loss(%)</TableHead>
-                    
-                    <TableHead className="text-center"> JJH (Borma)</TableHead>
-                <TableHead className="text-center"> SJH (Borma)</TableHead>
-                <TableHead className="text-center"> SJH1 (Borma)</TableHead>
-                <TableHead className="text-center"> JH1 (Borma)</TableHead>
-                <TableHead className="text-center"> JK_K (Borma)</TableHead>
-                <TableHead className="text-center"> SP1 (Borma)</TableHead>
-                <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
-                    <TableHead className="text-center">Receive BigTaiho</TableHead>
-                    <TableHead className="text-center">Sorting_Total_Opening (Borma)</TableHead>
-                    <TableHead className="text-center">Issue JJH</TableHead>
-                    <TableHead className="text-center">Issue JJH1</TableHead>
-                    <TableHead className="text-center">Issue SJH</TableHead>
-                    <TableHead className="text-center">Issue JK</TableHead>
-                    <TableHead className="text-center">Issue JK1</TableHead>
-                    <TableHead className="text-center">Issue K</TableHead>
-                    <TableHead className="text-center">Issue K1</TableHead>
-                    <TableHead className="text-center">Issue LWP</TableHead>
-                    <TableHead className="text-center">Issue LWP1</TableHead>
-                    <TableHead className="text-center">Issue S</TableHead>
-                    <TableHead className="text-center">Issue SS</TableHead>
-                    <TableHead className="text-center">Issue YK</TableHead>
-                    <TableHead className="text-center">Issue SP2</TableHead>
-                    <TableHead className="text-center">Issue KP</TableHead>       
+                    <TableHead className="text-center">Receive Mayur</TableHead>
+                    <TableHead className="text-center">Mayur Borma_Loss(Kg)</TableHead>
+                    <TableHead className="text-center">Mayur Borma_Loss(%)</TableHead>
+                   
+                    <TableHead className="text-center">Receive Hamsa</TableHead>
+                    <TableHead className="text-center">Hamsa Borma_Loss(Kg)</TableHead>
+                    <TableHead className="text-center">Hamsa Borma_Loss(%)</TableHead>
+                    <TableHead className="text-center">Receive Mayur(Borma)</TableHead>
+                    <TableHead className="text-center">Receive Hamsa(Borma)</TableHead>
+
+                    <TableHead className="text-center">Receive Wholes</TableHead>
+                    <TableHead className="text-center">LW_Total_Opening (Borma)</TableHead>
+                    <TableHead className="text-center">Issue KW</TableHead>
+                            <TableHead className="text-center">Issue KW1</TableHead>
+                            <TableHead className="text-center">Issue KW2</TableHead>
+                            <TableHead className="text-center">Issue KN</TableHead>
+                            <TableHead className="text-center">Issue DW</TableHead>
+                            <TableHead className="text-center">Issue DW1</TableHead>
+                            <TableHead className="text-center">Issue DW2</TableHead>
+                            <TableHead className="text-center">Issue OW</TableHead>
+                            <TableHead className="text-center">Issue OW1</TableHead>
+                            <TableHead className="text-center">Issue OW2</TableHead>
+                            <TableHead className="text-center">Issue JW</TableHead>
+                            <TableHead className="text-center">Issue PW</TableHead>
+                            <TableHead className="text-center">Issue ROW</TableHead>
+                            <TableHead className="text-center">Issue REJ 1</TableHead>
+                            <TableHead className="text-center">Issue LW3_180</TableHead>
+                            <TableHead className="text-center">Issue LW3_210</TableHead>
+                            <TableHead className="text-center">Issue LW3_240</TableHead>
+                            <TableHead className="text-center">Issue LW3_280</TableHead>
+                            <TableHead className="text-center">Issue LW3_360</TableHead>
+                            <TableHead className="text-center">Issue LW2</TableHead>
+                            <TableHead className="text-center">Issue LW4</TableHead>
+                            <TableHead className="text-center">Issue LW5</TableHead>
+                            <TableHead className="text-center">Issue LW6</TableHead>
+                            <TableHead className="text-center">Issue LW7</TableHead>
+                            <TableHead className="text-center">Issue REJ_3</TableHead>
+                            <TableHead className="text-center">Issue REJ_4</TableHead>
+                            <TableHead className="text-center">Issue JB2</TableHead>
+                            <TableHead className="text-center">Issue SJB</TableHead>
+                            <TableHead className="text-center">Issue K_240</TableHead>
+                            <TableHead className="text-center">Issue K_280</TableHead>
+                            <TableHead className="text-center">Issue K_360</TableHead>
+                            <TableHead className="text-center">Issue PKW</TableHead>
+                            <TableHead className="text-center">Issue BW</TableHead>
+                            <TableHead className="text-center">Issue RW</TableHead>
+                            <TableHead className="text-center">Issue RRW</TableHead>
+                            <TableHead className="text-center">Issue FW</TableHead>
+                            <TableHead className="text-center">Issue LW</TableHead>      
                     {/* <TableHead className="text-center">Issue Add 1</TableHead>
                     <TableHead className="text-center">Issue Add 2</TableHead>
                     <TableHead className="text-center">Issue Add 3</TableHead>
@@ -468,10 +524,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue Add 10</TableHead> */}
                      <TableHead className="text-center">Issue Packing</TableHead>
                      <TableHead className="text-center">Issue Village</TableHead>
-                    <TableHead className="text-center">Issue Mayur</TableHead>
-                    <TableHead className="text-center">Issue BigTaiho</TableHead>
-                    <TableHead className="text-center">Issue DPDS</TableHead>
-                    <TableHead className="text-center">Issue Rejection</TableHead>
+                            <TableHead className="text-center">Issue Hamsa</TableHead>
+                            <TableHead className="text-center">Issue BigTaiho</TableHead>
+                            <TableHead className="text-center">Issue Rejection</TableHead>
                     {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
                     <TableHead className="text-center font-bold">Current_Backlog</TableHead>  
                     <TableHead className="text-center">No of Labour</TableHead>
@@ -484,75 +539,99 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <TableBody>
 
 
-                    {EditData.length > 0 ? (EditData.map((item: SortingData, idx) => {
+                    {EditData.length > 0 ? (EditData.map((item: LWData, idx) => {
 
                         return (
                             <TableRow key={item.id}>
                             <TableCell className="text-center">{idx + 1}</TableCell>
                             <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
                                     
-                                    <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
+                             
+                            <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                               
                                     <TableCell className="text-center ">{item.mixingLot}</TableCell>
                                     {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_jjh)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_sjh)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_sjh1)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_jh1)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_jk_k)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_sp1)}</TableCell>
-                                    <TableCell className="text-center font-semibold ">{formatNumber((parseFloat(item.rcv_jjh) +
-                                     parseFloat(item.rcv_sjh)+parseFloat(item.rcv_sjh1)+parseFloat(item.rcv_jh1)+parseFloat(item.rcv_jk_k)+
-                                     parseFloat(item.rcv_sp1)).toString())}</TableCell>
-                                     <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
+                                  
+                                    <TableCell className="text-center ">{formatNumber(item.rcv_mayur)}</TableCell>
+                                    <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
                                     <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_add_4)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_5)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_6)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_add_7)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_8)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_9)}</TableCell>
+                                   
+
+                                    <TableCell className="text-center ">{formatNumber(item.rcv_hamsa)}</TableCell>
+                                    <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_5)} Kg</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_6)} %</TableCell>
                                     <TableCell className="text-center text-center bg-yellow-100 font-semibold">
-                                    {formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
-                                +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)).toString())}
+                                    {formatNumber(item.issue_add_7)}
                                     </TableCell>
-                                    <TableCell className="text-center font-bold bg-yellow-100 ">{item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) :0}</TableCell>
-                                    <TableCell className="text-center font-bold bg-green-500 text-white">{formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
-                                +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)+(item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) :0)).toString())
+                                    <TableCell className="text-center text-center bg-yellow-100 font-semibold">
+                                    {formatNumber(item.issue_add_8)}
+                                    </TableCell>     
+                                    <TableCell className="text-center font-bold bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) :0}</TableCell>
+
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">{formatNumber((parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)
+                                    +(item.rcv_wholes ? parseFloat(item.rcv_wholes) :0)).toString())
                                 } Kg</TableCell>
 
                                     
                                     
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_jjh)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_jjh1)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_sjh)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_jk)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_jk1)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_k)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_k1)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_lwp)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_lwp1)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_s)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_ss)}</TableCell>
-                                   
-                                    <TableCell className="text-center ">{formatNumber(item.issue_yk)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_sp2)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_kp)}</TableCell>
+<TableCell className="text-center  ">{formatNumber(item.issue_kw)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_kw_1)}</TableCell>
+<TableCell className="text-center  ">{formatNumber(item.issue_kw_2)}</TableCell>
+<TableCell className="text-center  ">{formatNumber(item.issue_kn)}</TableCell>
+<TableCell className="text-center  ">{formatNumber(item.issue_dw)}</TableCell>
+<TableCell className="text-center  ">{formatNumber(item.issue_dw_1)}</TableCell>
+<TableCell className="text-center  ">{formatNumber(item.issue_dw_2)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_ow)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_ow_1)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_ow_2)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_jw)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_pw)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_row)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_rej_1)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_lw3_180)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_lw3_210)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_lw3_240)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_lw3_280)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_lw3_360)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_lw2)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_lw4)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_lw5)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_lw6)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_lw7)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_rej_3)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_rej_4)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_jb2)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_sjb)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_k_240)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_k_280)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_k_360)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_pkw)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_bw)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_rw)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_rrw)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_fw)}</TableCell>
+<TableCell className="text-center ">{formatNumber(item.issue_lw)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber((
-                                     parseFloat(item.issue_jjh)+parseFloat(item.issue_jjh1)+
-                                     parseFloat(item.issue_sjh) +parseFloat(item.issue_jk)+parseFloat(item.issue_jk1)+
-                                      +parseFloat(item.issue_k1)+parseFloat(item.issue_lwp)+
-                                     parseFloat(item.issue_lwp1) +parseFloat(item.issue_s)+parseFloat(item.issue_ss)+
-                                     parseFloat(item.issue_k) +parseFloat(item.issue_yk)+parseFloat(item.issue_sp2)+
-                                     parseFloat(item.issue_kp) ).toString())}</TableCell>
+                                    parseFloat(item.issue_kw) + parseFloat(item.issue_kw_1) + parseFloat(item.issue_kw_2) + 
+                                    parseFloat(item.issue_kn) + parseFloat(item.issue_dw) + parseFloat(item.issue_dw_1) + 
+                                    parseFloat(item.issue_dw_2) + parseFloat(item.issue_ow) + parseFloat(item.issue_ow_1) + 
+                                    parseFloat(item.issue_ow_2) + parseFloat(item.issue_jw) + parseFloat(item.issue_pw) + 
+                                    parseFloat(item.issue_row) + parseFloat(item.issue_rej_1) + parseFloat(item.issue_lw3_180) + 
+                                    parseFloat(item.issue_lw3_210) + parseFloat(item.issue_lw3_240) + parseFloat(item.issue_lw3_280) + 
+                                    parseFloat(item.issue_lw3_360) + parseFloat(item.issue_lw2) + parseFloat(item.issue_lw4) + 
+                                    parseFloat(item.issue_lw5) + parseFloat(item.issue_lw6) + parseFloat(item.issue_lw7) + 
+                                    parseFloat(item.issue_rej_3) + parseFloat(item.issue_rej_4) + parseFloat(item.issue_jb2) + 
+                                    parseFloat(item.issue_sjb) + parseFloat(item.issue_k_240) + parseFloat(item.issue_k_280) + 
+                                    parseFloat(item.issue_k_360) + parseFloat(item.issue_pkw) + parseFloat(item.issue_bw) + 
+                                    parseFloat(item.issue_rw) + parseFloat(item.issue_rrw) + parseFloat(item.issue_fw) + 
+                                    parseFloat(item.issue_lw)).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_village)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_mayur)}</TableCell>
-                                    
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_hamsa)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_dpds)}</TableCell>
+                                    
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
                      
                                     {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
@@ -603,82 +682,105 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 </TableCell>
                             </TableRow>
                         ) })): (
-                        Data.length > 0 ? (Data.map((item: SortingData, idx) => {
+                        Data.length > 0 ? (Data.map((item: LWData, idx) => {
                             return (
                                 <TableRow key={item.id} className={`${item.latest==1 ? '' : 'opacity-50 hover:bg-gray-200 bg-gray-200'}`}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                     <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
-                                    
+
                                     <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                              
+
                                     <TableCell className="text-center ">{item.mixingLot}</TableCell>
                                     {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_jjh)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_sjh)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_sjh1)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_jh1)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_jk_k)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_sp1)}</TableCell>
-                                    <TableCell className="text-center font-semibold ">{formatNumber((parseFloat(item.rcv_jjh) +
-                                     parseFloat(item.rcv_sjh)+parseFloat(item.rcv_sjh1)+parseFloat(item.rcv_jh1)+parseFloat(item.rcv_jk_k)+
-                                     parseFloat(item.rcv_sp1)).toString())}</TableCell>
-                                     <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_add_4)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_5)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_6)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_add_7)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_8)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_add_9)}</TableCell>
-                                    <TableCell className="text-center text-center bg-yellow-100 font-semibold">
-                                    {formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
-                                +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)).toString())}
-                                    </TableCell>
-                                    <TableCell className="text-center font-bold bg-yellow-100 ">{item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) :0}</TableCell>
-                                    <TableCell className="text-center font-bold bg-green-500 text-white">{formatNumber((parseFloat(item.issue_add_4) +parseFloat(item.issue_add_5)+parseFloat(item.issue_add_6)
-                                +parseFloat(item.issue_add_7) +parseFloat(item.issue_add_8)+parseFloat(item.issue_add_9)+(item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) :0)).toString())
-                                } Kg</TableCell>
 
-                                    
-                                    
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_jjh)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_jjh1)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_sjh)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_jk)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_jk1)}</TableCell>
-                                    <TableCell className="text-center  ">{formatNumber(item.issue_k)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_k1)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_lwp)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_lwp1)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_s)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_ss)}</TableCell>
-                                   
-                                    <TableCell className="text-center ">{formatNumber(item.issue_yk)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_sp2)}</TableCell>
-                                    <TableCell className="text-center ">{formatNumber(item.issue_kp)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.rcv_mayur)}</TableCell>
+                                    <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
+
+
+                                    <TableCell className="text-center ">{formatNumber(item.rcv_hamsa)}</TableCell>
+                                    <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_5)} Kg</TableCell>
+                                    <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_6)} %</TableCell>
+                                    <TableCell className="text-center text-center bg-yellow-100 font-semibold">
+                                        {formatNumber(item.issue_add_7)}
+                                    </TableCell>
+                                    <TableCell className="text-center text-center bg-yellow-100 font-semibold">
+                                        {formatNumber(item.issue_add_8)}
+                                    </TableCell>
+                                    <TableCell className="text-center font-bold bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0}</TableCell>
+
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">{formatNumber((parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8)
+                                        + (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toString())
+                                    } Kg</TableCell>
+
+
+
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_kw)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_kw_1)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_kw_2)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_kn)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_dw)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_dw_1)}</TableCell>
+                                    <TableCell className="text-center  ">{formatNumber(item.issue_dw_2)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_ow)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_ow_1)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_ow_2)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_jw)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_pw)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_row)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_rej_1)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_lw3_180)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_lw3_210)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_lw3_240)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_lw3_280)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_lw3_360)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_lw2)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_lw4)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_lw5)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_lw6)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_lw7)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_rej_3)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_rej_4)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_jb2)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_sjb)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_k_240)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_k_280)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_k_360)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_pkw)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_bw)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_rw)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_rrw)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_fw)}</TableCell>
+                                    <TableCell className="text-center ">{formatNumber(item.issue_lw)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber((
-                                     parseFloat(item.issue_jjh)+parseFloat(item.issue_jjh1)+
-                                     parseFloat(item.issue_sjh) +parseFloat(item.issue_jk)+parseFloat(item.issue_jk1)+
-                                      +parseFloat(item.issue_k1)+parseFloat(item.issue_lwp)+
-                                     parseFloat(item.issue_lwp1) +parseFloat(item.issue_s)+parseFloat(item.issue_ss)+
-                                     parseFloat(item.issue_k) +parseFloat(item.issue_yk)+parseFloat(item.issue_sp2)+
-                                     parseFloat(item.issue_kp) ).toString())}</TableCell>
+                                        parseFloat(item.issue_kw) + parseFloat(item.issue_kw_1) + parseFloat(item.issue_kw_2) +
+                                        parseFloat(item.issue_kn) + parseFloat(item.issue_dw) + parseFloat(item.issue_dw_1) +
+                                        parseFloat(item.issue_dw_2) + parseFloat(item.issue_ow) + parseFloat(item.issue_ow_1) +
+                                        parseFloat(item.issue_ow_2) + parseFloat(item.issue_jw) + parseFloat(item.issue_pw) +
+                                        parseFloat(item.issue_row) + parseFloat(item.issue_rej_1) + parseFloat(item.issue_lw3_180) +
+                                        parseFloat(item.issue_lw3_210) + parseFloat(item.issue_lw3_240) + parseFloat(item.issue_lw3_280) +
+                                        parseFloat(item.issue_lw3_360) + parseFloat(item.issue_lw2) + parseFloat(item.issue_lw4) +
+                                        parseFloat(item.issue_lw5) + parseFloat(item.issue_lw6) + parseFloat(item.issue_lw7) +
+                                        parseFloat(item.issue_rej_3) + parseFloat(item.issue_rej_4) + parseFloat(item.issue_jb2) +
+                                        parseFloat(item.issue_sjb) + parseFloat(item.issue_k_240) + parseFloat(item.issue_k_280) +
+                                        parseFloat(item.issue_k_360) + parseFloat(item.issue_pkw) + parseFloat(item.issue_bw) +
+                                        parseFloat(item.issue_rw) + parseFloat(item.issue_rrw) + parseFloat(item.issue_fw) +
+                                        parseFloat(item.issue_lw)).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_village)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_mayur)}</TableCell>
-                                    
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_hamsa)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_dpds)}</TableCell>
+
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
-                     
+
                                     {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
-                                               
+
                                     <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
-                            
-                        <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
-                        {/* <TableCell className="text-center">{item.noOfnightOperators}</TableCell> */}
+
+                                    <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
+                                    {/* <TableCell className="text-center">{item.noOfnightOperators}</TableCell> */}
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
                                     <TableCell className="text-center">{item.CreatedBy}</TableCell>
                                     <TableCell className="text-center">
