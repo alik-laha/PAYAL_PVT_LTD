@@ -1,15 +1,11 @@
 
 import DashboardHeader from '../dashboard/DashboardHeader'
 import DashboardSidebar from '../dashboard/DashboardSidebar'
-
-
-
 import { Button } from "@/components/ui/button";
 
 import {
     Dialog,
     DialogContent,
-
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -17,31 +13,28 @@ import {
 
 import Context from '../context/context';
 import { useContext, useState } from 'react';
-
 import axios from 'axios'
 import UseQueryData from '../common/dataFetcher';
 import Loader from '../common/Loader';
-import {  pendingCheckRoles, PermissionRole } from '@/type/type';
-// import RCNHumidCreateForm from './HumidifierCreateForm';
+import { pendingCheckRoles, PermissionRole } from '@/type/type';
 import { pendingCheckRole } from '../common/exportData';
-import MayurInitial from './MayurInitial';
-import MayurTable from './MayurTable';
-import MayurHistoryTable from './MayurHistoryTable';
+import RejectionInitial from './RejectionInitial';
+//import RejectionTable from './RejectionTable';
+import RejectionHistoryTable from './RejectionHistory';
 
 
+const Rejection = () => {
 
-const Mayur = () => {
-
-    const { setEditMayurLotWiseData } = useContext(Context)
+    const { setEditRejectionLotWiseData } = useContext(Context)
     const [lotdata, setLotData] = useState<any[]>([])
     const [maintable, setMainTable] = useState<string>('block')
     const [historytable, setHistoryTable] = useState<string>('none')
-    const { data, isLoading, error } = UseQueryData('/api/mayur/sumofallMayur', 'GET', 'AllMayurSum');
+    const { data, isLoading, error } = UseQueryData('/api/rejection/sumofallRejection', 'GET', 'AllRejectionSum');
     const handleEditFetch = async () => {
 
-        axios.get("/api/mayur/findEditMayurAll").then(res => {
+        axios.get("/api/rejection/findEditRejectionAll").then(res => {
             console.log(res)
-            setEditMayurLotWiseData(res.data.scoopingAllEdit)
+            setEditRejectionLotWiseData(res.data.scoopingAllEdit)
         })
             .catch(err => {
                 console.log(err)
@@ -55,12 +48,12 @@ const Mayur = () => {
     if (error) {
         return <div>Error</div>;
     }
-    const handleTransferFetch =  () => {
-        if(maintable === 'block'){
+    const handleTransferFetch = () => {
+        if (maintable === 'block') {
             setMainTable('none')
             setHistoryTable('block')
         }
-        else{
+        else {
             setMainTable('block')
             setHistoryTable('none')
         }
@@ -68,7 +61,7 @@ const Mayur = () => {
     console.log(data)
 
     const handleOpenLotNo = async () => {
-        axios.get('/api/mayur/getUnMayurEntry/0').then(res => {
+        axios.get('/api/rejection/getUnRejectionEntry/0').then(res => {
             console.log(res)
             setLotData(res.data.scoopingLot)
             console.log(lotdata)
@@ -99,66 +92,69 @@ const Mayur = () => {
             <DashboardSidebar />
             <div className='dashboard-main-container'>
                 <div className="flexbox-header">
-                <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
-                        Issue Hamsa <br /><p>{data.data[0].issue_pw_w && data.data[0].issue_w_lot && data.data[0].issue_ww ? formatNumber
-                        (parseFloat(data.data[0].issue_pw_w)+parseFloat(data.data[0].issue_w_lot)+parseFloat(data.data[0].issue_ww)
-                        )  : 0}  Kg</p>
+                    <div className="flexbox-tile bg-blue-500 hover:bg-orange-400">
+                        Issue Packing <br />
+                        <p>
+                            {
+                                data.data[0].issue_packing
+                                    ? formatNumber(
+                                        parseFloat(data.data[0].issue_packing) 
+                                    ) : 0
+                            } Kg
+                        </p>
+
+
                     </div>
-               
-                    <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
-                    Issue Big Taiho <br /><p>{data.data[0].issue_bigTaiho ? formatNumber(parseFloat(data.data[0].issue_bigTaiho))  : 0} Kg</p>
-                    </div>
+
+
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
-                    Issue Village <br /><p>{data.data[0].issue_village ? formatNumber(parseFloat(data.data[0].issue_village))  : 0}  Kg</p>
+                        Issue Uncut & Unscoop <br /><p>{data.data[0].issue_uncut_unscoop ? formatNumber(parseFloat(data.data[0].issue_uncut_unscoop)) : 0}  Kg</p>
                     </div>
+
                     <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
-                    Issue LW <br /><p>{data.data[0].issue_LW ? formatNumber(parseFloat(data.data[0].issue_LW))  : 0}  Kg</p>
+                        Issue Shell <br /><p>{data.data[0].issue_shell ? formatNumber(parseFloat(data.data[0].issue_shell)) : 0}  Kg</p>
                     </div>
+
                     <div className="flexbox-tile bg-violet-500 hover:bg-orange-400">
-                    Issue Wholes(JB) <br /><p>{data.data[0].issue_JB ? formatNumber(parseFloat(data.data[0].issue_JB))  : 0}  Kg</p>
+                        Issue Village <br /><p>{data.data[0].issue_village ? formatNumber(parseFloat(data.data[0].issue_village)) : 0}  Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-purple-500 hover:bg-orange-400">
-                    Issue Rejection <br /><p>{data.data[0].issue_rejection  ?  formatNumber(parseFloat(data.data[0].issue_rejection)): 0} Kg</p>
+
+                    <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
+                        Issue Catelfeed <br /><p>{data.data[0].issue_catelfeed ? formatNumber(parseFloat(data.data[0].issue_catelfeed)) : 0}  Kg</p>
                     </div>
+
                     <div className="flexbox-tile bg-cyan-500 hover:bg-orange-400">
-                        Backlog <br /><p>{data.data[0].current_backlog  ?  formatNumber(parseFloat(data.data[0].current_backlog)): 0} Kg</p>
+                        Current Backlog <br /><p>{data.data[0].current_backlog ? formatNumber(parseFloat(data.data[0].current_backlog)) : 0} Kg</p>
                     </div>
-                  
-                   
-                 
-                    
-
-
-
 
 
                 </div>
                 {/* <Button className="bg-orange-400 mb-2 mt-5 ml-4" type="submit">+ Add New Enrty</Button> */}
-                <p className='text-lg font-semibold text-center '>CURRENT F.Y. REPORT (MAYUR)</p>
+                <p className='text-lg font-semibold text-center capitalize'>CURRENT F.Y. REPORT (REJECTION)</p>
                 <div>
                     <Dialog>
                         <DialogTrigger> <Button className="bg-red-500 mb-2 mt-5 ml-4 no-margin-left responsive-button-adjust" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
-                        <DialogContent className='max-w-3xl'>
+                        <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Mayur Entry Form</p></DialogTitle>
+                                <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Rejection Entry Form</p></DialogTitle>
 
                             </DialogHeader>
 
-                            <MayurInitial props={lotdata} />
+                            <RejectionInitial props={lotdata} />
                         </DialogContent>
                     </Dialog>
 
 
-                    {checkpending('Mayur') &&  <Button className="bg-orange-400 mb-2 ml-4 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button> }
-                    <Button className="bg-blue-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {maintable==='block' ? 'Incoming/Mixing':'Main Entry '}</Button>
+                    {checkpending('Rejection') && <Button className="bg-orange-400 mb-2 ml-4 responsive-button-adjust" onClick={handleEditFetch}> Pending Edit ({data.EditData})</Button>}
+                    <Button className="bg-blue-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {maintable === 'block' ? 'Incoming/Mixing' : 'Main Entry '}</Button>
                 </div>
                 <div style={{ display: maintable }}>
-                    <MayurTable/>
+                    {/* <RejectionTable /> */}
                 </div>
                 <div style={{ display: historytable }}>
-                    <MayurHistoryTable/>
+                    <RejectionHistoryTable />
                 </div>
-                
+
 
             </div>
         </div>
@@ -166,4 +162,4 @@ const Mayur = () => {
 
     )
 }
-export default Mayur;
+export default Rejection;

@@ -123,11 +123,11 @@ const Sorting = () => {
                     Issue DPDS <br /><p>{data.data[0].issue_dpds? formatNumber(parseFloat(data.data[0].issue_dpds))  : 0}  Kg</p>
                     </div>
 
-                    <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
                     Issue Village <br /><p>{data.data[0].issue_village ? formatNumber(parseFloat(data.data[0].issue_village))  : 0}  Kg</p>
                     </div>
                     
-                    <div className="flexbox-tile bg-orange-500 hover:bg-red-400">
+                    <div className="flexbox-tile bg-purple-500 hover:bg-red-400">
                     Issue BigTaiho <br /><p>{data.data[0].issue_bigTaiho ? formatNumber(parseFloat(data.data[0].issue_bigTaiho))  : 0}  Kg</p>
                     </div>
 

@@ -124,11 +124,11 @@ const DPDS = () => {
                     <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
                     Issue Village <br /><p>{data.data[0].issue_village ? formatNumber(parseFloat(data.data[0].issue_village))  : 0}  Kg</p>
                     </div>
-                    <div className="flexbox-tile bg-orange-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
                     Issue Mayur <br /><p>{data.data[0].issue_mayur ? formatNumber(parseFloat(data.data[0].issue_mayur))  : 0}  Kg</p>
                     </div>
                     
-                    <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
+                    <div className="flexbox-tile bg-purple-500 hover:bg-orange-400">
                     Issue Rejection <br /><p>{data.data[0].issue_rejection  ?  formatNumber(parseFloat(data.data[0].issue_rejection)): 0} Kg</p>
                     </div>
                     <div className="flexbox-tile bg-cyan-500 hover:bg-orange-400">

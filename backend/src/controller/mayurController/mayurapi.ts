@@ -36,7 +36,7 @@ export const getMayurLot = async (req: Request, res: Response) => {
         const status = req.params.status;
         const scoopingLot = await Mayur.findAll({
             
-            attributes: ['LotNo', 'origin','current_backlog','rcv_wholespeel','rcv_wholesunpeel'],
+            attributes: ['LotNo', 'origin','current_backlog','rcv_wholespeel','rcv_wholesunpeel','rcv_DPDS'],
             where: {
                 Status:status
             }

@@ -10,7 +10,12 @@ import { AssetData, EditPendingData, GradingData, BoilingEntryData, Sumofpackage
      PeelingData,
      MayurData,
      DPDSData,
-     BigTaihoData} from '../../type/type';
+     BigTaihoData,
+     HamsaData,
+     SortingData,
+     WholesData,
+     LWData,
+     RejectionData} from '../../type/type';
 
 interface ContextType {
     editPendingData: EditPendingData[];
@@ -71,12 +76,16 @@ interface ContextType {
     setEditDPDSLotWiseData: (data: DPDSData[]) => void;
     editBigTaihoLotWiseData: BigTaihoData[];
     setEditBigTaihoLotWiseData: (data: BigTaihoData[]) => void;
-    editHamsaLotWiseData: any[];
-    setEditHamsaLotWiseData: (data: any[]) => void;
-    editSortingLotWiseData: any[];
-    setEditSortingLotWiseData: (data: any[]) => void;
-    editWholesLotWiseData: any[];
-    setEditWholesLotWiseData: (data: any[]) => void;
+    editHamsaLotWiseData: HamsaData[];
+    setEditHamsaLotWiseData: (data: HamsaData[]) => void;
+    editSortingLotWiseData: SortingData[];
+    setEditSortingLotWiseData: (data: SortingData[]) => void;
+    editWholesLotWiseData: WholesData[];
+    setEditWholesLotWiseData: (data: WholesData[]) => void;
+    editLWLotWiseData: LWData[];
+    setEditLWLotWiseData: (data: LWData[]) => void;
+    editRejectionLotWiseData: RejectionData[];
+    setEditRejectionLotWiseData: (data: RejectionData[]) => void;
     
 }
 
@@ -145,7 +154,11 @@ const Context = createContext<ContextType>({
     editSortingLotWiseData: [],
     setEditSortingLotWiseData: () => {},
     editWholesLotWiseData: [],
-    setEditWholesLotWiseData: () => {}
+    setEditWholesLotWiseData: () => {},
+    editLWLotWiseData: [],
+    setEditLWLotWiseData: () => {},
+    editRejectionLotWiseData: [],
+    setEditRejectionLotWiseData: () => {}
 
 });
 

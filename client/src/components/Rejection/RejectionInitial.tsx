@@ -20,22 +20,27 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import cross from '../../assets/Static_Images/error_img.png'
-import RCNDPDSCreateForm from "./DPDSCreateForm";
-import { DPDSData } from "@/type/type";
+// import RCNDPDSCreateForm from "./DPDSCreateForm";
+import {   RejectionData } from "@/type/type";
+import RejectionCreateForm from "./RejectionCreateForm";
 
 
 interface lotPropsdata{
-    LotNo:string;
-    origin:string;
-    current_backlog:string;
-    rcv_dp:string;
-    rcv_ds:string;
-    rcv_dp1:string;
-    rcv_Sorting:string;
+    LotNo: string;
+    origin: string;
+    current_backlog: string;
+    rcv_mayur:string;
+    rcv_wholes:string;
+    rcv_lw:string;
+    rcv_bigTaiho:string;
+    rcv_peeling:string;
+    rcv_dpds:string;
+    rcv_village:string;
+    rcv_sorting:string;
 }
 
-const DPDSInitial = (props: any) => {
-    const [bormaData, setBormaData ]  = useState<DPDSData[]>([])
+const RejectionInitial = (props: any) => {
+    const [bormaData, setBormaData ]  = useState<RejectionData[]>([])
     const [errortext, seterrorText] = useState<string>('');
     
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialogPeel') as HTMLInputElement;
@@ -54,16 +59,7 @@ const DPDSInitial = (props: any) => {
     //let scoopdata:ScoopData[]=[]
     console.log(props)
     const handleLineEntry = async (lotNO:string,origin:string) => {
-        const resStatus = await axios.post('/api/boiling/pendingLotCount', { lotNo: lotNO,section:'Peeling'})
-        console.log(resStatus)
-        if (resStatus.data.count && resStatus.data.count >0) 
-            {
-                seterrorText('Modification of Lot is Pending in Peeling Section')
-                if (rejectsuccessdialog != null) {
-                    (rejectsuccessdialog as any).showModal();
-                }
-                return
-            }
+        
         const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: lotNO,origin:origin})
         console.log(resStatus1)
         if (resStatus1.data.scoopingLot && resStatus1.data.scoopingLot[0].editStatus ==='Pending') 
@@ -76,7 +72,7 @@ const DPDSInitial = (props: any) => {
                 return
             }
            
-        await axios.get(`/api/dpds/getDPDSByLotOrigin/${lotNO}/${origin}`).then(res=>{
+        await axios.get(`/api/rejection/getRejectionByLotOrigin/${lotNO}/${origin}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.scoopingLot)){
             //scoopdata=res.data.scoopingLot
@@ -107,46 +103,57 @@ const DPDSInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-                                if(item.rcv_Sorting && (parseFloat(item.rcv_dp)+ parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1))>0 ){
-                                    return (
-                                        <TableRow key={idx}>
-                                            <TableCell className="text-center">
-                                                {idx + 1}
-                                            </TableCell>
-                                            <TableCell className="text-center font-semibold text-red-500">
-                                                {item.LotNo}
-                                            </TableCell>
-                                            <TableCell className="text-center font-semibold text-blue-500">
-                                                {item.origin}
-                                            </TableCell>
-                                            <TableCell className="text-center font-semibold ">
-                                                {formatNumber(item.current_backlog)} Kg
-                                            </TableCell>
-                                            
-                                            <TableCell className="text-center">
-                                                <Dialog>
-                                                    <DialogTrigger>
-                                                        <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
-                                              <DialogContent className='max-w-7xl'>
-                                                        <DialogHeader>
-                                                            <DialogTitle><p className='text-1xl text-center mt-1'>DPDS Line Entry</p></DialogTitle>
-    
-                                                        </DialogHeader>
-                                                    
-                                                        <RCNDPDSCreateForm borma={bormaData}/>
-                                                    </DialogContent>
-                                                </Dialog>
-                                            </TableCell>
-    
-                                        </TableRow>
-                                    );
-                                }
+                              if(item.rcv_mayur && item.rcv_peeling  && item.rcv_bigTaiho 
+                                && item.rcv_wholes && item.rcv_sorting && item.rcv_dpds && item.rcv_lw
+                                &&((item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
+                              (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
+                              (item.rcv_peeling ? parseFloat(item.rcv_peeling) : 0) + 
+                              (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0) + 
+                              (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
+                              (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
+                              (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) + 
+                              (item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0) 
+                              )>0){
+                                return (
+                                    <TableRow key={idx}>
+                                        <TableCell className="text-center">
+                                            {idx + 1}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">
+                                            {item.LotNo}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold text-blue-500">
+                                            {item.origin}
+                                        </TableCell>
+                                        <TableCell className="text-center font-semibold ">
+                                        {formatNumber(item.current_backlog)} Kg
+                                        </TableCell>
+                                        
+                                        <TableCell className="text-center">
+                                            <Dialog>
+                                                <DialogTrigger>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
+                                          <DialogContent className='max-w-9xl'>
+                                                    <DialogHeader>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Rejection Line Entry</p></DialogTitle>
+
+                                                    </DialogHeader>
+                                                
+                                                    <RejectionCreateForm borma={bormaData}/>
+                                                </DialogContent>
+                                            </Dialog>
+                                        </TableCell>
+
+                                    </TableRow>
+                                );
+                              }
+                             
                                 
                             })
                         ) : <TableRow>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell className="text-left  text-red-500 font-semibold">No Pending DPDS</TableCell>
+                            <TableCell className="text-left  text-red-500 font-semibold">No Pending Wholes</TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             </TableRow>}
@@ -170,4 +177,4 @@ const DPDSInitial = (props: any) => {
 
 
 }
-export default DPDSInitial
+export default RejectionInitial

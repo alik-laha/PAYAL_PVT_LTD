@@ -111,7 +111,7 @@ export const getBigTaihoLot = async (req: Request, res: Response) => {
         const status = req.params.status;
         const scoopingLot = await bigTaihoModel.findAll({
             
-            attributes: ['LotNo', 'origin','current_backlog'],
+            attributes: ['LotNo', 'origin','current_backlog','rcv_sorting','rcv_dpds','rcv_mayur','rcv_hamsa','rcv_lw','rcv_wholes'],
             where: {
                 Status:status
             }

@@ -472,8 +472,10 @@ const WholesCreateForm = (props: Props) => {
                             <TableHead className="text-center">Receive PW_400 (Borma)</TableHead>
                             <TableHead className="text-center">Receive W_400 (Borma)</TableHead>
                             <TableHead className="text-center">Receive WW_400 (Borma)</TableHead>
-                            <TableHead className="text-center">Receive JB_Mayur (Borma)</TableHead>
-                            <TableHead className="text-center">Receive JB_Hamsa (Borma)</TableHead>
+                            <TableHead className="text-center">Receive JB (Borma)</TableHead>
+                            <TableHead className="text-center">Receive Hamsa (Borma)</TableHead>
+                            <TableHead className="text-center">Receive Mayur (Borma)</TableHead>
+                         
                             
                             <TableHead className="text-center">Total Receive</TableHead>
                             <TableHead className="text-center">Total Receive (Borma)</TableHead>
@@ -578,9 +580,35 @@ const WholesCreateForm = (props: Props) => {
                                             <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(String(row.rcv_pw_400))} </TableCell>
                                             <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(String(row.rcv_w_400))} </TableCell>
                                             <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(String(row.rcv_ww_400))} </TableCell>
-                                            <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(String(row.rcv_jb_mayur))} </TableCell>
-                                            <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(String(row.rcv_jb_hamsa))} </TableCell>
-                                            <TableCell className="text-center font-semibold bg-yellow-100 text-green-600">
+                                            <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(String(row.rcv_jb_hamsa))} </TableCell>
+                                            <TableCell className="text-center font-semibold text-green-600">
+                                                {formatNumber((
+                                                    parseFloat(String(row.rcv_pw_210)) +
+                                                    parseFloat(String(row.rcv_w_210)) +
+                                                    parseFloat(String(row.rcv_ww_210)) +
+                                                    parseFloat(String(row.rcv_pw_240)) +
+                                                    parseFloat(String(row.rcv_w_240)) +
+                                                    parseFloat(String(row.rcv_ww_240)) +
+                                                    parseFloat(String(row.rcv_pw_280)) +
+                                                    parseFloat(String(row.rcv_w_280)) +
+                                                    parseFloat(String(row.rcv_ww_280)) +
+                                                    parseFloat(String(row.rcv_pw_320)) +
+                                                    parseFloat(String(row.rcv_w_320)) +
+                                                    parseFloat(String(row.rcv_ww_320)) +
+                                                    parseFloat(String(row.rcv_pw_360)) +
+                                                    parseFloat(String(row.rcv_w_360)) +
+                                                    parseFloat(String(row.rcv_ww_360)) +
+                                                    parseFloat(String(row.rcv_pw_400)) +
+                                                    parseFloat(String(row.rcv_w_400)) +
+                                                    parseFloat(String(row.rcv_ww_400)) +
+                                                    parseFloat(String(row.rcv_jb_hamsa)) 
+                                              
+                                                ).toString())} 
+                                            </TableCell>
+
+                                            <TableCell className="text-center font-semibold text-green-600">{formatNumber(String(row.rcv_jb_mayur))} </TableCell>
+                                           
+                                            <TableCell className="text-center font-semibold  text-green-700">
                                                 {formatNumber((
                                                     parseFloat(String(props.borma[0].rcv_pw_210)) +
                                                     parseFloat(String(props.borma[0].rcv_w_210)) +

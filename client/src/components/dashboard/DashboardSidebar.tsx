@@ -20,9 +20,10 @@ import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { FaUserTie, FaWater, FaSortAmountDownAlt ,FaAcquisitionsIncorporated } from "react-icons/fa";
 import { PiPackageLight, PiWashingMachineLight } from "react-icons/pi";
-import { GiBoilingBubbles, GiIceCreamScoop, GiGate, GiBoxingRing,GiVendingMachine } from "react-icons/gi";
+import { GiBoilingBubbles, GiIceCreamScoop, GiGate, GiPillDrop ,GiBoxingRing,GiVendingMachine } from "react-icons/gi";
 import { AiFillCodeSandboxSquare, AiOutlineProduct } from "react-icons/ai";
 import { CiPill } from "react-icons/ci";
+import { GrEject } from "react-icons/gr";
 
 import { CgSmartHomeBoiler } from "react-icons/cg";
 import { BsMoisture } from "react-icons/bs";
@@ -316,14 +317,25 @@ const DashboardSidebar = () => {
                                     </NavLink>
                                 </CollapsibleContent>}
 
+                                {renderlink('LW')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/LW" >
+                                        <p className="flex"> <GiPillDrop  size={20} /><p className="pl-3">  Lower Grading</p></p>
+                                    </NavLink>
+                                </CollapsibleContent>}
 
-                           
+                                {renderlink('Rejection')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/Rejection" >
+                                        <p className="flex"> <GrEject   size={20} /><p className="pl-3">  Rejection</p></p>
+                                    </NavLink>
+                                </CollapsibleContent>}
 
                             {renderlink('Receiving Village Entry')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/RcvVillage" >
 
-                                        <p className="flex"> <MdHolidayVillage size={20} /><p className="pl-3">  Village Primary </p></p>
+                                        <p className="flex"> <MdHolidayVillage size={20} /><p className="pl-3">  Village Gatepass </p></p>
 
                                     </NavLink>
 
