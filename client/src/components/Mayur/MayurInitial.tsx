@@ -111,7 +111,7 @@ const MayurInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-                                if(item.rcv_DPDS && (Number(item.rcv_wholespeel)+ Number(item.rcv_wholesunpeel))>0 ){
+                                if( (Number(item.rcv_wholespeel)+ Number(item.rcv_wholesunpeel))>0 ){
                                     return (
                                         <TableRow key={idx}>
                                             <TableCell className="text-center">

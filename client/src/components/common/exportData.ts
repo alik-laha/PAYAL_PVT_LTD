@@ -49,11 +49,11 @@ export const PermissionRol = {
     PeelingSupervisor:['Humidifier','Peeling','BigTaiho'],
     MayurSupervisor:['Mayur','Hamsa'],
     SortingSupervisor:['Sorting','DPDS'],
-    VillageSupervisor:['Receiving Village Entry','Rejection',],
-    WholesSupervisor:['Wholes'],
+    VillageSupervisor:['Receiving Village Entry','Rejection'],
+    WholesSupervisor:['Wholes','LW'],
     Security:['Gatepass'],
     GatePassManager:['Gatepass','RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
-        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','Receiving Village Entry']
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','Receiving Village Entry','Receiving OilMill Entry']
 }
 
 export const PermissionDep = {
