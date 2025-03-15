@@ -6,7 +6,7 @@ import {
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
 import { CreateEntireRejection, findEditRejectionAll, 
-      getRejectionBylotorigin, getRejectionLot, sumOfallRejection } from "../controller/RejectionController/RejectionApi";
+      getRejectionBylotorigin, getRejectionLot, SearchRCNRejection, sumOfallRejection } from "../controller/RejectionController/RejectionApi";
 
 
 const router = express()
@@ -26,7 +26,7 @@ router.post("/createEntireRejection", jwtVerify, CreateEntireRejection)
 // router.post("/createReissueLW", jwtVerify, CreateReissueLW)
 
 // // //LWtable.tsx
-// router.put('/lwprimarysearch', jwtVerify, SearchRCNLW);
+router.put('/rejectionprimarysearch', jwtVerify, SearchRCNRejection);
 // router.post("/updateLW", jwtVerify, updateEntireLW)
 // router.delete('/rejectededitLW/:id/:LotNo/:origin', jwtVerify, EditRejectLW);
 // router.put("/approveeditLW/:id/:LotNo/:origin", jwtVerify, approveLW);

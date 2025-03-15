@@ -324,3 +324,70 @@ export const CreateEntireRejection = async (req: Request, res: Response) => {
         }
     }
 }
+
+// //LWTable.tsx
+export const SearchRCNRejection = async (req: Request, res: Response) => {
+    try {
+        const { searchitem,fromDate, toDate, origin} = req.body;
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
+        const offset = (page - 1) * size;
+        const limit = size;
+
+        let whereClause = [];
+
+        // Conditionally add parameters to the whereClause
+        if (searchitem) {
+            whereClause.push({
+                LotNo: {
+                    [Op.like]: `%${searchitem}%`
+                }
+            });
+        }
+        if (fromDate && toDate) {
+            whereClause.push({
+                date: {
+                    [Op.between]: [fromDate, toDate]
+                }
+            });
+        }
+        if (origin) {
+            whereClause.push({
+                origin: {
+                    [Op.like]: `%${origin}%`
+                }
+            });
+        }
+        whereClause.push({
+            Status: {
+                [Op.eq]: 1
+            }
+        });
+  
+        // Convert the array to an object for the where condition
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+        let rcnEntries
+        if(limit===0 && offset===0){
+             rcnEntries = await rejectionModel.findAll({
+                where,
+                order: [['LotNo','DESC'],['origin','ASC'],['altid', 'ASC']], // Order by date descending
+                
+            });
+        }
+        else{
+             rcnEntries = await rejectionModel.findAll({
+                where,
+                order: [['LotNo','DESC'],['origin','ASC'],['altid', 'ASC']], // Order by date descending
+                limit: limit,
+                offset: offset
+            });
+        }
+       
+        return res.status(200).json({ message: 'Rejection Entry found', rcnEntries })
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: 'Internal server error', error: err })
+    }
+ 
+}
