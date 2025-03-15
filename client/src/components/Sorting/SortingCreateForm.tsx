@@ -74,6 +74,7 @@ import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import {   useEffect, useRef, useState } from "react"
 import axios from "axios";
+import { unlockForm } from "../common/FormLock";
 
 
 
@@ -205,6 +206,7 @@ const SortingCreateForm = (props:Props) => {
                     if (initialhumid.status === 200) {
                         const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
                         dialog2.showModal()
+                         await unlockForm('SortingEntry')
                         setTimeout(() => {
                             dialog2.close()
                             window.location.reload()

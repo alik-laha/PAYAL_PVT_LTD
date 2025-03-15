@@ -472,6 +472,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue BigTaiho</TableHead>
                     <TableHead className="text-center">Issue DPDS</TableHead>
                     <TableHead className="text-center">Issue Rejection</TableHead>
+                    <TableHead className="text-center font-bold">Sorting_Total_Issue</TableHead>
                     {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
                     <TableHead className="text-center font-bold">Current_Backlog</TableHead>  
                     <TableHead className="text-center">No of Labour</TableHead>
@@ -556,7 +557,15 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
                      
                                     {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
-                                               
+                                    <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((
+                                     parseFloat(item.issue_jjh)+parseFloat(item.issue_jjh1)+
+                                     parseFloat(item.issue_sjh) +parseFloat(item.issue_jk)+parseFloat(item.issue_jk1)+
+                                      +parseFloat(item.issue_k1)+parseFloat(item.issue_lwp)+
+                                     parseFloat(item.issue_lwp1) +parseFloat(item.issue_s)+parseFloat(item.issue_ss)+
+                                     parseFloat(item.issue_k) +parseFloat(item.issue_yk)+parseFloat(item.issue_sp2)+
+                                     parseFloat(item.issue_village) +parseFloat(item.issue_mayur)+parseFloat(item.issue_bigTaiho)+
+                                     parseFloat(item.issue_bigTaiho) +parseFloat(item.issue_rejection)+
+                                     parseFloat(item.issue_kp) ).toString())} Kg</TableCell>     
                                     <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                             
                         <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
@@ -674,7 +683,15 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
                      
                                     {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
-                                               
+                                    <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((
+                                     parseFloat(item.issue_jjh)+parseFloat(item.issue_jjh1)+
+                                     parseFloat(item.issue_sjh) +parseFloat(item.issue_jk)+parseFloat(item.issue_jk1)+
+                                      +parseFloat(item.issue_k1)+parseFloat(item.issue_lwp)+
+                                     parseFloat(item.issue_lwp1) +parseFloat(item.issue_s)+parseFloat(item.issue_ss)+
+                                     parseFloat(item.issue_k) +parseFloat(item.issue_yk)+parseFloat(item.issue_sp2)+
+                                     parseFloat(item.issue_village) +parseFloat(item.issue_mayur)+parseFloat(item.issue_bigTaiho)+
+                                     parseFloat(item.issue_bigTaiho) +parseFloat(item.issue_rejection)+
+                                     parseFloat(item.issue_kp) ).toString())} Kg</TableCell>      
                                     <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                             
                         <TableCell className="text-center">{item.noOfdayOperators}</TableCell>

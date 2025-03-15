@@ -24,6 +24,7 @@ import {  MayurData } from "@/type/type";
 
 import cross from '../../assets/Static_Images/error_img.png'
 import RCNMayurCreateForm from "./MayurCreateForm";
+import { checkFormLock } from "../common/FormLock";
 
 
 interface lotPropsdata{
@@ -58,6 +59,7 @@ const MayurInitial = (props: any) => {
     }
     //let scoopdata:ScoopData[]=[]
     console.log(props)
+
     const handleLineEntry = async (lotNO:string,origin:string) => {
         const resStatus = await axios.post('/api/boiling/pendingLotCount', { lotNo: lotNO,section:'Peeling'})
         console.log(resStatus)
@@ -79,8 +81,28 @@ const MayurInitial = (props: any) => {
                         (rejectsuccessdialog as any).showModal();
                 }
                 return
-            }
-           
+            } 
+        const checkLockDPDS= await checkFormLock('DPDSEntry')  
+        console.log(checkLockDPDS) 
+        if(checkLockDPDS){
+            seterrorText(`DPDS Section Form Fillup is Processing.....`)
+                if (rejectsuccessdialog != null) {
+                        (rejectsuccessdialog as any).showModal();
+                }
+                return
+        }
+
+        const checkLockSorting= await checkFormLock('SortingEntry')  
+        console.log(checkLockSorting) 
+        if(checkLockSorting){
+            seterrorText(`Sorting Section Form Fillup is Processing.....`)
+                if (rejectsuccessdialog != null) {
+                        (rejectsuccessdialog as any).showModal();
+                }
+                return
+        }
+       
+       
         await axios.get(`/api/mayur/getMayurByLotOrigin/${lotNO}/${origin}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.scoopingLot)){
@@ -91,6 +113,9 @@ const MayurInitial = (props: any) => {
              
             //set(res.data.scoopingLot)
         })
+        //await lockForm('MayurEntry')  
+        //if(!locked) return;
+        //setIslocked(false) 
     }
    
   

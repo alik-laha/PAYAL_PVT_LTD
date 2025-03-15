@@ -14,7 +14,8 @@ import {
     DialogContent,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
+    DialogTrigger
+  
 } from "@/components/ui/dialog"
 
 import axios from "axios";
@@ -22,6 +23,7 @@ import { useState } from "react";
 import cross from '../../assets/Static_Images/error_img.png'
 import RCNDPDSCreateForm from "./DPDSCreateForm";
 import { DPDSData } from "@/type/type";
+import { lockForm, unlockForm } from "../common/FormLock";
 
 
 interface lotPropsdata{
@@ -38,14 +40,20 @@ const DPDSInitial = (props: any) => {
     const [bormaData, setBormaData ]  = useState<DPDSData[]>([])
     const [errortext, seterrorText] = useState<string>('');
     
-    const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialogPeel') as HTMLInputElement;
-    const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialogPeel') as HTMLInputElement;
+    const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialogDPDSInitial') as HTMLInputElement;
+    const rejectcloseDialogButton = document.getElementById('rcneditRejectcloseDialogDPDSInitial') as HTMLInputElement;
     //let scoopdata:ScoopData[]=[]
     if (rejectcloseDialogButton) {
         rejectcloseDialogButton.addEventListener('click', () => {
             if (rejectsuccessdialog != null) {
-                (rejectsuccessdialog as any).close();
-                //window.location.reload()
+                  unlockForm('DPDSEntry').then(()=>{
+                    (rejectsuccessdialog as any).close();
+                    //window.location.reload()
+                  }).catch((error)=>{
+                    console.error('Error Unlocking Form:',error)
+                })
+               
+               
             }
 
 
@@ -86,6 +94,10 @@ const DPDSInitial = (props: any) => {
              
             //set(res.data.scoopingLot)
         })
+
+        await lockForm('DPDSEntry')  
+                //if(!locked) return;
+                //setIslocked(false) 
     }
     function formatNumber(num: string) {
         return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
@@ -124,7 +136,11 @@ const DPDSInitial = (props: any) => {
                                             </TableCell>
                                             
                                             <TableCell className="text-center">
-                                                <Dialog>
+                                                <Dialog onOpenChange={(isOpen)=>{
+                                                    if(!isOpen) {
+                                                        unlockForm('DPDSEntry')
+                                                    }
+                                                }}>
                                                     <DialogTrigger>
                                                         <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
                                               <DialogContent className='max-w-7xl'>
@@ -157,8 +173,8 @@ const DPDSInitial = (props: any) => {
 
 
             </div>
-            <dialog id="rcneditapproveRejectDialogPeel" className="dashboard-modal">
-                <button id="rcneditRejectcloseDialogPeel" className="dashboard-modal-close-btn ">X </button>
+            <dialog id="rcneditapproveRejectDialogDPDSInitial" className="dashboard-modal">
+                <button id="rcneditRejectcloseDialogDPDSInitial" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={cross} height={25} width={25} alt='error_image' />
                     <p id="modal-text" className="pl-3 mt-1 text-base font-medium">{errortext}</p></span>
 
