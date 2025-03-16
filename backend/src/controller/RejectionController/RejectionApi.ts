@@ -2,13 +2,12 @@ import { Request, Response } from "express";
 import sequelize from "../../config/databaseConfig";
 import LotNo from "../../model/lotNomodel";
 import { Op } from "sequelize";
-import LWEditModel from "../../model/lowerGradeEditModel";
-import LWModel from "../../model/lowerGradeModel";
 import rejectionEditModel from "../../model/rejectionEditModel";
 import rejectionModel from "../../model/rejectionModel";
 import villageProduction from "../../model/villageProductionModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import lotoriginmodel from "../../model/lotoriginModel";
+import WhatsappMsg from "../../helper/WhatsappMsg";
 
 // //Rejection.tsx
 export const findEditRejectionAll = async (req: Request, res: Response) => {
@@ -154,8 +153,6 @@ export const CreateEntireRejection = async (req: Request, res: Response) => {
         await sequelize.transaction(async (transaction: any) => {
 
             for (let data of linehumid) {
-
-
 
                 if ((parseFloat(data.rcv_peelingN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0) + (data.rcv_dpds ? parseFloat(data.rcv_dpds) : 0)
                     + (data.rcv_lw ? parseFloat(data.rcv_lw) : 0) + (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0)
@@ -390,4 +387,335 @@ export const SearchRCNRejection = async (req: Request, res: Response) => {
         return res.status(500).json({ message: 'Internal server error', error: err })
     }
  
+}
+
+export const updateEntireRejection= async (req: Request, res: Response) => {
+    try{
+    const feeledBy = req.cookies.user;
+    const linehumid = req.body.linehumid
+    const LotNO = req.body.LotNo
+
+    await sequelize.transaction(async (transaction: any) => {
+
+        for (let data of linehumid) 
+        {
+         
+            if ((parseFloat(data.rcv_peelingN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0) + (data.rcv_dpds ? parseFloat(data.rcv_dpds) : 0)
+                + (data.rcv_lw ? parseFloat(data.rcv_lw) : 0) + (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0)
+                + (data.rcv_village ? parseFloat(data.rcv_village) : 0) + (data.rcv_bigTaiho ? parseFloat(data.rcv_bigTaiho) : 0)
+                + parseFloat(data.rcv_mayurN)) < (parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
+                    parseFloat(data.issue_shell) + parseFloat(data.issue_catelfeed)
+                )) {
+                console.log(parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
+                    parseFloat(data.issue_shell) + parseFloat(data.issue_catelfeed))
+                res.status(500).json({ message: "Backlog can't be Greater Than Input" });
+                throw new Error('Transaction Aborted due to negative value')
+
+            }
+            
+            await rejectionEditModel.create(
+                {     
+                    id:data.id,
+                    date:data.Date,
+                    LotNo:LotNO,
+                    origin:data.origin,
+                    altid:data.alt_id,
+                    mixingLot:data.mixingLot,
+
+                    rcv_peeling: data.rcv_peeling,
+                    rcv_village: data.rcv_village,
+                    rcv_dpds: data.rcv_dpds,
+                    rcv_lw: data.rcv_lw,
+                    rcv_sorting: data.rcv_sorting,
+                    rcv_mayur: data.rcv_mayur,
+                    rcv_bigTaiho:data.rcv_bigTaiho,
+                    rcv_wholes: data.rcv_wholes,
+
+         
+                    noOfdayOperators: data.dayoperator,
+                    noOfnightOperators: data.nightoperator,
+                    issue_packing: data.issue_packing,
+                    issue_village: data.issue_village,
+                    issue_uncut_unscoop: data.issue_uncut_unscoop,
+                    issue_shell: data.issue_shell,
+                    issue_catelfeed: data.issue_catelfeed,
+                    issue_add_1: data.issue_add_1,
+                    issue_add_2: data.issue_add_2,
+                    issue_add_3: data.issue_add_3,
+                    issue_add_4: data.issue_add_4,
+                    issue_add_5: data.issue_add_5,
+                    issue_add_6: data.issue_add_6,
+                    issue_add_7: data.rcv_peelingN,
+                    issue_add_8: data.rcv_mayurN,
+                    issue_add_9: data.issue_add_9,
+                    issue_add_10: data.issue_add_10,
+                    entry_backlog: (parseFloat(data.rcv_peelingN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0) + (data.rcv_dpds ? parseFloat(data.rcv_dpds) : 0)
+                        + (data.rcv_lw ? parseFloat(data.rcv_lw) : 0) + (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0)
+                        + (data.rcv_village ? parseFloat(data.rcv_village) : 0) + (data.rcv_bigTaiho ? parseFloat(data.rcv_bigTaiho) : 0)
+                        + parseFloat(data.rcv_mayurN))
+                        - (parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
+                            parseFloat(data.issue_shell) + parseFloat(data.issue_catelfeed)
+                        ),
+                    current_backlog: (parseFloat(data.rcv_peelingN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0) + (data.rcv_dpds ? parseFloat(data.rcv_dpds) : 0)
+                        + (data.rcv_lw ? parseFloat(data.rcv_lw) : 0) + (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0)
+                        + (data.rcv_village ? parseFloat(data.rcv_village) : 0) + (data.rcv_bigTaiho ? parseFloat(data.rcv_bigTaiho) : 0)
+                        + parseFloat(data.rcv_mayurN))
+                        - (parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
+                            parseFloat(data.issue_shell) + parseFloat(data.issue_catelfeed)
+                        ),
+                    Status: 1,
+                    CreatedBy: feeledBy,
+                    editStatus:'Pending'
+                },
+                {
+                    transaction
+                }
+            );
+            
+            await lotoriginmodel.update(
+                { 
+                    editStatus:'Pending',
+                 
+                },
+                {
+                    where: {
+                        lotNo:LotNO,
+                        origin:data.origin
+                    },transaction
+                }
+            );
+            const lotupdate= await rejectionModel.update({
+                    editStatus:'Pending'
+                },
+                 {
+                     where: {
+                         id: data.id
+                     }, transaction
+                 });
+
+                 
+                 if(lotupdate){
+                   
+                    const data = await WhatsappMsg("Rejection", feeledBy,"modify_request","Production")
+                    console.log(data)
+                    return res.status(201).json({ message: "Edit Request of Rejection Entry Raised successfully" });
+               
+                }
+                else{
+                    console.log('No Need For Update')
+                }
+
+        }
+       
+    })
+    }
+    catch(error) {
+        if(!res.headersSent){
+            console.log(error)
+            return res.status(500).json({ message: "Error while Editing Rejection Entry" ,error});
+        }
+    }
+    
+
+
+}
+
+export const approveRejection = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const LotNo = req.params.LotNo;
+        const origin = req.params.origin;
+        const approvedBy = req.cookies.user;
+        // const approvedBy = "RC Admin 1";
+        if (!id || !approvedBy) {
+            return res.status(400).json({ message: "Please provide the id or approved by" });
+        }
+        const data = await rejectionEditModel.findOne({
+            where: {
+                id
+            }
+        }) as any;
+        
+        if (!data) {
+            return res.status(400).json({ message: "Rejection Edit Entry not found" });
+        }
+        else{
+            
+
+            const transferVildata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'Rejection',
+                    toSection:'Village'
+                }
+            }) as any
+
+
+            if(transferVildata){
+                await sequelize.transaction(async (transaction: any) => {
+
+                    const BigTEdit = await rejectionModel.update({
+                    date: data.Date,              
+                    noOfdayOperators: data.dayoperator,
+                    noOfnightOperators: data.nightoperator,
+                    issue_packing: data.issue_packing,
+                    issue_village: data.issue_village,
+                    issue_uncut_unscoop: data.issue_uncut_unscoop,
+                    issue_shell: data.issue_shell,
+                    issue_catelfeed: data.issue_catelfeed,
+                    issue_add_1: data.issue_add_1,
+                    issue_add_2: data.issue_add_2,
+                    issue_add_3: data.issue_add_3,
+                    issue_add_4: data.issue_add_4,
+                    issue_add_5: data.issue_add_5,
+                    issue_add_6: data.issue_add_6,
+                    issue_add_7: data.rcv_peelingN,
+                    issue_add_8: data.rcv_mayurN,
+                    issue_add_9: data.issue_add_9,
+                    issue_add_10: data.issue_add_10, 
+                    entry_backlog:data.entry_backlog,
+                    current_backlog:data.current_backlog,
+                    CreatedBy: data.CreatedBy,
+                    editStatus: "Approved",
+                    modifiedBy:approvedBy,
+                    }, {
+                        where: {
+                            id
+                        }, transaction
+                    });
+                    if(BigTEdit){
+                        //console.log(transferDPDSdata)
+
+                        if(parseFloat(transferVildata.amount)!==parseFloat(data.issue_village)){
+                            console.log('Needs Update In Village')
+                            const difference_vil=parseFloat(data.issue_village)-parseFloat(transferVildata.amount)
+                            console.log(difference_vil)
+                            const backlog = await villageProduction.findOne({
+                                attributes: ['current_backlog','rcv_rejection'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await villageProduction.update(
+                                    {
+                                        rcv_rejection: sequelize.literal(`rcv_rejection+ ${difference_vil}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_vil}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_village,
+                                    toSectionBeforeBacklog:transferVildata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferVildata.toSectionBeforeBacklog)+parseFloat(data.issue_village)
+                        
+                                }, {
+                                    where: {
+                                        id:transferVildata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated Village Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+                        await lotoriginmodel.update(
+                            { 
+                                editStatus:'NA',
+                             
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin
+                                },transaction
+                            }
+                        );
+                        await rejectionEditModel.destroy({
+                            where: {
+                                id
+                            },transaction
+                        });
+                        return res.status(200).json({ message: "Edit Request of Rejection Entry is Approved Successfully" });
+                    }
+                    
+                })
+            }
+            else{
+                return res.status(400).json({ message: "Rejection Transfer Entry is not found" });
+            }
+            
+        }
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
+}
+
+export const EditRejectRejection = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+         const rejectedBy = req.cookies.user;
+         const LotNo = req.params.LotNo;
+         const origin = req.params.origin;
+
+        if (!id || !rejectedBy) {
+            return res.status(400).json({ message: "Please provide the id or rejected By" });
+        }
+        const rcn = await rejectionModel.update({
+            editStatus: "NA",
+            modifiedBy:rejectedBy
+        }, {
+            where: {
+                id
+            }
+        });
+        if (!rcn) {
+            return res.status(400).json({ message: "Rejection Entry not found" });
+        }
+        await lotoriginmodel.update(
+            { 
+                editStatus:'NA',
+             
+            },
+            {
+                where: {
+                    lotNo:LotNo,
+                    origin:origin
+                }
+            }
+        );
+        const rcnEdit = await rejectionEditModel.destroy({
+            where: {
+                id
+            }
+        });
+        if (!rcnEdit) {
+            return res.status(400).json({ message: "Rejection Entry not found" });
+        }
+        return res.status(200).json({ message: "Rejection Entry rejected successfully" });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
 }

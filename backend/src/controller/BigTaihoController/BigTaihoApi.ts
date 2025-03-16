@@ -1877,7 +1877,7 @@ export const approveBigTaiho = async (req: Request, res: Response) => {
                 })
             }
             else{
-                return res.status(400).json({ message: "DPDS Transfer Entry is not found" });
+                return res.status(400).json({ message: "BigTaiho Transfer Entry is not found" });
             }
             
         }

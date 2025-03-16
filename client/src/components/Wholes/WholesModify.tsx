@@ -302,8 +302,6 @@ const WholesEditForm = (props:Props) => {
         };
 
         
-        
-      
         //console.log(initialform)
         setRows([initialform])
         // setActualopen(parseFloat(props.borma[0].current_backlog)+( parseFloat(props.borma[0].issue_pw_150) +

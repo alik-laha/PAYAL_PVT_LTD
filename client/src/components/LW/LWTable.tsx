@@ -54,6 +54,7 @@ import { CiBoxes, CiCrop, CiEdit } from "react-icons/ci";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import LWEDitForm from "./LWEdit";
 
 
 
@@ -557,12 +558,12 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{item.mixingLot}</TableCell>
                                     {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
                                   
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_mayur)}</TableCell>
+                                    <TableCell className="text-center font-semibold">{formatNumber(item.rcv_mayur)}</TableCell>
                                     <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
                                     <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
                                    
 
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_hamsa)}</TableCell>
+                                    <TableCell className="text-center font-semibold">{formatNumber(item.rcv_hamsa)}</TableCell>
                                     <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_5)} Kg</TableCell>
                                     <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_6)} %</TableCell>
                                     <TableCell className="text-center text-center bg-yellow-100 font-semibold">
@@ -713,12 +714,12 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{item.mixingLot}</TableCell>
                                     {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
 
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_mayur)}</TableCell>
+                                    <TableCell className="text-center font-semibold">{formatNumber(item.rcv_mayur)}</TableCell>
                                     <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
                                     <TableCell className="text-center font-semibold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
 
 
-                                    <TableCell className="text-center ">{formatNumber(item.rcv_hamsa)}</TableCell>
+                                    <TableCell className="text-center font-semibold">{formatNumber(item.rcv_hamsa)}</TableCell>
                                     <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_5)} Kg</TableCell>
                                     <TableCell className="text-center font-semibold text-red-500 ">{formatNumber(item.issue_add_6)} %</TableCell>
                                     <TableCell className="text-center text-center bg-yellow-100 font-semibold">
@@ -827,10 +828,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-7xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>Sorting Entry Modification</p>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>LW Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <SortingEditForm borma={[item]} /> */}
+                                                        <LWEDitForm borma={[item]} />
                                                     </DialogContent>
                                                     
                                                 </Dialog>

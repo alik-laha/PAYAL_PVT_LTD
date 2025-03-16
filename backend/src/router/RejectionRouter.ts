@@ -5,8 +5,9 @@ import {
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import { CreateEntireRejection, findEditRejectionAll, 
-      getRejectionBylotorigin, getRejectionLot, SearchRCNRejection, sumOfallRejection } from "../controller/RejectionController/RejectionApi";
+import { approveRejection, CreateEntireRejection, EditRejectRejection, findEditRejectionAll, 
+      getRejectionBylotorigin, getRejectionLot, SearchRCNRejection, sumOfallRejection, 
+      updateEntireRejection} from "../controller/RejectionController/RejectionApi";
 
 
 const router = express()
@@ -25,11 +26,11 @@ router.post("/createEntireRejection", jwtVerify, CreateEntireRejection)
 // // //HamsaReiSsueForm.tsx
 // router.post("/createReissueLW", jwtVerify, CreateReissueLW)
 
-// // //LWtable.tsx
+// // //Rejectiontable.tsx
 router.put('/rejectionprimarysearch', jwtVerify, SearchRCNRejection);
-// router.post("/updateLW", jwtVerify, updateEntireLW)
-// router.delete('/rejectededitLW/:id/:LotNo/:origin', jwtVerify, EditRejectLW);
-// router.put("/approveeditLW/:id/:LotNo/:origin", jwtVerify, approveLW);
+router.post("/updateRejection", jwtVerify, updateEntireRejection)
+router.delete('/rejectededitRejection/:id/:LotNo/:origin', jwtVerify, EditRejectRejection);
+router.put("/approveeditRejection/:id/:LotNo/:origin", jwtVerify, approveRejection);
 
 // // //LWMix.tsx
 // router.post('/lwmixsearch', jwtVerify, SearchRCNLWMix);

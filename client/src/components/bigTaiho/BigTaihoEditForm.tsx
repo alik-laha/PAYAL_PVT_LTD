@@ -33,7 +33,8 @@ interface BigTaihoRowData{
     rcv_hamsa: string|null;
     rcv_lw: string|null;
     rcv_wholes: string|null;
-    issue_ssp: string ;
+    
+        issue_ssp: string ;
         issue_ssp_small: string ;
         issue_swp_1:string ;
         issue_wsp: string ;
@@ -50,6 +51,7 @@ interface BigTaihoRowData{
         issue_ssp_2: string ;
         issue_ssp_2_small: string ;
         issue_sdp: string ;
+        
             issue_add_1: string ;
             issue_add_2: string |number;
             issue_add_3: string |number;
@@ -156,6 +158,8 @@ const BigTaihoEditForm = (props:Props) => {
             rcv_hamsa: props.borma[0].rcv_hamsa,
             rcv_lw: props.borma[0].rcv_lw,
             rcv_wholes: props.borma[0].rcv_wholes,
+
+            
             issue_ssp: props.borma[0].issue_ssp,
                 issue_ssp_small: props.borma[0].issue_ssp_small,
                 issue_swp_1: props.borma[0].issue_swp_1,

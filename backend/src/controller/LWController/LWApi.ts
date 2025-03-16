@@ -10,6 +10,7 @@ import bigTaihoModel from "../../model/bigTaihoModel";
 import rejectionModel from "../../model/rejectionModel";
 import villageProduction from "../../model/villageProductionModel";
 import lotoriginmodel from "../../model/lotoriginModel";
+import WhatsappMsg from "../../helper/WhatsappMsg";
 
 // //LW.tsx
 export const findEditLWAll = async (req: Request, res: Response) => {
@@ -701,4 +702,628 @@ export const SearchRCNLW = async (req: Request, res: Response) => {
         return res.status(500).json({ message: 'Internal server error', error: err })
     }
  
+}
+
+export const updateEntireLW= async (req: Request, res: Response) => {
+    try{
+    const feeledBy = req.cookies.user;
+    const linehumid = req.body.linehumid
+    const LotNO = req.body.LotNo
+
+    await sequelize.transaction(async (transaction: any) => {
+
+        for (let data of linehumid) 
+        {
+         
+            if((parseFloat(data.rcv_mayurN)+(data.rcv_wholes? parseFloat(data.rcv_wholes):0)
+                +parseFloat(data.rcv_hamsaN))< (parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) + 
+            parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) + 
+            parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) + 
+            parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) + 
+            parseFloat(data.issue_row) + parseFloat(data.issue_rej_1) + parseFloat(data.issue_lw3_180) + 
+            parseFloat(data.issue_lw3_210) + parseFloat(data.issue_lw3_240) + parseFloat(data.issue_lw3_280) + 
+            parseFloat(data.issue_lw3_360) + parseFloat(data.issue_lw2) + parseFloat(data.issue_lw4) + 
+            parseFloat(data.issue_lw5) + parseFloat(data.issue_lw6) + parseFloat(data.issue_lw7) + 
+            parseFloat(data.issue_rej_3) + parseFloat(data.issue_rej_4) + parseFloat(data.issue_jb2) + 
+            parseFloat(data.issue_sjb) + parseFloat(data.issue_k_240) + parseFloat(data.issue_k_280) + 
+            parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) + 
+            parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) + 
+            parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) + 
+            parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)
+               ))
+               {
+                console.log(parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) + 
+                parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) + 
+                parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) + 
+                parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) + 
+                parseFloat(data.issue_row) + parseFloat(data.issue_rej_1) + parseFloat(data.issue_lw3_180) + 
+                parseFloat(data.issue_lw3_210) + parseFloat(data.issue_lw3_240) + parseFloat(data.issue_lw3_280) + 
+                parseFloat(data.issue_lw3_360) + parseFloat(data.issue_lw2) + parseFloat(data.issue_lw4) + 
+                parseFloat(data.issue_lw5) + parseFloat(data.issue_lw6) + parseFloat(data.issue_lw7) + 
+                parseFloat(data.issue_rej_3) + parseFloat(data.issue_rej_4) + parseFloat(data.issue_jb2) + 
+                parseFloat(data.issue_sjb) + parseFloat(data.issue_k_240) + parseFloat(data.issue_k_280) + 
+                parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) + 
+                parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) + 
+                parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) + 
+                parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection))
+                res.status(500).json({ message: "Backlog can't be Greater Than Input" });
+                throw new Error('Transaction Aborted due to negative value')
+
+            }
+            
+            await LWEditModel.create(
+                {     
+                    id:data.id,
+                    date:data.Date,
+                    LotNo:LotNO,
+                    origin:data.origin,
+                    altid:data.alt_id,
+                    mixingLot:data.mixingLot,
+
+                    rcv_hamsa: data.rcv_hamsa,
+                    rcv_mayur: data.rcv_mayur,
+                    rcv_wholes: data.rcv_wholes,
+
+         
+                    noOfdayOperators: data.dayoperator,
+                    noOfnightOperators: data.nightoperator,
+                
+                    issue_kw: data.issue_kw,
+                    issue_kw_1: data.issue_kw_1,
+                    issue_kw_2: data.issue_kw_2,
+                    issue_kn: data.issue_kn,
+                    issue_dw: data.issue_dw,
+                    issue_dw_1: data.issue_dw_1,
+                    issue_dw_2: data.issue_dw_2,
+                    issue_ow: data.issue_ow,
+                    issue_ow_1: data.issue_ow_1,
+                    issue_ow_2: data.issue_ow_2,
+                    issue_jw: data.issue_jw,
+                    issue_pw: data.issue_pw,
+                    issue_row: data.issue_row,
+                    issue_rej_1: data.issue_rej_1,
+                    issue_lw3_180: data.issue_lw3_180,
+                    issue_lw3_210: data.issue_lw3_210,
+                    issue_lw3_240: data.issue_lw3_240,
+                    issue_lw3_280: data.issue_lw3_280,
+                    issue_lw3_360: data.issue_lw3_360,
+                    issue_lw2: data.issue_lw2,
+                    issue_lw4: data.issue_lw4,
+                    issue_lw5: data.issue_lw5,
+                    issue_lw6: data.issue_lw6,
+                    issue_lw7: data.issue_lw7,
+                    issue_rej_3: data.issue_rej_3,
+                    issue_rej_4: data.issue_rej_4,
+                    issue_jb2: data.issue_jb2,
+                    issue_sjb: data.issue_sjb,
+                    issue_k_240: data.issue_k_240,
+                    issue_k_280: data.issue_k_280,
+                    issue_k_360: data.issue_k_360,
+                    issue_pkw: data.issue_pkw,
+                    issue_bw: data.issue_bw,
+                    issue_rw: data.issue_rw,
+                    issue_rrw: data.issue_rrw,
+                    issue_fw: data.issue_fw,
+                    issue_lw: data.issue_lw,
+                    issue_village: data.issue_village,
+                    issue_hamsa: data.issue_hamsa,
+                    issue_bigTaiho: data.issue_bigTaiho,
+                    issue_rejection: data.issue_rejection,
+
+                    issue_add_1: data.issue_add_1,
+                    issue_add_2: data.issue_add_2,
+                    issue_add_3:data.issue_add_3,
+                    issue_add_4: data.issue_add_4,
+                    issue_add_5: data.issue_add_5,
+                    issue_add_6: data.issue_add_6,
+                    issue_add_7: data.rcv_mayurN,
+                    issue_add_8: data.rcv_hamsaN,
+                    issue_add_9: data.issue_add_9,
+                    issue_add_10: data.issue_add_10,
+                    entry_backlog: (parseFloat(data.rcv_mayurN)+(data.rcv_wholes? parseFloat(data.rcv_wholes):0)
+                    +parseFloat(data.rcv_hamsaN)) 
+                    - (parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) + 
+                    parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) + 
+                    parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) + 
+                    parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) + 
+                    parseFloat(data.issue_row) + parseFloat(data.issue_rej_1) + parseFloat(data.issue_lw3_180) + 
+                    parseFloat(data.issue_lw3_210) + parseFloat(data.issue_lw3_240) + parseFloat(data.issue_lw3_280) + 
+                    parseFloat(data.issue_lw3_360) + parseFloat(data.issue_lw2) + parseFloat(data.issue_lw4) + 
+                    parseFloat(data.issue_lw5) + parseFloat(data.issue_lw6) + parseFloat(data.issue_lw7) + 
+                    parseFloat(data.issue_rej_3) + parseFloat(data.issue_rej_4) + parseFloat(data.issue_jb2) + 
+                    parseFloat(data.issue_sjb) + parseFloat(data.issue_k_240) + parseFloat(data.issue_k_280) + 
+                    parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) + 
+                    parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) + 
+                    parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) + 
+                    parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)
+                        ),
+                    current_backlog: (parseFloat(data.rcv_mayurN)+(data.rcv_wholes? parseFloat(data.rcv_wholes):0)
+                    +parseFloat(data.rcv_hamsaN)) 
+                    - (parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) + 
+                    parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) + 
+                    parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) + 
+                    parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) + 
+                    parseFloat(data.issue_row) + parseFloat(data.issue_rej_1) + parseFloat(data.issue_lw3_180) + 
+                    parseFloat(data.issue_lw3_210) + parseFloat(data.issue_lw3_240) + parseFloat(data.issue_lw3_280) + 
+                    parseFloat(data.issue_lw3_360) + parseFloat(data.issue_lw2) + parseFloat(data.issue_lw4) + 
+                    parseFloat(data.issue_lw5) + parseFloat(data.issue_lw6) + parseFloat(data.issue_lw7) + 
+                    parseFloat(data.issue_rej_3) + parseFloat(data.issue_rej_4) + parseFloat(data.issue_jb2) + 
+                    parseFloat(data.issue_sjb) + parseFloat(data.issue_k_240) + parseFloat(data.issue_k_280) + 
+                    parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) + 
+                    parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) + 
+                    parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) + 
+                    parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)
+                        
+                        ),
+                    Status: 1,
+                    CreatedBy: feeledBy,
+                    editStatus:'Pending'
+                },
+                {
+                    transaction
+                }
+            );
+            
+            await lotoriginmodel.update(
+                { 
+                    editStatus:'Pending',
+                 
+                },
+                {
+                    where: {
+                        lotNo:LotNO,
+                        origin:data.origin
+                    },transaction
+                }
+            );
+            const lotupdate= await LWModel.update({
+                    editStatus:'Pending'
+                },
+                 {
+                     where: {
+                         id: data.id
+                     }, transaction
+                 });
+
+                 
+                 if(lotupdate){
+                   
+                    const data = await WhatsappMsg("Lower Grade", feeledBy,"modify_request","Production")
+                    console.log(data)
+                    return res.status(201).json({ message: "Edit Request of LW Entry Raised successfully" });
+               
+                }
+                else{
+                    console.log('No Need For Update')
+                }
+
+        }
+       
+    })
+    }
+    catch(error) {
+        if(!res.headersSent){
+            console.log(error)
+            return res.status(500).json({ message: "Error while Editing LW Entry" ,error});
+        }
+    }
+    
+
+
+}
+
+export const approveLW = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const LotNo = req.params.LotNo;
+        const origin = req.params.origin;
+        const approvedBy = req.cookies.user;
+        // const approvedBy = "RC Admin 1";
+        if (!id || !approvedBy) {
+            return res.status(400).json({ message: "Please provide the id or approved by" });
+        }
+        const data = await LWEditModel.findOne({
+            where: {
+                id
+            }
+        }) as any;
+        
+        if (!data) {
+            return res.status(400).json({ message: "LW Edit Entry not found" });
+        }
+        else{
+            
+
+            const transferVildata = await sectionTransfer.findOne({
+                where: {
+                    issueid:data.altid,
+                    LotNo:data.LotNo,
+                    origin:data.origin,
+                    fromSection:'LW',
+                    toSection:'Village'
+                }
+            }) as any
+
+             const transferRejectiondata = await sectionTransfer.findOne({
+                            where: {
+                                issueid:data.altid,
+                                LotNo:data.LotNo,
+                                origin:data.origin,
+                                fromSection:'LW',
+                                toSection:'Rejection'
+                            }
+                        }) as any
+
+            const transferBigTdata = await sectionTransfer.findOne({
+                            where: {
+                                issueid:data.altid,
+                                LotNo:data.LotNo,
+                                origin:data.origin,
+                                fromSection:'LW',
+                                toSection:'BigTaiho'
+                            }
+                        }) as any
+
+            const transferHamsadata = await sectionTransfer.findOne({
+                            where: {
+                                issueid:data.altid,
+                                LotNo:data.LotNo,
+                                origin:data.origin,
+                                fromSection:'LW',
+                                toSection:'Hamsa'
+                            }
+                        }) as any
+            
+
+
+            if(transferVildata && transferRejectiondata && transferBigTdata && transferHamsadata){
+                await sequelize.transaction(async (transaction: any) => {
+
+                    const BigTEdit = await LWModel.update({
+                    date: data.Date,              
+                    noOfdayOperators: data.dayoperator,
+                    noOfnightOperators: data.nightoperator,
+                
+                    issue_kw: data.issue_kw,
+                    issue_kw_1: data.issue_kw_1,
+                    issue_kw_2: data.issue_kw_2,
+                    issue_kn: data.issue_kn,
+                    issue_dw: data.issue_dw,
+                    issue_dw_1: data.issue_dw_1,
+                    issue_dw_2: data.issue_dw_2,
+                    issue_ow: data.issue_ow,
+                    issue_ow_1: data.issue_ow_1,
+                    issue_ow_2: data.issue_ow_2,
+                    issue_jw: data.issue_jw,
+                    issue_pw: data.issue_pw,
+                    issue_row: data.issue_row,
+                    issue_rej_1: data.issue_rej_1,
+                    issue_lw3_180: data.issue_lw3_180,
+                    issue_lw3_210: data.issue_lw3_210,
+                    issue_lw3_240: data.issue_lw3_240,
+                    issue_lw3_280: data.issue_lw3_280,
+                    issue_lw3_360: data.issue_lw3_360,
+                    issue_lw2: data.issue_lw2,
+                    issue_lw4: data.issue_lw4,
+                    issue_lw5: data.issue_lw5,
+                    issue_lw6: data.issue_lw6,
+                    issue_lw7: data.issue_lw7,
+                    issue_rej_3: data.issue_rej_3,
+                    issue_rej_4: data.issue_rej_4,
+                    issue_jb2: data.issue_jb2,
+                    issue_sjb: data.issue_sjb,
+                    issue_k_240: data.issue_k_240,
+                    issue_k_280: data.issue_k_280,
+                    issue_k_360: data.issue_k_360,
+                    issue_pkw: data.issue_pkw,
+                    issue_bw: data.issue_bw,
+                    issue_rw: data.issue_rw,
+                    issue_rrw: data.issue_rrw,
+                    issue_fw: data.issue_fw,
+                    issue_lw: data.issue_lw,
+                    issue_village: data.issue_village,
+                    issue_hamsa: data.issue_hamsa,
+                    issue_bigTaiho: data.issue_bigTaiho,
+                    issue_rejection: data.issue_rejection,
+
+                    issue_add_1: data.issue_add_1,
+                    issue_add_2: data.issue_add_2,
+                    issue_add_3:data.issue_add_3,
+                    issue_add_4: data.issue_add_4,
+                    issue_add_5: data.issue_add_5,
+                    issue_add_6: data.issue_add_6,
+                    issue_add_7: data.rcv_mayurN,
+                    issue_add_8: data.rcv_hamsaN,
+                    issue_add_9: data.issue_add_9,
+                    issue_add_10: data.issue_add_10,
+                    entry_backlog:data.entry_backlog,
+                    current_backlog:data.current_backlog,
+                    CreatedBy: data.CreatedBy,
+                    editStatus: "Approved",
+                    modifiedBy:approvedBy,
+                    }, {
+                        where: {
+                            id
+                        }, transaction
+                    });
+                    if(BigTEdit){
+                        //console.log(transferDPDSdata)
+
+                        if(parseFloat(transferVildata.amount)!==parseFloat(data.issue_village)){
+                            console.log('Needs Update In Village')
+                            const difference_vil=parseFloat(data.issue_village)-parseFloat(transferVildata.amount)
+                            console.log(difference_vil)
+                            const backlog = await villageProduction.findOne({
+                                attributes: ['current_backlog','rcv_lw'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await villageProduction.update(
+                                    {
+                                        rcv_lw: sequelize.literal(`rcv_lw+ ${difference_vil}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_vil}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_village,
+                                    toSectionBeforeBacklog:transferVildata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferVildata.toSectionBeforeBacklog)+parseFloat(data.issue_village)
+                        
+                                }, {
+                                    where: {
+                                        id:transferVildata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated Village Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                        }
+
+                        if(parseFloat(transferRejectiondata.amount)!==parseFloat(data.issue_rejection)){
+                               console.log('Needs Update In Rejection')
+                               const difference_rejection=parseFloat(data.issue_rejection)-parseFloat(transferRejectiondata.amount)
+                               console.log(difference_rejection)
+                               const backlog = await rejectionModel.findOne({
+                                   attributes: ['current_backlog','rcv_lw'],
+                                   where: {
+                                       lotNo:LotNo,
+                                       origin:origin,
+                                       latest:1
+                           
+                                   },
+                                   order: [['LotNo', 'ASC']]
+                           
+                               });
+                               if (backlog && backlog.dataValues.current_backlog>=0)
+                                   {
+                                   await rejectionModel.update(
+                                       {
+                                        rcv_lw: sequelize.literal(`rcv_lw+ ${difference_rejection}`),
+                                           current_backlog: sequelize.literal(`current_backlog+ ${difference_rejection}`)
+                                       },
+                                       {
+                                           where: {
+                                               lotNo: LotNo,
+                                               origin: origin,
+                                               latest: 1
+                                           }, transaction
+                                       }
+                                   );
+   
+                                   await sectionTransfer.update({
+                                       date: data.Date,
+                                       amount:data.issue_rejection,
+                                       toSectionBeforeBacklog:transferRejectiondata.toSectionBeforeBacklog,
+                                       toSectionAfterBacklog:parseFloat(transferRejectiondata.toSectionBeforeBacklog)+parseFloat(data.issue_rejection)
+                           
+                                   }, {
+                                       where: {
+                                           id:transferRejectiondata.id
+                                       },transaction
+                                   });
+                                   }
+                                   else{
+                                       res.status(500).json({ message: "Associated Rejection Entry Not Found" });
+                                       throw new Error('Transaction Aborted due to Improper Value')
+                                   }
+                        }  
+                        
+                        if(parseFloat(transferBigTdata.amount)!==parseFloat(data.issue_bigTaiho)){
+                                console.log('Needs Update In BigTaiho')
+                                const difference_bigT=parseFloat(data.issue_bigTaiho)-parseFloat(transferBigTdata.amount)
+                                console.log(difference_bigT)
+                                const backlog = await bigTaihoModel.findOne({
+                                    attributes: ['current_backlog','rcv_lw'],
+                                    where: {
+                                        lotNo:LotNo,
+                                        origin:origin,
+                                        latest:1
+                            
+                                    },
+                                    order: [['LotNo', 'ASC']]
+                            
+                                });
+                                if (backlog && backlog.dataValues.current_backlog>=0)
+                                    {
+                                    await bigTaihoModel.update(
+                                        {
+                                            rcv_lw: sequelize.literal(`rcv_lw+ ${difference_bigT}`),
+                                            current_backlog: sequelize.literal(`current_backlog+ ${difference_bigT}`)
+                                        },
+                                        {
+                                            where: {
+                                                lotNo: LotNo,
+                                                origin: origin,
+                                                latest: 1
+                                            }, transaction
+                                        }
+                                    );
+    
+                                    await sectionTransfer.update({
+                                        date: data.Date,
+                                        amount:data.issue_bigTaiho,
+                                        toSectionBeforeBacklog:transferBigTdata.toSectionBeforeBacklog,
+                                        toSectionAfterBacklog:parseFloat(transferBigTdata.toSectionBeforeBacklog)+parseFloat(data.issue_bigTaiho)
+                            
+                                    }, {
+                                        where: {
+                                            id:transferBigTdata.id
+                                        },transaction
+                                    });
+                                    }
+                                    else{
+                                        res.status(500).json({ message: "Associated BigTaiho Entry Not Found" });
+                                        throw new Error('Transaction Aborted due to Improper Value')
+                                    }
+                        }
+                        
+                        if(parseFloat(transferHamsadata.amount)!==parseFloat(data.issue_hamsa)){
+                            console.log('Needs Update In Hamsa')
+                            const difference_hamsa=parseFloat(data.issue_hamsa)-parseFloat(transferHamsadata.amount)
+                            console.log(difference_hamsa)
+                            const backlog = await hamsaModel.findOne({
+                                attributes: ['current_backlog','rcv_lw'],
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin,
+                                    latest:1
+                        
+                                },
+                                order: [['LotNo', 'ASC']]
+                        
+                            });
+                            if (backlog && backlog.dataValues.current_backlog>=0)
+                                {
+                                await hamsaModel.update(
+                                    {
+                                        rcv_lw: sequelize.literal(`rcv_lw+ ${difference_hamsa}`),
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_hamsa}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNo,
+                                            origin: origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+
+                                await sectionTransfer.update({
+                                    date: data.Date,
+                                    amount:data.issue_hamsa,
+                                    toSectionBeforeBacklog:transferHamsadata.toSectionBeforeBacklog,
+                                    toSectionAfterBacklog:parseFloat(transferHamsadata.toSectionBeforeBacklog)+parseFloat(data.issue_hamsa)
+                        
+                                }, {
+                                    where: {
+                                        id:transferHamsadata.id
+                                    },transaction
+                                });
+                                }
+                                else{
+                                    res.status(500).json({ message: "Associated Hamsa Entry Not Found" });
+                                    throw new Error('Transaction Aborted due to Improper Value')
+                                }
+                    } 
+                        await lotoriginmodel.update(
+                            { 
+                                editStatus:'NA',
+                             
+                            },
+                            {
+                                where: {
+                                    lotNo:LotNo,
+                                    origin:origin
+                                },transaction
+                            }
+                        );
+                        await LWEditModel.destroy({
+                            where: {
+                                id
+                            },transaction
+                        });
+                        return res.status(200).json({ message: "Edit Request of LW Entry is Approved Successfully" });
+                    }
+                    
+                })
+            }
+            else{
+                return res.status(400).json({ message: "LW Transfer Entry is not found" });
+            }
+            
+        }
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
+}
+
+export const EditRejectLW = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+         const rejectedBy = req.cookies.user;
+         const LotNo = req.params.LotNo;
+         const origin = req.params.origin;
+
+        if (!id || !rejectedBy) {
+            return res.status(400).json({ message: "Please provide the id or rejected By" });
+        }
+        const rcn = await LWModel.update({
+            editStatus: "NA",
+            modifiedBy:rejectedBy
+        }, {
+            where: {
+                id
+            }
+        });
+        if (!rcn) {
+            return res.status(400).json({ message: "LW Entry not found" });
+        }
+        await lotoriginmodel.update(
+            { 
+                editStatus:'NA',
+             
+            },
+            {
+                where: {
+                    lotNo:LotNo,
+                    origin:origin
+                }
+            }
+        );
+        const rcnEdit = await LWEditModel.destroy({
+            where: {
+                id
+            }
+        });
+        if (!rcnEdit) {
+            return res.status(400).json({ message: "LW Entry not found" });
+        }
+        return res.status(200).json({ message: "LW Entry rejected successfully" });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
 }
