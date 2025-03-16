@@ -20,12 +20,12 @@ export const LockForm =async (req: Request, res: Response) => {
     const {formName} =req.body;
 
     //Check Before Locking The Form
-    const otherLockedForms= await prodFormLock.findOne({where :{isLocked:true,formName}})
+    // const otherLockedForms= await prodFormLock.findOne({where :{isLocked:true,formName}})
 
-    if(otherLockedForms)
-    {
-        return res.status(403).json({message: `Another Form is in Use By ${otherLockedForms.dataValues.lockedBy}`})
-    }
+    // if(otherLockedForms)
+    // {
+    //     return res.status(403).json({message: `Another Form is in Use By ${otherLockedForms.dataValues.lockedBy}`})
+    // }
 
    //Lock The Form
 

@@ -333,7 +333,7 @@ const RejectionEDitForm = (props: Props) => {
                             <TableHead className="text-center">Issue Village</TableHead>
                             <TableHead className="text-center">Issue Uncut Unscoop</TableHead>
                             <TableHead className="text-center">Issue Shell</TableHead>
-                            <TableHead className="text-center">Issue Catel Feed</TableHead>
+                            <TableHead className="text-center">Issue CatelFeed</TableHead>
 
 
 
@@ -348,10 +348,10 @@ const RejectionEDitForm = (props: Props) => {
                     <TableHead className="text-center">Issue Add 8</TableHead>
                     <TableHead className="text-center">Issue Add 9</TableHead>
                     <TableHead className="text-center">Issue Add 10</TableHead> */}
-                            <TableHead className="text-center">Issue Village</TableHead>
+                            {/* <TableHead className="text-center">Issue Village</TableHead>
                             <TableHead className="text-center">Issue Hamsa</TableHead>
                             <TableHead className="text-center">Issue BigTaiho</TableHead>
-                            <TableHead className="text-center">Issue Rejection</TableHead>
+                            <TableHead className="text-center">Issue Rejection</TableHead> */}
                             {/* <TableHead className="text-center">Mixed Amount</TableHead> */}
 
                         </TableHeader>
