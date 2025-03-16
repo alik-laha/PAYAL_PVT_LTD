@@ -23,6 +23,7 @@ import cross from '../../assets/Static_Images/error_img.png'
 // import RCNDPDSCreateForm from "./DPDSCreateForm";
 import {  SortingData } from "@/type/type";
 import SortingCreateForm from "./SortingCreateForm";
+import { lockForm, unlockForm } from "../common/FormLock";
 
 
 interface lotPropsdata{
@@ -80,6 +81,8 @@ const SortingInitial = (props: any) => {
              
             //set(res.data.scoopingLot)
         })
+
+        await lockForm('SortingEntry')  
     }
     function formatNumber(num: string) {
         return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
@@ -121,7 +124,11 @@ const SortingInitial = (props: any) => {
                                         </TableCell>
                                         
                                         <TableCell className="text-center">
-                                            <Dialog>
+                                            <Dialog onOpenChange={(isOpen) => {
+                                                if (!isOpen) {
+                                                    unlockForm('SortingEntry')
+                                                }
+                                            }}>
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
                                           <DialogContent className='max-w-7xl'>

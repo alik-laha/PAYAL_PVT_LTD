@@ -212,7 +212,7 @@ const RejectionCreateForm = (props: Props) => {
         if (rows[0].issue_add_1) {
             rows[index].issue_add_2 = (Number(rows[index].rcv_peeling) - Number(e.target.value))
             rows[index].issue_add_3 = (Number(rows[index].issue_add_2) / Number(rows[index].rcv_peeling)) * 100
-            rows[index].rcv_peelingN = (Number(rows[index].rcv_mayur) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString()
+            rows[index].rcv_peelingN = (Number(rows[index].rcv_peeling) * ((100 - Number(rows[index].issue_add_3)) / 100)).toString()
         }
         handleRowChange(index, 'issue_add_1', e.target.value)
     }

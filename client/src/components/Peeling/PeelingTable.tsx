@@ -400,7 +400,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center" >Rejection</TableHead>
                         <TableHead className="text-center" >Big_Taiho</TableHead>
                         <TableHead className="text-center font-bold" >Total_Issue(Kg)</TableHead>
-                        <TableHead className="text-center" >Total_Backlog</TableHead>
+                        <TableHead className="text-center font-bold" >Total_Backlog</TableHead>
                         <TableHead className="text-center" >Peeling_ON</TableHead>
                         <TableHead className="text-center" >Peeling_OFF</TableHead>
                         
