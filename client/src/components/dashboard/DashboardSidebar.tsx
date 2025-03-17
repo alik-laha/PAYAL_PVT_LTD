@@ -27,7 +27,7 @@ import { GrEject } from "react-icons/gr";
 
 import { CgSmartHomeBoiler } from "react-icons/cg";
 import { BsMoisture } from "react-icons/bs";
-import { GiChopsticks } from "react-icons/gi";
+import { GiChopsticks,GiBoxUnpacking  } from "react-icons/gi";
 import { IoArrowRedoOutline } from "react-icons/io5";
 
 //import { GiPizzaCutter } from "react-icons/gi";
@@ -328,6 +328,14 @@ const DashboardSidebar = () => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Rejection" >
                                         <p className="flex"> <GrEject   size={20} /><p className="pl-3">  Rejection</p></p>
+                                    </NavLink>
+                                </CollapsibleContent>}
+
+
+                                {renderlink('Packing')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/Packing" >
+                                        <p className="flex"> <GiBoxUnpacking     size={20} /><p className="pl-3">  Packing</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 

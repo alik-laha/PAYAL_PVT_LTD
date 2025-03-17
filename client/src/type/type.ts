@@ -27,6 +27,7 @@ export interface PermissionRole {
     Security:string[];
     GatePassManager:string[];
     DeputyProductionManager:string[];
+    PackingSupervisor:string[];
 
 }
 
@@ -57,6 +58,7 @@ export interface pendingCheckRoles {
     Wholes:string[];
     LW:string[];
     Rejection:string[];
+    Packing:string[];
     
 }
 export interface rcvCheckRoles {
