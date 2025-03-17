@@ -36,5 +36,12 @@ const productionStockGrade = sequelize.define('productionStockGrade', {
         defaultValue:0
     },
     
-});
+},{
+    indexes: [
+      {
+        unique: true,
+        fields: ['section','origin', 'grade'], // Unique constraint on origin + grade
+      }
+    ]
+  });
 export default productionStockGrade;
