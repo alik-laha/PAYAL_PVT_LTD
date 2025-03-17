@@ -26,10 +26,13 @@ const [loading, setLoading] = useState(false);
 return (
     <>
     <div>
+        
     <DashboardHeader />
     <DashboardSidebar />
+    <div className='dashboard-main-container'>
     <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" 
-    disabled={loading} onClick={handleProdStockUpdateFetch} >  {loading ? 'Updating...' : 'Update Stock'} <RxUpdate size={20} className="ml-2"/></Button>
+    disabled={loading} onClick={handleProdStockUpdateFetch} >  {loading ? 'Updating...' : 'Update Production Stock'} <RxUpdate size={20} className="ml-2"/></Button>
+    </div>
     </div>
     </>
 )

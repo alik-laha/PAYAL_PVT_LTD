@@ -3,6 +3,7 @@ import sequelize from '../config/databaseConfig';
 import DPDS from '../model/dpdsmodel';
 import productionStockGrade from '../model/productionStockgrade';
 import SortingModel from '../model/sortingModel';
+import bigTaihoModel from '../model/bigTaihoModel';
 
 
 // Function to fetch and update stock quantities
@@ -65,6 +66,35 @@ const updateProductionGradeStock = async () => {
 
       //console.log(sortingresults)
   
+      const bigtaihoresults = await bigTaihoModel.findAll({
+        attributes: [
+          'origin',
+          // SUM each issue field and alias the result properly
+          [sequelize.fn('SUM', sequelize.col('issue_ssp')), 'issue_ssp'],
+          [sequelize.fn('SUM', sequelize.col('issue_ssp_small')), 'issue_ssp_small'],
+          [sequelize.fn('SUM', sequelize.col('issue_swp_1')), 'issue_swp_1'],
+          [sequelize.fn('SUM', sequelize.col('issue_wsp')), 'issue_wsp'],
+          [sequelize.fn('SUM', sequelize.col('issue_bits')), 'issue_bits'],
+          [sequelize.fn('SUM', sequelize.col('issue_swp')), 'issue_swp'],
+          [sequelize.fn('SUM', sequelize.col('issue_bb')), 'issue_bb'],
+          [sequelize.fn('SUM', sequelize.col('issue_w_bb')), 'issue_w_bb'],
+          [sequelize.fn('SUM', sequelize.col('issue_bb_A')), 'issue_bb_A'],
+          [sequelize.fn('SUM', sequelize.col('issue_bb1')), 'issue_bb1'],
+          [sequelize.fn('SUM', sequelize.col('issue_bb1_A')), 'issue_bb1_A'],
+          [sequelize.fn('SUM', sequelize.col('issue_bb_2')), 'issue_bb_2'],
+          [sequelize.fn('SUM', sequelize.col('issue_ssp_1')), 'issue_ssp_1'],
+          [sequelize.fn('SUM', sequelize.col('issue_ssp_1_small')), 'issue_ssp_1_small'],
+          [sequelize.fn('SUM', sequelize.col('issue_ssp_2')), 'issue_ssp_2'],
+          [sequelize.fn('SUM', sequelize.col('issue_ssp_2_small')), 'issue_ssp_2_small'],
+          [sequelize.fn('SUM', sequelize.col('issue_sdp')), 'issue_sdp']
+        ],
+        group: ['origin'],
+        where: { Status: 1, editStatus: 'NA' },
+        raw: true, // Ensure plain objects are returned, not Sequelize instances
+      });
+
+       //console.log(bigtaihoresults)
+
       // Iterate over the DPDS results and upsert into the stock table
     for (const dpdsresult of dpdsresults) {
         const { origin, ...dpdsissueFields } = dpdsresult.dataValues
