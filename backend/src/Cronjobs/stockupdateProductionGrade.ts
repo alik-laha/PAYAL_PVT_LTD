@@ -229,7 +229,7 @@ const updateProductionGradeStock = async () => {
         const { origin, ...dpdsissueFields } = dpdsresult.dataValues
   
         // Log dpds result to ensure it's correct
-        console.log('Processing DPDS Result:', dpdsresult);
+        //console.log('Processing DPDS Result:', dpdsresult);
   
         // For each issue field, create a new record in the stock table
         for (const [gradename, issuequantity] of Object.entries(dpdsissueFields)) {
@@ -253,7 +253,7 @@ const updateProductionGradeStock = async () => {
         const { origin, ...sortingissueFields } = sortingresult.dataValues;
   
         // Log sorting result to ensure it's correct
-        console.log('Processing Sorting Result:', sortingresult);
+        //console.log('Processing Sorting Result:', sortingresult);
   
         // For each issue field, create a new record in the stock table
         for (const [gradename, issuequantity] of Object.entries(sortingissueFields)) {
@@ -277,7 +277,7 @@ const updateProductionGradeStock = async () => {
         const { origin, ...bigTaihoissueFields } = bigTaihoresult.dataValues;
   
         // Log sorting result to ensure it's correct
-        console.log('Processing BigTaiho Result:', bigTaihoresult);
+        //console.log('Processing BigTaiho Result:', bigTaihoresult);
   
         // For each issue field, create a new record in the stock table
         for (const [gradename, issuequantity] of Object.entries(bigTaihoissueFields)) {
@@ -301,7 +301,7 @@ const updateProductionGradeStock = async () => {
         const { origin, ...LWissueFields } = lwresult.dataValues;
   
         // Log sorting result to ensure it's correct
-        console.log('Processing LW Result:', lwresult);
+        //console.log('Processing LW Result:', lwresult);
   
         // For each issue field, create a new record in the stock table
         for (const [gradename, issuequantity] of Object.entries(LWissueFields)) {
@@ -325,7 +325,7 @@ const updateProductionGradeStock = async () => {
         const { origin, ...WholesissueFields } = wholesresult.dataValues;
   
         // Log sorting result to ensure it's correct
-        console.log('Processing Wholes Result:', wholesresults);
+        //console.log('Processing Wholes Result:', wholesresults);
   
         // For each issue field, create a new record in the stock table
         for (const [gradename, issuequantity] of Object.entries(WholesissueFields)) {
@@ -349,7 +349,7 @@ const updateProductionGradeStock = async () => {
         const { origin, ...RejectionissueFields } = rejectionresult.dataValues;
   
         // Log sorting result to ensure it's correct
-        console.log('Processing Rejection Result:', rejectionresults);
+        //console.log('Processing Rejection Result:', rejectionresults);
   
         // For each issue field, create a new record in the stock table
         for (const [gradename, issuequantity] of Object.entries(RejectionissueFields)) {
