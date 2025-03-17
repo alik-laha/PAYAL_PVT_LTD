@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { RxUpdate } from "react-icons/rx";
+import DashboardHeader from "../dashboard/DashboardHeader";
+import DashboardSidebar from "../dashboard/DashboardSidebar";
 
 const Packing = () => {
 
@@ -24,6 +26,8 @@ const [loading, setLoading] = useState(false);
 return (
     <>
     <div>
+    <DashboardHeader />
+    <DashboardSidebar />
     <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" 
     disabled={loading} onClick={handleProdStockUpdateFetch} >  {loading ? 'Updating...' : 'Update Stock'} <RxUpdate size={20} className="ml-2"/></Button>
     </div>
