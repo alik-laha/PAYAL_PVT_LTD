@@ -43,6 +43,7 @@ import Sorting from './components/Sorting/Sorting'
 import Wholes from './components/Wholes/Wholes'
 import LW from './components/LW/LW'
 import Rejection from './components/Rejection/Rejection'
+import Packing from './components/Packing/Packing'
 
 
 
@@ -90,7 +91,7 @@ function App() {
           'MaintainanceSupervisor', 'MaintainanceManager',
           'QCSupervisor', 'QCManager',
           'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor', 'ProductionManager','DeputyProductionManager', 'BormaSupervisor',
-          'PeelingSupervisor', 'MayurSupervisor','VillageSupervisor','SortingSupervisor','WholesSupervisor']} />}>
+          'PeelingSupervisor', 'MayurSupervisor','VillageSupervisor','SortingSupervisor','WholesSupervisor','PackingSupervisor']} />}>
 
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
@@ -273,6 +274,13 @@ function App() {
       <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'VillageSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
           <Route path='/dashboard/Rejection' element={<Rejection />} />
+
+        </Route>
+
+        {/*Production Packing  */}
+      <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'PackingSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
+          <Route path='/dashboard/Packing' element={<Packing />} />
 
         </Route>
 

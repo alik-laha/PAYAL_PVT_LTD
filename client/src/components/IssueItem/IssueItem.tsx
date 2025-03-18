@@ -118,8 +118,10 @@ const IssueItem = () => {
 
 
                     {checkpending('RCNPrimary') && <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" onClick={handleEditFetch} disabled={data.EditData===0?true:false}> Pending Edit ({data.EditData})</Button>}
+                    
                     <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" 
                     disabled={loading} onClick={handleStockUpdateFetch} >  {loading ? 'Updating...' : 'Update Stock'} <RxUpdate size={20} className="ml-2"/></Button>
+                
                 </div>
              <IssueTable/>
                 </div>

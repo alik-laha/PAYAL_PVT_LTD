@@ -37,6 +37,7 @@ import wholesRouter from "./router/wholesRouter";
 import LWRouter from "./router/LWRouter";
 import RejectionRouter from "./router/RejectionRouter";
 import formLockRouter from "./model/formLockRouter";
+import packingRouter from "./router/packingRouter";
 
 
 
@@ -83,4 +84,5 @@ app.use("/api/wholes", wholesRouter)
 app.use("/api/lw", LWRouter)
 app.use("/api/rejection", RejectionRouter)
 app.use("/api/formlock", formLockRouter)
+app.use("/api/packing", packingRouter)
 export default app
