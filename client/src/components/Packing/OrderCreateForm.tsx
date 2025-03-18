@@ -26,6 +26,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { ScrollArea } from "../ui/scroll-area";
+import { MdDelete } from "react-icons/md";
 
 interface SectionRowData {
     origin: string;
@@ -41,21 +42,22 @@ interface SectionRowData {
 const OrderCreateForm = () => {
 
     const dateIssueref = useRef<HTMLInputElement>(null)
+    const invdateIssueref = useRef<HTMLInputElement>(null)
     const usernameRef = useRef<HTMLInputElement>(null)
     const [errortext, setErrortext] = useState('')
     const [isdisable, setisdisable] = useState<boolean>(false)
 
 
-    const [grade,setGrade]=useState<findskutypeData[]>([])
-    const [actvgradeindex,setActvgradeindex]=useState<number>()
+    const [grade, setGrade] = useState<findskutypeData[]>([])
+    const [actvgradeindex, setActvgradeindex] = useState<number>()
 
     const [rows, setRows] = useState<SectionRowData[]>([{
         origin: '',
-        grade:'',
+        grade: '',
         quantity: 0,
         unitrate: 0,
         totalprice: 0,
-        gst:false,
+        gst: false,
         remarks: '',
     }
     ]);
@@ -68,12 +70,12 @@ const OrderCreateForm = () => {
     const addRow2 = () => {
         setRows([...rows, {
             origin: '',
-        grade:'',
-        quantity: 0,
-        unitrate: 0,
-        totalprice: 0,
-        gst:false,
-        remarks: ''
+            grade: '',
+            quantity: 0,
+            unitrate: 0,
+            totalprice: 0,
+            gst: false,
+            remarks: ''
         }])
     }
     const [gradeview, setGradeView] = useState("none")
@@ -84,28 +86,37 @@ const OrderCreateForm = () => {
         setRows(newRows)
     }
     useEffect(() => {
-        axios.put('/api/vendorSKU/getItembySection/Final Grade',{section:'Packing'})
+        axios.put('/api/vendorSKU/getItembySection/Final Grade', { section: 'Packing' })
             .then(res => {
                 //console.log(res.data)
                 setGrade(res.data)
-                //console.log(sku)
+                console.log(grade)
             })
             .catch(err => {
                 console.log(err)
-            })            
+            })
     }, [])
-   
+
+    const handleGradeidClick = (index: any, item: any) => {
+        // setSku(item.sku)
+        rows[index].grade = item.sku
+        handleRowChange(index, 'grade', item.sku)
+
+        setGradeView("none")
+    }
+
 
     const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
         const dateissue = dateIssueref.current?.value
+        const invdateissue = invdateIssueref.current?.value
         const username = usernameRef.current?.value
 
         setisdisable(true)
         const formData = rows.map(row => ({
-            Date: dateissue,
+            ordDate: dateissue,
+            invDate: invdateissue,
             Vendor: username,
-
             ...row
         }))
 
@@ -126,7 +137,7 @@ const OrderCreateForm = () => {
             else {
                 setErrortext('An Unexpected Error Occured in Creating Issue Item')
             }
-            if(errordialog){
+            if (errordialog) {
                 (errordialog as any).showModal()
             }
         }
@@ -161,10 +172,10 @@ const OrderCreateForm = () => {
         });
     }
 
-    const handleGradechange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleGradechange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
         //setSku(e.target.value)
-     
-        handleRowChange(index,'grade',e.target.value)
+
+        handleRowChange(index, 'grade', e.target.value)
         setActvgradeindex(index)
         if (e.target.value.length > 0 && gradeData.length > 0) {
             setGradeView("block")
@@ -172,8 +183,8 @@ const OrderCreateForm = () => {
             setGradeView("none")
         }
 
-       
-        axios.post("/api/vendorSKU/skudatafind/Packing", { sku: e.target.value,type:'Final Grade' })
+
+        axios.post("/api/vendorSKU/skudatafind/Packing", { sku: e.target.value, type: 'Final Grade' })
             .then((res) => {
                 console.log(res)
                 if (res.status === 200) {
@@ -188,21 +199,25 @@ const OrderCreateForm = () => {
     }
 
 
-   
- 
+
+
     return (
         <>
             <div className="px-5 mt-4">
-                     <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit2}>
+                <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit2}>
 
                     <div className="mx-8 flex flex-col gap-1">
                         <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Invoice Date (*)</Label>
+                            <Label className="w-2/4 pt-1">Order Date (*)</Label>
                             <Input type='date' className="w-2/4 text-center justify-center" placeholder="Vehicle No" ref={dateIssueref} required />
                         </div>
                         <div className="flex mt-1">
+                            <Label className="w-2/4 pt-1">Invoice Date (*)</Label>
+                            <Input type='date' className="w-2/4 text-center justify-center" placeholder="Vehicle No" ref={invdateIssueref} required />
+                        </div>
+                        <div className="flex mt-1">
                             <Label className="w-2/4 pt-1">Vendor Name (*)</Label>
-                            <Input className="w-2/4 text-center" placeholder="Vendor Name" ref={usernameRef} required/>
+                            <Input className="w-2/4 text-center" placeholder="Vendor Name" ref={usernameRef} required />
                         </div>
                     </div>
 
@@ -213,12 +228,12 @@ const OrderCreateForm = () => {
                             <TableHeader className="bg-neutral-100 text-stone-950" >
                                 <TableHead className="text-center" >Sl. No.</TableHead>
                                 <TableHead className="text-center" >Origin</TableHead>
-                                <TableHead className="text-center" >Grade</TableHead>
-                                <TableHead className="text-center" >Quantity</TableHead>
-                                <TableHead className="text-center" >Unit_Rate</TableHead>
-                                <TableHead className="text-center" >Total_Price(Rs)</TableHead>
-                                <TableHead className="text-center" >GST</TableHead>
-                                <TableHead className="text-center w-30" >Remarks</TableHead>
+                                <TableHead className="text-center" >Final Grade</TableHead>
+                                <TableHead className="text-center" >Quantity (Kg)</TableHead>
+                                <TableHead className="text-center" >Unit_Rate (Rs)</TableHead>
+                                <TableHead className="text-center" >Total_Price (Rs)</TableHead>
+                                <TableHead className="text-center" >Included GST</TableHead>
+                                <TableHead className="text-center w-30" >Order_Remarks(Any)</TableHead>
                                 <TableHead className="text-center" >Action</TableHead>
 
                             </TableHeader>
@@ -229,44 +244,84 @@ const OrderCreateForm = () => {
                                             <TableRow key={index} className="boiling-row-height">
                                                 <TableCell>{index + 1}</TableCell>
                                                 <TableCell className="text-center">
-                                            <Select value={row.origin} onValueChange={(val) => handleRowChange(index, 'origin', val)} required={true}>
-                                                <SelectTrigger className="justify-center w-40">
-                                                    <SelectValue placeholder="Origin" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectGroup>
-                                                        {
-                                                            Origin.map((item) => {
-                                                                return (
-                                                                    <SelectItem key={item} value={item}>
-                                                                        {item}
-                                                                    </SelectItem>
-                                                                )
-                                                            })
-                                                        }
-                                                    </SelectGroup>
-                                                </SelectContent>
-                                            </Select>
-                                        </TableCell>
+                                                    <Select value={row.origin} onValueChange={(val) => handleRowChange(index, 'origin', val)} required={true}>
+                                                        <SelectTrigger className="justify-center w-40">
+                                                            <SelectValue placeholder="Origin" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectGroup>
+                                                                {
+                                                                    Origin.map((item) => {
+                                                                        return (
+                                                                            <SelectItem key={item} value={item}>
+                                                                                {item}
+                                                                            </SelectItem>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </SelectGroup>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </TableCell>
 
-                                        <TableCell className="text-center" >
-                                                <Input value={row.grade} placeholder="Final Grade"
-                                                    onChange={(e) => handleGradechange(index, e)} required />
-                                                {actvgradeindex === index && <ScrollArea className="max-h-24 w-auto overflow-scroll  
+                                                <TableCell className="text-center" >
+                                                    <Input value={row.grade} placeholder="Final Grade"
+                                                        onChange={(e) => handleGradechange(index, e)} required />
+                                                    {actvgradeindex === index && <ScrollArea className="max-h-24 w-auto overflow-scroll  
                                                 dropdown-content" style={{ display: gradeview }}>
-                                                    {
-                                                        gradeData.map((item: any) => (
-                                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" 
-                                                            onClick={() => handleSkuidClick(index, item)}>
-                                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.sku}</p>
+                                                        {
+                                                            gradeData.map((item: any) => (
+                                                                <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3"
+                                                                    onClick={() => handleGradeidClick(index, item)}>
+                                                                    <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.sku}</p>
 
-                                                            </div>
-                                                        ))
-                                                    }
-                                                </ScrollArea>}
-                                            </TableCell>
-                                               
+                                                                </div>
+                                                            ))
+                                                        }
+                                                    </ScrollArea>}
+                                                </TableCell>
 
+                                                <TableCell className="text-center" >
+                                                    <Input value={row.quantity} placeholder="Qty." type='number'
+                                                        onChange={(e) => {
+                                                            handleRowChange(index, 'quantity', e.target.value)
+                                                        }} required />
+                                                </TableCell>
+                                                <TableCell className="text-center" >
+                                                    <Input value={row.unitrate} placeholder="Unit Rate." type='number'
+                                                        onChange={(e) => {
+                                                            handleRowChange(index, 'unitrate', e.target.value)
+                                                        }} required />
+                                                </TableCell>
+
+                                                <TableCell className="text-center" >
+                                                    <Input value={row.totalprice} placeholder="Total Rate" type='number'
+                                                        onChange={(e) => {
+                                                            handleRowChange(index, 'totalprice', e.target.value)
+                                                        }} required />
+                                                </TableCell>
+
+                                                <TableCell className="text-center">
+                                                    <Input
+                                                        type="checkbox" className="h-4 w-4 text-center justify-center items-center ml-9"
+                                                        checked={row.gst}
+                                                        onChange={(e) => {
+                                                            handleRowChange(index, 'gst', String(e.target.checked))
+                                                        }}
+                                                    />
+                                                </TableCell>
+
+                                                <TableCell className="text-center w-30" >
+
+                                                    <Input value={row.remarks} placeholder="Remarks" className='w-90' onChange={(e) => {
+                                                        handleRowChange(index, 'remarks', e.target.value)
+                                                    }} />
+                                                </TableCell>
+
+                                                <TableCell className="text-center">
+                                                                                                <button className="bg-red-400 text-grey-700 w-7 h-7  text-primary-foreground rounded-md text-center items-center justify-center"
+                                                                                                    onClick={() => deleteRow(index)}><MdDelete size={20} /></button>
+                                                                                            </TableCell>
 
                                             </TableRow>
 

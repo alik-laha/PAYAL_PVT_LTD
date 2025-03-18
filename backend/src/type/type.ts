@@ -138,6 +138,10 @@ export interface lotNoData {
     id: number;
     lotNo: string;
 }
+export interface orderNoData {
+    id: number;
+    orderNo: string;
+}
 
 export interface TokenVerify {
     employeeId: string;
