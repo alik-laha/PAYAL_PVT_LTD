@@ -28,25 +28,19 @@ export const prodStockSearch = async (req: Request, res: Response) => {
       
         if (origin) {
             whereClause.push({
-                origin: {
-                    [Op.eq]: `%${origin}%`
-                }
+                origin:origin
             });
         }
         
         if (section) {
             whereClause.push({
-                section: {
-                    [Op.eq]: `%${section}%`
-                }
+                section:section
             });
         }
 
         if (grade) {
             whereClause.push({
-                grade: {
-                    [Op.eq]: `%${grade}%`
-                }
+                grade: grade
             });
         }
 

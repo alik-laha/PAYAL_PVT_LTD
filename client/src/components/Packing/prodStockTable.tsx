@@ -7,7 +7,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useEffect, useState } from "react";
-import { GradeOnSection, Origin, pagelimit, pageNo, pendingCheckRole, prodStockSection, sectionDataonTypeGate } from "../common/exportData";
+import { GradeOnSection, Origin, pagelimit, pageNo, pendingCheckRole, prodStockSection } from "../common/exportData";
 import axios from "axios";
 import {
     Pagination,
@@ -58,6 +58,9 @@ const ProdStockTable = () => {
               
                 setblockpagen('flex')
                 if(searchType === 'Production Stock'){
+                    if(prodsectiontype==''){
+                        setGrade('')
+                    }
                     const response = await axios.put('/api/packing/prodStockSearch', { 
                         origin: origin,
                         section:prodsectiontype,
@@ -199,7 +202,7 @@ const ProdStockTable = () => {
 
             return (
                 <>
-                <div className="ml-2 mt-5 ">
+                <div className="ml-3 mt-5 ">
                 <div className="flex flexbox-search">
                 
                   <select className='flexbox-search-width flex h-8 w-1/7 ml-2 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
