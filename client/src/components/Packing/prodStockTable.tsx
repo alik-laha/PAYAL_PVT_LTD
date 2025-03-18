@@ -7,7 +7,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useEffect, useState } from "react";
-import { Origin, pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
+import { GradeOnSection, Origin, pagelimit, pageNo, pendingCheckRole, prodStockSection, sectionDataonTypeGate } from "../common/exportData";
 import axios from "axios";
 import {
     Pagination,
@@ -18,8 +18,7 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
-import { Input } from "../ui/input";
-import { format, toZonedTime } from "date-fns-tz";
+
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
 
@@ -28,19 +27,20 @@ import * as XLSX from 'xlsx';
 import { pendingCheckRoles, PermissionRole } from "@/type/type";
 import { LuDownload } from "react-icons/lu";
 
-const BigTaihoHistoryTable = () => {
+const ProdStockTable = () => {
      const limit = pagelimit
         const [page, setPage] = useState(pageNo)
-        const [fromdate, setfromDate] = useState<string>('');
-        const [todate, settoDate] = useState<string>('');
-        const [hidetodate, sethidetoDate] = useState<string>('');
+       
         const [blockpagen, setblockpagen] = useState('flex')
-        const [searchType, setsearchType] = useState('Incoming')
-        const [searchTableType, setsearchtableType] = useState('Incoming')
+        const [searchType, setsearchType] = useState('Production Stock')
+        const [prodsectiontype, setProdsectiontype] = useState('')
+        const [searchTableType, setsearchtableType] = useState('Production Stock')
         const [Data, setData] = useState<any[]>([])
         const [origin, setOrigin] = useState<string>("")
-        const [blConNo, setBlConNo] = useState<string>("")
-        const dropdown=['Incoming','Mixing']
+        const [grade, setGrade] = useState<string>("")
+        
+        const dropdown=['Production Stock','Order Stock']
+      
         const currDate = new Date().toLocaleDateString();
 
         useEffect(() => {
@@ -57,14 +57,11 @@ const BigTaihoHistoryTable = () => {
 
               
                 setblockpagen('flex')
-                if(searchType === 'Incoming'){
-                    const response = await axios.put('/api/mayur/historySearch', {
-                        searchitem: blConNo,
-                        fromDate: fromdate,
-                        toDate: todate,
+                if(searchType === 'Production Stock'){
+                    const response = await axios.put('/api/packing/prodStockSearch', { 
                         origin: origin,
-                        section:'BigTaiho'
-    
+                        section:prodsectiontype,
+                        grade:grade
                     }, {
                         params: {
                             page: page,
@@ -77,15 +74,12 @@ const BigTaihoHistoryTable = () => {
             
                     }
                     setData(data.rcnEntries)
-                    setsearchtableType('Incoming')
+                    setsearchtableType('Production Stock')
                 }
                 else{
-                    const response = await axios.put('/api/mayur/historymixSearch', {
-                        searchitem: blConNo,
-                        fromDate: fromdate,
-                        toDate: todate,
+                    const response = await axios.put('/api/mayur/historymixSearch', {          
                         origin: origin,
-                        section:'BigTaiho'
+                        
     
                     }, {
                         params: {
@@ -99,7 +93,7 @@ const BigTaihoHistoryTable = () => {
             
                     }
                     setData(data.rcnEntries)
-                    setsearchtableType('Mixing')
+                    setsearchtableType('Order Stock')
                 }
                 
                 
@@ -107,29 +101,8 @@ const BigTaihoHistoryTable = () => {
         
         
             }
-            const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-                const selected = e.target.value;
-                if (!selected) {
-                    settoDate('')
-                    sethidetoDate('')
-                    return
-                }
-                //console.log(selected)
-                const date = new Date(selected)
-                date.setDate(date.getDate() + 1);
-                //console.log(date)
-                const nextday = date.toISOString().split('T')[0];
-                //console.log(nextday)
-                sethidetoDate(selected)
-                settoDate(nextday)
-            }
-            function handletimezone(date: string | Date) {
-                    const apidate = new Date(date);
-                    const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
-                    const finaldate = format(localdate, 'dd-MM-yyyy', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })
-                    return finaldate;
-            }
+           
+       
             function formatNumber(num: string) {
                 return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
             }
@@ -141,7 +114,7 @@ const BigTaihoHistoryTable = () => {
                         fromDate: fromdate,
                         toDate: todate,
                         origin: origin,
-                        section:'BigTaiho'
+                        section:'Rejection'
     
                     })
                     const data1 = await response.data
@@ -166,7 +139,7 @@ const BigTaihoHistoryTable = () => {
                         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
                         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
                         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-                        saveAs(blob, 'BigTaiho_Incoming_Entry_' + currDate + '.xlsx');
+                        saveAs(blob, 'Rejection_Incoming_Entry_' + currDate + '.xlsx');
                     }
                     
                    
@@ -178,7 +151,7 @@ const BigTaihoHistoryTable = () => {
                         fromDate: fromdate,
                         toDate: todate,
                         origin: origin,
-                        section:'BigTaiho'
+                        section:'Rejection'
     
                     })
                     const data1 = await response.data
@@ -205,7 +178,7 @@ const BigTaihoHistoryTable = () => {
                         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
                         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
                         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-                        saveAs(blob, 'BigTaiho_Mixing_Entry_' + currDate + '.xlsx');
+                        saveAs(blob, 'Rejection_Mixing_Entry_' + currDate + '.xlsx');
                 }
               
                 
@@ -226,11 +199,10 @@ const BigTaihoHistoryTable = () => {
 
             return (
                 <>
-                <div className="ml-5 mt-5 ">
+                <div className="ml-2 mt-5 ">
                 <div className="flex flexbox-search">
                 
-                <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
-                  <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                  <select className='flexbox-search-width flex h-8 w-1/7 ml-2 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                                         onChange={(e) => setOrigin(e.target.value)} value={origin}>
                   <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
@@ -242,23 +214,33 @@ const BigTaihoHistoryTable = () => {
                                             </option>
                                         ))}
                 </select>
+
+                {searchType==='Production Stock' && <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                                        onChange={(e) => setProdsectiontype(e.target.value)} value={prodsectiontype}>
+                  <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Section (All)</option>
+                                        {prodStockSection.map((data, index) => (
+                                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                                {data}
+                                            </option>
+                                        ))}
+                </select>}
+
+                <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                            onChange={(e) => setGrade(e.target.value)} value={grade}>
+                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Production Grade (All)</option>
+                            {prodsectiontype ? (
+                              GradeOnSection[prodsectiontype as keyof typeof GradeOnSection].map((item) => (
+                                <option key={item} value={item}>{item}</option>
+                              ))
+                            ) : null}
+                          </select>
                 
-                    <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
-                    <Input className="w-1/7 flexbox-search-width-calender"
-                        type="date"
-                        value={fromdate}
-                        onChange={(e) => setfromDate(e.target.value)}
-                        placeholder="From Date"
-
-                    />
-                    <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-right">To </label>
-                    <Input className="w-1/7 flexbox-search-width-calender"
-                        type="date"
-                        value={hidetodate}
-                        onChange={handleTodate}
-                        placeholder="To Date"
-
-                    />
+                    
                     <select className='flexbox-search-width flex h-8 w-1/7 mr-10 ml-10 no-margin-left items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                                         onChange={(e) => setsearchType(e.target.value)} value={searchType}>
@@ -273,23 +255,20 @@ const BigTaihoHistoryTable = () => {
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleTransactionSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
-                {checkpending('BigTaiho') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
-                    {searchTableType==='Incoming' ? 
+                {checkpending('Packing') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+                    {searchTableType==='Production Stock' ? 
                     (<Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
-                        <TableHead className="text-center" >Id</TableHead>
-                        <TableHead className="text-center" >Lot No</TableHead>
-                        <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Date Of Transfer</TableHead>
-                        <TableHead className="text-center" >Issue No</TableHead>
+                        <TableHead className="text-center" >Sl No.</TableHead>
                         <TableHead className="text-center" >Section</TableHead>
-                        <TableHead className="text-center" >Transfer Amount</TableHead>
-                       
-                        <TableHead className="text-center" >Previous Backlog</TableHead>
+                        <TableHead className="text-center" >Origin</TableHead>
+                        <TableHead className="text-center" >Grade</TableHead>
+                        <TableHead className="text-center" >Stock Issued</TableHead>
+                        <TableHead className="text-center" >Stock Consumed</TableHead>
                         <TableHead className="text-center" >Current Backlog</TableHead>
-                        <TableHead className="text-center" >Issued By</TableHead>
+
                        
                     
                 
@@ -299,16 +278,18 @@ const BigTaihoHistoryTable = () => {
                       return (
                                  <TableRow key={item.id} >
                                      <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                     <TableCell className="text-center font-bold text-cyan-500">{item.LotNo}</TableCell>
+                                   
                                      
-                                     <TableCell className="text-center font-semibold ">{item.origin}</TableCell>
-                                     <TableCell className="text-center ">{handletimezone(item.date)}</TableCell>
-                                     <TableCell className="text-center  ">{item.issueid}</TableCell>
-                                     <TableCell className="text-center  ">{item.fromSection}</TableCell>
-                                     <TableCell className="text-center ">{formatNumber(item.amount)}</TableCell>
-                                     
-                                     <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.toSectionBeforeBacklog)}</TableCell>
-                                     <TableCell className="text-center font-semibold text-green-500">{formatNumber(item.toSectionAfterBacklog)}</TableCell>
+                                     <TableCell className="text-center font-semibold ">{item.section}</TableCell>
+                                  
+                                     <TableCell className="text-center  ">{item.origin}</TableCell>
+                                     <TableCell className="text-center  ">{item.grade}</TableCell>
+                                     <TableCell className="text-center ">{formatNumber((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity)).toString())}</TableCell>
+                                     <TableCell className="text-center ">{formatNumber(((item.consumequantity ?parseFloat(item.consumequantity):0)+(item.thresoldconsumequantity? parseFloat(item.thresoldconsumequantity):0)).toString())}</TableCell>
+                                     <TableCell className="text-center ">{formatNumber(((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity))
+                                     -(item.consumequantity ?parseFloat(item.consumequantity):0+item.thresoldconsumequantity ?parseFloat(item.thresoldconsumequantity):0)).toString())}</TableCell>
+
+                                    
                                      <TableCell className="text-center font-semibold">{item.createdBy}</TableCell>
                                   
                                    
@@ -439,4 +420,4 @@ const BigTaihoHistoryTable = () => {
             )
 }
 
-export default BigTaihoHistoryTable;
+export default ProdStockTable;

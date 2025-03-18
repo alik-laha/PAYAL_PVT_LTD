@@ -125,7 +125,7 @@ export const cookingTime = ['00:07', '00:08', '00:09', '00:10', '00:11', '00:12'
 export const Origin = ["India", "Ghana", "IVC", "Benin", "Tanzania", "Nigeria", "Togo", "Guinea-Bissau", "Senegal","GUINEA-CONAKRY"]
 export const SelectType = ["LineWise","LotWise"]
 export const SelectTypeIssue = ["ItemWise","DayWise"]
-
+export const prodStockSection=['Wholes','LW','Sorting','DPDS','BigTaiho','Rejection']
 
 export const sectionDataonTypeGate = {
     IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond','Village','Agarbati'],
@@ -149,3 +149,33 @@ export const TypeOnSection = {
     Packing:['Final Grade']
 }
 
+
+export const GradeOnSection = {
+    Wholes:  [
+        'PW_150', 'W_150', 'WW_150', 'S_150', 'AW_150', 'LW_150', 
+        'PW_180', 'W_180', 'WW_180', 'S_180', 'AW_180', 'LW_180',
+        'PW_210', 'W_210', 'WW_210', 'S_210', 'AW_210', 'LW_210',
+        'PW_240', 'W_240', 'WW_240', 'WW_240_A', 'AW_240', 'LW_240',
+        'PW_280', 'W_280', 'WW_280', 'WW_280_A', 'AW_280', 'LW_280',
+        'WHOLES_DOUBLE', 'PW_320', 'W_320', 'WW_320', 'WW_320_A', 'AW_320', 'LW_320',
+        'PW_360', 'W_360', 'WW_360', 'WW_360_A', 'AW_360', 'LW_360',
+        'PW_400', 'W_400', 'WW_400', 'WW_400_A', 'AW_400', 'LW_400',
+        'JJB', 'JJB1'
+      ],
+    LW:['KW', 'KW_1', 'KW_2', 'KN', 'DW', 'DW_1', 'DW_2', 'OW', 'OW_1', 'OW_2', 'JW',
+         'PW', 'ROW', 'REJ_1', 'LW3_180', 'LW3_210', 'LW3_240', 'LW3_280', 'LW3_360', 'LW2',
+         'LW4', 'LW5', 'LW6', 'LW7', 'REJ_3', 'REJ_4', 'JB2', 'SJB', 'K_240', 'K_280', 'K_360',
+          'PKW', 'BW', 'RW', 'RRW', 'FW', 'LW'
+        ],
+    BigTaiho:['SSP', 'SSP_Small', 'SWP_1', 'WSP', 'BITS', 'SWP', 'BB', 'W_BB', 'BB_A', 'BB_1',
+         'BB_1A', 'BB_2', 'SSP_1', 'SSP_1_Small', 'SSP_2', 'SSP_2_Small', 'SDP'
+        ],
+    Sorting:['JJH', 'JJH1', 'SJH', 'JK', 'JK_1', 'K', 'K_1', 'LWP_1',
+         'LWP', 'S', 'SS', 'YK', 'SP_2', 'KP'
+        ],
+    DPDS:['M_DS', 'M_DP', 'K_DP', 'DS_1', 'DS_2', 'SP_2', 'YJH', 'YK', 'KP', 'WP', 'RS',
+         'DP_2', 'DP_3','DP_4','DP_3L', 'SS', 'OS','OS_1'
+        ],
+    Rejection:['Rejection']
+    
+}

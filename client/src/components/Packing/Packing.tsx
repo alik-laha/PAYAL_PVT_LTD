@@ -3,8 +3,12 @@ import { Button } from "../ui/button";
 import { RxUpdate } from "react-icons/rx";
 import DashboardHeader from "../dashboard/DashboardHeader";
 import DashboardSidebar from "../dashboard/DashboardSidebar";
+import ProdStockTable from "./prodStockTable";
 
 const Packing = () => {
+
+    const [stocktable, setStockTable] = useState<string>('block')
+    const [transactable, setTransacTable] = useState<string>('none')
 
 const handleProdStockUpdateFetch = async () => {
 
@@ -21,6 +25,18 @@ const handleProdStockUpdateFetch = async () => {
              setLoading(false);
          }
      }
+
+
+     const handleTransferFetch = () => {
+        if (stocktable === 'block') {
+            setStockTable('none')
+            setTransacTable('block')
+        }
+        else {
+            setStockTable('block')
+            setTransacTable('none')
+        }
+    }
 const [loading, setLoading] = useState(false);
 
 return (
@@ -30,8 +46,26 @@ return (
     <DashboardHeader />
     <DashboardSidebar />
     <div className='dashboard-main-container'>
-    <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" 
-    disabled={loading} onClick={handleProdStockUpdateFetch} >  {loading ? 'Updating...' : 'Update Production Stock'} <RxUpdate size={20} className="ml-2"/></Button>
+    <div className="flex flex-row-reverse">
+    <Button className="bg-orange-400 mb-2 mr-8 responsive-button-adjust " 
+    disabled={loading} onClick={handleProdStockUpdateFetch} >  {loading ? 'Updating...' : 'Update Stock'} <RxUpdate size={20} className="ml-2"/></Button>
+        </div>
+    <div className="flex">
+        <Button className="bg-blue-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {stocktable === 'block' ? 'Order History' : 'Stock History'}</Button>
+
+        </div>
+    
+        
+
+    
+    <div style={{ display: stocktable }}>
+                    <ProdStockTable />
+                </div>
+                <div style={{ display: transactable }}>
+                    {/* <RejectionHistoryTable /> */}
+                </div>
+    
+    
     </div>
     </div>
     </>
