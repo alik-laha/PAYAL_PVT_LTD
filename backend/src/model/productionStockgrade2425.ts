@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig";
 
-const productionStockGrade = sequelize.define('productionStockGrade', {
+const productionStockGrade2425 = sequelize.define('productionStockGrade2425', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -44,4 +44,4 @@ const productionStockGrade = sequelize.define('productionStockGrade', {
       }
     ]
   });
-export default productionStockGrade;
+export default productionStockGrade2425;

@@ -1,16 +1,17 @@
 import cron from 'node-cron';
 import sequelize from '../config/databaseConfig';
 import DPDS from '../model/dpdsmodel';
-import productionStockGrade from '../model/productionStockgrade';
+import productionStockGrade2425 from '../model/productionStockgrade2425';
 import SortingModel from '../model/sortingModel';
 import bigTaihoModel from '../model/bigTaihoModel';
 import LWModel from '../model/lowerGradeModel';
 import WholesModel from '../model/wholesModel';
 import rejectionModel from '../model/rejectionModel';
+import { Op } from 'sequelize';
 
 
 // Function to fetch and update stock quantities
-const updateProductionGradeStock = async () => {
+const updateProductionGradeStock2425 = async () => {
     try {
       // Fetch sum of all issue fields grouped by origin
       const dpdsresults = await DPDS.findAll({
@@ -36,7 +37,12 @@ const updateProductionGradeStock = async () => {
           [sequelize.fn('SUM', sequelize.col('issue_os')),'OS'],
           [sequelize.fn('SUM', sequelize.col('issue_os1')),'OS_1']
         ],
-        where: { Status: 1,editStatus:'NA' },
+        where: { Status: 1,editStatus:'NA',
+          date: {
+            [Op.gte]: '2024-03-31', // From 31st March 2024
+            [Op.lt]: '2025-04-01', // Up to 1st April 2025
+          }
+        },
         group: ['origin'],
        // raw: true,
       });
@@ -62,7 +68,11 @@ const updateProductionGradeStock = async () => {
           [sequelize.fn('SUM', sequelize.col('issue_kp')),'KP']
         ],
         group: ['origin'],
-        where: { Status: 1,editStatus:'NA' },
+        where: { Status: 1,editStatus:'NA',
+          date: {
+            [Op.gte]: '2024-03-31', // From 31st March 2024
+            [Op.lt]: '2025-04-01', // Up to 1st April 2025
+          } },
         //raw: true,
       });
       //console.log(sortingresults)
@@ -90,7 +100,11 @@ const updateProductionGradeStock = async () => {
           [sequelize.fn('SUM', sequelize.col('issue_sdp')), 'SDP']
         ],
         group: ['origin'],
-        where: { Status: 1, editStatus: 'NA' },
+        where: { Status: 1, editStatus: 'NA',
+          date: {
+            [Op.gte]: '2024-03-31', // From 31st March 2024
+            [Op.lt]: '2025-04-01', // Up to 1st April 2025
+          } },
         //raw: true, 
         //  Ensure plain objects are returned, not Sequelize instances
       });
@@ -138,7 +152,11 @@ const updateProductionGradeStock = async () => {
           [sequelize.fn('SUM', sequelize.col('issue_fw')), 'FW'],
           [sequelize.fn('SUM', sequelize.col('issue_lw')), 'LW'],
         ],
-        where: { Status: 1, editStatus: 'NA' },
+        where: { Status: 1, editStatus: 'NA',
+          date: {
+            [Op.gte]: '2024-03-31', // From 31st March 2024
+            [Op.lt]: '2025-04-01', // Up to 1st April 2025
+          } },
         group: ['origin'],
         // raw: true, // Uncomment if you want raw results
       });
@@ -200,7 +218,11 @@ const updateProductionGradeStock = async () => {
           [sequelize.fn('SUM', sequelize.col('issue_jjb')), 'JJB'],
           [sequelize.fn('SUM', sequelize.col('issue_jjb1')), 'JJB1'],
         ],
-        where: { Status: 1, editStatus: 'NA' },
+        where: { Status: 1, editStatus: 'NA' ,
+          date: {
+            [Op.gte]: '2024-03-31', // From 31st March 2024
+            [Op.lt]: '2025-04-01', // Up to 1st April 2025
+          }},
         group: ['origin'],
         // raw: true, // Uncomment if you want raw results
       });
@@ -213,7 +235,11 @@ const updateProductionGradeStock = async () => {
           [sequelize.fn('SUM', sequelize.col('issue_packing')), 'Rejection']
         
         ],
-        where: { Status: 1, editStatus: 'NA' },
+        where: { Status: 1, editStatus: 'NA',
+          date: {
+            [Op.gte]: '2024-03-31', // From 31st March 2024
+            [Op.lt]: '2025-04-01', // Up to 1st April 2025
+          } },
         group: ['origin'],
         // raw: true, // Uncomment if you want raw results
       });
@@ -234,7 +260,7 @@ const updateProductionGradeStock = async () => {
         // For each issue field, create a new record in the stock table
         for (const [gradename, issuequantity] of Object.entries(dpdsissueFields)) {
           if (issuequantity !== null) {
-            await productionStockGrade.upsert({
+            await productionStockGrade2425.upsert({
               origin,
               section: 'DPDS',
               grade: gradename,
@@ -258,7 +284,7 @@ const updateProductionGradeStock = async () => {
         // For each issue field, create a new record in the stock table
         for (const [gradename, issuequantity] of Object.entries(sortingissueFields)) {
           if (issuequantity !== null) {
-            await productionStockGrade.upsert({
+            await productionStockGrade2425.upsert({
               origin,
               section: 'Sorting',
               grade: gradename,
@@ -282,7 +308,7 @@ const updateProductionGradeStock = async () => {
         // For each issue field, create a new record in the stock table
         for (const [gradename, issuequantity] of Object.entries(bigTaihoissueFields)) {
           if (issuequantity !== null) {
-            await productionStockGrade.upsert({
+            await productionStockGrade2425.upsert({
               origin,
               section: 'BigTaiho',
               grade: gradename,
@@ -306,7 +332,7 @@ const updateProductionGradeStock = async () => {
         // For each issue field, create a new record in the stock table
         for (const [gradename, issuequantity] of Object.entries(LWissueFields)) {
           if (issuequantity !== null) {
-            await productionStockGrade.upsert({
+            await productionStockGrade2425.upsert({
               origin,
               section: 'LW',
               grade: gradename,
@@ -330,7 +356,7 @@ const updateProductionGradeStock = async () => {
         // For each issue field, create a new record in the stock table
         for (const [gradename, issuequantity] of Object.entries(WholesissueFields)) {
           if (issuequantity !== null) {
-            await productionStockGrade.upsert({
+            await productionStockGrade2425.upsert({
               origin,
               section: 'Wholes',
               grade: gradename,
@@ -354,7 +380,7 @@ const updateProductionGradeStock = async () => {
         // For each issue field, create a new record in the stock table
         for (const [gradename, issuequantity] of Object.entries(RejectionissueFields)) {
           if (issuequantity !== null) {
-            await productionStockGrade.upsert({
+            await productionStockGrade2425.upsert({
               origin,
               section: 'Rejection',
               grade: gradename,
@@ -383,7 +409,7 @@ const updateProductionGradeStock = async () => {
 // Schedule the job to run at 6 PM and 12 AM
 cron.schedule('0 18,0 * * *', () => {
     console.log('Running scheduled stock update job...');
-    updateProductionGradeStock();
+    updateProductionGradeStock2425();
 });
 
-export { updateProductionGradeStock };
+export { updateProductionGradeStock2425 };

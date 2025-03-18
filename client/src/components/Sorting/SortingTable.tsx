@@ -418,7 +418,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center" >Item_Lot_No</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
                     <TableHead className="text-center" >Issue_No</TableHead>
-                    <TableHead className="text-center" >BigTaiho_Entry_Date</TableHead>
+                    <TableHead className="text-center" >Sorting_Entry_Date</TableHead>
 
                     <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}

@@ -126,6 +126,7 @@ export const Origin = ["India", "Ghana", "IVC", "Benin", "Tanzania", "Nigeria", 
 export const SelectType = ["LineWise","LotWise"]
 export const SelectTypeIssue = ["ItemWise","DayWise"]
 export const prodStockSection=['Wholes','LW','Sorting','DPDS','BigTaiho','Rejection']
+export const FY=['2024-25']
 
 export const sectionDataonTypeGate = {
     IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond','Village','Agarbati'],
