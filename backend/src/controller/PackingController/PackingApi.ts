@@ -6,6 +6,7 @@ import OrderID from '../../model/orderIDModel';
 import { orderNoData } from '../../type/type';
 import sequelize from '../../config/databaseConfig';
 import orderPrimaryModel from '../../model/orderModel';
+import orderStockGrade2425 from '../../model/orderStockGrade2425';
 
 
 export const manualProdStockUpdate = async (req: Request, res: Response) => {
@@ -70,6 +71,62 @@ export const prodStockSearch = async (req: Request, res: Response) => {
             }
     
             return res.status(200).json({ message: 'Prod Stock Entry found', rcnEntries })
+        }
+       
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: 'Internal server error', error: err })
+    }
+};
+
+export const ordStockSearch = async (req: Request, res: Response) => {
+    try {
+        const { FY,grade, origin } = req.body;
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
+        const offset = (page - 1) * size;
+        const limit = size;
+
+        let whereClause = [];
+
+        // Conditionally add parameters to the whereClause
+
+
+        if (origin) {
+            whereClause.push({
+                origin: origin
+            });
+        }
+
+        if (grade) {
+            whereClause.push({
+                grade: grade
+            });
+        }
+
+
+        // Convert the array to an object for the where condition
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+        let rcnEntries
+        if(FY=='2024-25'){
+            if (limit === 0 && offset === 0) {
+                rcnEntries = await orderStockGrade2425.findAll({
+                    where,
+                    order: [ ['origin', 'ASC'], ['grade', 'ASC']], // Order by ASC
+    
+                });
+            }
+            else {
+                rcnEntries = await orderStockGrade2425.findAll({
+                    where,
+                    order: [['id', 'ASC']],// Order by ASC
+                    limit: limit,
+                    offset: offset
+                });
+            }
+    
+            return res.status(200).json({ message: 'Order Stock Entry found', rcnEntries })
         }
        
     }

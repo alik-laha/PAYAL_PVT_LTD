@@ -14,6 +14,7 @@ import {
 import { pendingCheckRoles, PermissionRole } from "@/type/type";
 import { pendingCheckRole } from "../common/exportData";
 import OrderCreateForm from "./OrderCreateForm";
+import ProdTransacTable from "./prodTransacTable";
 
 const Packing = () => {
 
@@ -96,7 +97,7 @@ const Packing = () => {
                         <ProdStockTable />
                     </div>
                     <div style={{ display: transactable }}>
-                        {/* <RejectionHistoryTable /> */}
+                        <ProdTransacTable />
                     </div>
 
 

@@ -56,8 +56,6 @@ const ProdStockTable = () => {
             }, [page])
 
             const handleTransactionSearch = async () => {
-
-              
                 setblockpagen('flex')
                 if(searchType === 'Production Stock'){
                     if(prodsectiontype==''){
@@ -83,9 +81,10 @@ const ProdStockTable = () => {
                     setsearchtableType('Production Stock')
                 }
                 else{
-                    const response = await axios.put('/api/mayur/historymixSearch', {          
+                    const response = await axios.put('/api/packing/ordStockSearch', { 
                         origin: origin,
-                        
+                        grade:grade,
+                        FY:fy
                     }, {
                         params: {
                             page: page,
@@ -211,7 +210,7 @@ const ProdStockTable = () => {
 
                           {searchType==='Order Stock' && <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
-                        onChange={(e) => setOrigin(e.target.value)} value={origin}>
+                        onChange={(e) => setGrade(e.target.value)} value={grade}>
                         <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
         py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Final Grade (All)</option>
                         {sku.map((data, index) => (
@@ -286,7 +285,61 @@ const ProdStockTable = () => {
 
                     </TableBody>
 
-                </Table>):null}
+                </Table>): (<Table className="mt-4">
+                    <TableHeader className="bg-neutral-100 text-stone-950 ">
+
+
+                        <TableHead className="text-center" >Sl No.</TableHead>
+                   
+                        <TableHead className="text-center" >Origin</TableHead>
+                        <TableHead className="text-center" >Final Grade</TableHead>
+                        <TableHead className="text-center" >Demand Order Stock </TableHead>
+                        <TableHead className="text-center" >Issued Order Stock</TableHead>
+                        <TableHead className="text-center" >Current Backlog</TableHead>
+
+                       
+                    
+                
+                    </TableHeader>
+                    <TableBody>
+                    {Data.length > 0 ? (Data.map((item: any, idx) => {
+                      return (
+                                 <TableRow key={item.id} >
+                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+
+                                     <TableCell className="text-center  ">{item.origin}</TableCell>
+                                     <TableCell className="text-center  ">{item.grade}</TableCell>
+                                     <TableCell className="text-center ">{formatNumber((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity)).toString())} Kg</TableCell>
+                                     <TableCell className="text-center ">{formatNumber(((item.consumequantity ?parseFloat(item.consumequantity):0)+(item.thresoldconsumequantity? parseFloat(item.thresoldconsumequantity):0)).toString())} Kg</TableCell>
+                                     <TableCell className="text-center ">{formatNumber(((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity))
+                                     -(item.consumequantity ?parseFloat(item.consumequantity):0+item.thresoldconsumequantity ?parseFloat(item.thresoldconsumequantity):0)).toString())} Kg</TableCell>
+
+                                    
+                                     <TableCell className="text-center font-semibold">{item.createdBy}</TableCell>
+                                  
+                                   
+                                    
+                               
+                                    
+                                 </TableRow>
+                             );
+                         })) : (<TableRow>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                            
+                             <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                           
+                         </TableRow>)}
+
+                    </TableBody>
+
+                </Table>)}
                 
                 
                  
