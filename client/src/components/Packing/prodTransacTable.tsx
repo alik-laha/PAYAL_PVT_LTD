@@ -240,8 +240,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableHead className="text-center">GST</TableHead>
                             {/* <TableHead className="text-center">Edit Status</TableHead> */}
                      
-                            <TableHead className="text-center">Created By</TableHead>
-                            <TableHead className="text-center">Actioned By</TableHead>
+                            <TableHead className="text-center">Created_By</TableHead>
+                            <TableHead className="text-center">Actioned_By</TableHead>
                            
                             <TableHead className="text-center">Remarks</TableHead>
                             
@@ -257,8 +257,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
 
 
-                                        <TableCell className="text-center">{item.origin}</TableCell>
-                                        <TableCell className="text-center">{item.orderID}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.origin}</TableCell>
+                                        <TableCell className="text-center ">{item.orderID}</TableCell>
                                         <TableCell className="text-center">
                                             {item.ordApproveStatus === 'Pending' ? (
                       <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
@@ -289,7 +289,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                                         <TableCell className="text-center">{formatNumber(item.unitRate)} &#8377;</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.totalBill)} &#8377;</TableCell>
-                                        <TableCell className="text-center">{item.gst ? "Yes" : "No"}</TableCell> {/* GST */}
+                                        <TableCell className="text-center">
+                                            <input type="checkbox" checked={item.gst}  />
+                                        </TableCell> {/* GST */}
                                         {/* <TableCell className="text-center">{item.editStatus}</TableCell> */}
                                         <TableCell className="text-center">{item.createdBy }</TableCell> {/* Created By */}
                                         <TableCell className="text-center">{item.approvedBy }</TableCell> {/* Actioned By */}
