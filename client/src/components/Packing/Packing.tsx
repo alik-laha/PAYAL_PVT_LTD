@@ -87,7 +87,7 @@ const Packing = () => {
                         </Dialog>}
                     </div>
 
-                    <p className='text-lg font-semibold text-center capitalize'>{stocktable === 'block' ? 'PRODUCTION STOCK / ORDER STOCK' : 'ORDER/PACKING TRANSACTION'}</p>
+                    <p className='text-lg font-semibold text-center capitalize'>{stocktable === 'block' ? 'PRODUCTION & ORDER STOCK' : 'ORDER & PACKING TRANSACTION'}</p>
 
 
 
