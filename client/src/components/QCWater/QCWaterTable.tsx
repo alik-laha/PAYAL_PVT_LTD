@@ -369,7 +369,7 @@ const QCWaterTable = () => {
                         
                         <TableHead className="text-center" >Feed_Water_TDS</TableHead>
                         <TableHead className="text-center" >Feed_Water_Hardness</TableHead>
-                        <TableHead className="text-center" >Boiler_Type</TableHead>
+                        <TableHead className="text-center" >Water_Boiler_Type</TableHead>
                         <TableHead className="text-center" >Boiler_PH</TableHead>
                         <TableHead className="text-center" >Boiler_TDS</TableHead>
                         <TableHead className="text-center" >Blown_Down_Time_(Day_Shift)</TableHead>

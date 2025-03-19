@@ -386,7 +386,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.GeneralPrimary})</Button>}
                                         <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
                                         <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt):0} </TableCell> 
-                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} </TableCell> 
+                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} &#8377;</TableCell> 
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
@@ -453,7 +453,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.GeneralPrimary})</Button>}
                                         <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
                                         <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :0} </TableCell> 
-                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} </TableCell> 
+                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} &#8377;</TableCell> 
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>

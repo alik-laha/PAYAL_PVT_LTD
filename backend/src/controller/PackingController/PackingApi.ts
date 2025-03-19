@@ -136,6 +136,180 @@ export const ordStockSearch = async (req: Request, res: Response) => {
     }
 };
 
+export const orderSearch = async (req: Request, res: Response) => {
+    try {
+        const { origin,blConNo, fromDate, toDate,orderStatus } = req.body;
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
+        const offset = (page - 1) * size;
+        const limit = size;
+
+        let whereClause = [];
+
+        // Conditionally add parameters to the whereClause
+
+
+        if (origin) {
+            whereClause.push({
+                origin: origin
+            });
+        }
+
+        if (blConNo) {
+            whereClause.push({
+                orderID: {
+                    [Op.like]: `%${blConNo}%`
+                }
+            });
+        }
+
+        if (fromDate && toDate) {
+            whereClause.push({
+                orderInvDate: {
+                    [Op.between]: [fromDate, toDate]
+                }
+            });
+        }
+        if (orderStatus) {
+
+            if(orderStatus==='Pending Approval'){
+                whereClause.push({  [Op.and]: [
+                    {
+                        ordMappingStatus: 0
+                    },
+                    
+                    {
+                        ordApproveStatus:'Pending'
+                    }
+                ]});
+            }
+            if(orderStatus==='Pending Mapping'){
+                whereClause.push({  [Op.and]: [
+                    {
+                        ordMappingStatus: 0
+                    },
+                    
+                    {
+                        ordApproveStatus:'Approved'
+                    }
+                ]});
+            }
+            if(orderStatus==='Pending Packing'){
+                whereClause.push({  [Op.and]: [
+                    {
+                        ordMappingStatus: 1
+                    },
+                    
+                    {
+                        ordStatus:0
+                    }
+                ]});
+            }
+            if(orderStatus==='Closed'){
+                whereClause.push({  [Op.and]: [
+                    {
+                        ordMappingStatus: 1
+                    },
+                    
+                    {
+                        ordStatus:1
+                    }
+                ]});
+            }
+            
+        }
+
+
+        // Convert the array to an object for the where condition
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+        let rcnEntries
+        
+            if (limit === 0 && offset === 0) {
+                rcnEntries = await orderPrimaryModel.findAll({
+                    where,
+                    order: [['orderID', 'DESC']], // Order by DESC
+    
+                });
+            }
+            else {
+                rcnEntries = await orderPrimaryModel.findAll({
+                    where,
+                    order: [['orderID', 'DESC']], // Order by DESC
+                    limit: limit,
+                    offset: offset
+                });
+            }
+    
+            return res.status(200).json({ message: 'Order Entry found', rcnEntries })
+        
+       
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: 'Internal server error', error: err })
+    }
+};
+export const packingSearch = async (req: Request, res: Response) => {
+    try {
+        const { origin,grade, section } = req.body;
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
+        const offset = (page - 1) * size;
+        const limit = size;
+
+        let whereClause = [];
+
+        // Conditionally add parameters to the whereClause
+
+
+        if (origin) {
+            whereClause.push({
+                origin: origin
+            });
+        }
+
+        if (section) {
+            whereClause.push({
+                section: section
+            });
+        }
+
+        if (grade) {
+            whereClause.push({
+                grade: grade
+            });
+        }
+
+
+        // Convert the array to an object for the where condition
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+        let rcnEntries
+     
+            if (limit === 0 && offset === 0) {
+                rcnEntries = await productionStockGrade2425.findAll({
+                    where,
+                    order: [['section', 'ASC'], ['origin', 'ASC'], ['grade', 'ASC']], // Order by ASC
+    
+                });
+            }
+            else {
+                rcnEntries = await productionStockGrade2425.findAll({
+                    where,
+                    order: [['id', 'ASC']],// Order by ASC
+                    limit: limit,
+                    offset: offset
+                });
+            }
+    
+            return res.status(200).json({ message: 'Prod Stock Entry found', rcnEntries })
+        
+       
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: 'Internal server error', error: err })
+    }
+};
 export const createOrderEntire = async (req: Request, res: Response) => {
 
     try {
@@ -189,7 +363,7 @@ export const createOrderEntire = async (req: Request, res: Response) => {
                         totalBill: data.totalprice,
                         remarks: data.remarks,
                         ordApproveStatus: 'Pending',
-                        CreatedBy: feeledBy
+                        createdBy: feeledBy
 
 
                     }, { transaction });

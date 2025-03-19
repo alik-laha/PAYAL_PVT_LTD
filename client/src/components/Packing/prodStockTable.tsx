@@ -153,7 +153,7 @@ const ProdStockTable = () => {
                     </div>
 
 
-                <div className="flex flexbox-search">
+                <div className="flex flexbox-search mb-4">
                 
 
                 <select className='flexbox-search-width flex h-8 w-1/7 ml-2 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
@@ -233,11 +233,11 @@ const ProdStockTable = () => {
 
 
                         <TableHead className="text-center" >Sl No.</TableHead>
-                        <TableHead className="text-center" >Section</TableHead>
-                        <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Grade</TableHead>
-                        <TableHead className="text-center" >Stock Issued</TableHead>
-                        <TableHead className="text-center" >Stock Consumed</TableHead>
+                        <TableHead className="text-center" >Production Section</TableHead>
+                        <TableHead className="text-center" >Production Origin</TableHead>
+                        <TableHead className="text-center" >Production Grade</TableHead>
+                        <TableHead className="text-center" >Total Issued Stock</TableHead>
+                        <TableHead className="text-center" >Total Packing Consumed</TableHead>
                         <TableHead className="text-center" >Current Backlog</TableHead>
 
                        
@@ -251,17 +251,17 @@ const ProdStockTable = () => {
                                      <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                    
                                      
-                                     <TableCell className="text-center font-semibold ">{item.section}</TableCell>
+                                     <TableCell className="text-center  "> <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">{item.section}</button></TableCell>
                                   
-                                     <TableCell className="text-center  ">{item.origin}</TableCell>
-                                     <TableCell className="text-center  ">{item.grade}</TableCell>
-                                     <TableCell className="text-center ">{formatNumber((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity)).toString())} Kg</TableCell>
-                                     <TableCell className="text-center ">{formatNumber(((item.consumequantity ?parseFloat(item.consumequantity):0)+(item.thresoldconsumequantity? parseFloat(item.thresoldconsumequantity):0)).toString())} Kg</TableCell>
-                                     <TableCell className="text-center ">{formatNumber(((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity))
+                                     <TableCell className="text-center font-semibold  ">{item.origin}</TableCell>
+                                     <TableCell className="text-center font-bold text-cyan-500">{item.grade}</TableCell>
+                                     <TableCell className="text-center font-semibold ">{formatNumber((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity)).toString())} Kg</TableCell>
+                                     <TableCell className="text-center font-semibold">{formatNumber(((item.consumequantity ?parseFloat(item.consumequantity):0)+(item.thresoldconsumequantity? parseFloat(item.thresoldconsumequantity):0)).toString())} Kg</TableCell>
+                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity))
                                      -(item.consumequantity ?parseFloat(item.consumequantity):0+item.thresoldconsumequantity ?parseFloat(item.thresoldconsumequantity):0)).toString())} Kg</TableCell>
 
                                     
-                                     <TableCell className="text-center font-semibold">{item.createdBy}</TableCell>
+                                    
                                   
                                    
                                     
@@ -291,10 +291,10 @@ const ProdStockTable = () => {
 
                         <TableHead className="text-center" >Sl No.</TableHead>
                    
-                        <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Final Grade</TableHead>
-                        <TableHead className="text-center" >Demand Order Stock </TableHead>
-                        <TableHead className="text-center" >Issued Order Stock</TableHead>
+                        <TableHead className="text-center" >Production Origin</TableHead>
+                        <TableHead className="text-center" >Packing Final Grade Name</TableHead>
+                        <TableHead className="text-center" >Demanded Order </TableHead>
+                        <TableHead className="text-center" >Fulfilled Order</TableHead>
                         <TableHead className="text-center" >Current Backlog</TableHead>
 
                        
@@ -307,15 +307,14 @@ const ProdStockTable = () => {
                                  <TableRow key={item.id} >
                                      <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
 
-                                     <TableCell className="text-center  ">{item.origin}</TableCell>
-                                     <TableCell className="text-center  ">{item.grade}</TableCell>
-                                     <TableCell className="text-center ">{formatNumber((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity)).toString())} Kg</TableCell>
-                                     <TableCell className="text-center ">{formatNumber(((item.consumequantity ?parseFloat(item.consumequantity):0)+(item.thresoldconsumequantity? parseFloat(item.thresoldconsumequantity):0)).toString())} Kg</TableCell>
-                                     <TableCell className="text-center ">{formatNumber(((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity))
+                                     <TableCell className="text-center font-semibold ">{item.origin}</TableCell>
+                                     <TableCell className="text-center font-bold text-green-500">{item.grade}</TableCell>
+                                     <TableCell className="text-center font-semibold">{formatNumber((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity)).toString())} Kg</TableCell>
+                                     <TableCell className="text-center font-semibold">{formatNumber(((item.consumequantity ?parseFloat(item.consumequantity):0)+(item.thresoldconsumequantity? parseFloat(item.thresoldconsumequantity):0)).toString())} Kg</TableCell>
+                                     <TableCell className="text-center font-bold text-red-500">{formatNumber(((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity))
                                      -(item.consumequantity ?parseFloat(item.consumequantity):0+item.thresoldconsumequantity ?parseFloat(item.thresoldconsumequantity):0)).toString())} Kg</TableCell>
 
                                     
-                                     <TableCell className="text-center font-semibold">{item.createdBy}</TableCell>
                                   
                                    
                                     

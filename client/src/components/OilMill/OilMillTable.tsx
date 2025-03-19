@@ -394,7 +394,7 @@ const OilMillTable = () => {
                                 <TableCell className="text-center font-semibold">{item.quantity}</TableCell>
 
                                 <TableCell className="text-center" >{item.totalWt ?formatNumber(item.totalWt):0}</TableCell> 
-                                <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0 }</TableCell>
+                                <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0 } &#8377;</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
                                 <TableCell className="text-center">
                                         <Popover>
@@ -458,7 +458,7 @@ const OilMillTable = () => {
                                         <TableCell className="text-center font-semibold">{item.quantity}</TableCell>
 
                                       <TableCell className="text-center" >{item.totalWt ?formatNumber(item.totalWt):0}</TableCell> 
-                                        <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0} &#8377;</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
 
                                         <TableCell className="text-center">

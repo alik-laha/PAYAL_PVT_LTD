@@ -6,6 +6,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { format, toZonedTime } from 'date-fns-tz'
 import { useEffect, useState } from "react";
 import {  OrderStatusAll, Origin, pagelimit, pageNo,} from "../common/exportData";
 import axios from "axios";
@@ -42,7 +43,7 @@ const ProdTransacTable = () => {
  
     const [sectionstatus, setSectionstatus] = useState<string>("")
 
-    const dropdown = ['Production Stock', 'Order Stock']
+    const dropdown = ['Order', 'Packing']
 
     //const currDate = new Date().toLocaleDateString();
 
@@ -77,12 +78,14 @@ const ProdTransacTable = () => {
 
             }
             setData(data.rcnEntries)
-            setsearchtableType('Production Stock')
+            setsearchtableType('Order')
         }
         else {
-            const response = await axios.put('/api/packing/ordStockSearch', {
+            const response = await axios.put('/api/packing/packingSearch', {
                 origin: origin,
-            
+                blConNo: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
 
             }, {
                 params: {
@@ -96,7 +99,7 @@ const ProdTransacTable = () => {
 
             }
             setData(data.rcnEntries)
-            setsearchtableType('Order Stock')
+            setsearchtableType('Packing')
         }
     }
 
@@ -124,6 +127,14 @@ const ProdTransacTable = () => {
     function formatNumber(num: string) {
         return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
     }
+     function handletimezone(date: string | Date) {
+        const apidate = new Date(date);
+        const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
+        const finaldate = format(localdate, 'dd-MM-yyyy', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })
+        return finaldate;
+      }
+
+
 
   
 
@@ -203,18 +214,37 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                 </div>
                 {/* {checkpending('Packing') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>} */}
-                {searchTableType === 'Production Stock' ?
+                {searchTableType === 'Order' ?
                     (<Table className="mt-4">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
-                            <TableHead className="text-center" >Sl No.</TableHead>
-                            <TableHead className="text-center" >Section</TableHead>
-                            <TableHead className="text-center" >Origin</TableHead>
-                            <TableHead className="text-center" >Grade</TableHead>
-                            <TableHead className="text-center" >Stock Issued</TableHead>
-                            <TableHead className="text-center" >Stock Consumed</TableHead>
-                            <TableHead className="text-center" >Current Backlog</TableHead>
+                            <TableHead className="text-center">Sl No.</TableHead>
+                            <TableHead className="text-center">Origin</TableHead>
+                            <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
+                            
+                            
+                            <TableHead className="text-center">Approval</TableHead>
+                            <TableHead className="text-center">Mapping</TableHead>
+                            <TableHead className="text-center">Packing</TableHead>
+                            <TableHead className="text-center">Receiving_Date</TableHead>
+                            <TableHead className="text-center">Invoice_Date</TableHead>
+                            <TableHead className="text-center">Final_GradeName</TableHead>
+                            <TableHead className="text-center">Purchase_Vendor_Name</TableHead>
+                            <TableHead className="text-center">Demand_Quantity</TableHead>
+                        
+                            <TableHead className="text-center">Prepared_Quantity</TableHead>
+                            <TableHead className="text-center">Backlog_Quantity</TableHead>
+                            <TableHead className="text-center">Unit_Rate</TableHead>
+                            <TableHead className="text-center">PO_Total_Amount</TableHead>
+                            <TableHead className="text-center">GST</TableHead>
+                            {/* <TableHead className="text-center">Edit Status</TableHead> */}
+                     
+                            <TableHead className="text-center">Created By</TableHead>
+                            <TableHead className="text-center">Actioned By</TableHead>
+                           
+                            <TableHead className="text-center">Remarks</TableHead>
+                            
 
 
 
@@ -227,17 +257,43 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
 
 
-                                        <TableCell className="text-center font-semibold ">{item.section}</TableCell>
+                                        <TableCell className="text-center">{item.origin}</TableCell>
+                                        <TableCell className="text-center">{item.orderID}</TableCell>
+                                        <TableCell className="text-center">
+                                            {item.ordApproveStatus === 'Pending' ? (
+                      <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
+                    ) : (
+                        item.ordApproveStatus === 'Approved' ? (
+                            <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Approved</button>
+                          ) : (
+                            <button className="bg-green-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Rejected</button>
+                          )
+                    )}</TableCell>
+                                        <TableCell className="text-center">{item.ordMappingStatus === 0 ? (
+                      <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
+                    ) : (
+                      <button className="bg-green-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
+                    )}</TableCell>
+                                        <TableCell className="text-center">{item.ordStatus === 0 ? (
+                      <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
+                    ) : (
+                      <button className="bg-green-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
+                    )}</TableCell> {/* Order completion Status */}
+                                        <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
+                                        <TableCell className="text-center">{handletimezone(item.orderInvDate)}</TableCell>
+                                        <TableCell className="text-center">{item.gradeName}</TableCell>
+                                        <TableCell className="text-center">{item.vendorName}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}
+                                        <TableCell className="text-center">{formatNumber(item.actualquantity)} Kg</TableCell> {/* Prepared Quantity */}
+                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber((parseFloat(item.quantity)-parseFloat(item.actualquantity)).toString())} Kg</TableCell> {/* Prepared Quantity */}
 
-                                        <TableCell className="text-center  ">{item.origin}</TableCell>
-                                        <TableCell className="text-center  ">{item.grade}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber((parseFloat(item.openquantity) + parseFloat(item.thresoldopenquantity)).toString())} Kg</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(((item.consumequantity ? parseFloat(item.consumequantity) : 0) + (item.thresoldconsumequantity ? parseFloat(item.thresoldconsumequantity) : 0)).toString())} Kg</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(((parseFloat(item.openquantity) + parseFloat(item.thresoldopenquantity))
-                                            - (item.consumequantity ? parseFloat(item.consumequantity) : 0 + item.thresoldconsumequantity ? parseFloat(item.thresoldconsumequantity) : 0)).toString())} Kg</TableCell>
-
-
-                                        <TableCell className="text-center font-semibold">{item.createdBy}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.unitRate)} &#8377;</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.totalBill)} &#8377;</TableCell>
+                                        <TableCell className="text-center">{item.gst ? "Yes" : "No"}</TableCell> {/* GST */}
+                                        {/* <TableCell className="text-center">{item.editStatus}</TableCell> */}
+                                        <TableCell className="text-center">{item.createdBy }</TableCell> {/* Created By */}
+                                        <TableCell className="text-center">{item.approvedBy }</TableCell> {/* Actioned By */}
+                                        <TableCell className="text-center">{item.remarks}</TableCell>
 
 
 

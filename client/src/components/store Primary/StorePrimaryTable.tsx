@@ -338,7 +338,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                         <TableHead className="text-center" >Entry_Vehicle_No</TableHead>
                           <TableHead className="text-center" >Initial_Wt(Kg)</TableHead>
                            <TableHead className="text-center" >Net_Wt(Kg)</TableHead>
-                           <TableHead className="text-center" >Invoice_No</TableHead>
+                           <TableHead className="text-center" >Item_Invoice_No</TableHead>
                            <TableHead className="text-center" >Invoice_Date</TableHead>
                            <TableHead className="text-center" >Type_Of_Material</TableHead>
                            <TableHead className="text-center" >Store_Material_Item_Code(SKU)</TableHead>
@@ -348,7 +348,7 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                         <TableHead className="text-center" >Invoice_Qty</TableHead>
                         <TableHead className="text-center" >Physical_Qty</TableHead>
                         <TableHead className="text-center" >Unit</TableHead>
-                        <TableHead className="text-center" > Item_Wt(Kg)</TableHead>
+                        <TableHead className="text-center" >Store_Item_Wt(Kg)</TableHead>
                         <TableHead className="text-center" > Bill_Amount</TableHead>
                      
 
@@ -380,8 +380,8 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                         <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt):0} </TableCell> 
-                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill):0} </TableCell> 
+                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt):0} Kg</TableCell> 
+                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill):0} &#8377;</TableCell> 
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
@@ -447,8 +447,8 @@ onClick={GetPendingEdit}>Pending Edit ({EditSumData?.storePrimary})</Button>}
                                         <TableCell className="text-center">{item.invoicequantity}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.quantity)}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.unit}</TableCell>
-                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :0} </TableCell> 
-                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} </TableCell>   
+                                        <TableCell className="text-center">{item.totalWt!=='0.00' ?formatNumber(item.totalWt) :0} Kg</TableCell> 
+                                        <TableCell className="text-center">{item.totalBill!=='0.00' ?formatNumber(item.totalBill) :0} &#8377;</TableCell>   
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">{item.remarks}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
