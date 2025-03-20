@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { updateProductionGradeStock2425 } from '../../Cronjobs/stockupdateProductionGrade';
+import { updateProductionGradeStock2425, updateProductionGradeStock2526 } from '../../Cronjobs/stockupdateProductionGrade';
 import { Op } from 'sequelize';
 import productionStockGrade2425 from '../../model/productionStockgrade2425';
 import OrderID from '../../model/orderIDModel';
@@ -7,12 +7,25 @@ import { orderNoData } from '../../type/type';
 import sequelize from '../../config/databaseConfig';
 import orderPrimaryModel from '../../model/orderModel';
 import orderStockGrade2425 from '../../model/orderStockGrade2425';
+import productionStockGrade2526 from '../../model/productionStockgrade2526';
+import orderStockGrade2526 from '../../model/orderStockGrade2526';
 
+const CY_FY = process.env.CY_FY ? process.env.CY_FY : '2025-26';
 
 export const manualProdStockUpdate = async (req: Request, res: Response) => {
     try {
-        await updateProductionGradeStock2425();
-        res.status(200).json({ message: 'Production Stock update triggered successfully.' });
+        if(CY_FY==='2024-25'){
+            await updateProductionGradeStock2425();
+            res.status(200).json({ message: '2024-25 Production Stock update triggered successfully.' });
+        }
+        else if(CY_FY==='2025-26'){
+            await updateProductionGradeStock2526();
+            res.status(200).json({ message: '2025-26 Production Stock update triggered successfully.' });
+        }
+        else{
+            res.status(500).json({ error: 'FY Not Found/Internal Server Error' });
+        }
+        
     } catch (error) {
         res.status(500).json({ error: 'Failed to update production stock.' });
     }
@@ -70,7 +83,29 @@ export const prodStockSearch = async (req: Request, res: Response) => {
                 });
             }
     
-            return res.status(200).json({ message: 'Prod Stock Entry found', rcnEntries })
+            return res.status(200).json({ message: '2024-25 Prod Stock Entry found', rcnEntries })
+        }
+        else if(FY=='2025-26'){
+            if (limit === 0 && offset === 0) {
+                rcnEntries = await productionStockGrade2526.findAll({
+                    where,
+                    order: [['section', 'ASC'], ['origin', 'ASC'], ['grade', 'ASC']], // Order by ASC
+    
+                });
+            }
+            else {
+                rcnEntries = await productionStockGrade2526.findAll({
+                    where,
+                    order: [['id', 'ASC']],// Order by ASC
+                    limit: limit,
+                    offset: offset
+                });
+            }
+    
+            return res.status(200).json({ message: '2025-26 Prod Stock Entry found', rcnEntries })
+        }
+        else{
+            return res.status(500).json({ message: 'FY Not Found'})
         }
        
     }
@@ -126,7 +161,29 @@ export const ordStockSearch = async (req: Request, res: Response) => {
                 });
             }
     
-            return res.status(200).json({ message: 'Order Stock Entry found', rcnEntries })
+            return res.status(200).json({ message: '2024-25 Order Stock Entry found', rcnEntries })
+        }
+        else if(FY=='2025-26'){
+            if (limit === 0 && offset === 0) {
+                rcnEntries = await orderStockGrade2526.findAll({
+                    where,
+                    order: [ ['origin', 'ASC'], ['grade', 'ASC']], // Order by ASC
+    
+                });
+            }
+            else {
+                rcnEntries = await orderStockGrade2526.findAll({
+                    where,
+                    order: [['id', 'ASC']],// Order by ASC
+                    limit: limit,
+                    offset: offset
+                });
+            }
+    
+            return res.status(200).json({ message: '2025-26 Order Stock Entry found', rcnEntries })
+        }
+        else{
+            return res.status(500).json({ message: 'FY Not Found / Internal server error' })  
         }
        
     }
@@ -405,3 +462,30 @@ export const createOrderEntire = async (req: Request, res: Response) => {
 
 
 }
+
+export const rejectPurchaseOrder = async (req: Request, res: Response) => {
+   try{
+    const { id } = req.body;
+    const actionedBy = req.cookies.user;
+
+    const orderupdate = await orderPrimaryModel.update(
+        {
+            ordApproveStatus: 'Rejected',
+            approvedBy:actionedBy
+        },
+        {
+            where: {
+                id
+            }
+        }
+    );
+    if (orderupdate) {
+        res.status(200).json({ message: "Purchase Order Rejected Successfully" });
+    }
+
+   }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: 'Internal server error', error: err })
+    }
+};

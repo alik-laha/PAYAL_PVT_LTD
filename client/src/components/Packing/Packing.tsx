@@ -75,7 +75,7 @@ const Packing = () => {
                     <div className="flex text-center">
                         <Button className="bg-blue-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {stocktable === 'block' ? 'Order History' : 'Stock History'}</Button>
                         {checkpending('Packing') && <Dialog>
-                            <DialogTrigger>   <Button className="bg-red-400 mb-2 ml-4 responsive-button-adjust no-margin-left" >+ New Order</Button></DialogTrigger>
+                            <DialogTrigger>   <Button className="bg-lime-400 mb-2 ml-4 responsive-button-adjust no-margin-left" >+ New Order</Button></DialogTrigger>
                             <DialogContent className='max-w-6xl' style={{ display: 'block' }}>
                                 <DialogHeader>
                                     <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Purchase Order Create Form</p></DialogTitle>

@@ -17,6 +17,14 @@ import axios from 'axios'
 import Context from '../context/context';
 //import { hashPassword } from "@/Utils/hashPassword.ts";
 
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -109,6 +117,58 @@ export const Login = () => {
                     <Button className="bg-orange-500 mb-1 mt-3 mb-4" type="submit">Login</Button>
 
                 </form>
+
+                <Dialog>
+                    <DialogTrigger className="text-xs ">
+                        Terms of Use</DialogTrigger>
+                    <DialogContent className='max-w-7xl'>
+                        <DialogHeader>
+                            <DialogTitle><p className='text-center mt-1'>Terms Of Use</p></DialogTitle>
+
+                        </DialogHeader>
+
+                        <div className="mx-5 terms-use h-96 overflow-scroll">
+                            <h2>1. Introduction</h2>
+                            <p>Welcome to Payal Dealers Pvt. Ltd. (“we,” “our,” or “us”). By accessing or using our website and services (collectively, the “Services”), you agree to be bound by the following Terms of Use. Please read them carefully. If you do not agree to these Terms, do not use the Services.</p>
+
+                            <h2>2. Acceptance of Terms</h2>
+                            <p>By accessing or using the Services, you represent that you are of legal age to form a binding contract with us and that you agree to comply with these Terms of Use. If you are using the Services on behalf of a company, you represent that you are authorized to bind that company to these Terms.</p>
+
+                            <h2>3. User Account</h2>
+                            <p>To use certain features of the Services, We may need to create an account. You agree to provide physical document copyies containing accurate, current, and complete information during the registration process and to update your information to keep it accurate. You are responsible for maintaining the confidentiality of your account information.</p>
+
+                            <h2>4. Prohibited Activities</h2>
+                            <p>You agree not to:</p>
+                            <ul>
+                                <li>i. Engage in any activity that violates any laws or regulations.</li>
+                                <li>ii. Attempt to reverse-engineer, decompile, or hack the Services.</li>
+                                <li>iii. Use the Services to distribute harmful software or engage in fraudulent activities.</li>
+                                <li>iv. Harass, defame, or harm other users of the Services.</li>
+                            </ul>
+
+                            <h2>5. Intellectual Property</h2>
+                            <p>All content, features, and functionality on the Services, including but not limited to text, graphics, logos, and code, are owned by [Your Company Name] or its licensors and are protected by intellectual property laws. You may not copy, modify, or distribute any content without our permission.</p>
+
+                            <h2>6. Privacy Policy</h2>
+                            <p>By using our Services, you consent to the collection and use of your data as described in our Privacy Policy.</p>
+
+                            <h2>7. Limitation of Liability</h2>
+                            <p>We will not be liable for any indirect, incidental, special, or consequential damages, including but not limited to loss of profits, data, or business, arising from the use or inability to use the Services.</p>
+
+                            <h2>8. Modifications to Terms</h2>
+                            <p>We reserve the right to modify or update these Terms at any time. When we do, we will post the updated Terms on this page with a new effective date. Your continued use of the Services after any such changes constitutes your acceptance of the new Terms.</p>
+
+                            <h2>9. Termination</h2>
+                            <p>We reserve the right to suspend or terminate your account and access to the Services at our sole discretion if you violate these Terms.</p>
+
+                            <h2>10. Governing Law</h2>
+                            <p>These Terms shall be governed by and construed in accordance with the laws of Government, without regard to its conflict of law principles.</p>
+
+                            <h2>11. Contact Information</h2>
+                            <p>For any questions or concerns regarding these Terms of Use, please contact us at payaldealerspvtltdofficial@gmail.com.</p>
+                        </div>
+                    </DialogContent>
+                </Dialog>
 
             </div>
         </div>
