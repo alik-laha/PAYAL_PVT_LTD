@@ -7,7 +7,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useEffect, useState } from "react";
-import { FY, GradeOnSection, Origin, pagelimit, pageNo, prodStockSection } from "../common/exportData";
+import { FY, GradeOnSection, Origin, pagelimit, pageNo, pendingCheckRole, prodStockSection } from "../common/exportData";
 import axios from "axios";
 import {
     Pagination,
@@ -21,7 +21,10 @@ import {
 
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
-import { findskutypeData } from "@/type/type";
+import { findskutypeData, pendingCheckRoles, PermissionRole } from "@/type/type";
+import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
+import { LuDownload } from "react-icons/lu";
 
 
 //import { pendingCheckRoles, PermissionRole } from "@/type/type";
@@ -40,10 +43,9 @@ const ProdStockTable = () => {
         const [grade, setGrade] = useState<string>("")
         const [fy, setFy] = useState<string>("2024-25")
         const [sku, setsku] = useState<findskutypeData[]>([])
-        
+        const currDate = new Date().toLocaleDateString();
         const dropdown=['Production Stock','Order Stock']
-      
-        //const currDate = new Date().toLocaleDateString();
+
 
         useEffect(() => {
                 handleTransactionSearch()
@@ -122,23 +124,94 @@ const ProdStockTable = () => {
             function formatNumber(num: string) {
                 return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
             }
-       
-          //  const Role = localStorage.getItem('role') as keyof PermissionRole
-                // const checkpending = (tab: string) => {
-                //     //console.log(Role)
-                //     if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
-                //         return true
-                //     }
-                //     else {
-                //         return false;
-                //     }
+
+            const exportToExcel = async () => { 
             
-                // }
+                            if(searchType === 'Production Stock'){
+                                const response = await axios.put('/api/packing/prodStockSearch', { 
+                                    origin: origin,
+                                    section:prodsectiontype,
+                                    grade:grade,
+                                    FY:fy
+                                
+                                })
+                                const data1 = await response.data
+                                let ws
+                                let transformed: any[] = [];
+                                if (data1.rcnEntries.length > 0) {
+                                    transformed = data1.rcnEntries.map((item: any, idx: number) => ({
+                                        SL_No: idx + 1,
+                                        Production_Section: item.section,
+                                        Production_Origin: item.origin,
+                                        Production_Grade: item.grade,
+                                        Production_Qty: formatNumber((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity)).toString()),
+                                        Dispatched_Qty:formatNumber(((item.consumequantity ?parseFloat(item.consumequantity):0)+(item.thresoldconsumequantity? parseFloat(item.thresoldconsumequantity):0)).toString()),
+                                        Backlog:formatNumber(((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity))
+                                        -(item.consumequantity ?parseFloat(item.consumequantity):0+item.thresoldconsumequantity ?parseFloat(item.thresoldconsumequantity):0)).toString())
+                                       
+                                    }));
+                                    //setTransformedData(transformed);
+                                    ws = XLSX.utils.json_to_sheet(transformed);
+                                    const wb = XLSX.utils.book_new();
+                                    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+                                    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+                                    const blob = new Blob([wbout], { type: 'application/octet-stream' });
+                                    saveAs(blob, 'Production_Stock_' + currDate + '.xlsx');
+                                }
+                                
+                               
+            
+                            }
+                            else{
+                                const response = await axios.put('/api/packing/ordStockSearch', { 
+                                    origin: origin,
+                                    grade:grade,
+                                    FY:fy
+                                
+                                })
+                                const data1 = await response.data
+                                let ws
+                                let transformed: any[] = [];
+                                if (data1.rcnEntries.length > 0) {
+                                    transformed = data1.rcnEntries.map((item: any, idx: number) => ({
+                                        SL_No: idx + 1,
+                                        Production_Origin: item.origin,
+                                        Production_Grade: item.grade,
+                                        Production_Qty: formatNumber((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity)).toString()),
+                                        Dispatched_Qty:formatNumber(((item.consumequantity ?parseFloat(item.consumequantity):0)+(item.thresoldconsumequantity? parseFloat(item.thresoldconsumequantity):0)).toString()),
+                                        Backlog:formatNumber(((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity))
+                                        -(item.consumequantity ?parseFloat(item.consumequantity):0+item.thresoldconsumequantity ?parseFloat(item.thresoldconsumequantity):0)).toString())
+                                    }));
+                                    //setTransformedData(transformed);
+                                    ws = XLSX.utils.json_to_sheet(transformed);
+                                    const wb = XLSX.utils.book_new();
+                                    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+                                    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+                                    const blob = new Blob([wbout], { type: 'application/octet-stream' });
+                                    saveAs(blob, 'Order_Stock_' + currDate + '.xlsx');
+                            }
+                          
+                            
+                           
+                        }
+                    }
+       
+           const Role = localStorage.getItem('role') as keyof PermissionRole
+                const checkpending = (tab: string) => {
+                    //console.log(Role)
+                    if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+                        return true
+                    }
+                    else {
+                        return false;
+                    }
+            
+                }
 
             return (
                 <>
                 <div className="ml-5 mt-5 ">
-                    <div className="w-full text-center">
+                    <div className="w-full ">
                     <select className='mb-5 h-10 items-center bg-yellow-100 justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                                         onChange={(e) => setsearchType(e.target.value)} value={searchType}>
@@ -226,7 +299,7 @@ const ProdStockTable = () => {
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleTransactionSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
-                {/* {checkpending('Packing') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>} */}
+                {checkpending('ProdStockExcel') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
                     {searchTableType==='Production Stock' ? 
                     (<Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -236,8 +309,8 @@ const ProdStockTable = () => {
                         <TableHead className="text-center" >Production Section</TableHead>
                         <TableHead className="text-center" >Production Origin</TableHead>
                         <TableHead className="text-center" >Production Grade</TableHead>
-                        <TableHead className="text-center" >Total Issued Stock</TableHead>
-                        <TableHead className="text-center" >Total Packing Consumed</TableHead>
+                        <TableHead className="text-center" >Prodution Qty</TableHead>
+                        <TableHead className="text-center" >Despacthed Qty</TableHead>
                         <TableHead className="text-center" >Current Backlog</TableHead>
 
                        
@@ -249,24 +322,13 @@ const ProdStockTable = () => {
                       return (
                                  <TableRow key={item.id} >
                                      <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                   
-                                     
-                                     <TableCell className="text-center  "> <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">{item.section}</button></TableCell>
-                                  
+                                     <TableCell className="text-center  "> <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">{item.section}</button></TableCell>                                 
                                      <TableCell className="text-center font-semibold  ">{item.origin}</TableCell>
                                      <TableCell className="text-center font-bold text-cyan-500">{item.grade}</TableCell>
                                      <TableCell className="text-center font-semibold ">{formatNumber((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity)).toString())} Kg</TableCell>
                                      <TableCell className="text-center font-semibold">{formatNumber(((item.consumequantity ?parseFloat(item.consumequantity):0)+(item.thresoldconsumequantity? parseFloat(item.thresoldconsumequantity):0)).toString())} Kg</TableCell>
                                      <TableCell className="text-center font-bold text-red-500">{formatNumber(((parseFloat(item.openquantity)+parseFloat(item.thresoldopenquantity))
                                      -(item.consumequantity ?parseFloat(item.consumequantity):0+item.thresoldconsumequantity ?parseFloat(item.thresoldconsumequantity):0)).toString())} Kg</TableCell>
-
-                                    
-                                    
-                                  
-                                   
-                                    
-                               
-                                    
                                  </TableRow>
                              );
                          })) : (<TableRow>
@@ -290,9 +352,8 @@ const ProdStockTable = () => {
 
 
                         <TableHead className="text-center" >Sl No.</TableHead>
-                   
                         <TableHead className="text-center" >Production Origin</TableHead>
-                        <TableHead className="text-center" >Packing Final Grade Name</TableHead>
+                        <TableHead className="text-center" >Final Grade Name</TableHead>
                         <TableHead className="text-center" >Demanded Order </TableHead>
                         <TableHead className="text-center" >Fulfilled Order</TableHead>
                         <TableHead className="text-center" >Current Backlog</TableHead>

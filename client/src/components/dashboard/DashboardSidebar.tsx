@@ -335,7 +335,7 @@ const DashboardSidebar = () => {
                                 {renderlink('Packing')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Packing" >
-                                        <p className="flex"> <GiBoxUnpacking size={20} /><p className="pl-3">  Packing</p></p>
+                                        <p className="flex"> <GiBoxUnpacking size={20} /><p className="pl-3">Order & Packing</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 

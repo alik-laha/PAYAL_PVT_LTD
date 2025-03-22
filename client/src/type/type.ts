@@ -58,7 +58,9 @@ export interface pendingCheckRoles {
     Wholes:string[];
     LW:string[];
     Rejection:string[];
-    Packing:string[];
+    OrderCreate:string[];
+    OrderMapping:string[];
+    ProdStockExcel:string[];
     
 }
 export interface rcvCheckRoles {

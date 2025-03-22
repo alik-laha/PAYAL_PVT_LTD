@@ -42,11 +42,9 @@ import {
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
 import { Input } from "../ui/input";
-import { FcDisapprove } from "react-icons/fc";
+import { FcApprove, FcDisapprove } from "react-icons/fc";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
-
-
 //import { pendingCheckRoles, PermissionRole } from "@/type/type";
 //import { LuDownload } from "react-icons/lu";
 
@@ -62,10 +60,9 @@ const ProdTransacTable = () => {
     const [fromdate, setfromDate] = useState<string>('');
     const [todate, settoDate] = useState<string>('');
     const [hidetodate, sethidetoDate] = useState<string>('');
-
     const [sectionstatus, setSectionstatus] = useState<string>("")
 
-    const dropdown = ['Order', 'Packing']
+    const dropdown = ['Order', 'Mapping','Packing']
      const successdialog = document.getElementById('machinescs') as HTMLInputElement;
       const errordialog = document.getElementById('machineerror') as HTMLInputElement;
       // const dialog = document.getElementById('myDialog');
@@ -104,6 +101,7 @@ const ProdTransacTable = () => {
             return prev
         })
     }, [page])
+    
 
     const handleTransactionSearch = async () => {
         setblockpagen('flex')
@@ -150,9 +148,6 @@ const ProdTransacTable = () => {
             setsearchtableType('Packing')
         }
     }
-
-
-
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
 
         const selected = e.target.value;
@@ -170,8 +165,6 @@ const ProdTransacTable = () => {
         sethidetoDate(selected)
         settoDate(nextday)
     }
-
-
     function formatNumber(num: string) {
         return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
     }
@@ -200,15 +193,30 @@ const ProdTransacTable = () => {
         })
 
     }
+    const handleOrderApprove = (item: any) => {
+       
+        axios.post('/api/packing/approvePurchaseOrder', {item}).then((res) => {
+            setErrorText(res.data.message);
+            console.log(res.data)
+            if (successdialog != null) {
+                (successdialog as any).showModal();
+            }
 
+            //window.location.reload()
+        }).catch((err) => {
+            console.log(err)
+            setErrorText(err.response.data.message)
+            if (errordialog != null) {
+                (errordialog as any).showModal();
+            }
+        })
 
-
-
+    }
 
     return (
         <>
             <div className="ml-5 mt-5 ">
-                <div className="w-full text-center">
+                <div className="w-full">
                     <select className='mb-5 h-10 items-center bg-yellow-100 justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setsearchType(e.target.value)} value={searchType}>
@@ -221,8 +229,6 @@ const ProdTransacTable = () => {
                         ))}
                     </select>
                 </div>
-
-
                 <div className="flex flexbox-search">
 
                     <Input className="no-padding w-1/7 flexbox-search-width" placeholder=" Order No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
@@ -284,49 +290,39 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 {searchTableType === 'Order' ?
                     (<Table className="mt-4">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
-
-
                             <TableHead className="text-center">Sl No.</TableHead>
-                            <TableHead className="text-center">Origin</TableHead>
+                           
                             <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
-
-
+                            <TableHead className="text-center">Origin</TableHead>
+                            <TableHead className="text-center">Final_GradeName</TableHead>
                             <TableHead className="text-center">Approval</TableHead>
                             <TableHead className="text-center">Mapping</TableHead>
                             <TableHead className="text-center">Packing</TableHead>
                             <TableHead className="text-center">Order_Receive_Date</TableHead>
                             <TableHead className="text-center">Order_Entry_Date</TableHead>
-                            <TableHead className="text-center">Final_GradeName</TableHead>
+                           
                             <TableHead className="text-center">Purchase_Vendor_Name</TableHead>
                             <TableHead className="text-center">Demand_Quantity</TableHead>
-
                             <TableHead className="text-center">Prepared_Quantity</TableHead>
                             <TableHead className="text-center">Backlog_Quantity</TableHead>
                             <TableHead className="text-center">Unit_Rate</TableHead>
                             <TableHead className="text-center">PO_Total_Amount</TableHead>
                             <TableHead className="text-center">GST</TableHead>
                             {/* <TableHead className="text-center">Edit Status</TableHead> */}
-
                             <TableHead className="text-center">Created_By</TableHead>
                             <TableHead className="text-center">Actioned_By</TableHead>
-
                             <TableHead className="text-center">Order_Remarks</TableHead>
                             <TableHead className="text-center" >Action</TableHead>
-
-
-
-
-
                         </TableHeader>
                         <TableBody>
                             {Data.length > 0 ? (Data.map((item: any, idx) => {
                                 return (
                                     <TableRow key={item.id} >
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-
-
-                                        <TableCell className="text-center font-semibold">{item.origin}</TableCell>
-                                        <TableCell className="text-center ">{item.orderID}</TableCell>
+                                        
+                                        <TableCell className="text-center font-bold ">{item.orderID}</TableCell>
+                                        <TableCell className="text-center text-purple-500 font-semibold">{item.origin}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.gradeName}</TableCell>
                                         <TableCell className="text-center">
                                             {item.ordApproveStatus === 'Pending' ? (
                                                 <button className="bg-red-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
@@ -334,7 +330,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                 item.ordApproveStatus === 'Approved' ? (
                                                     <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Approved</button>
                                                 ) : (
-                                                    <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Rejected</button>
+                                                    <p className="font-bold">Rejected</p>
                                                 )
                                             )}</TableCell>
                                         <TableCell className="text-center">{item.ordApproveStatus !== 'Rejected' ?( item.ordMappingStatus === 0 ? (
@@ -349,12 +345,11 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         )):null}</TableCell> {/* Order completion Status */}
                                         <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
                                         <TableCell className="text-center">{handletimezone(item.orderInvDate)}</TableCell>
-                                        <TableCell className="text-center">{item.gradeName}</TableCell>
+                                      
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}
                                         <TableCell className="text-center">{formatNumber(item.actualquantity)} Kg</TableCell> {/* Prepared Quantity */}
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber((parseFloat(item.quantity) - parseFloat(item.actualquantity)).toString())} Kg</TableCell> {/* Prepared Quantity */}
-
                                         <TableCell className="text-center">{formatNumber(item.unitRate)} &#8377;</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.totalBill)} &#8377;</TableCell>
                                         <TableCell className="text-center">
@@ -376,11 +371,31 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                             item.ordApproveStatus === 'Rejected') ? true : false}>Action</button>
                                                     </PopoverTrigger>
                                                     <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-
-
-                                                        {/* Reject Order */}
+                                                        {/* Approve Order */}
                                                         <AlertDialog>
                                                             <AlertDialogTrigger className="flex">
+                                                                <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >Approve</button>
+                                                            </AlertDialogTrigger>
+
+                                                            <AlertDialogContent>
+                                                                <AlertDialogHeader>
+                                                                    <AlertDialogTitle> Do You want to Approve the Purhase Order ?</AlertDialogTitle>
+                                                                    <AlertDialogDescription>
+                                                                        This will Trigger Mapping of the Purchase Order
+                                                                    </AlertDialogDescription>
+                                                                </AlertDialogHeader>
+
+                                                                <AlertDialogFooter>
+                                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                    <AlertDialogAction onClick={() => handleOrderApprove(item)}>Continue</AlertDialogAction>
+                                                                </AlertDialogFooter>
+                                                            </AlertDialogContent>
+
+                                                        </AlertDialog>
+
+                                                        {/* Reject Order */}
+                                                        <AlertDialog >
+                                                            <AlertDialogTrigger className="flex mt-2">
                                                                 <FcDisapprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-red-500" >Reject</button>
                                                             </AlertDialogTrigger>
 
@@ -401,15 +416,11 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                             </AlertDialogContent>
 
                                                         </AlertDialog>
-
+ 
                                                     </PopoverContent>
 
                                                 </Popover>))}
                                         </TableCell>
-
-
-
-
 
                                     </TableRow>
                                 );

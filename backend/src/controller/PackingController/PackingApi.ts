@@ -9,6 +9,8 @@ import orderPrimaryModel from '../../model/orderModel';
 import orderStockGrade2425 from '../../model/orderStockGrade2425';
 import productionStockGrade2526 from '../../model/productionStockgrade2526';
 import orderStockGrade2526 from '../../model/orderStockGrade2526';
+import orderMappingModel from '../../model/orderMappingModel';
+import lotoriginmodel from '../../model/lotoriginModel';
 
 const CY_FY = process.env.CY_FY ? process.env.CY_FY : '2025-26';
 
@@ -489,3 +491,152 @@ export const rejectPurchaseOrder = async (req: Request, res: Response) => {
         return res.status(500).json({ message: 'Internal server error', error: err })
     }
 };
+
+export const approvePurchaseOrder = async (req: Request, res: Response) => {
+    try{
+     const { item } = req.body;
+   
+     const actionedBy = req.cookies.user;
+
+     await sequelize.transaction( async (transaction) =>{
+        const orderupdate = await orderPrimaryModel.update(
+            {
+                ordApproveStatus: 'Approved',
+                approvedBy:actionedBy
+            },
+            {
+                where: {
+                    id:item.id
+                }, transaction
+            }
+        );
+        if (orderupdate) {
+            const mappingEntry = await orderMappingModel.create({
+                origin: item.origin,
+                orderID: item.orderID,
+                orderDate: item.orderInvDate,
+                finalgradeName:item.gradeName,
+                vendorName:item.vendorName,
+                demandQuantity: item.quantity,
+            },{transaction});
+
+            if (mappingEntry) {
+                res.status(200).json({ message: "Purchase Order Approved Successfully" });
+            }
+            else{
+                return res.status(500).json({ message: 'Error in Creating Mapping'})
+            }
+        }
+        else{
+            return res.status(500).json({ message: 'Error in Approving Order'})
+        }
+     })
+ 
+    }
+     catch (err) {
+         console.log(err)
+         return res.status(500).json({ message: 'Internal server error', error: err })
+     }
+ };
+
+ export const getMappingLot = async (req: Request, res: Response) => {
+
+    try {
+        const status = req.params.status;
+        const scoopingLot = await orderMappingModel.findAll({
+            
+            attributes: ['orderID', 'origin','orderDate','finalgradeName','vendorName','demandQuantity'],
+            where: {
+                mappingStatus:status
+            }
+
+        });
+        if(scoopingLot){
+            res.status(200).json({ message: "Un OrderMapping Entry", scoopingLot });
+        }
+        else{
+            res.status(500).json({ message: "Error in Finding Order Mapping Entry"});
+        }
+       
+
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
+}
+
+export const getMappingByGradeOrigin = async (req: Request, res: Response) => {
+
+    try {
+        const {orderId,origin,grade}=req.body
+
+        const scoopingLot = await orderMappingModel.findAll({
+            where: {
+                orderID:orderId,origin:origin,finalgradeName:grade
+            }, order: [['orderId', 'ASC']]
+
+        }
+        );
+        if(scoopingLot){
+            res.status(200).json({ message: "Un Mapping Order Entry", scoopingLot });
+        }
+        else{
+            res.status(500).json({ message: "Error in Finding Mapping Entry"});
+        }
+       
+
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
+}
+
+export const lotdataFind = async (req: Request, res: Response) => {
+    try {
+        const { LotNo,section,origin } = req.body;
+        let status:string=''
+        if(section==='DPDS'){
+            status='dPDSStatus'
+        }
+        else  if(section==='Sorting'){
+            status='sortingStatus'
+        }
+        else  if(section==='Wholes'){
+            status='wholesgradeStatus'
+        }
+        else  if(section==='bigTaiho'){
+            status='bigTaihoStatus'
+        }
+        else  if(section==='rejection'){
+            status='rejectionStatus'
+        }
+        else  if(section==='LW'){
+            status='lowergradeStatus'
+        }
+
+        let where
+    
+            where = {
+                [Op.and]: [
+                    { LotNo: { [Op.like]: `%${LotNo}%` } },
+                    { origin: { [Op.like]: `%${origin}%` } },
+                    { [status]: { [Op.eq]: 1 } },
+                    { editStatus: { [Op.notLike]: 'Pending' } },
+
+                  
+                ]
+            }
+
+        
+      
+        const skuData = await lotoriginmodel.findAll({ where });
+        if (!skuData) return res.status(404).json({ message: "Lot Not found" });
+        return res.status(200).json({ skuData });
+    } catch (error) {
+        return res.status(500).json({ message: "internal error while finding Lot data" });
+    }
+}

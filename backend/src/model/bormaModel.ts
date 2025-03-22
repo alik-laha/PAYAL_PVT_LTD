@@ -58,8 +58,6 @@ const RcnBorma = sequelize.define('rcnBorma', {
         type: DataTypes.TIME,
         allowNull: true
     },
-   
-
     NoOfTrolley: 
     {
         type: DataTypes.INTEGER,
