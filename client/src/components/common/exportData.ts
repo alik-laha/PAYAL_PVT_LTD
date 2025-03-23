@@ -188,31 +188,39 @@ export const GradeOnSection = {
 
 
 export const ProdGradeOnSection = {
-    Wholes:  [
+    Wholes : [
         'issue_pw_150', 'issue_w_150', 'issue_ww_150', 'issue_s_150', 'issue_aw_150', 'issue_lw_150', 
-        'issue_pw_180', 'issue_w_180', 'issue_ww_180', 'S_180', 'AW_180', 'LW_180',
-        'issue_pw_210', 'issue_w_210', 'issue_ww_210', 'S_210', 'AW_210', 'LW_210',
-        'issue_pw_240', 'issue_w_240', 'issue_ww_240', 'WW_240_A', 'AW_240', 'LW_240',
-        'issue_pw_280', 'issue_w_280', 'issue_ww_280', 'WW_280_A', 'AW_280', 'LW_280',
-        'WHOLES_DOUBLE', 'issue_pw_320', 'issue_w_320', 'issue_ww_320', 'WW_320_A', 'AW_320', 'LW_320',
-        'issue_pw_360', 'issue_w_360', 'issue_ww_360', 'WW_360_A', 'AW_360', 'LW_360',
-        'issue_pw_400', 'issue_w_400', 'issue_ww_400', 'WW_400_A', 'AW_400', 'LW_400',
-        'JJB', 'JJB1'
-      ],
-    LW:['KW', 'KW_1', 'KW_2', 'KN', 'DW', 'DW_1', 'DW_2', 'OW', 'OW_1', 'OW_2', 'JW',
-         'PW', 'ROW', 'REJ_1', 'LW3_180', 'LW3_210', 'LW3_240', 'LW3_280', 'LW3_360', 'LW2',
-         'LW4', 'LW5', 'LW6', 'LW7', 'REJ_3', 'REJ_4', 'JB2', 'SJB', 'K_240', 'K_280', 'K_360',
-          'PKW', 'BW', 'RW', 'RRW', 'FW', 'LW'
-        ],
-    BigTaiho:['SSP', 'SSP_Small', 'SWP_1', 'WSP', 'BITS', 'SWP', 'BB', 'W_BB', 'BB_A', 'BB_1',
-         'BB_1A', 'BB_2', 'SSP_1', 'SSP_1_Small', 'SSP_2', 'SSP_2_Small', 'SDP'
-        ],
-    Sorting:['JJH', 'JJH1', 'SJH', 'JK', 'JK_1', 'K', 'K_1', 'LWP_1',
-         'LWP', 'S', 'SS', 'YK', 'SP_2', 'KP'
-        ],
-    DPDS:['M_DS', 'M_DP', 'K_DP', 'DS_1', 'DS_2', 'SP_2', 'YJH', 'YK', 'KP', 'WP', 'RS',
-         'DP_2', 'DP_3','DP_4','DP_3L', 'SS', 'OS','OS_1'
-        ],
-    Rejection:['Rejection']
+        'issue_pw_180', 'issue_w_180', 'issue_ww_180', 'issue_s_180', 'issue_aw_180', 'issue_lw_180',
+        'issue_pw_210', 'issue_w_210', 'issue_ww_210', 'issue_s_210', 'issue_aw_210', 'issue_lw_210',
+        'issue_pw_240', 'issue_w_240', 'issue_ww_240', 'issue_ww_240_A', 'issue_aw_240', 'issue_lw_240',
+        'issue_pw_280', 'issue_w_280', 'issue_ww_280', 'issue_ww_280_A', 'issue_aw_280', 'issue_lw_280',
+        'wholes_double', 'issue_pw_320', 'issue_w_320', 'issue_ww_320', 'issue_ww_320_A', 'issue_aw_320', 'issue_lw_320',
+        'issue_pw_360', 'issue_w_360', 'issue_ww_360', 'issue_ww_360_A', 'issue_aw_360', 'issue_lw_360',
+        'issue_pw_400', 'issue_w_400', 'issue_ww_400', 'issue_ww_400_A', 'issue_aw_400', 'issue_lw_400',
+        'issue_jjb', 'issue_jjb1'
+    ],
+      LW : [
+        'issue_kw', 'issue_kw_1', 'issue_kw_2', 'issue_kn', 'issue_dw', 'issue_dw_1', 'issue_dw_2', 
+        'issue_ow', 'issue_ow_1', 'issue_ow_2', 'issue_jw', 'issue_pw', 'issue_row', 'issue_rej_1', 
+        'issue_lw3_180', 'issue_lw3_210', 'issue_lw3_240', 'issue_lw3_280', 'issue_lw3_360', 'issue_lw2', 
+        'issue_lw4', 'issue_lw5', 'issue_lw6', 'issue_lw7', 'issue_rej_3', 'issue_rej_4', 'issue_jb2', 
+        'issue_sjb', 'issue_k_240', 'issue_k_280', 'issue_k_360', 'issue_pkw', 'issue_bw', 'issue_rw', 
+        'issue_rrw', 'issue_fw', 'issue_lw'
+    ],
+    BigTaiho : [
+        'issue_ssp', 'issue_ssp_small', 'issue_swp_1', 'issue_wsp', 'issue_bits', 'issue_swp', 'issue_bb',
+        'issue_w_bb', 'issue_bb_A', 'issue_bb1', 'issue_bb1_A', 'issue_bb_2', 'issue_ssp_1', 'issue_ssp_1_small',
+        'issue_ssp_2', 'issue_ssp_2_small', 'issue_sdp'
+    ],
+    Sorting : [
+        'issue_jjh', 'issue_jjh1', 'issue_sjh', 'issue_jk', 'issue_jk1', 'issue_k', 'issue_k1',
+        'issue_lwp1', 'issue_lwp', 'issue_s', 'issue_ss', 'issue_yk', 'issue_sp2', 'issue_kp'
+    ],
+    DPDS : [
+        'issue_m_ds', 'issue_m_dp', 'issue_k_dp', 'issue_ds_1', 'issue_ds_2', 'issue_sp_2', 'issue_yjh',
+        'issue_yk', 'issue_kp', 'issue_wp', 'issue_rs', 'issue_dp_2', 'issue_dp_3', 'issue_dp_4', 'issue_dp_3l',
+        'issue_ss', 'issue_os', 'issue_os1'
+    ],
+    Rejection:['issue_packing']
     
 }

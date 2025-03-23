@@ -1,6 +1,6 @@
 import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
-import { approvePurchaseOrder, createOrderEntire, getMappingByGradeOrigin, getMappingLot, lotdataFind, manualProdStockUpdate, orderSearch, 
+import { approvePurchaseOrder, createOrderEntire, getMappingByGradeOrigin, getMappingLot, lotdataFind, lotQtydataFind, manualProdStockUpdate, orderSearch, 
     ordStockSearch, packingSearch, prodStockSearch, 
     rejectPurchaseOrder} from '../controller/PackingController/PackingApi';
 const router = express.Router();
@@ -16,5 +16,6 @@ router.post("/approvePurchaseOrder",jwtVerify, approvePurchaseOrder)
 router.get("/getUnMappingEntry/:status", jwtVerify, getMappingLot)
 router.post("/getMappingByGradeOrigin", jwtVerify, getMappingByGradeOrigin)
 router.post("/findcompleteLot", jwtVerify,lotdataFind)
+router.post("/prodStockQtyFind", jwtVerify,lotQtydataFind)
 
 export default router

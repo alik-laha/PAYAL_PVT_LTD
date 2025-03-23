@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import {
@@ -89,7 +89,8 @@ const OrderMappingCreateForm = (props:Props) => {
         newRows[index] = { ...newRows[index], [field]: fieldvalue };
         setRows(newRows)
     }
-    const addRow2 = () => {
+    const addRow2 = async (e:any) => {
+        e.preventDefault()
         setRows([...rows, {
             LotNo:'',
             porigin: '',
@@ -186,19 +187,102 @@ const OrderMappingCreateForm = (props:Props) => {
         }
 
     const handleLotIdClick = (index: any, item: any) => {
+         axios.post("/api/packing/prodStockQtyFind", { LotNo: item.LotNo,origin:rows[index].porigin,
+            section:rows[index].section,grade:rows[index].grade })
+                    .then((res) => {
+                        console.log(res)
+                        if (res.status === 200) {
+                            rows[index].stockquantity=res.data.finalSum
+                            handleRowChange(index,'stockquantity',res.data.finalSum)
+                            if(res.data.finalSum){
+                                const mixquantity=Number((rows[index].stockquantity*(rows[index].prcntg/100)).toFixed(2))
+                                handleRowChange(index, 'mixquantity', mixquantity.toString())
+                            }
+                        }
+
+                    })
+                    .catch((err) => {
+                        if (err.response.status === 404) {
+                            rows[index].stockquantity=0
+                        }
+                    })
         rows[index].LotNo = item.LotNo
-        rows[index].stockquantity = item.leftqty
         handleRowChange(index, 'LotNo', item.LotNo)
+       
+       
+       
         setLotData([]);
         setLotView("none");
 
     };
 
+    const handlePrcntgChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        
+        rows[index].mixquantity=Number((rows[index].stockquantity*(Number(e.target.value)/100)).toFixed(2))
+        handleRowChange(index,'prcntg',e.target.value)
+       
+     }
+
+     const handleSubmit2 = async (e: React.FormEvent) => {
+         e.preventDefault()
+         setisdisable(true)
+         //const quantity = quantityRef.current?.value
+         const formData = rows.map(row => ({
+            origin: origin,
+            orderID: orderID,
+            orderDate: orderDate,
+            finalgradeName:finalGrade,
+            vendorName: vendor,
+            demandQuantity:demandQty,
+                 ...row
+         }))
+     
+         try{
+             if(formData.length===1){
+                 for (var data of formData) 
+                     {
+                         await axios.put(`/api/packing/updateOrderMapping/${id}`, {data })
+                             setErrortext('Order Mapping Created Successfully')
+                         if(successdialog){
+                             (successdialog as any).showModal();
+                         }
+                         
+                     }
+                 } 
+                 else if(formData.length>1){
+                         await axios.put(`/api/storePrimary/updateOrderMappingEntire/${id}`, {data:formData })
+
+                                 setErrortext('Order Mapping Created Successfully')
+                             if(successdialog){
+                                 (successdialog as any).showModal();
+                             }     
+                 } 
+         }
+     
+         catch (err){
+             console.log(err)
+             //await axios.post('/api/storePrimary/deleteStorePrimaryByID',{ id:id,gatepass:gatepass})
+             if(axios.isAxiosError(err)){
+                 setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
+             }
+             if(errordialog){
+                 (errordialog as any).showModal()
+             }
+             
+             
+     
+         }
+         finally{
+             setisdisable(false)
+         }
+        }
+
 
     return (
         <>
             <div className="px-5 mt-4">
-                <form className='flex flex-col gap-0.5 '>
+                <form className='flex flex-col gap-0.5' onSubmit={handleSubmit2}>
 
                       <div className="mx-8 flex flex-col gap-1"> 
                                     <div className="flex mt-4"><Label className="w-2/4  pt-2">Order ID</Label>
@@ -225,10 +309,10 @@ const OrderMappingCreateForm = (props:Props) => {
                                 <TableHead className="text-center" >Section</TableHead>
                                 <TableHead className="text-center" >Grade</TableHead>
                                 <TableHead className="text-center" >Origin</TableHead>
-                                <TableHead className="text-center" >Production Lot_No</TableHead>
-                                <TableHead className="text-center" >Mapping_Quantity (Kg)</TableHead>
+                                <TableHead className="text-center" >Production Lot</TableHead>
+                                <TableHead className="text-center" >Stock_Quantity (Kg)</TableHead>
                                 <TableHead className="text-center" >Percentage Mix(%)</TableHead>
-                                <TableHead className="text-center" >Mixed_Quantity</TableHead>
+                                <TableHead className="text-center" >Mixed_Quantity (Kg)</TableHead>
                                 <TableHead className="text-center w-30" >Mapping_Remarks(Any)</TableHead>
                                 <TableHead className="text-center" >Action</TableHead>
 
@@ -239,9 +323,9 @@ const OrderMappingCreateForm = (props:Props) => {
                                         <TableBody>
                                             <TableRow key={index} className="boiling-row-height">
                                                 <TableCell>{index + 1}</TableCell>
-                                                <TableCell className="text-center">
+                                                <TableCell className="text-center ">
                                                 <Select value={row.section} onValueChange={(val) => handleRowChange(index, 'section', val)} required={true}>
-                                                        <SelectTrigger className="justify-center w-40">
+                                                        <SelectTrigger className="justify-center w-40 bg-yellow-100">
                                                             <SelectValue placeholder="Section" />
                                                         </SelectTrigger>
                                                         <SelectContent>
@@ -260,10 +344,13 @@ const OrderMappingCreateForm = (props:Props) => {
                                                     </Select>
                                                 </TableCell>
                                                 <TableCell className="text-center" >
-                                  <select className=' flex w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+
+
+                                                    
+                                  <select className=' flex w-40 items-center bg-green-100 justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                                                       ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                                                       onChange={ (e) => handleRowChange(index, 'grade', e.target.value)} value={row.grade}>
-                                                              
+                                                              <option key={index} value='' disabled>Grade</option>
                                                               {row.section ? (
                                                                 ProdGradeOnSection[row.section as keyof typeof ProdGradeOnSection].map((item) => (
                                                                   <option key={item} value={item}>{item}</option>
@@ -308,14 +395,28 @@ const OrderMappingCreateForm = (props:Props) => {
                                                                          </ScrollArea>}
                                                 </TableCell>
                                                 <TableCell className="text-center">
-                                                <Input  placeholder="Lot No" value={row.stockquantity} readOnly />
+                                                    <Input className="bg-red-100" placeholder="Lot No" value={row.stockquantity} readOnly />
+                                                </TableCell>
+                                                <TableCell className="text-center" >
+                                                    <Input value={row.prcntg} placeholder="%" type="number"
+                                                        onChange={(e) => {
+                                                            handlePrcntgChange(index, e)
+                                                        }} />
+                                                </TableCell>
+                                                <TableCell className="text-center">
+                                                    <Input placeholder="Mix Qty" value={row.mixquantity} readOnly />
+                                                </TableCell>
+                                                <TableCell className="text-center w-30" >
 
-                                                    </TableCell>
+                                                    <Input value={row.remarks} placeholder="remarks" className='w-90' onChange={(e) => {
+                                                        handleRowChange(index, 'remarks', e.target.value)
+                                                    }} />
+                                                </TableCell>
 
                                                 <TableCell className="text-center">
-                                                                                                <button className="bg-red-400 text-grey-700 w-7 h-7  text-primary-foreground rounded-md text-center items-center justify-center"
-                                                                                                    onClick={() => deleteRow(index)}><MdDelete size={20} /></button>
-                                                                                            </TableCell>
+                                                    <button className="bg-red-400 text-grey-700 w-7 h-7  text-primary-foreground rounded-md text-center items-center justify-center"
+                                                        onClick={() => deleteRow(index)}><MdDelete size={20} /></button>
+                                                </TableCell>
 
                                             </TableRow>
 

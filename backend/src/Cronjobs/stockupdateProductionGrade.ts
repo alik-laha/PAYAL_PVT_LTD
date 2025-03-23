@@ -42,7 +42,7 @@ const updateProductionGradeStock2425 = async () => {
         [sequelize.fn('SUM', sequelize.col('issue_os1')), 'OS_1']
       ],
       where: {
-        Status: 1, editStatus: 'NA',
+        Status: 1, editStatus: {[Op.notLike]:'Pending'},
         date: {
           [Op.gte]: '2024-03-31', // From 31st March 2024
           [Op.lt]: '2025-04-01', // Up to 1st April 2025
@@ -74,7 +74,7 @@ const updateProductionGradeStock2425 = async () => {
       ],
       group: ['origin'],
       where: {
-        Status: 1, editStatus: 'NA',
+        Status: 1, editStatus: {[Op.notLike]:'Pending'},
         date: {
           [Op.gte]: '2024-03-31', // From 31st March 2024
           [Op.lt]: '2025-04-01', // Up to 1st April 2025
@@ -108,7 +108,7 @@ const updateProductionGradeStock2425 = async () => {
       ],
       group: ['origin'],
       where: {
-        Status: 1, editStatus: 'NA',
+        Status: 1, editStatus: {[Op.notLike]:'Pending'},
         date: {
           [Op.gte]: '2024-03-31', // From 31st March 2024
           [Op.lt]: '2025-04-01', // Up to 1st April 2025
@@ -162,7 +162,7 @@ const updateProductionGradeStock2425 = async () => {
         [sequelize.fn('SUM', sequelize.col('issue_lw')), 'LW'],
       ],
       where: {
-        Status: 1, editStatus: 'NA',
+        Status: 1, editStatus: {[Op.notLike]:'Pending'},
         date: {
           [Op.gte]: '2024-03-31', // From 31st March 2024
           [Op.lt]: '2025-04-01', // Up to 1st April 2025
@@ -230,7 +230,7 @@ const updateProductionGradeStock2425 = async () => {
         [sequelize.fn('SUM', sequelize.col('issue_jjb1')), 'JJB1'],
       ],
       where: {
-        Status: 1, editStatus: 'NA',
+        Status: 1, editStatus: {[Op.notLike]:'Pending'},
         date: {
           [Op.gte]: '2024-03-31', // From 31st March 2024
           [Op.lt]: '2025-04-01', // Up to 1st April 2025
@@ -249,7 +249,7 @@ const updateProductionGradeStock2425 = async () => {
 
       ],
       where: {
-        Status: 1, editStatus: 'NA',
+        Status: 1, editStatus: {[Op.notLike]:'Pending'},
         date: {
           [Op.gte]: '2024-03-31', // From 31st March 2024
           [Op.lt]: '2025-04-01', // Up to 1st April 2025
@@ -488,7 +488,7 @@ const updateProductionGradeStock2526 = async () => {
         [sequelize.fn('SUM', sequelize.col('issue_os1')), 'OS_1']
       ],
       where: {
-        Status: 1, editStatus: 'NA',
+        Status: 1, editStatus: {[Op.notLike]:'Pending'},
         date: {
           [Op.gte]: '2025-03-31', // From 31st March 2024
           [Op.lt]: '2026-04-01', // Up to 1st April 2025
@@ -520,7 +520,7 @@ const updateProductionGradeStock2526 = async () => {
       ],
       group: ['origin'],
       where: {
-        Status: 1, editStatus: 'NA',
+        Status: 1, editStatus: {[Op.notLike]:'Pending'},
         date: {
           [Op.gte]: '2025-03-31', // From 31st March 2024
           [Op.lt]: '2026-04-01', // Up to 1st April 2025
@@ -554,7 +554,7 @@ const updateProductionGradeStock2526 = async () => {
       ],
       group: ['origin'],
       where: {
-        Status: 1, editStatus: 'NA',
+        Status: 1, editStatus: {[Op.notLike]:'Pending'},
         date: {
           [Op.gte]: '2025-03-31', // From 31st March 2024
           [Op.lt]: '2026-04-01', // Up to 1st April 2025
@@ -608,7 +608,7 @@ const updateProductionGradeStock2526 = async () => {
         [sequelize.fn('SUM', sequelize.col('issue_lw')), 'LW'],
       ],
       where: {
-        Status: 1, editStatus: 'NA',
+        Status: 1, editStatus: {[Op.notLike]:'Pending'},
         date: {
           [Op.gte]: '2025-03-31', // From 31st March 2024
           [Op.lt]: '2026-04-01', // Up to 1st April 2025
@@ -676,7 +676,7 @@ const updateProductionGradeStock2526 = async () => {
         [sequelize.fn('SUM', sequelize.col('issue_jjb1')), 'JJB1'],
       ],
       where: {
-        Status: 1, editStatus: 'NA',
+        Status: 1, editStatus: {[Op.notLike]:'Pending'},
         date: {
           [Op.gte]: '2025-03-31', // From 31st March 2024
           [Op.lt]: '2026-04-01', // Up to 1st April 2025
@@ -695,7 +695,7 @@ const updateProductionGradeStock2526 = async () => {
 
       ],
       where: {
-        Status: 1, editStatus: 'NA',
+        Status: 1, editStatus: {[Op.notLike]:'Pending'},
         date: {
           [Op.gte]: '2025-03-31', // From 31st March 2024
           [Op.lt]: '2026-04-01', // Up to 1st April 2025

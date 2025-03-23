@@ -11,8 +11,17 @@ import productionStockGrade2526 from '../../model/productionStockgrade2526';
 import orderStockGrade2526 from '../../model/orderStockGrade2526';
 import orderMappingModel from '../../model/orderMappingModel';
 import lotoriginmodel from '../../model/lotoriginModel';
+import WholesModel from '../../model/wholesModel';
+import LWModel from '../../model/lowerGradeModel';
+import SortingModel from '../../model/sortingModel';
+import bigTaihoModel from '../../model/bigTaihoModel';
+import DPDS from '../../model/dpdsmodel';
+import rejectionModel from '../../model/rejectionModel';
 
 const CY_FY = process.env.CY_FY ? process.env.CY_FY : '2025-26';
+function formatNumber(num:any) {
+    return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
+}
 
 export const manualProdStockUpdate = async (req: Request, res: Response) => {
     try {
@@ -626,17 +635,151 @@ export const lotdataFind = async (req: Request, res: Response) => {
                     { origin: { [Op.like]: `%${origin}%` } },
                     { [status]: { [Op.eq]: 1 } },
                     { editStatus: { [Op.notLike]: 'Pending' } },
-
-                  
                 ]
             }
 
         
       
-        const skuData = await lotoriginmodel.findAll({ where });
+        const skuData = await lotoriginmodel.findAll({  attributes:['id','LotNo'],
+            where });
         if (!skuData) return res.status(404).json({ message: "Lot Not found" });
         return res.status(200).json({ skuData });
     } catch (error) {
         return res.status(500).json({ message: "internal error while finding Lot data" });
+    }
+}
+
+export const lotQtydataFind = async (req: Request, res: Response) => {
+    try {
+        let finalSum=0;
+        let stockSum=0;
+        let finalconsumedSum=0;
+        const {LotNo,section,grade,origin} = req.body
+        let ProdStockPrimary:any
+        if(section==='Wholes'){
+            ProdStockPrimary = await WholesModel.findAll({
+                attributes: [
+                   
+                    // SUM each issue field and alias the result properly
+                    [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
+                  ],
+                  where: {
+                    LotNo:LotNo,origin:origin,Status: 1, editStatus: {[Op.notLike]:'Pending'},
+                  },
+                  group: [grade],
+                  // raw: true,
+                });
+        }
+        if(section==='LW'){
+            ProdStockPrimary = await LWModel.findAll({
+                attributes: [
+                  
+                    // SUM each issue field and alias the result properly
+                    [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
+                  ],
+                  where: {
+                    LotNo:LotNo,origin:origin,Status: 1, editStatus: {[Op.notLike]:'Pending'},
+                  },
+                  group: [grade],
+                  // raw: true,
+                });
+        }
+        if(section==='Sorting'){
+            ProdStockPrimary = await SortingModel.findAll({
+                attributes: [
+                 
+                    // SUM each issue field and alias the result properly
+                    [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
+                  ],
+                  where: {
+                    LotNo:LotNo,origin:origin,Status: 1, editStatus: {[Op.notLike]:'Pending'},
+                  },
+                  group: [grade],
+                  // raw: true,
+                });
+        }
+        if(section==='BigTaiho'){
+            ProdStockPrimary = await bigTaihoModel.findAll({
+                attributes: [
+                 
+                    // SUM each issue field and alias the result properly
+                    [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
+                  ],
+                  where: {
+                    LotNo:LotNo,origin:origin,Status: 1, editStatus: {[Op.notLike]:'Pending'},
+                  },
+                  group: [grade],
+                  // raw: true,
+                });
+        }
+        if(section==='DPDS'){
+            ProdStockPrimary = await DPDS.findAll({
+                attributes: [
+                 
+                    // SUM each issue field and alias the result properly
+                    [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
+                  ],
+                  where: {
+                    LotNo:LotNo,origin:origin,Status: 1, editStatus: {[Op.notLike]:'Pending'},
+                  },
+                  group: [grade],
+                  // raw: true,
+                });
+        }
+        if(section==='Rejection'){
+            ProdStockPrimary = await rejectionModel.findAll({
+                attributes: [
+                
+                    // SUM each issue field and alias the result properly
+                    [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
+                  ],
+                  where: {
+                    LotNo:LotNo,origin:origin,Status: 1, editStatus: {[Op.notLike]:'Pending'},
+                  },
+                  group: [grade],
+                  // raw: true,
+                });
+        }
+       
+
+        if(ProdStockPrimary && ProdStockPrimary.length>0){
+            if(ProdStockPrimary[0].dataValues.quantity){ 
+                stockSum = Number(parseFloat(ProdStockPrimary[0].dataValues.quantity).toFixed(2));   
+            }
+            
+        }
+
+        console.log(stockSum)
+        const itemIssueSum = await orderMappingModel.findAll({
+            attributes: [
+                'productionGrade',
+                // SUM each issue field and alias the result properly
+                [sequelize.fn('SUM', sequelize.col('sectionQuantity')), 'mapquantity'],
+              ],
+              where: {
+                LotNo:LotNo,productionOrigin:origin,
+                mappingStatus: 1, productionSection:section,
+                editStatus: {[Op.notLike]:'Pending'},
+                productionGrade:grade,
+              },
+              group: ['productionGrade'],
+              // raw: true,
+            });
+
+        if(itemIssueSum && itemIssueSum.length>0){
+            if(itemIssueSum[0].dataValues.mapquantity){ 
+                finalconsumedSum = Number(parseFloat(itemIssueSum[0].dataValues.mapquantity).toFixed(2));   
+            }
+            
+        }
+        console.log(finalconsumedSum);
+        
+         finalSum = formatNumber(stockSum - finalconsumedSum);
+
+        // Send the result as a response
+        return res.status(200).json({ finalSum});
+       
+    } catch (error) {
+        return res.status(500).json({ message: "internal error while finding issue Sum" });
     }
 }
