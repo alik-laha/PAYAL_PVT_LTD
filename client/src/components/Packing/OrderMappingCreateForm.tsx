@@ -48,6 +48,7 @@ interface SectionRowData {
 const OrderMappingCreateForm = (props:Props) => {
 
     const [id, setId] = useState<number>()
+   
     const [orderID, setorderID] = useState<string>('')
     const [orderDate, setorderDate] = useState<string>('')
     const [finalGrade, setFinalGrade] = useState<string>('')
@@ -227,6 +228,17 @@ const OrderMappingCreateForm = (props:Props) => {
      const handleSubmit2 = async (e: React.FormEvent) => {
          e.preventDefault()
          setisdisable(true)
+         const mixquantitys = rows.map((row) => row.mixquantity)
+         const amount = mixquantitys.reduce((acc, curr) => acc + curr, 0);
+        console.log(amount)
+
+        if (amount>(demandQty?demandQty:props.mapping[0].demandQuantity)) {
+            setErrortext('Total Amount Can Not Exceed Demand Quantity')
+            if (errordialog != null) {
+                (errordialog as any).showModal();
+            }
+            return
+        }
          //const quantity = quantityRef.current?.value
          const formData = rows.map(row => ({
             origin: origin,
@@ -242,8 +254,8 @@ const OrderMappingCreateForm = (props:Props) => {
              if(formData.length===1){
                  for (var data of formData) 
                      {
-                         await axios.put(`/api/packing/updateOrderMapping/${id}`, {data })
-                             setErrortext('Order Mapping Created Successfully')
+                         await axios.put(`/api/packing/updateOrderMapping/${id}/${amount}`, {data })
+                             setErrortext(`Order Mapping of ${orderID} Performed Successfully`)
                          if(successdialog){
                              (successdialog as any).showModal();
                          }
@@ -253,7 +265,7 @@ const OrderMappingCreateForm = (props:Props) => {
                  else if(formData.length>1){
                          await axios.put(`/api/storePrimary/updateOrderMappingEntire/${id}`, {data:formData })
 
-                                 setErrortext('Order Mapping Created Successfully')
+                                 setErrortext(`Order Mapping of ${orderID} Performed Successfully`)
                              if(successdialog){
                                  (successdialog as any).showModal();
                              }     

@@ -36,13 +36,17 @@ const orderPrimaryModel = sequelize.define('orderPrimary', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true,
     },
+    mapquantity: {
+        type: DataTypes.DECIMAL(10,2),
+        defaultValue:0,
+    },
     unitRate: {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true,
     },
     actualquantity: {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: true,
+        defaultValue:0,
     },
     editStatus: {
         type: DataTypes.STRING,
@@ -62,10 +66,7 @@ const orderPrimaryModel = sequelize.define('orderPrimary', {
         allowNull: true,
       
     },
-    ordStatus:{
-        type: DataTypes.INTEGER,
-        defaultValue: 0
-    },
+  
     ordMappingStatus:{
         type: DataTypes.INTEGER,
         defaultValue: 0

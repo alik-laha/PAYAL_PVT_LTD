@@ -8,6 +8,10 @@ const orderPackingModel = sequelize.define('orderPacking', {
         primaryKey: true,
         autoIncrement: true
     },
+     altid: {
+            type: DataTypes.INTEGER,
+            defaultValue:1
+        },
     origin:{
         type: DataTypes.STRING,
         allowNull: false
@@ -16,13 +20,23 @@ const orderPackingModel = sequelize.define('orderPacking', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    
+    BatchID:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    qualityStatus: {
+        type: DataTypes.STRING,
+        defaultValue: 'Pending'
+    },
+   
     orderDate: {
         type: DataTypes.DATE,
         allowNull: false,
     },
     mfgDate: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
     },
     gradeName: {
         type: DataTypes.STRING,
@@ -32,7 +46,15 @@ const orderPackingModel = sequelize.define('orderPacking', {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    quantity: {
+    demandquantity: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true,
+    },
+    packingquantity: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true,
+    },
+    convpackingquantity: {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true,
     },
@@ -40,7 +62,7 @@ const orderPackingModel = sequelize.define('orderPacking', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true,
     },
-    actualquantity: {
+    fulfillquantity: {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true,
     },
@@ -62,18 +84,22 @@ const orderPackingModel = sequelize.define('orderPacking', {
         allowNull: true,
       
     },
-    ordStatus:{
-        type: DataTypes.INTEGER,
-        defaultValue: 0
-    },
-    ordMappingStatus:{
-        type: DataTypes.INTEGER,
-        defaultValue: 0
-    },
-    ordApproveStatus:{
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
+    latest: 
+    {
+        type:DataTypes.INTEGER,
+        defaultValue: 1
+    }, 
+   packingStatus: 
+        {
+            type:DataTypes.INTEGER,
+            defaultValue: 0
+        },
+
+        dispatchStatus: {
+            type:DataTypes.INTEGER,
+            defaultValue: 0
+        },
+    
     remarks:{
         type: DataTypes.STRING,
         allowNull: true,

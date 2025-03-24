@@ -190,7 +190,7 @@ const CreateBoilingEntire = async (req: Request, res: Response) => {
                     }
                 );
                 if(lotupdate){
-                    res.status(200).json({ message: "Boiling Entry Made Successfully" });
+                    res.status(200).json({ message: `Boiling Entry of Lot No ${newSequence} Made Successfully` });
                 }
 
             }

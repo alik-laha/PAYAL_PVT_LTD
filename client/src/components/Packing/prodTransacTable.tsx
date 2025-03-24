@@ -303,8 +303,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                            
                             <TableHead className="text-center">Purchase_Vendor_Name</TableHead>
                             <TableHead className="text-center">Demand_Quantity</TableHead>
-                            <TableHead className="text-center">Prepared_Quantity</TableHead>
-                            <TableHead className="text-center">Backlog_Quantity</TableHead>
+                            <TableHead className="text-center">Mapping_Quantity</TableHead>
+                            <TableHead className="text-center">Fulfilled_Quantity</TableHead>
+                            <TableHead className="text-center">Order_Backlog</TableHead>
                             <TableHead className="text-center">Unit_Rate</TableHead>
                             <TableHead className="text-center">PO_Total_Amount</TableHead>
                             <TableHead className="text-center">GST</TableHead>
@@ -325,7 +326,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-semibold">{item.gradeName}</TableCell>
                                         <TableCell className="text-center">
                                             {item.ordApproveStatus === 'Pending' ? (
-                                                <button className="bg-red-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
+                                                <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
                                             ) : (
                                                 item.ordApproveStatus === 'Approved' ? (
                                                     <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Approved</button>
@@ -334,20 +335,22 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                 )
                                             )}</TableCell>
                                         <TableCell className="text-center">{item.ordApproveStatus !== 'Rejected' ?( item.ordMappingStatus === 0 ? (
-                                            <button className="bg-red-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
+                                            <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">0 %</button>
                                         ) : (
-                                            <button className="bg-green-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
+                                            <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</button>
                                         )):null}</TableCell>
-                                        <TableCell className="text-center">{item.ordApproveStatus !== 'Rejected' ?(item.ordStatus === 0 ? (
-                                            <button className="bg-red-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
+                                        <TableCell className="text-center">{item.ordApproveStatus !== 'Rejected' ?(Number(item.actualquantity) === 0 ? (
+                                            <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">{formatNumber(((Number(item.actualquantity)/Number(item.quantity))*100).toString())} %</button>
                                         ) : (
-                                            <button className="bg-green-400 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">Completed</button>
+                                            <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">{formatNumber(((Number(item.actualquantity)/Number(item.quantity))*100).toString())} %</button>
                                         )):null}</TableCell> {/* Order completion Status */}
                                         <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
                                         <TableCell className="text-center">{handletimezone(item.orderInvDate)}</TableCell>
                                       
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}
+                                        <TableCell className="text-center font-semibold">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}
+                                        <TableCell className="text-center">{formatNumber(item.mapquantity)} Kg</TableCell> {/* Prepared Quantity */}
+
                                         <TableCell className="text-center">{formatNumber(item.actualquantity)} Kg</TableCell> {/* Prepared Quantity */}
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber((parseFloat(item.quantity) - parseFloat(item.actualquantity)).toString())} Kg</TableCell> {/* Prepared Quantity */}
                                         <TableCell className="text-center">{formatNumber(item.unitRate)} &#8377;</TableCell>
@@ -440,7 +443,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                         </TableBody>
 
-                    </Table>) : (<Table className="mt-4">
+                    </Table>) : (searchTableType === 'Mapping' ? (
+                        <Table className="mt-4">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
@@ -494,7 +498,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                         </TableBody>
 
-                    </Table>)}
+                    </Table>):null)}
 
 
 
