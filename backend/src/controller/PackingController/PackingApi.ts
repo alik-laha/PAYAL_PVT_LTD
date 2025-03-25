@@ -522,14 +522,7 @@ export const approvePurchaseOrder = async (req: Request, res: Response) => {
             }
         );
         if (orderupdate) {
-            const mappingEntry = await orderMappingModel.create({
-                origin: item.origin,
-                orderID: item.orderID,
-                orderDate: item.orderInvDate,
-                finalgradeName:item.gradeName,
-                vendorName:item.vendorName,
-                demandQuantity: item.quantity,
-            },{transaction});
+          
             const packingEntry = await orderPackingModel.create({
                 origin: item.origin,
                 orderID: item.orderID,
@@ -539,6 +532,17 @@ export const approvePurchaseOrder = async (req: Request, res: Response) => {
                 demandQuantity: item.quantity,
                 unitRate:item.unitRate,
                 totalBill:item.totalBill
+            },{transaction});
+
+            const mappingEntry = await orderMappingModel.create({
+                origin: item.origin,
+                orderID: item.orderID,
+                orderDate: item.orderInvDate,
+                finalgradeName:item.gradeName,
+                vendorName:item.vendorName,
+                demandQuantity: item.quantity,
+                orderpk:item.id,
+                packingpk:packingEntry.dataValues.id
             },{transaction});
 
             if (mappingEntry && packingEntry) {
@@ -766,7 +770,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
             attributes: [
                 'productionGrade',
                 // SUM each issue field and alias the result properly
-                [sequelize.fn('SUM', sequelize.col('sectionQuantity')), 'mapquantity'],
+                [sequelize.fn('SUM', sequelize.col('mappedQuantity')), 'mapquantity'],
               ],
               where: {
                 LotNo:LotNo,productionOrigin:origin,
@@ -799,25 +803,19 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
 
 export const updateMappingOrder = async (req: Request, res: Response) => {
     try {
-        const {   LotNo,origin,orderID,finalgradeName,
+        const {   LotNo,packingpk,
             porigin,
             section,
             grade,
             stockquantity,
             prcntg,
             mixquantity,
-            remarks} = req.body.data;
-    //     let vendortype:string
-    //     if(gateType==='IN'){
-    //         vendortype='Vendor'
-    //     }
-    //    else{
-    //         vendortype='Party'
-    //    }
+            remarks,orderpk} = req.body.data;
+
         const id=req.params.id;
         const amount=req.params.amount;
         const createdBy = req.cookies.user;
-        let skuData = await lotoriginmodel.findOne({ where: { LotNo:LotNo,origin } });
+        let skuData = await lotoriginmodel.findOne({ where: { LotNo:LotNo,origin:porigin } });
         if(!skuData ){
             return res.status(500).json({ message: "Lot No Does Not Exist" });
         }
@@ -847,8 +845,7 @@ export const updateMappingOrder = async (req: Request, res: Response) => {
                     mapquantity:sequelize.literal(`mapquantity+ ${amount}`),
                 }, {
                     where: {
-                        orderID: orderID,
-                        gradeName:finalgradeName,origin:origin
+                        id:orderpk
                     },transaction
                 });
 
@@ -856,8 +853,7 @@ export const updateMappingOrder = async (req: Request, res: Response) => {
                     fulfillquantity:amount
                 }, {
                     where: {
-                        orderID: orderID,
-                        gradeName:finalgradeName,origin:origin,latest:1
+                        id:packingpk
                     },transaction
                 });
                 
@@ -869,14 +865,132 @@ export const updateMappingOrder = async (req: Request, res: Response) => {
                     return res.status(500).json({ message: "Internal Error while Creating Order Mapping Entry" });
                 }
             })
-           
-
         }
-    
-
     } catch (error) {
         console.log(error)
         return res.status(500).json({ message: "Internal Error while Creating Order Mapping Entry" });
+
+    }
+}
+
+export const updateMappingOrderEntire = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        // console.log(req.body)
+        const amount = req.params.amount;
+        const createdBy = req.cookies.user;
+        const formData = req.body.data
+        const firstrow = formData[0]
+        const { LotNo, packingpk,
+            porigin,
+            section,
+            grade,
+            stockquantity,
+            prcntg,
+            mixquantity,
+            remarks, orderpk } = firstrow;
+        let skuData = await lotoriginmodel.findOne({ where: { LotNo: LotNo, origin: porigin } });
+        if (!skuData) {
+            return res.status(500).json({ message: "Lot No Does Not Exist" });
+        }
+        else {
+            await sequelize.transaction(async (transaction) => {
+                const dataToUpdate = formData.slice(1)
+                //console.log(dataToUpdate)
+                for (let data of dataToUpdate) {
+                    //console.log(data)
+                    let skuData = await lotoriginmodel.findOne({ where: { LotNo: data.LotNo, origin: data.porigin } });
+                    if (!skuData) {
+                        res.status(500).json({ message: "Lot No Does Not Exist" });
+                        throw new Error('Transaction Aborted 1')
+                    }
+                    if (data.stockquantity < data.mixquantity) {
+                        res.status(500).json({ message: "Mapping Quantity Can't Be Greater than 100%" });
+                        throw new Error('Transaction Aborted 2')
+                    }
+
+                    await orderMappingModel.create({
+                        origin: data.origin,
+                        orderID: data.orderID,
+                        orderDate: data.orderDate,
+                        finalgradeName:data.finalgradeName,
+                        vendorName:data.vendorName,
+                        demandQuantity: data.demandQuantity,
+                        orderpk:data.orderpk,
+                        packingpk:data.packingpk,
+
+                        LotNo:data.LotNo,
+                        productionOrigin:data.porigin,
+                        productionSection:data.section,
+                        productionGrade:data.grade,
+                        sectionQuantity:data.stockquantity,
+                        prcntgMix:data.prcntg,
+                        mappedQuantity:data.mixquantity,
+                        remarks:data.remarks,
+                        createdBy,mappingStatus:1
+                    }, { transaction })
+                }
+
+
+                if (stockquantity < mixquantity) {
+                    res.status(500).json({ message: "Mapping Quantity Can't Be Greater than 100%" });
+                    throw new Error('Transaction Aborted 1')
+                }
+                const mappingupdate = await orderMappingModel.update({ 
+                    LotNo,
+                    productionOrigin:porigin,
+                    productionSection:section,
+                    productionGrade:grade,
+                    sectionQuantity:stockquantity,
+                    prcntgMix:prcntg,
+                    mappedQuantity:mixquantity,
+                    remarks,
+                    createdBy,mappingStatus:1
+                }, {
+                    where: {
+                        id: id
+                    },transaction
+                });
+                const orderupdate = await orderPrimaryModel.update({ 
+                    ordMappingStatus:1,
+                    mapquantity:sequelize.literal(`mapquantity+ ${amount}`),
+                }, {
+                    where: {
+                        id:orderpk
+                    },transaction
+                });
+
+                const packingInitial = await orderPackingModel.update({ 
+                    fulfillquantity:amount
+                }, {
+                    where: {
+                        id:packingpk
+                    },transaction
+                });
+
+
+
+                if(orderupdate && mappingupdate && packingInitial){
+                    return res.status(201).json({ message: "Order Id Mapped successfully" });
+                }
+                else{
+                    return res.status(500).json({ message: "Internal Error while Creating Order Mapping Entry" });
+                }
+
+
+            })
+
+
+        }
+
+
+    } catch (error) {
+
+        if (!res.headersSent) {
+            console.log(error)
+            return res.status(500).json({ message: "Error while creating Order Mapping Entry", error });
+        }
+
 
     }
 }

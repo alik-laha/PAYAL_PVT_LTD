@@ -48,7 +48,8 @@ interface SectionRowData {
 const OrderMappingCreateForm = (props:Props) => {
 
     const [id, setId] = useState<number>()
-   
+    const [orderpk, setorderpk] = useState<number>()
+    const [packingpk, setpackingpk] = useState<number>()
     const [orderID, setorderID] = useState<string>('')
     const [orderDate, setorderDate] = useState<string>('')
     const [finalGrade, setFinalGrade] = useState<string>('')
@@ -58,10 +59,26 @@ const OrderMappingCreateForm = (props:Props) => {
     const [lotview, setLotView] = useState("none")
     const [errortext, setErrortext] = useState('')
     const [isdisable, setisdisable] = useState<boolean>(false)
+
+
+    // Calculate the sum of mixquantity
+  const calculateMixQuantitySum = (rows: SectionRowData[]) => { 
+    //return rows.reduce((total, row) => total + row.mixquantity, 0);
+
+    const mixquantitys = rows.map((row) => row.mixquantity)
+    return mixquantitys.reduce((acc, curr) => {
+        // If curr is a string, convert it to a number; otherwise, just use the number
+        return acc + (typeof curr === 'string' ? Number(curr) : curr);
+      }, 0);   
+  };
+ 
+
  const [lotdata, setLotData] = useState<any[]>([])
     useEffect(() => {  
         if(props.mapping[0]){
         setId(props.mapping[0].id)
+        setorderpk(props.mapping[0].orderpk)
+        setpackingpk(props.mapping[0].packingpk)
         setorderID(props.mapping[0].orderID)
         setorderDate(props.mapping[0].orderDate.slice(0,10))
         setFinalGrade(props.mapping[0].finalgradeName)
@@ -85,6 +102,13 @@ const OrderMappingCreateForm = (props:Props) => {
     }
     ]);
 
+      // State to keep track of the mix quantity sum
+   const [mixQuantitySum, setMixQuantitySum] = useState<number>(calculateMixQuantitySum(rows));
+
+   useEffect(() => {
+    setMixQuantitySum(calculateMixQuantitySum(rows));
+  }, [rows]);
+
     const handleRowChange = (index: number, field: string, fieldvalue: string) => {
         const newRows = [...rows];
         newRows[index] = { ...newRows[index], [field]: fieldvalue };
@@ -103,10 +127,12 @@ const OrderMappingCreateForm = (props:Props) => {
             remarks: ''
         }])
     }
-    const deleteRow = (index: number) => {
+    const deleteRow = (index: number,e:any) => {
+        e.preventDefault()
         const newRows = rows.filter((_, i) => i !== index);
         setRows(newRows)
     }
+
 
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
@@ -246,6 +272,8 @@ const OrderMappingCreateForm = (props:Props) => {
             orderDate: orderDate,
             finalgradeName:finalGrade,
             vendorName: vendor,
+            orderpk:orderpk,
+            packingpk:packingpk,
             demandQuantity:demandQty,
                  ...row
          }))
@@ -263,7 +291,7 @@ const OrderMappingCreateForm = (props:Props) => {
                      }
                  } 
                  else if(formData.length>1){
-                         await axios.put(`/api/storePrimary/updateOrderMappingEntire/${id}`, {data:formData })
+                         await axios.put(`/api/packing/updateOrderMappingEntire/${id}/${amount}`, {data:formData })
 
                                  setErrortext(`Order Mapping of ${orderID} Performed Successfully`)
                              if(successdialog){
@@ -308,7 +336,9 @@ const OrderMappingCreateForm = (props:Props) => {
                                     <div className="flex"><Label className="w-2/4  pt-2">Final Grade</Label>
                                     <Input className="w-2/4  font-semibold text-center" placeholder="Final Grade" value={finalGrade}  readOnly /> </div> 
                                     <div className="flex"><Label className="w-2/4  pt-2">Demand Quantity</Label>
-                                    <Input className="w-2/4 text-center  font-semibold text-center"  placeholder="Demand Qty" value={demandQty}  readOnly/> </div>
+                                    <Input className="w-2/4 text-center bg-green-200 font-semibold text-center"  placeholder="Demand Qty" value={demandQty}  readOnly/> </div>
+                                    <div className="flex"><Label className="w-2/4  pt-2">total Mix Quantity</Label>
+                                    <Input className="w-2/4 text-center bg-green-100 font-semibold text-center"  placeholder="Demand Qty" value={mixQuantitySum.toFixed(2)}  readOnly/> </div>
         
                                     </div>
 
@@ -321,7 +351,7 @@ const OrderMappingCreateForm = (props:Props) => {
                                 <TableHead className="text-center" >Section</TableHead>
                                 <TableHead className="text-center" >Grade</TableHead>
                                 <TableHead className="text-center" >Origin</TableHead>
-                                <TableHead className="text-center" >Production Lot</TableHead>
+                                <TableHead className="text-center" >Production_Lot</TableHead>
                                 <TableHead className="text-center" >Stock_Quantity (Kg)</TableHead>
                                 <TableHead className="text-center" >Percentage Mix(%)</TableHead>
                                 <TableHead className="text-center" >Mixed_Quantity (Kg)</TableHead>
@@ -337,7 +367,7 @@ const OrderMappingCreateForm = (props:Props) => {
                                                 <TableCell>{index + 1}</TableCell>
                                                 <TableCell className="text-center ">
                                                 <Select value={row.section} onValueChange={(val) => handleRowChange(index, 'section', val)} required={true}>
-                                                        <SelectTrigger className="justify-center w-40 bg-yellow-100">
+                                                        <SelectTrigger className="justify-center w-40 bg-purple-100">
                                                             <SelectValue placeholder="Section" />
                                                         </SelectTrigger>
                                                         <SelectContent>
@@ -359,7 +389,7 @@ const OrderMappingCreateForm = (props:Props) => {
 
 
                                                     
-                                  <select className=' flex w-40 items-center bg-green-100 justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                                  <select className=' flex w-40 items-center  justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                                                       ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                                                       onChange={ (e) => handleRowChange(index, 'grade', e.target.value)} value={row.grade}>
                                                               <option key={index} value='' disabled>Grade</option>
@@ -416,7 +446,9 @@ const OrderMappingCreateForm = (props:Props) => {
                                                         }} />
                                                 </TableCell>
                                                 <TableCell className="text-center">
-                                                    <Input placeholder="Mix Qty" value={row.mixquantity} readOnly />
+                                                    <Input placeholder="Mix Qty" value={row.mixquantity} 
+                                                    
+                                                      readOnly />
                                                 </TableCell>
                                                 <TableCell className="text-center w-30" >
 
@@ -427,7 +459,7 @@ const OrderMappingCreateForm = (props:Props) => {
 
                                                 <TableCell className="text-center">
                                                     <button className="bg-red-400 text-grey-700 w-7 h-7  text-primary-foreground rounded-md text-center items-center justify-center"
-                                                        onClick={() => deleteRow(index)}><MdDelete size={20} /></button>
+                                                        onClick={(e) => deleteRow(index,e)}><MdDelete size={20} /></button>
                                                 </TableCell>
 
                                             </TableRow>

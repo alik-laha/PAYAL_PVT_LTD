@@ -8,6 +8,14 @@ const orderMappingModel = sequelize.define('orderMapping', {
         primaryKey: true,
         autoIncrement: true
     },
+     orderpk: {
+                type: DataTypes.INTEGER,
+                allowNull:false
+            },
+            packingpk: {
+                type: DataTypes.INTEGER,
+                allowNull:false
+            },
     origin:{
         type: DataTypes.STRING,
         allowNull: false

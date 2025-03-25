@@ -3,7 +3,8 @@ import jwtVerify from '../middleWare/JwtAuthantication';
 import { approvePurchaseOrder, createOrderEntire, getMappingByGradeOrigin, getMappingLot, lotdataFind, lotQtydataFind, manualProdStockUpdate, orderSearch, 
     ordStockSearch, packingSearch, prodStockSearch, 
     rejectPurchaseOrder,
-    updateMappingOrder} from '../controller/PackingController/PackingApi';
+    updateMappingOrder,
+    updateMappingOrderEntire} from '../controller/PackingController/PackingApi';
 const router = express.Router();
 
 router.post("/update-prodstock",jwtVerify, manualProdStockUpdate)
@@ -19,5 +20,6 @@ router.post("/getMappingByGradeOrigin", jwtVerify, getMappingByGradeOrigin)
 router.post("/findcompleteLot", jwtVerify,lotdataFind)
 router.post("/prodStockQtyFind", jwtVerify,lotQtydataFind)
 router.put("/updateOrderMapping/:id/:amount", jwtVerify,updateMappingOrder)
+router.put("/updateOrderMappingEntire/:id/:amount", jwtVerify,updateMappingOrderEntire)
 
 export default router
