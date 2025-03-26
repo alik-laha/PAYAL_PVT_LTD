@@ -113,7 +113,7 @@ const Packing = () => {
                     
                     <div className="flex flex-col">
                         <span className="text-center w-100">            
-                            <Button className="bg-gray-400 mb-2 hover:bg-gray-500" onClick={handleTransferFetch}> {stocktable === 'block' ? ' Switch To Order History ->' : '<- Switch To Stock History '}</Button>
+                            <Button className="bg-gray-600 mb-3 hover:bg-gray-400" onClick={handleTransferFetch}> {stocktable === 'block' ? ' Switch To Order History ->' : '<- Switch To Stock History '}</Button>
                         </span>
 
 

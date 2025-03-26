@@ -12,7 +12,8 @@
     left: 0;
     /* background-color: #e6dbdb37; */
     /* background-color: #e6dbdbec; */
-    background-color: #e6dbdb9c;
+    /* background-color: #e6dbdb9c; */
+    background-color: #1d042ada;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -23,7 +24,8 @@
     padding: 7px 8px 7px 10px;
     text-decoration: none;
     font-size: 25px;
-    color: black;
+    /* color: black; */
+    color:white;
     display: block;
     transition: 0.2s;
     margin-bottom: 10px;
@@ -35,8 +37,10 @@
     align-items: center;
     cursor: pointer;
     /* color: #777; */
-    color: rgba(23, 24, 25, 0.549);
+    /* color: rgba(23, 24, 25, 0.549); */
+     color: rgba(198, 220, 241, 0.796);
     /* color: #082c41; */
+    /* color:white; */
     display: block;
     font-size: 14px;
     font-weight: 500;
@@ -293,6 +297,7 @@
     padding: 16px;
     transition: margin-left 0.4s;
     height: 100%;
+    background-color: blanchedalmond;
 }
 
 .sidebar.open+.dashboard-main-container{

@@ -321,7 +321,7 @@ export const orderSearch = async (req: Request, res: Response) => {
 };
 export const packingSearch = async (req: Request, res: Response) => {
     try {
-        const { origin,grade, section } = req.body;
+        const { origin,blConNo, fromDate, toDate } = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
         const size = parseInt(req.query.limit as string, 10) || 0;
         const offset = (page - 1) * size;
@@ -338,40 +338,111 @@ export const packingSearch = async (req: Request, res: Response) => {
             });
         }
 
-        if (section) {
+        if (blConNo) {
             whereClause.push({
-                section: section
+                orderID: {
+                    [Op.like]: `%${blConNo}%`
+                }
             });
         }
 
-        if (grade) {
+        if (fromDate && toDate) {
             whereClause.push({
-                grade: grade
+                orderInvDate: {
+                    [Op.between]: [fromDate, toDate]
+                }
             });
         }
+       
 
 
         // Convert the array to an object for the where condition
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
         let rcnEntries
-     
+        
             if (limit === 0 && offset === 0) {
-                rcnEntries = await productionStockGrade2425.findAll({
+                rcnEntries = await orderPackingModel.findAll({
                     where,
-                    order: [['section', 'ASC'], ['origin', 'ASC'], ['grade', 'ASC']], // Order by ASC
+                    order: [['orderID', 'DESC']], // Order by DESC
     
                 });
             }
             else {
-                rcnEntries = await productionStockGrade2425.findAll({
+                rcnEntries = await orderPackingModel.findAll({
                     where,
-                    order: [['id', 'ASC']],// Order by ASC
+                    order: [['orderID', 'DESC']], // Order by DESC
                     limit: limit,
                     offset: offset
                 });
             }
     
-            return res.status(200).json({ message: 'Prod Stock Entry found', rcnEntries })
+            return res.status(200).json({ message: 'Order Packing found', rcnEntries })
+        
+       
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: 'Internal server error', error: err })
+    }
+};
+export const mappingSearch = async (req: Request, res: Response) => {
+    try {
+        const { origin,blConNo, fromDate, toDate } = req.body;
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
+        const offset = (page - 1) * size;
+        const limit = size;
+
+        let whereClause = [];
+
+        // Conditionally add parameters to the whereClause
+
+
+        if (origin) {
+            whereClause.push({
+                origin: origin
+            });
+        }
+
+        if (blConNo) {
+            whereClause.push({
+                orderID: {
+                    [Op.like]: `%${blConNo}%`
+                }
+            });
+        }
+
+        if (fromDate && toDate) {
+            whereClause.push({
+                orderInvDate: {
+                    [Op.between]: [fromDate, toDate]
+                }
+            });
+        }
+       
+
+
+        // Convert the array to an object for the where condition
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+        let rcnEntries
+        
+            if (limit === 0 && offset === 0) {
+                rcnEntries = await orderMappingModel.findAll({
+                    where,
+                    order: [['orderID', 'DESC']], // Order by DESC
+    
+                });
+            }
+            else {
+                rcnEntries = await orderMappingModel.findAll({
+                    where,
+                    order: [['orderID', 'DESC']], // Order by DESC
+                    limit: limit,
+                    offset: offset
+                });
+            }
+    
+            return res.status(200).json({ message: 'Order Mapping found', rcnEntries })
         
        
     }
@@ -529,7 +600,8 @@ export const approvePurchaseOrder = async (req: Request, res: Response) => {
                 orderDate: item.orderInvDate,
                 gradeName:item.gradeName,
                 vendorName:item.vendorName,
-                demandQuantity: item.quantity,
+                gst:item.gst,
+                demandquantity: item.quantity,
                 unitRate:item.unitRate,
                 totalBill:item.totalBill
             },{transaction});

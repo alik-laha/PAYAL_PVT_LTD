@@ -212,7 +212,7 @@ const ProdStockTable = () => {
                 <>
                 <div className="ml-5 mt-5 ">
                     <div className="w-full ">
-                    <select className='mb-5 h-10 items-center bg-yellow-100 justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    <select className='mb-5 h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                                         onChange={(e) => setsearchType(e.target.value)} value={searchType}>
                  

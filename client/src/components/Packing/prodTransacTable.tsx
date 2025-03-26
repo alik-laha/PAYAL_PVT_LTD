@@ -11,6 +11,14 @@ import { useEffect, useState } from "react";
 import { OrderStatusAll, Origin, pagelimit, pageNo, } from "../common/exportData";
 import axios from "axios";
 import {
+    Dialog,
+    DialogContent,
+    // DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import {
     Pagination,
     PaginationContent,
     PaginationEllipsis,
@@ -45,6 +53,7 @@ import { Input } from "../ui/input";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
+import { CiEdit } from "react-icons/ci";
 //import { pendingCheckRoles, PermissionRole } from "@/type/type";
 //import { LuDownload } from "react-icons/lu";
 
@@ -126,7 +135,28 @@ const ProdTransacTable = () => {
             setData(data.rcnEntries)
             setsearchtableType('Order')
         }
-        else {
+        else if (searchType === 'Mapping'){
+            const response = await axios.put('/api/packing/mappingSearch', {
+                origin: origin,
+                blConNo: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
+
+            }, {
+                params: {
+                    page: page,
+                    limit: limit
+                }
+            })
+            const data = await response.data
+            if (data.rcnEntries.length === 0 && page > 1) {
+                setPage((prev) => prev - 1)
+
+            }
+            setData(data.rcnEntries)
+            setsearchtableType('Mapping')
+        }
+        else{
             const response = await axios.put('/api/packing/packingSearch', {
                 origin: origin,
                 blConNo: blConNo,
@@ -217,7 +247,7 @@ const ProdTransacTable = () => {
         <>
             <div className="ml-5 mt-5 ">
                 <div className="w-full">
-                    <select className='mb-5 h-10 items-center bg-yellow-100 justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    <select className='mb-5 h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setsearchType(e.target.value)} value={searchType}>
 
@@ -231,7 +261,7 @@ const ProdTransacTable = () => {
                 </div>
                 <div className="flex flexbox-search">
 
-                    <Input className="no-padding w-1/7 flexbox-search-width" placeholder=" Order No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                    <Input className="no-padding w-1/7 flexbox-search-width" placeholder=" Order ID" value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
                     <select className='flexbox-search-width flex h-8 w-1/7 ml-2 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setOrigin(e.target.value)} value={origin}>
@@ -263,7 +293,7 @@ const ProdTransacTable = () => {
 
 
 
-                    <select className='flexbox-search-width flex h-8 w-1/7 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+{searchType==='Order' && <select className='flexbox-search-width flex h-8 w-1/7 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setSectionstatus(e.target.value)} value={sectionstatus}>
                         <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
@@ -280,7 +310,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         }
 
 
-                    </select>
+                    </select>}
 
 
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleTransactionSearch}><FaSearch size={15} /> Search</Button></span>
@@ -444,61 +474,229 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         </TableBody>
 
                     </Table>) : (searchTableType === 'Mapping' ? (
-                        <Table className="mt-4">
-                        <TableHeader className="bg-neutral-100 text-stone-950 ">
+                       <Table className="mt-4">
+                       <TableHeader className="bg-neutral-100 text-stone-950 ">
+                           <TableHead className="text-center">Sl No.</TableHead>
+                          
+                           <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
+                           
+                           <TableHead className="text-center">Order_Origin</TableHead>
+                           <TableHead className="text-center">Final_GradeName</TableHead>
+                           <TableHead className="text-center">Order_Quantity</TableHead>
+                           <TableHead className="text-center">Order_Entry_Date</TableHead>
+                           <TableHead className="text-center">Purchase_Vendor_Name</TableHead>
+                          
+                           <TableHead className="text-center">Production_Section</TableHead>
+                           <TableHead className="text-center">Production_LotNo</TableHead>
+                           <TableHead className="text-center">Lot_Origin</TableHead>
+                           <TableHead className="text-center">Lot_Grade</TableHead>
+                           <TableHead className="text-center">Available_Quantity</TableHead>
+                           <TableHead className="text-center">Percentage_Mixing</TableHead>
+                           <TableHead className="text-center">Mixed_Quantity</TableHead>
+                          
+                           {/* <TableHead className="text-center">Edit Status</TableHead> */}
+                           <TableHead className="text-center">Created_By</TableHead>
+                           <TableHead className="text-center">Edited_By</TableHead>
+                           <TableHead className="text-center">Mapping_Remarks</TableHead>
+                           <TableHead className="text-center" >Action</TableHead>
+                       </TableHeader>
+                       <TableBody>
+                           {Data.length > 0 ? (Data.map((item: any, idx) => {
+                               return (
+                                   <TableRow key={item.id} >
+                                       <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                       
+                                       <TableCell className="text-center text-red-500 font-bold ">{item.orderID}</TableCell>
+                                       <TableCell className="text-center font-semibold">{item.origin}</TableCell>
+                                       <TableCell className="text-center font-semibold">{item.finalgradeName}</TableCell>
+                                       <TableCell className="text-center font-semibold ">{formatNumber(item.demandQuantity)} Kg</TableCell>
 
+                                       <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
+                                 
+                                     
+                                       <TableCell className="text-center">{item.vendorName}</TableCell>
 
-                            <TableHead className="text-center" >Sl No.</TableHead>
+                                       <TableCell className="text-center">{item.productionSection}</TableCell>
+                                       <TableCell className="text-center">{item.LotNo}</TableCell>
+                                       <TableCell className="text-center">{item.productionOrigin}</TableCell>
+                                       <TableCell className="text-center">{item.productionGrade}</TableCell>
+                                     
 
-                            <TableHead className="text-center" >Origin</TableHead>
-                            <TableHead className="text-center" >Final Grade</TableHead>
-                            <TableHead className="text-center" >Demand Order Stock </TableHead>
-                            <TableHead className="text-center" >Issued Order Stock</TableHead>
-                            <TableHead className="text-center" >Current Backlog</TableHead>
+                                       <TableCell className="text-center font-semibold">{formatNumber(item.sectionQuantity)} Kg </TableCell> {/* Demand Quantity */}
+                                       <TableCell className="text-center">{formatNumber(item.prcntgMix)} %</TableCell> {/* Prepared Quantity */}
 
+                                       <TableCell className="text-center font-semibold">{formatNumber(item.mappedQuantity)} Kg</TableCell> {/* Prepared Quantity */}
+                                  
+                                       {/* <TableCell className="text-center">{item.editStatus}</TableCell> */}
+                                       <TableCell className="text-center">{item.createdBy}</TableCell> {/* Created By */}
+                                       <TableCell className="text-center">{item.approvedBy}</TableCell> {/* Actioned By */}
+                                       <TableCell className="text-center">{item.remarks}</TableCell>
+                                       <TableCell className="text-center">
 
+                                       <Popover>
+                                            <PopoverTrigger>
+                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="flex flex-col text-sm w-30 font-medium">
+                                                <Dialog>
+                                                    <DialogTrigger className="flex"><CiEdit size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-7xl">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>Order Mapping Modification</p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        {/* <HamsaEditForm borma={[item]} /> */}
+                                                    </DialogContent>
+                                                </Dialog>
+                                                    </PopoverContent>
+                                                                                                
+                                                                                            </Popover>
+                                       </TableCell>
 
+                                   </TableRow>
+                               );
+                           })) : (<TableRow>
+                               <TableCell></TableCell>
+                               <TableCell></TableCell>
+                               <TableCell></TableCell>
+                               <TableCell></TableCell>
 
-                        </TableHeader>
-                        <TableBody>
-                            {Data.length > 0 ? (Data.map((item: any, idx) => {
-                                return (
-                                    <TableRow key={item.id} >
-                                        <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                               <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
+                               <TableCell></TableCell>
+                               <TableCell></TableCell>
+                               <TableCell></TableCell>
+                               <TableCell></TableCell>
 
-                                        <TableCell className="text-center  ">{item.origin}</TableCell>
-                                        <TableCell className="text-center  ">{item.grade}</TableCell>
-                                        <TableCell className="text-center ">{formatNumber((parseFloat(item.openquantity) + parseFloat(item.thresoldopenquantity)).toString())} Kg</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(((item.consumequantity ? parseFloat(item.consumequantity) : 0) + (item.thresoldconsumequantity ? parseFloat(item.thresoldconsumequantity) : 0)).toString())} Kg</TableCell>
-                                        <TableCell className="text-center ">{formatNumber(((parseFloat(item.openquantity) + parseFloat(item.thresoldopenquantity))
-                                            - (item.consumequantity ? parseFloat(item.consumequantity) : 0 + item.thresoldconsumequantity ? parseFloat(item.thresoldconsumequantity) : 0)).toString())} Kg</TableCell>
+                           </TableRow>)}
 
+                       </TableBody>
 
-                                        <TableCell className="text-center font-semibold">{item.createdBy}</TableCell>
+                   </Table>):( <Table className="mt-4">
+                       <TableHeader className="bg-neutral-100 text-stone-950 ">
+                           <TableHead className="text-center">Sl No.</TableHead>
+                          
+                           <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
+                           <TableHead className="text-center">Issue No(Packing)</TableHead>
+                           <TableHead className="text-center">Order_Origin</TableHead>
+                           <TableHead className="text-center">QC_Status</TableHead>
+                           <TableHead className="text-center">Packing_Status</TableHead>
+                           <TableHead className="text-center">Dispatch_Status</TableHead>
+                           <TableHead className="text-center">Order_Entry_Date</TableHead>
+                         
+                           <TableHead className="text-center">Final_GradeName</TableHead>
+                           <TableHead className="text-center">Order_Quantity</TableHead>
+                          
+                           <TableHead className="text-center">Unit_Rate</TableHead>
+                           <TableHead className="text-center">GST</TableHead>
+                           <TableHead className="text-center">Total_Bill_Price</TableHead>
+                          
+                           <TableHead className="text-center">Purchase_Vendor_Name</TableHead>
+                           <TableHead className="text-center">Fulfilled_Quantity</TableHead>
+                           <TableHead className="text-center">Manufacturing_Date</TableHead>
+                           <TableHead className="text-center">Packing_Batch_No</TableHead>
+                           <TableHead className="text-center">System_Count (Pouch/Bucket)</TableHead>
+                           <TableHead className="text-center">Actual_Count (Pouch/Bucket)</TableHead>
+                    
+                           <TableHead className="text-center" >Action</TableHead>
+                       </TableHeader>
+                       <TableBody>
+                           {Data.length > 0 ? (Data.map((item: any, idx) => {
+                               return (
+                                   <TableRow key={item.id} >
+                                       <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                       
+                                       <TableCell className="text-center text-red-500 font-bold ">{item.orderID}</TableCell>
 
+                                       <TableCell className="text-center  font-semibold ">{item.altid}</TableCell>
+                                       <TableCell className="text-center ">{item.origin}</TableCell>
 
+                                           <TableCell className="text-center ">
+                                                                               {item.qualityStatus === 'QC Approved' ? (
+                                                                                   <button className="bg-green-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.qualityStatus}</button>
+                                                                               ) : item.qualityStatus === 'Pending' ? (
+                                                                                   <button className="bg-yellow-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.qualityStatus}</button>
+                                                                               ) : (
+                                                                                   <button className="bg-red-500 p-1 text-white rounded fix-button-width-rcnprimary">{item.qualityStatus}</button>
+                                                                               )}
+                                                                           </TableCell>
 
+                                                                           <TableCell className="text-center ">
+                                                                            {item.packingStatus===0 ?                           
+                                                                     <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>:
+                                                                     <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Packed</button>}
+                                                                            </TableCell>    
+                                                                            <TableCell className="text-center ">
+                                                                            {item.dispatchStatus===0 ?                           
+                                                                     <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>:
+                                                                     <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Dispatched</button>}
+                                                                            </TableCell>   
+                                       <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
 
+                                       <TableCell className="text-center font-semibold">{item.gradeName}</TableCell>
+                                       <TableCell className="text-center ">{formatNumber(item.demandquantity)} Kg</TableCell>
+                                      
+                                       <TableCell className="text-center ">{item.unitRate}  &#8377;</TableCell>
+                                       <TableCell className="text-center">
+                                            <input type="checkbox" checked={item.gst} />
+                                        </TableCell> {/* GST */}
+                                       <TableCell className="text-center ">{item.totalBill}  &#8377;</TableCell>
 
-                                    </TableRow>
-                                );
-                            })) : (<TableRow>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
+                                       <TableCell className="text-center ">{item.vendorName}</TableCell>
+                                       <TableCell className="text-center ">{formatNumber(item.fulfillquantity)} Kg</TableCell>
+                                       <TableCell className="text-center">{item.mfgDate ? handletimezone(item.mfgDate):item.mfgDate}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
 
-                                <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
+                                       <TableCell className="text-center font-semibold">{item.BatchID}</TableCell>
+                                       <TableCell className="text-center font-semibold">{item.packingquantity}</TableCell>
+                                       <TableCell className="text-center font-semibold">{item.convpackingquantity}</TableCell>
+                                      
+                                 
+                                       <TableCell className="text-center">
 
-                            </TableRow>)}
+                                       <Popover>
+                                            <PopoverTrigger>
+                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Pack</button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="flex flex-col text-sm w-30 font-medium">
+                                                <Dialog>
+                                                    <DialogTrigger className="flex"><CiEdit size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-7xl">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>Order Mapping Modification</p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        {/* <HamsaEditForm borma={[item]} /> */}
+                                                    </DialogContent>
+                                                </Dialog>
+                                                    </PopoverContent>
+                                                                                                
+                                                                                            </Popover>
+                                       </TableCell>
 
-                        </TableBody>
+                                   </TableRow>
+                               );
+                           })) : (<TableRow>
+                               <TableCell></TableCell>
+                               <TableCell></TableCell>
+                               <TableCell></TableCell>
+                               <TableCell></TableCell>
 
-                    </Table>):null)}
+                               <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
+                               <TableCell></TableCell>
+                               <TableCell></TableCell>
+                               <TableCell></TableCell>
+                               <TableCell></TableCell>
+
+                           </TableRow>)}
+
+                       </TableBody>
+
+                   </Table>))}
 
 
 

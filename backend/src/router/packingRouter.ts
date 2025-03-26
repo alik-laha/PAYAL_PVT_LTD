@@ -1,6 +1,6 @@
 import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
-import { approvePurchaseOrder, createOrderEntire, getMappingByGradeOrigin, getMappingLot, lotdataFind, lotQtydataFind, manualProdStockUpdate, orderSearch, 
+import { approvePurchaseOrder, createOrderEntire, getMappingByGradeOrigin, getMappingLot, lotdataFind, lotQtydataFind, manualProdStockUpdate, mappingSearch, orderSearch, 
     ordStockSearch, packingSearch, prodStockSearch, 
     rejectPurchaseOrder,
     updateMappingOrder,
@@ -12,6 +12,7 @@ router.put("/prodStockSearch",jwtVerify, prodStockSearch)
 router.put("/ordStockSearch",jwtVerify, ordStockSearch)
 router.put("/orderSearch",jwtVerify, orderSearch)
 router.put("/packingSearch",jwtVerify, packingSearch)
+router.put("/mappingSearch",jwtVerify, mappingSearch)
 router.post("/createOrderEntire",jwtVerify, createOrderEntire)
 router.post("/rejectPurchaseOrder",jwtVerify, rejectPurchaseOrder)
 router.post("/approvePurchaseOrder",jwtVerify, approvePurchaseOrder)
