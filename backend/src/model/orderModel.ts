@@ -66,7 +66,6 @@ const orderPrimaryModel = sequelize.define('orderPrimary', {
         allowNull: true,
       
     },
-  
     ordMappingStatus:{
         type: DataTypes.INTEGER,
         defaultValue: 0

@@ -54,6 +54,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { CiEdit } from "react-icons/ci";
+import OrderMappingCreateForm from "./OrderMappingCreateForm";
 //import { pendingCheckRoles, PermissionRole } from "@/type/type";
 //import { LuDownload } from "react-icons/lu";
 
@@ -350,7 +351,6 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 return (
                                     <TableRow key={item.id} >
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                        
                                         <TableCell className="text-center font-bold ">{item.orderID}</TableCell>
                                         <TableCell className="text-center text-purple-500 font-semibold">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold">{item.gradeName}</TableCell>
@@ -398,14 +398,14 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                 (<button className="bg-red-500  p-2 text-white rounded opacity-40 " disabled={true}>Closed</button>) :
                                                 (<Popover>
                                                     <PopoverTrigger>
-                                                        <button className={`p-2 text-white rounded ${(item.ordApproveStatus === 'Approved' ||
+                                                        <button className={`p-2 text-white rounded ${
                                                             item.ordApproveStatus === 'Rejected'
-                                                        ) ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={(item.ordApproveStatus === 'Approved' ||
-                                                            item.ordApproveStatus === 'Rejected') ? true : false}>Action</button>
+                                                         ? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={
+                                                            item.ordApproveStatus === 'Rejected' ? true : false}>Action</button>
                                                     </PopoverTrigger>
                                                     <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                         {/* Approve Order */}
-                                                        <AlertDialog>
+                                                        {item.ordMappingStatus!==1 && <AlertDialog>
                                                             <AlertDialogTrigger className="flex">
                                                                 <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >Approve</button>
                                                             </AlertDialogTrigger>
@@ -424,10 +424,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 </AlertDialogFooter>
                                                             </AlertDialogContent>
 
-                                                        </AlertDialog>
+                                                        </AlertDialog>}
 
                                                         {/* Reject Order */}
-                                                        <AlertDialog >
+                                                        {item.ordMappingStatus!==1 &&<AlertDialog >
                                                             <AlertDialogTrigger className="flex mt-2">
                                                                 <FcDisapprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-red-500" >Reject</button>
                                                             </AlertDialogTrigger>
@@ -448,7 +448,22 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 </AlertDialogFooter>
                                                             </AlertDialogContent>
 
-                                                        </AlertDialog>
+                                                        </AlertDialog>}
+
+                                                         {/* Re-Mapping Order */}
+                                                         {item.ordMappingStatus===1 && 
+                                                            <Dialog>
+                                                                <DialogTrigger>
+                                                                    <Button className="bg-green-500 h-8 rounded-md"> Re-Mapping </Button></DialogTrigger>
+                                                                <DialogContent className='max-w-7xl' style={{ display: 'block' }}>
+                                                                    <DialogHeader>
+                                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Order Mapping Entry</p></DialogTitle>
+
+                                                                    </DialogHeader>
+
+                                                                    <OrderMappingCreateForm mapping={[item]} />
+                                                                </DialogContent>
+                                                            </Dialog>}
  
                                                     </PopoverContent>
 
@@ -579,7 +594,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                            <TableHead className="text-center">Sl No.</TableHead>
                           
                            <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
-                           <TableHead className="text-center">Issue No(Packing)</TableHead>
+                           <TableHead className="text-center">Issue_No (Packing)</TableHead>
                            <TableHead className="text-center">Order_Origin</TableHead>
                            <TableHead className="text-center">QC_Status</TableHead>
                            <TableHead className="text-center">Packing_Status</TableHead>

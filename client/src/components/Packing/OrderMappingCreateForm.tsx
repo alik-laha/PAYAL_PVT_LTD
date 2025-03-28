@@ -59,6 +59,7 @@ const OrderMappingCreateForm = (props:Props) => {
     const [lotview, setLotView] = useState("none")
     const [errortext, setErrortext] = useState('')
     const [isdisable, setisdisable] = useState<boolean>(false)
+  
 
 
     // Calculate the sum of mixquantity
@@ -76,6 +77,7 @@ const OrderMappingCreateForm = (props:Props) => {
  const [lotdata, setLotData] = useState<any[]>([])
     useEffect(() => {  
         if(props.mapping[0]){
+            console.log(props.mapping[0])
         setId(props.mapping[0].id)
         setorderpk(props.mapping[0].orderpk)
         setpackingpk(props.mapping[0].packingpk)
@@ -83,7 +85,7 @@ const OrderMappingCreateForm = (props:Props) => {
         setorderDate(props.mapping[0].orderDate.slice(0,10))
         setFinalGrade(props.mapping[0].finalgradeName)
         setOrigin(props.mapping[0].origin)
-        setDemandQty(props.mapping[0].demandQuantity)
+        props.mapping[0].ordMappingStatus!==1 ? setDemandQty(props.mapping[0].demandQuantity):setDemandQty(parseFloat(props.mapping[0].quantity)-parseFloat(props.mapping[0].mapquantity))
         setVendor(props.mapping[0].vendorName)
         }
         
@@ -279,25 +281,36 @@ const OrderMappingCreateForm = (props:Props) => {
          }))
      
          try{
-             if(formData.length===1){
-                 for (var data of formData) 
-                     {
-                         await axios.put(`/api/packing/updateOrderMapping/${id}/${amount}`, {data })
-                             setErrortext(`Order Mapping of ${orderID} Performed Successfully`)
-                         if(successdialog){
-                             (successdialog as any).showModal();
-                         }
-                         
-                     }
-                 } 
-                 else if(formData.length>1){
-                         await axios.put(`/api/packing/updateOrderMappingEntire/${id}/${amount}`, {data:formData })
 
-                                 setErrortext(`Order Mapping of ${orderID} Performed Successfully`)
-                             if(successdialog){
-                                 (successdialog as any).showModal();
-                             }     
-                 } 
+            if(props.mapping[0].ordMappingStatus===0){
+                if(formData.length===1){
+                    for (var data of formData) 
+                        {
+                            await axios.put(`/api/packing/updateOrderMapping/${id}/${amount}`, {data })
+                                setErrortext(`Order Mapping of ${orderID} Performed Successfully`)
+                            if(successdialog){
+                                (successdialog as any).showModal();
+                            }
+                            
+                        }
+                    } 
+                    else if(formData.length>1){
+                            await axios.put(`/api/packing/updateOrderMappingEntire/${id}/${amount}`, {data:formData })
+   
+                                    setErrortext(`Order Mapping of ${orderID} Performed Successfully`)
+                                if(successdialog){
+                                    (successdialog as any).showModal();
+                                }     
+                    } 
+            }
+            else{
+                await axios.put(`/api/packing/updateOrderReMappingEntire/${amount}`, {data:formData })
+                setErrortext(`Order Re-Mapping of ${orderID} Performed Successfully`)
+            if(successdialog){
+                (successdialog as any).showModal();
+            }  
+            }
+            
          }
      
          catch (err){
