@@ -36,6 +36,11 @@ const orderPrimaryModel = sequelize.define('orderPrimary', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true,
     },
+         mappingpk: {
+                    type: DataTypes.INTEGER,
+                    allowNull:true
+                },
+            
     mapquantity: {
         type: DataTypes.DECIMAL(10,2),
         defaultValue:0,

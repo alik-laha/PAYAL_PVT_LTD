@@ -34,7 +34,7 @@ const orderMappingModel = sequelize.define('orderMapping', {
     },
     mappingDate: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
     },
     
     finalgradeName: {

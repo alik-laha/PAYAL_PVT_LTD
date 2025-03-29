@@ -47,9 +47,9 @@ interface SectionRowData {
 
 const OrderReMappingCreateForm = (props:Props) => {
     const dateIssueref = useRef<HTMLInputElement>(null)
-    const [id, setId] = useState<number>()
+
     const [orderpk, setorderpk] = useState<number>()
-    const [packingpk, setpackingpk] = useState<number>()
+    const [mappingpk, setmappingpk] = useState<number>()
     const [orderID, setorderID] = useState<string>('')
     const [orderDate, setorderDate] = useState<string>('')
     const [finalGrade, setFinalGrade] = useState<string>('')
@@ -78,9 +78,8 @@ const OrderReMappingCreateForm = (props:Props) => {
     useEffect(() => {  
         if(props.mapping[0]){
             console.log(props.mapping[0])
-        setId(props.mapping[0].id)
-        setorderpk(props.mapping[0].orderpk)
-        setpackingpk(props.mapping[0].packingpk)
+        setorderpk(props.mapping[0].id)
+        setmappingpk(props.mapping[0].mappingpk)
         setorderID(props.mapping[0].orderID)
         setorderDate(props.mapping[0].orderDate.slice(0,10))
         setFinalGrade(props.mapping[0].gradeName)
@@ -261,7 +260,7 @@ const OrderReMappingCreateForm = (props:Props) => {
          const amount = mixquantitys.reduce((acc, curr) => acc + curr, 0);
         console.log(amount)
 
-        if (amount>(demandQty?demandQty:props.mapping[0].demandQuantity)) {
+        if (amount>(demandQty?demandQty:parseFloat(props.mapping[0].quantity)-parseFloat(props.mapping[0].mapquantity))) {
             setErrortext('Total Amount Can Not Exceed Demand Quantity')
             if (errordialog != null) {
                 (errordialog as any).showModal();
@@ -277,7 +276,7 @@ const OrderReMappingCreateForm = (props:Props) => {
             finalgradeName:finalGrade,
             vendorName: vendor,
             orderpk:orderpk,
-            packingpk:packingpk,
+            mappingpk:mappingpk,
             demandQuantity:demandQty,
                  ...row
          }))

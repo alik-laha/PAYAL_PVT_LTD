@@ -578,18 +578,8 @@ export const approvePurchaseOrder = async (req: Request, res: Response) => {
      const actionedBy = req.cookies.user;
 
      await sequelize.transaction( async (transaction) =>{
-        const orderupdate = await orderPrimaryModel.update(
-            {
-                ordApproveStatus: 'Approved',
-                approvedBy:actionedBy
-            },
-            {
-                where: {
-                    id:item.id
-                }, transaction
-            }
-        );
-        if (orderupdate) {
+        
+      
           
             const packingEntry = await orderPackingModel.create({
                 origin: item.origin,
@@ -614,16 +604,30 @@ export const approvePurchaseOrder = async (req: Request, res: Response) => {
                 packingpk:packingEntry.dataValues.id
             },{transaction});
 
-            if (mappingEntry && packingEntry) {
+            const orderupdate = await orderPrimaryModel.update(
+                {
+                    ordApproveStatus: 'Approved',
+                    approvedBy:actionedBy,
+                    mappingpk:mappingEntry.dataValues.id
+                },
+                {
+                    where: {
+                        id:item.id
+                    }, transaction
+                }
+            );
+
+
+            
+
+            if (mappingEntry && packingEntry && orderupdate) {
                 res.status(200).json({ message: "Purchase Order Approved Successfully" });
             }
             else{
                 return res.status(500).json({ message: 'Error in Creating Mapping'})
             }
-        }
-        else{
-            return res.status(500).json({ message: 'Error in Approving Order'})
-        }
+        
+     
      })
  
     }
@@ -1060,7 +1064,7 @@ export const updateReMappingOrderEntire = async (req: Request, res: Response) =>
         const createdBy = req.cookies.user;
         const formData = req.body.data
         const firstrow = formData[0]
-        const {  packingpk, orderpk } = firstrow;
+        const {  mappingpk, orderpk } = firstrow;
        
 
             await sequelize.transaction(async (transaction) => {
@@ -1068,11 +1072,11 @@ export const updateReMappingOrderEntire = async (req: Request, res: Response) =>
                 const packingEntry = await orderPackingModel.create({
                     origin: firstrow.origin,
                     orderID: firstrow.orderID,
-                    orderDate: firstrow.orderInvDate,
-                    gradeName:firstrow.gradeName,
+                    orderDate: firstrow.orderDate,
+                    gradeName:firstrow.finalgradeName,
                     vendorName:firstrow.vendorName,
                     gst:firstrow.gst,
-                    demandquantity: firstrow.quantity,
+                    demandquantity: firstrow.demandQuantity,
                     unitRate:firstrow.unitRate,
                     totalBill:firstrow.totalBill
                 },{transaction});
@@ -1120,17 +1124,9 @@ export const updateReMappingOrderEntire = async (req: Request, res: Response) =>
                     },transaction
                 });
 
-                const packingcreate = await orderPackingModel.update({ 
-                    fulfillquantity:amount
-                }, {
-                    where: {
-                        id:packingpk
-                    },transaction
-                });
+        
 
-
-
-                if(orderupdate &&  packingcreate){
+                if(orderupdate &&  packingEntry){
                     return res.status(201).json({ message: "Order Id Mapped successfully" });
                 }
                 else{

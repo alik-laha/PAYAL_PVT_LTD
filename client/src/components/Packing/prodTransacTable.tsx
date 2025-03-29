@@ -335,8 +335,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableHead className="text-center">Purchase_Vendor_Name</TableHead>
                             <TableHead className="text-center">Demand_Quantity</TableHead>
                             <TableHead className="text-center">Mapped_Quantity</TableHead>
-                            <TableHead className="text-center">Mapping_Backlog</TableHead>
+                          
                             <TableHead className="text-center">Packed_Quantity</TableHead>
+                            <TableHead className="text-center">Mapping_Backlog</TableHead>
                             <TableHead className="text-center">Packing_Backlog</TableHead>
                             <TableHead className="text-center">Unit_Rate</TableHead>
                             <TableHead className="text-center">PO_Total_Amount</TableHead>
@@ -381,9 +382,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center font-semibold text-green-600">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}
                                         <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.mapquantity)} Kg</TableCell> {/* Prepared Quantity */}
-                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber((parseFloat(item.quantity) - parseFloat(item.mapquantity)).toString())} Kg</TableCell> {/* Prepared Quantity */}
 
                                         <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.actualquantity)} Kg</TableCell> {/* Prepared Quantity */}
+                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber((parseFloat(item.quantity) - parseFloat(item.mapquantity)).toString())} Kg</TableCell> {/* Prepared Quantity */}
+
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber((parseFloat(item.quantity) - parseFloat(item.actualquantity)).toString())} Kg</TableCell> {/* Prepared Quantity */}
                                         <TableCell className="text-center">{formatNumber(item.unitRate)} &#8377;</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.totalBill)} &#8377;</TableCell>
@@ -494,13 +496,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                        <Table className="mt-4">
                        <TableHeader className="bg-neutral-100 text-stone-950 ">
                            <TableHead className="text-center">Sl No.</TableHead>
-                           <TableHead className="text-center">Packing_Type</TableHead>
+                           <TableHead className="text-center">Mapping_Type</TableHead>
                            <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
                            
                            <TableHead className="text-center">Order_Origin</TableHead>
                            <TableHead className="text-center">Final_GradeName</TableHead>
-                           <TableHead className="text-center">Mapping_No</TableHead>
-                           <TableHead className="text-center">Order_Quantity</TableHead>
+                           <TableHead className="text-center">Issue_No (Mapping)</TableHead>
+                           {/* <TableHead className="text-center">Order_Quantity</TableHead> */}
                            <TableHead className="text-center">Order_Entry_Date</TableHead>
                            <TableHead className="text-center">Order_Mapping_Date</TableHead>
                            <TableHead className="text-center">Purchase_Vendor_Name</TableHead>
@@ -524,12 +526,12 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                return (
                                    <TableRow key={item.id} >
                                        <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                            <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
+                                            <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh' : 'Re-Mapping'}</TableCell>
                                        <TableCell className="text-center text-red-500 font-bold ">{item.orderID}</TableCell>
                                        <TableCell className="text-center text-cyan-500 font-semibold">{item.origin}</TableCell>
-                                       <TableCell className="text-center font-semibold">{item.finalgradeName}</TableCell>
-                                       <TableCell className="text-center font-semibold">{item.altid}</TableCell>
-                                       <TableCell className="text-center font-semibold ">{formatNumber(item.demandQuantity)} Kg</TableCell>
+                                       <TableCell className="text-center">{item.finalgradeName}</TableCell>
+                                       <TableCell className="text-center">{item.altid}</TableCell>
+                                       {/* <TableCell className="text-center font-semibold ">{formatNumber(item.demandQuantity)} Kg</TableCell> */}
 
                                        <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
                                        <TableCell className="text-center">{handletimezone(item.mappingDate)}</TableCell> {/* Order Mapping Date (Can be mapped to "orderDate") */}
@@ -537,16 +539,16 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                      
                                        <TableCell className="text-center">{item.vendorName}</TableCell>
 
-                                       <TableCell className="text-center">{item.productionSection}</TableCell>
-                                       <TableCell className="text-center">{item.LotNo}</TableCell>
-                                       <TableCell className="text-center">{item.productionOrigin}</TableCell>
-                                       <TableCell className="text-center">{item.productionGrade}</TableCell>
+                                       <TableCell className="text-center bg-green-100">{item.productionSection}</TableCell>
+                                       <TableCell className="text-center font-semibold bg-yellow-100">{item.LotNo}</TableCell>
+                                       <TableCell className="text-center bg-yellow-100">{item.productionOrigin}</TableCell>
+                                       <TableCell className="text-center bg-yellow-100">{item.productionGrade}</TableCell>
                                      
 
-                                       <TableCell className="text-center font-semibold">{formatNumber(item.sectionQuantity)} Kg </TableCell> {/* Demand Quantity */}
-                                       <TableCell className="text-center">{formatNumber(item.prcntgMix)} %</TableCell> {/* Prepared Quantity */}
+                                       <TableCell className="text-center bg-yellow-100">{formatNumber(item.sectionQuantity)} Kg </TableCell> {/* Demand Quantity */}
+                                       <TableCell className="text-center bg-yellow-100">{formatNumber(item.prcntgMix)} %</TableCell> {/* Prepared Quantity */}
 
-                                       <TableCell className="text-center font-semibold">{formatNumber(item.mappedQuantity)} Kg</TableCell> {/* Prepared Quantity */}
+                                       <TableCell className="text-center font-semibold bg-green-100">{formatNumber(item.mappedQuantity)} Kg</TableCell> {/* Prepared Quantity */}
                                   
                                        {/* <TableCell className="text-center">{item.editStatus}</TableCell> */}
                                        <TableCell className="text-center">{item.createdBy}</TableCell> {/* Created By */}
@@ -666,7 +668,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                        <TableCell className="text-center ">{item.totalBill}  &#8377;</TableCell>
 
                                        <TableCell className="text-center ">{item.vendorName}</TableCell>
-                                       <TableCell className="text-center ">{formatNumber(item.fulfillquantity)} Kg</TableCell>
+                                       <TableCell className="text-center ">{item.fulfillquantity ?formatNumber(item.fulfillquantity):0} Kg</TableCell>
                                        <TableCell className="text-center">{item.mfgDate ? handletimezone(item.mfgDate):item.mfgDate}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
 
                                        <TableCell className="text-center font-semibold">{item.BatchID}</TableCell>
