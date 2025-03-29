@@ -21,8 +21,8 @@ import OrderMappingInitial from "./OrderMappingInitial";
 
 const Packing = () => {
 
-    const [stocktable, setStockTable] = useState<string>('block')
-    const [transactable, setTransacTable] = useState<string>('none')
+    const [stocktable, setStockTable] = useState<string>('none')
+    const [transactable, setTransacTable] = useState<string>('block')
     const [mappeddata, setMappedData] = useState<any[]>([])
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {
@@ -113,7 +113,7 @@ const Packing = () => {
                     
                     <div className="flex flex-col">
                         <span className="text-center w-100">            
-                            <Button className="bg-gray-600 mb-3 hover:bg-gray-400" onClick={handleTransferFetch}> {stocktable === 'block' ? ' Switch To Order History ->' : '<- Switch To Stock History '}</Button>
+                            <Button className="bg-gray-600 mb-3 hover:bg-gray-400" onClick={handleTransferFetch}> {stocktable === 'block' ? '< Switch To Order History ' : ' Switch To Stock History >'}</Button>
                         </span>
 
 

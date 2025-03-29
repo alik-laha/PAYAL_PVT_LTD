@@ -45,11 +45,10 @@ interface SectionRowData {
 }
 
 
-const OrderMappingCreateForm = (props:Props) => {
+const OrderReMappingCreateForm = (props:Props) => {
     const dateIssueref = useRef<HTMLInputElement>(null)
     const [id, setId] = useState<number>()
     const [orderpk, setorderpk] = useState<number>()
-    
     const [packingpk, setpackingpk] = useState<number>()
     const [orderID, setorderID] = useState<string>('')
     const [orderDate, setorderDate] = useState<string>('')
@@ -84,9 +83,9 @@ const OrderMappingCreateForm = (props:Props) => {
         setpackingpk(props.mapping[0].packingpk)
         setorderID(props.mapping[0].orderID)
         setorderDate(props.mapping[0].orderDate.slice(0,10))
-        setFinalGrade(props.mapping[0].finalgradeName)
+        setFinalGrade(props.mapping[0].gradeName)
         setOrigin(props.mapping[0].origin)
-        setDemandQty(props.mapping[0].demandQuantity)
+        setDemandQty(parseFloat(props.mapping[0].quantity)-parseFloat(props.mapping[0].mapquantity))
         setVendor(props.mapping[0].vendorName)
         }
         
@@ -285,28 +284,12 @@ const OrderMappingCreateForm = (props:Props) => {
      
          try{
 
-           
-                if(formData.length===1){
-                    for (var data of formData) 
-                        {
-                            await axios.put(`/api/packing/updateOrderMapping/${id}/${amount}`, {data })
-                                setErrortext(`Order Mapping of ${orderID} Performed Successfully`)
-                            if(successdialog){
-                                (successdialog as any).showModal();
-                            }
-                            
-                        }
-                    } 
-                    else if(formData.length>1){
-                            await axios.put(`/api/packing/updateOrderMappingEntire/${id}/${amount}`, {data:formData })
-   
-                                    setErrortext(`Order Mapping of ${orderID} Performed Successfully`)
-                                if(successdialog){
-                                    (successdialog as any).showModal();
-                                }     
-                    } 
+                await axios.put(`/api/packing/updateOrderReMappingEntire/${amount}`, {data:formData })
+                setErrortext(`Order Re-Mapping of ${orderID} Performed Successfully`)
+            if(successdialog){
+                (successdialog as any).showModal();
+            }  
             
-          
             
          }
      
@@ -522,4 +505,4 @@ const OrderMappingCreateForm = (props:Props) => {
     )
 
 }
-export default OrderMappingCreateForm
+export default OrderReMappingCreateForm

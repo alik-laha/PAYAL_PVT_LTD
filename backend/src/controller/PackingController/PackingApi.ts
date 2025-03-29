@@ -415,6 +415,9 @@ export const mappingSearch = async (req: Request, res: Response) => {
                 }
             });
         }
+        whereClause.push({
+            mappingStatus: 1
+        });
        
 
 
@@ -870,7 +873,7 @@ export const updateMappingOrder = async (req: Request, res: Response) => {
             stockquantity,
             prcntg,
             mixquantity,
-            remarks,orderpk} = req.body.data;
+            remarks,orderpk,mappingDate} = req.body.data;
 
         const id=req.params.id;
         const amount=req.params.amount;
@@ -887,6 +890,7 @@ export const updateMappingOrder = async (req: Request, res: Response) => {
                 }
                 const mappingupdate = await orderMappingModel.update({ 
                     LotNo,
+                    mappingDate:mappingDate,
                     productionOrigin:porigin,
                     productionSection:section,
                     productionGrade:grade,
@@ -947,7 +951,7 @@ export const updateMappingOrderEntire = async (req: Request, res: Response) => {
             stockquantity,
             prcntg,
             mixquantity,
-            remarks, orderpk } = firstrow;
+            remarks, orderpk,mappingDate } = firstrow;
         let skuData = await lotoriginmodel.findOne({ where: { LotNo: LotNo, origin: porigin } });
         if (!skuData) {
             return res.status(500).json({ message: "Lot No Does Not Exist" });
@@ -977,7 +981,7 @@ export const updateMappingOrderEntire = async (req: Request, res: Response) => {
                         demandQuantity: data.demandQuantity,
                         orderpk:data.orderpk,
                         packingpk:data.packingpk,
-
+                        mappingDate:data.mappingDate,
                         LotNo:data.LotNo,
                         productionOrigin:data.porigin,
                         productionSection:data.section,
@@ -1001,6 +1005,7 @@ export const updateMappingOrderEntire = async (req: Request, res: Response) => {
                     productionSection:section,
                     productionGrade:grade,
                     sectionQuantity:stockquantity,
+                    mappingDate:mappingDate,
                     prcntgMix:prcntg,
                     mappedQuantity:mixquantity,
                     remarks,

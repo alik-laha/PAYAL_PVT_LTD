@@ -937,6 +937,7 @@ const GatePassTable = () => {
         'DriverName': item.driverName,
         'DriverContact': item.driverContact,
         'SecurityName': item.securityName,
+        'CreatedByUser': item.createdBy,
         'NetWeight': item.netWeight,
         'BillAmount': item.billAmount,
         'Verified_By': item.modifiedBy,
@@ -1061,6 +1062,7 @@ const GatePassTable = () => {
             <TableHead className="text-center" >Driver_Name</TableHead>
             <TableHead className="text-center" >Driver_Contact</TableHead>
             <TableHead className="text-center" >Entried_By_Seurity</TableHead>
+            <TableHead className="text-center" >Created_By_User</TableHead>
             <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
             <TableHead className="text-center" >GatePass_Status</TableHead>
             <TableHead className="text-center" >Verified/Approved_By</TableHead>
@@ -1126,6 +1128,7 @@ const GatePassTable = () => {
                   <TableCell className="text-center">{item.driverName}</TableCell>
                   <TableCell className="text-center">{item.driverContact}</TableCell>
                   <TableCell className="text-center">{item.securityName}</TableCell>
+                  <TableCell className="text-center">{item.createdBy}</TableCell>
                   <TableCell className="text-center font-semibold">{item.netWeight ? formatNumber(item.netWeight) : 0} kg </TableCell>
                   {item.status !== 'Cancelled' ?
                     <TableCell className="text-center font-semibold text-yellow-600">{item.status}</TableCell> :

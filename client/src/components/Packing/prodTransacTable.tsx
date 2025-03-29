@@ -54,7 +54,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { CiEdit } from "react-icons/ci";
-import OrderMappingCreateForm from "./OrderMappingCreateForm";
+import OrderReMappingCreateForm from "./OrderReMappingCreateForm";
 //import { pendingCheckRoles, PermissionRole } from "@/type/type";
 //import { LuDownload } from "react-icons/lu";
 
@@ -334,9 +334,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                            
                             <TableHead className="text-center">Purchase_Vendor_Name</TableHead>
                             <TableHead className="text-center">Demand_Quantity</TableHead>
-                            <TableHead className="text-center">Mapping_Quantity</TableHead>
-                            <TableHead className="text-center">Fulfilled_Quantity</TableHead>
-                            <TableHead className="text-center">Order_Backlog</TableHead>
+                            <TableHead className="text-center">Mapped_Quantity</TableHead>
+                            <TableHead className="text-center">Mapping_Backlog</TableHead>
+                            <TableHead className="text-center">Packed_Quantity</TableHead>
+                            <TableHead className="text-center">Packing_Backlog</TableHead>
                             <TableHead className="text-center">Unit_Rate</TableHead>
                             <TableHead className="text-center">PO_Total_Amount</TableHead>
                             <TableHead className="text-center">GST</TableHead>
@@ -378,10 +379,11 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center">{handletimezone(item.orderInvDate)}</TableCell>
                                       
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}
-                                        <TableCell className="text-center">{formatNumber(item.mapquantity)} Kg</TableCell> {/* Prepared Quantity */}
+                                        <TableCell className="text-center font-semibold text-green-600">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}
+                                        <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.mapquantity)} Kg</TableCell> {/* Prepared Quantity */}
+                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber((parseFloat(item.quantity) - parseFloat(item.mapquantity)).toString())} Kg</TableCell> {/* Prepared Quantity */}
 
-                                        <TableCell className="text-center">{formatNumber(item.actualquantity)} Kg</TableCell> {/* Prepared Quantity */}
+                                        <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.actualquantity)} Kg</TableCell> {/* Prepared Quantity */}
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber((parseFloat(item.quantity) - parseFloat(item.actualquantity)).toString())} Kg</TableCell> {/* Prepared Quantity */}
                                         <TableCell className="text-center">{formatNumber(item.unitRate)} &#8377;</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.totalBill)} &#8377;</TableCell>
@@ -405,7 +407,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     </PopoverTrigger>
                                                     <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                         {/* Approve Order */}
-                                                        {item.ordMappingStatus!==1 && <AlertDialog>
+                                                        {item.ordMappingStatus!==1 && item.ordApproveStatus === 'Pending' && <AlertDialog>
                                                             <AlertDialogTrigger className="flex">
                                                                 <FcApprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-green-500" >Approve</button>
                                                             </AlertDialogTrigger>
@@ -427,7 +429,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         </AlertDialog>}
 
                                                         {/* Reject Order */}
-                                                        {item.ordMappingStatus!==1 &&<AlertDialog >
+                                                        {item.ordMappingStatus!==1 && item.ordApproveStatus === 'Pending' && <AlertDialog >
                                                             <AlertDialogTrigger className="flex mt-2">
                                                                 <FcDisapprove size={25} /> <button className="bg-transparent  pl-1 text-left hover:text-red-500" >Reject</button>
                                                             </AlertDialogTrigger>
@@ -461,7 +463,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                                                                     </DialogHeader>
 
-                                                                    <OrderMappingCreateForm mapping={[item]} />
+                                                                    <OrderReMappingCreateForm mapping={[item]} />
                                                                 </DialogContent>
                                                             </Dialog>}
  
@@ -492,13 +494,15 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                        <Table className="mt-4">
                        <TableHeader className="bg-neutral-100 text-stone-950 ">
                            <TableHead className="text-center">Sl No.</TableHead>
-                          
+                           <TableHead className="text-center">Packing_Type</TableHead>
                            <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
                            
                            <TableHead className="text-center">Order_Origin</TableHead>
                            <TableHead className="text-center">Final_GradeName</TableHead>
+                           <TableHead className="text-center">Mapping_No</TableHead>
                            <TableHead className="text-center">Order_Quantity</TableHead>
                            <TableHead className="text-center">Order_Entry_Date</TableHead>
+                           <TableHead className="text-center">Order_Mapping_Date</TableHead>
                            <TableHead className="text-center">Purchase_Vendor_Name</TableHead>
                           
                            <TableHead className="text-center">Production_Section</TableHead>
@@ -520,14 +524,16 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                return (
                                    <TableRow key={item.id} >
                                        <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                       
+                                            <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh Issue' : 'Re-Issue'}</TableCell>
                                        <TableCell className="text-center text-red-500 font-bold ">{item.orderID}</TableCell>
-                                       <TableCell className="text-center font-semibold">{item.origin}</TableCell>
+                                       <TableCell className="text-center text-cyan-500 font-semibold">{item.origin}</TableCell>
                                        <TableCell className="text-center font-semibold">{item.finalgradeName}</TableCell>
+                                       <TableCell className="text-center font-semibold">{item.altid}</TableCell>
                                        <TableCell className="text-center font-semibold ">{formatNumber(item.demandQuantity)} Kg</TableCell>
 
                                        <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
-                                 
+                                       <TableCell className="text-center">{handletimezone(item.mappingDate)}</TableCell> {/* Order Mapping Date (Can be mapped to "orderDate") */}
+
                                      
                                        <TableCell className="text-center">{item.vendorName}</TableCell>
 

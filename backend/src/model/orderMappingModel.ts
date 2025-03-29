@@ -8,6 +8,10 @@ const orderMappingModel = sequelize.define('orderMapping', {
         primaryKey: true,
         autoIncrement: true
     },
+      altid: {
+                type: DataTypes.INTEGER,
+                defaultValue:1
+            },
      orderpk: {
                 type: DataTypes.INTEGER,
                 allowNull:false
@@ -25,6 +29,10 @@ const orderMappingModel = sequelize.define('orderMapping', {
         allowNull: false
     },
     orderDate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+    },
+    mappingDate: {
         type: DataTypes.DATE,
         allowNull: false,
     },
