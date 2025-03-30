@@ -496,6 +496,7 @@ export const createOrderEntire = async (req: Request, res: Response) => {
                         origin: data.origin,
                         gradeName: data.grade,
                         vendorName: data.Vendor,
+                        brokerName: data.Broker,
                         quantity: data.quantity,
                         unitRate: data.unitrate,
                         actualquantity: 0,
@@ -739,7 +740,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
         let finalSum=0;
         let stockSum=0;
         let finalconsumedSum=0;
-        const {LotNo,section,grade,origin} = req.body
+        const {LotNo,section,grade,origin,altid} = req.body
         let ProdStockPrimary:any
         if(section==='Wholes'){
             ProdStockPrimary = await WholesModel.findAll({
@@ -749,7 +750,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                     [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
                   ],
                   where: {
-                    LotNo:LotNo,origin:origin,Status: 1, editStatus: {[Op.notLike]:'Pending'},
+                    LotNo:LotNo,origin:origin,Status: 1, altid,editStatus: {[Op.notLike]:'Pending'},
                   },
                   group: [grade],
                   // raw: true,
@@ -763,7 +764,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                     [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
                   ],
                   where: {
-                    LotNo:LotNo,origin:origin,Status: 1, editStatus: {[Op.notLike]:'Pending'},
+                    LotNo:LotNo,origin:origin,Status: 1, altid,editStatus: {[Op.notLike]:'Pending'},
                   },
                   group: [grade],
                   // raw: true,
@@ -777,7 +778,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                     [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
                   ],
                   where: {
-                    LotNo:LotNo,origin:origin,Status: 1, editStatus: {[Op.notLike]:'Pending'},
+                    LotNo:LotNo,origin:origin,Status: 1, altid,editStatus: {[Op.notLike]:'Pending'},
                   },
                   group: [grade],
                   // raw: true,
@@ -791,7 +792,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                     [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
                   ],
                   where: {
-                    LotNo:LotNo,origin:origin,Status: 1, editStatus: {[Op.notLike]:'Pending'},
+                    LotNo:LotNo,origin:origin,Status: 1,altid, editStatus: {[Op.notLike]:'Pending'},
                   },
                   group: [grade],
                   // raw: true,
@@ -805,7 +806,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                     [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
                   ],
                   where: {
-                    LotNo:LotNo,origin:origin,Status: 1, editStatus: {[Op.notLike]:'Pending'},
+                    LotNo:LotNo,origin:origin,Status: 1, altid,editStatus: {[Op.notLike]:'Pending'},
                   },
                   group: [grade],
                   // raw: true,
@@ -819,7 +820,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                     [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
                   ],
                   where: {
-                    LotNo:LotNo,origin:origin,Status: 1, editStatus: {[Op.notLike]:'Pending'},
+                    LotNo:LotNo,origin:origin,Status: 1,altid, editStatus: {[Op.notLike]:'Pending'},
                   },
                   group: [grade],
                   // raw: true,
@@ -843,7 +844,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
               ],
               where: {
                 LotNo:LotNo,productionOrigin:origin,
-                mappingStatus: 1, productionSection:section,
+                mappingStatus: 1, productionSection:section,production_issue:altid,
                 editStatus: {[Op.notLike]:'Pending'},
                 productionGrade:grade,
               },
@@ -877,7 +878,7 @@ export const updateMappingOrder = async (req: Request, res: Response) => {
             stockquantity,
             prcntg,
             mixquantity,
-            remarks,orderpk,mappingDate} = req.body.data;
+            remarks,orderpk,mappingDate,actual_stockquantity,issue_no} = req.body.data;
 
         const id=req.params.id;
         const amount=req.params.amount;
@@ -888,7 +889,7 @@ export const updateMappingOrder = async (req: Request, res: Response) => {
         }
         else{
             await sequelize.transaction( async (transaction) =>{
-                if (stockquantity < mixquantity) {
+                if (actual_stockquantity < mixquantity) {
                     res.status(500).json({ message: "Mapping Quantity Can't Be Greater than 100%" });
                     throw new Error('Transaction Aborted 1')
                 }
@@ -899,6 +900,8 @@ export const updateMappingOrder = async (req: Request, res: Response) => {
                     productionSection:section,
                     productionGrade:grade,
                     sectionQuantity:stockquantity,
+                    sectionQuantityActual:actual_stockquantity,
+                    production_issue:issue_no,
                     prcntgMix:prcntg,
                     mappedQuantity:mixquantity,
                     remarks,
@@ -955,7 +958,7 @@ export const updateMappingOrderEntire = async (req: Request, res: Response) => {
             stockquantity,
             prcntg,
             mixquantity,
-            remarks, orderpk,mappingDate } = firstrow;
+            remarks, orderpk,mappingDate,actual_stockquantity,issue_no } = firstrow;
         let skuData = await lotoriginmodel.findOne({ where: { LotNo: LotNo, origin: porigin } });
         if (!skuData) {
             return res.status(500).json({ message: "Lot No Does Not Exist" });
@@ -971,7 +974,7 @@ export const updateMappingOrderEntire = async (req: Request, res: Response) => {
                         res.status(500).json({ message: "Lot No Does Not Exist" });
                         throw new Error('Transaction Aborted 1')
                     }
-                    if (data.stockquantity < data.mixquantity) {
+                    if (data.actual_stockquantity < data.mixquantity) {
                         res.status(500).json({ message: "Mapping Quantity Can't Be Greater than 100%" });
                         throw new Error('Transaction Aborted 2')
                     }
@@ -992,6 +995,8 @@ export const updateMappingOrderEntire = async (req: Request, res: Response) => {
                         productionGrade:data.grade,
                         sectionQuantity:data.stockquantity,
                         prcntgMix:data.prcntg,
+                        sectionQuantityActual:data.actual_stockquantity,
+                        production_issue:data.issue_no,
                         mappedQuantity:data.mixquantity,
                         remarks:data.remarks,
                         createdBy,mappingStatus:1
@@ -1010,6 +1015,8 @@ export const updateMappingOrderEntire = async (req: Request, res: Response) => {
                     productionGrade:grade,
                     sectionQuantity:stockquantity,
                     mappingDate:mappingDate,
+                    sectionQuantityActual:actual_stockquantity,
+                    production_issue:issue_no,
                     prcntgMix:prcntg,
                     mappedQuantity:mixquantity,
                     remarks,

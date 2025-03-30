@@ -44,6 +44,7 @@ const OrderCreateForm = () => {
     const dateIssueref = useRef<HTMLInputElement>(null)
     const invdateIssueref = useRef<HTMLInputElement>(null)
     const usernameRef = useRef<HTMLInputElement>(null)
+    const brokernameRef = useRef<HTMLInputElement>(null)
     const [errortext, setErrortext] = useState('')
     const [isdisable, setisdisable] = useState<boolean>(false)
 
@@ -111,12 +112,14 @@ const OrderCreateForm = () => {
         const dateissue = dateIssueref.current?.value
         const invdateissue = invdateIssueref.current?.value
         const username = usernameRef.current?.value
+        const brokerusername = brokernameRef.current?.value
 
         setisdisable(true)
         const formData = rows.map(row => ({
             ordDate: dateissue,
             invDate: invdateissue,
             Vendor: username,
+            Broker: brokerusername,
             ...row
         }))
 
@@ -218,6 +221,10 @@ const OrderCreateForm = () => {
                         <div className="flex mt-1">
                             <Label className="w-2/4 pt-1">Vendor Name (*)</Label>
                             <Input className="w-2/4 text-center" placeholder="Vendor Name" ref={usernameRef} required />
+                        </div>
+                        <div className="flex mt-1">
+                            <Label className="w-2/4 pt-1">Broker Name (*)</Label>
+                            <Input className="w-2/4 text-center" placeholder="Broker Name" ref={brokernameRef} required />
                         </div>
                     </div>
 

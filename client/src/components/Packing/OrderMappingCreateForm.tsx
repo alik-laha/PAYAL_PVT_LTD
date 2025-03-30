@@ -38,7 +38,9 @@ interface SectionRowData {
     porigin: string;
     section:string;
     grade: string;
+    issue_no: number;
     stockquantity: number;
+    actual_stockquantity: number;
     prcntg: number;
     mixquantity: number;
     remarks: string;
@@ -99,6 +101,8 @@ const OrderMappingCreateForm = (props:Props) => {
         section:'',
         grade: '',
         stockquantity: 0,
+        issue_no:1,
+        actual_stockquantity: 0,
         prcntg: 100,
         mixquantity: 0,
         remarks: ''
@@ -125,8 +129,10 @@ const OrderMappingCreateForm = (props:Props) => {
             section:'',
             grade: '',
             stockquantity: 0,
+            issue_no:1,
             prcntg: 100,
             mixquantity: 0,
+            actual_stockquantity: 0,
             remarks: ''
         }])
     }
@@ -218,12 +224,15 @@ const OrderMappingCreateForm = (props:Props) => {
 
     const handleLotIdClick = (index: any, item: any) => {
          axios.post("/api/packing/prodStockQtyFind", { LotNo: item.LotNo,origin:rows[index].porigin,
-            section:rows[index].section,grade:rows[index].grade })
+            section:rows[index].section,grade:rows[index].grade,altid: rows[index].issue_no})
                     .then((res) => {
                         console.log(res)
                         if (res.status === 200) {
                             rows[index].stockquantity=res.data.finalSum
+                            
                             handleRowChange(index,'stockquantity',res.data.finalSum)
+                            rows[index].actual_stockquantity=res.data.finalSum
+                            handleRowChange(index,'actual_stockquantity',res.data.finalSum)
                             if(res.data.finalSum){
                                 const mixquantity=Number((rows[index].stockquantity*(rows[index].prcntg/100)).toFixed(2))
                                 handleRowChange(index, 'mixquantity', mixquantity.toString())
@@ -249,8 +258,16 @@ const OrderMappingCreateForm = (props:Props) => {
     const handlePrcntgChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         
-        rows[index].mixquantity=Number((rows[index].stockquantity*(Number(e.target.value)/100)).toFixed(2))
+        rows[index].mixquantity=Number((rows[index].actual_stockquantity*(Number(e.target.value)/100)).toFixed(2))
         handleRowChange(index,'prcntg',e.target.value)
+       
+     }
+
+     const handleActualQtyChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        handleRowChange(index,'actual_stockquantity',e.target.value)
+        rows[index].mixquantity=Number((Number(e.target.value)*(rows[index].prcntg/100)).toFixed(2))
+        handleRowChange(index,'actual_stockquantity',e.target.value)
        
      }
 
@@ -364,8 +381,10 @@ const OrderMappingCreateForm = (props:Props) => {
                                 <TableHead className="text-center" >Section</TableHead>
                                 <TableHead className="text-center" >Grade</TableHead>
                                 <TableHead className="text-center" >Origin</TableHead>
+                                <TableHead className="text-center" >Issue_No</TableHead>
                                 <TableHead className="text-center" >Production_Lot_No</TableHead>
                                 <TableHead className="text-center" >Stock_Quantity (Kg)</TableHead>
+                                <TableHead className="text-center" >Actual_Stock (Kg)</TableHead>
                                 <TableHead className="text-center" >Percentage Mix(%)</TableHead>
                                 <TableHead className="text-center" >Mixed_Quantity (Kg)</TableHead>
                                 <TableHead className="text-center w-30" >Mapping_Remarks(Any)</TableHead>
@@ -434,6 +453,13 @@ const OrderMappingCreateForm = (props:Props) => {
                                                         </SelectContent>
                                                     </Select>
                                                 </TableCell>
+                                                <TableCell className="text-center" >
+                                                    <Input value={row.issue_no} placeholder="Issue No" type="number"
+                                                        onChange={(e) => {
+                                                            handleRowChange(index, 'issue_no', e.target.value)}}
+                                                         required/>
+                                                </TableCell>
+                                                
 
                                                 <TableCell className="text-center">
 
@@ -451,6 +477,12 @@ const OrderMappingCreateForm = (props:Props) => {
                                                 </TableCell>
                                                 <TableCell className="text-center">
                                                     <Input className="bg-red-100" placeholder="Lot No" value={row.stockquantity} readOnly />
+                                                </TableCell>
+
+                                                <TableCell className="text-center">
+                                                    <Input  placeholder="Lot No" value={row.actual_stockquantity} onChange={(e) => {
+                                                            handleActualQtyChange(index, e)
+                                                        }} required />
                                                 </TableCell>
                                                 <TableCell className="text-center" >
                                                     <Input value={row.prcntg} placeholder="%" type="number"

@@ -55,6 +55,7 @@ import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { CiEdit } from "react-icons/ci";
 import OrderReMappingCreateForm from "./OrderReMappingCreateForm";
+import { Progress } from "@/components/ui/progress";
 //import { pendingCheckRoles, PermissionRole } from "@/type/type";
 //import { LuDownload } from "react-icons/lu";
 
@@ -323,16 +324,17 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
                             <TableHead className="text-center">Sl No.</TableHead>
                            
-                            <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
+                            <TableHead className="text-center">Generated_Sales_Order_ID</TableHead>
                             <TableHead className="text-center">Origin</TableHead>
                             <TableHead className="text-center">Final_GradeName</TableHead>
                             <TableHead className="text-center">Approval</TableHead>
-                            <TableHead className="text-center">Mapping</TableHead>
+                            <TableHead className="text-center">Mapping_Status</TableHead>
                             <TableHead className="text-center">Packing</TableHead>
                             <TableHead className="text-center">Order_Receive_Date</TableHead>
                             <TableHead className="text-center">Order_Entry_Date</TableHead>
                            
-                            <TableHead className="text-center">Purchase_Vendor_Name</TableHead>
+                            <TableHead className="text-center">Sales_Vendor_Name</TableHead>
+                            <TableHead className="text-center">Broker_Name</TableHead>
                             <TableHead className="text-center">Demand_Quantity</TableHead>
                             <TableHead className="text-center">Mapped_Quantity</TableHead>
                           
@@ -367,19 +369,30 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                 )
                                             )}</TableCell>
                                         <TableCell className="text-center">{item.ordApproveStatus !== 'Rejected' ?( item.ordMappingStatus === 0 ? (
-                                            <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">0 %</button>
+                                            <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
                                         ) : (
-                                            <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</button>
+                                            
+                                            
+                                            <div className="flex flex-row items-center justify-center ">
+                                                            <Progress value={((Number(item.mapquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4" />
+                                                            <span className="w-2/4 text-center font-semibold text-green-700">{((Number(item.mapquantity)/Number(item.quantity))*100)} %</span>
+                                                        </div>
+                                            
+                                            
+                                            // <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</button>
                                         )):null}</TableCell>
                                         <TableCell className="text-center">{item.ordApproveStatus !== 'Rejected' ?(Number(item.actualquantity) === 0 ? (
-                                            <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">{formatNumber(((Number(item.actualquantity)/Number(item.quantity))*100).toString())} %</button>
+                                            <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
                                         ) : (
-                                            <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">{formatNumber(((Number(item.actualquantity)/Number(item.quantity))*100).toString())} %</button>
-                                        )):null}</TableCell> {/* Order completion Status */}
+                                            <div className="flex flex-row items-center justify-center ">
+                                            <Progress value={((Number(item.actualquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4" />
+                                            <span className="w-2/4 text-center font-semibold text-green-700">{((Number(item.actualquantity)/Number(item.quantity))*100)} %</span>
+                                        </div>                                        )):null}</TableCell> {/* Order completion Status */}
                                         <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
                                         <TableCell className="text-center">{handletimezone(item.orderInvDate)}</TableCell>
                                       
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
+                                        <TableCell className="text-center">{item.brokerName}</TableCell>
                                         <TableCell className="text-center font-semibold text-green-600">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}
                                         <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.mapquantity)} Kg</TableCell> {/* Prepared Quantity */}
 
