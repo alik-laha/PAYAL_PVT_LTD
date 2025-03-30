@@ -70,10 +70,6 @@ const Hamsa = () => {
             setLotData(res.data.scoopingLot)
             console.log(lotdata)
         })
-
-
-
-
     }
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {

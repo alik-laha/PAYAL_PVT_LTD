@@ -14,11 +14,16 @@ import {
 import { pendingCheckRoles, PermissionRole } from "@/type/type";
 import { pendingCheckRole } from "../common/exportData";
 import OrderCreateForm from "./OrderCreateForm";
+import ProdTransacTable from "./prodTransacTable";
+import axios from "axios";
+import OrderMappingInitial from "./OrderMappingInitial";
+
 
 const Packing = () => {
 
-    const [stocktable, setStockTable] = useState<string>('block')
-    const [transactable, setTransacTable] = useState<string>('none')
+    const [stocktable, setStockTable] = useState<string>('none')
+    const [transactable, setTransacTable] = useState<string>('block')
+    const [mappeddata, setMappedData] = useState<any[]>([])
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {
         //console.log(Role)
@@ -47,6 +52,14 @@ const Packing = () => {
         }
     }
 
+    const handleOpenMapping = async () => {
+            axios.get('/api/packing/getUnMappingEntry/0').then(res => {
+                console.log(res)
+                setMappedData(res.data.scoopingLot)
+                console.log(mappeddata)
+            })
+        }
+
 
     const handleTransferFetch = () => {
         if (stocktable === 'block') {
@@ -68,13 +81,12 @@ const Packing = () => {
                 <DashboardSidebar />
                 <div className='dashboard-main-container'>
                     <div className="flex flex-row-reverse">
-                        <Button className="bg-orange-400 mb-2 mr-8 responsive-button-adjust "
+                        <Button className="bg-orange-600 mb-2 mr-8 responsive-button-adjust "
                             disabled={loading} onClick={handleProdStockUpdateFetch} >  {loading ? 'Updating...' : 'Update Stock'} <RxUpdate size={20} className="ml-2" /></Button>
                     </div>
                     <div className="flex text-center">
-                        <Button className="bg-blue-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {stocktable === 'block' ? 'Order History' : 'Stock History'}</Button>
-                        {checkpending('Packing') && <Dialog>
-                            <DialogTrigger>   <Button className="bg-red-400 mb-2 ml-4 responsive-button-adjust no-margin-left" >+ New Order</Button></DialogTrigger>
+                        {checkpending('OrderCreate') && <Dialog>
+                            <DialogTrigger>   <Button className="bg-lime-500 mb-2 ml-4 responsive-button-adjust no-margin-left" >+ Puchase Order</Button></DialogTrigger>
                             <DialogContent className='max-w-6xl' style={{ display: 'block' }}>
                                 <DialogHeader>
                                     <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Purchase Order Create Form</p></DialogTitle>
@@ -84,19 +96,36 @@ const Packing = () => {
                                 <OrderCreateForm />
                             </DialogContent>
                         </Dialog>}
+
+                        {checkpending('OrderMapping') && <Dialog>
+                            <DialogTrigger>   <Button className="bg-purple-600 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenMapping}>+ Order Mapping</Button></DialogTrigger>
+                            <DialogContent className='max-w-6xl' style={{ display: 'block' }}>
+                                <DialogHeader>
+                                    <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Order Mapping Form</p></DialogTitle>
+
+                                </DialogHeader>
+
+                                <OrderMappingInitial props={mappeddata}/>
+                            </DialogContent>
+                        </Dialog>}
                     </div>
 
-                    <p className='text-lg font-semibold text-center capitalize'>{stocktable === 'block' ? 'PRODUCTION STOCK / ORDER STOCK' : 'ORDER/PACKING TRANSACTION'}</p>
+                    
+                    <div className="flex flex-col">
+                        <span className="text-center w-100">            
+                            <Button className="bg-gray-600 mb-3 hover:bg-gray-400" onClick={handleTransferFetch}> {stocktable === 'block' ? '< Switch To Order History ' : ' Switch To Stock History >'}</Button>
+                        </span>
 
 
-
-
+                        <p className='text-lg font-semibold text-center capitalize'>{stocktable === 'block' ? 'PRODUCTION & ORDER STOCK' : 'ORDER, MAPPING & PACKING'}</p>
+                    </div>
+                    
 
                     <div style={{ display: stocktable }}>
                         <ProdStockTable />
                     </div>
                     <div style={{ display: transactable }}>
-                        {/* <RejectionHistoryTable /> */}
+                        <ProdTransacTable />
                     </div>
 
 

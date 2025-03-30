@@ -422,7 +422,7 @@ const AlmondTable = () => {
                                 <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
 
                                 {(tablesearch === 'OUT' || EditData.length > 0 ) ? <TableCell className="text-center" >{item.totalWt}</TableCell> : ''}
-                                <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0 }</TableCell>
+                                <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0 } &#8377;</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
                                 <TableCell className="text-center">
                                         <Popover>
@@ -486,7 +486,7 @@ const AlmondTable = () => {
                                         <TableCell className="text-center font-semibold">{item.noOfBags}</TableCell>
 
                                         {tablesearch === 'OUT' ? <TableCell className="text-center" >{item.totalWt}</TableCell> : ''}
-                                        <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.totalBill ? formatNumber(item.totalBill):0} &#8377;</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
 
                                         <TableCell className="text-center">

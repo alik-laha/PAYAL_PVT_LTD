@@ -212,7 +212,7 @@ const OrderCreateForm = () => {
                             <Input type='date' className="w-2/4 text-center justify-center" placeholder="Vehicle No" ref={dateIssueref} required />
                         </div>
                         <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Invoice Date (*)</Label>
+                            <Label className="w-2/4 pt-1">Order Entry Date (*)</Label>
                             <Input type='date' className="w-2/4 text-center justify-center" placeholder="Vehicle No" ref={invdateIssueref} required />
                         </div>
                         <div className="flex mt-1">

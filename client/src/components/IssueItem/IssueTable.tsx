@@ -476,9 +476,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center ">{item.materialName}</TableCell>
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.quantity))} </TableCell>
                                         <TableCell className="text-center ">{item.itemunit}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.unitPrice))} </TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.unitPrice))} &#8377;</TableCell>
 
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.totalPrice))} </TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.totalPrice))} &#8377;</TableCell>
                                 
                                         <TableCell className="text-center ">{item.issueUser}</TableCell>
                                         <TableCell className="text-center ">{item.damagereturn}</TableCell>
@@ -546,9 +546,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center ">{item.materialName}</TableCell>
                                         <TableCell className="text-center">{formatNumber(parseFloat(item.quantity))} </TableCell>
                                         <TableCell className="text-center ">{item.itemunit}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.unitPrice))} </TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.unitPrice))} &#8377;</TableCell>
 
-                                        <TableCell className="text-center">{formatNumber(parseFloat(item.totalPrice))} </TableCell>
+                                        <TableCell className="text-center">{formatNumber(parseFloat(item.totalPrice))} &#8377;</TableCell>
                                         
                                         <TableCell className="text-center ">{item.issueUser}</TableCell>
                                         <TableCell className="text-center ">{item.damagereturn}</TableCell>
