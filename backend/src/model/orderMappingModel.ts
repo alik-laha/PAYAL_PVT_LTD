@@ -69,6 +69,10 @@ const orderMappingModel = sequelize.define('orderMapping', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true,
     },
+    sectionQuantityActual: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true,
+    },
     prcntgMix: {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true,

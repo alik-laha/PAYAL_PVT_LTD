@@ -32,6 +32,10 @@ const orderPrimaryModel = sequelize.define('orderPrimary', {
         type: DataTypes.STRING,
         allowNull: true,
     },
+    brokerName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
     quantity: {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true,

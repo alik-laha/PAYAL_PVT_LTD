@@ -65,7 +65,7 @@
 .main {
     transition: margin-left .4s;
     padding: 10px;
-    background-color: blanchedalmond;
+    background-color: lightyellow;
 }
 
 /* Hamburger menu */
@@ -298,7 +298,7 @@
     padding: 16px;
     transition: margin-left 0.4s;
     height: 100%;
-    background-color: blanchedalmond;
+    background-color: lightyellow
 }
 
 .sidebar.open+.dashboard-main-container{
