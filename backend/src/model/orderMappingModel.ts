@@ -61,10 +61,6 @@ const orderMappingModel = sequelize.define('orderMapping', {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    production_issue: {
-        type: DataTypes.INTEGER,
-        defaultValue:1
-    },
     productionGrade: {
         type: DataTypes.STRING,
         allowNull: true,

@@ -267,14 +267,28 @@ export const orderSearch = async (req: Request, res: Response) => {
                     },
                     
                     {
-                        ordStatus:0
-                    }
+                        actualquantity:0
+                    },
+                    { ordApproveStatus: { [Op.notLike]: 'Closed' } },
                 ]});
             }
             if(orderStatus==='Closed'){
                 whereClause.push({  [Op.and]: [
+                   
+                    
                     {
-                        ordMappingStatus: 1
+                        ordStatus:1
+                    },
+                    {
+                        ordApproveStatus:'Closed'
+                    }
+
+                ]});
+            }
+            if(orderStatus==='Cancelled'){
+                whereClause.push({  [Op.and]: [
+                    {
+                        ordApproveStatus:'Cancelled'
                     },
                     
                     {
@@ -283,6 +297,14 @@ export const orderSearch = async (req: Request, res: Response) => {
                 ]});
             }
             
+        }
+        else{
+            whereClause.push({   [Op.and]: [
+              
+                { ordApproveStatus: { [Op.notLike]: 'Rejected' } },
+                { ordApproveStatus: { [Op.notLike]: 'Cancelled' } },
+                { ordApproveStatus: { [Op.notLike]: 'Pending' } }
+            ]});
         }
 
 
@@ -563,7 +585,7 @@ export const rejectPurchaseOrder = async (req: Request, res: Response) => {
         }
     );
     if (orderupdate) {
-        res.status(200).json({ message: "Purchase Order Rejected Successfully" });
+        res.status(200).json({ message: "Sales Order Rejected Successfully" });
     }
 
    }
@@ -572,6 +594,85 @@ export const rejectPurchaseOrder = async (req: Request, res: Response) => {
         return res.status(500).json({ message: 'Internal server error', error: err })
     }
 };
+
+export const closePurchaseOrder = async (req: Request, res: Response) => {
+    try{
+     const { id } = req.body;
+     const actionedBy = req.cookies.user;
+ 
+     const orderupdate = await orderPrimaryModel.update(
+         {
+             ordApproveStatus: 'Closed',
+             ordStatus:1,
+             approvedBy:actionedBy
+         },
+         {
+             where: {
+                 id
+             }
+         }
+     );
+     if (orderupdate) {
+         res.status(200).json({ message: "Sales Order Closed Successfully" });
+     }
+ 
+    }
+     catch (err) {
+         console.log(err)
+         return res.status(500).json({ message: 'Internal server error', error: err })
+     }
+ };
+
+ export const cancelPurchaseOrder = async (req: Request, res: Response) => {
+    try{
+     const { id } = req.body;
+     const actionedBy = req.cookies.user;
+     await sequelize.transaction(async (transaction: any) => {
+
+        const orderupdate = await orderPrimaryModel.update(
+            {
+                ordApproveStatus: 'Cancelled',
+                ordStatus:1,
+                ordMappingStatus:0,
+                mapquantity:0,
+                actualquantity:0,
+                approvedBy:actionedBy
+            },
+            {
+                where: {
+                    id
+                },transaction
+            }
+        );
+
+        if(orderupdate){
+            const mappingdelete=await orderMappingModel.destroy({
+                where: {
+                    orderpk: id
+                },transaction
+            });
+
+            const packingdelete=await orderPackingModel.destroy({
+                where: {
+                    orderpk: id
+                },transaction
+            });
+            if (mappingdelete && packingdelete) {
+                res.status(200).json({ message: "Sales Order Cancelled Successfully" });
+            }
+
+        }
+        
+
+     })
+   
+ 
+    }
+     catch (err) {
+         console.log(err)
+         return res.status(500).json({ message: 'Internal server error', error: err })
+     }
+ };
 export const approvePurchaseOrder = async (req: Request, res: Response) => {
     try{
      const { item } = req.body;
@@ -591,6 +692,7 @@ export const approvePurchaseOrder = async (req: Request, res: Response) => {
                 gst:item.gst,
                 demandquantity: item.quantity,
                 unitRate:item.unitRate,
+                orderpk:item.id,
                 totalBill:item.totalBill
             },{transaction});
 
@@ -622,7 +724,7 @@ export const approvePurchaseOrder = async (req: Request, res: Response) => {
             
 
             if (mappingEntry && packingEntry && orderupdate) {
-                res.status(200).json({ message: "Purchase Order Approved Successfully" });
+                res.status(200).json({ message: "Sales Order Approved Successfully" });
             }
             else{
                 return res.status(500).json({ message: 'Error in Creating Mapping'})
@@ -740,7 +842,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
         let finalSum=0;
         let stockSum=0;
         let finalconsumedSum=0;
-        const {LotNo,section,grade,origin,altid} = req.body
+        const {LotNo,section,grade,origin} = req.body
         let ProdStockPrimary:any
         if(section==='Wholes'){
             ProdStockPrimary = await WholesModel.findAll({
@@ -750,7 +852,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                     [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
                   ],
                   where: {
-                    LotNo:LotNo,origin:origin,Status: 1, altid,editStatus: {[Op.notLike]:'Pending'},
+                    LotNo:LotNo,origin:origin,Status: 1,editStatus: {[Op.notLike]:'Pending'},
                   },
                   group: [grade],
                   // raw: true,
@@ -764,7 +866,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                     [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
                   ],
                   where: {
-                    LotNo:LotNo,origin:origin,Status: 1, altid,editStatus: {[Op.notLike]:'Pending'},
+                    LotNo:LotNo,origin:origin,Status: 1,editStatus: {[Op.notLike]:'Pending'},
                   },
                   group: [grade],
                   // raw: true,
@@ -778,7 +880,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                     [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
                   ],
                   where: {
-                    LotNo:LotNo,origin:origin,Status: 1, altid,editStatus: {[Op.notLike]:'Pending'},
+                    LotNo:LotNo,origin:origin,Status: 1,editStatus: {[Op.notLike]:'Pending'},
                   },
                   group: [grade],
                   // raw: true,
@@ -792,7 +894,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                     [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
                   ],
                   where: {
-                    LotNo:LotNo,origin:origin,Status: 1,altid, editStatus: {[Op.notLike]:'Pending'},
+                    LotNo:LotNo,origin:origin,Status: 1, editStatus: {[Op.notLike]:'Pending'},
                   },
                   group: [grade],
                   // raw: true,
@@ -806,7 +908,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                     [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
                   ],
                   where: {
-                    LotNo:LotNo,origin:origin,Status: 1, altid,editStatus: {[Op.notLike]:'Pending'},
+                    LotNo:LotNo,origin:origin,Status: 1,editStatus: {[Op.notLike]:'Pending'},
                   },
                   group: [grade],
                   // raw: true,
@@ -820,7 +922,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
                     [sequelize.fn('SUM', sequelize.col(grade)), 'quantity'],
                   ],
                   where: {
-                    LotNo:LotNo,origin:origin,Status: 1,altid, editStatus: {[Op.notLike]:'Pending'},
+                    LotNo:LotNo,origin:origin,Status: 1, editStatus: {[Op.notLike]:'Pending'},
                   },
                   group: [grade],
                   // raw: true,
@@ -844,7 +946,7 @@ export const lotQtydataFind = async (req: Request, res: Response) => {
               ],
               where: {
                 LotNo:LotNo,productionOrigin:origin,
-                mappingStatus: 1, productionSection:section,production_issue:altid,
+                mappingStatus: 1, productionSection:section,
                 editStatus: {[Op.notLike]:'Pending'},
                 productionGrade:grade,
               },
@@ -878,7 +980,7 @@ export const updateMappingOrder = async (req: Request, res: Response) => {
             stockquantity,
             prcntg,
             mixquantity,
-            remarks,orderpk,mappingDate,actual_stockquantity,issue_no} = req.body.data;
+            remarks,orderpk,mappingDate,actual_stockquantity} = req.body.data;
 
         const id=req.params.id;
         const amount=req.params.amount;
@@ -901,7 +1003,7 @@ export const updateMappingOrder = async (req: Request, res: Response) => {
                     productionGrade:grade,
                     sectionQuantity:stockquantity,
                     sectionQuantityActual:actual_stockquantity,
-                    production_issue:issue_no,
+         
                     prcntgMix:prcntg,
                     mappedQuantity:mixquantity,
                     remarks,
@@ -958,7 +1060,7 @@ export const updateMappingOrderEntire = async (req: Request, res: Response) => {
             stockquantity,
             prcntg,
             mixquantity,
-            remarks, orderpk,mappingDate,actual_stockquantity,issue_no } = firstrow;
+            remarks, orderpk,mappingDate,actual_stockquantity } = firstrow;
         let skuData = await lotoriginmodel.findOne({ where: { LotNo: LotNo, origin: porigin } });
         if (!skuData) {
             return res.status(500).json({ message: "Lot No Does Not Exist" });
@@ -996,7 +1098,7 @@ export const updateMappingOrderEntire = async (req: Request, res: Response) => {
                         sectionQuantity:data.stockquantity,
                         prcntgMix:data.prcntg,
                         sectionQuantityActual:data.actual_stockquantity,
-                        production_issue:data.issue_no,
+                
                         mappedQuantity:data.mixquantity,
                         remarks:data.remarks,
                         createdBy,mappingStatus:1
@@ -1016,7 +1118,7 @@ export const updateMappingOrderEntire = async (req: Request, res: Response) => {
                     sectionQuantity:stockquantity,
                     mappingDate:mappingDate,
                     sectionQuantityActual:actual_stockquantity,
-                    production_issue:issue_no,
+            
                     prcntgMix:prcntg,
                     mappedQuantity:mixquantity,
                     remarks,
@@ -1157,3 +1259,80 @@ export const updateReMappingOrderEntire = async (req: Request, res: Response) =>
 
     }
 }
+
+export const modifyOrder = async (req: Request, res: Response) => {
+    try{
+     const { origin,gradeName,orderDate,invDate,vendor,broker,quantity,gst,totalBill,unitRate,remarks } = req.body;
+        const id=req.params.id
+     const actionedBy = req.cookies.user;
+
+     await sequelize.transaction( async (transaction) =>{
+        
+        const orderupdate = await orderPrimaryModel.update(
+            {
+               origin,gradeName,orderDate,orderInvDate:invDate,
+               vendorName:vendor,brokerName:broker,quantity,gst,
+               totalBill,unitRate,remarks,approvedBy:actionedBy
+
+            },
+            {
+                where: {
+                    id
+                }, transaction
+            }
+        );
+      
+          
+            const packingEntry = await orderPackingModel.update({
+                origin: origin,
+                orderDate: invDate,
+                gradeName:gradeName,
+                vendorName:vendor,
+                gst,
+                demandquantity:quantity,
+                unitRate,approvedBy:actionedBy,
+               
+                totalBill:totalBill
+            },
+            {
+                where: {
+                    orderpk:id
+                }, transaction
+            });
+
+            const mappingEntry = await orderMappingModel.update({
+                origin,
+                orderID:OrderID,
+                orderDate: invDate,
+                finalgradeName:gradeName,
+                vendorName:vendor,
+                demandQuantity: quantity
+                ,approvedBy:actionedBy
+            },
+            {
+                where: {
+                    orderpk:id
+                }, transaction
+            });
+
+           
+
+
+            
+
+            if (mappingEntry && packingEntry && orderupdate) {
+                res.status(200).json({ message: "Sales Order Modified Successfully" });
+            }
+            else{
+                return res.status(500).json({ message: 'Error in Modifying Sales Order'})
+            }
+        
+     
+     })
+ 
+    }
+     catch (err) {
+         console.log(err)
+         return res.status(500).json({ message: 'Internal server error', error: err })
+     }
+ };

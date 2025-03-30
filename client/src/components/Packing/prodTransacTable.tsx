@@ -50,12 +50,13 @@ import {
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
 import { Input } from "../ui/input";
-import { FcApprove, FcDisapprove } from "react-icons/fc";
+import { FcApproval, FcApprove, FcCancel, FcDisapprove, FcEditImage } from "react-icons/fc";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { CiEdit } from "react-icons/ci";
 import OrderReMappingCreateForm from "./OrderReMappingCreateForm";
 import { Progress } from "@/components/ui/progress";
+import OrderModify from "./OrderModify";
 //import { pendingCheckRoles, PermissionRole } from "@/type/type";
 //import { LuDownload } from "react-icons/lu";
 
@@ -225,6 +226,44 @@ const ProdTransacTable = () => {
         })
 
     }
+    const handleOrderClose = (id: number) => {
+       
+        axios.post('/api/packing/closePurchaseOrder', {id}).then((res) => {
+            setErrorText(res.data.message);
+            console.log(res.data)
+            if (successdialog != null) {
+                (successdialog as any).showModal();
+            }
+
+            //window.location.reload()
+        }).catch((err) => {
+            console.log(err)
+            setErrorText(err.response.data.message)
+            if (errordialog != null) {
+                (errordialog as any).showModal();
+            }
+        })
+
+    }
+    const handleOrderCancel = (id: number) => {
+       
+        axios.post('/api/packing/cancelPurchaseOrder', {id}).then((res) => {
+            setErrorText(res.data.message);
+            console.log(res.data)
+            if (successdialog != null) {
+                (successdialog as any).showModal();
+            }
+
+            //window.location.reload()
+        }).catch((err) => {
+            console.log(err)
+            setErrorText(err.response.data.message)
+            if (errordialog != null) {
+                (errordialog as any).showModal();
+            }
+        })
+
+    }
     const handleOrderApprove = (item: any) => {
        
         axios.post('/api/packing/approvePurchaseOrder', {item}).then((res) => {
@@ -328,8 +367,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableHead className="text-center">Origin</TableHead>
                             <TableHead className="text-center">Final_GradeName</TableHead>
                             <TableHead className="text-center">Approval</TableHead>
-                            <TableHead className="text-center">Mapping_Status</TableHead>
-                            <TableHead className="text-center">Packing</TableHead>
+                            <TableHead className="text-center">Order_Mapping_Status (Percentage)</TableHead>
+                            <TableHead className="text-center">Order_Packing_Status (Percentage)</TableHead>
                             <TableHead className="text-center">Order_Receive_Date</TableHead>
                             <TableHead className="text-center">Order_Entry_Date</TableHead>
                            
@@ -365,7 +404,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                 item.ordApproveStatus === 'Approved' ? (
                                                     <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Approved</button>
                                                 ) : (
-                                                    <p className="font-bold">Rejected</p>
+                                                    <p className="font-bold ">{item.ordApproveStatus}</p>
                                                 )
                                             )}</TableCell>
                                         <TableCell className="text-center">{item.ordApproveStatus !== 'Rejected' ?( item.ordMappingStatus === 0 ? (
@@ -373,9 +412,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         ) : (
                                             
                                             
-                                            <div className="flex flex-row items-center justify-center ">
+                                            <div className="flex flex-row items-center justify-center w-100">
                                                             <Progress value={((Number(item.mapquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4" />
-                                                            <span className="w-2/4 text-center font-semibold text-green-700">{((Number(item.mapquantity)/Number(item.quantity))*100)} %</span>
+                                                            <div className="w-3/4 text-center font-semibold text-green-700">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</div>
                                                         </div>
                                             
                                             
@@ -393,10 +432,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                       
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center">{item.brokerName}</TableCell>
-                                        <TableCell className="text-center font-semibold text-green-600">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}
-                                        <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.mapquantity)} Kg</TableCell> {/* Prepared Quantity */}
+                                        <TableCell className="text-center font-semibold bg-green-100 text-blue-600">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}
+                                        <TableCell className="text-center font-semibold bg-yellow-100 text-blue-600">{formatNumber(item.mapquantity)} Kg</TableCell> {/* Prepared Quantity */}
 
-                                        <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.actualquantity)} Kg</TableCell> {/* Prepared Quantity */}
+                                        <TableCell className="text-center font-semibold bg-yellow-100 text-blue-600">{formatNumber(item.actualquantity)} Kg</TableCell> {/* Prepared Quantity */}
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber((parseFloat(item.quantity) - parseFloat(item.mapquantity)).toString())} Kg</TableCell> {/* Prepared Quantity */}
 
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber((parseFloat(item.quantity) - parseFloat(item.actualquantity)).toString())} Kg</TableCell> {/* Prepared Quantity */}
@@ -429,9 +468,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                                                             <AlertDialogContent>
                                                                 <AlertDialogHeader>
-                                                                    <AlertDialogTitle> Do You want to Approve the Purhase Order ?</AlertDialogTitle>
+                                                                    <AlertDialogTitle> Do You want to Approve the Sales Order ?</AlertDialogTitle>
                                                                     <AlertDialogDescription>
-                                                                        This will Trigger Mapping of the Purchase Order
+                                                                        This will Trigger Mapping of the Sales Order
                                                                     </AlertDialogDescription>
                                                                 </AlertDialogHeader>
 
@@ -451,10 +490,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                                                             <AlertDialogContent>
                                                                 <AlertDialogHeader>
-                                                                    <AlertDialogTitle> Do You want to Reject the Purhase Order ?</AlertDialogTitle>
+                                                                    <AlertDialogTitle> Do You want to Reject the Sales Order ?</AlertDialogTitle>
                                                                     <AlertDialogDescription>
 
-                                                                        This will close the Purchase Order
+                                                                        This will Reject the Sales Order
 
                                                                     </AlertDialogDescription>
                                                                 </AlertDialogHeader>
@@ -467,11 +506,26 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                                                         </AlertDialog>}
 
-                                                         {/* Re-Mapping Order */}
-                                                         {item.ordMappingStatus===1 && 
+                                                        {/* Modify Order */}
+                                                        {item.ordMappingStatus===1 && item.ordStatus !== 1 &&
                                                             <Dialog>
                                                                 <DialogTrigger>
-                                                                    <Button className="bg-green-500 h-8 rounded-md"> Re-Mapping </Button></DialogTrigger>
+                                                                <div className="flex"><FcEditImage size={25} />  <button className="bg-transparent pl-1 pb-2 rounded-md hover:text-green-500"> Modify Order </button></div></DialogTrigger>
+                                                                <DialogContent className='max-w-3xl' style={{ display: 'block' }}>
+                                                                    <DialogHeader>
+                                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Order Modify</p></DialogTitle>
+
+                                                                    </DialogHeader>
+
+                                                                    <OrderModify mapping={[item]} />
+                                                                </DialogContent>
+                                                            </Dialog>}
+
+                                                         {/* Re-Mapping Order */}
+                                                         {item.ordMappingStatus===1 && item.ordStatus !== 1 &&
+                                                            <Dialog>
+                                                                <DialogTrigger>
+                                                                <div className="flex"><FcApproval size={25} />  <button className="bg-transparent pl-1 rounded-md hover:text-green-500"> Re-Mapping </button></div></DialogTrigger>
                                                                 <DialogContent className='max-w-7xl' style={{ display: 'block' }}>
                                                                     <DialogHeader>
                                                                         <DialogTitle><p className='text-1xl text-center mt-1'>Order Mapping Entry</p></DialogTitle>
@@ -481,6 +535,59 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                     <OrderReMappingCreateForm mapping={[item]} />
                                                                 </DialogContent>
                                                             </Dialog>}
+
+
+                                                        {/* Close Order */}
+
+                                                        {item.ordStatus !== 1 && item.ordMappingStatus !== 0 && item.ordApproveStatus !== 'Pending' && <AlertDialog >
+                                                            <AlertDialogTrigger className="flex mt-2">
+                                                            <FcDisapprove size={25} /> <button className="bg-transparent text-1xl pl-1 text-left hover:text-red-500" >Close Order</button>
+                                                            </AlertDialogTrigger>
+
+                                                            <AlertDialogContent>
+                                                                <AlertDialogHeader>
+                                                                    <AlertDialogTitle> Do You want to Close the Sales Order ?</AlertDialogTitle>
+                                                                    <AlertDialogDescription>
+
+                                                                        This will Complete the Sales Order and stop making further Mapping
+
+                                                                    </AlertDialogDescription>
+                                                                </AlertDialogHeader>
+
+                                                                <AlertDialogFooter>
+                                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                    <AlertDialogAction onClick={() => handleOrderClose(item.id)}>Continue</AlertDialogAction>
+                                                                </AlertDialogFooter>
+                                                            </AlertDialogContent>
+
+                                                        </AlertDialog>}
+
+                                                        {/* Cancel Order */}
+
+                                                        {item.ordStatus !== 1 && item.ordApproveStatus !== 'Pending' && <AlertDialog >
+                                                            <AlertDialogTrigger className="flex mt-2">
+                                                            <FcCancel size={25} />  <button className="pl-1 text-1xl bg-transparent rounded-md hover:text-red-500" >Cancel Order</button>
+                                                            </AlertDialogTrigger>
+
+                                                            <AlertDialogContent>
+                                                                <AlertDialogHeader>
+                                                                    <AlertDialogTitle> Do You want to Cancel the Sales Order ?</AlertDialogTitle>
+                                                                    <AlertDialogDescription>
+
+                                                                        This will Cancel Sales Order and Delete All Mapping & Packing Entry Associated with it
+
+                                                                    </AlertDialogDescription>
+                                                                </AlertDialogHeader>
+
+                                                                <AlertDialogFooter>
+                                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                    <AlertDialogAction onClick={() => handleOrderCancel(item.id)}>Continue</AlertDialogAction>
+                                                                </AlertDialogFooter>
+                                                            </AlertDialogContent>
+
+                                                        </AlertDialog>}
+
+
  
                                                     </PopoverContent>
 

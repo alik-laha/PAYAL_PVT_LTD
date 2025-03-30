@@ -38,7 +38,7 @@ interface SectionRowData {
     porigin: string;
     section:string;
     grade: string;
-    issue_no: number;
+   
     stockquantity: number;
     actual_stockquantity: number;
     prcntg: number;
@@ -101,7 +101,7 @@ const OrderMappingCreateForm = (props:Props) => {
         section:'',
         grade: '',
         stockquantity: 0,
-        issue_no:1,
+      
         actual_stockquantity: 0,
         prcntg: 100,
         mixquantity: 0,
@@ -129,7 +129,7 @@ const OrderMappingCreateForm = (props:Props) => {
             section:'',
             grade: '',
             stockquantity: 0,
-            issue_no:1,
+         
             prcntg: 100,
             mixquantity: 0,
             actual_stockquantity: 0,
@@ -224,7 +224,7 @@ const OrderMappingCreateForm = (props:Props) => {
 
     const handleLotIdClick = (index: any, item: any) => {
          axios.post("/api/packing/prodStockQtyFind", { LotNo: item.LotNo,origin:rows[index].porigin,
-            section:rows[index].section,grade:rows[index].grade,altid: rows[index].issue_no})
+            section:rows[index].section,grade:rows[index].grade})
                     .then((res) => {
                         console.log(res)
                         if (res.status === 200) {
@@ -287,6 +287,20 @@ const OrderMappingCreateForm = (props:Props) => {
             return
         }
          //const quantity = quantityRef.current?.value
+
+
+         const seen = new Set<string>();
+         for (const row of rows) {
+             const key = `${row.LotNo}-${row.porigin}-${row.section}-${row.grade}`;
+             if (seen.has(key)) {
+                 setErrortext(`Duplicate found: LotNo - "${row.LotNo}", Origin - "${row.porigin}", Section - "${row.section}", Grade - "${row.grade}"`);
+                 if (errordialog) {
+                     (errordialog as any).showModal();
+                 }
+                 return; // Stop submission if duplicate is found
+             }
+             seen.add(key);
+         }
          const formData = rows.map(row => ({
             mappingDate: dateissue,
             origin: origin,
@@ -307,7 +321,7 @@ const OrderMappingCreateForm = (props:Props) => {
                     for (var data of formData) 
                         {
                             await axios.put(`/api/packing/updateOrderMapping/${id}/${amount}`, {data })
-                                setErrortext(`Order Mapping of ${orderID} Performed Successfully`)
+                                setErrortext(`Order ID ${orderID} Mapped Successfully`)
                             if(successdialog){
                                 (successdialog as any).showModal();
                             }
@@ -317,7 +331,7 @@ const OrderMappingCreateForm = (props:Props) => {
                     else if(formData.length>1){
                             await axios.put(`/api/packing/updateOrderMappingEntire/${id}/${amount}`, {data:formData })
    
-                                    setErrortext(`Order Mapping of ${orderID} Performed Successfully`)
+                                    setErrortext(`Order ID ${orderID} Mapped Successfully`)
                                 if(successdialog){
                                     (successdialog as any).showModal();
                                 }     
@@ -381,7 +395,7 @@ const OrderMappingCreateForm = (props:Props) => {
                                 <TableHead className="text-center" >Section</TableHead>
                                 <TableHead className="text-center" >Grade</TableHead>
                                 <TableHead className="text-center" >Origin</TableHead>
-                                <TableHead className="text-center" >Issue_No</TableHead>
+                       
                                 <TableHead className="text-center" >Production_Lot_No</TableHead>
                                 <TableHead className="text-center" >Stock_Quantity (Kg)</TableHead>
                                 <TableHead className="text-center" >Actual_Stock (Kg)</TableHead>
@@ -453,12 +467,7 @@ const OrderMappingCreateForm = (props:Props) => {
                                                         </SelectContent>
                                                     </Select>
                                                 </TableCell>
-                                                <TableCell className="text-center" >
-                                                    <Input value={row.issue_no} placeholder="Issue No" type="number"
-                                                        onChange={(e) => {
-                                                            handleRowChange(index, 'issue_no', e.target.value)}}
-                                                         required/>
-                                                </TableCell>
+                                               
                                                 
 
                                                 <TableCell className="text-center">

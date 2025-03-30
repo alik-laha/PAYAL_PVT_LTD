@@ -113,7 +113,19 @@ const OrderCreateForm = () => {
         const invdateissue = invdateIssueref.current?.value
         const username = usernameRef.current?.value
         const brokerusername = brokernameRef.current?.value
-
+   // Validation for duplicate origin and grade
+   const seen = new Set<string>();
+   for (const row of rows) {
+       const key = `${row.origin}-${row.grade}`;
+       if (seen.has(key)) {
+           setErrortext(`Duplicate found: Origin - "${row.origin}", Grade - "${row.grade}"`);
+           if (errordialog) {
+               (errordialog as any).showModal();
+           }
+           return; // Stop submission if duplicate is found
+       }
+       seen.add(key);
+   }
         setisdisable(true)
         const formData = rows.map(row => ({
             ordDate: dateissue,
