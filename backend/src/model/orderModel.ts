@@ -79,6 +79,10 @@ const orderPrimaryModel = sequelize.define('orderPrimary', {
         type: DataTypes.INTEGER,
         defaultValue: 0
     },
+    ordStatus:{
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
     ordApproveStatus:{
         type: DataTypes.STRING,
         allowNull: false,

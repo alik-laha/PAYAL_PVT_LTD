@@ -267,6 +267,18 @@ const OrderReMappingCreateForm = (props:Props) => {
             }
             return
         }
+        const seen = new Set<string>();
+        for (const row of rows) {
+            const key = `${row.LotNo}-${row.porigin}-${row.section}-${row.grade}`;
+            if (seen.has(key)) {
+                setErrortext(`Duplicate found: LotNo - "${row.LotNo}", Origin - "${row.porigin}", Section - "${row.section}", Grade - "${row.grade}"`);
+                if (errordialog) {
+                    (errordialog as any).showModal();
+                }
+                return; // Stop submission if duplicate is found
+            }
+            seen.add(key);
+        }
          //const quantity = quantityRef.current?.value
          const formData = rows.map(row => ({
             mappingDate: dateissue,

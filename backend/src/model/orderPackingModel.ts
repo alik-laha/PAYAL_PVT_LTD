@@ -29,6 +29,10 @@ const orderPackingModel = sequelize.define('orderPacking', {
         type: DataTypes.STRING,
         defaultValue: 'Pending'
     },
+         orderpk: {
+                    type: DataTypes.INTEGER,
+                    allowNull:true
+                },
    
     orderDate: {
         type: DataTypes.DATE,

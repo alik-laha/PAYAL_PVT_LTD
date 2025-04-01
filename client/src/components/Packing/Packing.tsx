@@ -86,10 +86,10 @@ const Packing = () => {
                     </div>
                     <div className="flex text-center">
                         {checkpending('OrderCreate') && <Dialog>
-                            <DialogTrigger>   <Button className="bg-lime-500 mb-2 ml-4 responsive-button-adjust no-margin-left" >+ Puchase Order</Button></DialogTrigger>
+                            <DialogTrigger>   <Button className="bg-lime-500 mb-2 ml-4 responsive-button-adjust no-margin-left" >+ Sales Order</Button></DialogTrigger>
                             <DialogContent className='max-w-6xl' style={{ display: 'block' }}>
                                 <DialogHeader>
-                                    <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Purchase Order Create Form</p></DialogTitle>
+                                    <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Sales Order Create Form</p></DialogTitle>
 
                                 </DialogHeader>
 
