@@ -24,6 +24,33 @@ const CY_FY = process.env.CY_FY ? process.env.CY_FY : '2025-26';
 function formatNumber(num:any) {
     return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
 }
+
+export const getActvOrderCount = async (req: Request, res: Response) => {
+    try {
+            const Issued = await orderPrimaryModel.count({ col:'orderID'});
+            const Approved  = await orderPrimaryModel.count({ col:'orderID',
+                where: { ordMappingStatus: 1 } });
+            const Completed  = await orderPrimaryModel.count({ col:'orderID',
+                where: { ordApproveStatus: { [Op.like]: 'Closed' } }});
+            const Rejected = await orderPrimaryModel.count({col:'orderID',
+                where: { ordApproveStatus: { [Op.like]: 'Rejected' } }});
+
+            const Cancelled = await orderPrimaryModel.count({col:'orderID',
+                    where: { ordApproveStatus: { [Op.like]: 'Cancelled' } }});
+
+            const PendingApproval = await orderPrimaryModel.count({ col:'orderID',
+                where: { ordApproveStatus: { [Op.like]: 'Pending' }} });
+            const PendingMapping = await orderMappingModel.count({ col:'orderID',
+                where: { mappingStatus: 0 } });
+            const PendingPacking = await orderPrimaryModel.count({ col:'orderID',
+                    where: { actualquantity: { [Op.eq]: 0 } } });
+                    
+        res.status(200).json({ message: "Order Count", Issued,Approved,Completed, Rejected,Cancelled,PendingApproval,PendingMapping,PendingPacking});
+    }
+    catch (err) {
+        res.status(500).json({ message: "Error in Finding Order Count", error: err });
+    }
+}
 export const manualProdStockUpdate = async (req: Request, res: Response) => {
     try {
         if(CY_FY==='2024-25'){
@@ -300,10 +327,10 @@ export const orderSearch = async (req: Request, res: Response) => {
         }
         else{
             whereClause.push({   [Op.and]: [
+                { ordApproveStatus: { [Op.notLike]: 'Pending' } },
+                // { ordApproveStatus: { [Op.notLike]: 'Rejected' } },
+                // { ordApproveStatus: { [Op.notLike]: 'Cancelled' } },
               
-                { ordApproveStatus: { [Op.notLike]: 'Rejected' } },
-                { ordApproveStatus: { [Op.notLike]: 'Cancelled' } },
-                { ordApproveStatus: { [Op.notLike]: 'Pending' } }
             ]});
         }
 
@@ -1302,7 +1329,7 @@ export const modifyOrder = async (req: Request, res: Response) => {
 
             const mappingEntry = await orderMappingModel.update({
                 origin,
-                orderID:OrderID,
+                
                 orderDate: invDate,
                 finalgradeName:gradeName,
                 vendorName:vendor,
