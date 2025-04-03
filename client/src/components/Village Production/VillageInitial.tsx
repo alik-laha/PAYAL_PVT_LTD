@@ -22,8 +22,8 @@ import { useState } from "react";
 import cross from '../../assets/Static_Images/error_img.png'
 // import RCNDPDSCreateForm from "./DPDSCreateForm";
 import {   RejectionData } from "@/type/type";
-import RejectionCreateForm from "./RejectionCreateForm";
 import { checkFormLock } from "../common/FormLock";
+//import RejectionCreateForm from "./RejectionCreateForm";
 
 
 interface lotPropsdata{
@@ -36,12 +36,12 @@ interface lotPropsdata{
     rcv_bigTaiho:string;
     rcv_peeling:string;
     rcv_dpds:string;
-    rcv_village:string;
+    rcv_rejection:string;
     rcv_sorting:string;
 }
 
-const RejectionInitial = (props: any) => {
-    const [bormaData, setBormaData ]  = useState<RejectionData[]>([])
+const VillageInitial = (props: any) => {
+    const [bormaData, setBormaData ]  = useState<any[]>([])
     const [errortext, seterrorText] = useState<string>('');
     
     const rejectsuccessdialog = document.getElementById('rcneditapproveRejectDialogPeel') as HTMLInputElement;
@@ -60,16 +60,7 @@ const RejectionInitial = (props: any) => {
     //let scoopdata:ScoopData[]=[]
     console.log(props)
     const handleLineEntry = async (lotNO:string,origin:string) => {
-        const resStatus = await axios.post('/api/boiling/pendingLotCount', { lotNo: lotNO,section:'Peeling'})
-        console.log(resStatus)
-        if (resStatus.data.count && resStatus.data.count >0) 
-            {
-                seterrorText('Modification of Lot is Pending in Peeling Section')
-                if (rejectsuccessdialog != null) {
-                    (rejectsuccessdialog as any).showModal();
-                }
-                return
-            }
+        
         const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: lotNO,origin:origin})
         console.log(resStatus1)
         if (resStatus1.data.scoopingLot && resStatus1.data.scoopingLot[0].editStatus ==='Pending') 
@@ -82,15 +73,27 @@ const RejectionInitial = (props: any) => {
                 return
             }
 
-         const checkLockVillage= await checkFormLock('VillageEntry')  
-                console.log(checkLockVillage) 
-                if(checkLockVillage){
-                    seterrorText(`Village Section Form Fillup is Processing.....`)
+
+         const checkLockDPDS= await checkFormLock('DPDSEntry')  
+                console.log(checkLockDPDS) 
+                if(checkLockDPDS){
+                    seterrorText(`DPDS Section Form Fillup is Processing.....`)
                         if (rejectsuccessdialog != null) {
                                 (rejectsuccessdialog as any).showModal();
                         }
                         return
-                }
+                }    
+
+
+        const checkLockSorting= await checkFormLock('SortingEntry')  
+                console.log(checkLockSorting) 
+                if(checkLockSorting){
+                    seterrorText(`Sorting Section Form Fillup is Processing.....`)
+                        if (rejectsuccessdialog != null) {
+                                (rejectsuccessdialog as any).showModal();
+                        }
+                        return
+        }
            
         await axios.get(`/api/rejection/getRejectionByLotOrigin/${lotNO}/${origin}`).then(res=>{
            console.log(res)
@@ -123,14 +126,14 @@ const RejectionInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-                              if(item.rcv_mayur && item.rcv_peeling  && item.rcv_bigTaiho 
-                                && item.rcv_wholes && item.rcv_sorting && item.rcv_dpds && item.rcv_lw
+                              if(item.rcv_mayur  && item.rcv_bigTaiho 
+                                && item.rcv_wholes && item.rcv_lw
                                 &&((item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
                               (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
                               (item.rcv_peeling ? parseFloat(item.rcv_peeling) : 0) + 
                               (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0) + 
                               (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
-                              (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
+                              (item.rcv_rejection ? parseFloat(item.rcv_rejection) : 0) + 
                               (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) + 
                               (item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0) 
                               )>0){
@@ -155,7 +158,7 @@ const RejectionInitial = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
                                           <DialogContent className='max-w-9xl'>
                                                     <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Rejection Line Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Village Line Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 
@@ -197,4 +200,4 @@ const RejectionInitial = (props: any) => {
 
 
 }
-export default RejectionInitial
+export default VillageInitial
