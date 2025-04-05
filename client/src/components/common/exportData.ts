@@ -129,6 +129,7 @@ export const SelectType = ["LineWise","LotWise"]
 export const SelectTypeIssue = ["ItemWise","DayWise"]
 export const prodStockSection=['Wholes','LW','Sorting','DPDS','BigTaiho','Rejection']
 export const FY=['2025-26']
+export const Village_Outside_Type=['Wholes','Pieces','BW/HW','Others','NA']
 
 export const sectionDataonTypeGate = {
     IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond','Village','Agarbati'],

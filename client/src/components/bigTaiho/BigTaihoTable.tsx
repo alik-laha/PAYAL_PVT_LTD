@@ -473,8 +473,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Borma_Loss(Kg)</TableHead>
                     <TableHead className="text-center">Borma_Loss(%)</TableHead>
                     <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
-                    <TableHead className="text-center">Receive Village</TableHead>
+              
                     <TableHead className="text-center">Receive Sorting</TableHead>
+                    <TableHead className="text-center">Receive Village</TableHead>
                     <TableHead className="text-center">Receive DPDS</TableHead>
                     <TableHead className="text-center">Receive Mayur</TableHead>
                     <TableHead className="text-center">Receive Hamsa</TableHead>

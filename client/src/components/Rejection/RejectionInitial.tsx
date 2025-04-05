@@ -82,15 +82,7 @@ const RejectionInitial = (props: any) => {
                 return
             }
 
-         const checkLockVillage= await checkFormLock('VillageEntry')  
-                console.log(checkLockVillage) 
-                if(checkLockVillage){
-                    seterrorText(`Village Section Form Fillup is Processing.....`)
-                        if (rejectsuccessdialog != null) {
-                                (rejectsuccessdialog as any).showModal();
-                        }
-                        return
-                }
+      
            
         await axios.get(`/api/rejection/getRejectionByLotOrigin/${lotNO}/${origin}`).then(res=>{
            console.log(res)
@@ -124,7 +116,7 @@ const RejectionInitial = (props: any) => {
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
                               if(item.rcv_mayur && item.rcv_peeling  && item.rcv_bigTaiho 
-                                && item.rcv_wholes && item.rcv_sorting && item.rcv_dpds && item.rcv_lw
+                                && item.rcv_wholes && item.rcv_sorting && item.rcv_dpds && item.rcv_lw 
                                 &&((item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
                               (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
                               (item.rcv_peeling ? parseFloat(item.rcv_peeling) : 0) + 

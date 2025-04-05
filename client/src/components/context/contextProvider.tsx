@@ -16,7 +16,8 @@ import { AssetData, EditPendingData, GradingData, BoilingEntryData, Sumofpackage
      SortingData,
      WholesData,
      LWData,
-     RejectionData} from "../../type/type";
+     RejectionData,
+     VilageData} from "../../type/type";
 
 interface ContextProviderProps {
     children: ReactNode;
@@ -56,7 +57,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [editWholesLotWiseData, setEditWholesLotWiseData] = useState<WholesData[]>([])
     const [editLWLotWiseData, setEditLWLotWiseData] = useState<LWData[]>([])
     const [editRejectionLotWiseData, setEditRejectionLotWiseData] = useState<RejectionData[]>([])
-    const [editVillageLotWiseData, setEditVillageLotWiseData] = useState<any[]>([])
+    const [editVillageLotWiseData, setEditVillageLotWiseData] = useState<VilageData[]>([])
 
     return (
         <Context.Provider value={{

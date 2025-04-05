@@ -5,30 +5,29 @@ import {
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import { approveRejection, CreateEntireRejection, EditRejectRejection, findEditRejectionAll, 
-      getRejectionBylotorigin, getRejectionLot, SearchRCNRejection, sumOfallRejection, 
+import { approveRejection, EditRejectRejection, 
       updateEntireRejection} from "../controller/RejectionController/RejectionApi";
-import { findEditVillageAll, getVillageLot, sumOfallVillage } from "../controller/Village Controller/VillageApi";
+import { CreateEntireVillage, findEditVillageAll, getVillageBylotorigin, getVillageLot, SearchRCNVillage, sumOfallVillage } from "../controller/Village Controller/VillageApi";
 
 
 const router = express()
 
-// //Rejection.tsx
+// //Village.tsx
 router.get("/getUnVillageEntry/:status", jwtVerify, getVillageLot)
 router.get("/findEditVillageAll", jwtVerify, findEditVillageAll)
 router.get("/sumofallVillage", jwtVerify, sumOfallVillage)
 
-// //LWInitial.tsx
-router.get("/getRejectionByLotOrigin/:lotNO/:origin", jwtVerify, getRejectionBylotorigin)
+// //VillageInitial.tsx
+router.get("/getVillageByLotOrigin/:lotNO/:origin", jwtVerify, getVillageBylotorigin)
 
-// //RejectionCreateForm.tsx
-router.post("/createEntireRejection", jwtVerify, CreateEntireRejection)
+// //VIllageCreateForm.tsx
+router.post("/createEntireVillage", jwtVerify, CreateEntireVillage)
 
 // // //HamsaReiSsueForm.tsx
 // router.post("/createReissueLW", jwtVerify, CreateReissueLW)
 
-// // //Rejectiontable.tsx
-router.put('/rejectionprimarysearch', jwtVerify, SearchRCNRejection);
+// // //Villagetable.tsx
+router.put('/villageprimarysearch', jwtVerify, SearchRCNVillage);
 router.post("/updateRejection", jwtVerify, updateEntireRejection)
 router.delete('/rejectededitRejection/:id/:LotNo/:origin', jwtVerify, EditRejectRejection);
 router.put("/approveeditRejection/:id/:LotNo/:origin", jwtVerify, approveRejection);

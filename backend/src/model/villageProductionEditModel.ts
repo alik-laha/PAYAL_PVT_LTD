@@ -92,6 +92,11 @@ const villageProductionEdit = sequelize.define('villageProductionEdit', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
+    issue_packing: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
   
     issue_add_1: 
     {
@@ -143,6 +148,26 @@ const villageProductionEdit = sequelize.define('villageProductionEdit', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
+    issue_add_11: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_add_12: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_add_13: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_add_14: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
    
   
     entry_backlog: 
@@ -170,6 +195,11 @@ const villageProductionEdit = sequelize.define('villageProductionEdit', {
         type:DataTypes.STRING,
         allowNull: true
     }, 
+     Remarks2: 
+        {
+            type:DataTypes.STRING,
+            allowNull: true
+        }, 
     
     latest: 
     {

@@ -413,7 +413,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableCell className="text-center">{item.netWeight ? item.netWeight : 0} </TableCell>
                                 <TableCell className="text-center">{item.vendorName}</TableCell>
                                 <TableCell className="text-center font-semibold">{formatNumber(item.quantity)}</TableCell>
-                                <TableCell className="text-center" >{item.totalWt}</TableCell> 
+                                <TableCell className="text-center" >{formatNumber(item.totalWt)}</TableCell> 
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
 
                                 <TableCell className="text-center">{item.remarks}</TableCell>
@@ -477,7 +477,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableCell className="text-center">{item.netWeight ? item.netWeight : 0}</TableCell>
                                 <TableCell className="text-center">{item.vendorName}</TableCell>
                                 <TableCell className="text-center font-semibold">{formatNumber(item.quantity)}</TableCell>
-                                <TableCell className="text-center" >{item.totalWt}</TableCell> 
+                                <TableCell className="text-center" >{formatNumber(item.totalWt)}</TableCell> 
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
 
                                         <TableCell className="text-center">{item.remarks}</TableCell>

@@ -1172,6 +1172,56 @@ export interface RejectionData {
     noOfnightOperators:number;
 }
 
+export interface VilageData {
+    id: number;
+    LotNo: string;
+    date: string ;
+    origin: string;
+    altid: number;
+    rcv_transfer: string | null;
+    rcv_peeling: string;
+    rcv_mayur: string;
+    rcv_wholes: string;
+    rcv_lw: string;
+    rcv_sorting: string;
+    rcv_dpds: string;
+    rcv_bigTaiho: string;
+    rcv_rejection: string;
+    issue_mayur: string;
+    issue_hamsa: string;
+    issue_bigTaiho: string;
+    issue_rejection: string;
+    issue_outside: string;
+    issue_packing: string;
+    issue_add_1: string;
+    issue_add_2: string;
+    issue_add_3: string;
+    issue_add_4: string;
+    issue_add_5: string;
+    issue_add_6: string;
+    issue_add_7: string;
+    issue_add_8: string;
+    issue_add_9: string;
+    issue_add_10: string;
+    issue_add_11: string;
+    issue_add_12: string;
+    issue_add_13: string;
+    entry_backlog: string;
+    current_backlog: string;
+    Status: number;
+    GatePassStatus: number;
+    Remarks: string | null;
+    Remarks2: string | null;
+    latest: number;
+    mixingLot: string | null;
+    noOfdayOperators: number ;
+    noOfnightOperators: number ;
+    noOfOperators: number ;
+    CreatedBy: string | null;
+    editStatus: string;
+    modifiedBy: string | null;
+}
+
 
 export interface HumidExcelData {
     SL_No: number;

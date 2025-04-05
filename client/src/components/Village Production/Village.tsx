@@ -19,6 +19,7 @@ import Loader from '../common/Loader';
 import { pendingCheckRoles, PermissionRole } from '@/type/type';
 import { pendingCheckRole } from '../common/exportData';
 import VillageInitial from './VillageInitial';
+import VillageTable from './VillageTable';
 // import RejectionInitial from './RejectionInitial';
 // //import RejectionTable from './RejectionTable';
 // import RejectionHistoryTable from './RejectionHistory';
@@ -100,7 +101,7 @@ const Village = () => {
                             {
                                 data.data[0].issue_packing
                                     ? formatNumber(
-                                        parseFloat(data.data[0].issue_add_10) 
+                                        parseFloat(data.data[0].issue_packing) 
                                     ) : 0
                             } Kg
                         </p>
@@ -155,7 +156,7 @@ const Village = () => {
                     <Button className="bg-blue-400 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleTransferFetch}> {maintable === 'block' ? 'Incoming/Mixing' : 'Main Entry '}</Button>
                 </div>
                 <div style={{ display: maintable }}>
-                    {/* <RejectionTable /> */}
+                    <VillageTable />
                 </div>
                 <div style={{ display: historytable }}>
                     {/* <RejectionHistoryTable /> */}

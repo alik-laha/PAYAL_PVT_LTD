@@ -21,8 +21,8 @@ import axios from "axios";
 import { useState } from "react";
 import cross from '../../assets/Static_Images/error_img.png'
 // import RCNDPDSCreateForm from "./DPDSCreateForm";
-import {   RejectionData } from "@/type/type";
 import { checkFormLock } from "../common/FormLock";
+import VillageCreateForm from "./VillageCreateForm";
 //import RejectionCreateForm from "./RejectionCreateForm";
 
 
@@ -60,7 +60,16 @@ const VillageInitial = (props: any) => {
     //let scoopdata:ScoopData[]=[]
     console.log(props)
     const handleLineEntry = async (lotNO:string,origin:string) => {
-        
+        const resStatus = await axios.post('/api/boiling/pendingLotCount', { lotNo: lotNO,section:'Peeling'})
+                console.log(resStatus)
+                if (resStatus.data.count && resStatus.data.count >0) 
+                    {
+                        seterrorText('Modification of Lot is Pending in Peeling Section')
+                        if (rejectsuccessdialog != null) {
+                            (rejectsuccessdialog as any).showModal();
+                        }
+                        return
+                    }
         const resStatus1 = await axios.post('/api/boiling/pendingLotCountOrigin', { lotNo: lotNO,origin:origin})
         console.log(resStatus1)
         if (resStatus1.data.scoopingLot && resStatus1.data.scoopingLot[0].editStatus ==='Pending') 
@@ -95,7 +104,7 @@ const VillageInitial = (props: any) => {
                         return
         }
            
-        await axios.get(`/api/rejection/getRejectionByLotOrigin/${lotNO}/${origin}`).then(res=>{
+        await axios.get(`/api/villageout/getVillageByLotOrigin/${lotNO}/${origin}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.scoopingLot)){
             //scoopdata=res.data.scoopingLot
@@ -127,7 +136,7 @@ const VillageInitial = (props: any) => {
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
                               if(item.rcv_mayur  && item.rcv_bigTaiho 
-                                && item.rcv_wholes && item.rcv_lw
+                                && item.rcv_wholes && item.rcv_lw && item.rcv_rejection
                                 &&((item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
                               (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
                               (item.rcv_peeling ? parseFloat(item.rcv_peeling) : 0) + 
@@ -162,7 +171,7 @@ const VillageInitial = (props: any) => {
 
                                                     </DialogHeader>
                                                 
-                                                    <RejectionCreateForm borma={bormaData}/>
+                                                    <VillageCreateForm borma={bormaData}/>
                                                 </DialogContent>
                                             </Dialog>
                                         </TableCell>
