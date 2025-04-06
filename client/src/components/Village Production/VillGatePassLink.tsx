@@ -56,7 +56,7 @@ const VillageGateLink= (props:Props) => {
             })
             console.log(initialhumid)
             setErrortext(initialhumid.data.message)
-            if (initialhumid.status === 200) {
+            if (initialhumid.status === 201) {
                 const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
                 dialog2.showModal()
                 setTimeout(() => {

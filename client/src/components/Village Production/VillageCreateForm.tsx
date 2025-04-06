@@ -27,6 +27,7 @@ interface villageRowData {
     id: number;
     LotNo: string;
     origin: string;
+
     rcv_peeling: string;
     rcv_mayur: string;
     rcv_dpds: string;
@@ -38,12 +39,14 @@ interface villageRowData {
     rcv_peelingN: string | number;
     rcv_mayurN: string | number;
     rcv_rejectionN: string | number;
+
     issue_packing: number;
     issue_mayur: number;
     issue_hamsa: number;
     issue_bigTaiho: number;
     issue_rejection: number;
     issue_outside: number;
+    
     issue_add_1: string | number;
     issue_add_2: string | number;
     issue_add_3: string | number;

@@ -620,14 +620,34 @@ export const GatedataFind = async (req: Request, res: Response) => {
 export const linkGatePass = async (req: Request, res: Response) => {
     try {
         const { id,gatepassId } = req.body;
-        let skuData = await SkuModel.findOne({ where: { sku ,type,section:'Store'} });
+        let skuData = await RcvVillageModel.findOne({ where: { gatePassNo:gatepassId } });
         if(!skuData ){
-            return res.status(500).json({ message: "SKU Does Not Exist" });
+            return res.status(500).json({ message: "GatePass No Does Not Exist" });
+        }
+        else{
+            const updateVillageGate = await villageProduction.update(
+                {     
+                    Remarks:gatepassId,
+                    GatePassStatus:1
+                  
+                },
+                {
+                    where: {
+                        id
+                    }
+                }
+            );
+            if(updateVillageGate){
+                return res.status(201).json({ message: `GatePass ${gatepassId} has been linked successfully` });
+            }
+            else{
+                return res.status(500).json({ message: "internal error while linking GatePass with Lot" });
+            }
         }
 
        
     } catch (error) {
-        return res.status(500).json({ message: "internal error while finding GatePass data" });
+        return res.status(500).json({ message: "internal error while linking GatePass data" });
     }
 }
 

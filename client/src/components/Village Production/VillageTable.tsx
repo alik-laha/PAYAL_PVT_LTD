@@ -55,6 +55,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import VillageGateLink from "./VillGatePassLink";
+import VillageEDitForm from "./VillageModify";
 // import RejectionEDitForm from "./RejectionModify";
 
 
@@ -507,7 +508,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableCell className="text-center bg-yellow-100 ">{item.GatePassStatus === 0 ? (
                                                 <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
                                             ) :(
-                                                <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Dispatched</button>
+                                                <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Linked</button>
                                             )}</TableCell>
                                 <TableCell className="text-center bg-yellow-100 ">{item.Remarks}</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
@@ -615,9 +616,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableCell className="text-center bg-yellow-100 ">{item.GatePassStatus === 0 ? (
                                                 <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
                                             ) :(
-                                                <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Dispatched</button>
+                                                <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Linked</button>
                                             )}</TableCell>
-                                <TableCell className="text-center bg-yellow-100 ">{item.Remarks}</TableCell>
+                                <TableCell className="text-center bg-yellow-100 font-semibold ">{item.Remarks}</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
                                 <TableCell className="text-center">{item.CreatedBy}</TableCell>
                                 
@@ -637,7 +638,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 <p className='text-1xl pb-1 text-center mt-1'>Rejection Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <RejectionEDitForm borma={[item]} /> */}
+                                                        <VillageEDitForm borma={[item]} />
                                                     </DialogContent>
                                                     
                                                 </Dialog>
