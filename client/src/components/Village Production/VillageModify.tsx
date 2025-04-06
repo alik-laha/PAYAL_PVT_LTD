@@ -14,6 +14,15 @@ interface Props {
     borma: VilageData[]
 }
 
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+
 
 interface villageRowData {
     id: number;
@@ -64,6 +73,7 @@ import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { useEffect, useRef, useState } from "react"
 import axios from "axios";
+import { Village_Outside_Type } from "../common/exportData";
 
 
 
@@ -327,19 +337,22 @@ const VillageEDitForm = (props: Props) => {
                             {/* <TableHead className="text-center">Receive Hamsa(Borma)</TableHead>
                             <TableHead className="text-center">Hamsa Borma Loss(Kg)</TableHead>
                             <TableHead className="text-center">Hamsa Borma Loss(%)</TableHead> */}
+                              <TableHead className="text-center">Rcv Rejection </TableHead>
                              <TableHead className="text-center">Rcv Wholes </TableHead>
                             <TableHead className="text-center">Rcv LW </TableHead>
                             <TableHead className="text-center">Rcv Sorting </TableHead>
                             <TableHead className="text-center">Rcv DPDS </TableHead>
                             <TableHead className="text-center">Rcv BigTaiho </TableHead>
-                            <TableHead className="text-center">Rcv Village </TableHead>
+                          
 
                             <TableHead className="text-center">Issue Packing</TableHead>
-                            <TableHead className="text-center">Issue Village</TableHead>
-                            <TableHead className="text-center">Issue Uncut Unscoop</TableHead>
-                            <TableHead className="text-center">Issue Shell</TableHead>
-                            <TableHead className="text-center">Issue CatelFeed</TableHead>
-
+                            <TableHead className="text-center">Issue Mayur</TableHead>
+                            <TableHead className="text-center">Issue Hamsa</TableHead>
+                            <TableHead className="text-center">Issue BigTaiho</TableHead>
+                            <TableHead className="text-center">Issue Rejection</TableHead>
+                          
+                            <TableHead className="text-center">Issue Outside</TableHead>
+                            <TableHead className="text-center">Issue Outside(Type)</TableHead>
 
 
                           
@@ -362,10 +375,10 @@ const VillageEDitForm = (props: Props) => {
                         </TableHeader>
                         <TableBody>
                             {props.borma.length > 0 ? (
-                                rows.map((row: RejectionRowData, idx: number) => {
+                                rows.map((row: villageRowData, idx: number) => {
 
                                     return (
-                                        <TableRow key={idx} className="boiling-row-height-scoop">
+                                        <TableRow key={idx} className="boiling-row-height">
                                             <TableCell className="text-center">{idx + 1}</TableCell>
                                             <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                             <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
@@ -384,32 +397,57 @@ const VillageEDitForm = (props: Props) => {
                                                 value={Number(row.issue_add_4.toString())} placeholder="Pr." onChange={(e) => handlehamsaOpeningChange(idx, e)} required /></TableCell> */}
                                             {/* <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_5.toString())} Kg</TableCell>
                                             <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_6.toString())} %</TableCell> */}
-                                          
-                                          <TableCell className="text-center font-semibold  text-green-500">{row.rcv_wholes ? formatNumber(row.rcv_wholes):0} </TableCell>
+                                          <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.issue_add_7)} </TableCell>
+                                          <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_wholes)} </TableCell>
                                             <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_lw)} </TableCell>
-                                            <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_sorting)} </TableCell>
-                                            <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_dpds)} </TableCell>
+                                            <TableCell className="text-center font-semibold  text-green-500">{row.rcv_sorting ? formatNumber(row.rcv_sorting):0} </TableCell>
+                                            <TableCell className="text-center font-semibold  text-green-500">{row.rcv_dpds ? formatNumber(row.rcv_dpds):0} </TableCell>
                                             <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_bigTaiho)} </TableCell>
-                                            <TableCell className="text-center font-semibold  text-green-500">{row.rcv_village ? formatNumber(row.rcv_village):0} </TableCell>
 
                                            
                                             <TableCell className="text-center">
                                                 <Input className='bg-purple-100' type="number" value={row.issue_packing} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_packing', e.target.value)} required />
                                             </TableCell>
                                             <TableCell className="text-center">
-                                                <Input className='bg-purple-100' type="number" value={row.issue_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_village', e.target.value)} required />
+                                                <Input className='bg-purple-100' type="number" value={row.issue_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_mayur', e.target.value)} required />
                                                 </TableCell>
                                         
                                             <TableCell className="text-center">
-                                                <Input className='bg-purple-100' type="number" value={row.issue_uncut_unscoop} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_uncut_unscoop', e.target.value)} required />
+                                                <Input className='bg-purple-100' type="number" value={row.issue_hamsa} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_hamsa', e.target.value)} required />
                                             </TableCell>
                                                 <TableCell className="text-center">
-                                                <Input className='bg-purple-100' type="number" value={row.issue_shell} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_shell', e.target.value)} required />
+                                                <Input className='bg-purple-100' type="number" value={row.issue_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bigTaiho', e.target.value)} required />
                                             </TableCell>
                                          
                                                 <TableCell className="text-center">
-                                                <Input className='bg-purple-100' type="number" value={row.issue_catelfeed} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_catelfeed', e.target.value)} required />
+                                                <Input className='bg-purple-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required />
                                             </TableCell>
+                                            
+                                            <TableCell className="text-center">
+                                                <Input className='bg-red-100' type="number" value={row.issue_outside} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_outside', e.target.value)} required />
+                                            </TableCell>
+
+                                            <TableCell className="text-center" >
+                                            <Select value={row.out_Type} onValueChange={(val) => handleRowChange(idx, 'out_Type', val)} required={true}>
+                                            <SelectTrigger className="justify-center w-40 bg-red-100">
+                                                    <SelectValue placeholder="Type" />
+                                                </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectGroup>
+                                                            {
+                                                                Village_Outside_Type.map((item) => {
+                                                                    return (
+                                                                        <SelectItem key={item} value={item}>
+                                                                            {item}
+                                                                        </SelectItem>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </SelectGroup>
+                                                    </SelectContent>
+                                            </Select>
+
+                                        </TableCell>
                                             {/* <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_1', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_2', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_3', e.target.value)} required /></TableCell>

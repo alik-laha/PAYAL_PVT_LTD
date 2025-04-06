@@ -222,8 +222,8 @@ export const CreateEntireVillage = async (req: Request, res: Response) => {
                 );
                 if (VilUpdate) {
 
-                    1.// Mayur Out//
-                    const mayur_backlog = await Mayur.findOne({
+                1.// Mayur Out//
+                const mayur_backlog = await Mayur.findOne({
                         attributes: ['current_backlog', 'rcv_village'],
                         where: {
                             lotNo: LotNO,
@@ -235,7 +235,7 @@ export const CreateEntireVillage = async (req: Request, res: Response) => {
 
                     });
                     console.log(mayur_backlog)
-                    if (mayur_backlog && mayur_backlog.dataValues.current_backlog >= 0) {
+                if (mayur_backlog && mayur_backlog.dataValues.current_backlog >= 0) {
                         await sectionTransfer.create({
                             LotNo: LotNO,
                             origin: data.origin,
@@ -282,14 +282,14 @@ export const CreateEntireVillage = async (req: Request, res: Response) => {
 
 
                     }
-                    else {
+                else {
                         res.status(500).json({ message: "Error In Creating Transaction History" });
                         throw new Error('Transaction Aborted')
                     }
 
-                    2.// Rejection Out//
+                2.// Rejection Out//
 
-                    const rejection_backlog = await rejectionModel.findOne({
+                const rejection_backlog = await rejectionModel.findOne({
                     attributes: ['current_backlog','rcv_village'],
                     where: {
                         lotNo:LotNO,
@@ -352,8 +352,9 @@ export const CreateEntireVillage = async (req: Request, res: Response) => {
                     res.status(500).json({ message: "Error In Creating Rejection Transaction History" });
                     throw new Error('Transaction Aborted')
                 } 
+                
 
-                    3. // BigTaiho Out//
+                3. // BigTaiho Out//
 
                     const bigT_backlog = await bigTaihoModel.findOne({
                         attributes: ['current_backlog', 'rcv_village'],
@@ -420,7 +421,7 @@ export const CreateEntireVillage = async (req: Request, res: Response) => {
                     }
 
 
-                    4.// Hamsa Out//
+                4.// Hamsa Out//
 
                     const hamsa_backlog = await hamsaModel.findOne({
                     attributes: ['current_backlog','rcv_village'],
