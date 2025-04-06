@@ -7,7 +7,7 @@ import {
       } from "../controller/mayurController/mayurapi";
 import { approveRejection, EditRejectRejection, 
       updateEntireRejection} from "../controller/RejectionController/RejectionApi";
-import { CreateEntireVillage, findEditVillageAll, GatedataFind, getVillageBylotorigin, getVillageLot, linkGatePass, SearchRCNVillage, sumOfallVillage } from "../controller/Village Controller/VillageApi";
+import { approveVillage, CreateEntireVillage, EditRejectVillage, findEditVillageAll, GatedataFind, getVillageBylotorigin, getVillageLot, linkGatePass, SearchRCNVillage, sumOfallVillage, updateEntireVIllage } from "../controller/Village Controller/VillageApi";
 
 
 const router = express()
@@ -30,9 +30,9 @@ router.post("/createEntireVillage", jwtVerify, CreateEntireVillage)
 router.put('/villageprimarysearch', jwtVerify, SearchRCNVillage);
 router.post("/findAllGatePass", jwtVerify, GatedataFind)
 router.post("/linkGatePass", jwtVerify, linkGatePass)
-router.post("/updateRejection", jwtVerify, updateEntireRejection)
-router.delete('/rejectededitRejection/:id/:LotNo/:origin', jwtVerify, EditRejectRejection);
-router.put("/approveeditRejection/:id/:LotNo/:origin", jwtVerify, approveRejection);
+router.post("/updateVillage", jwtVerify, updateEntireVIllage)
+router.delete('/rejectededitVillage/:id/:LotNo/:origin', jwtVerify, EditRejectVillage);
+router.put("/approveeditVillage/:id/:LotNo/:origin", jwtVerify, approveVillage);
 
 // // //LWMix.tsx
 // router.post('/lwmixsearch', jwtVerify, SearchRCNLWMix);

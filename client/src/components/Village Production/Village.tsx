@@ -20,10 +20,8 @@ import { pendingCheckRoles, PermissionRole } from '@/type/type';
 import { pendingCheckRole } from '../common/exportData';
 import VillageInitial from './VillageInitial';
 import VillageTable from './VillageTable';
-// import RejectionInitial from './RejectionInitial';
-// //import RejectionTable from './RejectionTable';
-// import RejectionHistoryTable from './RejectionHistory';
-// import RejectionTable from './RejectionTable';
+import VillageHistoryTable from './VillageHistoryTable';
+
 
 
 const Village = () => {
@@ -159,7 +157,7 @@ const Village = () => {
                     <VillageTable />
                 </div>
                 <div style={{ display: historytable }}>
-                    {/* <RejectionHistoryTable /> */}
+                    <VillageHistoryTable />
                 </div>
 
 
