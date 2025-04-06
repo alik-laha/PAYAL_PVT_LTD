@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import sequelize from "../../config/databaseConfig";
 import LotNo from "../../model/lotNomodel";
-import { Op } from "sequelize";
+import { Op, Sequelize } from "sequelize";
 import rejectionEditModel from "../../model/rejectionEditModel";
 import rejectionModel from "../../model/rejectionModel";
 import villageProduction from "../../model/villageProductionModel";
@@ -12,6 +12,7 @@ import villageProductionEdit from "../../model/villageProductionEditModel";
 import Mayur from "../../model/mayurModel";
 import bigTaihoModel from "../../model/bigTaihoModel";
 import hamsaModel from "../../model/hamsamodel";
+import RcvVillageModel from "../../model/RcvVillageModel";
 
 // //Village.tsx
 export const findEditVillageAll = async (req: Request, res: Response) => {
@@ -585,6 +586,51 @@ export const SearchRCNVillage = async (req: Request, res: Response) => {
     }
  
 }
+
+export const GatedataFind = async (req: Request, res: Response) => {
+    try {
+        const { GateID } = req.body;
+        
+
+        let where
+    
+            where = {
+                [Op.and]: [
+                    { gatePassNo: { [Op.like]: `%${GateID}%` } },
+                  
+                   
+                    { editStatus: { [Op.notLike]: 'Pending' } },
+                ]
+            }
+
+        
+      
+        const skuData = await RcvVillageModel.findAll({
+            attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('gatePassNo')), 'gatePassNo']],
+            where
+          });
+        if (!skuData) return res.status(404).json({ message: "GatePass Not found" });
+        return res.status(200).json({ skuData });
+    } catch (error) {
+        return res.status(500).json({ message: "internal error while finding GatePass data" });
+    }
+}
+
+
+export const linkGatePass = async (req: Request, res: Response) => {
+    try {
+        const { id,gatepassId } = req.body;
+        let skuData = await SkuModel.findOne({ where: { sku ,type,section:'Store'} });
+        if(!skuData ){
+            return res.status(500).json({ message: "SKU Does Not Exist" });
+        }
+
+       
+    } catch (error) {
+        return res.status(500).json({ message: "internal error while finding GatePass data" });
+    }
+}
+
 
 export const updateEntireRejection= async (req: Request, res: Response) => {
     try{

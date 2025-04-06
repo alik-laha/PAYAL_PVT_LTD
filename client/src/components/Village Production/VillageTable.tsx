@@ -50,10 +50,11 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { CiBoxes, CiCrop, CiEdit } from "react-icons/ci";
+import { CiBoxes, CiCrop, CiEdit, CiLink } from "react-icons/ci";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import VillageGateLink from "./VillGatePassLink";
 // import RejectionEDitForm from "./RejectionModify";
 
 
@@ -666,6 +667,21 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                             </DialogTitle>
                                                         </DialogHeader>
                                                         {/* <RCNSortingReMix borma={item} /> */}
+                                                    </DialogContent>
+                                                    
+                                                </Dialog>}
+                                                 {item.GatePassStatus === 0 && <Dialog>
+                                                    <DialogTrigger className="flex"><CiLink size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Link Gatepass</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-2xl">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}
+                                                                <p className='text-1xl pb-1 text-center mt-3'>GatePass Linkage of Lot No : {item.LotNo} ({item.origin}) </p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        <VillageGateLink id={item.id}/>
                                                     </DialogContent>
                                                     
                                                 </Dialog>}
