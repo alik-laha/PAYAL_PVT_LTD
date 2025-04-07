@@ -63,7 +63,7 @@ const VillageHistoryTable = () => {
                         fromDate: fromdate,
                         toDate: todate,
                         origin: origin,
-                        section:'Rejection'
+                        section:'Village'
     
                     }, {
                         params: {
@@ -85,7 +85,7 @@ const VillageHistoryTable = () => {
                         fromDate: fromdate,
                         toDate: todate,
                         origin: origin,
-                        section:'Rejection'
+                        section:'Village'
     
                     }, {
                         params: {
@@ -141,7 +141,7 @@ const VillageHistoryTable = () => {
                         fromDate: fromdate,
                         toDate: todate,
                         origin: origin,
-                        section:'Rejection'
+                        section:'Village'
     
                     })
                     const data1 = await response.data
@@ -166,7 +166,7 @@ const VillageHistoryTable = () => {
                         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
                         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
                         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-                        saveAs(blob, 'Rejection_Incoming_Entry_' + currDate + '.xlsx');
+                        saveAs(blob, 'Village_Incoming_Entry_' + currDate + '.xlsx');
                     }
                     
                    
@@ -178,7 +178,7 @@ const VillageHistoryTable = () => {
                         fromDate: fromdate,
                         toDate: todate,
                         origin: origin,
-                        section:'Rejection'
+                        section:'Village'
     
                     })
                     const data1 = await response.data
@@ -205,7 +205,7 @@ const VillageHistoryTable = () => {
                         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
                         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
                         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-                        saveAs(blob, 'Rejection_Mixing_Entry_' + currDate + '.xlsx');
+                        saveAs(blob, 'Village_Mixing_Entry_' + currDate + '.xlsx');
                 }
               
                 
@@ -273,7 +273,7 @@ const VillageHistoryTable = () => {
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleTransactionSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
-                {checkpending('Rejection') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+                {checkpending('Village') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
                     {searchTableType==='Incoming' ? 
                     (<Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">

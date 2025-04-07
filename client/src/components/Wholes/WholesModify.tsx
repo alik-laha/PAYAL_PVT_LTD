@@ -507,8 +507,8 @@ const WholesEditForm = (props:Props) => {
                                         <TableHead className="text-center">Receive PW_400 (Borma)</TableHead>
                                         <TableHead className="text-center">Receive W_400 (Borma)</TableHead>
                                         <TableHead className="text-center">Receive WW_400 (Borma)</TableHead> */}
-                                        <TableHead className="text-center">Receive Hamsa (Borma)</TableHead>
-                                        <TableHead className="text-center">Receive Mayur (Borma)</TableHead>
+                                        <TableHead className="text-center">Receive_Hamsa (Borma)</TableHead>
+                                        <TableHead className="text-center">Receive_Mayur (Borma)</TableHead>
                                      
                                         
                                         {/* <TableHead className="text-center">Total Receive</TableHead>

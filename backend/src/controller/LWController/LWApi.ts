@@ -1327,3 +1327,52 @@ export const EditRejectLW = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Internal Server Error", error: err });
     }
 }
+
+export const SearchRCNLWMix = async (req: Request, res: Response) => {
+    try {
+        const { lotNo, origin} = req.body;
+       
+        let whereClause = [];
+
+        // Conditionally add parameters to the whereClause
+        if (lotNo) {
+            whereClause.push({
+                LotNo: lotNo
+            });
+        }
+     
+        if (origin) {
+            whereClause.push({
+                origin: {
+                    [Op.like]: `%${origin}%`
+                }
+            });
+        }
+        whereClause.push({
+            latest: {
+                [Op.eq]: 1
+            }
+        });
+  
+        // Convert the array to an object for the where condition
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+        let rcnEntries
+        
+             rcnEntries = await LWModel.findOne({
+                attributes: ['id','current_backlog',
+                    'rcv_mayur','rcv_hamsa','rcv_wholes','editStatus','Status','issue_add_7','issue_add_8'],
+                where
+                
+                
+            });
+        
+        
+       
+        return res.status(200).json({ message: 'Mix Entry found', rcnEntries })
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: 'Internal server error', error: err })
+    }
+ 
+}

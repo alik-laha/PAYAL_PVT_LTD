@@ -662,65 +662,65 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center">Type</TableHead>
                         <TableHead className="text-center">Lot_No</TableHead>
                         <TableHead className="text-center">Origin</TableHead>
-                        <TableHead className="text-center">Previous Pw 210</TableHead>
-                        <TableHead className="text-center">Current Pw 210</TableHead>
+                        <TableHead className="text-center">Previous PW_210</TableHead>
+                        <TableHead className="text-center">Current PW_210</TableHead>
 
-                        <TableHead className="text-center">Previous W 210</TableHead>
-                        <TableHead className="text-center">Current W 210</TableHead>
+                        <TableHead className="text-center">Previous W_210</TableHead>
+                        <TableHead className="text-center">Current W_210</TableHead>
 
-                        <TableHead className="text-center">Previous Ww 210</TableHead>
-                        <TableHead className="text-center">Current Ww 210</TableHead>
+                        <TableHead className="text-center">Previous WW_210</TableHead>
+                        <TableHead className="text-center">Current WW_210</TableHead>
 
-                        <TableHead className="text-center">Previous Pw 240</TableHead>
-                        <TableHead className="text-center">Current Pw 240</TableHead>
+                        <TableHead className="text-center">Previous PW_240</TableHead>
+                        <TableHead className="text-center">Current PW_240</TableHead>
 
-                        <TableHead className="text-center">Previous W 240</TableHead>
-                        <TableHead className="text-center">Current W 240</TableHead>
+                        <TableHead className="text-center">Previous W_240</TableHead>
+                        <TableHead className="text-center">Current W_240</TableHead>
 
-                        <TableHead className="text-center">Previous Ww 240</TableHead>
-                        <TableHead className="text-center">Current Ww 240</TableHead>
+                        <TableHead className="text-center">Previous WW_240</TableHead>
+                        <TableHead className="text-center">Current WW_240</TableHead>
 
-                        <TableHead className="text-center">Previous Pw 280</TableHead>
-                        <TableHead className="text-center">Current Pw 280</TableHead>
+                        <TableHead className="text-center">Previous PW_280</TableHead>
+                        <TableHead className="text-center">Current PW_280</TableHead>
 
-                        <TableHead className="text-center">Previous W 280</TableHead>
-                        <TableHead className="text-center">Current W 280</TableHead>
+                        <TableHead className="text-center">Previous W_280</TableHead>
+                        <TableHead className="text-center">Current W_280</TableHead>
 
-                        <TableHead className="text-center">Previous Ww 280</TableHead>
-                        <TableHead className="text-center">Current Ww 280</TableHead>
+                        <TableHead className="text-center">Previous WW_280</TableHead>
+                        <TableHead className="text-center">Current Ww_280</TableHead>
 
-                        <TableHead className="text-center">Previous Pw 320</TableHead>
-                        <TableHead className="text-center">Current Pw 320</TableHead>
+                        <TableHead className="text-center">Previous PW_320</TableHead>
+                        <TableHead className="text-center">Current PW_320</TableHead>
 
-                        <TableHead className="text-center">Previous W 320</TableHead>
-                        <TableHead className="text-center">Current W 320</TableHead>
+                        <TableHead className="text-center">Previous W_320</TableHead>
+                        <TableHead className="text-center">Current W_320</TableHead>
 
-                        <TableHead className="text-center">Previous Ww 320</TableHead>
-                        <TableHead className="text-center">Current Ww 320</TableHead>
+                        <TableHead className="text-center">Previous WW_320</TableHead>
+                        <TableHead className="text-center">Current WW_320</TableHead>
 
-                        <TableHead className="text-center">Previous Pw 360</TableHead>
-                        <TableHead className="text-center">Current Pw 360</TableHead>
+                        <TableHead className="text-center">Previous PW_360</TableHead>
+                        <TableHead className="text-center">Current PW_360</TableHead>
 
-                        <TableHead className="text-center">Previous W 360</TableHead>
-                        <TableHead className="text-center">Current W 360</TableHead>
+                        <TableHead className="text-center">Previous W_360</TableHead>
+                        <TableHead className="text-center">Current W_360</TableHead>
 
-                        <TableHead className="text-center">Previous Ww 360</TableHead>
-                        <TableHead className="text-center">Current Ww 360</TableHead>
+                        <TableHead className="text-center">Previous WW_360</TableHead>
+                        <TableHead className="text-center">Current WW_360</TableHead>
 
-                        <TableHead className="text-center">Previous Pw 400</TableHead>
-                        <TableHead className="text-center">Current Pw 400</TableHead>
+                        <TableHead className="text-center">Previous PW_400</TableHead>
+                        <TableHead className="text-center">Current PW_400</TableHead>
 
-                        <TableHead className="text-center">Previous W 400</TableHead>
-                        <TableHead className="text-center">Current W 400</TableHead>
+                        <TableHead className="text-center">Previous W_400</TableHead>
+                        <TableHead className="text-center">Current W_400</TableHead>
 
-                        <TableHead className="text-center">Previous Ww 400</TableHead>
-                        <TableHead className="text-center">Current Ww 400</TableHead>
+                        <TableHead className="text-center">Previous WW_400</TableHead>
+                        <TableHead className="text-center">Current WW_400</TableHead>
 
-                        <TableHead className="text-center">Previous Jb Mayur</TableHead>
-                        <TableHead className="text-center">Current Jb Mayur</TableHead>
+                        <TableHead className="text-center">Previous JB_Mayur</TableHead>
+                        <TableHead className="text-center">Current JB_Mayur</TableHead>
 
-                        <TableHead className="text-center">Previous Jb Hamsa</TableHead>
-                        <TableHead className="text-center">Current Jb Hamsa</TableHead>
+                        <TableHead className="text-center">Previous JB_Hamsa</TableHead>
+                        <TableHead className="text-center">Current JB_Hamsa</TableHead>
 
 
                         <TableHead className="text-center">Current Backlog</TableHead>
