@@ -302,9 +302,9 @@ const VillageReMix = (props:Props) => {
                             fsourcelot:props.borma.LotNo,
                             fsourceorigin:props.borma.origin,
                             fsourcebacklog,
-                            fsourcercv_sorting,fsourcercv_peeling,fsourcercv_village,fsourcercv_dpds,fsourcercv_mayur,fsourcercv_hamsa,fsourcercv_lw,fsourcercv_wholes,
-                            amount:(sourcercv_peeling+sourcercv_village+sourcercv_sorting+sourcercv_dpds+
-                                sourcercv_mayur+sourcercv_hamsa+sourcercv_lw+sourcercv_wholes).toFixed(2),
+                            fsourcercv_sorting,fsourcercv_peeling,fsourcercv_rejection,fsourcercv_dpds,fsourcercv_mayur,fsourcercv_bigTaiho,fsourcercv_lw,fsourcercv_wholes,
+                            amount:(sourcercv_peeling+sourcercv_rejection+sourcercv_sorting+sourcercv_dpds+
+                                sourcercv_mayur+sourcercv_bigTaiho+sourcercv_lw+sourcercv_wholes).toFixed(2),
                             bsourcebacklog:props.borma.current_backlog,
                             bdestbacklog:datarcv.current_backlog
                          })
@@ -390,10 +390,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 </div>
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
-                <Label className="w-1/4 pt-2 text-purple-500">2. Village Amount</Label>
-                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_village} onChange={(e) => setsourcercv_village(Number(e.target.value))} required />
+                <Label className="w-1/4 pt-2 text-purple-500">2. Rejection Amount</Label>
+                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_rejection} onChange={(e) => setsourcercv_village(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
-                <Label className="w-1/4 pt-2 ">{fsourcercv_village} kg </Label> 
+                <Label className="w-1/4 pt-2 ">{fsourcercv_rejection} kg </Label> 
                 </div>
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
@@ -419,9 +419,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
                 <Label className="w-1/4 pt-2 text-purple-500">6. Hamsa Amount</Label>
-                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_hamsa} onChange={(e) => setsourcercv_hamsa(Number(e.target.value))} required />
+                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_bigTaiho} onChange={(e) => setfsourcercv_bigTaiho(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
-                <Label className="w-1/4 pt-2 ">{fsourcercv_hamsa} kg </Label>
+                <Label className="w-1/4 pt-2 ">{fsourcercv_bigTaiho} kg </Label>
                 </div>
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
