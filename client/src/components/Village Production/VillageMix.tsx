@@ -391,7 +391,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
                 <Label className="w-1/4 pt-2 text-purple-500">2. Rejection Amount</Label>
-                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_rejection} onChange={(e) => setsourcercv_village(Number(e.target.value))} required />
+                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_rejection} onChange={(e) => setsourcercv_rejection(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
                 <Label className="w-1/4 pt-2 ">{fsourcercv_rejection} kg </Label> 
                 </div>
@@ -419,7 +419,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                 <div className="flex mt-2 mx-8" style={{ display: successflag }}>
                 <Label className="w-1/4 pt-2 text-purple-500">6. Hamsa Amount</Label>
-                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_bigTaiho} onChange={(e) => setfsourcercv_bigTaiho(Number(e.target.value))} required />
+                <Input className="w-1/4 justify-center text-center" placeholder="Amount" type='number' value={sourcercv_bigTaiho} onChange={(e) => setsourcercv_bigTaiho(Number(e.target.value))} required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center"> Remaining : </Label>
                 <Label className="w-1/4 pt-2 ">{fsourcercv_bigTaiho} kg </Label>
                 </div>
@@ -441,8 +441,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                 <div className="flex mt-5 mx-8" style={{ display: successflag }}>
                 <Label className="w-1/4 pt-2 "> Total Transfer Amount </Label>
-                <Input className="w-1/4 justify-center items-center text-center bg-yellow-100" type='number' placeholder="Amount" value={(sourcercv_peeling+sourcercv_village+sourcercv_sorting+sourcercv_dpds+
-                            sourcercv_mayur+sourcercv_hamsa+sourcercv_lw+sourcercv_wholes).toFixed(2)}  required />
+                <Input className="w-1/4 justify-center items-center text-center bg-yellow-100" type='number' placeholder="Amount" value={(sourcercv_peeling+sourcercv_rejection+sourcercv_sorting+sourcercv_dpds+
+                            sourcercv_mayur+sourcercv_bigTaiho+sourcercv_lw+sourcercv_wholes).toFixed(2)}  required />
                 <Label className="w-1/4 pt-2 text-red-500 text-center">Source Final Backlog : </Label>
                 <Label className="w-1/4 pt-2  ">{fsourcebacklog} kg </Label>
                 </div>
@@ -485,18 +485,18 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ?props.borma.LotNo :''}</TableCell>
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ?props.borma.origin:''}</TableCell>
-                            <TableCell className="text-center  bg-cyan-100">{props.borma ? props.borma.issue_add_4 :0}</TableCell>
+                            <TableCell className="text-center  bg-cyan-100">{props.borma ? props.borma.issue_add_10 :0}</TableCell>
                             <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? fsourcercv_peeling:'NA'}</TableCell>
-                            <TableCell className="text-center  bg-red-100">{props.borma  ? props.borma.rcv_village :0}</TableCell>
-                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? fsourcercv_village:'NA'}</TableCell>                    
+                            <TableCell className="text-center  bg-cyan-100">{props.borma ? props.borma.issue_add_12 :0}</TableCell>
+                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? fsourcercv_rejection:'NA'}</TableCell>                   
                             <TableCell className="text-center  bg-yellow-100">{props.borma ? props.borma.rcv_sorting:0}</TableCell>
                             <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? fsourcercv_sorting:'NA'}</TableCell>                           
                             <TableCell className="text-center bg-green-100 ">{props.borma? props.borma.rcv_dpds:0}</TableCell>
                             <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? fsourcercv_dpds:'NA'}</TableCell>
-                            <TableCell className="text-center  bg-red-100">{props.borma  ? props.borma.rcv_mayur :0}</TableCell>
+                            <TableCell className="text-center  bg-red-100">{props.borma  ? props.borma.issue_add_11 :0}</TableCell>
                             <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? fsourcercv_mayur:'NA'}</TableCell>                 
-                            <TableCell className="text-center  bg-yellow-100">{props.borma ? props.borma.rcv_hamsa:0}</TableCell>
-                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? fsourcercv_hamsa:'NA'}</TableCell>                            
+                            <TableCell className="text-center  bg-yellow-100">{props.borma ? props.borma.rcv_bigTaiho:0}</TableCell>
+                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? fsourcercv_bigTaiho:'NA'}</TableCell>                            
                             <TableCell className="text-center bg-green-100 ">{props.borma? props.borma.rcv_lw:0}</TableCell>
                             <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? fsourcercv_lw:'NA'}</TableCell>
                             <TableCell className="text-center bg-yellow-100 ">{props.borma? props.borma.rcv_wholes:0}</TableCell>
@@ -509,20 +509,29 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableCell className="text-center font-semibold  flex">Target<CircleArrowLeft size={30} color="green"/></TableCell>
                             <TableCell className="text-center font-semibold text-green-600 ">{destlot ? destlot :'NA'}</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{destorigin ? destorigin :'NA'}</TableCell>
-                            <TableCell className="text-center  bg-cyan-100">{parseInt(datarcv.Status)===0? datarcv.rcv_peeling :datarcv.issue_add_4}</TableCell>
+                            <TableCell className="text-center  bg-cyan-100">{parseInt(datarcv.Status)===0? datarcv.rcv_peeling :datarcv.issue_add_10}</TableCell>
                             {parseInt(datarcv.Status)===0 ?
                             <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_peeling:'NA'}</TableCell>
                             :<TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_peelingN:'NA'}</TableCell>}
-                            <TableCell className="text-center  bg-red-100 ">{successflag ? datarcv.rcv_village:''}</TableCell>
-                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_village:'NA'}</TableCell>                    
+
+                            <TableCell className="text-center  bg-cyan-100">{parseInt(datarcv.Status)===0? datarcv.rcv_rejection :datarcv.issue_add_12}</TableCell>
+                            {parseInt(datarcv.Status)===0 ?
+                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_rejection:'NA'}</TableCell>
+                            :<TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_rejectionN:'NA'}</TableCell>}
+
+
                             <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_sorting ?datarcv.rcv_sorting :''}</TableCell>
                             <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_sorting:'NA'}</TableCell>                      
                             <TableCell className="text-center  bg-green-100">{datarcv.rcv_dpds ? datarcv.rcv_dpds:''}</TableCell>
                             <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? destrcv_dpds:'NA'}</TableCell>
-                            <TableCell className="text-center  bg-red-100">{datarcv.rcv_mayur ? datarcv.rcv_mayur:''}</TableCell>
-                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_mayur:'NA'}</TableCell>
-                            <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_hamsa ?datarcv.rcv_hamsa :''}</TableCell>
-                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_hamsa:'NA'}</TableCell>                      
+
+                            <TableCell className="text-center  bg-cyan-100">{parseInt(datarcv.Status)===0? datarcv.rcv_mayur :datarcv.issue_add_11}</TableCell>
+                            {parseInt(datarcv.Status)===0 ?
+                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_mayur:'NA'}</TableCell>
+                            :<TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_mayurN:'NA'}</TableCell>}
+
+                            <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_bigTaiho ?datarcv.rcv_bigTaiho :''}</TableCell>
+                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_bigTaiho:'NA'}</TableCell>                      
                             <TableCell className="text-center  bg-green-100">{datarcv.rcv_lw ? datarcv.rcv_lw:''}</TableCell>
                             <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? destrcv_lw:'NA'}</TableCell>
                             <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_wholes ? datarcv.rcv_wholes:''}</TableCell>

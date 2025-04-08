@@ -105,7 +105,7 @@ const LWMix = (props:Props) => {
             setdestrcv_mayur(((datarcv.rcv_mayur ?Number(datarcv.rcv_mayur):0)+sourcercv_mayur).toFixed(2));
             setdestrcv_mayurN(((datarcv.issue_add_7 ?Number(datarcv.issue_add_7):0)+sourcercv_mayur).toFixed(2));
             setdestrcv_hamsa(((datarcv.rcv_hamsa ?Number(datarcv.rcv_hamsa):0)+sourcercv_hamsa).toFixed(2));
-            setdestrcv_hamsa(((datarcv.issue_add_8 ?Number(datarcv.issue_add_8):0)+sourcercv_hamsa).toFixed(2));
+            setdestrcv_hamsaN(((datarcv.issue_add_8 ?Number(datarcv.issue_add_8):0)+sourcercv_hamsa).toFixed(2));
             setdestrcv_wholes(((datarcv.rcv_wholes ?Number(datarcv.rcv_wholes):0)+sourcercv_wholes).toFixed(2));
             setdestbacklog(((datarcv.current_backlog?Number(datarcv.current_backlog):0) + (
                 sourcercv_mayur+sourcercv_hamsa+sourcercv_wholes)).toFixed(2));
@@ -218,7 +218,7 @@ const LWMix = (props:Props) => {
                 try {
 
                     if(parseInt(destrcv_status)===0){
-                        const initialhumid = await axios.post('/api/bigTaiho/createMixBigTaiho', {
+                        const initialhumid = await axios.post('/api/lw/createMixLW', {
                             destid,
                             destlot,
                             destorigin,
@@ -246,7 +246,7 @@ const LWMix = (props:Props) => {
                             }
                     }
                     else{
-                        const initialhumid = await axios.post('/api/bigTaiho/createMixBigTaiho', {
+                        const initialhumid = await axios.post('/api/lw/createMixLW', {
                             destid,
                             destlot,
                             destorigin,
@@ -396,12 +396,11 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ?props.borma.LotNo :''}</TableCell>
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ?props.borma.origin:''}</TableCell>
-                            <TableCell className="text-center  bg-cyan-100">{props.borma ? props.borma.issue_add_4 :0}</TableCell>
+                            <TableCell className="text-center  bg-red-100">{props.borma ? props.borma.issue_add_7 :0}</TableCell>
                          
-                            <TableCell className="text-center  bg-red-100">{props.borma  ? props.borma.rcv_mayur :0}</TableCell>
                             <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? fsourcercv_mayur:'NA'}</TableCell>                 
-                            <TableCell className="text-center  bg-yellow-100">{props.borma ? props.borma.rcv_hamsa:0}</TableCell>
-                            <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? fsourcercv_hamsa:'NA'}</TableCell>                            
+                            <TableCell className="text-center  bg-cyan-100">{props.borma ? props.borma.issue_add_8:0}</TableCell>
+                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? fsourcercv_hamsa:'NA'}</TableCell>                            
                           
                             <TableCell className="text-center bg-yellow-100 ">{props.borma? props.borma.rcv_wholes:0}</TableCell>
                             <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? fsourcercv_wholes:'NA'}</TableCell>
@@ -413,10 +412,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableCell className="text-center font-semibold  flex">Target<CircleArrowLeft size={30} color="green"/></TableCell>
                             <TableCell className="text-center font-semibold text-green-600 ">{destlot ? destlot :'NA'}</TableCell>
                             <TableCell className="text-center font-semibold text-green-500">{destorigin ? destorigin :'NA'}</TableCell>
-                            <TableCell className="text-center  bg-cyan-100">{parseInt(datarcv.Status)===0? datarcv.rcv_mayur :datarcv.issue_add_7}</TableCell>
+                            <TableCell className="text-center  bg-red-100">{parseInt(datarcv.Status)===0? datarcv.rcv_mayur :datarcv.issue_add_7}</TableCell>
                             {parseInt(datarcv.Status)===0 ?
-                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_mayur:'NA'}</TableCell>
-                            :<TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_mayurN:'NA'}</TableCell>}
+                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_mayur:'NA'}</TableCell>
+                            :<TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_mayurN:'NA'}</TableCell>}
 
                             <TableCell className="text-center  bg-cyan-100">{parseInt(datarcv.Status)===0? datarcv.rcv_hamsa :datarcv.issue_add_8}</TableCell>
                             {parseInt(datarcv.Status)===0 ?

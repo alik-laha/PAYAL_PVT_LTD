@@ -55,6 +55,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import RejectionEDitForm from "./RejectionModify";
+import RejectionReMix from "./RejectionMix";
 
 
 
@@ -602,7 +603,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <RCNSortingReMix borma={item} /> */}
+                                                        <RejectionReMix borma={item} />
                                                     </DialogContent>
                                                     
                                                 </Dialog>}

@@ -13,6 +13,8 @@ const skuDataExcelDownload = async (req: Request, res: Response) => {
         ],
     });
     finalData=stockData
+
+    console.log(finalData)
     stockData.map(async(item)=>{
         const stockConsumeData = await ItemIssue.findOne({
             attributes: [
