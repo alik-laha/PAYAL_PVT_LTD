@@ -11,6 +11,8 @@ import SkudataFind from '../controller/RecevingPackageingMetrial/SkudataFind';
 import vendorNameFind from '../controller/RecevingPackageingMetrial/vendorNameFind';
 import getItemByBytype from '../controller/VendorSKUController/getItembyType';
 import SkudataCountFind from '../controller/RecevingPackageingMetrial/skudataCountfind';
+import skuDataExcelDownload from "../controller/RecevingPackageingMetrial/skuDataExcelDownload"
+
 
 const router = express.Router();
 
@@ -24,4 +26,5 @@ router.post("/skudatafind/:section", jwtVerify,SkudataFind)
 router.post("/vendornamefind/:section",jwtVerify, vendorNameFind)
 router.put('/getItembySection/:type', jwtVerify, getItemByBytype)
 router.post("/skudataCountfind", jwtVerify,SkudataCountFind)
+router.get("/skuexceldata",jwtVerify,skuDataExcelDownload);
 export default router;

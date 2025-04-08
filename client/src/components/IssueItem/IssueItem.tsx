@@ -18,6 +18,7 @@ import UseQueryData from "../common/dataFetcher";
 import IssueCreateForm from "./IssueCreate";
 import IssueTable from "./IssueTable";
 import { RxUpdate } from "react-icons/rx";
+import { LuDownload } from "react-icons/lu";
 
 const IssueItem = () => {
 
@@ -54,6 +55,10 @@ const IssueItem = () => {
             .catch(err => {
                 console.log(err)
             })
+    }
+
+    const exportToExcel = async () => {
+        axios.get('/api/vendorSKU/skuexceldata')
     }
 
     const handleStockUpdateFetch = async () => {
@@ -121,6 +126,8 @@ const IssueItem = () => {
                     
                     <Button className="bg-orange-400 mb-2 ml-8 responsive-button-adjust" 
                     disabled={loading} onClick={handleStockUpdateFetch} >  {loading ? 'Updating...' : 'Update Stock'} <RxUpdate size={20} className="ml-2"/></Button>
+
+                    <span className="mb-2 ml-8 responsive-button-adjust"><Button className="bg-green-700 h-8 mt-4 w-30 text-sm  mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
                 
                 </div>
              <IssueTable/>
