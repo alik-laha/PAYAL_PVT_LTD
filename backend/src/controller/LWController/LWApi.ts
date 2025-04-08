@@ -11,6 +11,7 @@ import rejectionModel from "../../model/rejectionModel";
 import villageProduction from "../../model/villageProductionModel";
 import lotoriginmodel from "../../model/lotoriginModel";
 import WhatsappMsg from "../../helper/WhatsappMsg";
+import mixingModel from "../../model/mixingModel";
 
 // //LW.tsx
 export const findEditLWAll = async (req: Request, res: Response) => {
@@ -1375,4 +1376,185 @@ export const SearchRCNLWMix = async (req: Request, res: Response) => {
         return res.status(500).json({ message: 'Internal server error', error: err })
     }
  
+}
+
+export const CreateMixLW = async (req: Request, res: Response) => {
+
+    try {
+        console.log(req.body)
+        const createdBy = req.cookies.user;
+        const sourceid = req.body.fsourceid;
+        const sourcelot = req.body.fsourcelot;
+        const sourceorigin = req.body.fsourceorigin;
+       
+        const source_rcv_mayur = req.body.fsourcercv_mayur;
+        const source_rcv_hamsa = req.body.fsourcercv_hamsa;
+     
+        const source_rcv_wholes = req.body.fsourcercv_wholes;
+        const destrcv_status = req.body.destrcv_status;
+
+        const source_backlog = req.body.fsourcebacklog;
+
+        const transfer_amount = req.body.amount
+
+        const destid = req.body.destid;
+        const destlot = req.body.destlot;
+        const destorigin = req.body.destorigin;
+      
+        const dest_rcv_mayur = req.body.destrcv_mayur;
+        const dest_rcv_hamsa = req.body.destrcv_hamsa;
+       
+        const dest_rcv_wholes = req.body.destrcv_wholes;
+
+        const dest_backlog = req.body.destbacklog;
+
+        const b_soucre_backlog = req.body.bsourcebacklog;
+        const b_dest_backlog = req.body.bdestbacklog;
+
+
+        await sequelize.transaction(async (transaction: any) => {
+
+            const sourcedata = await LWModel.findOne({
+                attributes: ['rcv_mayur', 'issue_add_7','rcv_hamsa', 'issue_add_8'],
+                where: {
+                    id: sourceid
+                },
+            });
+
+            let sourceupdate
+            if (sourcedata) {
+                const mayurdiff = parseFloat(sourcedata.dataValues.issue_add_7) - parseFloat(source_rcv_mayur)
+                const totbeforebormamayur = parseFloat(sourcedata.dataValues.rcv_mayur) - mayurdiff
+                const totafterbormamayur = parseFloat(source_rcv_mayur)
+
+                const hamsadiff = parseFloat(sourcedata.dataValues.issue_add_8) - parseFloat(source_rcv_hamsa)
+                const totbeforebormahamsa = parseFloat(sourcedata.dataValues.rcv_hamsa) - hamsadiff
+                const totafterbormahamsa= parseFloat(source_rcv_hamsa)
+
+                sourceupdate = await LWModel.update(
+                    {
+                        rcv_mayur: sequelize.literal(`rcv_mayur- ${mayurdiff}`),
+                        issue_add_3: ((totbeforebormamayur - totafterbormamayur) / totbeforebormamayur) * 100,
+                        issue_add_7: source_rcv_mayur,
+
+                        rcv_hamsa: sequelize.literal(`rcv_hamsa- ${hamsadiff}`),
+                        issue_add_6: ((totbeforebormahamsa - totafterbormahamsa) / totbeforebormahamsa) * 100,
+                        issue_add_8: source_rcv_hamsa,
+
+
+                        rcv_wholes: source_rcv_wholes,
+                        current_backlog: source_backlog,
+                    },
+                    {
+                        where: {
+                            id: sourceid
+                        }, transaction
+                    }
+                );
+            }
+            const destdata = await LWModel.findOne({
+                attributes: ['mixingLot', 'rcv_mayur', 'issue_add_7','rcv_hamsa', 'issue_add_8'],
+                where: {
+                    id: destid
+
+                },
+
+            });
+
+            if (destdata) 
+            {
+                let destupdate
+                if (Number(destrcv_status) === 0) {
+                    destupdate = await LWModel.update(
+                        {
+                          
+                            rcv_mayur: dest_rcv_mayur,
+                            rcv_hamsa: dest_rcv_hamsa,
+                            rcv_wholes: dest_rcv_wholes,
+                            current_backlog: dest_backlog,
+                            mixingLot: destdata.dataValues.mixingLot ?
+                                sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`) : `${sourcelot}(${sourceorigin})`,
+                        },
+                        {
+                            where: {
+                                id: destid
+                            }, transaction
+                        }
+                    );
+                }
+                else {
+                    const mayurdiffD = parseFloat(dest_rcv_mayur) - parseFloat(destdata.dataValues.issue_add_7)
+                    const totbeforebormaDmayur = parseFloat(destdata.dataValues.rcv_mayur) + mayurdiffD
+                    const totafterbormaDmayur = parseFloat(dest_rcv_mayur)
+
+                    const hamsadiffD = parseFloat(dest_rcv_hamsa) - parseFloat(destdata.dataValues.issue_add_8)
+                    const totbeforebormaDhamsa = parseFloat(destdata.dataValues.rcv_hamsa) + hamsadiffD
+                    const totafterbormaDhamsa = parseFloat(dest_rcv_hamsa)
+
+
+                    destupdate = await LWModel.update(
+                        {
+                            rcv_mayur: sequelize.literal(`rcv_mayur+ ${mayurdiffD}`),
+                            issue_add_3: ((totbeforebormaDmayur - totafterbormaDmayur) / totbeforebormaDmayur) * 100,
+                            issue_add_7: dest_rcv_mayur,
+                       
+                            rcv_hamsa: sequelize.literal(`rcv_hamsa+ ${hamsadiffD}`),
+                            issue_add_6: ((totbeforebormaDhamsa - totafterbormaDhamsa) / totbeforebormaDhamsa) * 100,
+                            issue_add_8: dest_rcv_hamsa,
+                         
+                            rcv_wholes: dest_rcv_wholes,
+                            current_backlog: dest_backlog,
+                            mixingLot: destdata.dataValues.mixingLot ?
+                                sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`) : `${sourcelot}(${sourceorigin})`,
+                        },
+                        {
+                            where: {
+                                id: destid
+                            }, transaction
+                        }
+                    );
+
+                }
+
+                if (sourceupdate && destupdate) {
+                    const mixcreate = await mixingModel.create(
+                        {
+                            FromLotNo: sourcelot,
+                            Fromorigin: sourceorigin,
+                            ToLotNo: destlot,
+                            Toorigin: destorigin,
+                            amount: transfer_amount,
+                            date: new Date(),
+                            Section: 'LW',
+                            amountBeforeBacklog: b_soucre_backlog,
+                            amountAfterBacklog: source_backlog,
+                            destamountBeforeBacklog: b_dest_backlog,
+                            destamountAfterBacklog: dest_backlog,
+                            createdBy: createdBy,
+                        },
+                        {
+                            transaction
+                        }
+                    );
+                    if (mixcreate) {
+                        return res.status(200).json({ message: "Mixing Performed Successfully" });
+
+                    }
+                    else {
+                        return res.status(500).json({ message: "Internal Server Error" });
+                    }
+                }
+                else {
+                    return res.status(500).json({ message: "Internal Server Error" });
+                }
+            }
+        })
+
+
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
 }

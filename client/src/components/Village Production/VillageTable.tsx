@@ -56,6 +56,7 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import VillageGateLink from "./VillGatePassLink";
 import VillageEDitForm from "./VillageModify";
+import VillageReMix from "./VillageMix";
 // import RejectionEDitForm from "./RejectionModify";
 
 
@@ -667,7 +668,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <RCNSortingReMix borma={item} /> */}
+                                                        <VillageReMix borma={item} />
                                                     </DialogContent>
                                                     
                                                 </Dialog>}
