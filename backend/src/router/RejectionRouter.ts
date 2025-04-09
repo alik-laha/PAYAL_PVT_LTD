@@ -6,7 +6,7 @@ import {
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
 import { approveRejection, CreateEntireRejection, EditRejectRejection, findEditRejectionAll, 
-      getRejectionBylotorigin, getRejectionLot, SearchRCNRejection, sumOfallRejection, 
+      getRejectionBylotorigin, getRejectionLot, SearchRCNRejection, SearchRCNRejectionMix, sumOfallRejection, 
       updateEntireRejection} from "../controller/RejectionController/RejectionApi";
 
 
@@ -32,9 +32,9 @@ router.post("/updateRejection", jwtVerify, updateEntireRejection)
 router.delete('/rejectededitRejection/:id/:LotNo/:origin', jwtVerify, EditRejectRejection);
 router.put("/approveeditRejection/:id/:LotNo/:origin", jwtVerify, approveRejection);
 
-// // //LWMix.tsx
-// router.post('/lwmixsearch', jwtVerify, SearchRCNLWMix);
-// router.post('/createMixLW', jwtVerify, CreateMixLW);
+// // //RejectionMix.tsx
+router.post('/rejectionmixsearch', jwtVerify, SearchRCNRejectionMix);
+router.post('/createMixRejection', jwtVerify, CreateMixRejection);
 
 //HistoryTable.tsx
 router.put('/historySearch', jwtVerify, SearchHistory);
