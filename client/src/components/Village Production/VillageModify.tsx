@@ -428,7 +428,7 @@ const VillageEDitForm = (props: Props) => {
                                             </TableCell>
 
                                             <TableCell className="text-center" >
-                                            <Select value={row.out_Type} onValueChange={(val) => handleRowChange(idx, 'out_Type', val)} required={true}>
+                                            <Select value={row.out_Type ?? undefined} onValueChange={(val) => handleRowChange(idx, 'out_Type', val)} required={true}>
                                             <SelectTrigger className="justify-center w-40 bg-red-100">
                                                     <SelectValue placeholder="Type" />
                                                 </SelectTrigger>

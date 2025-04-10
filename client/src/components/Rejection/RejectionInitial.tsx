@@ -23,7 +23,7 @@ import cross from '../../assets/Static_Images/error_img.png'
 // import RCNDPDSCreateForm from "./DPDSCreateForm";
 import {   RejectionData } from "@/type/type";
 import RejectionCreateForm from "./RejectionCreateForm";
-import { checkFormLock } from "../common/FormLock";
+//import { checkFormLock } from "../common/FormLock";
 
 
 interface lotPropsdata{
