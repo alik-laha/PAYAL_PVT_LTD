@@ -8,6 +8,7 @@ import villageProduction from "../../model/villageProductionModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import lotoriginmodel from "../../model/lotoriginModel";
 import WhatsappMsg from "../../helper/WhatsappMsg";
+import mixingModel from "../../model/mixingModel";
 
 // //Rejection.tsx
 export const findEditRejectionAll = async (req: Request, res: Response) => {
@@ -840,8 +841,8 @@ export const CreateMixRejection = async (req: Request, res: Response) => {
                         rcv_sorting: source_rcv_sorting,
                         rcv_dpds: source_rcv_dpds,
                         rcv_village: source_rcv_village,
-                        rcv_mayur: source_rcv_mayur,
-                        rcv_hamsa: source_rcv_hamsa,
+                        rcv_bigTaiho: source_rcv_bigTaiho,
+                   
                         rcv_lw: source_rcv_lw,
                         rcv_wholes: source_rcv_wholes,
                         current_backlog: source_backlog,
@@ -853,8 +854,8 @@ export const CreateMixRejection = async (req: Request, res: Response) => {
                     }
                 );
             }
-            const destdata = await bigTaihoModel.findOne({
-                attributes: ['mixingLot', 'rcv_peeling', 'issue_add_4'],
+            const destdata = await rejectionModel.findOne({
+                attributes: ['mixingLot', 'rcv_mayur', 'issue_add_7','rcv_peeling', 'issue_add_8'],
                 where: {
                     id: destid
 
@@ -866,14 +867,14 @@ export const CreateMixRejection = async (req: Request, res: Response) => {
             {
                 let destupdate
                 if (Number(destrcv_status) === 0) {
-                    destupdate = await bigTaihoModel.update(
+                    destupdate = await rejectionModel.update(
                         {
                             rcv_peeling: dest_rcv_peeling,
                             rcv_sorting: dest_rcv_sorting,
                             rcv_dpds: dest_rcv_dpds,
                             rcv_village: dest_rcv_village,
                             rcv_mayur: dest_rcv_mayur,
-                            rcv_hamsa: dest_rcv_hamsa,
+                            rcv_bigTaiho: dest_rcv_bigTaiho,
                             rcv_lw: dest_rcv_lw,
                             rcv_wholes: dest_rcv_wholes,
                             current_backlog: dest_backlog,
@@ -888,19 +889,29 @@ export const CreateMixRejection = async (req: Request, res: Response) => {
                     );
                 }
                 else {
-                    const peeldiffD = parseFloat(dest_rcv_peeling) - parseFloat(destdata.dataValues.issue_add_4)
+                    const peeldiffD = parseFloat(dest_rcv_peeling) - parseFloat(destdata.dataValues.issue_add_7)
                     const totbeforebormaD = parseFloat(destdata.dataValues.rcv_peeling) + peeldiffD
                     const totafterbormaD = parseFloat(dest_rcv_peeling)
-                    destupdate = await bigTaihoModel.update(
+
+                    const mayurdiffD =  parseFloat(dest_rcv_mayur)-parseFloat(destdata.dataValues.issue_add_8)
+                const totbeforebormamayurD = parseFloat(destdata.dataValues.rcv_mayur) + mayurdiffD
+                const totafterbormamayurD = parseFloat(dest_rcv_mayur)
+
+
+                    destupdate = await rejectionModel.update(
                         {
                             rcv_peeling: sequelize.literal(`rcv_peeling+ ${peeldiffD}`),
                             issue_add_3: ((totbeforebormaD - totafterbormaD) / totbeforebormaD) * 100,
-                            issue_add_4: dest_rcv_peeling,
+
+                            rcv_mayur: sequelize.literal(`rcv_mayur+ ${mayurdiffD}`),
+                            issue_add_6: ((totbeforebormamayurD - totafterbormamayurD) / totbeforebormamayurD) * 100,
+
+                            issue_add_7: dest_rcv_peeling,
+                            issue_add_8:dest_rcv_mayur,
                             rcv_sorting: dest_rcv_sorting,
                             rcv_dpds: dest_rcv_dpds,
                             rcv_village: dest_rcv_village,
-                            rcv_mayur: dest_rcv_mayur,
-                            rcv_hamsa: dest_rcv_hamsa,
+                            rcv_bigTaiho: dest_rcv_bigTaiho,
                             rcv_lw: dest_rcv_lw,
                             rcv_wholes: dest_rcv_wholes,
                             current_backlog: dest_backlog,
@@ -925,7 +936,7 @@ export const CreateMixRejection = async (req: Request, res: Response) => {
                             Toorigin: destorigin,
                             amount: transfer_amount,
                             date: new Date(),
-                            Section: 'BigTaiho',
+                            Section: 'Rejection',
                             amountBeforeBacklog: b_soucre_backlog,
                             amountAfterBacklog: source_backlog,
                             destamountBeforeBacklog: b_dest_backlog,

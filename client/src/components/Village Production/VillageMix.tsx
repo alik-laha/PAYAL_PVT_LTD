@@ -459,8 +459,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         <TableHead className="text-center">Origin</TableHead>
                         <TableHead className="text-center">Previous Peeling </TableHead>
                     <TableHead className="text-center">Current Peeling </TableHead>
-                    <TableHead className="text-center">Previous Village </TableHead>
-                    <TableHead className="text-center">Current Village </TableHead>
+                    <TableHead className="text-center">Previous Rejection </TableHead>
+                    <TableHead className="text-center">Current Rejection </TableHead>
                
                       <TableHead className="text-center">Previous Sorting </TableHead>                     
                       <TableHead className="text-center">Current Sorting </TableHead>

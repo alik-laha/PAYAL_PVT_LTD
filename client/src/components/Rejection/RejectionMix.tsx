@@ -483,8 +483,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableCell className="text-center font-semibold text-red-500">{props.borma ?props.borma.origin:''}</TableCell>
                             <TableCell className="text-center  bg-cyan-100">{props.borma ? props.borma.issue_add_7 :0}</TableCell>
                             <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? fsourcercv_peeling:'NA'}</TableCell>
-                            <TableCell className="text-center  bg-cyan-100">{props.borma ? props.borma.rcv_village :0}</TableCell>
-                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? fsourcercv_village:'NA'}</TableCell>                   
+                            <TableCell className="text-center  bg-red-100">{props.borma ? props.borma.rcv_village :0}</TableCell>
+                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? fsourcercv_village:'NA'}</TableCell>                   
                             <TableCell className="text-center  bg-yellow-100">{props.borma ? props.borma.rcv_sorting:0}</TableCell>
                             <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? fsourcercv_sorting:'NA'}</TableCell>                           
                             <TableCell className="text-center bg-green-100 ">{props.borma? props.borma.rcv_dpds:0}</TableCell>
@@ -510,8 +510,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_peeling:'NA'}</TableCell>
                             :<TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_peelingN:'NA'}</TableCell>}
 
-<TableCell className="text-center  bg-yellow-100">{datarcv.rcv_village ? datarcv.rcv_village:''}</TableCell>
-<TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_village:'NA'}</TableCell>
+<TableCell className="text-center  bg-red-100">{datarcv.rcv_village ? datarcv.rcv_village:''}</TableCell>
+<TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_village:'NA'}</TableCell>
 
 
                             <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_sorting ?datarcv.rcv_sorting :''}</TableCell>
@@ -519,10 +519,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableCell className="text-center  bg-green-100">{datarcv.rcv_dpds ? datarcv.rcv_dpds:''}</TableCell>
                             <TableCell className="text-center bg-green-100 font-semibold ">{successflag ? destrcv_dpds:'NA'}</TableCell>
 
-                            <TableCell className="text-center  bg-cyan-100">{parseInt(datarcv.Status)===0? datarcv.rcv_mayur :datarcv.issue_add_8}</TableCell>
+                            <TableCell className="text-center  bg-red-100">{parseInt(datarcv.Status)===0? datarcv.rcv_mayur :datarcv.issue_add_8}</TableCell>
                             {parseInt(datarcv.Status)===0 ?
-                            <TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_mayur:'NA'}</TableCell>
-                            :<TableCell className="text-center bg-cyan-100 font-semibold ">{successflag ? destrcv_mayurN:'NA'}</TableCell>}
+                            <TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_mayur:'NA'}</TableCell>
+                            :<TableCell className="text-center bg-red-100 font-semibold ">{successflag ? destrcv_mayurN:'NA'}</TableCell>}
 
                             <TableCell className="text-center  bg-yellow-100">{datarcv.rcv_bigTaiho ?datarcv.rcv_bigTaiho :''}</TableCell>
                             <TableCell className="text-center bg-yellow-100 font-semibold ">{successflag ? destrcv_bigTaiho:'NA'}</TableCell>                      

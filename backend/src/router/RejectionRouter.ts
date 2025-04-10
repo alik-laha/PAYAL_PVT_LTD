@@ -5,7 +5,7 @@ import {
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import { approveRejection, CreateEntireRejection, EditRejectRejection, findEditRejectionAll, 
+import { approveRejection, CreateEntireRejection, CreateMixRejection, EditRejectRejection, findEditRejectionAll, 
       getRejectionBylotorigin, getRejectionLot, SearchRCNRejection, SearchRCNRejectionMix, sumOfallRejection, 
       updateEntireRejection} from "../controller/RejectionController/RejectionApi";
 

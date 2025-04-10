@@ -55,7 +55,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import LWEDitForm from "./LWEdit";
-import LWReissue from "./LWReissue";
+// import LWReissue from "./LWReissue";
 import LWMix from "./LWMix";
 
 
@@ -848,7 +848,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                     <p className='text-1xl pb-1 text-center mt-1'>Sorting Entry Re-issue</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            <LWReissue borma={[item]} />
+                                                            {/* <LWReissue borma={[item]} /> */}
                                                         </DialogContent>
 
                                                     </Dialog>}
