@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Origin, pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
 import Context from "../context/context";
 import axios from "axios";
-import {  RejectionData, pendingCheckRoles, PermissionRole } from "@/type/type";
+import {  pendingCheckRoles, PermissionRole, VilageData } from "@/type/type";
 import { Input } from "../ui/input";
 import { FaSearch } from "react-icons/fa";
 import { Button } from "../ui/button";
@@ -50,17 +50,19 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { CiBoxes, CiCrop, CiEdit } from "react-icons/ci";
+import { CiBoxes, CiCrop, CiEdit, CiLink } from "react-icons/ci";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
-import RejectionEDitForm from "./RejectionModify";
-import RejectionReMix from "./RejectionMix";
+import VillageGateLink from "./VillGatePassLink";
+import VillageEDitForm from "./VillageModify";
+import VillageReMix from "./VillageMix";
+// import RejectionEDitForm from "./RejectionModify";
 
 
 
 
-const RejectionTable = () => {
+const VillageTable = () => {
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
     const [fromdate, setfromDate] = useState<string>('');
@@ -69,10 +71,10 @@ const RejectionTable = () => {
     const currDate = new Date().toLocaleDateString();
     const [origin, setOrigin] = useState<string>("")
     const [blockpagen, setblockpagen] = useState('flex')
-    const [EditData, setEditData] = useState<RejectionData[]>([])
+    const [EditData, setEditData] = useState<VilageData[]>([])
     const [blConNo, setBlConNo] = useState<string>("")
-    const { editRejectionLotWiseData } = useContext(Context);
-    const [Data, setData] = useState<RejectionData[]>([])
+    const { editVillageLotWiseData } = useContext(Context);
+    const [Data, setData] = useState<VilageData[]>([])
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 
@@ -107,7 +109,7 @@ const RejectionTable = () => {
         })
     }, [page])
     const exportToExcel = async () => { 
-        const response = await axios.put('/api/rejection/rejectionprimarysearch', {
+        const response = await axios.put('/api/villageout/villageprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
@@ -118,7 +120,7 @@ const RejectionTable = () => {
         let ws
         let transformed: any[] = [];
         if (EditData.length > 0) {
-            transformed = EditData.map((item: RejectionData, idx: number) => ({
+            transformed = EditData.map((item: VilageData, idx: number) => ({
             Sl_No: idx + 1, 
             Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
             Item_Lot_No: item.LotNo,
@@ -127,28 +129,34 @@ const RejectionTable = () => {
             Rejection_Entry_Date: handletimezone(item.date),
                 Mixing_Lot: item.mixingLot,   
                 Opening_Peeling: formatNumber(item.rcv_peeling),
-                Borma_Peeling: formatNumber(item.issue_add_7),
+                Borma_Peeling: formatNumber(item.issue_add_10),
                 Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
                 Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
                 Opening_Mayur: formatNumber(item.rcv_mayur),
-                Borma_Mayur: formatNumber(item.issue_add_8),
+                Borma_Mayur: formatNumber(item.issue_add_11),
                 Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
                 Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
+                Opening_Rejection: formatNumber(item.rcv_rejection),
+                Borma_Rejection: formatNumber(item.issue_add_12),
+                Rejection_Borma_Loss_Kg: formatNumber(item.issue_add_8),
+                Rejection_Borma_Loss_Percentage: formatNumber(item.issue_add_9),
                 Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
                 Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
                 Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
                 Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
                 Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
-                Opening_Village: item.rcv_wholes ? formatNumber(item.rcv_village) : 0,
-                Receive_Total:formatNumber((parseFloat(item.issue_add_7)+parseFloat(item.issue_add_8)
+               
+                Receive_Total:formatNumber((parseFloat(item.issue_add_10)+parseFloat(item.issue_add_11)+parseFloat(item.issue_add_12)
                 +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
                 +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
-                +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0+item.rcv_village ? formatNumber(item.rcv_village) : 0).toString()),  
+                +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0).toString()),  
                 issue_packing: formatNumber(item.issue_packing),
-                issue_village: formatNumber(item.issue_village),
-                issue_uncut_unscoop: formatNumber(item.issue_uncut_unscoop),
-                issue_shell: formatNumber(item.issue_shell),
-                issue_catelfeed: formatNumber(item.issue_catelfeed),         
+                issue_mayur: formatNumber(item.issue_mayur),
+                issue_hamsa: formatNumber(item.issue_hamsa),
+                issue_bigTaiho: formatNumber(item.issue_bigTaiho),
+                issue_rejection: formatNumber(item.issue_rejection),
+                issue_outside: formatNumber(item.issue_outside),
+                GatePass_No: item.Remarks,       
                 Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
                 Labour: item.noOfdayOperators,
                 Superisor: item.noOfnightOperators,
@@ -163,45 +171,51 @@ const RejectionTable = () => {
             ws = XLSX.utils.json_to_sheet(transformed);
         }
         else {
-            transformed = data1.rcnEntries.map((item: RejectionData, idx: number) => ({
+            transformed = data1.rcnEntries.map((item: VilageData, idx: number) => ({
                 Sl_No: idx + 1, 
-                Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
-                Item_Lot_No: item.LotNo,
-                Origin: item.origin,
-                Issue_No: item.altid,
-                Rejection_Entry_Date: handletimezone(item.date),
-                    Mixing_Lot: item.mixingLot,   
-                    Opening_Peeling: formatNumber(item.rcv_peeling),
-                    Borma_Peeling: formatNumber(item.issue_add_7),
-                    Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                    Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-                    Opening_Mayur: formatNumber(item.rcv_mayur),
-                    Borma_Mayur: formatNumber(item.issue_add_8),
-                    Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
-                    Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
-                    Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-                    Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
-                    Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
-                    Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
-                    Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
-                    Opening_Village: item.rcv_wholes ? formatNumber(item.rcv_village) : 0,
-                    Receive_Total:formatNumber((parseFloat(item.issue_add_7)+parseFloat(item.issue_add_8)
-                    +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
-                    +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
-                    +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0+item.rcv_village ? formatNumber(item.rcv_village) : 0).toString()),  
-                    issue_packing: formatNumber(item.issue_packing),
-                    issue_village: formatNumber(item.issue_village),
-                    issue_uncut_unscoop: formatNumber(item.issue_uncut_unscoop),
-                    issue_shell: formatNumber(item.issue_shell),
-                    issue_catelfeed: formatNumber(item.issue_catelfeed),         
-                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
-                    Labour: item.noOfdayOperators,
-                    Superisor: item.noOfnightOperators,
-                   
+            Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
+            Item_Lot_No: item.LotNo,
+            Origin: item.origin,
+            Issue_No: item.altid,
+            Rejection_Entry_Date: handletimezone(item.date),
+                Mixing_Lot: item.mixingLot,   
+                Opening_Peeling: formatNumber(item.rcv_peeling),
+                Borma_Peeling: formatNumber(item.issue_add_10),
+                Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+                Opening_Mayur: formatNumber(item.rcv_mayur),
+                Borma_Mayur: formatNumber(item.issue_add_11),
+                Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
+                Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
+                Opening_Rejection: formatNumber(item.rcv_rejection),
+                Borma_Rejection: formatNumber(item.issue_add_12),
+                Rejection_Borma_Loss_Kg: formatNumber(item.issue_add_8),
+                Rejection_Borma_Loss_Percentage: formatNumber(item.issue_add_9),
+                Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+                Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
+                Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
+                Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
+                Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
                
-                Edit_Status: item.editStatus,
-                Created_By: item.CreatedBy,
-                Modified_By: item.modifiedBy 
+                Receive_Total:formatNumber((parseFloat(item.issue_add_10)+parseFloat(item.issue_add_11)+parseFloat(item.issue_add_12)
+                +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
+                +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
+                +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0).toString()),  
+                issue_packing: formatNumber(item.issue_packing),
+                issue_mayur: formatNumber(item.issue_mayur),
+                issue_hamsa: formatNumber(item.issue_hamsa),
+                issue_bigTaiho: formatNumber(item.issue_bigTaiho),
+                issue_rejection: formatNumber(item.issue_rejection),
+                issue_outside: formatNumber(item.issue_outside),
+                GatePass_No: item.Remarks,       
+                Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
+                Labour: item.noOfdayOperators,
+                Superisor: item.noOfnightOperators,
+               
+           
+            Edit_Status: item.editStatus,
+            Created_By: item.CreatedBy,
+            Modified_By: item.modifiedBy 
 
             }));
             // setTransformedData(transformed);
@@ -211,13 +225,13 @@ const RejectionTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Rejection_Entry_' + currDate + '.xlsx');
+        saveAs(blob, 'Village_Production_Entry_' + currDate + '.xlsx');
     }
     const handleSearch = async () => {
 
         setEditData([])
         setblockpagen('flex')
-        const response = await axios.put('/api/rejection/rejectionprimarysearch', {
+        const response = await axios.put('/api/villageout/villageprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
@@ -240,13 +254,13 @@ const RejectionTable = () => {
 
     }
     useEffect(() => {
-        if (editRejectionLotWiseData.length > 0) {
+        if (editVillageLotWiseData.length > 0) {
             //console.log(editPendingData)
-            setEditData(editRejectionLotWiseData)
+            setEditData(editVillageLotWiseData)
             setblockpagen('none')
         }
 
-    },[editRejectionLotWiseData])
+    },[editVillageLotWiseData])
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
         const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -285,21 +299,21 @@ const RejectionTable = () => {
         settoDate(nextday)
     }
  
-    const handleApprove = async (item: RejectionData) => {
-        const response = await axios.put(`/api/rejection/approveeditRejection/${item.id}/${item.LotNo}/${item.origin}`)
+    const handleApprove = async (item: VilageData) => {
+        const response = await axios.put(`/api/villageout/approveeditVillage/${item.id}/${item.LotNo}/${item.origin}`)
         const data = await response.data
-        if (data.message === "Edit Request of Rejection Entry is Approved Successfully") {
+        if (data.message === "Edit Request of Village Entry is Approved Successfully") {
 
             if (approvesuccessdialog != null) {
                 (approvesuccessdialog as any).showModal();
             }
         }
     }
-    const handleRejection = async (item: RejectionData) => {
-        const response = await axios.delete(`/api/rejection/rejectededitRejection/${item.id}/${item.LotNo}/${item.origin}`)
+    const handleRejection = async (item: VilageData) => {
+        const response = await axios.delete(`/api/villageout/rejectededitVillage/${item.id}/${item.LotNo}/${item.origin}`)
         const data = await response.data
         console.log(data)
-        if (data.message === "Rejection Entry rejected successfully") {
+        if (data.message === "Village Entry rejected successfully") {
             //console.log('rejected enter')
             if (rejectsuccessdialog != null) {
                 (rejectsuccessdialog as any).showModal();
@@ -360,7 +374,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
             </div>
-            {checkpending('Rejection') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+            {checkpending('Village') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
             <Table className="mt-4">
                 <TableHeader className="bg-neutral-200 text-stone-950 ">
 
@@ -371,7 +385,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center" >Item_Lot_No</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
                     <TableHead className="text-center" >Issue_No</TableHead>
-                    <TableHead className="text-center" >Rejection_Entry_Date</TableHead>
+                    <TableHead className="text-center" >Village_Entry_Date</TableHead>
 
                     <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
@@ -382,21 +396,27 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Receive Mayur</TableHead>
                     <TableHead className="text-center">Mayur Borma_Loss(Kg)</TableHead>
                     <TableHead className="text-center">Mayur Borma_Loss(%)</TableHead>
+                    <TableHead className="text-center">Receive Rejection</TableHead>
+                    <TableHead className="text-center">Rejection Borma_Loss(Kg)</TableHead>
+                    <TableHead className="text-center">Rejection Borma_Loss(%)</TableHead>
                     <TableHead className="text-center">Receive Peeling(Borma)</TableHead>
                     <TableHead className="text-center">Receive Mayur(Borma)</TableHead>
+                    <TableHead className="text-center">Receive Rejection(Borma)</TableHead>
                     <TableHead className="text-center">Receive Wholes</TableHead>
                     <TableHead className="text-center">Receive LW</TableHead>
                     <TableHead className="text-center">Receive DPDS</TableHead>
                     <TableHead className="text-center">Receive Sorting</TableHead>
                     <TableHead className="text-center">Receive BigTaiho</TableHead>
-                    <TableHead className="text-center">Receive Village</TableHead>
-                    <TableHead className="text-center">Rejection_Total_Opening (Borma)</TableHead>
-                    <TableHead className="text-center">Issue Village</TableHead>
+                   
+                    <TableHead className="text-center">Village_Total_Opening (Borma)</TableHead>
+                   
                     <TableHead className="text-center">Issue Packing</TableHead>
-                            <TableHead className="text-center">Issue Uncut_Unscoop</TableHead>
-                            <TableHead className="text-center">Issue Shell</TableHead>
-                            <TableHead className="text-center">Issue Catelfeed</TableHead>
-                               
+                    <TableHead className="text-center">Issue Mayur</TableHead>
+                            <TableHead className="text-center">Issue Hamsa</TableHead>
+                            <TableHead className="text-center">Issue BigTaiho</TableHead>
+                            <TableHead className="text-center">Issue Rejection</TableHead>
+                            <TableHead className="text-center">Issue Outside</TableHead>
+                           
                     {/* <TableHead className="text-center">Issue Add 1</TableHead>
                     <TableHead className="text-center">Issue Add 2</TableHead>
                     <TableHead className="text-center">Issue Add 3</TableHead>
@@ -407,11 +427,15 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue Add 8</TableHead>
                     <TableHead className="text-center">Issue Add 9</TableHead>
                     <TableHead className="text-center">Issue Add 10</TableHead> */}
-                     <TableHead className="text-center font-bold">Rejection Total_Issue(Kg)</TableHead>
+                     <TableHead className="text-center font-bold">Village Total_Issue(Kg)</TableHead>
                     {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
                     <TableHead className="text-center font-bold">Current_Backlog</TableHead>  
                     <TableHead className="text-center">No of Labour</TableHead>
                     <TableHead className="text-center">No of Supervisor</TableHead>
+                    <TableHead className="text-center">Outside_Type</TableHead>
+                            <TableHead className="text-center">Gatepass Status</TableHead>
+                            <TableHead className="text-center">Link_Gatepass_No</TableHead>
+
                
                     <TableHead className="text-center" >Edit Status </TableHead>
                     <TableHead className="text-center" >Created By </TableHead>
@@ -420,7 +444,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <TableBody>
 
 
-                    {EditData.length > 0 ? (EditData.map((item: RejectionData, idx) => {
+                    {EditData.length > 0 ? (EditData.map((item: VilageData, idx) => {
 
                         return (
                             <TableRow key={item.id}>
@@ -431,43 +455,63 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                 <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
                                 <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                <TableCell className="text-center font-semibold">{item.mixingLot}</TableCell>
+                                <TableCell className="text-center ">{item.mixingLot}</TableCell>
                                 {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
-                                <TableCell className="text-center ">{formatNumber(item.rcv_peeling)}</TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(item.rcv_peeling)}</TableCell>
                                 <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
                                 <TableCell className="text-center font-semibold  text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
                                 <TableCell className="text-center font-semibold">{formatNumber(item.rcv_mayur)}</TableCell>
                                 <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_5)} Kg</TableCell>
                                 <TableCell className="text-center font-semibold  text-red-500 ">{formatNumber(item.issue_add_6)} %</TableCell>
+                                
+                                <TableCell className="text-center font-semibold">{formatNumber(item.rcv_rejection)}</TableCell>
+                                <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_8)} Kg</TableCell>
+                                <TableCell className="text-center font-semibold  text-red-500 ">{formatNumber(item.issue_add_9)} %</TableCell>
+                                
                                 <TableCell className="text-center text-center bg-yellow-100 font-semibold">
-                                    {formatNumber(item.issue_add_7)}
+                                    {formatNumber(item.issue_add_10)}
                                 </TableCell>
                                 <TableCell className="text-center text-center bg-yellow-100 font-semibold">
-                                    {formatNumber(item.issue_add_8)}
+                                    {formatNumber(item.issue_add_11)}
+                                </TableCell>
+                                <TableCell className="text-center text-center bg-yellow-100 font-semibold">
+                                    {formatNumber(item.issue_add_12)}
                                 </TableCell>
                                 <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0}</TableCell>
                                 <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) : 0}</TableCell>
                                 <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0}</TableCell>
                                 <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0}</TableCell>
                                 <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0}</TableCell>
-                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_village ? formatNumber(item.rcv_village) : 0}</TableCell>
-                                <TableCell className="text-center font-semibold  bg-green-500 text-white">{formatNumber((parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8)
+                                <TableCell className="text-center font-semibold  bg-green-500 text-white">{formatNumber((parseFloat(item.issue_add_10)
+                                 + parseFloat(item.issue_add_11) + parseFloat(item.issue_add_12)
                                     + (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0) + (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)
                                     + (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0)
-                                    + (item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0) + (item.rcv_village ? parseFloat(item.rcv_village) : 0)).toString())
+                                    + (item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0) ).toString())
                                 } Kg</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_village)}</TableCell>
                                 <TableCell className="text-center ">{formatNumber(item.issue_packing)}</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_uncut_unscoop)}</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_shell)}</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_catelfeed)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_mayur)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_hamsa)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_bigTaiho)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_rejection)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_outside)}</TableCell>
+                               
                                 {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
                                
-                                <TableCell className="text-center font-bold bg-yellow-500 text-white ">{formatNumber((parseFloat(item.issue_village) + parseFloat(item.issue_packing)+parseFloat(item.issue_uncut_unscoop)
-                                +parseFloat(item.issue_shell) +parseFloat(item.issue_catelfeed)).toString())} Kg</TableCell>
+                                <TableCell className="text-center font-bold bg-yellow-500 text-white ">{formatNumber((parseFloat(item.issue_packing) + parseFloat(item.issue_mayur)
+                                 + parseFloat(item.issue_outside)+parseFloat(item.issue_hamsa)
+                                +parseFloat(item.issue_bigTaiho) +parseFloat(item.issue_rejection)).toString())} Kg</TableCell>
                                 <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
+                                
+                               
                                 <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                                 <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
+                                <TableCell className="text-center bg-yellow-100 font-semibold">{item.Remarks2}</TableCell>
+                                <TableCell className="text-center bg-yellow-100 ">{item.GatePassStatus === 0 ? (
+                                                <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
+                                            ) :(
+                                                <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Linked</button>
+                                            )}</TableCell>
+                                <TableCell className="text-center bg-yellow-100 ">{item.Remarks}</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
                                 <TableCell className="text-center">{item.CreatedBy}</TableCell>
 
@@ -510,7 +554,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 </TableCell>
                             </TableRow>
                         ) })): (
-                        Data.length > 0 ? (Data.map((item: RejectionData, idx) => {
+                        Data.length > 0 ? (Data.map((item: VilageData, idx) => {
                             return (
                                 <TableRow key={item.id} className={`${item.latest==1 ? '' : 'opacity-50 hover:bg-gray-200 bg-gray-200'}`}>
                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
@@ -527,37 +571,58 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableCell className="text-center font-semibold">{formatNumber(item.rcv_mayur)}</TableCell>
                                 <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_5)} Kg</TableCell>
                                 <TableCell className="text-center font-semibold  text-red-500 ">{formatNumber(item.issue_add_6)} %</TableCell>
+                                
+                                <TableCell className="text-center font-semibold">{formatNumber(item.rcv_rejection)}</TableCell>
+                                <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_8)} Kg</TableCell>
+                                <TableCell className="text-center font-semibold  text-red-500 ">{formatNumber(item.issue_add_9)} %</TableCell>
+                                
                                 <TableCell className="text-center text-center bg-yellow-100 font-semibold">
-                                    {formatNumber(item.issue_add_7)}
+                                    {formatNumber(item.issue_add_10)}
                                 </TableCell>
                                 <TableCell className="text-center text-center bg-yellow-100 font-semibold">
-                                    {formatNumber(item.issue_add_8)}
+                                    {formatNumber(item.issue_add_11)}
+                                </TableCell>
+                                <TableCell className="text-center text-center bg-yellow-100 font-semibold">
+                                    {formatNumber(item.issue_add_12)}
                                 </TableCell>
                                 <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0}</TableCell>
                                 <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) : 0}</TableCell>
                                 <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0}</TableCell>
                                 <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0}</TableCell>
                                 <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0}</TableCell>
-                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_village ? formatNumber(item.rcv_village) : 0}</TableCell>
-                                <TableCell className="text-center font-semibold  bg-green-500 text-white">{formatNumber((parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8)
+                                <TableCell className="text-center font-semibold  bg-green-500 text-white">{formatNumber((parseFloat(item.issue_add_10)
+                                 + parseFloat(item.issue_add_11) + parseFloat(item.issue_add_12)
                                     + (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0) + (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)
                                     + (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0)
-                                    + (item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0) + (item.rcv_village ? parseFloat(item.rcv_village) : 0)).toString())
+                                    + (item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0) ).toString())
                                 } Kg</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_village)}</TableCell>
                                 <TableCell className="text-center ">{formatNumber(item.issue_packing)}</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_uncut_unscoop)}</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_shell)}</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_catelfeed)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_mayur)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_hamsa)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_bigTaiho)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_rejection)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_outside)}</TableCell>
+                               
                                 {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
                                
-                                <TableCell className="text-center font-bold bg-yellow-500 text-white ">{formatNumber((parseFloat(item.issue_village) + parseFloat(item.issue_packing)+parseFloat(item.issue_uncut_unscoop)
-                                +parseFloat(item.issue_shell) +parseFloat(item.issue_catelfeed)).toString())} Kg</TableCell>
+                                <TableCell className="text-center font-bold bg-yellow-500 text-white ">{formatNumber((parseFloat(item.issue_packing) + parseFloat(item.issue_mayur)
+                                 + parseFloat(item.issue_outside)+parseFloat(item.issue_hamsa)
+                                +parseFloat(item.issue_bigTaiho) +parseFloat(item.issue_rejection)).toString())} Kg</TableCell>
                                 <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
+                                
+                               
                                 <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                                 <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
+                                <TableCell className="text-center bg-yellow-100 font-semibold">{item.Remarks2}</TableCell>
+                                <TableCell className="text-center bg-yellow-100 ">{item.GatePassStatus === 0 ? (
+                                                <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
+                                            ) :(
+                                                <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Linked</button>
+                                            )}</TableCell>
+                                <TableCell className="text-center bg-yellow-100 font-semibold ">{item.Remarks}</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
                                 <TableCell className="text-center">{item.CreatedBy}</TableCell>
+                                
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
@@ -571,10 +636,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogContent className="max-w-7xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>Rejection Entry Modification</p>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>Village Entry Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        <RejectionEDitForm borma={[item]} />
+                                                        <VillageEDitForm borma={[item]} />
                                                     </DialogContent>
                                                     
                                                 </Dialog>
@@ -603,7 +668,22 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        <RejectionReMix borma={item} />
+                                                        <VillageReMix borma={item} />
+                                                    </DialogContent>
+                                                    
+                                                </Dialog>}
+                                                 {item.GatePassStatus === 0 && <Dialog>
+                                                    <DialogTrigger className="flex"><CiLink size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Link Gatepass</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-2xl">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}
+                                                                <p className='text-1xl pb-1 text-center mt-3'>GatePass Linkage of Lot No : {item.LotNo} ({item.origin}) </p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        <VillageGateLink id={item.id}/>
                                                     </DialogContent>
                                                     
                                                 </Dialog>}
@@ -685,4 +765,4 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
 }
 
-export default RejectionTable;
+export default VillageTable;

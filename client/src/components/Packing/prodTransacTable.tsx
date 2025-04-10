@@ -367,8 +367,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             <TableHead className="text-center">Origin</TableHead>
                             <TableHead className="text-center">Final_GradeName</TableHead>
                             <TableHead className="text-center">Approval</TableHead>
-                            <TableHead className="text-center">Order_Mapping_Status (Percentage)</TableHead>
-                            <TableHead className="text-center">Order_Packing_Status (Percentage)</TableHead>
+                            <TableHead className="text-center">Order_Mapping_Status (%)</TableHead>
+                            <TableHead className="text-center">Order_Packing_Status (%)</TableHead>
                             <TableHead className="text-center">Order_Receive_Date</TableHead>
                             <TableHead className="text-center">Order_Entry_Date</TableHead>
                            
@@ -402,12 +402,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                 <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
                                             ) : (
                                                 item.ordApproveStatus === 'Approved' ? (
-                                                    <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Approved</button>
+                                                    <button className="bg-yellow-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Approved</button>
                                                 ) : (
-                                                    <p className="font-bold ">{item.ordApproveStatus}</p>
+                                                    item.ordApproveStatus!=='Closed'? <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">{ item.ordApproveStatus}</button>
+                                                    :<button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Closed</button>
                                                 )
                                             )}</TableCell>
-                                        <TableCell className="text-center">{item.ordApproveStatus !== 'Rejected' ?( item.ordMappingStatus === 0 ? (
+                                        <TableCell className="text-center">{item.ordApproveStatus !== 'Rejected'  ?( item.ordMappingStatus === 0 ? (
                                             <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
                                         ) : (
                                             
@@ -539,7 +540,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                                                         {/* Close Order */}
 
-                                                        {item.ordStatus !== 1 && item.ordMappingStatus !== 0 && item.ordApproveStatus !== 'Pending' && <AlertDialog >
+                                                        {item.ordStatus !== 1 && item.ordMappingStatus !== 0 && item.ordApproveStatus !== 'Pending' && Number(item.actualquantity) >0 && <AlertDialog >
                                                             <AlertDialogTrigger className="flex mt-2">
                                                             <FcDisapprove size={25} /> <button className="bg-transparent text-1xl pl-1 text-left hover:text-red-500" >Close Order</button>
                                                             </AlertDialogTrigger>

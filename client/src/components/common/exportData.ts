@@ -15,14 +15,14 @@ export const PermissionRol = {
         'RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
         'Receiving Agarbati Entry','Receiving Civil Entry','Receiving OilMill Entry','Receiving Village Entry',
         'RCN Incoming QC', 
-        'Grading', 'Boiling', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS','BigTaiho','Hamsa','Wholes','LW','Rejection',
+        'Grading', 'Boiling', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS','BigTaiho','Hamsa','Wholes','LW','Rejection','Village',
         'Cleaning',
         'Gatepass','Packing'],
     FactoryManager: ['Employee', 'Asset','VendorSKU', 'Store Issue',
         'RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
         'Receiving Agarbati Entry','Receiving Civil Entry','Receiving OilMill Entry','Receiving Village Entry',
         'RCN Incoming QC', 
-        'Grading', 'Boiling', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS','BigTaiho','Hamsa','Wholes','LW','Rejection',
+        'Grading', 'Boiling', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS','BigTaiho','Hamsa','Wholes','LW','Rejection','Village',
         'Cleaning',
         'Gatepass','Packing'],
     ReceivingSupervisor: ['RCN Primary Entry'],
@@ -40,16 +40,16 @@ export const PermissionRol = {
     BoilingSupervisor: ['Boiling'],
     ScoopingSupervisor: ['Scooping'],
     ProductionManager:['Grading','Boiling','Scooping','Borma','Humidifier','Peeling','Mayur','Wholes','LW','Rejection',
-        'DPDS','Hamsa','BigTaiho','Sorting','Receiving Village Entry','Packing'],
+        'DPDS','Hamsa','BigTaiho','Sorting','Receiving Village Entry','Packing','Village'],
     DeputyProductionManager : ['Borma','Humidifier','Peeling','Mayur','Wholes','LW','Rejection',
-        'DPDS','Hamsa','BigTaiho','Sorting','Receiving Village Entry'], 
+        'DPDS','Hamsa','BigTaiho','Sorting','Receiving Village Entry','Village'], 
     MaintainanceManager:['Cleaning'],
     CleaningSupervisor:['Cleaning'],
     BormaSupervisor:['Borma'],
     PeelingSupervisor:['Humidifier','Peeling','BigTaiho'],
     MayurSupervisor:['Mayur','Hamsa'],
     SortingSupervisor:['Sorting','DPDS'],
-    VillageSupervisor:['Receiving Village Entry','Rejection'],
+    VillageSupervisor:['Receiving Village Entry','Rejection','Village'],
     WholesSupervisor:['Wholes','LW'],
     Security:['Gatepass'],
     GatePassManager:['Gatepass','RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry',
@@ -124,11 +124,12 @@ export const Size = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 export const QC_Boiler = ['Boiler-1 (Old)','Boiler-2 (New)']
 export const Session_LogoutTime_Hr = 12
 export const cookingTime = ['00:07', '00:08', '00:09', '00:10', '00:11', '00:12']
-export const Origin = ["India", "Ghana", "IVC", "Benin", "Tanzania", "Nigeria", "Togo", "Guinea-Bissau", "Senegal","Guinea-Conkary"]
+export const Origin = ["India", "Ghana", "IVC", "Benin", "Tanzania", "Nigeria", "Togo", "Guinea-Bissau", "Senegal","Guinea-Conkary","Burkina-Faso"]
 export const SelectType = ["LineWise","LotWise"]
 export const SelectTypeIssue = ["ItemWise","DayWise"]
 export const prodStockSection=['Wholes','LW','Sorting','DPDS','BigTaiho','Rejection']
 export const FY=['2025-26']
+export const Village_Outside_Type=['Wholes','Pieces','BW/HW','Others','NA']
 
 export const sectionDataonTypeGate = {
     IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond','Village','Agarbati'],

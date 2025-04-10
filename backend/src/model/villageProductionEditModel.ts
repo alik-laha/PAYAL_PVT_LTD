@@ -1,11 +1,11 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig";
 
-const villageProduction = sequelize.define('villageProduction', {
+const villageProductionEdit = sequelize.define('villageProductionEdit', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement:true
+      
     },
     LotNo:{
         type: DataTypes.STRING,
@@ -168,6 +168,7 @@ const villageProduction = sequelize.define('villageProduction', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
+   
   
     entry_backlog: 
     {
@@ -194,11 +195,12 @@ const villageProduction = sequelize.define('villageProduction', {
         type:DataTypes.STRING,
         allowNull: true
     }, 
-    Remarks2: 
-    {
-        type:DataTypes.STRING,
-        allowNull: true
-    }, 
+     Remarks2: 
+        {
+            type:DataTypes.STRING,
+            allowNull: true
+        }, 
+    
     latest: 
     {
         type:DataTypes.INTEGER,
@@ -238,4 +240,4 @@ const villageProduction = sequelize.define('villageProduction', {
 
 
 });
-export default villageProduction;
+export default villageProductionEdit;

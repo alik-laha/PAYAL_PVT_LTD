@@ -8,7 +8,7 @@ import {
 
 import { approveLW, CreateEntireLW, EditRejectLW, findEditLWAll, getLWBylotorigin, 
        getLWLot,  SearchRCNLW,  sumOfallLW,
-       updateEntireLW, 
+       updateEntireLW, SearchRCNLWMix,CreateMixLW
        } from "../controller/LWController/LWApi";
 const router = express()
 
@@ -33,8 +33,8 @@ router.post("/updateLW", jwtVerify, updateEntireLW)
 router.put("/approveeditLW/:id/:LotNo/:origin", jwtVerify, approveLW);
 
 // // //LWMix.tsx
-// router.post('/lwmixsearch', jwtVerify, SearchRCNLWMix);
-// router.post('/createMixLW', jwtVerify, CreateMixLW);
+ router.post('/lwmixsearch', jwtVerify, SearchRCNLWMix);
+router.post('/createMixLW', jwtVerify, CreateMixLW);
 
 //HistoryTable.tsx
 router.put('/historySearch', jwtVerify, SearchHistory);

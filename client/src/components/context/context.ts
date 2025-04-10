@@ -15,7 +15,8 @@ import { AssetData, EditPendingData, GradingData, BoilingEntryData, Sumofpackage
      SortingData,
      WholesData,
      LWData,
-     RejectionData} from '../../type/type';
+     RejectionData,
+     VilageData} from '../../type/type';
 
 interface ContextType {
     editPendingData: EditPendingData[];
@@ -86,6 +87,9 @@ interface ContextType {
     setEditLWLotWiseData: (data: LWData[]) => void;
     editRejectionLotWiseData: RejectionData[];
     setEditRejectionLotWiseData: (data: RejectionData[]) => void;
+
+    editVillageLotWiseData: VilageData[];
+    setEditVillageLotWiseData: (data: VilageData[]) => void;
     
 }
 
@@ -158,7 +162,9 @@ const Context = createContext<ContextType>({
     editLWLotWiseData: [],
     setEditLWLotWiseData: () => {},
     editRejectionLotWiseData: [],
-    setEditRejectionLotWiseData: () => {}
+    setEditRejectionLotWiseData: () => {},
+    editVillageLotWiseData: [],
+    setEditVillageLotWiseData: () => {}
 
 });
 

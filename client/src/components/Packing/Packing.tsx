@@ -17,6 +17,8 @@ import OrderCreateForm from "./OrderCreateForm";
 import ProdTransacTable from "./prodTransacTable";
 import axios from "axios";
 import OrderMappingInitial from "./OrderMappingInitial";
+import UseQueryData from "../common/dataFetcher";
+import Loader from "../common/Loader";
 
 
 const Packing = () => {
@@ -73,6 +75,14 @@ const Packing = () => {
     }
     const [loading, setLoading] = useState(false);
 
+    const { data, error, isLoading } = UseQueryData('/api/packing/activeordercount', 'GET', 'getTtotalActvOrder')
+    if (isLoading) {
+        return <Loader/>
+    }
+    if (error) {
+        return <div>Error</div>
+    }
+
     return (
         <>
             <div>
@@ -80,6 +90,35 @@ const Packing = () => {
                 <DashboardHeader />
                 <DashboardSidebar />
                 <div className='dashboard-main-container'>
+                <div className="flexbox-header">
+                <div className="flexbox-tile bg-yellow-500 hover:bg-orange-400">
+                        Total Issued <br /><p>{data.Issued} </p>
+                    </div>
+                    <div className="flexbox-tile bg-cyan-500 hover:bg-orange-400">
+                       Completed<br /><p>{data.Completed}</p>
+                    </div>
+                    <div className="flexbox-tile bg-green-500 hover:bg-orange-400">
+                      Rejected<br /><p>{data.Rejected}</p>
+                    </div>
+                    <div className="flexbox-tile bg-lime-500 hover:bg-orange-400">
+                        Cancelled <br /><p>{data.Cancelled} </p>
+                    </div>
+                   
+                    
+                    <div className="flexbox-tile bg-purple-500 hover:bg-orange-400">
+                       Pending Approval<br /><p>{data.PendingApproval} </p>
+                    </div>
+                    <div className="flexbox-tile bg-red-500 hover:bg-orange-400">
+                        Pending Mapping<br /><p>{data.PendingMapping} </p>
+                    </div>
+                    
+                    <div className="flexbox-tile bg-purple-500 hover:bg-orange-400">
+                       Pending Packing<br /><p>{data.PendingPacking} </p>
+                    </div>
+                   
+                    
+                </div>
+                <p className='text-lg font-semibold text-center py-1 '>CURRENT F.Y. ORDER COUNT</p>
                     <div className="flex flex-row-reverse">
                         <Button className="bg-orange-600 mb-2 mr-8 responsive-button-adjust "
                             disabled={loading} onClick={handleProdStockUpdateFetch} >  {loading ? 'Updating...' : 'Update Stock'} <RxUpdate size={20} className="ml-2" /></Button>

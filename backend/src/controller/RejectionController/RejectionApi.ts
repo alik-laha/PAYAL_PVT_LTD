@@ -8,6 +8,7 @@ import villageProduction from "../../model/villageProductionModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import lotoriginmodel from "../../model/lotoriginModel";
 import WhatsappMsg from "../../helper/WhatsappMsg";
+import mixingModel from "../../model/mixingModel";
 
 // //Rejection.tsx
 export const findEditRejectionAll = async (req: Request, res: Response) => {
@@ -571,8 +572,8 @@ export const approveRejection = async (req: Request, res: Response) => {
                     issue_add_4: data.issue_add_4,
                     issue_add_5: data.issue_add_5,
                     issue_add_6: data.issue_add_6,
-                    issue_add_7: data.rcv_peelingN,
-                    issue_add_8: data.rcv_mayurN,
+                    issue_add_7: data.issue_add_7,
+                    issue_add_8: data.issue_add_8,
                     issue_add_9: data.issue_add_9,
                     issue_add_10: data.issue_add_10, 
                     entry_backlog:data.entry_backlog,
@@ -718,4 +719,253 @@ export const EditRejectRejection = async (req: Request, res: Response) => {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error", error: err });
     }
+}
+
+export const SearchRCNRejectionMix = async (req: Request, res: Response) => {
+    try {
+        const { lotNo, origin} = req.body;
+       
+        let whereClause = [];
+
+        // Conditionally add parameters to the whereClause
+        if (lotNo) {
+            whereClause.push({
+                LotNo: lotNo
+            });
+        }
+     
+        if (origin) {
+            whereClause.push({
+                origin: {
+                    [Op.like]: `%${origin}%`
+                }
+            });
+        }
+        whereClause.push({
+            latest: {
+                [Op.eq]: 1
+            }
+        });
+  
+        // Convert the array to an object for the where condition
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+        let rcnEntries
+        
+             rcnEntries = await rejectionModel.findOne({
+                attributes: ['id','current_backlog','rcv_dpds','rcv_sorting','rcv_bigTaiho','rcv_village','rcv_peeling',
+                    'rcv_mayur','rcv_lw','rcv_wholes','editStatus','Status','issue_add_7','issue_add_8'],
+                where
+                
+                
+            });
+        
+        
+       
+        return res.status(200).json({ message: 'Mix Entry found', rcnEntries })
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: 'Internal server error', error: err })
+    }
+ 
+}
+
+export const CreateMixRejection = async (req: Request, res: Response) => {
+
+    try {
+        console.log(req.body)
+        const createdBy = req.cookies.user;
+        const sourceid = req.body.fsourceid;
+        const sourcelot = req.body.fsourcelot;
+        const sourceorigin = req.body.fsourceorigin;
+        const source_rcv_peeling = req.body.fsourcercv_peeling;
+        const source_rcv_sorting = req.body.fsourcercv_sorting;
+        const source_rcv_dpds = req.body.fsourcercv_dpds;
+        const source_rcv_village = req.body.fsourcercv_village;
+        const source_rcv_mayur = req.body.fsourcercv_mayur;
+        const source_rcv_bigTaiho = req.body.fsourcercv_bigTaiho;
+        const source_rcv_lw = req.body.fsourcercv_lw;
+        const source_rcv_wholes = req.body.fsourcercv_wholes;
+        const destrcv_status = req.body.destrcv_status;
+
+        const source_backlog = req.body.fsourcebacklog;
+
+        const transfer_amount = req.body.amount
+
+        const destid = req.body.destid;
+        const destlot = req.body.destlot;
+        const destorigin = req.body.destorigin;
+        const dest_rcv_peeling = req.body.destrcv_peeling;
+        const dest_rcv_sorting = req.body.destrcv_sorting;
+        const dest_rcv_dpds = req.body.destrcv_dpds;
+        const dest_rcv_village = req.body.destrcv_village;
+        const dest_rcv_mayur = req.body.destrcv_mayur;
+        const dest_rcv_bigTaiho = req.body.destrcv_bigTaiho;
+        const dest_rcv_lw = req.body.destrcv_lw;
+        const dest_rcv_wholes = req.body.destrcv_wholes;
+
+        const dest_backlog = req.body.destbacklog;
+
+        const b_soucre_backlog = req.body.bsourcebacklog;
+        const b_dest_backlog = req.body.bdestbacklog;
+
+
+        await sequelize.transaction(async (transaction: any) => {
+
+            const sourcedata = await rejectionModel.findOne({
+                attributes: ['rcv_mayur', 'issue_add_7','rcv_peeling', 'issue_add_8'],
+                where: {
+                    id: sourceid
+                },
+            });
+
+            let sourceupdate
+            if (sourcedata) {
+                const peeldiff = parseFloat(sourcedata.dataValues.issue_add_7) - parseFloat(source_rcv_peeling)
+                const totbeforeborma = parseFloat(sourcedata.dataValues.rcv_peeling) - peeldiff
+                const totafterborma = parseFloat(source_rcv_peeling)
+
+                const mayurdiff = parseFloat(sourcedata.dataValues.issue_add_8) - parseFloat(source_rcv_mayur)
+                const totbeforebormamayur = parseFloat(sourcedata.dataValues.rcv_mayur) - mayurdiff
+                const totafterbormamayur = parseFloat(source_rcv_mayur)
+
+                sourceupdate = await rejectionModel.update(
+                    {
+                        rcv_peeling: sequelize.literal(`rcv_peeling- ${peeldiff}`),
+                        issue_add_3: ((totbeforeborma - totafterborma) / totbeforeborma) * 100,
+                        rcv_mayur: sequelize.literal(`rcv_mayur- ${mayurdiff}`),
+                        issue_add_6: ((totbeforebormamayur - totafterbormamayur) / totbeforebormamayur) * 100,
+
+                        issue_add_7: source_rcv_peeling,
+                        issue_add_8: source_rcv_mayur,
+                        rcv_sorting: source_rcv_sorting,
+                        rcv_dpds: source_rcv_dpds,
+                        rcv_village: source_rcv_village,
+                        rcv_bigTaiho: source_rcv_bigTaiho,
+                   
+                        rcv_lw: source_rcv_lw,
+                        rcv_wholes: source_rcv_wholes,
+                        current_backlog: source_backlog,
+                    },
+                    {
+                        where: {
+                            id: sourceid
+                        }, transaction
+                    }
+                );
+            }
+            const destdata = await rejectionModel.findOne({
+                attributes: ['mixingLot', 'rcv_mayur', 'issue_add_7','rcv_peeling', 'issue_add_8'],
+                where: {
+                    id: destid
+
+                },
+
+            });
+
+            if (destdata) 
+            {
+                let destupdate
+                if (Number(destrcv_status) === 0) {
+                    destupdate = await rejectionModel.update(
+                        {
+                            rcv_peeling: dest_rcv_peeling,
+                            rcv_sorting: dest_rcv_sorting,
+                            rcv_dpds: dest_rcv_dpds,
+                            rcv_village: dest_rcv_village,
+                            rcv_mayur: dest_rcv_mayur,
+                            rcv_bigTaiho: dest_rcv_bigTaiho,
+                            rcv_lw: dest_rcv_lw,
+                            rcv_wholes: dest_rcv_wholes,
+                            current_backlog: dest_backlog,
+                            mixingLot: destdata.dataValues.mixingLot ?
+                                sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`) : `${sourcelot}(${sourceorigin})`,
+                        },
+                        {
+                            where: {
+                                id: destid
+                            }, transaction
+                        }
+                    );
+                }
+                else {
+                    const peeldiffD = parseFloat(dest_rcv_peeling) - parseFloat(destdata.dataValues.issue_add_7)
+                    const totbeforebormaD = parseFloat(destdata.dataValues.rcv_peeling) + peeldiffD
+                    const totafterbormaD = parseFloat(dest_rcv_peeling)
+
+                    const mayurdiffD =  parseFloat(dest_rcv_mayur)-parseFloat(destdata.dataValues.issue_add_8)
+                const totbeforebormamayurD = parseFloat(destdata.dataValues.rcv_mayur) + mayurdiffD
+                const totafterbormamayurD = parseFloat(dest_rcv_mayur)
+
+
+                    destupdate = await rejectionModel.update(
+                        {
+                            rcv_peeling: sequelize.literal(`rcv_peeling+ ${peeldiffD}`),
+                            issue_add_3: ((totbeforebormaD - totafterbormaD) / totbeforebormaD) * 100,
+
+                            rcv_mayur: sequelize.literal(`rcv_mayur+ ${mayurdiffD}`),
+                            issue_add_6: ((totbeforebormamayurD - totafterbormamayurD) / totbeforebormamayurD) * 100,
+
+                            issue_add_7: dest_rcv_peeling,
+                            issue_add_8:dest_rcv_mayur,
+                            rcv_sorting: dest_rcv_sorting,
+                            rcv_dpds: dest_rcv_dpds,
+                            rcv_village: dest_rcv_village,
+                            rcv_bigTaiho: dest_rcv_bigTaiho,
+                            rcv_lw: dest_rcv_lw,
+                            rcv_wholes: dest_rcv_wholes,
+                            current_backlog: dest_backlog,
+                            mixingLot: destdata.dataValues.mixingLot ?
+                                sequelize.literal(`CONCAT(mixingLot,'${sourcelot}(${sourceorigin})')`) : `${sourcelot}(${sourceorigin})`,
+                        },
+                        {
+                            where: {
+                                id: destid
+                            }, transaction
+                        }
+                    );
+
+                }
+
+                if (sourceupdate && destupdate) {
+                    const mixcreate = await mixingModel.create(
+                        {
+                            FromLotNo: sourcelot,
+                            Fromorigin: sourceorigin,
+                            ToLotNo: destlot,
+                            Toorigin: destorigin,
+                            amount: transfer_amount,
+                            date: new Date(),
+                            Section: 'Rejection',
+                            amountBeforeBacklog: b_soucre_backlog,
+                            amountAfterBacklog: source_backlog,
+                            destamountBeforeBacklog: b_dest_backlog,
+                            destamountAfterBacklog: dest_backlog,
+                            createdBy: createdBy,
+                        },
+                        {
+                            transaction
+                        }
+                    );
+                    if (mixcreate) {
+                        return res.status(200).json({ message: "Mixing Performed Successfully" });
+
+                    }
+                    else {
+                        return res.status(500).json({ message: "Internal Server Error" });
+                    }
+                }
+                else {
+                    return res.status(500).json({ message: "Internal Server Error" });
+                }
+            }
+        })
+
+
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
 }

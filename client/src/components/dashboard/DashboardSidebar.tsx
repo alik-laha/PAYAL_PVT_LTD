@@ -20,7 +20,7 @@ import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { FaUserTie, FaWater, FaSortAmountDownAlt ,FaAcquisitionsIncorporated } from "react-icons/fa";
 import { PiPackageLight, PiWashingMachineLight } from "react-icons/pi";
-import { GiBoilingBubbles, GiIceCreamScoop, GiGate, GiPillDrop ,GiBoxingRing,GiVendingMachine, GiBoxUnpacking } from "react-icons/gi";
+import { GiBoilingBubbles, GiIceCreamScoop, GiGate, GiPillDrop ,GiBoxingRing,GiVendingMachine, GiBoxUnpacking, GiVillage } from "react-icons/gi";
 import { AiFillCodeSandboxSquare, AiOutlineProduct } from "react-icons/ai";
 import { CiPill } from "react-icons/ci";
 import { GrEject } from "react-icons/gr";
@@ -313,14 +313,31 @@ const DashboardSidebar = () => {
                                 {renderlink('Wholes')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Wholes" >
-                                        <p className="flex"> <CiPill size={20} /><p className="pl-3">  Wholes Grading</p></p>
+                                        <p className="flex"> <CiPill size={20} /><p className="pl-3">  Wholes Grade</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
                                 {renderlink('LW')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/LW" >
-                                        <p className="flex"> <GiPillDrop  size={20} /><p className="pl-3">  Lower Grading</p></p>
+                                        <p className="flex"> <GiPillDrop  size={20} /><p className="pl-3">  Lower Grade</p></p>
+                                    </NavLink>
+                                </CollapsibleContent>}
+
+                                {renderlink('Receiving Village Entry')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/RcvVillage" >
+
+                                        <p className="flex"> <MdHolidayVillage size={20} /><p className="pl-3">  Village Logistics </p></p>
+
+                                    </NavLink>
+
+                                </CollapsibleContent>}
+
+                                {renderlink('Village')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/VIllage" >
+                                        <p className="flex"> <GiVillage size={20} /><p className="pl-3">Village</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -331,6 +348,8 @@ const DashboardSidebar = () => {
                                     </NavLink>
                                 </CollapsibleContent>}
 
+                                
+
 
                                 {renderlink('Packing')
                                 && <CollapsibleContent className="Items-pvt">
@@ -339,15 +358,7 @@ const DashboardSidebar = () => {
                                     </NavLink>
                                 </CollapsibleContent>}
 
-                            {renderlink('Receiving Village Entry')
-                                && <CollapsibleContent className="Items-pvt">
-                                    <NavLink to="/dashboard/RcvVillage" >
-
-                                        <p className="flex"> <MdHolidayVillage size={20} /><p className="pl-3">  Village Gatepass </p></p>
-
-                                    </NavLink>
-
-                                </CollapsibleContent>}
+                        
                         </Collapsible>}
 
                     {rendersection('Quality') && <Collapsible >

@@ -44,6 +44,7 @@ import Wholes from './components/Wholes/Wholes'
 import LW from './components/LW/LW'
 import Rejection from './components/Rejection/Rejection'
 import Packing from './components/Packing/Packing'
+import Village from './components/Village Production/Village'
 
 
 
@@ -267,6 +268,13 @@ function App() {
       <Route element={<Private allowedRoles={['Director', 'FactoryManager',
           'WholesSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
           <Route path='/dashboard/LW' element={<LW />} />
+
+        </Route>
+
+           {/*Production Village Out  */}
+      <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+          'VillageSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
+          <Route path='/dashboard/Village' element={<Village />} />
 
         </Route>
 
