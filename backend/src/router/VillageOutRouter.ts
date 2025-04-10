@@ -7,7 +7,7 @@ import {
       } from "../controller/mayurController/mayurapi";
 import { approveRejection, EditRejectRejection, 
       updateEntireRejection} from "../controller/RejectionController/RejectionApi";
-import { approveVillage, CreateEntireVillage, EditRejectVillage, findEditVillageAll, GatedataFind, getVillageBylotorigin, getVillageLot, linkGatePass, SearchRCNVillage, sumOfallVillage, updateEntireVIllage } from "../controller/Village Controller/VillageApi";
+import { approveVillage, CreateEntireVillage, CreateMixVillage, EditRejectVillage, findEditVillageAll, GatedataFind, getVillageBylotorigin, getVillageLot, linkGatePass, SearchRCNVillage, SearchRCNVillageMix, sumOfallVillage, updateEntireVIllage } from "../controller/Village Controller/VillageApi";
 
 
 const router = express()
@@ -35,8 +35,8 @@ router.delete('/rejectededitVillage/:id/:LotNo/:origin', jwtVerify, EditRejectVi
 router.put("/approveeditVillage/:id/:LotNo/:origin", jwtVerify, approveVillage);
 
 // // //LWMix.tsx
-// router.post('/lwmixsearch', jwtVerify, SearchRCNLWMix);
-// router.post('/createMixLW', jwtVerify, CreateMixLW);
+ router.post('/villagemixsearch', jwtVerify, SearchRCNVillageMix);
+ router.post('/createMixVillage', jwtVerify, CreateMixVillage);
 
 //HistoryTable.tsx
 router.put('/historySearch', jwtVerify, SearchHistory);
