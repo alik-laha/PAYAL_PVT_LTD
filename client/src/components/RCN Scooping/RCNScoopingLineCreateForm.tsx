@@ -311,6 +311,7 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         rows[index] = newRows[index]
         if(rows[index].Transfer_Qty>rows[index].Receiving_Qty){
             rows[index].Opening_Qty-= rows[index].Transfer_Qty-rows[index].Receiving_Qty
+            handleRowChange(index,'Opening_Qty',rows[index].Opening_Qty)
             rows[index].Receiving_Qty=0
         }
         else{

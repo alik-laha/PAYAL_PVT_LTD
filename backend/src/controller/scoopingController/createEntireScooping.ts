@@ -65,6 +65,7 @@ const CreateEntireScooping = async (req: Request, res: Response) => {
             }
             await RcnScooping.update(
                 {
+                    Opening_Qty:data.Opening_Qty,
                     Receiving_Qty: data.Receiving_Qty,
                     date: data.Date,
                     Wholes: data.Wholes,
