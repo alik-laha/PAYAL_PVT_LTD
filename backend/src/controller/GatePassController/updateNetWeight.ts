@@ -135,7 +135,7 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 }
                 
             }
-            if (section==='Village') {
+            if (section==='Village' && type==='OUT') {
 
                 const generalupdate = await RcvVillageModel.update(
                     { 

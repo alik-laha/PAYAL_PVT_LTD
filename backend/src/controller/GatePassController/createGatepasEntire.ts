@@ -129,7 +129,7 @@ try{
                             }
                             
                         }
-                        if (data.section==='Village') {
+                        if (data.section==='Village' && data.type==='OUT') {
                             const generalEntry = await RcvVillageModel.create({
                                 gatePassNo: gatepassNo,
                                 recevingDate: data.Date,

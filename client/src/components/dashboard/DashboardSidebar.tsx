@@ -328,7 +328,7 @@ const DashboardSidebar = () => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/RcvVillage" >
 
-                                        <p className="flex"> <MdHolidayVillage size={20} /><p className="pl-3">  Village Logistics </p></p>
+                                        <p className="flex"> <MdHolidayVillage size={20} /><p className="pl-3">  Village Logistics Out</p></p>
 
                                     </NavLink>
 

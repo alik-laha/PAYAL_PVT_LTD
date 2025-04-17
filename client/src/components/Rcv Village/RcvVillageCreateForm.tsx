@@ -2,7 +2,7 @@ import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 
 import { Button } from "../ui/button"
-import { useState, useRef, useEffect } from "react"
+import { useState, useEffect } from "react"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import axios from "axios"
@@ -28,9 +28,10 @@ interface SectionRowData{
    // vendorName:string;
     quantity:number;
     type:string;
-
+    vendorN:string
     remarks:string;
     totalWt:number;
+    invoice:string;
 
 }
 const RcvVillagePrimaryEntry = (props:Props) => {
@@ -40,7 +41,7 @@ const RcvVillagePrimaryEntry = (props:Props) => {
    // const [skudata, setSkuData] = useState<SkuData[]>([])
     const [vendorData, setVendorData] = useState<VendorData[]>([])
    // const quantityRef = useRef<HTMLInputElement>(null)
-    const invoiceref = useRef<HTMLInputElement>(null)
+   // const invoiceref = useRef<HTMLInputElement>(null)
     const [id, setId] = useState<number>()
     const [date, setDate] = useState<string>('')
     const [gateType, setgateType] = useState<string>('')
@@ -48,7 +49,7 @@ const RcvVillagePrimaryEntry = (props:Props) => {
     const [grossWt, setGrossWt] = useState<string>('')
     const [truck, settruck] = useState<string>('')
     //const [actvindex,setActvindex]=useState<number>()
-    const [VendorName, setVendorName] = useState<string>('')
+    //const [VendorName, setVendorName] = useState<string>('')
     const [sku,setsku]=useState<findskutypeData[]>([])
 
     useEffect(() => {  
@@ -63,7 +64,7 @@ const RcvVillagePrimaryEntry = (props:Props) => {
         
     }, [props.rcn[0]]);
 
-    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',quantity:0,remarks:'',totalWt:0}
+    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',quantity:0,remarks:'',totalWt:0,vendorN:'',invoice:''}
     ]);
 
     const handleRowChange = (index:number,field:string,fieldvalue:string) => {
@@ -72,7 +73,7 @@ const RcvVillagePrimaryEntry = (props:Props) => {
         setRows(newRows)
     }
     const addRow2 = () => {
-        setRows([...rows,{sku:'',type:'',quantity:0,remarks:'',totalWt:0}])
+        setRows([...rows,{sku:'',type:'',quantity:0,remarks:'',totalWt:0,vendorN:'',invoice:''}])
     }
 
     const deleteRow = (index:number) =>{
@@ -108,7 +109,7 @@ const RcvVillagePrimaryEntry = (props:Props) => {
 
     const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
-        const invoice=invoiceref.current?.value
+        //const invoice=invoiceref.current?.value
          
         const formData = rows.map(row => ({
                 GatePassNo: gatepass,
@@ -116,8 +117,8 @@ const RcvVillagePrimaryEntry = (props:Props) => {
                 TruckNo: truck,
                 gateType:gateType,
                 GrossWt: grossWt,          
-                invoice:invoice,
-                vendorName:VendorName, 
+                //invoice:invoice,
+                //vendorName:VendorName, 
                 ...row
         }))
         setisdisable(true)
@@ -242,11 +243,11 @@ const RcvVillagePrimaryEntry = (props:Props) => {
         
 // }
 
-
-    const handleVendorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        //handleRowChange(index,'vendorName',e.target.value)
-        setVendorName(e.target.value)
-        //setActvindex(index)
+    const [actvindex,setActvindex]=useState<number>()
+    const handleVendorChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+        handleRowChange(index,'vendorN',e.target.value)
+        //setVendorName(e.target.value)
+        setActvindex(index)
         if (e.target.value.length > 0 && vendorData.length > 0) {
             setVendorNameView("block")
         } else {
@@ -272,9 +273,9 @@ const RcvVillagePrimaryEntry = (props:Props) => {
             })
     }
 
-    const handleVendoridClick = (item: VendorData) => {
-        setVendorName(item.vendorName)
-        //handleRowChange(index,'vendorName',item.vendorName)
+    const handleVendoridClick = (index:number,item: VendorData) => {
+        //setVendorName(item.vendorName)
+        handleRowChange(index,'vendorN',item.vendorName)
         setVendorNameView("none")
     }
 
@@ -321,13 +322,13 @@ const RcvVillagePrimaryEntry = (props:Props) => {
                 
                 <div className="flex"><Label className="w-2/4  pt-2">Vehicle No.</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="Vehicle No" value={truck}  readOnly /> </div> 
-                <div className="flex"><Label className="w-2/4  pt-2">Document No</Label>
-                <Input className="w-2/4 text-center" placeholder="Doc No" required  ref={invoiceref} /> </div>
+                {/* <div className="flex"><Label className="w-2/4  pt-2">Document No</Label>
+                <Input className="w-2/4 text-center" placeholder="Doc No" required  ref={invoiceref} /> </div> */}
 
                 
-                <div className="flex "><Label className="w-2/4  pt-2">{gateType==='IN'? 'Vendor':'Party'} Name</Label>
+                {/* <div className="flex "><Label className="w-2/4  pt-2">{gateType==='IN'? 'Vendor':'Party'} Name</Label>
                 <div className="w-2/4">
-                <Input className="justify-center text-center" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} /> 
+                <Input className="justify-center text-center" placeholder="Name" required value={VendorName} onChange={(e)=>{handleVendorChange(e)}} />  
                 <ScrollArea className="max-h-24 w-1/3 overflow-y-scroll dropdown-content" style={{ display: vendorNameView,position:'fixed'}}>
                                                     {
                                                         vendorData.map((item: VendorData) => (
@@ -336,12 +337,12 @@ const RcvVillagePrimaryEntry = (props:Props) => {
                                                             </div>
                                                         ))
                                                     }
-                                                </ScrollArea>
+                                                </ScrollArea> 
                 </div>
                 
      
                                                    
-                </div>  
+                </div>   */}
                        
 
                 </div>
@@ -352,6 +353,9 @@ const RcvVillagePrimaryEntry = (props:Props) => {
                         <TableHeader className="bg-neutral-100 text-stone-950" >
                             <TableHead className="text-center" >Sl. No.</TableHead>
                             <TableHead className="text-center" >Item_Type</TableHead>
+                            <TableHead className="text-center" >Party_Name</TableHead>
+                            <TableHead className="text-center" >Invoice No</TableHead>
+                          
                             <TableHead className="text-center" >Item_Name</TableHead>
                             <TableHead className="text-center" >Qty/Bucket</TableHead>   
                             <TableHead className="text-center" >Weight(Kg)</TableHead>
@@ -364,6 +368,7 @@ const RcvVillagePrimaryEntry = (props:Props) => {
                                     <TableBody>
                                         <TableRow key={index} className="boiling-row-height">
                                             <TableCell>{index + 1}</TableCell>
+                                           
                                             <TableCell className="text-center " >
                                             <select className="text-center flex h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
@@ -382,16 +387,39 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                     ) : null}
                                                 </select>
                                             </TableCell>
+                                            <TableCell className="text-center" >
+                                                <Input value={row.vendorN} placeholder="Party Name"
+                                                    onChange={(e) => handleVendorChange(index, e)} required />
+                                                {actvindex === index && <ScrollArea className="max-h-24 w-auto overflow-scroll  dropdown-content" style={{ display: vendorNameView }}>
+                                                    {
+                                                        vendorData.map((item: VendorData) => (
+                                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick(index, item)}>
+                                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.vendorName}</p>
+
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </ScrollArea>}
+                                            </TableCell>
+                                            <TableCell className="text-center w-30" >
+                                          
+                                                <Input value={row.invoice} placeholder="invoice"  onChange={(e) => {
+                                                        handleRowChange(index, 'invoice', e.target.value)
+                                                    }} /> 
+                                            </TableCell>
+
+
+                                          
 
 
                                             <TableCell className="text-center " >
-                                            <select className="text-center flex h-8 rounded-md border border-input bg-background 
+                                            <select className="text-center flex w-90 h-8 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'sku', e.target.value)}
                                                     value={row.sku} required>
                                                     <option value="" disabled className="relative flex  cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent 
-    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Name</option>
+    focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">Item Name</option>
                                                     {/* {GatePassSection.map((item: any,idx:number) => (
         <option key={idx} value={item}>{item}</option>
     ))} */}
