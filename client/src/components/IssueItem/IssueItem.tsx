@@ -19,11 +19,14 @@ import IssueCreateForm from "./IssueCreate";
 import IssueTable from "./IssueTable";
 import { RxUpdate } from "react-icons/rx";
 import { LuDownload } from "react-icons/lu";
+import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
 
 const IssueItem = () => {
 
     const [loading, setLoading] = useState(false);
     const { setEditPendiningIssueItemData } = useContext(Context)
+    const currDate = new Date().toLocaleDateString();
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {
         
@@ -56,9 +59,34 @@ const IssueItem = () => {
                 console.log(err)
             })
     }
+    function formatNumber(num: string) {
+        return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
+    }
 
     const exportToExcel = async () => {
-        axios.get('/api/vendorSKU/skuexceldata')
+        const response = await axios.get('/api/vendorSKU/skuexceldata')
+        const data1 = await response.data
+        let ws
+        let transformed: any[] = [];
+
+        transformed = data1.data.map((item: any, idx: number) => ({
+            Sl_No: idx + 1,
+           
+            Item_Name: item.sku,
+            // In_Qty: formatNumber(item.quantity),
+            // In_Backlog_Qty: formatNumber(item.thresoldquantity),
+            Receive_Qty: Number(formatNumber(item.thresoldquantity))+Number(formatNumber(item.quantity)),
+            Issue_Qty: item.consumedquantity,
+            Backlog_Qty:(Number(formatNumber(item.thresoldquantity))+Number(formatNumber(item.quantity)))-item.consumedquantity,
+        }));
+        // setTransformedData(transformed);
+        ws = XLSX.utils.json_to_sheet(transformed);
+
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'Stock_Backlog_' + currDate + '.xlsx');
     }
 
     const handleStockUpdateFetch = async () => {
