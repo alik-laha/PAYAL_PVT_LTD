@@ -103,7 +103,7 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 }
                 
             }
-            if (section==='Village') {
+            if (section==='Village' && type==='OUT') {
 
                 const pmdelete=await RcvVillageModel.destroy({
                     where: {

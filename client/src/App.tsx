@@ -45,6 +45,7 @@ import LW from './components/LW/LW'
 import Rejection from './components/Rejection/Rejection'
 import Packing from './components/Packing/Packing'
 import Village from './components/Village Production/Village'
+import RcvVillageIn from './components/Rcv Village In/RcvVillageIn'
 
 
 
@@ -153,9 +154,14 @@ function App() {
           <Route path="/dashboard/AgarbatiPrimary" element={<Agarbati />} />
         </Route>
 
-        {/* Receiving Village */}
+        {/* Receiving Village Out*/}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'DeputyProductionManager','VillageSupervisor', 'GatePassManager', 'ProductionManager']} />}>
           <Route path="/dashboard/RcvVillage" element={<RcvVillage />} />
+        </Route>
+
+        {/* Receiving Village In*/}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'DeputyProductionManager','VillageSupervisor', 'GatePassManager', 'ProductionManager']} />}>
+          <Route path="/dashboard/RcvVillageIn" element={<RcvVillageIn />} />
         </Route>
 
         {/* Receiving OilMill */}

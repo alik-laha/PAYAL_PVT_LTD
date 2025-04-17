@@ -334,12 +334,24 @@ const DashboardSidebar = () => {
 
                                 </CollapsibleContent>}
 
+                                {renderlink('Receiving Village Entry')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/RcvVillageIn" >
+
+                                        <p className="flex"> <MdHolidayVillage size={20} /><p className="pl-3">  Village Logistics In</p></p>
+
+                                    </NavLink>
+
+                                </CollapsibleContent>}
+
                                 {renderlink('Village')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/VIllage" >
                                         <p className="flex"> <GiVillage size={20} /><p className="pl-3">Village</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
+
+                                
 
                                 {renderlink('Rejection')
                                 && <CollapsibleContent className="Items-pvt">

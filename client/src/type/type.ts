@@ -1594,12 +1594,8 @@ export interface rcvVillageprimaryData {
     sku: string;
     vendorName: string;
     quantity: string;
-
-
-
     invoice:string;
     createdBy: string;
-  
     editStatus: string;
     approvedBy: string;
     truckNo: string;
@@ -1608,10 +1604,64 @@ export interface rcvVillageprimaryData {
     gatePassNo:string;
     grossWt: string;
     totalWt:string;
-
     remarks:string;
     gateType:string;
 }
+
+export interface rcvVillageInprimaryData {
+    id: number;
+    gateType: string;
+    recevingDate: string;
+    truckNo: string;
+    invoice: string | null;
+    sku: string | null;
+    type: string | null;
+    vendorName: string | null;
+    origin: string | null;
+    quantity: string | null;
+
+    wholes_quantity: string | null;
+    wholes_prcntg: string | null;
+
+    lw_quantity: string | null;
+    lw_prcntg: string | null;
+
+    jb_quantity: string | null;
+    jb_prcntg: string | null;
+
+    jbp_quantity: string | null;
+    jbp_prcntg: string | null;
+
+    sdp_quantity: string | null;
+    sdp_prcntg: string | null;
+
+    husk_quantity: string | null;
+    husk_prcntg: string | null;
+
+    pieces_quantity: string | null;
+    pieces_prcntg: string | null;
+
+    dp_quantity: string | null;
+    dp_prcntg: string | null;
+
+    e1_quantity: string | null;
+    e1_prcntg: string | null;
+
+    e2_quantity: string | null;
+    e2_prcntg: string | null;
+
+    editStatus: string;
+    createdBy: string | null;
+    approvedBy: string | null;
+    status: number;
+    netWeight: string | null;
+    gatePassNo: string;
+    grossWt: string;
+    remarks: string | null;
+    totalWt: string | null;
+}
+
+
 export interface generalprimaryData {
     id: number;
     type:string;
@@ -1650,6 +1700,11 @@ export interface sumofRcvVillagePrimary {
     sumofRcvVillagePrimary: number;
     RcvVillagePrimary: number;
 }
+export interface sumofRcvVillageInPrimary {
+    sumofRcvVillageInPrimary: number;
+    RcvVillageInPrimary: number;
+}
+
 export interface sumofGeneralPrimary {
     sumofGeneralPrimary: number;
     GeneralPrimary: number;

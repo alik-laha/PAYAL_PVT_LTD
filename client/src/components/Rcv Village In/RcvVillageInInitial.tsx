@@ -19,20 +19,21 @@ import {
 
 import axios from "axios";
 import { useState } from "react";
-import {  rcvVillageprimaryData } from "@/type/type";
-import RcvVillagePrimaryEntry from "./RcvVillageCreateForm";
+import {  rcvVillageInprimaryData } from "@/type/type";
+import RcvVillageInPrimaryEntry from "./RcvVillageInCreate";
+
 
 interface lotPropsdata{
     gatePassNo:string;
 }
 
-const RcvVillageInitial = (props: any) => {
-    const [rcnData, setrcnData]  = useState<rcvVillageprimaryData[]>([])
+const RcvVillageInInitial = (props: any) => {
+    const [rcnData, setrcnData]  = useState<rcvVillageInprimaryData[]>([])
 
     //let scoopdata:ScoopData[]=[]
     console.log(props)
     const handleLineEntry = async (gatePassNo:string) => {
-        axios.get(`/api/rcvVillage/getRcvVillageByGatePass/${gatePassNo}`).then(res=>{
+        axios.get(`/api/rcvVillageIn/getRcvVillageInByGatePass/${gatePassNo}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.rcnmainLot)){
             //scoopdata=res.data.scoopingLot
@@ -76,10 +77,10 @@ const RcvVillageInitial = (props: any) => {
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} >+ Add </Button></DialogTrigger>
                                              <DialogContent style={{display:'block'}} className='max-w-6xl'>
                                                     <DialogHeader >
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Village Dispatch Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Village Receiving Entry</p></DialogTitle>
 
                                                     </DialogHeader>
-                                                <RcvVillagePrimaryEntry rcn={rcnData}/>
+                                                <RcvVillageInPrimaryEntry rcn={rcnData}/>
                                               
                                                 </DialogContent>
                                             </Dialog>
@@ -109,4 +110,4 @@ const RcvVillageInitial = (props: any) => {
 
 
 }
-export default RcvVillageInitial
+export default RcvVillageInInitial

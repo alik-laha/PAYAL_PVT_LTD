@@ -151,7 +151,7 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
                     return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
                 }          
             }
-            if (section === 'Village' ) {
+            if (section === 'Village' && type === 'OUT') {
                 const generalupdate = await RcvVillageModel.update(
                     {
                         grossWt: grossWt,
@@ -260,7 +260,7 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
                         return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
     
                     }
-                    if (section === 'Village'){
+                    if (section === 'Village' && type === 'OUT'){
                         const data = await WpMsgGatePassRcv("Village", gatepassNo,"gatepass_modify",feeledBy)
                         console.log(data)
                         return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });

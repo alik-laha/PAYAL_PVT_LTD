@@ -17,7 +17,8 @@ import { AssetData, EditPendingData, GradingData, BoilingEntryData, Sumofpackage
      WholesData,
      LWData,
      RejectionData,
-     VilageData} from "../../type/type";
+     VilageData,
+     sumofRcvVillageInPrimary} from "../../type/type";
 
 interface ContextProviderProps {
     children: ReactNode;
@@ -42,6 +43,7 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     const [searchType, setSearchType] = useState<string>('LotWise')
     const [StorePrimaryOverView, setStorePrimaryOverView] = useState<sumofStorePrimary | null>(null)
     const [RcvVillagePrimaryOverView, setRcvVillagePrimaryOverView] = useState<sumofRcvVillagePrimary | null>(null)
+    const [RcvVillageInPrimaryOverView, setRcvVillageInPrimaryOverView] = useState<sumofRcvVillageInPrimary | null>(null)
     const [GeneralPrimaryOverView, setGeneralPrimaryOverView] = useState<sumofGeneralPrimary | null>(null)
     const [editPendingAlmondData, setEditPendingAlmondData] = useState<AlmondPrimaryEntryData[]>([])
     const [editPendingOilMillData, setEditPendingOilMillData] = useState<OilMillPrimaryEntryData[]>([])
@@ -68,7 +70,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
             setpendingreportCount, recevingPackagematerialOverView, setRecevingPacakanMaterialOverView,editPendiningIssueItemData,setEditPendiningIssueItemData,
             editScoopingLotWiseData, setEditScoopingLotWiseData, searchType, setSearchType,editBormaLotWiseData,setEditBormaLotWiseData,
             StorePrimaryOverView,setStorePrimaryOverView,GeneralPrimaryOverView,setGeneralPrimaryOverView,editPendingAlmondData,setEditPendingAlmondData
-            ,RcvVillagePrimaryOverView,setRcvVillagePrimaryOverView,editHumidLotWiseData,setEditHumidLotWiseData,editPendingAgarbatiData,setEditPendingAgarbatiData,
+            ,RcvVillagePrimaryOverView,setRcvVillagePrimaryOverView,RcvVillageInPrimaryOverView,setRcvVillageInPrimaryOverView,
+            editHumidLotWiseData,setEditHumidLotWiseData,editPendingAgarbatiData,setEditPendingAgarbatiData,
             editPendingOilMillData,setEditPendingOilMillData,editPendiningQCWaterData, setEditPendiningQCWaterData,
             editPeelingLotWiseData, setEditPeelingLotWiseData,editMayurLotWiseData,setEditMayurLotWiseData,
             editDPDSLotWiseData,setEditDPDSLotWiseData,editBigTaihoLotWiseData, setEditBigTaihoLotWiseData,

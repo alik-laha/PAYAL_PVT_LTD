@@ -7,7 +7,7 @@ import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import axios from "axios"
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {  findskutypeData, rcvVillageprimaryData,  VendorData } from "@/type/type"
+import {  findskutypeData, rcvVillageInprimaryData,  VendorData } from "@/type/type"
 import {
     Table,
     TableBody,
@@ -17,11 +17,19 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { MdDelete } from "react-icons/md"
-
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import { Origin } from "../common/exportData"
 
 
 interface Props {
-    rcn: rcvVillageprimaryData[]      
+    rcn: rcvVillageInprimaryData[]      
 }
 interface SectionRowData{
     sku:string;
@@ -32,9 +40,24 @@ interface SectionRowData{
     remarks:string;
     totalWt:number;
     invoice:string;
+    origin:string;
+    wholes:number;
+    wholesprcntg:number;
+    lw:number;
+    lwprcntg:number;
+    jb:number;
+    jbprcntg:number;
+    sdp:number;
+    sdpprcntg:number;
+    husk:number;
+    huskprcntg:number;
+    piece:number;
+    pieceprcntg:number;
+    dp:number;
+    dpprcntg:number;
 
 }
-const RcvVillagePrimaryEntry = (props:Props) => {
+const RcvVillageInPrimaryEntry = (props:Props) => {
 
     const [isdisable,setisdisable]=useState<boolean>(false)
     const [vendorNameView, setVendorNameView] = useState("none")
@@ -64,8 +87,9 @@ const RcvVillagePrimaryEntry = (props:Props) => {
         
     }, [props.rcn[0]]);
 
-    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',quantity:0,remarks:'',totalWt:0,vendorN:'',invoice:''}
-    ]);
+    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',quantity:0,remarks:'',totalWt:0,vendorN:'',invoice:'',origin:'',
+        wholes:0,wholesprcntg:0,lw:0,lwprcntg:0,jb:0,jbprcntg:0,sdp:0,sdpprcntg:0,husk:0,huskprcntg:0,piece:0,pieceprcntg:0,dp:0,dpprcntg:0}]);
+    
 
     const handleRowChange = (index:number,field:string,fieldvalue:string) => {
         const newRows=[...rows];
@@ -73,7 +97,8 @@ const RcvVillagePrimaryEntry = (props:Props) => {
         setRows(newRows)
     }
     const addRow2 = () => {
-        setRows([...rows,{sku:'',type:'',quantity:0,remarks:'',totalWt:0,vendorN:'',invoice:''}])
+        setRows([...rows,{sku:'',type:'',quantity:0,remarks:'',totalWt:0,vendorN:'',invoice:'',origin:'',
+            wholes:0,wholesprcntg:0,lw:0,lwprcntg:0,jb:0,jbprcntg:0,sdp:0,sdpprcntg:0,husk:0,huskprcntg:0,piece:0,pieceprcntg:0,dp:0,dpprcntg:0}])
     }
 
     const deleteRow = (index:number) =>{
@@ -128,10 +153,10 @@ const RcvVillagePrimaryEntry = (props:Props) => {
                 {
                 for (var data of formData) 
                     {
-                        await axios.put(`/api/rcvVillage/updateRcvVillage/${id}`, {data })
+                        await axios.put(`/api/rcvVillageIn/updateRcvVillageIn/${id}`, {data })
                         await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
                             section:'Village' })
-                            setErrortext('Village Items Dispatched Successfully')
+                            setErrortext('Village Items Received Successfully')
                         if(successdialog){
                             (successdialog as any).showModal();
                         }
@@ -141,10 +166,10 @@ const RcvVillagePrimaryEntry = (props:Props) => {
 
                 else if(formData.length>1)
                 {
-                    await axios.put(`/api/rcvVillage/updateRcvVillageEntire/${id}`, {formData })
+                    await axios.put(`/api/rcvVillageIn/updateRcvVillageInEntire/${id}`, {formData })
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
                         section:'Village' })
-                        setErrortext('Village Items Dispatched Successfully')
+                        setErrortext('Village Items Received Successfully')
                     if(successdialog){
                         (successdialog as any).showModal();
                     }
@@ -153,7 +178,7 @@ const RcvVillagePrimaryEntry = (props:Props) => {
         }
         catch (err){
             console.log(err)
-            await axios.post('/api/rcvVillage/deleteVillagePrimaryByID',{ id:id,gatepass:gatepass})
+            await axios.post('/api/rcvVillageIn/deleteVillageInPrimaryByID',{ id:id,gatepass:gatepass})
             if(axios.isAxiosError(err)){
                 setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
             }
@@ -168,80 +193,6 @@ const RcvVillagePrimaryEntry = (props:Props) => {
 
     }
 
-//     const handleSubmit = async (e: React.FormEvent) => {
-//         e.preventDefault()
-//         //const quantity = quantityRef.current?.value
-        
-     
-//         const invoice=invoiceref.current?.value
-         
-//         const formData = rows.map(row => ({
-//                 GatePassNo: gatepass,
-//                 recevingDate: date,
-//                 TruckNo: truck,
-//                 gateType:gateType,
-//                 GrossWt: grossWt,          
-//                 invoice:invoice,
-//                 vendorName:VendorName, 
-//                 ...row
-//         }))
-//         try 
-//         { 
-//             if(formData.length===1){
-//             for (var data of formData) 
-//                 {
-//                     await axios.put(`/api/rcvVillage/updateRcvVillage/${id}`, {data })
-//                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-//                         section:'Village' })
-//                         setErrortext('Village Item Received/Dispatched Successfully')
-//                     if(successdialog){
-//                         (successdialog as any).showModal();
-//                     }
-                    
-//                 }
-//             }  
-       
-//             else if(formData.length>1){
-//             const firstrow=formData[0]
-          
-//                 await axios.put(`/api/rcvVillage/updateRcvVillage/${id}`, {data:firstrow })
-           
-//                 let pmrescount=0
-//             for(let i=1;i<formData.length;i++){
-                
-//                 const data1=formData[i];
-//                 await axios.post('/api/storePrimary/createStorePrimary', {data:data1 })
-//                 pmrescount++
-//                 if(pmrescount==(formData.length-1))
-//                 {
-                    
-//                     await axios.post("/api/gatepass/updateRcvDisptchStatus", { gatePassNo: gatepass,
-//                         section:'Store' })
-//                         setErrortext('Store Item Received/Dispatched Successfully')
-//                     if(successdialog){
-//                         (successdialog as any).showModal();
-//                     }
-//                 }
-//             }
-           
-//         } 
-//     }
-//     catch (err){
-//         console.log(err)
-//         await axios.post('/api/storePrimary/deleteStorePrimaryByID',{ id:id,gatepass:gatepass})
-//         if(axios.isAxiosError(err)){
-//             setErrortext(err.response?.data.message ||'An Unexpected Error Occured')
-//         }
-//         if(errordialog){
-//             (errordialog as any).showModal()
-//         }
-        
-        
-
-//     }
-                    
-        
-// }
 
     const [actvindex,setActvindex]=useState<number>()
     const handleVendorChange = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
@@ -353,12 +304,15 @@ const RcvVillagePrimaryEntry = (props:Props) => {
                         <TableHeader className="bg-neutral-100 text-stone-950" >
                             <TableHead className="text-center" >Sl. No.</TableHead>
                             <TableHead className="text-center" >Item_Type</TableHead>
-                            <TableHead className="text-center" >Party_Name</TableHead>
-                            <TableHead className="text-center" >Invoice No</TableHead>
-                          
                             <TableHead className="text-center" >Item_Name</TableHead>
-                            <TableHead className="text-center" >Qty/Bucket</TableHead>   
-                            <TableHead className="text-center" >Weight(Kg)</TableHead>
+                          
+                            <TableHead className="text-center" >Origin</TableHead>
+                            <TableHead className="text-center" >Vendor_Name</TableHead>
+                            <TableHead className="text-center" >Invoice_No</TableHead>
+                          
+                            
+                            <TableHead className="text-center" >Bucket</TableHead>   
+                            <TableHead className="text-center" >Total_Weight</TableHead>
                             <TableHead className="text-center w-30" >Remarks</TableHead>
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>
@@ -370,8 +324,8 @@ const RcvVillagePrimaryEntry = (props:Props) => {
                                             <TableCell>{index + 1}</TableCell>
                                            
                                             <TableCell className="text-center " >
-                                            <select className="text-center flex h-8 rounded-md border border-input bg-background 
-px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+                                            <select className="text-center flex w-40 h-8 rounded-md border border-input bg-background 
+px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium bg-red-100
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'type', e.target.value)}
                                                     value={row.type} required>
@@ -387,33 +341,8 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                     ) : null}
                                                 </select>
                                             </TableCell>
-                                            <TableCell className="text-center" >
-                                                <Input value={row.vendorN} placeholder="Party Name"
-                                                    onChange={(e) => handleVendorChange(index, e)} required />
-                                                {actvindex === index && <ScrollArea className="max-h-24 w-auto overflow-scroll  dropdown-content" style={{ display: vendorNameView }}>
-                                                    {
-                                                        vendorData.map((item: VendorData) => (
-                                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick(index, item)}>
-                                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.vendorName}</p>
-
-                                                            </div>
-                                                        ))
-                                                    }
-                                                </ScrollArea>}
-                                            </TableCell>
-                                            <TableCell className="text-center w-30" >
-                                          
-                                                <Input value={row.invoice} placeholder="invoice"  onChange={(e) => {
-                                                        handleRowChange(index, 'invoice', e.target.value)
-                                                    }} /> 
-                                            </TableCell>
-
-
-                                          
-
-
                                             <TableCell className="text-center " >
-                                            <select className="text-center flex w-90 h-8 rounded-md border border-input bg-background 
+                                            <select className="text-center flex w-40 h-8 bg-red-100 rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'sku', e.target.value)}
@@ -431,6 +360,54 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                 </select>
                                             </TableCell>
                                            
+                                           
+                                            <TableCell className="text-center">
+                                                <Select value={row.origin} onValueChange={(val) => handleRowChange(index, 'origin', val)} required={true}>
+                                                    <SelectTrigger className="justify-center w-40 bg-red-100">
+                                                        <SelectValue placeholder="Origin" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectGroup>
+                                                            {
+                                                                Origin.map((item) => {
+                                                                    return (
+                                                                        <SelectItem key={item} value={item}>
+                                                                            {item}
+                                                                        </SelectItem>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </SelectGroup>
+                                                    </SelectContent>
+                                                </Select>
+                                            </TableCell>
+                                            <TableCell className="text-center" >
+                                                <Input value={row.vendorN} placeholder="Vendor Name" className="w-40"
+                                                    onChange={(e) => handleVendorChange(index, e)} required />
+                                                {actvindex === index && <ScrollArea className="max-h-24 w-auto overflow-scroll  dropdown-content" style={{ display: vendorNameView }}>
+                                                    {
+                                                        vendorData.map((item: VendorData) => (
+                                                            <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3" onClick={() => handleVendoridClick(index, item)}>
+                                                                <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.vendorName}</p>
+
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </ScrollArea>}
+                                            </TableCell>
+                                            <TableCell className="text-center w-40" >
+                                          
+                                                <Input value={row.invoice} placeholder="invoice"  onChange={(e) => {
+                                                        handleRowChange(index, 'invoice', e.target.value)
+                                                    }} /> 
+                                            </TableCell>
+
+
+                                          
+
+
+                                           
+                                           
 
 
                                        
@@ -444,7 +421,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             </TableCell>
                                            
                                             <TableCell className="text-center" >
-                                                <Input value={row.totalWt} placeholder="unitWt" type="number"
+                                                <Input value={row.totalWt} placeholder="unitWt" type="number" className="bg-purple-100"
                                                     onChange={(e) => {
                                                         handleRowChange(index, 'totalWt', e.target.value)
                                                     }} />
@@ -501,4 +478,4 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
     )
 }
 
-export default RcvVillagePrimaryEntry;
+export default RcvVillageInPrimaryEntry;
