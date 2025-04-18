@@ -18,9 +18,8 @@ import axios from "axios"
 import { PermissionRole, rcnpendingLotData, rcvCheckRoles } from "@/type/type"
 import { rcvCheckRole } from "../common/exportData"
 import RcvVillageInInitial from "./RcvVillageInInitial";
-// import RcvVillageInitial from "./RcvVillageInitial";
-// import RcvVillageTable from "./RcvVillageTable";
-// import StorePrimaryTable from "./StorePrimaryTable"
+import RcvVillageInTable from "./RcvVillageInTable";
+
 
 
 const RcvVillageIn = () => {
@@ -70,7 +69,7 @@ const RcvVillageIn = () => {
                     <RcvVillageInInitial props={lotdata}/>
                 </DialogContent>
             </Dialog>}
-          {/* <RcvVillageTable/> */}
+          <RcvVillageInTable/>
             </div>
             
         </div>

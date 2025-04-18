@@ -147,7 +147,7 @@ const RcvVillageModify = ({ data }: Props) => {
         axios.post(`/api/rcvVillage/editVillagePrimary/${data.id}`, {
             grossWt, netwt, gateType, recevingDate: date, 
             truck, gatepass, invoice: invoiceref.current?.value, 
-            itemtype, itemname, VendorName,
+            itemtype, itemname, VendorN:VendorName,
             quantity: quantityRef.current?.value, totalWt, remarks
         })
             .then((res) => {

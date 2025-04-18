@@ -1613,36 +1613,36 @@ export interface rcvVillageInprimaryData {
     gateType: string;
     recevingDate: string;
     truckNo: string;
-    invoice: string | null;
-    sku: string | null;
-    type: string | null;
-    vendorName: string | null;
-    origin: string | null;
-    quantity: string | null;
+    invoice: string ;
+    sku: string ;
+    type: string ;
+    vendorName: string ;
+    origin: string ;
+    quantity: string ;
 
-    wholes_quantity: string | null;
-    wholes_prcntg: string | null;
+    wholes_quantity: string ;
+    wholes_prcntg: string ;
 
-    lw_quantity: string | null;
-    lw_prcntg: string | null;
+    lw_quantity: string ;
+    lw_prcntg: string ;
 
-    jb_quantity: string | null;
-    jb_prcntg: string | null;
+    jb_quantity: string ;
+    jb_prcntg: string;
 
-    jbp_quantity: string | null;
-    jbp_prcntg: string | null;
+    jbp_quantity: string ;
+    jbp_prcntg: string ;
 
-    sdp_quantity: string | null;
-    sdp_prcntg: string | null;
+    sdp_quantity: string ;
+    sdp_prcntg: string ;
 
-    husk_quantity: string | null;
-    husk_prcntg: string | null;
+    husk_quantity: string ;
+    husk_prcntg: string ;
 
-    pieces_quantity: string | null;
-    pieces_prcntg: string | null;
+    pieces_quantity: string ;
+    pieces_prcntg: string ;
 
-    dp_quantity: string | null;
-    dp_prcntg: string | null;
+    dp_quantity: string ;
+    dp_prcntg: string ;
 
     e1_quantity: string | null;
     e1_prcntg: string | null;
@@ -1657,8 +1657,8 @@ export interface rcvVillageInprimaryData {
     netWeight: string | null;
     gatePassNo: string;
     grossWt: string;
-    remarks: string | null;
-    totalWt: string | null;
+    remarks: string ;
+    totalWt: string ;
 }
 
 

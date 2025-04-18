@@ -1,18 +1,18 @@
 import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
 
-import getRcvVillagebyGatePass from '../controller/RcvVIllageController/getRcVVillageByGatepass';
-import getUnEntriedRcvVillage from '../controller/RcvVIllageController/getUnEntriedRcvVillage';
-import updateRcvVillage from '../controller/RcvVIllageController/UpdateRcvVillage';
-import updateRcvVillageEntire from '../controller/RcvVIllageController/updateRcvVillageEntire';
-import deleteVillagePrimary from '../controller/RcvVIllageController/deleteRcvVillage';
-import searchRcvVillage from '../controller/RcvVIllageController/SearchRcvVillage';
-import sumofRcvVillagePrimary from '../controller/RcvVIllageController/SumofRcvVillage';
-import getEditRcvVillagePrimary from '../controller/RcvVIllageController/getEditRcvVillage';
+
+
+
+
+
+
+
 import editRcvVillage from '../controller/RcvVIllageController/editRcvVillage';
 import rejectVillagePrimaryEdit from '../controller/RcvVIllageController/rejectEditRcvVillage';
 import approveEditRcvVillage from '../controller/RcvVIllageController/approveEditrcvVillage';
-import { getRcvVillageInbyGatePass, getUnEntriedRcvVillageIn } from '../controller/RcvVillageInController/RcvVillageInApi';
+import { deleteVillageInPrimary, getEditRcvVillageInPrimary, getRcvVillageInbyGatePass, 
+    getUnEntriedRcvVillageIn, searchRcvVillageIn, sumofRcvVillageInPrimary, updateRcvVillageIn, updateRcvVillageInEntire } from '../controller/RcvVillageInController/RcvVillageInApi';
 
 const router = express.Router();
 
@@ -20,14 +20,14 @@ const router = express.Router();
 
  router.get("/getRcvVillageInByGatePass/:lotNO", jwtVerify, getRcvVillageInbyGatePass)
  router.get("/getRcvVillageInNotEntried/:status", jwtVerify, getUnEntriedRcvVillageIn)
-// router.put("/updateRcvVillage/:id",jwtVerify, updateRcvVillage)
+ router.put("/updateRcvVillageIn/:id",jwtVerify, updateRcvVillageIn)
+ router.put("/updateRcvVillageInEntire/:id",jwtVerify, updateRcvVillageInEntire)
 
-// // router.post("/createStorePrimary",jwtVerify, createStorePrimary)
-// router.post("/deleteVillagePrimaryByID", jwtVerify, deleteVillagePrimary)
-// router.post("/getVillagePrimary", jwtVerify,searchRcvVillage)
+ router.post("/deleteVillageInPrimaryByID", jwtVerify, deleteVillageInPrimary)
+ router.post("/getVillageInPrimary", jwtVerify,searchRcvVillageIn)
 
-// router.get("/getsumofRcvVillage",jwtVerify, sumofRcvVillagePrimary)
-// router.get("/getEditRcvVillagePrimary",jwtVerify, getEditRcvVillagePrimary)
+ router.get("/getsumofRcvVillageIn",jwtVerify, sumofRcvVillageInPrimary)
+ router.get("/getEditRcvVillageInPrimary",jwtVerify, getEditRcvVillageInPrimary)
 // router.post("/editVillagePrimary/:id",jwtVerify, editRcvVillage)
 
 //  router.get('/acceptEditVillagePrimary/:id', jwtVerify,approveEditRcvVillage)
@@ -35,5 +35,5 @@ const router = express.Router();
 
 
 
-// router.put("/updateRcvVillageEntire/:id",jwtVerify, updateRcvVillageEntire)
+
 export default router;

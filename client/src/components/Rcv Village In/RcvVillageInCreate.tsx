@@ -259,6 +259,79 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
             })            
     }, [])
 
+     const handleRowChangewholes = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+           // e.preventDefault()
+            handleRowChange(index,'wholes',e.target.value)
+            rows[index].wholesprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
+            handleRowChange(index,'wholes',e.target.value)
+           
+         }
+
+
+         const handleRowChangelw = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault()
+            handleRowChange(index,'lw',e.target.value)
+            rows[index].lwprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
+            handleRowChange(index,'lw',e.target.value)
+           
+         }     
+
+         const handleRowChangejb = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault()
+            handleRowChange(index,'jb',e.target.value)
+            rows[index].jbprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
+            handleRowChange(index,'jb',e.target.value)
+           
+         }   
+
+         const handleRowChangedp = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault()
+            handleRowChange(index,'dp',e.target.value)
+            rows[index].dpprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
+            handleRowChange(index,'dp',e.target.value)
+           
+         }  
+         
+         const handleRowChangehusk = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault()
+            handleRowChange(index,'husk',e.target.value)
+            rows[index].huskprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
+            handleRowChange(index,'husk',e.target.value)
+           
+         }  
+
+         const handleRowChangesdp = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault()
+            handleRowChange(index,'sdp',e.target.value)
+            rows[index].sdpprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
+            handleRowChange(index,'sdp',e.target.value)
+           
+         }  
+         const handleRowChangepiece = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault()
+            handleRowChange(index,'piece',e.target.value)
+            rows[index].pieceprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
+            handleRowChange(index,'piece',e.target.value)
+           
+         } 
+
+         const handleRowChangetotalWt = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault()
+            handleRowChange(index,'totalWt',e.target.value)
+            rows[index].wholesprcntg=Number((( rows[index].wholes/(Number(e.target.value)))*100).toFixed(2))
+            rows[index].lwprcntg=Number((( rows[index].lw/(Number(e.target.value)))*100).toFixed(2))
+            rows[index].jbprcntg=Number((( rows[index].jb/(Number(e.target.value)))*100).toFixed(2))
+            rows[index].sdpprcntg=Number((( rows[index].sdp/(Number(e.target.value)))*100).toFixed(2))
+            rows[index].pieceprcntg=Number((( rows[index].piece/(Number(e.target.value)))*100).toFixed(2))
+            rows[index].huskprcntg=Number((( rows[index].husk/(Number(e.target.value)))*100).toFixed(2))
+            rows[index].dpprcntg=Number((( rows[index].dp/(Number(e.target.value)))*100).toFixed(2))
+            
+            handleRowChange(index,'totalWt',e.target.value)
+           
+         } 
+         
+    
+
     return (
         <>
             <div className="px-5 mt-4">
@@ -313,6 +386,20 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
                             
                             <TableHead className="text-center" >Bucket</TableHead>   
                             <TableHead className="text-center" >Total_Weight</TableHead>
+                            <TableHead className="text-center">Wholes</TableHead>
+                                <TableHead className="text-center"> %</TableHead>
+                                <TableHead className="text-center">LW</TableHead>
+                                <TableHead className="text-center">%</TableHead>
+                                <TableHead className="text-center">JB</TableHead>
+                                <TableHead className="text-center">%</TableHead>
+                                <TableHead className="text-center">SDP</TableHead>
+                                <TableHead className="text-center"> %</TableHead>
+                                <TableHead className="text-center">Husk</TableHead>
+                                <TableHead className="text-center"> %</TableHead>
+                                <TableHead className="text-center">Piece</TableHead>
+                                <TableHead className="text-center"> %</TableHead>
+                                <TableHead className="text-center">DP</TableHead>
+                                <TableHead className="text-center"> %</TableHead>
                             <TableHead className="text-center w-30" >Remarks</TableHead>
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>
@@ -325,7 +412,7 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
                                            
                                             <TableCell className="text-center " >
                                             <select className="text-center flex w-40 h-8 rounded-md border border-input bg-background 
-px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium bg-red-100
+px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'type', e.target.value)}
                                                     value={row.type} required>
@@ -342,7 +429,7 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                 </select>
                                             </TableCell>
                                             <TableCell className="text-center " >
-                                            <select className="text-center flex w-40 h-8 bg-red-100 rounded-md border border-input bg-background 
+                                            <select className="text-center flex w-40 h-8  rounded-md border border-input bg-background 
 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
 focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" onChange={(e) => handleRowChange(index, 'sku', e.target.value)}
@@ -403,15 +490,6 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             </TableCell>
 
 
-                                          
-
-
-                                           
-                                           
-
-
-                                       
-
                                             <TableCell className="text-center" >
                                                 <Input value={row.quantity} placeholder="Qty." type='number'
                                                     onChange={(e) => {
@@ -423,9 +501,69 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             <TableCell className="text-center" >
                                                 <Input value={row.totalWt} placeholder="unitWt" type="number" className="bg-purple-100"
                                                     onChange={(e) => {
-                                                        handleRowChange(index, 'totalWt', e.target.value)
+                                                        handleRowChangetotalWt(index, e)
                                                     }} />
                                             </TableCell>
+
+
+                                            <TableCell className="text-center">
+                                                <Input value={row.wholes} placeholder="wholes" type="number" className="w-20"
+                                                    onChange={(e) => {handleRowChangewholes(index,e)}} />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input value={row.wholesprcntg} placeholder="wholesprcntg" type="number" className="bg-red-100 w-20"
+                                                    readOnly />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input value={row.lw} placeholder="lw" type="number" className="w-20"
+                                                    onChange={(e) => handleRowChangelw(index, e)} />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input value={row.lwprcntg} placeholder="lwprcntg" type="number" className="bg-red-100 w-20"
+                                                   readOnly />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input value={row.jb} placeholder="jb" type="number" className="w-20"
+                                                    onChange={(e) => handleRowChangejb(index,e)} />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input value={row.jbprcntg} placeholder="jbprcntg" type="number" className="bg-red-100 w-20"
+                                                  readOnly />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input value={row.sdp} placeholder="sdp" type="number" className="w-20"
+                                                    onChange={(e) => handleRowChangesdp(index, e)} />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input value={row.sdpprcntg} placeholder="sdpprcntg" type="number" className="bg-red-100 w-20"
+                                                  readOnly />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input value={row.husk} placeholder="husk" type="number" className="w-20"
+                                                    onChange={(e) => handleRowChangehusk(index, e)} />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input value={row.huskprcntg} placeholder="huskprcntg" type="number" className="bg-red-100 w-20"
+                                                   readOnly />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input value={row.piece} placeholder="piece" type="number" className=" w-20"
+                                                    onChange={(e) => handleRowChangepiece(index,e)} />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input value={row.pieceprcntg} placeholder="pieceprcntg" type="number" className="bg-red-100 w-20"
+                                                   readOnly />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input value={row.dp} placeholder="dp" type="number" className="w-20"
+                                                    onChange={(e) => handleRowChangedp(index, e)} />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input value={row.dpprcntg} placeholder="dpprcntg" type="number" className="w-20 bg-red-100"
+                                                   readOnly />
+                                            </TableCell>
+
+
                                          
                                            
                                             <TableCell className="text-center w-30" >
