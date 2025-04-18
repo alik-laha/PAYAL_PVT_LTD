@@ -9,7 +9,15 @@ import axios from "axios"
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { Textarea } from "../ui/textarea";
-
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import { Origin } from "../common/exportData";
 
 interface Props {
     data: rcvVillageInprimaryData;
@@ -36,6 +44,29 @@ const RcvVillageInModify = ({ data }: Props) => {
     const [itemtype, setItemType] = useState<string>('')
     const [itemname, setItemname] = useState<string>('')
     const [totalWt, setTotalWt] = useState<string>('')
+
+    const [wholes, setWholes] = useState<string>('');
+const [wholesprcntg, setWholesprcntg] = useState<string>('');
+
+const [lw, setLw] = useState<string>('');
+const [lwprcntg, setLwprcntg] = useState<string>('');
+
+const [jb, setJb] = useState<string>('');
+const [jbprcntg, setJbprcntg] = useState<string>('');
+
+const [sdp, setSdp] = useState<string>('');
+const [sdpprcntg, setSdpprcntg] = useState<string>('');
+
+const [husk, setHusk] = useState<string>('');
+const [huskprcntg, setHuskprcntg] = useState<string>('');
+
+const [piece, setPiece] = useState<string>('');
+const [pieceprcntg, setPieceprcntg] = useState<string>('');
+
+const [dp, setDp] = useState<string>('');
+const [dpprcntg, setDpprcntg] = useState<string>('');
+
+const [origin, setOrigin] = useState<string>('');
     const [sku, setsku] = useState<findskutypeData[]>([])
     const [grade, setGrade] = useState<findskutypeData[]>([])
     const [errText, setErrText] = useState<string>('')
@@ -55,6 +86,28 @@ const RcvVillageInModify = ({ data }: Props) => {
         setRemarks(data.remarks)
         setgateType(data.gateType)
         setTotalWt(data.totalWt)
+        setOrigin(data.origin)
+        setWholes(data.wholes_quantity)
+        setWholesprcntg(data.wholes_prcntg)
+
+        setLw(data.lw_quantity);
+        setLwprcntg(data.lw_prcntg);
+
+        setJb(data.jb_quantity);
+        setJbprcntg(data.jb_prcntg);
+
+        setSdp(data.sdp_quantity);
+        setSdpprcntg(data.sdp_prcntg);
+
+        setHusk(data.husk_quantity);
+        setHuskprcntg(data.husk_prcntg);
+
+        setPiece(data.pieces_quantity);
+        setPieceprcntg(data.pieces_prcntg);
+
+        setDp(data.dp_quantity);
+        setDpprcntg(data.dp_prcntg);
+
         setDate(data.recevingDate.slice(0, 10))
         // console.log(data.recevingDate.slice(0, 10))
     }, [])
@@ -144,10 +197,11 @@ const RcvVillageInModify = ({ data }: Props) => {
         e.preventDefault()
         setisdisable(true)
         console.log("submit")
-        axios.post(`/api/rcvVillage/editVillagePrimary/${data.id}`, {
+        axios.post(`/api/rcvVillageIn/editVillageInPrimary/${data.id}`, {
             grossWt, netwt, gateType, recevingDate: date, 
             truck, gatepass, invoice: invoiceref.current?.value, 
-            itemtype, itemname, VendorName,
+            itemtype, itemname, VendorN:VendorName,origin,
+            wholes,wholesprcntg,lw,lwprcntg,jb,jbprcntg,sdp,sdpprcntg,husk,huskprcntg,piece,pieceprcntg,dp,dpprcntg,
             quantity: quantityRef.current?.value, totalWt, remarks
         })
             .then((res) => {
@@ -168,7 +222,69 @@ const RcvVillageInModify = ({ data }: Props) => {
 
     }
 
+    const handleRowChangewholes = (e: React.ChangeEvent<HTMLInputElement>) => {
+         e.preventDefault()
+       
+        setWholesprcntg(((Number(e.target.value)/Number(totalWt))*100).toFixed(2))
+        setWholes(e.target.value)
+        
+      }
 
+
+      const handleRowChangelw = (e: React.ChangeEvent<HTMLInputElement>) => {
+         e.preventDefault()
+         setLwprcntg(((Number(e.target.value)/Number(totalWt))*100).toFixed(2))
+         setLw(e.target.value)
+      }     
+
+      const handleRowChangejb = (e: React.ChangeEvent<HTMLInputElement>) => {
+         e.preventDefault()
+         setJbprcntg(((Number(e.target.value)/Number(totalWt))*100).toFixed(2))
+         setJb(e.target.value)
+        
+      }   
+
+      const handleRowChangedp = (e: React.ChangeEvent<HTMLInputElement>) => {
+         e.preventDefault()
+         setDpprcntg(((Number(e.target.value)/Number(totalWt))*100).toFixed(2))
+         setDp(e.target.value)
+        
+      }  
+      
+      const handleRowChangehusk = (e: React.ChangeEvent<HTMLInputElement>) => {
+         e.preventDefault()
+         setHuskprcntg(((Number(e.target.value)/Number(totalWt))*100).toFixed(2))
+         setHusk(e.target.value)
+        
+      }  
+
+      const handleRowChangesdp = (e: React.ChangeEvent<HTMLInputElement>) => {
+         e.preventDefault()
+         setSdpprcntg(((Number(e.target.value)/Number(totalWt))*100).toFixed(2))
+         setSdp(e.target.value)
+        
+      }  
+      const handleRowChangepiece = (e: React.ChangeEvent<HTMLInputElement>) => {
+         e.preventDefault()
+         setPieceprcntg(((Number(e.target.value)/Number(totalWt))*100).toFixed(2))
+         setPiece(e.target.value)
+        
+      } 
+
+      const handleRowChangetotalWt = (e: React.ChangeEvent<HTMLInputElement>) => {
+         e.preventDefault()
+         
+         setWholesprcntg((( Number(wholes)/(Number(e.target.value)))*100).toFixed(2))
+         setLwprcntg((( Number(lw)/(Number(e.target.value)))*100).toFixed(2))
+         setJbprcntg((( Number(jb)/(Number(e.target.value)))*100).toFixed(2))
+         setSdpprcntg((( Number(sdp)/(Number(e.target.value)))*100).toFixed(2))
+         setPieceprcntg((( Number(piece)/(Number(e.target.value)))*100).toFixed(2))
+         setHuskprcntg((( Number(husk)/(Number(e.target.value)))*100).toFixed(2))
+         setDpprcntg((( Number(dp)/(Number(e.target.value)))*100).toFixed(2))
+         
+        setTotalWt(e.target.value)
+        
+      } 
 
 
 
@@ -245,16 +361,100 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                         </select>
                     </div>
 
-
+                    <div className="flex"><Label className="w-2/4 mt-2">Origin</Label>
+                    <Select value={origin} onValueChange={(value) => setOrigin(value)} >
+                        <SelectTrigger className="w-2/4 justify-center">
+                            <SelectValue placeholder="Origin" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {
+                                    Origin.map((item) => {
+                                        return (
+                                            <SelectItem key={item} value={item}>
+                                                {item}
+                                            </SelectItem>
+                                        )
+                                    })
+                                }
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    {/* <Input   placeholder="Origin"/>  */}</div>
 
 
 
                     <div className="flex"><Label className="w-2/4  pt-1">Item/Bag Count</Label>
                         <Input className="w-2/4 text-center" placeholder="Qty" required type="number" ref={quantityRef} step='0.01' /> </div>
 
-                    <div className="flex"><Label className="w-2/4  pt-1">Item Wt</Label>
-                        <Input className="w-2/4 text-center" placeholder="Wt" type="number" value={totalWt } step='0.01' onChange={(e) => setTotalWt(e.target.value)} /> </div>
+                    <div className="flex"><Label className="w-2/4  pt-1">Total Wt</Label>
+                        <Input className="w-2/4 text-center" placeholder="Wt" type="number" value={totalWt } step='0.01' onChange={(e) => handleRowChangetotalWt(e)} required/> </div>
 
+
+
+
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">Wholes (Kg)</Label>
+                        <Input className="w-2/4 text-center" placeholder="Wholes" type="number" value={wholes} step="0.01" onChange={(e) => handleRowChangewholes(e)} required/>
+                    </div>
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">Wholes %</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Wholes %" type="number" value={wholesprcntg} step="0.01" readOnly />
+                    </div>
+
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">LW (Kg)</Label>
+                        <Input className="w-2/4 text-center" placeholder="LW" type="number" value={lw} step="0.01" onChange={(e) => handleRowChangelw(e)} required/>
+                    </div>
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">LW %</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="LW %" type="number" value={lwprcntg} step="0.01" readOnly />
+                    </div>
+
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">JB (Kg)</Label>
+                        <Input className="w-2/4 text-center" placeholder="JB" type="number" value={jb} step="0.01" onChange={(e) => handleRowChangejb(e)} required/>
+                    </div>
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">JB %</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="JB %" type="number" value={jbprcntg} step="0.01" readOnly />
+                    </div>
+
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">SDP (Kg)</Label>
+                        <Input className="w-2/4 text-center" placeholder="SDP" type="number" value={sdp} step="0.01" onChange={(e) => handleRowChangesdp(e)} required/>
+                    </div>
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">SDP %</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="SDP %" type="number" value={sdpprcntg} step="0.01" readOnly />
+                    </div>
+
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">Husk (Kg)</Label>
+                        <Input className="w-2/4 text-center" placeholder="Husk" type="number" value={husk} step="0.01" onChange={(e) => handleRowChangehusk(e)} required/>
+                    </div>
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">Husk %</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Husk %" type="number" value={huskprcntg} step="0.01" readOnly />
+                    </div>
+
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">Piece (Kg)</Label>
+                        <Input className="w-2/4 text-center" placeholder="Piece" type="number" value={piece} step="0.01" onChange={(e) => handleRowChangepiece(e)} required/>
+                    </div>
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">Piece %</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Piece %" type="number" value={pieceprcntg} step="0.01" readOnly/>
+                    </div>
+
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">DP (Kg)</Label>
+                        <Input className="w-2/4 text-center" placeholder="DP" type="number" value={dp} step="0.01" onChange={(e) => handleRowChangedp(e)} required/>
+                    </div>
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">DP %</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="DP %" type="number" value={dpprcntg} step="0.01" readOnly />
+                    </div>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
                         <Textarea className="w-2/4 text-center" placeholder="remarks" value={remarks} onChange={(e) => setRemarks(e.target.value)} /> </div>

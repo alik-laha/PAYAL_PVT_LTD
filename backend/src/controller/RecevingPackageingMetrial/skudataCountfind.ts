@@ -67,10 +67,10 @@ const SkudataCountFind = async (req: Request, res: Response) => {
             
             ],
             where: {
-                [Op.or]: [
-                    { editStatus: 'Approved' },
-                    { editStatus: 'NA' }
-                ],
+               
+                editStatus: {
+                    [Op.notLike]: 'Pending'
+                },
                 
                 materialName: {
                     [Op.like]: `%${material}%`
