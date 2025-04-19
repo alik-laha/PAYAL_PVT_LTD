@@ -5,6 +5,8 @@ import RcvVillageInModel from "../../model/RcvVillageInModel";
 import VendorName from "../../model/vendorNameModel";
 import { Op } from "sequelize";
 import RcvVillageInEditModel from "../../model/RcvVillageInEditModel";
+import { VillageInRcvData } from "../../type/type";
+import WhatsappMsg from "../../helper/WhatsappMsg";
 
 export const getUnEntriedRcvVillageIn = async (req: Request, res: Response) => {
 
@@ -41,6 +43,33 @@ export const getRcvVillageInbyGatePass = async (req: Request, res: Response) => 
         const rcnmainLot = await RcvVillageInModel.findAll({
             where: {
                 gatePassNo:lotNO
+            }, order: [['id', 'ASC']]
+
+        }
+        );
+        if(rcnmainLot){
+            res.status(200).json({ message: "UnEntried Village In Entry", rcnmainLot });
+        }
+        else{
+            res.status(500).json({ message: "Error in Finding UnEntried Village In Entry"});
+        }
+       
+
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
+}
+
+export const getRcvVillageInbyDate = async (req: Request, res: Response) => {
+
+    try {
+        const lotNO=req.params.lotNO
+        const rcnmainLot = await RcvVillageInModel.findAll({
+            where: {
+                recevingDate:lotNO
             }, order: [['id', 'ASC']]
 
         }
@@ -438,4 +467,207 @@ export const getEditRcvVillageInPrimary = async (req: Request, res: Response) =>
     catch (err) {
         console.log(err);
     }
+}
+
+export const editRcvVillageIn = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const createdBynew= req.cookies.user
+        const {  grossWt, gateType, recevingDate, 
+            truck, gatepass, invoice, origin,
+                        wholes,wholesprcntg,lw,lwprcntg,jb,jbprcntg,sdp,sdpprcntg,husk,huskprcntg,piece,pieceprcntg,dp,dpprcntg,
+            itemtype, itemname, VendorN,
+            quantity, totalWt, remarks } = req.body;
+        if (!id) return res.status(400).json({ message: "id is required" });
+        let vendortype:string
+        if(gateType==='IN'){
+            vendortype='Vendor'
+        }
+        else{
+            vendortype='Party'
+        }
+        //let skuData = await SkuModel.findOne({ where: { sku ,type,section:'Store'} });
+        let vendorData = await VendorName.findOne({ where: { vendorName:VendorN,type:vendortype,section:'Village' } });
+        // if(!skuData || !vendorData){
+        //     return res.status(500).json({ message: "SKU/Vendor Does Not Exist" });
+        // }
+        if(!vendorData ){
+            return res.status(500).json({ message: "Vendor Does Not Exist" });
+        }
+      
+            
+        const packageMaterialData: VillageInRcvData = await RcvVillageInModel.findOne({ where: { id } }) as unknown as VillageInRcvData;
+        if (!packageMaterialData) return res.status(404).json({ message: "Village material not found" });
+        let netwt=req.body.netwt
+        if(netwt===''|| netwt===null)
+        {
+            netwt=0
+        }
+        console.log(req.body)
+        const editPackageMaterial = await RcvVillageInEditModel.create({
+            id: packageMaterialData.id,
+            gateType:gateType,
+            truckNo:truck,
+            gatePassNo:gatepass,
+            grossWt:grossWt,
+            netWeight:netwt,
+            recevingDate:recevingDate,
+            sku:itemname,
+            vendorName:VendorN,
+            type:itemtype,
+            quantity:quantity,
+            status:1,
+            invoice:invoice,
+            createdBy: createdBynew,
+            editStatus: "Pending",
+            totalWt:totalWt,
+            remarks: remarks,
+            origin,
+            wholes_quantity:wholes,
+            wholes_prcntg:wholesprcntg,
+            pieces_quantity: piece,
+            pieces_prcntg: pieceprcntg,
+            lw_quantity: lw,
+            lw_prcntg: lwprcntg,
+            dp_quantity: dp,
+            dp_prcntg: dpprcntg,
+            jb_quantity: jb,
+            jb_prcntg: jbprcntg,
+            sdp_quantity: sdp,
+            sdp_prcntg: sdpprcntg,
+            husk_quantity: husk,
+            husk_prcntg: huskprcntg
+
+   
+        });
+      
+        if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Village material" });
+        const updatePackageMaterial = await RcvVillageInModel.update({ editStatus: "Pending" }, { where: { id } });
+        if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Village material" });
+        const data = await WhatsappMsg("Village Primary Rcv/Dispatch", createdBynew,"modify_request","Production")
+        console.log(data)
+        return res.status(201).json({ message: "Village material edited successfully" });
+        
+
+        
+        
+
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+export const approveEditRcvVillageIn = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+
+        const editPackageMaterial: VillageInRcvData = await RcvVillageInEditModel.findOne({ where: { id } }) as unknown as VillageInRcvData;
+        if (!editPackageMaterial) return res.status(404).json({ message: "edit Village material not found" });
+        
+        // const vendor = await VendorName.findOne({ where: { vendorName:editPackageMaterial.vendorName } });
+        // if (!vendor) {
+        //     VendorName.create({ vendorName:editPackageMaterial.vendorName, createdBy: editPackageMaterial.createdBy });
+        // }
+        // const skuData = await SkuModel.findOne({ where: { sku:editPackageMaterial.sku } });
+        // if (!skuData) {
+        //     SkuModel.create({ sku:editPackageMaterial.sku, unit:editPackageMaterial.unit,createdBy: editPackageMaterial.createdBy });
+        // }
+        
+        
+        const updatePackageMaterial = await RcvVillageInModel.update({
+         
+            sku: editPackageMaterial.sku,
+            vendorName: editPackageMaterial.vendorName,
+            quantity: editPackageMaterial.quantity,
+            remarks:editPackageMaterial.remarks,
+            totalWt:editPackageMaterial.totalWt,
+            invoice:editPackageMaterial.invoice,     
+            type:editPackageMaterial.type,
+            origin:editPackageMaterial.origin,
+            wholes_quantity:editPackageMaterial.wholes_quantity,
+            wholes_prcntg:editPackageMaterial.wholes_prcntg,
+            pieces_quantity: editPackageMaterial.pieces_quantity,
+            pieces_prcntg: editPackageMaterial.pieces_prcntg,
+            lw_quantity: editPackageMaterial.lw_quantity,
+            lw_prcntg: editPackageMaterial.lw_prcntg,
+            dp_quantity: editPackageMaterial.dp_quantity,
+            dp_prcntg: editPackageMaterial.dp_prcntg,
+            jb_quantity: editPackageMaterial.jb_quantity,
+            jb_prcntg: editPackageMaterial.jb_prcntg,
+            sdp_quantity: editPackageMaterial.sdp_quantity,
+            sdp_prcntg: editPackageMaterial.sdp_prcntg,
+            husk_quantity: editPackageMaterial.husk_quantity,
+            husk_prcntg: editPackageMaterial.husk_prcntg,
+
+            editStatus: "Approved",
+            approvedBy: req.cookies.user,
+            createdBy:editPackageMaterial.createdBy
+        }, { where: { id } });
+        if (!updatePackageMaterial) return res.status(500).json({ message: "internal error while accepting Village material" });
+        const deleteEditPackageMaterial = await RcvVillageInEditModel.destroy({ where: { id } });
+        if (!deleteEditPackageMaterial) return res.status(500).json({ message: "internal error while deleting Village package material" });
+        return res.status(200).json({ message: "Village material accepted successfully" });
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
+export const rejectVillageInPrimaryEdit = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+
+        const EditPackagingMaterialdata = await RcvVillageInEditModel.destroy({ where: { id } });
+        if(EditPackagingMaterialdata){
+            const packageMaterialData = await RcvVillageInModel.update({
+                editStatus: "Rejected",
+                approvedBy: req.cookies.user,
+            }, { where: { id } });
+
+
+            if(packageMaterialData){
+                return res.status(200).json({ message: "Rejected" })
+            }
+        }
+        
+
+        
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
+export const getUnEntriedRcvVillageInVLOT = async (req: Request, res: Response) => {
+
+    try {
+     
+        const vlotsum = await RcvVillageInModel.findAll({
+                    attributes: [
+                        'recevingDate',
+                        [sequelize.fn('SUM', sequelize.col('totalWt')), 'totalWeight']
+                    ],
+                    where: {
+                       
+                        editStatus: {
+                            [Op.notLike]: 'Pending'
+                        }
+                    },
+                    group: ['recevingDate']
+                });
+        if(vlotsum){
+            res.status(200).json({ message: "UnEntried VLOT Village In Primary Items Found", vlotsum });
+        }
+        else{
+            res.status(500).json({ message: "Error in Finding UnEntried Village VLOT In Entry"});
+        }
+       
+
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
 }

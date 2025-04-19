@@ -16,23 +16,26 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-
+import { format, toZonedTime } from 'date-fns-tz'
 import axios from "axios";
 import { useState } from "react";
-import AgarbatiPrimaryEntryForm from "./AgarbatiCreateForm";
+import {  rcvVillageInprimaryData } from "@/type/type";
+import VLOTCreateForm from "./VLotCreateForm";
+//import RcvVillageInPrimaryEntry from "./RcvVillageInCreate";
+
 
 interface lotPropsdata{
-    gatePassNo:string;
-
+    recevingDate:string;
+    totalWeight:string;
 }
 
-const AgarbatiInitialForm = (props: any) => {
-    const [rcnData, setrcnData]  = useState<[]>([])
+const VLOTInitial = (props: any) => {
+    const [rcnData, setrcnData]  = useState<rcvVillageInprimaryData[]>([])
 
     //let scoopdata:ScoopData[]=[]
     console.log(props)
-    const handleLineEntry = async (gatePassNo:string) => {
-        axios.get(`/api/agarbatiPrimary/getAgarbatiByGatePass/${gatePassNo}`).then(res=>{
+    const handleLineEntry = async (recevingDate:string) => {
+        axios.get(`/api/rcvVillageIn/getRcvVillageInByDate/${recevingDate}`).then(res=>{
            console.log(res)
            if(Array.isArray(res.data.rcnmainLot)){
             //scoopdata=res.data.scoopingLot
@@ -43,6 +46,16 @@ const AgarbatiInitialForm = (props: any) => {
             //set(res.data.scoopingLot)
         })
     }
+
+    function formatNumber(num: string) {
+        return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
+    }
+    function handletimezone(date: string | Date) {
+            const apidate = new Date(date);
+            const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
+            const finaldate = format(localdate, 'dd-MM-yyyy', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })
+            return finaldate;
+        }
     return (
         <>
             <div className="pl-10 pr-10 max-h-64 overflow-scroll">
@@ -50,9 +63,10 @@ const AgarbatiInitialForm = (props: any) => {
                 <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl. No.</TableHead>
-                        <TableHead className="text-center" >GatePass No</TableHead>
-                 
+                        <TableHead className="text-center" >Receiving_Date</TableHead>
                         <TableHead className="text-center" >Status</TableHead>
+                        <TableHead className="text-center" >Receiving_Qty</TableHead>
+                       
                         <TableHead className="text-center" >Action</TableHead>
 
 
@@ -67,22 +81,25 @@ const AgarbatiInitialForm = (props: any) => {
                                             {idx + 1}
                                         </TableCell>
                                         <TableCell className="text-center font-semibold">
-                                            {item.gatePassNo}
+                                            {handletimezone(item.recevingDate)}
                                         </TableCell>
-                                      
-
                                         <TableCell className="text-center"><Button className="bg-orange-500 h-8 text-white rounded-md">Pending</Button></TableCell>
+
+                                        <TableCell className="text-center font-semibold">
+                                            {formatNumber(item.totalWeight)} Kg
+                                        </TableCell>
+
                                         <TableCell className="text-center">
                                             <Dialog>
                                                 <DialogTrigger>
-                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)}>+ Add </Button></DialogTrigger>
-                                           <DialogContent style={{display:'block'}} className='max-w-5xl'>
-                                                    <DialogHeader>
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Agarbati Entry/Exit</p></DialogTitle>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.recevingDate)} >+ VLOT </Button></DialogTrigger>
+                                             <DialogContent style={{display:'block'}} className='max-w-6xl'>
+                                                    <DialogHeader >
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Village VLOT Entry</p></DialogTitle>
 
                                                     </DialogHeader>
-                                                <AgarbatiPrimaryEntryForm rcn={rcnData}/>
-                                                    
+                                                <VLOTCreateForm props={rcnData}/>
+                                              
                                                 </DialogContent>
                                             </Dialog>
                                         </TableCell>
@@ -111,4 +128,4 @@ const AgarbatiInitialForm = (props: any) => {
 
 
 }
-export default AgarbatiInitialForm
+export default VLOTInitial

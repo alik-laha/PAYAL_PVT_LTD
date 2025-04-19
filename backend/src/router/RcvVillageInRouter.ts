@@ -1,24 +1,14 @@
 import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
-
-
-
-
-
-
-
-
-import editRcvVillage from '../controller/RcvVIllageController/editRcvVillage';
-import rejectVillagePrimaryEdit from '../controller/RcvVIllageController/rejectEditRcvVillage';
-import approveEditRcvVillage from '../controller/RcvVIllageController/approveEditrcvVillage';
-import { deleteVillageInPrimary, getEditRcvVillageInPrimary, getRcvVillageInbyGatePass, 
-    getUnEntriedRcvVillageIn, searchRcvVillageIn, sumofRcvVillageInPrimary, updateRcvVillageIn, updateRcvVillageInEntire } from '../controller/RcvVillageInController/RcvVillageInApi';
+import { approveEditRcvVillageIn, deleteVillageInPrimary, editRcvVillageIn, getEditRcvVillageInPrimary, getRcvVillageInbyDate, getRcvVillageInbyGatePass, 
+    getUnEntriedRcvVillageIn, getUnEntriedRcvVillageInVLOT, rejectVillageInPrimaryEdit, searchRcvVillageIn, sumofRcvVillageInPrimary, updateRcvVillageIn, updateRcvVillageInEntire } from '../controller/RcvVillageInController/RcvVillageInApi';
 
 const router = express.Router();
 
 
 
  router.get("/getRcvVillageInByGatePass/:lotNO", jwtVerify, getRcvVillageInbyGatePass)
+ router.get("/getRcvVillageInByDate/:lotNO", jwtVerify, getRcvVillageInbyDate)
  router.get("/getRcvVillageInNotEntried/:status", jwtVerify, getUnEntriedRcvVillageIn)
  router.put("/updateRcvVillageIn/:id",jwtVerify, updateRcvVillageIn)
  router.put("/updateRcvVillageInEntire/:id",jwtVerify, updateRcvVillageInEntire)
@@ -28,11 +18,12 @@ const router = express.Router();
 
  router.get("/getsumofRcvVillageIn",jwtVerify, sumofRcvVillageInPrimary)
  router.get("/getEditRcvVillageInPrimary",jwtVerify, getEditRcvVillageInPrimary)
-// router.post("/editVillagePrimary/:id",jwtVerify, editRcvVillage)
+router.post("/editVillageInPrimary/:id",jwtVerify, editRcvVillageIn)
 
-//  router.get('/acceptEditVillagePrimary/:id', jwtVerify,approveEditRcvVillage)
-//  router.get("/rejectEditVillagePrimary/:id",jwtVerify, rejectVillagePrimaryEdit)
+  router.get('/acceptEditVillageInPrimary/:id', jwtVerify,approveEditRcvVillageIn)
+  router.get("/rejectEditVillageInPrimary/:id",jwtVerify, rejectVillageInPrimaryEdit)
 
+  router.get("/getRcvVillageInVLOT", jwtVerify, getUnEntriedRcvVillageInVLOT)
 
 
 
