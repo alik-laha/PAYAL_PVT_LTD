@@ -47,7 +47,7 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination"
 import { CiEdit } from "react-icons/ci";
-import { pagelimit, pendingCheckRole, SelectGatePassType } from "../common/exportData"
+import { Origin, pagelimit, pendingCheckRole, SelectGatePassType } from "../common/exportData"
 import {  pendingCheckRoles, PermissionRole, sumofRcvVillageInPrimary, findskutypeData,rcvVillageInprimaryData,
        } from '@/type/type'
 import axios from 'axios'
@@ -82,6 +82,7 @@ const RcvVillageInTable = () => {
     const [gradeor, setgradeor] = useState<string>("")
     const [blConNo, setBlConNo] = useState<string>("")
     const [origin, setOrigin] = useState<string>("")
+    const [originp, setOriginp] = useState<string>("")
     const [blockpagen, setblockpagen] = useState('flex')
     const [searchType, setsearchType] = useState('Village Details')
     const [searchTableType, setsearchtableType] = useState('Village Details')
@@ -165,6 +166,7 @@ const RcvVillageInTable = () => {
                 fromDate: fromdate,
                 toDate: todate,
                 almondtype: origin,
+                origin: originp,
                 almondgrade: gradeor }, { params: { page: page, limit: limit } }).then((res) => {
                 setData(res.data.rcnEntries)
                 setsearchtableType('Village Details')
@@ -179,7 +181,7 @@ const RcvVillageInTable = () => {
             axios.post('/api/rcvVillageIn/getVLOTDetails', {  searchitem: blConNo,
                
                 fromDate: fromdate,
-                toDate: todate,
+                toDate: todate,    origin: originp,
                  }, { params: { page: page, limit: limit } }).then((res) => {
                 setData(res.data.rcnEntries)
                 setsearchtableType('V-LOT Details')
@@ -238,96 +240,101 @@ const RcvVillageInTable = () => {
         getSumOfAllEdit()
     }, [])
     const exportToExcel = async () => {
-        const response = await axios.post('/api/rcvVillageIn/getVillagePrimaryIn', {  searchitem: blConNo,
-            gatetype: selectType,
-            fromDate: fromdate,
-            toDate: todate,
-            almondtype: origin,
-            almondgrade: gradeor })
-        const data1 = response.data.rcnEntries
-        console.log(data1)
-
-        let ws
-        let transformed: any[] = [];
-        if (EditData.length > 0) {
-
-            transformed = EditData.map((item: rcvVillageInprimaryData,idx:number) => ({
-                id: idx + 1,
-                gatePassNo:item.gatePassNo,
-                gateType:item.gateType,
-                ReceivingDate: handletimezone(item.recevingDate),
-                Vehicle_No:item.truckNo,
-                vendorName:item.vendorName,
-                grossWt:formatNumber(item.grossWt),
-                netWeight:item.netWeight ? item.netWeight : 0 ,
-                type:item.type,
-                grade:item.sku,
-                invoice:item.invoice,
-                origin:item.origin,
-
-                totalWt:item.totalWt ? formatNumber(item.totalWt):0 ,
-                wholes:formatNumber(item.wholes_quantity),
-                wholes_prcntg:formatNumber(item.wholes_quantity),
-                lw:formatNumber(item.lw_quantity),
-                lw_prcntg:formatNumber(item.lw_prcntg),
-                jb:formatNumber(item.jb_quantity),
-                jb_prcntg:formatNumber(item.jb_prcntg),
-                husk:formatNumber(item.husk_quantity),
-                husk_prcntg:formatNumber(item.husk_prcntg),
-                jbp:formatNumber(item.jbp_quantity),
-                jbp_prcntg:formatNumber(item.jbp_prcntg),
-                sdp:formatNumber(item.sdp_quantity),
-                sdp_prcntg:formatNumber(item.sdp_prcntg),
-                pieces:formatNumber(item.pieces_quantity),
-                pieces_prcntg:formatNumber(item.pieces_prcntg),
-                Item_Or_Bag_Count:item.quantity,
-                editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
-            }));
-            ws = XLSX.utils.json_to_sheet(transformed);
+        if(searchType === 'Village Details'){
+            const response = await axios.post('/api/rcvVillageIn/getVillagePrimaryIn', {  searchitem: blConNo,
+                gatetype: selectType,
+                fromDate: fromdate,
+                toDate: todate,
+                almondtype: origin,
+                origin: originp,
+                almondgrade: gradeor })
+            const data1 = response.data.rcnEntries
+            console.log(data1)
+    
+            let ws
+            let transformed: any[] = [];
+            if (EditData.length > 0) {
+    
+                transformed = EditData.map((item: rcvVillageInprimaryData,idx:number) => ({
+                    id: idx + 1,
+                    gatePassNo:item.gatePassNo,
+                    gateType:item.gateType,
+                    ReceivingDate: handletimezone(item.recevingDate),
+                    Vehicle_No:item.truckNo,
+                    vendorName:item.vendorName,
+                    grossWt:formatNumber(item.grossWt),
+                    netWeight:item.netWeight ? item.netWeight : 0 ,
+                    type:item.type,
+                    grade:item.sku,
+                    invoice:item.invoice,
+                    origin:item.origin,
+    
+                    totalWt:item.totalWt ? formatNumber(item.totalWt):0 ,
+                    wholes:formatNumber(item.wholes_quantity),
+                    wholes_prcntg:formatNumber(item.wholes_quantity),
+                    lw:formatNumber(item.lw_quantity),
+                    lw_prcntg:formatNumber(item.lw_prcntg),
+                    jb:formatNumber(item.jb_quantity),
+                    jb_prcntg:formatNumber(item.jb_prcntg),
+                    husk:formatNumber(item.husk_quantity),
+                    husk_prcntg:formatNumber(item.husk_prcntg),
+                    jbp:formatNumber(item.jbp_quantity),
+                    jbp_prcntg:formatNumber(item.jbp_prcntg),
+                    sdp:formatNumber(item.sdp_quantity),
+                    sdp_prcntg:formatNumber(item.sdp_prcntg),
+                    pieces:formatNumber(item.pieces_quantity),
+                    pieces_prcntg:formatNumber(item.pieces_prcntg),
+                    Item_Or_Bag_Count:item.quantity,
+                    editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
+                }));
+                ws = XLSX.utils.json_to_sheet(transformed);
+            }
+            else {
+                transformed = data1.map((item: rcvVillageInprimaryData,idx:number) => ({
+                    id: idx + 1,
+                    gatePassNo:item.gatePassNo,
+                    gateType:item.gateType,
+                    ReceivingDate: handletimezone(item.recevingDate),
+                    Vehicle_No:item.truckNo,
+                    vendorName:item.vendorName,
+                    grossWt:formatNumber(item.grossWt),
+                    netWeight:item.netWeight ? item.netWeight : 0 ,
+                    type:item.type,
+                    grade:item.sku,
+                    invoice:item.invoice,
+                    origin:item.origin,
+    
+                    totalWt:item.totalWt ? formatNumber(item.totalWt):0 ,
+                    wholes:formatNumber(item.wholes_quantity),
+                    wholes_prcntg:formatNumber(item.wholes_quantity),
+                    lw:formatNumber(item.lw_quantity),
+                    lw_prcntg:formatNumber(item.lw_prcntg),
+                    jb:formatNumber(item.jb_quantity),
+                    jb_prcntg:formatNumber(item.jb_prcntg),
+                    husk:formatNumber(item.husk_quantity),
+                    husk_prcntg:formatNumber(item.husk_prcntg),
+                    jbp:formatNumber(item.jbp_quantity),
+                    jbp_prcntg:formatNumber(item.jbp_prcntg),
+                    sdp:formatNumber(item.sdp_quantity),
+                    sdp_prcntg:formatNumber(item.sdp_prcntg),
+                    pieces:formatNumber(item.pieces_quantity),
+                    pieces_prcntg:formatNumber(item.pieces_prcntg),
+                  
+                    Item_Or_Bag_Count:item.quantity,
+                    editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
+    
+                }));
+                // setTransformedData(transformed);
+                ws = XLSX.utils.json_to_sheet(transformed);
+            }
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            saveAs(blob, 'Village_In_Primary_Material_' + currDate + '.xlsx');
         }
-        else {
-            transformed = data1.map((item: rcvVillageInprimaryData,idx:number) => ({
-                id: idx + 1,
-                gatePassNo:item.gatePassNo,
-                gateType:item.gateType,
-                ReceivingDate: handletimezone(item.recevingDate),
-                Vehicle_No:item.truckNo,
-                vendorName:item.vendorName,
-                grossWt:formatNumber(item.grossWt),
-                netWeight:item.netWeight ? item.netWeight : 0 ,
-                type:item.type,
-                grade:item.sku,
-                invoice:item.invoice,
-                origin:item.origin,
 
-                totalWt:item.totalWt ? formatNumber(item.totalWt):0 ,
-                wholes:formatNumber(item.wholes_quantity),
-                wholes_prcntg:formatNumber(item.wholes_quantity),
-                lw:formatNumber(item.lw_quantity),
-                lw_prcntg:formatNumber(item.lw_prcntg),
-                jb:formatNumber(item.jb_quantity),
-                jb_prcntg:formatNumber(item.jb_prcntg),
-                husk:formatNumber(item.husk_quantity),
-                husk_prcntg:formatNumber(item.husk_prcntg),
-                jbp:formatNumber(item.jbp_quantity),
-                jbp_prcntg:formatNumber(item.jbp_prcntg),
-                sdp:formatNumber(item.sdp_quantity),
-                sdp_prcntg:formatNumber(item.sdp_prcntg),
-                pieces:formatNumber(item.pieces_quantity),
-                pieces_prcntg:formatNumber(item.pieces_prcntg),
-              
-                Item_Or_Bag_Count:item.quantity,
-                editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
-
-            }));
-            // setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
-        }
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Village_In_Primary_Material_' + currDate + '.xlsx');
+        
     }
     const Role = localStorage.getItem('role') as keyof PermissionRole
     const checkpending = (tab: string) => {
@@ -355,9 +362,22 @@ const RcvVillageInTable = () => {
 onClick={GetPendingEdit}>Pending Edit ({EditSumData?.RcvVillageInPrimary})</Button>}
 
             <div className="ml-5 mt-5 ">
+            <div className="w-full ">
+                    <select className='mb-5 h-10 bg-purple-100 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                                        onChange={(e) => setsearchType(e.target.value)} value={searchType}>
+                 
+                                        {dropdown.map((data, index) => (
+                                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                                {data}
+                                            </option>
+                                        ))}
+                </select>
+                    </div>
                 <div className="flex flexbox-search">
-                    <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" GatePass No" value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
-                    <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    <Input className="no-padding w-1/7 " placeholder={searchType==='Village Details' ?" GatePass No":"V-Lot No"} value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                    { searchType==='Village Details' &&<select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setOrigin(e.target.value)} value={origin}>
                         <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
@@ -368,7 +388,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 {data.sku}
                             </option>
                         ))}
-                    </select>
+                    </select>}
 
 
                     <label className="font-semibold mt-1 ml-8 mr-5 flexbox-search-width-label-left ">From </label>
@@ -387,7 +407,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         placeholder="To Date"
 
                     />
-                    <select className='flexbox-search-width flex h-8 w-1/7 no-margin-left-absolute ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                  { searchType==='Village Details' && <select className='flexbox-search-width flex h-8 w-1/7 no-margin-left-absolute ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setgradeor(e.target.value)} value={gradeor}>
                         <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
@@ -398,7 +418,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 {data.sku}
                             </option>
                         ))}
-                    </select>
+                    </select>}
                     <select className='flexbox-search-width hidden no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setselectType(e.target.value)} value={selectType}>
@@ -411,6 +431,18 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             </option>
                         ))}
                     </select>
+                    <select className='flexbox-search-width flex h-8 w-1/7 no-margin-left-absolute ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                                        onChange={(e) => setOriginp(e.target.value)} value={originp}>
+                                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                                            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
+                                        {Origin.map((data, index) => (
+                                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                                                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                                {data}
+                                            </option>
+                                        ))}
+                                    </select>
 
 
 
@@ -421,7 +453,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
 
 
-                <Table className="mt-4">
+               {searchTableType==='Village Details' ?  (<Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
                     <TableHead className="text-center" >Id</TableHead>
@@ -644,7 +676,48 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             </TableRow>)
                         )}
                     </TableBody>
-                </Table>
+                </Table>):(<Table className="mt-4">
+                <TableHeader className="bg-neutral-100 text-stone-950 ">
+                <TableHead className="text-center" >Id</TableHead>
+                <TableHead className="text-center" >VLOT-NO</TableHead>
+                <TableHead className="text-center" >Origin</TableHead>
+                <TableHead className="text-center" >Receive Qty(Kg)</TableHead>
+                <TableHead className="text-center" >Actual Receive_Qty(Kg)</TableHead>
+                <TableHead className="text-center" >Receive_Loss(Kg)</TableHead>
+                <TableHead className="text-center" >Receive_Loss(%)</TableHead>
+                    </TableHeader>
+
+                    <TableBody>
+                    {Data.length > 0 ? (Data.map((item: any, idx) => {
+                      return (
+                                 <TableRow key={item.id} >
+                                     <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                     <TableCell className="text-center font-bold text-red-500 "> {item.vlotNo}</TableCell>                                 
+                                     <TableCell className="text-center font-semibold  ">{item.origin}</TableCell>
+                                     <TableCell className="text-center font-semibold ">{formatNumber(item.qty)} Kg</TableCell>
+                                     <TableCell className="text-center font-semibold">{formatNumber(item.actual_qty)} Kg</TableCell>
+                                     <TableCell className="text-center font-semibold text-cyan-500">{formatNumber(item.loss)} Kg</TableCell>
+                                     <TableCell className="text-center font-semibold text-cyan-500">{formatNumber(item.loss)} %</TableCell>
+                                 </TableRow>
+                             );
+                         })) : (<TableRow>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                            
+                             <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                             <TableCell></TableCell>
+                           
+                         </TableRow>)}
+
+                    </TableBody>
+                    </Table>)
+                    
+                    }
                 <Pagination className="pt-5 " style={{ display: blockpagen }}>
                     <PaginationContent>
                         <PaginationItem>

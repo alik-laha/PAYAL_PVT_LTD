@@ -197,7 +197,7 @@ const [origin, setOrigin] = useState<string>('');
         e.preventDefault()
         const resStatus = await axios.post('/api/rcvVillageIn/getStatusVLOT', {date:data.recevingDate})
                 console.log(resStatus)
-                if (resStatus.data.completed && Number(resStatus.data.completed) >0) {
+                if (resStatus.data.completed && Number(resStatus.data.completed) ===0) {
                     setErrText('V-LOT has Already Been Created For This Entry')
                     if(errordialog){
                         (errordialog as any).showModal()
@@ -207,7 +207,7 @@ const [origin, setOrigin] = useState<string>('');
                 }
         setisdisable(true)
         console.log("submit")
-         axios.post(`/api/rcvVillageIn/editVillageInPrimary/${data.id}`, {
+        await axios.post(`/api/rcvVillageIn/editVillageInPrimary/${data.id}`, {
              grossWt, netwt, gateType, recevingDate: date, 
              truck, gatepass, invoice: invoiceref.current?.value, 
              itemtype, itemname, VendorN:VendorName,origin,
