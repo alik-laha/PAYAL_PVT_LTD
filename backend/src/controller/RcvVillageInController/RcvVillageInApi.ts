@@ -751,3 +751,19 @@ export const createEntireVLOT = async (req: Request, res: Response) => {
     }
 
 }
+
+export const getStatusVLOT = async (req: Request, res: Response) => {
+
+    try {
+            const date=req.body.date
+            const completed  = await VLotNo.count({ 
+                where: { recevingDate: date } });
+            
+                    
+        res.status(200).json({ message: "VLOT Count", completed});
+    }
+    catch (err) {
+        res.status(500).json({ message: "Error in VLOT COUNT", error: err });
+    }
+
+}

@@ -1,6 +1,7 @@
 import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
 import { approveEditRcvVillageIn, createEntireVLOT, deleteVillageInPrimary, editRcvVillageIn, getEditRcvVillageInPrimary, getRcvVillageInbyDate, getRcvVillageInbyGatePass, 
+    getStatusVLOT, 
     getUnEntriedRcvVillageIn, getUnEntriedRcvVillageInVLOT, rejectVillageInPrimaryEdit, searchRcvVillageIn, sumofRcvVillageInPrimary, updateRcvVillageIn, updateRcvVillageInEntire } from '../controller/RcvVillageInController/RcvVillageInApi';
 
 const router = express.Router();
@@ -25,6 +26,7 @@ router.post("/editVillageInPrimary/:id",jwtVerify, editRcvVillageIn)
 
   router.get("/getRcvVillageInVLOT", jwtVerify, getUnEntriedRcvVillageInVLOT)
   router.post("/createEntireVLOT", jwtVerify,createEntireVLOT)
+  router.post("/getStatusVLOT", jwtVerify,getStatusVLOT)
 
 
 export default router;

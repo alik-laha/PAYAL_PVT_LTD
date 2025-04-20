@@ -76,7 +76,7 @@ const VLOTCreateForm = (props:Props) => {
                   const filteredData = data.map(({ origin ,actual_Receiving_Qty,
                    Receiving_Qty,Loss}) => ({
                     origin,   
-                    actual_Receiving_Qty,
+                    actual_Receiving_Qty:actual_Receiving_Qty,
                     Receiving_Qty:parseFloat(Receiving_Qty),
                     Loss
                   }));
@@ -142,11 +142,11 @@ const VLOTCreateForm = (props:Props) => {
     
     const handleRowChangeActual = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
-        handleRowChange(index,'actual_Receiving_Qty',e.target.value)
-        console.log(rows[index].Loss)
+        handleRowChange(index,'actual_Receiving_Qty',Number(e.target.value))
+        //console.log(rows[index].Loss)
         rows[index].Loss= Number(rows[index].Receiving_Qty)-Number(e.target.value)
         rows[index].Loss_prcntg=((Number(rows[index].Receiving_Qty)-Number(e.target.value))/Number(rows[index].Receiving_Qty))*100
-        handleRowChange(index,'actual_Receiving_Qty',e.target.value)
+        handleRowChange(index,'actual_Receiving_Qty',Number(e.target.value))
      }  
 
      const handleSubmit2 = async (e: React.FormEvent) => {
@@ -154,7 +154,7 @@ const VLOTCreateForm = (props:Props) => {
              setisdisable(true)
              const hasPending = props.props.some((item: rcvVillageInprimaryData) => item.editStatus === 'Pending');
              if (hasPending) {
-                setErrortext('One/More Item Status are Pending !')
+                setErrortext('One or More Items are having Status Pending !')
                 const dialogerror = document.getElementById("packagingMetirialReciveError") as HTMLDialogElement
                 dialogerror.showModal()
                // console.log(rows)
@@ -165,7 +165,7 @@ const VLOTCreateForm = (props:Props) => {
                          rows[idx].id=item.id
                      })
              //console.log(rows)
-             //console.log(newFormupdateData)
+             console.log(newFormupdateData)
                  try {
                      const initialscoop = await axios.post('/api/rcvVillageIn/createEntireVLOT', { formData:newFormupdateData,
                         date:props.props[0].recevingDate
@@ -173,7 +173,7 @@ const VLOTCreateForm = (props:Props) => {
                      console.log(initialscoop)         
                          setErrortext(initialscoop.data.message)
                          if (initialscoop.status === 200) {
-                             const dialog2 = document.getElementById("successemployeedialog") as HTMLDialogElement
+                             const dialog2 = document.getElementById("packageMetrialReceve") as HTMLDialogElement
                              dialog2.showModal()
                              setTimeout(() => {
                                  dialog2.close()

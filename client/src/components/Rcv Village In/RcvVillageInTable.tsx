@@ -82,6 +82,11 @@ const RcvVillageInTable = () => {
     const [gradeor, setgradeor] = useState<string>("")
     const [blConNo, setBlConNo] = useState<string>("")
     const [origin, setOrigin] = useState<string>("")
+    const [blockpagen, setblockpagen] = useState('flex')
+    const [searchType, setsearchType] = useState('Village Details')
+    const [searchTableType, setsearchtableType] = useState('Village Details')
+    const dropdown=['Village Details','V-LOT Details']
+
     if (closeDialogButton) {
         closeDialogButton.addEventListener('click', () => {
             if (successdialog != null) {
@@ -153,20 +158,39 @@ const RcvVillageInTable = () => {
             })
     }
     const searchData = () => {
-        axios.post('/api/rcvVillageIn/getVillageInPrimary', {  searchitem: blConNo,
-            gatetype: selectType,
-            fromDate: fromdate,
-            toDate: todate,
-            almondtype: origin,
-            almondgrade: gradeor }, { params: { page: page, limit: limit } }).then((res) => {
-            setData(res.data.rcnEntries)
-
-            if (res.data.rcnEntries.length === 0 && page>1) {
-                setPage((prev) => prev - 1)
-            }
-        }).catch((err) => {
-            console.log(err)
-        })
+        setblockpagen('flex')
+        if(searchType === 'Village Details'){
+            axios.post('/api/rcvVillageIn/getVillageInPrimary', {  searchitem: blConNo,
+                gatetype: selectType,
+                fromDate: fromdate,
+                toDate: todate,
+                almondtype: origin,
+                almondgrade: gradeor }, { params: { page: page, limit: limit } }).then((res) => {
+                setData(res.data.rcnEntries)
+                setsearchtableType('Village Details')
+                if (res.data.rcnEntries.length === 0 && page>1) {
+                    setPage((prev) => prev - 1)
+                }
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
+        else{
+            axios.post('/api/rcvVillageIn/getVLOTDetails', {  searchitem: blConNo,
+               
+                fromDate: fromdate,
+                toDate: todate,
+                 }, { params: { page: page, limit: limit } }).then((res) => {
+                setData(res.data.rcnEntries)
+                setsearchtableType('V-LOT Details')
+                if (res.data.rcnEntries.length === 0 && page>1) {
+                    setPage((prev) => prev - 1)
+                }
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
+        
     }
 
     useEffect(() => {
@@ -375,7 +399,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                             </option>
                         ))}
                     </select>
-                    <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    <select className='flexbox-search-width hidden no-margin-left-absolute flex h-8 w-1/7 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setselectType(e.target.value)} value={selectType}>
  <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
@@ -621,7 +645,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         )}
                     </TableBody>
                 </Table>
-                <Pagination className="pt-5 ">
+                <Pagination className="pt-5 " style={{ display: blockpagen }}>
                     <PaginationContent>
                         <PaginationItem>
                             <PaginationPrevious onClick={() => setPage((prev) => {

@@ -193,32 +193,42 @@ const [origin, setOrigin] = useState<string>('');
         setVendorNameView("none")
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        const resStatus = await axios.post('/api/rcvVillageIn/getStatusVLOT', {date:data.recevingDate})
+                console.log(resStatus)
+                if (resStatus.data.completed && Number(resStatus.data.completed) >0) {
+                    setErrText('V-LOT has Already Been Created For This Entry')
+                    if(errordialog){
+                        (errordialog as any).showModal()
+                    }
+                    
+                    return
+                }
         setisdisable(true)
         console.log("submit")
-        axios.post(`/api/rcvVillageIn/editVillageInPrimary/${data.id}`, {
-            grossWt, netwt, gateType, recevingDate: date, 
-            truck, gatepass, invoice: invoiceref.current?.value, 
-            itemtype, itemname, VendorN:VendorName,origin,
-            wholes,wholesprcntg,lw,lwprcntg,jb,jbprcntg,sdp,sdpprcntg,husk,huskprcntg,piece,pieceprcntg,dp,dpprcntg,
-            quantity: quantityRef.current?.value, totalWt, remarks
-        })
-            .then((res) => {
-                if (res.status === 201) {
-                    (successdialog as any).showModal();
-                }
-            }
-            )
-            .catch((err) => {
-                console.log(err)
-                const errorText = err.response.data.message;
-                setErrText(errorText);
-                (errordialog as any).showModal();
-            })
-            .finally(()=>{
-                setisdisable(false)
-            })
+         axios.post(`/api/rcvVillageIn/editVillageInPrimary/${data.id}`, {
+             grossWt, netwt, gateType, recevingDate: date, 
+             truck, gatepass, invoice: invoiceref.current?.value, 
+             itemtype, itemname, VendorN:VendorName,origin,
+             wholes,wholesprcntg,lw,lwprcntg,jb,jbprcntg,sdp,sdpprcntg,husk,huskprcntg,piece,pieceprcntg,dp,dpprcntg,
+             quantity: quantityRef.current?.value, totalWt, remarks
+         })
+             .then((res) => {
+                 if (res.status === 201) {
+                     (successdialog as any).showModal();
+                 }
+             }
+             )
+             .catch((err) => {
+                 console.log(err)
+                 const errorText = err.response.data.message;
+                 setErrText(errorText);
+                 (errordialog as any).showModal();
+             })
+             .finally(()=>{
+                 setisdisable(false)
+             })
 
     }
 

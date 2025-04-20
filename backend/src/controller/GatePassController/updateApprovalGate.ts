@@ -10,6 +10,7 @@ import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
 import RcvVillageModel from "../../model/RcvVillageModel";
 import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
 import oilMillModel from "../../model/oilMillModel";
+import RcvVillageInModel from "../../model/RcvVillageInModel";
 
 
 
@@ -171,6 +172,27 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                     return res.status(200).json({ message: "Gate Pass Details Modified and Approved Successfully" });
                 }
             }
+            if (section === 'Village' && type === 'IN') {
+                const generalupdate = await RcvVillageInModel.update(
+                    {
+                        grossWt: grossWt,
+                        truckNo: vehicle,
+                        netWeight: netwt,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo: gatepassNo
+                        },
+                    }
+                );
+
+                if (generalupdate) {
+                    const data = await WpMsgGatePassRcv("Village Rcv/Dispatch", gatepassNo,"gatepass_release",'Village Item Rcv/Dispatch')
+                    console.log(data)
+                    return res.status(200).json({ message: "Gate Pass Details Modified and Approved Successfully" });
+                }
+            }
             if (section === 'Agarbati' ) {
                 const generalupdate = await agarbatiPrimaryEntryModel.update(
                     {
@@ -260,6 +282,12 @@ const updateApprovalGate = async (req: Request, res: Response) => {
 
                 }
                 if (section === 'Village' && type === 'OUT'){
+                    const data = await WpMsgGatePassRcv("Village Entry/Dispatch", gatepassNo,"gatepass_release",'Village Rcv/Dispatch')
+                    console.log(data)
+                return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
+
+                }
+                if (section === 'Village' && type === 'IN'){
                     const data = await WpMsgGatePassRcv("Village Entry/Dispatch", gatepassNo,"gatepass_release",'Village Rcv/Dispatch')
                     console.log(data)
                 return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
