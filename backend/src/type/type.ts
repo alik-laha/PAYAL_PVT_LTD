@@ -138,6 +138,12 @@ export interface lotNoData {
     id: number;
     lotNo: string;
 }
+
+export interface vlotNoData {
+    id: number;
+    vlotNo: string;
+}
+
 export interface orderNoData {
     id: number;
     orderNo: string;

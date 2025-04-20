@@ -3,10 +3,13 @@ import sequelize from "../../config/databaseConfig";
 
 import RcvVillageInModel from "../../model/RcvVillageInModel";
 import VendorName from "../../model/vendorNameModel";
-import { Op } from "sequelize";
+import { NUMBER, Op, Sequelize } from "sequelize";
 import RcvVillageInEditModel from "../../model/RcvVillageInEditModel";
-import { VillageInRcvData } from "../../type/type";
+import { VillageInRcvData, vlotNoData } from "../../type/type";
 import WhatsappMsg from "../../helper/WhatsappMsg";
+import VLotNo from "../../model/vlotNomodel";
+import VLotDetails from "../../model/vLotDetailsModel";
+import RcnPeeling from "../../model/peelingModel";
 
 export const getUnEntriedRcvVillageIn = async (req: Request, res: Response) => {
 
@@ -652,6 +655,9 @@ export const getUnEntriedRcvVillageInVLOT = async (req: Request, res: Response) 
                        
                         editStatus: {
                             [Op.notLike]: 'Pending'
+                        },
+                        recevingDate: {
+                            [Op.notIn]: Sequelize.literal(`(SELECT DISTINCT recevingDate FROM vlotnos)`)
                         }
                     },
                     group: ['recevingDate']
@@ -668,6 +674,80 @@ export const getUnEntriedRcvVillageInVLOT = async (req: Request, res: Response) 
     catch (err) {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
+}
+
+export const createEntireVLOT = async (req: Request, res: Response) => {
+
+    try {
+    const feeledBy = req.cookies.user;
+    const formData = req.body.formData
+    const date = req.body.date
+
+    const currentDate = new Date();
+    const currentYear = currentDate.getMonth() >= 3 ? currentDate.getFullYear() : currentDate.getFullYear() - 1;
+
+    // Get the latest sequence ID from the database
+    const latestSequence: vlotNoData | null = await VLotNo.findOne({
+        order: [['id', 'DESC']],
+    }) as vlotNoData | null;
+
+    //let sequenceId = 0;
+    let sequenceId = Number(process.env.START_VLOTNO)
+    if (latestSequence) {
+        const latestYear = parseInt(latestSequence.vlotNo.split('-V')[0], 10);
+        if (latestYear === currentYear) {
+            sequenceId = parseInt(latestSequence.vlotNo.split('-V')[1], 10) + 1;
+        }
+    }
+    // Generate the new sequence
+    const newSequence = currentYear + '-V' + sequenceId.toString().padStart(3, '0');
+
+
+    await sequelize.transaction(async (transaction: any) => {
+                const lotGen = await VLotNo.create({ vlotNo: newSequence, recevingDate:date,createdBy: feeledBy }, { transaction })
+                if (lotGen) {
+                    for (let data of formData) {
+
+                        const vlotcreate=await VLotDetails.create({
+                            vlotNo: newSequence,
+                            recevingDate: date,
+                            origin: data.origin,
+                            qty:data.Receiving_Qty,
+                            actual_qty:data.actual_Receiving_Qty,
+                            loss:data.Loss,
+                            loss_prcntg:((Number(data.Receiving_Qty)-Number(data.actual_Receiving_Qty))/Number(data.Receiving_Qty))*100 ,
+                            createdBy: feeledBy
+    
+    
+                        }, { transaction });
+
+                        await RcnPeeling.create({
+                            id:10000+parseInt(vlotcreate.dataValues.id),
+                            LotNo:newSequence,
+                            origin:data.origin,
+                            //InputMoisture:data.OutputMoisture,
+                            TotalInput: data.actual_Receiving_Qty,
+                            noOfOperators:0
+                            //NoOfTrolley: data.NoOfTrolley,
+        
+                        },{transaction});
+                    }
+                    res.status(200).json({ message: `V-LOT Entry ${newSequence} Generated Successfully` });
+
+                }
+    })
+     
+       
+       
+
+    }
+    catch(error) {
+        if(!res.headersSent){
+            console.log(error)
+            return res.status(500).json({ message: "Error while creating V-LOT Entry" ,error});
+        }
     }
 
 }

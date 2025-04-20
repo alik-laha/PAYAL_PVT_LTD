@@ -260,7 +260,16 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
     }, [])
 
      const handleRowChangewholes = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
-           // e.preventDefault()
+            e.preventDefault()
+            if(Number(e.target.value)>rows[index].totalWt){
+
+                setErrortext('Amount is Greater Than Total Amount')
+                rows[index].quantity=0
+                const dialogerror = document.getElementById("packagingMetirialReciveError") as HTMLDialogElement
+                dialogerror.showModal()
+               // console.log(rows)
+                return
+            }
             handleRowChange(index,'wholes',e.target.value)
             rows[index].wholesprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
             handleRowChange(index,'wholes',e.target.value)
@@ -270,6 +279,15 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
 
          const handleRowChangelw = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
             e.preventDefault()
+            if(Number(e.target.value)>rows[index].totalWt){
+
+                setErrortext('Amount is Greater Than Total Amount')
+                rows[index].quantity=0
+                const dialogerror = document.getElementById("packagingMetirialReciveError") as HTMLDialogElement
+                dialogerror.showModal()
+               // console.log(rows)
+                return
+            }
             handleRowChange(index,'lw',e.target.value)
             rows[index].lwprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
             handleRowChange(index,'lw',e.target.value)
@@ -278,6 +296,15 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
 
          const handleRowChangejb = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
             e.preventDefault()
+            if(Number(e.target.value)>rows[index].totalWt){
+
+                setErrortext('Amount is Greater Than Total Amount')
+                rows[index].quantity=0
+                const dialogerror = document.getElementById("packagingMetirialReciveError") as HTMLDialogElement
+                dialogerror.showModal()
+               // console.log(rows)
+                return
+            }
             handleRowChange(index,'jb',e.target.value)
             rows[index].jbprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
             handleRowChange(index,'jb',e.target.value)
@@ -286,6 +313,15 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
 
          const handleRowChangedp = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
             e.preventDefault()
+            if(Number(e.target.value)>rows[index].totalWt){
+
+                setErrortext('Amount is Greater Than Total Amount')
+                rows[index].quantity=0
+                const dialogerror = document.getElementById("packagingMetirialReciveError") as HTMLDialogElement
+                dialogerror.showModal()
+               // console.log(rows)
+                return
+            }
             handleRowChange(index,'dp',e.target.value)
             rows[index].dpprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
             handleRowChange(index,'dp',e.target.value)
@@ -294,6 +330,15 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
          
          const handleRowChangehusk = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
             e.preventDefault()
+            if(Number(e.target.value)>rows[index].totalWt){
+
+                setErrortext('Amount is Greater Than Total Amount')
+                rows[index].quantity=0
+                const dialogerror = document.getElementById("packagingMetirialReciveError") as HTMLDialogElement
+                dialogerror.showModal()
+               // console.log(rows)
+                return
+            }
             handleRowChange(index,'husk',e.target.value)
             rows[index].huskprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
             handleRowChange(index,'husk',e.target.value)
@@ -302,6 +347,15 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
 
          const handleRowChangesdp = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
             e.preventDefault()
+            if(Number(e.target.value)>rows[index].totalWt){
+
+                setErrortext('Amount is Greater Than Total Amount')
+                rows[index].quantity=0
+                const dialogerror = document.getElementById("packagingMetirialReciveError") as HTMLDialogElement
+                dialogerror.showModal()
+               // console.log(rows)
+                return
+            }
             handleRowChange(index,'sdp',e.target.value)
             rows[index].sdpprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
             handleRowChange(index,'sdp',e.target.value)
@@ -309,6 +363,15 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
          }  
          const handleRowChangepiece = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
             e.preventDefault()
+            if(Number(e.target.value)>rows[index].totalWt){
+
+                setErrortext('Amount is Greater Than Total Amount')
+                rows[index].quantity=0
+                const dialogerror = document.getElementById("packagingMetirialReciveError") as HTMLDialogElement
+                dialogerror.showModal()
+               // console.log(rows)
+                return
+            }
             handleRowChange(index,'piece',e.target.value)
             rows[index].pieceprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
             handleRowChange(index,'piece',e.target.value)

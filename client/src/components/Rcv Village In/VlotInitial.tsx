@@ -92,15 +92,15 @@ const VLOTInitial = (props: any) => {
                                         <TableCell className="text-center">
                                             <Dialog>
                                                 <DialogTrigger>
-                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.recevingDate)} >+ VLOT </Button></DialogTrigger>
-                                             <DialogContent style={{display:'block'}} className='max-w-6xl'>
+                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.recevingDate)} disabled={idx!=0?true:false}>+ VLOT </Button></DialogTrigger>
+                                                    { idx==0 && <DialogContent style={{display:'block'}} className='max-w-6xl'>
                                                     <DialogHeader >
                                                         <DialogTitle><p className='text-1xl text-center mt-1'> VLOT Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 <VLOTCreateForm props={rcnData}/>
                                               
-                                                </DialogContent>
+                                                </DialogContent>}
                                             </Dialog>
                                         </TableCell>
 
