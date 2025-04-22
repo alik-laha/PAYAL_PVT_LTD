@@ -57,6 +57,8 @@ import { CiEdit } from "react-icons/ci";
 import OrderReMappingCreateForm from "./OrderReMappingCreateForm";
 import { Progress } from "@/components/ui/progress";
 import OrderModify from "./OrderModify";
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 //import { pendingCheckRoles, PermissionRole } from "@/type/type";
 //import { LuDownload } from "react-icons/lu";
 
@@ -81,7 +83,7 @@ const ProdTransacTable = () => {
       const closeDialogButton = document.getElementById('machinescsbtn') as HTMLInputElement;
       const errorcloseDialogButton = document.getElementById('machineerrorbtn') as HTMLInputElement;
       const [errortext, setErrorText] = useState<string>("")
-
+      const currDate = new Date().toLocaleDateString();
       if (closeDialogButton) {
         closeDialogButton.addEventListener('click', () => {
           if (successdialog != null) {
@@ -181,6 +183,89 @@ const ProdTransacTable = () => {
             setsearchtableType('Packing')
         }
     }
+    const handleTransactionSearchExcel = async () => {
+        let ws
+        let transformed: any[] = [];
+
+        if (searchType === 'Order') {
+            const response = await axios.put('/api/packing/orderSearch', {
+                origin: origin,
+                blConNo: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
+                orderStatus: sectionstatus
+
+            })
+            const data = await response.data
+            transformed = data.rcnEntries.map((item: any, idx: number) => ({
+                Sl_No: idx + 1,
+                Origin: item.origin,
+                GradeName: item.gradeName,
+
+                OrderDate: item.orderDate.slice(0, 10),
+                OrderInvDate: item.orderInvDate.slice(0, 10),
+                VendorName: item.vendorName,
+                BrokerName: item.brokerName,
+                Map_Quantity: parseFloat(item.mapquantity),
+                Demand_Quantity: item.quantity,
+                Packed_Quantity: parseFloat(item.actualquantity),
+                UnitRate: item.unitRate,
+                TotalBill: item.totalBill,
+                Gst: item.gst,
+                CreatedBy: item.createdBy,
+                ApprovedBy: item.approvedBy,
+                Remarks: item.remarks
+            }));
+            ws = XLSX.utils.json_to_sheet(transformed);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            saveAs(blob, 'Order_Entry_' + currDate + '.xlsx');
+        }
+        else if (searchType === 'Mapping') {
+            const response = await axios.put('/api/packing/mappingSearch', {
+                origin: origin,
+                blConNo: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
+
+            })
+            const data = await response.data
+            transformed = data.rcnEntries.map((item: any, idx: number) => ({
+                Sl_No: idx + 1,
+                altid: item.altid,
+                OrderID: item.orderID,
+                Origin: item.origin,
+                FinalGradeName: item.finalgradeName,
+                OrderDate: item.orderDate.slice(0,10),
+                MappingDate: item.mappingDate.slice(0,10),
+                VendorName: item.vendorName,
+                Production_Section: item.productionSection,
+                LotNo: item.LotNo,
+                Production_Origin: item.productionOrigin,
+                Production_Grade: item.productionGrade,
+                Section_Quantity: item.sectionQuantity,
+                Percentage_Mix: item.prcntgMix,
+                Mapped_Quantity: item.mappedQuantity,
+                CreatedBy: item.createdBy,
+                ApprovedBy: item.approvedBy,
+                Remarks: item.remarks
+            }));
+            ws = XLSX.utils.json_to_sheet(transformed);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            saveAs(blob, 'Sales_Order_Entry_' + currDate + '.xlsx');
+        }
+
+
+
+
+
+    }
+       
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
 
         const selected = e.target.value;
@@ -283,6 +368,8 @@ const ProdTransacTable = () => {
         })
 
     }
+
+    
 
     return (
         <>
