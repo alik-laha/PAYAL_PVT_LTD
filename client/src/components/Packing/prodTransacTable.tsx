@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table"
 import { format, toZonedTime } from 'date-fns-tz'
 import { useEffect, useState } from "react";
-import { OrderStatusAll, Origin, pagelimit, pageNo, } from "../common/exportData";
+import { OrderStatusAll, Origin, pagelimit, pageNo, pendingCheckRole, } from "../common/exportData";
 import axios from "axios";
 import {
     Dialog,
@@ -59,6 +59,8 @@ import { Progress } from "@/components/ui/progress";
 import OrderModify from "./OrderModify";
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { LuDownload } from "react-icons/lu";
+import { pendingCheckRoles, PermissionRole } from "@/type/type";
 //import { pendingCheckRoles, PermissionRole } from "@/type/type";
 //import { LuDownload } from "react-icons/lu";
 
@@ -201,17 +203,16 @@ const ProdTransacTable = () => {
                 Sl_No: idx + 1,
                 Origin: item.origin,
                 GradeName: item.gradeName,
-
-                OrderDate: item.orderDate.slice(0, 10),
-                OrderInvDate: item.orderInvDate.slice(0, 10),
-                VendorName: item.vendorName,
-                BrokerName: item.brokerName,
-                Map_Quantity: parseFloat(item.mapquantity),
-                Demand_Quantity: item.quantity,
-                Packed_Quantity: parseFloat(item.actualquantity),
-                UnitRate: item.unitRate,
-                TotalBill: item.totalBill,
-                Gst: item.gst,
+                Order_Receive_Date: handletimezone(item.orderDate),
+                Order_Invoice_Date: handletimezone(item.orderInvDate),
+                Vendor_Name: item.vendorName,
+                Broker_Name: item.brokerName,
+                Demand_Quantity: `${formatNumber(item.quantity)} Kg`,
+                Map_Quantity: `${formatNumber(item.mapquantity)} Kg`,    
+                Packed_Quantity: `${formatNumber(item.actualquantity)} Kg`,
+                UnitRate: `${item.unitRate} ₹`,
+                totalBill: `${item.totalBill} ₹`,
+                Gst: item.gst===true? 'Yes':'No',
                 CreatedBy: item.createdBy,
                 ApprovedBy: item.approvedBy,
                 Remarks: item.remarks
@@ -234,20 +235,20 @@ const ProdTransacTable = () => {
             const data = await response.data
             transformed = data.rcnEntries.map((item: any, idx: number) => ({
                 Sl_No: idx + 1,
-                altid: item.altid,
+                altid: item.altid=== 1?'Fresh Pack':'Re-Packing',
                 OrderID: item.orderID,
                 Origin: item.origin,
                 FinalGradeName: item.finalgradeName,
-                OrderDate: item.orderDate.slice(0,10),
-                MappingDate: item.mappingDate.slice(0,10),
+                OrderDate: handletimezone(item.orderDate),
+                MappingDate: handletimezone(item.mappingDate),
                 VendorName: item.vendorName,
                 Production_Section: item.productionSection,
                 LotNo: item.LotNo,
                 Production_Origin: item.productionOrigin,
                 Production_Grade: item.productionGrade,
-                Section_Quantity: item.sectionQuantity,
+                Section_Quantity: `${formatNumber(item.sectionQuantity)} Kg`,
                 Percentage_Mix: item.prcntgMix,
-                Mapped_Quantity: item.mappedQuantity,
+                Mapped_Quantity: `${formatNumber(item.mappedQuantity)} Kg`,
                 CreatedBy: item.createdBy,
                 ApprovedBy: item.approvedBy,
                 Remarks: item.remarks
@@ -258,6 +259,43 @@ const ProdTransacTable = () => {
             const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
             const blob = new Blob([wbout], { type: 'application/octet-stream' });
             saveAs(blob, 'Mapping_Order_Entry_' + currDate + '.xlsx');
+        }
+        else{
+            const response = await axios.put('/api/packing/packingSearch', {
+                origin: origin,
+                blConNo: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
+
+            })
+            const data = await response.data
+            transformed = data.rcnEntries.map((item: any, idx: number) => ({
+                Sl_No: idx + 1,
+                orderID: item.orderID,
+                altid: item.altid=== 1?'Fresh Packing':'Re-Packing',
+                origin: item.origin,
+                qualityStatus: item.qualityStatus,
+                packingStatus: item.packingStatus === 0 ? 'Pending' : 'Packed',
+                dispatchStatus: item.dispatchStatus === 0 ? 'Pending' : 'Dispatched',
+                orderDate: handletimezone(item.orderDate),
+                FinalgradeName: item.gradeName,
+                DemandQuantity: `${formatNumber(item.demandquantity)} Kg`,
+                UnitRate: `${item.unitRate} ₹`,
+                Gst: item.gst===true? 'Yes':'No',
+                totalBill: `${item.totalBill} ₹`,
+                vendorName: item.vendorName,
+                fulfillQuantity: `${item.fulfillquantity ? formatNumber(item.fulfillquantity) : 0} Kg`,
+                mfgDate: item.mfgDate ? handletimezone(item.mfgDate) : item.mfgDate,
+                batchID: item.BatchID,
+                packingQuantity: item.packingquantity,
+                SystemPackingQuantity: item.convpackingquantity
+            }));
+            ws = XLSX.utils.json_to_sheet(transformed);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            saveAs(blob, 'Packing_Final_Entry_' + currDate + '.xlsx');
         }
 
 
@@ -368,6 +406,17 @@ const ProdTransacTable = () => {
         })
 
     }
+    const Role = localStorage.getItem('role') as keyof PermissionRole
+                    const checkpending = (tab: string) => {
+                        //console.log(Role)
+                        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+                            return true
+                        }
+                        else {
+                            return false;
+                        }
+                
+                    }
 
     
 
@@ -444,7 +493,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleTransactionSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
-                {/* {checkpending('Packing') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>} */}
+     {checkpending('ProdStockExcel') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={handleTransactionSearchExcel}><LuDownload size={18} /></Button>  </span>}               
+               
                 {searchTableType === 'Order' ?
                     (<Table className="mt-4">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -720,8 +770,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                            <TableHead className="text-center">Lot_Origin</TableHead>
                            <TableHead className="text-center">Lot_Grade</TableHead>
                            <TableHead className="text-center">Available_Quantity</TableHead>
-                           <TableHead className="text-center">Percentage_Mixing</TableHead>
-                           <TableHead className="text-center">Mixed_Quantity</TableHead>
+                           <TableHead className="text-center">Percentage_Mapping</TableHead>
+                           <TableHead className="text-center">Mapped_Quantity</TableHead>
                           
                            {/* <TableHead className="text-center">Edit Status</TableHead> */}
                            <TableHead className="text-center">Created_By</TableHead>
