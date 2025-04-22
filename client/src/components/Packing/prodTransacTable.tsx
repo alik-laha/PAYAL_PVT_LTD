@@ -257,7 +257,7 @@ const ProdTransacTable = () => {
             XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
             const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
             const blob = new Blob([wbout], { type: 'application/octet-stream' });
-            saveAs(blob, 'Sales_Order_Entry_' + currDate + '.xlsx');
+            saveAs(blob, 'Mapping_Order_Entry_' + currDate + '.xlsx');
         }
 
 
