@@ -770,6 +770,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                            <TableHead className="text-center">Lot_Origin</TableHead>
                            <TableHead className="text-center">Lot_Grade</TableHead>
                            <TableHead className="text-center">Available_Quantity</TableHead>
+                           <TableHead className="text-center">Actual Available_Quantity</TableHead>
                            <TableHead className="text-center">Percentage_Mapping</TableHead>
                            <TableHead className="text-center">Mapped_Quantity</TableHead>
                           
@@ -796,14 +797,16 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                                      
                                        <TableCell className="text-center">{item.vendorName}</TableCell>
-
+                                   
                                        <TableCell className="text-center bg-green-100">{item.productionSection}</TableCell>
                                        <TableCell className="text-center font-semibold bg-yellow-100">{item.LotNo}</TableCell>
                                        <TableCell className="text-center bg-yellow-100">{item.productionOrigin}</TableCell>
                                        <TableCell className="text-center bg-yellow-100">{item.productionGrade}</TableCell>
                                      
 
-                                       <TableCell className="text-center bg-yellow-100">{formatNumber(item.sectionQuantity)} Kg </TableCell> {/* Demand Quantity */}
+                                       <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.sectionQuantity)} Kg </TableCell> {/* Demand Quantity */}
+                                       <TableCell className="text-center bg-yellow-100 text-red-500 font-semibold ">{formatNumber(item.sectionQuantityActual)} Kg </TableCell> {/* Demand Quantity */}
+
                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.prcntgMix)} %</TableCell> {/* Prepared Quantity */}
 
                                        <TableCell className="text-center font-semibold bg-green-100">{formatNumber(item.mappedQuantity)} Kg</TableCell> {/* Prepared Quantity */}
@@ -868,7 +871,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                            <TableHead className="text-center">Order_Entry_Date</TableHead>
                          
                            <TableHead className="text-center">Final_GradeName</TableHead>
-                           <TableHead className="text-center">Order_Quantity</TableHead>
+                           <TableHead className="text-center">Opening_Demand</TableHead>
                           
                            <TableHead className="text-center">Unit_Rate</TableHead>
                            <TableHead className="text-center">GST</TableHead>

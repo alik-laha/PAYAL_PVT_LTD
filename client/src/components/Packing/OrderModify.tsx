@@ -201,9 +201,12 @@ const OrderModify = (props:Props) => {
                         <div className="flex"><Label className="w-2/4  pt-1">Broker</Label>
                         <Input className="w-2/4 text-center " placeholder="Broker" value={broker} onChange={(e)=> setBroker(e.target.value)} required/> </div>  
 
-                        <div className="flex"><Label className="w-2/4  pt-1">Demand Quantity</Label>
-                        <Input className="w-2/4 text-center " placeholder="Quantity" value={quantity} onChange={(e)=> setQuantity(e.target.value)} required/> </div>  
-
+                       {props.mapping[0].ordMappingStatus===0 ?
+                       <div className="flex"><Label className="w-2/4  pt-1">Demand Quantity</Label>
+                        <Input className="w-2/4 text-center " placeholder="Quantity" value={quantity} onChange={(e)=> setQuantity(e.target.value)} required/> </div> :
+                         <div className="flex"><Label className="w-2/4  pt-1">Demand Quantity</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Quantity" value={quantity} readOnly required/> </div>} 
+                        
 
                         <div className="flex"><Label className="w-2/4  pt-1">Unit rate</Label>
                         <Input className="w-2/4 text-center " placeholder="Unit Rate" value={unitRate} onChange={(e)=> setUnitRate(e.target.value)} required/> </div>
