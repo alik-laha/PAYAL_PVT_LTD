@@ -61,6 +61,7 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { LuDownload } from "react-icons/lu";
 import { pendingCheckRoles, PermissionRole } from "@/type/type";
+import PackingCreateForm from "./orderPAckingForm";
 //import { pendingCheckRoles, PermissionRole } from "@/type/type";
 //import { LuDownload } from "react-icons/lu";
 
@@ -645,7 +646,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         </AlertDialog>}
 
                                                         {/* Modify Order */}
-                                                        {item.ordMappingStatus===1 && item.ordStatus !== 1 &&
+                                                        {item.ordApproveStatus === 'Approved' && item.ordStatus !== 1 &&
                                                             <Dialog>
                                                                 <DialogTrigger>
                                                                 <div className="flex"><FcEditImage size={25} />  <button className="bg-transparent pl-1 pb-2 rounded-md hover:text-green-500"> Modify Order </button></div></DialogTrigger>
@@ -776,9 +777,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                           
                            {/* <TableHead className="text-center">Edit Status</TableHead> */}
                            <TableHead className="text-center">Created_By</TableHead>
-                           <TableHead className="text-center">Edited_By</TableHead>
+                           {/* <TableHead className="text-center">Edited_By</TableHead> */}
                            <TableHead className="text-center">Mapping_Remarks</TableHead>
-                           <TableHead className="text-center" >Action</TableHead>
+                           {/* <TableHead className="text-center" >Action</TableHead> */}
                        </TableHeader>
                        <TableBody>
                            {Data.length > 0 ? (Data.map((item: any, idx) => {
@@ -813,9 +814,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                   
                                        {/* <TableCell className="text-center">{item.editStatus}</TableCell> */}
                                        <TableCell className="text-center">{item.createdBy}</TableCell> {/* Created By */}
-                                       <TableCell className="text-center">{item.approvedBy}</TableCell> {/* Actioned By */}
+                                       {/* <TableCell className="text-center">{item.approvedBy}</TableCell> Actioned By */}
                                        <TableCell className="text-center">{item.remarks}</TableCell>
-                                       <TableCell className="text-center">
+                                       {/* <TableCell className="text-center">
 
                                        <Popover>
                                             <PopoverTrigger>
@@ -832,13 +833,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 <p className='text-1xl pb-1 text-center mt-1'>Order Mapping Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <HamsaEditForm borma={[item]} /> */}
+                                                        <HamsaEditForm borma={[item]} />
                                                     </DialogContent>
                                                 </Dialog>
                                                     </PopoverContent>
                                                                                                 
                                                                                             </Popover>
-                                       </TableCell>
+                                       </TableCell> */}
 
                                    </TableRow>
                                );
@@ -941,20 +942,21 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                                        <Popover>
                                             <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Pack</button>
+                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.packingStatus === 1? 'bg-cyan-200' : 'bg-cyan-500'}`} 
+                                                disabled={item.editStatus === 'Pending' || item.packingStatus === 1 ? true : false}>Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col text-sm w-30 font-medium">
                                                 <Dialog>
                                                     <DialogTrigger className="flex"><CiEdit size={20} />
-                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Pack</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-7xl">
+                                                    <DialogContent className="max-w-3xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>Order Mapping Modification</p>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>Order Packing</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <HamsaEditForm borma={[item]} /> */}
+                                                        <PackingCreateForm data={item} />
                                                     </DialogContent>
                                                 </Dialog>
                                                     </PopoverContent>

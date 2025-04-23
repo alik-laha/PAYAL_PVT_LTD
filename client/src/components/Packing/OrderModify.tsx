@@ -38,7 +38,7 @@ const OrderModify = (props:Props) => {
     const [quantity, setQuantity] = useState("")
     const [gst, setGst] = useState<boolean>()
     const [totalBill, setTotalBill] = useState("")
-    const [mapqty, setMapQty] = useState("")
+    
     const [unitRate, setUnitRate] = useState("")
     const [remarks, setremarks] = useState("")
    
@@ -60,7 +60,6 @@ const OrderModify = (props:Props) => {
         setBroker(props.mapping[0].brokerName)
         setQuantity(props.mapping[0].quantity)
         setGst(props.mapping[0].gst)
-        setMapQty(props.mapping[0].mapquantity)
         setUnitRate(props.mapping[0].unitRate)
         setremarks(props.mapping[0].remarks)
         setTotalBill(props.mapping[0].totalBill)
@@ -88,21 +87,24 @@ const OrderModify = (props:Props) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        if(Number(quantity)<Number(mapqty)
-           ){
-               setErrText('Demand Quantity should be greater than or equal to Mapping Quantity')       
-               const dialogerror = document.getElementById("packagingMetirialReciveErrorUpdate") as HTMLDialogElement
-               dialogerror.showModal()
-              // console.log(rows)
-               return
-           }
+        // if(Number(quantity)<Number(mapqty)
+        //    ){
+        //        setErrText('Demand Quantity should be greater than or equal to Mapping Quantity')       
+        //        const dialogerror = document.getElementById("packagingMetirialReciveErrorUpdate") as HTMLDialogElement
+        //        dialogerror.showModal()
+        //       // console.log(rows)
+        //        return
+        //    }
         setisdisable(true)
         console.log("submit")
         axios.put(`/api/packing/modifyOrder/${id}`, { 
-           origin,gradeName,orderDate,invDate,vendor,broker,quantity,gst,totalBill,unitRate,remarks})
+           origin,gradeName,orderDate,invDate,vendor,broker,quantity,gst,totalBill,unitRate,remarks,mappingStatus:props.mapping[0].ordMappingStatus})
             .then((res) => {
-                if (res.status === 201) {
-                    (successdialog as any).showModal();
+                if (res.status === 200) {
+                    setErrText(res.data.message)
+                    if (successdialog) {
+                        (successdialog as any).showModal();
+                    }
                 }
             }
             )
@@ -219,7 +221,7 @@ const OrderModify = (props:Props) => {
                         <Input className="w-2/4 text-center " placeholder="Quantity" value={totalBill} onChange={(e)=> setTotalBill(e.target.value)} required/> </div>
 
                         <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>
-                        <textarea className="w-2/4 text-center " placeholder="Remarks" value={remarks} onChange={(e)=> setremarks(e.target.value)} required/> </div>
+                        <textarea className="w-2/4 text-center " placeholder="Remarks" value={remarks} onChange={(e)=> setremarks(e.target.value)} /> </div>
 
                     <Button className="bg-orange-500 mb-8 mt-6 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 </form>
@@ -230,7 +232,7 @@ const OrderModify = (props:Props) => {
             <dialog id="packageMetrialReceveUpdate" className="dashboard-modal">
                 <button id="packageMetrialRecivecrossUpdate" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
-                    <p id="modal-text" className="pl-3 mt-1 font-medium">Modification Request Raised Successfully</p></span>
+                    <p id="modal-text" className="pl-3 mt-1 font-medium">{errText}</p></span>
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>

@@ -1322,7 +1322,7 @@ export const updateReMappingOrderEntire = async (req: Request, res: Response) =>
 
 export const modifyOrder = async (req: Request, res: Response) => {
     try{
-     const { origin,gradeName,orderDate,invDate,vendor,broker,quantity,gst,totalBill,unitRate,remarks } = req.body;
+     const { origin,gradeName,orderDate,invDate,vendor,broker,quantity,gst,totalBill,unitRate,remarks,mappingStatus } = req.body;
         const id=req.params.id
      const actionedBy = req.cookies.user;
 
@@ -1341,9 +1341,9 @@ export const modifyOrder = async (req: Request, res: Response) => {
                 }, transaction
             }
         );
-      
-          
-            const packingEntry = await orderPackingModel.update({
+        let packingEntry,mappingEntry
+          if(mappingStatus===0){
+             packingEntry = await orderPackingModel.update({
                 origin: origin,
                 orderDate: invDate,
                 gradeName:gradeName,
@@ -1360,7 +1360,7 @@ export const modifyOrder = async (req: Request, res: Response) => {
                 }, transaction
             });
 
-            const mappingEntry = await orderMappingModel.update({
+            mappingEntry = await orderMappingModel.update({
                 origin,
                 
                 orderDate: invDate,
@@ -1374,10 +1374,36 @@ export const modifyOrder = async (req: Request, res: Response) => {
                     orderpk:id
                 }, transaction
             });
+          }
+          else{
+                packingEntry = await orderPackingModel.update({
+                origin: origin,
+                orderDate: invDate,
+                gradeName:gradeName,
+                vendorName:vendor,
+                gst,
+                unitRate,approvedBy:actionedBy,
+                totalBill:totalBill
+            },
+            {
+                where: {
+                    orderpk:id
+                }, transaction
+            });
 
-           
-
-
+            mappingEntry = await orderMappingModel.update({
+                origin,
+                orderDate: invDate,
+                finalgradeName:gradeName,
+                vendorName:vendor,
+                approvedBy:actionedBy
+            },
+            {
+                where: {
+                    orderpk:id
+                }, transaction
+            });
+          }
             
 
             if (mappingEntry && packingEntry && orderupdate) {
