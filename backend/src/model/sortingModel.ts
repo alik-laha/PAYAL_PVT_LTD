@@ -133,8 +133,133 @@ const SortingModel = sequelize.define('sorting', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
+    issue_in_k: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_in_jh: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_sjh: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_k: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_k1: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_lwp: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_lwp1: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_jk: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_jk1: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_ss: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_sp: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_sp2: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_jh1: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_yk: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_m_jk1: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_1: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_2: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_3: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_4: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_5: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_6: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_7: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_8: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_9: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_10: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
   
-    issue_add_1: 
+    issue_add_1:
     {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
