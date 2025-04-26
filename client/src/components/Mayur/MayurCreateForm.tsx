@@ -75,6 +75,7 @@ const RCNMayurCreateForm = (props:Props) => {
     const DateRef = useRef<HTMLInputElement>(null);
     const dayOpRef = useRef<HTMLInputElement>(null);
     const nightOpRef = useRef<HTMLInputElement>(null);
+    const [LotNo,setLotNo]=useState<string>('')
     const [rows,setRows]=useState<mayurRowData[]>([])
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
@@ -139,6 +140,10 @@ const RCNMayurCreateForm = (props:Props) => {
             Mc_breakdown_293: '00:00',
             otherTime_293: '00:00',
         }));
+        if(props.borma[0]){
+            setLotNo(props.borma[0].LotNo)
+        }
+        
       
         //console.log(initialform)
         setRows(initialform)
@@ -221,26 +226,26 @@ const RCNMayurCreateForm = (props:Props) => {
     return (
         <>
         <div className="px-5 py-2 overflow-auto">
-            <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit2}>
-               <div className="mx-8 flex flex-col gap-0.5"> 
+            <form className='flex flex-col gap-1 pt-5' onSubmit={handleSubmit2}>
+               <div className="mx-1 flex flex-col gap-1"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
-                <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
+                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
                
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Day)</Label>
+                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Day)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
+                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
                      </div>
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Night)</Label>
+                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Night)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
+                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
                      </div>
                    
                      
                    
                 </div>
-            
+                <Label className="w-100 pt-5 text-center">1. General Information</Label>
                    <Table className="mt-3">
                    <TableHeader className="bg-neutral-100 text-stone-950 ">
                     <TableHead className="text-center">Sl. No.</TableHead>
@@ -249,8 +254,8 @@ const RCNMayurCreateForm = (props:Props) => {
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
                     {/* <TableHead className="text-center">Mixed Amount</TableHead> */}
-                    <TableHead className="text-center">Receive Wholes_Peel</TableHead>
-                    <TableHead className="text-center">Receive Wholes_Unpeel</TableHead>
+                    <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Receive Wholes_&_JB':'Receive_Wholes_Peel'):'Receive_Wholes_Peel'}</TableHead>
+                    <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Receive LW':'Receive_Wholes_UnPeel'):'Receive_Wholes_UnPeel'}</TableHead>
                     <TableHead className="text-center">Receive Peeling</TableHead>
                     <TableHead className="text-center">Receive DPDS</TableHead>
                     <TableHead className="text-center">Receive Sorting</TableHead>
@@ -259,30 +264,15 @@ const RCNMayurCreateForm = (props:Props) => {
  
                    
                    
-                    <TableHead className="text-center">Issue PW_W</TableHead>
-                    <TableHead className="text-center">Issue W_Lot</TableHead>
-                    <TableHead className="text-center">Issue WW</TableHead>
+                    <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Issue V_PW_W':'Issue PW_W'):'Issue PW_W'}</TableHead>
+                    <TableHead className="text-center">{LotNo ?(LotNo.includes('V')?'Issue V_W_Lot':'Issue W_Lot'):'Issue W_Lot'}</TableHead>
+                    <TableHead className="text-center">{LotNo ?(LotNo.includes('V')?'Issue V_WW':'Issue WW'):'Issue WW'}</TableHead>
                     <TableHead className="text-center">Issue Rejection</TableHead>
                     <TableHead className="text-center">Issue Village</TableHead>
                     <TableHead className="text-center">Issue Big_Taiho</TableHead>
                     <TableHead className="text-center">Issue LW</TableHead>
                     <TableHead className="text-center">Issue JB</TableHead>
-                    <TableHead className="text-center">Mc On 133</TableHead>
-                    <TableHead className="text-center">Mc Off 133</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 133</TableHead>
-                    <TableHead className="text-center">Other_Time 133</TableHead>
-                    <TableHead className="text-center">Mc On 331</TableHead>
-                    <TableHead className="text-center">Mc Off 331</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 331</TableHead>
-                    <TableHead className="text-center">Other_Time 331</TableHead>
-                    <TableHead className="text-center">Mc On 292</TableHead>
-                    <TableHead className="text-center">Mc Off 292</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 292</TableHead>
-                    <TableHead className="text-center">Other_Time 292</TableHead>
-                    <TableHead className="text-center">Mc On 293</TableHead>
-                    <TableHead className="text-center">Mc Off 293</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown 293</TableHead>
-                    <TableHead className="text-center">Other_Time 293</TableHead>
+                   
                     </TableHeader>
                     <TableBody>
                         {props.borma.length > 0 ? (
@@ -315,25 +305,7 @@ const RCNMayurCreateForm = (props:Props) => {
                                      
 
 
-                                        <FormRow idx={idx} row={row} column='Mc_on_133' handleRowChange={handleRowChange}/>
-                                        <FormRow idx={idx} row={row} column='Mc_off_133' handleRowChange={handleRowChange}/>
-                                        <TableCell className="text-center"><Input  value={row.Mc_breakdown_133} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_133',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center"><Input  value={row.otherTime_133} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_133',e.target.value)} type='time'  /></TableCell>
-                                     
-                                        <FormRow idx={idx} row={row} column='Mc_on_331' handleRowChange={handleRowChange}/>
-                                        <FormRow idx={idx} row={row} column='Mc_off_331' handleRowChange={handleRowChange}/>
-                                        <TableCell className="text-center"><Input  value={row.Mc_breakdown_331} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_331',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center"><Input  value={row.otherTime_331} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_331',e.target.value)} type='time'  /></TableCell>
-                                    
-                                        <FormRow idx={idx} row={row} column='Mc_on_292' handleRowChange={handleRowChange}/>
-                                        <FormRow idx={idx} row={row} column='Mc_off_292' handleRowChange={handleRowChange}/>
-                                        <TableCell className="text-center"><Input  value={row.Mc_breakdown_292} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_292',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center"><Input  value={row.otherTime_292} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_292',e.target.value)} type='time'  /></TableCell>
-                                    
-                                        <FormRow idx={idx} row={row} column='Mc_on_293' handleRowChange={handleRowChange}/>
-                                        <FormRow idx={idx} row={row} column='Mc_off_293' handleRowChange={handleRowChange}/>
-                                        <TableCell className="text-center"><Input  value={row.Mc_breakdown_293} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_293',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center"><Input  value={row.otherTime_293} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_293',e.target.value)} type='time'  /></TableCell>
+                                       
                                     
                                     </TableRow>
                                 );
@@ -341,6 +313,62 @@ const RCNMayurCreateForm = (props:Props) => {
                         ) : null}
                     </TableBody>
                 </Table>  
+
+                    <Label className="w-100 pt-5 text-center">2. Machine Information</Label>
+                                                <Table className="mt-3">
+                                                   <TableHeader className="bg-neutral-100 text-stone-950 ">
+                                                   <TableHead className="text-center">Mc On 133</TableHead>
+                    <TableHead className="text-center ">Mc Off 133</TableHead>
+                    <TableHead className="text-center">Mc_Breakdown 133</TableHead>
+                    <TableHead className="text-center ">Other_Time 133</TableHead>
+                    <TableHead className="text-center ">Mc On 331</TableHead>
+                    <TableHead className="text-center ">Mc Off 331</TableHead>
+                    <TableHead className="text-center ">Mc_Breakdown 331</TableHead>
+                    <TableHead className="text-center ">Other_Time 331</TableHead>
+                    <TableHead className="text-center ">Mc On 292</TableHead>
+                    <TableHead className="text-center ">Mc Off 292</TableHead>
+                    <TableHead className="text-center ">Mc_Breakdown 292</TableHead>
+                    <TableHead className="text-center ">Other_Time 292</TableHead>
+                    <TableHead className="text-center">Mc On 293</TableHead>
+                    <TableHead className="text-center">Mc Off 293</TableHead>
+                    <TableHead className="text-center">Mc_Breakdown 293</TableHead>
+                    <TableHead className="text-center">Other_Time 293</TableHead>
+                                                  
+                                               
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        {props.borma.length > 0 ? (
+                                                            rows.map(( row:mayurRowData,idx:number) => {
+                                                              
+                                                                return (
+                                                                    <TableRow key={idx} className="boiling-row-height-scoop">
+                                                                  
+                                                                     <TableCell className='bg-neutral-300'> <FormRow idx={idx} row={row} column='Mc_on_133' handleRowChange={handleRowChange}/></TableCell>
+                                                                      
+                                                                        <TableCell className='bg-neutral-300'><FormRow idx={idx} row={row} column='Mc_off_133' handleRowChange={handleRowChange}/></TableCell>
+                                        <TableCell className="text-center bg-neutral-300"><Input  value={row.Mc_breakdown_133} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_133',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center bg-neutral-300"><Input  value={row.otherTime_133} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_133',e.target.value)} type='time'  /></TableCell>
+                                     
+                                        <TableCell className='bg-neutral-100'><FormRow idx={idx} row={row} column='Mc_on_331' handleRowChange={handleRowChange}/></TableCell>
+                                        <TableCell className='bg-neutral-100'><FormRow idx={idx} row={row} column='Mc_off_331' handleRowChange={handleRowChange}/></TableCell>
+                                        <TableCell className="text-center bg-neutral-100"><Input  value={row.Mc_breakdown_331} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_331',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center bg-neutral-100"><Input  value={row.otherTime_331} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_331',e.target.value)} type='time'  /></TableCell>
+                                    
+                                        <TableCell className='bg-neutral-300'><FormRow idx={idx} row={row} column='Mc_on_292' handleRowChange={handleRowChange}/></TableCell>
+                                        <TableCell className='bg-neutral-300'><FormRow idx={idx} row={row} column='Mc_off_292' handleRowChange={handleRowChange}/></TableCell>
+                                        <TableCell className="text-center bg-neutral-300"><Input  value={row.Mc_breakdown_292} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_292',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center bg-neutral-300"><Input  value={row.otherTime_292} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_292',e.target.value)} type='time'  /></TableCell>
+                                    
+                                        <TableCell className='bg-neutral-100'><FormRow idx={idx} row={row} column='Mc_on_293' handleRowChange={handleRowChange}/></TableCell>
+                                        <TableCell className='bg-neutral-100'><FormRow idx={idx} row={row} column='Mc_off_293' handleRowChange={handleRowChange}/></TableCell>
+                                        <TableCell className="text-center bg-neutral-100"><Input  value={row.Mc_breakdown_293} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_293',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center bg-neutral-100"><Input  value={row.otherTime_293} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_293',e.target.value)} type='time'  /></TableCell>
+                                                                    </TableRow>
+                                                                );
+                                                            })
+                                                        ) : null}
+                                                    </TableBody>
+                                                </Table> 
                 <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                   
                    
