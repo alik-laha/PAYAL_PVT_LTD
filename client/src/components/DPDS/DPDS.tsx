@@ -102,7 +102,17 @@ const DPDS = () => {
                         && data.data[0].issue_yk && data.data[0].issue_kp && data.data[0].issue_wp && data.data[0].issue_rs && data.data[0].issue_dp_2
                         && data.data[0].issue_dp_3 && data.data[0].issue_dp_4 && data.data[0].issue_dp_3l
                         && data.data[0].issue_ss && data.data[0].issue_os && data.data[0].issue_os1
-                        
+
+                        && data.data[0].issue_V_ds && data.data[0].issue_V_m_ds && data.data[0].issue_V_dp &&
+        data.data[0].issue_V_m_dp && data.data[0].issue_V_lp && data.data[0].issue_V_lp_2 &&
+        data.data[0].issue_V_k_dp && data.data[0].issue_V_ss && data.data[0].issue_V_yjh &&
+        data.data[0].issue_V_yk && data.data[0].issue_V_sp_2 && data.data[0].issue_V_kp &&
+        data.data[0].issue_V_dp_2 && data.data[0].issue_V_dp_3 && data.data[0].issue_V_dp_4 &&
+        data.data[0].issue_V_os && data.data[0].issue_V_os_1 && data.data[0].issue_V_wp &&
+        data.data[0].issue_V_rs && data.data[0].issue_ext_grade_1 && data.data[0].issue_ext_grade_2 &&
+        data.data[0].issue_ext_grade_3 && data.data[0].issue_ext_grade_4 && data.data[0].issue_ext_grade_5 &&
+        data.data[0].issue_ext_grade_6 && data.data[0].issue_ext_grade_7 && data.data[0].issue_ext_grade_8 &&
+        data.data[0].issue_ext_grade_9 && data.data[0].issue_ext_grade_10                
                         && data.data[0].issue_add_7 && data.data[0].issue_add_8 && data.data[0].issue_add_9
                         && data.data[0].issue_add_10 
                         ? formatNumber(parseFloat(data.data[0].issue_m_ds)+parseFloat(data.data[0].issue_m_dp)+parseFloat(data.data[0].issue_k_dp)
@@ -111,7 +121,35 @@ const DPDS = () => {
                         + parseFloat(data.data[0].issue_wp)+parseFloat(data.data[0].issue_rs)+parseFloat(data.data[0].issue_dp_2)
                         +parseFloat(data.data[0].issue_dp_3)+parseFloat(data.data[0].issue_dp_4)+parseFloat(data.data[0].issue_dp_3l)
                         +parseFloat(data.data[0].issue_ss)+parseFloat(data.data[0].issue_os)+parseFloat(data.data[0].issue_os1)
-                        +
+                        +parseFloat(data.data[0].issue_V_ds) +
+                        parseFloat(data.data[0].issue_V_m_ds) +
+                        parseFloat(data.data[0].issue_V_dp) +
+                        parseFloat(data.data[0].issue_V_m_dp) +
+                        parseFloat(data.data[0].issue_V_lp) +
+                        parseFloat(data.data[0].issue_V_lp_2) +
+                        parseFloat(data.data[0].issue_V_k_dp) +
+                        parseFloat(data.data[0].issue_V_ss) +
+                        parseFloat(data.data[0].issue_V_yjh) +
+                        parseFloat(data.data[0].issue_V_yk) +
+                        parseFloat(data.data[0].issue_V_sp_2) +
+                        parseFloat(data.data[0].issue_V_kp) +
+                        parseFloat(data.data[0].issue_V_dp_2) +
+                        parseFloat(data.data[0].issue_V_dp_3) +
+                        parseFloat(data.data[0].issue_V_dp_4) +
+                        parseFloat(data.data[0].issue_V_os) +
+                        parseFloat(data.data[0].issue_V_os_1) +
+                        parseFloat(data.data[0].issue_V_wp) +
+                        parseFloat(data.data[0].issue_V_rs) +
+                        parseFloat(data.data[0].issue_ext_grade_1) +
+                        parseFloat(data.data[0].issue_ext_grade_2) +
+                        parseFloat(data.data[0].issue_ext_grade_3) +
+                        parseFloat(data.data[0].issue_ext_grade_4) +
+                        parseFloat(data.data[0].issue_ext_grade_5) +
+                        parseFloat(data.data[0].issue_ext_grade_6) +
+                        parseFloat(data.data[0].issue_ext_grade_7) +
+                        parseFloat(data.data[0].issue_ext_grade_8) +
+                        parseFloat(data.data[0].issue_ext_grade_9) +
+                        parseFloat(data.data[0].issue_ext_grade_10) +
                             +parseFloat(data.data[0].issue_add_7)+parseFloat(data.data[0].issue_add_8)+parseFloat(data.data[0].issue_add_9)
                             +parseFloat(data.data[0].issue_add_10)): 0} Kg</p>
                   

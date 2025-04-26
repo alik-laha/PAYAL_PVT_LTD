@@ -83,6 +83,36 @@ export const sumOfallDPDS = async (req: Request, res: Response) => {
                 [sequelize.fn('sum', sequelize.col('issue_add_8')), 'issue_add_8'],
                 [sequelize.fn('sum', sequelize.col('issue_add_9')), 'issue_add_9'],
                 [sequelize.fn('sum', sequelize.col('issue_add_10')), 'issue_add_10'],
+                [sequelize.fn('sum', sequelize.col('issue_V_ds')), 'issue_V_ds'],
+                [sequelize.fn('sum', sequelize.col('issue_V_m_ds')), 'issue_V_m_ds'],
+                [sequelize.fn('sum', sequelize.col('issue_V_dp')), 'issue_V_dp'],
+                [sequelize.fn('sum', sequelize.col('issue_V_m_dp')), 'issue_V_m_dp'],
+                [sequelize.fn('sum', sequelize.col('issue_V_lp')), 'issue_V_lp'],
+                [sequelize.fn('sum', sequelize.col('issue_V_lp_2')), 'issue_V_lp_2'],
+                [sequelize.fn('sum', sequelize.col('issue_V_k_dp')), 'issue_V_k_dp'],
+                [sequelize.fn('sum', sequelize.col('issue_V_ss')), 'issue_V_ss'],
+                [sequelize.fn('sum', sequelize.col('issue_V_yjh')), 'issue_V_yjh'],
+                [sequelize.fn('sum', sequelize.col('issue_V_yk')), 'issue_V_yk'],
+                [sequelize.fn('sum', sequelize.col('issue_V_sp_2')), 'issue_V_sp_2'],
+                [sequelize.fn('sum', sequelize.col('issue_V_kp')), 'issue_V_kp'],
+                [sequelize.fn('sum', sequelize.col('issue_V_dp_2')), 'issue_V_dp_2'],
+                [sequelize.fn('sum', sequelize.col('issue_V_dp_3')), 'issue_V_dp_3'],
+                [sequelize.fn('sum', sequelize.col('issue_V_dp_4')), 'issue_V_dp_4'],
+                [sequelize.fn('sum', sequelize.col('issue_V_os')), 'issue_V_os'],
+                [sequelize.fn('sum', sequelize.col('issue_V_os_1')), 'issue_V_os_1'],
+                [sequelize.fn('sum', sequelize.col('issue_V_wp')), 'issue_V_wp'],
+                [sequelize.fn('sum', sequelize.col('issue_V_rs')), 'issue_V_rs'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_1')), 'issue_ext_grade_1'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_2')), 'issue_ext_grade_2'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_3')), 'issue_ext_grade_3'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_4')), 'issue_ext_grade_4'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_5')), 'issue_ext_grade_5'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_6')), 'issue_ext_grade_6'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_7')), 'issue_ext_grade_7'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_8')), 'issue_ext_grade_8'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_9')), 'issue_ext_grade_9'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_10')), 'issue_ext_grade_10'],
+
                 [sequelize.fn('sum', sequelize.col('issue_rejection')), 'issue_rejection'],
                 [sequelize.fn('sum', sequelize.col('issue_village')), 'issue_village'],
                 [sequelize.fn('sum', sequelize.col('issue_bigTaiho')), 'issue_bigTaiho'],
@@ -185,8 +215,37 @@ export const CreateEntireDPDS = async (req: Request, res: Response) => {
                     parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                     + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
                     + parseFloat(data.issue_dp_3) + parseFloat(data.issue_dp_4) + parseFloat(data.issue_dp_3l)
-                    + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)
+                    + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)+
 
+                        parseFloat(data.issue_V_ds) +
+                        parseFloat(data.issue_V_m_ds) +
+                        parseFloat(data.issue_V_dp) +
+                        parseFloat(data.issue_V_m_dp) +
+                        parseFloat(data.issue_V_lp) +
+                        parseFloat(data.issue_V_lp_2) +
+                        parseFloat(data.issue_V_k_dp) +
+                        parseFloat(data.issue_V_ss) +
+                        parseFloat(data.issue_V_yjh) +
+                        parseFloat(data.issue_V_yk) +
+                        parseFloat(data.issue_V_sp_2) +
+                        parseFloat(data.issue_V_kp) +
+                        parseFloat(data.issue_V_dp_2) +
+                        parseFloat(data.issue_V_dp_3) +
+                        parseFloat(data.issue_V_dp_4) +
+                        parseFloat(data.issue_V_os) +
+                        parseFloat(data.issue_V_os_1) +
+                        parseFloat(data.issue_V_wp) +
+                        parseFloat(data.issue_V_rs) +
+                        parseFloat(data.issue_ext_grade_1) +
+                        parseFloat(data.issue_ext_grade_2) +
+                        parseFloat(data.issue_ext_grade_3) +
+                        parseFloat(data.issue_ext_grade_4) +
+                        parseFloat(data.issue_ext_grade_5) +
+                        parseFloat(data.issue_ext_grade_6) +
+                        parseFloat(data.issue_ext_grade_7) +
+                        parseFloat(data.issue_ext_grade_8) +
+                        parseFloat(data.issue_ext_grade_9) +
+                        parseFloat(data.issue_ext_grade_10)
 
                     + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
                     + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
@@ -197,7 +256,37 @@ export const CreateEntireDPDS = async (req: Request, res: Response) => {
                         parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                         + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
                         + parseFloat(data.issue_dp_3) + parseFloat(data.issue_dp_4) + parseFloat(data.issue_dp_3l)
-                        + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)
+                        + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1) +
+                        
+                        parseFloat(data.issue_V_ds) +
+                        parseFloat(data.issue_V_m_ds) +
+                        parseFloat(data.issue_V_dp) +
+                        parseFloat(data.issue_V_m_dp) +
+                        parseFloat(data.issue_V_lp) +
+                        parseFloat(data.issue_V_lp_2) +
+                        parseFloat(data.issue_V_k_dp) +
+                        parseFloat(data.issue_V_ss) +
+                        parseFloat(data.issue_V_yjh) +
+                        parseFloat(data.issue_V_yk) +
+                        parseFloat(data.issue_V_sp_2) +
+                        parseFloat(data.issue_V_kp) +
+                        parseFloat(data.issue_V_dp_2) +
+                        parseFloat(data.issue_V_dp_3) +
+                        parseFloat(data.issue_V_dp_4) +
+                        parseFloat(data.issue_V_os) +
+                        parseFloat(data.issue_V_os_1) +
+                        parseFloat(data.issue_V_wp) +
+                        parseFloat(data.issue_V_rs) +
+                        parseFloat(data.issue_ext_grade_1) +
+                        parseFloat(data.issue_ext_grade_2) +
+                        parseFloat(data.issue_ext_grade_3) +
+                        parseFloat(data.issue_ext_grade_4) +
+                        parseFloat(data.issue_ext_grade_5) +
+                        parseFloat(data.issue_ext_grade_6) +
+                        parseFloat(data.issue_ext_grade_7) +
+                        parseFloat(data.issue_ext_grade_8) +
+                        parseFloat(data.issue_ext_grade_9) +
+                        parseFloat(data.issue_ext_grade_10)
 
 
                         + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
@@ -231,6 +320,38 @@ export const CreateEntireDPDS = async (req: Request, res: Response) => {
                         issue_ss: data.issue_ss,
                         issue_os: data.issue_os,
                         issue_os1: data.issue_os1,
+
+                        issue_V_ds: data.issue_V_ds,
+                        issue_V_m_ds: data.issue_V_m_ds,
+                        issue_V_dp: data.issue_V_dp,
+                        issue_V_m_dp: data.issue_V_m_dp,
+                        issue_V_lp: data.issue_V_lp,
+                        issue_V_lp_2: data.issue_V_lp_2,
+                        issue_V_k_dp: data.issue_V_k_dp,
+                        issue_V_ss: data.issue_V_ss,
+                        issue_V_yjh: data.issue_V_yjh,
+                        issue_V_yk: data.issue_V_yk,
+                        issue_V_sp_2: data.issue_V_sp_2,
+                        issue_V_kp: data.issue_V_kp,
+                        issue_V_dp_2: data.issue_V_dp_2,
+                        issue_V_dp_3: data.issue_V_dp_3,
+                        issue_V_dp_4: data.issue_V_dp_4,
+                        issue_V_os: data.issue_V_os,
+                        issue_V_os_1: data.issue_V_os_1,
+                        issue_V_wp: data.issue_V_wp,
+                        issue_V_rs: data.issue_V_rs,
+                        issue_ext_grade_1: data.issue_ext_grade_1,
+                        issue_ext_grade_2: data.issue_ext_grade_2,
+                        issue_ext_grade_3: data.issue_ext_grade_3,
+                        issue_ext_grade_4: data.issue_ext_grade_4,
+                        issue_ext_grade_5: data.issue_ext_grade_5,
+                        issue_ext_grade_6: data.issue_ext_grade_6,
+                        issue_ext_grade_7: data.issue_ext_grade_7,
+                        issue_ext_grade_8: data.issue_ext_grade_8,
+                        issue_ext_grade_9: data.issue_ext_grade_9,
+                        issue_ext_grade_10: data.issue_ext_grade_10,
+                
+
                         issue_add_1: data.issue_add_1,
                         issue_add_2: data.issue_add_2,
                         issue_add_3: data.issue_add_3,
@@ -253,7 +374,36 @@ export const CreateEntireDPDS = async (req: Request, res: Response) => {
                                 parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                                 + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
                                 + parseFloat(data.issue_dp_3) + parseFloat(data.issue_dp_4) + parseFloat(data.issue_dp_3l)
-                                + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)
+                                + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)+
+                                parseFloat(data.issue_V_ds) +
+                                parseFloat(data.issue_V_m_ds) +
+                                parseFloat(data.issue_V_dp) +
+                                parseFloat(data.issue_V_m_dp) +
+                                parseFloat(data.issue_V_lp) +
+                                parseFloat(data.issue_V_lp_2) +
+                                parseFloat(data.issue_V_k_dp) +
+                                parseFloat(data.issue_V_ss) +
+                                parseFloat(data.issue_V_yjh) +
+                                parseFloat(data.issue_V_yk) +
+                                parseFloat(data.issue_V_sp_2) +
+                                parseFloat(data.issue_V_kp) +
+                                parseFloat(data.issue_V_dp_2) +
+                                parseFloat(data.issue_V_dp_3) +
+                                parseFloat(data.issue_V_dp_4) +
+                                parseFloat(data.issue_V_os) +
+                                parseFloat(data.issue_V_os_1) +
+                                parseFloat(data.issue_V_wp) +
+                                parseFloat(data.issue_V_rs) +
+                                parseFloat(data.issue_ext_grade_1) +
+                                parseFloat(data.issue_ext_grade_2) +
+                                parseFloat(data.issue_ext_grade_3) +
+                                parseFloat(data.issue_ext_grade_4) +
+                                parseFloat(data.issue_ext_grade_5) +
+                                parseFloat(data.issue_ext_grade_6) +
+                                parseFloat(data.issue_ext_grade_7) +
+                                parseFloat(data.issue_ext_grade_8) +
+                                parseFloat(data.issue_ext_grade_9) +
+                                parseFloat(data.issue_ext_grade_10)
 
 
                                 + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
@@ -268,7 +418,36 @@ export const CreateEntireDPDS = async (req: Request, res: Response) => {
                                 parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                                 + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
                                 + parseFloat(data.issue_dp_3) + parseFloat(data.issue_dp_4) + parseFloat(data.issue_dp_3l)
-                                + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)
+                                + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)+
+                                parseFloat(data.issue_V_ds) +
+                                parseFloat(data.issue_V_m_ds) +
+                                parseFloat(data.issue_V_dp) +
+                                parseFloat(data.issue_V_m_dp) +
+                                parseFloat(data.issue_V_lp) +
+                                parseFloat(data.issue_V_lp_2) +
+                                parseFloat(data.issue_V_k_dp) +
+                                parseFloat(data.issue_V_ss) +
+                                parseFloat(data.issue_V_yjh) +
+                                parseFloat(data.issue_V_yk) +
+                                parseFloat(data.issue_V_sp_2) +
+                                parseFloat(data.issue_V_kp) +
+                                parseFloat(data.issue_V_dp_2) +
+                                parseFloat(data.issue_V_dp_3) +
+                                parseFloat(data.issue_V_dp_4) +
+                                parseFloat(data.issue_V_os) +
+                                parseFloat(data.issue_V_os_1) +
+                                parseFloat(data.issue_V_wp) +
+                                parseFloat(data.issue_V_rs) +
+                                parseFloat(data.issue_ext_grade_1) +
+                                parseFloat(data.issue_ext_grade_2) +
+                                parseFloat(data.issue_ext_grade_3) +
+                                parseFloat(data.issue_ext_grade_4) +
+                                parseFloat(data.issue_ext_grade_5) +
+                                parseFloat(data.issue_ext_grade_6) +
+                                parseFloat(data.issue_ext_grade_7) +
+                                parseFloat(data.issue_ext_grade_8) +
+                                parseFloat(data.issue_ext_grade_9) +
+                                parseFloat(data.issue_ext_grade_10)
 
 
                                 + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
@@ -678,7 +857,36 @@ export const CreateReissueDPDS = async (req: Request, res: Response) => {
                     parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                     + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
                     + parseFloat(data.issue_dp_3) + parseFloat(data.issue_dp_4) + parseFloat(data.issue_dp_3l)
-                    + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)
+                    + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)+
+                    parseFloat(data.issue_V_ds) +
+                    parseFloat(data.issue_V_m_ds) +
+                    parseFloat(data.issue_V_dp) +
+                    parseFloat(data.issue_V_m_dp) +
+                    parseFloat(data.issue_V_lp) +
+                    parseFloat(data.issue_V_lp_2) +
+                    parseFloat(data.issue_V_k_dp) +
+                    parseFloat(data.issue_V_ss) +
+                    parseFloat(data.issue_V_yjh) +
+                    parseFloat(data.issue_V_yk) +
+                    parseFloat(data.issue_V_sp_2) +
+                    parseFloat(data.issue_V_kp) +
+                    parseFloat(data.issue_V_dp_2) +
+                    parseFloat(data.issue_V_dp_3) +
+                    parseFloat(data.issue_V_dp_4) +
+                    parseFloat(data.issue_V_os) +
+                    parseFloat(data.issue_V_os_1) +
+                    parseFloat(data.issue_V_wp) +
+                    parseFloat(data.issue_V_rs) +
+                    parseFloat(data.issue_ext_grade_1) +
+                    parseFloat(data.issue_ext_grade_2) +
+                    parseFloat(data.issue_ext_grade_3) +
+                    parseFloat(data.issue_ext_grade_4) +
+                    parseFloat(data.issue_ext_grade_5) +
+                    parseFloat(data.issue_ext_grade_6) +
+                    parseFloat(data.issue_ext_grade_7) +
+                    parseFloat(data.issue_ext_grade_8) +
+                    parseFloat(data.issue_ext_grade_9) +
+                    parseFloat(data.issue_ext_grade_10)
                 
                     + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
                     + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
@@ -689,7 +897,36 @@ export const CreateReissueDPDS = async (req: Request, res: Response) => {
                         parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                         + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
                         + parseFloat(data.issue_dp_3) + parseFloat(data.issue_dp_4) + parseFloat(data.issue_dp_3l)
-                        + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)
+                        + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)+
+                        parseFloat(data.issue_V_ds) +
+                        parseFloat(data.issue_V_m_ds) +
+                        parseFloat(data.issue_V_dp) +
+                        parseFloat(data.issue_V_m_dp) +
+                        parseFloat(data.issue_V_lp) +
+                        parseFloat(data.issue_V_lp_2) +
+                        parseFloat(data.issue_V_k_dp) +
+                        parseFloat(data.issue_V_ss) +
+                        parseFloat(data.issue_V_yjh) +
+                        parseFloat(data.issue_V_yk) +
+                        parseFloat(data.issue_V_sp_2) +
+                        parseFloat(data.issue_V_kp) +
+                        parseFloat(data.issue_V_dp_2) +
+                        parseFloat(data.issue_V_dp_3) +
+                        parseFloat(data.issue_V_dp_4) +
+                        parseFloat(data.issue_V_os) +
+                        parseFloat(data.issue_V_os_1) +
+                        parseFloat(data.issue_V_wp) +
+                        parseFloat(data.issue_V_rs) +
+                        parseFloat(data.issue_ext_grade_1) +
+                        parseFloat(data.issue_ext_grade_2) +
+                        parseFloat(data.issue_ext_grade_3) +
+                        parseFloat(data.issue_ext_grade_4) +
+                        parseFloat(data.issue_ext_grade_5) +
+                        parseFloat(data.issue_ext_grade_6) +
+                        parseFloat(data.issue_ext_grade_7) +
+                        parseFloat(data.issue_ext_grade_8) +
+                        parseFloat(data.issue_ext_grade_9) +
+                        parseFloat(data.issue_ext_grade_10)
                        
                         + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
                         + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
@@ -745,6 +982,37 @@ export const CreateReissueDPDS = async (req: Request, res: Response) => {
                             issue_ss: data.issue_ss,
                             issue_os: data.issue_os,
                             issue_os1: data.issue_os1,
+                            
+                            issue_V_ds: data.issue_V_ds,
+                            issue_V_m_ds: data.issue_V_m_ds,
+                            issue_V_dp: data.issue_V_dp,
+                            issue_V_m_dp: data.issue_V_m_dp,
+                            issue_V_lp: data.issue_V_lp,
+                            issue_V_lp_2: data.issue_V_lp_2,
+                            issue_V_k_dp: data.issue_V_k_dp,
+                            issue_V_ss: data.issue_V_ss,
+                            issue_V_yjh: data.issue_V_yjh,
+                            issue_V_yk: data.issue_V_yk,
+                            issue_V_sp_2: data.issue_V_sp_2,
+                            issue_V_kp: data.issue_V_kp,
+                            issue_V_dp_2: data.issue_V_dp_2,
+                            issue_V_dp_3: data.issue_V_dp_3,
+                            issue_V_dp_4: data.issue_V_dp_4,
+                            issue_V_os: data.issue_V_os,
+                            issue_V_os_1: data.issue_V_os_1,
+                            issue_V_wp: data.issue_V_wp,
+                            issue_V_rs: data.issue_V_rs,
+                            issue_ext_grade_1: data.issue_ext_grade_1,
+                            issue_ext_grade_2: data.issue_ext_grade_2,
+                            issue_ext_grade_3: data.issue_ext_grade_3,
+                            issue_ext_grade_4: data.issue_ext_grade_4,
+                            issue_ext_grade_5: data.issue_ext_grade_5,
+                            issue_ext_grade_6: data.issue_ext_grade_6,
+                            issue_ext_grade_7: data.issue_ext_grade_7,
+                            issue_ext_grade_8: data.issue_ext_grade_8,
+                            issue_ext_grade_9: data.issue_ext_grade_9,
+                            issue_ext_grade_10: data.issue_ext_grade_10,
+
                             issue_add_1: data.issue_add_1,
                             issue_add_2: data.issue_add_2,
                             issue_add_3: data.issue_add_3,
@@ -765,7 +1033,36 @@ export const CreateReissueDPDS = async (req: Request, res: Response) => {
                                 parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                                 + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
                                 + parseFloat(data.issue_dp_3) + parseFloat(data.issue_dp_4) + parseFloat(data.issue_dp_3l)
-                                + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)
+                                + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)+
+                                parseFloat(data.issue_V_ds) +
+                                parseFloat(data.issue_V_m_ds) +
+                                parseFloat(data.issue_V_dp) +
+                                parseFloat(data.issue_V_m_dp) +
+                                parseFloat(data.issue_V_lp) +
+                                parseFloat(data.issue_V_lp_2) +
+                                parseFloat(data.issue_V_k_dp) +
+                                parseFloat(data.issue_V_ss) +
+                                parseFloat(data.issue_V_yjh) +
+                                parseFloat(data.issue_V_yk) +
+                                parseFloat(data.issue_V_sp_2) +
+                                parseFloat(data.issue_V_kp) +
+                                parseFloat(data.issue_V_dp_2) +
+                                parseFloat(data.issue_V_dp_3) +
+                                parseFloat(data.issue_V_dp_4) +
+                                parseFloat(data.issue_V_os) +
+                                parseFloat(data.issue_V_os_1) +
+                                parseFloat(data.issue_V_wp) +
+                                parseFloat(data.issue_V_rs) +
+                                parseFloat(data.issue_ext_grade_1) +
+                                parseFloat(data.issue_ext_grade_2) +
+                                parseFloat(data.issue_ext_grade_3) +
+                                parseFloat(data.issue_ext_grade_4) +
+                                parseFloat(data.issue_ext_grade_5) +
+                                parseFloat(data.issue_ext_grade_6) +
+                                parseFloat(data.issue_ext_grade_7) +
+                                parseFloat(data.issue_ext_grade_8) +
+                                parseFloat(data.issue_ext_grade_9) +
+                                parseFloat(data.issue_ext_grade_10)
                                
                                 + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
                                 + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
@@ -776,7 +1073,36 @@ export const CreateReissueDPDS = async (req: Request, res: Response) => {
                                 parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                                 + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
                                 + parseFloat(data.issue_dp_3) + parseFloat(data.issue_dp_4) + parseFloat(data.issue_dp_3l)
-                                + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)
+                                + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)+
+                                parseFloat(data.issue_V_ds) +
+                                parseFloat(data.issue_V_m_ds) +
+                                parseFloat(data.issue_V_dp) +
+                                parseFloat(data.issue_V_m_dp) +
+                                parseFloat(data.issue_V_lp) +
+                                parseFloat(data.issue_V_lp_2) +
+                                parseFloat(data.issue_V_k_dp) +
+                                parseFloat(data.issue_V_ss) +
+                                parseFloat(data.issue_V_yjh) +
+                                parseFloat(data.issue_V_yk) +
+                                parseFloat(data.issue_V_sp_2) +
+                                parseFloat(data.issue_V_kp) +
+                                parseFloat(data.issue_V_dp_2) +
+                                parseFloat(data.issue_V_dp_3) +
+                                parseFloat(data.issue_V_dp_4) +
+                                parseFloat(data.issue_V_os) +
+                                parseFloat(data.issue_V_os_1) +
+                                parseFloat(data.issue_V_wp) +
+                                parseFloat(data.issue_V_rs) +
+                                parseFloat(data.issue_ext_grade_1) +
+                                parseFloat(data.issue_ext_grade_2) +
+                                parseFloat(data.issue_ext_grade_3) +
+                                parseFloat(data.issue_ext_grade_4) +
+                                parseFloat(data.issue_ext_grade_5) +
+                                parseFloat(data.issue_ext_grade_6) +
+                                parseFloat(data.issue_ext_grade_7) +
+                                parseFloat(data.issue_ext_grade_8) +
+                                parseFloat(data.issue_ext_grade_9) +
+                                parseFloat(data.issue_ext_grade_10)
                               
                                 + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
                                 + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
@@ -1119,7 +1445,36 @@ export const updateEntireDPDS = async (req: Request, res: Response) => {
                         parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                         + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
                         + parseFloat(data.issue_dp_3) + parseFloat(data.issue_dp_4) + parseFloat(data.issue_dp_3l)
-                        + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)
+                        + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)+
+                        parseFloat(data.issue_V_ds) +
+                        parseFloat(data.issue_V_m_ds) +
+                        parseFloat(data.issue_V_dp) +
+                        parseFloat(data.issue_V_m_dp) +
+                        parseFloat(data.issue_V_lp) +
+                        parseFloat(data.issue_V_lp_2) +
+                        parseFloat(data.issue_V_k_dp) +
+                        parseFloat(data.issue_V_ss) +
+                        parseFloat(data.issue_V_yjh) +
+                        parseFloat(data.issue_V_yk) +
+                        parseFloat(data.issue_V_sp_2) +
+                        parseFloat(data.issue_V_kp) +
+                        parseFloat(data.issue_V_dp_2) +
+                        parseFloat(data.issue_V_dp_3) +
+                        parseFloat(data.issue_V_dp_4) +
+                        parseFloat(data.issue_V_os) +
+                        parseFloat(data.issue_V_os_1) +
+                        parseFloat(data.issue_V_wp) +
+                        parseFloat(data.issue_V_rs) +
+                        parseFloat(data.issue_ext_grade_1) +
+                        parseFloat(data.issue_ext_grade_2) +
+                        parseFloat(data.issue_ext_grade_3) +
+                        parseFloat(data.issue_ext_grade_4) +
+                        parseFloat(data.issue_ext_grade_5) +
+                        parseFloat(data.issue_ext_grade_6) +
+                        parseFloat(data.issue_ext_grade_7) +
+                        parseFloat(data.issue_ext_grade_8) +
+                        parseFloat(data.issue_ext_grade_9) +
+                        parseFloat(data.issue_ext_grade_10)
 
                         + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
                         + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
@@ -1130,7 +1485,36 @@ export const updateEntireDPDS = async (req: Request, res: Response) => {
                         parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                         + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
                         + parseFloat(data.issue_dp_3) + parseFloat(data.issue_dp_4) + parseFloat(data.issue_dp_3l)
-                        + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)
+                        + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)+
+                        parseFloat(data.issue_V_ds) +
+                        parseFloat(data.issue_V_m_ds) +
+                        parseFloat(data.issue_V_dp) +
+                        parseFloat(data.issue_V_m_dp) +
+                        parseFloat(data.issue_V_lp) +
+                        parseFloat(data.issue_V_lp_2) +
+                        parseFloat(data.issue_V_k_dp) +
+                        parseFloat(data.issue_V_ss) +
+                        parseFloat(data.issue_V_yjh) +
+                        parseFloat(data.issue_V_yk) +
+                        parseFloat(data.issue_V_sp_2) +
+                        parseFloat(data.issue_V_kp) +
+                        parseFloat(data.issue_V_dp_2) +
+                        parseFloat(data.issue_V_dp_3) +
+                        parseFloat(data.issue_V_dp_4) +
+                        parseFloat(data.issue_V_os) +
+                        parseFloat(data.issue_V_os_1) +
+                        parseFloat(data.issue_V_wp) +
+                        parseFloat(data.issue_V_rs) +
+                        parseFloat(data.issue_ext_grade_1) +
+                        parseFloat(data.issue_ext_grade_2) +
+                        parseFloat(data.issue_ext_grade_3) +
+                        parseFloat(data.issue_ext_grade_4) +
+                        parseFloat(data.issue_ext_grade_5) +
+                        parseFloat(data.issue_ext_grade_6) +
+                        parseFloat(data.issue_ext_grade_7) +
+                        parseFloat(data.issue_ext_grade_8) +
+                        parseFloat(data.issue_ext_grade_9) +
+                        parseFloat(data.issue_ext_grade_10)
                         + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
                         + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
                         + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_mayur))
@@ -1173,6 +1557,37 @@ export const updateEntireDPDS = async (req: Request, res: Response) => {
                         issue_ss: data.issue_ss,
                         issue_os: data.issue_os,
                         issue_os1: data.issue_os1,
+
+                        issue_V_ds: data.issue_V_ds,
+                        issue_V_m_ds: data.issue_V_m_ds,
+                        issue_V_dp: data.issue_V_dp,
+                        issue_V_m_dp: data.issue_V_m_dp,
+                        issue_V_lp: data.issue_V_lp,
+                        issue_V_lp_2: data.issue_V_lp_2,
+                        issue_V_k_dp: data.issue_V_k_dp,
+                        issue_V_ss: data.issue_V_ss,
+                        issue_V_yjh: data.issue_V_yjh,
+                        issue_V_yk: data.issue_V_yk,
+                        issue_V_sp_2: data.issue_V_sp_2,
+                        issue_V_kp: data.issue_V_kp,
+                        issue_V_dp_2: data.issue_V_dp_2,
+                        issue_V_dp_3: data.issue_V_dp_3,
+                        issue_V_dp_4: data.issue_V_dp_4,
+                        issue_V_os: data.issue_V_os,
+                        issue_V_os_1: data.issue_V_os_1,
+                        issue_V_wp: data.issue_V_wp,
+                        issue_V_rs: data.issue_V_rs,
+                        issue_ext_grade_1: data.issue_ext_grade_1,
+                        issue_ext_grade_2: data.issue_ext_grade_2,
+                        issue_ext_grade_3: data.issue_ext_grade_3,
+                        issue_ext_grade_4: data.issue_ext_grade_4,
+                        issue_ext_grade_5: data.issue_ext_grade_5,
+                        issue_ext_grade_6: data.issue_ext_grade_6,
+                        issue_ext_grade_7: data.issue_ext_grade_7,
+                        issue_ext_grade_8: data.issue_ext_grade_8,
+                        issue_ext_grade_9: data.issue_ext_grade_9,
+                        issue_ext_grade_10: data.issue_ext_grade_10,
+
                         issue_add_1: data.issue_add_1,
                         issue_add_2: data.issue_add_2,
                         issue_add_3: data.issue_add_3,
@@ -1194,7 +1609,36 @@ export const updateEntireDPDS = async (req: Request, res: Response) => {
                                 parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                                 + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
                                 + parseFloat(data.issue_dp_3) + parseFloat(data.issue_dp_4) + parseFloat(data.issue_dp_3l)
-                                + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)
+                                + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)+
+                                parseFloat(data.issue_V_ds) +
+                                parseFloat(data.issue_V_m_ds) +
+                                parseFloat(data.issue_V_dp) +
+                                parseFloat(data.issue_V_m_dp) +
+                                parseFloat(data.issue_V_lp) +
+                                parseFloat(data.issue_V_lp_2) +
+                                parseFloat(data.issue_V_k_dp) +
+                                parseFloat(data.issue_V_ss) +
+                                parseFloat(data.issue_V_yjh) +
+                                parseFloat(data.issue_V_yk) +
+                                parseFloat(data.issue_V_sp_2) +
+                                parseFloat(data.issue_V_kp) +
+                                parseFloat(data.issue_V_dp_2) +
+                                parseFloat(data.issue_V_dp_3) +
+                                parseFloat(data.issue_V_dp_4) +
+                                parseFloat(data.issue_V_os) +
+                                parseFloat(data.issue_V_os_1) +
+                                parseFloat(data.issue_V_wp) +
+                                parseFloat(data.issue_V_rs) +
+                                parseFloat(data.issue_ext_grade_1) +
+                                parseFloat(data.issue_ext_grade_2) +
+                                parseFloat(data.issue_ext_grade_3) +
+                                parseFloat(data.issue_ext_grade_4) +
+                                parseFloat(data.issue_ext_grade_5) +
+                                parseFloat(data.issue_ext_grade_6) +
+                                parseFloat(data.issue_ext_grade_7) +
+                                parseFloat(data.issue_ext_grade_8) +
+                                parseFloat(data.issue_ext_grade_9) +
+                                parseFloat(data.issue_ext_grade_10)
                             
                                 + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
                                 + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
@@ -1207,7 +1651,36 @@ export const updateEntireDPDS = async (req: Request, res: Response) => {
                                 parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                                 + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
                                 + parseFloat(data.issue_dp_3) + parseFloat(data.issue_dp_4) + parseFloat(data.issue_dp_3l)
-                                + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)
+                                + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)+
+                                parseFloat(data.issue_V_ds) +
+                                parseFloat(data.issue_V_m_ds) +
+                                parseFloat(data.issue_V_dp) +
+                                parseFloat(data.issue_V_m_dp) +
+                                parseFloat(data.issue_V_lp) +
+                                parseFloat(data.issue_V_lp_2) +
+                                parseFloat(data.issue_V_k_dp) +
+                                parseFloat(data.issue_V_ss) +
+                                parseFloat(data.issue_V_yjh) +
+                                parseFloat(data.issue_V_yk) +
+                                parseFloat(data.issue_V_sp_2) +
+                                parseFloat(data.issue_V_kp) +
+                                parseFloat(data.issue_V_dp_2) +
+                                parseFloat(data.issue_V_dp_3) +
+                                parseFloat(data.issue_V_dp_4) +
+                                parseFloat(data.issue_V_os) +
+                                parseFloat(data.issue_V_os_1) +
+                                parseFloat(data.issue_V_wp) +
+                                parseFloat(data.issue_V_rs) +
+                                parseFloat(data.issue_ext_grade_1) +
+                                parseFloat(data.issue_ext_grade_2) +
+                                parseFloat(data.issue_ext_grade_3) +
+                                parseFloat(data.issue_ext_grade_4) +
+                                parseFloat(data.issue_ext_grade_5) +
+                                parseFloat(data.issue_ext_grade_6) +
+                                parseFloat(data.issue_ext_grade_7) +
+                                parseFloat(data.issue_ext_grade_8) +
+                                parseFloat(data.issue_ext_grade_9) +
+                                parseFloat(data.issue_ext_grade_10)
                              
                                 + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
                                 + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
@@ -1362,6 +1835,38 @@ export const approveDPDS = async (req: Request, res: Response) => {
                         issue_ss: data.issue_ss,
                         issue_os: data.issue_os,
                         issue_os1: data.issue_os1,
+
+                        issue_V_ds: data.issue_V_ds,
+                        issue_V_m_ds: data.issue_V_m_ds,
+                        issue_V_dp: data.issue_V_dp,
+                        issue_V_m_dp: data.issue_V_m_dp,
+                        issue_V_lp: data.issue_V_lp,
+                        issue_V_lp_2: data.issue_V_lp_2,
+                        issue_V_k_dp: data.issue_V_k_dp,
+                        issue_V_ss: data.issue_V_ss,
+                        issue_V_yjh: data.issue_V_yjh,
+                        issue_V_yk: data.issue_V_yk,
+                        issue_V_sp_2: data.issue_V_sp_2,
+                        issue_V_kp: data.issue_V_kp,
+                        issue_V_dp_2: data.issue_V_dp_2,
+                        issue_V_dp_3: data.issue_V_dp_3,
+                        issue_V_dp_4: data.issue_V_dp_4,
+                        issue_V_os: data.issue_V_os,
+                        issue_V_os_1: data.issue_V_os_1,
+                        issue_V_wp: data.issue_V_wp,
+                        issue_V_rs: data.issue_V_rs,
+                        issue_ext_grade_1: data.issue_ext_grade_1,
+                        issue_ext_grade_2: data.issue_ext_grade_2,
+                        issue_ext_grade_3: data.issue_ext_grade_3,
+                        issue_ext_grade_4: data.issue_ext_grade_4,
+                        issue_ext_grade_5: data.issue_ext_grade_5,
+                        issue_ext_grade_6: data.issue_ext_grade_6,
+                        issue_ext_grade_7: data.issue_ext_grade_7,
+                        issue_ext_grade_8: data.issue_ext_grade_8,
+                        issue_ext_grade_9: data.issue_ext_grade_9,
+                        issue_ext_grade_10: data.issue_ext_grade_10,
+
+                        
                         issue_add_1: data.issue_add_1,
                         issue_add_2: data.issue_add_2,
                         issue_add_3: data.issue_add_3,
