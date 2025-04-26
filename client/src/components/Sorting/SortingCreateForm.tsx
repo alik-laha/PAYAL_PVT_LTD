@@ -171,30 +171,30 @@ const SortingCreateForm = (props:Props) => {
             issue_kp: 0,
 
             issue_in_k: 0,
-issue_in_jh: 0,
-issue_V_sjh: 0,
-issue_V_k: 0,
-issue_V_k1: 0,
-issue_V_lwp: 0,
-issue_V_lwp1: 0,
-issue_V_jk: 0,
-issue_V_jk1: 0,
-issue_V_ss: 0,
-issue_V_sp: 0,
-issue_V_sp2: 0,
-issue_V_jh1: 0,
-issue_V_yk: 0,
-issue_V_m_jk1: 0,
-issue_ext_grade_1: 0,
-issue_ext_grade_2: 0,
-issue_ext_grade_3: 0,
-issue_ext_grade_4: 0,
-issue_ext_grade_5: 0,
-issue_ext_grade_6: 0,
-issue_ext_grade_7: 0,
-issue_ext_grade_8: 0,
-issue_ext_grade_9: 0,
-issue_ext_grade_10: 0,
+            issue_in_jh: 0,
+            issue_V_sjh: 0,
+            issue_V_k: 0,
+            issue_V_k1: 0,
+            issue_V_lwp: 0,
+            issue_V_lwp1: 0,
+            issue_V_jk: 0,
+            issue_V_jk1: 0,
+            issue_V_ss: 0,
+            issue_V_sp: 0,
+            issue_V_sp2: 0,
+            issue_V_jh1: 0,
+            issue_V_yk: 0,
+            issue_V_m_jk1: 0,
+            issue_ext_grade_1: 0,
+            issue_ext_grade_2: 0,
+            issue_ext_grade_3: 0,
+            issue_ext_grade_4: 0,
+            issue_ext_grade_5: 0,
+            issue_ext_grade_6: 0,
+            issue_ext_grade_7: 0,
+            issue_ext_grade_8: 0,
+            issue_ext_grade_9: 0,
+            issue_ext_grade_10: 0,
 
             issue_village: 0,
             issue_mayur:0,
@@ -349,7 +349,7 @@ issue_ext_grade_10: 0,
                     <TableHead className="text-center">Lot_No</TableHead>
               
                     <TableHead className="text-center">Origin</TableHead>
-                    <TableHead className="text-center">Mixed_Lot</TableHead>
+                    <TableHead className="text-center">Sorting_Mixed_Lot_&_Origin</TableHead>
                   
                     <TableHead className="text-center">Receive JJH</TableHead>
                     <TableHead className="text-center">Receive SJH</TableHead>
@@ -541,7 +541,7 @@ issue_ext_grade_10: 0,
 <TableHead className="text-center">Issue V SP2</TableHead>
 <TableHead className="text-center">Issue V JH1</TableHead>
 <TableHead className="text-center">Issue V YK</TableHead>
-<TableHead className="text-center">Issue V M JK1</TableHead>
+<TableHead className="text-center">Issue V M_JK1</TableHead>
                                 </TableHeader>
                 
                                 <TableBody>
