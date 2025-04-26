@@ -1058,6 +1058,33 @@ export interface SortingData {
     issue_yk: string;
     issue_sp2: string;
     issue_kp: string;
+    issue_in_k: string;
+    issue_in_jh: string;
+    
+    issue_V_sjh: string;
+    issue_V_k: string;
+    issue_V_k1: string;
+    issue_V_lwp: string;
+    issue_V_lwp1: string;
+    issue_V_jk: string;
+    issue_V_jk1: string;
+    issue_V_ss: string;
+    issue_V_sp: string;
+    issue_V_sp2: string;
+    issue_V_jh1: string;
+    issue_V_yk: string;
+    issue_V_m_jk1: string;
+    issue_ext_grade_1: string;
+    issue_ext_grade_2: string;
+    issue_ext_grade_3: string;
+    issue_ext_grade_4: string;
+    issue_ext_grade_5: string;
+    issue_ext_grade_6: string;
+    issue_ext_grade_7: string;
+    issue_ext_grade_8: string;
+    issue_ext_grade_9: string;
+    issue_ext_grade_10: string;
+
     issue_add_1: string;
     issue_add_2: string;
     issue_add_3: string;

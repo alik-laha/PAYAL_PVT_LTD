@@ -53,6 +53,9 @@ interface SortingRowData{
     issue_yk: string;
     issue_sp2: string;
     issue_kp: string;
+
+
+    
     issue_village: string;
     issue_mayur: string;
     issue_bigTaiho: string;

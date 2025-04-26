@@ -411,7 +411,7 @@ const RCNDPDSReCreateForm = (props:Props) => {
                     <TableHead className="text-center">Lot_No</TableHead>
               
                     <TableHead className="text-center">Origin</TableHead>
-                    <TableHead className="text-center">Mixed_Lot</TableHead>
+                    <TableHead className="text-center">Incoming_Mixed_Lot_&_Origin</TableHead>
                     <TableHead className="text-center">Opening_Backlog</TableHead>
                     <TableHead className="text-center">Actual_Backlog (Borma)</TableHead>
                     <TableHead className="text-center">Borma Loss(Kg)</TableHead>

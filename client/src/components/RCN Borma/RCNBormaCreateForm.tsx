@@ -111,7 +111,7 @@ const RCNBormaCreateForm = (props: any) => {
                                                 
                                                     <RCNBormaLineCreateForm borma={bormaData}/>
                                                 </DialogContent>} */}
-                                            <DialogContent className='max-w-7xl'>
+                                            <DialogContent className='max-w-screen'>
                                                     <DialogHeader>
                                                         <DialogTitle><p className='text-1xl text-center mt-1'>Borma Line Entry</p></DialogTitle>
 

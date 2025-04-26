@@ -67,6 +67,31 @@ export const sumOfallSorting = async (req: Request, res: Response) => {
                 [sequelize.fn('sum', sequelize.col('issue_yk')), 'issue_yk'],
                 [sequelize.fn('sum', sequelize.col('issue_sp2')), 'issue_sp2'],
                 [sequelize.fn('sum', sequelize.col('issue_kp')), 'issue_kp'],
+                [sequelize.fn('sum', sequelize.col('issue_in_k')), 'issue_in_k'],
+                [sequelize.fn('sum', sequelize.col('issue_in_jh')), 'issue_in_jh'],
+                [sequelize.fn('sum', sequelize.col('issue_V_sjh')), 'issue_V_sjh'],
+                [sequelize.fn('sum', sequelize.col('issue_V_k')), 'issue_V_k'],
+                [sequelize.fn('sum', sequelize.col('issue_V_k1')), 'issue_V_k1'],
+                [sequelize.fn('sum', sequelize.col('issue_V_lwp')), 'issue_V_lwp'],
+                [sequelize.fn('sum', sequelize.col('issue_V_lwp1')), 'issue_V_lwp1'],
+                [sequelize.fn('sum', sequelize.col('issue_V_jk')), 'issue_V_jk'],
+                [sequelize.fn('sum', sequelize.col('issue_V_jk1')), 'issue_V_jk1'],
+                [sequelize.fn('sum', sequelize.col('issue_V_ss')), 'issue_V_ss'],
+                [sequelize.fn('sum', sequelize.col('issue_V_sp')), 'issue_V_sp'],
+                [sequelize.fn('sum', sequelize.col('issue_V_sp2')), 'issue_V_sp2'],
+                [sequelize.fn('sum', sequelize.col('issue_V_jh1')), 'issue_V_jh1'],
+                [sequelize.fn('sum', sequelize.col('issue_V_yk')), 'issue_V_yk'],
+                [sequelize.fn('sum', sequelize.col('issue_V_m_jk1')), 'issue_V_m_jk1'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_1')), 'issue_ext_grade_1'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_2')), 'issue_ext_grade_2'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_3')), 'issue_ext_grade_3'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_4')), 'issue_ext_grade_4'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_5')), 'issue_ext_grade_5'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_6')), 'issue_ext_grade_6'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_7')), 'issue_ext_grade_7'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_8')), 'issue_ext_grade_8'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_9')), 'issue_ext_grade_9'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_10')), 'issue_ext_grade_10'],
                 [sequelize.fn('sum', sequelize.col('issue_rejection')), 'issue_rejection'],
                 [sequelize.fn('sum', sequelize.col('issue_village')), 'issue_village'],
                 [sequelize.fn('sum', sequelize.col('issue_bigTaiho')), 'issue_bigTaiho'],
@@ -183,7 +208,31 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
             +parseFloat(data.issue_jjh1)+parseFloat(data.issue_sjh)+parseFloat(data.issue_jk)+parseFloat(data.issue_jk1)
             +parseFloat(data.issue_k)+parseFloat(data.issue_k1)+parseFloat(data.issue_lwp1)+parseFloat(data.issue_lwp)
             +parseFloat(data.issue_s)+parseFloat(data.issue_ss)+parseFloat(data.issue_yk)+parseFloat(data.issue_sp2)
-            +parseFloat(data.issue_kp)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
+            +parseFloat(data.issue_kp)+parseFloat(data.issue_in_k)+parseFloat(data.issue_in_jh)+
+            +parseFloat(data.issue_V_sjh)
+            +parseFloat(data.issue_V_k)
+            +parseFloat(data.issue_V_k1)
+            +parseFloat(data.issue_V_lwp)
+            +parseFloat(data.issue_V_lwp1)
+            +parseFloat(data.issue_V_jk)
+            +parseFloat(data.issue_V_jk1)
+            +parseFloat(data.issue_V_ss)
+            +parseFloat(data.issue_V_sp)
+            +parseFloat(data.issue_V_sp2)
+            +parseFloat(data.issue_V_jh1)
+            +parseFloat(data.issue_V_yk)
+            +parseFloat(data.issue_V_m_jk1)
+            +parseFloat(data.issue_ext_grade_1)
+            +parseFloat(data.issue_ext_grade_2)
+            +parseFloat(data.issue_ext_grade_3)
+            +parseFloat(data.issue_ext_grade_4)
+            +parseFloat(data.issue_ext_grade_5)
+            +parseFloat(data.issue_ext_grade_6)
+            +parseFloat(data.issue_ext_grade_7)
+            +parseFloat(data.issue_ext_grade_8)
+            +parseFloat(data.issue_ext_grade_9)
+            +parseFloat(data.issue_ext_grade_10)+
+            parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
             +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)+parseFloat(data.issue_add_10)
         ))
                
@@ -192,7 +241,31 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
                 +parseFloat(data.issue_jjh1)+parseFloat(data.issue_sjh)+parseFloat(data.issue_jk)+parseFloat(data.issue_jk1)
                 +parseFloat(data.issue_k)+parseFloat(data.issue_k1)+parseFloat(data.issue_lwp1)+parseFloat(data.issue_lwp)
                 +parseFloat(data.issue_s)+parseFloat(data.issue_ss)+parseFloat(data.issue_yk)+parseFloat(data.issue_sp2)
-                +parseFloat(data.issue_kp)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
+                +parseFloat(data.issue_kp)+parseFloat(data.issue_in_k)+parseFloat(data.issue_in_jh)+
+                +parseFloat(data.issue_V_sjh)
+                +parseFloat(data.issue_V_k)
+                +parseFloat(data.issue_V_k1)
+                +parseFloat(data.issue_V_lwp)
+                +parseFloat(data.issue_V_lwp1)
+                +parseFloat(data.issue_V_jk)
+                +parseFloat(data.issue_V_jk1)
+                +parseFloat(data.issue_V_ss)
+                +parseFloat(data.issue_V_sp)
+                +parseFloat(data.issue_V_sp2)
+                +parseFloat(data.issue_V_jh1)
+                +parseFloat(data.issue_V_yk)
+                +parseFloat(data.issue_V_m_jk1)
+                +parseFloat(data.issue_ext_grade_1)
+                +parseFloat(data.issue_ext_grade_2)
+                +parseFloat(data.issue_ext_grade_3)
+                +parseFloat(data.issue_ext_grade_4)
+                +parseFloat(data.issue_ext_grade_5)
+                +parseFloat(data.issue_ext_grade_6)
+                +parseFloat(data.issue_ext_grade_7)
+                +parseFloat(data.issue_ext_grade_8)
+                +parseFloat(data.issue_ext_grade_9)
+                +parseFloat(data.issue_ext_grade_10)+
+                parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
                 +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)+parseFloat(data.issue_add_10))
                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                 throw new Error('Transaction Aborted due to negative value')
@@ -218,6 +291,33 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
                     issue_yk: data.issue_yk,
                     issue_sp2: data.issue_sp2,
                     issue_kp: data.issue_kp,
+
+                    issue_in_k: data.issue_in_k,
+                    issue_in_jh: data.issue_in_jh,
+                    issue_V_sjh: data.issue_V_sjh,
+                    issue_V_k: data.issue_V_k,
+                    issue_V_k1: data.issue_V_k1,
+                    issue_V_lwp: data.issue_V_lwp,
+                    issue_V_lwp1: data.issue_V_lwp1,
+                    issue_V_jk: data.issue_V_jk,
+                    issue_V_jk1: data.issue_V_jk1,
+                    issue_V_ss: data.issue_V_ss,
+                    issue_V_sp: data.issue_V_sp,
+                    issue_V_sp2: data.issue_V_sp2,
+                    issue_V_jh1: data.issue_V_jh1,
+                    issue_V_yk: data.issue_V_yk,
+                    issue_V_m_jk1: data.issue_V_m_jk1,
+                    issue_ext_grade_1: data.issue_ext_grade_1,
+                    issue_ext_grade_2: data.issue_ext_grade_2,
+                    issue_ext_grade_3: data.issue_ext_grade_3,
+                    issue_ext_grade_4: data.issue_ext_grade_4,
+                    issue_ext_grade_5: data.issue_ext_grade_5,
+                    issue_ext_grade_6: data.issue_ext_grade_6,
+                    issue_ext_grade_7: data.issue_ext_grade_7,
+                    issue_ext_grade_8: data.issue_ext_grade_8,
+                    issue_ext_grade_9: data.issue_ext_grade_9,
+                    issue_ext_grade_10: data.issue_ext_grade_10,
+
                     issue_rejection: data.issue_rejection,
                     issue_village: data.issue_village,
                     issue_bigTaiho: data.issue_bigTaiho,
@@ -241,7 +341,31 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
                     +parseFloat(data.issue_jjh1)+parseFloat(data.issue_sjh)+parseFloat(data.issue_jk)+parseFloat(data.issue_jk1)
                     +parseFloat(data.issue_k)+parseFloat(data.issue_k1)+parseFloat(data.issue_lwp1)+parseFloat(data.issue_lwp)
                     +parseFloat(data.issue_s)+parseFloat(data.issue_ss)+parseFloat(data.issue_yk)+parseFloat(data.issue_sp2)
-                    +parseFloat(data.issue_kp)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
+                    +parseFloat(data.issue_kp)+parseFloat(data.issue_in_k)+parseFloat(data.issue_in_jh)+
+                    +parseFloat(data.issue_V_sjh)
+                    +parseFloat(data.issue_V_k)
+                    +parseFloat(data.issue_V_k1)
+                    +parseFloat(data.issue_V_lwp)
+                    +parseFloat(data.issue_V_lwp1)
+                    +parseFloat(data.issue_V_jk)
+                    +parseFloat(data.issue_V_jk1)
+                    +parseFloat(data.issue_V_ss)
+                    +parseFloat(data.issue_V_sp)
+                    +parseFloat(data.issue_V_sp2)
+                    +parseFloat(data.issue_V_jh1)
+                    +parseFloat(data.issue_V_yk)
+                    +parseFloat(data.issue_V_m_jk1)
+                    +parseFloat(data.issue_ext_grade_1)
+                    +parseFloat(data.issue_ext_grade_2)
+                    +parseFloat(data.issue_ext_grade_3)
+                    +parseFloat(data.issue_ext_grade_4)
+                    +parseFloat(data.issue_ext_grade_5)
+                    +parseFloat(data.issue_ext_grade_6)
+                    +parseFloat(data.issue_ext_grade_7)
+                    +parseFloat(data.issue_ext_grade_8)
+                    +parseFloat(data.issue_ext_grade_9)
+                    +parseFloat(data.issue_ext_grade_10)+
+                    parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
                     +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)
                     +parseFloat(data.issue_add_10)
                         ),
@@ -253,7 +377,31 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
                     +parseFloat(data.issue_jjh1)+parseFloat(data.issue_sjh)+parseFloat(data.issue_jk)+parseFloat(data.issue_jk1)
                     +parseFloat(data.issue_k)+parseFloat(data.issue_k1)+parseFloat(data.issue_lwp1)+parseFloat(data.issue_lwp)
                     +parseFloat(data.issue_s)+parseFloat(data.issue_ss)+parseFloat(data.issue_yk)+parseFloat(data.issue_sp2)
-                    +parseFloat(data.issue_kp)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
+                    +parseFloat(data.issue_kp)+parseFloat(data.issue_in_k)+parseFloat(data.issue_in_jh)+
+                    +parseFloat(data.issue_V_sjh)
+                    +parseFloat(data.issue_V_k)
+                    +parseFloat(data.issue_V_k1)
+                    +parseFloat(data.issue_V_lwp)
+                    +parseFloat(data.issue_V_lwp1)
+                    +parseFloat(data.issue_V_jk)
+                    +parseFloat(data.issue_V_jk1)
+                    +parseFloat(data.issue_V_ss)
+                    +parseFloat(data.issue_V_sp)
+                    +parseFloat(data.issue_V_sp2)
+                    +parseFloat(data.issue_V_jh1)
+                    +parseFloat(data.issue_V_yk)
+                    +parseFloat(data.issue_V_m_jk1)
+                    +parseFloat(data.issue_ext_grade_1)
+                    +parseFloat(data.issue_ext_grade_2)
+                    +parseFloat(data.issue_ext_grade_3)
+                    +parseFloat(data.issue_ext_grade_4)
+                    +parseFloat(data.issue_ext_grade_5)
+                    +parseFloat(data.issue_ext_grade_6)
+                    +parseFloat(data.issue_ext_grade_7)
+                    +parseFloat(data.issue_ext_grade_8)
+                    +parseFloat(data.issue_ext_grade_9)
+                    +parseFloat(data.issue_ext_grade_10)+
+                    parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
                     +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)
                     +parseFloat(data.issue_add_10)
                        
@@ -718,14 +866,62 @@ export const CreateReissueSorting = async (req: Request, res: Response) => {
                     +parseFloat(data.issue_jjh1)+parseFloat(data.issue_sjh)+parseFloat(data.issue_jk)+parseFloat(data.issue_jk1)
                     +parseFloat(data.issue_k)+parseFloat(data.issue_k1)+parseFloat(data.issue_lwp1)+parseFloat(data.issue_lwp)
                     +parseFloat(data.issue_s)+parseFloat(data.issue_ss)+parseFloat(data.issue_yk)+parseFloat(data.issue_sp2)
-                    +parseFloat(data.issue_kp)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
+                    +parseFloat(data.issue_kp)+parseFloat(data.issue_in_k)+parseFloat(data.issue_in_jh)+
+                    +parseFloat(data.issue_V_sjh)
+                    +parseFloat(data.issue_V_k)
+                    +parseFloat(data.issue_V_k1)
+                    +parseFloat(data.issue_V_lwp)
+                    +parseFloat(data.issue_V_lwp1)
+                    +parseFloat(data.issue_V_jk)
+                    +parseFloat(data.issue_V_jk1)
+                    +parseFloat(data.issue_V_ss)
+                    +parseFloat(data.issue_V_sp)
+                    +parseFloat(data.issue_V_sp2)
+                    +parseFloat(data.issue_V_jh1)
+                    +parseFloat(data.issue_V_yk)
+                    +parseFloat(data.issue_V_m_jk1)
+                    +parseFloat(data.issue_ext_grade_1)
+                    +parseFloat(data.issue_ext_grade_2)
+                    +parseFloat(data.issue_ext_grade_3)
+                    +parseFloat(data.issue_ext_grade_4)
+                    +parseFloat(data.issue_ext_grade_5)
+                    +parseFloat(data.issue_ext_grade_6)
+                    +parseFloat(data.issue_ext_grade_7)
+                    +parseFloat(data.issue_ext_grade_8)
+                    +parseFloat(data.issue_ext_grade_9)
+                    +parseFloat(data.issue_ext_grade_10)+
+                    parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
                     +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)+parseFloat(data.issue_add_10)
                 )) {
                     console.log(parseFloat(data.issue_jjh)
                     +parseFloat(data.issue_jjh1)+parseFloat(data.issue_sjh)+parseFloat(data.issue_jk)+parseFloat(data.issue_jk1)
                     +parseFloat(data.issue_k)+parseFloat(data.issue_k1)+parseFloat(data.issue_lwp1)+parseFloat(data.issue_lwp)
                     +parseFloat(data.issue_s)+parseFloat(data.issue_ss)+parseFloat(data.issue_yk)+parseFloat(data.issue_sp2)
-                    +parseFloat(data.issue_kp)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
+                    +parseFloat(data.issue_kp)+parseFloat(data.issue_in_k)+parseFloat(data.issue_in_jh)+
+                    +parseFloat(data.issue_V_sjh)
+                    +parseFloat(data.issue_V_k)
+                    +parseFloat(data.issue_V_k1)
+                    +parseFloat(data.issue_V_lwp)
+                    +parseFloat(data.issue_V_lwp1)
+                    +parseFloat(data.issue_V_jk)
+                    +parseFloat(data.issue_V_jk1)
+                    +parseFloat(data.issue_V_ss)
+                    +parseFloat(data.issue_V_sp)
+                    +parseFloat(data.issue_V_sp2)
+                    +parseFloat(data.issue_V_jh1)
+                    +parseFloat(data.issue_V_yk)
+                    +parseFloat(data.issue_V_m_jk1)
+                    +parseFloat(data.issue_ext_grade_1)
+                    +parseFloat(data.issue_ext_grade_2)
+                    +parseFloat(data.issue_ext_grade_3)
+                    +parseFloat(data.issue_ext_grade_4)
+                    +parseFloat(data.issue_ext_grade_5)
+                    +parseFloat(data.issue_ext_grade_6)
+                    +parseFloat(data.issue_ext_grade_7)
+                    +parseFloat(data.issue_ext_grade_8)
+                    +parseFloat(data.issue_ext_grade_9)
+                    +parseFloat(data.issue_ext_grade_10)+
+                    parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
                     +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)+parseFloat(data.issue_add_10))
                     res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                     throw new Error('Transaction Aborted due to negative value')
@@ -776,6 +972,31 @@ export const CreateReissueSorting = async (req: Request, res: Response) => {
                             issue_yk: data.issue_yk,
                             issue_sp2: data.issue_sp2,
                             issue_kp: data.issue_kp,
+                            issue_in_k: data.issue_in_k,
+                            issue_in_jh: data.issue_in_jh,
+                            issue_V_sjh: data.issue_V_sjh,
+                            issue_V_k: data.issue_V_k,
+                            issue_V_k1: data.issue_V_k1,
+                            issue_V_lwp: data.issue_V_lwp,
+                            issue_V_lwp1: data.issue_V_lwp1,
+                            issue_V_jk: data.issue_V_jk,
+                            issue_V_jk1: data.issue_V_jk1,
+                            issue_V_ss: data.issue_V_ss,
+                            issue_V_sp: data.issue_V_sp,
+                            issue_V_sp2: data.issue_V_sp2,
+                            issue_V_jh1: data.issue_V_jh1,
+                            issue_V_yk: data.issue_V_yk,
+                            issue_V_m_jk1: data.issue_V_m_jk1,
+                            issue_ext_grade_1: data.issue_ext_grade_1,
+                            issue_ext_grade_2: data.issue_ext_grade_2,
+                            issue_ext_grade_3: data.issue_ext_grade_3,
+                            issue_ext_grade_4: data.issue_ext_grade_4,
+                            issue_ext_grade_5: data.issue_ext_grade_5,
+                            issue_ext_grade_6: data.issue_ext_grade_6,
+                            issue_ext_grade_7: data.issue_ext_grade_7,
+                            issue_ext_grade_8: data.issue_ext_grade_8,
+                            issue_ext_grade_9: data.issue_ext_grade_9,
+                            issue_ext_grade_10: data.issue_ext_grade_10,
                             issue_rejection: data.issue_rejection,
                             issue_village: data.issue_village,
                             issue_bigTaiho: data.issue_bigTaiho,
@@ -796,7 +1017,31 @@ export const CreateReissueSorting = async (req: Request, res: Response) => {
                                     + parseFloat(data.issue_jjh1) + parseFloat(data.issue_sjh) + parseFloat(data.issue_jk) + parseFloat(data.issue_jk1)
                                     + parseFloat(data.issue_k) + parseFloat(data.issue_k1) + parseFloat(data.issue_lwp1) + parseFloat(data.issue_lwp)
                                     + parseFloat(data.issue_s) + parseFloat(data.issue_ss) + parseFloat(data.issue_yk) + parseFloat(data.issue_sp2)
-                                    + parseFloat(data.issue_kp) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village) + parseFloat(data.issue_bigTaiho)
+                                    + parseFloat(data.issue_kp) +parseFloat(data.issue_in_k)+parseFloat(data.issue_in_jh)+
+                                    +parseFloat(data.issue_V_sjh)
+                                    +parseFloat(data.issue_V_k)
+                                    +parseFloat(data.issue_V_k1)
+                                    +parseFloat(data.issue_V_lwp)
+                                    +parseFloat(data.issue_V_lwp1)
+                                    +parseFloat(data.issue_V_jk)
+                                    +parseFloat(data.issue_V_jk1)
+                                    +parseFloat(data.issue_V_ss)
+                                    +parseFloat(data.issue_V_sp)
+                                    +parseFloat(data.issue_V_sp2)
+                                    +parseFloat(data.issue_V_jh1)
+                                    +parseFloat(data.issue_V_yk)
+                                    +parseFloat(data.issue_V_m_jk1)
+                                    +parseFloat(data.issue_ext_grade_1)
+                                    +parseFloat(data.issue_ext_grade_2)
+                                    +parseFloat(data.issue_ext_grade_3)
+                                    +parseFloat(data.issue_ext_grade_4)
+                                    +parseFloat(data.issue_ext_grade_5)
+                                    +parseFloat(data.issue_ext_grade_6)
+                                    +parseFloat(data.issue_ext_grade_7)
+                                    +parseFloat(data.issue_ext_grade_8)
+                                    +parseFloat(data.issue_ext_grade_9)
+                                    +parseFloat(data.issue_ext_grade_10)+ 
+                                    parseFloat(data.issue_rejection) + parseFloat(data.issue_village) + parseFloat(data.issue_bigTaiho)
                                     + parseFloat(data.issue_mayur) + parseFloat(data.issue_dpds)
                                     + parseFloat(data.issue_add_10)
                                 ),
@@ -805,7 +1050,31 @@ export const CreateReissueSorting = async (req: Request, res: Response) => {
                                     + parseFloat(data.issue_jjh1) + parseFloat(data.issue_sjh) + parseFloat(data.issue_jk) + parseFloat(data.issue_jk1)
                                     + parseFloat(data.issue_k) + parseFloat(data.issue_k1) + parseFloat(data.issue_lwp1) + parseFloat(data.issue_lwp)
                                     + parseFloat(data.issue_s) + parseFloat(data.issue_ss) + parseFloat(data.issue_yk) + parseFloat(data.issue_sp2)
-                                    + parseFloat(data.issue_kp) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village) + parseFloat(data.issue_bigTaiho)
+                                    + parseFloat(data.issue_kp) +parseFloat(data.issue_in_k)+parseFloat(data.issue_in_jh)+
+                                    +parseFloat(data.issue_V_sjh)
+                                    +parseFloat(data.issue_V_k)
+                                    +parseFloat(data.issue_V_k1)
+                                    +parseFloat(data.issue_V_lwp)
+                                    +parseFloat(data.issue_V_lwp1)
+                                    +parseFloat(data.issue_V_jk)
+                                    +parseFloat(data.issue_V_jk1)
+                                    +parseFloat(data.issue_V_ss)
+                                    +parseFloat(data.issue_V_sp)
+                                    +parseFloat(data.issue_V_sp2)
+                                    +parseFloat(data.issue_V_jh1)
+                                    +parseFloat(data.issue_V_yk)
+                                    +parseFloat(data.issue_V_m_jk1)
+                                    +parseFloat(data.issue_ext_grade_1)
+                                    +parseFloat(data.issue_ext_grade_2)
+                                    +parseFloat(data.issue_ext_grade_3)
+                                    +parseFloat(data.issue_ext_grade_4)
+                                    +parseFloat(data.issue_ext_grade_5)
+                                    +parseFloat(data.issue_ext_grade_6)
+                                    +parseFloat(data.issue_ext_grade_7)
+                                    +parseFloat(data.issue_ext_grade_8)
+                                    +parseFloat(data.issue_ext_grade_9)
+                                    +parseFloat(data.issue_ext_grade_10)+
+                                    parseFloat(data.issue_rejection) + parseFloat(data.issue_village) + parseFloat(data.issue_bigTaiho)
                                     + parseFloat(data.issue_mayur) + parseFloat(data.issue_dpds)
                                     + parseFloat(data.issue_add_10)),
 
@@ -1204,7 +1473,31 @@ export const updateEntireSorting= async (req: Request, res: Response) => {
             +parseFloat(data.issue_jjh1)+parseFloat(data.issue_sjh)+parseFloat(data.issue_jk)+parseFloat(data.issue_jk1)
             +parseFloat(data.issue_k)+parseFloat(data.issue_k1)+parseFloat(data.issue_lwp1)+parseFloat(data.issue_lwp)
             +parseFloat(data.issue_s)+parseFloat(data.issue_ss)+parseFloat(data.issue_yk)+parseFloat(data.issue_sp2)
-            +parseFloat(data.issue_kp)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
+            +parseFloat(data.issue_kp)+parseFloat(data.issue_in_k)+parseFloat(data.issue_in_jh)+
+            +parseFloat(data.issue_V_sjh)
+            +parseFloat(data.issue_V_k)
+            +parseFloat(data.issue_V_k1)
+            +parseFloat(data.issue_V_lwp)
+            +parseFloat(data.issue_V_lwp1)
+            +parseFloat(data.issue_V_jk)
+            +parseFloat(data.issue_V_jk1)
+            +parseFloat(data.issue_V_ss)
+            +parseFloat(data.issue_V_sp)
+            +parseFloat(data.issue_V_sp2)
+            +parseFloat(data.issue_V_jh1)
+            +parseFloat(data.issue_V_yk)
+            +parseFloat(data.issue_V_m_jk1)
+            +parseFloat(data.issue_ext_grade_1)
+            +parseFloat(data.issue_ext_grade_2)
+            +parseFloat(data.issue_ext_grade_3)
+            +parseFloat(data.issue_ext_grade_4)
+            +parseFloat(data.issue_ext_grade_5)
+            +parseFloat(data.issue_ext_grade_6)
+            +parseFloat(data.issue_ext_grade_7)
+            +parseFloat(data.issue_ext_grade_8)
+            +parseFloat(data.issue_ext_grade_9)
+            +parseFloat(data.issue_ext_grade_10)+
+            parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
             +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)+parseFloat(data.issue_add_10)
         ))
                
@@ -1213,7 +1506,31 @@ export const updateEntireSorting= async (req: Request, res: Response) => {
                 +parseFloat(data.issue_jjh1)+parseFloat(data.issue_sjh)+parseFloat(data.issue_jk)+parseFloat(data.issue_jk1)
                 +parseFloat(data.issue_k)+parseFloat(data.issue_k1)+parseFloat(data.issue_lwp1)+parseFloat(data.issue_lwp)
                 +parseFloat(data.issue_s)+parseFloat(data.issue_ss)+parseFloat(data.issue_yk)+parseFloat(data.issue_sp2)
-                +parseFloat(data.issue_kp)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
+                +parseFloat(data.issue_kp)+parseFloat(data.issue_in_k)+parseFloat(data.issue_in_jh)+
+                +parseFloat(data.issue_V_sjh)
+                +parseFloat(data.issue_V_k)
+                +parseFloat(data.issue_V_k1)
+                +parseFloat(data.issue_V_lwp)
+                +parseFloat(data.issue_V_lwp1)
+                +parseFloat(data.issue_V_jk)
+                +parseFloat(data.issue_V_jk1)
+                +parseFloat(data.issue_V_ss)
+                +parseFloat(data.issue_V_sp)
+                +parseFloat(data.issue_V_sp2)
+                +parseFloat(data.issue_V_jh1)
+                +parseFloat(data.issue_V_yk)
+                +parseFloat(data.issue_V_m_jk1)
+                +parseFloat(data.issue_ext_grade_1)
+                +parseFloat(data.issue_ext_grade_2)
+                +parseFloat(data.issue_ext_grade_3)
+                +parseFloat(data.issue_ext_grade_4)
+                +parseFloat(data.issue_ext_grade_5)
+                +parseFloat(data.issue_ext_grade_6)
+                +parseFloat(data.issue_ext_grade_7)
+                +parseFloat(data.issue_ext_grade_8)
+                +parseFloat(data.issue_ext_grade_9)
+                +parseFloat(data.issue_ext_grade_10)+
+                parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
                 +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)+parseFloat(data.issue_add_10))
                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                 throw new Error('Transaction Aborted due to negative value')
@@ -1253,6 +1570,33 @@ export const updateEntireSorting= async (req: Request, res: Response) => {
                     issue_yk: data.issue_yk,
                     issue_sp2: data.issue_sp2,
                     issue_kp: data.issue_kp,
+
+                    issue_in_k: data.issue_in_k,
+                    issue_in_jh: data.issue_in_jh,
+                    issue_V_sjh: data.issue_V_sjh,
+                    issue_V_k: data.issue_V_k,
+                    issue_V_k1: data.issue_V_k1,
+                    issue_V_lwp: data.issue_V_lwp,
+                    issue_V_lwp1: data.issue_V_lwp1,
+                    issue_V_jk: data.issue_V_jk,
+                    issue_V_jk1: data.issue_V_jk1,
+                    issue_V_ss: data.issue_V_ss,
+                    issue_V_sp: data.issue_V_sp,
+                    issue_V_sp2: data.issue_V_sp2,
+                    issue_V_jh1: data.issue_V_jh1,
+                    issue_V_yk: data.issue_V_yk,
+                    issue_V_m_jk1: data.issue_V_m_jk1,
+                    issue_ext_grade_1: data.issue_ext_grade_1,
+                    issue_ext_grade_2: data.issue_ext_grade_2,
+                    issue_ext_grade_3: data.issue_ext_grade_3,
+                    issue_ext_grade_4: data.issue_ext_grade_4,
+                    issue_ext_grade_5: data.issue_ext_grade_5,
+                    issue_ext_grade_6: data.issue_ext_grade_6,
+                    issue_ext_grade_7: data.issue_ext_grade_7,
+                    issue_ext_grade_8: data.issue_ext_grade_8,
+                    issue_ext_grade_9: data.issue_ext_grade_9,
+                    issue_ext_grade_10: data.issue_ext_grade_10,
+
                     issue_rejection: data.issue_rejection,
                     issue_village: data.issue_village,
                     issue_bigTaiho: data.issue_bigTaiho,
@@ -1274,7 +1618,31 @@ export const updateEntireSorting= async (req: Request, res: Response) => {
                     +parseFloat(data.issue_jjh1)+parseFloat(data.issue_sjh)+parseFloat(data.issue_jk)+parseFloat(data.issue_jk1)
                     +parseFloat(data.issue_k)+parseFloat(data.issue_k1)+parseFloat(data.issue_lwp1)+parseFloat(data.issue_lwp)
                     +parseFloat(data.issue_s)+parseFloat(data.issue_ss)+parseFloat(data.issue_yk)+parseFloat(data.issue_sp2)
-                    +parseFloat(data.issue_kp)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
+                    +parseFloat(data.issue_kp)+parseFloat(data.issue_in_k)+parseFloat(data.issue_in_jh)+
+                    +parseFloat(data.issue_V_sjh)
+                    +parseFloat(data.issue_V_k)
+                    +parseFloat(data.issue_V_k1)
+                    +parseFloat(data.issue_V_lwp)
+                    +parseFloat(data.issue_V_lwp1)
+                    +parseFloat(data.issue_V_jk)
+                    +parseFloat(data.issue_V_jk1)
+                    +parseFloat(data.issue_V_ss)
+                    +parseFloat(data.issue_V_sp)
+                    +parseFloat(data.issue_V_sp2)
+                    +parseFloat(data.issue_V_jh1)
+                    +parseFloat(data.issue_V_yk)
+                    +parseFloat(data.issue_V_m_jk1)
+                    +parseFloat(data.issue_ext_grade_1)
+                    +parseFloat(data.issue_ext_grade_2)
+                    +parseFloat(data.issue_ext_grade_3)
+                    +parseFloat(data.issue_ext_grade_4)
+                    +parseFloat(data.issue_ext_grade_5)
+                    +parseFloat(data.issue_ext_grade_6)
+                    +parseFloat(data.issue_ext_grade_7)
+                    +parseFloat(data.issue_ext_grade_8)
+                    +parseFloat(data.issue_ext_grade_9)
+                    +parseFloat(data.issue_ext_grade_10)+
+                    parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
                     +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)
                     +parseFloat(data.issue_add_10)
                         ),
@@ -1284,7 +1652,31 @@ export const updateEntireSorting= async (req: Request, res: Response) => {
                     +parseFloat(data.issue_jjh1)+parseFloat(data.issue_sjh)+parseFloat(data.issue_jk)+parseFloat(data.issue_jk1)
                     +parseFloat(data.issue_k)+parseFloat(data.issue_k1)+parseFloat(data.issue_lwp1)+parseFloat(data.issue_lwp)
                     +parseFloat(data.issue_s)+parseFloat(data.issue_ss)+parseFloat(data.issue_yk)+parseFloat(data.issue_sp2)
-                    +parseFloat(data.issue_kp)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
+                    +parseFloat(data.issue_kp)+parseFloat(data.issue_in_k)+parseFloat(data.issue_in_jh)+
+                    +parseFloat(data.issue_V_sjh)
+                    +parseFloat(data.issue_V_k)
+                    +parseFloat(data.issue_V_k1)
+                    +parseFloat(data.issue_V_lwp)
+                    +parseFloat(data.issue_V_lwp1)
+                    +parseFloat(data.issue_V_jk)
+                    +parseFloat(data.issue_V_jk1)
+                    +parseFloat(data.issue_V_ss)
+                    +parseFloat(data.issue_V_sp)
+                    +parseFloat(data.issue_V_sp2)
+                    +parseFloat(data.issue_V_jh1)
+                    +parseFloat(data.issue_V_yk)
+                    +parseFloat(data.issue_V_m_jk1)
+                    +parseFloat(data.issue_ext_grade_1)
+                    +parseFloat(data.issue_ext_grade_2)
+                    +parseFloat(data.issue_ext_grade_3)
+                    +parseFloat(data.issue_ext_grade_4)
+                    +parseFloat(data.issue_ext_grade_5)
+                    +parseFloat(data.issue_ext_grade_6)
+                    +parseFloat(data.issue_ext_grade_7)
+                    +parseFloat(data.issue_ext_grade_8)
+                    +parseFloat(data.issue_ext_grade_9)
+                    +parseFloat(data.issue_ext_grade_10)+
+                    parseFloat(data.issue_rejection)+parseFloat(data.issue_village)+parseFloat(data.issue_bigTaiho)
                     +parseFloat(data.issue_mayur)+parseFloat(data.issue_dpds)
                     +parseFloat(data.issue_add_10)
                        
@@ -1437,6 +1829,33 @@ export const approveSorting = async (req: Request, res: Response) => {
                         issue_yk: data.issue_yk,
                         issue_sp2: data.issue_sp2,
                         issue_kp: data.issue_kp,
+
+                        issue_in_k: data.issue_in_k,
+                        issue_in_jh: data.issue_in_jh,
+                        issue_V_sjh: data.issue_V_sjh,
+                        issue_V_k: data.issue_V_k,
+                        issue_V_k1: data.issue_V_k1,
+                        issue_V_lwp: data.issue_V_lwp,
+                        issue_V_lwp1: data.issue_V_lwp1,
+                        issue_V_jk: data.issue_V_jk,
+                        issue_V_jk1: data.issue_V_jk1,
+                        issue_V_ss: data.issue_V_ss,
+                        issue_V_sp: data.issue_V_sp,
+                        issue_V_sp2: data.issue_V_sp2,
+                        issue_V_jh1: data.issue_V_jh1,
+                        issue_V_yk: data.issue_V_yk,
+                        issue_V_m_jk1: data.issue_V_m_jk1,
+                        issue_ext_grade_1: data.issue_ext_grade_1,
+                        issue_ext_grade_2: data.issue_ext_grade_2,
+                        issue_ext_grade_3: data.issue_ext_grade_3,
+                        issue_ext_grade_4: data.issue_ext_grade_4,
+                        issue_ext_grade_5: data.issue_ext_grade_5,
+                        issue_ext_grade_6: data.issue_ext_grade_6,
+                        issue_ext_grade_7: data.issue_ext_grade_7,
+                        issue_ext_grade_8: data.issue_ext_grade_8,
+                        issue_ext_grade_9: data.issue_ext_grade_9,
+                        issue_ext_grade_10: data.issue_ext_grade_10,
+                        
                         issue_rejection: data.issue_rejection,
                         issue_village: data.issue_village,
                         issue_bigTaiho: data.issue_bigTaiho,

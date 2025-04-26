@@ -347,7 +347,7 @@ const RCNDPDSCreateForm = (props:Props) => {
                     <TableHead className="text-center">Lot_No</TableHead>
               
                     <TableHead className="text-center">Origin</TableHead>
-                    <TableHead className="text-center">DPDS_Mixed_Lot</TableHead>
+                    <TableHead className="text-center">Incoming_Mixed_Lot_&_Origin</TableHead>
                     <TableHead className="text-center">Receive DP</TableHead>
                     <TableHead className="text-center">Receive DS</TableHead>
                     <TableHead className="text-center">Receive DP1</TableHead>
