@@ -119,7 +119,7 @@ const DPDSInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-                                if( (parseFloat(item.rcv_dp)+ parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1))>0 ){
+                                if(item.rcv_Sorting && (parseFloat(item.rcv_dp)+ parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1))>0 ){
                                     return (
                                         <TableRow key={idx}>
                                             <TableCell className="text-center">
@@ -143,9 +143,9 @@ const DPDSInitial = (props: any) => {
                                                 }}>
                                                     <DialogTrigger>
                                                         <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
-                                              <DialogContent className='max-w-7xl'>
+                                              <DialogContent className='max-w-screen'>
                                                         <DialogHeader>
-                                                            <DialogTitle><p className='text-1xl text-center mt-1'>DPDS Line Entry Form</p></DialogTitle>
+                                                            <DialogTitle><p className='text-1xl text-center mt-2'>DPDS Line Entry</p></DialogTitle>
     
                                                         </DialogHeader>
                                                     
