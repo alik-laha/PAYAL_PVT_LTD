@@ -441,7 +441,7 @@ const RCNWholesReMix = (props: Props) => {
     return (
         <>
 
-            <div className="px-5 py-2 overflow-scroll max-h-80">
+            <div className="px-5 py-2 overflow-scroll max-h-96">
 
 
                 <div className="mx-8 flex flex-row gap-0.5">

@@ -105,6 +105,7 @@ const RCNDBigTaihoCreateForm = (props: Props) => {
     const dayOpRef = useRef<HTMLInputElement>(null);
     const nightOpRef = useRef<HTMLInputElement>(null);
     const [rows, setRows] = useState<BigTaihoRowData[]>([])
+    const [vilLot,setVilLot]=useState<boolean>(false)
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
@@ -131,7 +132,12 @@ const RCNDBigTaihoCreateForm = (props: Props) => {
     }
     useEffect(() => {
 
+        if (props.borma[0]) {
 
+            if (props.borma[0].LotNo.includes('V')) {
+              setVilLot(true)
+            }
+          }
         const initialform = props.borma.map((item: BigTaihoData) => ({
             id: item.id,
             LotNo: item.LotNo,
@@ -242,7 +248,7 @@ const RCNDBigTaihoCreateForm = (props: Props) => {
         try {
             const initialhumid = await axios.post('/api/bigTaiho/createEntireBigTaiho', {
                 linehumid: formData,
-                LotNo: props.borma[0].LotNo
+                LotNo: props.borma[0].LotNo,vilLot
             })
             console.log(initialhumid)
             setErrortext(initialhumid.data.message)

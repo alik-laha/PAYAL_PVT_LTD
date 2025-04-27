@@ -16,6 +16,7 @@ import WholesModel from "../../model/wholesModel";
 import rejectionModel from "../../model/rejectionModel";
 import LWModel from "../../model/lowerGradeModel";
 import villageProduction from "../../model/villageProductionModel";
+import VLotNo from "../../model/vlotNomodel";
 
 
 export const findEditMayurAll = async (req: Request, res: Response) => {
@@ -137,6 +138,7 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
     const feeledBy = req.cookies.user;
     const linehumid = req.body.linehumid
     const LotNO = req.body.LotNo
+    const vilLot:boolean=req.body.vilLot
 
     await sequelize.transaction(async (transaction: any) => {
 
@@ -671,18 +673,33 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                     throw new Error('Transaction Aborted')
                 } 
 
-
+                let lotupdate
                 //Lot Update
-                const lotupdate =await LotNo.update(
-                    { 
-                      modifiedBy:'Next Interconnected'
-                    },
-                    {
-                        where: {
-                            lotNo:LotNO
-                        },transaction
-                    }
-                );
+                if(vilLot===true){
+                    lotupdate =await VLotNo.update(
+                        { 
+                          modifiedBy:'Next Interconnected'
+                        },
+                        {
+                            where: {
+                                vlotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
+                else{
+                    lotupdate =await LotNo.update(
+                        { 
+                          modifiedBy:'Next Interconnected'
+                        },
+                        {
+                            where: {
+                                lotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
+                
                 const lotoriginupdate = await lotoriginmodel.update(
                     {
                         latest_section: 'Mayur',

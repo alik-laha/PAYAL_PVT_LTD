@@ -14,6 +14,7 @@ import mixingModel from "../../model/mixingModel";
 import bigTaihoModel from "../../model/bigTaihoModel";
 import rejectionModel from "../../model/rejectionModel";
 import villageProduction from "../../model/villageProductionModel";
+import VLotNo from "../../model/vlotNomodel";
 
 
 // //DPDS.tsx
@@ -202,7 +203,7 @@ export const CreateEntireDPDS = async (req: Request, res: Response) => {
         const feeledBy = req.cookies.user;
         const linehumid = req.body.linehumid
         const LotNO = req.body.LotNo
-
+        const vilLot:boolean=req.body.vilLot
         await sequelize.transaction(async (transaction: any) => {
 
             for (let data of linehumid) {
@@ -729,17 +730,33 @@ export const CreateEntireDPDS = async (req: Request, res: Response) => {
                     throw new Error('Transaction Aborted')
                 }
 
-                    await LotNo.update(
-                        {
-                            modifiedBy: 'Next Interconnected'
+                let lotupdate
+                //Lot Update
+                if(vilLot===true){
+                    lotupdate =await VLotNo.update(
+                        { 
+                          modifiedBy:'Next Interconnected'
                         },
                         {
                             where: {
-                                lotNo: LotNO
-                            }, transaction
+                                vlotNo:LotNO
+                            },transaction
                         }
                     );
-                    const lotupdate = await lotoriginmodel.update(
+                }
+                else{
+                    lotupdate =await LotNo.update(
+                        { 
+                          modifiedBy:'Next Interconnected'
+                        },
+                        {
+                            where: {
+                                lotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
+                    const lotoriginupdate = await lotoriginmodel.update(
                         {
                             latest_section: 'DPDS',
                             dPDSStatus: 1
@@ -751,7 +768,7 @@ export const CreateEntireDPDS = async (req: Request, res: Response) => {
                             }, transaction
                         }
                     );
-                    if (lotupdate) {
+                    if (lotupdate && lotoriginupdate) {
                         res.status(200).json({ message: "DPDS Entry Made Successfully" });
                     }
                     else {

@@ -63,7 +63,8 @@ const RCNPeelingCreateForm = (props:Props) => {
     const nightOpRef = useRef<HTMLInputElement>(null);
     const huskOpRef = useRef<HTMLInputElement>(null);
     const [operator,setoperator]=useState<string>('')
-  
+    const [LotNo,setLotNo]=useState<string>('')
+    const [vilLot,setVilLot]=useState<boolean>(false)
 
    // const operatorRef = useRef<HTMLInputElement>(null);
     const [rows,setRows]=useState<PeelingRowData[]>([])
@@ -93,7 +94,12 @@ const RCNPeelingCreateForm = (props:Props) => {
     }
     useEffect(() => { 
 
-      
+        if(props.borma[0]){
+            setLotNo(props.borma[0].LotNo)
+            if(props.borma[0].LotNo.includes('V')){
+                setVilLot(true)
+            }
+        }
         const initialform =  props.borma.map((item: PeelingData) => ({
             id: item.id,
             LotNo: item.LotNo,
@@ -163,7 +169,7 @@ const RCNPeelingCreateForm = (props:Props) => {
         
             try {
                 const initialhumid = await axios.post('/api/peeling/createEntirePeeling', { linehumid:formData,
-                    LotNo:props.borma[0].LotNo
+                    LotNo:props.borma[0].LotNo,vilLot
                  })
                 console.log(initialhumid)         
                     setErrortext(initialhumid.data.message)
@@ -235,7 +241,7 @@ const RCNPeelingCreateForm = (props:Props) => {
                    <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl. No.</TableHead>
-                        <TableHead className="text-center" >LotNo</TableHead>
+                        <TableHead className="text-center" >Item_LotNo</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Total_Input(Kg)</TableHead>
                         <TableHead className="text-center" >Pressure</TableHead>

@@ -13,6 +13,7 @@ import DPDS from "../../model/dpdsmodel";
 import Mayur from "../../model/mayurModel";
 import rejectionModel from "../../model/rejectionModel";
 import villageProduction from "../../model/villageProductionModel";
+import VLotNo from "../../model/vlotNomodel";
 
 
 // //Sorting.tsx
@@ -194,7 +195,7 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
     const feeledBy = req.cookies.user;
     const linehumid = req.body.linehumid
     const LotNO = req.body.LotNo
-
+    const vilLot:boolean=req.body.vilLot
     await sequelize.transaction(async (transaction: any) => {
 
         for (let data of linehumid) 
@@ -739,17 +740,33 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
                 } 
 
   
-                await LotNo.update(
-                    { 
-                      modifiedBy:'Next Interconnected'
-                    },
-                    {
-                        where: {
-                            lotNo:LotNO
-                        },transaction
-                    }
-                );
-                const lotupdate = await lotoriginmodel.update(
+                let lotupdate
+                //Lot Update
+                if(vilLot===true){
+                    lotupdate =await VLotNo.update(
+                        { 
+                          modifiedBy:'Next Interconnected'
+                        },
+                        {
+                            where: {
+                                vlotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
+                else{
+                    lotupdate =await LotNo.update(
+                        { 
+                          modifiedBy:'Next Interconnected'
+                        },
+                        {
+                            where: {
+                                lotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
+                const lotoriginupdate = await lotoriginmodel.update(
                     {
                         latest_section: 'Sorting',
                         sortingStatus: 1
@@ -761,7 +778,7 @@ export const CreateEntireSorting= async (req: Request, res: Response) => {
                         }, transaction
                     }
                 );
-                if (lotupdate) {
+                if (lotupdate && lotoriginupdate) {
                     res.status(200).json({ message: "Sorting Entry Made Successfully" });
                 }
                 else {

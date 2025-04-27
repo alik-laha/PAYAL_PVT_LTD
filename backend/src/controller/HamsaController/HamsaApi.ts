@@ -11,6 +11,7 @@ import hamsaEditModel from "../../model/hamsaeditModel";
 import hamsaModel from "../../model/hamsamodel";
 import WholesModel from "../../model/wholesModel";
 import LWModel from "../../model/lowerGradeModel";
+import VLotNo from "../../model/vlotNomodel";
 
 
 // //Hamsa.tsx
@@ -184,6 +185,7 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
     const feeledBy = req.cookies.user;
     const linehumid = req.body.linehumid
     const LotNO = req.body.LotNo
+    const vilLot:boolean=req.body.vilLot
 
     await sequelize.transaction(async (transaction: any) => {
 
@@ -637,16 +639,32 @@ export const CreateEntireHamsa= async (req: Request, res: Response) => {
 
               
   
-                const lotupdate = await LotNo.update(
-                    { 
-                      modifiedBy:'Next Interconnected'
-                    },
-                    {
-                        where: {
-                            lotNo:LotNO
-                        },transaction
-                    }
-                );
+                let lotupdate
+                //Lot Update
+                if(vilLot===true){
+                    lotupdate =await VLotNo.update(
+                        { 
+                          modifiedBy:'Next Interconnected'
+                        },
+                        {
+                            where: {
+                                vlotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
+                else{
+                    lotupdate =await LotNo.update(
+                        { 
+                          modifiedBy:'Next Interconnected'
+                        },
+                        {
+                            where: {
+                                lotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
                 const lotoriginupdate = await lotoriginmodel.update(
                     {
                         latest_section: 'Hamsa',

@@ -13,6 +13,7 @@ import WholesEditModel from "../../model/wholesEditModel";
 import rejectionModel from "../../model/rejectionModel";
 import LWModel from "../../model/lowerGradeModel";
 import villageProduction from "../../model/villageProductionModel";
+import VLotNo from "../../model/vlotNomodel";
 
 
 // //Wholes.tsx
@@ -279,6 +280,7 @@ export const CreateEntireWholes= async (req: Request, res: Response) => {
     const feeledBy = req.cookies.user;
     const linehumid = req.body.linehumid
     const LotNO = req.body.LotNo
+    const vilLot:boolean=req.body.vilLot
 
     await sequelize.transaction(async (transaction: any) => {
 
@@ -1091,20 +1093,32 @@ export const CreateEntireWholes= async (req: Request, res: Response) => {
                     throw new Error('Transaction Aborted')
                 } 
 
-
-
-                
-
-                const lotupdate = await LotNo.update(
-                    { 
-                      modifiedBy:'Next Interconnected'
-                    },
-                    {
-                        where: {
-                            lotNo:LotNO
-                        },transaction
-                    }
-                );
+                let lotupdate
+                //Lot Update
+                if(vilLot===true){
+                    lotupdate =await VLotNo.update(
+                        { 
+                          modifiedBy:'Next Interconnected'
+                        },
+                        {
+                            where: {
+                                vlotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
+                else{
+                    lotupdate =await LotNo.update(
+                        { 
+                          modifiedBy:'Next Interconnected'
+                        },
+                        {
+                            where: {
+                                lotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
                 const lotoriginupdate = await lotoriginmodel.update(
                     {
                         latest_section: 'Wholes',

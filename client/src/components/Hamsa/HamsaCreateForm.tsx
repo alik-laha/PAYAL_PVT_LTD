@@ -103,6 +103,7 @@ const HamsaCreateForm = (props: Props) => {
     const nightOpRef = useRef<HTMLInputElement>(null);
     const [rows, setRows] = useState<HamsaRowData[]>([])
     const [LotNo, setLotNo] = useState<string>('')
+    const [vilLot,setVilLot]=useState<boolean>(false)
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
@@ -207,8 +208,11 @@ const HamsaCreateForm = (props: Props) => {
             otherTime_7: '00:00',
 
         }));
-        if (props.borma[0]) {
+        if(props.borma[0]){
             setLotNo(props.borma[0].LotNo)
+            if(props.borma[0].LotNo.includes('V')){
+                setVilLot(true)
+            }
         }
 
         //console.log(initialform)
@@ -250,7 +254,7 @@ const HamsaCreateForm = (props: Props) => {
         try {
             const initialhumid = await axios.post('/api/hamsa/createEntireHamsa', {
                 linehumid: formData,
-                LotNo: props.borma[0].LotNo
+                LotNo: props.borma[0].LotNo,vilLot
             })
             console.log(initialhumid)
             setErrortext(initialhumid.data.message)

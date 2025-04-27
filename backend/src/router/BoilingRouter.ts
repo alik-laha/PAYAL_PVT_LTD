@@ -12,7 +12,7 @@ import rejectEditBoiling from "../controller/BoilingController/rejectEditBoiling
 import CreateLotNo from "../controller/BoilingController/createLotNo";
 import deleteLotNo from "../controller/BoilingController/deleteLotNo";
 import deleteBoilingByLot from "../controller/BoilingController/deleteBoilingByLot";
-import getStatusBoiling from "../controller/BoilingController/getStatusBoiling";
+import {getStatusBoiling, getStatusBoilingVil} from "../controller/BoilingController/getStatusBoiling";
 import CreateBoilingEntire from "../controller/BoilingController/createEntireBoiling";
 import approveEditBoilingNew from "../controller/BoilingController/approveEditBoilingNew";
 import deleteLotNoNew from "../controller/BoilingController/deleteLotNoNew";
@@ -32,6 +32,7 @@ router.post("/createLotNo", jwtVerify, CreateLotNo)
 router.delete('/deleteLotNo/:id', jwtVerify, deleteLotNo)
 router.delete('/deleteBoilingByLotNo/:id', jwtVerify, deleteBoilingByLot)
 router.post('/getStatusBoiling', jwtVerify, getStatusBoiling)
+router.post('/getStatusBoilingVLot', jwtVerify, getStatusBoilingVil)
 router.delete('/deleteLotNoEntire/:id', jwtVerify, deleteLotNoNew)
 
 

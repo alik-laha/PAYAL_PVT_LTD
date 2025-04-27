@@ -110,6 +110,7 @@ const RCNDPDSCreateForm = (props:Props) => {
     const dayOpRef = useRef<HTMLInputElement>(null);
     const nightOpRef = useRef<HTMLInputElement>(null);
     const [rows,setRows]=useState<DPDSRowData[]>([])
+    const [vilLot,setVilLot]=useState<boolean>(false)
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
@@ -136,7 +137,12 @@ const RCNDPDSCreateForm = (props:Props) => {
     }
     useEffect(() => { 
 
-      
+      if (props.borma[0]) {
+
+        if (props.borma[0].LotNo.includes('V')) {
+          setVilLot(true)
+        }
+      }
         const initialform = props.borma.map((item: DPDSData) => ({
             id: item.id,
             LotNo: item.LotNo,
@@ -257,7 +263,7 @@ const RCNDPDSCreateForm = (props:Props) => {
         
             try {
                 const initialhumid = await axios.post('/api/dpds/createEntireDPDS', { linehumid:formData,
-                    LotNo:props.borma[0].LotNo
+                    LotNo:props.borma[0].LotNo,vilLot
                  })
                 console.log(initialhumid)         
                     setErrortext(initialhumid.data.message)

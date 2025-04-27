@@ -14,6 +14,7 @@ import WholesModel from "../../model/wholesModel";
 import rejectionModel from "../../model/rejectionModel";
 import LWModel from "../../model/lowerGradeModel";
 import villageProduction from "../../model/villageProductionModel";
+import VLotNo from "../../model/vlotNomodel";
 //import RcnPeeling from "../../model/peelingModel";
 
 
@@ -42,6 +43,7 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
     const feeledBy = req.cookies.user;
     const linehumid = req.body.linehumid
     const LotNO = req.body.LotNo
+    const vilLot:boolean=req.body.vilLot
 
     await sequelize.transaction(async (transaction: any) => {
 
@@ -244,16 +246,32 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
            
         }
        
-        const lotupdate = await LotNo.update(
-            { 
-              modifiedBy:'Peeling'
-            },
-            {
-                where: {
-                    lotNo:LotNO
-                },transaction
-            }
-        );
+        let lotupdate
+                //Lot Update
+                if(vilLot===true){
+                    lotupdate =await VLotNo.update(
+                        { 
+                          modifiedBy:'Peeling'
+                        },
+                        {
+                            where: {
+                                vlotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
+                else{
+                    lotupdate =await LotNo.update(
+                        { 
+                          modifiedBy:'Peeling'
+                        },
+                        {
+                            where: {
+                                lotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
         if(lotupdate){
             res.status(200).json({ message: "Peeling Entry Made Successfully" });
         }

@@ -90,7 +90,14 @@ const PeelingModify = (props: PeelingModifyProps) => {
     const [otherTime, setOtherTime] = useState('00:00')
     const [isdisable, setisdisable] = useState<boolean>(false)
     const [errortext, setErrorText] = useState<string>("")
+    const [vilLot,setVilLot]=useState<boolean>(false)
     useEffect(() => {
+
+        if(props.data){
+            if(props.data.LotNo.includes('V')){
+                setVilLot(true)
+            }
+        }
         // console.log(typeof (props.data.date))
         // console.log(props.data.date)
         setLotNo(props.data.LotNo)
@@ -158,8 +165,16 @@ const PeelingModify = (props: PeelingModifyProps) => {
     }
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        const resStatus = await axios.post('/api/boiling/getStatusBoiling', { lotNo: props.data.LotNo})
-        console.log(resStatus)
+        let resStatus
+        if(vilLot===true){
+            resStatus = await axios.post('/api/boiling/getStatusBoilingVLot', { lotNo: props.data.LotNo})
+            console.log(resStatus)
+        }
+        else{
+            resStatus = await axios.post('/api/boiling/getStatusBoiling', { lotNo: props.data.LotNo})
+            console.log(resStatus)
+        }
+        
         if (resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy !== 'Peeling') {
             setErrorText(`Lot has Already Reached ${resStatus.data.lotStatus.modifiedBy} Section`)
             if(errordialog){

@@ -76,6 +76,7 @@ const RCNMayurCreateForm = (props:Props) => {
     const dayOpRef = useRef<HTMLInputElement>(null);
     const nightOpRef = useRef<HTMLInputElement>(null);
     const [LotNo,setLotNo]=useState<string>('')
+    const [vilLot,setVilLot]=useState<boolean>(false)
     const [rows,setRows]=useState<mayurRowData[]>([])
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
@@ -142,6 +143,9 @@ const RCNMayurCreateForm = (props:Props) => {
         }));
         if(props.borma[0]){
             setLotNo(props.borma[0].LotNo)
+            if(props.borma[0].LotNo.includes('V')){
+                setVilLot(true)
+            }
         }
         
       
@@ -183,7 +187,7 @@ const RCNMayurCreateForm = (props:Props) => {
         
             try {
                 const initialhumid = await axios.post('/api/mayur/createEntireMayur', { linehumid:formData,
-                    LotNo:props.borma[0].LotNo
+                    LotNo:props.borma[0].LotNo,vilLot
                  })
                 console.log(initialhumid)         
                     setErrortext(initialhumid.data.message)
