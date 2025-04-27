@@ -117,6 +117,67 @@ const Wholes = () => {
                                 && data.data[0].issue_lw_360 && data.data[0].issue_pw_400 && data.data[0].issue_w_400
                                 && data.data[0].issue_ww_400 && data.data[0].issue_ww_400_A && data.data[0].issue_aw_400
                                 && data.data[0].issue_lw_400 && data.data[0].issue_jjb && data.data[0].issue_jjb1
+                                && data.data[0].issue_payal_240 && data.data[0].issue_payal_400 && data.data[0].issue_e_320_lot
+                                && data.data[0].issue_e_400_lot && data.data[0].issue_in_w_240 && data.data[0].issue_in_w_320
+                                && data.data[0].issue_in_w_400
+                                && data.data[0].issue_a_150
+                                && data.data[0].issue_c_150
+                                && data.data[0].issue_e_150
+                                && data.data[0].issue_sw_150
+                                && data.data[0].issue_ssw_150
+                                && data.data[0].issue_k_150
+                                && data.data[0].issue_a_180
+                                && data.data[0].issue_c_180
+                                && data.data[0].issue_e_180
+                                && data.data[0].issue_sw_180
+                                && data.data[0].issue_ssw_180
+                                && data.data[0].issue_k_180
+                                && data.data[0].issue_a_210
+                                && data.data[0].issue_c_210
+                                && data.data[0].issue_e_210
+                                && data.data[0].issue_sw_210
+                                && data.data[0].issue_ssw_210
+                                && data.data[0].issue_k_210
+                                && data.data[0].issue_a_240
+                                && data.data[0].issue_c_240
+                                && data.data[0].issue_e_240
+                                && data.data[0].issue_sw_240
+                                && data.data[0].issue_ssw_240
+                                && data.data[0].issue_k_240
+                                && data.data[0].issue_a_280
+                                && data.data[0].issue_c_280
+                                && data.data[0].issue_e_280
+                                && data.data[0].issue_sw_280
+                                && data.data[0].issue_ssw_280
+                                && data.data[0].issue_k_280
+                                && data.data[0].issue_a_320
+                                && data.data[0].issue_c_320
+                                && data.data[0].issue_e_320
+                                && data.data[0].issue_sw_320
+                                && data.data[0].issue_ssw_320
+                                && data.data[0].issue_k_320
+                                && data.data[0].issue_a_360
+                                && data.data[0].issue_c_360
+                                && data.data[0].issue_e_360
+                                && data.data[0].issue_sw_360
+                                && data.data[0].issue_ssw_360
+                                && data.data[0].issue_k_360
+                                && data.data[0].issue_a_400
+                                && data.data[0].issue_c_400
+                                && data.data[0].issue_e_400
+                                && data.data[0].issue_sw_400
+                                && data.data[0].issue_ssw_400
+                                && data.data[0].issue_k_400
+                                && data.data[0].issue_ext_grade_1
+                                && data.data[0].issue_ext_grade_2
+                                && data.data[0].issue_ext_grade_3
+                                && data.data[0].issue_ext_grade_4
+                                && data.data[0].issue_ext_grade_5
+                                && data.data[0].issue_ext_grade_6
+                                && data.data[0].issue_ext_grade_7
+                                && data.data[0].issue_ext_grade_8
+                                && data.data[0].issue_ext_grade_9
+                                && data.data[0].issue_ext_grade_10
                                 ? formatNumber(
                                     parseFloat(data.data[0].issue_pw_150) + parseFloat(data.data[0].issue_w_150) + parseFloat(data.data[0].issue_ww_150)
                                     + parseFloat(data.data[0].issue_s_150) + parseFloat(data.data[0].issue_aw_150) + parseFloat(data.data[0].issue_lw_150)
@@ -135,6 +196,71 @@ const Wholes = () => {
                                     + parseFloat(data.data[0].issue_lw_360) + parseFloat(data.data[0].issue_pw_400) + parseFloat(data.data[0].issue_w_400)
                                     + parseFloat(data.data[0].issue_ww_400) + parseFloat(data.data[0].issue_ww_400_A) + parseFloat(data.data[0].issue_aw_400)
                                     + parseFloat(data.data[0].issue_lw_400) + parseFloat(data.data[0].issue_jjb) + parseFloat(data.data[0].issue_jjb1)
+                                    + parseFloat(data.data[0].issue_payal_240)
+                                    + parseFloat(data.data[0].issue_payal_400)
+                                    + parseFloat(data.data[0].issue_e_320_lot)
+                                    + parseFloat(data.data[0].issue_e_400_lot)
+                                    + parseFloat(data.data[0].issue_in_w_240)
+                                    + parseFloat(data.data[0].issue_in_w_320)
+                                    + parseFloat(data.data[0].issue_in_w_400)
+                                    + parseFloat(data.data[0].issue_a_150)
+                                    + parseFloat(data.data[0].issue_c_150)
+                                    + parseFloat(data.data[0].issue_e_150)
+                                    + parseFloat(data.data[0].issue_sw_150)
+                                    + parseFloat(data.data[0].issue_ssw_150)
+                                    + parseFloat(data.data[0].issue_k_150)
+                                    + parseFloat(data.data[0].issue_a_180)
+                                    + parseFloat(data.data[0].issue_c_180)
+                                    + parseFloat(data.data[0].issue_e_180)
+                                    + parseFloat(data.data[0].issue_sw_180)
+                                    + parseFloat(data.data[0].issue_ssw_180)
+                                    + parseFloat(data.data[0].issue_k_180)
+                                    + parseFloat(data.data[0].issue_a_210)
+                                    + parseFloat(data.data[0].issue_c_210)
+                                    + parseFloat(data.data[0].issue_e_210)
+                                    + parseFloat(data.data[0].issue_sw_210)
+                                    + parseFloat(data.data[0].issue_ssw_210)
+                                    + parseFloat(data.data[0].issue_k_210)
+                                    + parseFloat(data.data[0].issue_a_240)
+                                    + parseFloat(data.data[0].issue_c_240)
+                                    + parseFloat(data.data[0].issue_e_240)
+                                    + parseFloat(data.data[0].issue_sw_240)
+                                    + parseFloat(data.data[0].issue_ssw_240)
+                                    + parseFloat(data.data[0].issue_k_240)
+                                    + parseFloat(data.data[0].issue_a_280)
+                                    + parseFloat(data.data[0].issue_c_280)
+                                    + parseFloat(data.data[0].issue_e_280)
+                                    + parseFloat(data.data[0].issue_sw_280)
+                                    + parseFloat(data.data[0].issue_ssw_280)
+                                    + parseFloat(data.data[0].issue_k_280)
+                                    + parseFloat(data.data[0].issue_a_320)
+                                    + parseFloat(data.data[0].issue_c_320)
+                                    + parseFloat(data.data[0].issue_e_320)
+                                    + parseFloat(data.data[0].issue_sw_320)
+                                    + parseFloat(data.data[0].issue_ssw_320)
+                                    + parseFloat(data.data[0].issue_k_320)
+                                    + parseFloat(data.data[0].issue_a_360)
+                                    + parseFloat(data.data[0].issue_c_360)
+                                    + parseFloat(data.data[0].issue_e_360)
+                                    + parseFloat(data.data[0].issue_sw_360)
+                                    + parseFloat(data.data[0].issue_ssw_360)
+                                    + parseFloat(data.data[0].issue_k_360)
+                                    + parseFloat(data.data[0].issue_a_400)
+                                    + parseFloat(data.data[0].issue_c_400)
+                                    + parseFloat(data.data[0].issue_e_400)
+                                    + parseFloat(data.data[0].issue_sw_400)
+                                    + parseFloat(data.data[0].issue_ssw_400)
+                                    + parseFloat(data.data[0].issue_k_400)
+                                    + parseFloat(data.data[0].issue_ext_grade_1)
+                                    + parseFloat(data.data[0].issue_ext_grade_2)
+                                    + parseFloat(data.data[0].issue_ext_grade_3)
+                                    + parseFloat(data.data[0].issue_ext_grade_4)
+                                    + parseFloat(data.data[0].issue_ext_grade_5)
+                                    + parseFloat(data.data[0].issue_ext_grade_6)
+                                    + parseFloat(data.data[0].issue_ext_grade_7)
+                                    + parseFloat(data.data[0].issue_ext_grade_8)
+                                    + parseFloat(data.data[0].issue_ext_grade_9)
+                                    + parseFloat(data.data[0].issue_ext_grade_10)
                                 ) : 0} Kg
                         </p>
 

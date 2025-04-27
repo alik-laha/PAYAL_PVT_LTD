@@ -109,7 +109,7 @@ const HamsaEditForm = (props:Props) => {
     const closeDialogButton = document.getElementById('empcloseDialog') as HTMLInputElement;
     const errorcloseDialogButton = document.getElementById('errorempcloseDialog') as HTMLInputElement;
     const [isdisable,setisdisable]=useState<boolean>(false)
-
+ const [LotNo, setLotNo] = useState<string>('')
 
     if (closeDialogButton) {
         closeDialogButton.addEventListener('click', () => {
@@ -140,6 +140,9 @@ const HamsaEditForm = (props:Props) => {
 
         if(nightOpRef.current) {
             nightOpRef.current.value = props.borma[0].noOfnightOperators.toString()
+        }
+        if (props.borma[0]) {
+            setLotNo(props.borma[0].LotNo)
         }
       
         const initialform = {
@@ -317,29 +320,29 @@ const HamsaEditForm = (props:Props) => {
                <div className="mx-8 flex flex-col gap-0.5"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
-                <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
+                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
                
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Day)</Label>
+                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Day)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
+                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
                      </div>
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Night)</Label>
+                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Night)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
+                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
                      </div>
                    
                      
                    
                 </div>
-            
+            <Label className="w-100 pt-5 text-center">1. General Information</Label>
                    <Table className="mt-3">
                    <TableHeader className="bg-neutral-100 text-stone-950 ">
                    <TableHead className="text-center">Sl. No.</TableHead>
                     <TableHead className="text-center">Lot_No</TableHead>
               
                     <TableHead className="text-center">Origin</TableHead>
-                    <TableHead className="text-center">Mixed_Lot</TableHead>
+                    <TableHead className="text-center">Incoming_Mixed_Lot</TableHead>
                     {/* <TableHead className="text-center">Receive PW_W</TableHead>
                     <TableHead className="text-center">Receive W_Lot</TableHead>
                     <TableHead className="text-center">Receive WW</TableHead> */}
@@ -347,59 +350,10 @@ const HamsaEditForm = (props:Props) => {
                     <TableHead className="text-center">Receive Village</TableHead>
                     <TableHead className="text-center">Receive LW</TableHead>
                     
-                    <TableHead className="text-center">Issue PW_210</TableHead>
-                    <TableHead className="text-center">Issue W_210</TableHead>
-                    <TableHead className="text-center">Issue WW_210</TableHead>
-                    <TableHead className="text-center">Issue PW_240</TableHead>
-                    <TableHead className="text-center">Issue W_240</TableHead>
-                    <TableHead className="text-center">Issue WW_240</TableHead>
-                    <TableHead className="text-center">Issue PW_280</TableHead>
-                    <TableHead className="text-center">Issue W_280</TableHead>
-                    <TableHead className="text-center">Issue WW_280</TableHead>
-                    <TableHead className="text-center">Issue PW_320</TableHead>
-                    <TableHead className="text-center">Issue W_320</TableHead>
-                    <TableHead className="text-center">Issue WW_320</TableHead>
-                    <TableHead className="text-center">Issue PW_360</TableHead>
-                    <TableHead className="text-center">Issue W_360</TableHead>
-                    <TableHead className="text-center">Issue WW_360</TableHead>
-                    <TableHead className="text-center">Issue PW_400</TableHead>
-                    <TableHead className="text-center">Issue W_400</TableHead>
-                    <TableHead className="text-center">Issue WW_400</TableHead>
                   
-                     {/*<TableHead className="text-center">Issue Add 4</TableHead>
-                    <TableHead className="text-center">Issue Add 5</TableHead>
-                    <TableHead className="text-center">Issue Add 6</TableHead>
-                    <TableHead className="text-center">Issue Add 7</TableHead>
-                    <TableHead className="text-center">Issue Add 8</TableHead>
-                    <TableHead className="text-center">Issue Add 9</TableHead>
-                    <TableHead className="text-center">Issue Add 10</TableHead> */}
                     <TableHead className="text-center">Issue LW</TableHead>
                     <TableHead className="text-center">Issue BigTaiho</TableHead>
-                    <TableHead className="text-center">Issue JB</TableHead> 
-                    <TableHead className="text-center">Mc On (Hamsa-1)</TableHead>
-                    <TableHead className="text-center">Mc Off (Hamsa-1)</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown (Hamsa-1)</TableHead>
-                    <TableHead className="text-center">Other_Time (Hamsa-1)</TableHead>
-                    <TableHead className="text-center">Mc On (Hamsa-2)</TableHead>
-                    <TableHead className="text-center">Mc Off (Hamsa-2)</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown (Hamsa-2)</TableHead>
-                    <TableHead className="text-center">Other_Time (Hamsa-2)</TableHead>
-                    <TableHead className="text-center">Mc On (Hamsa-3)</TableHead>
-                    <TableHead className="text-center">Mc Off (Hamsa-3)</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown (Hamsa-3)</TableHead>
-                    <TableHead className="text-center">Other_Time (Hamsa-3)</TableHead>
-                    <TableHead className="text-center">Mc On (Hamsa-4)</TableHead>
-                    <TableHead className="text-center">Mc Off (Hamsa-4)</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown (Hamsa-4)</TableHead>
-                    <TableHead className="text-center">Other_Time (Hamsa-4)</TableHead>
-                    <TableHead className="text-center">Mc On (Hamsa-5)</TableHead>
-                    <TableHead className="text-center">Mc Off (Hamsa-5)</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown (Hamsa-5)</TableHead>
-                    <TableHead className="text-center">Other_Time (Hamsa-5)</TableHead>
-                    <TableHead className="text-center">Mc On (Spectrum)</TableHead>
-                    <TableHead className="text-center">Mc Off (Spectrum)</TableHead>
-                    <TableHead className="text-center">Mc_Breakdown (Spectrum)</TableHead>
-                    <TableHead className="text-center">Other_Time (Spectrum)</TableHead>
+                  
                     </TableHeader>
                     <TableBody>
                         {props.borma.length > 0 ? (
@@ -419,73 +373,155 @@ const HamsaEditForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-green-600">{row.rcv_village ? formatNumber(row.rcv_village) :0} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-green-600">{row.rcv_lw ? formatNumber(row.rcv_lw) :0} Kg</TableCell>
                                         
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_210', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_210', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ww_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_210', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_240} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_240', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_240} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_240', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ww_240} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_240', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_280} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_280', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_280} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_280', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ww_280} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_280', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_320} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_320', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_320} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_320', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ww_320} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_320', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_1', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_2', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_3', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_400} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_400', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_400} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_400', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ww_400} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_400', e.target.value)} required /></TableCell>                             
-                                    
-                                   {/*<TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_4} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_4', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_5} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_5', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_6} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_6', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_7} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_7', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_8} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_8', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_9} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_9', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_10} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_10', e.target.value)} required /></TableCell> */}
+                                      
                                      <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_lw} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_lw', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bigTaiho', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_jb} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jb', e.target.value)} required /></TableCell>
+                                
 
 
-                                    <FormRow idx={idx} row={row} column='Mc_on_1' handleRowChange={handleRowChange}/>
-                                        <FormRow idx={idx} row={row} column='Mc_off_1' handleRowChange={handleRowChange}/>
-                                        <TableCell className="text-center bg-purple-300"><Input  value={row.Mc_breakdown_1} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_1',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center bg-purple-300"><Input  value={row.otherTime_1} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_1',e.target.value)} type='time'  /></TableCell>
-                                     
-                                        <FormRow idx={idx} row={row} column='Mc_on_2' handleRowChange={handleRowChange}/>
-                                        <FormRow idx={idx} row={row} column='Mc_off_2' handleRowChange={handleRowChange}/>
-                                        <TableCell className="text-center bg-purple-300"><Input  value={row.Mc_breakdown_2} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_2',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center bg-purple-300"><Input  value={row.otherTime_2} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_2',e.target.value)} type='time'  /></TableCell>
-                                    
-                                        <FormRow idx={idx} row={row} column='Mc_on_3' handleRowChange={handleRowChange}/>
-                                        <FormRow idx={idx} row={row} column='Mc_off_3' handleRowChange={handleRowChange}/>
-                                        <TableCell className="text-center bg-purple-300"><Input  value={row.Mc_breakdown_3} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_3',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center bg-purple-300"><Input  value={row.otherTime_3} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_3',e.target.value)} type='time'  /></TableCell>
-                                    
-                                        <FormRow idx={idx} row={row} column='Mc_on_4' handleRowChange={handleRowChange}/>
-                                        <FormRow idx={idx} row={row} column='Mc_off_4' handleRowChange={handleRowChange}/>
-                                        <TableCell className="text-center bg-purple-300"><Input  value={row.Mc_breakdown_4} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_4',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center bg-purple-300"><Input  value={row.otherTime_4} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_4',e.target.value)} type='time'  /></TableCell>
-                                      
-                                        <FormRow idx={idx} row={row} column='Mc_on_5' handleRowChange={handleRowChange}/>
-                                        <FormRow idx={idx} row={row} column='Mc_off_5' handleRowChange={handleRowChange}/>
-                                        <TableCell className="text-center bg-purple-300"><Input  value={row.Mc_breakdown_5} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_5',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center bg-purple-300"><Input  value={row.otherTime_5} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_5',e.target.value)} type='time'  /></TableCell>
-
-                                        <FormRow idx={idx} row={row} column='Mc_on_6' handleRowChange={handleRowChange}/>
-                                        <FormRow idx={idx} row={row} column='Mc_off_6' handleRowChange={handleRowChange}/>
-                                        <TableCell className="text-center bg-purple-300"><Input  value={row.Mc_breakdown_6} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_6',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center bg-purple-300"><Input  value={row.otherTime_6} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_6',e.target.value)} type='time'  /></TableCell>
+                                   
                                     
                                     </TableRow>
                                 );
                             })
                         ) : null}
                     </TableBody>
-                </Table>  
+                </Table> 
+                <Label className="w-100 pt-5 text-center">2. Wholes Information</Label>
+                    <Table className="mt-3">
+                        <TableHeader className="bg-neutral-100 text-stone-950 ">
+                        <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_210' : 'Issue PW_W_210') : 'Issue PW_W_210'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_210' : 'Issue W_210') : 'Issue W_210'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_210' : 'Issue WW_210') : 'Issue WW_210'}</TableHead>
+
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_240' : 'Issue PW_W_240') : 'Issue PW_W_240'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_240' : 'Issue W_240') : 'Issue W_240'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_240' : 'Issue WW_240') : 'Issue WW_240'}</TableHead>
+
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_280' : 'Issue PW_W_280') : 'Issue PW_W_280'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_280' : 'Issue W_280') : 'Issue W_280'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_280' : 'Issue WW_280') : 'Issue WW_280'}</TableHead>
+
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_320' : 'Issue PW_W_320') : 'Issue PW_W_320'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_320' : 'Issue W_320') : 'Issue W_320'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_320' : 'Issue WW_320') : 'Issue WW_320'}</TableHead>
+
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_360' : 'Issue PW_W_360') : 'Issue PW_W_360'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_360' : 'Issue W_360') : 'Issue W_360'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_360' : 'Issue WW_360') : 'Issue WW_360'}</TableHead>
+
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_400' : 'Issue PW_W_400') : 'Issue PW_W_400'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_400' : 'Issue W_400') : 'Issue W_400'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_400' : 'Issue WW_400') : 'Issue WW_400'}</TableHead>
+                            <TableHead className="text-center">Issue JB</TableHead>
+
+
+                        </TableHeader>
+                        <TableBody>
+                            {props.borma.length > 0 ? (
+                                rows.map((row: HamsaRowData, idx: number) => {
+
+                                    return (
+                                        <TableRow key={idx} className="boiling-row-height-scoop">
+
+<TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_pw_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_210', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_w_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_210', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_ww_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_210', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_pw_240} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_240', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_w_240} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_240', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_ww_240} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_240', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_pw_280} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_280', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_w_280} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_280', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_ww_280} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_280', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_pw_320} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_320', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_w_320} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_320', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_ww_320} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_320', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_1', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_add_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_2', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_add_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_3', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_pw_400} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_400', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_w_400} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_400', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_ww_400} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_400', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_jb} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jb', e.target.value)} required /></TableCell>
+
+                                        </TableRow>
+                                    );
+                                })
+                            ) : null}
+                        </TableBody>
+                    </Table>
+                    <Label className="w-100 pt-5 text-center">3. Machine Information</Label>
+                    <Table className="mt-3">
+                        <TableHeader className="bg-neutral-100 text-stone-950 ">
+                        <TableHead className="text-center">Mc On (Hamsa-1)</TableHead>
+                            <TableHead className="text-center">Mc Off (Hamsa-1)</TableHead>
+                            <TableHead className="text-center">Mc_Breakdown (Hamsa-1)</TableHead>
+                            <TableHead className="text-center">Other_Time (Hamsa-1)</TableHead>
+                            <TableHead className="text-center">Mc On (Hamsa-2)</TableHead>
+                            <TableHead className="text-center">Mc Off (Hamsa-2)</TableHead>
+                            <TableHead className="text-center">Mc_Breakdown (Hamsa-2)</TableHead>
+                            <TableHead className="text-center">Other_Time (Hamsa-2)</TableHead>
+                            <TableHead className="text-center">Mc On (Hamsa-3)</TableHead>
+                            <TableHead className="text-center">Mc Off (Hamsa-3)</TableHead>
+                            <TableHead className="text-center">Mc_Breakdown (Hamsa-3)</TableHead>
+                            <TableHead className="text-center">Other_Time (Hamsa-3)</TableHead>
+                            <TableHead className="text-center">Mc On (Hamsa-4)</TableHead>
+                            <TableHead className="text-center">Mc Off (Hamsa-4)</TableHead>
+                            <TableHead className="text-center">Mc_Breakdown (Hamsa-4)</TableHead>
+                            <TableHead className="text-center">Other_Time (Hamsa-4)</TableHead>
+                            <TableHead className="text-center">Mc On (Hamsa-5)</TableHead>
+                            <TableHead className="text-center">Mc Off (Hamsa-5)</TableHead>
+                            <TableHead className="text-center">Mc_Breakdown (Hamsa-5)</TableHead>
+                            <TableHead className="text-center">Other_Time (Hamsa-5)</TableHead>
+                            <TableHead className="text-center">Mc On (Spectrum)</TableHead>
+                            <TableHead className="text-center">Mc Off (Spectrum)</TableHead>
+                            <TableHead className="text-center">Mc_Breakdown (Spectrum)</TableHead>
+                            <TableHead className="text-center">Other_Time (Spectrum)</TableHead>
+
+
+                        </TableHeader>
+                        <TableBody>
+                            {props.borma.length > 0 ? (
+                                rows.map((row: HamsaRowData, idx: number) => {
+
+                                    return (
+                                        <TableRow key={idx} className="boiling-row-height-scoop">
+
+<FormRow idx={idx} row={row} column='Mc_on_1' handleRowChange={handleRowChange} />
+                                            <FormRow idx={idx} row={row} column='Mc_off_1' handleRowChange={handleRowChange} />
+                                            <TableCell className="text-center bg-purple-300"><Input value={row.Mc_breakdown_1} placeholder="BreakDown" onChange={(e) => handleRowChange(idx, 'Mc_breakdown_1', e.target.value)} type='time' /></TableCell>
+                                            <TableCell className="text-center bg-purple-300"><Input value={row.otherTime_1} placeholder="Other Time" onChange={(e) => handleRowChange(idx, 'otherTime_1', e.target.value)} type='time' /></TableCell>
+
+                                            <FormRow idx={idx} row={row} column='Mc_on_2' handleRowChange={handleRowChange} />
+                                            <FormRow idx={idx} row={row} column='Mc_off_2' handleRowChange={handleRowChange} />
+                                            <TableCell className="text-center bg-purple-300"><Input value={row.Mc_breakdown_2} placeholder="BreakDown" onChange={(e) => handleRowChange(idx, 'Mc_breakdown_2', e.target.value)} type='time' /></TableCell>
+                                            <TableCell className="text-center bg-purple-300"><Input value={row.otherTime_2} placeholder="Other Time" onChange={(e) => handleRowChange(idx, 'otherTime_2', e.target.value)} type='time' /></TableCell>
+
+                                            <FormRow idx={idx} row={row} column='Mc_on_3' handleRowChange={handleRowChange} />
+                                            <FormRow idx={idx} row={row} column='Mc_off_3' handleRowChange={handleRowChange} />
+                                            <TableCell className="text-center bg-purple-300"><Input value={row.Mc_breakdown_3} placeholder="BreakDown" onChange={(e) => handleRowChange(idx, 'Mc_breakdown_3', e.target.value)} type='time' /></TableCell>
+                                            <TableCell className="text-center bg-purple-300"><Input value={row.otherTime_3} placeholder="Other Time" onChange={(e) => handleRowChange(idx, 'otherTime_3', e.target.value)} type='time' /></TableCell>
+
+                                            <FormRow idx={idx} row={row} column='Mc_on_4' handleRowChange={handleRowChange} />
+                                            <FormRow idx={idx} row={row} column='Mc_off_4' handleRowChange={handleRowChange} />
+                                            <TableCell className="text-center bg-purple-300"><Input value={row.Mc_breakdown_4} placeholder="BreakDown" onChange={(e) => handleRowChange(idx, 'Mc_breakdown_4', e.target.value)} type='time' /></TableCell>
+                                            <TableCell className="text-center bg-purple-300"><Input value={row.otherTime_4} placeholder="Other Time" onChange={(e) => handleRowChange(idx, 'otherTime_4', e.target.value)} type='time' /></TableCell>
+
+                                            <FormRow idx={idx} row={row} column='Mc_on_5' handleRowChange={handleRowChange} />
+                                            <FormRow idx={idx} row={row} column='Mc_off_5' handleRowChange={handleRowChange} />
+                                            <TableCell className="text-center bg-purple-300"><Input value={row.Mc_breakdown_5} placeholder="BreakDown" onChange={(e) => handleRowChange(idx, 'Mc_breakdown_5', e.target.value)} type='time' /></TableCell>
+                                            <TableCell className="text-center bg-purple-300"><Input value={row.otherTime_5} placeholder="Other Time" onChange={(e) => handleRowChange(idx, 'otherTime_5', e.target.value)} type='time' /></TableCell>
+
+                                            <FormRow idx={idx} row={row} column='Mc_on_6' handleRowChange={handleRowChange} />
+                                            <FormRow idx={idx} row={row} column='Mc_off_6' handleRowChange={handleRowChange} />
+                                            <TableCell className="text-center bg-purple-300"><Input value={row.Mc_breakdown_6} placeholder="BreakDown" onChange={(e) => handleRowChange(idx, 'Mc_breakdown_6', e.target.value)} type='time' /></TableCell>
+                                            <TableCell className="text-center bg-purple-300"><Input value={row.otherTime_6} placeholder="Other Time" onChange={(e) => handleRowChange(idx, 'otherTime_6', e.target.value)} type='time' /></TableCell>
+                                        </TableRow>
+                                    );
+                                })
+                            ) : null}
+                        </TableBody>
+                    </Table>
                 <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                   
                    

@@ -104,6 +104,73 @@ export const sumOfallWholes = async (req: Request, res: Response) => {
                 [sequelize.fn('sum', sequelize.col('issue_lw_400')), 'issue_lw_400'],
                 [sequelize.fn('sum', sequelize.col('issue_jjb')), 'issue_jjb'],
                 [sequelize.fn('sum', sequelize.col('issue_jjb1')), 'issue_jjb1'],
+
+                [sequelize.fn('sum', sequelize.col('issue_payal_240')), 'issue_payal_240'],
+                [sequelize.fn('sum', sequelize.col('issue_payal_400')), 'issue_payal_400'],
+                [sequelize.fn('sum', sequelize.col('issue_e_320_lot')), 'issue_e_320_lot'],
+                [sequelize.fn('sum', sequelize.col('issue_e_400_lot')), 'issue_e_400_lot'],
+                [sequelize.fn('sum', sequelize.col('issue_in_w_240')), 'issue_in_w_240'],
+                [sequelize.fn('sum', sequelize.col('issue_in_w_320')), 'issue_in_w_320'],
+                [sequelize.fn('sum', sequelize.col('issue_in_w_400')), 'issue_in_w_400'],
+                [sequelize.fn('sum', sequelize.col('issue_a_150')), 'issue_a_150'],
+                [sequelize.fn('sum', sequelize.col('issue_c_150')), 'issue_c_150'],
+                [sequelize.fn('sum', sequelize.col('issue_e_150')), 'issue_e_150'],
+                [sequelize.fn('sum', sequelize.col('issue_sw_150')), 'issue_sw_150'],
+                [sequelize.fn('sum', sequelize.col('issue_ssw_150')), 'issue_ssw_150'],
+                [sequelize.fn('sum', sequelize.col('issue_k_150')), 'issue_k_150'],
+                [sequelize.fn('sum', sequelize.col('issue_a_180')), 'issue_a_180'],
+                [sequelize.fn('sum', sequelize.col('issue_c_180')), 'issue_c_180'],
+                [sequelize.fn('sum', sequelize.col('issue_e_180')), 'issue_e_180'],
+                [sequelize.fn('sum', sequelize.col('issue_sw_180')), 'issue_sw_180'],
+                [sequelize.fn('sum', sequelize.col('issue_ssw_180')), 'issue_ssw_180'],
+                [sequelize.fn('sum', sequelize.col('issue_k_180')), 'issue_k_180'],
+                [sequelize.fn('sum', sequelize.col('issue_a_210')), 'issue_a_210'],
+                [sequelize.fn('sum', sequelize.col('issue_c_210')), 'issue_c_210'],
+                [sequelize.fn('sum', sequelize.col('issue_e_210')), 'issue_e_210'],
+                [sequelize.fn('sum', sequelize.col('issue_sw_210')), 'issue_sw_210'],
+                [sequelize.fn('sum', sequelize.col('issue_ssw_210')), 'issue_ssw_210'],
+                [sequelize.fn('sum', sequelize.col('issue_k_210')), 'issue_k_210'],
+                [sequelize.fn('sum', sequelize.col('issue_a_240')), 'issue_a_240'],
+                [sequelize.fn('sum', sequelize.col('issue_c_240')), 'issue_c_240'],
+                [sequelize.fn('sum', sequelize.col('issue_e_240')), 'issue_e_240'],
+                [sequelize.fn('sum', sequelize.col('issue_sw_240')), 'issue_sw_240'],
+                [sequelize.fn('sum', sequelize.col('issue_ssw_240')), 'issue_ssw_240'],
+                [sequelize.fn('sum', sequelize.col('issue_k_240')), 'issue_k_240'],
+                [sequelize.fn('sum', sequelize.col('issue_a_280')), 'issue_a_280'],
+                [sequelize.fn('sum', sequelize.col('issue_c_280')), 'issue_c_280'],
+                [sequelize.fn('sum', sequelize.col('issue_e_280')), 'issue_e_280'],
+                [sequelize.fn('sum', sequelize.col('issue_sw_280')), 'issue_sw_280'],
+                [sequelize.fn('sum', sequelize.col('issue_ssw_280')), 'issue_ssw_280'],
+                [sequelize.fn('sum', sequelize.col('issue_k_280')), 'issue_k_280'],
+                [sequelize.fn('sum', sequelize.col('issue_a_320')), 'issue_a_320'],
+                [sequelize.fn('sum', sequelize.col('issue_c_320')), 'issue_c_320'],
+                [sequelize.fn('sum', sequelize.col('issue_e_320')), 'issue_e_320'],
+                [sequelize.fn('sum', sequelize.col('issue_sw_320')), 'issue_sw_320'],
+                [sequelize.fn('sum', sequelize.col('issue_ssw_320')), 'issue_ssw_320'],
+                [sequelize.fn('sum', sequelize.col('issue_k_320')), 'issue_k_320'],
+                [sequelize.fn('sum', sequelize.col('issue_a_360')), 'issue_a_360'],
+                [sequelize.fn('sum', sequelize.col('issue_c_360')), 'issue_c_360'],
+                [sequelize.fn('sum', sequelize.col('issue_e_360')), 'issue_e_360'],
+                [sequelize.fn('sum', sequelize.col('issue_sw_360')), 'issue_sw_360'],
+                [sequelize.fn('sum', sequelize.col('issue_ssw_360')), 'issue_ssw_360'],
+                [sequelize.fn('sum', sequelize.col('issue_k_360')), 'issue_k_360'],
+                [sequelize.fn('sum', sequelize.col('issue_a_400')), 'issue_a_400'],
+                [sequelize.fn('sum', sequelize.col('issue_c_400')), 'issue_c_400'],
+                [sequelize.fn('sum', sequelize.col('issue_e_400')), 'issue_e_400'],
+                [sequelize.fn('sum', sequelize.col('issue_sw_400')), 'issue_sw_400'],
+                [sequelize.fn('sum', sequelize.col('issue_ssw_400')), 'issue_ssw_400'],
+                [sequelize.fn('sum', sequelize.col('issue_k_400')), 'issue_k_400'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_1')), 'issue_ext_grade_1'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_2')), 'issue_ext_grade_2'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_3')), 'issue_ext_grade_3'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_4')), 'issue_ext_grade_4'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_5')), 'issue_ext_grade_5'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_6')), 'issue_ext_grade_6'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_7')), 'issue_ext_grade_7'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_8')), 'issue_ext_grade_8'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_9')), 'issue_ext_grade_9'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_10')), 'issue_ext_grade_10'],
+
                 [sequelize.fn('sum', sequelize.col('issue_lw')), 'issue_lw'],
                 [sequelize.fn('sum', sequelize.col('issue_bigTaiho')), 'issue_bigTaiho'],
                 [sequelize.fn('sum', sequelize.col('issue_rejection')), 'issue_rejection'],
@@ -247,6 +314,72 @@ export const CreateEntireWholes= async (req: Request, res: Response) => {
                                         +parseFloat(data.issue_lw_360)+parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
                                             +parseFloat(data.issue_ww_400)+parseFloat(data.issue_ww_400_A)+parseFloat(data.issue_aw_400)
                                             +parseFloat(data.issue_lw_400)+parseFloat(data.issue_jjb)+parseFloat(data.issue_jjb1)
+
+                                            + parseFloat(data.issue_payal_240)
+                                            + parseFloat(data.issue_payal_400)
+                                            + parseFloat(data.issue_e_320_lot)
+                                            + parseFloat(data.issue_e_400_lot)
+                                            + parseFloat(data.issue_in_w_240)
+                                            + parseFloat(data.issue_in_w_320)
+                                            + parseFloat(data.issue_in_w_400)
+                                            + parseFloat(data.issue_a_150)
+                                            + parseFloat(data.issue_c_150)
+                                            + parseFloat(data.issue_e_150)
+                                            + parseFloat(data.issue_sw_150)
+                                            + parseFloat(data.issue_ssw_150)
+                                            + parseFloat(data.issue_k_150)
+                                            + parseFloat(data.issue_a_180)
+                                            + parseFloat(data.issue_c_180)
+                                            + parseFloat(data.issue_e_180)
+                                            + parseFloat(data.issue_sw_180)
+                                            + parseFloat(data.issue_ssw_180)
+                                            + parseFloat(data.issue_k_180)
+                                            + parseFloat(data.issue_a_210)
+                                            + parseFloat(data.issue_c_210)
+                                            + parseFloat(data.issue_e_210)
+                                            + parseFloat(data.issue_sw_210)
+                                            + parseFloat(data.issue_ssw_210)
+                                            + parseFloat(data.issue_k_210)
+                                            + parseFloat(data.issue_a_240)
+                                            + parseFloat(data.issue_c_240)
+                                            + parseFloat(data.issue_e_240)
+                                            + parseFloat(data.issue_sw_240)
+                                            + parseFloat(data.issue_ssw_240)
+                                            + parseFloat(data.issue_k_240)
+                                            + parseFloat(data.issue_a_280)
+                                            + parseFloat(data.issue_c_280)
+                                            + parseFloat(data.issue_e_280)
+                                            + parseFloat(data.issue_sw_280)
+                                            + parseFloat(data.issue_ssw_280)
+                                            + parseFloat(data.issue_k_280)
+                                            + parseFloat(data.issue_a_320)
+                                            + parseFloat(data.issue_c_320)
+                                            + parseFloat(data.issue_e_320)
+                                            + parseFloat(data.issue_sw_320)
+                                            + parseFloat(data.issue_ssw_320)
+                                            + parseFloat(data.issue_k_320)
+                                            + parseFloat(data.issue_a_360)
+                                            + parseFloat(data.issue_c_360)
+                                            + parseFloat(data.issue_e_360)
+                                            + parseFloat(data.issue_sw_360)
+                                            + parseFloat(data.issue_ssw_360)
+                                            + parseFloat(data.issue_k_360)
+                                            + parseFloat(data.issue_a_400)
+                                            + parseFloat(data.issue_c_400)
+                                            + parseFloat(data.issue_e_400)
+                                            + parseFloat(data.issue_sw_400)
+                                            + parseFloat(data.issue_ssw_400)
+                                            + parseFloat(data.issue_k_400)
+                                            + parseFloat(data.issue_ext_grade_1)
+                                            + parseFloat(data.issue_ext_grade_2)
+                                            + parseFloat(data.issue_ext_grade_3)
+                                            + parseFloat(data.issue_ext_grade_4)
+                                            + parseFloat(data.issue_ext_grade_5)
+                                            + parseFloat(data.issue_ext_grade_6)
+                                            + parseFloat(data.issue_ext_grade_7)
+                                            + parseFloat(data.issue_ext_grade_8)
+                                            + parseFloat(data.issue_ext_grade_9)
+                                            + parseFloat(data.issue_ext_grade_10)
                                                 +parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_rejection)
                                                 +parseFloat(data.issue_village)
          
@@ -269,6 +402,71 @@ export const CreateEntireWholes= async (req: Request, res: Response) => {
                                              +parseFloat(data.issue_lw_360)+parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
                                                  +parseFloat(data.issue_ww_400)+parseFloat(data.issue_ww_400_A)+parseFloat(data.issue_aw_400)
                                                  +parseFloat(data.issue_lw_400)+parseFloat(data.issue_jjb)+parseFloat(data.issue_jjb1)
+                                                 + parseFloat(data.issue_payal_240)
+                                                 + parseFloat(data.issue_payal_400)
+                                                 + parseFloat(data.issue_e_320_lot)
+                                                 + parseFloat(data.issue_e_400_lot)
+                                                 + parseFloat(data.issue_in_w_240)
+                                                 + parseFloat(data.issue_in_w_320)
+                                                 + parseFloat(data.issue_in_w_400)
+                                                 + parseFloat(data.issue_a_150)
+                                                 + parseFloat(data.issue_c_150)
+                                                 + parseFloat(data.issue_e_150)
+                                                 + parseFloat(data.issue_sw_150)
+                                                 + parseFloat(data.issue_ssw_150)
+                                                 + parseFloat(data.issue_k_150)
+                                                 + parseFloat(data.issue_a_180)
+                                                 + parseFloat(data.issue_c_180)
+                                                 + parseFloat(data.issue_e_180)
+                                                 + parseFloat(data.issue_sw_180)
+                                                 + parseFloat(data.issue_ssw_180)
+                                                 + parseFloat(data.issue_k_180)
+                                                 + parseFloat(data.issue_a_210)
+                                                 + parseFloat(data.issue_c_210)
+                                                 + parseFloat(data.issue_e_210)
+                                                 + parseFloat(data.issue_sw_210)
+                                                 + parseFloat(data.issue_ssw_210)
+                                                 + parseFloat(data.issue_k_210)
+                                                 + parseFloat(data.issue_a_240)
+                                                 + parseFloat(data.issue_c_240)
+                                                 + parseFloat(data.issue_e_240)
+                                                 + parseFloat(data.issue_sw_240)
+                                                 + parseFloat(data.issue_ssw_240)
+                                                 + parseFloat(data.issue_k_240)
+                                                 + parseFloat(data.issue_a_280)
+                                                 + parseFloat(data.issue_c_280)
+                                                 + parseFloat(data.issue_e_280)
+                                                 + parseFloat(data.issue_sw_280)
+                                                 + parseFloat(data.issue_ssw_280)
+                                                 + parseFloat(data.issue_k_280)
+                                                 + parseFloat(data.issue_a_320)
+                                                 + parseFloat(data.issue_c_320)
+                                                 + parseFloat(data.issue_e_320)
+                                                 + parseFloat(data.issue_sw_320)
+                                                 + parseFloat(data.issue_ssw_320)
+                                                 + parseFloat(data.issue_k_320)
+                                                 + parseFloat(data.issue_a_360)
+                                                 + parseFloat(data.issue_c_360)
+                                                 + parseFloat(data.issue_e_360)
+                                                 + parseFloat(data.issue_sw_360)
+                                                 + parseFloat(data.issue_ssw_360)
+                                                 + parseFloat(data.issue_k_360)
+                                                 + parseFloat(data.issue_a_400)
+                                                 + parseFloat(data.issue_c_400)
+                                                 + parseFloat(data.issue_e_400)
+                                                 + parseFloat(data.issue_sw_400)
+                                                 + parseFloat(data.issue_ssw_400)
+                                                 + parseFloat(data.issue_k_400)
+                                                 + parseFloat(data.issue_ext_grade_1)
+                                                 + parseFloat(data.issue_ext_grade_2)
+                                                 + parseFloat(data.issue_ext_grade_3)
+                                                 + parseFloat(data.issue_ext_grade_4)
+                                                 + parseFloat(data.issue_ext_grade_5)
+                                                 + parseFloat(data.issue_ext_grade_6)
+                                                 + parseFloat(data.issue_ext_grade_7)
+                                                 + parseFloat(data.issue_ext_grade_8)
+                                                 + parseFloat(data.issue_ext_grade_9)
+                                                 + parseFloat(data.issue_ext_grade_10)
                                                      +parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_rejection)
                                                      +parseFloat(data.issue_village))
                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
@@ -351,6 +549,73 @@ export const CreateEntireWholes= async (req: Request, res: Response) => {
                     issue_lw_400 : data.issue_lw_400,
                     issue_jjb : data.issue_jjb,
                     issue_jjb1 : data.issue_jjb1,
+
+                    issue_payal_240: data.issue_payal_240,
+                    issue_payal_400: data.issue_payal_400,
+                    issue_e_320_lot: data.issue_e_320_lot,
+                    issue_e_400_lot: data.issue_e_400_lot,
+                    issue_in_w_240: data.issue_in_w_240,
+                    issue_in_w_320: data.issue_in_w_320,
+                    issue_in_w_400: data.issue_in_w_400,
+                    issue_a_150: data.issue_a_150,
+                    issue_c_150: data.issue_c_150,
+                    issue_e_150: data.issue_e_150,
+                    issue_sw_150: data.issue_sw_150,
+                    issue_ssw_150: data.issue_ssw_150,
+                    issue_k_150: data.issue_k_150,
+                    issue_a_180: data.issue_a_180,
+                    issue_c_180: data.issue_c_180,
+                    issue_e_180: data.issue_e_180,
+                    issue_sw_180: data.issue_sw_180,
+                    issue_ssw_180: data.issue_ssw_180,
+                    issue_k_180: data.issue_k_180,
+                    issue_a_210: data.issue_a_210,
+                    issue_c_210: data.issue_c_210,
+                    issue_e_210: data.issue_e_210,
+                    issue_sw_210: data.issue_sw_210,
+                    issue_ssw_210: data.issue_ssw_210,
+                    issue_k_210: data.issue_k_210,
+                    issue_a_240: data.issue_a_240,
+                    issue_c_240: data.issue_c_240,
+                    issue_e_240: data.issue_e_240,
+                    issue_sw_240: data.issue_sw_240,
+                    issue_ssw_240: data.issue_ssw_240,
+                    issue_k_240: data.issue_k_240,
+                    issue_a_280: data.issue_a_280,
+                    issue_c_280: data.issue_c_280,
+                    issue_e_280: data.issue_e_280,
+                    issue_sw_280: data.issue_sw_280,
+                    issue_ssw_280: data.issue_ssw_280,
+                    issue_k_280: data.issue_k_280,
+                    issue_a_320: data.issue_a_320,
+                    issue_c_320: data.issue_c_320,
+                    issue_e_320: data.issue_e_320,
+                    issue_sw_320: data.issue_sw_320,
+                    issue_ssw_320: data.issue_ssw_320,
+                    issue_k_320: data.issue_k_320,
+                    issue_a_360: data.issue_a_360,
+                    issue_c_360: data.issue_c_360,
+                    issue_e_360: data.issue_e_360,
+                    issue_sw_360: data.issue_sw_360,
+                    issue_ssw_360: data.issue_ssw_360,
+                    issue_k_360: data.issue_k_360,
+                    issue_a_400: data.issue_a_400,
+                    issue_c_400: data.issue_c_400,
+                    issue_e_400: data.issue_e_400,
+                    issue_sw_400: data.issue_sw_400,
+                    issue_ssw_400: data.issue_ssw_400,
+                    issue_k_400: data.issue_k_400,
+                    issue_ext_grade_1: data.issue_ext_grade_1,
+                    issue_ext_grade_2: data.issue_ext_grade_2,
+                    issue_ext_grade_3: data.issue_ext_grade_3,
+                    issue_ext_grade_4: data.issue_ext_grade_4,
+                    issue_ext_grade_5: data.issue_ext_grade_5,
+                    issue_ext_grade_6: data.issue_ext_grade_6,
+                    issue_ext_grade_7: data.issue_ext_grade_7,
+                    issue_ext_grade_8: data.issue_ext_grade_8,
+                    issue_ext_grade_9: data.issue_ext_grade_9,
+                    issue_ext_grade_10: data.issue_ext_grade_10,
+
                     issue_rejection : data.issue_rejection,
                     issue_village : data.issue_village,
                     issue_bigTaiho : data.issue_bigTaiho,
@@ -391,6 +656,71 @@ export const CreateEntireWholes= async (req: Request, res: Response) => {
                                                  +parseFloat(data.issue_lw_360)+parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
                                                      +parseFloat(data.issue_ww_400)+parseFloat(data.issue_ww_400_A)+parseFloat(data.issue_aw_400)
                                                      +parseFloat(data.issue_lw_400)+parseFloat(data.issue_jjb)+parseFloat(data.issue_jjb1)
+                                                     + parseFloat(data.issue_payal_240)
+                                                     + parseFloat(data.issue_payal_400)
+                                                     + parseFloat(data.issue_e_320_lot)
+                                                     + parseFloat(data.issue_e_400_lot)
+                                                     + parseFloat(data.issue_in_w_240)
+                                                     + parseFloat(data.issue_in_w_320)
+                                                     + parseFloat(data.issue_in_w_400)
+                                                     + parseFloat(data.issue_a_150)
+                                                     + parseFloat(data.issue_c_150)
+                                                     + parseFloat(data.issue_e_150)
+                                                     + parseFloat(data.issue_sw_150)
+                                                     + parseFloat(data.issue_ssw_150)
+                                                     + parseFloat(data.issue_k_150)
+                                                     + parseFloat(data.issue_a_180)
+                                                     + parseFloat(data.issue_c_180)
+                                                     + parseFloat(data.issue_e_180)
+                                                     + parseFloat(data.issue_sw_180)
+                                                     + parseFloat(data.issue_ssw_180)
+                                                     + parseFloat(data.issue_k_180)
+                                                     + parseFloat(data.issue_a_210)
+                                                     + parseFloat(data.issue_c_210)
+                                                     + parseFloat(data.issue_e_210)
+                                                     + parseFloat(data.issue_sw_210)
+                                                     + parseFloat(data.issue_ssw_210)
+                                                     + parseFloat(data.issue_k_210)
+                                                     + parseFloat(data.issue_a_240)
+                                                     + parseFloat(data.issue_c_240)
+                                                     + parseFloat(data.issue_e_240)
+                                                     + parseFloat(data.issue_sw_240)
+                                                     + parseFloat(data.issue_ssw_240)
+                                                     + parseFloat(data.issue_k_240)
+                                                     + parseFloat(data.issue_a_280)
+                                                     + parseFloat(data.issue_c_280)
+                                                     + parseFloat(data.issue_e_280)
+                                                     + parseFloat(data.issue_sw_280)
+                                                     + parseFloat(data.issue_ssw_280)
+                                                     + parseFloat(data.issue_k_280)
+                                                     + parseFloat(data.issue_a_320)
+                                                     + parseFloat(data.issue_c_320)
+                                                     + parseFloat(data.issue_e_320)
+                                                     + parseFloat(data.issue_sw_320)
+                                                     + parseFloat(data.issue_ssw_320)
+                                                     + parseFloat(data.issue_k_320)
+                                                     + parseFloat(data.issue_a_360)
+                                                     + parseFloat(data.issue_c_360)
+                                                     + parseFloat(data.issue_e_360)
+                                                     + parseFloat(data.issue_sw_360)
+                                                     + parseFloat(data.issue_ssw_360)
+                                                     + parseFloat(data.issue_k_360)
+                                                     + parseFloat(data.issue_a_400)
+                                                     + parseFloat(data.issue_c_400)
+                                                     + parseFloat(data.issue_e_400)
+                                                     + parseFloat(data.issue_sw_400)
+                                                     + parseFloat(data.issue_ssw_400)
+                                                     + parseFloat(data.issue_k_400)
+                                                     + parseFloat(data.issue_ext_grade_1)
+                                                     + parseFloat(data.issue_ext_grade_2)
+                                                     + parseFloat(data.issue_ext_grade_3)
+                                                     + parseFloat(data.issue_ext_grade_4)
+                                                     + parseFloat(data.issue_ext_grade_5)
+                                                     + parseFloat(data.issue_ext_grade_6)
+                                                     + parseFloat(data.issue_ext_grade_7)
+                                                     + parseFloat(data.issue_ext_grade_8)
+                                                     + parseFloat(data.issue_ext_grade_9)
+                                                     + parseFloat(data.issue_ext_grade_10)
                                                          +parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_rejection)
                                                          +parseFloat(data.issue_village)
                         ),
@@ -420,6 +750,71 @@ export const CreateEntireWholes= async (req: Request, res: Response) => {
                                                  +parseFloat(data.issue_lw_360)+parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
                                                      +parseFloat(data.issue_ww_400)+parseFloat(data.issue_ww_400_A)+parseFloat(data.issue_aw_400)
                                                      +parseFloat(data.issue_lw_400)+parseFloat(data.issue_jjb)+parseFloat(data.issue_jjb1)
+                                                     + parseFloat(data.issue_payal_240)
+                                                     + parseFloat(data.issue_payal_400)
+                                                     + parseFloat(data.issue_e_320_lot)
+                                                     + parseFloat(data.issue_e_400_lot)
+                                                     + parseFloat(data.issue_in_w_240)
+                                                     + parseFloat(data.issue_in_w_320)
+                                                     + parseFloat(data.issue_in_w_400)
+                                                     + parseFloat(data.issue_a_150)
+                                                     + parseFloat(data.issue_c_150)
+                                                     + parseFloat(data.issue_e_150)
+                                                     + parseFloat(data.issue_sw_150)
+                                                     + parseFloat(data.issue_ssw_150)
+                                                     + parseFloat(data.issue_k_150)
+                                                     + parseFloat(data.issue_a_180)
+                                                     + parseFloat(data.issue_c_180)
+                                                     + parseFloat(data.issue_e_180)
+                                                     + parseFloat(data.issue_sw_180)
+                                                     + parseFloat(data.issue_ssw_180)
+                                                     + parseFloat(data.issue_k_180)
+                                                     + parseFloat(data.issue_a_210)
+                                                     + parseFloat(data.issue_c_210)
+                                                     + parseFloat(data.issue_e_210)
+                                                     + parseFloat(data.issue_sw_210)
+                                                     + parseFloat(data.issue_ssw_210)
+                                                     + parseFloat(data.issue_k_210)
+                                                     + parseFloat(data.issue_a_240)
+                                                     + parseFloat(data.issue_c_240)
+                                                     + parseFloat(data.issue_e_240)
+                                                     + parseFloat(data.issue_sw_240)
+                                                     + parseFloat(data.issue_ssw_240)
+                                                     + parseFloat(data.issue_k_240)
+                                                     + parseFloat(data.issue_a_280)
+                                                     + parseFloat(data.issue_c_280)
+                                                     + parseFloat(data.issue_e_280)
+                                                     + parseFloat(data.issue_sw_280)
+                                                     + parseFloat(data.issue_ssw_280)
+                                                     + parseFloat(data.issue_k_280)
+                                                     + parseFloat(data.issue_a_320)
+                                                     + parseFloat(data.issue_c_320)
+                                                     + parseFloat(data.issue_e_320)
+                                                     + parseFloat(data.issue_sw_320)
+                                                     + parseFloat(data.issue_ssw_320)
+                                                     + parseFloat(data.issue_k_320)
+                                                     + parseFloat(data.issue_a_360)
+                                                     + parseFloat(data.issue_c_360)
+                                                     + parseFloat(data.issue_e_360)
+                                                     + parseFloat(data.issue_sw_360)
+                                                     + parseFloat(data.issue_ssw_360)
+                                                     + parseFloat(data.issue_k_360)
+                                                     + parseFloat(data.issue_a_400)
+                                                     + parseFloat(data.issue_c_400)
+                                                     + parseFloat(data.issue_e_400)
+                                                     + parseFloat(data.issue_sw_400)
+                                                     + parseFloat(data.issue_ssw_400)
+                                                     + parseFloat(data.issue_k_400)
+                                                     + parseFloat(data.issue_ext_grade_1)
+                                                     + parseFloat(data.issue_ext_grade_2)
+                                                     + parseFloat(data.issue_ext_grade_3)
+                                                     + parseFloat(data.issue_ext_grade_4)
+                                                     + parseFloat(data.issue_ext_grade_5)
+                                                     + parseFloat(data.issue_ext_grade_6)
+                                                     + parseFloat(data.issue_ext_grade_7)
+                                                     + parseFloat(data.issue_ext_grade_8)
+                                                     + parseFloat(data.issue_ext_grade_9)
+                                                     + parseFloat(data.issue_ext_grade_10)
                                                          +parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_rejection)
                                                          +parseFloat(data.issue_village)
                         ),
@@ -1374,6 +1769,71 @@ export const updateEntireWholes= async (req: Request, res: Response) => {
                                             +parseFloat(data.issue_lw_360)+parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
                                                 +parseFloat(data.issue_ww_400)+parseFloat(data.issue_ww_400_A)+parseFloat(data.issue_aw_400)
                                                 +parseFloat(data.issue_lw_400)+parseFloat(data.issue_jjb)+parseFloat(data.issue_jjb1)
+                                                + parseFloat(data.issue_payal_240)
+                                                + parseFloat(data.issue_payal_400)
+                                                + parseFloat(data.issue_e_320_lot)
+                                                + parseFloat(data.issue_e_400_lot)
+                                                + parseFloat(data.issue_in_w_240)
+                                                + parseFloat(data.issue_in_w_320)
+                                                + parseFloat(data.issue_in_w_400)
+                                                + parseFloat(data.issue_a_150)
+                                                + parseFloat(data.issue_c_150)
+                                                + parseFloat(data.issue_e_150)
+                                                + parseFloat(data.issue_sw_150)
+                                                + parseFloat(data.issue_ssw_150)
+                                                + parseFloat(data.issue_k_150)
+                                                + parseFloat(data.issue_a_180)
+                                                + parseFloat(data.issue_c_180)
+                                                + parseFloat(data.issue_e_180)
+                                                + parseFloat(data.issue_sw_180)
+                                                + parseFloat(data.issue_ssw_180)
+                                                + parseFloat(data.issue_k_180)
+                                                + parseFloat(data.issue_a_210)
+                                                + parseFloat(data.issue_c_210)
+                                                + parseFloat(data.issue_e_210)
+                                                + parseFloat(data.issue_sw_210)
+                                                + parseFloat(data.issue_ssw_210)
+                                                + parseFloat(data.issue_k_210)
+                                                + parseFloat(data.issue_a_240)
+                                                + parseFloat(data.issue_c_240)
+                                                + parseFloat(data.issue_e_240)
+                                                + parseFloat(data.issue_sw_240)
+                                                + parseFloat(data.issue_ssw_240)
+                                                + parseFloat(data.issue_k_240)
+                                                + parseFloat(data.issue_a_280)
+                                                + parseFloat(data.issue_c_280)
+                                                + parseFloat(data.issue_e_280)
+                                                + parseFloat(data.issue_sw_280)
+                                                + parseFloat(data.issue_ssw_280)
+                                                + parseFloat(data.issue_k_280)
+                                                + parseFloat(data.issue_a_320)
+                                                + parseFloat(data.issue_c_320)
+                                                + parseFloat(data.issue_e_320)
+                                                + parseFloat(data.issue_sw_320)
+                                                + parseFloat(data.issue_ssw_320)
+                                                + parseFloat(data.issue_k_320)
+                                                + parseFloat(data.issue_a_360)
+                                                + parseFloat(data.issue_c_360)
+                                                + parseFloat(data.issue_e_360)
+                                                + parseFloat(data.issue_sw_360)
+                                                + parseFloat(data.issue_ssw_360)
+                                                + parseFloat(data.issue_k_360)
+                                                + parseFloat(data.issue_a_400)
+                                                + parseFloat(data.issue_c_400)
+                                                + parseFloat(data.issue_e_400)
+                                                + parseFloat(data.issue_sw_400)
+                                                + parseFloat(data.issue_ssw_400)
+                                                + parseFloat(data.issue_k_400)
+                                                + parseFloat(data.issue_ext_grade_1)
+                                                + parseFloat(data.issue_ext_grade_2)
+                                                + parseFloat(data.issue_ext_grade_3)
+                                                + parseFloat(data.issue_ext_grade_4)
+                                                + parseFloat(data.issue_ext_grade_5)
+                                                + parseFloat(data.issue_ext_grade_6)
+                                                + parseFloat(data.issue_ext_grade_7)
+                                                + parseFloat(data.issue_ext_grade_8)
+                                                + parseFloat(data.issue_ext_grade_9)
+                                                + parseFloat(data.issue_ext_grade_10)
                                                     +parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_rejection)
                                                     +parseFloat(data.issue_village)
              
@@ -1396,6 +1856,71 @@ export const updateEntireWholes= async (req: Request, res: Response) => {
                                                  +parseFloat(data.issue_lw_360)+parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
                                                      +parseFloat(data.issue_ww_400)+parseFloat(data.issue_ww_400_A)+parseFloat(data.issue_aw_400)
                                                      +parseFloat(data.issue_lw_400)+parseFloat(data.issue_jjb)+parseFloat(data.issue_jjb1)
+                                                     + parseFloat(data.issue_payal_240)
+                                                     + parseFloat(data.issue_payal_400)
+                                                     + parseFloat(data.issue_e_320_lot)
+                                                     + parseFloat(data.issue_e_400_lot)
+                                                     + parseFloat(data.issue_in_w_240)
+                                                     + parseFloat(data.issue_in_w_320)
+                                                     + parseFloat(data.issue_in_w_400)
+                                                     + parseFloat(data.issue_a_150)
+                                                     + parseFloat(data.issue_c_150)
+                                                     + parseFloat(data.issue_e_150)
+                                                     + parseFloat(data.issue_sw_150)
+                                                     + parseFloat(data.issue_ssw_150)
+                                                     + parseFloat(data.issue_k_150)
+                                                     + parseFloat(data.issue_a_180)
+                                                     + parseFloat(data.issue_c_180)
+                                                     + parseFloat(data.issue_e_180)
+                                                     + parseFloat(data.issue_sw_180)
+                                                     + parseFloat(data.issue_ssw_180)
+                                                     + parseFloat(data.issue_k_180)
+                                                     + parseFloat(data.issue_a_210)
+                                                     + parseFloat(data.issue_c_210)
+                                                     + parseFloat(data.issue_e_210)
+                                                     + parseFloat(data.issue_sw_210)
+                                                     + parseFloat(data.issue_ssw_210)
+                                                     + parseFloat(data.issue_k_210)
+                                                     + parseFloat(data.issue_a_240)
+                                                     + parseFloat(data.issue_c_240)
+                                                     + parseFloat(data.issue_e_240)
+                                                     + parseFloat(data.issue_sw_240)
+                                                     + parseFloat(data.issue_ssw_240)
+                                                     + parseFloat(data.issue_k_240)
+                                                     + parseFloat(data.issue_a_280)
+                                                     + parseFloat(data.issue_c_280)
+                                                     + parseFloat(data.issue_e_280)
+                                                     + parseFloat(data.issue_sw_280)
+                                                     + parseFloat(data.issue_ssw_280)
+                                                     + parseFloat(data.issue_k_280)
+                                                     + parseFloat(data.issue_a_320)
+                                                     + parseFloat(data.issue_c_320)
+                                                     + parseFloat(data.issue_e_320)
+                                                     + parseFloat(data.issue_sw_320)
+                                                     + parseFloat(data.issue_ssw_320)
+                                                     + parseFloat(data.issue_k_320)
+                                                     + parseFloat(data.issue_a_360)
+                                                     + parseFloat(data.issue_c_360)
+                                                     + parseFloat(data.issue_e_360)
+                                                     + parseFloat(data.issue_sw_360)
+                                                     + parseFloat(data.issue_ssw_360)
+                                                     + parseFloat(data.issue_k_360)
+                                                     + parseFloat(data.issue_a_400)
+                                                     + parseFloat(data.issue_c_400)
+                                                     + parseFloat(data.issue_e_400)
+                                                     + parseFloat(data.issue_sw_400)
+                                                     + parseFloat(data.issue_ssw_400)
+                                                     + parseFloat(data.issue_k_400)
+                                                     + parseFloat(data.issue_ext_grade_1)
+                                                     + parseFloat(data.issue_ext_grade_2)
+                                                     + parseFloat(data.issue_ext_grade_3)
+                                                     + parseFloat(data.issue_ext_grade_4)
+                                                     + parseFloat(data.issue_ext_grade_5)
+                                                     + parseFloat(data.issue_ext_grade_6)
+                                                     + parseFloat(data.issue_ext_grade_7)
+                                                     + parseFloat(data.issue_ext_grade_8)
+                                                     + parseFloat(data.issue_ext_grade_9)
+                                                     + parseFloat(data.issue_ext_grade_10)
                                                          +parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_rejection)
                                                          +parseFloat(data.issue_village))
                     res.status(500).json({ message: "Backlog can't be Greater Than Input" });
@@ -1485,6 +2010,73 @@ export const updateEntireWholes= async (req: Request, res: Response) => {
                     issue_lw_400 : data.issue_lw_400,
                     issue_jjb : data.issue_jjb,
                     issue_jjb1 : data.issue_jjb1,
+
+                    issue_payal_240: data.issue_payal_240,
+                    issue_payal_400: data.issue_payal_400,
+                    issue_e_320_lot: data.issue_e_320_lot,
+                    issue_e_400_lot: data.issue_e_400_lot,
+                    issue_in_w_240: data.issue_in_w_240,
+                    issue_in_w_320: data.issue_in_w_320,
+                    issue_in_w_400: data.issue_in_w_400,
+                    issue_a_150: data.issue_a_150,
+                    issue_c_150: data.issue_c_150,
+                    issue_e_150: data.issue_e_150,
+                    issue_sw_150: data.issue_sw_150,
+                    issue_ssw_150: data.issue_ssw_150,
+                    issue_k_150: data.issue_k_150,
+                    issue_a_180: data.issue_a_180,
+                    issue_c_180: data.issue_c_180,
+                    issue_e_180: data.issue_e_180,
+                    issue_sw_180: data.issue_sw_180,
+                    issue_ssw_180: data.issue_ssw_180,
+                    issue_k_180: data.issue_k_180,
+                    issue_a_210: data.issue_a_210,
+                    issue_c_210: data.issue_c_210,
+                    issue_e_210: data.issue_e_210,
+                    issue_sw_210: data.issue_sw_210,
+                    issue_ssw_210: data.issue_ssw_210,
+                    issue_k_210: data.issue_k_210,
+                    issue_a_240: data.issue_a_240,
+                    issue_c_240: data.issue_c_240,
+                    issue_e_240: data.issue_e_240,
+                    issue_sw_240: data.issue_sw_240,
+                    issue_ssw_240: data.issue_ssw_240,
+                    issue_k_240: data.issue_k_240,
+                    issue_a_280: data.issue_a_280,
+                    issue_c_280: data.issue_c_280,
+                    issue_e_280: data.issue_e_280,
+                    issue_sw_280: data.issue_sw_280,
+                    issue_ssw_280: data.issue_ssw_280,
+                    issue_k_280: data.issue_k_280,
+                    issue_a_320: data.issue_a_320,
+                    issue_c_320: data.issue_c_320,
+                    issue_e_320: data.issue_e_320,
+                    issue_sw_320: data.issue_sw_320,
+                    issue_ssw_320: data.issue_ssw_320,
+                    issue_k_320: data.issue_k_320,
+                    issue_a_360: data.issue_a_360,
+                    issue_c_360: data.issue_c_360,
+                    issue_e_360: data.issue_e_360,
+                    issue_sw_360: data.issue_sw_360,
+                    issue_ssw_360: data.issue_ssw_360,
+                    issue_k_360: data.issue_k_360,
+                    issue_a_400: data.issue_a_400,
+                    issue_c_400: data.issue_c_400,
+                    issue_e_400: data.issue_e_400,
+                    issue_sw_400: data.issue_sw_400,
+                    issue_ssw_400: data.issue_ssw_400,
+                    issue_k_400: data.issue_k_400,
+                    issue_ext_grade_1: data.issue_ext_grade_1,
+                    issue_ext_grade_2: data.issue_ext_grade_2,
+                    issue_ext_grade_3: data.issue_ext_grade_3,
+                    issue_ext_grade_4: data.issue_ext_grade_4,
+                    issue_ext_grade_5: data.issue_ext_grade_5,
+                    issue_ext_grade_6: data.issue_ext_grade_6,
+                    issue_ext_grade_7: data.issue_ext_grade_7,
+                    issue_ext_grade_8: data.issue_ext_grade_8,
+                    issue_ext_grade_9: data.issue_ext_grade_9,
+                    issue_ext_grade_10: data.issue_ext_grade_10,
+
                     issue_rejection : data.issue_rejection,
                     issue_village : data.issue_village,
                     issue_bigTaiho : data.issue_bigTaiho,
@@ -1523,6 +2115,71 @@ export const updateEntireWholes= async (req: Request, res: Response) => {
                                                  +parseFloat(data.issue_lw_360)+parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
                                                      +parseFloat(data.issue_ww_400)+parseFloat(data.issue_ww_400_A)+parseFloat(data.issue_aw_400)
                                                      +parseFloat(data.issue_lw_400)+parseFloat(data.issue_jjb)+parseFloat(data.issue_jjb1)
+                                                     + parseFloat(data.issue_payal_240)
+                                                     + parseFloat(data.issue_payal_400)
+                                                     + parseFloat(data.issue_e_320_lot)
+                                                     + parseFloat(data.issue_e_400_lot)
+                                                     + parseFloat(data.issue_in_w_240)
+                                                     + parseFloat(data.issue_in_w_320)
+                                                     + parseFloat(data.issue_in_w_400)
+                                                     + parseFloat(data.issue_a_150)
+                                                     + parseFloat(data.issue_c_150)
+                                                     + parseFloat(data.issue_e_150)
+                                                     + parseFloat(data.issue_sw_150)
+                                                     + parseFloat(data.issue_ssw_150)
+                                                     + parseFloat(data.issue_k_150)
+                                                     + parseFloat(data.issue_a_180)
+                                                     + parseFloat(data.issue_c_180)
+                                                     + parseFloat(data.issue_e_180)
+                                                     + parseFloat(data.issue_sw_180)
+                                                     + parseFloat(data.issue_ssw_180)
+                                                     + parseFloat(data.issue_k_180)
+                                                     + parseFloat(data.issue_a_210)
+                                                     + parseFloat(data.issue_c_210)
+                                                     + parseFloat(data.issue_e_210)
+                                                     + parseFloat(data.issue_sw_210)
+                                                     + parseFloat(data.issue_ssw_210)
+                                                     + parseFloat(data.issue_k_210)
+                                                     + parseFloat(data.issue_a_240)
+                                                     + parseFloat(data.issue_c_240)
+                                                     + parseFloat(data.issue_e_240)
+                                                     + parseFloat(data.issue_sw_240)
+                                                     + parseFloat(data.issue_ssw_240)
+                                                     + parseFloat(data.issue_k_240)
+                                                     + parseFloat(data.issue_a_280)
+                                                     + parseFloat(data.issue_c_280)
+                                                     + parseFloat(data.issue_e_280)
+                                                     + parseFloat(data.issue_sw_280)
+                                                     + parseFloat(data.issue_ssw_280)
+                                                     + parseFloat(data.issue_k_280)
+                                                     + parseFloat(data.issue_a_320)
+                                                     + parseFloat(data.issue_c_320)
+                                                     + parseFloat(data.issue_e_320)
+                                                     + parseFloat(data.issue_sw_320)
+                                                     + parseFloat(data.issue_ssw_320)
+                                                     + parseFloat(data.issue_k_320)
+                                                     + parseFloat(data.issue_a_360)
+                                                     + parseFloat(data.issue_c_360)
+                                                     + parseFloat(data.issue_e_360)
+                                                     + parseFloat(data.issue_sw_360)
+                                                     + parseFloat(data.issue_ssw_360)
+                                                     + parseFloat(data.issue_k_360)
+                                                     + parseFloat(data.issue_a_400)
+                                                     + parseFloat(data.issue_c_400)
+                                                     + parseFloat(data.issue_e_400)
+                                                     + parseFloat(data.issue_sw_400)
+                                                     + parseFloat(data.issue_ssw_400)
+                                                     + parseFloat(data.issue_k_400)
+                                                     + parseFloat(data.issue_ext_grade_1)
+                                                     + parseFloat(data.issue_ext_grade_2)
+                                                     + parseFloat(data.issue_ext_grade_3)
+                                                     + parseFloat(data.issue_ext_grade_4)
+                                                     + parseFloat(data.issue_ext_grade_5)
+                                                     + parseFloat(data.issue_ext_grade_6)
+                                                     + parseFloat(data.issue_ext_grade_7)
+                                                     + parseFloat(data.issue_ext_grade_8)
+                                                     + parseFloat(data.issue_ext_grade_9)
+                                                     + parseFloat(data.issue_ext_grade_10)
                                                          +parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_rejection)
                                                          +parseFloat(data.issue_village)
                         ),
@@ -1550,6 +2207,71 @@ export const updateEntireWholes= async (req: Request, res: Response) => {
                                                  +parseFloat(data.issue_lw_360)+parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)
                                                      +parseFloat(data.issue_ww_400)+parseFloat(data.issue_ww_400_A)+parseFloat(data.issue_aw_400)
                                                      +parseFloat(data.issue_lw_400)+parseFloat(data.issue_jjb)+parseFloat(data.issue_jjb1)
+                                                     + parseFloat(data.issue_payal_240)
+                                                     + parseFloat(data.issue_payal_400)
+                                                     + parseFloat(data.issue_e_320_lot)
+                                                     + parseFloat(data.issue_e_400_lot)
+                                                     + parseFloat(data.issue_in_w_240)
+                                                     + parseFloat(data.issue_in_w_320)
+                                                     + parseFloat(data.issue_in_w_400)
+                                                     + parseFloat(data.issue_a_150)
+                                                     + parseFloat(data.issue_c_150)
+                                                     + parseFloat(data.issue_e_150)
+                                                     + parseFloat(data.issue_sw_150)
+                                                     + parseFloat(data.issue_ssw_150)
+                                                     + parseFloat(data.issue_k_150)
+                                                     + parseFloat(data.issue_a_180)
+                                                     + parseFloat(data.issue_c_180)
+                                                     + parseFloat(data.issue_e_180)
+                                                     + parseFloat(data.issue_sw_180)
+                                                     + parseFloat(data.issue_ssw_180)
+                                                     + parseFloat(data.issue_k_180)
+                                                     + parseFloat(data.issue_a_210)
+                                                     + parseFloat(data.issue_c_210)
+                                                     + parseFloat(data.issue_e_210)
+                                                     + parseFloat(data.issue_sw_210)
+                                                     + parseFloat(data.issue_ssw_210)
+                                                     + parseFloat(data.issue_k_210)
+                                                     + parseFloat(data.issue_a_240)
+                                                     + parseFloat(data.issue_c_240)
+                                                     + parseFloat(data.issue_e_240)
+                                                     + parseFloat(data.issue_sw_240)
+                                                     + parseFloat(data.issue_ssw_240)
+                                                     + parseFloat(data.issue_k_240)
+                                                     + parseFloat(data.issue_a_280)
+                                                     + parseFloat(data.issue_c_280)
+                                                     + parseFloat(data.issue_e_280)
+                                                     + parseFloat(data.issue_sw_280)
+                                                     + parseFloat(data.issue_ssw_280)
+                                                     + parseFloat(data.issue_k_280)
+                                                     + parseFloat(data.issue_a_320)
+                                                     + parseFloat(data.issue_c_320)
+                                                     + parseFloat(data.issue_e_320)
+                                                     + parseFloat(data.issue_sw_320)
+                                                     + parseFloat(data.issue_ssw_320)
+                                                     + parseFloat(data.issue_k_320)
+                                                     + parseFloat(data.issue_a_360)
+                                                     + parseFloat(data.issue_c_360)
+                                                     + parseFloat(data.issue_e_360)
+                                                     + parseFloat(data.issue_sw_360)
+                                                     + parseFloat(data.issue_ssw_360)
+                                                     + parseFloat(data.issue_k_360)
+                                                     + parseFloat(data.issue_a_400)
+                                                     + parseFloat(data.issue_c_400)
+                                                     + parseFloat(data.issue_e_400)
+                                                     + parseFloat(data.issue_sw_400)
+                                                     + parseFloat(data.issue_ssw_400)
+                                                     + parseFloat(data.issue_k_400)
+                                                     + parseFloat(data.issue_ext_grade_1)
+                                                     + parseFloat(data.issue_ext_grade_2)
+                                                     + parseFloat(data.issue_ext_grade_3)
+                                                     + parseFloat(data.issue_ext_grade_4)
+                                                     + parseFloat(data.issue_ext_grade_5)
+                                                     + parseFloat(data.issue_ext_grade_6)
+                                                     + parseFloat(data.issue_ext_grade_7)
+                                                     + parseFloat(data.issue_ext_grade_8)
+                                                     + parseFloat(data.issue_ext_grade_9)
+                                                     + parseFloat(data.issue_ext_grade_10)
                                                          +parseFloat(data.issue_lw)+parseFloat(data.issue_bigTaiho)+parseFloat(data.issue_rejection)
                                                          +parseFloat(data.issue_village)
                         ),
@@ -1750,6 +2472,73 @@ export const approveWholes = async (req: Request, res: Response) => {
                     issue_lw_400 : data.issue_lw_400,
                     issue_jjb : data.issue_jjb,
                     issue_jjb1 : data.issue_jjb1,
+
+                    issue_payal_240: data.issue_payal_240,
+                    issue_payal_400: data.issue_payal_400,
+                    issue_e_320_lot: data.issue_e_320_lot,
+                    issue_e_400_lot: data.issue_e_400_lot,
+                    issue_in_w_240: data.issue_in_w_240,
+                    issue_in_w_320: data.issue_in_w_320,
+                    issue_in_w_400: data.issue_in_w_400,
+                    issue_a_150: data.issue_a_150,
+                    issue_c_150: data.issue_c_150,
+                    issue_e_150: data.issue_e_150,
+                    issue_sw_150: data.issue_sw_150,
+                    issue_ssw_150: data.issue_ssw_150,
+                    issue_k_150: data.issue_k_150,
+                    issue_a_180: data.issue_a_180,
+                    issue_c_180: data.issue_c_180,
+                    issue_e_180: data.issue_e_180,
+                    issue_sw_180: data.issue_sw_180,
+                    issue_ssw_180: data.issue_ssw_180,
+                    issue_k_180: data.issue_k_180,
+                    issue_a_210: data.issue_a_210,
+                    issue_c_210: data.issue_c_210,
+                    issue_e_210: data.issue_e_210,
+                    issue_sw_210: data.issue_sw_210,
+                    issue_ssw_210: data.issue_ssw_210,
+                    issue_k_210: data.issue_k_210,
+                    issue_a_240: data.issue_a_240,
+                    issue_c_240: data.issue_c_240,
+                    issue_e_240: data.issue_e_240,
+                    issue_sw_240: data.issue_sw_240,
+                    issue_ssw_240: data.issue_ssw_240,
+                    issue_k_240: data.issue_k_240,
+                    issue_a_280: data.issue_a_280,
+                    issue_c_280: data.issue_c_280,
+                    issue_e_280: data.issue_e_280,
+                    issue_sw_280: data.issue_sw_280,
+                    issue_ssw_280: data.issue_ssw_280,
+                    issue_k_280: data.issue_k_280,
+                    issue_a_320: data.issue_a_320,
+                    issue_c_320: data.issue_c_320,
+                    issue_e_320: data.issue_e_320,
+                    issue_sw_320: data.issue_sw_320,
+                    issue_ssw_320: data.issue_ssw_320,
+                    issue_k_320: data.issue_k_320,
+                    issue_a_360: data.issue_a_360,
+                    issue_c_360: data.issue_c_360,
+                    issue_e_360: data.issue_e_360,
+                    issue_sw_360: data.issue_sw_360,
+                    issue_ssw_360: data.issue_ssw_360,
+                    issue_k_360: data.issue_k_360,
+                    issue_a_400: data.issue_a_400,
+                    issue_c_400: data.issue_c_400,
+                    issue_e_400: data.issue_e_400,
+                    issue_sw_400: data.issue_sw_400,
+                    issue_ssw_400: data.issue_ssw_400,
+                    issue_k_400: data.issue_k_400,
+                    issue_ext_grade_1: data.issue_ext_grade_1,
+                    issue_ext_grade_2: data.issue_ext_grade_2,
+                    issue_ext_grade_3: data.issue_ext_grade_3,
+                    issue_ext_grade_4: data.issue_ext_grade_4,
+                    issue_ext_grade_5: data.issue_ext_grade_5,
+                    issue_ext_grade_6: data.issue_ext_grade_6,
+                    issue_ext_grade_7: data.issue_ext_grade_7,
+                    issue_ext_grade_8: data.issue_ext_grade_8,
+                    issue_ext_grade_9: data.issue_ext_grade_9,
+                    issue_ext_grade_10: data.issue_ext_grade_10,
+
                     issue_rejection : data.issue_rejection,
                     issue_village : data.issue_village,
                     issue_bigTaiho : data.issue_bigTaiho,

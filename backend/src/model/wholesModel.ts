@@ -379,6 +379,333 @@ const WholesModel = sequelize.define('wholesGrade', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
+
+    issue_payal_240: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_payal_400: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_e_320_lot: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_e_400_lot: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_in_w_240: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_in_w_320:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+     issue_in_w_400:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_a_150: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+     issue_c_150: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_e_150: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_sw_150:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_ssw_150:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_k_150:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_a_180: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+     issue_c_180: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_e_180: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_sw_180:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_ssw_180:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_k_180:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_a_210: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+     issue_c_210: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_e_210: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_sw_210:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_ssw_210:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_k_210:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_a_240: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+     issue_c_240: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_e_240: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_sw_240:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_ssw_240:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_k_240:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_a_280: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+     issue_c_280: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_e_280: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_sw_280:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_ssw_280:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_k_280:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_a_320: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+     issue_c_320: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_e_320: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_sw_320:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_ssw_320:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_k_320:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_a_360: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+     issue_c_360: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_e_360: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_sw_360:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_ssw_360:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_k_360:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_a_400: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+     issue_c_400: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_e_400: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_sw_400:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+   issue_ssw_400:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_k_400:
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_1: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_2: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_3: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_4: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_5: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_6: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_7: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_8: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_9: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_10: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+
     
   
     issue_add_1: 

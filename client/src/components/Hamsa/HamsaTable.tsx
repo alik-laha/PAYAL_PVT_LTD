@@ -481,31 +481,31 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                     <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
-                    <TableHead className="text-center">Receive PW_W</TableHead>
-                    <TableHead className="text-center">Receive W_Lot</TableHead>
-                    <TableHead className="text-center">Receive WW</TableHead>
+                    <TableHead className="text-center">Receive PW_W/ V_PW_W</TableHead>
+                    <TableHead className="text-center">Receive W_Lot/ V_W_Lot</TableHead>
+                    <TableHead className="text-center">Receive WW/ V_WW</TableHead>
                     <TableHead className="text-center">Receive Mayur</TableHead>
                     <TableHead className="text-center">Receive Village</TableHead>
                     <TableHead className="text-center">Receive LW</TableHead>
                     <TableHead className="text-center">Hamsa Total_Opening</TableHead>
-                    <TableHead className="text-center">Issue PW_210</TableHead>
-                    <TableHead className="text-center">Issue W_210</TableHead>
-                    <TableHead className="text-center">Issue WW_210</TableHead>
-                    <TableHead className="text-center">Issue PW_240</TableHead>
-                    <TableHead className="text-center">Issue W_240</TableHead>
-                    <TableHead className="text-center">Issue WW_240</TableHead>
-                    <TableHead className="text-center">Issue PW_280</TableHead>
-                    <TableHead className="text-center">Issue W_280</TableHead>
-                    <TableHead className="text-center">Issue WW_280</TableHead>
-                    <TableHead className="text-center">Issue PW_320</TableHead>
-                    <TableHead className="text-center">Issue W_320</TableHead>
-                    <TableHead className="text-center">Issue WW_320</TableHead>
-                    <TableHead className="text-center">Issue PW_360</TableHead>
-                    <TableHead className="text-center">Issue W_360</TableHead>
-                    <TableHead className="text-center">Issue WW_360</TableHead>
-                    <TableHead className="text-center">Issue PW_400</TableHead>
-                    <TableHead className="text-center">Issue W_400</TableHead>
-                    <TableHead className="text-center">Issue WW_400</TableHead>
+                    <TableHead className="text-center">Issue PW_210/ V_PW_210</TableHead>
+                    <TableHead className="text-center">Issue W_210/ V_W_210</TableHead>
+                    <TableHead className="text-center">Issue WW_210/ V_WW_210</TableHead>
+                    <TableHead className="text-center">Issue PW_240/ V_PW_240</TableHead>
+                        <TableHead className="text-center">Issue W_240/ V_W_240</TableHead>
+                        <TableHead className="text-center">Issue WW_240/ V_WW_240</TableHead>
+                        <TableHead className="text-center">Issue PW_280/ V_PW_280</TableHead>
+                        <TableHead className="text-center">Issue W_280/ V_W_280</TableHead>
+                        <TableHead className="text-center">Issue WW_280/ V_WW_280</TableHead>
+                        <TableHead className="text-center">Issue PW_320/ V_PW_320</TableHead>
+                        <TableHead className="text-center">Issue W_320/ V_W_320</TableHead>
+                        <TableHead className="text-center">Issue WW_320/ V_WW_320</TableHead>
+                        <TableHead className="text-center">Issue PW_360/ V_PW_360</TableHead>
+                        <TableHead className="text-center">Issue W_360/ V_W_360</TableHead>
+                        <TableHead className="text-center">Issue WW_360/ V_WW_360</TableHead>
+                        <TableHead className="text-center">Issue PW_400/ V_PW_400</TableHead>
+                        <TableHead className="text-center">Issue W_400/ V_W_400</TableHead>
+                        <TableHead className="text-center">Issue WW_400/ V_WW_400</TableHead>
                     <TableHead className="text-center">Issue JB</TableHead>
                     {/* <TableHead className="text-center">Issue Add 4</TableHead>
                     <TableHead className="text-center">Issue Add 5</TableHead>
@@ -840,7 +840,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogTrigger className="flex"><CiEdit size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-7xl">
+                                                    <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 <p className='text-1xl pb-1 text-center mt-1'>Hamsa Entry Modification</p>
@@ -854,7 +854,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogTrigger className="flex"><CiBoxes size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-7xl">
+                                                    <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 <p className='text-1xl pb-1 text-center mt-1'>Hamsa Entry Reissue</p>
@@ -868,7 +868,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogTrigger className="flex"><CiCrop size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-4xl">
+                                                    <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}

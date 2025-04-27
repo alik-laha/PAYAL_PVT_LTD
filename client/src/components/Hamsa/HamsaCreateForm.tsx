@@ -319,7 +319,7 @@ const HamsaCreateForm = (props: Props) => {
                             <TableHead className="text-center">Lot_No</TableHead>
 
                             <TableHead className="text-center">Origin</TableHead>
-                            <TableHead className="text-center">Mixed_Lot</TableHead>
+                            <TableHead className="text-center">Incoming_Mixed_Lot</TableHead>
 
                             <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Receive V_PW_W' : 'Receive PW_W') : 'Receive PW_W'}</TableHead>
                             <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Receive V_W_Lot' : 'Receive W_Lot') : 'Receive W_Lot'}</TableHead>
@@ -328,30 +328,7 @@ const HamsaCreateForm = (props: Props) => {
                             <TableHead className="text-center">Receive Village</TableHead>
                             <TableHead className="text-center">Receive LW</TableHead>
 
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_210' : 'Issue PW_W_210') : 'Issue PW_W_210'}</TableHead>
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_210' : 'Issue W_210') : 'Issue W_210'}</TableHead>
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_210' : 'Issue WW_210') : 'Issue WW_210'}</TableHead>
-
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_240' : 'Issue PW_W_240') : 'Issue PW_W_240'}</TableHead>
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_240' : 'Issue W_240') : 'Issue W_240'}</TableHead>
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_240' : 'Issue WW_240') : 'Issue WW_240'}</TableHead>
-
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_280' : 'Issue PW_W_280') : 'Issue PW_W_280'}</TableHead>
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_280' : 'Issue W_280') : 'Issue W_280'}</TableHead>
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_280' : 'Issue WW_280') : 'Issue WW_280'}</TableHead>
-
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_320' : 'Issue PW_W_320') : 'Issue PW_W_320'}</TableHead>
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_320' : 'Issue W_320') : 'Issue W_320'}</TableHead>
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_320' : 'Issue WW_320') : 'Issue WW_320'}</TableHead>
-
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_360' : 'Issue PW_W_360') : 'Issue PW_W_360'}</TableHead>
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_360' : 'Issue W_360') : 'Issue W_360'}</TableHead>
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_360' : 'Issue WW_360') : 'Issue WW_360'}</TableHead>
-
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_400' : 'Issue PW_W_400') : 'Issue PW_W_400'}</TableHead>
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_400' : 'Issue W_400') : 'Issue W_400'}</TableHead>
-                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_400' : 'Issue WW_400') : 'Issue WW_400'}</TableHead>
-                            <TableHead className="text-center">Issue JB</TableHead>
+                          
                             {/* <TableHead className="text-center">Issue Add 4</TableHead>
                     <TableHead className="text-center">Issue Add 5</TableHead>
                     <TableHead className="text-center">Issue Add 6</TableHead>
@@ -377,33 +354,15 @@ const HamsaCreateForm = (props: Props) => {
                                             <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                             <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                             <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
-                                            <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_pw_w)} Kg</TableCell>
-                                            <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_w_lot)} Kg</TableCell>
-                                            <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_ww)} Kg</TableCell>
+                                            <TableCell className="text-center font-semibold  bg-purple-100">{formatNumber(row.rcv_pw_w)} Kg</TableCell>
+                                            <TableCell className="text-center font-semibold  bg-purple-100">{formatNumber(row.rcv_w_lot)} Kg</TableCell>
+                                            <TableCell className="text-center font-semibold bg-purple-100">{formatNumber(row.rcv_ww)} Kg</TableCell>
                                             <TableCell className="text-center font-semibold text-green-500">{formatNumber((Number(row.rcv_pw_w) + Number(row.rcv_w_lot) + Number(row.rcv_ww)).toString())} Kg</TableCell>
 
                                             <TableCell className="text-center font-semibold text-green-600">{row.rcv_village ? formatNumber(row.rcv_village) : 0} Kg</TableCell>
                                             <TableCell className="text-center font-semibold text-green-600">{row.rcv_lw ? formatNumber(row.rcv_lw) : 0} Kg</TableCell>
 
-                                            <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_210', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_210', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ww_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_210', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-200' type="number" value={row.issue_pw_240} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_240', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-200' type="number" value={row.issue_w_240} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_240', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-200' type="number" value={row.issue_ww_240} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_240', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_280} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_280', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_280} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_280', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ww_280} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_280', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-200' type="number" value={row.issue_pw_320} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_320', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-200' type="number" value={row.issue_w_320} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_320', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-200' type="number" value={row.issue_ww_320} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_320', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_1', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_2', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_3', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-200' type="number" value={row.issue_pw_400} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_400', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-200' type="number" value={row.issue_w_400} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_400', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-200' type="number" value={row.issue_ww_400} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_400', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_jb} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jb', e.target.value)} required /></TableCell>
+                                           
 
                                             {/* <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_4} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_4', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_5} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_5', e.target.value)} required /></TableCell>
@@ -425,7 +384,70 @@ const HamsaCreateForm = (props: Props) => {
                             ) : null}
                         </TableBody>
                     </Table>
-                    <Label className="w-100 pt-5 text-center">2. Machine Information</Label>
+                    <Label className="w-100 pt-5 text-center">2. Wholes Information</Label>
+                    <Table className="mt-3">
+                        <TableHeader className="bg-neutral-100 text-stone-950 ">
+                        <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_210' : 'Issue PW_W_210') : 'Issue PW_W_210'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_210' : 'Issue W_210') : 'Issue W_210'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_210' : 'Issue WW_210') : 'Issue WW_210'}</TableHead>
+
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_240' : 'Issue PW_W_240') : 'Issue PW_W_240'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_240' : 'Issue W_240') : 'Issue W_240'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_240' : 'Issue WW_240') : 'Issue WW_240'}</TableHead>
+
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_280' : 'Issue PW_W_280') : 'Issue PW_W_280'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_280' : 'Issue W_280') : 'Issue W_280'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_280' : 'Issue WW_280') : 'Issue WW_280'}</TableHead>
+
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_320' : 'Issue PW_W_320') : 'Issue PW_W_320'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_320' : 'Issue W_320') : 'Issue W_320'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_320' : 'Issue WW_320') : 'Issue WW_320'}</TableHead>
+
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_360' : 'Issue PW_W_360') : 'Issue PW_W_360'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_360' : 'Issue W_360') : 'Issue W_360'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_360' : 'Issue WW_360') : 'Issue WW_360'}</TableHead>
+
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_PW_W_400' : 'Issue PW_W_400') : 'Issue PW_W_400'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_W_400' : 'Issue W_400') : 'Issue W_400'}</TableHead>
+                            <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Issue V_WW_400' : 'Issue WW_400') : 'Issue WW_400'}</TableHead>
+                            <TableHead className="text-center">Issue JB</TableHead>
+
+
+                        </TableHeader>
+                        <TableBody>
+                            {props.borma.length > 0 ? (
+                                rows.map((row: HamsaRowData, idx: number) => {
+
+                                    return (
+                                        <TableRow key={idx} className="boiling-row-height-scoop">
+
+<TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_pw_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_210', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_w_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_210', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_ww_210} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_210', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_pw_240} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_240', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_w_240} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_240', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_ww_240} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_240', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_pw_280} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_280', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_w_280} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_280', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_ww_280} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_280', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_pw_320} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_320', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_w_320} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_320', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_ww_320} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_320', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_1', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_add_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_2', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_add_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_3', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_pw_400} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_400', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_w_400} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_400', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_ww_400} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ww_400', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_jb} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jb', e.target.value)} required /></TableCell>
+
+                                        </TableRow>
+                                    );
+                                })
+                            ) : null}
+                        </TableBody>
+                    </Table>
+                    <Label className="w-100 pt-5 text-center">3. Machine Information</Label>
                     <Table className="mt-3">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center">Mc On (Hamsa-1)</TableHead>
