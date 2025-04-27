@@ -791,6 +791,18 @@ export interface BigTaihoData {
     issue_ssp_2: string ;
     issue_ssp_2_small: string ;
     issue_sdp: string ;
+
+    issue_ext_grade_1: string;
+    issue_ext_grade_2: string;
+    issue_ext_grade_3: string;
+    issue_ext_grade_4: string;
+    issue_ext_grade_5: string;
+    issue_ext_grade_6: string;
+    issue_ext_grade_7: string;
+    issue_ext_grade_8: string;
+    issue_ext_grade_9: string;
+    issue_ext_grade_10: string;
+    
     issue_add_1: string;
     issue_add_2: string;
     issue_add_3: string;
