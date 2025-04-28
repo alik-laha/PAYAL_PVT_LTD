@@ -31,7 +31,8 @@ interface lotPropsdata{
 
 const VLOTInitial = (props: any) => {
     const [rcnData, setrcnData]  = useState<rcvVillageInprimaryData[]>([])
-
+    const comparecurrentdate=handletimezone(new Date().toISOString())
+    //console.log(comparecurrentdate)
     //let scoopdata:ScoopData[]=[]
     console.log(props)
     const handleLineEntry = async (recevingDate:string) => {
@@ -74,40 +75,43 @@ const VLOTInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
+if(!(handletimezone(item.recevingDate)===comparecurrentdate)){
+    return (
+        <TableRow key={idx}>
+            <TableCell className="text-center">
+                {idx + 1}
+            </TableCell>
+            <TableCell className="text-center font-semibold">
+                {handletimezone(item.recevingDate)}
+            </TableCell>
+            <TableCell className="text-center"><Button className="bg-orange-500 h-8 text-white rounded-md">Pending</Button></TableCell>
 
-                                return (
-                                    <TableRow key={idx}>
-                                        <TableCell className="text-center">
-                                            {idx + 1}
-                                        </TableCell>
-                                        <TableCell className="text-center font-semibold">
-                                            {handletimezone(item.recevingDate)}
-                                        </TableCell>
-                                        <TableCell className="text-center"><Button className="bg-orange-500 h-8 text-white rounded-md">Pending</Button></TableCell>
+            <TableCell className="text-center font-semibold">
+                {formatNumber(item.totalWeight)} Kg
+            </TableCell>
 
-                                        <TableCell className="text-center font-semibold">
-                                            {formatNumber(item.totalWeight)} Kg
-                                        </TableCell>
+            <TableCell className="text-center">
+                <Dialog>
+                    <DialogTrigger>
+                        <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.recevingDate)} disabled={idx!=0?true:false}>+ VLOT </Button></DialogTrigger>
+                        { idx==0 && <DialogContent style={{display:'block'}} className='max-w-screen'>
+                        <DialogHeader >
+                            <DialogTitle><p className='text-1xl text-center mt-1'> VLOT Entry</p></DialogTitle>
 
-                                        <TableCell className="text-center">
-                                            <Dialog>
-                                                <DialogTrigger>
-                                                    <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.recevingDate)} disabled={idx!=0?true:false}>+ VLOT </Button></DialogTrigger>
-                                                    { idx==0 && <DialogContent style={{display:'block'}} className='max-w-6xl'>
-                                                    <DialogHeader >
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'> VLOT Entry</p></DialogTitle>
+                        </DialogHeader>
+                    <VLOTCreateForm props={rcnData}/>
+                  
+                    </DialogContent>}
+                </Dialog>
+            </TableCell>
 
-                                                    </DialogHeader>
-                                                <VLOTCreateForm props={rcnData}/>
-                                              
-                                                </DialogContent>}
-                                            </Dialog>
-                                        </TableCell>
-
-                                    </TableRow>
-                                );
+        </TableRow>
+    );
+}
+                                
                             })
                         ) : <TableRow>
+                            <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell className="text-right  text-red-500 font-semibold">No Pending Entry</TableCell>
                             <TableCell></TableCell>
