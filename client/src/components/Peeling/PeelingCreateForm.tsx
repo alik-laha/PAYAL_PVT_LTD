@@ -213,26 +213,26 @@ const RCNPeelingCreateForm = (props:Props) => {
         <>
         <div className="px-5 py-2 overflow-auto">
             <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit2}>
-               <div className="mx-8 flex flex-col gap-0.5"> 
+               <div className="mx-1 flex flex-col gap-0.5"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
-                <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
-                <div className="flex"><Label className="w-2/4 pt-1">No. of Operator</Label>
+                <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
+                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                <div className="flex"><Label className="w-1/4 pt-1">No. of Operator</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center bg-yellow-100" placeholder="No. of Operator" value={operator} readOnly />
+                    <Input className="w-1/4 text-center bg-yellow-100" placeholder="No. of Operator" value={operator} readOnly />
                      </div>
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Day)</Label>
+                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Day)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
+                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
                      </div>
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Night)</Label>
+                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Night)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
+                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
                      </div>
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Husk)</Label>
+                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Husk)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={huskOpRef}  />
+                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={huskOpRef}  />
                      </div>
                      
                    

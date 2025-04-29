@@ -400,17 +400,17 @@ const RCNScoopingLineCreateForm = (props:Props) => {
         <>
         <div className="px-5 py-2 overflow-auto max-h-screen">
             <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit2}>
-               <div className="mx-8 flex flex-col gap-0.5"> 
+               <div className="mx-1 flex flex-col gap-0.5"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
-                <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
-                <div className="flex"><Label className="w-2/4 pt-1">No. of Male</Label>
-                    <Input className="w-2/4 text-center" placeholder="No. of Male" ref={maleRef} required /> </div>
-                    <div className="flex"><Label className="w-2/4 pt-1">No. of Female</Label>
-                    <Input className="w-2/4 text-center" placeholder="No. of Female" ref={femaleRef} required /> </div>
-                    <div className="flex"><Label className="w-2/4 pt-1">No. Of Supervisors</Label>
-                    <Input className="w-2/4 text-center" placeholder="No. of Supervisor" ref={supervisorRef} required /> </div>
+                <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
+                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                <div className="flex"><Label className="w-1/4 pt-1">No. of Male</Label>
+                    <Input className="w-1/4 text-center" placeholder="No. of Male" ref={maleRef} required /> </div>
+                    <div className="flex"><Label className="w-1/4 pt-1">No. of Female</Label>
+                    <Input className="w-1/4 text-center" placeholder="No. of Female" ref={femaleRef} required /> </div>
+                    <div className="flex"><Label className="w-1/4 pt-1">No. Of Supervisors</Label>
+                    <Input className="w-1/4 text-center" placeholder="No. of Supervisor" ref={supervisorRef} required /> </div>
                 </div>
                    <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">

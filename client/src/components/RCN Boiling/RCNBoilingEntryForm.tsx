@@ -364,16 +364,16 @@ const RCNBoilingEntryForm = () =>
         <>
             <div className="px-5">
                 <form className='flex flex-col gap-1 pt-4' onSubmit={handleSubmit2}>
-                   <div className="mx-8 flex flex-col gap-1"> 
-                    <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
-                    <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                   <div className="mx-1 flex flex-col gap-1"> 
+                    <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
+                    <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
                    
-                    <div className="flex"><Label className="w-2/4 pt-1">Labours</Label>
-                    <Input className="w-2/4 text-center" placeholder="No. of Labours" ref={noofEmployeeRef} required /> </div>
+                    <div className="flex"><Label className="w-1/4 pt-1">Labours</Label>
+                    <Input className="w-1/4 text-center" placeholder="No. of Labours" ref={noofEmployeeRef} required /> </div>
                     <div className="flex">
-                    <Label className="w-2/4 pt-1">Machine Name</Label>
+                    <Label className="w-1/4 pt-1">Machine Name</Label>
                     <Select value={mc_name} onValueChange={(value) => setMc_name(value)} required={true}>
-                        <SelectTrigger className="w-2/4 justify-center">
+                        <SelectTrigger className="w-1/4 justify-center">
                             <SelectValue placeholder="Machine Name" />
                         </SelectTrigger>
                         <SelectContent>
