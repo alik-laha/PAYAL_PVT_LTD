@@ -161,6 +161,17 @@ const VLOTCreateForm = (props:Props) => {
                 return
             }
 
+            const origins = newFormupdateData.map((row) => row.origin)
+
+            const hasduplicate = origins.some((item, index) => origins.indexOf(item) !== index);
+            if (hasduplicate) {
+                setErrortext('Duplicate Origin Values Found !')
+                if (errordialog != null) {
+                    (errordialog as any).showModal();
+                }
+                return
+            }
+
              props.props.map((item: rcvVillageInprimaryData, idx: number) => {
                          rows[idx].id=item.id
                      })

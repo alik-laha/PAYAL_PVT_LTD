@@ -48,9 +48,16 @@ const VLotDetails = sequelize.define('vlotDetails', {
     },
     modifiedBy: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: true,}
         
        
-    }
-})
+    },{
+        indexes: [
+          {
+            unique: true,
+            fields: ['vlotNo','origin'], // Unique constraint on origin + vlotNo
+          }
+        ]
+      }
+)
     export default VLotDetails;
