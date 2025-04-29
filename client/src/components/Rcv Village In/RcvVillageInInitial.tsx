@@ -75,7 +75,7 @@ const RcvVillageInInitial = (props: any) => {
                                             <Dialog>
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} >+ Add </Button></DialogTrigger>
-                                             <DialogContent style={{display:'block'}} className='max-w-6xl'>
+                                             <DialogContent style={{display:'block'}} className='max-w-screen'>
                                                     <DialogHeader >
                                                         <DialogTitle><p className='text-1xl text-center mt-1'>Village Receiving Entry</p></DialogTitle>
 

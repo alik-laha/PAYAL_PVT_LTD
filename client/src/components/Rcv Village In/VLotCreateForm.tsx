@@ -156,6 +156,7 @@ const VLOTCreateForm = (props:Props) => {
 
      const handleSubmit2 = async (e: React.FormEvent) => {
              e.preventDefault()
+             if (isdisable) return; // prevent duplicate
              setisdisable(true)
              const hasPending = props.props.some((item: rcvVillageInprimaryData) => item.editStatus === 'Pending');
              if (hasPending) {
@@ -189,12 +190,9 @@ const VLOTCreateForm = (props:Props) => {
                      console.log(initialscoop)         
                          setErrortext(initialscoop.data.message)
                          if (initialscoop.status === 200) {
-                             const dialog2 = document.getElementById("packageMetrialReceve") as HTMLDialogElement
-                             dialog2.showModal()
-                             setTimeout(() => {
-                                 dialog2.close()
-                                 window.location.reload()
-                             }, 3000)
+                            if (successdialog) {
+                                (successdialog as any).showModal();
+                            }
                          }
                          
                  }
@@ -258,7 +256,10 @@ const VLOTCreateForm = (props:Props) => {
                 </Table>
                 <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                                 
-                <dialog id="packageMetrialReceve" className="dashboard-modal">
+               
+            </div>
+            </form>
+            <dialog id="packageMetrialReceve" className="dashboard-modal">
                 <button id="packageMetrialRecivecross" className="dashboard-modal-close-btn ">X </button>
                 <span className="flex"><img src={tick} height={2} width={35} alt='tick_image' />
                     <p id="modal-text" className="pl-3 mt-1 font-medium">{errortext}</p></span>
@@ -273,8 +274,6 @@ const VLOTCreateForm = (props:Props) => {
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
-            </div>
-            </form>
         </div>
         </>
     )

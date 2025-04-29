@@ -161,6 +161,9 @@ const RCNBormaLineCreateForm = (props:Props) => {
                          
        
     }
+    function formatNumber(num: string) {
+        return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
+    }
 
 
  
@@ -185,13 +188,13 @@ const RCNBormaLineCreateForm = (props:Props) => {
                        
                        
                         <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Input Wholes</TableHead>
-                        <TableHead className="text-center" >Input Pieces</TableHead>
-                        <TableHead className="text-center" >Total Input</TableHead>
+                        <TableHead className="text-center" >Input_Wholes (Kg)</TableHead>
+                        <TableHead className="text-center" >Input_Pieces (Kg)</TableHead>
+                        <TableHead className="text-center" >Total_Input</TableHead>
                         <TableHead className="text-center" >Input Moisture</TableHead>
                         <TableHead className="text-center" >Output Moisture</TableHead>
-                        <TableHead className="text-center" >Output Wholes</TableHead>
-                        <TableHead className="text-center" >Output Pieces</TableHead>
+                        <TableHead className="text-center" >Output_Wholes (Kg)</TableHead>
+                        <TableHead className="text-center" >Output_Pieces (Kg)</TableHead>
                         <TableHead className="text-center" >No Of Trolley</TableHead>
                         <TableHead className="text-center" >Temp</TableHead>
                         <TableHead className="text-center" >Borma On</TableHead>
@@ -208,13 +211,13 @@ const RCNBormaLineCreateForm = (props:Props) => {
                                         <TableCell className="text-center">{idx + 1}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
-                                        <TableCell className="text-center font-semibold ">{row.InputWholes}</TableCell>
-                                        <TableCell className="text-center font-semibold ">{row.InputPieces}</TableCell>
-                                        <TableCell className="text-center font-semibold ">{row.TotalInput}</TableCell>
-                                        <TableCell className="text-center "> <Input  value={row.InputMoisture} placeholder="%" onChange={(e) => handleRowChange(idx,'InputMoisture',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.OutputMoisture} placeholder="%" onChange={(e) => handleRowChange(idx,'OutputMoisture',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.OutputWholes} placeholder="Wholes" onChange={(e) => handleRowChange(idx,'OutputWholes',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.OutputPieces} placeholder="Pieces" onChange={(e) => handleRowChange(idx,'OutputPieces',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center font-semibold ">{formatNumber(row.InputWholes)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold ">{formatNumber(row.InputPieces)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{formatNumber(row.TotalInput)} Kg</TableCell>
+                                        <TableCell className="text-center "> <Input className="bg-cyan-100" value={row.InputMoisture} placeholder="%" onChange={(e) => handleRowChange(idx,'InputMoisture',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-100" value={row.OutputMoisture} placeholder="%" onChange={(e) => handleRowChange(idx,'OutputMoisture',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-yellow-100" value={row.OutputWholes} placeholder="Wholes" onChange={(e) => handleRowChange(idx,'OutputWholes',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-yellow-100" value={row.OutputPieces} placeholder="Pieces" onChange={(e) => handleRowChange(idx,'OutputPieces',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.NoOfTrolley} placeholder="No." onChange={(e) => handleRowChange(idx,'NoOfTrolley',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.Temp} placeholder="Degree" onChange={(e) => handleRowChange(idx,'Temp',e.target.value)} required /></TableCell>
                                         {/* <TableCell className="text-center "> <Input className="bg-green-100"  value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx,'Mc_on',e.target.value)} type='time' required /></TableCell> */}

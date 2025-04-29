@@ -421,7 +421,7 @@ const RCNBoilingEntryForm = () =>
                                         <TableCell>{index+1}</TableCell>
                                         <TableCell className="text-center" >
                                             <Select value={row.ScoopingLine} onValueChange={(val) => handleRowChange(index, 'ScoopingLine', val)} required={true}>
-                                                <SelectTrigger className="justify-center w-40">
+                                                <SelectTrigger className="justify-center w-40 bg-cyan-100">
                                                     <SelectValue placeholder="Line Name" />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -442,7 +442,7 @@ const RCNBoilingEntryForm = () =>
                                         </TableCell>
                                         <TableCell className="text-center">
                                             <Select value={row.origin} onValueChange={(val) => handleRowChange(index, 'origin', val)} required={true}>
-                                                <SelectTrigger className="justify-center w-20">
+                                                <SelectTrigger className="justify-center w-20 bg-cyan-100">
                                                     <SelectValue placeholder="Origin" />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -462,7 +462,7 @@ const RCNBoilingEntryForm = () =>
                                         </TableCell>
                                         <TableCell className="text-center" >
                                             <Select value={row.sizeName} onValueChange={(val) => handleRowChange(index, 'sizeName', val)} required={true}>
-                                                <SelectTrigger className="justify-center w-20" >
+                                                <SelectTrigger className="justify-center w-20 bg-cyan-100" >
                                                     <SelectValue placeholder="Size" />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -483,8 +483,8 @@ const RCNBoilingEntryForm = () =>
                                         </TableCell>
                                     
                                         
-                                        <TableCell className="text-center">
-                                        <Input  value={row.size} placeholder="Kg" onChange={(e) => handleRowChange(index,'size',e.target.value)} required />
+                                        <TableCell className="text-center ">
+                                        <Input  value={row.size} className='bg-yellow-100' placeholder="Kg" onChange={(e) => handleRowChange(index,'size',e.target.value)} required />
                                         </TableCell>
                         
                                      
@@ -496,7 +496,7 @@ const RCNBoilingEntryForm = () =>
                                         {/* <TableCell className="text-center"><input className="bg-red-100" value={row.cookingOff} placeholder="MC Off Time" onChange={(e) => handleRowChange(index,'cookingOff',e.target.value)} type='time' required /></TableCell> */}
                                         <TableCell className="text-center" >
                                             <Select value={row.CookingTime} onValueChange={(val) => handleRowChange(index, 'CookingTime', val)} required={true}>
-                                                <SelectTrigger className="justify-center w-20" >
+                                                <SelectTrigger className="justify-center w-40 bg-yellow-100" >
                                                     <SelectValue placeholder="Time" />
                                                 </SelectTrigger>
                                                 <SelectContent>

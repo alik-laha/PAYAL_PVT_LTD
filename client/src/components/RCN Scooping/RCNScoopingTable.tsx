@@ -505,7 +505,7 @@ const RCNScoopingTable = () => {
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" onClick={() => handleEditLineEntry(item.LotNo)}>Approve/Revert</button>
                                                         </DialogTrigger>
-                                                        <DialogContent className='max-w-3xl'>
+                                                        <DialogContent className='max-w-screen'>
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     <p className='text-1xl pb-1 text-center '>Scooping Approve/Revert</p>
@@ -566,9 +566,9 @@ const RCNScoopingTable = () => {
                                                 <PopoverContent className="flex flex-col w-30 text-sm font-medium">
                                                     <Dialog>
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
-                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" onClick={() => handleLineEntry(item.LotNo)}>View</button>
+                                                            <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" onClick={() => handleLineEntry(item.LotNo)}>Modify</button>
                                                         </DialogTrigger>
-                                                        <DialogContent className='max-w-3xl'>
+                                                        <DialogContent className='max-w-screen'>
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     <p className='text-1xl pb-1 text-center mt-5'>Line Wise Scooping Modify</p>

@@ -198,8 +198,8 @@ const RCNHumidLineCreateForm = (props:Props) => {
 
                                         <TableCell className="text-center font-semibold ">{formatNumber(row.TotalInput)} Kg</TableCell>
                                         <TableCell className="text-center "> {formatNumber(row.InputMoisture)}%</TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.OutputMoisture} placeholder="%" onChange={(e) => handleRowChange(idx,'OutputMoisture',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.TotalOutput} placeholder="Kg" onChange={(e) => handleRowChange(idx,'TotalOutput',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-100" value={row.OutputMoisture} placeholder="%" onChange={(e) => handleRowChange(idx,'OutputMoisture',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-yellow-100" value={row.TotalOutput} placeholder="Kg" onChange={(e) => handleRowChange(idx,'TotalOutput',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> {row.NoOfTrolley}</TableCell>
                                     
                                         {/* <TableCell className="text-center "> <Input className="bg-green-100"  value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx,'Mc_on',e.target.value)} type='time' required /></TableCell> */}

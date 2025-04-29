@@ -95,6 +95,7 @@ if(!(handletimezone(item.recevingDate)===comparecurrentdate)){
                     <DialogTrigger>
                         <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.recevingDate)} disabled={(idx!=0 || !item.totalWeight)?true:false}>+ VLOT </Button></DialogTrigger>
                         { idx==0 && <DialogContent style={{display:'block'}} className='max-w-screen'>
+                     
                         <DialogHeader >
                             <DialogTitle><p className='text-1xl text-center mt-1'> VLOT Entry</p></DialogTitle>
 

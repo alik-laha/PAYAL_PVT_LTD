@@ -112,5 +112,12 @@ const orderPackingModel = sequelize.define('orderPacking', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
     }
-})
+}, {
+        indexes: [
+            {
+                unique: true,
+                fields: ['BatchID']
+            }
+        ]
+    })
 export default orderPackingModel;
