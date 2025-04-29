@@ -12,6 +12,8 @@ import bigTaihoModel from "../../model/bigTaihoModel";
 import hamsaModel from "../../model/hamsamodel";
 import RcvVillageModel from "../../model/RcvVillageModel";
 import mixingModel from "../../model/mixingModel";
+import VLotNo from "../../model/vlotNomodel";
+import LotNo from "../../model/lotNomodel";
 
 // //Village.tsx
 export const findEditVillageAll = async (req: Request, res: Response) => {
@@ -154,6 +156,7 @@ export const CreateEntireVillage = async (req: Request, res: Response) => {
         const feeledBy = req.cookies.user;
         const linehumid = req.body.linehumid
         const LotNO = req.body.LotNo
+        const vilLot:boolean=req.body.vilLot
 
         await sequelize.transaction(async (transaction: any) => {
 
@@ -486,8 +489,33 @@ export const CreateEntireVillage = async (req: Request, res: Response) => {
                     throw new Error('Transaction Aborted')
                 } 
 
-                
-                    const lotupdate = await lotoriginmodel.update(
+                let lotupdate
+                //Lot Update
+                if(vilLot===true){
+                    lotupdate =await VLotNo.update(
+                        { 
+                          modifiedBy:'Next Interconnected'
+                        },
+                        {
+                            where: {
+                                vlotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
+                else{
+                    lotupdate =await LotNo.update(
+                        { 
+                          modifiedBy:'Next Interconnected'
+                        },
+                        {
+                            where: {
+                                lotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
+                    const lotoriginupdate = await lotoriginmodel.update(
                         {
                             latest_section: 'Village',
                             villageStatus: 1
@@ -499,7 +527,7 @@ export const CreateEntireVillage = async (req: Request, res: Response) => {
                             }, transaction
                         }
                     );
-                    if (lotupdate) {
+                    if (lotoriginupdate) {
                         res.status(200).json({ message: "Village Entry Made Successfully" });
                     }
                     else {

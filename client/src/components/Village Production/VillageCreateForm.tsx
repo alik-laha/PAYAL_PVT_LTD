@@ -80,6 +80,7 @@ const VillageCreateForm = (props: Props) => {
     const dayOpRef = useRef<HTMLInputElement>(null);
     const nightOpRef = useRef<HTMLInputElement>(null);
     const [rows, setRows] = useState<villageRowData[]>([])
+    const [vilLot,setVilLot]=useState<boolean>(false)
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
@@ -105,6 +106,12 @@ const VillageCreateForm = (props: Props) => {
         });
     }
     useEffect(() => {
+        if (props.borma[0]) {
+
+            if (props.borma[0].LotNo.includes('V')) {
+              setVilLot(true)
+            }
+          }
         const initialform = props.borma.map((item: VilageData) => ({
             id: item.id,
             LotNo: item.LotNo,
@@ -179,7 +186,7 @@ const VillageCreateForm = (props: Props) => {
         try {
             const initialhumid = await axios.post('/api/villageout/createEntireVillage', {
                 linehumid: formData,
-                LotNo: props.borma[0].LotNo
+                LotNo: props.borma[0].LotNo,vilLot
             })
             console.log(initialhumid)
             setErrortext(initialhumid.data.message)

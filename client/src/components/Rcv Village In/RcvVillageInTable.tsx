@@ -241,7 +241,7 @@ const RcvVillageInTable = () => {
     }, [])
     const exportToExcel = async () => {
         if(searchType === 'Village Details'){
-            const response = await axios.post('/api/rcvVillageIn/getVillagePrimaryIn', {  searchitem: blConNo,
+            const response = await axios.post('/api/rcvVillageIn/getVillageInPrimary', {  searchitem: blConNo,
                 gatetype: selectType,
                 fromDate: fromdate,
                 toDate: todate,
@@ -332,6 +332,34 @@ const RcvVillageInTable = () => {
             const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
             const blob = new Blob([wbout], { type: 'application/octet-stream' });
             saveAs(blob, 'Village_In_Primary_Material_' + currDate + '.xlsx');
+        }
+        else{
+            const response = await axios.post('/api/rcvVillageIn/getVLOTDetails', {  searchitem: blConNo,
+               
+                fromDate: fromdate,
+                toDate: todate,origin: originp})
+            const data1 = response.data.rcnEntries
+            console.log(data1)
+            let ws
+            let transformed: any[] = [];
+            transformed = data1.map((item: any,idx:number) => ({
+                id: idx + 1,
+                VlotNo:item.vlotNo,
+                Creation_Date:handletimezone(item.recevingDate),
+                Origin:item.origin,
+                Entry_Weight:formatNumber(item.qty),
+                Actual_Weight:formatNumber(item.actual_qty),
+                Loss_Kg:formatNumber(item.loss),
+                Loss_Prcntg:formatNumber(item.loss_prcntg),
+                Created_By:item.createdBy
+
+            }))
+            ws = XLSX.utils.json_to_sheet(transformed);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            saveAs(blob, 'VLOT_Details_' + currDate + '.xlsx');
         }
 
         
@@ -681,6 +709,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                 <TableHead className="text-center" >Id</TableHead>
                 <TableHead className="text-center" >VLOT-NO</TableHead>
                 <TableHead className="text-center" >Origin</TableHead>
+                <TableHead className="text-center" >Date Of Entry</TableHead>
                 <TableHead className="text-center" >Receive Qty(Kg)</TableHead>
                 <TableHead className="text-center" >Actual Receive_Qty(Kg)</TableHead>
                 <TableHead className="text-center" >Receive_Loss(Kg)</TableHead>
@@ -694,10 +723,11 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                      <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                      <TableCell className="text-center font-bold text-red-500 "> {item.vlotNo}</TableCell>                                 
                                      <TableCell className="text-center font-semibold  ">{item.origin}</TableCell>
+                                     <TableCell className="text-center font-semibold  ">{handletimezone(item.recevingDate)}</TableCell>
                                      <TableCell className="text-center font-semibold ">{formatNumber(item.qty)} Kg</TableCell>
                                      <TableCell className="text-center font-semibold">{formatNumber(item.actual_qty)} Kg</TableCell>
                                      <TableCell className="text-center font-semibold text-cyan-500">{formatNumber(item.loss)} Kg</TableCell>
-                                     <TableCell className="text-center font-semibold text-cyan-500">{formatNumber(item.loss)} %</TableCell>
+                                     <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.loss_prcntg)} %</TableCell>
                                  </TableRow>
                              );
                          })) : (<TableRow>
