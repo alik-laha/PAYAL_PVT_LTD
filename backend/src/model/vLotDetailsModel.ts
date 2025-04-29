@@ -55,7 +55,7 @@ const VLotDetails = sequelize.define('vlotDetails', {
         indexes: [
           {
             unique: true,
-            fields: ['vlotNo','origin'], // Unique constraint on origin + vlotNo
+            fields: ['recevingDate','origin'], // Unique constraint on origin + vlotNo
           }
         ]
       }

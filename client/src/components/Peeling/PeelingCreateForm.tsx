@@ -63,7 +63,7 @@ const RCNPeelingCreateForm = (props:Props) => {
     const nightOpRef = useRef<HTMLInputElement>(null);
     const huskOpRef = useRef<HTMLInputElement>(null);
     const [operator,setoperator]=useState<string>('')
-    const [LotNo,setLotNo]=useState<string>('')
+   
     const [vilLot,setVilLot]=useState<boolean>(false)
 
    // const operatorRef = useRef<HTMLInputElement>(null);
@@ -95,7 +95,7 @@ const RCNPeelingCreateForm = (props:Props) => {
     useEffect(() => { 
 
         if(props.borma[0]){
-            setLotNo(props.borma[0].LotNo)
+          
             if(props.borma[0].LotNo.includes('V')){
                 setVilLot(true)
             }

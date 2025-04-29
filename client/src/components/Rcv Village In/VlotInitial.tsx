@@ -87,13 +87,13 @@ if(!(handletimezone(item.recevingDate)===comparecurrentdate)){
             <TableCell className="text-center"><Button className="bg-orange-500 h-8 text-white rounded-md">Pending</Button></TableCell>
 
             <TableCell className="text-center font-semibold">
-                {formatNumber(item.totalWeight)} Kg
+                {item.totalWeight ?formatNumber(item.totalWeight):0} Kg
             </TableCell>
 
             <TableCell className="text-center">
                 <Dialog>
                     <DialogTrigger>
-                        <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.recevingDate)} disabled={idx!=0?true:false}>+ VLOT </Button></DialogTrigger>
+                        <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.recevingDate)} disabled={(idx!=0 || !item.totalWeight)?true:false}>+ VLOT </Button></DialogTrigger>
                         { idx==0 && <DialogContent style={{display:'block'}} className='max-w-screen'>
                         <DialogHeader >
                             <DialogTitle><p className='text-1xl text-center mt-1'> VLOT Entry</p></DialogTitle>

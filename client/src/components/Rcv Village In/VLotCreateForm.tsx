@@ -43,10 +43,12 @@ import { Button } from "../ui/button";
 import axios from "axios";
 
 
+
 const VLOTCreateForm = (props:Props) => {
 
     const [rows,setRows]=useState<VLOTRowData[]>([])
     const [errortext, setErrortext] = useState('')
+    const [rcvDate, setRcvDate] = useState('')
     const [isdisable,setisdisable]=useState<boolean>(false)
     const [newFormupdateData, setNewFormupdateData] = useState<MergedUpdateData[]>([]);
     function formatNumber(num: string) {
@@ -67,6 +69,9 @@ const VLOTCreateForm = (props:Props) => {
           
             //console.log(initialform)
             setRows(initialform)
+            if(props.props[0]){
+                setRcvDate(props.props[0].recevingDate)
+            }
             console.log(rows)
         }, [props.props]);
 
@@ -179,7 +184,7 @@ const VLOTCreateForm = (props:Props) => {
              console.log(newFormupdateData)
                  try {
                      const initialscoop = await axios.post('/api/rcvVillageIn/createEntireVLOT', { formData:newFormupdateData,
-                        date:props.props[0].recevingDate
+                        date:rcvDate
                       })
                      console.log(initialscoop)         
                          setErrortext(initialscoop.data.message)
