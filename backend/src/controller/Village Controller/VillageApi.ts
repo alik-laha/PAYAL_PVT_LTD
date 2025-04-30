@@ -156,7 +156,7 @@ export const CreateEntireVillage = async (req: Request, res: Response) => {
         const feeledBy = req.cookies.user;
         const linehumid = req.body.linehumid
         const LotNO = req.body.LotNo
-        const vilLot:boolean=req.body.vilLot
+        const vilLot:boolean=Boolean(req.body.vilLot)
 
         await sequelize.transaction(async (transaction: any) => {
 

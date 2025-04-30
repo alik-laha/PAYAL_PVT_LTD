@@ -127,8 +127,8 @@ const PeelingTable = () => {
                 Moisture:item.moisture ,
                 Peeling_Time:item.peelingTime,
                 Unpeel_Piece:formatNumber(item.UnpeelPiece),
-                WholesPeel: formatNumber(item.WholesPeel),
-                WholesUnpeel:formatNumber(item.WholesUnpeel),
+                WholesPeel_Or_WholesJB: formatNumber(item.WholesPeel),
+                WholesUnpeel_Or_LW:formatNumber(item.WholesUnpeel),
                 DP: formatNumber(item.DP),
                 DS: formatNumber(item.DS),
                 DP1:formatNumber(item.DP1),
@@ -170,8 +170,8 @@ const PeelingTable = () => {
                 Moisture:item.moisture ,
                 Peeling_Time:item.peelingTime,
                 Unpeel_Piece:formatNumber(item.UnpeelPiece),
-                WholesPeel: formatNumber(item.WholesPeel),
-                WholesUnpeel:formatNumber(item.WholesUnpeel),
+                WholesPeel_Or_WholesJB: formatNumber(item.WholesPeel),
+                WholesUnpeel_Or_LW:formatNumber(item.WholesUnpeel),
                 DP: formatNumber(item.DP),
                 DS: formatNumber(item.DS),
                 DP1:formatNumber(item.DP1),
@@ -566,7 +566,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                         </DialogTrigger>
-                                                        <DialogContent>
+                                                        <DialogContent  className="max-w-3xl">
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     <p className='text-1xl pb-1 text-center mt-1'>Peeling Entry Modification</p>

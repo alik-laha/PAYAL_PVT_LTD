@@ -63,7 +63,7 @@ const RCNPeelingCreateForm = (props:Props) => {
     const nightOpRef = useRef<HTMLInputElement>(null);
     const huskOpRef = useRef<HTMLInputElement>(null);
     const [operator,setoperator]=useState<string>('')
-   
+    const [LotNo,setLotNo]=useState<string>('')
     const [vilLot,setVilLot]=useState<boolean>(false)
 
    // const operatorRef = useRef<HTMLInputElement>(null);
@@ -95,7 +95,7 @@ const RCNPeelingCreateForm = (props:Props) => {
     useEffect(() => { 
 
         if(props.borma[0]){
-          
+            setLotNo(props.borma[0].LotNo)
             if(props.borma[0].LotNo.includes('V')){
                 setVilLot(true)
             }
@@ -151,7 +151,8 @@ const RCNPeelingCreateForm = (props:Props) => {
         props.borma.map((item: PeelingData, idx: number) => {
             rows[idx].id=item.id
         })
-        console.log(rows)
+        //console.log(rows)
+console.log(vilLot)
         const date = DateRef.current?.value 
         const dayop = dayOpRef.current?.value  
         const nightop = nightOpRef.current?.value   
@@ -252,9 +253,9 @@ const RCNPeelingCreateForm = (props:Props) => {
                         <TableHead className="text-center" >Peeling_Off</TableHead>
                         <TableHead className="text-center" >Breakdown Duration</TableHead>
                         <TableHead className="text-center" >Other Duration</TableHead>
-                        <TableHead className="text-center" >Pieces Unpeel</TableHead>
-                        <TableHead className="text-center" >Wholes Peel</TableHead>
-                        <TableHead className="text-center" >Wholes Unpeel</TableHead>
+                        <TableHead className="text-center" >Pieces_Unpeel (Village)</TableHead>
+                        <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Wholes_&_JB (Mayur)':'Wholes_Peel (Mayur)'):'Wholes_Peel (Mayur)'}</TableHead>
+                        <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'LW (Mayur)':'Wholes_UnPeel (Mayur)'):'Wholes_UnPeel (Mayur)'}</TableHead>
                        
                         <TableHead className="text-center" >DP (DP&DS)</TableHead>
                         <TableHead className="text-center" >DP1 (DP&DS)</TableHead>

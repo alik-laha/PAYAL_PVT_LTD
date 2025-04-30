@@ -176,7 +176,7 @@ const PeelingModify = (props: PeelingModifyProps) => {
         }
         
         if (resStatus.data.lotStatus.modifiedBy && resStatus.data.lotStatus.modifiedBy !== 'Peeling') {
-            setErrorText(`Lot has Already Reached ${resStatus.data.lotStatus.modifiedBy} Section`)
+            setErrorText(`Lot has Already Reached ${resStatus.data.lotStatus.modifiedBy} Sections`)
             if(errordialog){
                 (errordialog as any).showModal()
             }
@@ -260,38 +260,38 @@ const PeelingModify = (props: PeelingModifyProps) => {
                         <div className="flex"><Label className="w-2/4 mt-2">No Of Operator(Husk)</Label>
                         <Input className="w-2/4 text-center " placeholder="Operator" value={huskOp} onChange={(e) => sethuskOp(e.target.value)} /> </div>
 
-                    <div className="flex"><Label className="w-2/4 mt-2">Wholes Peel (Kg)</Label>
-                        <Input className="w-2/4 text-center" placeholder="Kg" value={wholepeel} onChange={(e) => setwholepeel(e.target.value)} required/> </div>
+                    <div className="flex"><Label className="w-2/4 mt-2">{lotNo ? (lotNo.includes('V')?'Wholes_&_JB (Mayur)':'Wholes_Peel (Mayur)'):'Wholes_Peel (Mayur)'} </Label>
+                        <Input className="w-2/4 text-center bg-cyan-200" placeholder="Kg" value={wholepeel} onChange={(e) => setwholepeel(e.target.value)} required/> </div>
 
-                    <div className="flex"><Label className="w-2/4 mt-2">Wholes Unpeel</Label>
-                        <Input className="w-2/4 text-center" placeholder="kg" value={wholeunpeel} onChange={(e) => setwholeunpeel(e.target.value)} required/> </div>
+                    <div className="flex"><Label className="w-2/4 mt-2">{lotNo ? (lotNo.includes('V')?'LW (Mayur)':'Wholes_UnPeel (Mayur)'):'Wholes_UnPeel (Mayur)' }</Label>
+                        <Input className="w-2/4 text-center bg-cyan-200" placeholder="kg" value={wholeunpeel} onChange={(e) => setwholeunpeel(e.target.value)} required/> </div>
 
-                        <div className="flex"><Label className="w-2/4 mt-2">Pieces Unpeel</Label>
-                        <Input className="w-2/4 text-center" placeholder="kg" value={pieceunpeel} onChange={(e) => setpieceunpeel(e.target.value)} required/> </div>
-                        <div className="flex"><Label className="w-2/4 mt-2">DP</Label>
-                        <Input className="w-2/4 text-center" placeholder="kg" value={dp} onChange={(e) => setdp(e.target.value)} required/> </div>
-                        <div className="flex"><Label className="w-2/4 mt-2">DP1</Label>
-                        <Input className="w-2/4 text-center" placeholder="kg" value={dp1} onChange={(e) => setdp1(e.target.value)} required/> </div>
-                        <div className="flex"><Label className="w-2/4 mt-2">DS</Label>
-                        <Input className="w-2/4 text-center" placeholder="kg" value={ds} onChange={(e) => setds(e.target.value)} required/> </div>
-                        <div className="flex"><Label className="w-2/4 mt-2">SJH</Label>
-                        <Input className="w-2/4 text-center" placeholder="kg" value={sjh} onChange={(e) => setsjh(e.target.value)} required/> </div>
-                        <div className="flex"><Label className="w-2/4 mt-2">SJH1</Label>
-                        <Input className="w-2/4 text-center" placeholder="kg" value={sjh1} onChange={(e) => setsjh1(e.target.value)} required/> </div>
-                        <div className="flex"><Label className="w-2/4 mt-2">SP1</Label>
-                        <Input className="w-2/4 text-center" placeholder="kg" value={sp1} onChange={(e) => setsp1(e.target.value)} required/> </div>
-                        <div className="flex"><Label className="w-2/4 mt-2">JJH</Label>
-                        <Input className="w-2/4 text-center" placeholder="kg" value={jjh} onChange={(e) => setjjh(e.target.value)} required/> </div>
-                        <div className="flex"><Label className="w-2/4 mt-2">JK/K</Label>
-                        <Input className="w-2/4 text-center" placeholder="kg" value={jkK} onChange={(e) => setjkK(e.target.value)} required/> </div>
-                        <div className="flex"><Label className="w-2/4 mt-2">JH1</Label>
-                        <Input className="w-2/4 text-center" placeholder="kg" value={jh1} onChange={(e) => setjh1(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">Pieces Unpeel (Village)</Label>
+                        <Input className="w-2/4 text-center bg-red-200" placeholder="kg" value={pieceunpeel} onChange={(e) => setpieceunpeel(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">DP (DP & DS)</Label>
+                        <Input className="w-2/4 text-center bg-lime-200" placeholder="kg" value={dp} onChange={(e) => setdp(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">DP1 (DP & DS)</Label>
+                        <Input className="w-2/4 text-center bg-lime-200" placeholder="kg" value={dp1} onChange={(e) => setdp1(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">DS (DP & DS)</Label>
+                        <Input className="w-2/4 text-center bg-lime-200" placeholder="kg" value={ds} onChange={(e) => setds(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">SJH (Sorting)</Label>
+                        <Input className="w-2/4 text-center bg-blue-100" placeholder="kg" value={sjh} onChange={(e) => setsjh(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">SJH1 (Sorting)</Label>
+                        <Input className="w-2/4 text-center bg-blue-100" placeholder="kg" value={sjh1} onChange={(e) => setsjh1(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">SP1 (Sorting)</Label>
+                        <Input className="w-2/4 text-center bg-blue-100" placeholder="kg" value={sp1} onChange={(e) => setsp1(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">JJH (Sorting)</Label>
+                        <Input className="w-2/4 text-center bg-blue-100" placeholder="kg" value={jjh} onChange={(e) => setjjh(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">JK/K (Sorting)</Label>
+                        <Input className="w-2/4 text-center bg-blue-100" placeholder="kg" value={jkK} onChange={(e) => setjkK(e.target.value)} required/> </div>
+                        <div className="flex"><Label className="w-2/4 mt-2">JH1 (Sorting)</Label>
+                        <Input className="w-2/4 text-center bg-blue-100" placeholder="kg" value={jh1} onChange={(e) => setjh1(e.target.value)} required/> </div>
                         <div className="flex"><Label className="w-2/4 mt-2">Husk</Label>
-                        <Input className="w-2/4 text-center" placeholder="kg" value={husk} onChange={(e) => sethusk(e.target.value)} required/> </div>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="kg" value={husk} onChange={(e) => sethusk(e.target.value)} required/> </div>
                         <div className="flex"><Label className="w-2/4 mt-2">Rejection</Label>
-                        <Input className="w-2/4 text-center" placeholder="kg" value={rejection} onChange={(e) => setrejection(e.target.value)} required/> </div>
+                        <Input className="w-2/4 text-center bg-purple-200" placeholder="kg" value={rejection} onChange={(e) => setrejection(e.target.value)} required/> </div>
                         <div className="flex"><Label className="w-2/4 mt-2">Big_Taiho</Label>
-                        <Input className="w-2/4 text-center" placeholder="kg" value={bigT} onChange={(e) => setbigT(e.target.value)} required/> </div>
+                        <Input className="w-2/4 text-center bg-orange-200" placeholder="kg" value={bigT} onChange={(e) => setbigT(e.target.value)} required/> </div>
                     
                     
                     <div className="flex">  

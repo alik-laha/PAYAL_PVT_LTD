@@ -43,7 +43,7 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
     const feeledBy = req.cookies.user;
     const linehumid = req.body.linehumid
     const LotNO = req.body.LotNo
-    const vilLot:boolean=req.body.vilLot
+    const vilLot:boolean=Boolean(req.body.vilLot)
 
     await sequelize.transaction(async (transaction: any) => {
 
@@ -248,7 +248,7 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
        
         let lotupdate
                 //Lot Update
-                if(vilLot===true){
+                if(vilLot){
                     lotupdate =await VLotNo.update(
                         { 
                           modifiedBy:'Peeling'
