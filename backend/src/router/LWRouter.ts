@@ -8,7 +8,8 @@ import {
 
 import { approveLW, CreateEntireLW, EditRejectLW, findEditLWAll, getLWBylotorigin, 
        getLWLot,  SearchRCNLW,  sumOfallLW,
-       updateEntireLW, SearchRCNLWMix,CreateMixLW
+       updateEntireLW, SearchRCNLWMix,CreateMixLW,
+       CreateReissueLW
        } from "../controller/LWController/LWApi";
 const router = express()
 
@@ -24,7 +25,7 @@ router.get("/getLWByLotOrigin/:lotNO/:origin", jwtVerify, getLWBylotorigin)
  router.post("/createEntireLW", jwtVerify, CreateEntireLW)
 
 // // //HamsaReiSsueForm.tsx
-// router.post("/createReissueLW", jwtVerify, CreateReissueLW)
+router.post("/createReissueLW", jwtVerify, CreateReissueLW)
 
 // // //LWtable.tsx
  router.put('/lwprimarysearch', jwtVerify, SearchRCNLW);

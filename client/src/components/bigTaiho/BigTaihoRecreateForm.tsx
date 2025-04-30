@@ -269,7 +269,7 @@ const RCNBigTaihoReCreateForm = (props:Props) => {
             ((props.borma[0].rcv_hamsa ? Number(props.borma[0].rcv_hamsa):0) < Number(rows[0].rcv_hamsa)) ||
             ((props.borma[0].rcv_lw ? Number(props.borma[0].rcv_lw):0) < Number(rows[0].rcv_lw)) ||
             ((props.borma[0].rcv_wholes ? Number(props.borma[0].rcv_wholes):0) < Number(rows[0].rcv_wholes)) 
-            || (Number(props.borma[0].rcv_peeling) < Number(rows[0].rcv_peeling))
+            || (Number(props.borma[0].issue_add_4) < Number(rows[0].rcv_peeling))
             
         ){
                setErrortext('Current Receiving should not Exceed Previous Receiving Value')
@@ -429,7 +429,7 @@ const RCNBigTaihoReCreateForm = (props:Props) => {
                     <TableHead className="text-center">Previous Whole</TableHead>
                     <TableHead className="text-center">Current Whole</TableHead>
 
-               
+                    <TableHead className="text-center">-</TableHead>
                    
               
                
@@ -469,7 +469,7 @@ const RCNBigTaihoReCreateForm = (props:Props) => {
                                         <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
 
-                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].rcv_peeling)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_4)} Kg</TableCell>
                                         <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_peeling} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_peeling', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center font-semibold ">{props.borma[0].rcv_sorting ?formatNumber(props.borma[0].rcv_sorting):0} Kg</TableCell>
                                         <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sorting', e.target.value)} required /></TableCell>
@@ -492,7 +492,7 @@ const RCNBigTaihoReCreateForm = (props:Props) => {
                                         <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_wholes} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholes', e.target.value)} required /></TableCell>
 
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
-                                      
+                                        <TableCell className="bg-black-100"> -</TableCell>
                                     {/* <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_1', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_2', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_3', e.target.value)} required /></TableCell>

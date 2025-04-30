@@ -165,7 +165,7 @@ const VillageInitial = (props: any) => {
                                             <Dialog>
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
-                                          <DialogContent className='max-w-9xl'>
+                                          <DialogContent className='max-w-screen'>
                                                     <DialogHeader>
                                                         <DialogTitle><p className='text-1xl text-center mt-1'>Village Line Entry</p></DialogTitle>
 

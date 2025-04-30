@@ -264,9 +264,9 @@ const RCNDPDSReCreateForm = (props:Props) => {
         if(
          ((props.borma[0].rcv_Sorting ? Number(props.borma[0].rcv_Sorting):0) < Number(rows[0].rcv_Sorting)) ||
          ((props.borma[0].rcv_transfer ? Number(props.borma[0].rcv_transfer):0) < Number(rows[0].rcv_transfer))
-            || (Number(props.borma[0].rcv_dp) < Number(rows[0].rcv_dp) )
-            || (Number(props.borma[0].rcv_ds) < Number(rows[0].rcv_ds) )
-            || (Number(props.borma[0].rcv_dp1) < Number(rows[0].rcv_dp1))
+            || (Number(props.borma[0].issue_add_4) < Number(rows[0].rcv_dp) )
+            || (Number(props.borma[0].issue_add_5) < Number(rows[0].rcv_ds) )
+            || (Number(props.borma[0].issue_add_6) < Number(rows[0].rcv_dp1))
             
         ){
                setErrortext('Current Receiving should not Exceed Previous Receiving Value')
@@ -432,34 +432,7 @@ const RCNDPDSReCreateForm = (props:Props) => {
                     <TableHead className="text-center">Previous BigTaiho</TableHead>
                     <TableHead className="text-center">Current BigTaiho</TableHead>
                     <TableHead className="text-center">-</TableHead>
-                    {/* <TableHead className="text-center">Issue M_DS</TableHead>
-                    <TableHead className="text-center">Issue M_DP</TableHead>
-                    <TableHead className="text-center">Issue K DP</TableHead>
-                    <TableHead className="text-center">Issue DS 1</TableHead>
-                    <TableHead className="text-center">Issue DS 2</TableHead>
-                    <TableHead className="text-center">Issue SP 2</TableHead>
-                    <TableHead className="text-center">Issue YJH</TableHead>
-                    <TableHead className="text-center">Issue YK</TableHead>
-                    <TableHead className="text-center">Issue KP</TableHead>
-                    <TableHead className="text-center">Issue WP</TableHead>
-                    <TableHead className="text-center">Issue RS</TableHead>
-                    <TableHead className="text-center">Issue DP 2</TableHead>
-                    <TableHead className="text-center">Issue DP 3</TableHead>
-                    <TableHead className="text-center">Issue DP 4</TableHead>
-                    <TableHead className="text-center">Issue DP_3L</TableHead>
-                    <TableHead className="text-center">Issue SS</TableHead>
-                    <TableHead className="text-center">Issue OS</TableHead>
-                    <TableHead className="text-center">Issue OS1</TableHead> */}
-                    {/* <TableHead className="text-center">Issue Add 1</TableHead>
-                    <TableHead className="text-center">Issue Add 2</TableHead>
-                    <TableHead className="text-center">Issue Add 3</TableHead>
-                    <TableHead className="text-center">Issue Add 4</TableHead>
-                    <TableHead className="text-center">Issue Add 5</TableHead>
-                    <TableHead className="text-center">Issue Add 6</TableHead>
-                    <TableHead className="text-center">Issue Add 7</TableHead>
-                    <TableHead className="text-center">Issue Add 8</TableHead>
-                    <TableHead className="text-center">Issue Add 9</TableHead>
-                    <TableHead className="text-center">Issue Add 10</TableHead> */}
+                 
                     <TableHead className="text-center">Issue Rejection</TableHead>
                     <TableHead className="text-center">Issue Village</TableHead>
                     <TableHead className="text-center">Issue BigTaiho</TableHead>
@@ -483,12 +456,12 @@ const RCNDPDSReCreateForm = (props:Props) => {
                                         <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
 
-                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].rcv_dp)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_4)} Kg</TableCell>
                                         <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_dp', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].rcv_ds)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_5)} Kg</TableCell>
                                         <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_ds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_ds', e.target.value)} required /></TableCell>
                                         
-                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].rcv_dp1)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_6)} Kg</TableCell>
                                         <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_dp1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_dp1', e.target.value)} required /></TableCell>
                                        
                                         <TableCell className="text-center font-semibold ">{props.borma[0].rcv_Sorting ?formatNumber(props.borma[0].rcv_Sorting):0} Kg</TableCell>

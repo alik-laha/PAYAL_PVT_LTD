@@ -251,12 +251,12 @@ const RCNSortingReCreateForm = (props: Props) => {
         }
         if (
             ((props.borma[0].rcv_bigTaiho ? Number(props.borma[0].rcv_bigTaiho) : 0) < Number(rows[0].rcv_bigTaiho))
-            || (Number(props.borma[0].rcv_sjh) < Number(rows[0].rcv_sjh))
-            || (Number(props.borma[0].rcv_sjh1) < Number(rows[0].rcv_sjh1))
-            || (Number(props.borma[0].rcv_jjh) < Number(rows[0].rcv_jjh))
-            || (Number(props.borma[0].rcv_jh1) < Number(rows[0].rcv_jh1))
-            || (Number(props.borma[0].rcv_jk_k) < Number(rows[0].rcv_jk_k))
-            || (Number(props.borma[0].rcv_sp1) < Number(rows[0].rcv_sp1))
+            || (Number(props.borma[0].issue_add_5) < Number(rows[0].rcv_sjh))
+            || (Number(props.borma[0].issue_add_6) < Number(rows[0].rcv_sjh1))
+            || (Number(props.borma[0].issue_add_4) < Number(rows[0].rcv_jjh))
+            || (Number(props.borma[0].issue_add_7) < Number(rows[0].rcv_jh1))
+            || (Number(props.borma[0].issue_add_8) < Number(rows[0].rcv_jk_k))
+            || (Number(props.borma[0].issue_add_9) < Number(rows[0].rcv_sp1))
 
         ) {
             setErrortext('Current Receiving should not Exceed Previous Receiving Value')
@@ -429,30 +429,7 @@ const RCNSortingReCreateForm = (props: Props) => {
                             <TableHead className="text-center">Previous BigTaiho</TableHead>
                             <TableHead className="text-center">Current BigTaiho</TableHead>
                             <TableHead className="text-center">-</TableHead>
-                            {/* <TableHead className="text-center">Issue JJH</TableHead>
-                    <TableHead className="text-center">Issue JJH1</TableHead>
-                    <TableHead className="text-center">Issue SJH</TableHead>
-                    <TableHead className="text-center">Issue JK</TableHead>
-                    <TableHead className="text-center">Issue JK1</TableHead>
-                    <TableHead className="text-center">Issue K</TableHead>
-                    <TableHead className="text-center">Issue K1</TableHead>
-                    <TableHead className="text-center">Issue LWP</TableHead>
-                    <TableHead className="text-center">Issue LWP1</TableHead>
-                    <TableHead className="text-center">Issue S</TableHead>
-                    <TableHead className="text-center">Issue SS</TableHead>
-                    <TableHead className="text-center">Issue YK</TableHead>
-                    <TableHead className="text-center">Issue SP2</TableHead>
-                    <TableHead className="text-center">Issue KP</TableHead> */}
-                            {/* <TableHead className="text-center">Issue Add 1</TableHead>
-                    <TableHead className="text-center">Issue Add 2</TableHead>
-                    <TableHead className="text-center">Issue Add 3</TableHead>
-                    <TableHead className="text-center">Issue Add 4</TableHead>
-                    <TableHead className="text-center">Issue Add 5</TableHead>
-                    <TableHead className="text-center">Issue Add 6</TableHead>
-                    <TableHead className="text-center">Issue Add 7</TableHead>
-                    <TableHead className="text-center">Issue Add 8</TableHead>
-                    <TableHead className="text-center">Issue Add 9</TableHead>
-                    <TableHead className="text-center">Issue Add 10</TableHead> */}
+                       
                             <TableHead className="text-center">Issue Village</TableHead>
                             <TableHead className="text-center">Issue Mayur</TableHead>
                             <TableHead className="text-center">Issue BigTaiho</TableHead>
@@ -477,21 +454,21 @@ const RCNSortingReCreateForm = (props: Props) => {
                                             <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
                                             <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
 
-                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].rcv_jjh)} Kg</TableCell>
+                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_4)} Kg</TableCell>
                                             <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_jjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_jjh', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].rcv_sjh)} Kg</TableCell>
+                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_5)} Kg</TableCell>
                                             <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_sjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sjh', e.target.value)} required /></TableCell>
 
-                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].rcv_sjh1)} Kg</TableCell>
+                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_6)} Kg</TableCell>
                                             <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_sjh1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sjh1', e.target.value)} required /></TableCell>
 
 
-                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].rcv_jh1)} Kg</TableCell>
+                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_7)} Kg</TableCell>
                                             <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_jh1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_jh1', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].rcv_jk_k)} Kg</TableCell>
+                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_8)} Kg</TableCell>
                                             <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_jk_k} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_jk_k', e.target.value)} required /></TableCell>
 
-                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].rcv_sp1)} Kg</TableCell>
+                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_9)} Kg</TableCell>
                                             <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_sp1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sp1', e.target.value)} required /></TableCell>
 
                                             <TableCell className="text-center font-semibold ">{props.borma[0].rcv_bigTaiho ? formatNumber(props.borma[0].rcv_bigTaiho) : 0} Kg</TableCell>

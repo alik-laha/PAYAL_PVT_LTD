@@ -57,6 +57,7 @@ import * as XLSX from 'xlsx';
 import LWEDitForm from "./LWEdit";
 // import LWReissue from "./LWReissue";
 import LWMix from "./LWMix";
+import LWReCreateForm from "./LWReissue";
 
 
 
@@ -828,7 +829,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                         </DialogTrigger>
-                                                        <DialogContent className="max-w-7xl">
+                                                        <DialogContent className="max-w-screen">
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     <p className='text-1xl pb-1 text-center mt-1'>LW Entry Modification</p>
@@ -842,13 +843,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogTrigger className="flex"><CiBoxes size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
                                                         </DialogTrigger>
-                                                        <DialogContent className="max-w-7xl">
+                                                        <DialogContent className="max-w-screen">
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Sorting Entry Re-issue</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-1'>LW Entry Re-issue</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            {/* <LWReissue borma={[item]} /> */}
+                                                            <LWReCreateForm borma={[item]} />
                                                         </DialogContent>
 
                                                     </Dialog>}
@@ -856,7 +857,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogTrigger className="flex"><CiCrop size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
                                                         </DialogTrigger>
-                                                        <DialogContent className="max-w-4xl">
+                                                        <DialogContent className="max-w-screen">
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}
