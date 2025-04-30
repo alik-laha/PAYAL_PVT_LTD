@@ -603,7 +603,7 @@ const RCNWholesReCreateForm = (props: Props) => {
 
 
              try {
-                            const initialhumid = await axios.post('/api/dpds/createReissueWholes', { linehumid:formData,
+                            const initialhumid = await axios.post('/api/wholes/createReissueWholes', { linehumid:formData,
                                 LotNo:props.borma[0].LotNo
                              })
                             console.log(initialhumid)         

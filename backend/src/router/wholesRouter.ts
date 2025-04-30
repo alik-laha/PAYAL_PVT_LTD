@@ -7,9 +7,7 @@ import {
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import {  CreateReissueHamsa, 
-          } from "../controller/HamsaController/HamsaApi";
-import { approveWholes, CreateEntireWholes, CreateMixWholes, EditRejectWholes, findEditWholesAll, getWholesBylotorigin, getWholesLot, SearchRCNWholes, SearchRCNWholesMix, sumOfallWholes, updateEntireWholes } from "../controller/WholesController/WholesApi";
+import { approveWholes, CreateEntireWholes, CreateMixWholes, CreateReissueWholes, EditRejectWholes, findEditWholesAll, getWholesBylotorigin, getWholesLot, SearchRCNWholes, SearchRCNWholesMix, sumOfallWholes, updateEntireWholes } from "../controller/WholesController/WholesApi";
 const router = express()
 
 // //Wholes.tsx
@@ -24,7 +22,7 @@ router.get("/getWholesByLotOrigin/:lotNO/:origin", jwtVerify, getWholesBylotorig
 router.post("/createEntireWholes", jwtVerify, CreateEntireWholes)
 
 // //HamsaReiSsueForm.tsx
-router.post("/createReissueHamsa", jwtVerify, CreateReissueHamsa)
+router.post("/createReissueWholes", jwtVerify, CreateReissueWholes)
 
 // //Wholestable.tsx
 router.put('/wholesprimarysearch', jwtVerify, SearchRCNWholes);
