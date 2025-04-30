@@ -369,13 +369,13 @@ const HamsaReCreateForm = (props:Props) => {
                     <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Current V_PW_W' : 'Current PW_W') : 'Current PW_W'}</TableHead>
                     <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Previous V_W_Lot' : 'Previous W_Lot') : 'Previous W_Lot'}</TableHead>
                     <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Current V_W_Lot' : 'Current W_Lot') : 'Current W_Lot'}</TableHead>
-                    <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Previous V_Ww' : 'Previous Ww') : 'Previous Ww'}</TableHead>
+                    <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Previous V_Ww' : 'Previous WW') : 'Previous Ww'}</TableHead>
                     <TableHead className="text-center">{LotNo ? (LotNo.includes('V') ? 'Current V_WW' : 'Current WW') : 'Current WW'}</TableHead>
                     <TableHead className="text-center">Previous Village</TableHead>
                     <TableHead className="text-center">Current Village</TableHead>
                     <TableHead className="text-center">Previous LW</TableHead>
                     <TableHead className="text-center">Current LW</TableHead>
-                   
+                    <TableHead className="text-center">-</TableHead>
                     <TableHead className="text-center">Issue LW</TableHead>
                     <TableHead className="text-center">Issue BigTaiho</TableHead>
                    
@@ -403,7 +403,7 @@ const HamsaReCreateForm = (props:Props) => {
                                         <TableCell className="text-center"> <Input type="number" className='bg-yellow-200' value={row.rcv_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_village', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_lw ?formatNumber(props.borma[0].rcv_lw):0} Kg</TableCell>
                                         <TableCell className="text-center"> <Input  type="number" className='bg-yellow-200' value={row.rcv_lw} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_lw', e.target.value)} required /></TableCell>
-
+<TableCell className="bg-black-100"> -</TableCell>
                                      <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_lw} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_lw', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bigTaiho', e.target.value)} required /></TableCell>
                                     {/* <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_jb} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jb', e.target.value)} required /></TableCell> */}

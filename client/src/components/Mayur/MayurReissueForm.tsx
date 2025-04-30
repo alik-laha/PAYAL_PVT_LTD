@@ -316,7 +316,7 @@ const RCNMayurReCreateForm = (props:Props) => {
                     <TableHead className="text-center">Current Village</TableHead>
                     <TableHead className="text-center">Previous Sorting</TableHead>
                     <TableHead className="text-center">Current Sorting</TableHead>
-              
+                    <TableHead className="text-center">-</TableHead>
                     <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Issue V_PW_W':'Issue PW_W'):'Issue PW_W'}</TableHead>
                     <TableHead className="text-center">{LotNo ?(LotNo.includes('V')?'Issue V_W_Lot':'Issue W_Lot'):'Issue W_Lot'}</TableHead>
                     <TableHead className="text-center">{LotNo ?(LotNo.includes('V')?'Issue V_WW':'Issue WW'):'Issue WW'}</TableHead>
@@ -365,7 +365,7 @@ const RCNMayurReCreateForm = (props:Props) => {
                                         <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_village', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_sorting ?formatNumber(props.borma[0].rcv_sorting):0} Kg</TableCell>
                                         <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sorting', e.target.value)} required /></TableCell>
-                                 
+                                        <TableCell className="bg-black-100"> -</TableCell>
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_w} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_w', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_lot} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_lot', e.target.value)} required /></TableCell>

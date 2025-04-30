@@ -57,6 +57,7 @@ import * as XLSX from 'xlsx';
 import RCNWholesReMix from "./WholesMix";
 // import RCNWholesReCreateForm from "./WholesRecreateForm";
 import WholesEditForm from "./WholesModify";
+import RCNWholesReCreateForm from "./WholesRecreateForm";
 
 
 const WholesTable = () => {
@@ -1332,7 +1333,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                     <p className='text-1xl pb-1 text-center mt-1'>Wholes Entry Reissue</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            {/* <RCNWholesReCreateForm borma={[item]} /> */}
+                                                            <RCNWholesReCreateForm borma={[item]} />
                                                         </DialogContent>
 
                                                     </Dialog>}
