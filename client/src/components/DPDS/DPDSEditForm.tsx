@@ -237,7 +237,7 @@ const DPDSEditForm = (props:Props) => {
             issue_ext_grade_9: props.borma[0].issue_ext_grade_9,
             issue_ext_grade_10: props.borma[0].issue_ext_grade_10,
 
-            issue_add_1: props.borma[0].altid==1 ?props.borma[0].issue_add_1:(parseFloat(props.borma[0].issue_add_4)
+            cfv: props.borma[0].altid==1 ?props.borma[0].issue_add_1:(parseFloat(props.borma[0].issue_add_4)
             +parseFloat(props.borma[0].issue_add_5)+parseFloat(props.borma[0].issue_add_6)).toString(),
             issue_add_2:  props.borma[0].issue_add_2,
             issue_add_3:  props.borma[0].issue_add_3,

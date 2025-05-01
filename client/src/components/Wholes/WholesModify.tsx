@@ -435,7 +435,13 @@ issue_ext_grade_10: props.borma[0].issue_ext_grade_10,
             issue_village: props.borma[0].issue_village,
             issue_bigTaiho: props.borma[0].issue_bigTaiho,
             issue_lw: props.borma[0].issue_lw,
-            issue_add_1: props.borma[0].issue_add_1,
+            issue_add_1: (parseFloat(props.borma[0].rcv_pw_210) + parseFloat(props.borma[0].rcv_w_210) + parseFloat(props.borma[0].rcv_ww_210)
+            + parseFloat(props.borma[0].rcv_pw_240) + parseFloat(props.borma[0].rcv_w_240) + parseFloat(props.borma[0].rcv_ww_240)
+            + parseFloat(props.borma[0].rcv_pw_280) + parseFloat(props.borma[0].rcv_w_280) + parseFloat(props.borma[0].rcv_ww_280)
+            + parseFloat(props.borma[0].rcv_pw_320) + parseFloat(props.borma[0].rcv_w_320) + parseFloat(props.borma[0].rcv_ww_320)
+            + parseFloat(props.borma[0].rcv_pw_360) + parseFloat(props.borma[0].rcv_w_360) + parseFloat(props.borma[0].rcv_ww_360)
+            + parseFloat(props.borma[0].rcv_pw_400) + parseFloat(props.borma[0].rcv_w_400) + parseFloat(props.borma[0].rcv_ww_400)
+            + parseFloat(props.borma[0].rcv_jb_mayur) + parseFloat(props.borma[0].rcv_jb_hamsa)).toString(),
             issue_add_2: props.borma[0].issue_add_2,
             issue_add_3: props.borma[0].issue_add_3,
             issue_add_4: props.borma[0].issue_add_4,

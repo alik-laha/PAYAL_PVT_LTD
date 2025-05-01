@@ -161,7 +161,13 @@ const WholesTable = () => {
                     + parseFloat(item.rcv_pw_400) + parseFloat(item.rcv_w_400) + parseFloat(item.rcv_ww_400)
                     + parseFloat(item.rcv_jb_mayur) + parseFloat(item.rcv_jb_hamsa)).toString()),
                 Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+                Borma_Loss_Percentage: formatNumber((((Number(item.issue_add_2))/(parseFloat(item.rcv_pw_210) + parseFloat(item.rcv_w_210) + parseFloat(item.rcv_ww_210)
+                + parseFloat(item.rcv_pw_240) + parseFloat(item.rcv_w_240) + parseFloat(item.rcv_ww_240)
+                + parseFloat(item.rcv_pw_280) + parseFloat(item.rcv_w_280) + parseFloat(item.rcv_ww_280)
+                + parseFloat(item.rcv_pw_320) + parseFloat(item.rcv_w_320) + parseFloat(item.rcv_ww_320)
+                + parseFloat(item.rcv_pw_360) + parseFloat(item.rcv_w_360) + parseFloat(item.rcv_ww_360)
+                + parseFloat(item.rcv_pw_400) + parseFloat(item.rcv_w_400) + parseFloat(item.rcv_ww_400)
+                + parseFloat(item.rcv_jb_mayur) + parseFloat(item.rcv_jb_hamsa)))*100).toString()),
                 Issue_pw_150: formatNumber(item.issue_pw_150),
                 Issue_w_150: formatNumber(item.issue_w_150),
                 Issue_ww_150: formatNumber(item.issue_ww_150),
@@ -420,7 +426,13 @@ const WholesTable = () => {
                     + parseFloat(item.rcv_pw_400) + parseFloat(item.rcv_w_400) + parseFloat(item.rcv_ww_400)
                     + parseFloat(item.rcv_jb_mayur) + parseFloat(item.rcv_jb_hamsa)).toString()),
                 Borma_Loss_Kg: formatNumber(item.issue_add_2),
-                Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+                Borma_Loss_Percentage: formatNumber((((Number(item.issue_add_2))/(parseFloat(item.rcv_pw_210) + parseFloat(item.rcv_w_210) + parseFloat(item.rcv_ww_210)
+                + parseFloat(item.rcv_pw_240) + parseFloat(item.rcv_w_240) + parseFloat(item.rcv_ww_240)
+                + parseFloat(item.rcv_pw_280) + parseFloat(item.rcv_w_280) + parseFloat(item.rcv_ww_280)
+                + parseFloat(item.rcv_pw_320) + parseFloat(item.rcv_w_320) + parseFloat(item.rcv_ww_320)
+                + parseFloat(item.rcv_pw_360) + parseFloat(item.rcv_w_360) + parseFloat(item.rcv_ww_360)
+                + parseFloat(item.rcv_pw_400) + parseFloat(item.rcv_w_400) + parseFloat(item.rcv_ww_400)
+                + parseFloat(item.rcv_jb_mayur) + parseFloat(item.rcv_jb_hamsa)))*100).toString()),
                 Issue_pw_150: formatNumber(item.issue_pw_150),
                 Issue_w_150: formatNumber(item.issue_w_150),
                 Issue_ww_150: formatNumber(item.issue_ww_150),
@@ -1108,7 +1120,120 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     parseFloat(item.issue_jjb1)+parseFloat(item.issue_rejection)+parseFloat(item.issue_village)+parseFloat(item.issue_lw)+parseFloat(item.issue_bigTaiho))
                                                     .toString()
                                             )} Kg</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
+                                        <TableCell className="text-center font-bold text-red-500 ">{formatNumber(((Number(item.issue_add_2)/(parseFloat(item.current_backlog)+parseFloat(item.issue_pw_150) +
+                                                    parseFloat(item.issue_w_150) +
+                                                    parseFloat(item.issue_ww_150) +
+                                                    parseFloat(item.issue_s_150) +
+                                                    parseFloat(item.issue_aw_150) +
+                                                    parseFloat(item.issue_lw_150) +
+                                                    parseFloat(item.issue_pw_180) +
+                                                    parseFloat(item.issue_w_180) +
+                                                    parseFloat(item.issue_ww_180) +
+                                                    parseFloat(item.issue_s_180) +
+                                                    parseFloat(item.issue_aw_180) +
+                                                    parseFloat(item.issue_lw_180) +
+                                                    parseFloat(item.issue_pw_210) +
+                                                    parseFloat(item.issue_w_210) +
+                                                    parseFloat(item.issue_ww_210) +
+                                                    parseFloat(item.issue_s_210) +
+                                                    parseFloat(item.issue_aw_210) +
+                                                    parseFloat(item.issue_lw_210) +
+                                                    parseFloat(item.issue_pw_240) +
+                                                    parseFloat(item.issue_w_240) +
+                                                    parseFloat(item.issue_ww_240) +
+                                                    parseFloat(item.issue_ww_240_A) +
+                                                    parseFloat(item.issue_aw_240) +
+                                                    parseFloat(item.issue_lw_240) +
+                                                    parseFloat(item.issue_pw_280) +
+                                                    parseFloat(item.issue_w_280) +
+                                                    parseFloat(item.issue_ww_280) +
+                                                    parseFloat(item.issue_ww_280_A) +
+                                                    parseFloat(item.issue_aw_280) +
+                                                    parseFloat(item.issue_lw_280) +
+                                                    parseFloat(item.wholes_double) +
+                                                    parseFloat(item.issue_pw_320) +
+                                                    parseFloat(item.issue_w_320) +
+                                                    parseFloat(item.issue_ww_320) +
+                                                    parseFloat(item.issue_ww_320_A) +
+                                                    parseFloat(item.issue_aw_320) +
+                                                    parseFloat(item.issue_lw_320) +
+                                                    parseFloat(item.issue_pw_360) +
+                                                    parseFloat(item.issue_w_360) +
+                                                    parseFloat(item.issue_ww_360) +
+                                                    parseFloat(item.issue_ww_360_A) +
+                                                    parseFloat(item.issue_aw_360) +
+                                                    parseFloat(item.issue_lw_360) +
+                                                    parseFloat(item.issue_pw_400) +
+                                                    parseFloat(item.issue_w_400) +
+                                                    parseFloat(item.issue_ww_400) +
+                                                    parseFloat(item.issue_ww_400_A) +
+                                                    parseFloat(item.issue_aw_400) +
+                                                    parseFloat(item.issue_lw_400) +
+                                                    parseFloat(item.issue_jjb) +parseFloat(item.issue_add_2)+
+                                                    parseFloat(item.issue_jjb1)+parseFloat(item.issue_payal_240) +
+                                                    parseFloat(item.issue_payal_400) +
+                                                    parseFloat(item.issue_e_320_lot) +
+                                                    parseFloat(item.issue_e_400_lot) +
+                                                    parseFloat(item.issue_in_w_240) +
+                                                    parseFloat(item.issue_in_w_320) +
+                                                    parseFloat(item.issue_in_w_400) +
+                                                    
+                                                    parseFloat(item.issue_a_150) +
+                                                    parseFloat(item.issue_c_150) +
+                                                    parseFloat(item.issue_e_150) +
+                                                    parseFloat(item.issue_sw_150) +
+                                                    parseFloat(item.issue_ssw_150) +
+                                                    parseFloat(item.issue_k_150) +
+                                                    
+                                                    parseFloat(item.issue_a_180) +
+                                                    parseFloat(item.issue_c_180) +
+                                                    parseFloat(item.issue_e_180) +
+                                                    parseFloat(item.issue_sw_180) +
+                                                    parseFloat(item.issue_ssw_180) +
+                                                    parseFloat(item.issue_k_180) +
+                                                    
+                                                    parseFloat(item.issue_a_210) +
+                                                    parseFloat(item.issue_c_210) +
+                                                    parseFloat(item.issue_e_210) +
+                                                    parseFloat(item.issue_sw_210) +
+                                                    parseFloat(item.issue_ssw_210) +
+                                                    parseFloat(item.issue_k_210) +
+                                                    
+                                                    parseFloat(item.issue_a_240) +
+                                                    parseFloat(item.issue_c_240) +
+                                                    parseFloat(item.issue_e_240) +
+                                                    parseFloat(item.issue_sw_240) +
+                                                    parseFloat(item.issue_ssw_240) +
+                                                    parseFloat(item.issue_k_240) +
+                                                    
+                                                    parseFloat(item.issue_a_280) +
+                                                    parseFloat(item.issue_c_280) +
+                                                    parseFloat(item.issue_e_280) +
+                                                    parseFloat(item.issue_sw_280) +
+                                                    parseFloat(item.issue_ssw_280) +
+                                                    parseFloat(item.issue_k_280) +
+                                                    
+                                                    parseFloat(item.issue_a_320) +
+                                                    parseFloat(item.issue_c_320) +
+                                                    parseFloat(item.issue_e_320) +
+                                                    parseFloat(item.issue_sw_320) +
+                                                    parseFloat(item.issue_ssw_320) +
+                                                    parseFloat(item.issue_k_320) +
+                                                    
+                                                    parseFloat(item.issue_a_360) +
+                                                    parseFloat(item.issue_c_360) +
+                                                    parseFloat(item.issue_e_360) +
+                                                    parseFloat(item.issue_sw_360) +
+                                                    parseFloat(item.issue_ssw_360) +
+                                                    parseFloat(item.issue_k_360) +
+                                                    
+                                                    parseFloat(item.issue_a_400) +
+                                                    parseFloat(item.issue_c_400) +
+                                                    parseFloat(item.issue_e_400) +
+                                                    parseFloat(item.issue_sw_400) +
+                                                    parseFloat(item.issue_ssw_400) +
+                                                    parseFloat(item.issue_k_400)+
+                                                    parseFloat(item.issue_rejection)+parseFloat(item.issue_village)+parseFloat(item.issue_lw)+parseFloat(item.issue_bigTaiho)))*100).toString())} %</TableCell>
                                         <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
 
                                         <TableCell className="text-center ">{formatNumber(item.rcv_pw_210)}</TableCell>
@@ -1700,7 +1825,120 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     parseFloat(item.issue_rejection)+parseFloat(item.issue_village)+parseFloat(item.issue_lw)+parseFloat(item.issue_bigTaiho))
                                                     .toString()
                                             )} Kg</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
+                                        <TableCell className="text-center font-bold text-red-500 ">{formatNumber(((Number(item.issue_add_2)/(parseFloat(item.current_backlog)+parseFloat(item.issue_pw_150) +
+                                                    parseFloat(item.issue_w_150) +
+                                                    parseFloat(item.issue_ww_150) +
+                                                    parseFloat(item.issue_s_150) +
+                                                    parseFloat(item.issue_aw_150) +
+                                                    parseFloat(item.issue_lw_150) +
+                                                    parseFloat(item.issue_pw_180) +
+                                                    parseFloat(item.issue_w_180) +
+                                                    parseFloat(item.issue_ww_180) +
+                                                    parseFloat(item.issue_s_180) +
+                                                    parseFloat(item.issue_aw_180) +
+                                                    parseFloat(item.issue_lw_180) +
+                                                    parseFloat(item.issue_pw_210) +
+                                                    parseFloat(item.issue_w_210) +
+                                                    parseFloat(item.issue_ww_210) +
+                                                    parseFloat(item.issue_s_210) +
+                                                    parseFloat(item.issue_aw_210) +
+                                                    parseFloat(item.issue_lw_210) +
+                                                    parseFloat(item.issue_pw_240) +
+                                                    parseFloat(item.issue_w_240) +
+                                                    parseFloat(item.issue_ww_240) +
+                                                    parseFloat(item.issue_ww_240_A) +
+                                                    parseFloat(item.issue_aw_240) +
+                                                    parseFloat(item.issue_lw_240) +
+                                                    parseFloat(item.issue_pw_280) +
+                                                    parseFloat(item.issue_w_280) +
+                                                    parseFloat(item.issue_ww_280) +
+                                                    parseFloat(item.issue_ww_280_A) +
+                                                    parseFloat(item.issue_aw_280) +
+                                                    parseFloat(item.issue_lw_280) +
+                                                    parseFloat(item.wholes_double) +
+                                                    parseFloat(item.issue_pw_320) +
+                                                    parseFloat(item.issue_w_320) +
+                                                    parseFloat(item.issue_ww_320) +
+                                                    parseFloat(item.issue_ww_320_A) +
+                                                    parseFloat(item.issue_aw_320) +
+                                                    parseFloat(item.issue_lw_320) +
+                                                    parseFloat(item.issue_pw_360) +
+                                                    parseFloat(item.issue_w_360) +
+                                                    parseFloat(item.issue_ww_360) +
+                                                    parseFloat(item.issue_ww_360_A) +
+                                                    parseFloat(item.issue_aw_360) +
+                                                    parseFloat(item.issue_lw_360) +
+                                                    parseFloat(item.issue_pw_400) +
+                                                    parseFloat(item.issue_w_400) +
+                                                    parseFloat(item.issue_ww_400) +
+                                                    parseFloat(item.issue_ww_400_A) +
+                                                    parseFloat(item.issue_aw_400) +
+                                                    parseFloat(item.issue_lw_400) +
+                                                    parseFloat(item.issue_jjb) +parseFloat(item.issue_add_2)+
+                                                    parseFloat(item.issue_jjb1)+parseFloat(item.issue_payal_240) +
+                                                    parseFloat(item.issue_payal_400) +
+                                                    parseFloat(item.issue_e_320_lot) +
+                                                    parseFloat(item.issue_e_400_lot) +
+                                                    parseFloat(item.issue_in_w_240) +
+                                                    parseFloat(item.issue_in_w_320) +
+                                                    parseFloat(item.issue_in_w_400) +
+                                                    
+                                                    parseFloat(item.issue_a_150) +
+                                                    parseFloat(item.issue_c_150) +
+                                                    parseFloat(item.issue_e_150) +
+                                                    parseFloat(item.issue_sw_150) +
+                                                    parseFloat(item.issue_ssw_150) +
+                                                    parseFloat(item.issue_k_150) +
+                                                    
+                                                    parseFloat(item.issue_a_180) +
+                                                    parseFloat(item.issue_c_180) +
+                                                    parseFloat(item.issue_e_180) +
+                                                    parseFloat(item.issue_sw_180) +
+                                                    parseFloat(item.issue_ssw_180) +
+                                                    parseFloat(item.issue_k_180) +
+                                                    
+                                                    parseFloat(item.issue_a_210) +
+                                                    parseFloat(item.issue_c_210) +
+                                                    parseFloat(item.issue_e_210) +
+                                                    parseFloat(item.issue_sw_210) +
+                                                    parseFloat(item.issue_ssw_210) +
+                                                    parseFloat(item.issue_k_210) +
+                                                    
+                                                    parseFloat(item.issue_a_240) +
+                                                    parseFloat(item.issue_c_240) +
+                                                    parseFloat(item.issue_e_240) +
+                                                    parseFloat(item.issue_sw_240) +
+                                                    parseFloat(item.issue_ssw_240) +
+                                                    parseFloat(item.issue_k_240) +
+                                                    
+                                                    parseFloat(item.issue_a_280) +
+                                                    parseFloat(item.issue_c_280) +
+                                                    parseFloat(item.issue_e_280) +
+                                                    parseFloat(item.issue_sw_280) +
+                                                    parseFloat(item.issue_ssw_280) +
+                                                    parseFloat(item.issue_k_280) +
+                                                    
+                                                    parseFloat(item.issue_a_320) +
+                                                    parseFloat(item.issue_c_320) +
+                                                    parseFloat(item.issue_e_320) +
+                                                    parseFloat(item.issue_sw_320) +
+                                                    parseFloat(item.issue_ssw_320) +
+                                                    parseFloat(item.issue_k_320) +
+                                                    
+                                                    parseFloat(item.issue_a_360) +
+                                                    parseFloat(item.issue_c_360) +
+                                                    parseFloat(item.issue_e_360) +
+                                                    parseFloat(item.issue_sw_360) +
+                                                    parseFloat(item.issue_ssw_360) +
+                                                    parseFloat(item.issue_k_360) +
+                                                    
+                                                    parseFloat(item.issue_a_400) +
+                                                    parseFloat(item.issue_c_400) +
+                                                    parseFloat(item.issue_e_400) +
+                                                    parseFloat(item.issue_sw_400) +
+                                                    parseFloat(item.issue_ssw_400) +
+                                                    parseFloat(item.issue_k_400)+
+                                                    parseFloat(item.issue_rejection)+parseFloat(item.issue_village)+parseFloat(item.issue_lw)+parseFloat(item.issue_bigTaiho)))*100).toString())} %</TableCell>
                                         <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
 
                                         <TableCell className="text-center ">{formatNumber(item.rcv_pw_210)}</TableCell>
