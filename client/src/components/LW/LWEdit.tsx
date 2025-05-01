@@ -445,6 +445,7 @@ const LWEDitForm = (props: Props) => {
                                             {/* <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
                                             <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell> */}
                                             
+                                            
                                             {/* <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_hamsa)} </TableCell> */}
                                             <TableCell className="text-center font-semibold  text-green-500"> {formatNumber((parseFloat(props.borma[0].rcv_hamsa)-parseFloat(props.borma[0].issue_add_5)).toString())} </TableCell>
                                             {/* <TableCell className="text-center"> <Input className='bg-blue-100' type="number"
