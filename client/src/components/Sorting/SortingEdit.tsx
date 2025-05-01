@@ -466,7 +466,8 @@ const SortingEditForm = (props: Props) => {
                                         <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_jh1N.toString())} </TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_jk_kN.toString())} </TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_sp1N.toString())} </TableCell> */}
-                                            <TableCell className="text-center font-semibold text-green-500">{row.issue_add_1 ? formatNumber(row.issue_add_1) : 0} Kg</TableCell>
+                                            <TableCell className="text-center font-semibold text-green-500">{formatNumber((Number(row.issue_add_4) +Number(row.issue_add_5)+Number(row.issue_add_6)
+                                +Number(row.issue_add_7) +Number(row.issue_add_8)+Number(row.issue_add_9)).toString())} Kg</TableCell>
 
                                             <TableCell className="text-center font-semibold text-green-500">{row.rcv_bigTaiho ? formatNumber(row.rcv_bigTaiho) : 0} Kg</TableCell>
                                             {/* <TableCell className="text-center font-semibold bg-yellow-100 text-green-600  ">{formatNumber((parseFloat(row.rcv_jjh) +

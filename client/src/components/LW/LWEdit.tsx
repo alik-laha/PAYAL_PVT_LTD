@@ -441,12 +441,12 @@ const LWEDitForm = (props: Props) => {
                                             {/* <TableCell className="text-center"> <Input className='bg-blue-100' type="number"
                                                 value={Number(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handlemayurOpeningChange(idx, e)} required /></TableCell> */}
                                             
-                                            <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.issue_add_1)} </TableCell>
+                                            <TableCell className="text-center font-semibold  text-green-500"> {formatNumber((parseFloat(props.borma[0].rcv_mayur)-parseFloat(props.borma[0].issue_add_2)).toString())} </TableCell>
                                             {/* <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
                                             <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell> */}
                                             
                                             {/* <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_hamsa)} </TableCell> */}
-                                            <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.issue_add_4)} </TableCell>
+                                            <TableCell className="text-center font-semibold  text-green-500"> {formatNumber((parseFloat(props.borma[0].rcv_hamsa)-parseFloat(props.borma[0].issue_add_5)).toString())} </TableCell>
                                             {/* <TableCell className="text-center"> <Input className='bg-blue-100' type="number"
                                                 value={Number(row.issue_add_4.toString())} placeholder="Pr." onChange={(e) => handlehamsaOpeningChange(idx, e)} required /></TableCell> */}
                                             {/* <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_5.toString())} Kg</TableCell>

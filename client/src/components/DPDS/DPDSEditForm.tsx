@@ -236,8 +236,7 @@ const DPDSEditForm = (props:Props) => {
             issue_ext_grade_8: props.borma[0].issue_ext_grade_8,
             issue_ext_grade_9: props.borma[0].issue_ext_grade_9,
             issue_ext_grade_10: props.borma[0].issue_ext_grade_10,
-
-            cfv: props.borma[0].altid==1 ?props.borma[0].issue_add_1:(parseFloat(props.borma[0].issue_add_4)
+            issue_add_1: props.borma[0].altid==1 ?props.borma[0].issue_add_1:(parseFloat(props.borma[0].issue_add_4)
             +parseFloat(props.borma[0].issue_add_5)+parseFloat(props.borma[0].issue_add_6)).toString(),
             issue_add_2:  props.borma[0].issue_add_2,
             issue_add_3:  props.borma[0].issue_add_3,
@@ -422,7 +421,7 @@ const DPDSEditForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_dpN.toString())} Kg</TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_dsN.toString())} Kg</TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_dp1N.toString())} Kg</TableCell> */}
-                                          <TableCell className="text-center font-semibold text-green-500">{row.issue_add_1 ? formatNumber(row.issue_add_1) :0} Kg</TableCell>
+                                          <TableCell className="text-center font-semibold text-green-500">{formatNumber((Number(row.rcv_dpN) +Number(row.rcv_dp1N)+Number(row.rcv_dsN)).toString())} Kg</TableCell>
                                           <TableCell className="text-center font-semibold text-green-500">{row.rcv_Sorting ? formatNumber(row.rcv_Sorting):0} Kg</TableCell>
 
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_transfer ? formatNumber(row.rcv_transfer) :0} Kg</TableCell>

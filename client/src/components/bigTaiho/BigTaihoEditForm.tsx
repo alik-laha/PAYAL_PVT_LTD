@@ -425,7 +425,7 @@ const BigTaihoEditForm = (props:Props) => {
                                         value={formatNumber(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required readOnly/></TableCell> */}
                                            
                                         
-                                        <TableCell className="text-center font-semibold text-green-500">{formatNumber(row.issue_add_1)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold text-green-500">{formatNumber((Number(row.rcv_peeling)-Number(row.issue_add_2)).toString())} Kg</TableCell>
                                         {/* <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell> */}
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_village ? formatNumber(row.rcv_village) :0} Kg</TableCell>
