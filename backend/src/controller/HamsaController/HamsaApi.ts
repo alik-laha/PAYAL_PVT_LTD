@@ -1180,7 +1180,15 @@ export const CreateReissueHamsa= async (req: Request, res: Response) => {
                                         rcv_ww_400:sequelize.literal(`rcv_ww_400+ ${data.issue_ww_400}`),
                                         rcv_jb_hamsa:sequelize.literal(`rcv_jb_hamsa+ ${data.issue_jb}`),
 
-                                      
+                                        issue_add_1:sequelize.literal(`issue_add_1+
+                                            ${parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                                           +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
+                                           +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                                           +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)+parseFloat(data.issue_ww_320)
+                                           +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)+parseFloat(data.issue_ww_400)
+                                           +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                                           +parseFloat(data.issue_jb)
+                                       }`),
                                         current_backlog:sequelize.literal(`current_backlog+
                                              ${parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
                                             +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
@@ -1222,6 +1230,7 @@ export const CreateReissueHamsa= async (req: Request, res: Response) => {
                                         rcv_w_400:data.issue_w_400,
                                         rcv_ww_400:data.issue_ww_400_A,
                                         rcv_jb_hamsa:data.issue_jb,
+                                      
                                         current_backlog:sequelize.literal(`current_backlog+
                                             ${parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
                                            +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
@@ -1280,7 +1289,8 @@ export const CreateReissueHamsa= async (req: Request, res: Response) => {
                             await LWModel.update(
                                 { 
                                     rcv_hamsa:sequelize.literal(`rcv_hamsa+ ${data.issue_lw}`),
-                                    current_backlog:sequelize.literal(`current_backlog+ ${data.issue_lw}`)
+                                    current_backlog:sequelize.literal(`current_backlog+ ${data.issue_lw}`),
+                                    issue_add_8:sequelize.literal(`issue_add_8+ ${data.issue_lw}`),
                                 },
                                 {
                                     where: {
@@ -1908,6 +1918,7 @@ export const approveHamsa = async (req: Request, res: Response) => {
                                         rcv_w_400:data.issue_w_400,
                                         rcv_ww_400:data.issue_ww_400,
                                         rcv_jb_hamsa:data.issue_jb,
+                                        issue_add_1:sequelize.literal(`issue_add_1+ ${difference_total_Wholes}`),
                                         current_backlog: sequelize.literal(`current_backlog+ ${difference_total_Wholes}`)
                                     },
                                     {
@@ -1976,7 +1987,8 @@ export const approveHamsa = async (req: Request, res: Response) => {
                                 await LWModel.update(
                                     {
                                         rcv_hamsa: sequelize.literal(`rcv_hamsa+ ${difference_lw}`),
-                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_lw}`)
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_lw}`),
+                                        issue_add_8: sequelize.literal(`issue_add_8+ ${difference_lw}`)
                                     },
                                     {
                                         where: {
