@@ -634,10 +634,11 @@
         align-items: center;
         cursor: pointer;
         /* color: #777; */
-        color: rgba(23, 24, 25, 0.549);
+        /* color: rgba(23, 24, 25, 0.549); */
         display: block;
         font-size: 14px;
         font-weight: 500;
+        color: rgba(198, 220, 241, 0.796);
         
     }
 
@@ -652,7 +653,7 @@
         flex: 1 1 25% ;
        
         padding: 20px 15px 20px 15px;
-        height: 35vw;
+        height: 30vw;
         font-size: 12px;
         max-width:30%!important;
         border-radius: 8px;

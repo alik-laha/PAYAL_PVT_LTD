@@ -56,13 +56,13 @@ const RcvVillage = () => {
                     </div>
                 </div>
 
-                <p className='text-lg font-semibold text-center py-1 '> Village Primary</p>
+                <p className='text-lg font-semibold text-center py-1 '> Village Out Primary</p>
                 {checkreceiving('VillagePrimaryEntry') && <Dialog>
                 <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left"
                 onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                 <DialogContent className='max-w-2xl'>
                     <DialogHeader>
-                        <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Village Entry Pending List</p></DialogTitle>
+                        <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Village Out Entry Pending List</p></DialogTitle>
                        
                     </DialogHeader>
 

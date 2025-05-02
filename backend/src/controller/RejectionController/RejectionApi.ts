@@ -609,7 +609,8 @@ export const approveRejection = async (req: Request, res: Response) => {
                                 await villageProduction.update(
                                     {
                                         rcv_rejection: sequelize.literal(`rcv_rejection+ ${difference_vil}`),
-                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_vil}`)
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_vil}`),
+                                        issue_add_12: sequelize.literal(`issue_add_12+ ${difference_vil}`)
                                     },
                                     {
                                         where: {

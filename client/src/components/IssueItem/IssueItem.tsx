@@ -73,9 +73,9 @@ const IssueItem = () => {
             Sl_No: idx + 1,
            
             Item_Name: item.sku,
-            // In_Qty: formatNumber(item.quantity),
-            // In_Backlog_Qty: formatNumber(item.thresoldquantity),
-            Receive_Qty: Number(formatNumber(item.thresoldquantity))+Number(formatNumber(item.quantity)),
+            Receive_GatePass_Qty: formatNumber(item.quantity),
+            Receive_Backlog_Qty: formatNumber(item.thresoldquantity),
+            Total_Receive_Qty: Number(formatNumber(item.thresoldquantity))+Number(formatNumber(item.quantity)),
             Issue_Qty: item.consumedquantity,
             Backlog_Qty:(Number(formatNumber(item.thresoldquantity))+Number(formatNumber(item.quantity)))-item.consumedquantity,
         }));

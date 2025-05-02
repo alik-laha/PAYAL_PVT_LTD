@@ -39,6 +39,7 @@ import RejectionRouter from "./router/RejectionRouter";
 import formLockRouter from "./model/formLockRouter";
 import packingRouter from "./router/packingRouter";
 import VillageOutRouter from "./router/VillageOutRouter";
+import RcvVillageInRouter from "./router/RcvVillageInRouter";
 
 
 
@@ -70,6 +71,7 @@ app.use('/api/storePrimary', storePrimaryRouter)
 app.use('/api/generalPrimary', generalPrimaryRouter)
 app.use('/api/almondPrimary', almondRouter)
 app.use('/api/rcvVillage', RcvVillageRouter)
+app.use('/api/rcvVillageIn', RcvVillageInRouter)
 app.use('/api/agarbatiPrimary', agarbatiRouter)
 app.use("/api/qcpackage", qcPackageMaterialRouter)
 app.use("/api/issue", issueRouter)

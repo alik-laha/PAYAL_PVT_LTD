@@ -1125,7 +1125,6 @@ export const updateMappingOrderEntire = async (req: Request, res: Response) => {
                         sectionQuantity:data.stockquantity,
                         prcntgMix:data.prcntg,
                         sectionQuantityActual:data.actual_stockquantity,
-                
                         mappedQuantity:data.mixquantity,
                         remarks:data.remarks,
                         createdBy,mappingStatus:1
@@ -1199,38 +1198,71 @@ export const updateReMappingOrderEntire = async (req: Request, res: Response) =>
         const amount = req.params.amount;
         const createdBy = req.cookies.user;
         const formData = req.body.data
+        const {gst,totalBill,unitRate}=req.body
         const firstrow = formData[0]
-        const {  mappingpk, orderpk } = firstrow;
+        const {  orderpk } = firstrow;
        
 
             await sequelize.transaction(async (transaction) => {
+                
+                const packing_prev = await orderPackingModel.findOne({
+                    attributes: ['altid'],
+                    where: {
+                        orderpk: orderpk
 
+                    },
+                    order: [['id', 'DESC']],
+
+                });
+                const mapping_prev = await orderMappingModel.findOne({
+                    attributes: ['altid'],
+                    where: {
+                        orderpk: orderpk
+
+                    },
+                    order: [['id', 'DESC']],
+
+                });
+                const packingupdate = await orderPackingModel.update(
+                    {
+                        latest: 0
+
+                    }, {
+                    where: {
+                        orderpk: orderpk
+                    }, transaction
+                }
+                );
                 const packingEntry = await orderPackingModel.create({
+                    altid:packing_prev ?(parseInt(packing_prev.dataValues.altid)+1):1,
                     origin: firstrow.origin,
                     orderID: firstrow.orderID,
                     orderDate: firstrow.orderDate,
-                    gradeName:firstrow.finalgradeName,
-                    vendorName:firstrow.vendorName,
-                    gst:firstrow.gst,
+                    gradeName: firstrow.finalgradeName,
+                    vendorName: firstrow.vendorName,
+                    gst: gst,
                     demandquantity: firstrow.demandQuantity,
-                    unitRate:firstrow.unitRate,
-                    totalBill:firstrow.totalBill
+                    unitRate: unitRate,
+                    orderpk: firstrow.orderpk,
+                    totalBill: totalBill,
+                    fulfillquantity:amount
                 },{transaction});
               
                 //console.log(dataToUpdate)
                 for (let data of formData) {
-                    //console.log(data)
-                    let skuData = await lotoriginmodel.findOne({ where: { LotNo: data.LotNo, origin: data.porigin } });
-                    if (!skuData) {
-                        res.status(500).json({ message: "Lot No Does Not Exist" });
-                        throw new Error('Transaction Aborted 1')
-                    }
-                    if (data.stockquantity < data.mixquantity) {
-                        res.status(500).json({ message: "Mapping Quantity Can't Be Greater than 100%" });
-                        throw new Error('Transaction Aborted 2')
-                    }
+                     //console.log(data)
+                     let skuData = await lotoriginmodel.findOne({ where: { LotNo: data.LotNo, origin: data.porigin } });
+                     if (!skuData) {
+                         res.status(500).json({ message: "Lot No Does Not Exist" });
+                         throw new Error('Transaction Aborted 1')
+                     }
+                     if (data.actual_stockquantity < data.mixquantity) {
+                         res.status(500).json({ message: "Mapping Quantity Can't Be Greater than 100%" });
+                         throw new Error('Transaction Aborted 2')
+                     }
 
                     await orderMappingModel.create({
+                        altid:mapping_prev ?(parseInt(mapping_prev.dataValues.altid)+1):1,
                         origin: data.origin,
                         orderID: data.orderID,
                         orderDate: data.orderDate,
@@ -1239,12 +1271,14 @@ export const updateReMappingOrderEntire = async (req: Request, res: Response) =>
                         demandQuantity: data.demandQuantity,
                         orderpk:data.orderpk,
                         packingpk:packingEntry.dataValues.id,
+                        mappingDate:data.mappingDate,
                         LotNo:data.LotNo,
                         productionOrigin:data.porigin,
                         productionSection:data.section,
                         productionGrade:data.grade,
                         sectionQuantity:data.stockquantity,
                         prcntgMix:data.prcntg,
+                        sectionQuantityActual:data.actual_stockquantity,
                         mappedQuantity:data.mixquantity,
                         remarks:data.remarks,
                         createdBy,mappingStatus:1
@@ -1252,7 +1286,6 @@ export const updateReMappingOrderEntire = async (req: Request, res: Response) =>
                 }
 
                 const orderupdate = await orderPrimaryModel.update({ 
-                    ordMappingStatus:1,
                     mapquantity:sequelize.literal(`mapquantity+ ${amount}`),
                 }, {
                     where: {
@@ -1262,11 +1295,11 @@ export const updateReMappingOrderEntire = async (req: Request, res: Response) =>
 
         
 
-                if(orderupdate &&  packingEntry){
-                    return res.status(201).json({ message: "Order Id Mapped successfully" });
+                if(packingupdate && orderupdate &&  packingEntry){
+                    return res.status(201).json({ message: "Order Id Re-Mapped successfully" });
                 }
                 else{
-                    return res.status(500).json({ message: "Internal Error while Creating Order Mapping Entry" });
+                    return res.status(500).json({ message: "Internal Error while Creating Order Re-Mapping Entry" });
                 }
 
 
@@ -1289,7 +1322,7 @@ export const updateReMappingOrderEntire = async (req: Request, res: Response) =>
 
 export const modifyOrder = async (req: Request, res: Response) => {
     try{
-     const { origin,gradeName,orderDate,invDate,vendor,broker,quantity,gst,totalBill,unitRate,remarks } = req.body;
+     const { origin,gradeName,orderDate,invDate,vendor,broker,quantity,gst,totalBill,unitRate,remarks,mappingStatus } = req.body;
         const id=req.params.id
      const actionedBy = req.cookies.user;
 
@@ -1308,9 +1341,9 @@ export const modifyOrder = async (req: Request, res: Response) => {
                 }, transaction
             }
         );
-      
-          
-            const packingEntry = await orderPackingModel.update({
+        let packingEntry,mappingEntry
+          if(mappingStatus===0){
+             packingEntry = await orderPackingModel.update({
                 origin: origin,
                 orderDate: invDate,
                 gradeName:gradeName,
@@ -1327,7 +1360,7 @@ export const modifyOrder = async (req: Request, res: Response) => {
                 }, transaction
             });
 
-            const mappingEntry = await orderMappingModel.update({
+            mappingEntry = await orderMappingModel.update({
                 origin,
                 
                 orderDate: invDate,
@@ -1341,10 +1374,36 @@ export const modifyOrder = async (req: Request, res: Response) => {
                     orderpk:id
                 }, transaction
             });
+          }
+          else{
+                packingEntry = await orderPackingModel.update({
+                origin: origin,
+                orderDate: invDate,
+                gradeName:gradeName,
+                vendorName:vendor,
+                gst,
+                unitRate,approvedBy:actionedBy,
+                totalBill:totalBill
+            },
+            {
+                where: {
+                    orderpk:id
+                }, transaction
+            });
 
-           
-
-
+            mappingEntry = await orderMappingModel.update({
+                origin,
+                orderDate: invDate,
+                finalgradeName:gradeName,
+                vendorName:vendor,
+                approvedBy:actionedBy
+            },
+            {
+                where: {
+                    orderpk:id
+                }, transaction
+            });
+          }
             
 
             if (mappingEntry && packingEntry && orderupdate) {

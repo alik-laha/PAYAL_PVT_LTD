@@ -63,7 +63,8 @@ const RCNPeelingCreateForm = (props:Props) => {
     const nightOpRef = useRef<HTMLInputElement>(null);
     const huskOpRef = useRef<HTMLInputElement>(null);
     const [operator,setoperator]=useState<string>('')
-  
+    const [LotNo,setLotNo]=useState<string>('')
+    const [vilLot,setVilLot]=useState<boolean>(false)
 
    // const operatorRef = useRef<HTMLInputElement>(null);
     const [rows,setRows]=useState<PeelingRowData[]>([])
@@ -93,7 +94,12 @@ const RCNPeelingCreateForm = (props:Props) => {
     }
     useEffect(() => { 
 
-      
+        if(props.borma[0]){
+            setLotNo(props.borma[0].LotNo)
+            if(props.borma[0].LotNo.includes('V')){
+                setVilLot(true)
+            }
+        }
         const initialform =  props.borma.map((item: PeelingData) => ({
             id: item.id,
             LotNo: item.LotNo,
@@ -145,7 +151,8 @@ const RCNPeelingCreateForm = (props:Props) => {
         props.borma.map((item: PeelingData, idx: number) => {
             rows[idx].id=item.id
         })
-        console.log(rows)
+        //console.log(rows)
+console.log(vilLot)
         const date = DateRef.current?.value 
         const dayop = dayOpRef.current?.value  
         const nightop = nightOpRef.current?.value   
@@ -163,7 +170,7 @@ const RCNPeelingCreateForm = (props:Props) => {
         
             try {
                 const initialhumid = await axios.post('/api/peeling/createEntirePeeling', { linehumid:formData,
-                    LotNo:props.borma[0].LotNo
+                    LotNo:props.borma[0].LotNo,vilLot
                  })
                 console.log(initialhumid)         
                     setErrortext(initialhumid.data.message)
@@ -207,26 +214,26 @@ const RCNPeelingCreateForm = (props:Props) => {
         <>
         <div className="px-5 py-2 overflow-auto">
             <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit2}>
-               <div className="mx-8 flex flex-col gap-0.5"> 
+               <div className="mx-1 flex flex-col gap-0.5"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
-                <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
-                <div className="flex"><Label className="w-2/4 pt-1">No. of Operator</Label>
+                <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
+                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                <div className="flex"><Label className="w-1/4 pt-1">No. of Operator</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center bg-yellow-100" placeholder="No. of Operator" value={operator} readOnly />
+                    <Input className="w-1/4 text-center bg-yellow-100" placeholder="No. of Operator" value={operator} readOnly />
                      </div>
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Day)</Label>
+                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Day)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
+                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
                      </div>
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Night)</Label>
+                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Night)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
+                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
                      </div>
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Husk)</Label>
+                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Husk)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={huskOpRef}  />
+                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={huskOpRef}  />
                      </div>
                      
                    
@@ -235,7 +242,7 @@ const RCNPeelingCreateForm = (props:Props) => {
                    <Table className="mt-3">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
                         <TableHead className="text-center" >Sl. No.</TableHead>
-                        <TableHead className="text-center" >LotNo</TableHead>
+                        <TableHead className="text-center" >Item_LotNo</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Total_Input(Kg)</TableHead>
                         <TableHead className="text-center" >Pressure</TableHead>
@@ -246,9 +253,9 @@ const RCNPeelingCreateForm = (props:Props) => {
                         <TableHead className="text-center" >Peeling_Off</TableHead>
                         <TableHead className="text-center" >Breakdown Duration</TableHead>
                         <TableHead className="text-center" >Other Duration</TableHead>
-                        <TableHead className="text-center" >Pieces Unpeel</TableHead>
-                        <TableHead className="text-center" >Wholes Peel</TableHead>
-                        <TableHead className="text-center" >Wholes Unpeel</TableHead>
+                        <TableHead className="text-center" >Pieces_Unpeel (Village)</TableHead>
+                        <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Wholes_&_JB (Mayur)':'Wholes_Peel (Mayur)'):'Wholes_Peel (Mayur)'}</TableHead>
+                        <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'LW (Mayur)':'Wholes_UnPeel (Mayur)'):'Wholes_UnPeel (Mayur)'}</TableHead>
                        
                         <TableHead className="text-center" >DP (DP&DS)</TableHead>
                         <TableHead className="text-center" >DP1 (DP&DS)</TableHead>

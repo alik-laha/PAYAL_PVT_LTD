@@ -72,6 +72,9 @@ const Agarbati = () => {
         })
 
     }
+    function formatNumber(num:any) {
+        return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
+    }
     return (
         <div>
             <DashboardHeader />
@@ -85,7 +88,7 @@ const Agarbati = () => {
                         data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllTypeDataAgarbati) => {
                             return (
                                 <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-600" key={item.grade}>
-                                    {item.grade} <br /><p>{item.totalBags} Kg</p>
+                                    {item.grade} <br /><p>{item.totalBags ? formatNumber(item.totalBags):0} Kg</p>
                                 </div>
                             )
                         })
@@ -101,7 +104,7 @@ const Agarbati = () => {
                         <DialogTrigger>   <Button className="bg-lime-500 mb-2 mt-5 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenLotNo}>+ Add New Entry</Button></DialogTrigger>
                         <DialogContent className='max-w-2xl'>
                             <DialogHeader>
-                                <DialogTitle><p className='text-1xl text-center mt-5'>Agarati Receiving/Dispatch Pending List</p></DialogTitle>
+                                <DialogTitle><p className='text-1xl text-center mt-5'>Agarbati Receiving/Dispatch Pending List</p></DialogTitle>
                                
                             </DialogHeader>
                           

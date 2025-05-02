@@ -88,6 +88,16 @@ export const sumOfallLW = async (req: Request, res: Response) => {
                 [sequelize.fn('sum', sequelize.col('issue_rrw')), 'issue_rrw'],
                 [sequelize.fn('sum', sequelize.col('issue_fw')), 'issue_fw'],
                 [sequelize.fn('sum', sequelize.col('issue_lw')), 'issue_lw'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_1')), 'issue_ext_grade_1'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_2')), 'issue_ext_grade_2'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_3')), 'issue_ext_grade_3'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_4')), 'issue_ext_grade_4'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_5')), 'issue_ext_grade_5'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_6')), 'issue_ext_grade_6'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_7')), 'issue_ext_grade_7'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_8')), 'issue_ext_grade_8'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_9')), 'issue_ext_grade_9'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_10')), 'issue_ext_grade_10'],
 
                 [sequelize.fn('sum', sequelize.col('issue_rejection')), 'issue_rejection'],
                 [sequelize.fn('sum', sequelize.col('issue_village')), 'issue_village'],
@@ -212,7 +222,17 @@ export const CreateEntireLW= async (req: Request, res: Response) => {
             parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) + 
             parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) + 
             parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) + 
-            parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)
+            parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)+  parseFloat(data.issue_ext_grade_1) +
+            parseFloat(data.issue_ext_grade_2) +
+            parseFloat(data.issue_ext_grade_3) +
+            parseFloat(data.issue_ext_grade_4) +
+            parseFloat(data.issue_ext_grade_5) +
+            parseFloat(data.issue_ext_grade_6) +
+            parseFloat(data.issue_ext_grade_7) +
+            parseFloat(data.issue_ext_grade_8) +
+            parseFloat(data.issue_ext_grade_9) +
+            parseFloat(data.issue_ext_grade_10)
+
                ))
                {
                 console.log(parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) + 
@@ -228,7 +248,17 @@ export const CreateEntireLW= async (req: Request, res: Response) => {
                 parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) + 
                 parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) + 
                 parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) + 
-                parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection))
+                parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)+  parseFloat(data.issue_ext_grade_1) +
+                parseFloat(data.issue_ext_grade_2) +
+                parseFloat(data.issue_ext_grade_3) +
+                parseFloat(data.issue_ext_grade_4) +
+                parseFloat(data.issue_ext_grade_5) +
+                parseFloat(data.issue_ext_grade_6) +
+                parseFloat(data.issue_ext_grade_7) +
+                parseFloat(data.issue_ext_grade_8) +
+                parseFloat(data.issue_ext_grade_9) +
+                parseFloat(data.issue_ext_grade_10)
+)
                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                 throw new Error('Transaction Aborted due to negative value')
 
@@ -280,6 +310,16 @@ export const CreateEntireLW= async (req: Request, res: Response) => {
                     issue_hamsa: data.issue_hamsa,
                     issue_bigTaiho: data.issue_bigTaiho,
                     issue_rejection: data.issue_rejection,
+                    issue_ext_grade_1: data.issue_ext_grade_1,
+                    issue_ext_grade_2: data.issue_ext_grade_2,
+                    issue_ext_grade_3: data.issue_ext_grade_3,
+                    issue_ext_grade_4: data.issue_ext_grade_4,
+                    issue_ext_grade_5: data.issue_ext_grade_5,
+                    issue_ext_grade_6: data.issue_ext_grade_6,
+                    issue_ext_grade_7: data.issue_ext_grade_7,
+                    issue_ext_grade_8: data.issue_ext_grade_8,
+                    issue_ext_grade_9: data.issue_ext_grade_9,
+                    issue_ext_grade_10: data.issue_ext_grade_10,
 
                     issue_add_1: data.issue_add_1,
                     issue_add_2: data.issue_add_2,
@@ -306,7 +346,17 @@ export const CreateEntireLW= async (req: Request, res: Response) => {
                     parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) + 
                     parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) + 
                     parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) + 
-                    parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)
+                    parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)+  parseFloat(data.issue_ext_grade_1) +
+                    parseFloat(data.issue_ext_grade_2) +
+                    parseFloat(data.issue_ext_grade_3) +
+                    parseFloat(data.issue_ext_grade_4) +
+                    parseFloat(data.issue_ext_grade_5) +
+                    parseFloat(data.issue_ext_grade_6) +
+                    parseFloat(data.issue_ext_grade_7) +
+                    parseFloat(data.issue_ext_grade_8) +
+                    parseFloat(data.issue_ext_grade_9) +
+                    parseFloat(data.issue_ext_grade_10)
+
                         ),
                     current_backlog: (parseFloat(data.rcv_mayurN)+(data.rcv_wholes? parseFloat(data.rcv_wholes):0)
                     +parseFloat(data.rcv_hamsaN)) 
@@ -323,7 +373,17 @@ export const CreateEntireLW= async (req: Request, res: Response) => {
                     parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) + 
                     parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) + 
                     parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) + 
-                    parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)
+                    parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)+  parseFloat(data.issue_ext_grade_1) +
+                    parseFloat(data.issue_ext_grade_2) +
+                    parseFloat(data.issue_ext_grade_3) +
+                    parseFloat(data.issue_ext_grade_4) +
+                    parseFloat(data.issue_ext_grade_5) +
+                    parseFloat(data.issue_ext_grade_6) +
+                    parseFloat(data.issue_ext_grade_7) +
+                    parseFloat(data.issue_ext_grade_8) +
+                    parseFloat(data.issue_ext_grade_9) +
+                    parseFloat(data.issue_ext_grade_10)
+
                         
                         ),
                     Status: 1,
@@ -638,6 +698,234 @@ export const CreateEntireLW= async (req: Request, res: Response) => {
     }
 }
 
+export const CreateReissueLW= async (req: Request, res: Response) => {
+   
+   
+    try{
+    const feeledBy = req.cookies.user;
+    const linehumid = req.body.linehumid
+    const LotNO = req.body.LotNo
+
+    await sequelize.transaction(async (transaction: any) => {
+
+        for (let data of linehumid) 
+        {
+            if((parseFloat(data.rcv_openingN))< (parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) + 
+            parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) + 
+            parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) + 
+            parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) + 
+            parseFloat(data.issue_row) + parseFloat(data.issue_rej_1) + parseFloat(data.issue_lw3_180) + 
+            parseFloat(data.issue_lw3_210) + parseFloat(data.issue_lw3_240) + parseFloat(data.issue_lw3_280) + 
+            parseFloat(data.issue_lw3_360) + parseFloat(data.issue_lw2) + parseFloat(data.issue_lw4) + 
+            parseFloat(data.issue_lw5) + parseFloat(data.issue_lw6) + parseFloat(data.issue_lw7) + 
+            parseFloat(data.issue_rej_3) + parseFloat(data.issue_rej_4) + parseFloat(data.issue_jb2) + 
+            parseFloat(data.issue_sjb) + parseFloat(data.issue_k_240) + parseFloat(data.issue_k_280) + 
+            parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) + 
+            parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) + 
+            parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) + 
+            parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)+  parseFloat(data.issue_ext_grade_1) +
+            parseFloat(data.issue_ext_grade_2) +
+            parseFloat(data.issue_ext_grade_3) +
+            parseFloat(data.issue_ext_grade_4) +
+            parseFloat(data.issue_ext_grade_5) +
+            parseFloat(data.issue_ext_grade_6) +
+            parseFloat(data.issue_ext_grade_7) +
+            parseFloat(data.issue_ext_grade_8) +
+            parseFloat(data.issue_ext_grade_9) +
+            parseFloat(data.issue_ext_grade_10)
+
+               ))
+               {
+                console.log(parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) + 
+                parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) + 
+                parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) + 
+                parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) + 
+                parseFloat(data.issue_row) + parseFloat(data.issue_rej_1) + parseFloat(data.issue_lw3_180) + 
+                parseFloat(data.issue_lw3_210) + parseFloat(data.issue_lw3_240) + parseFloat(data.issue_lw3_280) + 
+                parseFloat(data.issue_lw3_360) + parseFloat(data.issue_lw2) + parseFloat(data.issue_lw4) + 
+                parseFloat(data.issue_lw5) + parseFloat(data.issue_lw6) + parseFloat(data.issue_lw7) + 
+                parseFloat(data.issue_rej_3) + parseFloat(data.issue_rej_4) + parseFloat(data.issue_jb2) + 
+                parseFloat(data.issue_sjb) + parseFloat(data.issue_k_240) + parseFloat(data.issue_k_280) + 
+                parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) + 
+                parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) + 
+                parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) + 
+                parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)+  parseFloat(data.issue_ext_grade_1) +
+                parseFloat(data.issue_ext_grade_2) +
+                parseFloat(data.issue_ext_grade_3) +
+                parseFloat(data.issue_ext_grade_4) +
+                parseFloat(data.issue_ext_grade_5) +
+                parseFloat(data.issue_ext_grade_6) +
+                parseFloat(data.issue_ext_grade_7) +
+                parseFloat(data.issue_ext_grade_8) +
+                parseFloat(data.issue_ext_grade_9) +
+                parseFloat(data.issue_ext_grade_10)
+)
+                res.status(500).json({ message: "Backlog can't be Greater Than Input" });
+                throw new Error('Transaction Aborted due to negative value')
+
+            }
+
+            const LWUpdate = await LWModel.update(
+                {
+                    latest: 0
+
+                }, {
+                where: {
+                    id: data.id
+                }, transaction
+            });
+
+
+            if(LWUpdate){
+                const reissuecreate=await LWModel.create(
+                    {     
+                        date: data.Date,
+                        altid: parseInt(data.alt_id) + 1,
+                        LotNo: data.LotNo,
+                        origin: data.origin,
+                        mixingLot: data.mixingLot,
+                        noOfdayOperators: data.dayoperator,
+                        noOfnightOperators: data.nightoperator,
+                    
+                        issue_kw: data.issue_kw,
+                        issue_kw_1: data.issue_kw_1,
+                        issue_kw_2: data.issue_kw_2,
+                        issue_kn: data.issue_kn,
+                        issue_dw: data.issue_dw,
+                        issue_dw_1: data.issue_dw_1,
+                        issue_dw_2: data.issue_dw_2,
+                        issue_ow: data.issue_ow,
+                        issue_ow_1: data.issue_ow_1,
+                        issue_ow_2: data.issue_ow_2,
+                        issue_jw: data.issue_jw,
+                        issue_pw: data.issue_pw,
+                        issue_row: data.issue_row,
+                        issue_rej_1: data.issue_rej_1,
+                        issue_lw3_180: data.issue_lw3_180,
+                        issue_lw3_210: data.issue_lw3_210,
+                        issue_lw3_240: data.issue_lw3_240,
+                        issue_lw3_280: data.issue_lw3_280,
+                        issue_lw3_360: data.issue_lw3_360,
+                        issue_lw2: data.issue_lw2,
+                        issue_lw4: data.issue_lw4,
+                        issue_lw5: data.issue_lw5,
+                        issue_lw6: data.issue_lw6,
+                        issue_lw7: data.issue_lw7,
+                        issue_rej_3: data.issue_rej_3,
+                        issue_rej_4: data.issue_rej_4,
+                        issue_jb2: data.issue_jb2,
+                        issue_sjb: data.issue_sjb,
+                        issue_k_240: data.issue_k_240,
+                        issue_k_280: data.issue_k_280,
+                        issue_k_360: data.issue_k_360,
+                        issue_pkw: data.issue_pkw,
+                        issue_bw: data.issue_bw,
+                        issue_rw: data.issue_rw,
+                        issue_rrw: data.issue_rrw,
+                        issue_fw: data.issue_fw,
+                        issue_lw: data.issue_lw,
+                        issue_village: data.issue_village,
+                        issue_hamsa: data.issue_hamsa,
+                        issue_bigTaiho: data.issue_bigTaiho,
+                        issue_rejection: data.issue_rejection,
+                        issue_ext_grade_1: data.issue_ext_grade_1,
+                        issue_ext_grade_2: data.issue_ext_grade_2,
+                        issue_ext_grade_3: data.issue_ext_grade_3,
+                        issue_ext_grade_4: data.issue_ext_grade_4,
+                        issue_ext_grade_5: data.issue_ext_grade_5,
+                        issue_ext_grade_6: data.issue_ext_grade_6,
+                        issue_ext_grade_7: data.issue_ext_grade_7,
+                        issue_ext_grade_8: data.issue_ext_grade_8,
+                        issue_ext_grade_9: data.issue_ext_grade_9,
+                        issue_ext_grade_10: data.issue_ext_grade_10,
+    
+                        issue_add_1: data.issue_add_1,
+                        issue_add_2: data.issue_add_2,
+                        issue_add_3:data.issue_add_3,
+                        issue_add_4: data.issue_add_4,
+                        issue_add_5: data.issue_add_5,
+                        issue_add_6: data.issue_add_3,
+                        issue_add_7: data.rcv_mayurN,
+                        issue_add_8: data.rcv_hamsaN,
+                        issue_add_9: data.issue_add_9,
+                        issue_add_10: data.issue_add_10,
+                        entry_backlog: parseFloat(data.rcv_openingN)
+                        - (parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) + 
+                        parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) + 
+                        parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) + 
+                        parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) + 
+                        parseFloat(data.issue_row) + parseFloat(data.issue_rej_1) + parseFloat(data.issue_lw3_180) + 
+                        parseFloat(data.issue_lw3_210) + parseFloat(data.issue_lw3_240) + parseFloat(data.issue_lw3_280) + 
+                        parseFloat(data.issue_lw3_360) + parseFloat(data.issue_lw2) + parseFloat(data.issue_lw4) + 
+                        parseFloat(data.issue_lw5) + parseFloat(data.issue_lw6) + parseFloat(data.issue_lw7) + 
+                        parseFloat(data.issue_rej_3) + parseFloat(data.issue_rej_4) + parseFloat(data.issue_jb2) + 
+                        parseFloat(data.issue_sjb) + parseFloat(data.issue_k_240) + parseFloat(data.issue_k_280) + 
+                        parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) + 
+                        parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) + 
+                        parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) + 
+                        parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)+  parseFloat(data.issue_ext_grade_1) +
+                        parseFloat(data.issue_ext_grade_2) +
+                        parseFloat(data.issue_ext_grade_3) +
+                        parseFloat(data.issue_ext_grade_4) +
+                        parseFloat(data.issue_ext_grade_5) +
+                        parseFloat(data.issue_ext_grade_6) +
+                        parseFloat(data.issue_ext_grade_7) +
+                        parseFloat(data.issue_ext_grade_8) +
+                        parseFloat(data.issue_ext_grade_9) +
+                        parseFloat(data.issue_ext_grade_10)
+    
+                            ),
+                        current_backlog: parseFloat(data.rcv_openingN)
+                        - (parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) + 
+                        parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) + 
+                        parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) + 
+                        parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) + 
+                        parseFloat(data.issue_row) + parseFloat(data.issue_rej_1) + parseFloat(data.issue_lw3_180) + 
+                        parseFloat(data.issue_lw3_210) + parseFloat(data.issue_lw3_240) + parseFloat(data.issue_lw3_280) + 
+                        parseFloat(data.issue_lw3_360) + parseFloat(data.issue_lw2) + parseFloat(data.issue_lw4) + 
+                        parseFloat(data.issue_lw5) + parseFloat(data.issue_lw6) + parseFloat(data.issue_lw7) + 
+                        parseFloat(data.issue_rej_3) + parseFloat(data.issue_rej_4) + parseFloat(data.issue_jb2) + 
+                        parseFloat(data.issue_sjb) + parseFloat(data.issue_k_240) + parseFloat(data.issue_k_280) + 
+                        parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) + 
+                        parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) + 
+                        parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) + 
+                        parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)+  parseFloat(data.issue_ext_grade_1) +
+                        parseFloat(data.issue_ext_grade_2) +
+                        parseFloat(data.issue_ext_grade_3) +
+                        parseFloat(data.issue_ext_grade_4) +
+                        parseFloat(data.issue_ext_grade_5) +
+                        parseFloat(data.issue_ext_grade_6) +
+                        parseFloat(data.issue_ext_grade_7) +
+                        parseFloat(data.issue_ext_grade_8) +
+                        parseFloat(data.issue_ext_grade_9) +
+                        parseFloat(data.issue_ext_grade_10)
+    
+                            
+                            ),
+                        Status: 1,
+                        CreatedBy: feeledBy 
+                    },
+                    {
+                        transaction
+                    }
+                );
+            }
+           
+           
+
+
+        }
+
+    })
+    }
+    catch(error) {
+        if(!res.headersSent){
+            console.log(error)
+            return res.status(500).json({ message: "Error while creating LW Entry" ,error});
+        }
+    }
+}
+
 // //LWTable.tsx
 export const SearchRCNLW = async (req: Request, res: Response) => {
     try {
@@ -730,7 +1018,17 @@ export const updateEntireLW= async (req: Request, res: Response) => {
             parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) + 
             parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) + 
             parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) + 
-            parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)
+            parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)+ parseFloat(data.issue_ext_grade_1) +
+            parseFloat(data.issue_ext_grade_2) +
+            parseFloat(data.issue_ext_grade_3) +
+            parseFloat(data.issue_ext_grade_4) +
+            parseFloat(data.issue_ext_grade_5) +
+            parseFloat(data.issue_ext_grade_6) +
+            parseFloat(data.issue_ext_grade_7) +
+            parseFloat(data.issue_ext_grade_8) +
+            parseFloat(data.issue_ext_grade_9) +
+            parseFloat(data.issue_ext_grade_10)
+
                ))
                {
                 console.log(parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) + 
@@ -746,7 +1044,17 @@ export const updateEntireLW= async (req: Request, res: Response) => {
                 parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) + 
                 parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) + 
                 parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) + 
-                parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection))
+                parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)+ parseFloat(data.issue_ext_grade_1) +
+                parseFloat(data.issue_ext_grade_2) +
+                parseFloat(data.issue_ext_grade_3) +
+                parseFloat(data.issue_ext_grade_4) +
+                parseFloat(data.issue_ext_grade_5) +
+                parseFloat(data.issue_ext_grade_6) +
+                parseFloat(data.issue_ext_grade_7) +
+                parseFloat(data.issue_ext_grade_8) +
+                parseFloat(data.issue_ext_grade_9) +
+                parseFloat(data.issue_ext_grade_10)
+)
                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                 throw new Error('Transaction Aborted due to negative value')
 
@@ -821,6 +1129,16 @@ export const updateEntireLW= async (req: Request, res: Response) => {
                     issue_add_8: data.rcv_hamsaN,
                     issue_add_9: data.issue_add_9,
                     issue_add_10: data.issue_add_10,
+                    issue_ext_grade_1: data.issue_ext_grade_1,
+                    issue_ext_grade_2: data.issue_ext_grade_2,
+                    issue_ext_grade_3: data.issue_ext_grade_3,
+                    issue_ext_grade_4: data.issue_ext_grade_4,
+                    issue_ext_grade_5: data.issue_ext_grade_5,
+                    issue_ext_grade_6: data.issue_ext_grade_6,
+                    issue_ext_grade_7: data.issue_ext_grade_7,
+                    issue_ext_grade_8: data.issue_ext_grade_8,
+                    issue_ext_grade_9: data.issue_ext_grade_9,
+                    issue_ext_grade_10: data.issue_ext_grade_10,
                     entry_backlog: (parseFloat(data.rcv_mayurN)+(data.rcv_wholes? parseFloat(data.rcv_wholes):0)
                     +parseFloat(data.rcv_hamsaN)) 
                     - (parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) + 
@@ -836,7 +1154,17 @@ export const updateEntireLW= async (req: Request, res: Response) => {
                     parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) + 
                     parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) + 
                     parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) + 
-                    parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)
+                    parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)+ parseFloat(data.issue_ext_grade_1) +
+                    parseFloat(data.issue_ext_grade_2) +
+                    parseFloat(data.issue_ext_grade_3) +
+                    parseFloat(data.issue_ext_grade_4) +
+                    parseFloat(data.issue_ext_grade_5) +
+                    parseFloat(data.issue_ext_grade_6) +
+                    parseFloat(data.issue_ext_grade_7) +
+                    parseFloat(data.issue_ext_grade_8) +
+                    parseFloat(data.issue_ext_grade_9) +
+                    parseFloat(data.issue_ext_grade_10)
+
                         ),
                     current_backlog: (parseFloat(data.rcv_mayurN)+(data.rcv_wholes? parseFloat(data.rcv_wholes):0)
                     +parseFloat(data.rcv_hamsaN)) 
@@ -853,7 +1181,17 @@ export const updateEntireLW= async (req: Request, res: Response) => {
                     parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) + 
                     parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) + 
                     parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) + 
-                    parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)
+                    parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)+ parseFloat(data.issue_ext_grade_1) +
+                    parseFloat(data.issue_ext_grade_2) +
+                    parseFloat(data.issue_ext_grade_3) +
+                    parseFloat(data.issue_ext_grade_4) +
+                    parseFloat(data.issue_ext_grade_5) +
+                    parseFloat(data.issue_ext_grade_6) +
+                    parseFloat(data.issue_ext_grade_7) +
+                    parseFloat(data.issue_ext_grade_8) +
+                    parseFloat(data.issue_ext_grade_9) +
+                    parseFloat(data.issue_ext_grade_10)
+
                         
                         ),
                     Status: 1,
@@ -1026,7 +1364,16 @@ export const approveLW = async (req: Request, res: Response) => {
                     issue_hamsa: data.issue_hamsa,
                     issue_bigTaiho: data.issue_bigTaiho,
                     issue_rejection: data.issue_rejection,
-
+                    issue_ext_grade_1: data.issue_ext_grade_1,
+                    issue_ext_grade_2: data.issue_ext_grade_2,
+                    issue_ext_grade_3: data.issue_ext_grade_3,
+                    issue_ext_grade_4: data.issue_ext_grade_4,
+                    issue_ext_grade_5: data.issue_ext_grade_5,
+                    issue_ext_grade_6: data.issue_ext_grade_6,
+                    issue_ext_grade_7: data.issue_ext_grade_7,
+                    issue_ext_grade_8: data.issue_ext_grade_8,
+                    issue_ext_grade_9: data.issue_ext_grade_9,
+                    issue_ext_grade_10: data.issue_ext_grade_10,
                     issue_add_1: data.issue_add_1,
                     issue_add_2: data.issue_add_2,
                     issue_add_3:data.issue_add_3,

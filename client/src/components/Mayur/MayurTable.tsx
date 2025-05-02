@@ -129,8 +129,8 @@ const MayurTable = () => {
             Issue_No: item.altid,
             Mayur_Entry_Date: handletimezone(item.date),
             Mixing_Lot: item.mixingLot,
-            Opening_Wholes_Peel: formatNumber(item.rcv_wholespeel),
-            Opening_Wholes_Unpeel: formatNumber(item.rcv_wholesunpeel),
+            Opening_Wholes_Peel_Or_WholesJB: formatNumber(item.rcv_wholespeel),
+            Opening_Wholes_Unpeel_Or_LW: formatNumber(item.rcv_wholesunpeel),
             Receive_Peeling: Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel)),
             Receive_DPDS: item.rcv_DPDS ? formatNumber(item.rcv_DPDS) : 0,
             Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
@@ -139,9 +139,9 @@ const MayurTable = () => {
             (item.rcv_DPDS ? parseFloat(item.rcv_DPDS) : 0) + 
             (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
             (item.rcv_village ? parseFloat(item.rcv_village) : 0) ).toFixed(2),
-            Issue_PW_W: formatNumber(item.issue_pw_w),
-            Issue_W_Lot: formatNumber(item.issue_w_lot),
-            Issue_WW: formatNumber(item.issue_ww),
+            Issue_PW_W_Or_V_PW_W: formatNumber(item.issue_pw_w),
+            Issue_W_Lot_Or_V_W_Lot: formatNumber(item.issue_w_lot),
+            Issue_WW_Or_V_WW: formatNumber(item.issue_ww),
             Issue_Rejection: formatNumber(item.issue_rejection),
             Issue_Village: formatNumber(item.issue_village),
             Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
@@ -187,8 +187,8 @@ const MayurTable = () => {
                 Issue_No: item.altid,
                 Mayur_Entry_Date: handletimezone(item.date),
                 Mixing_Lot: item.mixingLot,
-                Opening_Wholes_Peel: formatNumber(item.rcv_wholespeel),
-                Opening_Wholes_Unpeel: formatNumber(item.rcv_wholesunpeel),
+                Opening_Wholes_Peel_Or_WholesJB: formatNumber(item.rcv_wholespeel),
+                Opening_Wholes_Unpeel_Or_LW: formatNumber(item.rcv_wholesunpeel),
                 Receive_Peeling: Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel)),
                 Receive_DPDS: item.rcv_DPDS ? formatNumber(item.rcv_DPDS) : 0,
                 Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
@@ -197,9 +197,9 @@ const MayurTable = () => {
                 (item.rcv_DPDS ? parseFloat(item.rcv_DPDS) : 0) + 
                 (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
                 (item.rcv_village ? parseFloat(item.rcv_village) : 0) ).toFixed(2),
-                Issue_PW_W: formatNumber(item.issue_pw_w),
-                Issue_W_Lot: formatNumber(item.issue_w_lot),
-                Issue_WW: formatNumber(item.issue_ww),
+                Issue_PW_W_Or_V_PW_W: formatNumber(item.issue_pw_w),
+                Issue_W_Lot_Or_V_W_Lot: formatNumber(item.issue_w_lot),
+                Issue_WW_Or_V_WW: formatNumber(item.issue_ww),
                 Issue_Rejection: formatNumber(item.issue_rejection),
                 Issue_Village: formatNumber(item.issue_village),
                 Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
@@ -421,16 +421,16 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                         <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
                         {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
-                        <TableHead className="text-center">Opening Wholes_Peel</TableHead>
-                    <TableHead className="text-center">Opening Wholes_Unpeel</TableHead>
+                        <TableHead className="text-center">Opening Wholes_Peel/ Wholes_&_JB</TableHead>
+                    <TableHead className="text-center">Opening Wholes_Unpeel/ LW</TableHead>
                     <TableHead className="text-center">Receive Peeling</TableHead>
                     <TableHead className="text-center">Receive DPDS</TableHead>
                     <TableHead className="text-center">Receive Sorting</TableHead>
                     <TableHead className="text-center">Receive Village</TableHead>
                     <TableHead className="text-center">Mayur Total_Opening</TableHead>
-                    <TableHead className="text-center">Issue PW_W</TableHead>
-                    <TableHead className="text-center">Issue W_Lot</TableHead>
-                    <TableHead className="text-center">Issue WW</TableHead>
+                    <TableHead className="text-center">Issue PW_W / V_PW_W</TableHead>
+                    <TableHead className="text-center">Issue W_Lot / V_W_Lot</TableHead>
+                    <TableHead className="text-center">Issue WW / V_WW</TableHead>
                     <TableHead className="text-center">Issue Hamsa</TableHead>
                     <TableHead className="text-center">Issue Rejection</TableHead>
                     <TableHead className="text-center">Issue Village</TableHead>
@@ -683,7 +683,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                         </DialogTrigger>
-                                                        <DialogContent className="max-w-7xl">
+                                                        <DialogContent className="max-w-screen">
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Modification</p>
@@ -698,7 +698,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogTrigger className="flex"><CiBoxes size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
                                                         </DialogTrigger>
-                                                        <DialogContent className="max-w-7xl">
+                                                        <DialogContent className="max-w-screen">
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Reissue</p>
@@ -712,7 +712,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogTrigger className="flex"><CiCrop size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
                                                         </DialogTrigger>
-                                                        <DialogContent className="max-w-4xl">
+                                                        <DialogContent className="max-w-screen">
                                                             <DialogHeader>
                                                                 <DialogTitle>
                                                                     {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}

@@ -105,13 +105,26 @@ const BigTaiho = () => {
                         && data.data[0].issue_add_1 && data.data[0].issue_add_2 && data.data[0].issue_add_3
                         && data.data[0].issue_add_4 && data.data[0].issue_add_5 && data.data[0].issue_add_6
                         && data.data[0].issue_add_7 && data.data[0].issue_add_8 && data.data[0].issue_add_9
-                        && data.data[0].issue_add_10 
+                        && data.data[0].issue_add_10  && data.data[0].issue_ext_grade_1 && data.data[0].issue_ext_grade_2 &&
+                        data.data[0].issue_ext_grade_3 && data.data[0].issue_ext_grade_4 && data.data[0].issue_ext_grade_5 &&
+                        data.data[0].issue_ext_grade_6 && data.data[0].issue_ext_grade_7 && data.data[0].issue_ext_grade_8 &&
+                        data.data[0].issue_ext_grade_9 && data.data[0].issue_ext_grade_10
                         ? formatNumber(parseFloat(data.data[0].issue_ssp)+parseFloat(data.data[0].issue_ssp_small)+parseFloat(data.data[0].issue_swp_1)
                         +parseFloat(data.data[0].issue_wsp)+parseFloat(data.data[0].issue_bits)+parseFloat(data.data[0].issue_swp)+
                         parseFloat(data.data[0].issue_bb)+parseFloat(data.data[0].issue_w_bb)+parseFloat(data.data[0].issue_bb_A)
                         + parseFloat(data.data[0].issue_bb1)+parseFloat(data.data[0].issue_bb1_A)+parseFloat(data.data[0].issue_bb_2)
                         +parseFloat(data.data[0].issue_ssp_1)+parseFloat(data.data[0].issue_ssp_1_small)+parseFloat(data.data[0].issue_ssp_2)
                         +parseFloat(data.data[0].issue_ssp_2_small)+parseFloat(data.data[0].issue_sdp)+
+                        parseFloat(data.data[0].issue_ext_grade_1) +
+                        parseFloat(data.data[0].issue_ext_grade_2) +
+                        parseFloat(data.data[0].issue_ext_grade_3) +
+                        parseFloat(data.data[0].issue_ext_grade_4) +
+                        parseFloat(data.data[0].issue_ext_grade_5) +
+                        parseFloat(data.data[0].issue_ext_grade_6) +
+                        parseFloat(data.data[0].issue_ext_grade_7) +
+                        parseFloat(data.data[0].issue_ext_grade_8) +
+                        parseFloat(data.data[0].issue_ext_grade_9) +
+                        parseFloat(data.data[0].issue_ext_grade_10) +
                         parseFloat(data.data[0].issue_add_5)+parseFloat(data.data[0].issue_add_6)
                             +parseFloat(data.data[0].issue_add_7)+parseFloat(data.data[0].issue_add_8)+parseFloat(data.data[0].issue_add_9)
                             +parseFloat(data.data[0].issue_add_10)): 0} Kg</p>

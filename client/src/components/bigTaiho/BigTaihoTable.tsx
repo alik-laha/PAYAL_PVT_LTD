@@ -128,7 +128,7 @@ const BigTaihoTable = () => {
             DPDS_Entry_Date: handletimezone(item.date),
             Mixing_Lot: item.mixingLot,
             Receive_Peeling: formatNumber(item.rcv_peeling),
-            Borma_Peeling: formatNumber(item.issue_add_4),
+            Borma_Peeling: formatNumber((Number(item.rcv_peeling)-Number(item.issue_add_2)).toString()),
             Borma_Loss_Kg: formatNumber(item.issue_add_2),
             Borma_Loss_Percentage: formatNumber(item.issue_add_3),
             Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
@@ -138,7 +138,7 @@ const BigTaihoTable = () => {
             Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
             Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
             Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-            Receive_Total: (parseFloat(item.issue_add_1) + 
+            Receive_Total: ((parseFloat(item.rcv_peeling)-parseFloat(item.issue_add_2)) + 
                 (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
                 (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
                 (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
@@ -208,7 +208,7 @@ const BigTaihoTable = () => {
             Mixing_Lot: item.mixingLot,
           
             Receive_Peeling: formatNumber(item.rcv_peeling),
-            Borma_Peeling: formatNumber(item.issue_add_4),
+            Borma_Peeling: formatNumber((Number(item.rcv_peeling)-Number(item.issue_add_2)).toString()),
             Borma_Loss_Kg: formatNumber(item.issue_add_2),
             Borma_Loss_Percentage: formatNumber(item.issue_add_3),
             Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
@@ -218,7 +218,7 @@ const BigTaihoTable = () => {
             Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
             Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
             Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-            Receive_Total: (parseFloat(item.issue_add_1) + 
+            Receive_Total: ((parseFloat(item.rcv_peeling)-parseFloat(item.issue_add_2)) + 
                 (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
                 (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
                 (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
@@ -558,15 +558,16 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                    
                                     <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
                                     <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
-                                    <TableCell className="text-center bg-yellow-100 font-semibold ">{formatNumber(item.issue_add_4)}</TableCell>
-                                    <TableCell  className="text-center bg-yellow-100 font-semibold ">{item.rcv_sorting ? formatNumber(item.rcv_sorting) :0}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_village ? formatNumber(item.rcv_village) :0}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_dpds ? formatNumber(item.rcv_dpds) :0}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_mayur ? formatNumber(item.rcv_mayur) :0}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_hamsa ? formatNumber(item.rcv_hamsa) :0}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) :0}</TableCell>
-                                    <TableCell className="text-center font-bold bg-green-500 text-white">{(parseFloat(item.issue_add_4) + 
+                                    <TableCell className="text-center bg-yellow-100 font-semibold ">  {formatNumber((parseFloat(item.rcv_peeling)-parseFloat(item.issue_add_2)).toString())}</TableCell>
+
+                                <TableCell className="text-center bg-yellow-100 font-semibold ">{item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_village ? formatNumber(item.rcv_village) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_mayur ? formatNumber(item.rcv_mayur) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0}</TableCell>
+                                <TableCell className="text-center font-bold bg-green-500 text-white">{((parseFloat(item.rcv_peeling) - parseFloat(item.issue_add_2)) + 
                                         (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
                                         (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
                                         (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
@@ -703,7 +704,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center  font-semibold ">{formatNumber(item.rcv_peeling)}</TableCell>
                                     <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
                                     <TableCell className="text-center font-bold text-red-500 ">{formatNumber(item.issue_add_3)} %</TableCell>
-                                    <TableCell className="text-center bg-yellow-100 font-semibold ">{formatNumber(item.issue_add_4)}</TableCell>
+                                    <TableCell className="text-center bg-yellow-100 font-semibold ">  {formatNumber((parseFloat(item.rcv_peeling)-parseFloat(item.issue_add_2)).toString())}</TableCell>
 
                                     <TableCell  className="text-center bg-yellow-100 font-semibold ">{item.rcv_sorting ? formatNumber(item.rcv_sorting) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_village ? formatNumber(item.rcv_village) :0}</TableCell>
@@ -712,7 +713,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_hamsa ? formatNumber(item.rcv_hamsa) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) :0}</TableCell>
                                     <TableCell className="text-center font-semibold bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) :0}</TableCell>
-                                    <TableCell className="text-center font-bold bg-green-500 text-white">{(parseFloat(item.issue_add_4) + 
+                                    <TableCell className="text-center font-bold bg-green-500 text-white">{((parseFloat(item.rcv_peeling)-parseFloat(item.issue_add_2)) + 
                                         (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
                                         (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
                                         (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
@@ -799,7 +800,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogTrigger className="flex"><CiEdit size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-7xl">
+                                                    <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 <p className='text-1xl pb-1 text-center mt-1'>BigTaiho Entry Modification</p>
@@ -813,7 +814,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogTrigger className="flex"><CiBoxes size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-7xl">
+                                                    <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 <p className='text-1xl pb-1 text-center mt-1'>BigTaiho Entry Reissue</p>
@@ -827,7 +828,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogTrigger className="flex"><CiCrop size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-4xl">
+                                                    <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}

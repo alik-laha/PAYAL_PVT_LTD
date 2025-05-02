@@ -138,6 +138,12 @@ export interface lotNoData {
     id: number;
     lotNo: string;
 }
+
+export interface vlotNoData {
+    id: number;
+    vlotNo: string;
+}
+
 export interface orderNoData {
     id: number;
     orderNo: string;
@@ -430,6 +436,51 @@ export interface VillageRcvData {
     vendorName: string;  
     totalWt:string; 
     remarks:string;
+
+}
+export interface VillageInRcvData {
+    approvedBy: string;
+    id: number;
+    recevingDate: string;
+    truckNo: string;
+    netWeight: string;
+    editStatus: string;
+    createdBy: string;
+    gatePassNo:string;
+    grossWt:string;
+    status:number;
+    quantity:string;
+    gateType: string,
+    invoice: string;  
+    sku: string;  
+    type: string;  
+    vendorName: string;  
+    totalWt:string; 
+    remarks:string;
+    origin:string;
+      wholes_quantity: string ;
+        wholes_prcntg: string ;
+    
+        lw_quantity: string ;
+        lw_prcntg: string ;
+    
+        jb_quantity: string ;
+        jb_prcntg: string;
+    
+        jbp_quantity: string ;
+        jbp_prcntg: string ;
+    
+        sdp_quantity: string ;
+        sdp_prcntg: string ;
+    
+        husk_quantity: string ;
+        husk_prcntg: string ;
+    
+        pieces_quantity: string ;
+        pieces_prcntg: string ;
+    
+        dp_quantity: string ;
+        dp_prcntg: string ;
 
 }
 

@@ -74,9 +74,9 @@ const RcvVillageInitial = (props: any) => {
                                             <Dialog>
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.gatePassNo)} >+ Add </Button></DialogTrigger>
-                                             <DialogContent style={{display:'block'}} className='max-w-3xl'>
+                                             <DialogContent style={{display:'block'}} className='max-w-6xl'>
                                                     <DialogHeader >
-                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Village Receiving/Dispatch Entry</p></DialogTitle>
+                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Village Dispatch Entry</p></DialogTitle>
 
                                                     </DialogHeader>
                                                 <RcvVillagePrimaryEntry rcn={rcnData}/>

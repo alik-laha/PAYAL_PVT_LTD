@@ -101,14 +101,62 @@ const Sorting = () => {
                         <p>{data.data[0].issue_jjh && data.data[0].issue_jjh1 && data.data[0].issue_sjh && data.data[0].issue_jk 
                         && data.data[0].issue_jk1 && data.data[0].issue_k && data.data[0].issue_k1 && data.data[0].issue_lwp
                         && data.data[0].issue_lwp1 && data.data[0].issue_s && data.data[0].issue_ss && data.data[0].issue_yk
-                        && data.data[0].issue_sp2 && data.data[0].issue_kp 
+                        && data.data[0].issue_sp2 && data.data[0].issue_kp && data.data[0].issue_in_k
+                        && data.data[0].issue_in_jh
+                        && data.data[0].issue_V_sjh
+                        && data.data[0].issue_V_k
+                        && data.data[0].issue_V_k1
+                        && data.data[0].issue_V_lwp
+                        && data.data[0].issue_V_lwp1
+                        && data.data[0].issue_V_jk
+                        && data.data[0].issue_V_jk1
+                        && data.data[0].issue_V_ss
+                        && data.data[0].issue_V_sp
+                        && data.data[0].issue_V_sp2
+                        && data.data[0].issue_V_jh1
+                        && data.data[0].issue_V_yk
+                        && data.data[0].issue_V_m_jk1
+                        && data.data[0].issue_ext_grade_1
+                        && data.data[0].issue_ext_grade_2
+                        && data.data[0].issue_ext_grade_3
+                        && data.data[0].issue_ext_grade_4
+                        && data.data[0].issue_ext_grade_5
+                        && data.data[0].issue_ext_grade_6
+                        && data.data[0].issue_ext_grade_7
+                        && data.data[0].issue_ext_grade_8
+                        && data.data[0].issue_ext_grade_9
+                        && data.data[0].issue_ext_grade_10
                        
                         && data.data[0].issue_add_10 
                         ? formatNumber(parseFloat(data.data[0].issue_jjh)+parseFloat(data.data[0].issue_jjh1)+parseFloat(data.data[0].issue_sjh)
                             +parseFloat(data.data[0].issue_jk)+parseFloat(data.data[0].issue_jk1)+parseFloat(data.data[0].issue_k)
                             +parseFloat(data.data[0].issue_k1)+parseFloat(data.data[0].issue_lwp)+parseFloat(data.data[0].issue_lwp1)
                             +parseFloat(data.data[0].issue_s)+parseFloat(data.data[0].issue_ss)+parseFloat(data.data[0].issue_yk)
-                            +parseFloat(data.data[0].issue_sp2)+parseFloat(data.data[0].issue_kp)
+                            +parseFloat(data.data[0].issue_sp2)+parseFloat(data.data[0].issue_kp)+parseFloat(data.data[0].issue_in_k)
+                            +parseFloat(data.data[0].issue_in_jh)
+                            +parseFloat(data.data[0].issue_V_sjh)
+                            +parseFloat(data.data[0].issue_V_k)
+                            +parseFloat(data.data[0].issue_V_k1)
+                            +parseFloat(data.data[0].issue_V_lwp)
+                            +parseFloat(data.data[0].issue_V_lwp1)
+                            +parseFloat(data.data[0].issue_V_jk)
+                            +parseFloat(data.data[0].issue_V_jk1)
+                            +parseFloat(data.data[0].issue_V_ss)
+                            +parseFloat(data.data[0].issue_V_sp)
+                            +parseFloat(data.data[0].issue_V_sp2)
+                            +parseFloat(data.data[0].issue_V_jh1)
+                            +parseFloat(data.data[0].issue_V_yk)
+                            +parseFloat(data.data[0].issue_V_m_jk1)
+                            +parseFloat(data.data[0].issue_ext_grade_1)
+                            +parseFloat(data.data[0].issue_ext_grade_2)
+                            +parseFloat(data.data[0].issue_ext_grade_3)
+                            +parseFloat(data.data[0].issue_ext_grade_4)
+                            +parseFloat(data.data[0].issue_ext_grade_5)
+                            +parseFloat(data.data[0].issue_ext_grade_6)
+                            +parseFloat(data.data[0].issue_ext_grade_7)
+                            +parseFloat(data.data[0].issue_ext_grade_8)
+                            +parseFloat(data.data[0].issue_ext_grade_9)
+                            +parseFloat(data.data[0].issue_ext_grade_10)
                             +parseFloat(data.data[0].issue_add_9)
                             +parseFloat(data.data[0].issue_add_10)): 0} Kg</p>
                   

@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 
-import { useState, useRef, useEffect,   } from "react"
+import { useState,  useEffect,   } from "react"
 import {
     Table,
     TableBody,
@@ -31,6 +31,8 @@ interface SectionRowData{
     //remarks:string;
     totalWt:number;
     totalBill:number;
+    invoice:string;
+    invoicedate:string;
    // noOfBags:number;
 }
 
@@ -38,8 +40,8 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
     
     const [errortext, setErrorText] = useState<string>("")
     const [gateType, setGateType] = useState<string>("")
-    const blNoRef = useRef<HTMLInputElement>(null)
-    const conNoRef = useRef<HTMLInputElement>(null)
+    //const blNoRef = useRef<HTMLInputElement>(null)
+    //const conNoRef = useRef<HTMLInputElement>(null)
     const [id, setId] = useState<number>()
     const [date, setDate] = useState<string>('')
     const [gatepass, setGatePass] = useState<string>('')
@@ -87,7 +89,7 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
             })            
     }, [])
 
-    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',quantity:0,totalWt:0,totalBill:0}
+    const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',quantity:0,totalWt:0,totalBill:0,invoice:'',invoicedate:''}
     ]);
 
     const handleRowChange = (index:number,field:string,fieldvalue:string) => {
@@ -96,7 +98,7 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
         setRows(newRows)
     }
     const addRow2 = () => {
-        setRows([...rows,{sku:'',type:'',quantity:0,totalWt:0,totalBill:0}])
+        setRows([...rows,{sku:'',type:'',quantity:0,totalWt:0,totalBill:0,invoice:'',invoicedate:''}])
     }
 
 
@@ -129,8 +131,8 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
     const handleSubmit3 = async (e: React.FormEvent) => {
         e.preventDefault()
         setisdisable(true)
-        const blNo = blNoRef.current?.value
-        const conNo = conNoRef.current?.value
+        //const blNo = blNoRef.current?.value
+        //const conNo = conNoRef.current?.value
 
 
         const formData = rows.map(row => ({
@@ -139,8 +141,8 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
             TruckNo: truck,
             gateType: gateType,
             GrossWt: grossWt,
-            invoicedate: conNo,
-            invoice: blNo,
+            //invoicedate: conNo,
+            //invoice: blNo,
             vendorName: VendorName,
             ...row
         }))
@@ -258,11 +260,11 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
                 
                 <div className="flex"><Label className="w-2/4  pt-1">Vehicle No.</Label>
                 <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="Vehicle No." value={truck}  readOnly /> </div>       
-                <div className="flex"><Label className="w-2/4  pt-2">Invoice No.</Label>
-                <Input className="w-2/4 text-center " placeholder="Invoice No." ref={blNoRef}  required/> </div>
+                {/* <div className="flex"><Label className="w-2/4  pt-2">Invoice No.</Label>
+                <Input className="w-2/4 text-center " placeholder="Invoice No." ref={blNoRef}  required/> </div> */}
                 
-                <div className="flex"><Label className="w-2/4 pt-2">Invoice Date</Label>
-                <Input className="w-2/4 justify-center text-center" type='date' placeholder="date" ref={conNoRef} required /> </div>
+                {/* <div className="flex"><Label className="w-2/4 pt-2">Invoice Date</Label>
+                <Input className="w-2/4 justify-center text-center" type='date' placeholder="date" ref={conNoRef} required /> </div> */}
                 
                 <div className="flex "><Label className="w-2/4  pt-2">{gateType==='IN'? 'Vendor':'Party'} Name</Label>
                 <div className="w-2/4">
@@ -287,8 +289,8 @@ const AgarbatiPrimaryEntryForm = (props:Props) => {
                             <TableHead className="text-center" >Sl. No.</TableHead>
                             <TableHead className="text-center" >Type</TableHead>
                             <TableHead className="text-center" >Grade</TableHead>                      
-                           
-                           
+                            <TableHead className="text-center" >Invoice_No</TableHead>
+                            <TableHead className="text-center" >Invoice_Date</TableHead>
                             <TableHead className="text-center" >Bag/Piece</TableHead>                  
                             <TableHead className="text-center" >Line_Weight(Kg)</TableHead> 
                             <TableHead className="text-center" >Bill_Amount</TableHead>           
@@ -338,7 +340,21 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                                 </select>
                                             </TableCell>
 
+                                            <TableCell className="text-center" >
+                                                <Input value={row.invoice} placeholder="Invoice No." 
+                                                    onChange={(e) => {
+                                                        handleRowChange(index, 'invoice', e.target.value) 
 
+                                                    }} required/>
+                                            </TableCell>
+
+                                            <TableCell className="text-center" >
+                                                <Input value={row.invoicedate} placeholder="Date" type="date"
+                                                    onChange={(e) => {
+                                                        handleRowChange(index, 'invoicedate', e.target.value) 
+
+                                                    }} required/>
+                                            </TableCell>
 
                                             <TableCell className="text-center" >
                                                 <Input value={row.quantity} placeholder="Qty." type='number' step='0'

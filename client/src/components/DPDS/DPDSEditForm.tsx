@@ -51,6 +51,37 @@ interface DPDSRowData{
         issue_ss: string;
         issue_os: string;
         issue_os1: string;
+
+    issue_V_ds: string;
+    issue_V_m_ds: string;
+    issue_V_dp: string;
+    issue_V_m_dp: string;
+    issue_V_lp: string;
+    issue_V_lp_2: string;
+    issue_V_k_dp: string;
+    issue_V_ss: string;
+    issue_V_yjh: string;
+    issue_V_yk: string;
+    issue_V_sp_2: string;
+    issue_V_kp: string;
+    issue_V_dp_2: string;
+    issue_V_dp_3: string;
+    issue_V_dp_4: string;
+    issue_V_os: string;
+    issue_V_os_1: string;
+    issue_V_wp: string;
+    issue_V_rs: string;
+    issue_ext_grade_1: string;
+    issue_ext_grade_2: string;
+    issue_ext_grade_3: string;
+    issue_ext_grade_4: string;
+    issue_ext_grade_5: string;
+    issue_ext_grade_6: string;
+    issue_ext_grade_7: string;
+    issue_ext_grade_8: string;
+    issue_ext_grade_9: string;
+    issue_ext_grade_10: string;
+
         issue_add_1: string;
         issue_add_2: string|number;
         issue_add_3: string|number;
@@ -175,6 +206,36 @@ const DPDSEditForm = (props:Props) => {
             issue_ss:  props.borma[0].issue_ss,
             issue_os:props.borma[0].issue_os,
             issue_os1:  props.borma[0].issue_os1,
+
+            issue_V_ds: props.borma[0].issue_V_ds,
+            issue_V_m_ds: props.borma[0].issue_V_m_ds,
+            issue_V_dp: props.borma[0].issue_V_dp,
+            issue_V_m_dp: props.borma[0].issue_V_m_dp,
+            issue_V_lp: props.borma[0].issue_V_lp,
+            issue_V_lp_2: props.borma[0].issue_V_lp_2,
+            issue_V_k_dp: props.borma[0].issue_V_k_dp,
+            issue_V_ss: props.borma[0].issue_V_ss,
+            issue_V_yjh: props.borma[0].issue_V_yjh,
+            issue_V_yk: props.borma[0].issue_V_yk,
+            issue_V_sp_2: props.borma[0].issue_V_sp_2,
+            issue_V_kp: props.borma[0].issue_V_kp,
+            issue_V_dp_2: props.borma[0].issue_V_dp_2,
+            issue_V_dp_3: props.borma[0].issue_V_dp_3,
+            issue_V_dp_4: props.borma[0].issue_V_dp_4,
+            issue_V_os: props.borma[0].issue_V_os,
+            issue_V_os_1: props.borma[0].issue_V_os_1,
+            issue_V_wp: props.borma[0].issue_V_wp,
+            issue_V_rs: props.borma[0].issue_V_rs,
+            issue_ext_grade_1: props.borma[0].issue_ext_grade_1,
+            issue_ext_grade_2: props.borma[0].issue_ext_grade_2,
+            issue_ext_grade_3: props.borma[0].issue_ext_grade_3,
+            issue_ext_grade_4: props.borma[0].issue_ext_grade_4,
+            issue_ext_grade_5: props.borma[0].issue_ext_grade_5,
+            issue_ext_grade_6: props.borma[0].issue_ext_grade_6,
+            issue_ext_grade_7: props.borma[0].issue_ext_grade_7,
+            issue_ext_grade_8: props.borma[0].issue_ext_grade_8,
+            issue_ext_grade_9: props.borma[0].issue_ext_grade_9,
+            issue_ext_grade_10: props.borma[0].issue_ext_grade_10,
             issue_add_1: props.borma[0].altid==1 ?props.borma[0].issue_add_1:(parseFloat(props.borma[0].issue_add_4)
             +parseFloat(props.borma[0].issue_add_5)+parseFloat(props.borma[0].issue_add_6)).toString(),
             issue_add_2:  props.borma[0].issue_add_2,
@@ -294,33 +355,33 @@ const DPDSEditForm = (props:Props) => {
     return (
         <>
         <div className="px-5 py-2 overflow-auto">
-            <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit2}>
-               <div className="mx-8 flex flex-col gap-0.5"> 
+            <form className='flex flex-col gap-1 pt-5' onSubmit={handleSubmit2}>
+               <div className="mx-1 flex flex-col gap-0.5"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
-                <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
+                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
                
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Labour</Label>
+                     <div className="flex"><Label className="w-1/4 pt-1">No. of Labour</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of labour" ref={dayOpRef}  />
+                    <Input className="w-1/4 text-center" placeholder="No. of labour" ref={dayOpRef}  />
                      </div>
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Supervisor</Label>
+                     <div className="flex"><Label className="w-1/4 pt-1">No. of Supervisor</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of supervisor" ref={nightOpRef}  />
+                    <Input className="w-1/4 text-center" placeholder="No. of supervisor" ref={nightOpRef}  />
                      </div>
                    
                      
                    
                 </div>
-            
+                <Label className="w-100 pt-2 text-center">Update General Information</Label>
                    <Table className="mt-3">
                    <TableHeader className="bg-neutral-100 text-stone-950 ">
                    <TableHead className="text-center">Sl. No.</TableHead>
                     <TableHead className="text-center">Lot_No</TableHead>
               
                     <TableHead className="text-center">Origin</TableHead>
-                    <TableHead className="text-center">Mixed_Lot</TableHead>
+                    <TableHead className="text-center">DPDS_Mixed_Lot</TableHead>
                     {/* <TableHead className="text-center">Receive DP</TableHead>
                     <TableHead className="text-center">Receive DS</TableHead>
                     <TableHead className="text-center">Receive DP1</TableHead>
@@ -338,34 +399,7 @@ const DPDSEditForm = (props:Props) => {
                     <TableHead className="text-center">Borma Loss(%)</TableHead> */}
                    
                    
-                    <TableHead className="text-center">Issue M_DS</TableHead>
-                    <TableHead className="text-center">Issue M_DP</TableHead>
-                    <TableHead className="text-center">Issue K DP</TableHead>
-                    <TableHead className="text-center">Issue DS 1</TableHead>
-                    <TableHead className="text-center">Issue DS 2</TableHead>
-                    <TableHead className="text-center">Issue SP 2</TableHead>
-                    <TableHead className="text-center">Issue YJH</TableHead>
-                    <TableHead className="text-center">Issue YK</TableHead>
-                    <TableHead className="text-center">Issue KP</TableHead>
-                    <TableHead className="text-center">Issue WP</TableHead>
-                    <TableHead className="text-center">Issue RS</TableHead>
-                    <TableHead className="text-center">Issue DP 2</TableHead>
-                    <TableHead className="text-center">Issue DP 3</TableHead>
-                    <TableHead className="text-center">Issue DP 4</TableHead>
-                    <TableHead className="text-center">Issue DP_3L</TableHead>
-                    <TableHead className="text-center">Issue SS</TableHead>
-                    <TableHead className="text-center">Issue OS</TableHead>
-                    <TableHead className="text-center">Issue OS1</TableHead>
-                    {/* <TableHead className="text-center">Issue Add 1</TableHead>
-                    <TableHead className="text-center">Issue Add 2</TableHead>
-                    <TableHead className="text-center">Issue Add 3</TableHead>
-                    <TableHead className="text-center">Issue Add 4</TableHead>
-                    <TableHead className="text-center">Issue Add 5</TableHead>
-                    <TableHead className="text-center">Issue Add 6</TableHead>
-                    <TableHead className="text-center">Issue Add 7</TableHead>
-                    <TableHead className="text-center">Issue Add 8</TableHead>
-                    <TableHead className="text-center">Issue Add 9</TableHead>
-                    <TableHead className="text-center">Issue Add 10</TableHead> */}
+               
                     <TableHead className="text-center">Issue Rejection</TableHead>
                     <TableHead className="text-center">Issue Village</TableHead>
                     <TableHead className="text-center">Issue BigTaiho</TableHead>
@@ -387,7 +421,7 @@ const DPDSEditForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_dpN.toString())} Kg</TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_dsN.toString())} Kg</TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_dp1N.toString())} Kg</TableCell> */}
-                                          <TableCell className="text-center font-semibold text-green-500">{row.issue_add_1 ? formatNumber(row.issue_add_1) :0} Kg</TableCell>
+                                          <TableCell className="text-center font-semibold text-green-500">{formatNumber((Number(row.rcv_dpN) +Number(row.rcv_dp1N)+Number(row.rcv_dsN)).toString())} Kg</TableCell>
                                           <TableCell className="text-center font-semibold text-green-500">{row.rcv_Sorting ? formatNumber(row.rcv_Sorting):0} Kg</TableCell>
 
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_transfer ? formatNumber(row.rcv_transfer) :0} Kg</TableCell>
@@ -403,35 +437,8 @@ const DPDSEditForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell> */}
                                         
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_m_ds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_m_ds', e.target.value)} required /></TableCell>
-
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_m_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_m_dp', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_k_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_k_dp', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ds_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ds_1', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ds_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ds_2', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_sp_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sp_2', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_yjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_yjh', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_yk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_yk', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_kp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_kp', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_wp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_wp', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_rs} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rs', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_dp_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dp_2', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_dp_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dp_3', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_dp_4} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dp_4', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_dp_3l} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dp_3l', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ss} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ss', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_os} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_os', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_os1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_os1', e.target.value)} required /></TableCell>
-                                    {/* <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_1', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_2', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_3', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_4} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_4', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_5} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_5', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_6} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_6', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_7} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_7', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_8} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_8', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_9} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_9', e.target.value)} required /></TableCell>
-                                    <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_10} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_10', e.target.value)} required /></TableCell> */}
+                                     
+                      
                                     <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_village', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bigTaiho', e.target.value)} required /></TableCell>
@@ -444,6 +451,221 @@ const DPDSEditForm = (props:Props) => {
                         ) : null}
                     </TableBody>
                 </Table>  
+                <Label className="w-100 pt-1 text-center">Lot Packing Grade</Label>
+                                <Table className="mt-3">
+                                   <TableHeader className="bg-neutral-100 text-stone-950 ">
+                                   
+                                  
+                                    
+                                   
+                                    <TableHead className="text-center">Issue M_DS</TableHead>
+                                    <TableHead className="text-center">Issue M_DP</TableHead>
+                                    <TableHead className="text-center">Issue K_DP</TableHead>
+                                    <TableHead className="text-center">Issue DS 1</TableHead>
+                                    <TableHead className="text-center">Issue DS 2</TableHead>
+                                    <TableHead className="text-center">Issue SP 2</TableHead>
+                                    <TableHead className="text-center">Issue YJH</TableHead>
+                                    <TableHead className="text-center">Issue YK</TableHead>
+                                    <TableHead className="text-center">Issue KP</TableHead>
+                                    <TableHead className="text-center">Issue WP</TableHead>
+                                    <TableHead className="text-center">Issue RS</TableHead>
+                                    <TableHead className="text-center">Issue DP 2</TableHead>
+                                    <TableHead className="text-center">Issue DP 3</TableHead>
+                                    <TableHead className="text-center">Issue DP 4</TableHead>
+                                    <TableHead className="text-center">Issue DP_3L</TableHead>
+                                    <TableHead className="text-center">Issue SS</TableHead>
+                                    <TableHead className="text-center">Issue OS</TableHead>
+                                    <TableHead className="text-center">Issue OS1</TableHead>
+                                  
+                               
+                                    </TableHeader>
+                                    <TableBody>
+                                        {props.borma.length > 0 ? (
+                                            rows.map(( row:DPDSRowData,idx:number) => {
+                                              
+                                                return (
+                                                    <TableRow key={idx} className="boiling-row-height-scoop">
+                                                      
+                                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_m_ds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_m_ds', e.target.value)} required /></TableCell>
+                
+                                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_m_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_m_dp', e.target.value)} required /></TableCell>
+                                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_k_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_k_dp', e.target.value)} required /></TableCell>
+                                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_ds_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ds_1', e.target.value)} required /></TableCell>
+                                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_ds_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ds_2', e.target.value)} required /></TableCell>
+                                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_sp_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sp_2', e.target.value)} required /></TableCell>
+                                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_yjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_yjh', e.target.value)} required /></TableCell>
+                                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_yk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_yk', e.target.value)} required /></TableCell>
+                                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_kp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_kp', e.target.value)} required /></TableCell>
+                                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_wp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_wp', e.target.value)} required /></TableCell>
+                                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_rs} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rs', e.target.value)} required /></TableCell>
+                                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_dp_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dp_2', e.target.value)} required /></TableCell>
+                                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_dp_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dp_3', e.target.value)} required /></TableCell>
+                                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_dp_4} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dp_4', e.target.value)} required /></TableCell>
+                                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_dp_3l} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_dp_3l', e.target.value)} required /></TableCell>
+                                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_ss} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ss', e.target.value)} required /></TableCell>
+                                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_os} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_os', e.target.value)} required /></TableCell>
+                                                    <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_os1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_os1', e.target.value)} required /></TableCell>
+                                                   
+                                                    </TableRow>
+                                                );
+                                            })
+                                        ) : null}
+                                    </TableBody>
+                                </Table> 
+                                <Label className="w-100 pt-1 text-center">Village Packing Grade</Label>
+                                <Table className="mt-3">
+                                <TableHeader className="bg-neutral-100 text-stone-950 ">
+                                            <TableHead className="text-center">Issue V_DS</TableHead>
+                                            <TableHead className="text-center">Issue V_M_DS</TableHead>
+                                            <TableHead className="text-center">Issue V_DP</TableHead>
+                                            <TableHead className="text-center">Issue V_M_DP</TableHead>
+                                            <TableHead className="text-center">Issue V_K_DP</TableHead>
+                                            <TableHead className="text-center">Issue V_LP</TableHead>
+                                            <TableHead className="text-center">Issue V_LP2</TableHead>
+                                           
+                                            <TableHead className="text-center">Issue V_SS</TableHead>
+                                            <TableHead className="text-center">Issue V_YJH</TableHead>
+                                            <TableHead className="text-center">Issue V_YK</TableHead>
+                                            <TableHead className="text-center">Issue V_SP2</TableHead>
+                                            <TableHead className="text-center">Issue V_KP</TableHead>
+                                            <TableHead className="text-center">Issue V_DP2</TableHead>
+                                            <TableHead className="text-center">Issue V_DP3</TableHead>
+                                            <TableHead className="text-center">Issue V_DP4</TableHead>
+                                            <TableHead className="text-center">Issue V_OS</TableHead>
+                                            <TableHead className="text-center">Issue V_OS1</TableHead>
+                                            <TableHead className="text-center">Issue V_WP</TableHead>
+                                            <TableHead className="text-center">Issue V_RS</TableHead>
+                                </TableHeader>
+                
+                                <TableBody>
+                                        {props.borma.length > 0 ? (
+                                            rows.map(( row:DPDSRowData,idx:number) => {
+                                              
+                                                return (
+                                                    <TableRow key={idx} className="boiling-row-height-scoop">
+                                              <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_ds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_ds', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_m_ds} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_m_ds', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_dp', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_m_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_m_dp', e.target.value)} required />
+                </TableCell>
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_k_dp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_k_dp', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_lp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_lp', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_lp_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_lp_2', e.target.value)} required />
+                </TableCell>
+                
+                
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_ss} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_ss', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_yjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_yjh', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_yk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_yk', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_sp_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_sp_2', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_kp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_kp', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_dp_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_dp_2', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_dp_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_dp_3', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_dp_4} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_dp_4', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_os} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_os', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_os_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_os_1', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_wp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_wp', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-yellow-100" type="number" value={row.issue_V_rs} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_rs', e.target.value)} required />
+                </TableCell>
+                
+                {/* <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_1', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_2', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_3', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_4} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_4', e.target.value)} required />
+                </TableCell>
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_5} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_5', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_6} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_6', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_7} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_7', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_8} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_8', e.target.value)} required />
+                </TableCell>
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_9} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_9', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_10} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_10', e.target.value)} required />
+                </TableCell> */}
+                
+                
+                                                   
+                                                    </TableRow>
+                                                );
+                                            })
+                                        ) : null}
+                                    </TableBody>
+                                    </Table> 
                 <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                   
                    

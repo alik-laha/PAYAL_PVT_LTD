@@ -47,14 +47,14 @@ const SearchRCNPeeling = async (req: Request, res: Response) => {
         if(limit===0 && offset===0){
              rcnEntries = await RcnPeeling.findAll({
                 where,
-                order: [['LotNo','DESC'],['date', 'DESC']], // Order by date descending
+                order: [['date', 'DESC'],['LotNo','DESC'],], // Order by date descending
                 
             });
         }
         else{
              rcnEntries = await RcnPeeling.findAll({
                 where,
-                order: [['LotNo','DESC'],['date', 'DESC']], // Order by date descending
+                order: [['date', 'DESC'],['LotNo','DESC'],], // Order by date descending
                 limit: limit,
                 offset: offset
             });

@@ -138,6 +138,151 @@ const DPDSEdit = sequelize.define('dpdsEdit', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
+    issue_V_ds: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_m_ds: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_dp: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_m_dp: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_lp: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_lp_2: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_k_dp: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_ss: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_yjh: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_yk: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_sp_2: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_kp: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_dp_2: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_dp_3: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_dp_4: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_os: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_os_1: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_wp: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_V_rs: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_1: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_2: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_3: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_4: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_5: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_6: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_7: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_8: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_9: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_10: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
     issue_add_1: 
     {
         type: DataTypes.DECIMAL(10,2),

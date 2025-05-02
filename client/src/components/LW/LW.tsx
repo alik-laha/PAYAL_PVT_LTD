@@ -107,7 +107,10 @@ const LW = () => {
                                     && data.data[0].issue_rej_3 && data.data[0].issue_rej_4 && data.data[0].issue_jb2 && data.data[0].issue_sjb
                                     && data.data[0].issue_k_240 && data.data[0].issue_k_280 && data.data[0].issue_k_360 && data.data[0].issue_pkw
                                     && data.data[0].issue_bw && data.data[0].issue_rw && data.data[0].issue_rrw && data.data[0].issue_fw
-                                    && data.data[0].issue_lw
+                                    && data.data[0].issue_lw && data.data[0].issue_ext_grade_1 && data.data[0].issue_ext_grade_2 &&
+                                    data.data[0].issue_ext_grade_3 && data.data[0].issue_ext_grade_4 && data.data[0].issue_ext_grade_5 &&
+                                    data.data[0].issue_ext_grade_6 && data.data[0].issue_ext_grade_7 && data.data[0].issue_ext_grade_8 &&
+                                    data.data[0].issue_ext_grade_9 && data.data[0].issue_ext_grade_10
                                     ? formatNumber(
                                         parseFloat(data.data[0].issue_kw) + parseFloat(data.data[0].issue_kw_1) + parseFloat(data.data[0].issue_kw_2)
                                         + parseFloat(data.data[0].issue_kn) + parseFloat(data.data[0].issue_dw) + parseFloat(data.data[0].issue_dw_1)
@@ -121,7 +124,16 @@ const LW = () => {
                                         + parseFloat(data.data[0].issue_sjb) + parseFloat(data.data[0].issue_k_240) + parseFloat(data.data[0].issue_k_280)
                                         + parseFloat(data.data[0].issue_k_360) + parseFloat(data.data[0].issue_pkw) + parseFloat(data.data[0].issue_bw)
                                         + parseFloat(data.data[0].issue_rw) + parseFloat(data.data[0].issue_rrw) + parseFloat(data.data[0].issue_fw)
-                                        + parseFloat(data.data[0].issue_lw)
+                                        + parseFloat(data.data[0].issue_lw)+ parseFloat(data.data[0].issue_ext_grade_1) +
+                                        parseFloat(data.data[0].issue_ext_grade_2) +
+                                        parseFloat(data.data[0].issue_ext_grade_3) +
+                                        parseFloat(data.data[0].issue_ext_grade_4) +
+                                        parseFloat(data.data[0].issue_ext_grade_5) +
+                                        parseFloat(data.data[0].issue_ext_grade_6) +
+                                        parseFloat(data.data[0].issue_ext_grade_7) +
+                                        parseFloat(data.data[0].issue_ext_grade_8) +
+                                        parseFloat(data.data[0].issue_ext_grade_9) +
+                                        parseFloat(data.data[0].issue_ext_grade_10) 
                                     ) : 0
                             } Kg
                         </p>

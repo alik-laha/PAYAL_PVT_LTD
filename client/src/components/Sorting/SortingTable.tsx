@@ -161,13 +161,65 @@ const SortingTable = () => {
                 issue_yk: formatNumber(item.issue_yk),
                 issue_sp2:formatNumber(item.issue_sp2),
                 issue_kp:formatNumber(item.issue_kp),
+
+                issue_in_k: formatNumber(item.issue_in_k),
+                issue_in_jh: formatNumber(item.issue_in_jh),
+                issue_V_sjh: formatNumber(item.issue_V_sjh),
+                issue_V_k: formatNumber(item.issue_V_k),
+                issue_V_k1: formatNumber(item.issue_V_k1),
+                issue_V_lwp: formatNumber(item.issue_V_lwp),
+                issue_V_lwp1: formatNumber(item.issue_V_lwp1),
+                issue_V_jk: formatNumber(item.issue_V_jk),
+                issue_V_jk1: formatNumber(item.issue_V_jk1),
+                issue_V_ss: formatNumber(item.issue_V_ss),
+                issue_V_sp: formatNumber(item.issue_V_sp),
+                issue_V_sp2: formatNumber(item.issue_V_sp2),
+                issue_V_jh1: formatNumber(item.issue_V_jh1),
+                issue_V_yk: formatNumber(item.issue_V_yk),
+                issue_V_m_jk1: formatNumber(item.issue_V_m_jk1),
+                issue_ext_grade_1: formatNumber(item.issue_ext_grade_1),
+                issue_ext_grade_2: formatNumber(item.issue_ext_grade_2),
+                issue_ext_grade_3: formatNumber(item.issue_ext_grade_3),
+                issue_ext_grade_4: formatNumber(item.issue_ext_grade_4),
+                issue_ext_grade_5: formatNumber(item.issue_ext_grade_5),
+                issue_ext_grade_6: formatNumber(item.issue_ext_grade_6),
+                issue_ext_grade_7: formatNumber(item.issue_ext_grade_7),
+                issue_ext_grade_8: formatNumber(item.issue_ext_grade_8),
+                issue_ext_grade_9: formatNumber(item.issue_ext_grade_9),
+                issue_ext_grade_10: formatNumber(item.issue_ext_grade_10),
+
                 Issue_Packing:formatNumber((
                     parseFloat(item.issue_jjh)+parseFloat(item.issue_jjh1)+
                     parseFloat(item.issue_sjh) +parseFloat(item.issue_jk)+parseFloat(item.issue_jk1)+
                     parseFloat(item.issue_k) +parseFloat(item.issue_k1)+parseFloat(item.issue_lwp)+
                     parseFloat(item.issue_lwp1) +parseFloat(item.issue_s)+parseFloat(item.issue_ss)+
                     parseFloat(item.issue_k) +parseFloat(item.issue_yk)+parseFloat(item.issue_sp2)+
-                    parseFloat(item.issue_kp) ).toString()),
+                    parseFloat(item.issue_kp)+parseFloat(item.issue_in_k) +
+                    parseFloat(item.issue_in_jh) +
+                    parseFloat(item.issue_V_sjh) +
+                    parseFloat(item.issue_V_k) +
+                    parseFloat(item.issue_V_k1) +
+                    parseFloat(item.issue_V_lwp) +
+                    parseFloat(item.issue_V_lwp1) +
+                    parseFloat(item.issue_V_jk) +
+                    parseFloat(item.issue_V_jk1) +
+                    parseFloat(item.issue_V_ss) +
+                    parseFloat(item.issue_V_sp) +
+                    parseFloat(item.issue_V_sp2) +
+                    parseFloat(item.issue_V_jh1) +
+                    parseFloat(item.issue_V_yk) +
+                    parseFloat(item.issue_V_m_jk1) +
+                    parseFloat(item.issue_ext_grade_1) +
+                    parseFloat(item.issue_ext_grade_2) +
+                    parseFloat(item.issue_ext_grade_3) +
+                    parseFloat(item.issue_ext_grade_4) +
+                    parseFloat(item.issue_ext_grade_5) +
+                    parseFloat(item.issue_ext_grade_6) +
+                    parseFloat(item.issue_ext_grade_7) +
+                    parseFloat(item.issue_ext_grade_8) +
+                    parseFloat(item.issue_ext_grade_9) +
+                    parseFloat(item.issue_ext_grade_10)
+                 ).toString()),
                 issue_village: formatNumber(item.issue_village),
                 issue_mayur:formatNumber(item.issue_mayur),
                 issue_bigTaiho: formatNumber(item.issue_bigTaiho),
@@ -230,13 +282,66 @@ const SortingTable = () => {
                 issue_yk: formatNumber(item.issue_yk),
                 issue_sp2:formatNumber(item.issue_sp2),
                 issue_kp:formatNumber(item.issue_kp),
+
+                issue_in_k: formatNumber(item.issue_in_k),
+                issue_in_jh: formatNumber(item.issue_in_jh),
+                issue_V_sjh: formatNumber(item.issue_V_sjh),
+                issue_V_k: formatNumber(item.issue_V_k),
+                issue_V_k1: formatNumber(item.issue_V_k1),
+                issue_V_lwp: formatNumber(item.issue_V_lwp),
+                issue_V_lwp1: formatNumber(item.issue_V_lwp1),
+                issue_V_jk: formatNumber(item.issue_V_jk),
+                issue_V_jk1: formatNumber(item.issue_V_jk1),
+                issue_V_ss: formatNumber(item.issue_V_ss),
+                issue_V_sp: formatNumber(item.issue_V_sp),
+                issue_V_sp2: formatNumber(item.issue_V_sp2),
+                issue_V_jh1: formatNumber(item.issue_V_jh1),
+                issue_V_yk: formatNumber(item.issue_V_yk),
+                issue_V_m_jk1: formatNumber(item.issue_V_m_jk1),
+                issue_ext_grade_1: formatNumber(item.issue_ext_grade_1),
+                issue_ext_grade_2: formatNumber(item.issue_ext_grade_2),
+                issue_ext_grade_3: formatNumber(item.issue_ext_grade_3),
+                issue_ext_grade_4: formatNumber(item.issue_ext_grade_4),
+                issue_ext_grade_5: formatNumber(item.issue_ext_grade_5),
+                issue_ext_grade_6: formatNumber(item.issue_ext_grade_6),
+                issue_ext_grade_7: formatNumber(item.issue_ext_grade_7),
+                issue_ext_grade_8: formatNumber(item.issue_ext_grade_8),
+                issue_ext_grade_9: formatNumber(item.issue_ext_grade_9),
+                issue_ext_grade_10: formatNumber(item.issue_ext_grade_10),
+
                 Issue_Packing:formatNumber((
                     parseFloat(item.issue_jjh)+parseFloat(item.issue_jjh1)+
                     parseFloat(item.issue_sjh) +parseFloat(item.issue_jk)+parseFloat(item.issue_jk1)+
                     parseFloat(item.issue_k) +parseFloat(item.issue_k1)+parseFloat(item.issue_lwp)+
                     parseFloat(item.issue_lwp1) +parseFloat(item.issue_s)+parseFloat(item.issue_ss)+
                     parseFloat(item.issue_k) +parseFloat(item.issue_yk)+parseFloat(item.issue_sp2)+
-                    parseFloat(item.issue_kp) ).toString()),
+                    parseFloat(item.issue_kp)+parseFloat(item.issue_in_k) +
+                    parseFloat(item.issue_in_jh) +
+                    parseFloat(item.issue_V_sjh) +
+                    parseFloat(item.issue_V_k) +
+                    parseFloat(item.issue_V_k1) +
+                    parseFloat(item.issue_V_lwp) +
+                    parseFloat(item.issue_V_lwp1) +
+                    parseFloat(item.issue_V_jk) +
+                    parseFloat(item.issue_V_jk1) +
+                    parseFloat(item.issue_V_ss) +
+                    parseFloat(item.issue_V_sp) +
+                    parseFloat(item.issue_V_sp2) +
+                    parseFloat(item.issue_V_jh1) +
+                    parseFloat(item.issue_V_yk) +
+                    parseFloat(item.issue_V_m_jk1) +
+                    parseFloat(item.issue_ext_grade_1) +
+                    parseFloat(item.issue_ext_grade_2) +
+                    parseFloat(item.issue_ext_grade_3) +
+                    parseFloat(item.issue_ext_grade_4) +
+                    parseFloat(item.issue_ext_grade_5) +
+                    parseFloat(item.issue_ext_grade_6) +
+                    parseFloat(item.issue_ext_grade_7) +
+                    parseFloat(item.issue_ext_grade_8) +
+                    parseFloat(item.issue_ext_grade_9) +
+                    parseFloat(item.issue_ext_grade_10)
+                 ).toString()),
+         
                 issue_village: formatNumber(item.issue_village),
                 issue_mayur:formatNumber(item.issue_mayur),
                 issue_bigTaiho: formatNumber(item.issue_bigTaiho),
@@ -455,7 +560,23 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue SS</TableHead>
                     <TableHead className="text-center">Issue YK</TableHead>
                     <TableHead className="text-center">Issue SP2</TableHead>
-                    <TableHead className="text-center">Issue KP</TableHead>       
+                    <TableHead className="text-center">Issue KP</TableHead>
+                            <TableHead className="text-center">Issue IN_K</TableHead>
+                                        <TableHead className="text-center">Issue IN_JH</TableHead>
+                      <TableHead className="text-center">Lot_Village Seperator</TableHead>
+                      <TableHead className="text-center">Issue V_SJH</TableHead>
+                      <TableHead className="text-center">Issue V_K</TableHead>
+                      <TableHead className="text-center">Issue V_K1</TableHead>
+                      <TableHead className="text-center">Issue V_LWP</TableHead>
+                      <TableHead className="text-center">Issue V_LWP1</TableHead>
+                      <TableHead className="text-center">Issue V_JK</TableHead>
+                      <TableHead className="text-center">Issue V_JK1</TableHead>
+                      <TableHead className="text-center">Issue V_SS</TableHead>
+                      <TableHead className="text-center">Issue V_SP</TableHead>
+                      <TableHead className="text-center">Issue V_SP2</TableHead>
+                      <TableHead className="text-center">Issue V_JH1</TableHead>
+                      <TableHead className="text-center">Issue V_YK</TableHead>
+                      <TableHead className="text-center">Issue V_M_JK1</TableHead>       
                     {/* <TableHead className="text-center">Issue Add 1</TableHead>
                     <TableHead className="text-center">Issue Add 2</TableHead>
                     <TableHead className="text-center">Issue Add 3</TableHead>
@@ -542,13 +663,55 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.issue_yk)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_sp2)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_kp)}</TableCell>
+                                    <TableCell className="text-center">{formatNumber(item.issue_in_k)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_in_jh)}</TableCell>
+
+ <TableCell className="text-center font-semibold bg-neutral-500 text-white">Lot---Vil</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_sjh)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_k)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_k1)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_lwp)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_lwp1)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_jk)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_jk1)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_ss)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_sp)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_sp2)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_jh1)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_yk)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_m_jk1)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber((
                                      parseFloat(item.issue_jjh)+parseFloat(item.issue_jjh1)+
                                      parseFloat(item.issue_sjh) +parseFloat(item.issue_jk)+parseFloat(item.issue_jk1)+
                                       +parseFloat(item.issue_k1)+parseFloat(item.issue_lwp)+
                                      parseFloat(item.issue_lwp1) +parseFloat(item.issue_s)+parseFloat(item.issue_ss)+
                                      parseFloat(item.issue_k) +parseFloat(item.issue_yk)+parseFloat(item.issue_sp2)+
-                                     parseFloat(item.issue_kp) ).toString())}</TableCell>
+                                     parseFloat(item.issue_kp) +parseFloat(item.issue_in_k) +
+                                     parseFloat(item.issue_in_jh) +
+                                     parseFloat(item.issue_V_sjh) +
+                                     parseFloat(item.issue_V_k) +
+                                     parseFloat(item.issue_V_k1) +
+                                     parseFloat(item.issue_V_lwp) +
+                                     parseFloat(item.issue_V_lwp1) +
+                                     parseFloat(item.issue_V_jk) +
+                                     parseFloat(item.issue_V_jk1) +
+                                     parseFloat(item.issue_V_ss) +
+                                     parseFloat(item.issue_V_sp) +
+                                     parseFloat(item.issue_V_sp2) +
+                                     parseFloat(item.issue_V_jh1) +
+                                     parseFloat(item.issue_V_yk) +
+                                     parseFloat(item.issue_V_m_jk1) +
+                                     parseFloat(item.issue_ext_grade_1) +
+                                     parseFloat(item.issue_ext_grade_2) +
+                                     parseFloat(item.issue_ext_grade_3) +
+                                     parseFloat(item.issue_ext_grade_4) +
+                                     parseFloat(item.issue_ext_grade_5) +
+                                     parseFloat(item.issue_ext_grade_6) +
+                                     parseFloat(item.issue_ext_grade_7) +
+                                     parseFloat(item.issue_ext_grade_8) +
+                                     parseFloat(item.issue_ext_grade_9) +
+                                     parseFloat(item.issue_ext_grade_10)
+                                     ).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_village)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_mayur)}</TableCell>
                                     
@@ -565,7 +728,32 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                      parseFloat(item.issue_k) +parseFloat(item.issue_yk)+parseFloat(item.issue_sp2)+
                                      parseFloat(item.issue_village) +parseFloat(item.issue_mayur)+parseFloat(item.issue_bigTaiho)+
                                      parseFloat(item.issue_bigTaiho) +parseFloat(item.issue_rejection)+
-                                     parseFloat(item.issue_kp) ).toString())} Kg</TableCell>     
+                                     parseFloat(item.issue_kp) +parseFloat(item.issue_in_k) +
+                                     parseFloat(item.issue_in_jh) +
+                                     parseFloat(item.issue_V_sjh) +
+                                     parseFloat(item.issue_V_k) +
+                                     parseFloat(item.issue_V_k1) +
+                                     parseFloat(item.issue_V_lwp) +
+                                     parseFloat(item.issue_V_lwp1) +
+                                     parseFloat(item.issue_V_jk) +
+                                     parseFloat(item.issue_V_jk1) +
+                                     parseFloat(item.issue_V_ss) +
+                                     parseFloat(item.issue_V_sp) +
+                                     parseFloat(item.issue_V_sp2) +
+                                     parseFloat(item.issue_V_jh1) +
+                                     parseFloat(item.issue_V_yk) +
+                                     parseFloat(item.issue_V_m_jk1) +
+                                     parseFloat(item.issue_ext_grade_1) +
+                                     parseFloat(item.issue_ext_grade_2) +
+                                     parseFloat(item.issue_ext_grade_3) +
+                                     parseFloat(item.issue_ext_grade_4) +
+                                     parseFloat(item.issue_ext_grade_5) +
+                                     parseFloat(item.issue_ext_grade_6) +
+                                     parseFloat(item.issue_ext_grade_7) +
+                                     parseFloat(item.issue_ext_grade_8) +
+                                     parseFloat(item.issue_ext_grade_9) +
+                                     parseFloat(item.issue_ext_grade_10)
+                                     ).toString())} Kg</TableCell>     
                                     <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                             
                         <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
@@ -668,13 +856,55 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.issue_yk)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_sp2)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_kp)}</TableCell>
+                                    <TableCell className="text-center">{formatNumber(item.issue_in_k)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_in_jh)}</TableCell>
+
+ <TableCell className="text-center font-semibold bg-neutral-500 text-white">Lot---Vil</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_sjh)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_k)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_k1)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_lwp)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_lwp1)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_jk)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_jk1)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_ss)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_sp)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_sp2)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_jh1)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_yk)}</TableCell>
+<TableCell className="text-center">{formatNumber(item.issue_V_m_jk1)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber((
                                      parseFloat(item.issue_jjh)+parseFloat(item.issue_jjh1)+
                                      parseFloat(item.issue_sjh) +parseFloat(item.issue_jk)+parseFloat(item.issue_jk1)+
                                       +parseFloat(item.issue_k1)+parseFloat(item.issue_lwp)+
                                      parseFloat(item.issue_lwp1) +parseFloat(item.issue_s)+parseFloat(item.issue_ss)+
                                      parseFloat(item.issue_k) +parseFloat(item.issue_yk)+parseFloat(item.issue_sp2)+
-                                     parseFloat(item.issue_kp) ).toString())}</TableCell>
+                                     parseFloat(item.issue_kp)+parseFloat(item.issue_in_k) +
+                                     parseFloat(item.issue_in_jh) +
+                                     parseFloat(item.issue_V_sjh) +
+                                     parseFloat(item.issue_V_k) +
+                                     parseFloat(item.issue_V_k1) +
+                                     parseFloat(item.issue_V_lwp) +
+                                     parseFloat(item.issue_V_lwp1) +
+                                     parseFloat(item.issue_V_jk) +
+                                     parseFloat(item.issue_V_jk1) +
+                                     parseFloat(item.issue_V_ss) +
+                                     parseFloat(item.issue_V_sp) +
+                                     parseFloat(item.issue_V_sp2) +
+                                     parseFloat(item.issue_V_jh1) +
+                                     parseFloat(item.issue_V_yk) +
+                                     parseFloat(item.issue_V_m_jk1) +
+                                     parseFloat(item.issue_ext_grade_1) +
+                                     parseFloat(item.issue_ext_grade_2) +
+                                     parseFloat(item.issue_ext_grade_3) +
+                                     parseFloat(item.issue_ext_grade_4) +
+                                     parseFloat(item.issue_ext_grade_5) +
+                                     parseFloat(item.issue_ext_grade_6) +
+                                     parseFloat(item.issue_ext_grade_7) +
+                                     parseFloat(item.issue_ext_grade_8) +
+                                     parseFloat(item.issue_ext_grade_9) +
+                                     parseFloat(item.issue_ext_grade_10)
+                                      ).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_village)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_mayur)}</TableCell>
                                     
@@ -691,7 +921,32 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                      parseFloat(item.issue_k) +parseFloat(item.issue_yk)+parseFloat(item.issue_sp2)+
                                      parseFloat(item.issue_village) +parseFloat(item.issue_mayur)+parseFloat(item.issue_bigTaiho)+
                                      parseFloat(item.issue_bigTaiho) +parseFloat(item.issue_rejection)+
-                                     parseFloat(item.issue_kp) ).toString())} Kg</TableCell>      
+                                     parseFloat(item.issue_kp) +parseFloat(item.issue_in_k) +
+                                     parseFloat(item.issue_in_jh) +
+                                     parseFloat(item.issue_V_sjh) +
+                                     parseFloat(item.issue_V_k) +
+                                     parseFloat(item.issue_V_k1) +
+                                     parseFloat(item.issue_V_lwp) +
+                                     parseFloat(item.issue_V_lwp1) +
+                                     parseFloat(item.issue_V_jk) +
+                                     parseFloat(item.issue_V_jk1) +
+                                     parseFloat(item.issue_V_ss) +
+                                     parseFloat(item.issue_V_sp) +
+                                     parseFloat(item.issue_V_sp2) +
+                                     parseFloat(item.issue_V_jh1) +
+                                     parseFloat(item.issue_V_yk) +
+                                     parseFloat(item.issue_V_m_jk1) +
+                                     parseFloat(item.issue_ext_grade_1) +
+                                     parseFloat(item.issue_ext_grade_2) +
+                                     parseFloat(item.issue_ext_grade_3) +
+                                     parseFloat(item.issue_ext_grade_4) +
+                                     parseFloat(item.issue_ext_grade_5) +
+                                     parseFloat(item.issue_ext_grade_6) +
+                                     parseFloat(item.issue_ext_grade_7) +
+                                     parseFloat(item.issue_ext_grade_8) +
+                                     parseFloat(item.issue_ext_grade_9) +
+                                     parseFloat(item.issue_ext_grade_10)
+                                     ).toString())} Kg</TableCell>      
                                     <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                             
                         <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
@@ -708,7 +963,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogTrigger className="flex"><CiEdit size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-7xl">
+                                                    <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 <p className='text-1xl pb-1 text-center mt-1'>Sorting Entry Modification</p>
@@ -722,7 +977,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogTrigger className="flex"><CiBoxes size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-7xl">
+                                                    <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 <p className='text-1xl pb-1 text-center mt-1'>Sorting Entry Re-issue</p>
@@ -736,7 +991,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogTrigger className="flex"><CiCrop size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-4xl">
+                                                    <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}

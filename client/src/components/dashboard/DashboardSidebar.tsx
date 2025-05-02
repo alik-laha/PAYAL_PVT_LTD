@@ -328,7 +328,17 @@ const DashboardSidebar = () => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/RcvVillage" >
 
-                                        <p className="flex"> <MdHolidayVillage size={20} /><p className="pl-3">  Village Logistics </p></p>
+                                        <p className="flex"> <MdHolidayVillage size={20} /><p className="pl-3">  Village Logistics ( OUT )</p></p>
+
+                                    </NavLink>
+
+                                </CollapsibleContent>}
+
+                                {renderlink('Receiving Village Entry')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/RcvVillageIn" >
+
+                                        <p className="flex"> <MdHolidayVillage size={20} /><p className="pl-3">  Village Logistics ( IN )</p></p>
 
                                     </NavLink>
 
@@ -337,9 +347,11 @@ const DashboardSidebar = () => {
                                 {renderlink('Village')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/VIllage" >
-                                        <p className="flex"> <GiVillage size={20} /><p className="pl-3">Village</p></p>
+                                        <p className="flex"> <GiVillage size={20} /><p className="pl-3">Village Production</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
+
+                                
 
                                 {renderlink('Rejection')
                                 && <CollapsibleContent className="Items-pvt">

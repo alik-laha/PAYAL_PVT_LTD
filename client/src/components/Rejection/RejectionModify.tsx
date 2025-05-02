@@ -284,19 +284,19 @@ const RejectionEDitForm = (props: Props) => {
         <>
             <div className="px-5 py-2 overflow-auto">
                 <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit2}>
-                    <div className="mx-8 flex flex-col gap-0.5">
+                    <div className="mx-1 flex flex-col gap-0.5">
                         {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                        <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
-                            <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                        <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
+                            <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
 
-                        <div className="flex"><Label className="w-2/4 pt-1">No. of Labour</Label>
+                        <div className="flex"><Label className="w-1/4 pt-1">No. of Labour</Label>
                             {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                            <Input className="w-2/4 text-center" placeholder="No. of Labour" ref={dayOpRef} />
+                            <Input className="w-1/4 text-center" placeholder="No. of Labour" ref={dayOpRef} />
                         </div>
-                        <div className="flex"><Label className="w-2/4 pt-1">No. of Supervisor</Label>
+                        <div className="flex"><Label className="w-1/4 pt-1">No. of Supervisor</Label>
                             {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                            <Input className="w-2/4 text-center" placeholder="No. of Supervisor" ref={nightOpRef} />
+                            <Input className="w-1/4 text-center" placeholder="No. of Supervisor" ref={nightOpRef} />
                         </div>
 
 
@@ -309,25 +309,25 @@ const RejectionEDitForm = (props: Props) => {
                             <TableHead className="text-center">Lot_No</TableHead>
 
                             <TableHead className="text-center">Origin</TableHead>
-                            <TableHead className="text-center">Mixed_Lot</TableHead>
+                            <TableHead className="text-center">Incoming_Mixed_Lot</TableHead>
 
 
 
                             
-                            <TableHead className="text-center">Rcv Peeling</TableHead>
+                            <TableHead className="text-center">Receive Peeling</TableHead>
                             {/* <TableHead className="text-center">Receive Mayur(Borma)</TableHead>
                             <TableHead className="text-center">Mayur Borma Loss(Kg)</TableHead>
                             <TableHead className="text-center">Mayur Borma Loss(%)</TableHead> */}
-                            <TableHead className="text-center">Rcv Mayur</TableHead>
+                            <TableHead className="text-center">Receive Mayur</TableHead>
                             {/* <TableHead className="text-center">Receive Hamsa(Borma)</TableHead>
                             <TableHead className="text-center">Hamsa Borma Loss(Kg)</TableHead>
                             <TableHead className="text-center">Hamsa Borma Loss(%)</TableHead> */}
-                             <TableHead className="text-center">Rcv Wholes </TableHead>
-                            <TableHead className="text-center">Rcv LW </TableHead>
-                            <TableHead className="text-center">Rcv Sorting </TableHead>
-                            <TableHead className="text-center">Rcv DPDS </TableHead>
-                            <TableHead className="text-center">Rcv BigTaiho </TableHead>
-                            <TableHead className="text-center">Rcv Village </TableHead>
+                             <TableHead className="text-center">Receive Wholes </TableHead>
+                            <TableHead className="text-center">Receive LW </TableHead>
+                            <TableHead className="text-center">Receive Sorting </TableHead>
+                            <TableHead className="text-center">Receive DPDS </TableHead>
+                            <TableHead className="text-center">Receive BigTaiho </TableHead>
+                            <TableHead className="text-center">Receive Village </TableHead>
 
                             <TableHead className="text-center">Issue Packing</TableHead>
                             <TableHead className="text-center">Issue Village</TableHead>

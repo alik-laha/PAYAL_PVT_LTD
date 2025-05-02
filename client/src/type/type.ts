@@ -710,6 +710,36 @@ export interface DPDSData {
         issue_add_8: string;
         issue_add_9: string;
         issue_add_10: string;
+        issue_V_ds: string;
+    issue_V_m_ds: string;
+    issue_V_dp: string;
+    issue_V_m_dp: string;
+    issue_V_lp: string;
+    issue_V_lp_2: string;
+    issue_V_k_dp: string;
+    issue_V_ss: string;
+    issue_V_yjh: string;
+    issue_V_yk: string;
+    issue_V_sp_2: string;
+    issue_V_kp: string;
+    issue_V_dp_2: string;
+    issue_V_dp_3: string;
+    issue_V_dp_4: string;
+    issue_V_os: string;
+    issue_V_os_1: string;
+    issue_V_wp: string;
+    issue_V_rs: string;
+    issue_ext_grade_1: string;
+    issue_ext_grade_2: string;
+    issue_ext_grade_3: string;
+    issue_ext_grade_4: string;
+    issue_ext_grade_5: string;
+    issue_ext_grade_6: string;
+    issue_ext_grade_7: string;
+    issue_ext_grade_8: string;
+    issue_ext_grade_9: string;
+    issue_ext_grade_10: string;
+    
         issue_rejection: string;
         issue_village: string;
         issue_bigTaiho: string;
@@ -761,6 +791,18 @@ export interface BigTaihoData {
     issue_ssp_2: string ;
     issue_ssp_2_small: string ;
     issue_sdp: string ;
+
+    issue_ext_grade_1: string;
+    issue_ext_grade_2: string;
+    issue_ext_grade_3: string;
+    issue_ext_grade_4: string;
+    issue_ext_grade_5: string;
+    issue_ext_grade_6: string;
+    issue_ext_grade_7: string;
+    issue_ext_grade_8: string;
+    issue_ext_grade_9: string;
+    issue_ext_grade_10: string;
+    
     issue_add_1: string;
     issue_add_2: string;
     issue_add_3: string;
@@ -972,6 +1014,71 @@ issue_aw_400: string;
 issue_lw_400: string;
 issue_jjb: string;
 issue_jjb1: string;
+issue_payal_240: string;
+issue_payal_400: string;
+issue_e_320_lot: string;
+issue_e_400_lot: string;
+issue_in_w_240: string;
+issue_in_w_320: string;
+issue_in_w_400: string;
+issue_a_150: string;
+issue_c_150: string;
+issue_e_150: string;
+issue_sw_150: string;
+issue_ssw_150: string;
+issue_k_150: string;
+issue_a_180: string;
+issue_c_180: string;
+issue_e_180: string;
+issue_sw_180: string;
+issue_ssw_180: string;
+issue_k_180: string;
+issue_a_210: string;
+issue_c_210: string;
+issue_e_210: string;
+issue_sw_210: string;
+issue_ssw_210: string;
+issue_k_210: string;
+issue_a_240: string;
+issue_c_240: string;
+issue_e_240: string;
+issue_sw_240: string;
+issue_ssw_240: string;
+issue_k_240: string;
+issue_a_280: string;
+issue_c_280: string;
+issue_e_280: string;
+issue_sw_280: string;
+issue_ssw_280: string;
+issue_k_280: string;
+issue_a_320: string;
+issue_c_320: string;
+issue_e_320: string;
+issue_sw_320: string;
+issue_ssw_320: string;
+issue_k_320: string;
+issue_a_360: string;
+issue_c_360: string;
+issue_e_360: string;
+issue_sw_360: string;
+issue_ssw_360: string;
+issue_k_360: string;
+issue_a_400: string;
+issue_c_400: string;
+issue_e_400: string;
+issue_sw_400: string;
+issue_ssw_400: string;
+issue_k_400: string;
+issue_ext_grade_1: string;
+issue_ext_grade_2: string;
+issue_ext_grade_3: string;
+issue_ext_grade_4: string;
+issue_ext_grade_5: string;
+issue_ext_grade_6: string;
+issue_ext_grade_7: string;
+issue_ext_grade_8: string;
+issue_ext_grade_9: string;
+issue_ext_grade_10: string;
 issue_add_1: string;
 issue_add_2: string;
 issue_add_3: string;
@@ -1028,6 +1135,33 @@ export interface SortingData {
     issue_yk: string;
     issue_sp2: string;
     issue_kp: string;
+    issue_in_k: string;
+    issue_in_jh: string;
+    
+    issue_V_sjh: string;
+    issue_V_k: string;
+    issue_V_k1: string;
+    issue_V_lwp: string;
+    issue_V_lwp1: string;
+    issue_V_jk: string;
+    issue_V_jk1: string;
+    issue_V_ss: string;
+    issue_V_sp: string;
+    issue_V_sp2: string;
+    issue_V_jh1: string;
+    issue_V_yk: string;
+    issue_V_m_jk1: string;
+    issue_ext_grade_1: string;
+    issue_ext_grade_2: string;
+    issue_ext_grade_3: string;
+    issue_ext_grade_4: string;
+    issue_ext_grade_5: string;
+    issue_ext_grade_6: string;
+    issue_ext_grade_7: string;
+    issue_ext_grade_8: string;
+    issue_ext_grade_9: string;
+    issue_ext_grade_10: string;
+
     issue_add_1: string;
     issue_add_2: string;
     issue_add_3: string;
@@ -1114,6 +1248,16 @@ export interface LWData {
     issue_add_8: string;
     issue_add_9: string;
     issue_add_10: string;
+    issue_ext_grade_1: string;
+issue_ext_grade_2: string;
+issue_ext_grade_3: string;
+issue_ext_grade_4: string;
+issue_ext_grade_5: string;
+issue_ext_grade_6: string;
+issue_ext_grade_7: string;
+issue_ext_grade_8: string;
+issue_ext_grade_9: string;
+issue_ext_grade_10: string;
     issue_rejection: string;
   issue_village: string;
   issue_bigTaiho: string;
@@ -1594,12 +1738,8 @@ export interface rcvVillageprimaryData {
     sku: string;
     vendorName: string;
     quantity: string;
-
-
-
     invoice:string;
     createdBy: string;
-  
     editStatus: string;
     approvedBy: string;
     truckNo: string;
@@ -1608,10 +1748,64 @@ export interface rcvVillageprimaryData {
     gatePassNo:string;
     grossWt: string;
     totalWt:string;
-
     remarks:string;
     gateType:string;
 }
+
+export interface rcvVillageInprimaryData {
+    id: number;
+    gateType: string;
+    recevingDate: string;
+    truckNo: string;
+    invoice: string ;
+    sku: string ;
+    type: string ;
+    vendorName: string ;
+    origin: string ;
+    quantity: string ;
+
+    wholes_quantity: string ;
+    wholes_prcntg: string ;
+
+    lw_quantity: string ;
+    lw_prcntg: string ;
+
+    jb_quantity: string ;
+    jb_prcntg: string;
+
+    jbp_quantity: string ;
+    jbp_prcntg: string ;
+
+    sdp_quantity: string ;
+    sdp_prcntg: string ;
+
+    husk_quantity: string ;
+    husk_prcntg: string ;
+
+    pieces_quantity: string ;
+    pieces_prcntg: string ;
+
+    dp_quantity: string ;
+    dp_prcntg: string ;
+
+    e1_quantity: string | null;
+    e1_prcntg: string | null;
+
+    e2_quantity: string | null;
+    e2_prcntg: string | null;
+
+    editStatus: string;
+    createdBy: string | null;
+    approvedBy: string | null;
+    status: number;
+    netWeight: string | null;
+    gatePassNo: string;
+    grossWt: string;
+    remarks: string ;
+    totalWt: string ;
+}
+
+
 export interface generalprimaryData {
     id: number;
     type:string;
@@ -1650,6 +1844,11 @@ export interface sumofRcvVillagePrimary {
     sumofRcvVillagePrimary: number;
     RcvVillagePrimary: number;
 }
+export interface sumofRcvVillageInPrimary {
+    sumofRcvVillageInPrimary: number;
+    RcvVillageInPrimary: number;
+}
+
 export interface sumofGeneralPrimary {
     sumofGeneralPrimary: number;
     GeneralPrimary: number;

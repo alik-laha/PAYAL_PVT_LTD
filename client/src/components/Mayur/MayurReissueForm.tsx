@@ -77,6 +77,7 @@ const RCNMayurReCreateForm = (props:Props) => {
     const dayOpRef = useRef<HTMLInputElement>(null);
     const nightOpRef = useRef<HTMLInputElement>(null);
     const [rows,setRows]=useState<mayurRowData[]>([])
+     const [LotNo,setLotNo]=useState<string>('')
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
@@ -103,7 +104,9 @@ const RCNMayurReCreateForm = (props:Props) => {
     }
     useEffect(() => { 
 
-      
+        if(props.borma[0]){
+            setLotNo(props.borma[0].LotNo)
+        }
         const initialform =  {
             id: props.borma[0].id,
             LotNo: props.borma[0].LotNo,
@@ -274,21 +277,22 @@ const RCNMayurReCreateForm = (props:Props) => {
                <div className="mx-8 flex flex-col gap-0.5"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
-                <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
+                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
                
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Day)</Label>
+                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Day)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
+                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={dayOpRef}  />
                      </div>
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Night)</Label>
+                     <div className="flex"><Label className="w-1/4 pt-1">No. of Operator(Night)</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
+                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={nightOpRef}  />
                      </div>
                    
                      
                    
                 </div>
+                    <Label className="w-100 pt-5 text-center">1. General Information</Label>
                 <div className="my-2 text-sm flex font-semibold text-red-500 ">* Current [ WholesPeel + WholesUnpeel + DPDS + Village + Sorting ] should be equal to {props.borma[0].current_backlog} Kg</div>
 
                    <Table className="mt-3">
@@ -299,27 +303,30 @@ const RCNMayurReCreateForm = (props:Props) => {
                     <TableHead className="text-center">Origin</TableHead>
                     <TableHead className="text-center">Mixed_Lot</TableHead>
                     <TableHead className="text-center">Total Opening</TableHead>
-                    <TableHead className="text-center">Previous Wholes_Peel</TableHead>
-                    <TableHead className="text-center">Current Peel</TableHead>
-                    <TableHead className="text-center">Previous Wholes_Unpeel</TableHead>
-                    <TableHead className="text-center">Current Unpeel</TableHead>
+                    <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Previous Wholes_&_JB':'Previous Wholes_Peel'):'Previous Wholes_Peel'}</TableHead>
+
+                    <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Current Wholes_&_JB':'Current Wholes_Peel'):'Current Wholes_Peel'}</TableHead>
+
+                    <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Previous LW':'Previous Wholes_UnPeel'):'Previous Wholes_UnPeel'}</TableHead>
+
+                    <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Current LW':'Current Wholes_UnPeel'):'Current Wholes_UnPeel'}</TableHead>
                     <TableHead className="text-center">Previous DPDS</TableHead>
                     <TableHead className="text-center">Current DPDS</TableHead>
                     <TableHead className="text-center">Previous Village</TableHead>
                     <TableHead className="text-center">Current Village</TableHead>
                     <TableHead className="text-center">Previous Sorting</TableHead>
                     <TableHead className="text-center">Current Sorting</TableHead>
-              
-                    <TableHead className="text-center">Issue PW_W</TableHead>
-                    <TableHead className="text-center">Issue W_Lot</TableHead>
-                    <TableHead className="text-center">Issue WW</TableHead>
+                    <TableHead className="text-center">-</TableHead>
+                    <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Issue V_PW_W':'Issue PW_W'):'Issue PW_W'}</TableHead>
+                    <TableHead className="text-center">{LotNo ?(LotNo.includes('V')?'Issue V_W_Lot':'Issue W_Lot'):'Issue W_Lot'}</TableHead>
+                    <TableHead className="text-center">{LotNo ?(LotNo.includes('V')?'Issue V_WW':'Issue WW'):'Issue WW'}</TableHead>
                     
                     <TableHead className="text-center">Issue Village</TableHead>
                     <TableHead className="text-center">Issue Big_Taiho</TableHead>
                     <TableHead className="text-center">Issue LW</TableHead>
                     <TableHead className="text-center">Issue JB</TableHead>
                     <TableHead className="text-center">Issue Rejection</TableHead>
-                    <TableHead className="text-center">Mc On 133</TableHead>
+                    {/* <TableHead className="text-center">Mc On 133</TableHead>
                     <TableHead className="text-center">Mc Off 133</TableHead>
                     <TableHead className="text-center">Mc_Breakdown 133</TableHead>
                     <TableHead className="text-center">Other_Time 133</TableHead>
@@ -334,7 +341,7 @@ const RCNMayurReCreateForm = (props:Props) => {
                     <TableHead className="text-center">Mc On 293</TableHead>
                     <TableHead className="text-center">Mc Off 293</TableHead>
                     <TableHead className="text-center">Mc_Breakdown 293</TableHead>
-                    <TableHead className="text-center">Other_Time 293</TableHead>
+                    <TableHead className="text-center">Other_Time 293</TableHead> */}
                     </TableHeader>
                     <TableBody>
                         {props.borma.length > 0 ? (
@@ -346,19 +353,19 @@ const RCNMayurReCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-blue-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold ">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold ">{row.mixingLot}</TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_peeling)} Kg</TableCell>
+                                        <TableCell className="text-center font-semibold ">{formatNumber(row.rcv_peeling)} Kg</TableCell>
                                      
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber(props.borma[0].rcv_wholespeel)} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_wholespeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholespeel', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_wholespeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholespeel', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber(props.borma[0].rcv_wholesunpeel)} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input type="number" className="bg-green-100" value={row.rcv_wholesunpeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholesunpeel', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input type="number" className="bg-yellow-200" value={row.rcv_wholesunpeel} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_wholesunpeel', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_DPDS ?formatNumber(props.borma[0].rcv_DPDS):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_DPDS} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_DPDS', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_DPDS} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_DPDS', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_village ?formatNumber(props.borma[0].rcv_village):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_village', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_village', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{props.borma[0].rcv_sorting ?formatNumber(props.borma[0].rcv_sorting):0} Kg</TableCell>
-                                        <TableCell className="text-center"> <Input className="bg-green-100" type="number" value={row.rcv_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sorting', e.target.value)} required /></TableCell>
-                                 
+                                        <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_sorting} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_sorting', e.target.value)} required /></TableCell>
+                                        <TableCell className="bg-black-100"> -</TableCell>
                                         {/* <TableCell className="text-center font-semibold ">{Number(formatNumber(row.rcv_wholesunpeel)) + Number(formatNumber(row.rcv_wholespeel))} Kg</TableCell> */}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_pw_w} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_pw_w', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_w_lot} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_w_lot', e.target.value)} required /></TableCell>
@@ -371,7 +378,7 @@ const RCNMayurReCreateForm = (props:Props) => {
 
 
 
-                                        <FormRow idx={idx} row={row} column='Mc_on_133' handleRowChange={handleRowChange}/>
+                                        {/* <FormRow idx={idx} row={row} column='Mc_on_133' handleRowChange={handleRowChange}/>
                                         <FormRow idx={idx} row={row} column='Mc_off_133' handleRowChange={handleRowChange}/>
                                         <TableCell className="text-center"><Input  value={row.Mc_breakdown_133} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_133',e.target.value)} type='time'  /></TableCell>
                                         <TableCell className="text-center"><Input  value={row.otherTime_133} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_133',e.target.value)} type='time'  /></TableCell>
@@ -389,7 +396,7 @@ const RCNMayurReCreateForm = (props:Props) => {
                                         <FormRow idx={idx} row={row} column='Mc_on_293' handleRowChange={handleRowChange}/>
                                         <FormRow idx={idx} row={row} column='Mc_off_293' handleRowChange={handleRowChange}/>
                                         <TableCell className="text-center"><Input  value={row.Mc_breakdown_293} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_293',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center"><Input  value={row.otherTime_293} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_293',e.target.value)} type='time'  /></TableCell>
+                                        <TableCell className="text-center"><Input  value={row.otherTime_293} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_293',e.target.value)} type='time'  /></TableCell> */}
                                     
                                     </TableRow>
                                 );
@@ -397,6 +404,61 @@ const RCNMayurReCreateForm = (props:Props) => {
                         ) : null}
                     </TableBody>
                 </Table>  
+                   <Label className="w-100 pt-5 text-center">2. Machine Information</Label>
+                  <Table className="mt-3">
+                                                                   <TableHeader className="bg-neutral-100 text-stone-950 ">
+                                                                   <TableHead className="text-center">Mc On 133</TableHead>
+                                    <TableHead className="text-center ">Mc Off 133</TableHead>
+                                    <TableHead className="text-center">Mc_Breakdown 133</TableHead>
+                                    <TableHead className="text-center ">Other_Time 133</TableHead>
+                                    <TableHead className="text-center ">Mc On 331</TableHead>
+                                    <TableHead className="text-center ">Mc Off 331</TableHead>
+                                    <TableHead className="text-center ">Mc_Breakdown 331</TableHead>
+                                    <TableHead className="text-center ">Other_Time 331</TableHead>
+                                    <TableHead className="text-center ">Mc On 292</TableHead>
+                                    <TableHead className="text-center ">Mc Off 292</TableHead>
+                                    <TableHead className="text-center ">Mc_Breakdown 292</TableHead>
+                                    <TableHead className="text-center ">Other_Time 292</TableHead>
+                                    <TableHead className="text-center">Mc On 293</TableHead>
+                                    <TableHead className="text-center">Mc Off 293</TableHead>
+                                    <TableHead className="text-center">Mc_Breakdown 293</TableHead>
+                                    <TableHead className="text-center">Other_Time 293</TableHead>
+                                                                  
+                                                               
+                                                                    </TableHeader>
+                                                                    <TableBody>
+                                                                        {props.borma.length > 0 ? (
+                                                                            rows.map(( row:mayurRowData,idx:number) => {
+                                                                              
+                                                                                return (
+                                                                                    <TableRow key={idx} className="boiling-row-height-scoop">
+                                                                                  
+                                                                                     <TableCell className='bg-neutral-300'> <FormRow idx={idx} row={row} column='Mc_on_133' handleRowChange={handleRowChange}/></TableCell>
+                                                                                      
+                                                                                        <TableCell className='bg-neutral-300'><FormRow idx={idx} row={row} column='Mc_off_133' handleRowChange={handleRowChange}/></TableCell>
+                                                        <TableCell className="text-center bg-neutral-300"><Input  value={row.Mc_breakdown_133} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_133',e.target.value)} type='time'  /></TableCell>
+                                                        <TableCell className="text-center bg-neutral-300"><Input  value={row.otherTime_133} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_133',e.target.value)} type='time'  /></TableCell>
+                                                     
+                                                        <TableCell className='bg-neutral-100'><FormRow idx={idx} row={row} column='Mc_on_331' handleRowChange={handleRowChange}/></TableCell>
+                                                        <TableCell className='bg-neutral-100'><FormRow idx={idx} row={row} column='Mc_off_331' handleRowChange={handleRowChange}/></TableCell>
+                                                        <TableCell className="text-center bg-neutral-100"><Input  value={row.Mc_breakdown_331} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_331',e.target.value)} type='time'  /></TableCell>
+                                                        <TableCell className="text-center bg-neutral-100"><Input  value={row.otherTime_331} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_331',e.target.value)} type='time'  /></TableCell>
+                                                    
+                                                        <TableCell className='bg-neutral-300'><FormRow idx={idx} row={row} column='Mc_on_292' handleRowChange={handleRowChange}/></TableCell>
+                                                        <TableCell className='bg-neutral-300'><FormRow idx={idx} row={row} column='Mc_off_292' handleRowChange={handleRowChange}/></TableCell>
+                                                        <TableCell className="text-center bg-neutral-300"><Input  value={row.Mc_breakdown_292} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_292',e.target.value)} type='time'  /></TableCell>
+                                                        <TableCell className="text-center bg-neutral-300"><Input  value={row.otherTime_292} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_292',e.target.value)} type='time'  /></TableCell>
+                                                    
+                                                        <TableCell className='bg-neutral-100'><FormRow idx={idx} row={row} column='Mc_on_293' handleRowChange={handleRowChange}/></TableCell>
+                                                        <TableCell className='bg-neutral-100'><FormRow idx={idx} row={row} column='Mc_off_293' handleRowChange={handleRowChange}/></TableCell>
+                                                        <TableCell className="text-center bg-neutral-100"><Input  value={row.Mc_breakdown_293} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown_293',e.target.value)} type='time'  /></TableCell>
+                                                        <TableCell className="text-center bg-neutral-100"><Input  value={row.otherTime_293} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime_293',e.target.value)} type='time'  /></TableCell>
+                                                                                    </TableRow>
+                                                                                );
+                                                                            })
+                                                                        ) : null}
+                                                                    </TableBody>
+                                                                </Table> 
                 <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                   
                    

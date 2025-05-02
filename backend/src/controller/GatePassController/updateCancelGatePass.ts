@@ -9,6 +9,7 @@ import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
 import RcvVillageModel from "../../model/RcvVillageModel";
 import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
 import oilMillModel from "../../model/oilMillModel";
+import RcvVillageInModel from "../../model/RcvVillageInModel";
 
 
 
@@ -103,9 +104,24 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 }
                 
             }
-            if (section==='Village') {
+            if (section==='Village' && type==='OUT') {
 
                 const pmdelete=await RcvVillageModel.destroy({
+                    where: {
+                        gatePassNo: gatepassNo
+                    }
+                });
+        
+                if(pmdelete){
+                    const data = await WpMsgGatePassRcv("Village", gatepassNo,"cancel_gatepass",feeledBy)
+            console.log(data)
+                    return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
+                }
+                
+            } 
+            if (section==='Village' && type==='IN') {
+
+                const pmdelete=await RcvVillageInModel.destroy({
                     where: {
                         gatePassNo: gatepassNo
                     }

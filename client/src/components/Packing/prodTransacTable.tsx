@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table"
 import { format, toZonedTime } from 'date-fns-tz'
 import { useEffect, useState } from "react";
-import { OrderStatusAll, Origin, pagelimit, pageNo, } from "../common/exportData";
+import { OrderStatusAll, Origin, pagelimit, pageNo, pendingCheckRole, } from "../common/exportData";
 import axios from "axios";
 import {
     Dialog,
@@ -57,6 +57,11 @@ import { CiEdit } from "react-icons/ci";
 import OrderReMappingCreateForm from "./OrderReMappingCreateForm";
 import { Progress } from "@/components/ui/progress";
 import OrderModify from "./OrderModify";
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+import { LuDownload } from "react-icons/lu";
+import { pendingCheckRoles, PermissionRole } from "@/type/type";
+import PackingCreateForm from "./orderPAckingForm";
 //import { pendingCheckRoles, PermissionRole } from "@/type/type";
 //import { LuDownload } from "react-icons/lu";
 
@@ -81,7 +86,7 @@ const ProdTransacTable = () => {
       const closeDialogButton = document.getElementById('machinescsbtn') as HTMLInputElement;
       const errorcloseDialogButton = document.getElementById('machineerrorbtn') as HTMLInputElement;
       const [errortext, setErrorText] = useState<string>("")
-
+      const currDate = new Date().toLocaleDateString();
       if (closeDialogButton) {
         closeDialogButton.addEventListener('click', () => {
           if (successdialog != null) {
@@ -181,6 +186,125 @@ const ProdTransacTable = () => {
             setsearchtableType('Packing')
         }
     }
+    const handleTransactionSearchExcel = async () => {
+        let ws
+        let transformed: any[] = [];
+
+        if (searchType === 'Order') {
+            const response = await axios.put('/api/packing/orderSearch', {
+                origin: origin,
+                blConNo: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
+                orderStatus: sectionstatus
+
+            })
+            const data = await response.data
+            transformed = data.rcnEntries.map((item: any, idx: number) => ({
+                Sl_No: idx + 1,
+                Origin: item.origin,
+                GradeName: item.gradeName,
+                Order_Receive_Date: handletimezone(item.orderDate),
+                Order_Invoice_Date: handletimezone(item.orderInvDate),
+                Vendor_Name: item.vendorName,
+                Broker_Name: item.brokerName,
+                Demand_Quantity: `${formatNumber(item.quantity)} Kg`,
+                Map_Quantity: `${formatNumber(item.mapquantity)} Kg`,    
+                Packed_Quantity: `${formatNumber(item.actualquantity)} Kg`,
+                UnitRate: `${item.unitRate} ₹`,
+                totalBill: `${item.totalBill} ₹`,
+                Gst: item.gst===true? 'Yes':'No',
+                CreatedBy: item.createdBy,
+                ApprovedBy: item.approvedBy,
+                Remarks: item.remarks
+            }));
+            ws = XLSX.utils.json_to_sheet(transformed);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            saveAs(blob, 'Order_Entry_' + currDate + '.xlsx');
+        }
+        else if (searchType === 'Mapping') {
+            const response = await axios.put('/api/packing/mappingSearch', {
+                origin: origin,
+                blConNo: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
+
+            })
+            const data = await response.data
+            transformed = data.rcnEntries.map((item: any, idx: number) => ({
+                Sl_No: idx + 1,
+                altid: item.altid=== 1?'Fresh Pack':'Re-Packing',
+                OrderID: item.orderID,
+                Origin: item.origin,
+                FinalGradeName: item.finalgradeName,
+                OrderDate: handletimezone(item.orderDate),
+                MappingDate: handletimezone(item.mappingDate),
+                VendorName: item.vendorName,
+                Production_Section: item.productionSection,
+                LotNo: item.LotNo,
+                Production_Origin: item.productionOrigin,
+                Production_Grade: item.productionGrade,
+                Section_Quantity: `${formatNumber(item.sectionQuantity)} Kg`,
+                Percentage_Mix: item.prcntgMix,
+                Mapped_Quantity: `${formatNumber(item.mappedQuantity)} Kg`,
+                CreatedBy: item.createdBy,
+                ApprovedBy: item.approvedBy,
+                Remarks: item.remarks
+            }));
+            ws = XLSX.utils.json_to_sheet(transformed);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            saveAs(blob, 'Mapping_Order_Entry_' + currDate + '.xlsx');
+        }
+        else{
+            const response = await axios.put('/api/packing/packingSearch', {
+                origin: origin,
+                blConNo: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
+
+            })
+            const data = await response.data
+            transformed = data.rcnEntries.map((item: any, idx: number) => ({
+                Sl_No: idx + 1,
+                orderID: item.orderID,
+                altid: item.altid=== 1?'Fresh Packing':'Re-Packing',
+                origin: item.origin,
+                qualityStatus: item.qualityStatus,
+                packingStatus: item.packingStatus === 0 ? 'Pending' : 'Packed',
+                dispatchStatus: item.dispatchStatus === 0 ? 'Pending' : 'Dispatched',
+                orderDate: handletimezone(item.orderDate),
+                FinalgradeName: item.gradeName,
+                DemandQuantity: `${formatNumber(item.demandquantity)} Kg`,
+                UnitRate: `${item.unitRate} ₹`,
+                Gst: item.gst===true? 'Yes':'No',
+                totalBill: `${item.totalBill} ₹`,
+                vendorName: item.vendorName,
+                fulfillQuantity: `${item.fulfillquantity ? formatNumber(item.fulfillquantity) : 0} Kg`,
+                mfgDate: item.mfgDate ? handletimezone(item.mfgDate) : item.mfgDate,
+                batchID: item.BatchID,
+                packingQuantity: item.packingquantity,
+                SystemPackingQuantity: item.convpackingquantity
+            }));
+            ws = XLSX.utils.json_to_sheet(transformed);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            saveAs(blob, 'Packing_Final_Entry_' + currDate + '.xlsx');
+        }
+
+
+
+
+
+    }
+       
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
 
         const selected = e.target.value;
@@ -283,6 +407,19 @@ const ProdTransacTable = () => {
         })
 
     }
+    const Role = localStorage.getItem('role') as keyof PermissionRole
+                    const checkpending = (tab: string) => {
+                        //console.log(Role)
+                        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+                            return true
+                        }
+                        else {
+                            return false;
+                        }
+                
+                    }
+
+    
 
     return (
         <>
@@ -357,7 +494,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleTransactionSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
-                {/* {checkpending('Packing') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>} */}
+     {checkpending('ProdStockExcel') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={handleTransactionSearchExcel}><LuDownload size={18} /></Button>  </span>}               
+               
                 {searchTableType === 'Order' ?
                     (<Table className="mt-4">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -508,7 +646,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         </AlertDialog>}
 
                                                         {/* Modify Order */}
-                                                        {item.ordMappingStatus===1 && item.ordStatus !== 1 &&
+                                                        {item.ordApproveStatus === 'Approved' && item.ordStatus !== 1 &&
                                                             <Dialog>
                                                                 <DialogTrigger>
                                                                 <div className="flex"><FcEditImage size={25} />  <button className="bg-transparent pl-1 pb-2 rounded-md hover:text-green-500"> Modify Order </button></div></DialogTrigger>
@@ -633,14 +771,15 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                            <TableHead className="text-center">Lot_Origin</TableHead>
                            <TableHead className="text-center">Lot_Grade</TableHead>
                            <TableHead className="text-center">Available_Quantity</TableHead>
-                           <TableHead className="text-center">Percentage_Mixing</TableHead>
-                           <TableHead className="text-center">Mixed_Quantity</TableHead>
+                           <TableHead className="text-center">Actual Available_Quantity</TableHead>
+                           <TableHead className="text-center">Percentage_Mapping</TableHead>
+                           <TableHead className="text-center">Mapped_Quantity</TableHead>
                           
                            {/* <TableHead className="text-center">Edit Status</TableHead> */}
                            <TableHead className="text-center">Created_By</TableHead>
-                           <TableHead className="text-center">Edited_By</TableHead>
+                           {/* <TableHead className="text-center">Edited_By</TableHead> */}
                            <TableHead className="text-center">Mapping_Remarks</TableHead>
-                           <TableHead className="text-center" >Action</TableHead>
+                           {/* <TableHead className="text-center" >Action</TableHead> */}
                        </TableHeader>
                        <TableBody>
                            {Data.length > 0 ? (Data.map((item: any, idx) => {
@@ -659,23 +798,25 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                                      
                                        <TableCell className="text-center">{item.vendorName}</TableCell>
-
+                                   
                                        <TableCell className="text-center bg-green-100">{item.productionSection}</TableCell>
                                        <TableCell className="text-center font-semibold bg-yellow-100">{item.LotNo}</TableCell>
                                        <TableCell className="text-center bg-yellow-100">{item.productionOrigin}</TableCell>
                                        <TableCell className="text-center bg-yellow-100">{item.productionGrade}</TableCell>
                                      
 
-                                       <TableCell className="text-center bg-yellow-100">{formatNumber(item.sectionQuantity)} Kg </TableCell> {/* Demand Quantity */}
+                                       <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.sectionQuantity)} Kg </TableCell> {/* Demand Quantity */}
+                                       <TableCell className="text-center bg-yellow-100 text-red-500 font-semibold ">{formatNumber(item.sectionQuantityActual)} Kg </TableCell> {/* Demand Quantity */}
+
                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.prcntgMix)} %</TableCell> {/* Prepared Quantity */}
 
                                        <TableCell className="text-center font-semibold bg-green-100">{formatNumber(item.mappedQuantity)} Kg</TableCell> {/* Prepared Quantity */}
                                   
                                        {/* <TableCell className="text-center">{item.editStatus}</TableCell> */}
                                        <TableCell className="text-center">{item.createdBy}</TableCell> {/* Created By */}
-                                       <TableCell className="text-center">{item.approvedBy}</TableCell> {/* Actioned By */}
+                                       {/* <TableCell className="text-center">{item.approvedBy}</TableCell> Actioned By */}
                                        <TableCell className="text-center">{item.remarks}</TableCell>
-                                       <TableCell className="text-center">
+                                       {/* <TableCell className="text-center">
 
                                        <Popover>
                                             <PopoverTrigger>
@@ -692,13 +833,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 <p className='text-1xl pb-1 text-center mt-1'>Order Mapping Modification</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <HamsaEditForm borma={[item]} /> */}
+                                                        <HamsaEditForm borma={[item]} />
                                                     </DialogContent>
                                                 </Dialog>
                                                     </PopoverContent>
                                                                                                 
                                                                                             </Popover>
-                                       </TableCell>
+                                       </TableCell> */}
 
                                    </TableRow>
                                );
@@ -731,7 +872,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                            <TableHead className="text-center">Order_Entry_Date</TableHead>
                          
                            <TableHead className="text-center">Final_GradeName</TableHead>
-                           <TableHead className="text-center">Order_Quantity</TableHead>
+                           <TableHead className="text-center">Opening_Demand</TableHead>
                           
                            <TableHead className="text-center">Unit_Rate</TableHead>
                            <TableHead className="text-center">GST</TableHead>
@@ -801,20 +942,21 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                                        <Popover>
                                             <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Pack</button>
+                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.packingStatus === 1? 'bg-cyan-200' : 'bg-cyan-500'}`} 
+                                                disabled={item.editStatus === 'Pending' || item.packingStatus === 1 ? true : false}>Action</button>
                                             </PopoverTrigger>
                                             <PopoverContent className="flex flex-col text-sm w-30 font-medium">
                                                 <Dialog>
                                                     <DialogTrigger className="flex"><CiEdit size={20} />
-                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Pack</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-7xl">
+                                                    <DialogContent className="max-w-3xl">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>Order Mapping Modification</p>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>Order Packing</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        {/* <HamsaEditForm borma={[item]} /> */}
+                                                        <PackingCreateForm data={item} />
                                                     </DialogContent>
                                                 </Dialog>
                                                     </PopoverContent>

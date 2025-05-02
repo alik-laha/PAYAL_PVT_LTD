@@ -129,7 +129,7 @@ export const SelectType = ["LineWise","LotWise"]
 export const SelectTypeIssue = ["ItemWise","DayWise"]
 export const prodStockSection=['Wholes','LW','Sorting','DPDS','BigTaiho','Rejection']
 export const FY=['2025-26']
-export const Village_Outside_Type=['Wholes','Pieces','BW/HW','Others','NA']
+export const Village_Outside_Type=['WHOLES(CARRAT)','WHOLES(PACKED)','PIECES','BW/HW','OTHERS']
 
 export const sectionDataonTypeGate = {
     IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond','Village','Agarbati'],
@@ -149,7 +149,7 @@ export const TypeOnSection = {
     Store:['ElectricalSpare','MechanicalSpare','Stationary','Chemical','Civil','Machine','Miscellaneous','Asset'],
     General:['Fuel','Civil','General','Miscellaneous'],
     Almond:['Almond Type','Almond Grade'],
-    Village:['Item Type','Item Name'],
+    Village:['Item Type','Item Name','Vendor Name'],
     Agarbati:['Agarbati Type','Agarbati Grade'],
     Issue:['Issue Unit','Issue Section','Issue SubSection'],
     OilMill:['Item Type'],

@@ -80,6 +80,7 @@ const VillageCreateForm = (props: Props) => {
     const dayOpRef = useRef<HTMLInputElement>(null);
     const nightOpRef = useRef<HTMLInputElement>(null);
     const [rows, setRows] = useState<villageRowData[]>([])
+    const [vilLot,setVilLot]=useState<boolean>(false)
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
@@ -105,6 +106,12 @@ const VillageCreateForm = (props: Props) => {
         });
     }
     useEffect(() => {
+        if (props.borma[0]) {
+
+            if (props.borma[0].LotNo.includes('V')) {
+              setVilLot(true)
+            }
+          }
         const initialform = props.borma.map((item: VilageData) => ({
             id: item.id,
             LotNo: item.LotNo,
@@ -179,7 +186,7 @@ const VillageCreateForm = (props: Props) => {
         try {
             const initialhumid = await axios.post('/api/villageout/createEntireVillage', {
                 linehumid: formData,
-                LotNo: props.borma[0].LotNo
+                LotNo: props.borma[0].LotNo,vilLot
             })
             console.log(initialhumid)
             setErrortext(initialhumid.data.message)
@@ -273,25 +280,25 @@ const VillageCreateForm = (props: Props) => {
         <>
             <div className="px-5 py-2 overflow-auto">
                 <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit2}>
-                    <div className="mx-8 flex flex-col gap-0.5">
+                    <div className="mx-1 flex flex-col gap-0.5">
                         {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                        <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
-                            <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                        <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
+                            <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
 
-                        <div className="flex"><Label className="w-2/4 pt-1">No. of Labour</Label>
+                        <div className="flex"><Label className="w-1/4 pt-1">No. of Labour</Label>
                             {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                            <Input className="w-2/4 text-center" placeholder="No. of Labour" ref={dayOpRef} />
+                            <Input className="w-1/4 text-center" placeholder="No. of Labour" ref={dayOpRef} />
                         </div>
-                        <div className="flex"><Label className="w-2/4 pt-1">No. of Supervisor</Label>
+                        <div className="flex"><Label className="w-1/4 pt-1">No. of Supervisor</Label>
                             {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                            <Input className="w-2/4 text-center" placeholder="No. of Supervisor" ref={nightOpRef} />
+                            <Input className="w-1/4 text-center" placeholder="No. of Supervisor" ref={nightOpRef} />
                         </div>
 
 
 
                     </div>
-
+                    <Label className="w-100 pt-2 text-center">General Information</Label>
                     <Table className="mt-3">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
                             <TableHead className="text-center">Sl. No.</TableHead>
@@ -303,36 +310,28 @@ const VillageCreateForm = (props: Props) => {
 
 
                             
-                            <TableHead className="text-center">Rcv Peeling</TableHead>
-                            <TableHead className="text-center">Rcv Peeling (Borma)</TableHead>
+                            <TableHead className="text-center">Receive Peeling</TableHead>
+                            <TableHead className="text-center">Receive Peeling (Borma)</TableHead>
                             <TableHead className="text-center">Peeling Borma Loss(Kg)</TableHead>
                             <TableHead className="text-center">Peeling Borma Loss(%)</TableHead>
-                            <TableHead className="text-center">Rcv Mayur</TableHead>
-                            <TableHead className="text-center">Rcv Mayur (Borma)</TableHead>
+                            <TableHead className="text-center">Receive Mayur</TableHead>
+                            <TableHead className="text-center">Receive Mayur (Borma)</TableHead>
                             <TableHead className="text-center">Mayur Borma Loss(Kg)</TableHead>
                             <TableHead className="text-center">Mayur Borma Loss(%)</TableHead>
 
-                            <TableHead className="text-center">Rcv Rejection</TableHead>
-                            <TableHead className="text-center">Rcv Rejection (Borma)</TableHead>
+                            <TableHead className="text-center">Receive Rejection</TableHead>
+                            <TableHead className="text-center">Receive Rejection (Borma)</TableHead>
                             <TableHead className="text-center">Rejection Borma Loss(Kg)</TableHead>
                             <TableHead className="text-center">Rejection Borma Loss(%)</TableHead>
 
 
-                            <TableHead className="text-center">Rcv Wholes </TableHead>
-                            <TableHead className="text-center">Rcv LW </TableHead>
-                            <TableHead className="text-center">Rcv Sorting </TableHead>
-                            <TableHead className="text-center">Rcv DPDS </TableHead>
-                            <TableHead className="text-center">Rcv BigTaiho </TableHead>
+                            <TableHead className="text-center">Receive Wholes </TableHead>
+                            <TableHead className="text-center">Receive LW </TableHead>
+                            <TableHead className="text-center">Receive Sorting </TableHead>
+                            <TableHead className="text-center">Receive DPDS </TableHead>
+                            <TableHead className="text-center">Receive BigTaiho </TableHead>
                             
 
-                            <TableHead className="text-center">Issue Packing</TableHead>
-                            <TableHead className="text-center">Issue Mayur</TableHead>
-                            <TableHead className="text-center">Issue Hamsa</TableHead>
-                            <TableHead className="text-center">Issue BigTaiho</TableHead>
-                            <TableHead className="text-center">Issue Rejection</TableHead>
-                          
-                            <TableHead className="text-center">Issue Outside</TableHead>
-                            <TableHead className="text-center">Issue Outside(Type)</TableHead>
                            
                             {/* <TableHead className="text-center">Issue Add 1</TableHead>
                     <TableHead className="text-center">Issue Add 2</TableHead>
@@ -362,17 +361,17 @@ const VillageCreateForm = (props: Props) => {
                                             <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                             <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
                                             <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_peeling)} </TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-blue-100' type="number"
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number"
                                                 value={Number(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handlepeelingOpeningChange(idx, e)} required /></TableCell>
                                             <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
                                             <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
                                             <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_mayur)} </TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-blue-100' type="number"
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number"
                                                 value={Number(row.issue_add_4.toString())} placeholder="Pr." onChange={(e) => handlemayurOpeningChange(idx, e)} required /></TableCell>
                                             <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_5.toString())} Kg</TableCell>
                                             <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_6.toString())} %</TableCell>          
                                             <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_rejection)} </TableCell>
-                                            <TableCell className="text-center"> <Input className='bg-blue-100' type="number"
+                                            <TableCell className="text-center"> <Input className='bg-yellow-100' type="number"
                                                 value={Number(row.issue_add_7.toString())} placeholder="Pr." onChange={(e) => handleRejectionOpeningChange(idx, e)} required /></TableCell>
                                             <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_8.toString())} Kg</TableCell>
                                             <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_9.toString())} %</TableCell>
@@ -382,50 +381,7 @@ const VillageCreateForm = (props: Props) => {
                                             <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_sorting)} </TableCell>
                                             <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_dpds)} </TableCell>
                                             <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_bigTaiho)} </TableCell>
-                                            <TableCell className="text-center">
-                                                <Input className='bg-purple-100' type="number" value={row.issue_packing} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_packing', e.target.value)} required />
-                                            </TableCell>
-                                            <TableCell className="text-center">
-                                                <Input className='bg-purple-100' type="number" value={row.issue_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_mayur', e.target.value)} required />
-                                                </TableCell>
-                                        
-                                            <TableCell className="text-center">
-                                                <Input className='bg-purple-100' type="number" value={row.issue_hamsa} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_hamsa', e.target.value)} required />
-                                            </TableCell>
-                                                <TableCell className="text-center">
-                                                <Input className='bg-purple-100' type="number" value={row.issue_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bigTaiho', e.target.value)} required />
-                                            </TableCell>
-                                         
-                                                <TableCell className="text-center">
-                                                <Input className='bg-purple-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required />
-                                            </TableCell>
-                                            
-                                            <TableCell className="text-center">
-                                                <Input className='bg-red-100' type="number" value={row.issue_outside} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_outside', e.target.value)} required />
-                                            </TableCell>
-                                            <TableCell className="text-center" >
-                                            <Select value={row.out_Type} onValueChange={(val) => handleRowChange(idx, 'out_Type', val)} required={true}>
-                                            <SelectTrigger className="justify-center w-40 bg-red-100">
-                                                    <SelectValue placeholder="Type" />
-                                                </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectGroup>
-                                                            {
-                                                                Village_Outside_Type.map((item) => {
-                                                                    return (
-                                                                        <SelectItem key={item} value={item}>
-                                                                            {item}
-                                                                        </SelectItem>
-                                                                    )
-                                                                })
-                                                            }
-                                                        </SelectGroup>
-                                                    </SelectContent>
-                                            </Select>
-
-                                        </TableCell>
-                                   
-       
+                                           
 
 
                                             {/* <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_1', e.target.value)} required /></TableCell>
@@ -449,6 +405,83 @@ const VillageCreateForm = (props: Props) => {
                             ) : null}
                         </TableBody>
                     </Table>
+                    <Label className="w-100 pt-1 text-center">Other Information</Label>
+                                    <Table className="mt-3">
+                                       <TableHeader className="bg-neutral-100 text-stone-950 ">
+                                       
+                                      
+                                        
+                                       
+                                       <TableHead className="text-center">Issue Packing</TableHead>
+                            <TableHead className="text-center">Issue Mayur</TableHead>
+                            <TableHead className="text-center">Issue Hamsa</TableHead>
+                            <TableHead className="text-center">Issue BigTaiho</TableHead>
+                            <TableHead className="text-center">Issue Rejection</TableHead>
+                          
+                            <TableHead className="text-center">Issue Outside</TableHead>
+                            <TableHead className="text-center">Issue Outside (Type)</TableHead>
+                           
+                                      
+                                   
+                                        </TableHeader>
+                                        <TableBody>
+                                            {props.borma.length > 0 ? (
+                                                rows.map(( row:villageRowData,idx:number) => {
+                                                  
+                                                    return (
+                                                        <TableRow key={idx} className="boiling-row-height">
+                                                          
+                                                          <TableCell className="text-center">
+                                                <Input className='bg-yellow-100' type="number" value={row.issue_packing} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_packing', e.target.value)} required />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input className='bg-yellow-100' type="number" value={row.issue_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_mayur', e.target.value)} required />
+                                                </TableCell>
+                                        
+                                            <TableCell className="text-center">
+                                                <Input className='bg-yellow-100' type="number" value={row.issue_hamsa} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_hamsa', e.target.value)} required />
+                                            </TableCell>
+                                                <TableCell className="text-center">
+                                                <Input className='bg-yellow-100' type="number" value={row.issue_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_bigTaiho', e.target.value)} required />
+                                            </TableCell>
+                                         
+                                                <TableCell className="text-center">
+                                                <Input className='bg-yellow-100' type="number" value={row.issue_rejection} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_rejection', e.target.value)} required />
+                                            </TableCell>
+                                            
+                                            <TableCell className="text-center">
+                                                <Input className='bg-yellow-100' type="number" value={row.issue_outside} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_outside', e.target.value)} required />
+                                            </TableCell>
+                                            <TableCell className="text-center " >
+                                            <Select value={row.out_Type} onValueChange={(val) => handleRowChange(idx, 'out_Type', val)} required={true}>
+                                            <SelectTrigger className="justify-center w-40 bg-yellow-100">
+                                                    <SelectValue placeholder="Item-Type" />
+                                                </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectGroup>
+                                                            {
+                                                                Village_Outside_Type.map((item) => {
+                                                                    return (
+                                                                        <SelectItem key={item} value={item}>
+                                                                            {item}
+                                                                        </SelectItem>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </SelectGroup>
+                                                    </SelectContent>
+                                            </Select>
+
+                                        </TableCell>
+                                   
+       
+                                                       
+                                                        </TableRow>
+                                                    );
+                                                })
+                                            ) : null}
+                                        </TableBody>
+                                    </Table>
                     <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable ? 'Submitting' : 'Submit'}</Button>
 
 

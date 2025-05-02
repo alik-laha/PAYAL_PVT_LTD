@@ -12,7 +12,8 @@ const getPeelingLot = async (req: Request, res: Response) => {
             attributes:[[sequelize.fn('DISTINCT',sequelize.col('LotNo')),'LotNo']],
             where: {
                 Status:status
-            }
+            },
+             order: [['id', 'ASC']], // Order by date descending
 
         });
         if(scoopingLot){

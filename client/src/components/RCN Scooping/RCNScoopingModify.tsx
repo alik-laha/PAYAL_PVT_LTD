@@ -137,7 +137,7 @@ const RCNScoopingModify = (props: RcnPrimaryModifyProps) => {
                     <Input className="w-2/4 " placeholder="Truck No." value={truckNo} onChange={(e) => setTruckNo(e.target.value)} />
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 ">Date of Reciving</Label>
+                    <Label className="w-2/4 ">Date of Receiving</Label>
                     <Input className="w-2/4 " placeholder="Date Of Receiving" type="date" value={date ? date.toISOString().split('T')[0] : ''} onChange={(e) => setDate(new Date(e.target.value))} />
                 </div>
                 <div className="flex">

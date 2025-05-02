@@ -162,10 +162,10 @@ const RCNHumidLineCreateForm = (props:Props) => {
                <div className="mx-8 flex flex-col gap-0.5"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
-                <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
-                <div className="flex"><Label className="w-2/4 pt-1">No. of Operator</Label>
-                    <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> </div>
+                <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
+                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                <div className="flex"><Label className="w-1/4 pt-1">No. of Operator</Label>
+                    <Input className="w-1/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> </div>
                    
                 </div>
             
@@ -198,8 +198,8 @@ const RCNHumidLineCreateForm = (props:Props) => {
 
                                         <TableCell className="text-center font-semibold ">{formatNumber(row.TotalInput)} Kg</TableCell>
                                         <TableCell className="text-center "> {formatNumber(row.InputMoisture)}%</TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.OutputMoisture} placeholder="%" onChange={(e) => handleRowChange(idx,'OutputMoisture',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.TotalOutput} placeholder="Kg" onChange={(e) => handleRowChange(idx,'TotalOutput',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-cyan-100" value={row.OutputMoisture} placeholder="%" onChange={(e) => handleRowChange(idx,'OutputMoisture',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className="bg-yellow-100" value={row.TotalOutput} placeholder="Kg" onChange={(e) => handleRowChange(idx,'TotalOutput',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> {row.NoOfTrolley}</TableCell>
                                     
                                         {/* <TableCell className="text-center "> <Input className="bg-green-100"  value={row.Mc_on} placeholder="MC ON Time" onChange={(e) => handleRowChange(idx,'Mc_on',e.target.value)} type='time' required /></TableCell> */}

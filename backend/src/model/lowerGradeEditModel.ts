@@ -283,6 +283,56 @@ const LWEditModel = sequelize.define('lowerGradeEdit', {
         type: DataTypes.DECIMAL(10,2),
         allowNull: true
     },
+    issue_ext_grade_1: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_2: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_3: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_4: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_5: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_6: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_7: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_8: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_9: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
+    issue_ext_grade_10: 
+    {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: true
+    },
     issue_rejection: 
     {
         type: DataTypes.DECIMAL(10,2),

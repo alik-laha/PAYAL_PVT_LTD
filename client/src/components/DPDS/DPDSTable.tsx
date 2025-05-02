@@ -160,13 +160,56 @@ const DPDSTable = () => {
             Issue_SS: formatNumber(item.issue_ss),
             Issue_OS: formatNumber(item.issue_os),
             Issue_OS1: formatNumber(item.issue_os1),
+
+                Issue_V_DS: formatNumber(item.issue_V_ds),
+                Issue_V_M_DS: formatNumber(item.issue_V_m_ds),
+                Issue_V_DP: formatNumber(item.issue_V_dp),
+                Issue_V_M_DP: formatNumber(item.issue_V_m_dp),
+                Issue_V_LP: formatNumber(item.issue_V_lp),
+                Issue_V_LP_2: formatNumber(item.issue_V_lp_2),
+                Issue_V_K_DP: formatNumber(item.issue_V_k_dp),
+                Issue_V_SS: formatNumber(item.issue_V_ss),
+                Issue_V_YJH: formatNumber(item.issue_V_yjh),
+                Issue_V_YK: formatNumber(item.issue_V_yk),
+                Issue_V_SP_2: formatNumber(item.issue_V_sp_2),
+                Issue_V_KP: formatNumber(item.issue_V_kp),
+                Issue_V_DP_2: formatNumber(item.issue_V_dp_2),
+                Issue_V_DP_3: formatNumber(item.issue_V_dp_3),
+                Issue_V_DP_4: formatNumber(item.issue_V_dp_4),
+                Issue_V_OS: formatNumber(item.issue_V_os),
+                Issue_V_OS_1: formatNumber(item.issue_V_os_1),
+                Issue_V_WP: formatNumber(item.issue_V_wp),
+                Issue_V_RS: formatNumber(item.issue_V_rs),
+
+
             Issue_Packing:formatNumber((parseFloat(item.issue_m_ds) +
             parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
             parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
             parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
             parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
             parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
-            parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString()),
+            parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)+
+            parseFloat(item.issue_V_ds) +
+            parseFloat(item.issue_V_m_ds) +
+            parseFloat(item.issue_V_dp) +
+            parseFloat(item.issue_V_m_dp) +
+            parseFloat(item.issue_V_lp) +
+            parseFloat(item.issue_V_lp_2) +
+            parseFloat(item.issue_V_k_dp) +
+            parseFloat(item.issue_V_ss) +
+            parseFloat(item.issue_V_yjh) +
+            parseFloat(item.issue_V_yk) +
+            parseFloat(item.issue_V_sp_2) +
+            parseFloat(item.issue_V_kp) +
+            parseFloat(item.issue_V_dp_2) +
+            parseFloat(item.issue_V_dp_3) +
+            parseFloat(item.issue_V_dp_4) +
+            parseFloat(item.issue_V_os) +
+            parseFloat(item.issue_V_os_1) +
+            parseFloat(item.issue_V_wp) +
+            parseFloat(item.issue_V_rs) ).toString()),
+
+
             Issue_Rejection: formatNumber(item.issue_rejection),
             Issue_Village: formatNumber(item.issue_village),
             Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
@@ -227,13 +270,53 @@ const DPDSTable = () => {
             Issue_SS: formatNumber(item.issue_ss),
             Issue_OS: formatNumber(item.issue_os),
             Issue_OS1: formatNumber(item.issue_os1),
-Issue_Packing:formatNumber((parseFloat(item.issue_m_ds) +
-parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
-parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
-parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
-parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
-parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
-parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString()),
+
+                Issue_V_DS: formatNumber(item.issue_V_ds),
+                Issue_V_M_DS: formatNumber(item.issue_V_m_ds),
+                Issue_V_DP: formatNumber(item.issue_V_dp),
+                Issue_V_M_DP: formatNumber(item.issue_V_m_dp),
+                Issue_V_LP: formatNumber(item.issue_V_lp),
+                Issue_V_LP_2: formatNumber(item.issue_V_lp_2),
+                Issue_V_K_DP: formatNumber(item.issue_V_k_dp),
+                Issue_V_SS: formatNumber(item.issue_V_ss),
+                Issue_V_YJH: formatNumber(item.issue_V_yjh),
+                Issue_V_YK: formatNumber(item.issue_V_yk),
+                Issue_V_SP_2: formatNumber(item.issue_V_sp_2),
+                Issue_V_KP: formatNumber(item.issue_V_kp),
+                Issue_V_DP_2: formatNumber(item.issue_V_dp_2),
+                Issue_V_DP_3: formatNumber(item.issue_V_dp_3),
+                Issue_V_DP_4: formatNumber(item.issue_V_dp_4),
+                Issue_V_OS: formatNumber(item.issue_V_os),
+                Issue_V_OS_1: formatNumber(item.issue_V_os_1),
+                Issue_V_WP: formatNumber(item.issue_V_wp),
+                Issue_V_RS: formatNumber(item.issue_V_rs),
+
+                Issue_Packing:formatNumber((parseFloat(item.issue_m_ds) +
+                parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
+                parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
+                parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
+                parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
+                parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
+                parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)+
+                parseFloat(item.issue_V_ds) +
+                parseFloat(item.issue_V_m_ds) +
+                parseFloat(item.issue_V_dp) +
+                parseFloat(item.issue_V_m_dp) +
+                parseFloat(item.issue_V_lp) +
+                parseFloat(item.issue_V_lp_2) +
+                parseFloat(item.issue_V_k_dp) +
+                parseFloat(item.issue_V_ss) +
+                parseFloat(item.issue_V_yjh) +
+                parseFloat(item.issue_V_yk) +
+                parseFloat(item.issue_V_sp_2) +
+                parseFloat(item.issue_V_kp) +
+                parseFloat(item.issue_V_dp_2) +
+                parseFloat(item.issue_V_dp_3) +
+                parseFloat(item.issue_V_dp_4) +
+                parseFloat(item.issue_V_os) +
+                parseFloat(item.issue_V_os_1) +
+                parseFloat(item.issue_V_wp) +
+                parseFloat(item.issue_V_rs) ).toString()),
             Issue_Rejection: formatNumber(item.issue_rejection),
             Issue_Village: formatNumber(item.issue_village),
             Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
@@ -452,6 +535,27 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <TableHead className="text-center">Issue SS</TableHead>
                 <TableHead className="text-center">Issue OS</TableHead>
                 <TableHead className="text-center">Issue OS1</TableHead>
+                <TableHead className="text-center">Lot_Village Seperator</TableHead>
+                 <TableHead className="text-center">Issue V_DS</TableHead>
+                        <TableHead className="text-center">Issue V_M_DS</TableHead>
+                        <TableHead className="text-center">Issue V_DP</TableHead>
+                        <TableHead className="text-center">Issue V_M_DP</TableHead>
+                        <TableHead className="text-center">Issue V_K_DP</TableHead>
+                        <TableHead className="text-center">Issue V_LP</TableHead>
+                        <TableHead className="text-center">Issue V_LP2</TableHead>
+
+                        <TableHead className="text-center">Issue V_SS</TableHead>
+                        <TableHead className="text-center">Issue V_YJH</TableHead>
+                        <TableHead className="text-center">Issue V_YK</TableHead>
+                        <TableHead className="text-center">Issue V_SP2</TableHead>
+                        <TableHead className="text-center">Issue V_KP</TableHead>
+                        <TableHead className="text-center">Issue V_DP2</TableHead>
+                        <TableHead className="text-center">Issue V_DP3</TableHead>
+                        <TableHead className="text-center">Issue V_DP4</TableHead>
+                        <TableHead className="text-center">Issue V_OS</TableHead>
+                        <TableHead className="text-center">Issue V_OS1</TableHead>
+                        <TableHead className="text-center">Issue V_WP</TableHead>
+                        <TableHead className="text-center">Issue V_RS</TableHead>
                 <TableHead className="text-center">Issue Packing</TableHead>
                 <TableHead className="text-center">Issue Rejection</TableHead>
                 <TableHead className="text-center">Issue Village</TableHead>
@@ -528,30 +632,86 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.issue_ss)}</TableCell>
                                     <TableCell className="text-center">{formatNumber(item.issue_os)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_os1)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-neutral-500 text-white">Lot---Vil</TableCell>
+                                    <TableCell className="text-center">{formatNumber(item.issue_V_ds)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_m_ds)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_dp)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_m_dp)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_lp)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_lp_2)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_k_dp)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_ss)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_yjh)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_yk)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_sp_2)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_kp)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_dp_2)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_dp_3)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_dp_4)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_os)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_os_1)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_wp)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_rs)}</TableCell>
+
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_m_ds) +
                                      parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
                                      parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
                                      parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
                                      parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
                                      parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
-                                     parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString())}</TableCell>
-                                     
-                                     <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.issue_m_ds) +
+                                     parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)+
+                                     parseFloat(item.issue_V_ds) +
+                                     parseFloat(item.issue_V_m_ds) +
+                                     parseFloat(item.issue_V_dp) +
+                                     parseFloat(item.issue_V_m_dp) +
+                                     parseFloat(item.issue_V_lp) +
+                                     parseFloat(item.issue_V_lp_2) +
+                                     parseFloat(item.issue_V_k_dp) +
+                                     parseFloat(item.issue_V_ss) +
+                                     parseFloat(item.issue_V_yjh) +
+                                     parseFloat(item.issue_V_yk) +
+                                     parseFloat(item.issue_V_sp_2) +
+                                     parseFloat(item.issue_V_kp) +
+                                     parseFloat(item.issue_V_dp_2) +
+                                     parseFloat(item.issue_V_dp_3) +
+                                     parseFloat(item.issue_V_dp_4) +
+                                     parseFloat(item.issue_V_os) +
+                                     parseFloat(item.issue_V_os_1) +
+                                     parseFloat(item.issue_V_wp) +
+                                     parseFloat(item.issue_V_rs)).toString())}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100 ">{formatNumber(item.issue_village)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100 ">{formatNumber(item.issue_bigTaiho)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-red-100 ">{formatNumber(item.issue_mayur)}</TableCell>
+                                    {/* <TableCell className="text-center font-semibold  text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
+                                    <TableCell className="text-center font-bold bg-yellow-500 text-white">{formatNumber((parseFloat(item.issue_m_ds) +
                                      parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
                                      parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
                                      parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
                                      parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
                                      parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
                                      parseFloat(item.issue_rejection) +parseFloat(item.issue_village)+parseFloat(item.issue_bigTaiho)+parseFloat(item.issue_mayur)+
-                                     parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString())} Kg</TableCell>
-                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_village)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_bigTaiho)}</TableCell>
-                                    <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_mayur)}</TableCell>
-                                   
-                                    {/* <TableCell className="text-center font-bold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
-                                           
-                                    <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
+                                     parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)+
+                                     parseFloat(item.issue_V_ds) +
+                                     parseFloat(item.issue_V_m_ds) +
+                                     parseFloat(item.issue_V_dp) +
+                                     parseFloat(item.issue_V_m_dp) +
+                                     parseFloat(item.issue_V_lp) +
+                                     parseFloat(item.issue_V_lp_2) +
+                                     parseFloat(item.issue_V_k_dp) +
+                                     parseFloat(item.issue_V_ss) +
+                                     parseFloat(item.issue_V_yjh) +
+                                     parseFloat(item.issue_V_yk) +
+                                     parseFloat(item.issue_V_sp_2) +
+                                     parseFloat(item.issue_V_kp) +
+                                     parseFloat(item.issue_V_dp_2) +
+                                     parseFloat(item.issue_V_dp_3) +
+                                     parseFloat(item.issue_V_dp_4) +
+                                     parseFloat(item.issue_V_os) +
+                                     parseFloat(item.issue_V_os_1) +
+                                     parseFloat(item.issue_V_wp) +
+                                     parseFloat(item.issue_V_rs)).toString())} Kg</TableCell>
+                                           <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                         <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                         <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
@@ -656,13 +816,53 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center ">{formatNumber(item.issue_ss)}</TableCell>
                                     <TableCell className="text-center">{formatNumber(item.issue_os)}</TableCell>
                                     <TableCell className="text-center ">{formatNumber(item.issue_os1)}</TableCell>
+                                    <TableCell className="text-center font-semibold bg-neutral-500 text-white">Lot---Vil</TableCell>
+                                    <TableCell className="text-center">{formatNumber(item.issue_V_ds)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_m_ds)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_dp)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_m_dp)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_lp)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_lp_2)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_k_dp)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_ss)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_yjh)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_yk)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_sp_2)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_kp)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_dp_2)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_dp_3)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_dp_4)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_os)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_os_1)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_wp)}</TableCell>
+                                <TableCell className="text-center">{formatNumber(item.issue_V_rs)}</TableCell>
+
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber((parseFloat(item.issue_m_ds) +
                                      parseFloat(item.issue_m_dp)+parseFloat(item.issue_k_dp)+
                                      parseFloat(item.issue_ds_1) +parseFloat(item.issue_ds_2)+parseFloat(item.issue_sp_2)+
                                      parseFloat(item.issue_yjh) +parseFloat(item.issue_yk)+parseFloat(item.issue_kp)+
                                      parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
                                      parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
-                                     parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString())}</TableCell>
+                                     parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)+
+                                     parseFloat(item.issue_V_ds) +
+                                     parseFloat(item.issue_V_m_ds) +
+                                     parseFloat(item.issue_V_dp) +
+                                     parseFloat(item.issue_V_m_dp) +
+                                     parseFloat(item.issue_V_lp) +
+                                     parseFloat(item.issue_V_lp_2) +
+                                     parseFloat(item.issue_V_k_dp) +
+                                     parseFloat(item.issue_V_ss) +
+                                     parseFloat(item.issue_V_yjh) +
+                                     parseFloat(item.issue_V_yk) +
+                                     parseFloat(item.issue_V_sp_2) +
+                                     parseFloat(item.issue_V_kp) +
+                                     parseFloat(item.issue_V_dp_2) +
+                                     parseFloat(item.issue_V_dp_3) +
+                                     parseFloat(item.issue_V_dp_4) +
+                                     parseFloat(item.issue_V_os) +
+                                     parseFloat(item.issue_V_os_1) +
+                                     parseFloat(item.issue_V_wp) +
+                                     parseFloat(item.issue_V_rs)).toString())}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100">{formatNumber(item.issue_rejection)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100 ">{formatNumber(item.issue_village)}</TableCell>
                                     <TableCell className="text-center font-semibold bg-red-100 ">{formatNumber(item.issue_bigTaiho)}</TableCell>
@@ -675,7 +875,26 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                      parseFloat(item.issue_wp) +parseFloat(item.issue_rs)+parseFloat(item.issue_dp_2)+
                                      parseFloat(item.issue_dp_3) +parseFloat(item.issue_dp_4)+parseFloat(item.issue_dp_3l)+
                                      parseFloat(item.issue_rejection) +parseFloat(item.issue_village)+parseFloat(item.issue_bigTaiho)+parseFloat(item.issue_mayur)+
-                                     parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)).toString())} Kg</TableCell>
+                                     parseFloat(item.issue_ss) +parseFloat(item.issue_os)+parseFloat(item.issue_os1)+
+                                     parseFloat(item.issue_V_ds) +
+                                     parseFloat(item.issue_V_m_ds) +
+                                     parseFloat(item.issue_V_dp) +
+                                     parseFloat(item.issue_V_m_dp) +
+                                     parseFloat(item.issue_V_lp) +
+                                     parseFloat(item.issue_V_lp_2) +
+                                     parseFloat(item.issue_V_k_dp) +
+                                     parseFloat(item.issue_V_ss) +
+                                     parseFloat(item.issue_V_yjh) +
+                                     parseFloat(item.issue_V_yk) +
+                                     parseFloat(item.issue_V_sp_2) +
+                                     parseFloat(item.issue_V_kp) +
+                                     parseFloat(item.issue_V_dp_2) +
+                                     parseFloat(item.issue_V_dp_3) +
+                                     parseFloat(item.issue_V_dp_4) +
+                                     parseFloat(item.issue_V_os) +
+                                     parseFloat(item.issue_V_os_1) +
+                                     parseFloat(item.issue_V_wp) +
+                                     parseFloat(item.issue_V_rs)).toString())} Kg</TableCell>
                                            <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                         <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
                         <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
@@ -692,7 +911,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogTrigger className="flex"><CiEdit size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-7xl">
+                                                    <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 <p className='text-1xl pb-1 text-center mt-1'>DPDS Entry Modification</p>
@@ -706,7 +925,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogTrigger className="flex"><CiBoxes size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-7xl">
+                                                    <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 <p className='text-1xl pb-1 text-center mt-1'>DPDS Entry Reissue</p>
@@ -720,7 +939,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     <DialogTrigger className="flex"><CiCrop size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-4xl">
+                                                    <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
                                                                 {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}

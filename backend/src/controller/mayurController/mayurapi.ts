@@ -16,6 +16,7 @@ import WholesModel from "../../model/wholesModel";
 import rejectionModel from "../../model/rejectionModel";
 import LWModel from "../../model/lowerGradeModel";
 import villageProduction from "../../model/villageProductionModel";
+import VLotNo from "../../model/vlotNomodel";
 
 
 export const findEditMayurAll = async (req: Request, res: Response) => {
@@ -137,6 +138,7 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
     const feeledBy = req.cookies.user;
     const linehumid = req.body.linehumid
     const LotNO = req.body.LotNo
+    const vilLot:boolean=Boolean(req.body.vilLot)
 
     await sequelize.transaction(async (transaction: any) => {
 
@@ -671,18 +673,33 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                     throw new Error('Transaction Aborted')
                 } 
 
-
+                let lotupdate
                 //Lot Update
-                const lotupdate =await LotNo.update(
-                    { 
-                      modifiedBy:'Next Interconnected'
-                    },
-                    {
-                        where: {
-                            lotNo:LotNO
-                        },transaction
-                    }
-                );
+                if(vilLot===true){
+                    lotupdate =await VLotNo.update(
+                        { 
+                          modifiedBy:'Next Interconnected'
+                        },
+                        {
+                            where: {
+                                vlotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
+                else{
+                    lotupdate =await LotNo.update(
+                        { 
+                          modifiedBy:'Next Interconnected'
+                        },
+                        {
+                            where: {
+                                lotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
+                
                 const lotoriginupdate = await lotoriginmodel.update(
                     {
                         latest_section: 'Mayur',
@@ -1004,7 +1021,8 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         await rejectionModel.update(
                             { 
                                 rcv_mayur:sequelize.literal(`rcv_mayur+ ${data.issue_rejection}`),
-                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_rejection}`)
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_rejection}`),
+                                issue_add_8:sequelize.literal(`issue_add_8+ ${data.issue_rejection}`),
                             },
                             {
                                 where: {
@@ -1072,7 +1090,8 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         await WholesModel.update(
                             { 
                                 rcv_jb_mayur:sequelize.literal(`rcv_jb_mayur+ ${data.issue_JB}`),
-                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_JB}`)
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_JB}`),
+                                issue_add_1: sequelize.literal(`issue_add_1+ ${data.issue_JB}`),
                             },
                             {
                                 where: {
@@ -1087,7 +1106,8 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         await WholesModel.update(
                             { 
                                 rcv_jb_mayur:data.issue_JB,
-                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_JB}`)
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_JB}`),
+                    
                             },
                             {
                                 where: {
@@ -1211,7 +1231,8 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         await LWModel.update(
                             { 
                                 rcv_mayur:sequelize.literal(`rcv_mayur+ ${data.issue_LW}`),
-                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_LW}`)
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_LW}`),
+                                issue_add_7: sequelize.literal(`issue_add_7+ ${data.issue_LW}`),
                             },
                             {
                                 where: {
@@ -1277,7 +1298,8 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         await villageProduction.update(
                             { 
                                 rcv_mayur:sequelize.literal(`rcv_mayur+ ${data.issue_village}`),
-                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_village}`)
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_village}`),
+                                issue_add_11:sequelize.literal(`issue_add_11+ ${data.issue_village}`)
                             },
                             {
                                 where: {
@@ -1916,7 +1938,8 @@ export const approveMayur = async (req: Request, res: Response) => {
                                 await rejectionModel.update(
                                     {
                                         rcv_mayur: sequelize.literal(`rcv_mayur+ ${difference_rejection}`),
-                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_rejection}`)
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_rejection}`),
+                                        issue_add_8: sequelize.literal(`issue_add_8+ ${difference_rejection}`),
                                     },
                                     {
                                         where: {
@@ -1965,7 +1988,8 @@ export const approveMayur = async (req: Request, res: Response) => {
                                 await WholesModel.update(
                                     {
                                         rcv_jb_mayur: sequelize.literal(`rcv_jb_mayur+ ${difference_Wholes}`),
-                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_Wholes}`)
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_Wholes}`),
+                                        issue_add_1: sequelize.literal(`issue_add_1+ ${difference_Wholes}`),
                                     },
                                     {
                                         where: {
@@ -2066,7 +2090,8 @@ export const approveMayur = async (req: Request, res: Response) => {
                                 await LWModel.update(
                                     {
                                         rcv_mayur: sequelize.literal(`rcv_mayur+ ${difference_lw}`),
-                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_lw}`)
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_lw}`),
+                                        issue_add_7: sequelize.literal(`issue_add_7+ ${difference_lw}`),
                                     },
                                     {
                                         where: {
@@ -2115,7 +2140,8 @@ export const approveMayur = async (req: Request, res: Response) => {
                                 await villageProduction.update(
                                     {
                                         rcv_mayur: sequelize.literal(`rcv_mayur+ ${difference_vil}`),
-                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_vil}`)
+                                        current_backlog: sequelize.literal(`current_backlog+ ${difference_vil}`),
+                                        issue_add_11: sequelize.literal(`issue_add_11+ ${difference_vil}`)
                                     },
                                     {
                                         where: {

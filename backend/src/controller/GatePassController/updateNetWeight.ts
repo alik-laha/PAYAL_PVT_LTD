@@ -10,6 +10,7 @@ import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
 import RcvVillageModel from "../../model/RcvVillageModel";
 import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
 import oilMillModel from "../../model/oilMillModel";
+import RcvVillageInModel from "../../model/RcvVillageInModel";
 
 
 
@@ -135,9 +136,30 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 }
                 
             }
-            if (section==='Village') {
+            if (section==='Village' && type==='OUT') {
 
                 const generalupdate = await RcvVillageModel.update(
+                    { 
+                        netWeight:netWeight,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo:gatepassNo
+                        },
+                    }
+                );
+        
+                if(generalupdate){
+                    const data = await WpMsgGatePassRcv("Village Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Village Entry/Dispatch')
+            console.log(data)
+                    return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
+                }
+                
+            } 
+            if (section==='Village' && type==='IN') {
+
+                const generalupdate = await RcvVillageInModel.update(
                     { 
                         netWeight:netWeight,
                      

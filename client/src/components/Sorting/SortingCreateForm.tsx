@@ -48,6 +48,33 @@ interface SortingRowData{
         issue_yk: number ;
         issue_sp2:number;
         issue_kp: number ;
+
+        issue_in_k: number;
+issue_in_jh: number;
+issue_V_sjh: number;
+issue_V_k: number;
+issue_V_k1: number;
+issue_V_lwp: number;
+issue_V_lwp1: number;
+issue_V_jk: number;
+issue_V_jk1: number;
+issue_V_ss: number;
+issue_V_sp: number;
+issue_V_sp2: number;
+issue_V_jh1: number;
+issue_V_yk: number;
+issue_V_m_jk1: number;
+issue_ext_grade_1: number;
+issue_ext_grade_2: number;
+issue_ext_grade_3: number;
+issue_ext_grade_4: number;
+issue_ext_grade_5: number;
+issue_ext_grade_6: number;
+issue_ext_grade_7: number;
+issue_ext_grade_8: number;
+issue_ext_grade_9: number;
+issue_ext_grade_10: number;
+
         issue_village: number ;
         issue_mayur:number;
         issue_bigTaiho: number ;
@@ -85,6 +112,7 @@ const SortingCreateForm = (props:Props) => {
     const dayOpRef = useRef<HTMLInputElement>(null);
     const nightOpRef = useRef<HTMLInputElement>(null);
     const [rows,setRows]=useState<SortingRowData[]>([])
+      const [vilLot,setVilLot]=useState<boolean>(false)
     const successdialog = document.getElementById('successemployeedialog') as HTMLInputElement;
     const errordialog = document.getElementById('erroremployeedialog') as HTMLInputElement;
     // const dialog = document.getElementById('myDialog');
@@ -110,6 +138,13 @@ const SortingCreateForm = (props:Props) => {
         });
     }
     useEffect(() => { 
+
+      if (props.borma[0]) {
+
+        if (props.borma[0].LotNo.includes('V')) {
+          setVilLot(true)
+        }
+      }
         const initialform = props.borma.map((item: SortingData) => ({
             id: item.id,
             LotNo: item.LotNo,
@@ -142,6 +177,33 @@ const SortingCreateForm = (props:Props) => {
             issue_yk: 0,
             issue_sp2:0,
             issue_kp: 0,
+
+            issue_in_k: 0,
+            issue_in_jh: 0,
+            issue_V_sjh: 0,
+            issue_V_k: 0,
+            issue_V_k1: 0,
+            issue_V_lwp: 0,
+            issue_V_lwp1: 0,
+            issue_V_jk: 0,
+            issue_V_jk1: 0,
+            issue_V_ss: 0,
+            issue_V_sp: 0,
+            issue_V_sp2: 0,
+            issue_V_jh1: 0,
+            issue_V_yk: 0,
+            issue_V_m_jk1: 0,
+            issue_ext_grade_1: 0,
+            issue_ext_grade_2: 0,
+            issue_ext_grade_3: 0,
+            issue_ext_grade_4: 0,
+            issue_ext_grade_5: 0,
+            issue_ext_grade_6: 0,
+            issue_ext_grade_7: 0,
+            issue_ext_grade_8: 0,
+            issue_ext_grade_9: 0,
+            issue_ext_grade_10: 0,
+
             issue_village: 0,
             issue_mayur:0,
             issue_bigTaiho:0,
@@ -199,7 +261,7 @@ const SortingCreateForm = (props:Props) => {
         
             try {
                 const initialhumid = await axios.post('/api/sorting/createEntireSorting', { linehumid:formData,
-                    LotNo:props.borma[0].LotNo
+                    LotNo:props.borma[0].LotNo,vilLot
                  })
                 console.log(initialhumid)         
                     setErrortext(initialhumid.data.message)
@@ -269,16 +331,16 @@ const SortingCreateForm = (props:Props) => {
     return (
         <>
         <div className="px-5 py-2 overflow-auto">
-            <form className='flex flex-col gap-1 pt-1' onSubmit={handleSubmit2}>
-               <div className="mx-8 flex flex-col gap-0.5"> 
+            <form className='flex flex-col gap-1 pt-5' onSubmit={handleSubmit2}>
+               <div className="mx-1 flex flex-col gap-0.5"> 
                {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
-                <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
+                <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
                
-                     <div className="flex"><Label className="w-2/4 pt-1">No. of Labour</Label>
+                     <div className="flex"><Label className="w-1/4 pt-1">No. of Labour</Label>
                     {/* <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required /> */}
-                    <Input className="w-2/4 text-center" placeholder="No. of Labour" ref={dayOpRef}  />
+                    <Input className="w-1/4 text-center" placeholder="No. of Labour" ref={dayOpRef}  />
                      </div>
                      {/* <div className="flex"><Label className="w-2/4 pt-1">No. of Operator(Night)</Label>
                     <Input className="w-2/4 text-center" placeholder="No. of Operator" ref={operatorRef} required />
@@ -288,14 +350,14 @@ const SortingCreateForm = (props:Props) => {
                      
                    
                 </div>
-            
+                <Label className="w-100 pt-2 text-center">General Information</Label>
                    <Table className="mt-3">
                    <TableHeader className="bg-neutral-100 text-stone-950 ">
                     <TableHead className="text-center">Sl. No.</TableHead>
                     <TableHead className="text-center">Lot_No</TableHead>
               
                     <TableHead className="text-center">Origin</TableHead>
-                    <TableHead className="text-center">Mixed_Lot</TableHead>
+                    <TableHead className="text-center">Sorting_Mixed_Lot_&_Origin</TableHead>
                   
                     <TableHead className="text-center">Receive JJH</TableHead>
                     <TableHead className="text-center">Receive SJH</TableHead>
@@ -316,7 +378,7 @@ const SortingCreateForm = (props:Props) => {
                     <TableHead className="text-center">Borma Loss(%)</TableHead>
    
                     
-                    <TableHead className="text-center">Issue JJH</TableHead>
+                    {/* <TableHead className="text-center">Issue JJH</TableHead>
                     <TableHead className="text-center">Issue JJH1</TableHead>
                     <TableHead className="text-center">Issue SJH</TableHead>
                     <TableHead className="text-center">Issue JK</TableHead>
@@ -329,7 +391,7 @@ const SortingCreateForm = (props:Props) => {
                     <TableHead className="text-center">Issue SS</TableHead>
                     <TableHead className="text-center">Issue YK</TableHead>
                     <TableHead className="text-center">Issue SP2</TableHead>
-                    <TableHead className="text-center">Issue KP</TableHead>
+                    <TableHead className="text-center">Issue KP</TableHead> */}
                     {/* <TableHead className="text-center">Issue Add 1</TableHead>
                     <TableHead className="text-center">Issue Add 2</TableHead>
                     <TableHead className="text-center">Issue Add 3</TableHead>
@@ -358,28 +420,28 @@ const SortingCreateForm = (props:Props) => {
                                         <TableCell className="text-center font-semibold text-red-500">{row.LotNo}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.origin}</TableCell>
                                         <TableCell className="text-center font-semibold text-red-500">{row.mixingLot}</TableCell>
-                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_jjh)} </TableCell>
-                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_sjh)} </TableCell>
-                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_sjh1)} </TableCell>
-                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_jh1)} </TableCell>
-                                        <TableCell className="text-center font-semibold  bg-yellow-100">{formatNumber(row.rcv_jk_k)} </TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(row.rcv_sp1)} </TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_jjhN.toString())} </TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_sjhN.toString())} </TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_sjh1N.toString())} </TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_jh1N.toString())} </TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_jk_kN.toString())} </TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-200">{formatNumber(row.rcv_sp1N.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold  bg-purple-100">{formatNumber(row.rcv_jjh)} </TableCell>
+                                        <TableCell className="text-center font-semibold  bg-purple-100">{formatNumber(row.rcv_sjh)} </TableCell>
+                                        <TableCell className="text-center font-semibold  bg-purple-100">{formatNumber(row.rcv_sjh1)} </TableCell>
+                                        <TableCell className="text-center font-semibold  bg-purple-100">{formatNumber(row.rcv_jh1)} </TableCell>
+                                        <TableCell className="text-center font-semibold  bg-purple-100">{formatNumber(row.rcv_jk_k)} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-purple-100">{formatNumber(row.rcv_sp1)} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-purple-200">{formatNumber(row.rcv_jjhN.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-purple-200">{formatNumber(row.rcv_sjhN.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-purple-200">{formatNumber(row.rcv_sjh1N.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-purple-200">{formatNumber(row.rcv_jh1N.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-purple-200">{formatNumber(row.rcv_jk_kN.toString())} </TableCell>
+                                        <TableCell className="text-center font-semibold bg-purple-200">{formatNumber(row.rcv_sp1N.toString())} </TableCell>
                                         <TableCell className="text-center font-semibold text-green-500">{row.rcv_bigTaiho ? formatNumber(row.rcv_bigTaiho) :0} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-100 text-green-600  ">{formatNumber((parseFloat(row.rcv_jjh) +
+                                        <TableCell className="text-center font-semibold text-green-600  ">{formatNumber((parseFloat(row.rcv_jjh) +
                                          parseFloat(row.rcv_sjh)+parseFloat(row.rcv_sjh1)+parseFloat(row.rcv_jh1) +
                                          parseFloat(row.rcv_jk_k)+parseFloat(row.rcv_sp1)).toString())} kg</TableCell>
 
-                                   <TableCell className="text-center"> <Input className='bg-blue-100' type="number" 
+                                   <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" 
                                         value={Number(row.issue_add_1.toString())} placeholder="Pr." onChange={(e) => handleOpeningChange(idx, e)} required /></TableCell>
   <TableCell className="text-center text-red-500 font-semibold">{formatNumber(row.issue_add_2.toString())} Kg</TableCell>
   <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_jjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jjh', e.target.value)} required /></TableCell>
+                                        {/* <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_jjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jjh', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_jjh1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jjh1', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_sjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sjh', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_jk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jk', e.target.value)} required /></TableCell>
@@ -392,7 +454,7 @@ const SortingCreateForm = (props:Props) => {
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_ss} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ss', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_yk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_yk', e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_sp2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sp2', e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_kp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_kp', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_kp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_kp', e.target.value)} required /></TableCell> */}
                                         {/* <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_1', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_2', e.target.value)} required /></TableCell>
                                     <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.issue_add_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_add_3', e.target.value)} required /></TableCell>
@@ -414,7 +476,188 @@ const SortingCreateForm = (props:Props) => {
                             })
                         ) : null}
                     </TableBody>
-                </Table>  
+                </Table> 
+
+                 <Label className="w-100 pt-1 text-center">Lot Packing Grade</Label>
+                                <Table className="mt-3">
+                                   <TableHeader className="bg-neutral-100 text-stone-950 ">
+                                   
+                                  
+                                    
+                                   
+                                   <TableHead className="text-center">Issue JJH</TableHead>
+                    <TableHead className="text-center">Issue JJH1</TableHead>
+                    <TableHead className="text-center">Issue SJH</TableHead>
+                    <TableHead className="text-center">Issue JK</TableHead>
+                    <TableHead className="text-center">Issue JK1</TableHead>
+                    <TableHead className="text-center">Issue K</TableHead>
+                    <TableHead className="text-center">Issue K1</TableHead>
+                    <TableHead className="text-center">Issue LWP</TableHead>
+                    <TableHead className="text-center">Issue LWP1</TableHead>
+                    <TableHead className="text-center">Issue S</TableHead>
+                    <TableHead className="text-center">Issue SS</TableHead>
+                    <TableHead className="text-center">Issue YK</TableHead>
+                    <TableHead className="text-center">Issue SP2</TableHead>
+                    <TableHead className="text-center">Issue KP</TableHead>
+
+                    <TableHead className="text-center">Issue IN_K</TableHead>
+                    <TableHead className="text-center">Issue IN_JH</TableHead>
+                                  
+                               
+                                    </TableHeader>
+                                    <TableBody>
+                                        {props.borma.length > 0 ? (
+                                            rows.map(( row:SortingRowData,idx:number) => {
+                                              
+                                                return (
+                                                    <TableRow key={idx} className="boiling-row-height-scoop">
+                                                      
+                                                      <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_jjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jjh', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_jjh1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jjh1', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_sjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sjh', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_jk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jk', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_jk1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_jk1', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_k} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_k', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_k1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_k1', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_lwp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_lwp', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_lwp1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_lwp1', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_s} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_s', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_ss} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ss', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_yk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_yk', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_sp2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_sp2', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_kp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_kp', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_in_k} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_in_k', e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.issue_in_jh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_in_jh', e.target.value)} required /></TableCell>
+                                                    </TableRow>
+                                                );
+                                            })
+                                        ) : null}
+                                    </TableBody>
+                                </Table> 
+                                <Label className="w-100 pt-1 text-center">Village Packing Grade</Label>
+                                <Table className="mt-3">
+                                <TableHeader className="bg-neutral-100 text-stone-950 ">
+                                <TableHead className="text-center">Issue V SJH</TableHead>
+<TableHead className="text-center">Issue V K</TableHead>
+<TableHead className="text-center">Issue V K1</TableHead>
+<TableHead className="text-center">Issue V LWP</TableHead>
+<TableHead className="text-center">Issue V LWP1</TableHead>
+<TableHead className="text-center">Issue V JK</TableHead>
+<TableHead className="text-center">Issue V JK1</TableHead>
+<TableHead className="text-center">Issue V SS</TableHead>
+<TableHead className="text-center">Issue V SP</TableHead>
+<TableHead className="text-center">Issue V SP2</TableHead>
+<TableHead className="text-center">Issue V JH1</TableHead>
+<TableHead className="text-center">Issue V YK</TableHead>
+<TableHead className="text-center">Issue V M_JK1</TableHead>
+                                </TableHeader>
+                
+                                <TableBody>
+                                        {props.borma.length > 0 ? (
+                                            rows.map(( row:SortingRowData,idx:number) => {
+                                              
+                                                return (
+                                                    <TableRow key={idx} className="boiling-row-height-scoop">
+                                              <TableCell className="text-center">
+  <Input className="bg-yellow-100" type="number" value={row.issue_V_sjh} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_sjh', e.target.value)} required />
+</TableCell>
+
+<TableCell className="text-center">
+  <Input className="bg-yellow-100" type="number" value={row.issue_V_k} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_k', e.target.value)} required />
+</TableCell>
+
+<TableCell className="text-center">
+  <Input className="bg-yellow-100" type="number" value={row.issue_V_k1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_k1', e.target.value)} required />
+</TableCell>
+
+<TableCell className="text-center">
+  <Input className="bg-yellow-100" type="number" value={row.issue_V_lwp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_lwp', e.target.value)} required />
+</TableCell>
+
+<TableCell className="text-center">
+  <Input className="bg-yellow-100" type="number" value={row.issue_V_lwp1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_lwp1', e.target.value)} required />
+</TableCell>
+
+<TableCell className="text-center">
+  <Input className="bg-yellow-100" type="number" value={row.issue_V_jk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_jk', e.target.value)} required />
+</TableCell>
+
+<TableCell className="text-center">
+  <Input className="bg-yellow-100" type="number" value={row.issue_V_jk1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_jk1', e.target.value)} required />
+</TableCell>
+
+<TableCell className="text-center">
+  <Input className="bg-yellow-100" type="number" value={row.issue_V_ss} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_ss', e.target.value)} required />
+</TableCell>
+
+<TableCell className="text-center">
+  <Input className="bg-yellow-100" type="number" value={row.issue_V_sp} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_sp', e.target.value)} required />
+</TableCell>
+
+<TableCell className="text-center">
+  <Input className="bg-yellow-100" type="number" value={row.issue_V_sp2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_sp2', e.target.value)} required />
+</TableCell>
+
+<TableCell className="text-center">
+  <Input className="bg-yellow-100" type="number" value={row.issue_V_jh1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_jh1', e.target.value)} required />
+</TableCell>
+
+<TableCell className="text-center">
+  <Input className="bg-yellow-100" type="number" value={row.issue_V_yk} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_yk', e.target.value)} required />
+</TableCell>
+
+<TableCell className="text-center">
+  <Input className="bg-yellow-100" type="number" value={row.issue_V_m_jk1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_V_m_jk1', e.target.value)} required />
+</TableCell>
+
+
+                
+                {/* <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_1} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_1', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_2} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_2', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_3} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_3', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_4} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_4', e.target.value)} required />
+                </TableCell>
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_5} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_5', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_6} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_6', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_7} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_7', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_8} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_8', e.target.value)} required />
+                </TableCell>
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_9} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_9', e.target.value)} required />
+                </TableCell>
+                
+                <TableCell className="text-center">
+                  <Input className="bg-purple-100" type="number" value={row.issue_ext_grade_10} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_ext_grade_10', e.target.value)} required />
+                </TableCell> */}
+                
+                
+                                                   
+                                                    </TableRow>
+                                                );
+                                            })
+                                        ) : null}
+                                    </TableBody>
+                                    </Table>  
                 <Button className="bg-orange-500  text-center items-center justify-center h-8 w-20" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                   
                    

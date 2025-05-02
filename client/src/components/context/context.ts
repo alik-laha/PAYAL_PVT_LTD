@@ -16,7 +16,8 @@ import { AssetData, EditPendingData, GradingData, BoilingEntryData, Sumofpackage
      WholesData,
      LWData,
      RejectionData,
-     VilageData} from '../../type/type';
+     VilageData,
+     sumofRcvVillageInPrimary} from '../../type/type';
 
 interface ContextType {
     editPendingData: EditPendingData[];
@@ -52,7 +53,9 @@ interface ContextType {
     StorePrimaryOverView:sumofStorePrimary| null;
     setStorePrimaryOverView: (data: sumofStorePrimary | null) => void;
     RcvVillagePrimaryOverView:sumofRcvVillagePrimary| null;
+    RcvVillageInPrimaryOverView:sumofRcvVillageInPrimary| null;
     setRcvVillagePrimaryOverView: (data: sumofRcvVillagePrimary | null) => void;
+    setRcvVillageInPrimaryOverView: (data: sumofRcvVillageInPrimary | null) => void;
     GeneralPrimaryOverView:sumofGeneralPrimary| null;
     setGeneralPrimaryOverView: (data: sumofGeneralPrimary | null) => void;
     editPendingAlmondData: AlmondPrimaryEntryData[];
@@ -145,6 +148,8 @@ const Context = createContext<ContextType>({
     setEditPendingAlmondData: () => {},
     RcvVillagePrimaryOverView:(null),
     setRcvVillagePrimaryOverView: () => {},
+    RcvVillageInPrimaryOverView:(null),
+    setRcvVillageInPrimaryOverView: () => {},
     editPendingAgarbatiData: [],
     setEditPendingAgarbatiData: () => {},
     editPendingOilMillData: [],

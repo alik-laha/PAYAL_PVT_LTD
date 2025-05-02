@@ -12,6 +12,7 @@ import bigTaihoEditModel from "../../model/bigTaihoEditModel";
 import SortingModel from "../../model/sortingModel";
 import rejectionModel from "../../model/rejectionModel";
 import villageProduction from "../../model/villageProductionModel";
+import VLotNo from "../../model/vlotNomodel";
 
 
 // //BigTaiho.tsx
@@ -69,6 +70,16 @@ export const sumOfallBigTaiho = async (req: Request, res: Response) => {
                 [sequelize.fn('sum', sequelize.col('issue_ssp_2')), 'issue_ssp_2'],
                 [sequelize.fn('sum', sequelize.col('issue_ssp_2_small')), 'issue_ssp_2_small'],
                 [sequelize.fn('sum', sequelize.col('issue_sdp')), 'issue_sdp'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_1')), 'issue_ext_grade_1'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_2')), 'issue_ext_grade_2'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_3')), 'issue_ext_grade_3'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_4')), 'issue_ext_grade_4'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_5')), 'issue_ext_grade_5'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_6')), 'issue_ext_grade_6'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_7')), 'issue_ext_grade_7'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_8')), 'issue_ext_grade_8'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_9')), 'issue_ext_grade_9'],
+                [sequelize.fn('sum', sequelize.col('issue_ext_grade_10')), 'issue_ext_grade_10'],
              
                 [sequelize.fn('sum', sequelize.col('issue_add_1')), 'issue_add_1'],
                 [sequelize.fn('sum', sequelize.col('issue_add_2')), 'issue_add_2'],
@@ -188,6 +199,7 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
     const feeledBy = req.cookies.user;
     const linehumid = req.body.linehumid
     const LotNO = req.body.LotNo
+    const vilLot:boolean=Boolean(req.body.vilLot)
 
     await sequelize.transaction(async (transaction: any) => {
 
@@ -253,6 +265,16 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                 +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                 +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
                 +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                +parseFloat(data.issue_ext_grade_1) +
+                parseFloat(data.issue_ext_grade_2) +
+                parseFloat(data.issue_ext_grade_3) +
+                parseFloat(data.issue_ext_grade_4) +
+                parseFloat(data.issue_ext_grade_5) +
+                parseFloat(data.issue_ext_grade_6) +
+                parseFloat(data.issue_ext_grade_7) +
+                parseFloat(data.issue_ext_grade_8) +
+                parseFloat(data.issue_ext_grade_9) +
+                parseFloat(data.issue_ext_grade_10)
 
          
                ))
@@ -266,7 +288,17 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                   +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                   +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                   +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                  +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting))
+                  +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                +parseFloat(data.issue_ext_grade_1) +
+                parseFloat(data.issue_ext_grade_2) +
+                parseFloat(data.issue_ext_grade_3) +
+                parseFloat(data.issue_ext_grade_4) +
+                parseFloat(data.issue_ext_grade_5) +
+                parseFloat(data.issue_ext_grade_6) +
+                parseFloat(data.issue_ext_grade_7) +
+                parseFloat(data.issue_ext_grade_8) +
+                parseFloat(data.issue_ext_grade_9) +
+                parseFloat(data.issue_ext_grade_10))
                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                 throw new Error('Transaction Aborted due to negative value')
 
@@ -318,6 +350,16 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                     issue_add_8: data.issue_add_8,
                     issue_add_9: data.issue_add_9,
                     issue_add_10: data.issue_add_10,
+                    issue_ext_grade_1: data.issue_ext_grade_1,
+                    issue_ext_grade_2: data.issue_ext_grade_2,
+                    issue_ext_grade_3: data.issue_ext_grade_3,
+                    issue_ext_grade_4: data.issue_ext_grade_4,
+                    issue_ext_grade_5: data.issue_ext_grade_5,
+                    issue_ext_grade_6: data.issue_ext_grade_6,
+                    issue_ext_grade_7: data.issue_ext_grade_7,
+                    issue_ext_grade_8: data.issue_ext_grade_8,
+                    issue_ext_grade_9: data.issue_ext_grade_9,
+                    issue_ext_grade_10: data.issue_ext_grade_10,
                     issue_rejection: data.issue_rejection,
                     issue_village: data.issue_village,
                     issue_dpds: data.issue_dpds,
@@ -338,7 +380,17 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                       +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                       +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                       +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                      +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                      +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)+  
+                        parseFloat(data.issue_ext_grade_1) +
+                      parseFloat(data.issue_ext_grade_2) +
+                      parseFloat(data.issue_ext_grade_3) +
+                      parseFloat(data.issue_ext_grade_4) +
+                      parseFloat(data.issue_ext_grade_5) +
+                      parseFloat(data.issue_ext_grade_6) +
+                      parseFloat(data.issue_ext_grade_7) +
+                      parseFloat(data.issue_ext_grade_8) +
+                      parseFloat(data.issue_ext_grade_9) +
+                      parseFloat(data.issue_ext_grade_10)
                         ),
                     current_backlog: (parseFloat(data.rcv_peelingN)+(data.rcv_village? parseFloat(data.rcv_village):0)
                     +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
@@ -353,7 +405,17 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                       +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                       +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                       +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                      +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                      +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)+
+                      parseFloat(data.issue_ext_grade_1) +
+                      parseFloat(data.issue_ext_grade_2) +
+                      parseFloat(data.issue_ext_grade_3) +
+                      parseFloat(data.issue_ext_grade_4) +
+                      parseFloat(data.issue_ext_grade_5) +
+                      parseFloat(data.issue_ext_grade_6) +
+                      parseFloat(data.issue_ext_grade_7) +
+                      parseFloat(data.issue_ext_grade_8) +
+                      parseFloat(data.issue_ext_grade_9) +
+                      parseFloat(data.issue_ext_grade_10)
                         ),
                     Status: 1,
                     CreatedBy: feeledBy
@@ -624,17 +686,33 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                     throw new Error('Transaction Aborted')
                 }
   
-                await LotNo.update(
-                    { 
-                      modifiedBy:'Next Interconnected'
-                    },
-                    {
-                        where: {
-                            lotNo:LotNO
-                        },transaction
-                    }
-                );
-                const lotupdate = await lotoriginmodel.update(
+                let lotupdate
+                //Lot Update
+                if(vilLot===true){
+                    lotupdate =await VLotNo.update(
+                        { 
+                          modifiedBy:'Next Interconnected'
+                        },
+                        {
+                            where: {
+                                vlotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
+                else{
+                    lotupdate =await LotNo.update(
+                        { 
+                          modifiedBy:'Next Interconnected'
+                        },
+                        {
+                            where: {
+                                lotNo:LotNO
+                            },transaction
+                        }
+                    );
+                }
+                const lotoriginupdate = await lotoriginmodel.update(
                     {
                         latest_section: 'BigTaiho',
                         bigTaihoStatus: 1
@@ -646,7 +724,7 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                         }, transaction
                     }
                 );
-                if (lotupdate) {
+                if (lotupdate && lotoriginupdate) {
                     res.status(200).json({ message: "BigTaiho Entry Made Successfully" });
                 }
                 else {
@@ -821,7 +899,16 @@ export const CreateReissueBigTaiho= async (req: Request, res: Response) => {
                   +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                   +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                   +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                  +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                  +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)+ parseFloat(data.issue_ext_grade_1) +
+                  parseFloat(data.issue_ext_grade_2) +
+                  parseFloat(data.issue_ext_grade_3) +
+                  parseFloat(data.issue_ext_grade_4) +
+                  parseFloat(data.issue_ext_grade_5) +
+                  parseFloat(data.issue_ext_grade_6) +
+                  parseFloat(data.issue_ext_grade_7) +
+                  parseFloat(data.issue_ext_grade_8) +
+                  parseFloat(data.issue_ext_grade_9) +
+                  parseFloat(data.issue_ext_grade_10)
   
            
                  ))
@@ -835,7 +922,17 @@ export const CreateReissueBigTaiho= async (req: Request, res: Response) => {
                    +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                    +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                    +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                   +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                   +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)+
+                   parseFloat(data.issue_ext_grade_1) +
+                   parseFloat(data.issue_ext_grade_2) +
+                   parseFloat(data.issue_ext_grade_3) +
+                   parseFloat(data.issue_ext_grade_4) +
+                   parseFloat(data.issue_ext_grade_5) +
+                   parseFloat(data.issue_ext_grade_6) +
+                   parseFloat(data.issue_ext_grade_7) +
+                   parseFloat(data.issue_ext_grade_8) +
+                   parseFloat(data.issue_ext_grade_9) +
+                   parseFloat(data.issue_ext_grade_10)
                   )
                  res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                  throw new Error('Transaction Aborted due to negative value')
@@ -915,6 +1012,16 @@ export const CreateReissueBigTaiho= async (req: Request, res: Response) => {
                         issue_add_8: data.issue_add_8,
                         issue_add_9: data.issue_add_9,
                         issue_add_10: data.issue_add_10,
+                        issue_ext_grade_1: data.issue_ext_grade_1,
+                        issue_ext_grade_2: data.issue_ext_grade_2,
+                        issue_ext_grade_3: data.issue_ext_grade_3,
+                        issue_ext_grade_4: data.issue_ext_grade_4,
+                        issue_ext_grade_5: data.issue_ext_grade_5,
+                        issue_ext_grade_6: data.issue_ext_grade_6,
+                        issue_ext_grade_7: data.issue_ext_grade_7,
+                        issue_ext_grade_8: data.issue_ext_grade_8,
+                        issue_ext_grade_9: data.issue_ext_grade_9,
+                        issue_ext_grade_10: data.issue_ext_grade_10,
                         issue_rejection: data.issue_rejection,
                         issue_village: data.issue_village,
                         issue_dpds: data.issue_dpds,
@@ -930,7 +1037,17 @@ export const CreateReissueBigTaiho= async (req: Request, res: Response) => {
                           +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                           +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                           +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                          +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                          +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)+
+                          parseFloat(data.issue_ext_grade_1) +
+                          parseFloat(data.issue_ext_grade_2) +
+                          parseFloat(data.issue_ext_grade_3) +
+                          parseFloat(data.issue_ext_grade_4) +
+                          parseFloat(data.issue_ext_grade_5) +
+                          parseFloat(data.issue_ext_grade_6) +
+                          parseFloat(data.issue_ext_grade_7) +
+                          parseFloat(data.issue_ext_grade_8) +
+                          parseFloat(data.issue_ext_grade_9) +
+                          parseFloat(data.issue_ext_grade_10)
                          ),
                        current_backlog:parseFloat(data.issue_add_1)- (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
                        +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
@@ -941,7 +1058,17 @@ export const CreateReissueBigTaiho= async (req: Request, res: Response) => {
                          +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                          +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                          +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                         +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                         +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)+
+                         parseFloat(data.issue_ext_grade_1) +
+                         parseFloat(data.issue_ext_grade_2) +
+                         parseFloat(data.issue_ext_grade_3) +
+                         parseFloat(data.issue_ext_grade_4) +
+                         parseFloat(data.issue_ext_grade_5) +
+                         parseFloat(data.issue_ext_grade_6) +
+                         parseFloat(data.issue_ext_grade_7) +
+                         parseFloat(data.issue_ext_grade_8) +
+                         parseFloat(data.issue_ext_grade_9) +
+                         parseFloat(data.issue_ext_grade_10)
                         ),
                         Status: 1,
                         CreatedBy: feeledBy 
@@ -1351,7 +1478,18 @@ export const updateEntireBigTaiho= async (req: Request, res: Response) => {
                 +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                 +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                 +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)+
+                parseFloat(data.issue_ext_grade_1) +
+                parseFloat(data.issue_ext_grade_2) +
+                parseFloat(data.issue_ext_grade_3) +
+                parseFloat(data.issue_ext_grade_4) +
+                parseFloat(data.issue_ext_grade_5) +
+                parseFloat(data.issue_ext_grade_6) +
+                parseFloat(data.issue_ext_grade_7) +
+                parseFloat(data.issue_ext_grade_8) +
+                parseFloat(data.issue_ext_grade_9) +
+                parseFloat(data.issue_ext_grade_10)
+
 
          
                ))
@@ -1365,7 +1503,18 @@ export const updateEntireBigTaiho= async (req: Request, res: Response) => {
                   +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                   +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                   +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                  +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting))
+                  +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)+
+                  parseFloat(data.issue_ext_grade_1) +
+                  parseFloat(data.issue_ext_grade_2) +
+                  parseFloat(data.issue_ext_grade_3) +
+                  parseFloat(data.issue_ext_grade_4) +
+                  parseFloat(data.issue_ext_grade_5) +
+                  parseFloat(data.issue_ext_grade_6) +
+                  parseFloat(data.issue_ext_grade_7) +
+                  parseFloat(data.issue_ext_grade_8) +
+                  parseFloat(data.issue_ext_grade_9) +
+                  parseFloat(data.issue_ext_grade_10)
+)
                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                 throw new Error('Transaction Aborted due to negative value')
 
@@ -1439,7 +1588,16 @@ export const updateEntireBigTaiho= async (req: Request, res: Response) => {
                     issue_dpds: data.issue_dpds,
                     issue_husk: data.issue_husk,
                     issue_sorting: data.issue_sorting,
-
+                    issue_ext_grade_1: data.issue_ext_grade_1,
+                    issue_ext_grade_2: data.issue_ext_grade_2,
+                    issue_ext_grade_3: data.issue_ext_grade_3,
+                    issue_ext_grade_4: data.issue_ext_grade_4,
+                    issue_ext_grade_5: data.issue_ext_grade_5,
+                    issue_ext_grade_6: data.issue_ext_grade_6,
+                    issue_ext_grade_7: data.issue_ext_grade_7,
+                    issue_ext_grade_8: data.issue_ext_grade_8,
+                    issue_ext_grade_9: data.issue_ext_grade_9,
+                    issue_ext_grade_10: data.issue_ext_grade_10,
                     
                     entry_backlog: (parseFloat(data.rcv_peelingN)+(data.rcv_village? parseFloat(data.rcv_village):0)
                     +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
@@ -1454,7 +1612,17 @@ export const updateEntireBigTaiho= async (req: Request, res: Response) => {
                       +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                       +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                       +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                      +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                      +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)+
+                      parseFloat(data.issue_ext_grade_1) +
+                      parseFloat(data.issue_ext_grade_2) +
+                      parseFloat(data.issue_ext_grade_3) +
+                      parseFloat(data.issue_ext_grade_4) +
+                      parseFloat(data.issue_ext_grade_5) +
+                      parseFloat(data.issue_ext_grade_6) +
+                      parseFloat(data.issue_ext_grade_7) +
+                      parseFloat(data.issue_ext_grade_8) +
+                      parseFloat(data.issue_ext_grade_9) +
+                      parseFloat(data.issue_ext_grade_10)
                         ),
                     current_backlog: (parseFloat(data.rcv_peelingN)+(data.rcv_village? parseFloat(data.rcv_village):0)
                     +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
@@ -1469,7 +1637,17 @@ export const updateEntireBigTaiho= async (req: Request, res: Response) => {
                       +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
                       +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
                       +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                      +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)
+                      +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)+
+                      parseFloat(data.issue_ext_grade_1) +
+                      parseFloat(data.issue_ext_grade_2) +
+                      parseFloat(data.issue_ext_grade_3) +
+                      parseFloat(data.issue_ext_grade_4) +
+                      parseFloat(data.issue_ext_grade_5) +
+                      parseFloat(data.issue_ext_grade_6) +
+                      parseFloat(data.issue_ext_grade_7) +
+                      parseFloat(data.issue_ext_grade_8) +
+                      parseFloat(data.issue_ext_grade_9) +
+                      parseFloat(data.issue_ext_grade_10)
                         ),
                     Status: 1,
                     CreatedBy: feeledBy,
@@ -1643,6 +1821,17 @@ export const approveBigTaiho = async (req: Request, res: Response) => {
                     issue_add_8: data.issue_add_8,
                     issue_add_9: data.issue_add_9,
                     issue_add_10: data.issue_add_10,
+                    issue_ext_grade_1: data.issue_ext_grade_1,
+                    issue_ext_grade_2: data.issue_ext_grade_2,
+                    issue_ext_grade_3: data.issue_ext_grade_3,
+                    issue_ext_grade_4: data.issue_ext_grade_4,
+                    issue_ext_grade_5: data.issue_ext_grade_5,
+                    issue_ext_grade_6: data.issue_ext_grade_6,
+                    issue_ext_grade_7: data.issue_ext_grade_7,
+                    issue_ext_grade_8: data.issue_ext_grade_8,
+                    issue_ext_grade_9: data.issue_ext_grade_9,
+                    issue_ext_grade_10: data.issue_ext_grade_10,
+
                     issue_rejection: data.issue_rejection,
                     issue_village: data.issue_village,
                     issue_dpds: data.issue_dpds,

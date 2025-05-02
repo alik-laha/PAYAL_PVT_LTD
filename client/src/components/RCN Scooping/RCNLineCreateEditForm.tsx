@@ -401,7 +401,7 @@ const RCNLineCreateEditForm = (props: Props) => {
         const resStatus2 = await axios.post('/api/scooping/checkNextLot', { lotNo: props.scoop[0].LotNo })
         console.log(resStatus2)
     
-        if (resStatus2 && resStatus2.data.nextEntry.scoopStatus===1) {
+        if (resStatus2 && resStatus2.data.nextEntry && resStatus2.data.nextEntry.scoopStatus===1) {
             setErrortext(`Old Lot Can't be Modified`)
             const dialog = document.getElementById("erroremployeedialog") as HTMLDialogElement
             dialog.showModal()
@@ -481,14 +481,14 @@ const RCNLineCreateEditForm = (props: Props) => {
                     <div className="mx-8 flex flex-col gap-0.5">
                         {/* <div className="flex"><Label className="w-2/4 pt-1">Lot No</Label>
                <Input className="w-2/4 font-semibold text-center bg-yellow-100" placeholder="Date" value={props.scoop[0].LotNo} readOnly /> </div> */}
-                        <div className="flex"><Label className="w-2/4 pt-1">Date of Entry</Label>
-                            <Input className="w-2/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
-                        <div className="flex"><Label className="w-2/4 pt-1">No. of Male</Label>
-                            <Input className="w-2/4 text-center" placeholder="No. of Male" ref={maleRef} required /> </div>
-                        <div className="flex"><Label className="w-2/4 pt-1">No. of Female</Label>
-                            <Input className="w-2/4 text-center" placeholder="No. of Female" ref={femaleRef} required /> </div>
-                        <div className="flex"><Label className="w-2/4 pt-1">No. Of Supervisors</Label>
-                            <Input className="w-2/4 text-center" placeholder="No. of Supervisor" ref={supervisorRef} required /> </div>
+                        <div className="flex"><Label className="w-1/4 pt-1">Date of Entry</Label>
+                            <Input className="w-1/4 justify-center" placeholder="Date" ref={DateRef} type="date" required /> </div>
+                        <div className="flex"><Label className="w-1/4 pt-1">No. of Male</Label>
+                            <Input className="w-1/4 text-center" placeholder="No. of Male" ref={maleRef} required /> </div>
+                        <div className="flex"><Label className="w-1/4 pt-1">No. of Female</Label>
+                            <Input className="w-1/4 text-center" placeholder="No. of Female" ref={femaleRef} required /> </div>
+                        <div className="flex"><Label className="w-1/4 pt-1">No. Of Supervisors</Label>
+                            <Input className="w-1/4 text-center" placeholder="No. of Supervisor" ref={supervisorRef} required /> </div>
                     </div>
                     <Table className="mt-3">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
@@ -501,11 +501,12 @@ const RCNLineCreateEditForm = (props: Props) => {
                             <TableHead className="text-center" >Size Name</TableHead>
                             <TableHead className="text-center" >Opening Qty</TableHead>
                             <TableHead className="text-center" >Receiving Qty</TableHead>
-                            <TableHead className="text-center" >Wholes</TableHead>
-                            <TableHead className="text-center" >Broken</TableHead>
                             <TableHead className="text-center" >Uncut</TableHead>
                             <TableHead className="text-center" >Unscoop</TableHead>
                             <TableHead className="text-center" >Non Cut</TableHead>
+                            <TableHead className="text-center" >Wholes</TableHead>
+                            <TableHead className="text-center" >Broken</TableHead>
+                         
                             <TableHead className="text-center" >Rejection</TableHead>
                             <TableHead className="text-center" >Dust</TableHead>
                             {/* <TableHead className="text-center" >KOR</TableHead> */}
@@ -545,13 +546,14 @@ const RCNLineCreateEditForm = (props: Props) => {
                                             <TableCell className="text-center font-semibold">{row.SizeName}</TableCell>
                                             <TableCell className="text-center font-semibold">{row.Opening_Qty} kg</TableCell>
                                             <TableCell className="text-center font-semibold">{row.Receiving_Qty} kg</TableCell>
-                                            <TableCell className="text-center "> <Input value={row.Wholes} placeholder="Wholes" onChange={(e) => handleRowChange(idx, 'Wholes', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input value={row.Broken} placeholder="Broken" onChange={(e) => handleRowChange(idx, 'Broken', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input value={row.Uncut} placeholder="Uncut" onChange={(e) => handleRowChange(idx, 'Uncut', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input value={row.Unscoop} placeholder="Unscoop" onChange={(e) => handleRowChange(idx, 'Unscoop', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input value={row.NonCut} placeholder="NonCut" onChange={(e) => handleRowChange(idx, 'NonCut', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input value={row.Rejection} placeholder="Rejection" onChange={(e) => handleRowChange(idx, 'Rejection', e.target.value)} required /></TableCell>
-                                            <TableCell className="text-center"> <Input value={row.Dust} placeholder="Dust" onChange={(e) => handleRowChange(idx, 'Dust', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input value={row.Uncut} className='bg-yellow-100'placeholder="Uncut" onChange={(e) => handleRowChange(idx, 'Uncut', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input value={row.Unscoop} className='bg-yellow-100'placeholder="Unscoop" onChange={(e) => handleRowChange(idx, 'Unscoop', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input value={row.NonCut} className='bg-yellow-100' placeholder="NonCut" onChange={(e) => handleRowChange(idx, 'NonCut', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center "> <Input value={row.Wholes} className='bg-cyan-100' placeholder="Wholes" onChange={(e) => handleRowChange(idx, 'Wholes', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input value={row.Broken} className='bg-cyan-100' placeholder="Broken" onChange={(e) => handleRowChange(idx, 'Broken', e.target.value)} required /></TableCell>
+                                           
+                                            <TableCell className="text-center"> <Input value={row.Rejection} className='bg-cyan-100' placeholder="Rejection" onChange={(e) => handleRowChange(idx, 'Rejection', e.target.value)} required /></TableCell>
+                                            <TableCell className="text-center"> <Input value={row.Dust} className='bg-cyan-100' placeholder="Dust" onChange={(e) => handleRowChange(idx, 'Dust', e.target.value)} required /></TableCell>
                                             {/* <TableCell className="text-center"> <Input value={row.KOR} placeholder="KOR" onChange={(e) => handleRowChange(idx, 'KOR', e.target.value)} required /></TableCell> */}
                                             <TableCell className="text-center"> <Input value={row.Trolley_Broken} placeholder="Trolley Broken" onChange={(e) => handleRowChange(idx, 'Trolley_Broken', e.target.value)} required /></TableCell>
                                             <TableCell className="text-center"> <Input value={row.Trolley_Small_JB} placeholder="Trolley SmallJB" onChange={(e) => handleRowChange(idx, 'Trolley_Small_JB', e.target.value)} required /></TableCell>
