@@ -13,7 +13,7 @@ const getPeelingLot = async (req: Request, res: Response) => {
             where: {
                 Status:status
             },
-             order: [['id', 'ASC']], // Order by date descending
+             order: [['LotNo', 'ASC']], // Order by date descending
 
         });
         if(scoopingLot){
