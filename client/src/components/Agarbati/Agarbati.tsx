@@ -72,8 +72,8 @@ const Agarbati = () => {
         })
 
     }
-    function formatNumber(num:any) {
-        return Number.isInteger(num) ? parseInt(num) : num.toFixed(2);
+    function formatNumber(num: string) {
+        return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
     }
     return (
         <div>
@@ -88,7 +88,7 @@ const Agarbati = () => {
                         data.AllOriginRcnPrimary && data.AllOriginRcnPrimary.map((item: SumofAllTypeDataAgarbati) => {
                             return (
                                 <div className="flexbox-tile bg-cyan-400 hover:bg-cyan-600" key={item.grade}>
-                                    {item.grade} <br /><p>{item.totalBags ? formatNumber(item.totalBags):0} Kg</p>
+                                    {item.grade} <br /><p>{item.totalBags ? formatNumber(String(item.totalBags)):0} Kg</p>
                                 </div>
                             )
                         })
