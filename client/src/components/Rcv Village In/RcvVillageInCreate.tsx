@@ -140,6 +140,8 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
     const handleSubmit2 = async (e: React.FormEvent) => {
         e.preventDefault()
         //const invoice=invoiceref.current?.value
+
+      
          
         const formData = rows.map(row => ({
                 GatePassNo: gatepass,

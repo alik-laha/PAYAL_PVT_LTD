@@ -521,7 +521,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                         <TableHead className="text-center">Net_DP(%)</TableHead>     
                         <TableHead className="text-center">Net_Unpeel(Kg)</TableHead>
                         <TableHead className="text-center">Net_Unpeel(%)</TableHead>       
-                        <TableHead className="text-center">Backlog</TableHead>               
+                        <TableHead className="text-center">Net_Backlog (kg)</TableHead>               
                         <TableHead className="text-center" >Edit Status </TableHead>
                         <TableHead className="text-center" >Remarks</TableHead>
                         <TableHead className="text-center" >Created_By </TableHead>

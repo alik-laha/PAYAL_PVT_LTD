@@ -400,6 +400,7 @@
 }
 
 
+
 .dashboard-modal {
     position: fixed;
     max-width: 90%;
@@ -581,6 +582,9 @@
     .sidebar.open {
         /* width: 20%; */
         padding-top: 8.5vw;
+    }
+    .flexbox-tile p{
+        font-size: 20px;
     }
    
   }
