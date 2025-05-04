@@ -3,7 +3,7 @@ import sequelize from "../../config/databaseConfig";
 
 import RcvVillageInModel from "../../model/RcvVillageInModel";
 import VendorName from "../../model/vendorNameModel";
-import { NUMBER, Op, Sequelize } from "sequelize";
+import {  Op, Sequelize } from "sequelize";
 import RcvVillageInEditModel from "../../model/RcvVillageInEditModel";
 import { VillageInRcvData, vlotNoData } from "../../type/type";
 import WhatsappMsg from "../../helper/WhatsappMsg";
@@ -103,6 +103,8 @@ export const updateRcvVillageIn = async (req: Request, res: Response) => {
             lwprcntg,
             jb,
             jbprcntg,
+            jbp,
+            jbpprcntg,
             sdp,
             sdpprcntg,
             husk,
@@ -143,6 +145,8 @@ export const updateRcvVillageIn = async (req: Request, res: Response) => {
                 dp_prcntg: dpprcntg,
                 jb_quantity: jb,
                 jb_prcntg: jbprcntg,
+                jbp_quantity: jbp,
+                jbp_prcntg: jbpprcntg,
                 sdp_quantity: sdp,
                 sdp_prcntg: sdpprcntg,
                 husk_quantity: husk,
@@ -187,6 +191,8 @@ export const updateRcvVillageInEntire = async (req: Request, res: Response) => {
             lwprcntg,
             jb,
             jbprcntg,
+            jbp,
+            jbpprcntg,
             sdp,
             sdpprcntg,
             husk,
@@ -215,6 +221,8 @@ export const updateRcvVillageInEntire = async (req: Request, res: Response) => {
                 dp_prcntg: dpprcntg,
                 jb_quantity: jb,
                 jb_prcntg: jbprcntg,
+                jbp_quantity: jbp,
+                jbp_prcntg: jbpprcntg,
                 sdp_quantity: sdp,
                 sdp_prcntg: sdpprcntg,
                 husk_quantity: husk,
@@ -251,6 +259,8 @@ export const updateRcvVillageInEntire = async (req: Request, res: Response) => {
                 dp_prcntg: data.dpprcntg,
                 jb_quantity: data.jb,
                 jb_prcntg: data.jbprcntg,
+                jbp_quantity: data.jbp,
+                jbp_prcntg: data.jbpprcntg,
                 sdp_quantity: data.sdp,
                 sdp_prcntg: data.sdpprcntg,
                 husk_quantity: data.husk,
@@ -552,7 +562,7 @@ export const editRcvVillageIn = async (req: Request, res: Response) => {
         const createdBynew= req.cookies.user
         const {  grossWt, gateType, recevingDate, 
             truck, gatepass, invoice, origin,
-                        wholes,wholesprcntg,lw,lwprcntg,jb,jbprcntg,sdp,sdpprcntg,husk,huskprcntg,piece,pieceprcntg,dp,dpprcntg,
+                        wholes,wholesprcntg,lw,lwprcntg,jb,jbprcntg,jbp,jbpprcntg,sdp,sdpprcntg,husk,huskprcntg,piece,pieceprcntg,dp,dpprcntg,
             itemtype, itemname, VendorN,
             quantity, totalWt, remarks } = req.body;
         if (!id) return res.status(400).json({ message: "id is required" });
@@ -610,6 +620,8 @@ export const editRcvVillageIn = async (req: Request, res: Response) => {
             dp_prcntg: dpprcntg,
             jb_quantity: jb,
             jb_prcntg: jbprcntg,
+            jbp_quantity: jbp,
+            jbp_prcntg: jbpprcntg,
             sdp_quantity: sdp,
             sdp_prcntg: sdpprcntg,
             husk_quantity: husk,
@@ -672,6 +684,8 @@ export const approveEditRcvVillageIn = async (req: Request, res: Response) => {
             dp_prcntg: editPackageMaterial.dp_prcntg,
             jb_quantity: editPackageMaterial.jb_quantity,
             jb_prcntg: editPackageMaterial.jb_prcntg,
+            jbp_quantity: editPackageMaterial.jbp_quantity,
+            jbp_prcntg: editPackageMaterial.jbp_prcntg,
             sdp_quantity: editPackageMaterial.sdp_quantity,
             sdp_prcntg: editPackageMaterial.sdp_prcntg,
             husk_quantity: editPackageMaterial.husk_quantity,

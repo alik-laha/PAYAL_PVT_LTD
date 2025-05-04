@@ -505,6 +505,8 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                         <TableHead className="text-center">Net_LW(%)</TableHead>
                         <TableHead className="text-center">Net_JB(Kg)</TableHead>
                         <TableHead className="text-center">Net_JB(%)</TableHead>
+                        <TableHead className="text-center">Net_JBP(Kg)</TableHead>
+                        <TableHead className="text-center">Net_JBP(%)</TableHead>
                         <TableHead className="text-center">Net_SDP(Kg)</TableHead>
                         <TableHead className="text-center">Net_SDP(%)</TableHead>
                         <TableHead className="text-center">Net_Husk(Kg)</TableHead>
@@ -551,6 +553,9 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
 
                                 <TableCell className="text-center ">{formatNumber(item.jb_quantity)} Kg</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{formatNumber(item.jb_prcntg)} %</TableCell>
+
+                                <TableCell className="text-center ">{formatNumber(item.jbp_quantity)} Kg</TableCell>
+                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.jbp_prcntg)} %</TableCell>
 
                                 <TableCell className="text-center ">{formatNumber(item.sdp_quantity)} Kg</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{formatNumber(item.sdp_prcntg)} %</TableCell>
@@ -639,6 +644,9 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
 
                                 <TableCell className="text-center ">{formatNumber(item.jb_quantity)} Kg</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{formatNumber(item.jb_prcntg)} %</TableCell>
+
+                                <TableCell className="text-center ">{formatNumber(item.jbp_quantity)} Kg</TableCell>
+                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.jbp_prcntg)} %</TableCell>
 
                                 <TableCell className="text-center ">{formatNumber(item.sdp_quantity)} Kg</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{formatNumber(item.sdp_prcntg)} %</TableCell>
