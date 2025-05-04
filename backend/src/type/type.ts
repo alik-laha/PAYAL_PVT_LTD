@@ -482,6 +482,9 @@ export interface VillageInRcvData {
         dp_quantity: string ;
         dp_prcntg: string ;
 
+        e1_quantity: string ;
+    e1_prcntg: string ;
+
 }
 
 export interface GraddingCleanData {

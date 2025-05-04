@@ -1788,8 +1788,8 @@ export interface rcvVillageInprimaryData {
     dp_quantity: string ;
     dp_prcntg: string ;
 
-    e1_quantity: string | null;
-    e1_prcntg: string | null;
+    e1_quantity: string ;
+    e1_prcntg: string ;
 
     e2_quantity: string | null;
     e2_prcntg: string | null;

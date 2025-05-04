@@ -69,6 +69,9 @@ const [pieceprcntg, setPieceprcntg] = useState<string>('');
 const [dp, setDp] = useState<string>('');
 const [dpprcntg, setDpprcntg] = useState<string>('');
 
+const [unpeel, setUnpeel] = useState<string>('');
+const [unpeelprcntg, setUnpeelprcntg] = useState<string>('');
+
 const [origin, setOrigin] = useState<string>('');
     const [sku, setsku] = useState<findskutypeData[]>([])
     const [grade, setGrade] = useState<findskutypeData[]>([])
@@ -113,6 +116,9 @@ const [origin, setOrigin] = useState<string>('');
 
         setDp(data.dp_quantity);
         setDpprcntg(data.dp_prcntg);
+
+        setUnpeel(data.e1_quantity);
+        setUnpeelprcntg(data.e1_prcntg);
 
         setDate(data.recevingDate.slice(0, 10))
         // console.log(data.recevingDate.slice(0, 10))
@@ -216,7 +222,7 @@ const [origin, setOrigin] = useState<string>('');
         await axios.post(`/api/rcvVillageIn/editVillageInPrimary/${data.id}`, {
              grossWt, netwt, gateType, recevingDate: date, 
              truck, gatepass, invoice: invoiceref.current?.value, 
-             itemtype, itemname, VendorN:VendorName,origin,
+             itemtype, itemname, VendorN:VendorName,origin,unpeel,unpeelprcntg,
              wholes,wholesprcntg,lw,lwprcntg,jb,jbprcntg,jbp,jbpprcntg,sdp,sdpprcntg,husk,huskprcntg,piece,pieceprcntg,dp,dpprcntg,
              quantity: quantityRef.current?.value, totalWt, remarks
          })
@@ -293,6 +299,12 @@ const [origin, setOrigin] = useState<string>('');
          setPiece(e.target.value)
         
       } 
+      const handleRowChangeunpeel = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        setUnpeelprcntg(((Number(e.target.value)/Number(totalWt))*100).toFixed(2))
+        setUnpeel(e.target.value)
+       
+     } 
 
       const handleRowChangetotalWt = (e: React.ChangeEvent<HTMLInputElement>) => {
          e.preventDefault()
@@ -305,7 +317,7 @@ const [origin, setOrigin] = useState<string>('');
          setPieceprcntg((( Number(piece)/(Number(e.target.value)))*100).toFixed(2))
          setHuskprcntg((( Number(husk)/(Number(e.target.value)))*100).toFixed(2))
          setDpprcntg((( Number(dp)/(Number(e.target.value)))*100).toFixed(2))
-         
+         setUnpeelprcntg((( Number(unpeel)/(Number(e.target.value)))*100).toFixed(2))
         setTotalWt(e.target.value)
         
       } 
@@ -487,6 +499,15 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                     <div className="flex">
                         <Label className="w-2/4 pt-1">DP %</Label>
                         <Input className="w-2/4 text-center bg-yellow-100" placeholder="DP %" type="number" value={dpprcntg} step="0.01" readOnly />
+                    </div>
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">Unpeel(Kg)</Label>
+                        <Input className="w-2/4 text-center" placeholder="Unpeel" type="number" value={unpeel} step="0.01" onChange={(e) => handleRowChangeunpeel(e)} required/>
+                    </div>
+
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">Unpeel %</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="Unpeel %" type="number" value={unpeelprcntg} step="0.01" readOnly />
                     </div>
 
                     <div className="flex"><Label className="w-2/4  pt-1">Remarks</Label>

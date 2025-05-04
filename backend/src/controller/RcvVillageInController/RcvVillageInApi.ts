@@ -112,7 +112,9 @@ export const updateRcvVillageIn = async (req: Request, res: Response) => {
             piece,
             pieceprcntg,
             dp,
-            dpprcntg
+            dpprcntg,
+            unpeel,
+            unpeelprcntg
         } = req.body.data;
         let vendortype:string
         if(gateType==='IN'){
@@ -151,6 +153,8 @@ export const updateRcvVillageIn = async (req: Request, res: Response) => {
                 sdp_prcntg: sdpprcntg,
                 husk_quantity: husk,
                 husk_prcntg: huskprcntg,
+                e1_quantity:unpeel,
+                e1_prcntg:unpeelprcntg,
                 createdBy,status:1
             }, {
                 where: {
@@ -198,7 +202,7 @@ export const updateRcvVillageInEntire = async (req: Request, res: Response) => {
             husk,
             huskprcntg,
             piece,
-            pieceprcntg,
+            pieceprcntg,unpeel,unpeelprcntg,
             dp,
             dpprcntg } = firstrow;
         let vendorData = await VendorName.findOne({ where: { vendorName:vendorN,type:'Vendor',section:'Village' } });
@@ -227,6 +231,8 @@ export const updateRcvVillageInEntire = async (req: Request, res: Response) => {
                 sdp_prcntg: sdpprcntg,
                 husk_quantity: husk,
                 husk_prcntg: huskprcntg,
+                e1_quantity:unpeel,
+                e1_prcntg:unpeelprcntg,
                     remarks, totalWt,
                     createdBy, status: 1
                 }, {
@@ -265,6 +271,8 @@ export const updateRcvVillageInEntire = async (req: Request, res: Response) => {
                 sdp_prcntg: data.sdpprcntg,
                 husk_quantity: data.husk,
                 husk_prcntg: data.huskprcntg,
+                e1_quantity:data.unpeel,
+                e1_prcntg:data.unpeelprcntg,
                             remarks: data.remarks, totalWt: data.totalWt,
                             createdBy, status: 1, gateType: data.gateType
                         }, { transaction })
@@ -564,7 +572,7 @@ export const editRcvVillageIn = async (req: Request, res: Response) => {
             truck, gatepass, invoice, origin,
                         wholes,wholesprcntg,lw,lwprcntg,jb,jbprcntg,jbp,jbpprcntg,sdp,sdpprcntg,husk,huskprcntg,piece,pieceprcntg,dp,dpprcntg,
             itemtype, itemname, VendorN,
-            quantity, totalWt, remarks } = req.body;
+            quantity, totalWt, remarks,unpeel,unpeelprcntg } = req.body;
         if (!id) return res.status(400).json({ message: "id is required" });
         let vendortype:string
         if(gateType==='IN'){
@@ -625,7 +633,9 @@ export const editRcvVillageIn = async (req: Request, res: Response) => {
             sdp_quantity: sdp,
             sdp_prcntg: sdpprcntg,
             husk_quantity: husk,
-            husk_prcntg: huskprcntg
+            husk_prcntg: huskprcntg,
+            e1_quantity:unpeel,
+                e1_prcntg:unpeelprcntg,
 
    
         });
@@ -690,7 +700,8 @@ export const approveEditRcvVillageIn = async (req: Request, res: Response) => {
             sdp_prcntg: editPackageMaterial.sdp_prcntg,
             husk_quantity: editPackageMaterial.husk_quantity,
             husk_prcntg: editPackageMaterial.husk_prcntg,
-
+            e1_quantity:editPackageMaterial.e1_quantity,
+            e1_prcntg:editPackageMaterial.e1_prcntg,
             editStatus: "Approved",
             approvedBy: req.cookies.user,
             createdBy:editPackageMaterial.createdBy
@@ -745,7 +756,7 @@ export const getUnEntriedRcvVillageInVLOT = async (req: Request, res: Response) 
                             [Op.notLike]: 'Pending'
                         },
                         recevingDate: {
-                            [Op.notIn]: Sequelize.literal(`(SELECT DISTINCT recevingDate FROM vlotnos)`)
+                            [Op.notIn]: Sequelize.literal(`(SELECT DISTINCT recevingDate FROM vlotNos)`)
                         }
                     },
                     group: ['recevingDate']
