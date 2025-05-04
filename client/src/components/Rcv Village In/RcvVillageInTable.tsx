@@ -284,6 +284,8 @@ const RcvVillageInTable = () => {
                     sdp_prcntg:formatNumber(item.sdp_prcntg),
                     pieces:formatNumber(item.pieces_quantity),
                     pieces_prcntg:formatNumber(item.pieces_prcntg),
+                    Unpeel:formatNumber(item.e1_quantity),
+                    Unpeel_prcntg:formatNumber(item.e1_prcntg),
                     Item_Or_Bag_Count:item.quantity,
                     editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
                 }));
@@ -319,6 +321,8 @@ const RcvVillageInTable = () => {
                     sdp_prcntg:formatNumber(item.sdp_prcntg),
                     pieces:formatNumber(item.pieces_quantity),
                     pieces_prcntg:formatNumber(item.pieces_prcntg),
+                    Unpeel:formatNumber(item.e1_quantity),
+                    Unpeel_prcntg:formatNumber(item.e1_prcntg),
                   
                     Item_Or_Bag_Count:item.quantity,
                     editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
@@ -514,7 +518,10 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                         <TableHead className="text-center">Net_Piece(Kg)</TableHead>
                         <TableHead className="text-center">Net_Piece(%)</TableHead>
                         <TableHead className="text-center">Net_DP(Kg)</TableHead>
-                        <TableHead className="text-center">Net_DP(%)</TableHead>                     
+                        <TableHead className="text-center">Net_DP(%)</TableHead>     
+                        <TableHead className="text-center">Net_Unpeel(Kg)</TableHead>
+                        <TableHead className="text-center">Net_Unpeel(%)</TableHead>       
+                        <TableHead className="text-center">Backlog</TableHead>               
                         <TableHead className="text-center" >Edit Status </TableHead>
                         <TableHead className="text-center" >Remarks</TableHead>
                         <TableHead className="text-center" >Created_By </TableHead>
@@ -544,7 +551,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                 <TableCell className="text-center">{item.vendorName}</TableCell>
                              
                                 <TableCell className="text-center ">{formatNumber(item.quantity)}</TableCell>
-                                <TableCell className="text-center font-bold bg-blue-500 text-white" >{formatNumber(item.totalWt)} Kg</TableCell> 
+                                <TableCell className="text-center font-bold bg-green-500 text-white" >{formatNumber(item.totalWt)} Kg</TableCell> 
                                 <TableCell className="text-center ">{formatNumber(item.wholes_quantity)} Kg</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{formatNumber(item.wholes_prcntg)} %</TableCell>
 
@@ -569,7 +576,14 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                 <TableCell className="text-center ">{formatNumber(item.dp_quantity)} Kg</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{formatNumber(item.dp_prcntg)} %</TableCell>
 
+                                <TableCell className="text-center ">{formatNumber(item.e1_quantity)} Kg</TableCell>
+                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.e1_prcntg)} %</TableCell>
 
+                                <TableCell className="text-center font-bold bg-blue-500 text-white" >
+                                    
+                                    {formatNumber((Number(item.totalWt)-(Number(item.wholes_quantity)+Number(item.lw_quantity)+Number(item.jb_quantity)
+                                    +Number(item.jbp_quantity)+Number(item.sdp_quantity)+Number(item.husk_quantity)+Number(item.pieces_quantity)
+                                    +Number(item.dp_quantity)+Number(item.e1_quantity))).toString())} Kg</TableCell> 
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
 
                                 <TableCell className="text-center">{item.remarks}</TableCell>
@@ -635,7 +649,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                 <TableCell className="text-center">{item.vendorName}</TableCell>
                                
                                 <TableCell className="text-center ">{formatNumber(item.quantity)}</TableCell>
-                                <TableCell className="text-center font-bold bg-blue-500 text-white" >{formatNumber(item.totalWt)} Kg</TableCell> 
+                                <TableCell className="text-center font-bold bg-green-500 text-white" >{formatNumber(item.totalWt)} Kg</TableCell> 
                                 <TableCell className="text-center bg-yellow-100">{formatNumber(item.wholes_quantity)} Kg</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{formatNumber(item.wholes_prcntg)} %</TableCell>
 
@@ -659,6 +673,16 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
 
                                 <TableCell className="text-center bg-yellow-100">{formatNumber(item.dp_quantity)} Kg</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{formatNumber(item.dp_prcntg)} %</TableCell>
+
+                                <TableCell className="text-center bg-yellow-100">{formatNumber(item.e1_quantity)} Kg</TableCell>
+                                <TableCell className="text-center font-bold text-red-500">{formatNumber(item.e1_prcntg)} %</TableCell>
+
+                                <TableCell className="text-center font-bold bg-blue-500 text-white" >
+                                    
+                                    {formatNumber((Number(item.totalWt)-(Number(item.wholes_quantity)+Number(item.lw_quantity)+Number(item.jb_quantity)
+                                    +Number(item.jbp_quantity)+Number(item.sdp_quantity)+Number(item.husk_quantity)+Number(item.pieces_quantity)
+                                    +Number(item.dp_quantity)+Number(item.e1_quantity))).toString())} Kg</TableCell> 
+
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
 
                                         <TableCell className="text-center">{item.remarks}</TableCell>

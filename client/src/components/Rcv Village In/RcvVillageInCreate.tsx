@@ -55,6 +55,8 @@ interface SectionRowData{
     huskprcntg:number;
     piece:number;
     pieceprcntg:number;
+    unpeel:number;
+    unpeelprcntg:number;
     dp:number;
     dpprcntg:number;
 
@@ -90,7 +92,8 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
     }, [props.rcn[0]]);
 
     const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',quantity:0,remarks:'',totalWt:0,vendorN:'',invoice:'',origin:'',
-        wholes:0,wholesprcntg:0,lw:0,lwprcntg:0,jb:0,jbprcntg:0,jbp:0,jbpprcntg:0,sdp:0,sdpprcntg:0,husk:0,huskprcntg:0,piece:0,pieceprcntg:0,dp:0,dpprcntg:0}]);
+        wholes:0,wholesprcntg:0,lw:0,lwprcntg:0,jb:0,jbprcntg:0,jbp:0,jbpprcntg:0,unpeel:0,unpeelprcntg:0,
+        sdp:0,sdpprcntg:0,husk:0,huskprcntg:0,piece:0,pieceprcntg:0,dp:0,dpprcntg:0}]);
     
 
     const handleRowChange = (index:number,field:string,fieldvalue:string) => {
@@ -99,7 +102,7 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
         setRows(newRows)
     }
     const addRow2 = () => {
-        setRows([...rows,{sku:'',type:'',quantity:0,remarks:'',totalWt:0,vendorN:'',invoice:'',origin:'',
+        setRows([...rows,{sku:'',type:'',quantity:0,remarks:'',totalWt:0,vendorN:'',invoice:'',origin:'',unpeel:0,unpeelprcntg:0,
             wholes:0,wholesprcntg:0,lw:0,lwprcntg:0,jbp:0,jbpprcntg:0,jb:0,jbprcntg:0,sdp:0,sdpprcntg:0,husk:0,huskprcntg:0,piece:0,pieceprcntg:0,dp:0,dpprcntg:0}])
     }
 
@@ -397,6 +400,24 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
            
          } 
 
+         const handleRowChangeunpeel = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault()
+            if(Number(e.target.value)>rows[index].totalWt){
+
+                setErrortext('Amount is Greater Than Total Amount')
+                rows[index].quantity=0
+                const dialogerror = document.getElementById("packagingMetirialReciveError") as HTMLDialogElement
+                dialogerror.showModal()
+               // console.log(rows)
+                return
+            }
+            handleRowChange(index,'unpeel',e.target.value)
+            rows[index].unpeelprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
+            handleRowChange(index,'unpeel',e.target.value)
+           
+         } 
+
+
          const handleRowChangetotalWt = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
             e.preventDefault()
             handleRowChange(index,'totalWt',e.target.value)
@@ -408,6 +429,7 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
             rows[index].pieceprcntg=Number((( rows[index].piece/(Number(e.target.value)))*100).toFixed(2))
             rows[index].huskprcntg=Number((( rows[index].husk/(Number(e.target.value)))*100).toFixed(2))
             rows[index].dpprcntg=Number((( rows[index].dp/(Number(e.target.value)))*100).toFixed(2))
+            rows[index].unpeelprcntg=Number((( rows[index].unpeel/(Number(e.target.value)))*100).toFixed(2))
             
             handleRowChange(index,'totalWt',e.target.value)
            
@@ -484,6 +506,8 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
                                 <TableHead className="text-center">Piece</TableHead>
                                 <TableHead className="text-center"> %</TableHead>
                                 <TableHead className="text-center">DP</TableHead>
+                                <TableHead className="text-center"> %</TableHead>
+                                <TableHead className="text-center">Unpeel</TableHead>
                                 <TableHead className="text-center"> %</TableHead>
                             <TableHead className="text-center w-30" >Remarks</TableHead>
                             <TableHead className="text-center" >Action</TableHead>
@@ -653,6 +677,15 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             </TableCell>
                                             <TableCell className="text-center">
                                                 <Input value={row.dpprcntg} placeholder="dpprcntg" type="number" className="w-20 bg-red-100"
+                                                   readOnly />
+                                            </TableCell>
+
+                                            <TableCell className="text-center">
+                                                <Input value={row.unpeel} placeholder="Unpeel" type="number" className="w-20"
+                                                    onChange={(e) => handleRowChangeunpeel(index, e)} />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input value={row.unpeelprcntg} placeholder="Unpeel prcntg" type="number" className="w-20 bg-red-100"
                                                    readOnly />
                                             </TableCell>
 
