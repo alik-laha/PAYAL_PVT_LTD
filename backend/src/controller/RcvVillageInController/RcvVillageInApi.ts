@@ -745,7 +745,7 @@ export const getUnEntriedRcvVillageInVLOT = async (req: Request, res: Response) 
                             [Op.notLike]: 'Pending'
                         },
                         recevingDate: {
-                            [Op.notIn]: Sequelize.literal(`(SELECT DISTINCT recevingDate FROM vlotnos)`)
+                            [Op.notIn]: Sequelize.literal(`(SELECT DISTINCT recevingDate FROM vlotNos)`)
                         }
                     },
                     group: ['recevingDate']
