@@ -47,6 +47,8 @@ interface SectionRowData{
     lwprcntg:number;
     jb:number;
     jbprcntg:number;
+    jbp:number;
+    jbpprcntg:number;
     sdp:number;
     sdpprcntg:number;
     husk:number;
@@ -88,7 +90,7 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
     }, [props.rcn[0]]);
 
     const [rows,setRows]=useState<SectionRowData[]>([{sku:'',type:'',quantity:0,remarks:'',totalWt:0,vendorN:'',invoice:'',origin:'',
-        wholes:0,wholesprcntg:0,lw:0,lwprcntg:0,jb:0,jbprcntg:0,sdp:0,sdpprcntg:0,husk:0,huskprcntg:0,piece:0,pieceprcntg:0,dp:0,dpprcntg:0}]);
+        wholes:0,wholesprcntg:0,lw:0,lwprcntg:0,jb:0,jbprcntg:0,jbp:0,jbpprcntg:0,sdp:0,sdpprcntg:0,husk:0,huskprcntg:0,piece:0,pieceprcntg:0,dp:0,dpprcntg:0}]);
     
 
     const handleRowChange = (index:number,field:string,fieldvalue:string) => {
@@ -98,7 +100,7 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
     }
     const addRow2 = () => {
         setRows([...rows,{sku:'',type:'',quantity:0,remarks:'',totalWt:0,vendorN:'',invoice:'',origin:'',
-            wholes:0,wholesprcntg:0,lw:0,lwprcntg:0,jb:0,jbprcntg:0,sdp:0,sdpprcntg:0,husk:0,huskprcntg:0,piece:0,pieceprcntg:0,dp:0,dpprcntg:0}])
+            wholes:0,wholesprcntg:0,lw:0,lwprcntg:0,jbp:0,jbpprcntg:0,jb:0,jbprcntg:0,sdp:0,sdpprcntg:0,husk:0,huskprcntg:0,piece:0,pieceprcntg:0,dp:0,dpprcntg:0}])
     }
 
     const deleteRow = (index:number) =>{
@@ -311,6 +313,23 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
            
          }   
 
+         const handleRowChangejbp = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault()
+            if(Number(e.target.value)>rows[index].totalWt){
+
+                setErrortext('Amount is Greater Than Total Amount')
+                rows[index].quantity=0
+                const dialogerror = document.getElementById("packagingMetirialReciveError") as HTMLDialogElement
+                dialogerror.showModal()
+               // console.log(rows)
+                return
+            }
+            handleRowChange(index,'jbp',e.target.value)
+            rows[index].jbpprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
+            handleRowChange(index,'jbp',e.target.value)
+           
+         }   
+
          const handleRowChangedp = (index:number,e: React.ChangeEvent<HTMLInputElement>) => {
             e.preventDefault()
             if(Number(e.target.value)>rows[index].totalWt){
@@ -384,6 +403,7 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
             rows[index].wholesprcntg=Number((( rows[index].wholes/(Number(e.target.value)))*100).toFixed(2))
             rows[index].lwprcntg=Number((( rows[index].lw/(Number(e.target.value)))*100).toFixed(2))
             rows[index].jbprcntg=Number((( rows[index].jb/(Number(e.target.value)))*100).toFixed(2))
+            rows[index].jbpprcntg=Number((( rows[index].jbp/(Number(e.target.value)))*100).toFixed(2))
             rows[index].sdpprcntg=Number((( rows[index].sdp/(Number(e.target.value)))*100).toFixed(2))
             rows[index].pieceprcntg=Number((( rows[index].piece/(Number(e.target.value)))*100).toFixed(2))
             rows[index].huskprcntg=Number((( rows[index].husk/(Number(e.target.value)))*100).toFixed(2))
@@ -454,6 +474,8 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
                                 <TableHead className="text-center">LW</TableHead>
                                 <TableHead className="text-center">%</TableHead>
                                 <TableHead className="text-center">JB</TableHead>
+                                <TableHead className="text-center">%</TableHead>
+                                <TableHead className="text-center">JBP</TableHead>
                                 <TableHead className="text-center">%</TableHead>
                                 <TableHead className="text-center">SDP</TableHead>
                                 <TableHead className="text-center"> %</TableHead>
@@ -591,6 +613,14 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                                             </TableCell>
                                             <TableCell className="text-center">
                                                 <Input value={row.jbprcntg} placeholder="jbprcntg" type="number" className="bg-red-100 w-20"
+                                                  readOnly />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input value={row.jbp} placeholder="jbp" type="number" className="w-20"
+                                                    onChange={(e) => handleRowChangejbp(index,e)} />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Input value={row.jbpprcntg} placeholder="jbp prcntg" type="number" className="bg-red-100 w-20"
                                                   readOnly />
                                             </TableCell>
                                             <TableCell className="text-center">

@@ -54,6 +54,9 @@ const [lwprcntg, setLwprcntg] = useState<string>('');
 const [jb, setJb] = useState<string>('');
 const [jbprcntg, setJbprcntg] = useState<string>('');
 
+const [jbp, setJbp] = useState<string>('');
+const [jbpprcntg, setJbpprcntg] = useState<string>('');
+
 const [sdp, setSdp] = useState<string>('');
 const [sdpprcntg, setSdpprcntg] = useState<string>('');
 
@@ -95,6 +98,9 @@ const [origin, setOrigin] = useState<string>('');
 
         setJb(data.jb_quantity);
         setJbprcntg(data.jb_prcntg);
+
+        setJbp(data.jbp_quantity);
+        setJbpprcntg(data.jbp_prcntg);
 
         setSdp(data.sdp_quantity);
         setSdpprcntg(data.sdp_prcntg);
@@ -211,7 +217,7 @@ const [origin, setOrigin] = useState<string>('');
              grossWt, netwt, gateType, recevingDate: date, 
              truck, gatepass, invoice: invoiceref.current?.value, 
              itemtype, itemname, VendorN:VendorName,origin,
-             wholes,wholesprcntg,lw,lwprcntg,jb,jbprcntg,sdp,sdpprcntg,husk,huskprcntg,piece,pieceprcntg,dp,dpprcntg,
+             wholes,wholesprcntg,lw,lwprcntg,jb,jbprcntg,jbp,jbpprcntg,sdp,sdpprcntg,husk,huskprcntg,piece,pieceprcntg,dp,dpprcntg,
              quantity: quantityRef.current?.value, totalWt, remarks
          })
              .then((res) => {
@@ -252,7 +258,14 @@ const [origin, setOrigin] = useState<string>('');
          setJbprcntg(((Number(e.target.value)/Number(totalWt))*100).toFixed(2))
          setJb(e.target.value)
         
-      }   
+      }  
+      
+      const handleRowChangejbp = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        setJbpprcntg(((Number(e.target.value)/Number(totalWt))*100).toFixed(2))
+        setJbp(e.target.value)
+       
+     } 
 
       const handleRowChangedp = (e: React.ChangeEvent<HTMLInputElement>) => {
          e.preventDefault()
@@ -287,6 +300,7 @@ const [origin, setOrigin] = useState<string>('');
          setWholesprcntg((( Number(wholes)/(Number(e.target.value)))*100).toFixed(2))
          setLwprcntg((( Number(lw)/(Number(e.target.value)))*100).toFixed(2))
          setJbprcntg((( Number(jb)/(Number(e.target.value)))*100).toFixed(2))
+         setJbpprcntg((( Number(jbp)/(Number(e.target.value)))*100).toFixed(2))
          setSdpprcntg((( Number(sdp)/(Number(e.target.value)))*100).toFixed(2))
          setPieceprcntg((( Number(piece)/(Number(e.target.value)))*100).toFixed(2))
          setHuskprcntg((( Number(husk)/(Number(e.target.value)))*100).toFixed(2))
@@ -428,6 +442,15 @@ focus-visible:ring-offset-0.5 disabled:cursor-not-allowed disabled:opacity-50" o
                     <div className="flex">
                         <Label className="w-2/4 pt-1">JB %</Label>
                         <Input className="w-2/4 text-center bg-yellow-100" placeholder="JB %" type="number" value={jbprcntg} step="0.01" readOnly />
+                    </div>
+
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">JBP (Kg)</Label>
+                        <Input className="w-2/4 text-center" placeholder="JBP" type="number" value={jbp} step="0.01" onChange={(e) => handleRowChangejbp(e)} required/>
+                    </div>
+                    <div className="flex">
+                        <Label className="w-2/4 pt-1">JBP %</Label>
+                        <Input className="w-2/4 text-center bg-yellow-100" placeholder="JBP %" type="number" value={jbpprcntg} step="0.01" readOnly />
                     </div>
 
                     <div className="flex">
