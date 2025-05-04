@@ -636,28 +636,28 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                
                                 <TableCell className="text-center ">{formatNumber(item.quantity)}</TableCell>
                                 <TableCell className="text-center font-bold bg-blue-500 text-white" >{formatNumber(item.totalWt)} Kg</TableCell> 
-                                <TableCell className="text-center ">{formatNumber(item.wholes_quantity)} Kg</TableCell>
+                                <TableCell className="text-center bg-yellow-100">{formatNumber(item.wholes_quantity)} Kg</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{formatNumber(item.wholes_prcntg)} %</TableCell>
 
-                                <TableCell className="text-center ">{formatNumber(item.lw_quantity)} Kg</TableCell>
+                                <TableCell className="text-center bg-yellow-100">{formatNumber(item.lw_quantity)} Kg</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{formatNumber(item.lw_prcntg)} %</TableCell>
 
-                                <TableCell className="text-center ">{formatNumber(item.jb_quantity)} Kg</TableCell>
+                                <TableCell className="text-center bg-yellow-100">{formatNumber(item.jb_quantity)} Kg</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{formatNumber(item.jb_prcntg)} %</TableCell>
 
-                                <TableCell className="text-center ">{formatNumber(item.jbp_quantity)} Kg</TableCell>
+                                <TableCell className="text-center bg-yellow-100">{formatNumber(item.jbp_quantity)} Kg</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{formatNumber(item.jbp_prcntg)} %</TableCell>
 
-                                <TableCell className="text-center ">{formatNumber(item.sdp_quantity)} Kg</TableCell>
+                                <TableCell className="text-center bg-yellow-100">{formatNumber(item.sdp_quantity)} Kg</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{formatNumber(item.sdp_prcntg)} %</TableCell>
 
-                                <TableCell className="text-center ">{formatNumber(item.husk_quantity)} Kg</TableCell>
+                                <TableCell className="text-center bg-yellow-100">{formatNumber(item.husk_quantity)} Kg</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{formatNumber(item.husk_prcntg)} %</TableCell>
 
-                                <TableCell className="text-center ">{formatNumber(item.pieces_quantity)} Kg</TableCell>
+                                <TableCell className="text-center bg-yellow-100">{formatNumber(item.pieces_quantity)} Kg</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{formatNumber(item.pieces_prcntg)} %</TableCell>
 
-                                <TableCell className="text-center ">{formatNumber(item.dp_quantity)} Kg</TableCell>
+                                <TableCell className="text-center bg-yellow-100">{formatNumber(item.dp_quantity)} Kg</TableCell>
                                 <TableCell className="text-center font-bold text-red-500">{formatNumber(item.dp_prcntg)} %</TableCell>
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
 
