@@ -99,8 +99,8 @@ const [origin, setOrigin] = useState<string>('');
         setJb(data.jb_quantity);
         setJbprcntg(data.jb_prcntg);
 
-        setJb(data.jbp_quantity);
-        setJbprcntg(data.jbp_prcntg);
+        setJbp(data.jbp_quantity);
+        setJbpprcntg(data.jbp_prcntg);
 
         setSdp(data.sdp_quantity);
         setSdpprcntg(data.sdp_prcntg);

@@ -325,7 +325,7 @@ const RcvVillageInPrimaryEntry = (props:Props) => {
                 return
             }
             handleRowChange(index,'jbp',e.target.value)
-            rows[index].jbprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
+            rows[index].jbpprcntg=Number(((Number(e.target.value)/(rows[index].totalWt))*100).toFixed(2))
             handleRowChange(index,'jbp',e.target.value)
            
          }   
