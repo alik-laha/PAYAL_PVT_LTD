@@ -255,7 +255,7 @@ export const updateRcvVillageInEntire = async (req: Request, res: Response) => {
                             sku: data.sku, invoice: data.invoice,
                             vendorName: data.vendorN, type: data.type,
                             quantity: data.quantity,
-                            wholes_quantity:wholes,origin:data.origin,
+                            wholes_quantity:data.wholes,origin:data.origin,
                 wholes_prcntg:data.wholesprcntg,
                 pieces_quantity: data.piece,
                 pieces_prcntg: data.pieceprcntg,
