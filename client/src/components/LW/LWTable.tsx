@@ -563,12 +563,12 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                                         <TableCell className="text-center font-semibold">{formatNumber(item.rcv_mayur)}</TableCell>
                                         <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500 ">{formatNumber(((Number(item.issue_add_2)/Number(item.rcv_mayur))*100).toString())} %</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500 ">{Number(item.rcv_mayur)!==0 ?formatNumber(((Number(item.issue_add_2)/Number(item.rcv_mayur))*100).toString()):0} %</TableCell>
 
 
                                         <TableCell className="text-center font-semibold">{formatNumber(item.rcv_hamsa)}</TableCell>
                                         <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_5)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500 ">{formatNumber(((Number(item.issue_add_5)/Number(item.rcv_hamsa))*100).toString())} %</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500 ">{Number(item.rcv_hamsa)!==0 ?formatNumber(((Number(item.issue_add_5)/Number(item.rcv_hamsa))*100).toString()):0} %</TableCell>
                                         <TableCell className="text-center text-center bg-yellow-100 font-semibold">
                                             {formatNumber((parseFloat(item.rcv_mayur)-parseFloat(item.issue_add_2)).toString())}
                                         </TableCell>
