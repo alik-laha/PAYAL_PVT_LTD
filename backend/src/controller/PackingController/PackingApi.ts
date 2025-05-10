@@ -19,6 +19,7 @@ import DPDS from '../../model/dpdsmodel';
 import rejectionModel from '../../model/rejectionModel';
 import orderPackingModel from '../../model/orderPackingModel';
 import orderMappingModelAll from '../../model/orderMappingAllModel';
+import qcOutgoingModel from '../../model/outgoingQcModel';
 
 
 const CY_FY = process.env.CY_FY ? process.env.CY_FY : '2025-26';
@@ -399,6 +400,12 @@ export const packingSearch = async (req: Request, res: Response) => {
                 }
             });
         }
+
+        whereClause.push({
+            fulfillquantity: {
+                [Op.gt]: 0
+            }
+        });
        
 
 
@@ -1689,6 +1696,8 @@ export const deleteOrderMapping = async (req: Request, res: Response) => {
                     {
                         ordMappingStatus: 0,
                         mapquantity: sequelize.literal(`mapquantity- ${item.mappedQuantity}`),
+                        ordApproveStatus: 'Approved',
+                        mappingpk: mappingEntry.dataValues.id
                     },
                     {
                         where: {
@@ -1728,7 +1737,7 @@ export const deleteOrderMapping = async (req: Request, res: Response) => {
          
                 const orderupdate = await orderPrimaryModel.update(
                     {
-                        mapquantity: sequelize.literal(`mapquantity- ${item.mappedQuantity}`),
+                        mapquantity: sequelize.literal(`mapquantity- ${item.mappedQuantity}`),           
                     },
                     {
                         where: {
@@ -1755,3 +1764,66 @@ export const deleteOrderMapping = async (req: Request, res: Response) => {
         }
     }
 };
+
+export const createPacking = async (req: Request, res: Response) => {
+    try{
+     const { mfgDate, noOfBags, batchID, orderpk, 
+        noOfSystemBags,orderID,gradeName,origin,fulfillquantity } = req.body;
+     const id=req.params.id
+     const actionedBy = req.cookies.user;
+
+     await sequelize.transaction( async (transaction) =>{
+        
+      
+        const packingUpdate = await orderPackingModel.update(
+            {
+                BatchID:batchID,
+                mfgDate:mfgDate,
+                packingStatus:1,
+                packingquantity:noOfSystemBags,
+                convpackingquantity:noOfBags,
+                createdBy:actionedBy
+            },
+            {
+                where: {
+                    id
+                }, transaction
+            }
+        );
+        if(packingUpdate){
+            const qcoutEntry = await qcOutgoingModel.create({
+                mfgDate:mfgDate,
+                orderID:orderID,
+                packingpk:id,
+                batchNo:batchID,
+                origin:origin,
+                gradeName:gradeName,
+            },{transaction});
+
+            const orderupdate = await orderPrimaryModel.update(
+                {
+                    actualquantity:sequelize.literal(`actualquantity+ ${fulfillquantity}`),
+                },
+                {
+                    where: {
+                        id:orderpk
+                    }, transaction
+                }
+            );
+            if (qcoutEntry && orderupdate) {
+                res.status(200).json({ message: "Sales Order Packed Successfully" });
+            }
+            else{
+                return res.status(500).json({ message: 'Error in Creating Packing Entry'})
+            }
+        }
+
+     
+     })
+ 
+    }
+     catch (err) {
+         console.log(err)
+         return res.status(500).json({ message: 'Internal server error', error: err })
+     }
+ };

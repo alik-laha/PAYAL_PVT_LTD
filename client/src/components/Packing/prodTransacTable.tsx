@@ -653,7 +653,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                             
                                             
                                             <div className="flex flex-row items-center justify-center w-100">
-                                                            <Progress value={((Number(item.mapquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4" />
+                                                            <Progress value={((Number(item.mapquantity)/Number(item.quantity))*100)} max={100} color="blue" className=" w-3/4" />
                                                             <div className="w-3/4 text-center font-semibold text-green-700">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</div>
                                                         </div>
                                             
@@ -665,7 +665,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                         ) : (
                                             <div className="flex flex-row items-center justify-center ">
                                             <Progress value={((Number(item.actualquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4" />
-                                            <span className="w-2/4 text-center font-semibold text-green-700">{((Number(item.actualquantity)/Number(item.quantity))*100)} %</span>
+                                            <div className="w-3/4 text-center font-semibold text-green-700">{formatNumber(((Number(item.actualquantity)/Number(item.quantity))*100).toString())} %</div>
                                         </div>                                        )):null}</TableCell> {/* Order completion Status */}
                                         <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
                                         <TableCell className="text-center">{handletimezone(item.orderInvDate)}</TableCell>
@@ -766,7 +766,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                                             <Dialog>
                                                                 <DialogTrigger>
                                                                 <div className="flex"><FcApproval size={25} />  <button className="bg-transparent pl-1 rounded-md hover:text-green-500"> Re-Mapping </button></div></DialogTrigger>
-                                                                <DialogContent className='max-w-7xl' style={{ display: 'block' }}>
+                                                                <DialogContent className='max-w-screen' style={{ display: 'block' }}>
                                                                     <DialogHeader>
                                                                         <DialogTitle><p className='text-1xl text-center mt-1'>Order Mapping Entry</p></DialogTitle>
 
@@ -1131,10 +1131,10 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
 
                                        <Popover>
                                             <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.packingStatus === 1? 'bg-cyan-200' : 'bg-cyan-500'}`} 
-                                                disabled={item.editStatus === 'Pending' || item.packingStatus === 1 ? true : false}>Action</button>
+                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} 
+                                                disabled={item.editStatus === 'Pending'  ? true : false}>Action</button>
                                             </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col text-sm w-30 font-medium">
+                                            {item.packingStatus!==1 && <PopoverContent className="flex flex-col text-sm w-30 font-medium">
                                                 <Dialog>
                                                     <DialogTrigger className="flex"><CiEdit size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Pack</button>
@@ -1148,7 +1148,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                                         <PackingCreateForm data={item} />
                                                     </DialogContent>
                                                 </Dialog>
-                                                    </PopoverContent>
+                                                    </PopoverContent>}
                                                                                                 
                                                                                             </Popover>
                                        </TableCell>
