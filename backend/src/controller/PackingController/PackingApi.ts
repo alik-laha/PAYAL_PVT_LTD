@@ -500,6 +500,75 @@ export const mappingSearch = async (req: Request, res: Response) => {
         return res.status(500).json({ message: 'Internal server error', error: err })
     }
 };
+export const mappingSearchAll = async (req: Request, res: Response) => {
+    try {
+        const { origin,blConNo, fromDate, toDate } = req.body;
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
+        const offset = (page - 1) * size;
+        const limit = size;
+
+        let whereClause = [];
+
+        // Conditionally add parameters to the whereClause
+
+
+        if (origin) {
+            whereClause.push({
+                origin: origin
+            });
+        }
+
+        if (blConNo) {
+            whereClause.push({
+                orderID: {
+                    [Op.like]: `%${blConNo}%`
+                }
+            });
+        }
+
+        if (fromDate && toDate) {
+            whereClause.push({
+                orderInvDate: {
+                    [Op.between]: [fromDate, toDate]
+                }
+            });
+        }
+        whereClause.push({
+            mappingStatus: 1
+        });
+       
+
+
+        // Convert the array to an object for the where condition
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+        let rcnEntries
+        
+            if (limit === 0 && offset === 0) {
+                rcnEntries = await orderMappingModelAll.findAll({
+                    where,
+                    order: [['orderID', 'DESC'],['origin','ASC'],['finalgradeName','ASC'],['altid','ASC']], // Order by DESC
+    
+                });
+            }
+            else {
+                rcnEntries = await orderMappingModelAll.findAll({
+                    where,
+                    order: [['orderID', 'DESC'],['origin','ASC'],['finalgradeName','ASC'],['altid','ASC']], // Order by DESC
+                    limit: limit,
+                    offset: offset
+                });
+            }
+    
+            return res.status(200).json({ message: 'Order Mapping All found', rcnEntries })
+        
+       
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: 'Internal server error', error: err })
+    }
+};
 export const createOrderEntire = async (req: Request, res: Response) => {
 
     try {
@@ -1302,7 +1371,7 @@ export const updateReMappingOrderEntire = async (req: Request, res: Response) =>
                         orderpk:firstrow.orderpk,
                         packingpk:packingEntry.dataValues.id,
                         mappingDate:formData[0].mappingDate,
-                        mappedQuantity:amount
+                        mappedQuantity:amount,mappingStatus:1,createdBy
                 },{transaction});
               
                 //console.log(dataToUpdate)

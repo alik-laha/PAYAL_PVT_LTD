@@ -50,7 +50,7 @@ import {
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
 import { Input } from "../ui/input";
-import { FcApproval, FcApprove, FcCancel, FcDisapprove, FcEditImage } from "react-icons/fc";
+import { FcApproval, FcApprove, FcCancel, FcDeleteDatabase, FcDisapprove, FcEditImage } from "react-icons/fc";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import { CiEdit } from "react-icons/ci";
@@ -72,14 +72,17 @@ const ProdTransacTable = () => {
     const [blockpagen, setblockpagen] = useState('flex')
     const [searchType, setsearchType] = useState('Order')
     const [searchTableType, setsearchtableType] = useState('Order')
+    const [searchMapTableType, setsearchMaptableType] = useState('Overall')
     const [Data, setData] = useState<any[]>([])
     const [origin, setOrigin] = useState<string>("")
     const [fromdate, setfromDate] = useState<string>('');
     const [todate, settoDate] = useState<string>('');
     const [hidetodate, sethidetoDate] = useState<string>('');
     const [sectionstatus, setSectionstatus] = useState<string>("")
+    const [mapsectionstatus, setMapsectionstatus] = useState<string>("Overall")
 
     const dropdown = ['Order', 'Mapping','Packing']
+    const mapdropdown = ['Overall', 'LineWise']
      const successdialog = document.getElementById('machinescs') as HTMLInputElement;
       const errordialog = document.getElementById('machineerror') as HTMLInputElement;
       // const dialog = document.getElementById('myDialog');
@@ -144,25 +147,51 @@ const ProdTransacTable = () => {
             setsearchtableType('Order')
         }
         else if (searchType === 'Mapping'){
-            const response = await axios.put('/api/packing/mappingSearch', {
-                origin: origin,
-                blConNo: blConNo,
-                fromDate: fromdate,
-                toDate: todate,
-
-            }, {
-                params: {
-                    page: page,
-                    limit: limit
+            if(mapsectionstatus==='LineWise'){
+                const response = await axios.put('/api/packing/mappingSearch', {
+                    origin: origin,
+                    blConNo: blConNo,
+                    fromDate: fromdate,
+                    toDate: todate,
+    
+                }, {
+                    params: {
+                        page: page,
+                        limit: limit
+                    }
+                })
+                const data = await response.data
+                if (data.rcnEntries.length === 0 && page > 1) {
+                    setPage((prev) => prev - 1)
+    
                 }
-            })
-            const data = await response.data
-            if (data.rcnEntries.length === 0 && page > 1) {
-                setPage((prev) => prev - 1)
-
+                setData(data.rcnEntries)
+                setsearchtableType('Mapping')
+                setsearchMaptableType('LineWise')
             }
-            setData(data.rcnEntries)
-            setsearchtableType('Mapping')
+            else{
+                const response = await axios.put('/api/packing/mappingSearchAll', {
+                    origin: origin,
+                    blConNo: blConNo,
+                    fromDate: fromdate,
+                    toDate: todate,
+    
+                }, {
+                    params: {
+                        page: page,
+                        limit: limit
+                    }
+                })
+                const data = await response.data
+                if (data.rcnEntries.length === 0 && page > 1) {
+                    setPage((prev) => prev - 1)
+    
+                }
+                setData(data.rcnEntries)
+                setsearchtableType('Mapping')
+                setsearchMaptableType('Overall')
+            }
+            
         }
         else{
             const response = await axios.put('/api/packing/packingSearch', {
@@ -226,40 +255,73 @@ const ProdTransacTable = () => {
             saveAs(blob, 'Order_Entry_' + currDate + '.xlsx');
         }
         else if (searchType === 'Mapping') {
-            const response = await axios.put('/api/packing/mappingSearch', {
-                origin: origin,
-                blConNo: blConNo,
-                fromDate: fromdate,
-                toDate: todate,
-
-            })
-            const data = await response.data
-            transformed = data.rcnEntries.map((item: any, idx: number) => ({
-                Sl_No: idx + 1,
-                altid: item.altid=== 1?'Fresh Pack':'Re-Packing',
-                OrderID: item.orderID,
-                Origin: item.origin,
-                FinalGradeName: item.finalgradeName,
-                OrderDate: handletimezone(item.orderDate),
-                MappingDate: handletimezone(item.mappingDate),
-                VendorName: item.vendorName,
-                Production_Section: item.productionSection,
-                LotNo: item.LotNo,
-                Production_Origin: item.productionOrigin,
-                Production_Grade: item.productionGrade,
-                Section_Quantity: `${formatNumber(item.sectionQuantity)} Kg`,
-                Percentage_Mix: item.prcntgMix,
-                Mapped_Quantity: `${formatNumber(item.mappedQuantity)} Kg`,
-                CreatedBy: item.createdBy,
-                ApprovedBy: item.approvedBy,
-                Remarks: item.remarks
-            }));
-            ws = XLSX.utils.json_to_sheet(transformed);
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-            const blob = new Blob([wbout], { type: 'application/octet-stream' });
-            saveAs(blob, 'Mapping_Order_Entry_' + currDate + '.xlsx');
+            if(mapsectionstatus==='LineWise'){
+                const response = await axios.put('/api/packing/mappingSearch', {
+                    origin: origin,
+                    blConNo: blConNo,
+                    fromDate: fromdate,
+                    toDate: todate,
+    
+                })
+                const data = await response.data
+                transformed = data.rcnEntries.map((item: any, idx: number) => ({
+                    Sl_No: idx + 1,
+                    altid: item.altid=== 1?'Fresh Pack':'Re-Packing',
+                    OrderID: item.orderID,
+                    Origin: item.origin,
+                    FinalGradeName: item.finalgradeName,
+                    OrderDate: handletimezone(item.orderDate),
+                    MappingDate: handletimezone(item.mappingDate),
+                    VendorName: item.vendorName,
+                    Production_Section: item.productionSection,
+                    LotNo: item.LotNo,
+                    Production_Origin: item.productionOrigin,
+                    Production_Grade: item.productionGrade,
+                    Section_Quantity: `${formatNumber(item.sectionQuantity)} Kg`,
+                    Percentage_Mix: item.prcntgMix,
+                    Mapped_Quantity: `${formatNumber(item.mappedQuantity)} Kg`,
+                    CreatedBy: item.createdBy,
+                    ApprovedBy: item.approvedBy,
+                    Remarks: item.remarks
+                }));
+                ws = XLSX.utils.json_to_sheet(transformed);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+                const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+                const blob = new Blob([wbout], { type: 'application/octet-stream' });
+                saveAs(blob, 'Mapping_LineWise_Order_Entry_' + currDate + '.xlsx');
+            }
+            else{
+                const response = await axios.put('/api/packing/mappingSearchAll', {
+                    origin: origin,
+                    blConNo: blConNo,
+                    fromDate: fromdate,
+                    toDate: todate,
+    
+                })
+                const data = await response.data
+                transformed = data.rcnEntries.map((item: any, idx: number) => ({
+                    Sl_No: idx + 1,
+                    altid: item.altid=== 1?'Fresh Pack':'Re-Packing',
+                    OrderID: item.orderID,
+                    Origin: item.origin,
+                    FinalGradeName: item.finalgradeName,
+                    OrderDate: handletimezone(item.orderDate),
+                    MappingDate: handletimezone(item.mappingDate),
+                    VendorName: item.vendorName,
+                    Mapped_Quantity: `${formatNumber(item.mappedQuantity)} Kg`,
+                    CreatedBy: item.createdBy,
+                    ApprovedBy: item.approvedBy,
+                    Remarks: item.remarks
+                }));
+                ws = XLSX.utils.json_to_sheet(transformed);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+                const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+                const blob = new Blob([wbout], { type: 'application/octet-stream' });
+                saveAs(blob, 'Mapping_Overall_Order_Entry_' + currDate + '.xlsx');
+            }
+            
         }
         else{
             const response = await axios.put('/api/packing/packingSearch', {
@@ -471,7 +533,7 @@ const ProdTransacTable = () => {
 
 
 
-{searchType==='Order' && <select className='flexbox-search-width flex h-8 w-1/7 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                    {searchType === 'Order' && <select className='flexbox-search-width flex h-8 w-1/7 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setSectionstatus(e.target.value)} value={sectionstatus}>
                         <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
@@ -479,6 +541,25 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         </option>
                         {
                             OrderStatusAll.map((item) => {
+                                return (
+                                    <option key={item} value={item}>
+                                        {item}
+                                    </option>
+                                )
+                            })
+                        }
+
+
+                    </select>}
+
+
+
+                    {searchType === 'Mapping' && <select className='flexbox-search-width flex h-8 w-1/7 ml-5 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                        onChange={(e) => setMapsectionstatus(e.target.value)} value={mapsectionstatus}>
+
+                        {
+                            mapdropdown.map((item) => {
                                 return (
                                     <option key={item} value={item}>
                                         {item}
@@ -751,115 +832,225 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                         </TableBody>
 
-                    </Table>) : (searchTableType === 'Mapping' ? (
-                       <Table className="mt-4">
-                       <TableHeader className="bg-neutral-100 text-stone-950 ">
-                           <TableHead className="text-center">Sl No.</TableHead>
-                           <TableHead className="text-center">Mapping_Type</TableHead>
-                           <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
+                    </Table>) : (searchTableType === 'Mapping' ? ( searchMapTableType==='LineWise'?(
+                        <Table className="mt-4">
+                        <TableHeader className="bg-neutral-100 text-stone-950 ">
+                            <TableHead className="text-center">Sl No.</TableHead>
+                            <TableHead className="text-center">Mapping_Type</TableHead>
+                            <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
+                            
+                            <TableHead className="text-center">Order_Origin</TableHead>
+                            <TableHead className="text-center">Final_GradeName</TableHead>
+                            <TableHead className="text-center">Issue_No (Mapping)</TableHead>
+                            {/* <TableHead className="text-center">Order_Quantity</TableHead> */}
+                            <TableHead className="text-center">Order_Entry_Date</TableHead>
+                            <TableHead className="text-center">Order_Mapping_Date</TableHead>
+                            <TableHead className="text-center">Purchase_Vendor_Name</TableHead>
                            
-                           <TableHead className="text-center">Order_Origin</TableHead>
-                           <TableHead className="text-center">Final_GradeName</TableHead>
-                           <TableHead className="text-center">Issue_No (Mapping)</TableHead>
-                           {/* <TableHead className="text-center">Order_Quantity</TableHead> */}
-                           <TableHead className="text-center">Order_Entry_Date</TableHead>
-                           <TableHead className="text-center">Order_Mapping_Date</TableHead>
-                           <TableHead className="text-center">Purchase_Vendor_Name</TableHead>
-                          
-                           <TableHead className="text-center">Production_Section</TableHead>
-                           <TableHead className="text-center">Production_LotNo</TableHead>
-                           <TableHead className="text-center">Lot_Origin</TableHead>
-                           <TableHead className="text-center">Lot_Grade</TableHead>
-                           <TableHead className="text-center">Available_Quantity</TableHead>
-                           <TableHead className="text-center">Actual Available_Quantity</TableHead>
-                           <TableHead className="text-center">Percentage_Mapping</TableHead>
-                           <TableHead className="text-center">Mapped_Quantity</TableHead>
-                          
-                           {/* <TableHead className="text-center">Edit Status</TableHead> */}
-                           <TableHead className="text-center">Created_By</TableHead>
-                           {/* <TableHead className="text-center">Edited_By</TableHead> */}
-                           <TableHead className="text-center">Mapping_Remarks</TableHead>
-                           {/* <TableHead className="text-center" >Action</TableHead> */}
-                       </TableHeader>
-                       <TableBody>
-                           {Data.length > 0 ? (Data.map((item: any, idx) => {
-                               return (
-                                   <TableRow key={item.id} >
-                                       <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                            <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh' : 'Re-Mapping'}</TableCell>
-                                       <TableCell className="text-center text-red-500 font-bold ">{item.orderID}</TableCell>
-                                       <TableCell className="text-center text-cyan-500 font-semibold">{item.origin}</TableCell>
-                                       <TableCell className="text-center">{item.finalgradeName}</TableCell>
-                                       <TableCell className="text-center">{item.altid}</TableCell>
-                                       {/* <TableCell className="text-center font-semibold ">{formatNumber(item.demandQuantity)} Kg</TableCell> */}
-
-                                       <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
-                                       <TableCell className="text-center">{handletimezone(item.mappingDate)}</TableCell> {/* Order Mapping Date (Can be mapped to "orderDate") */}
-
-                                     
-                                       <TableCell className="text-center">{item.vendorName}</TableCell>
+                            <TableHead className="text-center">Production_Section</TableHead>
+                            <TableHead className="text-center">Production_LotNo</TableHead>
+                            <TableHead className="text-center">Lot_Origin</TableHead>
+                            <TableHead className="text-center">Lot_Grade</TableHead>
+                            <TableHead className="text-center">Available_Quantity</TableHead>
+                            <TableHead className="text-center">Actual Available_Quantity</TableHead>
+                            <TableHead className="text-center">Percentage_Mapping</TableHead>
+                            <TableHead className="text-center">Mapped_Quantity</TableHead>
+                           
+                            {/* <TableHead className="text-center">Edit Status</TableHead> */}
+                            <TableHead className="text-center">Created_By</TableHead>
+                            {/* <TableHead className="text-center">Edited_By</TableHead> */}
+                            <TableHead className="text-center">Mapping_Remarks</TableHead>
+                            {/* <TableHead className="text-center" >Action</TableHead> */}
+                        </TableHeader>
+                        <TableBody>
+                            {Data.length > 0 ? (Data.map((item: any, idx) => {
+                                return (
+                                    <TableRow key={item.id} >
+                                        <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                             <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh' : 'Re-Mapping'}</TableCell>
+                                        <TableCell className="text-center text-red-500 font-bold ">{item.orderID}</TableCell>
+                                        <TableCell className="text-center text-cyan-500 font-semibold">{item.origin}</TableCell>
+                                        <TableCell className="text-center">{item.finalgradeName}</TableCell>
+                                        <TableCell className="text-center">{item.altid}</TableCell>
+                                        {/* <TableCell className="text-center font-semibold ">{formatNumber(item.demandQuantity)} Kg</TableCell> */}
+ 
+                                        <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
+                                        <TableCell className="text-center">{handletimezone(item.mappingDate)}</TableCell> {/* Order Mapping Date (Can be mapped to "orderDate") */}
+ 
+                                      
+                                        <TableCell className="text-center">{item.vendorName}</TableCell>
+                                    
+                                        <TableCell className="text-center bg-green-100">{item.productionSection}</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{item.LotNo}</TableCell>
+                                        <TableCell className="text-center bg-yellow-100">{item.productionOrigin}</TableCell>
+                                        <TableCell className="text-center bg-yellow-100">{item.productionGrade}</TableCell>
+                                      
+ 
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.sectionQuantity)} Kg </TableCell> {/* Demand Quantity */}
+                                        <TableCell className="text-center bg-yellow-100 text-red-500 font-semibold ">{formatNumber(item.sectionQuantityActual)} Kg </TableCell> {/* Demand Quantity */}
+ 
+                                        <TableCell className="text-center bg-yellow-100">{formatNumber(item.prcntgMix)} %</TableCell> {/* Prepared Quantity */}
+ 
+                                        <TableCell className="text-center font-semibold bg-green-100">{formatNumber(item.mappedQuantity)} Kg</TableCell> {/* Prepared Quantity */}
                                    
-                                       <TableCell className="text-center bg-green-100">{item.productionSection}</TableCell>
-                                       <TableCell className="text-center font-semibold bg-yellow-100">{item.LotNo}</TableCell>
-                                       <TableCell className="text-center bg-yellow-100">{item.productionOrigin}</TableCell>
-                                       <TableCell className="text-center bg-yellow-100">{item.productionGrade}</TableCell>
-                                     
+                                        {/* <TableCell className="text-center">{item.editStatus}</TableCell> */}
+                                        <TableCell className="text-center">{item.createdBy}</TableCell> {/* Created By */}
+                                        {/* <TableCell className="text-center">{item.approvedBy}</TableCell> Actioned By */}
+                                        <TableCell className="text-center">{item.remarks}</TableCell>
+                                        {/* <TableCell className="text-center">
+ 
+                                        <Popover>
+                                             <PopoverTrigger>
+                                                 <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
+                                             </PopoverTrigger>
+                                             <PopoverContent className="flex flex-col text-sm w-30 font-medium">
+                                                 <Dialog>
+                                                     <DialogTrigger className="flex"><CiEdit size={20} />
+                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
+                                                     </DialogTrigger>
+                                                     <DialogContent className="max-w-7xl">
+                                                         <DialogHeader>
+                                                             <DialogTitle>
+                                                                 <p className='text-1xl pb-1 text-center mt-1'>Order Mapping Modification</p>
+                                                             </DialogTitle>
+                                                         </DialogHeader>
+                                                         <HamsaEditForm borma={[item]} />
+                                                     </DialogContent>
+                                                 </Dialog>
+                                                     </PopoverContent>
+                                                                                                 
+                                                                                             </Popover>
+                                        </TableCell> */}
+ 
+                                    </TableRow>
+                                );
+                            })) : (<TableRow>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+ 
+                                <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+ 
+                            </TableRow>)}
+ 
+                        </TableBody>
+ 
+                    </Table>
+                    ):(<Table className="mt-4">
+                        <TableHeader className="bg-neutral-100 text-stone-950 ">
+                            <TableHead className="text-center">Sl No.</TableHead>
+                            <TableHead className="text-center">Mapping_Type</TableHead>
+                            <TableHead className="text-center">Generated_Purchase_Order_ID</TableHead>
+                            
+                            <TableHead className="text-center">Order_Origin</TableHead>
+                            <TableHead className="text-center">Final_GradeName</TableHead>
+                            <TableHead className="text-center">Issue_No (Mapping)</TableHead>
+                            {/* <TableHead className="text-center">Order_Quantity</TableHead> */}
+                            <TableHead className="text-center">Order_Entry_Date</TableHead>
+                            <TableHead className="text-center">Order_Mapping_Date</TableHead>
+                            <TableHead className="text-center">Purchase_Vendor_Name</TableHead>
+                           
+                            {/* <TableHead className="text-center">Production_Section</TableHead>
+                            <TableHead className="text-center">Production_LotNo</TableHead>
+                            <TableHead className="text-center">Lot_Origin</TableHead>
+                            <TableHead className="text-center">Lot_Grade</TableHead>
+                            <TableHead className="text-center">Available_Quantity</TableHead>
+                            <TableHead className="text-center">Actual Available_Quantity</TableHead>
+                            <TableHead className="text-center">Percentage_Mapping</TableHead> */}
+                            <TableHead className="text-center">Mapped_Quantity</TableHead>
+                           
+                            {/* <TableHead className="text-center">Edit Status</TableHead> */}
+                            <TableHead className="text-center">Created_By</TableHead>
+                            {/* <TableHead className="text-center">Edited_By</TableHead> */}
+                            <TableHead className="text-center">Mapping_Remarks</TableHead>
+                            <TableHead className="text-center" >Action</TableHead>
+                        </TableHeader>
+                        <TableBody>
+                            {Data.length > 0 ? (Data.map((item: any, idx) => {
+                                return (
+                                    <TableRow key={item.id} >
+                                        <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
+                                             <TableCell className="text-center font-bold ">{item.altid==1 ? 'Fresh' : 'Re-Mapping'}</TableCell>
+                                        <TableCell className="text-center text-red-500 font-bold ">{item.orderID}</TableCell>
+                                        <TableCell className="text-center text-cyan-500 font-semibold">{item.origin}</TableCell>
+                                        <TableCell className="text-center">{item.finalgradeName}</TableCell>
+                                        <TableCell className="text-center">{item.altid}</TableCell>
+                                        {/* <TableCell className="text-center font-semibold ">{formatNumber(item.demandQuantity)} Kg</TableCell> */}
+ 
+                                        <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
+                                        <TableCell className="text-center">{handletimezone(item.mappingDate)}</TableCell> {/* Order Mapping Date (Can be mapped to "orderDate") */}
+ 
+                                      
+                                        <TableCell className="text-center">{item.vendorName}</TableCell>
+                                    
+                                        {/* <TableCell className="text-center bg-green-100">{item.productionSection}</TableCell>
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{item.LotNo}</TableCell>
+                                        <TableCell className="text-center bg-yellow-100">{item.productionOrigin}</TableCell>
+                                        <TableCell className="text-center bg-yellow-100">{item.productionGrade}</TableCell> */}
+                                      
+{/*  
+                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.sectionQuantity)} Kg </TableCell> Demand Quantity
+                                        <TableCell className="text-center bg-yellow-100 text-red-500 font-semibold ">{formatNumber(item.sectionQuantityActual)} Kg </TableCell> Demand Quantity */}
+ 
+                                        {/* <TableCell className="text-center bg-yellow-100">{formatNumber(item.prcntgMix)} %</TableCell> Prepared Quantity */}
+ 
+                                        <TableCell className="text-center font-semibold bg-green-100">{formatNumber(item.mappedQuantity)} Kg</TableCell> {/* Prepared Quantity */}
+                                   
+                                        {/* <TableCell className="text-center">{item.editStatus}</TableCell> */}
+                                        <TableCell className="text-center">{item.createdBy}</TableCell> {/* Created By */}
+                                        {/* <TableCell className="text-center">{item.approvedBy}</TableCell> Actioned By */}
+                                        <TableCell className="text-center">{item.remarks}</TableCell>
+                                        <TableCell className="text-center">
 
-                                       <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.sectionQuantity)} Kg </TableCell> {/* Demand Quantity */}
-                                       <TableCell className="text-center bg-yellow-100 text-red-500 font-semibold ">{formatNumber(item.sectionQuantityActual)} Kg </TableCell> {/* Demand Quantity */}
-
-                                       <TableCell className="text-center bg-yellow-100">{formatNumber(item.prcntgMix)} %</TableCell> {/* Prepared Quantity */}
-
-                                       <TableCell className="text-center font-semibold bg-green-100">{formatNumber(item.mappedQuantity)} Kg</TableCell> {/* Prepared Quantity */}
-                                  
-                                       {/* <TableCell className="text-center">{item.editStatus}</TableCell> */}
-                                       <TableCell className="text-center">{item.createdBy}</TableCell> {/* Created By */}
-                                       {/* <TableCell className="text-center">{item.approvedBy}</TableCell> Actioned By */}
-                                       <TableCell className="text-center">{item.remarks}</TableCell>
-                                       {/* <TableCell className="text-center">
-
-                                       <Popover>
-                                            <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col text-sm w-30 font-medium">
-                                                <Dialog>
-                                                    <DialogTrigger className="flex"><CiEdit size={20} />
-                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
-                                                    </DialogTrigger>
-                                                    <DialogContent className="max-w-7xl">
-                                                        <DialogHeader>
-                                                            <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>Order Mapping Modification</p>
-                                                            </DialogTitle>
-                                                        </DialogHeader>
-                                                        <HamsaEditForm borma={[item]} />
-                                                    </DialogContent>
-                                                </Dialog>
-                                                    </PopoverContent>
-                                                                                                
-                                                                                            </Popover>
-                                       </TableCell> */}
-
-                                   </TableRow>
-                               );
-                           })) : (<TableRow>
-                               <TableCell></TableCell>
-                               <TableCell></TableCell>
-                               <TableCell></TableCell>
-                               <TableCell></TableCell>
-
-                               <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
-                               <TableCell></TableCell>
-                               <TableCell></TableCell>
-                               <TableCell></TableCell>
-                               <TableCell></TableCell>
-
-                           </TableRow>)}
-
-                       </TableBody>
-
-                   </Table>):( <Table className="mt-4">
+                                            <Popover>
+                                                <PopoverTrigger>
+                                                    <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger className="flex">
+                                                            <FcDeleteDatabase size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Delete</button>
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent>
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>Do you want to Delete the Mapping ?</AlertDialogTitle>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <AlertDialogAction onClick={() => handleDeleteMapping(item)}>Continue</AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+                                                   
+                                                </PopoverContent>
+                                            </Popover>
+                                        </TableCell>
+ 
+                                    </TableRow>
+                                );
+                            })) : (<TableRow>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+ 
+                                <TableCell><p className="w-100 font-medium text-red-500 text-center pt-3 pb-10">No Result </p></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+ 
+                            </TableRow>)}
+ 
+                        </TableBody>
+ 
+                    </Table>)
+                       ):( <Table className="mt-4">
                        <TableHeader className="bg-neutral-100 text-stone-950 ">
                            <TableHead className="text-center">Sl No.</TableHead>
                           
