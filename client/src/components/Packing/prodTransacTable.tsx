@@ -614,13 +614,14 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                             <TableHead className="text-center">Sales_Vendor_Name</TableHead>
                             <TableHead className="text-center">Broker_Name</TableHead>
                             <TableHead className="text-center">Demand_Quantity</TableHead>
+                            <TableHead className="text-center">Unit_Rate</TableHead>
+                            <TableHead className="text-center">SO_Total_Amount</TableHead>
                             <TableHead className="text-center">Mapped_Quantity</TableHead>
                           
                             <TableHead className="text-center">Packed_Quantity</TableHead>
                             <TableHead className="text-center">Mapping_Backlog</TableHead>
                             <TableHead className="text-center">Packing_Backlog</TableHead>
-                            <TableHead className="text-center">Unit_Rate</TableHead>
-                            <TableHead className="text-center">PO_Total_Amount</TableHead>
+                           
                             <TableHead className="text-center">GST</TableHead>
                             {/* <TableHead className="text-center">Edit Status</TableHead> */}
                             <TableHead className="text-center">Created_By</TableHead>
@@ -672,15 +673,16 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                       
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center">{item.brokerName}</TableCell>
-                                        <TableCell className="text-center font-semibold bg-green-100 text-blue-600">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}
+                                        <TableCell className="text-center font-semibold ">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}
+                                        <TableCell className="text-center">{formatNumber(item.unitRate)} &#8377;</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.totalBill)} &#8377;</TableCell>
                                         <TableCell className="text-center font-semibold bg-yellow-100 text-blue-600">{formatNumber(item.mapquantity)} Kg</TableCell> {/* Prepared Quantity */}
 
                                         <TableCell className="text-center font-semibold bg-yellow-100 text-blue-600">{formatNumber(item.actualquantity)} Kg</TableCell> {/* Prepared Quantity */}
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber((parseFloat(item.quantity) - parseFloat(item.mapquantity)).toString())} Kg</TableCell> {/* Prepared Quantity */}
 
                                         <TableCell className="text-center font-semibold text-red-500">{formatNumber((parseFloat(item.quantity) - parseFloat(item.actualquantity)).toString())} Kg</TableCell> {/* Prepared Quantity */}
-                                        <TableCell className="text-center">{formatNumber(item.unitRate)} &#8377;</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.totalBill)} &#8377;</TableCell>
+                                     
                                         <TableCell className="text-center">
                                             <input type="checkbox" checked={item.gst} />
                                         </TableCell> {/* GST */}
@@ -1120,7 +1122,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
 
                                        <TableCell className="text-center ">{item.vendorName}</TableCell>
                                        <TableCell className="text-center ">{item.fulfillquantity ?formatNumber(item.fulfillquantity):0} Kg</TableCell>
-                                       <TableCell className="text-center">{item.mfgDate ? handletimezone(item.mfgDate):item.mfgDate}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
+                                       <TableCell className="text-center font-semibold">{item.mfgDate ? handletimezone(item.mfgDate):item.mfgDate}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
 
                                        <TableCell className="text-center font-semibold">{item.BatchID}</TableCell>
                                        <TableCell className="text-center font-semibold">{item.packingquantity}</TableCell>
