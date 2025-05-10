@@ -129,7 +129,7 @@ const OrderMappingInitial = (props: any) => {
                                             <Dialog>
                                                 <DialogTrigger>
                                                     <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.orderID,item.origin,item.finalgradeName)}> Map </Button></DialogTrigger>
-                                          <DialogContent className='max-w-7xl' style={{display:'block'}}>
+                                          <DialogContent className='max-w-screen' style={{display:'block'}}>
                                                     <DialogHeader>
                                                         <DialogTitle><p className='text-1xl text-center mt-1'>Order Mapping Entry</p></DialogTitle>
 

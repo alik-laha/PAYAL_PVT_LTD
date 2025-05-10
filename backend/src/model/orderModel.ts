@@ -8,11 +8,11 @@ const orderPrimaryModel = sequelize.define('orderPrimary', {
         primaryKey: true,
         autoIncrement: true
     },
-    origin:{
+    origin: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    orderID:{
+    orderID: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -37,25 +37,25 @@ const orderPrimaryModel = sequelize.define('orderPrimary', {
         allowNull: true,
     },
     quantity: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true,
     },
-         mappingpk: {
-                    type: DataTypes.INTEGER,
-                    allowNull:true
-                },
-            
+    mappingpk: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
+
     mapquantity: {
-        type: DataTypes.DECIMAL(10,2),
-        defaultValue:0,
+        type: DataTypes.DECIMAL(10, 2),
+        defaultValue: 0,
     },
     unitRate: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true,
     },
     actualquantity: {
-        type: DataTypes.DECIMAL(10,2),
-        defaultValue:0,
+        type: DataTypes.DECIMAL(10, 2),
+        defaultValue: 0,
     },
     editStatus: {
         type: DataTypes.STRING,
@@ -73,26 +73,26 @@ const orderPrimaryModel = sequelize.define('orderPrimary', {
     approvedBy: {
         type: DataTypes.STRING,
         allowNull: true,
-      
+
     },
-    ordMappingStatus:{
+    ordMappingStatus: {
         type: DataTypes.INTEGER,
         defaultValue: 0
     },
-    ordStatus:{
+    ordStatus: {
         type: DataTypes.INTEGER,
         defaultValue: 0
     },
-    ordApproveStatus:{
+    ordApproveStatus: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    remarks:{
+    remarks: {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    totalBill:{
-        type: DataTypes.DECIMAL(10,2),
+    totalBill: {
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     }
 })

@@ -275,11 +275,11 @@ const OrderMappingCreateForm = (props:Props) => {
          e.preventDefault()
          const dateissue = dateIssueref.current?.value
          setisdisable(true)
-         const mixquantitys = rows.map((row) => row.mixquantity)
-         const amount = mixquantitys.reduce((acc, curr) => acc + curr, 0);
-        console.log(amount)
+         //const mixquantitys = rows.map((row) => row.mixquantity)
+         //const amount = mixquantitys.reduce((acc, curr) => acc + curr, 0);
+        //console.log(amount)
 
-        if (amount>(demandQty?demandQty:props.mapping[0].demandQuantity)) {
+        if (mixQuantitySum>(demandQty?demandQty:Number(props.mapping[0].demandQuantity))) {
             setErrortext('Total Amount Can Not Exceed Demand Quantity')
             if (errordialog != null) {
                 (errordialog as any).showModal();
@@ -320,7 +320,7 @@ const OrderMappingCreateForm = (props:Props) => {
                 if(formData.length===1){
                     for (var data of formData) 
                         {
-                            await axios.put(`/api/packing/updateOrderMapping/${id}/${amount}`, {data })
+                            await axios.put(`/api/packing/updateOrderMapping/${id}/${mixQuantitySum}`, {data })
                                 setErrortext(`Order ID ${orderID} Mapped Successfully`)
                             if(successdialog){
                                 (successdialog as any).showModal();
@@ -329,7 +329,7 @@ const OrderMappingCreateForm = (props:Props) => {
                         }
                     } 
                     else if(formData.length>1){
-                            await axios.put(`/api/packing/updateOrderMappingEntire/${id}/${amount}`, {data:formData })
+                            await axios.put(`/api/packing/updateOrderMappingEntire/${id}/${mixQuantitySum}`, {data:formData })
    
                                     setErrortext(`Order ID ${orderID} Mapped Successfully`)
                                 if(successdialog){

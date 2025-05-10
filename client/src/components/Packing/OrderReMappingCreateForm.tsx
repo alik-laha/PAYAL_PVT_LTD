@@ -270,11 +270,11 @@ const OrderReMappingCreateForm = (props:Props) => {
          e.preventDefault()
          const dateissue = dateIssueref.current?.value
          setisdisable(true)
-         const mixquantitys = rows.map((row) => row.mixquantity)
-         const amount = mixquantitys.reduce((acc, curr) => acc + curr, 0);
-        console.log(amount)
+        // const mixquantitys = rows.map((row) => row.mixquantity)
+        // const amount = mixquantitys.reduce((acc, curr) => acc + curr, 0);
+        //console.log(amount)
 
-        if (amount>(demandQty?demandQty:parseFloat(props.mapping[0].quantity)-parseFloat(props.mapping[0].mapquantity))) {
+        if (mixQuantitySum>(demandQty?demandQty:parseFloat(props.mapping[0].quantity)-parseFloat(props.mapping[0].mapquantity))) {
             setErrortext('Total Amount Can Not Exceed Demand Quantity')
             if (errordialog != null) {
                 (errordialog as any).showModal();
@@ -309,7 +309,7 @@ const OrderReMappingCreateForm = (props:Props) => {
      
          try{
 
-                await axios.put(`/api/packing/updateOrderReMappingEntire/${amount}`, {data:formData,
+                await axios.put(`/api/packing/updateOrderReMappingEntire/${mixQuantitySum}`, {data:formData,
                     gst:props.mapping[0].gst,
                     unitRate:props.mapping[0].unitRate,
                     totalBill:props.mapping[0].totalBill,

@@ -1,6 +1,6 @@
 import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
-import { approvePurchaseOrder, cancelPurchaseOrder, closePurchaseOrder, createOrderEntire, getActvOrderCount, getMappingByGradeOrigin, getMappingLot, lotdataFind, lotQtydataFind, manualProdStockUpdate, mappingSearch, mappingSearchAll, modifyOrder, orderSearch, 
+import { approvePurchaseOrder, cancelPurchaseOrder, closePurchaseOrder, createOrderEntire, deleteOrderMapping, getActvOrderCount, getMappingByGradeOrigin, getMappingLot, lotdataFind, lotQtydataFind, manualProdStockUpdate, mappingSearch, mappingSearchAll, modifyOrder, orderSearch, 
     ordStockSearch, packingSearch, prodStockSearch, 
     rejectPurchaseOrder,
     updateMappingOrder,
@@ -22,12 +22,13 @@ router.get("/getUnMappingEntry/:status", jwtVerify, getMappingLot)
 router.post("/getMappingByGradeOrigin", jwtVerify, getMappingByGradeOrigin)
 router.post("/findcompleteLot", jwtVerify,lotdataFind)
 router.post("/prodStockQtyFind", jwtVerify,lotQtydataFind)
-router.put("/updateOrderMapping/:id/:amount", jwtVerify,updateMappingOrder)
-router.put("/updateOrderMappingEntire/:id/:amount", jwtVerify,updateMappingOrderEntire)
-router.put("/updateOrderReMappingEntire/:amount", jwtVerify,updateReMappingOrderEntire)
+router.put("/updateOrderMapping/:id/:mixQuantitySum", jwtVerify,updateMappingOrder)
+router.put("/updateOrderMappingEntire/:id/:mixQuantitySum", jwtVerify,updateMappingOrderEntire)
+router.put("/updateOrderReMappingEntire/:mixQuantitySum", jwtVerify,updateReMappingOrderEntire)
 router.post("/closePurchaseOrder",jwtVerify, closePurchaseOrder)
 router.post("/cancelPurchaseOrder",jwtVerify, cancelPurchaseOrder)
 router.put("/modifyOrder/:id",jwtVerify, modifyOrder)
 router.get("/activeordercount", jwtVerify, getActvOrderCount)
+router.post("/deleteOrderMapping",jwtVerify, deleteOrderMapping)
 
 export default router
