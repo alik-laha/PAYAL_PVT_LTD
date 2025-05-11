@@ -203,7 +203,8 @@ export const GradeOnSection = {
         "V_SS", "V_YJH", "V_YK", "V_SP_2", "V_KP", "V_DP_2", "V_DP_3",
         "V_DP_4", "V_OS", "V_OS_1", "V_WP", "V_RS"
     ],
-    Rejection:['Rejection']
+    Rejection:['Rejection'],
+    Village:['Village']
     
 }
 
