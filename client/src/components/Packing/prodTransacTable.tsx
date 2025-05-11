@@ -603,29 +603,33 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                             <TableHead className="text-center">Sl No.</TableHead>
                            
                             <TableHead className="text-center">Generated_Sales_Order_ID</TableHead>
-                            <TableHead className="text-center">Origin</TableHead>
+                            
+                            <TableHead className="text-center">Order_Origin</TableHead>
                             <TableHead className="text-center">Final_GradeName</TableHead>
-                            <TableHead className="text-center">Approval</TableHead>
-                            <TableHead className="text-center">Order_Mapping_Status (%)</TableHead>
-                            <TableHead className="text-center">Order_Packing_Status (%)</TableHead>
-                            <TableHead className="text-center">Order_Receive_Date</TableHead>
+                              <TableHead className="text-center">Approval</TableHead>
+                              <TableHead className="text-center">Order_Receive_Date</TableHead>
                             <TableHead className="text-center">Order_Entry_Date</TableHead>
+                           <TableHead className="text-center">Sales_Vendor_Name</TableHead>
+                            <TableHead className="text-center">Sales_Broker_Name</TableHead>
                            
-                            <TableHead className="text-center">Sales_Vendor_Name</TableHead>
-                            <TableHead className="text-center">Broker_Name</TableHead>
+                           
+                        
+                            
                             <TableHead className="text-center">Demand_Quantity</TableHead>
+                           
+                            <TableHead className="text-center">Mapped_Quantity</TableHead>
+                              <TableHead className="text-center">Mapping_Backlog</TableHead>
+                               <TableHead className="text-center">Mapping_Progress_(%)</TableHead>
+                            <TableHead className="text-center">Packed_Quantity</TableHead>
+                        
+                            <TableHead className="text-center">Packing_Backlog</TableHead>
+                             <TableHead className="text-center">Packing_Progress_(%)</TableHead>
                             <TableHead className="text-center">Unit_Rate</TableHead>
                             <TableHead className="text-center">SO_Total_Amount</TableHead>
-                            <TableHead className="text-center">Mapped_Quantity</TableHead>
-                          
-                            <TableHead className="text-center">Packed_Quantity</TableHead>
-                            <TableHead className="text-center">Mapping_Backlog</TableHead>
-                            <TableHead className="text-center">Packing_Backlog</TableHead>
-                           
                             <TableHead className="text-center">GST</TableHead>
                             {/* <TableHead className="text-center">Edit Status</TableHead> */}
-                            <TableHead className="text-center">Created_By</TableHead>
-                            <TableHead className="text-center">Actioned_By</TableHead>
+                            <TableHead className="text-center">SO_Created_By</TableHead>
+                            <TableHead className="text-center">Approved/Rejected_By</TableHead>
                             <TableHead className="text-center">Order_Remarks</TableHead>
                             <TableHead className="text-center" >Action</TableHead>
                         </TableHeader>
@@ -635,8 +639,8 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                     <TableRow key={item.id} >
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                         <TableCell className="text-center font-bold ">{item.orderID}</TableCell>
-                                        <TableCell className="text-center text-purple-500 font-semibold">{item.origin}</TableCell>
-                                        <TableCell className="text-center font-semibold">{item.gradeName}</TableCell>
+                                                <TableCell className="text-center text-red-500  font-bold">{item.origin}</TableCell>
+                                        <TableCell className="text-center font-semibold text-blue-500">{item.gradeName}</TableCell>
                                         <TableCell className="text-center">
                                             {item.ordApproveStatus === 'Pending' ? (
                                                 <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
@@ -648,41 +652,47 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                                     :<button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Closed</button>
                                                 )
                                             )}</TableCell>
+                                
+                                         <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
+                                        <TableCell className="text-center">{handletimezone(item.orderInvDate)}</TableCell>
+                                        <TableCell className="text-center">{item.vendorName}</TableCell>
+                                        <TableCell className="text-center">{item.brokerName}</TableCell>
+                                        
+                                       
+                                       
+                                      
+                                        
+                                        <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}
+                                       
+                                        <TableCell className="text-center font-semibold  ">{formatNumber(item.mapquantity) !==0 ?formatNumber(item.mapquantity):''} </TableCell> {/* Prepared Quantity */}
+                                          <TableCell className="text-center font-semibold ">{formatNumber(item.mapquantity) !==0 ? (formatNumber((parseFloat(item.quantity) - parseFloat(item.mapquantity)).toString())):''} </TableCell> {/* Prepared Quantity */}
                                         <TableCell className="text-center">{item.ordApproveStatus !== 'Rejected'  ?( item.ordMappingStatus === 0 ? (
                                             <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
                                         ) : (
                                             
                                             
                                             <div className="flex flex-row items-center justify-center w-100">
-                                                            <Progress value={((Number(item.mapquantity)/Number(item.quantity))*100)} max={100} color="blue" className=" w-3/4" />
-                                                            <div className="w-3/4 text-center font-semibold text-green-700">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</div>
+                                                            <Progress value={((Number(item.mapquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4 " />
+                                                            <div className="w-3/4 text-center font-bold text-white rounded-md bg-green-500 ml-5">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</div>
                                                         </div>
                                             
                                             
                                             // <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</button>
                                         )):null}</TableCell>
-                                        <TableCell className="text-center">{item.ordApproveStatus !== 'Rejected' ?(Number(item.actualquantity) === 0 ? (
+                                      
+
+                                        <TableCell className="text-center font-semibold ">{formatNumber(item.actualquantity)!==0 ?formatNumber(item.actualquantity):''} </TableCell> {/* Prepared Quantity */}
+
+                                        <TableCell className="text-center font-semibold">{formatNumber(item.actualquantity)!==0 ?(formatNumber((parseFloat(item.quantity) - parseFloat(item.actualquantity)).toString())):''} </TableCell> {/* Prepared Quantity */}
+                                       <TableCell className="text-center">{item.ordApproveStatus !== 'Rejected' ?(Number(item.actualquantity) === 0 ? (
                                             <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
                                         ) : (
                                             <div className="flex flex-row items-center justify-center ">
                                             <Progress value={((Number(item.actualquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4" />
-                                            <div className="w-3/4 text-center font-semibold text-green-700">{formatNumber(((Number(item.actualquantity)/Number(item.quantity))*100).toString())} %</div>
+                                            <div className="w-3/4 text-center font-bold text-white rounded-md bg-green-500 ml-5">{formatNumber(((Number(item.actualquantity)/Number(item.quantity))*100).toString())} %</div>
                                         </div>                                        )):null}</TableCell> {/* Order completion Status */}
-                                        <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
-                                        <TableCell className="text-center">{handletimezone(item.orderInvDate)}</TableCell>
-                                      
-                                        <TableCell className="text-center">{item.vendorName}</TableCell>
-                                        <TableCell className="text-center">{item.brokerName}</TableCell>
-                                        <TableCell className="text-center font-semibold ">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}
-                                        <TableCell className="text-center">{formatNumber(item.unitRate)} &#8377;</TableCell>
+                                      <TableCell className="text-center">{formatNumber(item.unitRate)} &#8377;</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.totalBill)} &#8377;</TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-100 text-blue-600">{formatNumber(item.mapquantity)} Kg</TableCell> {/* Prepared Quantity */}
-
-                                        <TableCell className="text-center font-semibold bg-yellow-100 text-blue-600">{formatNumber(item.actualquantity)} Kg</TableCell> {/* Prepared Quantity */}
-                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber((parseFloat(item.quantity) - parseFloat(item.mapquantity)).toString())} Kg</TableCell> {/* Prepared Quantity */}
-
-                                        <TableCell className="text-center font-semibold text-red-500">{formatNumber((parseFloat(item.quantity) - parseFloat(item.actualquantity)).toString())} Kg</TableCell> {/* Prepared Quantity */}
-                                     
                                         <TableCell className="text-center">
                                             <input type="checkbox" checked={item.gst} />
                                         </TableCell> {/* GST */}

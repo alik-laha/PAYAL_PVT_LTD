@@ -485,7 +485,26 @@ const updateProductionGradeStock2526 = async () => {
         [sequelize.fn('SUM', sequelize.col('issue_dp_3l')), 'DP_3L'],
         [sequelize.fn('SUM', sequelize.col('issue_ss')), 'SS'],
         [sequelize.fn('SUM', sequelize.col('issue_os')), 'OS'],
-        [sequelize.fn('SUM', sequelize.col('issue_os1')), 'OS_1']
+        [sequelize.fn('SUM', sequelize.col('issue_os1')), 'OS1'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_ds')), 'V_DS'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_m_ds')), 'V_M_DS'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_dp')), 'V_DP'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_m_dp')), 'V_M_DP'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_lp')), 'V_LP'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_lp_2')), 'V_LP_2'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_k_dp')), 'V_K_DP'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_ss')), 'V_SS'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_yjh')), 'V_YJH'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_yk')), 'V_YK'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_sp_2')), 'V_SP_2'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_kp')), 'V_KP'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_dp_2')), 'V_DP_2'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_dp_3')), 'V_DP_3'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_dp_4')), 'V_DP_4'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_os')), 'V_OS'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_os_1')), 'V_OS_1'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_wp')), 'V_WP'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_rs')), 'V_RS']
       ],
       where: {
         Status: 1, editStatus: {[Op.notLike]:'Pending'},
@@ -507,16 +526,31 @@ const updateProductionGradeStock2526 = async () => {
         [sequelize.fn('SUM', sequelize.col('issue_jjh1')), 'JJH1'],
         [sequelize.fn('SUM', sequelize.col('issue_sjh')), 'SJH'],
         [sequelize.fn('SUM', sequelize.col('issue_jk')), 'JK'],
-        [sequelize.fn('SUM', sequelize.col('issue_jk1')), 'JK_1'],
+        [sequelize.fn('SUM', sequelize.col('issue_jk1')), 'JK1'],
         [sequelize.fn('SUM', sequelize.col('issue_k')), 'K'],
-        [sequelize.fn('SUM', sequelize.col('issue_k1')), 'K_1'],
-        [sequelize.fn('SUM', sequelize.col('issue_lwp1')), 'LWP_1'],
+        [sequelize.fn('SUM', sequelize.col('issue_k1')), 'K1'],
+        [sequelize.fn('SUM', sequelize.col('issue_lwp1')), 'LWP1'],
         [sequelize.fn('SUM', sequelize.col('issue_lwp')), 'LWP'],
         [sequelize.fn('SUM', sequelize.col('issue_s')), 'S'],
         [sequelize.fn('SUM', sequelize.col('issue_ss')), 'SS'],
         [sequelize.fn('SUM', sequelize.col('issue_yk')), 'YK'],
-        [sequelize.fn('SUM', sequelize.col('issue_sp2')), 'SP_2'],
-        [sequelize.fn('SUM', sequelize.col('issue_kp')), 'KP']
+        [sequelize.fn('SUM', sequelize.col('issue_sp2')), 'SP2'],
+        [sequelize.fn('SUM', sequelize.col('issue_kp')), 'KP'],
+        [sequelize.fn('SUM', sequelize.col('issue_in_k')), 'IN_K'],
+        [sequelize.fn('SUM', sequelize.col('issue_in_jh')), 'IN_JH'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_sjh')), 'V_SJH'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_k')), 'V_K'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_k1')), 'V_K1'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_lwp')), 'V_LWP'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_lwp1')), 'V_LWP1'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_jk')), 'V_JK'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_jk1')), 'V_JK1'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_ss')), 'V_SS'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_sp')), 'V_SP'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_sp2')), 'V_SP2'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_jh1')), 'V_JH1'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_yk')), 'V_YK'],
+        [sequelize.fn('SUM', sequelize.col('issue_V_m_jk1')), 'V_M_JK1']
       ],
       group: ['origin'],
       where: {
@@ -674,6 +708,61 @@ const updateProductionGradeStock2526 = async () => {
         [sequelize.fn('SUM', sequelize.col('issue_lw_400')), 'LW_400'],
         [sequelize.fn('SUM', sequelize.col('issue_jjb')), 'JJB'],
         [sequelize.fn('SUM', sequelize.col('issue_jjb1')), 'JJB1'],
+        [sequelize.fn('SUM', sequelize.col('issue_payal_240')), 'PAYAL_240'],
+        [sequelize.fn('SUM', sequelize.col('issue_payal_400')), 'PAYAL_400'],
+        [sequelize.fn('SUM', sequelize.col('issue_e_320_lot')), 'E_320_LOT'],
+        [sequelize.fn('SUM', sequelize.col('issue_e_400_lot')), 'E_400_LOT'],
+        [sequelize.fn('SUM', sequelize.col('issue_in_w_240')), 'IN_W_240'],
+        [sequelize.fn('SUM', sequelize.col('issue_in_w_320')), 'IN_W_320'],
+        [sequelize.fn('SUM', sequelize.col('issue_in_w_400')), 'IN_W_400'],
+        [sequelize.fn('SUM', sequelize.col('issue_a_150')), 'A_150'],
+        [sequelize.fn('SUM', sequelize.col('issue_c_150')), 'C_150'],
+        [sequelize.fn('SUM', sequelize.col('issue_e_150')), 'E_150'],
+        [sequelize.fn('SUM', sequelize.col('issue_sw_150')), 'SW_150'],
+        [sequelize.fn('SUM', sequelize.col('issue_ssw_150')), 'SSW_150'],
+        [sequelize.fn('SUM', sequelize.col('issue_k_150')), 'K_150'],
+        [sequelize.fn('SUM', sequelize.col('issue_a_180')), 'A_180'],
+        [sequelize.fn('SUM', sequelize.col('issue_c_180')), 'C_180'],
+        [sequelize.fn('SUM', sequelize.col('issue_e_180')), 'E_180'],
+        [sequelize.fn('SUM', sequelize.col('issue_sw_180')), 'SW_180'],
+        [sequelize.fn('SUM', sequelize.col('issue_ssw_180')), 'SSW_180'],
+        [sequelize.fn('SUM', sequelize.col('issue_k_180')), 'K_180'],
+        [sequelize.fn('SUM', sequelize.col('issue_a_210')), 'A_210'],
+        [sequelize.fn('SUM', sequelize.col('issue_c_210')), 'C_210'],
+        [sequelize.fn('SUM', sequelize.col('issue_e_210')), 'E_210'],
+        [sequelize.fn('SUM', sequelize.col('issue_sw_210')), 'SW_210'],
+        [sequelize.fn('SUM', sequelize.col('issue_ssw_210')), 'SSW_210'],
+        [sequelize.fn('SUM', sequelize.col('issue_k_210')), 'K_210'],
+        [sequelize.fn('SUM', sequelize.col('issue_a_240')), 'A_240'],
+        [sequelize.fn('SUM', sequelize.col('issue_c_240')), 'C_240'],
+        [sequelize.fn('SUM', sequelize.col('issue_e_240')), 'E_240'],
+        [sequelize.fn('SUM', sequelize.col('issue_sw_240')), 'SW_240'],
+        [sequelize.fn('SUM', sequelize.col('issue_ssw_240')), 'SSW_240'],
+        [sequelize.fn('SUM', sequelize.col('issue_k_240')), 'K_240'],
+        [sequelize.fn('SUM', sequelize.col('issue_a_280')), 'A_280'],
+        [sequelize.fn('SUM', sequelize.col('issue_c_280')), 'C_280'],
+        [sequelize.fn('SUM', sequelize.col('issue_e_280')), 'E_280'],
+        [sequelize.fn('SUM', sequelize.col('issue_sw_280')), 'SW_280'],
+        [sequelize.fn('SUM', sequelize.col('issue_ssw_280')), 'SSW_280'],
+        [sequelize.fn('SUM', sequelize.col('issue_k_280')), 'K_280'],
+        [sequelize.fn('SUM', sequelize.col('issue_a_320')), 'A_320'],
+        [sequelize.fn('SUM', sequelize.col('issue_c_320')), 'C_320'],
+        [sequelize.fn('SUM', sequelize.col('issue_e_320')), 'E_320'],
+        [sequelize.fn('SUM', sequelize.col('issue_sw_320')), 'SW_320'],
+        [sequelize.fn('SUM', sequelize.col('issue_ssw_320')), 'SSW_320'],
+        [sequelize.fn('SUM', sequelize.col('issue_k_320')), 'K_320'],
+        [sequelize.fn('SUM', sequelize.col('issue_a_360')), 'A_360'],
+        [sequelize.fn('SUM', sequelize.col('issue_c_360')), 'C_360'],
+        [sequelize.fn('SUM', sequelize.col('issue_e_360')), 'E_360'],
+        [sequelize.fn('SUM', sequelize.col('issue_sw_360')), 'SW_360'],
+        [sequelize.fn('SUM', sequelize.col('issue_ssw_360')), 'SSW_360'],
+        [sequelize.fn('SUM', sequelize.col('issue_k_360')), 'K_360'],
+        [sequelize.fn('SUM', sequelize.col('issue_a_400')), 'A_400'],
+        [sequelize.fn('SUM', sequelize.col('issue_c_400')), 'C_400'],
+        [sequelize.fn('SUM', sequelize.col('issue_e_400')), 'E_400'],
+        [sequelize.fn('SUM', sequelize.col('issue_sw_400')), 'SW_400'],
+        [sequelize.fn('SUM', sequelize.col('issue_ssw_400')), 'SSW_400'],
+        [sequelize.fn('SUM', sequelize.col('issue_k_400')), 'K_400'],
       ],
       where: {
         Status: 1, editStatus: {[Op.notLike]:'Pending'},
@@ -706,50 +795,7 @@ const updateProductionGradeStock2526 = async () => {
     });
     //console.log(rejectionresults)
 
-    const orderResults = await orderPrimaryModel.findAll({
-      attributes: [
-        'origin', 'gradeName',
-        [sequelize.fn('sum', sequelize.col('quantity')), 'issueOrderQuantity'],
-        [sequelize.fn('sum', sequelize.col('actualquantity')), 'consumeOrderQuantity'],
-      ],
-      where: {
-        orderInvDate: {
-          [Op.gte]: '2025-03-31', // From 31st March 2024
-          [Op.lt]: '2026-04-01', // Up to 1st April 2025
-        },
-        [Op.or]: [{ editStatus: 'Accepted' }, { editStatus: 'N/A' },
-
-
-        ]
-      },
-      group: ['origin', 'gradeName']
-    });
-
-    console.log(orderResults)
-
-    // Iterate over the Order results and upsert into the stock table
-    for (const orderResult of orderResults) {
-      const { origin, gradeName, issueOrderQuantity, consumeOrderQuantity } = orderResult.dataValues;
-
-      if (issueOrderQuantity !== null) {
-        await orderStockGrade2526.upsert({
-          origin,
-          grade: gradeName,
-          openquantity: issueOrderQuantity,
-          thresoldopenquantity: 0,
-          consumequantity: consumeOrderQuantity,
-          thresoldconsumequantity: 0
-        }, {
-          // Add a condition here to ensure that `upsert` works correctly
-          conflictFields: ['origin', 'grade'],  // This ensures it checks for these fields for conflict
-        });
-      }
-
-    }
-
-
-
-
+  
     // Iterate over the DPDS results and upsert into the stock table
     for (const dpdsresult of dpdsresults) {
       const { origin, ...dpdsissueFields } = dpdsresult.dataValues
@@ -889,6 +935,79 @@ const updateProductionGradeStock2526 = async () => {
           }, {
             // Add a condition here to ensure that `upsert` works correctly
             conflictFields: ['section', 'origin', 'grade'],  // This ensures it checks for these fields for conflict
+          });
+        }
+      }
+    }
+
+     const orderResults = await orderPrimaryModel.findAll({
+      attributes: [
+        'origin', 'gradeName',
+        [sequelize.fn('sum', sequelize.col('quantity')), 'issueOrderQuantity'],
+        [sequelize.fn('sum', sequelize.col('actualquantity')), 'consumeOrderQuantity'],
+      ],
+      where: {
+        orderInvDate: {
+          [Op.gte]: '2025-03-31', // From 31st March 2024
+          [Op.lt]: '2026-04-01', // Up to 1st April 2025
+        },
+        [Op.or]: [{ editStatus: 'Accepted' }, { editStatus: 'N/A' },
+
+
+        ]
+      },
+      group: ['origin', 'gradeName']
+    });
+
+    console.log(orderResults)
+
+    // Iterate over the Order results and upsert into the stock table
+    // for (const orderResult of orderResults) {
+    //   const { origin, gradeName, issueOrderQuantity, consumeOrderQuantity } = orderResult.dataValues;
+
+    //   if (issueOrderQuantity !== null) {
+    //     await orderStockGrade2526.upsert({
+    //       origin,
+    //       grade: gradeName,
+    //       openquantity: issueOrderQuantity,
+    //       thresoldopenquantity: 0,
+    //       consumequantity: consumeOrderQuantity,
+    //       thresoldconsumequantity: 0
+    //     }, {
+    //       // Add a condition here to ensure that `upsert` works correctly
+    //       conflictFields: ['origin', 'grade'],  // This ensures it checks for these fields for conflict
+    //     });
+    //   }
+
+    // }
+
+    for (const orderResult of orderResults) {
+      const { origin, gradeName, issueOrderQuantity, consumeOrderQuantity } = orderResult.dataValues;
+
+      if (issueOrderQuantity !== null) {
+        const existingRow = await orderStockGrade2526.findOne({
+          where: {
+            origin,
+            grade: gradeName
+          }
+        });
+
+        if (existingRow) {
+          // Only update fields you want to change
+          await existingRow.update({
+            openquantity: issueOrderQuantity,
+            consumequantity: consumeOrderQuantity
+            // Do not touch threshold fields
+          });
+        } else {
+          // Insert new row with thresholds set to 0
+          await orderStockGrade2526.create({
+            origin,
+            grade: gradeName,
+            openquantity: issueOrderQuantity,
+            thresoldopenquantity: 0,
+            consumequantity: consumeOrderQuantity,
+            thresoldconsumequantity: 0
           });
         }
       }
