@@ -3,11 +3,11 @@ import sequelize from "../config/databaseConfig";
 
 
 
-const cashewOutModel = sequelize.define('cashewOut', {
+const cashewOutEditModel = sequelize.define('cashewOutEdit', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+
     },
     date: {
         type: DataTypes.DATE,
@@ -20,11 +20,6 @@ const cashewOutModel = sequelize.define('cashewOut', {
     },
 
     batchNo: {
-        type: DataTypes.STRING,
-        allowNull: true,
-
-    },
-    invoice: {
         type: DataTypes.STRING,
         allowNull: true,
 
@@ -53,11 +48,6 @@ const cashewOutModel = sequelize.define('cashewOut', {
         type: DataTypes.FLOAT,
         allowNull: true
     },
-
-    actualquantity: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: true
-    },
     status: {
         type: DataTypes.INTEGER,
         defaultValue: 0
@@ -84,6 +74,15 @@ const cashewOutModel = sequelize.define('cashewOut', {
         type: DataTypes.STRING,
         defaultValue: "NA"
     },
+    invoice: {
+        type: DataTypes.STRING,
+        allowNull: true,
+
+    },
+    actualquantity: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true
+    },
 
     createdBy: {
         type: DataTypes.STRING,
@@ -95,4 +94,4 @@ const cashewOutModel = sequelize.define('cashewOut', {
     }
 });
 
-export default cashewOutModel;
+export default cashewOutEditModel;

@@ -40,6 +40,7 @@ import formLockRouter from "./model/formLockRouter";
 import packingRouter from "./router/packingRouter";
 import VillageOutRouter from "./router/VillageOutRouter";
 import RcvVillageInRouter from "./router/RcvVillageInRouter";
+import cashewOutRouter from "./router/cashewOutRouter";
 
 
 
@@ -53,6 +54,7 @@ app.get("/api", (req, res) => {
 })
 app.use("/api/employee", employeeRouter)
 app.use("/api/rcnprimary", RcnPrimary)
+app.use("/api/cashewOut", cashewOutRouter)
 app.use('/api/user', userRouter)
 app.use('/api/asset', assetRouter)
 app.use('/api/qcRcn', qcRcnRouter)

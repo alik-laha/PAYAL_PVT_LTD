@@ -210,6 +210,26 @@ export interface AgarbatiPrimaryEntryData {
     totalWt:string;  
     totalBill:string;  
 }
+
+export interface CashewOutEntryData {
+    id: number;
+    date: string; // ISO date string (e.g. "2025-05-12T00:00:00.000Z")
+    gatePassNo: string;
+    batchNo: string;
+    partyName: string;
+    gradeName: string;
+    grossWt: string;
+    truckNo: string;
+    quantity: string;
+    status: number;
+    netWeight: string;
+    noOfBags: string;
+    noOfActualBags: string;
+    origin: string;
+    editStatus: string;
+    createdBy: string;
+    approvedBy: string;
+}
 export interface BormaEntryData {
    
             id: number;
@@ -1419,10 +1439,16 @@ export interface SumofAllTypeDataAlmond {
     type: string;
     totalBags: number;
 }
+export interface SumofAllTypeDataCashewOut {
+    origin: string;
+    quantity: number;
+}
+
 export interface SumofAllTypeDataAgarbati {
     grade: string;
     totalBags: number;
 }
+
 
 export interface EmployeeData {
     id: number;

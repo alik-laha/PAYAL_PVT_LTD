@@ -1189,7 +1189,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                                 </AlertDialogTrigger>
                                                 <AlertDialogContent>
                                                     <AlertDialogHeader>
-                                                        <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
+                                                        <AlertDialogTitle>Do you want to Unpack the Entry?</AlertDialogTitle>
                                                     </AlertDialogHeader>
                                                     <AlertDialogFooter>
                                                         <AlertDialogCancel>Cancel</AlertDialogCancel>

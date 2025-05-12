@@ -54,7 +54,14 @@ const PackingCreateForm = (props: any) => {
                         }
                     }).catch((err) => {
                         console.log(err)
-                        setErrorText(err.response.data.message)
+                        console.log(err.response.data.error.original.errno)
+                        if(err.response.data.error.original.errno && err.response.data.error.original.errno===1062){
+                            setErrorText('Batch ID Already Exists')
+                        }
+                        else {
+                            setErrorText(err.response.data.message)
+                        }
+                       
                         if (errordialog != null) {
                             (errordialog as any).showModal();
                         }

@@ -17,7 +17,8 @@ import { AssetData, EditPendingData, GradingData, BoilingEntryData, Sumofpackage
      LWData,
      RejectionData,
      VilageData,
-     sumofRcvVillageInPrimary} from '../../type/type';
+     sumofRcvVillageInPrimary,
+     CashewOutEntryData} from '../../type/type';
 
 interface ContextType {
     editPendingData: EditPendingData[];
@@ -62,6 +63,8 @@ interface ContextType {
     setEditPendingAlmondData: (data: AlmondPrimaryEntryData[]) => void;
     editPendingAgarbatiData: AgarbatiPrimaryEntryData[];
     setEditPendingAgarbatiData: (data: AgarbatiPrimaryEntryData[]) => void;
+    editPendingCashewOutData: CashewOutEntryData[];
+    setEditPendingCashewOutData: (data: CashewOutEntryData[]) => void;
     editPendingOilMillData: OilMillPrimaryEntryData[];
     setEditPendingOilMillData: (data: OilMillPrimaryEntryData[]) => void;
     editScoopingLotWiseData: rcnScoopingData[];
@@ -152,6 +155,8 @@ const Context = createContext<ContextType>({
     setRcvVillageInPrimaryOverView: () => {},
     editPendingAgarbatiData: [],
     setEditPendingAgarbatiData: () => {},
+    editPendingCashewOutData: [],
+    setEditPendingCashewOutData: () => {},
     editPendingOilMillData: [],
     setEditPendingOilMillData: () => {},
     editDPDSLotWiseData: [],

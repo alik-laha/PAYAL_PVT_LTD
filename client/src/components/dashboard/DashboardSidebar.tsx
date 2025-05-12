@@ -20,7 +20,7 @@ import { TbBrandPeanut, TbSitemap } from "react-icons/tb";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { FaUserTie, FaWater, FaSortAmountDownAlt ,FaAcquisitionsIncorporated } from "react-icons/fa";
 import { PiPackageLight, PiWashingMachineLight } from "react-icons/pi";
-import { GiBoilingBubbles, GiIceCreamScoop, GiGate, GiPillDrop ,GiBoxingRing,GiVendingMachine, GiBoxUnpacking, GiVillage } from "react-icons/gi";
+import { GiBoilingBubbles, GiIceCreamScoop, GiGate, GiPillDrop ,GiBoxingRing,GiVendingMachine, GiBoxUnpacking, GiVillage, GiOpenedFoodCan } from "react-icons/gi";
 import { AiFillCodeSandboxSquare, AiOutlineProduct } from "react-icons/ai";
 import { CiPill } from "react-icons/ci";
 import { GrEject } from "react-icons/gr";
@@ -179,6 +179,17 @@ const DashboardSidebar = () => {
                                     <NavLink to="/dashboard/rcnprimaryentry" >
 
                                         <p className="flex"><LuDonut size={20} /> <p className="pl-3"> Raw Cachew </p></p>
+
+                                    </NavLink>
+
+                                </CollapsibleContent>}
+
+
+                            {renderlink('Cashew Exit')
+                                && <CollapsibleContent className="Items-pvt">
+                                    <NavLink to="/dashboard/rcnprimaryexit" >
+
+                                        <p className="flex"><GiOpenedFoodCan  size={20} /> <p className="pl-3">Finished Cachew </p></p>
 
                                     </NavLink>
 
