@@ -317,7 +317,7 @@ const CashewOutEntryForm = (props: Props) => {
 
                                                 <TableCell className="text-center">
 
-                                                     <Input  placeholder="Batch No" value={row.batchNo} onChange={(e)=>handleBatchNoChange(index, e)} />
+                                                     <Input  placeholder="Batch No" className='bg-purple-100' value={row.batchNo} onChange={(e)=>handleBatchNoChange(index, e)} />
                                                      {actvbatchindex === index && <ScrollArea className="h-30 w-30 dropdown-content" style={{ display: lotview }}>
                                                                              {
                                                                                  lotdata.map((item) => (
@@ -331,23 +331,23 @@ const CashewOutEntryForm = (props: Props) => {
                                                 </TableCell>
 
                                                 <TableCell className="text-center" >
-                                                    <Input value={row.partyName} className='bg-purple-100' placeholder="Party Name"/>
+                                                    <Input value={row.partyName}  placeholder="Party Name"/>
                                                 </TableCell>
 
                                                 <TableCell className="text-center" >
-                                                    <Input value={row.origin} className='bg-purple-100' placeholder="Origin"/>
+                                                    <Input value={row.origin}  placeholder="Origin"/>
                                                 </TableCell>
 
                                                 <TableCell className="text-center" >
-                                                    <Input value={row.gradeName} className='bg-purple-100' placeholder="Grade Name" />
+                                                    <Input value={row.gradeName}  placeholder="Grade Name" />
                                                 </TableCell>
                                                  <TableCell className="text-center" >
-                                                    <Input value={row.noOfBags} className='bg-purple-100' placeholder="Pouch/Bucket " />
+                                                    <Input value={row.noOfBags}  placeholder="Pouch/Bucket " />
                                                 </TableCell>
 
                                                 <TableCell className="text-center" >
 
-                                                    <Input value={row.noOfActualBags} placeholder="Pouch/Bucket"  type='number' onChange={(e) => {
+                                                    <Input value={row.noOfActualBags} type='number' onChange={(e) => {
                                                         handleRowChange(index, 'noOfActualBags', e.target.value)
                                                     }} />
                                                 </TableCell>
