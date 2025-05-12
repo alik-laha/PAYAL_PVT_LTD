@@ -488,6 +488,25 @@ const ProdTransacTable = () => {
         })
 
     }
+    const handleUnpack = (item: any) => {
+       
+        axios.post('/api/packing/unPackOrder', {item}).then((res) => {
+            setErrorText(res.data.message);
+            console.log(res.data)
+            if (successdialog != null) {
+                (successdialog as any).showModal();
+            }
+
+            //window.location.reload()
+        }).catch((err) => {
+            console.log(err)
+            setErrorText(err.response.data.message)
+            if (errordialog != null) {
+                (errordialog as any).showModal();
+            }
+        })
+
+    }
 
     const Role = localStorage.getItem('role') as keyof PermissionRole
                     const checkpending = (tab: string) => {
@@ -1143,8 +1162,8 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
 
                                        <Popover>
                                             <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' ? 'bg-cyan-200' : 'bg-cyan-500'}`} 
-                                                disabled={item.editStatus === 'Pending'  ? true : false}>Action</button>
+                                                <button className={`p-2 text-white rounded ${item.dispatchStatus === 1 ? 'bg-cyan-200' : 'bg-cyan-500'}`} 
+                                                disabled={item.dispatchStatus === 1  ? true : false}>Action</button>
                                             </PopoverTrigger>
                                             {item.packingStatus!==1 && <PopoverContent className="flex flex-col text-sm w-30 font-medium">
                                                 <Dialog>
@@ -1160,6 +1179,24 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                                         <PackingCreateForm data={item} />
                                                     </DialogContent>
                                                 </Dialog>
+                                                    </PopoverContent>}
+
+
+                                                    {item.packingStatus===1 && item.dispatchStatus === 0 && <PopoverContent className="flex flex-col text-sm w-30 font-medium">
+                                                <AlertDialog>
+                                                <AlertDialogTrigger className="flex mt-2">
+                                                    <FcCancel size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500"> Unpack</button>
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleUnpack(item)}>Continue</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
                                                     </PopoverContent>}
                                                                                                 
                                                                                             </Popover>

@@ -12,9 +12,9 @@ const cashewOutModel = sequelize.define('cashewOut', {
     date: {
         type: DataTypes.DATE,
         allowNull: false
-       
+
     },
-    gatePassNo:{
+    gatePassNo: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -22,20 +22,20 @@ const cashewOutModel = sequelize.define('cashewOut', {
     batchNo: {
         type: DataTypes.STRING,
         allowNull: true,
-          
+
     },
     partyName: {
         type: DataTypes.STRING,
         allowNull: true,
-          
+
     },
     gradeName: {
         type: DataTypes.STRING,
         allowNull: true,
-          
+
     },
-    grossWt:{
-        type: DataTypes.DECIMAL(10,2),
+    grossWt: {
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false
     },
 
@@ -43,12 +43,12 @@ const cashewOutModel = sequelize.define('cashewOut', {
         type: DataTypes.STRING,
         allowNull: false
     },
-  
+
     quantity: {
         type: DataTypes.FLOAT,
         allowNull: true
     },
-    status:{
+    status: {
         type: DataTypes.INTEGER,
         defaultValue: 0
     },
@@ -57,13 +57,13 @@ const cashewOutModel = sequelize.define('cashewOut', {
         type: DataTypes.FLOAT,
         allowNull: true
     },
-   
+
     noOfBags: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
     noOfActualBags: {
-     type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
     origin: {
@@ -74,7 +74,7 @@ const cashewOutModel = sequelize.define('cashewOut', {
         type: DataTypes.STRING,
         defaultValue: "NA"
     },
-    
+
     createdBy: {
         type: DataTypes.STRING,
         allowNull: true

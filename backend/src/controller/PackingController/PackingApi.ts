@@ -1827,3 +1827,59 @@ export const createPacking = async (req: Request, res: Response) => {
          return res.status(500).json({ message: 'Internal server error', error: err })
      }
  };
+
+ export const createunPacking = async (req: Request, res: Response) => {
+    try{
+     const { id, orderpk, 
+        fulfillquantity } = req.body.item;
+   
+     const actionedBy = req.cookies.user;
+
+     await sequelize.transaction( async (transaction) =>{
+        
+      
+        const packingUpdate = await orderPackingModel.update(
+            {
+                BatchID:null,
+                mfgDate:null,
+                packingStatus:0,
+                packingquantity:null,
+                convpackingquantity:null,
+                createdBy:actionedBy
+            },
+            {
+                where: {
+                    id
+                }, transaction
+            }
+        );
+        if(packingUpdate){
+          
+
+            const orderupdate = await orderPrimaryModel.update(
+                {
+                    actualquantity:sequelize.literal(`actualquantity- ${fulfillquantity}`),
+                },
+                {
+                    where: {
+                        id:orderpk
+                    }, transaction
+                }
+            );
+            if ( orderupdate) {
+                res.status(200).json({ message: "Sales Order unPacked Successfully" });
+            }
+            else{
+                return res.status(500).json({ message: 'Error in Creating UnPacking'})
+            }
+        }
+
+     
+     })
+ 
+    }
+     catch (err) {
+         console.log(err)
+         return res.status(500).json({ message: 'Internal server error', error: err })
+     }
+ };

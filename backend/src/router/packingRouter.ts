@@ -1,6 +1,6 @@
 import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
-import { approvePurchaseOrder, cancelPurchaseOrder, closePurchaseOrder, createOrderEntire, createPacking, deleteOrderMapping, getActvOrderCount, getMappingByGradeOrigin, getMappingLot, lotdataFind, lotQtydataFind, manualProdStockUpdate, mappingSearch, mappingSearchAll, modifyOrder, orderSearch, 
+import { approvePurchaseOrder, cancelPurchaseOrder, closePurchaseOrder, createOrderEntire, createPacking, createunPacking, deleteOrderMapping, getActvOrderCount, getMappingByGradeOrigin, getMappingLot, lotdataFind, lotQtydataFind, manualProdStockUpdate, mappingSearch, mappingSearchAll, modifyOrder, orderSearch, 
     ordStockSearch, packingSearch, prodStockSearch, 
     rejectPurchaseOrder,
     updateMappingOrder,
@@ -31,5 +31,5 @@ router.put("/modifyOrder/:id",jwtVerify, modifyOrder)
 router.get("/activeordercount", jwtVerify, getActvOrderCount)
 router.post("/deleteOrderMapping",jwtVerify, deleteOrderMapping)
 router.post("/createPacking/:id",jwtVerify, createPacking)
-
+router.post("/unPackOrder",jwtVerify, createunPacking)
 export default router
