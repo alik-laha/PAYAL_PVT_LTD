@@ -219,24 +219,24 @@ const OrderCreateForm = () => {
     return (
         <>
             <div className="px-5 mt-4">
-                <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit2}>
+                <form className='flex flex-col gap-0.5  ' onSubmit={handleSubmit2}>
 
-                    <div className="mx-8 flex flex-col gap-1">
+                    <div className="mx-1 flex flex-col gap-1">
                         <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Order Receive Date (*)</Label>
-                            <Input type='date' className="w-2/4 text-center justify-center" placeholder="Vehicle No" ref={dateIssueref} required />
+                            <Label className="w-1/4 pt-1">Order Receive Date (*)</Label>
+                            <Input type='date' className="w-1/4 text-center justify-center" placeholder="Vehicle No" ref={dateIssueref} required />
                         </div>
                         <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Order Entry Date (*)</Label>
-                            <Input type='date' className="w-2/4 text-center justify-center" placeholder="Vehicle No" ref={invdateIssueref} required />
+                            <Label className="w-1/4 pt-1">Order Entry Date (*)</Label>
+                            <Input type='date' className="w-1/4 text-center justify-center" placeholder="Vehicle No" ref={invdateIssueref} required />
                         </div>
                         <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Vendor Name (*)</Label>
-                            <Input className="w-2/4 text-center" placeholder="Vendor Name" ref={usernameRef} required />
+                            <Label className="w-1/4 pt-1">Vendor Name (*)</Label>
+                            <Input className="w-1/4 text-center" placeholder="Vendor Name" ref={usernameRef} required />
                         </div>
                         <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Broker Name (*)</Label>
-                            <Input className="w-2/4 text-center" placeholder="Broker Name" ref={brokernameRef} required />
+                            <Label className="w-1/4 pt-1">Broker Name (*)</Label>
+                            <Input className="w-1/4 text-center" placeholder="Broker Name" ref={brokernameRef} required />
                         </div>
                     </div>
 
@@ -322,7 +322,7 @@ const OrderCreateForm = () => {
 
                                                 <TableCell className="text-center">
                                                     <Input
-                                                        type="checkbox" className="h-4 w-4 text-center justify-center items-center ml-9"
+                                                        type="checkbox" className="h-4 w-4 text-center justify-center items-center ml-20"
                                                         checked={row.gst}
                                                         onChange={(e) => {
                                                             handleRowChange(index, 'gst', String(e.target.checked))

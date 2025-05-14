@@ -643,7 +643,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                         
                             <TableHead className="text-center">Packing_Backlog</TableHead>
                              <TableHead className="text-center">Packing_Progress_(%)</TableHead>
-                            <TableHead className="text-center">Unit_Rate</TableHead>
+                            <TableHead className="text-center">Price_UnitRate</TableHead>
                             <TableHead className="text-center">SO_Total_Amount</TableHead>
                             <TableHead className="text-center">GST</TableHead>
                             {/* <TableHead className="text-center">Edit Status</TableHead> */}
@@ -683,16 +683,19 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                         
                                         <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}
                                        
-                                        <TableCell className="text-center font-semibold  ">{formatNumber(item.mapquantity) !==0 ?formatNumber(item.mapquantity):''} </TableCell> {/* Prepared Quantity */}
-                                          <TableCell className="text-center font-semibold ">{formatNumber(item.mapquantity) !==0 ? (formatNumber((parseFloat(item.quantity) - parseFloat(item.mapquantity)).toString())):''} </TableCell> {/* Prepared Quantity */}
-                                        <TableCell className="text-center">{item.ordApproveStatus !== 'Rejected'  ?( item.ordMappingStatus === 0 ? (
-                                            <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
+                                        <TableCell className="text-center font-semibold  ">{formatNumber(item.mapquantity) !==0 ? `${formatNumber(item.mapquantity)} Kg`:''} </TableCell> {/* Prepared Quantity */}
+                                          <TableCell className="text-center  font-semibold ">{formatNumber(item.mapquantity) !==0 ? `${(formatNumber((parseFloat(item.quantity) - parseFloat(item.mapquantity)).toString()))} Kg`:''} </TableCell> {/* Prepared Quantity */}
+                                        <TableCell className="text-center ">{item.ordApproveStatus !== 'Rejected'  ?( item.ordMappingStatus === 0 ? (
+                                            <div className="flex flex-row items-center justify-center w-100 ">
+                                                            <Progress value={((Number(item.mapquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4 " />
+                                                            <div className="w-3/4 text-center font-bold text-white bg-red-500 ml-5">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</div>
+                                                        </div>
                                         ) : (
                                             
                                             
-                                            <div className="flex flex-row items-center justify-center w-100">
+                                            <div className="flex flex-row items-center justify-center w-100 ">
                                                             <Progress value={((Number(item.mapquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4 " />
-                                                            <div className="w-3/4 text-center font-bold text-white rounded-md bg-green-500 ml-5">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</div>
+                                                            <div className="w-3/4 text-center font-bold text-white  bg-green-500 ml-5">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</div>
                                                         </div>
                                             
                                             
@@ -700,16 +703,22 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                         )):null}</TableCell>
                                       
 
-                                        <TableCell className="text-center font-semibold ">{formatNumber(item.actualquantity)!==0 ?formatNumber(item.actualquantity):''} </TableCell> {/* Prepared Quantity */}
+                                        <TableCell className="text-center font-semibold ">{formatNumber(item.actualquantity)!==0 ?`${formatNumber(item.actualquantity)} Kg`:''} </TableCell> {/* Prepared Quantity */}
 
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.actualquantity)!==0 ?(formatNumber((parseFloat(item.quantity) - parseFloat(item.actualquantity)).toString())):''} </TableCell> {/* Prepared Quantity */}
-                                       <TableCell className="text-center">{item.ordApproveStatus !== 'Rejected' ?(Number(item.actualquantity) === 0 ? (
-                                            <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
+                                        <TableCell className="text-center font-semibold ">{formatNumber(item.actualquantity)!==0 ?
+                                        `${(formatNumber((parseFloat(item.quantity) - parseFloat(item.actualquantity)).toString()))} Kg`:''} </TableCell> {/* Prepared Quantity */}
+                                       <TableCell className="text-center ">{item.ordApproveStatus !== 'Rejected' ?(Number(item.actualquantity) === 0 ? (
+                                             <div className="flex flex-row items-center justify-center ">
+                                            <Progress value={((Number(item.actualquantity)/Number(item.quantity))*100)} max={100} color="red" className=" w-3/4" />
+                                            <div className="w-3/4 text-center font-bold text-white  bg-red-500 ml-5">{formatNumber(((Number(item.actualquantity)/Number(item.quantity))*100).toString())} %</div>
+                                        </div>  
                                         ) : (
                                             <div className="flex flex-row items-center justify-center ">
                                             <Progress value={((Number(item.actualquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4" />
-                                            <div className="w-3/4 text-center font-bold text-white rounded-md bg-green-500 ml-5">{formatNumber(((Number(item.actualquantity)/Number(item.quantity))*100).toString())} %</div>
+                                            <div className="w-3/4 text-center font-bold text-white  bg-green-500 ml-5">{formatNumber(((Number(item.actualquantity)/Number(item.quantity))*100).toString())} %</div>
                                         </div>                                        )):null}</TableCell> {/* Order completion Status */}
+
+
                                       <TableCell className="text-center">{formatNumber(item.unitRate)} &#8377;</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.totalBill)} &#8377;</TableCell>
                                         <TableCell className="text-center">
@@ -799,7 +808,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                                                 <div className="flex"><FcApproval size={25} />  <button className="bg-transparent pl-1 rounded-md hover:text-green-500"> Re-Mapping </button></div></DialogTrigger>
                                                                 <DialogContent className='max-w-screen' style={{ display: 'block' }}>
                                                                     <DialogHeader>
-                                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Order Mapping Entry</p></DialogTitle>
+                                                                        <DialogTitle><p className='text-1xl text-center mt-1'>Order Re-Mapping Entry</p></DialogTitle>
 
                                                                     </DialogHeader>
 

@@ -221,7 +221,9 @@ export interface CashewOutEntryData {
     grossWt: string;
     truckNo: string;
     quantity: string;
+    actualquantity: string;
     status: number;
+    invoice: string;
     netWeight: string;
     noOfBags: string;
     noOfActualBags: string;
@@ -559,7 +561,7 @@ export interface BormaExcelData {
     Mc_off: string;
     Mc_breakdown: string;
     Mc_runTime: string;
-    noOfOperators:string;
+    noOfOperators:number;
     otherTime: string;
     NoOfTrolley: string;
     InputMoisture: string | number;
@@ -1397,7 +1399,7 @@ export interface HumidExcelData {
     Mc_off: string;
     Mc_breakdown: string;
     Mc_runTime: string;
-    noOfOperators:string;
+    noOfOperators:number;
     otherTime: string;
     NoOfTrolley: string;
     InputMoisture: string | number;
@@ -1667,14 +1669,14 @@ export interface BoilingExcelData {
     Entry_Date: string;
     Origin: string;
     Size: string;
-    Boiling_Qty: string;
+    Boiling_Qty: Number;
     Scooping_Line: string;
     Pressure: string;
     Moisture: string;
     Machine: string;
     MC_On: string;
     MC_Off: string;
-    Labour_No: string;
+    Labour_No: Number;
     Breakdown_Duration: string;
     Other_Duration: string;
     Cooking_Time: string;

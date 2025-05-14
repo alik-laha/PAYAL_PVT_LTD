@@ -145,7 +145,7 @@ const DashboardSidebar = () => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/storePrimary" >
 
-                                        <p className="flex"><MdOutlineStorefront size={20} /><p className="pl-3">    Store Item </p></p>
+                                        <p className="flex"><MdOutlineStorefront size={20} /><p className="pl-3">Store Item </p></p>
                                     </NavLink>
 
                                 </CollapsibleContent>}
@@ -154,7 +154,7 @@ const DashboardSidebar = () => {
                                 && <CollapsibleContent className="Items-pvt">
                                     {renderlink('Dashboard User')}
                                     <NavLink to="/dashboard/StoreIssue" >
-                                        <p className="flex"><IoArrowRedoOutline size={20} /> <p className="pl-3">Store Item Issue</p></p>
+                                        <p className="flex"><IoArrowRedoOutline size={20} /> <p className="pl-3">Store Issue</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
@@ -178,7 +178,7 @@ const DashboardSidebar = () => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/rcnprimaryentry" >
 
-                                        <p className="flex"><LuDonut size={20} /> <p className="pl-3"> Raw Cachew </p></p>
+                                        <p className="flex"><LuDonut size={20} /> <p className="pl-3"> Raw Cachew IN</p></p>
 
                                     </NavLink>
 
@@ -189,7 +189,7 @@ const DashboardSidebar = () => {
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/rcnprimaryexit" >
 
-                                        <p className="flex"><GiOpenedFoodCan  size={20} /> <p className="pl-3">Finished Cachew </p></p>
+                                        <p className="flex"><GiOpenedFoodCan  size={20} /> <p className="pl-3">Finished Cachew OUT</p></p>
 
                                     </NavLink>
 

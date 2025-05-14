@@ -131,49 +131,57 @@ export const updateRcvVillageIn = async (req: Request, res: Response) => {
             return res.status(500).json({ message: "Vendor Does Not Exist" });
         }
         else {
-            const newPackageMaterial = await RcvVillageInModel.update({
-
-                sku, invoice, type,
-                vendorName: vendorN,
-                quantity, origin,
-                remarks, totalWt,
-                wholes_quantity: wholes,
-                wholes_prcntg: wholesprcntg,
-                pieces_quantity: piece,
-                pieces_prcntg: pieceprcntg,
-                lw_quantity: lw,
-                lw_prcntg: lwprcntg,
-                dp_quantity: dp,
-                dp_prcntg: dpprcntg,
-                jb_quantity: jb,
-                jb_prcntg: jbprcntg,
-                jbp_quantity: jbp,
-                jbp_prcntg: jbpprcntg,
-                sdp_quantity: sdp,
-                sdp_prcntg: sdpprcntg,
-                husk_quantity: husk,
-                husk_prcntg: huskprcntg,
-                e1_quantity: unpeel,
-                e1_prcntg: unpeelprcntg,
-                createdBy, status: 1
-            }, {
-                where: {
-                    id: id
-                }
-            });
-            if (newPackageMaterial) {
-                return res.status(201).json({ message: "Village material Received successfully", newPackageMaterial });
+            if (parseFloat(totalWt) !== (parseFloat(wholes)
+                + parseFloat(piece)
+                + parseFloat(lw)
+                + parseFloat(dp)
+                + parseFloat(jb)
+                + parseFloat(jbp)
+                + parseFloat(sdp)
+                + parseFloat(husk) + parseFloat(unpeel)
+            )) {
+                res.status(500).json({ message: "Backlog should be Always 0 for a Row Item" });
             }
             else {
-                return res.status(500).json({ message: "internal error while creating Village Entry" });
+                const newPackageMaterial = await RcvVillageInModel.update({
+
+                    sku, invoice, type,
+                    vendorName: vendorN,
+                    quantity, origin,
+                    remarks, totalWt,
+                    wholes_quantity: wholes,
+                    wholes_prcntg: wholesprcntg,
+                    pieces_quantity: piece,
+                    pieces_prcntg: pieceprcntg,
+                    lw_quantity: lw,
+                    lw_prcntg: lwprcntg,
+                    dp_quantity: dp,
+                    dp_prcntg: dpprcntg,
+                    jb_quantity: jb,
+                    jb_prcntg: jbprcntg,
+                    jbp_quantity: jbp,
+                    jbp_prcntg: jbpprcntg,
+                    sdp_quantity: sdp,
+                    sdp_prcntg: sdpprcntg,
+                    husk_quantity: husk,
+                    husk_prcntg: huskprcntg,
+                    e1_quantity: unpeel,
+                    e1_prcntg: unpeelprcntg,
+                    createdBy, status: 1
+                }, {
+                    where: {
+                        id: id
+                    }
+                });
+                if (newPackageMaterial) {
+                    return res.status(201).json({ message: "Village material Received successfully", newPackageMaterial });
+                }
+                else {
+                    return res.status(500).json({ message: "internal error while creating Village Entry" });
+                }
             }
+
         }
-
-
-
-
-
-
     } catch (error) {
         console.log(error)
         return res.status(500).json({ message: "internal error while creating Village Entry" });
@@ -211,6 +219,20 @@ export const updateRcvVillageInEntire = async (req: Request, res: Response) => {
         }
         else {
             await RcvVillageInModel.sequelize?.transaction(async (transaction) => {
+                if (parseFloat(totalWt) !== (parseFloat(wholes)
+                    + parseFloat(piece)
+                    + parseFloat(lw)
+                    + parseFloat(dp)
+                    + parseFloat(jb)
+                    + parseFloat(jbp)
+                    + parseFloat(sdp)
+                    + parseFloat(husk) + parseFloat(unpeel)
+                )) {
+
+                    res.status(500).json({ message: "Backlog should be Always 0 for a Row Item" });
+                    throw new Error('Transaction Aborted due to non 0 backlog value')
+
+                }
                 const newPackageMaterial = await RcvVillageInModel.update({
                     sku, invoice, type,
                     vendorName: vendorN,
@@ -248,6 +270,21 @@ export const updateRcvVillageInEntire = async (req: Request, res: Response) => {
                         if (!vendorData) {
                             res.status(500).json({ message: "Vendor Does Not Exist" });
                             throw new Error('Transaction Aborted')
+                        }
+
+                        if (parseFloat(data.totalWt) !== (parseFloat(data.wholes)
+                            + parseFloat(data.piece)
+                            + parseFloat(data.lw)
+                            + parseFloat(data.dp)
+                            + parseFloat(data.jb)
+                            + parseFloat(data.jbp)
+                            + parseFloat(data.sdp)
+                            + parseFloat(data.husk)+ parseFloat(data.unpeel)
+                        )) {
+                        
+                            res.status(500).json({ message: "Backlog should be Always 0 for a Row Item" });
+                            throw new Error('Transaction Aborted due to non 0 backlog value')
+
                         }
                         await RcvVillageInModel.create({
                             gatePassNo: data.GatePassNo, grossWt: data.GrossWt, truckNo: data.TruckNo,

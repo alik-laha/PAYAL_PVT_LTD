@@ -126,9 +126,9 @@ const Packing = () => {
                     <div className="flex text-center">
                         {checkpending('OrderCreate') && <Dialog>
                             <DialogTrigger>   <Button className="bg-lime-500 mb-2 ml-4 responsive-button-adjust no-margin-left" >+ Sales Order</Button></DialogTrigger>
-                            <DialogContent className='max-w-6xl' style={{ display: 'block' }}>
+                            <DialogContent className='max-w-screen' style={{ display: 'block' }}>
                                 <DialogHeader>
-                                    <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Sales Order Create Form</p></DialogTitle>
+                                    <DialogTitle><p className='text-1xl pb-1 text-center mt-2'>Sales Order Create Form</p></DialogTitle>
 
                                 </DialogHeader>
 
@@ -138,9 +138,9 @@ const Packing = () => {
 
                         {checkpending('OrderMapping') && <Dialog>
                             <DialogTrigger>   <Button className="bg-purple-600 mb-2 ml-4 responsive-button-adjust no-margin-left" onClick={handleOpenMapping}>+ Order Mapping</Button></DialogTrigger>
-                            <DialogContent className='max-w-6xl' style={{ display: 'block' }}>
+                            <DialogContent className='max-w-7xl' style={{ display: 'block' }}>
                                 <DialogHeader>
-                                    <DialogTitle><p className='text-1xl pb-1 text-center mt-5'>Order Mapping Form</p></DialogTitle>
+                                    <DialogTitle><p className='text-1xl pb-3 text-center mt-4'>Order Mapping Form</p></DialogTitle>
 
                                 </DialogHeader>
 

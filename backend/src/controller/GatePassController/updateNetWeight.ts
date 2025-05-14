@@ -11,6 +11,7 @@ import RcvVillageModel from "../../model/RcvVillageModel";
 import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
 import oilMillModel from "../../model/oilMillModel";
 import RcvVillageInModel from "../../model/RcvVillageInModel";
+import cashewOutModel from "../../model/cashewOutModel";
 
 
 
@@ -68,6 +69,27 @@ const updateNetWeight = async (req: Request, res: Response) => {
         
                 if(pmupdate){
                     const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatepassNo,"verify_gatepass_final",'Packaging Material Incoming')
+            console.log(data)
+                    return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
+                }
+                
+            }
+            if (section==='FinishedCashew' && type==='OUT') {
+
+                const pmupdate = await cashewOutModel.update(
+                    { 
+                        netWeight:netWeight,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo:gatepassNo
+                        },
+                    }
+                );
+        
+                if(pmupdate){
+                    const data = await WpMsgGatePassRcv("Finished Cashew Outgoing", gatepassNo,"verify_gatepass_final",'Finished Cashew Outgoing')
             console.log(data)
                     return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }

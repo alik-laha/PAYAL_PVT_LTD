@@ -28,7 +28,7 @@ interface SectionRowData {
     quantity: number;
     actualquantity: number;
     noOfBags: number;
-    noOfActualBags: string;
+    noOfActualBags: number;
     origin: string;
     invoice: string;
 
@@ -66,7 +66,7 @@ const CashewOutEntryForm = (props: Props) => {
         quantity: 0,
         actualquantity: 0,
         noOfBags: 0,
-        noOfActualBags: '',
+        noOfActualBags: 0,
         origin: '',
         invoice: ''
     }]);
@@ -84,7 +84,7 @@ const CashewOutEntryForm = (props: Props) => {
             quantity: 0,
             actualquantity: 0,
             noOfBags: 0,
-            noOfActualBags: '',
+            noOfActualBags: 0,
             origin: '',
             invoice: ''
         }])
@@ -121,18 +121,24 @@ const CashewOutEntryForm = (props: Props) => {
 
     const handleSubmit3 = async (e: React.FormEvent) => {
         e.preventDefault()
-        setisdisable(true)
-        //const blNo = blNoRef.current?.value
-        //const conNo = conNoRef.current?.value
 
+        const sections = rows.map((row) => row.batchNo)
+
+        const hasduplicate = sections.some((item, index) => sections.indexOf(item) !== index);
+        if (hasduplicate) {
+            setErrorText('Identical Batch No Found !')
+            if (errordialog != null) {
+                (errordialog as any).showModal();
+            }
+            return
+        }
+        setisdisable(true)
 
         const formData = rows.map(row => ({
             GatePassNo: gatepass,
             recevingDate: date,
             TruckNo: truck,
             GrossWt: grossWt,
-            //invoicedate: conNo,
-            //invoice: blNo,
             ...row
         }))
 
@@ -140,12 +146,12 @@ const CashewOutEntryForm = (props: Props) => {
         try {
             if (formData.length === 1) {
                 for (var data of formData) {
-                    await axios.put(`/api/agarbatiPrimary/updateRcvAgarbati/${id}`, { data })
+                    await axios.put(`/api/cashewOut/updateRcvCashewOut/${id}`, { data })
                     await axios.post("/api/gatepass/updateRcvDisptchStatus", {
                         gatePassNo: gatepass,
-                        section: 'Agarbati'
+                        section: 'FinishedCashew'
                     })
-                    setErrorText('Agarbati Items Recceived/Dispatched Successfully')
+                    setErrorText('Finished Cashew Dispatched Successfully')
                     if (successdialog) {
                         (successdialog as any).showModal();
                     }
@@ -154,12 +160,12 @@ const CashewOutEntryForm = (props: Props) => {
             }
 
             else if (formData.length > 1) {
-                await axios.put(`/api/agarbatiPrimary/updateRcvAgarbatiEntire/${id}`, { formData })
+                await axios.put(`/api/cashewOut/updateRcvCashewOutEntire/${id}`, { formData })
                 await axios.post("/api/gatepass/updateRcvDisptchStatus", {
                     gatePassNo: gatepass,
-                    section: 'Agarbati'
+                    section: 'FinishedCashew'
                 })
-                setErrorText('Agarbati Items Recceived/Dispatched Successfully')
+                setErrorText('Finished Cashew Dispatched Successfully')
                 if (successdialog) {
                     (successdialog as any).showModal();
                 }
@@ -217,6 +223,8 @@ const CashewOutEntryForm = (props: Props) => {
             .catch((err) => {
                 if (err.response.status === 404) {
                     setLotData([])
+                     
+                    
                 }
             })
 
@@ -261,23 +269,23 @@ const CashewOutEntryForm = (props: Props) => {
 
     return (
         <>
-            <div className="pl-10 pr-10">
+            <div className="px-5 mt-4">
 
 
 
                 <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit3}>
-                    <div className="mx-8 flex flex-col gap-1">
-                        <div className="flex mt-4"><Label className="w-2/4  pt-1">GatePass No.</Label>
-                            <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
+                    <div className="mx-1 flex flex-col gap-1">
+                        <div className="flex mt-4"><Label className="w-1/4  pt-1">GatePass No.</Label>
+                            <Input className="w-1/4 bg-yellow-100 font-semibold text-center" placeholder="GatePass No" value={gatepass} readOnly /> </div>
                         
-                        <div className="flex"><Label className="w-2/4  pt-1">Date of Receiving</Label>
-                            <Input className="w-2/4  bg-yellow-100 font-semibold text-center" placeholder="Date" value={date} readOnly /> </div>
+                        <div className="flex"><Label className="w-1/4  pt-1">Date of Receiving</Label>
+                            <Input className="w-1/4 font-semibold text-center" placeholder="Date" value={date} readOnly /> </div>
 
-                        <div className="flex"><Label className="w-2/4  pt-1">Gross Wt (Kg)</Label>
-                            <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="Gross Wt." value={grossWt} readOnly /> </div>
+                        <div className="flex"><Label className="w-1/4  pt-1">Gross Wt (Kg)</Label>
+                            <Input className="w-1/4  font-semibold text-center" placeholder="Gross Wt." value={grossWt} readOnly /> </div>
 
-                        <div className="flex"><Label className="w-2/4  pt-1">Vehicle No.</Label>
-                            <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="Vehicle No." value={truck} readOnly /> </div>
+                        <div className="flex"><Label className="w-1/4  pt-1">Vehicle No.</Label>
+                            <Input className="w-1/4  font-semibold text-center" placeholder="Vehicle No." value={truck} readOnly /> </div>
                      
 
                        
@@ -293,10 +301,11 @@ const CashewOutEntryForm = (props: Props) => {
                                 <TableHead className="text-center" >Sales_PartyName</TableHead>
                                 <TableHead className="text-center" >Sale_Origin</TableHead>
                                 <TableHead className="text-center" >Final_Grade_Name</TableHead>
-                                <TableHead className="text-center" >Pouch/Bucket Count</TableHead>
-                                <TableHead className="text-center" >Actual Count</TableHead>
-                                <TableHead className="text-center" >Mapping Weight(Kg)</TableHead>
-                                 <TableHead className="text-center" >Line_Weight(Kg)</TableHead>
+                                <TableHead className="text-center" >Count (Pouch/Bucket) </TableHead>
+                                 <TableHead className="text-center" >Mapping Weight(Kg)</TableHead>
+                                <TableHead className="text-center" >Actual Count (Pouch/Bucket)</TableHead>
+                               
+                                 <TableHead className="text-center" >Actual_Weight(Kg)</TableHead>
                               
                                 <TableHead className="text-center" >Action</TableHead>
                             </TableHeader>
@@ -308,7 +317,7 @@ const CashewOutEntryForm = (props: Props) => {
                                                 <TableCell>{index + 1}</TableCell>
 
                                                 <TableCell className="text-center" >
-                                                    <Input value={row.invoice} placeholder="No."
+                                                    <Input value={row.invoice} placeholder="No." className="bg-purple-100"
                                                         onChange={(e) => {
                                                             handleRowChange(index, 'invoice', e.target.value)
 
@@ -317,48 +326,49 @@ const CashewOutEntryForm = (props: Props) => {
 
                                                 <TableCell className="text-center">
 
-                                                     <Input  placeholder="Batch No" className='bg-purple-100' value={row.batchNo} onChange={(e)=>handleBatchNoChange(index, e)} />
-                                                     {actvbatchindex === index && <ScrollArea className="h-30 w-30 dropdown-content" style={{ display: lotview }}>
-                                                                             {
-                                                                                 lotdata.map((item) => (
-                                                                                     <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3"
-                                                                                      onClick={() => handleBatchIdClick(index,item)}>
-                                                                                         <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.batchNo}</p>
-                                                                                     </div>
-                                                                                 ))
-                                                                             }
-                                                                         </ScrollArea>}
+                                                    <Input placeholder="Batch No" value={row.batchNo} className="bg-purple-100" onChange={(e) => handleBatchNoChange(index, e)} />
+                                                    {actvbatchindex === index && <ScrollArea className="h-30 w-30 dropdown-content" style={{ display: lotview }}>
+                                                        {
+                                                            lotdata.map((item) => (
+                                                                <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3"
+                                                                    onClick={() => handleBatchIdClick(index, item)}>
+                                                                    <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.BatchID}</p>
+                                                                </div>
+                                                            ))
+                                                        }
+                                                    </ScrollArea>}
                                                 </TableCell>
 
                                                 <TableCell className="text-center" >
-                                                    <Input value={row.partyName}  placeholder="Party Name"/>
+                                                    <Input value={row.partyName} className="bg-yellow-100" placeholder="Party Name" required readOnly/>
                                                 </TableCell>
 
                                                 <TableCell className="text-center" >
-                                                    <Input value={row.origin}  placeholder="Origin"/>
+                                                    <Input value={row.origin} className="bg-yellow-100" placeholder="Origin" required readOnly/>
                                                 </TableCell>
 
                                                 <TableCell className="text-center" >
-                                                    <Input value={row.gradeName}  placeholder="Grade Name" />
+                                                    <Input value={row.gradeName} className="bg-yellow-100" placeholder="Grade Name" required readOnly/>
                                                 </TableCell>
                                                  <TableCell className="text-center" >
-                                                    <Input value={row.noOfBags}  placeholder="Pouch/Bucket " />
+                                                    <Input value={row.noOfBags} className="bg-yellow-100" placeholder="Pouch/Bucket " required readOnly/>
+                                                </TableCell>
+                                                <TableCell className="text-center" >
+                                                    <Input value={row.quantity} className="bg-yellow-100" placeholder="Kg" required readOnly/>
                                                 </TableCell>
 
                                                 <TableCell className="text-center" >
 
-                                                    <Input value={row.noOfActualBags} type='number' onChange={(e) => {
+                                                    <Input value={row.noOfActualBags} type='number' className='bg-purple-100' onChange={(e) => {
                                                         handleRowChange(index, 'noOfActualBags', e.target.value)
                                                     }} />
                                                 </TableCell>
 
-                                                 <TableCell className="text-center" >
-                                                    <Input value={row.quantity} className='bg-purple-100' placeholder="Map Weight" />
-                                                </TableCell>
+                                                 
 
                                                 <TableCell className="text-center w-30" >
 
-                                                    <Input value={row.actualquantity} placeholder="Wt"  type='number' onChange={(e) => {
+                                                    <Input value={row.actualquantity}  className='bg-purple-100' type='number' onChange={(e) => {
                                                         handleRowChange(index, 'actualquantity', e.target.value)
                                                     }} />
                                                 </TableCell>

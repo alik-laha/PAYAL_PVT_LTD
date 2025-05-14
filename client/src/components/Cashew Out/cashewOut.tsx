@@ -20,6 +20,7 @@ import Loader from '../common/Loader';
 import { pendingCheckRole, rcvCheckRole } from '../common/exportData';
 import { pendingCheckRoles } from "@/type/type";
 import CashewOutInitialForm from './cashewOutInitial';
+import CashewOutTable from './cashewOutTable';
 
 
 
@@ -114,7 +115,7 @@ const CashewOut = () => {
                         Pending Edit ({data.CountPendingEdit})</Button>}
 
                 </div>
-                {/* <AgarbatiTable /> */}
+                <CashewOutTable />
 
             </div>
         </div>
