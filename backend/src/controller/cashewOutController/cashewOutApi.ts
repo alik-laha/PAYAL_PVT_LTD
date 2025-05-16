@@ -5,6 +5,8 @@ import cashewOutModel from "../../model/cashewOutModel";
 import sequelize from "../../config/databaseConfig";
 import { Op } from "sequelize";
 import orderPackingModel from "../../model/orderPackingModel";
+import { cashewOutRcvData } from "../../type/type";
+import WhatsappMsg from "../../helper/WhatsappMsg";
 
 export const getAllcashewOutEditPending = async (req: Request, res: Response) => {
     try {
@@ -139,6 +141,7 @@ export const batchdataFind = async (req: Request, res: Response) => {
                 [Op.and]: [
                     { BatchID: { [Op.like]: `%${LotNo}%` } },
                     { packingStatus: { [Op.eq]: 1 } },
+                        { dispatchStatus: { [Op.ne]: 1 } },
                     { editStatus: { [Op.notLike]: 'Pending' } },
                 ]
             }
@@ -384,4 +387,180 @@ export const SearchCashewOutPrimary = async (req: Request, res: Response) => {
         return res.status(500).json({ msg: 'Internal server error', error: err })
     }
  
+}
+
+export const EditCashewOutEntry = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const createdBynew= req.cookies.user
+        console.log('Reached Here')
+        const {  gatePassNo,invoice,date,
+            grossWt, truckNo, noOfBags, noOfactualBags,quantity,actquantity,origin,partyName,gradeName,batchno,oldbatchNo } = req.body;
+        if (!id) return res.status(400).json({ message: "id is required" });
+        //console.log(req.body)
+      
+       
+        //let vendorData = await VendorName.findOne({ where: { vendorName:VendorNam,type:vendortype,section:'Almond' } });
+        // if( !vendorData){
+        //     return res.status(500).json({ message: "SKU/Vendor Does Not Exist" });
+        // }
+        // else{
+        //     //folllowing code block will enter here
+     
+        // }
+
+        const packageMaterialData: cashewOutRcvData = await cashewOutModel.findOne({ where: { id } }) as unknown as cashewOutRcvData;
+        if (!packageMaterialData) return res.status(404).json({ message: "Cashew Out Item not found" });
+        let netwt=req.body.netWeight
+        if(netwt===''|| netwt===null)
+        {
+            netwt=0
+        }
+        console.log(req.body)
+        const editPackageMaterial = await cashewOutEditModel.create({
+            id: packageMaterialData.id,
+            gatePassNo: gatePassNo,
+            grossWt: grossWt,
+            netWeight: netwt,
+            date: date,
+            editStatus: "Pending",
+            truckNo: truckNo,
+            batchNo: batchno,
+            partyName: partyName,
+            gradeName: gradeName,
+            quantity: quantity,
+            actualquantity: actquantity,
+            noOfBags: noOfBags,
+            noOfActualBags: noOfactualBags,
+            origin: origin,
+            invoice: invoice, status: 1,
+            createdBy: createdBynew,
+            approvedBy:oldbatchNo
+        });
+      
+        if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Cashew Out Item" });
+        const updatePackageMaterial = await cashewOutModel.update({ editStatus: "Pending" }, { where: { id } });
+        if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Cashew Out Item" });
+        const data = await WhatsappMsg("Finished Cashew Dispatch", createdBynew,"modify_request","Receiving")
+        console.log(data)
+        return res.status(201).json({ message: "Finished Cashew Item edited successfully" });
+
+        
+        
+
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+export const EditRejectCashewOut = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+         const rejectedBy = req.cookies.user;
+
+
+        if (!id || !rejectedBy) {
+            return res.status(400).json({ message: "Please provide the id or rejected By" });
+        }
+        const rcn = await cashewOutModel.update({
+            editStatus: "NA",
+            approvedBy:rejectedBy
+        }, {
+            where: {
+                id
+            }
+        });
+        if (!rcn) {
+            return res.status(400).json({ message: "Cashew Out Entry not found" });
+        }
+        const rcnEdit = await cashewOutEditModel.destroy({
+            where: {
+                id
+            }
+        });
+        if (!rcnEdit) {
+            return res.status(400).json({ message: "Cashew Out Entry not found" });
+        }
+        return res.status(200).json({ message: "Cashew Out Entry rejected successfully" });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+}
+
+export const approveCashewOut = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+         const approvedBy = req.cookies.user;
+       // const approvedBy = "RC Admin 1";
+        if (!id || !approvedBy) {
+            return res.status(400).json({ message: "Please provide the id or approved by" });
+        }
+        const rcn: cashewOutRcvData | null = await cashewOutEditModel.findOne({
+            where: {
+                id
+            }
+        }) as cashewOutRcvData | null;
+        if (!rcn) {
+            return res.status(400).json({ message: "Cashew Out Entry not found" });
+        }
+
+        if(rcn.approvedBy!==rcn.batchNo){
+                await orderPackingModel.update({
+                        dispatchStatus: 1
+                    }, {
+                        where: {
+                            BatchID: rcn.batchNo
+                        }
+                    });
+
+               await orderPackingModel.update({
+                        dispatchStatus: 0
+                    }, {
+                        where: {
+                            BatchID: rcn.approvedBy
+                        }
+                    });    
+        }
+        const rcnEdit = await cashewOutModel.update({
+            batchNo: rcn.batchNo,
+            partyName: rcn.partyName,
+            gradeName:rcn.gradeName,
+            quantity:rcn.quantity,
+            actualquantity:rcn.actualquantity,
+            noOfBags:rcn.noOfBags,
+            noOfActualBags:rcn.noOfActualBags,
+            origin:rcn.origin,
+            invoice:rcn.invoice,
+            editStatus: "Approved",
+            approvedBy:approvedBy,
+            createdBy:rcn.createdBy,
+           
+        }, {
+            where: {
+                id
+            }
+        });
+        if (!rcnEdit) {
+            return res.status(400).json({ message: "Cashew Out Entry is not found" });
+        }
+        const rcnEditDelete = await cashewOutEditModel.destroy({
+            where: {
+                id
+            }
+        });
+        if (!rcnEditDelete) {
+            return res.status(400).json({ message: "Cashew Out Entry is not found" });
+        }
+
+
+        return res.status(200).json({ message: "Edit Request of Cashew Out Entry is Approved Successfully" });
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
+    }
+
 }

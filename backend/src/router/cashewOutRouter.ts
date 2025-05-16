@@ -1,12 +1,7 @@
 import express from 'express';
 import jwtVerify from '../middleWare/JwtAuthantication';
 
-
-import SearchAgarbatiPrimary from '../controller/AgarbatiController/searchAgarbati';
-import EditRejectAgarbati from '../controller/AgarbatiController/rejectAgarbatiEdit';
-import approveAgarbati from '../controller/AgarbatiController/approveAgarbatiEdit';
-import EditAgarbatiEntry from '../controller/AgarbatiController/editAgarbati';
-import { batchdataFind, getAllcashewOutEditPending, getCashewOutByGatePass, getUnEntriedCashewOut, SearchCashewOutPrimary, sumofAllTypeCashewOut, updateCashewOut, updateCashewOutEntire } from '../controller/cashewOutController/cashewOutApi';
+import { approveCashewOut, batchdataFind, EditCashewOutEntry, EditRejectCashewOut, getAllcashewOutEditPending, getCashewOutByGatePass, getUnEntriedCashewOut, SearchCashewOutPrimary, sumofAllTypeCashewOut, updateCashewOut, updateCashewOutEntire } from '../controller/cashewOutController/cashewOutApi';
 const router = express.Router();
 
 router.get('/getCashewOuteditpending', jwtVerify, getAllcashewOutEditPending);
@@ -15,15 +10,13 @@ router.get("/getCashewOutNotEntried/:status", jwtVerify, getUnEntriedCashewOut)
 router.get("/getCashewOutByGatePass/:lotNO", jwtVerify, getCashewOutByGatePass)
 router.put("/updateRcvCashewOut/:id",jwtVerify, updateCashewOut)
 router.put("/updateRcvCashewOutEntire/:id",jwtVerify, updateCashewOutEntire)
-
 router.put('/CashewOutprimarysearch', jwtVerify, SearchCashewOutPrimary);
 //Edit Reject Rcn Entry by Id
-router.delete('/rejectededitAgarbati/:id', jwtVerify, EditRejectAgarbati);
+router.delete('/rejectededitCashewOut/:id', jwtVerify, EditRejectCashewOut);
 //Edit Approve Rcn Entry by Id
-router.put("/approveeditAgarbati/:id", jwtVerify, approveAgarbati);
+router.put("/approveeditCashewOut/:id", jwtVerify, approveCashewOut);
 router.post("/findcompleteBatchNo", jwtVerify,batchdataFind)
-
-router.post("/updateAgarbati/:id",jwtVerify, EditAgarbatiEntry)
+router.post("/updateCashewOut/:id",jwtVerify, EditCashewOutEntry)
 
 
 

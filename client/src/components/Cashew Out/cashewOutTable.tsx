@@ -267,7 +267,7 @@ const CashewOutTable = () => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Agarbati_Primary_Entry_' + currDate + '.xlsx');
+        saveAs(blob, 'Cashew_Out_Entry_' + currDate + '.xlsx');
 
 
     }
@@ -388,11 +388,8 @@ const CashewOutTable = () => {
 
                         <TableHead className="text-center" >Id</TableHead>
                         <TableHead className="text-center" >GatePass_No</TableHead>
-
-
                         <TableHead className="text-center" >Receiving_Date</TableHead>
                         <TableHead className="text-center" >Enrty_Vehicle_No</TableHead>
-
                         <TableHead className="text-center" >Initial_Weight(Kg)</TableHead>
                         <TableHead className="text-center" >Invoice_No</TableHead>
                         <TableHead className="text-center" >Item_Batch_No</TableHead>
@@ -403,7 +400,6 @@ const CashewOutTable = () => {
                         <TableHead className="text-center" >Count (Pouch/Bucket) </TableHead>
                         <TableHead className="text-center" >Mapping Weight(Kg)</TableHead>
                         <TableHead className="text-center" >Actual Count (Pouch/Bucket)</TableHead>
-
                         <TableHead className="text-center" >Actual_Weight(Kg)</TableHead>
                         <TableHead className="text-center" >Edit Status </TableHead>
                         <TableHead className="text-center" >Created By </TableHead>
@@ -485,14 +481,14 @@ const CashewOutTable = () => {
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
+                                        <TableCell className="text-center font-bold text-red-500">{item.gatePassNo}</TableCell>
 
-                                        <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
+                                        <TableCell className="text-center font-semibold text-cyan-500">{handletimezone(item.date)}</TableCell>
 
                                         <TableCell className="text-center">{item.truckNo}</TableCell>
                                         <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
                                         <TableCell className="text-center">{item.invoice}</TableCell>
-                                        <TableCell className="text-center" >{item.batchNo}</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500" >{item.batchNo}</TableCell>
                                         <TableCell className="text-center">{item.partyName}</TableCell>
                                         <TableCell className="text-center">{item.origin}</TableCell>
                                         <TableCell className="text-center">{item.gradeName}</TableCell>
