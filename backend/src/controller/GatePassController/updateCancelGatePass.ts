@@ -10,6 +10,7 @@ import RcvVillageModel from "../../model/RcvVillageModel";
 import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
 import oilMillModel from "../../model/oilMillModel";
 import RcvVillageInModel from "../../model/RcvVillageInModel";
+import cashewOutModel from "../../model/cashewOutModel";
 
 
 
@@ -55,6 +56,21 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
         
                 if(pmdelete){
                     const data = await WpMsgGatePassRcv("Packaging Material", gatepassNo,"cancel_gatepass",feeledBy)
+            console.log(data)
+                    return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
+                }
+                
+            }
+            if (section==='FinishedCashew' && type==='OUT') {
+
+                const pmdelete=await cashewOutModel.destroy({
+                    where: {
+                        gatePassNo: gatepassNo
+                    }
+                });
+        
+                if(pmdelete){
+                    const data = await WpMsgGatePassRcv("Finished Cashew", gatepassNo,"cancel_gatepass",feeledBy)
             console.log(data)
                     return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }

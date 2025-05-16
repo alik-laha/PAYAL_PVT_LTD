@@ -2,11 +2,23 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/databaseConfig"
 
 
-const orderPrimaryModel = sequelize.define('orderPrimary', {
+const orderMappingModelAll = sequelize.define('orderMappingAll', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
+    },
+    altid: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1
+    },
+    orderpk: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    packingpk: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
     origin: {
         type: DataTypes.STRING,
@@ -20,52 +32,40 @@ const orderPrimaryModel = sequelize.define('orderPrimary', {
         type: DataTypes.DATE,
         allowNull: false,
     },
-    orderInvDate: {
+    mappingDate: {
         type: DataTypes.DATE,
-        allowNull: false,
-    },
-    gradeName: {
-        type: DataTypes.STRING,
         allowNull: true,
+    },
+
+    finalgradeName: {
+        type: DataTypes.STRING,
+        allowNull: false,
     },
     vendorName: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
     },
-    brokerName: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    quantity: {
+    demandQuantity: {
         type: DataTypes.DECIMAL(10, 2),
-        allowNull: true,
-    },
-    mappingpk: {
-        type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: false,
     },
 
-    mapquantity: {
-        type: DataTypes.DECIMAL(10, 2),
-        defaultValue: 0,
-    },
-    unitRate: {
+    mappedQuantity: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: true,
     },
-    actualquantity: {
-        type: DataTypes.DECIMAL(10, 2),
-        defaultValue: 0,
-    },
+
     editStatus: {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "N/A"
     },
-    gst: {
-        type: DataTypes.BOOLEAN,
-        allowNull: true,
+    mappingStatus:
+    {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
     },
+
     createdBy: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -75,25 +75,11 @@ const orderPrimaryModel = sequelize.define('orderPrimary', {
         allowNull: true,
 
     },
-    ordMappingStatus: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
-    },
-    ordStatus: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
-    },
-    ordApproveStatus: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
+
     remarks: {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    totalBill: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: true
-    }
+
 })
-export default orderPrimaryModel;
+export default orderMappingModelAll;

@@ -1,13 +1,12 @@
-import { useContext, useEffect, useState } from "react";
-import { Origin, pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
-import Context from "../context/context";
 import axios from "axios";
-import { HumidData, pendingCheckRoles, PermissionRole, HumidExcelData } from "@/type/type";
+import { Origin, pagelimit, pageNo, pendingCheckRole } from "../common/exportData";
+import { useContext, useEffect, useState } from "react";
 import { Input } from "../ui/input";
-import { FaSearch } from "react-icons/fa";
-import { Button } from "../ui/button";
-import { LuDownload } from "react-icons/lu";
+import {  CashewOutEntryData, findskutypeData, pendingCheckRoles, PermissionRole } from "@/type/type";
 import { format, toZonedTime } from 'date-fns-tz'
+import { Button } from "../ui/button";
+import { FaSearch } from "react-icons/fa";
+import { LuDownload } from "react-icons/lu";
 import tick from '../../assets/Static_Images/Flat_tick_icon.svg.png'
 import cross from '../../assets/Static_Images/error_img.png'
 import {
@@ -18,6 +17,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import Context from "../context/context";
 import {
     Pagination,
     PaginationContent,
@@ -33,6 +33,15 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import {
+    Dialog,
+    DialogContent,
+    // DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { CiEdit } from "react-icons/ci";
+import {
     AlertDialog,
     AlertDialogAction,
     AlertDialogCancel,
@@ -43,34 +52,33 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import {
-    Dialog,
-    DialogContent,
-    // DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog"
-import { CiEdit } from "react-icons/ci";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
-// import BormaModify from "./RCNBormaModify";
+// import AlmondModify from "./AlmondModify";
+
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
-import HumidifierModify from "./HumidifierModify";
+import { ScrollArea } from "../ui/scroll-area";
+import CashewOutModify from "./cashewOutModify";
+// import AgarbatiModify from "./AgarbatiModify";
 
-const HumidTable = () => {
+
+const CashewOutTable = () => {
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
     const [fromdate, setfromDate] = useState<string>('');
     const [todate, settoDate] = useState<string>('');
     const [hidetodate, sethidetoDate] = useState<string>('');
+    const [blConNo, setBlConNo] = useState<string>("")
     const currDate = new Date().toLocaleDateString();
     const [origin, setOrigin] = useState<string>("")
+
+    const [Data, setData] = useState<any[]>([])
+
+    
+    const [EditData, setEditData] = useState<CashewOutEntryData[]>([])
+    const { editPendingCashewOutData } = useContext(Context);
     const [blockpagen, setblockpagen] = useState('flex')
-    const [EditData, setEditData] = useState<HumidData[]>([])
-    const [blConNo, setBlConNo] = useState<string>("")
-    const { editHumidLotWiseData } = useContext(Context);
-    const [Data, setData] = useState<HumidData[]>([])
+
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 
@@ -104,85 +112,17 @@ const HumidTable = () => {
             return prev
         })
     }, [page])
-    const exportToExcel = async () => { 
-        const response = await axios.put('/api/humid/humidprimarysearch', {
-            searchitem: blConNo,
-            fromDate: fromdate,
-            toDate: todate,
-            origin: origin,
-        })
-        const data1 = await response.data
 
-        let ws
-        let transformed: HumidExcelData[] = [];
-        if (EditData.length > 0) {
-
-            transformed = EditData.map((item: HumidData, idx: number) => ({
-                SL_No: idx + 1,
-                LotNo: item.LotNo,
-                date: handletimezone(item.date),
-                origin: item.origin,
-                Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
-                Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
-                Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),         
-                otherTime: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
-                Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
-                noOfOperators:  Number(item.noOfOperators) || 0,
-                NoOfTrolley: item.NoOfTrolley,
-                InputMoisture: formatNumber(item.InputMoisture),   
-                OutputMoisture: formatNumber(item.OutputMoisture), 
-                TotalInput: formatNumber(item.TotalInput),    
-                TotalOutput: formatNumber(item.TotalOutput),   
-                MoistGain: formatNumber(item.MoistGain),    
-                CreatedBy: item.CreatedBy,
-                editStatus: item.editStatus,
-                modifiedBy: item.modifiedBy
-            }));
-            //setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
-        }
-        else {
-            transformed = data1.rcnEntries.map((item: HumidData, idx: number) => ({
-                SL_No: idx + 1,
-                LotNo: item.LotNo,
-                date: handletimezone(item.date),
-                origin: item.origin,
-                Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
-                Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
-                Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),         
-                otherTime: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
-                Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
-               noOfOperators:  Number(item.noOfOperators) || 0,
-                NoOfTrolley: item.NoOfTrolley,
-                InputMoisture: formatNumber(item.InputMoisture),   
-                OutputMoisture: formatNumber(item.OutputMoisture), 
-                TotalInput: formatNumber(item.TotalInput),    
-                TotalOutput: formatNumber(item.TotalOutput),   
-                MoistGain: formatNumber(item.MoistGain),    
-                CreatedBy: item.CreatedBy,
-                editStatus: item.editStatus,
-                modifiedBy: item.modifiedBy
-
-            }));
-            // setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
-        }
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Humidifier_Entry_' + currDate + '.xlsx');
-    }
     const handleSearch = async () => {
-
+        
         setEditData([])
         setblockpagen('flex')
-        const response = await axios.put('/api/humid/humidprimarysearch', {
+        const response = await axios.put('/api/cashewOut/CashewOutprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
             origin: origin,
-
+            grade: gradeN
 
         }, {
             params: {
@@ -200,13 +140,147 @@ const HumidTable = () => {
 
     }
     useEffect(() => {
-        if (editHumidLotWiseData.length > 0) {
+        if (editPendingCashewOutData.length > 0) {
             //console.log(editPendingData)
-            setEditData(editHumidLotWiseData)
+            setEditData(editPendingCashewOutData)
             setblockpagen('none')
         }
+    }, [editPendingCashewOutData])
 
-    },[editHumidLotWiseData])
+    const [gradeN, setGradeN] = useState<string>()
+    const [grade, setGrade] = useState<findskutypeData[]>([])
+    const [gradeview, setGradeView] = useState("none")
+    const [gradeData, setGradeData] = useState<any[]>([])
+
+    useEffect(() => {
+        axios.put('/api/vendorSKU/getItembySection/Final Grade', { section: 'Packing' })
+            .then(res => {
+                //console.log(res.data)
+                setGrade(res.data)
+                console.log(grade)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
+    const handleGradechange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        //setSku(e.target.value)
+        setGradeN(e.target.value)
+
+        if (e.target.value.length > 0 && gradeData.length > 0) {
+            setGradeView("block")
+        } else {
+            setGradeView("none")
+        }
+        axios.post("/api/vendorSKU/skudatafind/Packing", { sku: e.target.value, type: 'Final Grade' })
+            .then((res) => {
+                console.log(res)
+                if (res.status === 200) {
+                    setGradeData(res.data.skuData)
+                }
+            })
+            .catch((err) => {
+                if (err.response.status === 404) {
+                    setGradeData([])
+                }
+            })
+
+    }
+    const handleGradeidClick = (item: any) => {
+        // setSku(item.sku)
+        setGradeN(item.sku)
+        setGradeView("none")
+    }
+
+    const handleRejection = async (item: CashewOutEntryData) => {
+        const response = await axios.delete(`/api/cashewOut/rejectededitCashewOut/${item.id}`)
+        const data = await response.data
+        console.log(data)
+        if (data.message === "Cashew Out Entry rejected successfully") {
+            //console.log('rejected enter')
+            if (rejectsuccessdialog != null) {
+                (rejectsuccessdialog as any).showModal();
+            }
+        }
+    }
+
+    const exportToExcel = async () => {
+        const response = await axios.put('/api/cashewOut/CashewOutprimarysearch', {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            origin: origin,
+            grade: gradeN
+        })
+        const data1 = await response.data
+
+        let ws
+        let transformed: any[] = [];
+        if (EditData.length > 0) {
+
+            transformed = EditData.map((item: any, idx: number) => ({
+                id: idx + 1,
+                GatePassNo: item.gatePassNo,
+                Receiving_date: handletimezone(item.date),
+                Vehicle_No: item.truckNo,
+                Gross_Wt: formatNumber(item.grossWt),
+                Invoice_No: item.invoice,
+                BatchID:item.batchNo,
+                PartyName:item.partyName,
+                Origin:item.origin,
+                Grade:item.gradeName,
+                NetWeight:item.netWeight ? formatNumber(item.netWeight) : '',
+                Pouch_Packet:formatNumber(item.noOfBags),
+                Map_Wt:formatNumber(item.quantity),
+                Actual_Pouch_Packet:formatNumber(item.noOfActualBags),
+                Actual_Map_Wt:formatNumber(item.actualquantity),
+                editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
+    
+            }));
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        else {
+            transformed = data1.rcnEntries.map((item: any, idx: number) => ({
+                  id: idx + 1,
+                GatePassNo: item.gatePassNo,
+                Receiving_date: handletimezone(item.date),
+                Vehicle_No: item.truckNo,
+                Gross_Wt: formatNumber(item.grossWt),
+                Invoice_No: item.invoice,
+                BatchID:item.batchNo,
+                PartyName:item.partyName,
+                Origin:item.origin,
+                Grade:item.gradeName,
+                NetWeight:item.netWeight ? formatNumber(item.netWeight) : '',
+                Pouch_Packet:formatNumber(item.noOfBags),
+                Map_Wt:formatNumber(item.quantity),
+                Actual_Pouch_Packet:formatNumber(item.noOfActualBags),
+                Actual_Map_Wt:formatNumber(item.actualquantity),
+                editStatus:item.editStatus,createdBy:item.createdBy,ApprovedBy:item.approvedBy
+            }));
+            // setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'Cashew_Out_Entry_' + currDate + '.xlsx');
+
+
+    }
+    const handleApprove = async (item: CashewOutEntryData) => {
+        const response = await axios.put(`/api/cashewOut/approveeditCashewOut/${item.id}`)
+        const data = await response.data
+        if (data.message === "Edit Request of Cashew Out Entry is Approved Successfully") {
+
+            if (approvesuccessdialog != null) {
+                (approvesuccessdialog as any).showModal();
+            }
+        }
+    }
     function handletimezone(date: string | Date) {
         const apidate = new Date(date);
         const localdate = toZonedTime(apidate, Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -227,6 +301,8 @@ const HumidTable = () => {
     function formatNumber(num: string) {
         return Number.isInteger(Number(num)) ? parseInt(num) : parseFloat(num).toFixed(2);
     }
+    
+
     const handleTodate = (e: React.ChangeEvent<HTMLInputElement>) => {
 
         const selected = e.target.value;
@@ -244,61 +320,23 @@ const HumidTable = () => {
         sethidetoDate(selected)
         settoDate(nextday)
     }
-    const handleAMPM = (time: string) => {
+    
 
-        let [hours, minutes] = time.split(':').map(Number);
-        let period = ' AM';
-
-        if (hours === 0) {
-            hours = 12;
-        } else if (hours === 12) {
-            period = ' PM';
-        } else if (hours > 12) {
-            hours -= 12;
-            period = ' PM';
-        }
-        const finalTime = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + period.toString()
-
-        // return ${hours}:${minutes.toString().padStart(2, '0')} ${period};
-        return finalTime;
-    }
-    const handleApprove = async (item: HumidData) => {
-        const response = await axios.put(`/api/humid/approveeditHumid/${item.id}`)
-        const data = await response.data
-        if (data.message === "Edit Request of Humid Entry is Approved Successfully") {
-
-            if (approvesuccessdialog != null) {
-                (approvesuccessdialog as any).showModal();
-            }
-        }
-    }
-    const handleRejection = async (item: HumidData) => {
-        const response = await axios.delete(`/api/humid/rejectededitHumid/${item.id}`)
-        const data = await response.data
-        console.log(data)
-        if (data.message === "Humid Entry rejected successfully") {
-            //console.log('rejected enter')
-            if (rejectsuccessdialog != null) {
-                (rejectsuccessdialog as any).showModal();
-            }
-        }
-    }
     return (
         <>
-
             <div className="ml-5 mt-5 ">
                 <div className="flex flexbox-search">
 
-                    <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
+                    <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" GatePass No" value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
 
                     <select className='flexbox-search-width flex h-8 w-1/7 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
-ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                         onChange={(e) => setOrigin(e.target.value)} value={origin}>
-  <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Origin (All)</option>
+                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Type (All)</option>
                         {Origin.map((data, index) => (
                             <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+            py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
                                 {data}
                             </option>
                         ))}
@@ -321,66 +359,82 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                         placeholder="To Date"
 
                     />
+                    <div className="flex flex-col no-padding w-1/8  ml-6">
+                        <Input className="no-padding " value={gradeN} placeholder="Final Grade"
+                            onChange={(e) => handleGradechange(e)} required />
+                        <ScrollArea className="max-h-24  overflow-scroll  
+                                                dropdown-content" style={{ display: gradeview }}>
+                            {
+                                gradeData.map((item: any) => (
+                                    <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3"
+                                        onClick={() => handleGradeidClick(item)}>
+                                        <p className="font-medium text-sm text-blue-900 py-1 focus:text-base">{item.sku}</p>
 
-                   
+                                    </div>
+                                ))
+                            }
+                        </ScrollArea>
+                    </div>
+                    
 
 
                     <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
                 </div>
-                {checkpending('Humidifier') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+                {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">
 
 
                         <TableHead className="text-center" >Id</TableHead>
-                        <TableHead className="text-center" >Item_Lot_No</TableHead>
-                        <TableHead className="text-center" >Origin</TableHead>
-                        <TableHead className="text-center" >Humidify_Date</TableHead>
-                        <TableHead className="text-center" >Moisture(Input)</TableHead>
-                        <TableHead className="text-center" >Moisture(Output)</TableHead>
-                        <TableHead className="text-center ">Total_Input(Kg)</TableHead>
-                        
-                        <TableHead className="text-center " >Total_Output(Kg)</TableHead>
-                        <TableHead className="text-center" >Moisture_Gain</TableHead>
-                        <TableHead className="text-center" >No_Of_Trolley</TableHead>
-                        <TableHead className="text-center" >Humidifier_ON</TableHead>
-                        <TableHead className="text-center" >Humidifier_OFF</TableHead>
-                        
-                        <TableHead className="text-center" >Breakdown Duration</TableHead>
-                        <TableHead className="text-center" >Other Duration</TableHead>
-                        <TableHead className="text-center" >Run Duration</TableHead>
-                        <TableHead className="text-center" >No_Of_Operator</TableHead>
+                        <TableHead className="text-center" >GatePass_No</TableHead>
+                        <TableHead className="text-center" >Receiving_Date</TableHead>
+                        <TableHead className="text-center" >Enrty_Vehicle_No</TableHead>
+                        <TableHead className="text-center" >Initial_Weight(Kg)</TableHead>
+                        <TableHead className="text-center" >Invoice_No</TableHead>
+                        <TableHead className="text-center" >Item_Batch_No</TableHead>
+                        <TableHead className="text-center" >Sales_PartyName</TableHead>
+                        <TableHead className="text-center" >Sale_Origin</TableHead>
+                        <TableHead className="text-center" >Final_Grade_Name</TableHead>
+                        <TableHead className="text-center" >Net_Weight(Kg)</TableHead>
+                        <TableHead className="text-center" >Count (Pouch/Bucket) </TableHead>
+                        <TableHead className="text-center" >Mapping Weight(Kg)</TableHead>
+                        <TableHead className="text-center" >Actual Count (Pouch/Bucket)</TableHead>
+                        <TableHead className="text-center" >Actual_Weight(Kg)</TableHead>
                         <TableHead className="text-center" >Edit Status </TableHead>
                         <TableHead className="text-center" >Created By </TableHead>
                         <TableHead className="text-center" >Action</TableHead>
                     </TableHeader>
+
                     <TableBody>
 
 
-                        {EditData.length > 0 ? (EditData.map((item: HumidData, idx) => {
+                        {EditData.length > 0 ? (EditData.map((item: CashewOutEntryData, idx) => {
 
                             return (
                                 <TableRow key={item.id}>
-                                <TableCell className="text-center">{idx + 1}</TableCell>
-                                <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
-                                        <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
-                                        <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.InputMoisture)} %</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.OutputMoisture)} %</TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.TotalInput)}</TableCell>
-                                        
-                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.TotalOutput)}</TableCell>
-                                        <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.MoistGain)} %</TableCell>
-                                        <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
-                                        <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
-                            <TableCell className="text-center">{item.noOfOperators}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
-                                        <TableCell className="text-center">{item.CreatedBy}</TableCell>
+                                    <TableCell className="text-center">{idx + 1}</TableCell>
+                                    <TableCell className="text-center font-bold">{item.gatePassNo}</TableCell>
+
+                                    <TableCell className="text-center">{handletimezone(item.date)}</TableCell>
+
+                                    <TableCell className="text-center">{item.truckNo}</TableCell>
+                                    <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
+                                    <TableCell className="text-center">{item.invoice}</TableCell>
+                                    <TableCell className="text-center" >{item.batchNo}</TableCell>
+                                    <TableCell className="text-center">{item.partyName}</TableCell>
+                                    <TableCell className="text-center">{item.origin}</TableCell>
+                                    <TableCell className="text-center">{item.gradeName}</TableCell>
+                                    <TableCell className="text-center" >{item.netWeight ?formatNumber(item.netWeight):''}</TableCell>
+                                    <TableCell className="text-center" >{formatNumber(item.noOfBags)}</TableCell>
+                                    <TableCell className="text-center" >{formatNumber(item.quantity)}</TableCell>
+                                    <TableCell className="text-center" >{formatNumber(item.noOfActualBags)}</TableCell>
+                                    <TableCell className="text-center" >{formatNumber(item.actualquantity)}</TableCell>
+
+                          
+                               
+                                <TableCell className="text-center">{item.editStatus}</TableCell>
+                                  <TableCell className="text-center">{item.createdBy}</TableCell>
                                 <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
@@ -421,31 +475,30 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 </TableRow>
                             ) })): (
 
-                            Data.length > 0 ? (Data.map((item: HumidData, idx) => {
+                            Data.length > 0 ? (Data.map((item: CashewOutEntryData, idx) => {
 
 
                                 return (
                                     <TableRow key={item.id}>
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
-                                        <TableCell className="text-center font-bold text-orange-500">{item.LotNo}</TableCell>
-                                        <TableCell className="text-center font-semibold text-cyan-500">{item.origin}</TableCell>
-                                        <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.InputMoisture)} %</TableCell>
-                                        <TableCell className="text-center">{formatNumber(item.OutputMoisture)} %</TableCell>
-                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.TotalInput)}</TableCell>
-                                        
-                                        <TableCell className="text-center font-semibold bg-yellow-100">{formatNumber(item.TotalOutput)}</TableCell>
-                                        <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.MoistGain)} %</TableCell>
-                                        <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
-                                        <TableCell className="text-center">{handleAMPM(item.Mc_on.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{handleAMPM(item.Mc_off.slice(0, 5))}</TableCell>
-                            <TableCell className="text-center">{item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center">{item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
-                            <TableCell className="text-center text-red-500 font-semibold">{item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '')} hr</TableCell>
-                            <TableCell className="text-center">{item.noOfOperators}</TableCell>
-                                        <TableCell className="text-center">{item.editStatus}</TableCell>
-                                        <TableCell className="text-center">{item.CreatedBy}</TableCell>
+                                        <TableCell className="text-center font-bold text-red-500">{item.gatePassNo}</TableCell>
 
+                                        <TableCell className="text-center font-semibold text-cyan-500">{handletimezone(item.date)}</TableCell>
+
+                                        <TableCell className="text-center">{item.truckNo}</TableCell>
+                                        <TableCell className="text-center">{formatNumber(item.grossWt)} </TableCell>
+                                        <TableCell className="text-center">{item.invoice}</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500" >{item.batchNo}</TableCell>
+                                        <TableCell className="text-center">{item.partyName}</TableCell>
+                                        <TableCell className="text-center">{item.origin}</TableCell>
+                                        <TableCell className="text-center">{item.gradeName}</TableCell>
+                                        <TableCell className="text-center" >{item.netWeight ? formatNumber(item.netWeight) : ''}</TableCell>
+                                        <TableCell className="text-center" >{formatNumber(item.noOfBags)}</TableCell>
+                                        <TableCell className="text-center" >{formatNumber(item.quantity)}</TableCell>
+                                        <TableCell className="text-center" >{formatNumber(item.noOfActualBags)}</TableCell>
+                                        <TableCell className="text-center" >{formatNumber(item.actualquantity)}</TableCell>
+                                        <TableCell className="text-center">{item.editStatus}</TableCell>
+                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">
                                             <Popover>
                                                 <PopoverTrigger>
@@ -456,13 +509,13 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         <DialogTrigger className="flex"><CiEdit size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
                                                         </DialogTrigger>
-                                                        <DialogContent className="max-w-screen">
+                                                        <DialogContent className="max-w-5xl">
                                                             <DialogHeader>
                                                                 <DialogTitle>
-                                                                    <p className='text-1xl pb-1 text-center mt-1'>Humidifier Entry Modification</p>
+                                                                    <p className='text-1xl pb-1 text-center mt-1'>Cashew Out Entry Modification</p>
                                                                 </DialogTitle>
                                                             </DialogHeader>
-                                                            <HumidifierModify data={item} />
+                                                            <CashewOutModify data={item} />
                                                         </DialogContent>
                                                     </Dialog>
                                                 </PopoverContent>
@@ -531,15 +584,17 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
 
                 {/* <!-- Add more elements as needed --> */}
             </dialog>
+
+
+
+
             </div>
+
 
 
         </>
     )
 
-
-
-
 }
 
-export default HumidTable;
+export default CashewOutTable

@@ -210,6 +210,28 @@ export interface AgarbatiPrimaryEntryData {
     totalWt:string;  
     totalBill:string;  
 }
+
+export interface CashewOutEntryData {
+    id: number;
+    date: string; // ISO date string (e.g. "2025-05-12T00:00:00.000Z")
+    gatePassNo: string;
+    batchNo: string;
+    partyName: string;
+    gradeName: string;
+    grossWt: string;
+    truckNo: string;
+    quantity: string;
+    actualquantity: string;
+    status: number;
+    invoice: string;
+    netWeight: string;
+    noOfBags: string;
+    noOfActualBags: string;
+    origin: string;
+    editStatus: string;
+    createdBy: string;
+    approvedBy: string;
+}
 export interface BormaEntryData {
    
             id: number;
@@ -539,7 +561,7 @@ export interface BormaExcelData {
     Mc_off: string;
     Mc_breakdown: string;
     Mc_runTime: string;
-    noOfOperators:string;
+    noOfOperators:number;
     otherTime: string;
     NoOfTrolley: string;
     InputMoisture: string | number;
@@ -1377,7 +1399,7 @@ export interface HumidExcelData {
     Mc_off: string;
     Mc_breakdown: string;
     Mc_runTime: string;
-    noOfOperators:string;
+    noOfOperators:number;
     otherTime: string;
     NoOfTrolley: string;
     InputMoisture: string | number;
@@ -1419,10 +1441,16 @@ export interface SumofAllTypeDataAlmond {
     type: string;
     totalBags: number;
 }
+export interface SumofAllTypeDataCashewOut {
+    origin: string;
+    quantity: number;
+}
+
 export interface SumofAllTypeDataAgarbati {
     grade: string;
     totalBags: number;
 }
+
 
 export interface EmployeeData {
     id: number;
@@ -1641,14 +1669,14 @@ export interface BoilingExcelData {
     Entry_Date: string;
     Origin: string;
     Size: string;
-    Boiling_Qty: string;
+    Boiling_Qty: Number;
     Scooping_Line: string;
     Pressure: string;
     Moisture: string;
     Machine: string;
     MC_On: string;
     MC_Off: string;
-    Labour_No: string;
+    Labour_No: Number;
     Breakdown_Duration: string;
     Other_Duration: string;
     Cooking_Time: string;

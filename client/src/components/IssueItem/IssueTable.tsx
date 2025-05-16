@@ -2,8 +2,8 @@ import { useContext, useEffect } from "react";
 import { Input } from "../ui/input";
 import React from "react";
 import axios from "axios";
-import {  findskutypeData, IssueItemData, IssueItemDaywiseData, pendingCheckRoles, PermissionRole } from "@/type/type";
-import { pagelimit, pageNo, pendingCheckRole, SelectTypeIssue } from "../common/exportData";
+import {  findskutypeData, IssueItemData, IssueItemDaywiseData, PermissionRole } from "@/type/type";
+import { pagelimit, pageNo, SelectTypeIssue } from "../common/exportData";
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
 import * as XLSX from 'xlsx';
@@ -306,17 +306,17 @@ const IssueTable = () => {
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
         saveAs(blob, 'Store_Item_Issue_' + currDate + '.xlsx');
     }
-    const Role = localStorage.getItem('role') as keyof PermissionRole
-    const checkpending = (tab: string) => {
-        //console.log(Role)
-        if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
-            return true
-        }
-        else {
-            return false;
-        }
+    //const Role = localStorage.getItem('role') as keyof PermissionRole
+    // const checkpending = (tab: string) => {
+    //     //console.log(Role)
+    //     if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
+    //         return true
+    //     }
+    //     else {
+    //         return false;
+    //     }
 
-    }
+    // }
     const handleApprove = (item: number) => {
         console.log(item)
         axios.get(`/api/issue/acceptEditIssuePrimary/${item}`)
@@ -427,7 +427,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                 <span className="w-1/8 ml-6 no-margin"><Button className="bg-slate-500 h-8" onClick={handleSearch}><FaSearch size={15} /> Search</Button></span>
 
             </div>
-            {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>}
+            {/* {checkpending('RCNPrimary') && <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>} */}
+            <span className="w-1/8 "><Button className="bg-green-700 h-8 mt-4 w-30 text-sm float-right mr-4" onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
             {tablesearch === "ItemWise" ? (
                 <Table className="mt-4">
                     <TableHeader className="bg-neutral-100 text-stone-950 ">

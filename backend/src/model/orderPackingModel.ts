@@ -8,20 +8,20 @@ const orderPackingModel = sequelize.define('orderPacking', {
         primaryKey: true,
         autoIncrement: true
     },
-     altid: {
-            type: DataTypes.INTEGER,
-            defaultValue:1
-        },
-    origin:{
+    altid: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1
+    },
+    origin: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    orderID:{
+    orderID: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    
-    BatchID:{
+
+    BatchID: {
         type: DataTypes.STRING,
         allowNull: true
     },
@@ -29,11 +29,11 @@ const orderPackingModel = sequelize.define('orderPacking', {
         type: DataTypes.STRING,
         defaultValue: 'Pending'
     },
-         orderpk: {
-                    type: DataTypes.INTEGER,
-                    allowNull:true
-                },
-   
+    orderpk: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
+
     orderDate: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -51,23 +51,23 @@ const orderPackingModel = sequelize.define('orderPacking', {
         allowNull: true,
     },
     demandquantity: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true,
     },
     packingquantity: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true,
     },
     convpackingquantity: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true,
     },
     unitRate: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true,
     },
     fulfillquantity: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true,
     },
     editStatus: {
@@ -86,38 +86,38 @@ const orderPackingModel = sequelize.define('orderPacking', {
     approvedBy: {
         type: DataTypes.STRING,
         allowNull: true,
-      
-    },
-    latest: 
-    {
-        type:DataTypes.INTEGER,
-        defaultValue: 1
-    }, 
-   packingStatus: 
-        {
-            type:DataTypes.INTEGER,
-            defaultValue: 0
-        },
 
-        dispatchStatus: {
-            type:DataTypes.INTEGER,
-            defaultValue: 0
-        },
-    
-    remarks:{
+    },
+    latest:
+    {
+        type: DataTypes.INTEGER,
+        defaultValue: 1
+    },
+    packingStatus:
+    {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
+
+    dispatchStatus: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
+
+    remarks: {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    totalBill:{
-        type: DataTypes.DECIMAL(10,2),
+    totalBill: {
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     }
 }, {
-        indexes: [
-            {
-                unique: true,
-                fields: ['BatchID']
-            }
-        ]
-    })
+    indexes: [
+        {
+            unique: true,
+            fields: ['BatchID']
+        }
+    ]
+})
 export default orderPackingModel;

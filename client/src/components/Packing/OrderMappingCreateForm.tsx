@@ -275,11 +275,11 @@ const OrderMappingCreateForm = (props:Props) => {
          e.preventDefault()
          const dateissue = dateIssueref.current?.value
          setisdisable(true)
-         const mixquantitys = rows.map((row) => row.mixquantity)
-         const amount = mixquantitys.reduce((acc, curr) => acc + curr, 0);
-        console.log(amount)
+         //const mixquantitys = rows.map((row) => row.mixquantity)
+         //const amount = mixquantitys.reduce((acc, curr) => acc + curr, 0);
+        //console.log(amount)
 
-        if (amount>(demandQty?demandQty:props.mapping[0].demandQuantity)) {
+        if (mixQuantitySum>(demandQty?demandQty:Number(props.mapping[0].demandQuantity))) {
             setErrortext('Total Amount Can Not Exceed Demand Quantity')
             if (errordialog != null) {
                 (errordialog as any).showModal();
@@ -320,7 +320,7 @@ const OrderMappingCreateForm = (props:Props) => {
                 if(formData.length===1){
                     for (var data of formData) 
                         {
-                            await axios.put(`/api/packing/updateOrderMapping/${id}/${amount}`, {data })
+                            await axios.put(`/api/packing/updateOrderMapping/${id}/${mixQuantitySum}`, {data })
                                 setErrortext(`Order ID ${orderID} Mapped Successfully`)
                             if(successdialog){
                                 (successdialog as any).showModal();
@@ -329,7 +329,7 @@ const OrderMappingCreateForm = (props:Props) => {
                         }
                     } 
                     else if(formData.length>1){
-                            await axios.put(`/api/packing/updateOrderMappingEntire/${id}/${amount}`, {data:formData })
+                            await axios.put(`/api/packing/updateOrderMappingEntire/${id}/${mixQuantitySum}`, {data:formData })
    
                                     setErrortext(`Order ID ${orderID} Mapped Successfully`)
                                 if(successdialog){
@@ -366,23 +366,23 @@ const OrderMappingCreateForm = (props:Props) => {
                 <form className='flex flex-col gap-0.5' onSubmit={handleSubmit2}>
 
                       <div className="mx-8 flex flex-col gap-1"> 
-                                    <div className="flex mt-4"><Label className="w-2/4  pt-2">Order ID</Label>
-                                    <Input className="w-2/4 bg-yellow-100 font-semibold text-center" placeholder="order ID" value={orderID} readOnly /> </div>
-                                    <div className="flex"><Label className="w-2/4  pt-2">Order Entry Date</Label>
-                                    <Input className="w-2/4  font-semibold text-center" placeholder="order Entry Date" value={orderDate} readOnly /> </div>
-                                    <div className="flex"><Label className="w-2/4  pt-2">Vendor Name</Label>
-                                    <Input className="w-2/4  font-semibold text-center" placeholder="Vendor Name" value={vendor}  readOnly /> </div> 
-                                    <div className="flex"><Label className="w-2/4  pt-2">Origin</Label>
-                                    <Input className="w-2/4  font-semibold text-center" placeholder="Origin" value={origin}  readOnly /> </div> 
-                                    <div className="flex"><Label className="w-2/4  pt-2">Final Grade</Label>
-                                    <Input className="w-2/4  font-semibold text-center" placeholder="Final Grade" value={finalGrade}  readOnly /> </div> 
-                                    <div className="flex"><Label className="w-2/4  pt-2">Demand Quantity</Label>
-                                    <Input className="w-2/4 text-center bg-green-200 font-semibold text-center"  placeholder="Demand Qty" value={demandQty}  readOnly/> </div>
-                                    <div className="flex"><Label className="w-2/4  pt-2">total Mix Quantity</Label>
-                                    <Input className="w-2/4 text-center bg-green-100 font-semibold text-center"  placeholder="Demand Qty" value={mixQuantitySum.toFixed(2)}  readOnly/> </div>
+                                    <div className="flex mt-4"><Label className="w-1/4  pt-2">Order ID</Label>
+                                    <Input className="w-1/4 bg-yellow-200 font-semibold text-center" placeholder="order ID" value={orderID} readOnly /> </div>
+                                    <div className="flex"><Label className="w-1/4  pt-2">Order Entry Date</Label>
+                                    <Input className="w-1/4 bg-yellow-100 font-semibold text-center" placeholder="order Entry Date" value={orderDate} readOnly /> </div>
+                                    <div className="flex"><Label className="w-1/4  pt-2">Vendor Name</Label>
+                                    <Input className="w-1/4 bg-yellow-100 font-semibold text-center" placeholder="Vendor Name" value={vendor}  readOnly /> </div> 
+                                    <div className="flex"><Label className="w-1/4  pt-2">Origin</Label>
+                                    <Input className="w-1/4 bg-yellow-100 font-semibold text-center" placeholder="Origin" value={origin}  readOnly /> </div> 
+                                    <div className="flex"><Label className="w-1/4  pt-2">Final Grade</Label>
+                                    <Input className="w-1/4 bg-yellow-100 font-semibold text-center" placeholder="Final Grade" value={finalGrade}  readOnly /> </div> 
+                                    <div className="flex"><Label className="w-1/4  pt-2">Demand Quantity</Label>
+                                    <Input className="w-1/4 bg-yellow-100 text-center bg-yellow-100 font-semibold text-center"  placeholder="Demand Qty" value={demandQty}  readOnly/> </div>
+                                    <div className="flex"><Label className="w-1/4  pt-2">total Mix Quantity</Label>
+                                    <Input className="w-1/4 text-center bg-red-100 font-semibold text-center"  placeholder="Demand Qty" value={mixQuantitySum.toFixed(2)}  readOnly/> </div>
                                     <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Order Mapping Date (*)</Label>
-                            <Input type='date' className="w-2/4 text-center justify-center" placeholder="Vehicle No" ref={dateIssueref} required />
+                            <Label className="w-1/4 pt-1">Order Mapping Date (*)</Label>
+                            <Input type='date' className="w-1/4 text-center justify-center" placeholder="Vehicle No" ref={dateIssueref} required />
                         </div>
                                     </div>
 

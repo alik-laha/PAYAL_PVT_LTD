@@ -46,6 +46,7 @@ import Rejection from './components/Rejection/Rejection'
 import Packing from './components/Packing/Packing'
 import Village from './components/Village Production/Village'
 import RcvVillageIn from './components/Rcv Village In/RcvVillageIn'
+import CashewOut from './components/Cashew Out/cashewOut'
 
 
 
@@ -129,9 +130,14 @@ function App() {
           <Route path="/dashboard/StoreIssue" element={<IssueItem />} />
         </Route>
 
-        {/* Receiving RCN */}
+        {/* Receiving RCN In*/}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager', 'GatePassManager']} />}>
           <Route path="/dashboard/rcnprimaryentry" element={<RcnPrimaryEntry />} />
+        </Route>
+
+        {/* Receiving RCN Out*/}
+        <Route element={<Private allowedRoles={['Director', 'FactoryManager', 'ReceivingSupervisor', 'ReceivingManager', 'GatePassManager']} />}>
+          <Route path="/dashboard/rcnprimaryexit" element={<CashewOut />} />
         </Route>
 
         {/* Receiving Store */}

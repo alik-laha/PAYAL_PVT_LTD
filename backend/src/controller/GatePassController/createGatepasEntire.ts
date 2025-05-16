@@ -12,6 +12,7 @@ import RcvVillageModel from "../../model/RcvVillageModel";
 import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
 import oilMillModel from "../../model/oilMillModel";
 import RcvVillageInModel from "../../model/RcvVillageInModel";
+import cashewOutModel from "../../model/cashewOutModel";
 
 
 
@@ -62,6 +63,21 @@ try{
                             },{transaction});
                             if(RCNIncoming){
                                 const data = await WpMsgGatePassRcv("Raw Cashew Incoming",gatepassNo,"gatepass_rcv_dispatch_final",'RCN Cashew IN')
+                                console.log(data)
+                                //return res.status(200).json({ message: "RCN Initial Entry Created Successfully" });
+                            }
+                            
+                        }
+                        if (data.section==='FinishedCashew' && data.type==='OUT') 
+                        {
+                            const RCNout = await cashewOutModel.create({
+                                gatePassNo: gatepassNo,
+                                date: data.Date,
+                                grossWt:data.grossWt,
+                                truckNo:data.vehicle,    
+                            },{transaction});
+                            if(RCNout){
+                                const data = await WpMsgGatePassRcv("Finished Cashew Outgoing",gatepassNo,"gatepass_rcv_dispatch_final",'Finished Cashew OUT')
                                 console.log(data)
                                 //return res.status(200).json({ message: "RCN Initial Entry Created Successfully" });
                             }

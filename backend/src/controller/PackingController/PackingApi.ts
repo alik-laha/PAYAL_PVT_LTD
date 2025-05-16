@@ -18,6 +18,8 @@ import bigTaihoModel from '../../model/bigTaihoModel';
 import DPDS from '../../model/dpdsmodel';
 import rejectionModel from '../../model/rejectionModel';
 import orderPackingModel from '../../model/orderPackingModel';
+import orderMappingModelAll from '../../model/orderMappingAllModel';
+import qcOutgoingModel from '../../model/outgoingQcModel';
 
 
 const CY_FY = process.env.CY_FY ? process.env.CY_FY : '2025-26';
@@ -398,6 +400,12 @@ export const packingSearch = async (req: Request, res: Response) => {
                 }
             });
         }
+
+        whereClause.push({
+            fulfillquantity: {
+                [Op.gt]: 0
+            }
+        });
        
 
 
@@ -477,20 +485,89 @@ export const mappingSearch = async (req: Request, res: Response) => {
             if (limit === 0 && offset === 0) {
                 rcnEntries = await orderMappingModel.findAll({
                     where,
-                    order: [['orderID', 'DESC']], // Order by DESC
+                    order: [['orderID', 'DESC'],['origin','ASC']], // Order by DESC
     
                 });
             }
             else {
                 rcnEntries = await orderMappingModel.findAll({
                     where,
-                    order: [['orderID', 'DESC']], // Order by DESC
+                    order: [['orderID', 'DESC'],['origin','ASC']], // Order by DESC
                     limit: limit,
                     offset: offset
                 });
             }
     
             return res.status(200).json({ message: 'Order Mapping found', rcnEntries })
+        
+       
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).json({ message: 'Internal server error', error: err })
+    }
+};
+export const mappingSearchAll = async (req: Request, res: Response) => {
+    try {
+        const { origin,blConNo, fromDate, toDate } = req.body;
+        const page = parseInt(req.query.page as string, 10) || 0;
+        const size = parseInt(req.query.limit as string, 10) || 0;
+        const offset = (page - 1) * size;
+        const limit = size;
+
+        let whereClause = [];
+
+        // Conditionally add parameters to the whereClause
+
+
+        if (origin) {
+            whereClause.push({
+                origin: origin
+            });
+        }
+
+        if (blConNo) {
+            whereClause.push({
+                orderID: {
+                    [Op.like]: `%${blConNo}%`
+                }
+            });
+        }
+
+        if (fromDate && toDate) {
+            whereClause.push({
+                orderInvDate: {
+                    [Op.between]: [fromDate, toDate]
+                }
+            });
+        }
+        whereClause.push({
+            mappingStatus: 1
+        });
+       
+
+
+        // Convert the array to an object for the where condition
+        const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};
+        let rcnEntries
+        
+            if (limit === 0 && offset === 0) {
+                rcnEntries = await orderMappingModelAll.findAll({
+                    where,
+                    order: [['orderID', 'DESC'],['origin','ASC'],['finalgradeName','ASC'],['altid','ASC']], // Order by DESC
+    
+                });
+            }
+            else {
+                rcnEntries = await orderMappingModelAll.findAll({
+                    where,
+                    order: [['orderID', 'DESC'],['origin','ASC'],['finalgradeName','ASC'],['altid','ASC']], // Order by DESC
+                    limit: limit,
+                    offset: offset
+                });
+            }
+    
+            return res.status(200).json({ message: 'Order Mapping All found', rcnEntries })
         
        
     }
@@ -679,12 +756,18 @@ export const closePurchaseOrder = async (req: Request, res: Response) => {
                 },transaction
             });
 
+            const mappingAlldelete=await orderMappingModelAll.destroy({
+                where: {
+                    orderpk: id
+                },transaction
+            });
+
             const packingdelete=await orderPackingModel.destroy({
                 where: {
                     orderpk: id
                 },transaction
             });
-            if (mappingdelete && packingdelete) {
+            if (mappingdelete && mappingAlldelete && packingdelete) {
                 res.status(200).json({ message: "Sales Order Cancelled Successfully" });
             }
 
@@ -734,6 +817,17 @@ export const approvePurchaseOrder = async (req: Request, res: Response) => {
                 packingpk:packingEntry.dataValues.id
             },{transaction});
 
+            const mappingAllEntry = await orderMappingModelAll.create({
+                origin: item.origin,
+                orderID: item.orderID,
+                orderDate: item.orderInvDate,
+                finalgradeName:item.gradeName,
+                vendorName:item.vendorName,
+                demandQuantity: item.quantity,
+                orderpk:item.id,
+                packingpk:packingEntry.dataValues.id
+            },{transaction});
+
             const orderupdate = await orderPrimaryModel.update(
                 {
                     ordApproveStatus: 'Approved',
@@ -750,7 +844,7 @@ export const approvePurchaseOrder = async (req: Request, res: Response) => {
 
             
 
-            if (mappingEntry && packingEntry && orderupdate) {
+            if (mappingEntry && packingEntry  && mappingAllEntry && orderupdate) {
                 res.status(200).json({ message: "Sales Order Approved Successfully" });
             }
             else{
@@ -1010,7 +1104,7 @@ export const updateMappingOrder = async (req: Request, res: Response) => {
             remarks,orderpk,mappingDate,actual_stockquantity} = req.body.data;
 
         const id=req.params.id;
-        const amount=req.params.amount;
+        const amount=req.params.mixQuantitySum;
         const createdBy = req.cookies.user;
         let skuData = await lotoriginmodel.findOne({ where: { LotNo:LotNo,origin:porigin } });
         if(!skuData ){
@@ -1040,6 +1134,18 @@ export const updateMappingOrder = async (req: Request, res: Response) => {
                         id: id
                     },transaction
                 });
+
+                const mappingupAlldate = await orderMappingModelAll.update({ 
+                    mappingDate:mappingDate,
+                    
+                    mappedQuantity:amount,
+                    createdBy,mappingStatus:1
+                }, {
+                    where: {
+                        orderpk:orderpk,altid:1
+                    },transaction
+                });
+                
                 const orderupdate = await orderPrimaryModel.update({ 
                     ordMappingStatus:1,
                     mapquantity:sequelize.literal(`mapquantity+ ${amount}`),
@@ -1058,7 +1164,7 @@ export const updateMappingOrder = async (req: Request, res: Response) => {
                 });
                 
                 
-                if(orderupdate && mappingupdate && packingInitial){
+                if(orderupdate && mappingupdate && mappingupAlldate && packingInitial){
                     return res.status(201).json({ message: "Order Id Mapped successfully" });
                 }
                 else{
@@ -1076,7 +1182,7 @@ export const updateMappingOrderEntire = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         // console.log(req.body)
-        const amount = req.params.amount;
+        const amount = req.params.mixQuantitySum;
         const createdBy = req.cookies.user;
         const formData = req.body.data
         const firstrow = formData[0]
@@ -1154,6 +1260,18 @@ export const updateMappingOrderEntire = async (req: Request, res: Response) => {
                         id: id
                     },transaction
                 });
+
+                const mappingupAlldate = await orderMappingModelAll.update({ 
+                    mappingDate:mappingDate,
+                    
+                    mappedQuantity:amount,
+                    createdBy,mappingStatus:1
+                }, {
+                    where: {
+                        orderpk:orderpk,altid:1
+                    },transaction
+                });
+
                 const orderupdate = await orderPrimaryModel.update({ 
                     ordMappingStatus:1,
                     mapquantity:sequelize.literal(`mapquantity+ ${amount}`),
@@ -1173,7 +1291,7 @@ export const updateMappingOrderEntire = async (req: Request, res: Response) => {
 
 
 
-                if(orderupdate && mappingupdate && packingInitial){
+                if(orderupdate && mappingupAlldate && mappingupdate && packingInitial){
                     return res.status(201).json({ message: "Order Id Mapped successfully" });
                 }
                 else{
@@ -1195,7 +1313,7 @@ export const updateReMappingOrderEntire = async (req: Request, res: Response) =>
     try {
     
         // console.log(req.body)
-        const amount = req.params.amount;
+        const amount = req.params.mixQuantitySum;
         const createdBy = req.cookies.user;
         const formData = req.body.data
         const {gst,totalBill,unitRate}=req.body
@@ -1247,6 +1365,21 @@ export const updateReMappingOrderEntire = async (req: Request, res: Response) =>
                     totalBill: totalBill,
                     fulfillquantity:amount
                 },{transaction});
+
+                const mappingAllEntry = await orderMappingModelAll.create({
+
+                        altid:mapping_prev ?(parseInt(mapping_prev.dataValues.altid)+1):1,
+                        origin: firstrow.origin,
+                        orderID: firstrow.orderID,
+                        orderDate: firstrow.orderDate,
+                        finalgradeName:firstrow.finalgradeName,
+                        vendorName:firstrow.vendorName,
+                        demandQuantity: firstrow.demandQuantity,
+                        orderpk:firstrow.orderpk,
+                        packingpk:packingEntry.dataValues.id,
+                        mappingDate:formData[0].mappingDate,
+                        mappedQuantity:amount,mappingStatus:1,createdBy
+                },{transaction});
               
                 //console.log(dataToUpdate)
                 for (let data of formData) {
@@ -1295,7 +1428,7 @@ export const updateReMappingOrderEntire = async (req: Request, res: Response) =>
 
         
 
-                if(packingupdate && orderupdate &&  packingEntry){
+                if(packingupdate && orderupdate &&  packingEntry && mappingAllEntry){
                     return res.status(201).json({ message: "Order Id Re-Mapped successfully" });
                 }
                 else{
@@ -1341,7 +1474,7 @@ export const modifyOrder = async (req: Request, res: Response) => {
                 }, transaction
             }
         );
-        let packingEntry,mappingEntry
+        let packingEntry,mappingEntry,mappingAllEntry
           if(mappingStatus===0){
              packingEntry = await orderPackingModel.update({
                 origin: origin,
@@ -1374,6 +1507,22 @@ export const modifyOrder = async (req: Request, res: Response) => {
                     orderpk:id
                 }, transaction
             });
+
+            mappingAllEntry = await orderMappingModelAll.update({
+                origin,
+                orderDate: invDate,
+                finalgradeName:gradeName,
+                vendorName:vendor,
+                demandQuantity: quantity
+                ,approvedBy:actionedBy
+            },
+            {
+                where: {
+                    orderpk:id
+                }, transaction
+            });
+
+
           }
           else{
                 packingEntry = await orderPackingModel.update({
@@ -1403,16 +1552,328 @@ export const modifyOrder = async (req: Request, res: Response) => {
                     orderpk:id
                 }, transaction
             });
+
+            mappingAllEntry = await orderMappingModelAll.update({
+                origin,
+                orderDate: invDate,
+                finalgradeName:gradeName,
+                vendorName:vendor,
+                approvedBy:actionedBy
+            },
+            {
+                where: {
+                    orderpk:id
+                }, transaction
+            });
           }
+
+          
             
 
-            if (mappingEntry && packingEntry && orderupdate) {
+            if (mappingEntry && mappingAllEntry && packingEntry && orderupdate) {
                 res.status(200).json({ message: "Sales Order Modified Successfully" });
             }
             else{
                 return res.status(500).json({ message: 'Error in Modifying Sales Order'})
             }
         
+     
+     })
+ 
+    }
+     catch (err) {
+         console.log(err)
+         return res.status(500).json({ message: 'Internal server error', error: err })
+     }
+ };
+
+export const deleteOrderMapping = async (req: Request, res: Response) => {
+    try {
+        const { item } = req.body;
+
+        await sequelize.transaction(async (transaction) => {
+
+            const order_entry = await orderPrimaryModel.findOne({
+                attributes: ['gst', 'unitRate', 'totalBill', 'quantity', 'ordApproveStatus'],
+                where: {
+                    id: item.orderpk
+
+                },
+            });
+
+            const mapping_entry = await orderPackingModel.findOne({
+                attributes: ['altid'],
+                where: {
+                    orderpk: item.orderpk
+
+                },
+                order: [['id', 'DESC']],
+
+            });
+
+            if (order_entry?.dataValues.ordApproveStatus === 'Closed') {
+                res.status(500).json({ message: "Sales Order Already Closed. Mapping Can't Be Deleted" });
+                throw new Error('Transaction Aborted 1')
+            }
+
+            const packing_entry = await orderPackingModel.findOne({
+                attributes: ['dispatchStatus', 'packingStatus'],
+                where: {
+                    id: item.packingpk
+
+                },
+
+            });
+
+            if (packing_entry?.dataValues.dispatchStatus === 1) {
+                res.status(500).json({ message: "Item has Already Dispatched. Mapping Can't be Deleted" });
+                throw new Error('Transaction Aborted 2')
+            }
+            if (packing_entry?.dataValues.packingStatus === 1) {
+                res.status(500).json({ message: "Item has Already Packed. Please Unpack First" });
+                throw new Error('Transaction Aborted 3')
+            }
+            console.log(mapping_entry?.dataValues.altid)
+            console.log(item.altid)
+
+            if (parseInt(item.altid) === 1 && parseInt(mapping_entry?.dataValues.altid)===1) {
+                console.log('Entered Here 1')
+                const mappingdelete = await orderMappingModel.destroy({
+                    where: {
+                        orderpk: item.orderpk, altid: item.altid
+                    },transaction
+                });
+
+                const mappingAlldelete = await orderMappingModelAll.destroy({
+                    where: {
+                        orderpk: item.orderpk, altid: item.altid
+                    },transaction
+                });
+
+                const packingdelete = await orderPackingModel.destroy({
+                    where: {
+                        orderpk: item.orderpk, altid: item.altid
+                    },transaction
+                });
+
+                const packingEntry = await orderPackingModel.create({
+                    origin: item.origin,
+                    orderID: item.orderID,
+                    orderDate: item.orderDate,
+                    gradeName: item.finalgradeName,
+                    vendorName: item.vendorName,
+                    gst: order_entry?.dataValues.gst,
+                    unitRate: order_entry?.dataValues.unitRate,
+                    totalBill: order_entry?.dataValues.totalBill,
+                    demandquantity: order_entry?.dataValues.quantity,
+                    orderpk: item.orderpk,
+
+                }, { transaction });
+
+                const mappingEntry = await orderMappingModel.create({
+                    origin: item.origin,
+                    orderID: item.orderID,
+                    orderDate: item.orderDate,
+                    finalgradeName: item.finalgradeName,
+                    vendorName: item.vendorName,
+                    demandQuantity: order_entry?.dataValues.quantity,
+                    orderpk: item.orderpk,
+                    packingpk: packingEntry.dataValues.id
+                }, { transaction });
+
+                const mappingAllEntry = await orderMappingModelAll.create({
+                    origin: item.origin,
+                    orderID: item.orderID,
+                    orderDate: item.orderDate,
+                    finalgradeName: item.finalgradeName,
+                    vendorName: item.vendorName,
+                    demandQuantity: order_entry?.dataValues.quantity,
+                    orderpk: item.orderpk,
+                    packingpk: packingEntry.dataValues.id
+                }, { transaction });
+
+                const orderupdate = await orderPrimaryModel.update(
+                    {
+                        ordMappingStatus: 0,
+                        mapquantity: sequelize.literal(`mapquantity- ${item.mappedQuantity}`),
+                        ordApproveStatus: 'Approved',
+                        mappingpk: mappingEntry.dataValues.id
+                    },
+                    {
+                        where: {
+                            id: item.orderpk
+                        }, transaction
+                    }
+                );
+
+                if (mappingdelete && mappingAlldelete && packingdelete && packingEntry && mappingEntry && mappingAllEntry && orderupdate) {
+                    res.status(200).json({ message: "Mapping Deleted Successfully" });
+                }
+                else {
+                    return res.status(500).json({ message: 'Error in Deleting Mapping' })
+                }
+
+
+            }
+            else {
+                console.log('Entered Here 2')
+                const mappingdelete = await orderMappingModel.destroy({
+                    where: {
+                        orderpk: item.orderpk, altid: item.altid
+                    },transaction
+                });
+
+                const mappingAlldelete = await orderMappingModelAll.destroy({
+                    where: {
+                        orderpk: item.orderpk, altid: item.altid
+                    },transaction
+                });
+
+                const packingdelete = await orderPackingModel.destroy({
+                    where: {
+                        orderpk: item.orderpk, altid: item.altid
+                    },transaction
+                });
+         
+                const orderupdate = await orderPrimaryModel.update(
+                    {
+                        mapquantity: sequelize.literal(`mapquantity- ${item.mappedQuantity}`),           
+                    },
+                    {
+                        where: {
+                            id: item.orderpk
+                        }, transaction
+                    }
+                );
+
+                if (mappingdelete && mappingAlldelete && packingdelete && orderupdate) {
+                    res.status(200).json({ message: "Mapping Deleted Successfully" });
+                }
+                else {
+                    return res.status(500).json({ message: 'Error in Deleting Mapping' })
+                }
+            }
+
+        })
+
+    }
+    catch (error) {
+        if (!res.headersSent) {
+            console.log(error)
+            return res.status(500).json({ message: "Error while Deleting Mapping Entry", error });
+        }
+    }
+};
+
+export const createPacking = async (req: Request, res: Response) => {
+    try{
+     const { mfgDate, noOfBags, batchID, orderpk, 
+        noOfSystemBags,orderID,gradeName,origin,fulfillquantity } = req.body;
+     const id=req.params.id
+     const actionedBy = req.cookies.user;
+
+     await sequelize.transaction( async (transaction) =>{
+        
+      
+        const packingUpdate = await orderPackingModel.update(
+            {
+                BatchID:batchID,
+                mfgDate:mfgDate,
+                packingStatus:1,
+                packingquantity:noOfSystemBags,
+                convpackingquantity:noOfBags,
+                createdBy:actionedBy
+            },
+            {
+                where: {
+                    id
+                }, transaction
+            }
+        );
+        if(packingUpdate){
+            const qcoutEntry = await qcOutgoingModel.create({
+                mfgDate:mfgDate,
+                orderID:orderID,
+                packingpk:id,
+                batchNo:batchID,
+                origin:origin,
+                gradeName:gradeName,
+            },{transaction});
+
+            const orderupdate = await orderPrimaryModel.update(
+                {
+                    actualquantity:sequelize.literal(`actualquantity+ ${fulfillquantity}`),
+                },
+                {
+                    where: {
+                        id:orderpk
+                    }, transaction
+                }
+            );
+            if (qcoutEntry && orderupdate) {
+                res.status(200).json({ message: "Sales Order Packed Successfully" });
+            }
+            else{
+                return res.status(500).json({ message: 'Error in Creating Packing Entry'})
+            }
+        }
+
+     
+     })
+ 
+    }
+     catch (err) {
+         console.log(err)
+         return res.status(500).json({ message: 'Internal server error', error: err })
+     }
+ };
+
+ export const createunPacking = async (req: Request, res: Response) => {
+    try{
+     const { id, orderpk, 
+        fulfillquantity } = req.body.item;
+   
+     const actionedBy = req.cookies.user;
+
+     await sequelize.transaction( async (transaction) =>{
+        
+      
+        const packingUpdate = await orderPackingModel.update(
+            {
+                BatchID:null,
+                mfgDate:null,
+                packingStatus:0,
+                packingquantity:null,
+                convpackingquantity:null,
+                createdBy:actionedBy
+            },
+            {
+                where: {
+                    id
+                }, transaction
+            }
+        );
+        if(packingUpdate){
+          
+
+            const orderupdate = await orderPrimaryModel.update(
+                {
+                    actualquantity:sequelize.literal(`actualquantity- ${fulfillquantity}`),
+                },
+                {
+                    where: {
+                        id:orderpk
+                    }, transaction
+                }
+            );
+            if ( orderupdate) {
+                res.status(200).json({ message: "Sales Order unPacked Successfully" });
+            }
+            else{
+                return res.status(500).json({ message: 'Error in Creating UnPacking'})
+            }
+        }
+
      
      })
  

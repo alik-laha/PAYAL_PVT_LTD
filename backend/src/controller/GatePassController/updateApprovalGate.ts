@@ -11,6 +11,7 @@ import RcvVillageModel from "../../model/RcvVillageModel";
 import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
 import oilMillModel from "../../model/oilMillModel";
 import RcvVillageInModel from "../../model/RcvVillageInModel";
+import cashewOutModel from "../../model/cashewOutModel";
 
 
 
@@ -84,6 +85,27 @@ const updateApprovalGate = async (req: Request, res: Response) => {
 
                 if (pmupdate) {
                     const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatepassNo,"gatepass_release",'Packaging Material Incoming')
+                    console.log(data)
+                    return res.status(200).json({ message: "Gate Pass Details Modified and Approved Successfully" });
+                }
+            }
+            if (section==='FinishedCashew' && type==='OUT') {
+                const pmupdate = await cashewOutModel.update(
+                    {
+                        grossWt: grossWt,
+                        truckNo: vehicle,
+                        netWeight: netwt,
+                     
+                    },
+                    {
+                        where: {
+                            gatePassNo: gatepassNo
+                        },
+                    }
+                );
+
+                if (pmupdate) {
+                    const data = await WpMsgGatePassRcv("Finished Cashew Outgoing", gatepassNo,"gatepass_release",'Finished Cashew Outgoing')
                     console.log(data)
                     return res.status(200).json({ message: "Gate Pass Details Modified and Approved Successfully" });
                 }
@@ -259,6 +281,12 @@ const updateApprovalGate = async (req: Request, res: Response) => {
                 }
                 if (section === 'PackagingMaterial' && type === 'IN'){
                     const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatepassNo,"gatepass_release",'Packaging Material Incoming')
+                    console.log(data)
+                return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
+
+                }
+                if  (section==='FinishedCashew' && type==='OUT'){
+                    const data = await WpMsgGatePassRcv("Finished Cashew Outgoing", gatepassNo,"gatepass_release",'Finished Cashew Outgoing')
                     console.log(data)
                 return res.status(200).json({ message: "Gate Pass Details Verified and Approved Successfully" });
 

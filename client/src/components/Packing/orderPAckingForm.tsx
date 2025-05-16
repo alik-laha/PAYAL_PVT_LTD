@@ -43,15 +43,25 @@ const PackingCreateForm = (props: any) => {
       const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
           setisdisable(true)
-                axios.post(`/api/packing/createPacking/${id}`, { mfgDate, noOfBags, batchID, orderpk, noOfSystemBags })
+                axios.post(`/api/packing/createPacking/${id}`, { mfgDate, noOfBags, batchID, orderpk, noOfSystemBags,
+                    orderID:props.data.orderID,origin:props.data.origin,gradeName:props.data.gradeName ,fulfillquantity:props.data.fulfillquantity})
                     .then((res) => {
                         console.log(res)
+                        setErrorText(res.data.message)
                         if (successdialog != null) {
+                            
                             (successdialog as any).showModal();
                         }
                     }).catch((err) => {
                         console.log(err)
-                        setErrorText(err.response.data.message)
+                        console.log(err.response.data.error.original.errno)
+                        if(err.response.data.error.original.errno && err.response.data.error.original.errno===1062){
+                            setErrorText('Batch ID Already Exists')
+                        }
+                        else {
+                            setErrorText(err.response.data.message)
+                        }
+                       
                         if (errordialog != null) {
                             (errordialog as any).showModal();
                         }
@@ -88,7 +98,7 @@ const PackingCreateForm = (props: any) => {
              <div className="pl-10 pr-10">
              <form className='flex flex-col gap-1 ' onSubmit={handleSubmit}>
              <div className="flex mt-2"><Label className="w-2/4 mt-2">Order ID</Label>
-                 <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Order ID" value={props.data.orderID} readOnly /> </div>
+                 <Input className="w-2/4 bg-yellow-100 text-center font-semibold" placeholder="Order ID" value={props.data.orderID} readOnly /> </div>
                  {/* <div className="flex "><Label className="w-2/4 mt-2">Gate Pass Type</Label>
                  <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Gate Type" value={gatetype} readOnly /> </div> */}
                  <div className="flex"><Label className="w-2/4 mt-2" > Origin</Label>
@@ -101,13 +111,13 @@ const PackingCreateForm = (props: any) => {
                 <div className="flex"><Label className="w-2/4 mt-2" > Final GradeName</Label>
                     <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Origin" value={props.data.gradeName} readOnly />
                 </div>
-                <div className="flex"><Label className="w-2/4 mt-2" >Manufacturing Date</Label>
-                <Input className="w-2/4 text-center justify-center" placeholder="Mfg Date" value={mfgDate} onChange={(e) => setMfgDate(e.target.value)} type="date"/> </div>
+                
 
                 <div className="flex"><Label className="w-2/4 mt-2" > System Bag/Bucket Count</Label>
-                    <Input className="w-2/4  text-center font-bold" placeholder="Origin" value={noOfSystemBags.toFixed(2)} readOnly />
+                    <Input className="w-2/4  text-center font-semibold bg-yellow-100" placeholder="Origin" value={noOfSystemBags.toFixed(2)} readOnly />
                 </div>
-
+                <div className="flex"><Label className="w-2/4 mt-2" >Manufacturing Date</Label>
+                <Input className="w-2/4 text-center justify-center" placeholder="Mfg Date" value={mfgDate} onChange={(e) => setMfgDate(e.target.value)} type="date"/> </div>
              
 
  <div className="flex">

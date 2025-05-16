@@ -437,29 +437,29 @@ const QCRcnTable = () => {
                     <TableHead className="text-center" >Id</TableHead>
                     <TableHead className="text-center" >Origin</TableHead>
                     <TableHead className="text-center" >Incoming_Date </TableHead>
-                    <TableHead className="text-center" >GatePass No</TableHead>
+                    <TableHead className="text-center" >GatePass_No</TableHead>
                     <TableHead className="text-center" >BL No.</TableHead>
                     <TableHead className="text-center" >Con No.</TableHead>
                     <TableHead className="text-center" >Truck No.</TableHead>
                     <TableHead className="text-center" >BL Weight</TableHead>
                     <TableHead className="text-center" >Bag Count</TableHead>
                     <TableHead className="text-center" >QC Status</TableHead>
-                    <TableHead className="text-center" >QC Checked By </TableHead>
+                    <TableHead className="text-center" >Checked_By </TableHead>
                     <TableHead className="text-center" >Report </TableHead>
 
-                    <TableHead className="text-center" >Sampling</TableHead>
-                    <TableHead className="text-center" >Moisture</TableHead>
-                    <TableHead className="text-center" >Nut Count</TableHead>
-                    <TableHead className="text-center" >Flute Rate</TableHead>
-                    <TableHead className="text-center" >Good Kernel</TableHead>
-                    <TableHead className="text-center" >SP+IM</TableHead>
-                    <TableHead className="text-center" >Reject</TableHead>
-                    <TableHead className="text-center" >Shell</TableHead>
+                    <TableHead className="text-center" >Sampling (%)</TableHead>
+                    <TableHead className="text-center" >Moisture (%)</TableHead>
+                    <TableHead className="text-center" >Nut_Count (Pcs)</TableHead>
+                    <TableHead className="text-center" >Flute_Rate (gm/Kg)</TableHead>
+                    <TableHead className="text-center" >Good_Kernel (gm)</TableHead>
+                    <TableHead className="text-center" >SP+IM (gm)</TableHead>
+                    <TableHead className="text-center" >Reject (gm)</TableHead>
+                    <TableHead className="text-center" >Shell (gm)</TableHead>
 
-                    <TableHead className="text-center" >KOR</TableHead>
+                    <TableHead className="text-center" >Outturn(Lbs)</TableHead>
 
 
-                    <TableHead className="text-center" >Report By</TableHead>
+                    <TableHead className="text-center" >Report_By</TableHead>
                     <TableHead className="text-center" >Edit Status</TableHead>
 
                     <TableHead className="text-center" >Action</TableHead>
@@ -496,15 +496,15 @@ const QCRcnTable = () => {
 
                                         <input type='checkbox' checked={item.reportStatus === 1 ? true : false} />
                                     </TableCell>
-                                    <TableCell className="text-center font-bold">{item.sampling}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.moisture}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.nutCount}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.fluteRate}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.goodKernel}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.spIm}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.reject}</TableCell>
-                                    <TableCell className="text-center font-bold">{item.shell}</TableCell>
-                                    <TableCell className="text-center font-bold text-red-500">{item.outTurn}</TableCell>
+                                    <TableCell className="text-center font-semibold">{item.sampling ? `${item.sampling} %` : ''}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.moisture ? `${item.moisture} %` : ''}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.nutCount ? `${item.nutCount} Pcs` : ''}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.fluteRate ? `${item.fluteRate} g/kg` : ''}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.goodKernel ? `${item.goodKernel} g` : ''}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.spIm ? `${item.spIm} g` : ''}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.reject ? `${item.reject} g` : ''}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.shell ? `${item.shell} g` : ''}</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{item.outTurn ? `${item.outTurn} Lbs` : ''}</TableCell>
                                     <TableCell className="text-center">{item.createdBy}</TableCell>
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
                                     <TableCell className="text-center">
@@ -632,15 +632,15 @@ const QCRcnTable = () => {
 
                                             <input type='checkbox' checked={item.reportStatus === 1 ? true : false} />
                                         </TableCell>
-                                        <TableCell className="text-center font-bold">{item.sampling}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.moisture}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.nutCount}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.fluteRate}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.goodKernel}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.spIm}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.reject}</TableCell>
-                                        <TableCell className="text-center font-bold">{item.shell}</TableCell>
-                                        <TableCell className="text-center font-bold text-red-500">{item.outTurn}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.sampling ? `${item.sampling} %` : ''}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.moisture ? `${item.moisture} %` : ''}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.nutCount ? `${item.nutCount} Pcs` : ''}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.fluteRate ? `${item.fluteRate} g/kg` : ''}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.goodKernel ? `${item.goodKernel} g` : ''}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.spIm ? `${item.spIm} g` : ''}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.reject ? `${item.reject} g` : ''}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.shell ? `${item.shell} g` : ''}</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500">{item.outTurn ? `${item.outTurn} Lbs` : ''}</TableCell>
                                         <TableCell className="text-center">{item.createdBy}</TableCell>
                                         <TableCell className="text-center">{item.editStatus}</TableCell>
                                         <TableCell className="text-center">

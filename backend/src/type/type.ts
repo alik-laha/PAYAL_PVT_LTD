@@ -323,6 +323,28 @@ export interface AlmondrcvData {
     totalBill:string; 
 
 }
+export interface cashewOutRcvData {
+   id: number;
+    date: string; // ISO date string (e.g. "2025-05-12T00:00:00.000Z")
+    gatePassNo: string;
+    batchNo: string;
+    partyName: string;
+    gradeName: string;
+    grossWt: string;
+    truckNo: string;
+    quantity: string;
+    actualquantity: string;
+    status: number;
+    invoice: string;
+    netWeight: string;
+    noOfBags: string;
+    noOfActualBags: string;
+    origin: string;
+    editStatus: string;
+    createdBy: string;
+    approvedBy: string;
+
+}
 export interface BormarcvData {
     id: number;
     LotNo: string;

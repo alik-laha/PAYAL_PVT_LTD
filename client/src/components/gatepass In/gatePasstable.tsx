@@ -882,6 +882,10 @@ const GatePassTable = () => {
 
       tabnew = 'Store'
     }
+    else if (tab === 'FinishedCashew') {
+
+      tabnew = 'Finished Cashew'
+    }
     else if (tab === 'General') {
 
       tabnew = 'General'

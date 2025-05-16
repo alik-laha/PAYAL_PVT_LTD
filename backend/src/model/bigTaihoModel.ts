@@ -5,12 +5,12 @@ const bigTaihoModel = sequelize.define('bigTaiho', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement:true
+        autoIncrement: true
     },
-    LotNo:{
+    LotNo: {
         type: DataTypes.STRING,
         allowNull: false
-        
+
     },
     date: {
         type: DataTypes.DATE,
@@ -19,300 +19,300 @@ const bigTaihoModel = sequelize.define('bigTaiho', {
     origin: {
         type: DataTypes.STRING,
         allowNull: false
-    }, 
+    },
     altid: {
         type: DataTypes.INTEGER,
-        defaultValue:1
+        defaultValue: 1
     },
-    rcv_transfer: 
+    rcv_transfer:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    rcv_peeling:{
-        type: DataTypes.DECIMAL(10,2),
+    rcv_peeling: {
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false
     },
-    rcv_village: 
+    rcv_village:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    rcv_sorting: 
+    rcv_sorting:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    rcv_dpds: 
+    rcv_dpds:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    rcv_mayur: 
+    rcv_mayur:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    rcv_hamsa: 
+    rcv_hamsa:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    rcv_lw: 
+    rcv_lw:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    
-    rcv_wholes: 
+
+    rcv_wholes:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_ssp: 
+    issue_ssp:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_ssp_small: 
+    issue_ssp_small:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_swp_1: 
+    issue_swp_1:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_wsp: 
+    issue_wsp:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_bits: 
+    issue_bits:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_swp: 
+    issue_swp:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_bb: 
+    issue_bb:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_w_bb: 
+    issue_w_bb:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_bb_A: 
+    issue_bb_A:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_bb1: 
+    issue_bb1:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_bb1_A: 
+    issue_bb1_A:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_bb_2: 
+    issue_bb_2:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_ssp_1: 
+    issue_ssp_1:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_ssp_1_small: 
+    issue_ssp_1_small:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_ssp_2: 
+    issue_ssp_2:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_ssp_2_small: 
+    issue_ssp_2_small:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_sdp: 
+    issue_sdp:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-     issue_ext_grade_1: 
-        {
-            type: DataTypes.DECIMAL(10,2),
-            allowNull: true
-        },
-        issue_ext_grade_2: 
-        {
-            type: DataTypes.DECIMAL(10,2),
-            allowNull: true
-        },
-        issue_ext_grade_3: 
-        {
-            type: DataTypes.DECIMAL(10,2),
-            allowNull: true
-        },
-        issue_ext_grade_4: 
-        {
-            type: DataTypes.DECIMAL(10,2),
-            allowNull: true
-        },
-        issue_ext_grade_5: 
-        {
-            type: DataTypes.DECIMAL(10,2),
-            allowNull: true
-        },
-        issue_ext_grade_6: 
-        {
-            type: DataTypes.DECIMAL(10,2),
-            allowNull: true
-        },
-        issue_ext_grade_7: 
-        {
-            type: DataTypes.DECIMAL(10,2),
-            allowNull: true
-        },
-        issue_ext_grade_8: 
-        {
-            type: DataTypes.DECIMAL(10,2),
-            allowNull: true
-        },
-        issue_ext_grade_9: 
-        {
-            type: DataTypes.DECIMAL(10,2),
-            allowNull: true
-        },
-        issue_ext_grade_10: 
-        {
-            type: DataTypes.DECIMAL(10,2),
-            allowNull: true
-        },
-    issue_add_1: 
+    issue_ext_grade_1:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_add_2: 
+    issue_ext_grade_2:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_add_3: 
+    issue_ext_grade_3:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_add_4: 
+    issue_ext_grade_4:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_add_5: 
+    issue_ext_grade_5:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_add_6: 
+    issue_ext_grade_6:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_add_7: 
+    issue_ext_grade_7:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_add_8: 
+    issue_ext_grade_8:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_add_9: 
+    issue_ext_grade_9:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_add_10: 
+    issue_ext_grade_10:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_rejection: 
+    issue_add_1:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_village: 
+    issue_add_2:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_dpds: 
+    issue_add_3:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-   
-    issue_husk: 
+    issue_add_4:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    issue_sorting: 
+    issue_add_5:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    entry_backlog: 
+    issue_add_6:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    current_backlog: 
+    issue_add_7:
     {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
-    Status: 
+    issue_add_8:
     {
-        type:DataTypes.INTEGER,
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true
+    },
+    issue_add_9:
+    {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true
+    },
+    issue_add_10:
+    {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true
+    },
+    issue_rejection:
+    {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true
+    },
+    issue_village:
+    {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true
+    },
+    issue_dpds:
+    {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true
+    },
+
+    issue_husk:
+    {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true
+    },
+    issue_sorting:
+    {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true
+    },
+    entry_backlog:
+    {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true
+    },
+    current_backlog:
+    {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true
+    },
+    Status:
+    {
+        type: DataTypes.INTEGER,
         defaultValue: 0
-    }, 
-    latest: 
+    },
+    latest:
     {
-        type:DataTypes.INTEGER,
+        type: DataTypes.INTEGER,
         defaultValue: 1
-    }, 
+    },
     mixingLot: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    noOfdayOperators:{
+    noOfdayOperators: {
         type: DataTypes.INTEGER,
         allowNull: true
     },
-    noOfnightOperators:{
+    noOfnightOperators: {
         type: DataTypes.INTEGER,
         allowNull: true
     },
-    
+
     CreatedBy: {
         type: DataTypes.STRING,
         allowNull: true
@@ -320,7 +320,7 @@ const bigTaihoModel = sequelize.define('bigTaiho', {
     editStatus: {
         type: DataTypes.STRING,
         allowNull: true,
-        defaultValue:'NA'
+        defaultValue: 'NA'
     },
 
     modifiedBy: {
@@ -334,7 +334,7 @@ const bigTaihoModel = sequelize.define('bigTaiho', {
     Mc_off_3: {
         type: DataTypes.TIME,
         allowNull: true
-    },  
+    },
     Mc_breakdown_3: {
         type: DataTypes.TIME,
         allowNull: true
@@ -354,7 +354,7 @@ const bigTaihoModel = sequelize.define('bigTaiho', {
     Mc_off_1: {
         type: DataTypes.TIME,
         allowNull: true
-    },  
+    },
     Mc_breakdown_1: {
         type: DataTypes.TIME,
         allowNull: true
@@ -374,7 +374,7 @@ const bigTaihoModel = sequelize.define('bigTaiho', {
     Mc_off_2: {
         type: DataTypes.TIME,
         allowNull: true
-    },  
+    },
     Mc_breakdown_2: {
         type: DataTypes.TIME,
         allowNull: true
