@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { Input } from "../ui/input";
 import React from "react";
 import axios from "axios";
-import {  findskutypeData, IssueItemData, IssueItemDaywiseData, PermissionRole } from "@/type/type";
+import {  findskutypeData, IssueItemData, IssueItemDaywiseData } from "@/type/type";
 import { pagelimit, pageNo, SelectTypeIssue } from "../common/exportData";
 import { Button } from "../ui/button";
 import { FaSearch } from "react-icons/fa";
