@@ -115,8 +115,8 @@ const RejectionInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-                              if(item.rcv_mayur && item.rcv_peeling  && item.rcv_bigTaiho 
-                                && item.rcv_wholes && item.rcv_sorting && item.rcv_dpds && item.rcv_lw 
+                              if(item.rcv_mayur && item.rcv_peeling   
+                                
                                 &&((item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
                               (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
                               (item.rcv_peeling ? parseFloat(item.rcv_peeling) : 0) + 
