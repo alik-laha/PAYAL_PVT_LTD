@@ -114,7 +114,7 @@ const BigTaihoInitial = (props: any) => {
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
                                 if(item.rcv_mayur && item.rcv_hamsa && item.rcv_dpds && item.rcv_sorting 
-                                    && item.rcv_wholes && item.rcv_lw  && (parseFloat(item.current_backlog)>0 )){
+                                    && item.rcv_wholes  && (parseFloat(item.current_backlog)>0 )){
                                     return (
                                         <TableRow key={idx}>
                                             <TableCell className="text-center">
