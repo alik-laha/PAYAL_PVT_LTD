@@ -113,8 +113,9 @@ const BigTaihoInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-                                if(item.rcv_mayur && item.rcv_hamsa && item.rcv_dpds && item.rcv_sorting 
-                                    && item.rcv_wholes  && (parseFloat(item.current_backlog)>0 )){
+
+                                if(item.LotNo.includes('V')){
+                                    console.log('Hi')
                                     return (
                                         <TableRow key={idx}>
                                             <TableCell className="text-center">
@@ -147,7 +148,44 @@ const BigTaihoInitial = (props: any) => {
     
                                         </TableRow>
                                     );
+                                }else{
+                                    if(item.rcv_mayur && item.rcv_hamsa && item.rcv_dpds && item.rcv_sorting 
+                                        && item.rcv_wholes  && (parseFloat(item.current_backlog)>0 )){
+                                        return (
+                                            <TableRow key={idx}>
+                                                <TableCell className="text-center">
+                                                    {idx + 1}
+                                                </TableCell>
+                                                <TableCell className="text-center font-semibold text-red-500">
+                                                    {item.LotNo}
+                                                </TableCell>
+                                                <TableCell className="text-center font-semibold text-blue-500">
+                                                    {item.origin}
+                                                </TableCell>
+                                                <TableCell className="text-center font-semibold ">
+                                                    {formatNumber(item.current_backlog)} Kg
+                                                </TableCell>
+                                                
+                                                <TableCell className="text-center">
+                                                    <Dialog>
+                                                        <DialogTrigger>
+                                                            <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
+                                                  <DialogContent className='max-w-screen'>
+                                                            <DialogHeader>
+                                                                <DialogTitle><p className='text-1xl text-center mt-1'>BigTaiho Line Entry</p></DialogTitle>
+        
+                                                            </DialogHeader>
+                                                        
+                                                            <RCNDBigTaihoCreateForm borma={bormaData}/>
+                                                        </DialogContent>
+                                                    </Dialog>
+                                                </TableCell>
+        
+                                            </TableRow>
+                                        );
+                                    }
                                 }
+                                
                                 
                             })
                         ) : <TableRow>
