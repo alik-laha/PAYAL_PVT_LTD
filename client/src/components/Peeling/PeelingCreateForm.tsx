@@ -109,7 +109,7 @@ const RCNPeelingCreateForm = (props:Props) => {
             Mc_off: '00:00',
             Mc_breakdown: '00:00', 
             otherTime: '00:00',
-            NoOfTrolley: 0, 
+            NoOfTrolley: parseInt(item.NoOfTrolley), 
             WholesPeel: 0,
             WholesUnpeel:0,
             DP: 0,
@@ -285,7 +285,7 @@ console.log(vilLot)
                                         <TableCell className="text-center"> <Input  value={row.pressure} placeholder="Pr." onChange={(e) => handleRowChange(idx,'pressure',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.moisture} placeholder="%" onChange={(e) => handleRowChange(idx,'moisture',e.target.value)} required /></TableCell>
                                         <TableCell className="text-center"> <Input  value={row.peelingTime} placeholder="sec" onChange={(e) => handleRowChange(idx,'peelingTime',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.NoOfTrolley} placeholder="No." onChange={(e) => handleRowChange(idx,'NoOfTrolley',e.target.value)} required /></TableCell>
+                                        <TableCell className="text-center"> {row.NoOfTrolley}</TableCell>
                                         <FormRow idx={idx} row={row} column='Mc_on' handleRowChange={handleRowChange}/>
                                         <FormRow idx={idx} row={row} column='Mc_off' handleRowChange={handleRowChange}/>
 

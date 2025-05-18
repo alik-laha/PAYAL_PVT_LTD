@@ -119,44 +119,90 @@ const DPDSInitial = (props: any) => {
                     <TableBody>
                         {props.props.length > 0 ? (
                             props.props.map((item: lotPropsdata, idx: number) => {
-                                if(item.rcv_Sorting && (parseFloat(item.rcv_dp)+ parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1))>0 ){
-                                    return (
-                                        <TableRow key={idx}>
-                                            <TableCell className="text-center">
-                                                {idx + 1}
-                                            </TableCell>
-                                            <TableCell className="text-center font-semibold text-red-500">
-                                                {item.LotNo}
-                                            </TableCell>
-                                            <TableCell className="text-center font-semibold text-blue-500">
-                                                {item.origin}
-                                            </TableCell>
-                                            <TableCell className="text-center font-semibold ">
-                                                {formatNumber(item.current_backlog)} Kg
-                                            </TableCell>
-                                            
-                                            <TableCell className="text-center">
-                                                <Dialog onOpenChange={(isOpen)=>{
-                                                    if(!isOpen) {
-                                                        unlockForm('DPDSEntry')
-                                                    }
-                                                }}>
-                                                    <DialogTrigger>
-                                                        <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
-                                              <DialogContent className='max-w-screen'>
-                                                        <DialogHeader>
-                                                            <DialogTitle><p className='text-1xl text-center mt-2'>DPDS Line Entry</p></DialogTitle>
-    
-                                                        </DialogHeader>
-                                                    
-                                                        <RCNDPDSCreateForm borma={bormaData}/>
-                                                    </DialogContent>
-                                                </Dialog>
-                                            </TableCell>
-    
-                                        </TableRow>
-                                    );
+
+
+                                if(item.LotNo.includes('V')){
+                                    if( parseFloat(item.current_backlog)>0 ){
+                                        return (
+                                            <TableRow key={idx}>
+                                                <TableCell className="text-center">
+                                                    {idx + 1}
+                                                </TableCell>
+                                                <TableCell className="text-center font-semibold text-red-500">
+                                                    {item.LotNo}
+                                                </TableCell>
+                                                <TableCell className="text-center font-semibold text-blue-500">
+                                                    {item.origin}
+                                                </TableCell>
+                                                <TableCell className="text-center font-semibold ">
+                                                    {formatNumber(item.current_backlog)} Kg
+                                                </TableCell>
+                                                
+                                                <TableCell className="text-center">
+                                                    <Dialog onOpenChange={(isOpen)=>{
+                                                        if(!isOpen) {
+                                                            unlockForm('DPDSEntry')
+                                                        }
+                                                    }}>
+                                                        <DialogTrigger>
+                                                            <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
+                                                  <DialogContent className='max-w-screen'>
+                                                            <DialogHeader>
+                                                                <DialogTitle><p className='text-1xl text-center mt-2'>DPDS Line Entry</p></DialogTitle>
+        
+                                                            </DialogHeader>
+                                                        
+                                                            <RCNDPDSCreateForm borma={bormaData}/>
+                                                        </DialogContent>
+                                                    </Dialog>
+                                                </TableCell>
+        
+                                            </TableRow>
+                                        );
+                                    } 
                                 }
+                                else{
+                                    if(item.rcv_Sorting && (parseFloat(item.rcv_dp)+ parseFloat(item.rcv_ds)+parseFloat(item.rcv_dp1))>0 ){
+                                        return (
+                                            <TableRow key={idx}>
+                                                <TableCell className="text-center">
+                                                    {idx + 1}
+                                                </TableCell>
+                                                <TableCell className="text-center font-semibold text-red-500">
+                                                    {item.LotNo}
+                                                </TableCell>
+                                                <TableCell className="text-center font-semibold text-blue-500">
+                                                    {item.origin}
+                                                </TableCell>
+                                                <TableCell className="text-center font-semibold ">
+                                                    {formatNumber(item.current_backlog)} Kg
+                                                </TableCell>
+                                                
+                                                <TableCell className="text-center">
+                                                    <Dialog onOpenChange={(isOpen)=>{
+                                                        if(!isOpen) {
+                                                            unlockForm('DPDSEntry')
+                                                        }
+                                                    }}>
+                                                        <DialogTrigger>
+                                                            <Button className="bg-green-500 h-8 rounded-md" onClick={()=>handleLineEntry(item.LotNo,item.origin)}> Issue </Button></DialogTrigger>
+                                                  <DialogContent className='max-w-screen'>
+                                                            <DialogHeader>
+                                                                <DialogTitle><p className='text-1xl text-center mt-2'>DPDS Line Entry</p></DialogTitle>
+        
+                                                            </DialogHeader>
+                                                        
+                                                            <RCNDPDSCreateForm borma={bormaData}/>
+                                                        </DialogContent>
+                                                    </Dialog>
+                                                </TableCell>
+        
+                                            </TableRow>
+                                        );
+                                    } 
+                                }
+
+                               
                                 
                             })
                         ) : <TableRow>
