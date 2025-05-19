@@ -7,7 +7,7 @@ const WelcomeImage: React.FC = () => {
     <div className="welcome-container">
      
       <div className="welcome-content">
-        <h1>Welcome to Dashboard</h1>
+        <h1>Welcome </h1>
         <p>We're glad to have you here. Let's get started!</p>
         <span className='text-red-500 pt-5 font-bold text-2xl'>N.B : This is Beta Version Of Software. All the datas reflecting here are used for development and testing purposes only </span>
 

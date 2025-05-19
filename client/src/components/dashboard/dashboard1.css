@@ -1,0 +1,40 @@
+.dashboard-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: white;
+}
+
+.panel-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.panel {
+  flex: 0 0 220px; /* Fixed width */
+  max-width: 220px;
+  min-width: 220px;
+  background-color: #f4f6f9;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
+}
+
+.panel:hover {
+  transform: scale(1.02);
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.panel p {
+  font-size: 16px;
+  
+}

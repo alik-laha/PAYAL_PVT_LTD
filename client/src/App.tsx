@@ -47,6 +47,7 @@ import Packing from './components/Packing/Packing'
 import Village from './components/Village Production/Village'
 import RcvVillageIn from './components/Rcv Village In/RcvVillageIn'
 import CashewOut from './components/Cashew Out/cashewOut'
+import DashboardPanel1 from './components/dashboard/dashboardpanel1'
 
 
 
@@ -311,8 +312,8 @@ function App() {
 
         
 
+        <Route path="/dashboard/dashboard1" element={<DashboardPanel1 />} />
 
-        
 
         <Route path="/dashboard/userprofile" element={<ViewProfile />} />
       </Routes>
