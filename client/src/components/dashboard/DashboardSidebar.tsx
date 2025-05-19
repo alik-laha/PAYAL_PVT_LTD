@@ -9,6 +9,7 @@ import { useState } from "react"
 import { NavLink } from "react-router-dom";
 import { PermissionRol, PermissionDep } from "../common/exportData";
 import { PermissionRole, PermissionDept } from "@/type/type";
+import { RxDashboard } from "react-icons/rx";
 import {
     MdOutlineAdminPanelSettings, MdOutlineStorefront, MdGrading,
     MdHolidayVillage, MdCallReceived, MdOutlineFactory, MdOutlineOilBarrel, MdOutlineHighQuality
@@ -80,6 +81,15 @@ const DashboardSidebar = () => {
             <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
                 <a href="#" className="closebtn" onClick={closeSidebar}>&times;</a>
                 <a>
+
+                    <Collapsible>
+                        <CollapsibleTrigger className="flex user-pvt "><RxDashboard  size={25} />
+                            <p>Dashboard</p></CollapsibleTrigger>
+                        <CollapsibleContent className="Items-pvt">
+                            <NavLink to="/dashboard/dashboard1" >
+                                Lot Flow 
+                            </NavLink>
+                        </CollapsibleContent ></Collapsible >
 
                     {rendersection('HR & Admin') && <Collapsible >
                         <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25} />
@@ -437,6 +447,9 @@ const DashboardSidebar = () => {
                                 Account
                             </NavLink>
                         </CollapsibleContent ></Collapsible >
+
+
+                    
 
 
                 </a>

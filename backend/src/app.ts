@@ -41,6 +41,8 @@ import packingRouter from "./router/packingRouter";
 import VillageOutRouter from "./router/VillageOutRouter";
 import RcvVillageInRouter from "./router/RcvVillageInRouter";
 import cashewOutRouter from "./router/cashewOutRouter";
+import dashboardRouter from "./router/dashboardRouter";
+
 
 
 
@@ -91,4 +93,5 @@ app.use("/api/rejection", RejectionRouter)
 app.use("/api/formlock", formLockRouter)
 app.use("/api/packing", packingRouter)
 app.use("/api/villageout", VillageOutRouter)
+app.use("/api/dashboard", dashboardRouter)
 export default app

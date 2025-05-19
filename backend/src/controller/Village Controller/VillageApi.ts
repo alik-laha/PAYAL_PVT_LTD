@@ -70,7 +70,7 @@ export const sumOfallVillage = async (req: Request, res: Response) => {
                 [sequelize.fn('sum', sequelize.col('issue_add_9')), 'issue_add_9'],
                 [sequelize.fn('sum', sequelize.col('issue_add_10')), 'issue_add_10'],
 
-                [sequelize.fn('sum', sequelize.col('current_backlog')), 'current_backlog']
+             
             ],
             where: {
                 [Op.or]: [
@@ -81,9 +81,26 @@ export const sumOfallVillage = async (req: Request, res: Response) => {
                 }
             }
         });
+
+         const Sumdata = await villageProduction.findAll({
+                                            attributes: [
+                                       
+                                                [sequelize.fn('sum', sequelize.col('current_backlog')), 'current_backlog']
+                                              
+                                               
+                                            ],
+                                            where: {
+                                                [Op.or]: [
+                                                    { editStatus: "Approved" },
+                                                    { editStatus: "NA" }
+                                                ], date: {
+                                                    [Op.between]: [targetDate, today]
+                                                },latest:1
+                                            }
+                                        });
         const EditData = await villageProductionEdit.count()
-        if (data) {
-            return res.status(200).json({ data, EditData });
+        if (data && Sumdata) {
+            return res.status(200).json({ data, EditData,Sumdata });
         }
     }
     catch (err) {

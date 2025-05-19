@@ -1408,7 +1408,7 @@ export const sumOfallMayur = async (req: Request, res: Response) => {
                 [sequelize.fn('sum', sequelize.col('issue_bigTaiho')), 'issue_bigTaiho'],
                 [sequelize.fn('sum', sequelize.col('issue_LW')), 'issue_LW'],
                 [sequelize.fn('sum', sequelize.col('issue_JB')), 'issue_JB'],
-                [sequelize.fn('sum', sequelize.col('current_backlog')), 'current_backlog']
+               
               
                
             ],
@@ -1421,9 +1421,25 @@ export const sumOfallMayur = async (req: Request, res: Response) => {
                 }
             }
         });
+        const Sumdata = await Mayur.findAll({
+            attributes: [
+       
+                [sequelize.fn('sum', sequelize.col('current_backlog')), 'current_backlog']
+              
+               
+            ],
+            where: {
+                [Op.or]: [
+                    { editStatus: "Approved" },
+                    { editStatus: "NA" }
+                ], date: {
+                    [Op.between]: [targetDate, today]
+                },latest:1
+            }
+        });
         const EditData = await MayurEdit.count()
-        if (data) {
-            return res.status(200).json({ data, EditData });
+        if (data && Sumdata) {
+            return res.status(200).json({ data, EditData,Sumdata });
         }
     }
     catch (err) {

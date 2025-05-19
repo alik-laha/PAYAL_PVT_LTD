@@ -96,7 +96,7 @@ export const sumOfallBigTaiho = async (req: Request, res: Response) => {
                 [sequelize.fn('sum', sequelize.col('issue_dpds')), 'issue_dpds'],
                 [sequelize.fn('sum', sequelize.col('issue_husk')), 'issue_husk'],
                 [sequelize.fn('sum', sequelize.col('issue_sorting')), 'issue_sorting'],
-                [sequelize.fn('sum', sequelize.col('current_backlog')), 'current_backlog']
+               
             ],
             where: {
                 [Op.or]: [
@@ -107,9 +107,26 @@ export const sumOfallBigTaiho = async (req: Request, res: Response) => {
                 }
             }
         });
+
+        const Sumdata = await bigTaihoModel.findAll({
+                    attributes: [
+               
+                        [sequelize.fn('sum', sequelize.col('current_backlog')), 'current_backlog']
+                      
+                       
+                    ],
+                    where: {
+                        [Op.or]: [
+                            { editStatus: "Approved" },
+                            { editStatus: "NA" }
+                        ], date: {
+                            [Op.between]: [targetDate, today]
+                        },latest:1
+                    }
+                });
         const EditData = await bigTaihoEditModel.count()
-        if (data) {
-            return res.status(200).json({ data, EditData });
+        if (data && Sumdata) {
+            return res.status(200).json({ data, EditData,Sumdata });
         }
     }
     catch (err) {
