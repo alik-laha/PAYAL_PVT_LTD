@@ -83,9 +83,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 [Op.or]: [
                     { editStatus: "Approved" },
                     { editStatus: "NA" }
-                ], date: {
-                    [Op.between]: [targetDate, today]
-                },latest:1
+                ], latest:1
             }
         });
 
@@ -130,9 +128,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 [Op.or]: [
                     { editStatus: "Approved" },
                     { editStatus: "NA" }
-                ], date: {
-                    [Op.between]: [targetDate, today]
-                },latest:1
+                ],latest:1
             }
         });
 
@@ -177,9 +173,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 [Op.or]: [
                     { editStatus: "Approved" },
                     { editStatus: "NA" }
-                ], date: {
-                    [Op.between]: [targetDate, today]
-                },latest:1
+                ],latest:1
             }
         });
 
@@ -224,9 +218,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 [Op.or]: [
                     { editStatus: "Approved" },
                     { editStatus: "NA" }
-                ], date: {
-                    [Op.between]: [targetDate, today]
-                },latest:1
+                ], latest:1
             }
         });
 
@@ -271,9 +263,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 [Op.or]: [
                     { editStatus: "Approved" },
                     { editStatus: "NA" }
-                ], date: {
-                    [Op.between]: [targetDate, today]
-                },latest:1
+                ],latest:1
             }
         });
 
@@ -318,9 +308,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 [Op.or]: [
                     { editStatus: "Approved" },
                     { editStatus: "NA" }
-                ], date: {
-                    [Op.between]: [targetDate, today]
-                },latest:1
+                ],latest:1
             }
         });
 
@@ -364,9 +352,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 [Op.or]: [
                     { editStatus: "Approved" },
                     { editStatus: "NA" }
-                ], date: {
-                    [Op.between]: [targetDate, today]
-                },latest:1
+                ],latest:1
             }
         });
 
@@ -409,9 +395,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 [Op.or]: [
                     { editStatus: "Approved" },
                     { editStatus: "NA" }
-                ], date: {
-                    [Op.between]: [targetDate, today]
-                },latest:1
+                ],latest:1
             }
         });
 
@@ -455,9 +439,7 @@ export const infoOfallSection = async (req: Request, res: Response) => {
                 [Op.or]: [
                     { editStatus: "Approved" },
                     { editStatus: "NA" }
-                ], date: {
-                    [Op.between]: [targetDate, today]
-                },latest:1
+                ],latest:1
             }
         });
 
