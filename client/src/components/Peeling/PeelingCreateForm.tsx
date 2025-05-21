@@ -245,14 +245,14 @@ console.log(vilLot)
                         <TableHead className="text-center" >Item_LotNo</TableHead>
                         <TableHead className="text-center" >Origin</TableHead>
                         <TableHead className="text-center" >Total_Input(Kg)</TableHead>
-                        <TableHead className="text-center" >Pressure</TableHead>
-                        <TableHead className="text-center" >Moisture (Min%_Max%)</TableHead>
-                        <TableHead className="text-center" >Peeling Time (Min(s)_Max(s))</TableHead>
+                         { !LotNo.includes('V')? <TableHead className="text-center" >Pressure</TableHead>:''}
+                         { !LotNo.includes('V')? <TableHead className="text-center" >Moisture (Min%_Max%)</TableHead>:''}
+                         { !LotNo.includes('V')? <TableHead className="text-center" >Peeling Time (Min(s)_Max(s))</TableHead>:''}
                         { !LotNo.includes('V')?  <TableHead className="text-center" >No Of Trolley</TableHead>:''}
-                        <TableHead className="text-center" >Peeling_On</TableHead>
-                        <TableHead className="text-center" >Peeling_Off</TableHead>
-                        <TableHead className="text-center" >Breakdown Duration</TableHead>
-                        <TableHead className="text-center" >Other Duration</TableHead>
+                         { !LotNo.includes('V')? <TableHead className="text-center" >Peeling_On</TableHead>:''}
+                        { !LotNo.includes('V')?  <TableHead className="text-center" >Peeling_Off</TableHead>:''}
+                         { !LotNo.includes('V')? <TableHead className="text-center" >Breakdown Duration</TableHead>:''}
+                        { !LotNo.includes('V')?  <TableHead className="text-center" >Other Duration</TableHead>:''}
                         <TableHead className="text-center" >Pieces_Unpeel (Village)</TableHead>
                         <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'Wholes_&_JB (Mayur)':'Wholes_Peel (Mayur)'):'Wholes_Peel (Mayur)'}</TableHead>
                         <TableHead className="text-center">{LotNo ? (LotNo.includes('V')?'LW (Mayur)':'Wholes_UnPeel (Mayur)'):'Wholes_UnPeel (Mayur)'}</TableHead>
@@ -282,16 +282,16 @@ console.log(vilLot)
 
                                         <TableCell className="text-center font-semibold ">{formatNumber(row.TotalInput)} Kg</TableCell>
                                      
-                                        <TableCell className="text-center"> <Input  value={row.pressure} placeholder="Pr." onChange={(e) => handleRowChange(idx,'pressure',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.moisture} placeholder="%" onChange={(e) => handleRowChange(idx,'moisture',e.target.value)} required /></TableCell>
-                                        <TableCell className="text-center"> <Input  value={row.peelingTime} placeholder="sec" onChange={(e) => handleRowChange(idx,'peelingTime',e.target.value)} required /></TableCell>
+                                       { !LotNo.includes('V')?   <TableCell className="text-center"> <Input  value={row.pressure} placeholder="Pr." onChange={(e) => handleRowChange(idx,'pressure',e.target.value)} required /></TableCell>:''}
+                                        { !LotNo.includes('V')?  <TableCell className="text-center"> <Input  value={row.moisture} placeholder="%" onChange={(e) => handleRowChange(idx,'moisture',e.target.value)} required /></TableCell>:''}
+                                        { !LotNo.includes('V')?  <TableCell className="text-center"> <Input  value={row.peelingTime} placeholder="sec" onChange={(e) => handleRowChange(idx,'peelingTime',e.target.value)} required /></TableCell>:''}
                                        { !LotNo.includes('V')?  <TableCell className="text-center"> {row.NoOfTrolley ? row.NoOfTrolley:''}</TableCell>:''}
-                                        <FormRow idx={idx} row={row} column='Mc_on' handleRowChange={handleRowChange}/>
-                                        <FormRow idx={idx} row={row} column='Mc_off' handleRowChange={handleRowChange}/>
+                                       { !LotNo.includes('V')? <FormRow idx={idx} row={row} column='Mc_on' handleRowChange={handleRowChange}/>:''}
+                                       { !LotNo.includes('V')? <FormRow idx={idx} row={row} column='Mc_off' handleRowChange={handleRowChange}/>:''}
 
                                         {/* <TableCell className="text-center"><Input className="bg-red-100" value={row.Mc_off} placeholder="MC Off Time" onChange={(e) => handleRowChange(idx,'Mc_off',e.target.value)} type='time' required /></TableCell> */}
-                                        <TableCell className="text-center"><Input  value={row.Mc_breakdown} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown',e.target.value)} type='time'  /></TableCell>
-                                        <TableCell className="text-center"><Input  value={row.otherTime} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime',e.target.value)} type='time'  /></TableCell>
+                                        { !LotNo.includes('V')?  <TableCell className="text-center"><Input  value={row.Mc_breakdown} placeholder="BreakDown" onChange={(e) => handleRowChange(idx,'Mc_breakdown',e.target.value)} type='time'  /></TableCell>:''}
+                                      { !LotNo.includes('V')?    <TableCell className="text-center"><Input  value={row.otherTime} placeholder="Other Time" onChange={(e) => handleRowChange(idx,'otherTime',e.target.value)} type='time'  /></TableCell>:''}
                                         <TableCell className="text-center"> <Input className='bg-purple-100' type="number" value={row.UnpeelPiece} placeholder="Pr." onChange={(e) => handleRowChange(idx,'UnpeelPiece',e.target.value)} required /></TableCell>
 
                                         <TableCell className="text-center"> <Input className='bg-yellow-100' type="number" value={row.WholesPeel} placeholder="Pr." onChange={(e) => handleRowChange(idx,'WholesPeel',e.target.value)} required /></TableCell>
