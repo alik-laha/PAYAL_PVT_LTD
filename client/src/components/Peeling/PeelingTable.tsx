@@ -429,7 +429,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                       
                                        
                                         <TableCell className="text-center">{formatNumber(item.pressure)} </TableCell>
-                                        <TableCell className="text-center ">{item.moisture} %</TableCell>
+                                        <TableCell className="text-center ">{item.moisture ? `${item.moisture} %` : ''}</TableCell>
                                         <TableCell className="text-center  ">{item.peelingTime} </TableCell>
                                       
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
@@ -518,8 +518,8 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
                                       
                                        
-                                        <TableCell className="text-center">{formatNumber(item.pressure)} psi </TableCell>
-                                        <TableCell className="text-center ">{item.moisture} %</TableCell>
+                                           <TableCell className="text-center ">{item.pressure ? `${formatNumber(item.moisture)} psi` : ''}</TableCell>
+                                           <TableCell className="text-center ">{item.moisture ? `${item.moisture} %` : ''}</TableCell>
                                         <TableCell className="text-center  ">{item.peelingTime} </TableCell>
                                       
                                         <TableCell className="text-center">{item.NoOfTrolley} </TableCell>
