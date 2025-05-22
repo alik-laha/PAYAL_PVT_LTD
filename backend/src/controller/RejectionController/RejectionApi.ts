@@ -574,9 +574,9 @@ export const approveRejection = async (req: Request, res: Response) => {
                 await sequelize.transaction(async (transaction: any) => {
 
                     const BigTEdit = await rejectionModel.update({
-                    date: data.Date,              
-                    noOfdayOperators: data.dayoperator,
-                    noOfnightOperators: data.nightoperator,
+                      date: data.date,
+                        noOfdayOperators: data.noOfdayOperators,
+                        noOfnightOperators: data.noOfnightOperators,
                     issue_packing: data.issue_packing,
                     issue_village: data.issue_village,
                     issue_uncut_unscoop: data.issue_uncut_unscoop,

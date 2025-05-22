@@ -1330,10 +1330,9 @@ export const approveLW = async (req: Request, res: Response) => {
                 await sequelize.transaction(async (transaction: any) => {
 
                     const BigTEdit = await LWModel.update({
-                        date: data.Date,
-                        noOfdayOperators: data.dayoperator,
-                        noOfnightOperators: data.nightoperator,
-
+                       date: data.date,
+                        noOfdayOperators: data.noOfdayOperators,
+                        noOfnightOperators: data.noOfnightOperators,
                         issue_kw: data.issue_kw,
                         issue_kw_1: data.issue_kw_1,
                         issue_kw_2: data.issue_kw_2,

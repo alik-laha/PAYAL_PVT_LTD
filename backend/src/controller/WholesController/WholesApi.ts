@@ -2774,9 +2774,9 @@ export const approveWholes = async (req: Request, res: Response) => {
                 await sequelize.transaction(async (transaction: any) => {
 
                     const BigTEdit = await WholesModel.update({
-                        date: data.Date,
-                        noOfdayOperators: data.dayoperator,
-                        noOfnightOperators: data.nightoperator,
+                        date: data.date,
+                        noOfdayOperators: data.noOfdayOperators,
+                        noOfnightOperators: data.noOfnightOperators,
 
 
                         rcv_pw_210: data.rcv_pw_210,

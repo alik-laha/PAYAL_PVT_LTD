@@ -1846,9 +1846,9 @@ export const approveSorting = async (req: Request, res: Response) => {
                 await sequelize.transaction(async (transaction: any) => {
 
                     const SortingEdit = await SortingModel.update({
-                        date: data.Date,              
-                        noOfdayOperators: data.dayoperator,
-                        noOfnightOperators: data.nightoperator,
+                          date: data.date,
+                        noOfdayOperators: data.noOfdayOperators,
+                        noOfnightOperators: data.noOfnightOperators,
                         issue_sjh: data.issue_sjh,
                         issue_jjh: data.issue_jjh,
                         issue_jjh1: data.issue_jjh1,

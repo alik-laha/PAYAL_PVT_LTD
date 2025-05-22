@@ -1747,9 +1747,9 @@ export const approveHamsa = async (req: Request, res: Response) => {
                 await sequelize.transaction(async (transaction: any) => {
 
                     const BigTEdit = await hamsaModel.update({
-                        date: data.Date,              
-                        noOfdayOperators: data.dayoperator,
-                        noOfnightOperators: data.nightoperator,
+                        date: data.date,              
+                        noOfdayOperators: data.noOfdayOperators,
+                        noOfnightOperators: data.noOfnightOperators,
                         Mc_on_1: data.Mc_on_1,
                         Mc_off_1: data.Mc_off_1,
                         Mc_runTime_1: data.Mc_runTime1,
