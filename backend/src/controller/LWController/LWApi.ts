@@ -799,7 +799,9 @@ export const CreateReissueLW = async (req: Request, res: Response) => {
                             mixingLot: data.mixingLot,
                             noOfdayOperators: data.dayoperator,
                             noOfnightOperators: data.nightoperator,
-
+                            rcv_mayur:data.rcv_mayur,
+                            rcv_hamsa:data.rcv_hamsa,
+                            rcv_wholes:data.rcv_wholesN,
                             issue_kw: data.issue_kw,
                             issue_kw_1: data.issue_kw_1,
                             issue_kw_2: data.issue_kw_2,
@@ -852,10 +854,10 @@ export const CreateReissueLW = async (req: Request, res: Response) => {
                             issue_ext_grade_9: data.issue_ext_grade_9,
                             issue_ext_grade_10: data.issue_ext_grade_10,
 
-                            issue_add_1: data.issue_add_1,
+                            issue_add_1: data.rcv_mayurN,
                             issue_add_2: data.issue_add_2,
                             issue_add_3: data.issue_add_3,
-                            issue_add_4: data.issue_add_4,
+                            issue_add_4: data.rcv_hamsaN,
                             issue_add_5: data.issue_add_5,
                             issue_add_6: data.issue_add_3,
                             issue_add_7: data.rcv_mayurN,
