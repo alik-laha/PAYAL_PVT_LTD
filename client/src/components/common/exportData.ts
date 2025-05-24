@@ -53,7 +53,7 @@ export const PermissionRol = {
     WholesSupervisor:['Wholes','LW'],
     Security:['Gatepass'],
     GatePassManager:['Gatepass','RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry','Cashew Exit',
-        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','Receiving Village Entry','Receiving OilMill Entry'],
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','Receiving Village Entry','Receiving OilMill Entry','Packing'],
     PackingSupervisor:['Packing']
 }
 
@@ -86,9 +86,9 @@ export const pendingCheckRole = {
     Rejection:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     Village: ['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     Gatepass: ['Director', 'FactoryManager', 'GatePassManager'],
-    OrderCreate: ['Director', 'FactoryManager', 'ProductionManager'],
-    OrderMapping: ['Director', 'FactoryManager', 'ProductionManager'],
-    ProdStockExcel: ['Director', 'FactoryManager', 'ProductionManager'],
+    OrderCreate: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','GatePassManager'],
+    OrderMapping: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','GatePassManager'],
+    ProdStockExcel: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','GatePassManager'],
 
    
 }
@@ -130,7 +130,7 @@ export const SelectType = ["LineWise","LotWise"]
 export const SelectTypeIssue = ["ItemWise","DayWise"]
 export const prodStockSection=['Wholes','LW','Sorting','DPDS','BigTaiho','Rejection','Village']
 export const FY=['2025-26']
-export const Village_Outside_Type=['WHOLES(CARRAT)','WHOLES(PACKED)','PIECES','BW/HW','OTHERS']
+export const Village_Outside_Type=['WHOLES(CARRAT)','WHOLES(PACKED)','PIECES','MIXED(WHOLES+PIECE)','BW/HW','OTHERS']
 
 export const sectionDataonTypeGate = {
     IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond','Village','Agarbati'],
