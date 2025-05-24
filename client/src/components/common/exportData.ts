@@ -61,7 +61,7 @@ export const PermissionRol = {
 
 export const PermissionDep = {
     Admin: ['HR & Admin', 'GatePass','Receiving', 'Quality', 'Maintainance', 'Production'],
-    Receiving: ['Receiving'],
+    Receiving: ['GatePass','Receiving','Production'],
     Maintainance: ['Maintainance'],
     Production: ['Production'],
     QualityControl: ['Quality'],
