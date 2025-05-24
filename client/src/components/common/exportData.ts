@@ -53,7 +53,7 @@ export const PermissionRol = {
     WholesSupervisor:['Wholes','LW'],
     Security:['Gatepass'],
     GatePassManager:['Gatepass','RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry','Cashew Exit',
-        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','Receiving Village Entry','Receiving OilMill Entry'],
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','Receiving Village Entry','Receiving OilMill Entry','Packing'],
     PackingSupervisor:['Packing']
 }
 
@@ -75,7 +75,7 @@ export const pendingCheckRole = {
     Scooping: ['Director', 'FactoryManager', 'ProductionManager'],
     Borma: ['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     Humidifier: ['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
-    Peeling:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
+    Peeling:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager','VillageSupervisor'],
     Mayur:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     Hamsa:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     BigTaiho:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
@@ -86,9 +86,10 @@ export const pendingCheckRole = {
     Rejection:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     Village: ['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     Gatepass: ['Director', 'FactoryManager', 'GatePassManager'],
-    OrderCreate: ['Director', 'FactoryManager', 'ProductionManager'],
-    OrderMapping: ['Director', 'FactoryManager', 'ProductionManager'],
-    ProdStockExcel: ['Director', 'FactoryManager', 'ProductionManager'],
+    OrderCreate: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','GatePassManager'],
+    OrderMapping: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','GatePassManager'],
+    ProdStockExcel: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','GatePassManager'],
+
 
    
 }
@@ -130,7 +131,7 @@ export const SelectType = ["LineWise","LotWise"]
 export const SelectTypeIssue = ["ItemWise","DayWise"]
 export const prodStockSection=['Wholes','LW','Sorting','DPDS','BigTaiho','Rejection','Village']
 export const FY=['2025-26']
-export const Village_Outside_Type=['WHOLES(CARRAT)','WHOLES(PACKED)','PIECES','BW/HW','OTHERS']
+export const Village_Outside_Type=['WHOLES(CARRAT)','WHOLES(PACKED)','PIECES','MIXED(WHOLES+PIECE)','BW/HW','OTHERS']
 
 export const sectionDataonTypeGate = {
     IN: ["RawCashew", "PackagingMaterial","Store",'General','Almond','Village','Agarbati'],
@@ -258,6 +259,7 @@ export const ProdGradeOnSection = {
         "issue_V_kp", "issue_V_dp_2", "issue_V_dp_3", "issue_V_dp_4", "issue_V_os", "issue_V_os_1",
         "issue_V_wp", "issue_V_rs"
     ],
-    Rejection:['issue_packing']
+    Rejection:['issue_packing'],
+    Village:['issue_packing']
     
 }

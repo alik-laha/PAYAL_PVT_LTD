@@ -50,13 +50,14 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import {  CiCrop, CiEdit } from "react-icons/ci";
+import {  CiBoxes, CiCrop, CiEdit } from "react-icons/ci";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import LWEDitForm from "./LWEdit";
 // import LWReissue from "./LWReissue";
 import LWMix from "./LWMix";
+import LWReCreateForm from "./LWReissue";
 //import LWReCreateForm from "./LWReissue";
 
 
@@ -718,14 +719,14 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                         <TableCell className="text-center ">{item.mixingLot}</TableCell>
                                         {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
 
-                                        <TableCell className="text-center font-semibold">{formatNumber(item.rcv_mayur)}</TableCell>
+                                       <TableCell className="text-center font-semibold">{formatNumber(item.rcv_mayur)}</TableCell>
                                         <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500 ">{formatNumber(((Number(item.issue_add_2)/Number(item.rcv_mayur))*100).toString())} %</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500 ">{Number(item.rcv_mayur)!==0 ?formatNumber(((Number(item.issue_add_2)/Number(item.rcv_mayur))*100).toString()):0} %</TableCell>
 
 
                                         <TableCell className="text-center font-semibold">{formatNumber(item.rcv_hamsa)}</TableCell>
                                         <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_5)} Kg</TableCell>
-                                        <TableCell className="text-center font-semibold text-red-500 ">{formatNumber(((Number(item.issue_add_5)/Number(item.rcv_hamsa))*100).toString())} %</TableCell>
+                                        <TableCell className="text-center font-semibold text-red-500 ">{Number(item.rcv_hamsa)!==0 ?formatNumber(((Number(item.issue_add_5)/Number(item.rcv_hamsa))*100).toString()):0} %</TableCell>
                                         <TableCell className="text-center text-center bg-yellow-100 font-semibold">
                                             {formatNumber((parseFloat(item.rcv_mayur)-parseFloat(item.issue_add_2)).toString())}
                                         </TableCell>
@@ -839,7 +840,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                         </DialogContent>
 
                                                     </Dialog>
-                                                    {/* {Number(item.current_backlog) > 0 && <Dialog>
+                                                    {Number(item.current_backlog) > 0 && <Dialog>
                                                         <DialogTrigger className="flex"><CiBoxes size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
                                                         </DialogTrigger>
@@ -852,7 +853,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                             <LWReCreateForm borma={[item]} />
                                                         </DialogContent>
 
-                                                    </Dialog>} */}
+                                                    </Dialog>}
                                                     {Number(item.current_backlog) > 0 && <Dialog>
                                                         <DialogTrigger className="flex"><CiCrop size={20} />
                                                             <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>

@@ -899,9 +899,9 @@ export const approveVillage = async (req: Request, res: Response) => {
                 await sequelize.transaction(async (transaction: any) => {
 
                     const vilEdit = await villageProduction.update({
-                        date: data.Date,
-                        noOfdayOperators: data.dayoperator,
-                        noOfnightOperators: data.nightoperator,
+                         date: data.date,
+                        noOfdayOperators: data.noOfdayOperators,
+                        noOfnightOperators: data.noOfnightOperators,
                         issue_packing: data.issue_packing,
                         issue_outside: data.issue_outside,
                         issue_mayur: data.issue_mayur,

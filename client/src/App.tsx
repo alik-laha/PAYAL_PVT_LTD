@@ -230,7 +230,7 @@ function App() {
 
         {/* Production Peeling  */}
         <Route element={<Private allowedRoles={['Director', 'FactoryManager',
-          'PeelingSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
+          'PeelingSupervisor', 'ProductionManager','DeputyProductionManager','VillageSupervisor']} />}>
           <Route path='/dashboard/Peeling' element={<Peeling />} />
 
         </Route>
@@ -299,7 +299,7 @@ function App() {
         </Route>
 
         {/*Production Packing  */}
-      <Route element={<Private allowedRoles={['Director', 'FactoryManager',
+      <Route element={<Private allowedRoles={['Director', 'FactoryManager','GatePassManager',
           'PackingSupervisor', 'ProductionManager','DeputyProductionManager']} />}>
           <Route path='/dashboard/Packing' element={<Packing />} />
 
