@@ -993,7 +993,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                     //2. Rejection Re-Issue//
 
                     const rejection_backlog = await rejectionModel.findOne({
-                    attributes: ['current_backlog','rcv_mayur'],
+                    attributes: ['current_backlog','rcv_mayur','issue_add_8'],
                     where: {
                         lotNo:LotNO,
                         origin: data.origin,
@@ -1021,8 +1021,9 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         await rejectionModel.update(
                             { 
                                 rcv_mayur:sequelize.literal(`rcv_mayur+ ${data.issue_rejection}`),
-                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_rejection}`),
-                                issue_add_8:sequelize.literal(`issue_add_8+ ${data.issue_rejection}`),
+                                current_backlog:sequelize.literal(`current_backlog+ ${data.issue_rejection}`),                
+                                issue_add_8:rejection_backlog.dataValues.issue_add_8 ?
+                                sequelize.literal(`issue_add_8+ ${data.issue_rejection}`):rejection_backlog.dataValues.issue_add_8,
                             },
                             {
                                 where: {
@@ -1060,7 +1061,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                     //3. Wholes Re-Issue //
 
                     const wholes_backlog = await WholesModel.findOne({
-                        attributes: ['current_backlog','rcv_jb_mayur'],
+                        attributes: ['current_backlog','rcv_jb_mayur','issue_add_1'],
                         where: {
                             lotNo:LotNO,
                             origin: data.origin,
@@ -1091,7 +1092,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                             { 
                                 rcv_jb_mayur:sequelize.literal(`rcv_jb_mayur+ ${data.issue_JB}`),
                                 current_backlog:sequelize.literal(`current_backlog+ ${data.issue_JB}`),
-                                issue_add_1: sequelize.literal(`issue_add_1+ ${data.issue_JB}`),
+                                issue_add_1: wholes_backlog.dataValues.issue_add_1 ?sequelize.literal(`issue_add_1+ ${data.issue_JB}`):wholes_backlog.dataValues.issue_add_1,
                             },
                             {
                                 where: {
@@ -1203,7 +1204,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                      //5. LW Re-Issue//
 
                     const LW_backlog = await LWModel.findOne({
-                    attributes: ['current_backlog','rcv_mayur'],
+                    attributes: ['current_backlog','rcv_mayur','issue_add_7'],
                     where: {
                         lotNo:LotNO,
                         origin: data.origin,
@@ -1232,7 +1233,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                             { 
                                 rcv_mayur:sequelize.literal(`rcv_mayur+ ${data.issue_LW}`),
                                 current_backlog:sequelize.literal(`current_backlog+ ${data.issue_LW}`),
-                                issue_add_7: sequelize.literal(`issue_add_7+ ${data.issue_LW}`),
+                                issue_add_7: LW_backlog.dataValues.issue_add_7 ?sequelize.literal(`issue_add_7+ ${data.issue_LW}`):LW_backlog.dataValues.issue_add_7,
                             },
                             {
                                 where: {
@@ -1270,7 +1271,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                 //6. Village Re-Issue//
 
                 const vil_backlog = await villageProduction.findOne({
-                    attributes: ['current_backlog','rcv_mayur'],
+                    attributes: ['current_backlog','rcv_mayur','issue_add_11'],
                     where: {
                         lotNo:LotNO,
                         origin: data.origin,
@@ -1299,7 +1300,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                             { 
                                 rcv_mayur:sequelize.literal(`rcv_mayur+ ${data.issue_village}`),
                                 current_backlog:sequelize.literal(`current_backlog+ ${data.issue_village}`),
-                                issue_add_11:sequelize.literal(`issue_add_11+ ${data.issue_village}`)
+                                issue_add_11:vil_backlog.dataValues.issue_add_11 ?sequelize.literal(`issue_add_11+ ${data.issue_village}`):vil_backlog.dataValues.issue_add_11
                             },
                             {
                                 where: {
@@ -1939,7 +1940,7 @@ export const approveMayur = async (req: Request, res: Response) => {
                             const difference_rejection=parseFloat(data.issue_rejection)-parseFloat(transferRejectiondata.amount)
                             console.log(difference_rejection)
                             const backlog = await rejectionModel.findOne({
-                                attributes: ['current_backlog','rcv_mayur'],
+                                attributes: ['current_backlog','rcv_mayur','issue_add_8'],
                                 where: {
                                     lotNo:LotNo,
                                     origin:origin,
@@ -1955,7 +1956,9 @@ export const approveMayur = async (req: Request, res: Response) => {
                                     {
                                         rcv_mayur: sequelize.literal(`rcv_mayur+ ${difference_rejection}`),
                                         current_backlog: sequelize.literal(`current_backlog+ ${difference_rejection}`),
-                                        issue_add_8: sequelize.literal(`issue_add_8+ ${difference_rejection}`),
+                                        issue_add_8: backlog.dataValues.issue_add_8 ?
+                                        sequelize.literal(`issue_add_8+ ${difference_rejection}`)
+                                        :backlog.dataValues.issue_add_8,
                                     },
                                     {
                                         where: {
@@ -1989,7 +1992,7 @@ export const approveMayur = async (req: Request, res: Response) => {
                             const difference_Wholes=parseFloat(data.issue_JB)-parseFloat(transferWholesdata.amount)
                             console.log(difference_Wholes)
                             const backlog = await WholesModel.findOne({
-                                attributes: ['current_backlog','rcv_jb_mayur'],
+                                attributes: ['current_backlog','rcv_jb_mayur','issue_add_1'],
                                 where: {
                                     lotNo:LotNo,
                                     origin:origin,
@@ -2005,7 +2008,8 @@ export const approveMayur = async (req: Request, res: Response) => {
                                     {
                                         rcv_jb_mayur: sequelize.literal(`rcv_jb_mayur+ ${difference_Wholes}`),
                                         current_backlog: sequelize.literal(`current_backlog+ ${difference_Wholes}`),
-                                        issue_add_1: sequelize.literal(`issue_add_1+ ${difference_Wholes}`),
+                                        issue_add_1: backlog.dataValues.issue_add_1?
+                                        sequelize.literal(`issue_add_1+ ${difference_Wholes}`):backlog.dataValues.issue_add_1,
                                     },
                                     {
                                         where: {
@@ -2091,7 +2095,7 @@ export const approveMayur = async (req: Request, res: Response) => {
                             const difference_lw=parseFloat(data.issue_LW)-parseFloat(transferLWdata.amount)
                             console.log(difference_lw)
                             const backlog = await LWModel.findOne({
-                                attributes: ['current_backlog','rcv_mayur'],
+                                attributes: ['current_backlog','rcv_mayur','issue_add_7'],
                                 where: {
                                     lotNo:LotNo,
                                     origin:origin,
@@ -2107,7 +2111,8 @@ export const approveMayur = async (req: Request, res: Response) => {
                                     {
                                         rcv_mayur: sequelize.literal(`rcv_mayur+ ${difference_lw}`),
                                         current_backlog: sequelize.literal(`current_backlog+ ${difference_lw}`),
-                                        issue_add_7: sequelize.literal(`issue_add_7+ ${difference_lw}`),
+                                        issue_add_7: backlog.dataValues.issue_add_7?sequelize.literal(`issue_add_7+ ${difference_lw}`)
+                                        :backlog.dataValues.issue_add_7,
                                     },
                                     {
                                         where: {
@@ -2141,7 +2146,7 @@ export const approveMayur = async (req: Request, res: Response) => {
                             const difference_vil=parseFloat(data.issue_village)-parseFloat(transferVildata.amount)
                             console.log(difference_vil)
                             const backlog = await villageProduction.findOne({
-                                attributes: ['current_backlog','rcv_mayur'],
+                                attributes: ['current_backlog','rcv_mayur','issue_add_11'],
                                 where: {
                                     lotNo:LotNo,
                                     origin:origin,
@@ -2157,7 +2162,8 @@ export const approveMayur = async (req: Request, res: Response) => {
                                     {
                                         rcv_mayur: sequelize.literal(`rcv_mayur+ ${difference_vil}`),
                                         current_backlog: sequelize.literal(`current_backlog+ ${difference_vil}`),
-                                        issue_add_11: sequelize.literal(`issue_add_11+ ${difference_vil}`)
+                                        issue_add_11: backlog.dataValues.issue_add_11?
+                                         sequelize.literal(`issue_add_11+ ${difference_vil}`):backlog.dataValues.issue_add_11
                                     },
                                     {
                                         where: {

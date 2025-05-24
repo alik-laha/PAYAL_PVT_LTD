@@ -1119,7 +1119,7 @@ export const CreateReissueHamsa= async (req: Request, res: Response) => {
                             'rcv_pw_280','rcv_w_280','rcv_ww_280',
                             'rcv_pw_320','rcv_w_320','rcv_ww_320',
                             'rcv_pw_360','rcv_w_360','rcv_ww_360',
-                            'rcv_pw_400','rcv_w_400','rcv_ww_400'
+                            'rcv_pw_400','rcv_w_400','rcv_ww_400','issue_add_1'
                         ],
                         where: {
                             lotNo:LotNO,
@@ -1245,7 +1245,15 @@ export const CreateReissueHamsa= async (req: Request, res: Response) => {
                                         rcv_w_400:data.issue_w_400,
                                         rcv_ww_400:data.issue_ww_400_A,
                                         rcv_jb_hamsa:data.issue_jb,
-                                      
+                                        issue_add_1:wholes_backlog.dataValues.issue_add_1 ?
+                                        sequelize.literal(`issue_add_1+ ${parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
+                                           +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
+                                           +parseFloat(data.issue_pw_280)+parseFloat(data.issue_w_280)+parseFloat(data.issue_ww_280)
+                                           +parseFloat(data.issue_pw_320)+parseFloat(data.issue_w_320)+parseFloat(data.issue_ww_320)
+                                           +parseFloat(data.issue_pw_400)+parseFloat(data.issue_w_400)+parseFloat(data.issue_ww_400)
+                                           +parseFloat(data.issue_add_1)+parseFloat(data.issue_add_2)+parseFloat(data.issue_add_3)
+                                           +parseFloat(data.issue_jb)
+                                        }`):wholes_backlog.dataValues.issue_add_1,
                                         current_backlog:sequelize.literal(`current_backlog+
                                             ${parseFloat(data.issue_pw_210)+parseFloat(data.issue_w_210)+parseFloat(data.issue_ww_210)
                                            +parseFloat(data.issue_pw_240)+parseFloat(data.issue_w_240)+parseFloat(data.issue_ww_240)
@@ -1276,7 +1284,7 @@ export const CreateReissueHamsa= async (req: Request, res: Response) => {
                      // LW Re-Issue//
 
                      const LW_backlog = await LWModel.findOne({
-                        attributes: ['current_backlog','rcv_hamsa'],
+                        attributes: ['current_backlog','rcv_hamsa','issue_add_8'],
                         where: {
                             lotNo:LotNO,
                             origin: data.origin,
@@ -1305,7 +1313,8 @@ export const CreateReissueHamsa= async (req: Request, res: Response) => {
                                 { 
                                     rcv_hamsa:sequelize.literal(`rcv_hamsa+ ${data.issue_lw}`),
                                     current_backlog:sequelize.literal(`current_backlog+ ${data.issue_lw}`),
-                                    issue_add_8:sequelize.literal(`issue_add_8+ ${data.issue_lw}`),
+                                    issue_add_8: LW_backlog.dataValues.issue_add_8?
+                                    sequelize.literal(`issue_add_8+ ${data.issue_lw}`):LW_backlog.dataValues.issue_add_8
                                 },
                                 {
                                     where: {
@@ -1900,7 +1909,7 @@ export const approveHamsa = async (req: Request, res: Response) => {
 
                             console.log(difference_total_Wholes)
                             const backlog = await WholesModel.findOne({
-                                attributes: ['current_backlog'],
+                                attributes: ['current_backlog','issue_add_1'],
                                 where: {
                                     lotNo:LotNo,
                                     origin:origin,
@@ -1933,7 +1942,8 @@ export const approveHamsa = async (req: Request, res: Response) => {
                                         rcv_w_400:data.issue_w_400,
                                         rcv_ww_400:data.issue_ww_400,
                                         rcv_jb_hamsa:data.issue_jb,
-                                        issue_add_1:sequelize.literal(`issue_add_1+ ${difference_total_Wholes}`),
+                                        issue_add_1: backlog.dataValues.issue_add_1?
+                                        sequelize.literal(`issue_add_1+ ${difference_total_Wholes}`):backlog.dataValues.issue_add_1,
                                         current_backlog: sequelize.literal(`current_backlog+ ${difference_total_Wholes}`)
                                     },
                                     {
@@ -1987,7 +1997,7 @@ export const approveHamsa = async (req: Request, res: Response) => {
                             const difference_lw=parseFloat(data.issue_lw)-parseFloat(transferLWdata.amount)
                             console.log(difference_lw)
                             const backlog = await LWModel.findOne({
-                                attributes: ['current_backlog','rcv_hamsa'],
+                                attributes: ['current_backlog','rcv_hamsa','issue_add_8'],
                                 where: {
                                     lotNo:LotNo,
                                     origin:origin,
@@ -2003,7 +2013,8 @@ export const approveHamsa = async (req: Request, res: Response) => {
                                     {
                                         rcv_hamsa: sequelize.literal(`rcv_hamsa+ ${difference_lw}`),
                                         current_backlog: sequelize.literal(`current_backlog+ ${difference_lw}`),
-                                        issue_add_8: sequelize.literal(`issue_add_8+ ${difference_lw}`)
+                                        issue_add_8: backlog.dataValues.issue_add_8?
+                                        sequelize.literal(`issue_add_8+ ${difference_lw}`):backlog.dataValues.issue_add_8
                                     },
                                     {
                                         where: {

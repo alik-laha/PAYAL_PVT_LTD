@@ -610,7 +610,7 @@ export const approveRejection = async (req: Request, res: Response) => {
                             const difference_vil=parseFloat(data.issue_village)-parseFloat(transferVildata.amount)
                             console.log(difference_vil)
                             const backlog = await villageProduction.findOne({
-                                attributes: ['current_backlog','rcv_rejection'],
+                                attributes: ['current_backlog','rcv_rejection','issue_add_12'],
                                 where: {
                                     lotNo:LotNo,
                                     origin:origin,
@@ -626,7 +626,8 @@ export const approveRejection = async (req: Request, res: Response) => {
                                     {
                                         rcv_rejection: sequelize.literal(`rcv_rejection+ ${difference_vil}`),
                                         current_backlog: sequelize.literal(`current_backlog+ ${difference_vil}`),
-                                        issue_add_12: sequelize.literal(`issue_add_12+ ${difference_vil}`)
+                                        issue_add_12: backlog.dataValues.issue_add_12 ?
+                                        sequelize.literal(`issue_add_12+ ${difference_vil}`):backlog.dataValues.issue_add_12
                                     },
                                     {
                                         where: {
