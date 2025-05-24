@@ -28,7 +28,7 @@ export interface PermissionRole {
     GatePassManager:string[];
     DeputyProductionManager:string[];
     PackingSupervisor:string[];
-
+    DispatchManager:string[];
 }
 
 export interface PermissionDept {
