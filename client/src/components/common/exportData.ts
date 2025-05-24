@@ -75,7 +75,7 @@ export const pendingCheckRole = {
     Scooping: ['Director', 'FactoryManager', 'ProductionManager'],
     Borma: ['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     Humidifier: ['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
-    Peeling:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
+    Peeling:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager','VillageSupervisor'],
     Mayur:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     Hamsa:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     BigTaiho:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
@@ -89,6 +89,7 @@ export const pendingCheckRole = {
     OrderCreate: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','GatePassManager'],
     OrderMapping: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','GatePassManager'],
     ProdStockExcel: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','GatePassManager'],
+
 
    
 }
@@ -258,6 +259,7 @@ export const ProdGradeOnSection = {
         "issue_V_kp", "issue_V_dp_2", "issue_V_dp_3", "issue_V_dp_4", "issue_V_os", "issue_V_os_1",
         "issue_V_wp", "issue_V_rs"
     ],
-    Rejection:['issue_packing']
+    Rejection:['issue_packing'],
+    Village:['issue_packing']
     
 }
