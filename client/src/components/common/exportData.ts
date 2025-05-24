@@ -4,7 +4,7 @@ export const Dept: string[] = ['Admin', 'Receiving', 'Maintainance', 'QualityCon
 export const Role: string[] = ['Director', 'FactoryManager', 
     'ReceivingSupervisor', 'ReceivingPMSupervisor','ReceivingManager', 'ReceivingAlmondSupervisor', 'ReceivingStoreSupervisor', 
     'ReceivingAgarbatiSupervisor','ReceivingGeneralSupervisor','ReceivingOilMillSupervisor',
-    'Security','GatePassManager',
+    'Security','GatePassManager','DispatchManager',
     'MaintainanceSupervisor','MaintainanceManager',
     'QCSupervisor', 'QCManager', 
     'GradingSupervisor', 'BoilingSupervisor', 'ScoopingSupervisor','BormaSupervisor',
@@ -53,8 +53,10 @@ export const PermissionRol = {
     WholesSupervisor:['Wholes','LW'],
     Security:['Gatepass'],
     GatePassManager:['Gatepass','RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry','Cashew Exit',
+        'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','Receiving Village Entry','Receiving OilMill Entry'],
+    PackingSupervisor:['Packing'],
+    DispatchManager:['Gatepass','RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry','Cashew Exit',
         'Receiving Agarbati Entry','Receiving Civil Entry','Receiving Purchase Entry','Receiving Village Entry','Receiving OilMill Entry','Packing'],
-    PackingSupervisor:['Packing']
 }
 
 export const PermissionDep = {
@@ -85,30 +87,30 @@ export const pendingCheckRole = {
     LW:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     Rejection:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     Village: ['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
-    Gatepass: ['Director', 'FactoryManager', 'GatePassManager'],
-    OrderCreate: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','GatePassManager'],
-    OrderMapping: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','GatePassManager'],
-    ProdStockExcel: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','GatePassManager'],
+    Gatepass: ['Director', 'FactoryManager', 'GatePassManager','DispatchManager'],
+    OrderCreate: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','DispatchManager'],
+    OrderMapping: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','DispatchManager'],
+    ProdStockExcel: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','DispatchManager'],
 
 
    
 }
 //They are only eligible to create entry
 export const rcvCheckRole = {
-    RCNPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingSupervisor'],
-    PMPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingPMSupervisor'],
-    StorePrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingStoreSupervisor'],
-    GeneralPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingGeneralSupervisor'],
-    AlmondPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingAlmondSupervisor'],
-    AgarbatiPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingAgarbatiSupervisor'],
-    VillagePrimaryEntry:['Director', 'FactoryManager','VillageSupervisor','ProductionManager','DeputyProductionManager'],
-    OilMillPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingOilMillSupervisor'],
+    RCNPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingSupervisor','DispatchManager'],
+    PMPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingPMSupervisor','DispatchManager'],
+    StorePrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingStoreSupervisor','DispatchManager'],
+    GeneralPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingGeneralSupervisor','DispatchManager'],
+    AlmondPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingAlmondSupervisor','DispatchManager'],
+    AgarbatiPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingAgarbatiSupervisor','DispatchManager'],
+    VillagePrimaryEntry:['Director', 'FactoryManager','VillageSupervisor','ProductionManager','DeputyProductionManager','DispatchManager'],
+    OilMillPrimaryEntry: ['Director', 'FactoryManager', 'ReceivingManager','ReceivingOilMillSupervisor','DispatchManager'],
  
 }
 export const roleDataonDept = {
     Admin: ['Director', 'FactoryManager'],
     Receiving: ['ReceivingManager','ReceivingSupervisor', 'ReceivingPMSupervisor', 'ReceivingAlmondSupervisor',
-         'ReceivingStoreSupervisor','ReceivingGeneralSupervisor','ReceivingAgarbatiSupervisor'],
+         'ReceivingStoreSupervisor','ReceivingGeneralSupervisor','ReceivingAgarbatiSupervisor','DispatchManager'],
     //Maintainance: ['CleaningSupervisor', 'MaintainanceManager'],
     QualityControl: ['QCSupervisor', 'QCManager'],
     Production: ['ProductionManager','DeputyProductionManager', 'GradingSupervisor', 
