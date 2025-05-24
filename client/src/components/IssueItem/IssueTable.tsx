@@ -246,9 +246,9 @@ const IssueTable = () => {
                 Category:item.category,
                 Material_Name:item.materialName,
                 Unit:item.itemunit,
-                Qty:formatNumber(parseFloat(item.quantity)),
-                Unit_Price: formatNumber(parseFloat(item.unitPrice)),
-                Total_Price:formatNumber(parseFloat(item.totalPrice)),
+                Qty: Number(item.quantity) || 0,
+                Unit_Price:  Number(item.unitPrice) || 0,
+                Total_Price: Number(item.totalPrice) || 0,
               Issued_To:item.issueUser,
               Damage_Status:item.damagereturn,
               Damage_Qty:formatNumber(parseFloat(item.damagequantity)),
@@ -268,7 +268,7 @@ const IssueTable = () => {
                 Section_Unit: item.sectionunit,
                 Category:item.category,
            
-                Total_Price:formatNumber(parseFloat(item.totalIssuePrice))
+                Total_Price:Number(item.totalIssuePrice) || 0,
             }));
             ws = XLSX.utils.json_to_sheet(transformed);
         }
@@ -284,9 +284,9 @@ const IssueTable = () => {
                 Category:item.category,
                 Material_Name:item.materialName,
                 Unit:item.itemunit,
-                Qty:formatNumber(parseFloat(item.quantity)),
-                Unit_Price: formatNumber(parseFloat(item.unitPrice)),
-                Total_Price:formatNumber(parseFloat(item.totalPrice)),
+                 Qty: Number(item.quantity) || 0,
+                Unit_Price:  Number(item.unitPrice) || 0,
+                Total_Price: Number(item.totalPrice) || 0,
               Issued_To:item.issueUser,
               Damage_Status:item.damagereturn,
               Damage_Qty:formatNumber(parseFloat(item.damagequantity)),

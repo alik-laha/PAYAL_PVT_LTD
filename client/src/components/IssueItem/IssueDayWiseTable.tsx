@@ -46,7 +46,7 @@ const IssueDayWiseTable = ({ DayWise, page }: { DayWise: IssueItemDaywiseData[],
                             <TableCell className="text-center font-semibold text-cyan-600">{handletimezone(item.date)}</TableCell>
                             <TableCell className="text-center font-semibold ">{item.sectionunit}</TableCell>
                             <TableCell className="text-center  ">{item.category}</TableCell>
-                            <TableCell className="text-center    ">{formatNumber(parseFloat(item.totalIssuePrice))}</TableCell>
+                            <TableCell className="text-center    ">{formatNumber(parseFloat(item.totalIssuePrice))} &#8377;</TableCell>
                            
                          
 
