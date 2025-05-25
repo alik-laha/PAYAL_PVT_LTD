@@ -372,13 +372,13 @@ const RCNBoilingTable = () => {
                     placeholder="To Date"
 
                 />
-                <select className='flexbox-search-width no-margin-left-absolute flex h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                <select className='flexbox-search-width no-margin-left-absolute flex text-xs h-8 w-1/6 ml-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
                     ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
                     onChange={(e) => setSize(e.target.value)} value={size}>
                     <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
-                        py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Size (All)</option>
+                        text-xs py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value=''>Size (All)</option>
                     {Size.map((data, index) => (
-                        <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                        <option className='relative flex text-xs w-full cursor-default select-none items-center rounded-sm 
                             py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
                             {data}
                         </option>

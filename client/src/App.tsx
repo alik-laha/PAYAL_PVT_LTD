@@ -81,7 +81,12 @@ function App() {
   }, remainingTime);
 
   return (
-    <>
+    <div style={{
+        transform: 'scale(0.8)',
+        transformOrigin: 'top left',
+        width: '125vw',
+        height: '75vh',
+      }}>
       <Routes>
         <Route path='/forgotpass' element={<EmailEntryforResetpassword />} />
         <Route path='/changePassword' element={<VerifyCodeAndResetPassword />} />
@@ -317,7 +322,7 @@ function App() {
 
         <Route path="/dashboard/userprofile" element={<ViewProfile />} />
       </Routes>
-    </>
+    </div>
   )
 }
 

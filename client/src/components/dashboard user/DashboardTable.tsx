@@ -162,12 +162,12 @@ const DashboardTable = () => {
     return (
 
         <div className="ml-5 mt-5">
-            <div className="flex ">
+            <div className="flex pb-2">
 
-                <Input className="w-80 mb-10" placeholder="Search By Emp Id/ Name/ Dept/ Role" onChange={handleSearch} />
-
+                <Input className="w-80" placeholder="Search By Emp Id/ Name/ Dept/ Role" onChange={handleSearch} />
+                <Button className="bg-green-700 h-8  w-30 text-sm float-right mr-4 " onClick={exportToExcel}><LuDownload size={18} /></Button> 
             </div>
-            <span className="w-1/8 "><Button className="bg-green-700 h-8 my-2 w-30 text-sm float-right mr-4 " onClick={exportToExcel}><LuDownload size={18} /></Button>  </span>
+            
 
 
             <Table className="mt-1">

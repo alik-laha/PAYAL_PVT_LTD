@@ -83,7 +83,7 @@ const DashboardSidebar = () => {
                 <a>
 
                     <Collapsible>
-                        <CollapsibleTrigger className="flex user-pvt "><RxDashboard  size={25} />
+                        <CollapsibleTrigger className="flex user-pvt "><RxDashboard  size={20} />
                             <p>Dashboard</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
                             <NavLink to="/dashboard/dashboard1" >
@@ -92,7 +92,7 @@ const DashboardSidebar = () => {
                         </CollapsibleContent ></Collapsible >
 
                     {rendersection('HR & Admin') && <Collapsible >
-                        <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={25} />
+                        <CollapsibleTrigger className="user-pvt"><MdOutlineAdminPanelSettings size={20} />
                             <p>Admin & HR</p></CollapsibleTrigger>
                         {renderlink('Dashboard User')
                             && <CollapsibleContent className="Items-pvt">
@@ -126,7 +126,7 @@ const DashboardSidebar = () => {
 
                     </Collapsible>}
                     {rendersection('GatePass') && <Collapsible >
-                        <CollapsibleTrigger className="user-pvt"><GiGate size={25} />
+                        <CollapsibleTrigger className="user-pvt"><GiGate size={20} />
                             <p>Gate Pass</p></CollapsibleTrigger>
                         {renderlink('Gatepass')
                             && <CollapsibleContent className="Items-pvt">
@@ -140,7 +140,7 @@ const DashboardSidebar = () => {
 
                     {Role !== 'Security' && rendersection('Receiving') &&
                         <Collapsible >
-                            <CollapsibleTrigger className="user-pvt"><MdCallReceived size={25} />
+                            <CollapsibleTrigger className="user-pvt"><MdCallReceived size={20} />
                                 <p>Logistics</p></CollapsibleTrigger>
                             {renderlink('VendorSKU')
                                 && <CollapsibleContent className="Items-pvt">
@@ -249,7 +249,7 @@ const DashboardSidebar = () => {
                         </Collapsible>}
                     {Role !== 'Security' && rendersection('Production') &&
                         <Collapsible >
-                            <CollapsibleTrigger className="user-pvt"><MdOutlineFactory size={25} />
+                            <CollapsibleTrigger className="user-pvt"><MdOutlineFactory size={20} />
                                 <p>Production</p></CollapsibleTrigger>
 
                             {renderlink('Grading')
@@ -395,7 +395,7 @@ const DashboardSidebar = () => {
                         </Collapsible>}
 
                     {rendersection('Quality') && <Collapsible >
-                        <CollapsibleTrigger className="user-pvt"><LuBadgeCheck size={25} />
+                        <CollapsibleTrigger className="user-pvt"><LuBadgeCheck size={20} />
                             <p>Quality</p></CollapsibleTrigger>
                         {renderlink('RCN Incoming QC')
                             && <CollapsibleContent className="Items-pvt">
@@ -440,7 +440,7 @@ const DashboardSidebar = () => {
 
 
                     <Collapsible>
-                        <CollapsibleTrigger className="flex user-pvt "><IoMdSettings size={25} />
+                        <CollapsibleTrigger className="flex user-pvt "><IoMdSettings size={20} />
                             <p>Profile</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
                             <NavLink to="/dashboard/userprofile" >

@@ -244,8 +244,8 @@ const DashboardPanel1: React.FC = () => {
 
             {data.map((item) => (
               <div key={item.id} className="panel">
-                <h2 className='text-blue-600'>{item.title}</h2>
-                <p className='font-semibold pt-2 '> {item.value1}</p>
+                <h2 className=''>{item.title}</h2>
+                <p className='font-semibold pt-2 text-blue-500'> {item.value1}</p>
                 <p className='font-semibold pt-1'> {item.value2}</p>
                 <p className='pt-2 text-2xl font-bold text-red-500'>{item.value3 ? `${item.value3} Kg` : ''}</p>
               </div>
