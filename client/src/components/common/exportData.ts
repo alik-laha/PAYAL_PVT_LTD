@@ -49,7 +49,7 @@ export const PermissionRol = {
     PeelingSupervisor:['Humidifier','Peeling','BigTaiho'],
     MayurSupervisor:['Mayur','Hamsa'],
     SortingSupervisor:['Sorting','DPDS'],
-    VillageSupervisor:['Receiving Village Entry','Rejection','Village'],
+    VillageSupervisor:['Receiving Village Entry','Rejection','Village','Peeling'],
     WholesSupervisor:['Wholes','LW'],
     Security:['Gatepass'],
     GatePassManager:['Gatepass','RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry','Cashew Exit',
@@ -119,7 +119,7 @@ export const roleDataonDept = {
     GatePass:['Security','GatePassManager']
 }
 export const pageNo = 1
-export const pagelimit = 10
+export const pagelimit = 13
 export const timerLogout = 43200
 export const Section = ['Boiling', 'Grading', 'Scooping','Borma','Humidifier','Peeling','Mayur','Sorting','DPDS','BigTaiho','Hamsa','Village','Wholes','LW','Packing']
 export const MachineStatus = ['Active', 'Inactive', 'Discarded']

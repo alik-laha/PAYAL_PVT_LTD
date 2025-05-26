@@ -73,12 +73,12 @@ const Captcha: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'row' }} >
+    <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'row',marginTop:'3px' }} >
 
-      <canvas id="captchaCanvas" ref={canvasRef} width="110" height="40" style={{ border: '1px solid #ccc', marginRight: '3%' }}></canvas>
+      <canvas id="captchaCanvas" ref={canvasRef} width="110" height="25" style={{ border: '1px solid #ccc', marginRight: '3%'}}></canvas>
 
       <button type="button" onClick={generateCaptcha}><HiRefresh /></button>
-      <Input height={40} type="text" placeholder="Captcha Text" className=' ml-2 h-11' value={typedCaptcha} onChange={(e) => setTypedCaptcha(e.target.value)} />
+      <Input height={40} type="text" placeholder="Captcha Text" className=' ml-2 h-8' value={typedCaptcha} onChange={(e) => setTypedCaptcha(e.target.value)} />
       {/* <p>CAPTCHA Text: {captchaText}</p> */}
     </div>
   );

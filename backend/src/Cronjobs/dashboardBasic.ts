@@ -70,9 +70,9 @@ try {
         console.error('[CRON] Error fetching dashboard or sending WhatsApp:', error);
     }
 }
-// Schedule: Every day at 9 AM (adjust as needed)
-cron.schedule('0 9 * * *',  () => {
-    console.log('Running scheduled stock update job...');
+// Schedule: Every day at 10 AM and 6 PM (adjust as needed)
+cron.schedule('0 10,18 * * *',  () => {
+    console.log('Running scheduled dashboard whatsapp sending...');
     dashboardBasic();
     
 });

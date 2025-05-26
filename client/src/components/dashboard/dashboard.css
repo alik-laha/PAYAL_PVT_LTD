@@ -4,43 +4,43 @@
 
 /* The sidebar menu */
 .sidebar {
-    height: 100%;
+    /* height: 100%; */
     width: 0;
     position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
-    /* background-color: #e6dbdb37; */
-    /* background-color: #e6dbdbec; */
-    /* background-color: #e6dbdb9c; */
-    background-color: #1d042ada;
     overflow-x: hidden;
-    transition: 0.5s;
+    transition: 0.4s;
     padding-top: 60px;
+
+
+    height: 100vh;
+    /* background: linear-gradient(90deg, #1f1c2c, #928dab); */
+    background:#1f1c2ce9;
+    color: white;
+    padding: 20px 0;
+     /* background: linear-gradient(to bottom, #2c3e50, #34495e); */
+    color: #ffffff;
+  
 }
 
 /* Sidebar links */
 .sidebar a {
-    padding: 7px 8px 7px 10px;
+    padding: 0px 8px 7px 10px;
     text-decoration: none;
     font-size: 25px;
-    /* color: black; */
     color:white;
     display: block;
-    transition: 0.2s;
+    transition: 0.4s;
     margin-bottom: 10px;
 }
 .Items-pvt a{
     padding: 0;
     margin-bottom: 0;
-
     align-items: center;
     cursor: pointer;
-    /* color: #777; */
-    /* color: rgba(23, 24, 25, 0.549); */
      color: rgba(198, 220, 241, 0.796);
-    /* color: #082c41; */
-    /* color:white; */
     display: block;
     font-size: 14px;
     font-weight: 500;
@@ -57,15 +57,20 @@
 
 /* When the sidebar is open */
 .sidebar.open {
-    width: 20%;
-    padding-top: 6.5vw;
+    width: 18%;
+    padding-top: 6vw;
+    /* height: 190vh; */
+   
+   min-height: 180vh;
 }
 
 /* The main content */
 .main {
-    transition: margin-left .4s;
+    transition: margin-left 0.4s;
     padding: 10px;
-    background-color: lightyellow;
+    background-color: #e6f0f3;
+    color: #1e1e2f;
+    font-family: 'Inter', sans-serif;
 }
 
 /* Hamburger menu */
@@ -76,7 +81,7 @@
 }
 /* //sidebar Starts*/
 .user-pvt{
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 600;
     border: none;
     background-color: inherit;
@@ -84,8 +89,6 @@
     cursor: pointer;
     margin: 10px 5px 10px 10px;
     display: flex;
-    /* color: rgb(157, 17, 17); */
-    /* color: #082c41; */
   text-shadow: 0px 0px 1px  #7ba5bc;
 }
 .user-pvt p{
@@ -97,30 +100,25 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    /* color: #777; */
-    color: #777;
-    /* background-color: #f5f5f5; */
-    /* background-color: #e6dbdb9c; */
     padding: 5px 0px 5px 20px;
     display: block;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
+    color: #ecf0f1;
     
 }
-
 
 
 .Items-pvt:hover{
-    color:black;
-    background-image: linear-gradient(165deg, rgb(195, 223, 241) 30%, #e2f34f6b 100%);;
-   
+    background-color: #928dab;
+    /* background-color: #1f57c9; */
+    border-radius: 2px;
     font-weight: 600;
+    color: white;
     
 }
 .Items-pvt a:hover{
-    color:rgb(16, 10, 90);
-    background-image: linear-gradient(165deg, rgb(195, 223, 241) 30%, #e2f34f6b 100%);;
-    /* background-color: rgb(195, 223, 241); */
+ color: white;
     font-weight: 700;
     font-size: 15px;
     
@@ -142,7 +140,7 @@
     z-index: 1;
     left: 0;
     overflow: hidden;
-    transition: 0.5s;
+    transition: 0.4s;
 }
 
 .dashoboard-main-header .operator-hide{
@@ -165,8 +163,8 @@
 }
 .dashoboard-main-header .logo-lg {
     display: block;
-    -o-transition: width .3s ease-in-out;
-    transition: width .3s ease-in-out;
+    -o-transition: width .4s ease-in-out;
+    transition: width .4s ease-in-out;
     display: block;
     float: left;
     height: 50px;
@@ -298,12 +296,14 @@
     padding: 16px;
     transition: margin-left 0.4s;
     height: 100%;
-    background-color: lightyellow
+    background-color: #e6f0f3;
+    color: #1e1e2f;
+    font-family: 'Inter', sans-serif;
 }
 
 .sidebar.open+.dashboard-main-container{
     float: right;
-    width: 80%;
+    width: 82%;
     margin-left: 23%;
     
 }
@@ -327,10 +327,13 @@
     z-index: 10;
     max-width:20%!important;
     color: white;
-  background: linear-gradient(145deg, #4a86d531, #060a50);
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  /* background: linear-gradient(145deg, #4a86d531, #060a50); */
+   /* background: linear-gradient(135deg, #3052e9, #1f013c); */
+   background: linear-gradient(45deg, #474066, #4177ea);
+    border-radius: 12px;
+  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.1); */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
 }
 
 .flexbox-tile-clean-select{
@@ -347,7 +350,7 @@
   /* background: linear-gradient(145deg, #4a86d531, #20d608); */
     border-radius: 5px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
 }
 .flexbox-tile-clean-notselect{
     flex: 1 1 10% ;
@@ -363,7 +366,7 @@
   /* background: linear-gradient(145deg, #4a86d531, #20d608); */
     /* border-radius: 8px; */
     /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.1); */
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
 }
 .flexbox-tile:hover {
     transform: translateY(-10px);

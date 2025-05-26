@@ -4,14 +4,14 @@ import img from '../../assets/Static_Images/Company Logo.jpeg'
 import './login.css'
 import Captcha from './Captcha.tsx';
 import { NavLink, useNavigate } from "react-router-dom";
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+// import {
+//     Select,
+//     SelectContent,
+//     SelectGroup,
+//     SelectItem,
+//     SelectTrigger,
+//     SelectValue,
+// } from "@/components/ui/select"
 import { useRef, useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 import Context from '../context/context';
@@ -88,12 +88,12 @@ export const Login = () => {
     }, [])
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen  w-screen login-container">
-            <div className="p-8 border-2 flex justify-center items-center flex-col rounded-xl login">
+        <div className="flex flex-col items-center justify-center  login-container " style={{height:'125vh'}}>
+            <div className="p-6 border-2 flex justify-center items-center flex-col rounded-xl login">
                 <img src={img} width={"60"} height={100}></img>
-                <h1 className="text-2xl font-bold mb-3 pb-2 mt-2 text-center text-blue-950 drop-shadow-md ">PAYAL DEALERS PVT. LTD</h1>
+                <h1 className="text-1xl font-bold mb-3 pb-2 mt-2 text-center text-blue-950 drop-shadow-md ">PAYAL DEALERS PVT. LTD</h1>
 
-                <Select>
+                {/* <Select>
                     <SelectTrigger>
                         <SelectValue placeholder="Cashew" />
                     </SelectTrigger>
@@ -104,17 +104,17 @@ export const Login = () => {
 
                         </SelectGroup>
                     </SelectContent>
-                </Select>
-                <h3 className="text-sm font-sans mb-3 font-semibold pb-1 pt-2 text-cyan-700">Provide Username & Password</h3>
+                </Select> */}
+                <h3 className="text-xs font-sans mb-3 font-semibold pb-1 pt-2 text-cyan-700">Provide Username & Password</h3>
                 <form className="flex flex-col gap-4 w-64" onSubmit={handleSubmit}>
 
                     <Input type="text" placeholder="Username" ref={usernameRef} />
                     <Input type="password" placeholder="Password" ref={passwordRef} />
-
+                   
                     <Captcha />
-                    <p><NavLink to="/forgotpass" className='text-sm font-semibold text-purple-500 float-right underline'>Forgot/Reset password</NavLink></p>
-                    <span style={{ display: errView }} className="text-red-600 text-sm font-sans font-semibold w-100 text-center">{errMsg}</span>
-                    <Button className="bg-orange-500 mb-1 mt-3 mb-4" type="submit">Login</Button>
+                    <p><NavLink to="/forgotpass" className='text-xs font-semibold text-purple-500 float-right underline'>Forgot/Reset password</NavLink></p>
+                    <span style={{ display: errView }} className="text-red-600 text-xs font-sans font-semibold w-100 text-center">{errMsg}</span>
+                    <Button className="bg-orange-500 mb-1 mt-3 mb-4 " type="submit">Login</Button>
 
                 </form>
 
@@ -123,11 +123,11 @@ export const Login = () => {
                         Terms of Use</DialogTrigger>
                     <DialogContent className='max-w-7xl'>
                         <DialogHeader>
-                            <DialogTitle><p className='text-center mt-1'>Terms Of Use</p></DialogTitle>
+                            <DialogTitle><p className='text-center mt-1 '>Terms Of Use</p></DialogTitle>
 
                         </DialogHeader>
 
-                        <div className="mx-5 terms-use h-96 overflow-scroll">
+                        <div className="mx-5 terms-use h-96 overflow-scroll text-xs">
                             <h2>1. Introduction</h2>
                             <p>Welcome to Payal Dealers Pvt. Ltd. (“we,” “our,” or “us”). By accessing or using our website and services (collectively, the “Services”), you agree to be bound by the following Terms of Use. Please read them carefully. If you do not agree to these Terms, do not use the Services.</p>
 
