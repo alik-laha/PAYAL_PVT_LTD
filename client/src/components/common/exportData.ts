@@ -49,7 +49,7 @@ export const PermissionRol = {
     PeelingSupervisor:['Humidifier','Peeling','BigTaiho'],
     MayurSupervisor:['Mayur','Hamsa'],
     SortingSupervisor:['Sorting','DPDS'],
-    VillageSupervisor:['Receiving Village Entry','Rejection','Village'],
+    VillageSupervisor:['Receiving Village Entry','Rejection','Village','Peeling'],
     WholesSupervisor:['Wholes','LW'],
     Security:['Gatepass'],
     GatePassManager:['Gatepass','RCN Primary Entry','Receiving Packaging Entry','Receiving Almond Entry','Receiving Store Entry','Cashew Exit',
