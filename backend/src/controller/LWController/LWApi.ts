@@ -224,8 +224,8 @@ export const CreateEntireLW = async (req: Request, res: Response) => {
 
 
 
-                if ((parseFloat(data.rcv_mayurN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0)
-                    + parseFloat(data.rcv_hamsaN)) < (parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
+                if ((Number((parseFloat(data.rcv_mayurN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0)
+                    + parseFloat(data.rcv_hamsaN)).toFixed(2))) < (Number((parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
                         parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) +
                         parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) +
                         parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) +
@@ -247,10 +247,10 @@ export const CreateEntireLW = async (req: Request, res: Response) => {
                         parseFloat(data.issue_ext_grade_7) +
                         parseFloat(data.issue_ext_grade_8) +
                         parseFloat(data.issue_ext_grade_9) +
-                        parseFloat(data.issue_ext_grade_10)
+                        parseFloat(data.issue_ext_grade_10)).toFixed(2))
 
                     )) {
-                    console.log(parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
+                    console.log(Number((parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
                         parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) +
                         parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) +
                         parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) +
@@ -272,7 +272,7 @@ export const CreateEntireLW = async (req: Request, res: Response) => {
                         parseFloat(data.issue_ext_grade_7) +
                         parseFloat(data.issue_ext_grade_8) +
                         parseFloat(data.issue_ext_grade_9) +
-                        parseFloat(data.issue_ext_grade_10)
+                        parseFloat(data.issue_ext_grade_10)).toFixed(2))
                     )
                     res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                     throw new Error('Transaction Aborted due to negative value')
@@ -724,7 +724,7 @@ export const CreateReissueLW = async (req: Request, res: Response) => {
         await sequelize.transaction(async (transaction: any) => {
 
             for (let data of linehumid) {
-                if ((parseFloat(data.rcv_openingN)) < (parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
+                if (Number(parseFloat(data.rcv_openingN).toFixed(2)) < (Number((parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
                     parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) +
                     parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) +
                     parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) +
@@ -746,10 +746,10 @@ export const CreateReissueLW = async (req: Request, res: Response) => {
                     parseFloat(data.issue_ext_grade_7) +
                     parseFloat(data.issue_ext_grade_8) +
                     parseFloat(data.issue_ext_grade_9) +
-                    parseFloat(data.issue_ext_grade_10)
+                    parseFloat(data.issue_ext_grade_10)).toFixed(2))
 
                 )) {
-                    console.log(parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
+                    console.log(Number((parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
                         parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) +
                         parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) +
                         parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) +
@@ -771,7 +771,7 @@ export const CreateReissueLW = async (req: Request, res: Response) => {
                         parseFloat(data.issue_ext_grade_7) +
                         parseFloat(data.issue_ext_grade_8) +
                         parseFloat(data.issue_ext_grade_9) +
-                        parseFloat(data.issue_ext_grade_10)
+                        parseFloat(data.issue_ext_grade_10)).toFixed(2))
                     )
                     res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                     throw new Error('Transaction Aborted due to negative value')
@@ -1302,8 +1302,8 @@ export const updateEntireLW = async (req: Request, res: Response) => {
 
             for (let data of linehumid) {
 
-                if ((parseFloat(data.rcv_mayurN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0)
-                    + parseFloat(data.rcv_hamsaN)) < (parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
+                if ((Number((parseFloat(data.rcv_mayurN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0)
+                    + parseFloat(data.rcv_hamsaN)).toFixed(2))) < (Number((parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
                         parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) +
                         parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) +
                         parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) +
@@ -1325,10 +1325,10 @@ export const updateEntireLW = async (req: Request, res: Response) => {
                         parseFloat(data.issue_ext_grade_7) +
                         parseFloat(data.issue_ext_grade_8) +
                         parseFloat(data.issue_ext_grade_9) +
-                        parseFloat(data.issue_ext_grade_10)
+                        parseFloat(data.issue_ext_grade_10)).toFixed(2))
 
                     )) {
-                    console.log(parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
+                    console.log(Number((parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
                         parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) +
                         parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) +
                         parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) +
@@ -1350,7 +1350,7 @@ export const updateEntireLW = async (req: Request, res: Response) => {
                         parseFloat(data.issue_ext_grade_7) +
                         parseFloat(data.issue_ext_grade_8) +
                         parseFloat(data.issue_ext_grade_9) +
-                        parseFloat(data.issue_ext_grade_10)
+                        parseFloat(data.issue_ext_grade_10)).toFixed(2))
                     )
                     res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                     throw new Error('Transaction Aborted due to negative value')

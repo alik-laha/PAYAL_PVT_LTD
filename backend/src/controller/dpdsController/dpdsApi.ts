@@ -224,11 +224,11 @@ export const CreateEntireDPDS = async (req: Request, res: Response) => {
         await sequelize.transaction(async (transaction: any) => {
 
             for (let data of linehumid) {
-                if ((parseFloat(data.issue_add_1)+
+                if ((Number((parseFloat(data.issue_add_1)+
                     // parseFloat(data.rcv_dpN) + parseFloat(data.rcv_dsN) + parseFloat(data.rcv_dp1N)
                      + (data.rcv_Sorting ? parseFloat(data.rcv_Sorting) : 0)
-                    + (data.rcv_transfer ? parseFloat(data.rcv_transfer) : 0)
-                ) < (parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
+                    + (data.rcv_transfer ? parseFloat(data.rcv_transfer) : 0)).toFixed(2))
+                ) < (Number((parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
                     + parseFloat(data.issue_ds_1) + parseFloat(data.issue_ds_2) + parseFloat(data.issue_sp_2) +
                     parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                     + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
@@ -268,8 +268,8 @@ export const CreateEntireDPDS = async (req: Request, res: Response) => {
                     + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
                     + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
                     + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_mayur)
-                    )) {
-                    console.log(parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
+                    ).toFixed(2)))) {
+                    console.log(Number(parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
                         + parseFloat(data.issue_ds_1) + parseFloat(data.issue_ds_2) + parseFloat(data.issue_sp_2) +
                         parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                         + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
@@ -309,7 +309,7 @@ export const CreateEntireDPDS = async (req: Request, res: Response) => {
 
                         + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
                         + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
-                        + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_mayur))
+                        + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_mayur)).toFixed(2))
                     res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                     throw new Error('Transaction Aborted due to negative value')
 
@@ -886,7 +886,7 @@ export const CreateReissueDPDS = async (req: Request, res: Response) => {
             for (let data of linehumid) {
 
                 //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
-                if (parseFloat(data.issue_add_1) < (parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
+                if ((Number(parseFloat(data.issue_add_1).toFixed(2))) < (Number((parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
                     + parseFloat(data.issue_ds_1) + parseFloat(data.issue_ds_2) + parseFloat(data.issue_sp_2) +
                     parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                     + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
@@ -925,8 +925,8 @@ export const CreateReissueDPDS = async (req: Request, res: Response) => {
                     + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
                     + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
                     + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_mayur)
-                )) {
-                    console.log(parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
+                ).toFixed(2)))) {
+                    console.log(Number((parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
                         + parseFloat(data.issue_ds_1) + parseFloat(data.issue_ds_2) + parseFloat(data.issue_sp_2) +
                         parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                         + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
@@ -964,7 +964,7 @@ export const CreateReissueDPDS = async (req: Request, res: Response) => {
                        
                         + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
                         + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
-                        + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_mayur))
+                        + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_mayur)).toFixed(2)))
                     res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                     throw new Error('Transaction Aborted due to negative value')
 
@@ -1471,10 +1471,10 @@ export const updateEntireDPDS = async (req: Request, res: Response) => {
             for (let data of linehumid) {
 
 
-                if ((
-                    parseFloat(data.rcv_dpN) + parseFloat(data.rcv_dsN) + parseFloat(data.rcv_dp1N) 
+                if  ((Number(( parseFloat(data.rcv_dpN) + parseFloat(data.rcv_dsN) + parseFloat(data.rcv_dp1N) 
                     + (data.rcv_Sorting ? parseFloat(data.rcv_Sorting) : 0)
-                    + (data.rcv_transfer ? parseFloat(data.rcv_transfer) : 0)) < (parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
+                    + (data.rcv_transfer ? parseFloat(data.rcv_transfer) : 0)).toFixed(2))
+                ) < (Number((parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
                         + parseFloat(data.issue_ds_1) + parseFloat(data.issue_ds_2) + parseFloat(data.issue_sp_2) +
                         parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                         + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
@@ -1512,9 +1512,9 @@ export const updateEntireDPDS = async (req: Request, res: Response) => {
 
                         + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
                         + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
-                        + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_mayur)
+                        + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_mayur)).toFixed(2))
                     )) {
-                    console.log(parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
+                    console.log(Number((parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
                         + parseFloat(data.issue_ds_1) + parseFloat(data.issue_ds_2) + parseFloat(data.issue_sp_2) +
                         parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
                         + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
@@ -1551,7 +1551,7 @@ export const updateEntireDPDS = async (req: Request, res: Response) => {
                         parseFloat(data.issue_ext_grade_10)
                         + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
                         + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
-                        + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_mayur))
+                        + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_mayur)).toFixed(2)))
                     res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                     throw new Error('Transaction Aborted due to negative value')
 

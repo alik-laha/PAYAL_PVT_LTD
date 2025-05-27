@@ -246,13 +246,13 @@ const DashboardPanel1: React.FC = () => {
               <div key={item.id} className="panel">
                 <h2 className=''>{item.title}</h2>
                 <p className='font-semibold pt-2 text-blue-500'> {item.value1}</p>
-                <p className='font-semibold pt-1'> {item.value2}</p>
-                <p className='pt-2 text-2xl font-bold text-red-500'>{item.value3 ? `${item.value3} Kg` : ''}</p>
+                <p className='font-semibold pt-1 text-blue-500'> {item.value2}</p>
+                <p className='pt-2 text-2xl font-bold text-red-500'>{item.value3 ? `Backlog: ${item.value3} Kg` : ''}</p>
               </div>
             ))}
           </div>
-           {checkpending('LW') &&<div className='flex w-100 mt-5 float-right'>
-            <Button className="bg-green-400 mb-2 float-right responsive-button-adjust"
+           {checkpending('LW') &&<div className='flex w-100 mt-5 text-center items-center'>
+            <Button className="bg-green-400 mb-2  responsive-button-adjust"
               disabled={loading} onClick={handlesendWp} >  {loading ? 'Sending...' : 'Send'} <FaWhatsapp size={20} className="ml-2" /></Button>
           </div>}
         </div>

@@ -64,7 +64,7 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
             const Mc_runTime = millisecondsToTime(runtime);
             //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
          
-            if(parseFloat(data.TotalInput)< (parseFloat(data.WholesPeel)
+            if(Number(parseFloat(data.TotalInput).toFixed(2))< (Number((parseFloat(data.WholesPeel)
                 +parseFloat(data.WholesUnpeel)
                 +parseFloat(data.DP)
                 +parseFloat(data.DS)
@@ -78,9 +78,9 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
                 +parseFloat(data.Husk)
                 +parseFloat(data.Rejection)
                 +parseFloat(data.UnpeelPiece)
-                +parseFloat(data.Big_Taiho)))
+                +parseFloat(data.Big_Taiho)).toFixed(2))))
                {
-                console.log(parseFloat(data.WholesPeel)
+                console.log(Number((parseFloat(data.WholesPeel)
             +parseFloat(data.WholesUnpeel)
             +parseFloat(data.DP)
             +parseFloat(data.DS)
@@ -94,7 +94,7 @@ const CreateEntirePeel= async (req: Request, res: Response) => {
             +parseFloat(data.Husk)
             +parseFloat(data.Rejection)
             +parseFloat(data.UnpeelPiece)
-            +parseFloat(data.Big_Taiho))
+            +parseFloat(data.Big_Taiho)).toFixed(2)))
                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                 throw new Error('Transaction Aborted due to negative value')
 

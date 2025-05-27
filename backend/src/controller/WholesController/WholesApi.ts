@@ -304,7 +304,7 @@ export const CreateEntireWholes = async (req: Request, res: Response) => {
 
 
 
-                if ((parseFloat(data.issue_add_1)
+                if ((Number(parseFloat(data.issue_add_1).toFixed(2))
 
                     //parseFloat(data.rcv_pw_210)+parseFloat(data.rcv_w_210)+parseFloat(data.rcv_ww_210)
                     //+parseFloat(data.rcv_pw_240)+parseFloat(data.rcv_w_240)+parseFloat(data.rcv_ww_240)
@@ -314,7 +314,7 @@ export const CreateEntireWholes = async (req: Request, res: Response) => {
                     //+parseFloat(data.rcv_pw_400)+parseFloat(data.rcv_w_400)+parseFloat(data.rcv_ww_400)
                     //+parseFloat(data.rcv_jb_hamsa)+parseFloat(data.rcv_jb_mayur)
 
-                ) < (parseFloat(data.issue_pw_150) + parseFloat(data.issue_w_150) + parseFloat(data.issue_ww_150)
+                ) < (Number((parseFloat(data.issue_pw_150) + parseFloat(data.issue_w_150) + parseFloat(data.issue_ww_150)
                     + parseFloat(data.issue_s_150) + parseFloat(data.issue_aw_150) + parseFloat(data.issue_lw_150)
                     + parseFloat(data.issue_pw_180) + parseFloat(data.issue_w_180) + parseFloat(data.issue_ww_180)
                     + parseFloat(data.issue_s_180) + parseFloat(data.issue_aw_180) + parseFloat(data.issue_lw_180)
@@ -400,8 +400,8 @@ export const CreateEntireWholes = async (req: Request, res: Response) => {
                     + parseFloat(data.issue_lw) + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)
                     + parseFloat(data.issue_village)
 
-                    )) {
-                    console.log(parseFloat(data.issue_pw_150) + parseFloat(data.issue_w_150) + parseFloat(data.issue_ww_150)
+                    ).toFixed(2)))) {
+                    console.log(Number((parseFloat(data.issue_pw_150) + parseFloat(data.issue_w_150) + parseFloat(data.issue_ww_150)
                         + parseFloat(data.issue_s_150) + parseFloat(data.issue_aw_150) + parseFloat(data.issue_lw_150)
                         + parseFloat(data.issue_pw_180) + parseFloat(data.issue_w_180) + parseFloat(data.issue_ww_180)
                         + parseFloat(data.issue_s_180) + parseFloat(data.issue_aw_180) + parseFloat(data.issue_lw_180)
@@ -484,7 +484,7 @@ export const CreateEntireWholes = async (req: Request, res: Response) => {
                         + parseFloat(data.issue_ext_grade_9)
                         + parseFloat(data.issue_ext_grade_10)
                         + parseFloat(data.issue_lw) + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)
-                        + parseFloat(data.issue_village))
+                        + parseFloat(data.issue_village)).toFixed(2)))
                     res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                     throw new Error('Transaction Aborted due to negative value')
 
@@ -1245,7 +1245,7 @@ export const CreateReissueWholes = async (req: Request, res: Response) => {
         await sequelize.transaction(async (transaction: any) => {
 
             for (let data of linehumid) {
-                if ((parseFloat(data.issue_add_1)
+                if ((Number(parseFloat(data.issue_add_1).toFixed(2))
 
                     //parseFloat(data.rcv_pw_210)+parseFloat(data.rcv_w_210)+parseFloat(data.rcv_ww_210)
                     //+parseFloat(data.rcv_pw_240)+parseFloat(data.rcv_w_240)+parseFloat(data.rcv_ww_240)
@@ -1255,7 +1255,7 @@ export const CreateReissueWholes = async (req: Request, res: Response) => {
                     //+parseFloat(data.rcv_pw_400)+parseFloat(data.rcv_w_400)+parseFloat(data.rcv_ww_400)
                     //+parseFloat(data.rcv_jb_hamsa)+parseFloat(data.rcv_jb_mayur)
 
-                ) < (parseFloat(data.issue_pw_150) + parseFloat(data.issue_w_150) + parseFloat(data.issue_ww_150)
+                ) < (Number((parseFloat(data.issue_pw_150) + parseFloat(data.issue_w_150) + parseFloat(data.issue_ww_150)
                     + parseFloat(data.issue_s_150) + parseFloat(data.issue_aw_150) + parseFloat(data.issue_lw_150)
                     + parseFloat(data.issue_pw_180) + parseFloat(data.issue_w_180) + parseFloat(data.issue_ww_180)
                     + parseFloat(data.issue_s_180) + parseFloat(data.issue_aw_180) + parseFloat(data.issue_lw_180)
@@ -1341,8 +1341,8 @@ export const CreateReissueWholes = async (req: Request, res: Response) => {
                     + parseFloat(data.issue_lw) + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)
                     + parseFloat(data.issue_village)
 
-                    )) {
-                    console.log(parseFloat(data.issue_pw_150) + parseFloat(data.issue_w_150) + parseFloat(data.issue_ww_150)
+                    ).toFixed(2)))) {
+                    console.log(Number((parseFloat(data.issue_pw_150) + parseFloat(data.issue_w_150) + parseFloat(data.issue_ww_150)
                         + parseFloat(data.issue_s_150) + parseFloat(data.issue_aw_150) + parseFloat(data.issue_lw_150)
                         + parseFloat(data.issue_pw_180) + parseFloat(data.issue_w_180) + parseFloat(data.issue_ww_180)
                         + parseFloat(data.issue_s_180) + parseFloat(data.issue_aw_180) + parseFloat(data.issue_lw_180)
@@ -1425,7 +1425,7 @@ export const CreateReissueWholes = async (req: Request, res: Response) => {
                         + parseFloat(data.issue_ext_grade_9)
                         + parseFloat(data.issue_ext_grade_10)
                         + parseFloat(data.issue_lw) + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)
-                        + parseFloat(data.issue_village))
+                        + parseFloat(data.issue_village)).toFixed(2)))
                     res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                     throw new Error('Transaction Aborted due to negative value')
 
@@ -2123,15 +2123,15 @@ export const updateEntireWholes = async (req: Request, res: Response) => {
             for (let data of linehumid) {
 
 
-                if ((parseFloat(data.rcv_pw_210) + parseFloat(data.rcv_w_210) + parseFloat(data.rcv_ww_210)
+                if ((Number((parseFloat(data.rcv_pw_210) + parseFloat(data.rcv_w_210) + parseFloat(data.rcv_ww_210)
                     + parseFloat(data.rcv_pw_240) + parseFloat(data.rcv_w_240) + parseFloat(data.rcv_ww_240)
                     + parseFloat(data.rcv_pw_280) + parseFloat(data.rcv_w_280) + parseFloat(data.rcv_ww_280)
                     + parseFloat(data.rcv_pw_320) + parseFloat(data.rcv_w_320) + parseFloat(data.rcv_ww_320)
                     + parseFloat(data.rcv_pw_360) + parseFloat(data.rcv_w_360) + parseFloat(data.rcv_ww_360)
                     + parseFloat(data.rcv_pw_400) + parseFloat(data.rcv_w_400) + parseFloat(data.rcv_ww_400)
-                    + parseFloat(data.rcv_jb_hamsa) + parseFloat(data.rcv_jb_mayur)
+                    + parseFloat(data.rcv_jb_hamsa) + parseFloat(data.rcv_jb_mayur)).toFixed(2))
 
-                ) < (parseFloat(data.issue_pw_150) + parseFloat(data.issue_w_150) + parseFloat(data.issue_ww_150)
+                ) < (Number((parseFloat(data.issue_pw_150) + parseFloat(data.issue_w_150) + parseFloat(data.issue_ww_150)
                     + parseFloat(data.issue_s_150) + parseFloat(data.issue_aw_150) + parseFloat(data.issue_lw_150)
                     + parseFloat(data.issue_pw_180) + parseFloat(data.issue_w_180) + parseFloat(data.issue_ww_180)
                     + parseFloat(data.issue_s_180) + parseFloat(data.issue_aw_180) + parseFloat(data.issue_lw_180)
@@ -2216,8 +2216,8 @@ export const updateEntireWholes = async (req: Request, res: Response) => {
                     + parseFloat(data.issue_lw) + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)
                     + parseFloat(data.issue_village)
 
-                    )) {
-                    console.log(parseFloat(data.issue_pw_150) + parseFloat(data.issue_w_150) + parseFloat(data.issue_ww_150)
+                    ).toFixed(2)))) {
+                    console.log(Number((parseFloat(data.issue_pw_150) + parseFloat(data.issue_w_150) + parseFloat(data.issue_ww_150)
                         + parseFloat(data.issue_s_150) + parseFloat(data.issue_aw_150) + parseFloat(data.issue_lw_150)
                         + parseFloat(data.issue_pw_180) + parseFloat(data.issue_w_180) + parseFloat(data.issue_ww_180)
                         + parseFloat(data.issue_s_180) + parseFloat(data.issue_aw_180) + parseFloat(data.issue_lw_180)
@@ -2300,7 +2300,7 @@ export const updateEntireWholes = async (req: Request, res: Response) => {
                         + parseFloat(data.issue_ext_grade_9)
                         + parseFloat(data.issue_ext_grade_10)
                         + parseFloat(data.issue_lw) + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection)
-                        + parseFloat(data.issue_village))
+                        + parseFloat(data.issue_village)).toFixed(2)))
                     res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                     throw new Error('Transaction Aborted due to negative value')
 
