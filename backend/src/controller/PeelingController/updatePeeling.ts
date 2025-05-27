@@ -56,7 +56,7 @@ const updatePeeling = async (req: Request, res: Response) => {
             }
             const Mc_runTime = millisecondsToTime(runtime);
            
-            if(parseFloat(iptot)< (parseFloat(wholepeel)
+            if(Number(parseFloat(iptot).toFixed(2))< (Number((parseFloat(wholepeel)
                 +parseFloat(wholeunpeel)
                 +parseFloat(dp)
                 +parseFloat(ds)
@@ -70,7 +70,8 @@ const updatePeeling = async (req: Request, res: Response) => {
                 +parseFloat(husk)
                 +parseFloat(rejection)
                 +parseFloat(pieceunpeel)
-                +parseFloat(bigT)))
+                +parseFloat(bigT)).toFixed(2)))
+            )
                {
                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                 throw new Error('Transaction Aborted due to negative value')

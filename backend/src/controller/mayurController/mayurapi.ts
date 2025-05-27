@@ -198,26 +198,33 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
             const Mc_runTime4 = millisecondsToTime(runtime4);
             //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
          
-            if((parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel)+(data.rcv_DPDS? parseFloat(data.rcv_DPDS):0)+
-            (data.rcv_sorting?parseFloat(data.rcv_sorting):0)+(data.rcv_village?parseFloat(data.rcv_village):0)
-           )< (parseFloat(data.issue_pw_w)
-                +parseFloat(data.issue_w_lot)
-                +parseFloat(data.issue_ww)
-                +parseFloat(data.issue_rejection)
-                +parseFloat(data.issue_village)
-                +parseFloat(data.issue_bigTaiho)
-                +parseFloat(data.issue_LW)
-                +parseFloat(data.issue_JB)
-               ))
+            if ((Number((
+                parseFloat(data.rcv_wholespeel) +
+                parseFloat(data.rcv_wholesunpeel) +
+                (data.rcv_DPDS ? parseFloat(data.rcv_DPDS) : 0) +
+                (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0) +
+                (data.rcv_village ? parseFloat(data.rcv_village) : 0)
+            ).toFixed(2))) < (Number((
+                parseFloat(data.issue_pw_w) +
+                parseFloat(data.issue_w_lot) +
+                parseFloat(data.issue_ww) +
+                parseFloat(data.issue_rejection) +
+                parseFloat(data.issue_village) +
+                parseFloat(data.issue_bigTaiho) +
+                parseFloat(data.issue_LW) +
+                parseFloat(data.issue_JB)
+            ).toFixed(2))))
                {
-                console.log(parseFloat(data.issue_pw_w)
-                +parseFloat(data.issue_w_lot)
-                +parseFloat(data.issue_ww)
-                +parseFloat(data.issue_rejection)
-                +parseFloat(data.issue_village)
-                +parseFloat(data.issue_bigTaiho)
-                +parseFloat(data.issue_LW)
-                +parseFloat(data.issue_JB))
+                console.log(Number((
+                parseFloat(data.issue_pw_w) +
+                parseFloat(data.issue_w_lot) +
+                parseFloat(data.issue_ww) +
+                parseFloat(data.issue_rejection) +
+                parseFloat(data.issue_village) +
+                parseFloat(data.issue_bigTaiho) +
+                parseFloat(data.issue_LW) +
+                parseFloat(data.issue_JB)
+            ).toFixed(2)))
                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                 throw new Error('Transaction Aborted due to negative value')
 
@@ -816,24 +823,25 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
             const Mc_runTime4 = millisecondsToTime(runtime4);
             //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
          
-            if(parseFloat(data.rcv_peeling)< (parseFloat(data.issue_pw_w)
-                +parseFloat(data.issue_w_lot)
-                +parseFloat(data.issue_ww)
-                +parseFloat(data.issue_rejection)
-                +parseFloat(data.issue_village)
-                +parseFloat(data.issue_bigTaiho)
-                +parseFloat(data.issue_LW)
-                +parseFloat(data.issue_JB)
-               ))
+            if(Number(parseFloat(data.rcv_peeling).toFixed(2))< (Number((
+                parseFloat(data.issue_pw_w) +
+                parseFloat(data.issue_w_lot) +
+                parseFloat(data.issue_ww) +
+                parseFloat(data.issue_rejection) +
+                parseFloat(data.issue_village) +
+                parseFloat(data.issue_bigTaiho) +
+                parseFloat(data.issue_LW) +
+                parseFloat(data.issue_JB)
+            ).toFixed(2))))
                {
-                console.log(parseFloat(data.issue_pw_w)
+                console.log(Number((parseFloat(data.issue_pw_w)
                 +parseFloat(data.issue_w_lot)
                 +parseFloat(data.issue_ww)
                 +parseFloat(data.issue_rejection)
                 +parseFloat(data.issue_village)
                 +parseFloat(data.issue_bigTaiho)
                 +parseFloat(data.issue_LW)
-                +parseFloat(data.issue_JB))
+                +parseFloat(data.issue_JB)).toFixed(2)))
                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                 throw new Error('Transaction Aborted due to negative value')
 
@@ -1599,25 +1607,33 @@ export const updateEntireMayur= async (req: Request, res: Response) => {
             const Mc_runTime4 = millisecondsToTime(runtime4);
             //const totalOut=parseFloat(data.OutputWholes) + parseFloat(data.OutputPieces)
          
-            if((parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel)+(data.rcv_DPDS? parseFloat(data.rcv_DPDS):0)+
-            (data.rcv_sorting?parseFloat(data.rcv_sorting):0)+(data.rcv_village?parseFloat(data.rcv_village):0))< (parseFloat(data.issue_pw_w)
-                +parseFloat(data.issue_w_lot)
-                +parseFloat(data.issue_ww)
-                +parseFloat(data.issue_rejection)
-                +parseFloat(data.issue_village)
-                +parseFloat(data.issue_bigTaiho)
-                +parseFloat(data.issue_LW)
-                +parseFloat(data.issue_JB)
-               ))
-            {
-                console.log(parseFloat(data.issue_pw_w)
-                +parseFloat(data.issue_w_lot)
-                +parseFloat(data.issue_ww)
-                +parseFloat(data.issue_rejection)
-                +parseFloat(data.issue_village)
-                +parseFloat(data.issue_bigTaiho)
-                +parseFloat(data.issue_LW)
-                +parseFloat(data.issue_JB))
+            if ((Number((
+                parseFloat(data.rcv_wholespeel) +
+                parseFloat(data.rcv_wholesunpeel) +
+                (data.rcv_DPDS ? parseFloat(data.rcv_DPDS) : 0) +
+                (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0) +
+                (data.rcv_village ? parseFloat(data.rcv_village) : 0)
+            ).toFixed(2))) < (Number((
+                parseFloat(data.issue_pw_w) +
+                parseFloat(data.issue_w_lot) +
+                parseFloat(data.issue_ww) +
+                parseFloat(data.issue_rejection) +
+                parseFloat(data.issue_village) +
+                parseFloat(data.issue_bigTaiho) +
+                parseFloat(data.issue_LW) +
+                parseFloat(data.issue_JB)
+            ).toFixed(2))))
+               {
+                console.log(Number((
+                parseFloat(data.issue_pw_w) +
+                parseFloat(data.issue_w_lot) +
+                parseFloat(data.issue_ww) +
+                parseFloat(data.issue_rejection) +
+                parseFloat(data.issue_village) +
+                parseFloat(data.issue_bigTaiho) +
+                parseFloat(data.issue_LW) +
+                parseFloat(data.issue_JB)
+            ).toFixed(2)))
                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                 throw new Error('Transaction Aborted due to negative value')
 

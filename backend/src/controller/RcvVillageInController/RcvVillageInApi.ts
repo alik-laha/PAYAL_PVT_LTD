@@ -131,15 +131,17 @@ export const updateRcvVillageIn = async (req: Request, res: Response) => {
             return res.status(500).json({ message: "Vendor Does Not Exist" });
         }
         else {
-            if (parseFloat(totalWt) !== (parseFloat(wholes)
-                + parseFloat(piece)
-                + parseFloat(lw)
-                + parseFloat(dp)
-                + parseFloat(jb)
-                + parseFloat(jbp)
-                + parseFloat(sdp)
-                + parseFloat(husk) + parseFloat(unpeel)
-            )) {
+            if (Number(parseFloat(totalWt).toFixed(2)) !== Number((
+                    parseFloat(wholes) +
+                    parseFloat(piece) +
+                    parseFloat(lw) +
+                    parseFloat(dp) +
+                    parseFloat(jb) +
+                    parseFloat(jbp) +
+                    parseFloat(sdp) +
+                    parseFloat(husk) +
+                    parseFloat(unpeel)
+                ).toFixed(2))){
                 res.status(500).json({ message: "Backlog should be Always 0 for a Row Item" });
             }
             else {
@@ -219,15 +221,17 @@ export const updateRcvVillageInEntire = async (req: Request, res: Response) => {
         }
         else {
             await RcvVillageInModel.sequelize?.transaction(async (transaction) => {
-                if (parseFloat(totalWt) !== (parseFloat(wholes)
-                    + parseFloat(piece)
-                    + parseFloat(lw)
-                    + parseFloat(dp)
-                    + parseFloat(jb)
-                    + parseFloat(jbp)
-                    + parseFloat(sdp)
-                    + parseFloat(husk) + parseFloat(unpeel)
-                )) {
+                if (Number(parseFloat(totalWt).toFixed(2)) !== Number((
+                    parseFloat(wholes) +
+                    parseFloat(piece) +
+                    parseFloat(lw) +
+                    parseFloat(dp) +
+                    parseFloat(jb) +
+                    parseFloat(jbp) +
+                    parseFloat(sdp) +
+                    parseFloat(husk) +
+                    parseFloat(unpeel)
+                ).toFixed(2))) {
 
                     res.status(500).json({ message: "Backlog should be Always 0 for a Row Item" });
                     throw new Error('Transaction Aborted due to non 0 backlog value')
@@ -272,15 +276,17 @@ export const updateRcvVillageInEntire = async (req: Request, res: Response) => {
                             throw new Error('Transaction Aborted')
                         }
 
-                        if (parseFloat(data.totalWt) !== (parseFloat(data.wholes)
-                            + parseFloat(data.piece)
-                            + parseFloat(data.lw)
-                            + parseFloat(data.dp)
-                            + parseFloat(data.jb)
-                            + parseFloat(data.jbp)
-                            + parseFloat(data.sdp)
-                            + parseFloat(data.husk)+ parseFloat(data.unpeel)
-                        )) {
+                        if (Number(parseFloat(data.totalWt).toFixed(2)) !== Number((
+                            parseFloat(data.wholes) +
+                            parseFloat(data.piece) +
+                            parseFloat(data.lw) +
+                            parseFloat(data.dp) +
+                            parseFloat(data.jb) +
+                            parseFloat(data.jbp) +
+                            parseFloat(data.sdp) +
+                            parseFloat(data.husk) +
+                            parseFloat(data.unpeel)
+                        ).toFixed(2))) {
                         
                             res.status(500).json({ message: "Backlog should be Always 0 for a Row Item" });
                             throw new Error('Transaction Aborted due to non 0 backlog value')

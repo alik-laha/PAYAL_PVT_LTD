@@ -171,14 +171,14 @@ export const CreateEntireRejection = async (req: Request, res: Response) => {
 
             for (let data of linehumid) {
 
-                if ((parseFloat(data.rcv_peelingN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0) + (data.rcv_dpds ? parseFloat(data.rcv_dpds) : 0)
+                if ((Number((parseFloat(data.rcv_peelingN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0) + (data.rcv_dpds ? parseFloat(data.rcv_dpds) : 0)
                     + (data.rcv_lw ? parseFloat(data.rcv_lw) : 0) + (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0)
                     + (data.rcv_village ? parseFloat(data.rcv_village) : 0) + (data.rcv_bigTaiho ? parseFloat(data.rcv_bigTaiho) : 0)
-                    + parseFloat(data.rcv_mayurN)) < (parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
+                    + parseFloat(data.rcv_mayurN)).toFixed(2))) < (Number((parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
                         parseFloat(data.issue_shell) + parseFloat(data.issue_catelfeed)
-                    )) {
-                    console.log(parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
-                        parseFloat(data.issue_shell) + parseFloat(data.issue_catelfeed))
+                    ).toFixed(2)))) {
+                    console.log(Number((parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
+                        parseFloat(data.issue_shell) + parseFloat(data.issue_catelfeed)).toFixed(2)))
                     res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                     throw new Error('Transaction Aborted due to negative value')
 
@@ -417,14 +417,14 @@ export const updateEntireRejection= async (req: Request, res: Response) => {
         for (let data of linehumid) 
         {
          
-            if ((parseFloat(data.rcv_peelingN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0) + (data.rcv_dpds ? parseFloat(data.rcv_dpds) : 0)
+            if ((Number((parseFloat(data.rcv_peelingN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0) + (data.rcv_dpds ? parseFloat(data.rcv_dpds) : 0)
                 + (data.rcv_lw ? parseFloat(data.rcv_lw) : 0) + (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0)
                 + (data.rcv_village ? parseFloat(data.rcv_village) : 0) + (data.rcv_bigTaiho ? parseFloat(data.rcv_bigTaiho) : 0)
-                + parseFloat(data.rcv_mayurN)) < (parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
+                + parseFloat(data.rcv_mayurN)).toFixed(2))) < (Number((parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
                     parseFloat(data.issue_shell) + parseFloat(data.issue_catelfeed)
-                )) {
-                console.log(parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
-                    parseFloat(data.issue_shell) + parseFloat(data.issue_catelfeed))
+                ).toFixed(2)))) {
+                console.log(Number((parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
+                    parseFloat(data.issue_shell) + parseFloat(data.issue_catelfeed)).toFixed(2)))
                 res.status(500).json({ message: "Backlog can't be Greater Than Input" });
                 throw new Error('Transaction Aborted due to negative value')
 
