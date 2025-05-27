@@ -300,14 +300,14 @@ const IssueCreateForm = () => {
             <div className="px-5 mt-4">
                      <form className='flex flex-col gap-0.5 ' onSubmit={handleSubmit2}>
 
-                    <div className="mx-8 flex flex-col gap-1">
+                    <div className="mx-1 flex flex-col gap-1">
                         <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Issue Date(*)</Label>
-                            <Input type='date' className="w-2/4 text-center justify-center" placeholder="Vehicle No" ref={dateIssueref} required />
+                            <Label className="w-1/4 pt-1">Issue Date(*)</Label>
+                            <Input type='date' className="w-1/4 text-center justify-center" placeholder="Vehicle No" ref={dateIssueref} required />
                         </div>
                         <div className="flex mt-1">
-                            <Label className="w-2/4 pt-1">Issue to User(*)</Label>
-                            <Input className="w-2/4 text-center" placeholder="User Name" ref={usernameRef} required/>
+                            <Label className="w-1/4 pt-1">Issue to User(*)</Label>
+                            <Input className="w-1/4 text-center" placeholder="User Name" ref={usernameRef} required/>
                         </div>
                     </div>
 

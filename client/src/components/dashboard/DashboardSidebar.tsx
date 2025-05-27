@@ -12,7 +12,8 @@ import { PermissionRole, PermissionDept } from "@/type/type";
 import { RxDashboard } from "react-icons/rx";
 import {
     MdOutlineAdminPanelSettings, MdOutlineStorefront, MdGrading,
-    MdHolidayVillage, MdCallReceived, MdOutlineFactory, MdOutlineOilBarrel, MdOutlineHighQuality
+    MdHolidayVillage, MdCallReceived, MdOutlineFactory, MdOutlineOilBarrel, MdOutlineHighQuality,
+    MdOutlineSpaceDashboard
 } from "react-icons/md";
 import { IoIosNavigate, IoMdSettings } from "react-icons/io";
 import { LuDonut, LuBadgeCheck } from "react-icons/lu";
@@ -87,7 +88,7 @@ const DashboardSidebar = () => {
                             <p>Dashboard</p></CollapsibleTrigger>
                         <CollapsibleContent className="Items-pvt">
                             <NavLink to="/dashboard/dashboard1" >
-                                Lot Flow 
+                                <p className="flex"><MdOutlineSpaceDashboard size={22} /> <p className="pl-3">Lot Position</p></p>
                             </NavLink>
                         </CollapsibleContent ></Collapsible >
 

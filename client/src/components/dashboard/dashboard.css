@@ -2,6 +2,10 @@
     font-family: Arial, sans-serif;
 }
 
+ select, select option {
+    font-size: 0.75rem!important;
+  }
+
 /* The sidebar menu */
 .sidebar {
     /* height: 100%; */
@@ -42,7 +46,7 @@
     cursor: pointer;
      color: rgba(198, 220, 241, 0.796);
     display: block;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     
 }
@@ -658,7 +662,6 @@
 
    .flexbox-tile{
         flex: 1 1 25% ;
-       
         padding: 20px 15px 20px 15px;
         height: 30vw;
         font-size: 12px;
