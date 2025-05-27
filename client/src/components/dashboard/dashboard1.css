@@ -22,7 +22,7 @@
   text-align: center;
   box-sizing: border-box;
   transition: transform 0.2s ease;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 .panel:hover {

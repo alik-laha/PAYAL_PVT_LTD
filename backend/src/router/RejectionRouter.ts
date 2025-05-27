@@ -24,7 +24,7 @@ router.get("/getRejectionByLotOrigin/:lotNO/:origin", jwtVerify, getRejectionByl
 router.post("/createEntireRejection", jwtVerify, CreateEntireRejection)
 
 // // //HamsaReiSsueForm.tsx
-// router.post("/createReissueLW", jwtVerify, CreateReissueLW)
+// router.post("/createReissueRejection", jwtVerify, CreateReissueLW)
 
 // // //Rejectiontable.tsx
 router.put('/rejectionprimarysearch', jwtVerify, SearchRCNRejection);
