@@ -50,13 +50,14 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import {  CiCrop, CiEdit, CiLink } from "react-icons/ci";
+import {  CiBoxes, CiCrop, CiEdit, CiLink } from "react-icons/ci";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import VillageGateLink from "./VillGatePassLink";
 import VillageEDitForm from "./VillageModify";
 import VillageReMix from "./VillageMix";
+import VillageReCreateForm from "./VillageReissue";
 // import RejectionEDitForm from "./RejectionModify";
 
 
@@ -643,20 +644,20 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     </DialogContent>
                                                     
                                                 </Dialog>
-                                                {/* {Number(item.current_backlog) > 0 && <Dialog>
+                                                {Number(item.current_backlog) > 0 && <Dialog>
                                                     <DialogTrigger className="flex"><CiBoxes size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="max-w-7xl">
+                                                    <DialogContent className="max-w-screen">
                                                         <DialogHeader>
                                                             <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>Rejection Entry Re-issue</p>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>Village Entry Re-issue</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        <RCNSortingReCreateForm borma={[item]} />
+                                                        <VillageReCreateForm borma={[item]} />
                                                     </DialogContent>
                                                     
-                                                </Dialog>} */}
+                                                </Dialog>}
                                                 {Number(item.current_backlog) > 0 && <Dialog>
                                                     <DialogTrigger className="flex"><CiCrop size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
