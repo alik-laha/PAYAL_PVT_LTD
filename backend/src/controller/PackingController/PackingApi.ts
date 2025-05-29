@@ -416,14 +416,14 @@ export const packingSearch = async (req: Request, res: Response) => {
             if (limit === 0 && offset === 0) {
                 rcnEntries = await orderPackingModel.findAll({
                     where,
-                    order: [['orderID', 'DESC']], // Order by DESC
+                    order: [['orderID', 'DESC'],['origin','ASC'],['gradeName','ASC'],['altid','ASC']], // Order by DESC
     
                 });
             }
             else {
                 rcnEntries = await orderPackingModel.findAll({
                     where,
-                    order: [['orderID', 'DESC']], // Order by DESC
+                    order: [['orderID', 'DESC'],['origin','ASC'],['gradeName','ASC'],['altid','ASC']], // Order by DESC
                     limit: limit,
                     offset: offset
                 });
@@ -485,14 +485,14 @@ export const mappingSearch = async (req: Request, res: Response) => {
             if (limit === 0 && offset === 0) {
                 rcnEntries = await orderMappingModel.findAll({
                     where,
-                    order: [['orderID', 'DESC'],['origin','ASC']], // Order by DESC
+                    order: [['orderID', 'DESC'],['origin','ASC'],['finalgradeName','ASC'],['altid','ASC'],['productionSection','ASC']], // Order by DESC
     
                 });
             }
             else {
                 rcnEntries = await orderMappingModel.findAll({
                     where,
-                    order: [['orderID', 'DESC'],['origin','ASC']], // Order by DESC
+                    order: [['orderID', 'DESC'],['origin','ASC'],['finalgradeName','ASC'],['altid','ASC'],['productionSection','ASC']], // Order by DESC
                     limit: limit,
                     offset: offset
                 });
