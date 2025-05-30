@@ -1089,7 +1089,9 @@ export const CreateReissueRejection = async (req: Request, res: Response) => {
                                 await villageProduction.update(
                                     {
                                         rcv_rejection: sequelize.literal(`rcv_rejection+ ${data.issue_village}`),
-                                        current_backlog: sequelize.literal(`current_backlog+ ${data.issue_village}`)
+                                         current_backlog:sequelize.literal(`current_backlog+ ${data.issue_village}`),                
+                                issue_add_12:vil_backlog.dataValues.issue_add_12 ?
+                                sequelize.literal(`issue_add_12+ ${data.issue_village}`):vil_backlog.dataValues.issue_add_12,
                                     },
                                     {
                                         where: {
