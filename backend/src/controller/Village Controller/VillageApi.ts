@@ -215,13 +215,7 @@ export const CreateEntireVillage = async (req: Request, res: Response) => {
                         issue_add_11: data.rcv_mayurN,
                         issue_add_12: data.rcv_rejectionN,
                         Remarks2: data.out_Type,
-                        entry_backlog: (parseFloat(data.rcv_peelingN) + parseFloat(data.rcv_rejectionN)+(data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0) + (data.rcv_dpds ? parseFloat(data.rcv_dpds) : 0)
-                            + (data.rcv_lw ? parseFloat(data.rcv_lw) : 0) + (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0)
-                             + (data.rcv_bigTaiho ? parseFloat(data.rcv_bigTaiho) : 0)
-                            + parseFloat(data.rcv_mayurN))
-                            - (parseFloat(data.issue_packing) + parseFloat(data.issue_mayur) + parseFloat(data.issue_hamsa) +
-                            parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection) + parseFloat(data.issue_outside)
-                            ),
+                    
                         current_backlog: (parseFloat(data.rcv_peelingN) + parseFloat(data.rcv_rejectionN)+(data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0) + (data.rcv_dpds ? parseFloat(data.rcv_dpds) : 0)
                         + (data.rcv_lw ? parseFloat(data.rcv_lw) : 0) + (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0)
                          + (data.rcv_bigTaiho ? parseFloat(data.rcv_bigTaiho) : 0)
@@ -761,13 +755,7 @@ export const updateEntireVIllage= async (req: Request, res: Response) => {
                     issue_add_11: data.rcv_mayurN,
                     issue_add_12: data.rcv_rejectionN,
                     Remarks2: data.out_Type,
-                    entry_backlog: (parseFloat(data.rcv_peelingN) + parseFloat(data.rcv_rejectionN)+(data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0) + (data.rcv_dpds ? parseFloat(data.rcv_dpds) : 0)
-                        + (data.rcv_lw ? parseFloat(data.rcv_lw) : 0) + (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0)
-                         + (data.rcv_bigTaiho ? parseFloat(data.rcv_bigTaiho) : 0)
-                        + parseFloat(data.rcv_mayurN))
-                        - (parseFloat(data.issue_packing) + parseFloat(data.issue_mayur) + parseFloat(data.issue_hamsa) +
-                        parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection) + parseFloat(data.issue_outside)
-                        ),
+                   
                     current_backlog: (parseFloat(data.rcv_peelingN) + parseFloat(data.rcv_rejectionN)+(data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0) + (data.rcv_dpds ? parseFloat(data.rcv_dpds) : 0)
                     + (data.rcv_lw ? parseFloat(data.rcv_lw) : 0) + (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0)
                      + (data.rcv_bigTaiho ? parseFloat(data.rcv_bigTaiho) : 0)
@@ -921,7 +909,7 @@ export const approveVillage = async (req: Request, res: Response) => {
                         issue_add_11: data.issue_add_11,
                         issue_add_12: data.issue_add_12,
                         Remarks2: data.Remarks2,
-                    entry_backlog:data.entry_backlog,
+                   
                     current_backlog:data.current_backlog,
                     CreatedBy: data.CreatedBy,
                     editStatus: "Approved",

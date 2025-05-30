@@ -21,9 +21,8 @@ interface rejectionRowData {
     LotNo: string;
     origin: string;
     alt_id: number;
-    rcv_opening:string;
-    rcv_openingN:number;
-
+    rcv_opening: string;
+    rcv_openingN: number;
     rcv_peeling: number;
     rcv_mayur: number;
     rcv_dpds: number;
@@ -32,27 +31,19 @@ interface rejectionRowData {
     rcv_bigTaiho: number;
     rcv_sorting: number;
     rcv_village: number;
-
-    rcv_peelingN:  number;
-    rcv_mayurN:  number;
+    rcv_peelingN: number;
+    rcv_mayurN: number;
     rcv_dpdsN: number;
     rcv_wholesN: number;
     rcv_lwN: number;
     rcv_bigTaihoN: number;
     rcv_sortingN: number;
-    rcv_villageN:  number;
-
-
-     issue_packing: number;
-        issue_village: number;
-        issue_uncut_unscoop: number;
-        issue_shell: number;
-        issue_catelfeed: number;
-
-
-
-    
-   
+    rcv_villageN: number;
+    issue_packing: number;
+    issue_village: number;
+    issue_uncut_unscoop: number;
+    issue_shell: number;
+    issue_catelfeed: number;
     issue_add_1: number;
     issue_add_2: number;
     issue_add_3: number;

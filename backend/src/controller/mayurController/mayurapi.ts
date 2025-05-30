@@ -266,17 +266,7 @@ export const CreateEntireMayur= async (req: Request, res: Response) => {
                     issue_LW: data.issue_LW,
                     issue_JB: data.issue_JB,
 
-                    entry_backlog: (parseFloat(data.rcv_wholespeel) + parseFloat(data.rcv_wholesunpeel) + (data.rcv_DPDS ? parseFloat(data.rcv_DPDS) : 0) +
-                        (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0) + (data.rcv_village ? parseFloat(data.rcv_village) : 0)
-                    ) - (parseFloat(data.issue_pw_w)
-                            + parseFloat(data.issue_w_lot)
-                            + parseFloat(data.issue_ww)
-                            + parseFloat(data.issue_rejection)
-                            + parseFloat(data.issue_village)
-                            + parseFloat(data.issue_bigTaiho)
-                            + parseFloat(data.issue_LW)
-                            + parseFloat(data.issue_JB)
-                        ),
+                  
                     current_backlog: (parseFloat(data.rcv_wholespeel) + parseFloat(data.rcv_wholesunpeel) + (data.rcv_DPDS ? parseFloat(data.rcv_DPDS) : 0) +
                         (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0) + (data.rcv_village ? parseFloat(data.rcv_village) : 0)
                    ) - (parseFloat(data.issue_pw_w)
@@ -905,15 +895,7 @@ export const CreateReissueMayur= async (req: Request, res: Response) => {
                         issue_LW: data.issue_LW,
                         issue_JB: data.issue_JB,
                       
-                        entry_backlog:parseFloat(data.rcv_peeling)- (parseFloat(data.issue_pw_w)
-                        +parseFloat(data.issue_w_lot)
-                        +parseFloat(data.issue_ww)
-                        +parseFloat(data.issue_rejection)
-                        +parseFloat(data.issue_village)
-                        +parseFloat(data.issue_bigTaiho)
-                        +parseFloat(data.issue_LW)
-                        +parseFloat(data.issue_JB)
-                       ),
+                      
                        current_backlog:parseFloat(data.rcv_peeling)- (parseFloat(data.issue_pw_w)
                        +parseFloat(data.issue_w_lot)
                        +parseFloat(data.issue_ww)
@@ -1685,16 +1667,7 @@ export const updateEntireMayur= async (req: Request, res: Response) => {
                     issue_LW: data.issue_LW,
                     issue_JB: data.issue_JB,
                   
-                    entry_backlog:(parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel)+ (data.rcv_DPDS ? parseFloat(data.rcv_DPDS) : 0) +
-                    (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0) + (data.rcv_village ? parseFloat(data.rcv_village) : 0))- (parseFloat(data.issue_pw_w)
-                    +parseFloat(data.issue_w_lot)
-                    +parseFloat(data.issue_ww)
-                    +parseFloat(data.issue_rejection)
-                    +parseFloat(data.issue_village)
-                    +parseFloat(data.issue_bigTaiho)
-                    +parseFloat(data.issue_LW)
-                    +parseFloat(data.issue_JB)
-                   ),
+                
                    current_backlog:(parseFloat(data.rcv_wholespeel)+parseFloat(data.rcv_wholesunpeel)+(data.rcv_DPDS? parseFloat(data.rcv_DPDS):0)+
                    (data.rcv_sorting?parseFloat(data.rcv_sorting):0)+(data.rcv_village?parseFloat(data.rcv_village):0))- (parseFloat(data.issue_pw_w)
                    +parseFloat(data.issue_w_lot)
@@ -1886,7 +1859,7 @@ export const approveMayur = async (req: Request, res: Response) => {
                         issue_LW: data.issue_LW,
                         issue_JB: data.issue_JB,
                       
-                        entry_backlog:data.entry_backlog,
+                     
                        current_backlog:data.current_backlog,
                         CreatedBy: data.CreatedBy,
                         editStatus: "Approved",

@@ -384,50 +384,7 @@ export const CreateEntireDPDS = async (req: Request, res: Response) => {
                         issue_village: data.issue_village,
                         issue_bigTaiho: data.issue_bigTaiho,
                         issue_mayur: data.issue_mayur,
-                        entry_backlog: (parseFloat(data.issue_add_1)+
-                            //parseFloat(data.rcv_dpN) + parseFloat(data.rcv_dsN) + parseFloat(data.rcv_dp1N)
-                            + (data.rcv_Sorting ? parseFloat(data.rcv_Sorting) : 0) + (data.rcv_transfer ? parseFloat(data.rcv_transfer) : 0))
-                            - (parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
-                                + parseFloat(data.issue_ds_1) + parseFloat(data.issue_ds_2) + parseFloat(data.issue_sp_2) +
-                                parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
-                                + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
-                                + parseFloat(data.issue_dp_3) + parseFloat(data.issue_dp_4) + parseFloat(data.issue_dp_3l)
-                                + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)+
-                                parseFloat(data.issue_V_ds) +
-                                parseFloat(data.issue_V_m_ds) +
-                                parseFloat(data.issue_V_dp) +
-                                parseFloat(data.issue_V_m_dp) +
-                                parseFloat(data.issue_V_lp) +
-                                parseFloat(data.issue_V_lp_2) +
-                                parseFloat(data.issue_V_k_dp) +
-                                parseFloat(data.issue_V_ss) +
-                                parseFloat(data.issue_V_yjh) +
-                                parseFloat(data.issue_V_yk) +
-                                parseFloat(data.issue_V_sp_2) +
-                                parseFloat(data.issue_V_kp) +
-                                parseFloat(data.issue_V_dp_2) +
-                                parseFloat(data.issue_V_dp_3) +
-                                parseFloat(data.issue_V_dp_4) +
-                                parseFloat(data.issue_V_os) +
-                                parseFloat(data.issue_V_os_1) +
-                                parseFloat(data.issue_V_wp) +
-                                parseFloat(data.issue_V_rs) +
-                                parseFloat(data.issue_ext_grade_1) +
-                                parseFloat(data.issue_ext_grade_2) +
-                                parseFloat(data.issue_ext_grade_3) +
-                                parseFloat(data.issue_ext_grade_4) +
-                                parseFloat(data.issue_ext_grade_5) +
-                                parseFloat(data.issue_ext_grade_6) +
-                                parseFloat(data.issue_ext_grade_7) +
-                                parseFloat(data.issue_ext_grade_8) +
-                                parseFloat(data.issue_ext_grade_9) +
-                                parseFloat(data.issue_ext_grade_10)
-
-
-                                + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
-                                + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
-                                + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_mayur)
-                            ),
+                    
                         current_backlog: (parseFloat(data.issue_add_1)+
                         //parseFloat(data.rcv_dpN) + parseFloat(data.rcv_dsN) + parseFloat(data.rcv_dp1N)
                             + (data.rcv_Sorting ? parseFloat(data.rcv_Sorting) : 0) + (data.rcv_transfer ? parseFloat(data.rcv_transfer) : 0))
@@ -1062,46 +1019,7 @@ export const CreateReissueDPDS = async (req: Request, res: Response) => {
                             issue_bigTaiho: data.issue_bigTaiho,
                             issue_mayur: data.issue_mayur,
 
-                            entry_backlog: parseFloat(data.issue_add_1) - (parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
-                                + parseFloat(data.issue_ds_1) + parseFloat(data.issue_ds_2) + parseFloat(data.issue_sp_2) +
-                                parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
-                                + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
-                                + parseFloat(data.issue_dp_3) + parseFloat(data.issue_dp_4) + parseFloat(data.issue_dp_3l)
-                                + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)+
-                                parseFloat(data.issue_V_ds) +
-                                parseFloat(data.issue_V_m_ds) +
-                                parseFloat(data.issue_V_dp) +
-                                parseFloat(data.issue_V_m_dp) +
-                                parseFloat(data.issue_V_lp) +
-                                parseFloat(data.issue_V_lp_2) +
-                                parseFloat(data.issue_V_k_dp) +
-                                parseFloat(data.issue_V_ss) +
-                                parseFloat(data.issue_V_yjh) +
-                                parseFloat(data.issue_V_yk) +
-                                parseFloat(data.issue_V_sp_2) +
-                                parseFloat(data.issue_V_kp) +
-                                parseFloat(data.issue_V_dp_2) +
-                                parseFloat(data.issue_V_dp_3) +
-                                parseFloat(data.issue_V_dp_4) +
-                                parseFloat(data.issue_V_os) +
-                                parseFloat(data.issue_V_os_1) +
-                                parseFloat(data.issue_V_wp) +
-                                parseFloat(data.issue_V_rs) +
-                                parseFloat(data.issue_ext_grade_1) +
-                                parseFloat(data.issue_ext_grade_2) +
-                                parseFloat(data.issue_ext_grade_3) +
-                                parseFloat(data.issue_ext_grade_4) +
-                                parseFloat(data.issue_ext_grade_5) +
-                                parseFloat(data.issue_ext_grade_6) +
-                                parseFloat(data.issue_ext_grade_7) +
-                                parseFloat(data.issue_ext_grade_8) +
-                                parseFloat(data.issue_ext_grade_9) +
-                                parseFloat(data.issue_ext_grade_10)
-                               
-                                + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
-                                + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
-                                + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_mayur)
-                            ),
+                         
                             current_backlog: parseFloat(data.issue_add_1) - (parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
                                 + parseFloat(data.issue_ds_1) + parseFloat(data.issue_ds_2) + parseFloat(data.issue_sp_2) +
                                 parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
@@ -1636,48 +1554,7 @@ export const updateEntireDPDS = async (req: Request, res: Response) => {
                         issue_village: data.issue_village,
                         issue_bigTaiho: data.issue_bigTaiho,
                         issue_mayur: data.issue_mayur,
-                        entry_backlog: (parseFloat(data.rcv_dpN) + parseFloat(data.rcv_dsN) + parseFloat(data.rcv_dp1N)
-                            + (data.rcv_Sorting ? parseFloat(data.rcv_Sorting) : 0) + (data.rcv_transfer ? parseFloat(data.rcv_transfer) : 0))
-                            - (parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
-                                + parseFloat(data.issue_ds_1) + parseFloat(data.issue_ds_2) + parseFloat(data.issue_sp_2) +
-                                parseFloat(data.issue_yjh) + parseFloat(data.issue_yk) + parseFloat(data.issue_kp)
-                                + parseFloat(data.issue_wp) + parseFloat(data.issue_rs) + parseFloat(data.issue_dp_2)
-                                + parseFloat(data.issue_dp_3) + parseFloat(data.issue_dp_4) + parseFloat(data.issue_dp_3l)
-                                + parseFloat(data.issue_ss) + parseFloat(data.issue_os) + parseFloat(data.issue_os1)+
-                                parseFloat(data.issue_V_ds) +
-                                parseFloat(data.issue_V_m_ds) +
-                                parseFloat(data.issue_V_dp) +
-                                parseFloat(data.issue_V_m_dp) +
-                                parseFloat(data.issue_V_lp) +
-                                parseFloat(data.issue_V_lp_2) +
-                                parseFloat(data.issue_V_k_dp) +
-                                parseFloat(data.issue_V_ss) +
-                                parseFloat(data.issue_V_yjh) +
-                                parseFloat(data.issue_V_yk) +
-                                parseFloat(data.issue_V_sp_2) +
-                                parseFloat(data.issue_V_kp) +
-                                parseFloat(data.issue_V_dp_2) +
-                                parseFloat(data.issue_V_dp_3) +
-                                parseFloat(data.issue_V_dp_4) +
-                                parseFloat(data.issue_V_os) +
-                                parseFloat(data.issue_V_os_1) +
-                                parseFloat(data.issue_V_wp) +
-                                parseFloat(data.issue_V_rs) +
-                                parseFloat(data.issue_ext_grade_1) +
-                                parseFloat(data.issue_ext_grade_2) +
-                                parseFloat(data.issue_ext_grade_3) +
-                                parseFloat(data.issue_ext_grade_4) +
-                                parseFloat(data.issue_ext_grade_5) +
-                                parseFloat(data.issue_ext_grade_6) +
-                                parseFloat(data.issue_ext_grade_7) +
-                                parseFloat(data.issue_ext_grade_8) +
-                                parseFloat(data.issue_ext_grade_9) +
-                                parseFloat(data.issue_ext_grade_10)
-                            
-                                + parseFloat(data.issue_add_7) + parseFloat(data.issue_add_8) + parseFloat(data.issue_add_9)
-                                + parseFloat(data.issue_add_10) + parseFloat(data.issue_rejection) + parseFloat(data.issue_village)
-                                + parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_mayur)
-                            ),
+                       
                         current_backlog: (parseFloat(data.rcv_dpN) + parseFloat(data.rcv_dsN) + parseFloat(data.rcv_dp1N)
                             + (data.rcv_Sorting ? parseFloat(data.rcv_Sorting) : 0) + (data.rcv_transfer ? parseFloat(data.rcv_transfer) : 0))
                             - (parseFloat(data.issue_m_ds) + parseFloat(data.issue_m_dp) + parseFloat(data.issue_k_dp)
@@ -1916,7 +1793,7 @@ export const approveDPDS = async (req: Request, res: Response) => {
                         issue_bigTaiho: data.issue_bigTaiho,
                         issue_mayur: data.issue_mayur,
 
-                        entry_backlog: data.entry_backlog,
+                      
                         current_backlog: data.current_backlog,
                         CreatedBy: data.CreatedBy,
                         editStatus: "Approved",
