@@ -1099,6 +1099,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                            <TableHead className="text-center">Packing_Batch_No</TableHead>
                            <TableHead className="text-center">System_Count (Pouch/Bucket)</TableHead>
                            <TableHead className="text-center">Actual_Count (Pouch/Bucket)</TableHead>
+                           <TableHead className="text-center">Remarks</TableHead>
                     
                            <TableHead className="text-center" >Action</TableHead>
                        </TableHeader>
@@ -1151,6 +1152,8 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                        <TableCell className="text-center font-semibold">{item.BatchID}</TableCell>
                                        <TableCell className="text-center font-semibold">{item.packingquantity}</TableCell>
                                        <TableCell className="text-center font-semibold">{item.convpackingquantity}</TableCell>
+                                        <TableCell className="text-center font-semibold">{item.remarks}</TableCell>
+                                      
                                       
                                  
                                        <TableCell className="text-center">

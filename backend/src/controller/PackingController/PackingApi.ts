@@ -1767,7 +1767,7 @@ export const deleteOrderMapping = async (req: Request, res: Response) => {
 
 export const createPacking = async (req: Request, res: Response) => {
     try{
-     const { mfgDate, noOfBags, batchID, orderpk, 
+     const { mfgDate, noOfBags, batchID, orderpk, remarks,
         noOfSystemBags,orderID,gradeName,origin,fulfillquantity } = req.body;
      const id=req.params.id
      const actionedBy = req.cookies.user;
@@ -1782,7 +1782,8 @@ export const createPacking = async (req: Request, res: Response) => {
                 packingStatus:1,
                 packingquantity:noOfSystemBags,
                 convpackingquantity:noOfBags,
-                createdBy:actionedBy
+                createdBy:actionedBy,
+                remarks:remarks
             },
             {
                 where: {
@@ -1845,6 +1846,7 @@ export const createPacking = async (req: Request, res: Response) => {
                 packingStatus:0,
                 packingquantity:null,
                 convpackingquantity:null,
+                remarks:null,
                 createdBy:actionedBy
             },
             {

@@ -5,6 +5,7 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import axios from "axios";
 import { Button } from "../ui/button";
+import { Textarea } from "../ui/textarea";
 
 const PackingCreateForm = (props: any) => {
 
@@ -12,6 +13,7 @@ const PackingCreateForm = (props: any) => {
      const [noOfBags, setNoOfBags] = useState<string>("")
      const [noOfSystemBags, setNoOfSystemBags] = useState<number>(0)
      const [batchID, setBatchID] = useState<string>("")
+     const [remarks, setRemarks] = useState<string>("")
      const [id, setId] = useState<string>("")
          const [isdisable,setisdisable]=useState<boolean>(false)
      const [orderpk, setOrderpk] = useState<string>("")
@@ -43,7 +45,7 @@ const PackingCreateForm = (props: any) => {
       const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
           setisdisable(true)
-                axios.post(`/api/packing/createPacking/${id}`, { mfgDate, noOfBags, batchID, orderpk, noOfSystemBags,
+                axios.post(`/api/packing/createPacking/${id}`, { mfgDate, noOfBags, batchID, orderpk, noOfSystemBags,remarks,
                     orderID:props.data.orderID,origin:props.data.origin,gradeName:props.data.gradeName ,fulfillquantity:props.data.fulfillquantity})
                     .then((res) => {
                         console.log(res)
@@ -108,7 +110,7 @@ const PackingCreateForm = (props: any) => {
                 <div className="flex"><Label className="w-2/4 mt-2" > Opening Demand (Kg) </Label>
                     <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Truck No." value={props.data.fulfillquantity} readOnly />
                 </div>
-                <div className="flex"><Label className="w-2/4 mt-2" > Final GradeName</Label>
+                <div className="flex"><Label className="w-2/4 mt-2" > Final Grade Name</Label>
                     <Input className="w-2/4 bg-yellow-100 text-center" placeholder="Origin" value={props.data.gradeName} readOnly />
                 </div>
                 
@@ -122,12 +124,19 @@ const PackingCreateForm = (props: any) => {
 
  <div className="flex">
                     <Label className="w-2/4 mt-2">Physical Bucket/Bag Count</Label>
-                    <Input className="w-2/4 text-center " placeholder="Bucket/Bag" type="number" value={noOfBags} onChange={(e) => setNoOfBags(e.target.value)} />
+                    <Input className="w-2/4 text-center " placeholder="Bucket / Bag" type="number" value={noOfBags} onChange={(e) => setNoOfBags(e.target.value)} />
                 </div>
                 <div className="flex">
-                    <Label className="w-2/4 mt-2">Batch No. </Label>
-                    <Input className="w-2/4 text-center " placeholder="Batch No."  value={batchID} onChange={(e) => setBatchID(e.target.value)} />
+                    <Label className="w-2/4 mt-2">Unique Batch No. </Label>
+                    <Input className="w-2/4 text-center " placeholder="xxxx-yyyy-zzzz"  value={batchID} onChange={(e) => setBatchID(e.target.value)} />
                 </div>
+
+                <div className="flex">
+                    <Label className="w-2/4 mt-2">Remarks </Label>
+                    <Textarea className="w-2/4 text-center " placeholder="Remarks"  value={remarks} onChange={(e) => setRemarks(e.target.value)} />
+                </div>
+
+
                                 <Button className="bg-orange-500 mb-1 mt-5 ml-20 mr-20 text-center items-center justify-center" disabled={isdisable}>{isdisable? 'Submitting':'Submit'}</Button>
                 
                 </form>

@@ -1488,7 +1488,7 @@ const updateProductionGradeStock2526 = async () => {
 
 
 // Schedule the job to run at 6 PM and 12 AM
-cron.schedule('0 18,0 * * *', () => {
+cron.schedule('0 21 * * *', () => {
   console.log('Running scheduled stock update job...');
   if(CY_FY==='2024-25'){
     updateProductionGradeStock2425();

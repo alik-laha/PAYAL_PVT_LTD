@@ -156,7 +156,7 @@ const Packing = () => {
                         </span>}
 
 
-                        {checkpending('StockUpdate') && <p className='text-lg font-semibold text-center capitalize'>{stocktable === 'block' ? 'PRODUCTION & ORDER STOCK' : 'ORDER, MAPPING & PACKING'}</p>}
+                        {/* {checkpending('StockUpdate') && <p className='text-lg font-semibold text-center capitalize'>{stocktable === 'block' ? 'PRODUCTION & ORDER STOCK' : 'ORDER, MAPPING & PACKING'}</p>} */}
                     </div>
                     
 
