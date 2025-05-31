@@ -66,12 +66,13 @@ import PackingCreateForm from "./orderPAckingForm";
 //import { LuDownload } from "react-icons/lu";
 
 const ProdTransacTable = () => {
+    const Role = localStorage.getItem('role') as keyof PermissionRole
     const limit = pagelimit
     const [page, setPage] = useState(pageNo)
     const [blConNo, setBlConNo] = useState<string>("")
     const [blockpagen, setblockpagen] = useState('flex')
-    const [searchType, setsearchType] = useState('Order')
-    const [searchTableType, setsearchtableType] = useState('Order')
+    const [searchType, setsearchType] = useState(Role === 'PackingSupervisor' ? 'Packing' : 'Order')
+    const [searchTableType, setsearchtableType] = useState(Role === 'PackingSupervisor' ? 'Packing' : 'Order')
     const [searchMapTableType, setsearchMaptableType] = useState('Overall')
     const [Data, setData] = useState<any[]>([])
     const [origin, setOrigin] = useState<string>("")
@@ -81,7 +82,7 @@ const ProdTransacTable = () => {
     const [sectionstatus, setSectionstatus] = useState<string>("")
     const [mapsectionstatus, setMapsectionstatus] = useState<string>("Overall")
 
-    const dropdown = ['Order', 'Mapping','Packing']
+    const dropdown = Role === 'PackingSupervisor' ? ['Packing'] : ['Order', 'Mapping', 'Packing'];
     const mapdropdown = ['Overall', 'LineWise']
      const successdialog = document.getElementById('machinescs') as HTMLInputElement;
       const errordialog = document.getElementById('machineerror') as HTMLInputElement;
@@ -508,7 +509,7 @@ const ProdTransacTable = () => {
 
     }
 
-    const Role = localStorage.getItem('role') as keyof PermissionRole
+    
                     const checkpending = (tab: string) => {
                         //console.log(Role)
                         if (pendingCheckRole[tab as keyof pendingCheckRoles].includes(Role)) {
@@ -620,33 +621,24 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                     (<Table className="mt-4">
                         <TableHeader className="bg-neutral-100 text-stone-950 ">
                             <TableHead className="text-center">Sl No.</TableHead>
-                           
                             <TableHead className="text-center">Generated_Sales_Order_ID</TableHead>
-                            
                             <TableHead className="text-center">Order_Origin</TableHead>
                             <TableHead className="text-center">Final_GradeName</TableHead>
-                              <TableHead className="text-center">Approval</TableHead>
-                              <TableHead className="text-center">Order_Receive_Date</TableHead>
+                            <TableHead className="text-center">Approval</TableHead>
+                            <TableHead className="text-center">Order_Receive_Date</TableHead>
                             <TableHead className="text-center">Order_Entry_Date</TableHead>
-                           <TableHead className="text-center">Sales_Vendor_Name</TableHead>
+                            <TableHead className="text-center">Sales_Vendor_Name</TableHead>
                             <TableHead className="text-center">Sales_Broker_Name</TableHead>
-                           
-                           
-                        
-                            
                             <TableHead className="text-center">Demand_Quantity</TableHead>
-                           
                             <TableHead className="text-center">Mapped_Quantity</TableHead>
-                              <TableHead className="text-center">Mapping_Backlog</TableHead>
-                               <TableHead className="text-center">Mapping_Progress_(%)</TableHead>
+                            <TableHead className="text-center">Mapping_Backlog</TableHead>
+                            <TableHead className="text-center">Mapping_Progress_(%)</TableHead>
                             <TableHead className="text-center">Packed_Quantity</TableHead>
-                        
                             <TableHead className="text-center">Packing_Backlog</TableHead>
-                             <TableHead className="text-center">Packing_Progress_(%)</TableHead>
+                            <TableHead className="text-center">Packing_Progress_(%)</TableHead>
                             <TableHead className="text-center">Price_UnitRate</TableHead>
                             <TableHead className="text-center">SO_Total_Amount</TableHead>
                             <TableHead className="text-center">GST</TableHead>
-                            {/* <TableHead className="text-center">Edit Status</TableHead> */}
                             <TableHead className="text-center">SO_Created_By</TableHead>
                             <TableHead className="text-center">Approved/Rejected_By</TableHead>
                             <TableHead className="text-center">Order_Remarks</TableHead>
@@ -658,7 +650,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                     <TableRow key={item.id} >
                                         <TableCell className="text-center">{(limit * (page - 1)) + idx + 1}</TableCell>
                                         <TableCell className="text-center font-bold ">{item.orderID}</TableCell>
-                                                <TableCell className="text-center text-red-500  font-bold">{item.origin}</TableCell>
+                                        <TableCell className="text-center text-red-500  font-bold">{item.origin}</TableCell>
                                         <TableCell className="text-center font-semibold text-blue-500">{item.gradeName}</TableCell>
                                         <TableCell className="text-center">
                                             {item.ordApproveStatus === 'Pending' ? (
@@ -670,33 +662,27 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                                     item.ordApproveStatus!=='Closed'? <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">{ item.ordApproveStatus}</button>
                                                     :<button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Closed</button>
                                                 )
-                                            )}</TableCell>
-                                
-                                         <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
+                                            )}
+                                        </TableCell>
+                                        <TableCell className="text-center">{handletimezone(item.orderDate)}</TableCell> {/* Order Receiving Date (Can be mapped to "orderDate") */}
                                         <TableCell className="text-center">{handletimezone(item.orderInvDate)}</TableCell>
                                         <TableCell className="text-center">{item.vendorName}</TableCell>
                                         <TableCell className="text-center">{item.brokerName}</TableCell>
-                                        
-                                       
-                                       
-                                      
-                                        
-                                        <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}
-                                       
+                                        <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.quantity)} Kg </TableCell> {/* Demand Quantity */}  
                                         <TableCell className="text-center font-semibold  ">{formatNumber(item.mapquantity) !==0 ? `${formatNumber(item.mapquantity)} Kg`:''} </TableCell> {/* Prepared Quantity */}
-                                          <TableCell className="text-center  font-semibold ">{formatNumber(item.mapquantity) !==0 ? `${(formatNumber((parseFloat(item.quantity) - parseFloat(item.mapquantity)).toString()))} Kg`:''} </TableCell> {/* Prepared Quantity */}
+                                        <TableCell className="text-center  font-semibold ">{formatNumber(item.mapquantity) !==0 ? `${(formatNumber((parseFloat(item.quantity) - parseFloat(item.mapquantity)).toString()))} Kg`:''} </TableCell> {/* Prepared Quantity */}
                                         <TableCell className="text-center ">{item.ordApproveStatus !== 'Rejected'  ?( item.ordMappingStatus === 0 ? (
-                                            <div className="flex flex-row items-center justify-center w-100 ">
-                                                            <Progress value={((Number(item.mapquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4 " />
-                                                            <div className="w-3/4 text-center font-bold text-white bg-red-500 ml-5">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</div>
-                                                        </div>
+                                        <div className="flex flex-row items-center justify-center w-100 ">
+                                            <Progress value={((Number(item.mapquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4 " />
+                                            <div className="w-3/4 text-center font-bold text-white bg-red-500 ml-5">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</div>
+                                        </div>
                                         ) : (
                                             
                                             
-                                            <div className="flex flex-row items-center justify-center w-100 ">
+                                        <div className="flex flex-row items-center justify-center w-100 ">
                                                             <Progress value={((Number(item.mapquantity)/Number(item.quantity))*100)} max={100} color="green" className=" w-3/4 " />
                                                             <div className="w-3/4 text-center font-bold text-white  bg-green-500 ml-5">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</div>
-                                                        </div>
+                                        </div>
                                             
                                             
                                             // <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary ">{formatNumber(((Number(item.mapquantity)/Number(item.quantity))*100).toString())} %</button>
@@ -728,7 +714,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                         <TableCell className="text-center">{item.createdBy}</TableCell> {/* Created By */}
                                         <TableCell className="text-center">{item.approvedBy}</TableCell> {/* Actioned By */}
                                         <TableCell className="text-center">{item.remarks}</TableCell>
-                                        <TableCell className="text-center">
+                                        {checkpending('StockUpdate') && <TableCell className="text-center">
 
                                             {item.ordStatus !== 1 && (item.ordStatus === 1 ?
                                                 (<button className="bg-red-500  p-2 text-white rounded opacity-40 " disabled={true}>Closed</button>) :
@@ -872,7 +858,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                                     </PopoverContent>
 
                                                 </Popover>))}
-                                        </TableCell>
+                                        </TableCell>}
 
                                     </TableRow>
                                 );
@@ -1043,7 +1029,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                         <TableCell className="text-center">{item.createdBy}</TableCell> {/* Created By */}
                                         {/* <TableCell className="text-center">{item.approvedBy}</TableCell> Actioned By */}
                                         <TableCell className="text-center">{item.remarks}</TableCell>
-                                        <TableCell className="text-center">
+                                        {checkpending('StockUpdate') && <TableCell className="text-center">
 
                                             <Popover>
                                                 <PopoverTrigger>
@@ -1067,7 +1053,7 @@ ring-offset-background placeholder:text-muted-foreground focus:outline-none focu
                                                    
                                                 </PopoverContent>
                                             </Popover>
-                                        </TableCell>
+                                        </TableCell>}
  
                                     </TableRow>
                                 );

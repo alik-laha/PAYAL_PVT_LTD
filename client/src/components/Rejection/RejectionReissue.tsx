@@ -400,10 +400,10 @@ const RejectionReCreateForm = (props: Props) => {
                                           <TableCell className="text-center text-red-500 font-semibold">{formatNumber((Number(row.rcv_opening)-row.rcv_openingN).toString())} Kg</TableCell>
                                           <TableCell className="text-center font-semibold text-red-500">{formatNumber(row.issue_add_3.toString())} %</TableCell>
                                           
-                                                <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_9)} Kg</TableCell>
+                                                <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_7)} Kg</TableCell>
                                           <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_peeling} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_peeling', e.target.value)} required /></TableCell>
                                           
-                                          <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_10)} Kg</TableCell>
+                                          <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].issue_add_8)} Kg</TableCell>
                                           <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_mayur} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_mayur', e.target.value)} required /></TableCell>
                                                 
                                                
@@ -427,12 +427,12 @@ const RejectionReCreateForm = (props: Props) => {
                                           <TableCell className="text-center">
                                               <Input className="bg-yellow-200" type="number" value={row.rcv_lw} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_lw', e.target.value)} required />
                                           </TableCell>
-                                          <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].rcv_bigTaiho)} Kg</TableCell>
+                                          <TableCell className="text-center font-semibold">{props.borma[0].rcv_bigTaiho ?formatNumber(props.borma[0].rcv_bigTaiho):0} Kg</TableCell>
                                           <TableCell className="text-center">
                                               <Input className="bg-yellow-200" type="number" value={row.rcv_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_bigTaiho', e.target.value)} required />
                                           </TableCell>
 
-                                            <TableCell className="text-center font-semibold ">{formatNumber(props.borma[0].rcv_village)} Kg</TableCell>
+                                            <TableCell className="text-center font-semibold ">{props.borma[0].rcv_village ?formatNumber(props.borma[0].rcv_village):0} Kg</TableCell>
                                           <TableCell className="text-center"> <Input className="bg-yellow-200" type="number" value={row.rcv_village} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_village', e.target.value)} required /></TableCell>
                                       
 

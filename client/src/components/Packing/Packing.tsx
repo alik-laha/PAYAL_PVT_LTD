@@ -120,8 +120,8 @@ const Packing = () => {
                 </div>
                 <p className='text-lg font-semibold text-center py-1 '>CURRENT F.Y. ORDER COUNT</p>
                     <div className="flex flex-row-reverse">
-                        <Button className="bg-orange-600 mb-2 mr-8 responsive-button-adjust "
-                            disabled={loading} onClick={handleProdStockUpdateFetch} >  {loading ? 'Updating...' : 'Update Stock'} <RxUpdate size={20} className="ml-2" /></Button>
+                        {checkpending('StockUpdate') && <Button className="bg-orange-600 mb-2 mr-8 responsive-button-adjust "
+                            disabled={loading} onClick={handleProdStockUpdateFetch} >  {loading ? 'Updating...' : 'Update Stock'} <RxUpdate size={20} className="ml-2" /></Button>}
                     </div>
                     <div className="flex text-center">
                         {checkpending('OrderCreate') && <Dialog>
@@ -151,12 +151,12 @@ const Packing = () => {
 
                     
                     <div className="flex flex-col">
-                        <span className="text-center w-100">            
+                        {checkpending('StockUpdate') && <span className="text-center w-100">            
                             <Button className="bg-gray-600 mb-3 hover:bg-gray-400" onClick={handleTransferFetch}> {stocktable === 'block' ? '< Switch To Order History ' : ' Switch To Stock History >'}</Button>
-                        </span>
+                        </span>}
 
 
-                        <p className='text-lg font-semibold text-center capitalize'>{stocktable === 'block' ? 'PRODUCTION & ORDER STOCK' : 'ORDER, MAPPING & PACKING'}</p>
+                        {checkpending('StockUpdate') && <p className='text-lg font-semibold text-center capitalize'>{stocktable === 'block' ? 'PRODUCTION & ORDER STOCK' : 'ORDER, MAPPING & PACKING'}</p>}
                     </div>
                     
 

@@ -88,8 +88,9 @@ export const pendingCheckRole = {
     Rejection:['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     Village: ['Director', 'FactoryManager', 'ProductionManager','DeputyProductionManager'],
     Gatepass: ['Director', 'FactoryManager', 'GatePassManager','DispatchManager'],
-    OrderCreate: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','DispatchManager'],
-    OrderMapping: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','DispatchManager'],
+    OrderCreate: ['Director', 'FactoryManager', 'ProductionManager','DispatchManager'],
+    StockUpdate: ['Director', 'FactoryManager', 'ProductionManager','DispatchManager'],
+    OrderMapping: ['Director', 'FactoryManager', 'ProductionManager','DispatchManager'],
     ProdStockExcel: ['Director', 'FactoryManager', 'ProductionManager','PackingSupervisor','DispatchManager'],
 
 

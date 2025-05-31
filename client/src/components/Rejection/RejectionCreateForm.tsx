@@ -330,7 +330,7 @@ const RejectionCreateForm = (props: Props) => {
                                             <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_lw)} </TableCell>
                                             <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_sorting)} </TableCell>
                                             <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_dpds)} </TableCell>
-                                            <TableCell className="text-center font-semibold  text-green-500">{formatNumber(row.rcv_bigTaiho)} </TableCell>
+                                            <TableCell className="text-center font-semibold  text-green-500">{row.rcv_bigTaiho ? formatNumber(row.rcv_bigTaiho):0} </TableCell>
                                             <TableCell className="text-center font-semibold  text-green-500">{row.rcv_village ? formatNumber(row.rcv_village):0} </TableCell>
                                             <TableCell className="text-center">
                                                 <Input className='bg-purple-100' type="number" value={row.issue_packing} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'issue_packing', e.target.value)} required />

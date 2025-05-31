@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/collapsible"
 // import { useNavigate } from "react-router-dom"
 import "./dashboard.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom";
 import { PermissionRol, PermissionDep } from "../common/exportData";
 import { PermissionRole, PermissionDept } from "@/type/type";
@@ -41,6 +41,39 @@ const DashboardSidebar = () => {
     const Dept = localStorage.getItem('dept') as keyof PermissionDept
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
+    const [currentHour, setCurrentHour] = useState(new Date().getHours());
+
+    // Time ranges for each role
+    const roleAccess:any = {
+        MayurSupervisor: {  start: 0, end: 23 },
+        SortingSupervisor: {  start: 0, end: 23 },
+        VillageSupervisor: {  start: 0, end: 23 },
+        WholesSupervisor: {  start: 0, end: 23 },
+        PeelingSupervisor: { start: 0, end: 23 },
+    };
+
+    const isRestrictedRole = Object.keys(roleAccess).includes(Role);
+    const roleConfig = roleAccess[Role];
+
+    // Time check for restricted roles
+    const isVisible = !isRestrictedRole || (
+        roleConfig && currentHour >= roleConfig.start && currentHour < roleConfig.end
+    );
+
+    useEffect(() => {
+        if (!isRestrictedRole) return;
+
+        const interval = setInterval(() => {
+            const hour = new Date().getHours();
+            setCurrentHour(hour);
+
+            if (!(hour >= roleConfig.start && hour < roleConfig.end)) {
+                window.location.reload(); // Refresh if time range expired
+            }
+        }, 60000); // Every minute
+
+        return () => clearInterval(interval);
+    }, [isRestrictedRole, roleConfig]);
 
 
     const openSidebar = () => {
@@ -295,7 +328,7 @@ const DashboardSidebar = () => {
                                     </NavLink>
                                 </CollapsibleContent>}
 
-                            {renderlink('BigTaiho')
+                            {(!isRestrictedRole || (Role === 'PeelingSupervisor' && isVisible)) && renderlink('BigTaiho')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/BigTaiho" >
 
@@ -303,28 +336,28 @@ const DashboardSidebar = () => {
                                     </NavLink>
                                 </CollapsibleContent>}
 
-                            {renderlink('Mayur')
+                            {(!isRestrictedRole || (Role === 'MayurSupervisor' && isVisible)) && renderlink('Mayur')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Mayur" >
                                         <p className="flex"> <AiFillCodeSandboxSquare size={20} /><p className="pl-3"> Mayur </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
-                                {renderlink('Hamsa')
+                                {(!isRestrictedRole || (Role === 'MayurSupervisor' && isVisible)) && renderlink('Hamsa')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Hamsa" >
                                         <p className="flex"> <GiVendingMachine size={20} /><p className="pl-3">  Hamsa </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
-                            {renderlink('DPDS')
+                            {(!isRestrictedRole || (Role === 'SortingSupervisor' && isVisible)) && renderlink('DPDS')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/DPDS" >
                                         <p className="flex"> <GiBoxingRing size={20} /><p className="pl-3">  DP & DS </p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
-                            {renderlink('Sorting')
+                            {(!isRestrictedRole || (Role === 'SortingSupervisor' && isVisible)) && renderlink('Sorting')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Sorting" >
                                         <p className="flex"> <FaSortAmountDownAlt size={20} /><p className="pl-3">  Sorting </p></p>
@@ -332,14 +365,14 @@ const DashboardSidebar = () => {
                                 </CollapsibleContent>}
 
 
-                                {renderlink('Wholes')
+                                {(!isRestrictedRole || (Role === 'WholesSupervisor' && isVisible)) && renderlink('Wholes')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Wholes" >
                                         <p className="flex"> <CiPill size={20} /><p className="pl-3">  Wholes Grade</p></p>
                                     </NavLink>
                                 </CollapsibleContent>}
 
-                                {renderlink('LW')
+                                {(!isRestrictedRole || (Role === 'WholesSupervisor' && isVisible)) && renderlink('LW')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/LW" >
                                         <p className="flex"> <GiPillDrop  size={20} /><p className="pl-3">  Lower Grade</p></p>
@@ -366,7 +399,7 @@ const DashboardSidebar = () => {
 
                                 </CollapsibleContent>}
 
-                                {renderlink('Village')
+                                {(!isRestrictedRole || (Role === 'VillageSupervisor' && isVisible)) && renderlink('Village')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/VIllage" >
                                         <p className="flex"> <GiVillage size={20} /><p className="pl-3">Village Production</p></p>
@@ -375,7 +408,7 @@ const DashboardSidebar = () => {
 
                                 
 
-                                {renderlink('Rejection')
+                                {(!isRestrictedRole || (Role === 'VillageSupervisor' && isVisible)) && renderlink('Rejection')
                                 && <CollapsibleContent className="Items-pvt">
                                     <NavLink to="/dashboard/Rejection" >
                                         <p className="flex"> <GrEject   size={20} /><p className="pl-3">  Rejection</p></p>
