@@ -128,7 +128,7 @@ const VillageGateLink= (props:Props) => {
                             <TableCell className="text-center">
 
                             <Input className="justify-center items-center text-center" placeholder="GatePass No" value={gateno} onChange={(e)=>handleGateNoChange( e)} />
-                                                      <ScrollArea className="h-30 w-30 " style={{ display: lotview }}>
+                                                      <ScrollArea className="h-30 w-30 overflow-y-scroll max-h-64 overflow-scroll" style={{ display: lotview }}>
                                                                              {
                                                                                  lotdata.map((item) => (
                                                                                      <div key={item.id} className="flex gap-y-10 gap-x-4 hover:bg-gray-300 pl-3"

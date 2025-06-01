@@ -203,13 +203,7 @@ export const CreateEntireRejection = async (req: Request, res: Response) => {
                         issue_add_8: data.rcv_mayurN,
                         issue_add_9: data.issue_add_9,
                         issue_add_10: data.issue_add_10,
-                        entry_backlog: (parseFloat(data.rcv_peelingN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0) + (data.rcv_dpds ? parseFloat(data.rcv_dpds) : 0)
-                            + (data.rcv_lw ? parseFloat(data.rcv_lw) : 0) + (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0)
-                            + (data.rcv_village ? parseFloat(data.rcv_village) : 0) + (data.rcv_bigTaiho ? parseFloat(data.rcv_bigTaiho) : 0)
-                            + parseFloat(data.rcv_mayurN))
-                            - (parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
-                                parseFloat(data.issue_shell) + parseFloat(data.issue_catelfeed)
-                            ),
+                        
                         current_backlog: (parseFloat(data.rcv_peelingN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0) + (data.rcv_dpds ? parseFloat(data.rcv_dpds) : 0)
                             + (data.rcv_lw ? parseFloat(data.rcv_lw) : 0) + (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0)
                             + (data.rcv_village ? parseFloat(data.rcv_village) : 0) + (data.rcv_bigTaiho ? parseFloat(data.rcv_bigTaiho) : 0)
@@ -466,13 +460,7 @@ export const updateEntireRejection= async (req: Request, res: Response) => {
                     issue_add_8: data.rcv_mayurN,
                     issue_add_9: data.issue_add_9,
                     issue_add_10: data.issue_add_10,
-                    entry_backlog: (parseFloat(data.rcv_peelingN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0) + (data.rcv_dpds ? parseFloat(data.rcv_dpds) : 0)
-                        + (data.rcv_lw ? parseFloat(data.rcv_lw) : 0) + (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0)
-                        + (data.rcv_village ? parseFloat(data.rcv_village) : 0) + (data.rcv_bigTaiho ? parseFloat(data.rcv_bigTaiho) : 0)
-                        + parseFloat(data.rcv_mayurN))
-                        - (parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
-                            parseFloat(data.issue_shell) + parseFloat(data.issue_catelfeed)
-                        ),
+                 
                     current_backlog: (parseFloat(data.rcv_peelingN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0) + (data.rcv_dpds ? parseFloat(data.rcv_dpds) : 0)
                         + (data.rcv_lw ? parseFloat(data.rcv_lw) : 0) + (data.rcv_sorting ? parseFloat(data.rcv_sorting) : 0)
                         + (data.rcv_village ? parseFloat(data.rcv_village) : 0) + (data.rcv_bigTaiho ? parseFloat(data.rcv_bigTaiho) : 0)
@@ -592,7 +580,7 @@ export const approveRejection = async (req: Request, res: Response) => {
                     issue_add_8: data.issue_add_8,
                     issue_add_9: data.issue_add_9,
                     issue_add_10: data.issue_add_10, 
-                    entry_backlog:data.entry_backlog,
+              
                     current_backlog:data.current_backlog,
                     CreatedBy: data.CreatedBy,
                     editStatus: "Approved",
@@ -986,4 +974,194 @@ export const CreateMixRejection = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Internal Server Error", error: err });
     }
 
+}
+
+export const CreateReissueRejection = async (req: Request, res: Response) => {
+
+
+    try {
+        const feeledBy = req.cookies.user;
+        const linehumid = req.body.linehumid
+        const LotNO = req.body.LotNo
+
+        await sequelize.transaction(async (transaction: any) => {
+
+            for (let data of linehumid) {
+                if (Number(parseFloat(data.rcv_openingN).toFixed(2)) <(Number((parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
+                        parseFloat(data.issue_shell) + parseFloat(data.issue_catelfeed)
+                    ).toFixed(2)))) {
+                     console.log(Number((parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
+                        parseFloat(data.issue_shell) + parseFloat(data.issue_catelfeed)).toFixed(2))
+                    )
+                    res.status(500).json({ message: "Backlog can't be Greater Than Input" });
+                    throw new Error('Transaction Aborted due to negative value')
+
+                }
+
+                const rejUpdate = await rejectionModel.update(
+                    {
+                        latest: 0
+
+                    }, {
+                    where: {
+                        id: data.id
+                    }, transaction
+                });
+
+
+                if (rejUpdate) {
+                    const reissuecreate = await rejectionModel.create(
+                        {
+                            date: data.Date,
+                            altid: parseInt(data.alt_id) + 1,
+                            LotNo: data.LotNo,
+                            origin: data.origin,
+                            mixingLot: data.mixingLot,
+                            noOfdayOperators: data.dayoperator,
+                            noOfnightOperators: data.nightoperator,
+                            rcv_mayur: data.rcv_mayur,
+                            rcv_peeling: data.rcv_peeling,
+                            rcv_wholes: data.rcv_wholesN,
+                            rcv_lw: data.rcv_lwN,
+                            rcv_village: data.rcv_villageN,
+                            rcv_dpds: data.rcv_dpdsN,
+                            rcv_sorting: data.rcv_sortingN,
+                            rcv_bigTaiho: data.rcv_bigTaihoN,
+
+                            issue_packing: data.issue_packing,
+                            issue_village: data.issue_village,
+                            issue_uncut_unscoop: data.issue_uncut_unscoop,
+                            issue_shell: data.issue_shell,
+                            issue_catelfeed: data.issue_catelfeed,
+                            issue_add_1: data.rcv_peelingN,
+                            issue_add_2: data.issue_add_2,
+                            issue_add_3: data.issue_add_3,
+                            issue_add_4: data.rcv_mayurN,
+                            issue_add_5: data.issue_add_5,
+                            issue_add_6: data.issue_add_3,
+                            issue_add_7: data.rcv_peelingN,
+                            issue_add_8: data.rcv_mayurN,
+                            issue_add_9: data.issue_add_9,
+                            issue_add_10: data.issue_add_10,
+                            current_backlog: parseFloat(data.rcv_openingN)-
+                              (parseFloat(data.issue_packing) + parseFloat(data.issue_village) + parseFloat(data.issue_uncut_unscoop) +
+                                parseFloat(data.issue_shell) + parseFloat(data.issue_catelfeed)
+                            ),
+
+                            Status: 1,
+                            CreatedBy: feeledBy
+                        },
+                        {
+                            transaction
+                        }
+                    );
+
+                    if(reissuecreate){
+                        
+                        //1. Village Out//
+                        
+                        const vil_backlog = await villageProduction.findOne({
+                            attributes: ['current_backlog', 'rcv_rejection','issue_add_12'],
+                            where: {
+                                lotNo: LotNO,
+                                origin: data.origin,
+                                latest: 1
+
+                            },
+                            order: [['LotNo', 'ASC']]
+
+                        });
+                        console.log(vil_backlog)
+                        if (vil_backlog && vil_backlog.dataValues.current_backlog >= 0) {
+                            await sectionTransfer.create({
+                                LotNo: LotNO,
+                                origin: data.origin,
+                                amount: data.issue_village,
+                                issueid: parseInt(data.alt_id) + 1,
+                                date: data.Date,
+                                fromSection: 'Rejection',
+                                toSection: 'Village',
+                                toSectionBeforeBacklog: vil_backlog.dataValues.current_backlog,
+                                toSectionAfterBacklog: parseFloat(vil_backlog.dataValues.current_backlog) + parseFloat(data.issue_village),
+                                createdBy: feeledBy
+                            }, { transaction });
+                            if (vil_backlog.dataValues.rcv_rejection) {
+                                await villageProduction.update(
+                                    {
+                                        rcv_rejection: sequelize.literal(`rcv_rejection+ ${data.issue_village}`),
+                                         current_backlog:sequelize.literal(`current_backlog+ ${data.issue_village}`),                
+                                issue_add_12:vil_backlog.dataValues.issue_add_12 ?
+                                sequelize.literal(`issue_add_12+ ${data.issue_village}`):vil_backlog.dataValues.issue_add_12,
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNO,
+                                            origin: data.origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+                            }
+                            else {
+                                await villageProduction.update(
+                                    {
+                                        rcv_rejection: data.issue_village,
+                                        current_backlog: sequelize.literal(`current_backlog+ ${data.issue_village}`)
+                                    },
+                                    {
+                                        where: {
+                                            lotNo: LotNO,
+                                            origin: data.origin,
+                                            latest: 1
+                                        }, transaction
+                                    }
+                                );
+                            }
+                        }
+                        else {
+                            res.status(500).json({ message: "Error In Creating Village Reissue Transaction History" });
+                            throw new Error('Transaction Aborted')
+                        }
+
+                       
+
+                        const lotoriginupdate = await lotoriginmodel.update(
+                            {
+                                latest_section: 'Rejection',
+                                rejectionStatus: 1
+                            },
+                            {
+                                where: {
+                                    lotNo: LotNO,
+                                    origin: data.origin
+                                }, transaction
+                            }
+                        );
+
+                        if (lotoriginupdate) {
+                            res.status(200).json({ message: "Rejection Reissue Entry Made Successfully" });
+                        }
+                        else {
+                            console.log('No Need For Update')
+                        }
+
+                    }
+                     else {
+                        return res.status(500).json({ message: "Error while creating Rejection Re Issue Entry" });
+                    }
+                }
+
+
+
+
+            }
+
+        })
+    }
+    catch (error) {
+        if (!res.headersSent) {
+            console.log(error)
+            return res.status(500).json({ message: "Error while creating Rejection Re-issue Entry", error });
+        }
+    }
 }

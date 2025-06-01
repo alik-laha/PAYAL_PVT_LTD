@@ -5,9 +5,9 @@ import {
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import { approveRejection, EditRejectRejection, 
-      updateEntireRejection} from "../controller/RejectionController/RejectionApi";
-import { approveVillage, CreateEntireVillage, CreateMixVillage, EditRejectVillage, findEditVillageAll, GatedataFind, getVillageBylotorigin, getVillageLot, linkGatePass, SearchRCNVillage, SearchRCNVillageMix, sumOfallVillage, updateEntireVIllage } from "../controller/Village Controller/VillageApi";
+
+import { approveVillage, CreateEntireVillage, CreateMixVillage, CreateReissueVillage, EditRejectVillage,
+       findEditVillageAll, GatedataFind, getVillageBylotorigin, getVillageLot, linkGatePass, SearchRCNVillage, SearchRCNVillageMix, sumOfallVillage, updateEntireVIllage } from "../controller/Village Controller/VillageApi";
 
 
 const router = express()
@@ -24,7 +24,7 @@ router.get("/getVillageByLotOrigin/:lotNO/:origin", jwtVerify, getVillageBylotor
 router.post("/createEntireVillage", jwtVerify, CreateEntireVillage)
 
 // // //HamsaReiSsueForm.tsx
-// router.post("/createReissueLW", jwtVerify, CreateReissueLW)
+ router.post("/createReissueVillage", jwtVerify, CreateReissueVillage)
 
 // // //Villagetable.tsx
 router.put('/villageprimarysearch', jwtVerify, SearchRCNVillage);

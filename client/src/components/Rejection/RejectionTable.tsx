@@ -50,12 +50,13 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import {  CiCrop, CiEdit } from "react-icons/ci";
+import {  CiBoxes, CiCrop, CiEdit } from "react-icons/ci";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import RejectionEDitForm from "./RejectionModify";
 import RejectionReMix from "./RejectionMix";
+import RejectionReCreateForm from "./RejectionReissue";
 
 
 
@@ -578,7 +579,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                     </DialogContent>
                                                     
                                                 </Dialog>
-                                                {/* {Number(item.current_backlog) > 0 && <Dialog>
+                                                {Number(item.current_backlog) > 0 && <Dialog>
                                                     <DialogTrigger className="flex"><CiBoxes size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
                                                     </DialogTrigger>
@@ -588,10 +589,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                                                 <p className='text-1xl pb-1 text-center mt-1'>Rejection Entry Re-issue</p>
                                                             </DialogTitle>
                                                         </DialogHeader>
-                                                        <RCNSortingReCreateForm borma={[item]} />
+                                                        <RejectionReCreateForm borma={[item]} />
                                                     </DialogContent>
                                                     
-                                                </Dialog>} */}
+                                                </Dialog>}
                                                 {Number(item.current_backlog) > 0 && <Dialog>
                                                     <DialogTrigger className="flex"><CiCrop size={20} />
                                                         <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>

@@ -2,7 +2,7 @@
     font-family: Arial, sans-serif;
 }
 
- select, select option {
+ select, select option,textarea,input {
     font-size: 0.75rem!important;
   }
 

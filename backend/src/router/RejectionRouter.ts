@@ -5,7 +5,7 @@ import {
      SearchHistory, 
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
-import { approveRejection, CreateEntireRejection, CreateMixRejection, EditRejectRejection, findEditRejectionAll, 
+import { approveRejection, CreateEntireRejection, CreateMixRejection, CreateReissueRejection, EditRejectRejection, findEditRejectionAll, 
       getRejectionBylotorigin, getRejectionLot, SearchRCNRejection, SearchRCNRejectionMix, sumOfallRejection, 
       updateEntireRejection} from "../controller/RejectionController/RejectionApi";
 
@@ -23,8 +23,8 @@ router.get("/getRejectionByLotOrigin/:lotNO/:origin", jwtVerify, getRejectionByl
 // //RejectionCreateForm.tsx
 router.post("/createEntireRejection", jwtVerify, CreateEntireRejection)
 
-// // //HamsaReiSsueForm.tsx
-// router.post("/createReissueLW", jwtVerify, CreateReissueLW)
+// // //RejectionReiSsueForm.tsx
+router.post("/createReissueRejection", jwtVerify, CreateReissueRejection)
 
 // // //Rejectiontable.tsx
 router.put('/rejectionprimarysearch', jwtVerify, SearchRCNRejection);

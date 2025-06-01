@@ -426,31 +426,7 @@ export const CreateEntireBigTaiho= async (req: Request, res: Response) => {
                     issue_sorting: data.issue_sorting,
 
                     
-                    entry_backlog: (parseFloat(data.rcv_peelingN)+(data.rcv_village? parseFloat(data.rcv_village):0)
-                    +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
-                    +(data.rcv_sorting? parseFloat(data.rcv_sorting):0)+(data.rcv_mayur? parseFloat(data.rcv_mayur):0)
-                    +(data.rcv_hamsa? parseFloat(data.rcv_hamsa):0) +(data.rcv_wholes? parseFloat(data.rcv_wholes):0)) 
-                    - (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
-                    +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
-                      +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
-                      +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
-                      +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                      +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) 
-                      +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                      +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                      +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                      +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)+  
-                        parseFloat(data.issue_ext_grade_1) +
-                      parseFloat(data.issue_ext_grade_2) +
-                      parseFloat(data.issue_ext_grade_3) +
-                      parseFloat(data.issue_ext_grade_4) +
-                      parseFloat(data.issue_ext_grade_5) +
-                      parseFloat(data.issue_ext_grade_6) +
-                      parseFloat(data.issue_ext_grade_7) +
-                      parseFloat(data.issue_ext_grade_8) +
-                      parseFloat(data.issue_ext_grade_9) +
-                      parseFloat(data.issue_ext_grade_10)
-                        ),
+                  
                     current_backlog: (parseFloat(data.rcv_peelingN)+(data.rcv_village? parseFloat(data.rcv_village):0)
                     +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
                     +(data.rcv_sorting? parseFloat(data.rcv_sorting):0)+(data.rcv_mayur? parseFloat(data.rcv_mayur):0)
@@ -1085,27 +1061,7 @@ export const CreateReissueBigTaiho= async (req: Request, res: Response) => {
                         issue_husk: data.issue_husk,
                         issue_sorting: data.issue_sorting,
                       
-                        entry_backlog:parseFloat(data.issue_add_1)- (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
-                        +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
-                          +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
-                          +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
-                          +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                          +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) 
-                          +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                          +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                          +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                          +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)+
-                          parseFloat(data.issue_ext_grade_1) +
-                          parseFloat(data.issue_ext_grade_2) +
-                          parseFloat(data.issue_ext_grade_3) +
-                          parseFloat(data.issue_ext_grade_4) +
-                          parseFloat(data.issue_ext_grade_5) +
-                          parseFloat(data.issue_ext_grade_6) +
-                          parseFloat(data.issue_ext_grade_7) +
-                          parseFloat(data.issue_ext_grade_8) +
-                          parseFloat(data.issue_ext_grade_9) +
-                          parseFloat(data.issue_ext_grade_10)
-                         ),
+                       
                        current_backlog:parseFloat(data.issue_add_1)- (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
                        +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
                          +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
@@ -1653,31 +1609,7 @@ export const updateEntireBigTaiho= async (req: Request, res: Response) => {
                     issue_ext_grade_9: data.issue_ext_grade_9,
                     issue_ext_grade_10: data.issue_ext_grade_10,
                     
-                    entry_backlog: (parseFloat(data.rcv_peelingN)+(data.rcv_village? parseFloat(data.rcv_village):0)
-                    +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
-                    +(data.rcv_sorting? parseFloat(data.rcv_sorting):0)+(data.rcv_mayur? parseFloat(data.rcv_mayur):0)
-                    +(data.rcv_hamsa? parseFloat(data.rcv_hamsa):0) +(data.rcv_wholes? parseFloat(data.rcv_wholes):0)) 
-                    - (parseFloat(data.issue_ssp)+parseFloat(data.issue_ssp_small)+parseFloat(data.issue_swp_1)
-                    +parseFloat(data.issue_wsp)+parseFloat(data.issue_bits)+parseFloat(data.issue_swp)
-                      +parseFloat(data.issue_bb)+parseFloat(data.issue_w_bb)+parseFloat(data.issue_bb_A)
-                      +parseFloat(data.issue_bb1)+parseFloat(data.issue_bb1_A)+parseFloat(data.issue_bb_2)
-                      +parseFloat(data.issue_ssp_1)+parseFloat(data.issue_ssp_1_small)+parseFloat(data.issue_ssp_2)
-                      +parseFloat(data.issue_ssp_2_small)+parseFloat(data.issue_sdp) 
-                      +parseFloat(data.issue_add_5)+parseFloat(data.issue_add_6)
-                      +parseFloat(data.issue_add_7)+parseFloat(data.issue_add_8)+parseFloat(data.issue_add_9)
-                      +parseFloat(data.issue_add_10)+parseFloat(data.issue_rejection)+parseFloat(data.issue_village)
-                      +parseFloat(data.issue_dpds)+parseFloat(data.issue_husk)+parseFloat(data.issue_sorting)+
-                      parseFloat(data.issue_ext_grade_1) +
-                      parseFloat(data.issue_ext_grade_2) +
-                      parseFloat(data.issue_ext_grade_3) +
-                      parseFloat(data.issue_ext_grade_4) +
-                      parseFloat(data.issue_ext_grade_5) +
-                      parseFloat(data.issue_ext_grade_6) +
-                      parseFloat(data.issue_ext_grade_7) +
-                      parseFloat(data.issue_ext_grade_8) +
-                      parseFloat(data.issue_ext_grade_9) +
-                      parseFloat(data.issue_ext_grade_10)
-                        ),
+                  
                     current_backlog: (parseFloat(data.rcv_peelingN)+(data.rcv_village? parseFloat(data.rcv_village):0)
                     +(data.rcv_dpds? parseFloat(data.rcv_dpds):0)+(data.rcv_lw? parseFloat(data.rcv_lw):0)
                     +(data.rcv_sorting? parseFloat(data.rcv_sorting):0)+(data.rcv_mayur? parseFloat(data.rcv_mayur):0)
@@ -1891,7 +1823,7 @@ export const approveBigTaiho = async (req: Request, res: Response) => {
                     issue_dpds: data.issue_dpds,
                     issue_husk: data.issue_husk,
                     issue_sorting: data.issue_sorting,  
-                    entry_backlog:data.entry_backlog,
+    
                     current_backlog:data.current_backlog,
                     CreatedBy: data.CreatedBy,
                     editStatus: "Approved",

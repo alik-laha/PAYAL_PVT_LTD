@@ -71,7 +71,7 @@ try {
     }
 }
 // Schedule: Every day at 10 AM and 6 PM (adjust as needed)
-cron.schedule('0 10,18 * * *',  () => {
+cron.schedule('30 3 * * *',  () => {
     console.log('Running scheduled dashboard whatsapp sending...');
     dashboardBasic();
     

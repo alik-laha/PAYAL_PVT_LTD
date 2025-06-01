@@ -157,6 +157,24 @@ const RejectionReMix = (props:Props) => {
         const handleSearch = async () => {
             setSuccessflag('none')
             setSuccessflagtable('none')
+            if(destlot===props.borma.LotNo && destorigin===props.borma.origin){
+                if(successflag==='flex'){
+                    setSuccessflag('none') 
+                    setSuccessflagtable('none')
+                    setErrortext('Mixing Cant be performed with Same Lot & Origin')
+                    const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                    dialogerror.showModal()
+                    return 
+                }
+                else{
+                    setSuccessflag('none')
+                    setSuccessflagtable('none') 
+                    setErrortext('Mixing Cant be performed with Same Lot & Origin')
+                    const dialogerror = document.getElementById("erroremployeedialog") as HTMLDialogElement
+                    dialogerror.showModal()
+                    return 
+                }
+            }
             if(Number(destlot.split("-")[1])<Number(props.borma.LotNo.split("-")[1])){
                 
                 if(successflag==='flex'){

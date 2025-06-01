@@ -11,18 +11,18 @@
 }
 
 .panel {
-  flex: 0 0 10%; /* Fixed width */
-   max-width: 10%;
+  flex: 0 0 11%; /* Fixed width */
+  max-width: 11%;
   min-width: 200px; 
   background-color: #f4f6f9;
    /* background-color:cadetblue; */
   border-radius: 10px;
-  padding: 20px;
+  padding: 25px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   text-align: center;
   box-sizing: border-box;
   transition: transform 0.2s ease;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 .panel:hover {
@@ -37,7 +37,24 @@
 }
 
 .panel p {
-  font-size: 16px;
+  font-size: 14px;
   
   
 }
+  @media only screen and (max-width: 768px) {
+
+    .panel {
+      flex: 1 1 45% ;
+      max-width: 45%;
+      min-width: 20%; 
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+
+    .panel {
+      flex: 1 1 30% ;
+      max-width: 30%;
+      min-width: 20%; 
+    }
+  }

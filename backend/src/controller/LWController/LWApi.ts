@@ -346,33 +346,7 @@ export const CreateEntireLW = async (req: Request, res: Response) => {
                         issue_add_8: data.rcv_hamsaN,
                         issue_add_9: data.issue_add_9,
                         issue_add_10: data.issue_add_10,
-                        entry_backlog: (parseFloat(data.rcv_mayurN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0)
-                            + parseFloat(data.rcv_hamsaN))
-                            - (parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
-                                parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) +
-                                parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) +
-                                parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) +
-                                parseFloat(data.issue_row) + parseFloat(data.issue_rej_1) + parseFloat(data.issue_lw3_180) +
-                                parseFloat(data.issue_lw3_210) + parseFloat(data.issue_lw3_240) + parseFloat(data.issue_lw3_280) +
-                                parseFloat(data.issue_lw3_360) + parseFloat(data.issue_lw2) + parseFloat(data.issue_lw4) +
-                                parseFloat(data.issue_lw5) + parseFloat(data.issue_lw6) + parseFloat(data.issue_lw7) +
-                                parseFloat(data.issue_rej_3) + parseFloat(data.issue_rej_4) + parseFloat(data.issue_jb2) +
-                                parseFloat(data.issue_sjb) + parseFloat(data.issue_k_240) + parseFloat(data.issue_k_280) +
-                                parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) +
-                                parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) +
-                                parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) +
-                                parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection) + parseFloat(data.issue_ext_grade_1) +
-                                parseFloat(data.issue_ext_grade_2) +
-                                parseFloat(data.issue_ext_grade_3) +
-                                parseFloat(data.issue_ext_grade_4) +
-                                parseFloat(data.issue_ext_grade_5) +
-                                parseFloat(data.issue_ext_grade_6) +
-                                parseFloat(data.issue_ext_grade_7) +
-                                parseFloat(data.issue_ext_grade_8) +
-                                parseFloat(data.issue_ext_grade_9) +
-                                parseFloat(data.issue_ext_grade_10)
-
-                            ),
+                    
                         current_backlog: (parseFloat(data.rcv_mayurN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0)
                             + parseFloat(data.rcv_hamsaN))
                             - (parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
@@ -864,32 +838,7 @@ export const CreateReissueLW = async (req: Request, res: Response) => {
                             issue_add_8: data.rcv_hamsaN,
                             issue_add_9: data.issue_add_9,
                             issue_add_10: data.issue_add_10,
-                            entry_backlog: parseFloat(data.rcv_openingN)
-                                - (parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
-                                    parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) +
-                                    parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) +
-                                    parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) +
-                                    parseFloat(data.issue_row) + parseFloat(data.issue_rej_1) + parseFloat(data.issue_lw3_180) +
-                                    parseFloat(data.issue_lw3_210) + parseFloat(data.issue_lw3_240) + parseFloat(data.issue_lw3_280) +
-                                    parseFloat(data.issue_lw3_360) + parseFloat(data.issue_lw2) + parseFloat(data.issue_lw4) +
-                                    parseFloat(data.issue_lw5) + parseFloat(data.issue_lw6) + parseFloat(data.issue_lw7) +
-                                    parseFloat(data.issue_rej_3) + parseFloat(data.issue_rej_4) + parseFloat(data.issue_jb2) +
-                                    parseFloat(data.issue_sjb) + parseFloat(data.issue_k_240) + parseFloat(data.issue_k_280) +
-                                    parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) +
-                                    parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) +
-                                    parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) +
-                                    parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection) + parseFloat(data.issue_ext_grade_1) +
-                                    parseFloat(data.issue_ext_grade_2) +
-                                    parseFloat(data.issue_ext_grade_3) +
-                                    parseFloat(data.issue_ext_grade_4) +
-                                    parseFloat(data.issue_ext_grade_5) +
-                                    parseFloat(data.issue_ext_grade_6) +
-                                    parseFloat(data.issue_ext_grade_7) +
-                                    parseFloat(data.issue_ext_grade_8) +
-                                    parseFloat(data.issue_ext_grade_9) +
-                                    parseFloat(data.issue_ext_grade_10)
-
-                                ),
+                         
                             current_backlog: parseFloat(data.rcv_openingN)
                                 - (parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
                                     parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) +
@@ -1436,33 +1385,7 @@ export const updateEntireLW = async (req: Request, res: Response) => {
                         issue_ext_grade_8: data.issue_ext_grade_8,
                         issue_ext_grade_9: data.issue_ext_grade_9,
                         issue_ext_grade_10: data.issue_ext_grade_10,
-                        entry_backlog: (parseFloat(data.rcv_mayurN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0)
-                            + parseFloat(data.rcv_hamsaN))
-                            - (parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
-                                parseFloat(data.issue_kn) + parseFloat(data.issue_dw) + parseFloat(data.issue_dw_1) +
-                                parseFloat(data.issue_dw_2) + parseFloat(data.issue_ow) + parseFloat(data.issue_ow_1) +
-                                parseFloat(data.issue_ow_2) + parseFloat(data.issue_jw) + parseFloat(data.issue_pw) +
-                                parseFloat(data.issue_row) + parseFloat(data.issue_rej_1) + parseFloat(data.issue_lw3_180) +
-                                parseFloat(data.issue_lw3_210) + parseFloat(data.issue_lw3_240) + parseFloat(data.issue_lw3_280) +
-                                parseFloat(data.issue_lw3_360) + parseFloat(data.issue_lw2) + parseFloat(data.issue_lw4) +
-                                parseFloat(data.issue_lw5) + parseFloat(data.issue_lw6) + parseFloat(data.issue_lw7) +
-                                parseFloat(data.issue_rej_3) + parseFloat(data.issue_rej_4) + parseFloat(data.issue_jb2) +
-                                parseFloat(data.issue_sjb) + parseFloat(data.issue_k_240) + parseFloat(data.issue_k_280) +
-                                parseFloat(data.issue_k_360) + parseFloat(data.issue_pkw) + parseFloat(data.issue_bw) +
-                                parseFloat(data.issue_rw) + parseFloat(data.issue_rrw) + parseFloat(data.issue_fw) +
-                                parseFloat(data.issue_lw) + parseFloat(data.issue_village) + parseFloat(data.issue_hamsa) +
-                                parseFloat(data.issue_bigTaiho) + parseFloat(data.issue_rejection) + parseFloat(data.issue_ext_grade_1) +
-                                parseFloat(data.issue_ext_grade_2) +
-                                parseFloat(data.issue_ext_grade_3) +
-                                parseFloat(data.issue_ext_grade_4) +
-                                parseFloat(data.issue_ext_grade_5) +
-                                parseFloat(data.issue_ext_grade_6) +
-                                parseFloat(data.issue_ext_grade_7) +
-                                parseFloat(data.issue_ext_grade_8) +
-                                parseFloat(data.issue_ext_grade_9) +
-                                parseFloat(data.issue_ext_grade_10)
-
-                            ),
+                       
                         current_backlog: (parseFloat(data.rcv_mayurN) + (data.rcv_wholes ? parseFloat(data.rcv_wholes) : 0)
                             + parseFloat(data.rcv_hamsaN))
                             - (parseFloat(data.issue_kw) + parseFloat(data.issue_kw_1) + parseFloat(data.issue_kw_2) +
@@ -1680,7 +1603,7 @@ export const approveLW = async (req: Request, res: Response) => {
                         issue_add_8: data.issue_add_8,
                         issue_add_9: data.issue_add_9,
                         issue_add_10: data.issue_add_10,
-                        entry_backlog: data.entry_backlog,
+                      
                         current_backlog: data.current_backlog,
                         CreatedBy: data.CreatedBy,
                         editStatus: "Approved",
