@@ -6,7 +6,7 @@ import {
      SearchMixHistory
       } from "../controller/mayurController/mayurapi";
 
-import { approveVillage, CreateEntireVillage, CreateMixVillage, EditRejectVillage,
+import { approveVillage, CreateEntireVillage, CreateMixVillage, CreateReissueVillage, EditRejectVillage,
        findEditVillageAll, GatedataFind, getVillageBylotorigin, getVillageLot, linkGatePass, SearchRCNVillage, SearchRCNVillageMix, sumOfallVillage, updateEntireVIllage } from "../controller/Village Controller/VillageApi";
 
 
@@ -24,7 +24,7 @@ router.get("/getVillageByLotOrigin/:lotNO/:origin", jwtVerify, getVillageBylotor
 router.post("/createEntireVillage", jwtVerify, CreateEntireVillage)
 
 // // //HamsaReiSsueForm.tsx
-// router.post("/createReissueVillage", jwtVerify, CreateReissueVillage)
+ router.post("/createReissueVillage", jwtVerify, CreateReissueVillage)
 
 // // //Villagetable.tsx
 router.put('/villageprimarysearch', jwtVerify, SearchRCNVillage);

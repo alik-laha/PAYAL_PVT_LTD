@@ -471,7 +471,7 @@ const VillageReCreateForm = (props: Props) => {
                                           <TableCell className="text-center">
                                               <Input className="bg-yellow-200" type="number" value={row.rcv_lw} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_lw', e.target.value)} required />
                                           </TableCell>
-                                          <TableCell className="text-center font-semibold">{formatNumber(props.borma[0].rcv_bigTaiho)} Kg</TableCell>
+                                          <TableCell className="text-center font-semibold">{props.borma[0].rcv_bigTaiho ?formatNumber(props.borma[0].rcv_bigTaiho):0} Kg</TableCell>
                                           <TableCell className="text-center">
                                               <Input className="bg-yellow-200" type="number" value={row.rcv_bigTaiho} placeholder="Pr." onChange={(e) => handleRowChange(idx, 'rcv_bigTaiho', e.target.value)} required />
                                           </TableCell>

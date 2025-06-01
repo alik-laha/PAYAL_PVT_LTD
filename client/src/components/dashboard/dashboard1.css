@@ -12,7 +12,7 @@
 
 .panel {
   flex: 0 0 11%; /* Fixed width */
-   max-width: 11%;
+  max-width: 11%;
   min-width: 200px; 
   background-color: #f4f6f9;
    /* background-color:cadetblue; */
@@ -41,3 +41,20 @@
   
   
 }
+  @media only screen and (max-width: 768px) {
+
+    .panel {
+      flex: 1 1 45% ;
+      max-width: 45%;
+      min-width: 20%; 
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+
+    .panel {
+      flex: 1 1 30% ;
+      max-width: 30%;
+      min-width: 20%; 
+    }
+  }
