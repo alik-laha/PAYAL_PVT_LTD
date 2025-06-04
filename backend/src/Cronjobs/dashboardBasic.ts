@@ -1,6 +1,6 @@
 import cron from 'node-cron';
 import axios from 'axios';
-import { WpMsgGatePassDashboard } from '../helper/wpDashboard';
+//import { WpMsgGatePassDashboard } from '../helper/wpDashboard';
 
 const dashboardBasic = async () => {
 try {
@@ -63,7 +63,7 @@ try {
         // 🔄 Send to WhatsApp
 
         console.log(info)
-        await WpMsgGatePassDashboard(info, 'dashboard_basic');
+        // await WpMsgGatePassDashboard(info, 'dashboard_basic');
         console.log('[CRON] WhatsApp message sent.');
         
     } catch (error) {

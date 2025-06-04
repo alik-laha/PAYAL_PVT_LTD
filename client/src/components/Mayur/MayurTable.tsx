@@ -76,6 +76,10 @@ const MayurTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const { editMayurLotWiseData } = useContext(Context);
     const [Data, setData] = useState<MayurData[]>([])
+
+    const dropdown = ['LOT', 'V-LOT']
+    const [searchType, setsearchType] = useState('LOT')
+   
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 
@@ -109,162 +113,328 @@ const MayurTable = () => {
             return prev
         })
     }, [page])
-    const exportToExcel = async () => { 
-        const response = await axios.put('/api/mayur/mayurprimarysearch', {
-            searchitem: blConNo,
-            fromDate: fromdate,
-            toDate: todate,
-            origin: origin,
-        })
-        const data1 = await response.data
+    const exportToExcel = async () => {
 
-        let ws
-        let transformed: any[] = [];
-        if (EditData.length > 0) {
-            transformed = EditData.map((item: MayurData, idx: number) => ({
-            Sl_No: idx + 1, 
-            Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
-            Item_Lot_No: item.LotNo,
-            Origin: item.origin,
-            Issue_No: item.altid,
-            Mayur_Entry_Date: handletimezone(item.date),
-            Mixing_Lot: item.mixingLot,
-            Opening_Wholes_Peel_Or_WholesJB: formatNumber(item.rcv_wholespeel),
-            Opening_Wholes_Unpeel_Or_LW: formatNumber(item.rcv_wholesunpeel),
-            Receive_Peeling: Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel)),
-            Receive_DPDS: item.rcv_DPDS ? formatNumber(item.rcv_DPDS) : 0,
-            Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
-            Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-            Receive_Total: (parseFloat(item.rcv_wholespeel) + parseFloat(item.rcv_wholesunpeel)+
-            (item.rcv_DPDS ? parseFloat(item.rcv_DPDS) : 0) + 
-            (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
-            (item.rcv_village ? parseFloat(item.rcv_village) : 0) ).toFixed(2),
-            Issue_PW_W_Or_V_PW_W: formatNumber(item.issue_pw_w),
-            Issue_W_Lot_Or_V_W_Lot: formatNumber(item.issue_w_lot),
-            Issue_WW_Or_V_WW: formatNumber(item.issue_ww),
-            Issue_Rejection: formatNumber(item.issue_rejection),
-            Issue_Village: formatNumber(item.issue_village),
-            Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
-            Issue_LW: formatNumber(item.issue_LW),
-            Issue_JB: formatNumber(item.issue_JB),
-            Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
-            Mc_On_133: handleAMPM(item.Mc_on_133.slice(0, 5)),
-            Mc_Off_133: handleAMPM(item.Mc_off_133.slice(0, 5)),
-            Mc_Breakdown_133: item.Mc_breakdown_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Other_Time_133: item.otherTime_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Mc_On_331: handleAMPM(item.Mc_on_331.slice(0, 5)),
-            Mc_Off_331: handleAMPM(item.Mc_off_331.slice(0, 5)),
-            Mc_Breakdown_331: item.Mc_breakdown_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Other_Time_331: item.otherTime_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Mc_On_292: handleAMPM(item.Mc_on_292.slice(0, 5)),
-            Mc_Off_292: handleAMPM(item.Mc_off_292.slice(0, 5)),
-            Mc_Breakdown_292: item.Mc_breakdown_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Other_Time_292: item.otherTime_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Mc_On_293: handleAMPM(item.Mc_on_293.slice(0, 5)),
-            Mc_Off_293: handleAMPM(item.Mc_off_293.slice(0, 5)),
-            Mc_Breakdown_293: item.Mc_breakdown_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Other_Time_293: item.otherTime_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Runtime_133: item.Mc_runTime_133.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-            Runtime_331: item.Mc_runTime_331.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-            Runtime_292: item.Mc_runTime_292.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-            Runtime_293: item.Mc_runTime_293.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-            Operator_Day: item.noOfdayOperators,
-            Operator_Night: item.noOfnightOperators,
-            Edit_Status: item.editStatus,
-            Created_By: item.CreatedBy,
-            Modified_By: item.modifiedBy 
+        if (searchType === 'LOT') {
+            const response = await axios.put('/api/mayur/mayurprimarysearch', {
+                searchitem: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
+                origin: origin,
+                type: 'LOT'
+            })
+            const data1 = await response.data
 
-            }));
-            //setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
+            let ws
+            let transformed: any[] = [];
+            if (EditData.length > 0) {
+                transformed = EditData.map((item: MayurData, idx: number) => ({
+                    Sl_No: idx + 1,
+                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+                    Item_Lot_No: item.LotNo,
+                    Origin: item.origin,
+                    Issue_No: item.altid,
+                    Mayur_Entry_Date: handletimezone(item.date),
+                    Mixing_Lot: item.mixingLot,
+                    Opening_Wholes_Peel_Or_WholesJB: formatNumber(item.rcv_wholespeel),
+                    Opening_Wholes_Unpeel_Or_LW: formatNumber(item.rcv_wholesunpeel),
+                    Receive_Peeling: Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel)),
+                    Receive_DPDS: item.rcv_DPDS ? formatNumber(item.rcv_DPDS) : 0,
+                    Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
+                    Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
+                    Receive_Total: (parseFloat(item.rcv_wholespeel) + parseFloat(item.rcv_wholesunpeel) +
+                        (item.rcv_DPDS ? parseFloat(item.rcv_DPDS) : 0) +
+                        (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) +
+                        (item.rcv_village ? parseFloat(item.rcv_village) : 0)).toFixed(2),
+                    Issue_PW_W_Or_V_PW_W: formatNumber(item.issue_pw_w),
+                    Issue_W_Lot_Or_V_W_Lot: formatNumber(item.issue_w_lot),
+                    Issue_WW_Or_V_WW: formatNumber(item.issue_ww),
+                    Issue_Rejection: formatNumber(item.issue_rejection),
+                    Issue_Village: formatNumber(item.issue_village),
+                    Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
+                    Issue_LW: formatNumber(item.issue_LW),
+                    Issue_JB: formatNumber(item.issue_JB),
+                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                    Mc_On_133: handleAMPM(item.Mc_on_133.slice(0, 5)),
+                    Mc_Off_133: handleAMPM(item.Mc_off_133.slice(0, 5)),
+                    Mc_Breakdown_133: item.Mc_breakdown_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_133: item.otherTime_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_331: handleAMPM(item.Mc_on_331.slice(0, 5)),
+                    Mc_Off_331: handleAMPM(item.Mc_off_331.slice(0, 5)),
+                    Mc_Breakdown_331: item.Mc_breakdown_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_331: item.otherTime_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_292: handleAMPM(item.Mc_on_292.slice(0, 5)),
+                    Mc_Off_292: handleAMPM(item.Mc_off_292.slice(0, 5)),
+                    Mc_Breakdown_292: item.Mc_breakdown_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_292: item.otherTime_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_293: handleAMPM(item.Mc_on_293.slice(0, 5)),
+                    Mc_Off_293: handleAMPM(item.Mc_off_293.slice(0, 5)),
+                    Mc_Breakdown_293: item.Mc_breakdown_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_293: item.otherTime_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Runtime_133: item.Mc_runTime_133.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                    Runtime_331: item.Mc_runTime_331.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                    Runtime_292: item.Mc_runTime_292.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                    Runtime_293: item.Mc_runTime_293.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                    Operator_Day: item.noOfdayOperators,
+                    Operator_Night: item.noOfnightOperators,
+                    Edit_Status: item.editStatus,
+                    Created_By: item.CreatedBy,
+                    Modified_By: item.modifiedBy
+
+                }));
+                //setTransformedData(transformed);
+                ws = XLSX.utils.json_to_sheet(transformed);
+            }
+            else {
+                transformed = data1.rcnEntries.map((item: MayurData, idx: number) => ({
+                    Sl_No: idx + 1,
+                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+                    Item_Lot_No: item.LotNo,
+                    Origin: item.origin,
+                    Issue_No: item.altid,
+                    Mayur_Entry_Date: handletimezone(item.date),
+                    Mixing_Lot: item.mixingLot,
+                    Opening_Wholes_Peel_Or_WholesJB: formatNumber(item.rcv_wholespeel),
+                    Opening_Wholes_Unpeel_Or_LW: formatNumber(item.rcv_wholesunpeel),
+                    Receive_Peeling: Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel)),
+                    Receive_DPDS: item.rcv_DPDS ? formatNumber(item.rcv_DPDS) : 0,
+                    Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
+                    Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
+                    Receive_Total: (parseFloat(item.rcv_wholespeel) + parseFloat(item.rcv_wholesunpeel) +
+                        (item.rcv_DPDS ? parseFloat(item.rcv_DPDS) : 0) +
+                        (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) +
+                        (item.rcv_village ? parseFloat(item.rcv_village) : 0)).toFixed(2),
+                    Issue_PW_W_Or_V_PW_W: formatNumber(item.issue_pw_w),
+                    Issue_W_Lot_Or_V_W_Lot: formatNumber(item.issue_w_lot),
+                    Issue_WW_Or_V_WW: formatNumber(item.issue_ww),
+                    Issue_Rejection: formatNumber(item.issue_rejection),
+                    Issue_Village: formatNumber(item.issue_village),
+                    Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
+                    Issue_LW: formatNumber(item.issue_LW),
+                    Issue_JB: formatNumber(item.issue_JB),
+                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                    Mc_On_133: handleAMPM(item.Mc_on_133.slice(0, 5)),
+                    Mc_Off_133: handleAMPM(item.Mc_off_133.slice(0, 5)),
+                    Mc_Breakdown_133: item.Mc_breakdown_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_133: item.otherTime_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_331: handleAMPM(item.Mc_on_331.slice(0, 5)),
+                    Mc_Off_331: handleAMPM(item.Mc_off_331.slice(0, 5)),
+                    Mc_Breakdown_331: item.Mc_breakdown_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_331: item.otherTime_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_292: handleAMPM(item.Mc_on_292.slice(0, 5)),
+                    Mc_Off_292: handleAMPM(item.Mc_off_292.slice(0, 5)),
+                    Mc_Breakdown_292: item.Mc_breakdown_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_292: item.otherTime_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_293: handleAMPM(item.Mc_on_293.slice(0, 5)),
+                    Mc_Off_293: handleAMPM(item.Mc_off_293.slice(0, 5)),
+                    Mc_Breakdown_293: item.Mc_breakdown_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_293: item.otherTime_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Runtime_133: item.Mc_runTime_133.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                    Runtime_331: item.Mc_runTime_331.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                    Runtime_292: item.Mc_runTime_292.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                    Runtime_293: item.Mc_runTime_293.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                    Operator_Day: item.noOfdayOperators,
+                    Operator_Night: item.noOfnightOperators,
+                    Edit_Status: item.editStatus,
+                    Created_By: item.CreatedBy,
+                    Modified_By: item.modifiedBy
+
+                }));
+                // setTransformedData(transformed);
+                ws = XLSX.utils.json_to_sheet(transformed);
+            }
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            saveAs(blob, 'Mayur_Entry_' + currDate + '.xlsx');
         }
         else {
-            transformed = data1.rcnEntries.map((item: MayurData, idx: number) => ({
-                Sl_No: idx + 1, 
-                Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
-                Item_Lot_No: item.LotNo,
-                Origin: item.origin,
-                Issue_No: item.altid,
-                Mayur_Entry_Date: handletimezone(item.date),
-                Mixing_Lot: item.mixingLot,
-                Opening_Wholes_Peel_Or_WholesJB: formatNumber(item.rcv_wholespeel),
-                Opening_Wholes_Unpeel_Or_LW: formatNumber(item.rcv_wholesunpeel),
-                Receive_Peeling: Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel)),
-                Receive_DPDS: item.rcv_DPDS ? formatNumber(item.rcv_DPDS) : 0,
-                Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
-                Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-                Receive_Total: (parseFloat(item.rcv_wholespeel) + parseFloat(item.rcv_wholesunpeel)+
-                (item.rcv_DPDS ? parseFloat(item.rcv_DPDS) : 0) + 
-                (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
-                (item.rcv_village ? parseFloat(item.rcv_village) : 0) ).toFixed(2),
-                Issue_PW_W_Or_V_PW_W: formatNumber(item.issue_pw_w),
-                Issue_W_Lot_Or_V_W_Lot: formatNumber(item.issue_w_lot),
-                Issue_WW_Or_V_WW: formatNumber(item.issue_ww),
-                Issue_Rejection: formatNumber(item.issue_rejection),
-                Issue_Village: formatNumber(item.issue_village),
-                Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
-                Issue_LW: formatNumber(item.issue_LW),
-                Issue_JB: formatNumber(item.issue_JB),
-                Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
-                Mc_On_133: handleAMPM(item.Mc_on_133.slice(0, 5)),
-                Mc_Off_133: handleAMPM(item.Mc_off_133.slice(0, 5)),
-                Mc_Breakdown_133: item.Mc_breakdown_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                Other_Time_133: item.otherTime_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                Mc_On_331: handleAMPM(item.Mc_on_331.slice(0, 5)),
-                Mc_Off_331: handleAMPM(item.Mc_off_331.slice(0, 5)),
-                Mc_Breakdown_331: item.Mc_breakdown_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                Other_Time_331: item.otherTime_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                Mc_On_292: handleAMPM(item.Mc_on_292.slice(0, 5)),
-                Mc_Off_292: handleAMPM(item.Mc_off_292.slice(0, 5)),
-                Mc_Breakdown_292: item.Mc_breakdown_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                Other_Time_292: item.otherTime_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                Mc_On_293: handleAMPM(item.Mc_on_293.slice(0, 5)),
-                Mc_Off_293: handleAMPM(item.Mc_off_293.slice(0, 5)),
-                Mc_Breakdown_293: item.Mc_breakdown_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                Other_Time_293: item.otherTime_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-                Runtime_133: item.Mc_runTime_133.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-                Runtime_331: item.Mc_runTime_331.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-                Runtime_292: item.Mc_runTime_292.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-                Runtime_293: item.Mc_runTime_293.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
-                Operator_Day: item.noOfdayOperators,
-                Operator_Night: item.noOfnightOperators,
-                Edit_Status: item.editStatus,
-                Created_By: item.CreatedBy,
-                Modified_By: item.modifiedBy
+            const response = await axios.put('/api/mayur/mayurprimarysearch', {
+                searchitem: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
+                origin: origin,
+                type: 'VLOT'
+            })
+            const data1 = await response.data
 
-            }));
-            // setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
+            let ws
+            let transformed: any[] = [];
+            if (EditData.length > 0) {
+                transformed = EditData.map((item: MayurData, idx: number) => ({
+                    Sl_No: idx + 1,
+                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+                    Item_Lot_No: item.LotNo,
+                    Origin: item.origin,
+                    Issue_No: item.altid,
+                    Mayur_Entry_Date: handletimezone(item.date),
+                    Mixing_Lot: item.mixingLot,
+                    Opening_Wholes_Peel_Or_WholesJB: formatNumber(item.rcv_wholespeel),
+                    Opening_Wholes_Unpeel_Or_LW: formatNumber(item.rcv_wholesunpeel),
+                    Receive_Peeling: Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel)),
+                    Receive_DPDS: item.rcv_DPDS ? formatNumber(item.rcv_DPDS) : 0,
+                    Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
+                    Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
+                    Receive_Total: (parseFloat(item.rcv_wholespeel) + parseFloat(item.rcv_wholesunpeel) +
+                        (item.rcv_DPDS ? parseFloat(item.rcv_DPDS) : 0) +
+                        (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) +
+                        (item.rcv_village ? parseFloat(item.rcv_village) : 0)).toFixed(2),
+                    Issue_PW_W_Or_V_PW_W: formatNumber(item.issue_pw_w),
+                    Issue_W_Lot_Or_V_W_Lot: formatNumber(item.issue_w_lot),
+                    Issue_WW_Or_V_WW: formatNumber(item.issue_ww),
+                    Issue_Rejection: formatNumber(item.issue_rejection),
+                    Issue_Village: formatNumber(item.issue_village),
+                    Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
+                    Issue_LW: formatNumber(item.issue_LW),
+                    Issue_JB: formatNumber(item.issue_JB),
+                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                    Mc_On_133: handleAMPM(item.Mc_on_133.slice(0, 5)),
+                    Mc_Off_133: handleAMPM(item.Mc_off_133.slice(0, 5)),
+                    Mc_Breakdown_133: item.Mc_breakdown_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_133: item.otherTime_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_331: handleAMPM(item.Mc_on_331.slice(0, 5)),
+                    Mc_Off_331: handleAMPM(item.Mc_off_331.slice(0, 5)),
+                    Mc_Breakdown_331: item.Mc_breakdown_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_331: item.otherTime_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_292: handleAMPM(item.Mc_on_292.slice(0, 5)),
+                    Mc_Off_292: handleAMPM(item.Mc_off_292.slice(0, 5)),
+                    Mc_Breakdown_292: item.Mc_breakdown_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_292: item.otherTime_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_293: handleAMPM(item.Mc_on_293.slice(0, 5)),
+                    Mc_Off_293: handleAMPM(item.Mc_off_293.slice(0, 5)),
+                    Mc_Breakdown_293: item.Mc_breakdown_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_293: item.otherTime_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Runtime_133: item.Mc_runTime_133.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                    Runtime_331: item.Mc_runTime_331.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                    Runtime_292: item.Mc_runTime_292.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                    Runtime_293: item.Mc_runTime_293.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                    Operator_Day: item.noOfdayOperators,
+                    Operator_Night: item.noOfnightOperators,
+                    Edit_Status: item.editStatus,
+                    Created_By: item.CreatedBy,
+                    Modified_By: item.modifiedBy
+
+                }));
+                //setTransformedData(transformed);
+                ws = XLSX.utils.json_to_sheet(transformed);
+            }
+            else {
+                transformed = data1.rcnEntries.map((item: MayurData, idx: number) => ({
+                    Sl_No: idx + 1,
+                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+                    Item_Lot_No: item.LotNo,
+                    Origin: item.origin,
+                    Issue_No: item.altid,
+                    Mayur_Entry_Date: handletimezone(item.date),
+                    Mixing_Lot: item.mixingLot,
+                    Opening_Wholes_Peel_Or_WholesJB: formatNumber(item.rcv_wholespeel),
+                    Opening_Wholes_Unpeel_Or_LW: formatNumber(item.rcv_wholesunpeel),
+                    Receive_Peeling: Number(formatNumber(item.rcv_wholespeel)) + Number(formatNumber(item.rcv_wholesunpeel)),
+                    Receive_DPDS: item.rcv_DPDS ? formatNumber(item.rcv_DPDS) : 0,
+                    Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
+                    Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
+                    Receive_Total: (parseFloat(item.rcv_wholespeel) + parseFloat(item.rcv_wholesunpeel) +
+                        (item.rcv_DPDS ? parseFloat(item.rcv_DPDS) : 0) +
+                        (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) +
+                        (item.rcv_village ? parseFloat(item.rcv_village) : 0)).toFixed(2),
+                    Issue_PW_W_Or_V_PW_W: formatNumber(item.issue_pw_w),
+                    Issue_W_Lot_Or_V_W_Lot: formatNumber(item.issue_w_lot),
+                    Issue_WW_Or_V_WW: formatNumber(item.issue_ww),
+                    Issue_Rejection: formatNumber(item.issue_rejection),
+                    Issue_Village: formatNumber(item.issue_village),
+                    Issue_Big_Taiho: formatNumber(item.issue_bigTaiho),
+                    Issue_LW: formatNumber(item.issue_LW),
+                    Issue_JB: formatNumber(item.issue_JB),
+                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                    Mc_On_133: handleAMPM(item.Mc_on_133.slice(0, 5)),
+                    Mc_Off_133: handleAMPM(item.Mc_off_133.slice(0, 5)),
+                    Mc_Breakdown_133: item.Mc_breakdown_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_133: item.otherTime_133.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_331: handleAMPM(item.Mc_on_331.slice(0, 5)),
+                    Mc_Off_331: handleAMPM(item.Mc_off_331.slice(0, 5)),
+                    Mc_Breakdown_331: item.Mc_breakdown_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_331: item.otherTime_331.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_292: handleAMPM(item.Mc_on_292.slice(0, 5)),
+                    Mc_Off_292: handleAMPM(item.Mc_off_292.slice(0, 5)),
+                    Mc_Breakdown_292: item.Mc_breakdown_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_292: item.otherTime_292.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_293: handleAMPM(item.Mc_on_293.slice(0, 5)),
+                    Mc_Off_293: handleAMPM(item.Mc_off_293.slice(0, 5)),
+                    Mc_Breakdown_293: item.Mc_breakdown_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_293: item.otherTime_293.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Runtime_133: item.Mc_runTime_133.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                    Runtime_331: item.Mc_runTime_331.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                    Runtime_292: item.Mc_runTime_292.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                    Runtime_293: item.Mc_runTime_293.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, '') + ' hr',
+                    Operator_Day: item.noOfdayOperators,
+                    Operator_Night: item.noOfnightOperators,
+                    Edit_Status: item.editStatus,
+                    Created_By: item.CreatedBy,
+                    Modified_By: item.modifiedBy
+
+                }));
+                // setTransformedData(transformed);
+                ws = XLSX.utils.json_to_sheet(transformed);
+            }
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            saveAs(blob, 'Mayur_Entry_' + currDate + '.xlsx');
+
         }
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'Mayur_Entry_' + currDate + '.xlsx');
+
     }
     const handleSearch = async () => {
 
         setEditData([])
         setblockpagen('flex')
-        const response = await axios.put('/api/mayur/mayurprimarysearch', {
-            searchitem: blConNo,
-            fromDate: fromdate,
-            toDate: todate,
-            origin: origin,
+         if (searchType === 'LOT') {
+             const response = await axios.put('/api/mayur/mayurprimarysearch', {
+                 searchitem: blConNo,
+                 fromDate: fromdate,
+                 toDate: todate,
+                 origin: origin,
+                 type:'LOT'
 
+             }, {
+                 params: {
+                     page: page,
+                     limit: limit
+                 }
+             })
+             const data = await response.data
+             if (data.rcnEntries.length === 0 && page > 1) {
+                 setPage((prev) => prev - 1)
 
-        }, {
-            params: {
-                page: page,
-                limit: limit
-            }
-        })
-        const data = await response.data
-        if (data.rcnEntries.length === 0 && page > 1) {
-            setPage((prev) => prev - 1)
+             }
+             setData(data.rcnEntries)
+             
+         }
+         else{
+            const response = await axios.put('/api/mayur/mayurprimarysearch', {
+                 searchitem: blConNo,
+                 fromDate: fromdate,
+                 toDate: todate,
+                 origin: origin,
+                 type:'VLOT'
 
-        }
-        setData(data.rcnEntries)
+             }, {
+                 params: {
+                     page: page,
+                     limit: limit
+                 }
+             })
+             const data = await response.data
+             if (data.rcnEntries.length === 0 && page > 1) {
+                 setPage((prev) => prev - 1)
+
+             }
+             setData(data.rcnEntries)
+             
+         }
+        
 
 
     }
@@ -365,6 +535,19 @@ const MayurTable = () => {
         <>
 
             <div className="ml-5 mt-5 ">
+                  <div className="w-full">
+                    <select className='mb-5 h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                        onChange={(e) => setsearchType(e.target.value)} value={searchType}>
+
+                        {dropdown.map((data, index) => (
+                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                {data}
+                            </option>
+                        ))}
+                    </select>
+                </div>
                 <div className="flex flexbox-search">
 
                     <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />

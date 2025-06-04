@@ -1177,7 +1177,7 @@ export const CreateReissueLW = async (req: Request, res: Response) => {
 // //LWTable.tsx
 export const SearchRCNLW = async (req: Request, res: Response) => {
     try {
-        const { searchitem, fromDate, toDate, origin } = req.body;
+        const { searchitem, fromDate, toDate, origin,type } = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
         const size = parseInt(req.query.limit as string, 10) || 0;
         const offset = (page - 1) * size;
@@ -1204,6 +1204,20 @@ export const SearchRCNLW = async (req: Request, res: Response) => {
             whereClause.push({
                 origin: {
                     [Op.like]: `%${origin}%`
+                }
+            });
+        }
+        if (type === 'LOT') {
+            whereClause.push({
+                LotNo: {
+                    [Op.notLike]: '%V%'
+                }
+            });
+        }
+        else {
+            whereClause.push({
+                LotNo: {
+                    [Op.like]: '%V%'
                 }
             });
         }

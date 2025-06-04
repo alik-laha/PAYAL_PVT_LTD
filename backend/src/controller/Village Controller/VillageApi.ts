@@ -562,7 +562,7 @@ export const CreateEntireVillage = async (req: Request, res: Response) => {
 // //VillageTable.tsx
 export const SearchRCNVillage = async (req: Request, res: Response) => {
     try {
-        const { searchitem,fromDate, toDate, origin} = req.body;
+        const { searchitem,fromDate, toDate, origin,type} = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
         const size = parseInt(req.query.limit as string, 10) || 0;
         const offset = (page - 1) * size;
@@ -597,6 +597,21 @@ export const SearchRCNVillage = async (req: Request, res: Response) => {
                 [Op.eq]: 1
             }
         });
+
+        if (type === 'LOT') {
+            whereClause.push({
+                LotNo: {
+                    [Op.notLike]: '%V%'
+                }
+            });
+        }
+        else {
+            whereClause.push({
+                LotNo: {
+                    [Op.like]: '%V%'
+                }
+            });
+        }
   
         // Convert the array to an object for the where condition
         const where = whereClause.length > 0 ? { [Op.and]: whereClause } : {};

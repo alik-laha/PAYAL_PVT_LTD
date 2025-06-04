@@ -74,6 +74,8 @@ const BigTaihoTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const { editBigTaihoLotWiseData } = useContext(Context);
     const [Data, setData] = useState<BigTaihoData[]>([])
+      const dropdown = ['LOT', 'V-LOT']
+            const [searchType, setsearchType] = useState('LOT')
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 
@@ -107,211 +109,424 @@ const BigTaihoTable = () => {
             return prev
         })
     }, [page])
-    const exportToExcel = async () => { 
-        const response = await axios.put('/api/bigTaiho/bigTaihoprimarysearch', {
-            searchitem: blConNo,
-            fromDate: fromdate,
-            toDate: todate,
-            origin: origin,
-        })
-        const data1 = await response.data
+    const exportToExcel = async () => {
+        if (searchType === 'LOT') {
+            const response = await axios.put('/api/bigTaiho/bigTaihoprimarysearch', {
+                searchitem: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
+                origin: origin,
+                type: 'LOT'
+            })
+            const data1 = await response.data
 
-        let ws
-        let transformed: any[] = [];
-        if (EditData.length > 0) {
-            transformed = EditData.map((item: BigTaihoData, idx: number) => ({
-            Sl_No: idx + 1, 
-            Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
-            Item_Lot_No: item.LotNo,
-            Origin: item.origin,
-            Issue_No: item.altid,
-            DPDS_Entry_Date: handletimezone(item.date),
-            Mixing_Lot: item.mixingLot,
-            Receive_Peeling: formatNumber(item.rcv_peeling),
-            Borma_Peeling: formatNumber((Number(item.rcv_peeling)-Number(item.issue_add_2)).toString()),
-            Borma_Loss_Kg: formatNumber(item.issue_add_2),
-            Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-            Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
-            Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-            Receive_DPDS: item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0,
-            Receive_Mayur: item.rcv_mayur ? formatNumber(item.rcv_mayur) : 0,
-            Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
-            Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
-            Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-            Receive_Total: ((parseFloat(item.rcv_peeling)-parseFloat(item.issue_add_2)) + 
-                (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
-                (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
-                (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
-                (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
-                (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) + 
-                (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) + 
-                (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2),
-            Issue_ssp: formatNumber(item.issue_ssp),
-            Issue_ssp_small: formatNumber(item.issue_ssp_small),
-            Issue_swp_1: formatNumber(item.issue_swp_1),
-            Issue_wsp: formatNumber(item.issue_wsp),
-            Issue_bits: formatNumber(item.issue_bits),
-            Issue_swp: formatNumber(item.issue_swp),
-            Issue_bb: formatNumber(item.issue_bb),
-            Issue_w_bb: formatNumber(item.issue_w_bb),
-            Issue_bb_A: formatNumber(item.issue_bb_A),
-            Issue_bb_1: formatNumber(item.issue_bb1),
-            Issue_bb1_A: formatNumber(item.issue_bb1_A),
-            Issue_bb_2: formatNumber(item.issue_bb_2),
-            Issue_ssp1: formatNumber(item.issue_ssp_1),
-            Issue_ssp1_small: formatNumber(item.issue_ssp_1_small),
-            Issue_ssp2: formatNumber(item.issue_ssp_2),
-            Issue_ssp2_small: formatNumber(item.issue_ssp_2_small),
-            Issue_sdp: formatNumber(item.issue_sdp),
-            Issue_Packing:formatNumber((parseFloat(item.issue_ssp) +
-            parseFloat(item.issue_ssp_small)+parseFloat(item.issue_swp_1)+
-            parseFloat(item.issue_wsp) +parseFloat(item.issue_bits)+parseFloat(item.issue_swp)+
-            parseFloat(item.issue_bb) +parseFloat(item.issue_w_bb)+parseFloat(item.issue_bb_A)+
-            parseFloat(item.issue_bb1) +parseFloat(item.issue_bb1_A)+parseFloat(item.issue_bb_2)+
-            parseFloat(item.issue_ssp_1) +parseFloat(item.issue_ssp_1_small)+parseFloat(item.issue_ssp_2)+
-            parseFloat(item.issue_ssp_2_small) +parseFloat(item.issue_sdp)).toString()),
-            Issue_Husk: formatNumber(item.issue_husk),
-            Issue_Rejection: formatNumber(item.issue_rejection),
-            Issue_Village: formatNumber(item.issue_village),
-            Issue_Sorting: formatNumber(item.issue_sorting),
-            Issue_DPDS: formatNumber(item.issue_dpds), 
-            Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
-            Mc_On_Taiho: handleAMPM(item.Mc_on_1.slice(0, 5)),
-            Mc_Off_Taiho: handleAMPM(item.Mc_off_1.slice(0, 5)),
-            Mc_Breakdown_Taiho: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Other_Time_Taiho: item.otherTime_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Mc_On_Spectrum: handleAMPM(item.Mc_on_2.slice(0, 5)),
-            Mc_Off_Spectrum: handleAMPM(item.Mc_off_2.slice(0, 5)),
-            Mc_Breakdown_Spectrum: item.Mc_breakdown_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Other_Time_Spectrum: item.otherTime_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Mc_On_Hamsa_Amrita: handleAMPM(item.Mc_on_3.slice(0, 5)),
-            Mc_Off_Hamsa_Amrita: handleAMPM(item.Mc_off_3.slice(0, 5)),
-            Mc_Breakdown_Amrita: item.Mc_breakdown_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Other_Time_Amrita: item.otherTime_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Operator_Day: item.noOfdayOperators,
-            Operator_Night: item.noOfnightOperators,
-            Edit_Status: item.editStatus,
-            Created_By: item.CreatedBy,
-            Modified_By: item.modifiedBy 
-            }));
-            //setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
+            let ws
+            let transformed: any[] = [];
+            if (EditData.length > 0) {
+                transformed = EditData.map((item: BigTaihoData, idx: number) => ({
+                    Sl_No: idx + 1,
+                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+                    Item_Lot_No: item.LotNo,
+                    Origin: item.origin,
+                    Issue_No: item.altid,
+                    DPDS_Entry_Date: handletimezone(item.date),
+                    Mixing_Lot: item.mixingLot,
+                    Receive_Peeling: formatNumber(item.rcv_peeling),
+                    Borma_Peeling: formatNumber((Number(item.rcv_peeling) - Number(item.issue_add_2)).toString()),
+                    Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                    Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+                    Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
+                    Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
+                    Receive_DPDS: item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0,
+                    Receive_Mayur: item.rcv_mayur ? formatNumber(item.rcv_mayur) : 0,
+                    Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
+                    Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
+                    Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+                    Receive_Total: ((parseFloat(item.rcv_peeling) - parseFloat(item.issue_add_2)) +
+                        (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) +
+                        (item.rcv_village ? parseFloat(item.rcv_village) : 0) +
+                        (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) +
+                        (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) +
+                        (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) +
+                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) +
+                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2),
+                    Issue_ssp: formatNumber(item.issue_ssp),
+                    Issue_ssp_small: formatNumber(item.issue_ssp_small),
+                    Issue_swp_1: formatNumber(item.issue_swp_1),
+                    Issue_wsp: formatNumber(item.issue_wsp),
+                    Issue_bits: formatNumber(item.issue_bits),
+                    Issue_swp: formatNumber(item.issue_swp),
+                    Issue_bb: formatNumber(item.issue_bb),
+                    Issue_w_bb: formatNumber(item.issue_w_bb),
+                    Issue_bb_A: formatNumber(item.issue_bb_A),
+                    Issue_bb_1: formatNumber(item.issue_bb1),
+                    Issue_bb1_A: formatNumber(item.issue_bb1_A),
+                    Issue_bb_2: formatNumber(item.issue_bb_2),
+                    Issue_ssp1: formatNumber(item.issue_ssp_1),
+                    Issue_ssp1_small: formatNumber(item.issue_ssp_1_small),
+                    Issue_ssp2: formatNumber(item.issue_ssp_2),
+                    Issue_ssp2_small: formatNumber(item.issue_ssp_2_small),
+                    Issue_sdp: formatNumber(item.issue_sdp),
+                    Issue_Packing: formatNumber((parseFloat(item.issue_ssp) +
+                        parseFloat(item.issue_ssp_small) + parseFloat(item.issue_swp_1) +
+                        parseFloat(item.issue_wsp) + parseFloat(item.issue_bits) + parseFloat(item.issue_swp) +
+                        parseFloat(item.issue_bb) + parseFloat(item.issue_w_bb) + parseFloat(item.issue_bb_A) +
+                        parseFloat(item.issue_bb1) + parseFloat(item.issue_bb1_A) + parseFloat(item.issue_bb_2) +
+                        parseFloat(item.issue_ssp_1) + parseFloat(item.issue_ssp_1_small) + parseFloat(item.issue_ssp_2) +
+                        parseFloat(item.issue_ssp_2_small) + parseFloat(item.issue_sdp)).toString()),
+                    Issue_Husk: formatNumber(item.issue_husk),
+                    Issue_Rejection: formatNumber(item.issue_rejection),
+                    Issue_Village: formatNumber(item.issue_village),
+                    Issue_Sorting: formatNumber(item.issue_sorting),
+                    Issue_DPDS: formatNumber(item.issue_dpds),
+                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                    Mc_On_Taiho: handleAMPM(item.Mc_on_1.slice(0, 5)),
+                    Mc_Off_Taiho: handleAMPM(item.Mc_off_1.slice(0, 5)),
+                    Mc_Breakdown_Taiho: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Taiho: item.otherTime_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_Spectrum: handleAMPM(item.Mc_on_2.slice(0, 5)),
+                    Mc_Off_Spectrum: handleAMPM(item.Mc_off_2.slice(0, 5)),
+                    Mc_Breakdown_Spectrum: item.Mc_breakdown_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Spectrum: item.otherTime_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_Hamsa_Amrita: handleAMPM(item.Mc_on_3.slice(0, 5)),
+                    Mc_Off_Hamsa_Amrita: handleAMPM(item.Mc_off_3.slice(0, 5)),
+                    Mc_Breakdown_Amrita: item.Mc_breakdown_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Amrita: item.otherTime_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Operator_Day: item.noOfdayOperators,
+                    Operator_Night: item.noOfnightOperators,
+                    Edit_Status: item.editStatus,
+                    Created_By: item.CreatedBy,
+                    Modified_By: item.modifiedBy
+                }));
+                //setTransformedData(transformed);
+                ws = XLSX.utils.json_to_sheet(transformed);
+            }
+            else {
+                transformed = data1.rcnEntries.map((item: BigTaihoData, idx: number) => ({
+                    Sl_No: idx + 1,
+                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+                    Item_Lot_No: item.LotNo,
+                    Origin: item.origin,
+                    Issue_No: item.altid,
+                    DPDS_Entry_Date: handletimezone(item.date),
+                    Mixing_Lot: item.mixingLot,
+
+                    Receive_Peeling: formatNumber(item.rcv_peeling),
+                    Borma_Peeling: formatNumber((Number(item.rcv_peeling) - Number(item.issue_add_2)).toString()),
+                    Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                    Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+                    Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
+                    Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
+                    Receive_DPDS: item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0,
+                    Receive_Mayur: item.rcv_mayur ? formatNumber(item.rcv_mayur) : 0,
+                    Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
+                    Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
+                    Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+                    Receive_Total: ((parseFloat(item.rcv_peeling) - parseFloat(item.issue_add_2)) +
+                        (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) +
+                        (item.rcv_village ? parseFloat(item.rcv_village) : 0) +
+                        (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) +
+                        (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) +
+                        (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) +
+                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) +
+                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2),
+
+
+                    Issue_ssp: formatNumber(item.issue_ssp),
+                    Issue_ssp_small: formatNumber(item.issue_ssp_small),
+                    Issue_swp_1: formatNumber(item.issue_swp_1),
+                    Issue_wsp: formatNumber(item.issue_wsp),
+                    Issue_bits: formatNumber(item.issue_bits),
+                    Issue_swp: formatNumber(item.issue_swp),
+                    Issue_bb: formatNumber(item.issue_bb),
+                    Issue_w_bb: formatNumber(item.issue_w_bb),
+                    Issue_bb_A: formatNumber(item.issue_bb_A),
+                    Issue_bb_1: formatNumber(item.issue_bb1),
+                    Issue_bb1_A: formatNumber(item.issue_bb1_A),
+                    Issue_bb_2: formatNumber(item.issue_bb_2),
+                    Issue_ssp1: formatNumber(item.issue_ssp_1),
+                    Issue_ssp1_small: formatNumber(item.issue_ssp_1_small),
+                    Issue_ssp2: formatNumber(item.issue_ssp_2),
+                    Issue_ssp2_small: formatNumber(item.issue_ssp_2_small),
+                    Issue_sdp: formatNumber(item.issue_sdp),
+
+
+                    Issue_Packing: formatNumber((parseFloat(item.issue_ssp) +
+                        parseFloat(item.issue_ssp_small) + parseFloat(item.issue_swp_1) +
+                        parseFloat(item.issue_wsp) + parseFloat(item.issue_bits) + parseFloat(item.issue_swp) +
+                        parseFloat(item.issue_bb) + parseFloat(item.issue_w_bb) + parseFloat(item.issue_bb_A) +
+                        parseFloat(item.issue_bb1) + parseFloat(item.issue_bb1_A) + parseFloat(item.issue_bb_2) +
+                        parseFloat(item.issue_ssp_1) + parseFloat(item.issue_ssp_1_small) + parseFloat(item.issue_ssp_2) +
+                        parseFloat(item.issue_ssp_2_small) + parseFloat(item.issue_sdp)).toString()),
+                    Issue_Husk: formatNumber(item.issue_husk),
+                    Issue_Rejection: formatNumber(item.issue_rejection),
+                    Issue_Village: formatNumber(item.issue_village),
+                    Issue_Sorting: formatNumber(item.issue_sorting),
+                    Issue_DPDS: formatNumber(item.issue_dpds),
+
+                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                    Mc_On_Taiho: handleAMPM(item.Mc_on_1.slice(0, 5)),
+                    Mc_Off_Taiho: handleAMPM(item.Mc_off_1.slice(0, 5)),
+                    Mc_Breakdown_Taiho: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Taiho: item.otherTime_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_Spectrum: handleAMPM(item.Mc_on_2.slice(0, 5)),
+                    Mc_Off_Spectrum: handleAMPM(item.Mc_off_2.slice(0, 5)),
+                    Mc_Breakdown_Spectrum: item.Mc_breakdown_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Spectrum: item.otherTime_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_Hamsa_Amrita: handleAMPM(item.Mc_on_3.slice(0, 5)),
+                    Mc_Off_Hamsa_Amrita: handleAMPM(item.Mc_off_3.slice(0, 5)),
+                    Mc_Breakdown_Amrita: item.Mc_breakdown_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Amrita: item.otherTime_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Operator_Day: item.noOfdayOperators,
+                    Operator_Night: item.noOfnightOperators,
+                    Edit_Status: item.editStatus,
+                    Created_By: item.CreatedBy,
+                    Modified_By: item.modifiedBy
+
+                }));
+                // setTransformedData(transformed);
+                ws = XLSX.utils.json_to_sheet(transformed);
+            }
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            saveAs(blob, 'BigTaiho_Entry_' + currDate + '.xlsx');
         }
         else {
-            transformed = data1.rcnEntries.map((item: BigTaihoData, idx: number) => ({
-             Sl_No: idx + 1, 
-            Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
-            Item_Lot_No: item.LotNo,
-            Origin: item.origin,
-            Issue_No: item.altid,
-            DPDS_Entry_Date: handletimezone(item.date),
-            Mixing_Lot: item.mixingLot,
-          
-            Receive_Peeling: formatNumber(item.rcv_peeling),
-            Borma_Peeling: formatNumber((Number(item.rcv_peeling)-Number(item.issue_add_2)).toString()),
-            Borma_Loss_Kg: formatNumber(item.issue_add_2),
-            Borma_Loss_Percentage: formatNumber(item.issue_add_3),
-            Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
-            Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
-            Receive_DPDS: item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0,
-            Receive_Mayur: item.rcv_mayur ? formatNumber(item.rcv_mayur) : 0,
-            Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
-            Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
-            Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
-            Receive_Total: ((parseFloat(item.rcv_peeling)-parseFloat(item.issue_add_2)) + 
-                (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) + 
-                (item.rcv_village ? parseFloat(item.rcv_village) : 0) + 
-                (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + 
-                (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) + 
-                (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) + 
-                (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) + 
-                (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2),
+            const response = await axios.put('/api/bigTaiho/bigTaihoprimarysearch', {
+                searchitem: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
+                origin: origin,
+                type: 'VLOT'
+            })
+            const data1 = await response.data
 
-            
-            Issue_ssp: formatNumber(item.issue_ssp),
-            Issue_ssp_small: formatNumber(item.issue_ssp_small),
-            Issue_swp_1: formatNumber(item.issue_swp_1),
-            Issue_wsp: formatNumber(item.issue_wsp),
-            Issue_bits: formatNumber(item.issue_bits),
-            Issue_swp: formatNumber(item.issue_swp),
-            Issue_bb: formatNumber(item.issue_bb),
-            Issue_w_bb: formatNumber(item.issue_w_bb),
-            Issue_bb_A: formatNumber(item.issue_bb_A),
-            Issue_bb_1: formatNumber(item.issue_bb1),
-            Issue_bb1_A: formatNumber(item.issue_bb1_A),
-            Issue_bb_2: formatNumber(item.issue_bb_2),
-            Issue_ssp1: formatNumber(item.issue_ssp_1),
-            Issue_ssp1_small: formatNumber(item.issue_ssp_1_small),
-            Issue_ssp2: formatNumber(item.issue_ssp_2),
-            Issue_ssp2_small: formatNumber(item.issue_ssp_2_small),
-            Issue_sdp: formatNumber(item.issue_sdp),
-            
+            let ws
+            let transformed: any[] = [];
+            if (EditData.length > 0) {
+                transformed = EditData.map((item: BigTaihoData, idx: number) => ({
+                    Sl_No: idx + 1,
+                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+                    Item_Lot_No: item.LotNo,
+                    Origin: item.origin,
+                    Issue_No: item.altid,
+                    DPDS_Entry_Date: handletimezone(item.date),
+                    Mixing_Lot: item.mixingLot,
+                    Receive_Peeling: formatNumber(item.rcv_peeling),
+                    Borma_Peeling: formatNumber((Number(item.rcv_peeling) - Number(item.issue_add_2)).toString()),
+                    Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                    Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+                    Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
+                    Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
+                    Receive_DPDS: item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0,
+                    Receive_Mayur: item.rcv_mayur ? formatNumber(item.rcv_mayur) : 0,
+                    Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
+                    Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
+                    Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+                    Receive_Total: ((parseFloat(item.rcv_peeling) - parseFloat(item.issue_add_2)) +
+                        (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) +
+                        (item.rcv_village ? parseFloat(item.rcv_village) : 0) +
+                        (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) +
+                        (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) +
+                        (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) +
+                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) +
+                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2),
+                    Issue_ssp: formatNumber(item.issue_ssp),
+                    Issue_ssp_small: formatNumber(item.issue_ssp_small),
+                    Issue_swp_1: formatNumber(item.issue_swp_1),
+                    Issue_wsp: formatNumber(item.issue_wsp),
+                    Issue_bits: formatNumber(item.issue_bits),
+                    Issue_swp: formatNumber(item.issue_swp),
+                    Issue_bb: formatNumber(item.issue_bb),
+                    Issue_w_bb: formatNumber(item.issue_w_bb),
+                    Issue_bb_A: formatNumber(item.issue_bb_A),
+                    Issue_bb_1: formatNumber(item.issue_bb1),
+                    Issue_bb1_A: formatNumber(item.issue_bb1_A),
+                    Issue_bb_2: formatNumber(item.issue_bb_2),
+                    Issue_ssp1: formatNumber(item.issue_ssp_1),
+                    Issue_ssp1_small: formatNumber(item.issue_ssp_1_small),
+                    Issue_ssp2: formatNumber(item.issue_ssp_2),
+                    Issue_ssp2_small: formatNumber(item.issue_ssp_2_small),
+                    Issue_sdp: formatNumber(item.issue_sdp),
+                    Issue_Packing: formatNumber((parseFloat(item.issue_ssp) +
+                        parseFloat(item.issue_ssp_small) + parseFloat(item.issue_swp_1) +
+                        parseFloat(item.issue_wsp) + parseFloat(item.issue_bits) + parseFloat(item.issue_swp) +
+                        parseFloat(item.issue_bb) + parseFloat(item.issue_w_bb) + parseFloat(item.issue_bb_A) +
+                        parseFloat(item.issue_bb1) + parseFloat(item.issue_bb1_A) + parseFloat(item.issue_bb_2) +
+                        parseFloat(item.issue_ssp_1) + parseFloat(item.issue_ssp_1_small) + parseFloat(item.issue_ssp_2) +
+                        parseFloat(item.issue_ssp_2_small) + parseFloat(item.issue_sdp)).toString()),
+                    Issue_Husk: formatNumber(item.issue_husk),
+                    Issue_Rejection: formatNumber(item.issue_rejection),
+                    Issue_Village: formatNumber(item.issue_village),
+                    Issue_Sorting: formatNumber(item.issue_sorting),
+                    Issue_DPDS: formatNumber(item.issue_dpds),
+                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                    Mc_On_Taiho: handleAMPM(item.Mc_on_1.slice(0, 5)),
+                    Mc_Off_Taiho: handleAMPM(item.Mc_off_1.slice(0, 5)),
+                    Mc_Breakdown_Taiho: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Taiho: item.otherTime_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_Spectrum: handleAMPM(item.Mc_on_2.slice(0, 5)),
+                    Mc_Off_Spectrum: handleAMPM(item.Mc_off_2.slice(0, 5)),
+                    Mc_Breakdown_Spectrum: item.Mc_breakdown_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Spectrum: item.otherTime_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_Hamsa_Amrita: handleAMPM(item.Mc_on_3.slice(0, 5)),
+                    Mc_Off_Hamsa_Amrita: handleAMPM(item.Mc_off_3.slice(0, 5)),
+                    Mc_Breakdown_Amrita: item.Mc_breakdown_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Amrita: item.otherTime_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Operator_Day: item.noOfdayOperators,
+                    Operator_Night: item.noOfnightOperators,
+                    Edit_Status: item.editStatus,
+                    Created_By: item.CreatedBy,
+                    Modified_By: item.modifiedBy
+                }));
+                //setTransformedData(transformed);
+                ws = XLSX.utils.json_to_sheet(transformed);
+            }
+            else {
+                transformed = data1.rcnEntries.map((item: BigTaihoData, idx: number) => ({
+                    Sl_No: idx + 1,
+                    Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+                    Item_Lot_No: item.LotNo,
+                    Origin: item.origin,
+                    Issue_No: item.altid,
+                    DPDS_Entry_Date: handletimezone(item.date),
+                    Mixing_Lot: item.mixingLot,
 
-            Issue_Packing:formatNumber((parseFloat(item.issue_ssp) +
-            parseFloat(item.issue_ssp_small)+parseFloat(item.issue_swp_1)+
-            parseFloat(item.issue_wsp) +parseFloat(item.issue_bits)+parseFloat(item.issue_swp)+
-            parseFloat(item.issue_bb) +parseFloat(item.issue_w_bb)+parseFloat(item.issue_bb_A)+
-            parseFloat(item.issue_bb1) +parseFloat(item.issue_bb1_A)+parseFloat(item.issue_bb_2)+
-            parseFloat(item.issue_ssp_1) +parseFloat(item.issue_ssp_1_small)+parseFloat(item.issue_ssp_2)+
-            parseFloat(item.issue_ssp_2_small) +parseFloat(item.issue_sdp)).toString()),
-            Issue_Husk: formatNumber(item.issue_husk),
-            Issue_Rejection: formatNumber(item.issue_rejection),
-            Issue_Village: formatNumber(item.issue_village),
-            Issue_Sorting: formatNumber(item.issue_sorting),
-            Issue_DPDS: formatNumber(item.issue_dpds),
-      
-            Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
-            Mc_On_Taiho: handleAMPM(item.Mc_on_1.slice(0, 5)),
-            Mc_Off_Taiho: handleAMPM(item.Mc_off_1.slice(0, 5)),
-            Mc_Breakdown_Taiho: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Other_Time_Taiho: item.otherTime_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Mc_On_Spectrum: handleAMPM(item.Mc_on_2.slice(0, 5)),
-            Mc_Off_Spectrum: handleAMPM(item.Mc_off_2.slice(0, 5)),
-            Mc_Breakdown_Spectrum: item.Mc_breakdown_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Other_Time_Spectrum: item.otherTime_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Mc_On_Hamsa_Amrita: handleAMPM(item.Mc_on_3.slice(0, 5)),
-            Mc_Off_Hamsa_Amrita: handleAMPM(item.Mc_off_3.slice(0, 5)),
-            Mc_Breakdown_Amrita: item.Mc_breakdown_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Other_Time_Amrita: item.otherTime_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
-            Operator_Day: item.noOfdayOperators,
-            Operator_Night: item.noOfnightOperators,
-            Edit_Status: item.editStatus,
-            Created_By: item.CreatedBy,
-            Modified_By: item.modifiedBy 
+                    Receive_Peeling: formatNumber(item.rcv_peeling),
+                    Borma_Peeling: formatNumber((Number(item.rcv_peeling) - Number(item.issue_add_2)).toString()),
+                    Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                    Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+                    Receive_Sorting: item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0,
+                    Receive_Village: item.rcv_village ? formatNumber(item.rcv_village) : 0,
+                    Receive_DPDS: item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0,
+                    Receive_Mayur: item.rcv_mayur ? formatNumber(item.rcv_mayur) : 0,
+                    Receive_Hamsa: item.rcv_hamsa ? formatNumber(item.rcv_hamsa) : 0,
+                    Receive_LW: item.rcv_lw ? formatNumber(item.rcv_lw) : 0,
+                    Receive_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+                    Receive_Total: ((parseFloat(item.rcv_peeling) - parseFloat(item.issue_add_2)) +
+                        (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0) +
+                        (item.rcv_village ? parseFloat(item.rcv_village) : 0) +
+                        (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) +
+                        (item.rcv_mayur ? parseFloat(item.rcv_mayur) : 0) +
+                        (item.rcv_hamsa ? parseFloat(item.rcv_hamsa) : 0) +
+                        (item.rcv_lw ? parseFloat(item.rcv_lw) : 0) +
+                        (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0)).toFixed(2),
 
-            }));
-            // setTransformedData(transformed);
-            ws = XLSX.utils.json_to_sheet(transformed);
+
+                    Issue_ssp: formatNumber(item.issue_ssp),
+                    Issue_ssp_small: formatNumber(item.issue_ssp_small),
+                    Issue_swp_1: formatNumber(item.issue_swp_1),
+                    Issue_wsp: formatNumber(item.issue_wsp),
+                    Issue_bits: formatNumber(item.issue_bits),
+                    Issue_swp: formatNumber(item.issue_swp),
+                    Issue_bb: formatNumber(item.issue_bb),
+                    Issue_w_bb: formatNumber(item.issue_w_bb),
+                    Issue_bb_A: formatNumber(item.issue_bb_A),
+                    Issue_bb_1: formatNumber(item.issue_bb1),
+                    Issue_bb1_A: formatNumber(item.issue_bb1_A),
+                    Issue_bb_2: formatNumber(item.issue_bb_2),
+                    Issue_ssp1: formatNumber(item.issue_ssp_1),
+                    Issue_ssp1_small: formatNumber(item.issue_ssp_1_small),
+                    Issue_ssp2: formatNumber(item.issue_ssp_2),
+                    Issue_ssp2_small: formatNumber(item.issue_ssp_2_small),
+                    Issue_sdp: formatNumber(item.issue_sdp),
+
+
+                    Issue_Packing: formatNumber((parseFloat(item.issue_ssp) +
+                        parseFloat(item.issue_ssp_small) + parseFloat(item.issue_swp_1) +
+                        parseFloat(item.issue_wsp) + parseFloat(item.issue_bits) + parseFloat(item.issue_swp) +
+                        parseFloat(item.issue_bb) + parseFloat(item.issue_w_bb) + parseFloat(item.issue_bb_A) +
+                        parseFloat(item.issue_bb1) + parseFloat(item.issue_bb1_A) + parseFloat(item.issue_bb_2) +
+                        parseFloat(item.issue_ssp_1) + parseFloat(item.issue_ssp_1_small) + parseFloat(item.issue_ssp_2) +
+                        parseFloat(item.issue_ssp_2_small) + parseFloat(item.issue_sdp)).toString()),
+                    Issue_Husk: formatNumber(item.issue_husk),
+                    Issue_Rejection: formatNumber(item.issue_rejection),
+                    Issue_Village: formatNumber(item.issue_village),
+                    Issue_Sorting: formatNumber(item.issue_sorting),
+                    Issue_DPDS: formatNumber(item.issue_dpds),
+
+                    Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+                    Mc_On_Taiho: handleAMPM(item.Mc_on_1.slice(0, 5)),
+                    Mc_Off_Taiho: handleAMPM(item.Mc_off_1.slice(0, 5)),
+                    Mc_Breakdown_Taiho: item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Taiho: item.otherTime_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_Spectrum: handleAMPM(item.Mc_on_2.slice(0, 5)),
+                    Mc_Off_Spectrum: handleAMPM(item.Mc_off_2.slice(0, 5)),
+                    Mc_Breakdown_Spectrum: item.Mc_breakdown_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Spectrum: item.otherTime_2.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Mc_On_Hamsa_Amrita: handleAMPM(item.Mc_on_3.slice(0, 5)),
+                    Mc_Off_Hamsa_Amrita: handleAMPM(item.Mc_off_3.slice(0, 5)),
+                    Mc_Breakdown_Amrita: item.Mc_breakdown_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Other_Time_Amrita: item.otherTime_3.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1') + ' hr',
+                    Operator_Day: item.noOfdayOperators,
+                    Operator_Night: item.noOfnightOperators,
+                    Edit_Status: item.editStatus,
+                    Created_By: item.CreatedBy,
+                    Modified_By: item.modifiedBy
+
+                }));
+                // setTransformedData(transformed);
+                ws = XLSX.utils.json_to_sheet(transformed);
+            }
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            saveAs(blob, 'BigTaiho_Entry_' + currDate + '.xlsx');
         }
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, 'BigTaiho_Entry_' + currDate + '.xlsx');
+
     }
     const handleSearch = async () => {
 
         setEditData([])
         setblockpagen('flex')
-        const response = await axios.put('/api/bigTaiho/bigTaihoprimarysearch', {
-            searchitem: blConNo,
-            fromDate: fromdate,
-            toDate: todate,
-            origin: origin,
+        if (searchType === 'LOT') {
+            const response = await axios.put('/api/bigTaiho/bigTaihoprimarysearch', {
+                searchitem: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
+                origin: origin,
+                type: 'LOT'
 
 
-        }, {
-            params: {
-                page: page,
-                limit: limit
+            }, {
+                params: {
+                    page: page,
+                    limit: limit
+                }
+            })
+            const data = await response.data
+            if (data.rcnEntries.length === 0 && page > 1) {
+                setPage((prev) => prev - 1)
+
             }
-        })
-        const data = await response.data
-        if (data.rcnEntries.length === 0 && page > 1) {
-            setPage((prev) => prev - 1)
-
+            setData(data.rcnEntries)
         }
-        setData(data.rcnEntries)
+        else {
+            const response = await axios.put('/api/bigTaiho/bigTaihoprimarysearch', {
+                searchitem: blConNo,
+                fromDate: fromdate,
+                toDate: todate,
+                origin: origin,
+                type: 'VLOT'
+
+
+            }, {
+                params: {
+                    page: page,
+                    limit: limit
+                }
+            })
+            const data = await response.data
+            if (data.rcnEntries.length === 0 && page > 1) {
+                setPage((prev) => prev - 1)
+
+            }
+            setData(data.rcnEntries)
+        }
+
 
 
     }
@@ -412,6 +627,19 @@ const BigTaihoTable = () => {
         <>
 
         <div className="ml-5 mt-5 ">
+            <div className="w-full">
+                    <select className='mb-5 h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                        onChange={(e) => setsearchType(e.target.value)} value={searchType}>
+
+                        {dropdown.map((data, index) => (
+                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                {data}
+                            </option>
+                        ))}
+                    </select>
+                </div>
             <div className="flex flexbox-search">
 
                 <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />

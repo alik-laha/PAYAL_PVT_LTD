@@ -76,6 +76,8 @@ const VillageTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const { editVillageLotWiseData } = useContext(Context);
     const [Data, setData] = useState<VilageData[]>([])
+     const dropdown = ['LOT', 'V-LOT']
+        const [searchType, setsearchType] = useState('LOT')
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 
@@ -110,11 +112,135 @@ const VillageTable = () => {
         })
     }, [page])
     const exportToExcel = async () => { 
+
+         if (searchType === 'LOT') {
         const response = await axios.put('/api/villageout/villageprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
             origin: origin,
+            type:'LOT'
+        })
+        const data1 = await response.data
+
+        let ws
+        let transformed: any[] = [];
+        if (EditData.length > 0) {
+            transformed = EditData.map((item: VilageData, idx: number) => ({
+            Sl_No: idx + 1, 
+            Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
+            Item_Lot_No: item.LotNo,
+            Origin: item.origin,
+            Issue_No: item.altid,
+            Rejection_Entry_Date: handletimezone(item.date),
+                Mixing_Lot: item.mixingLot,   
+                Opening_Peeling: formatNumber(item.rcv_peeling),
+                Borma_Peeling: formatNumber(item.issue_add_10),
+                Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+                Opening_Mayur: formatNumber(item.rcv_mayur),
+                Borma_Mayur: formatNumber(item.issue_add_11),
+                Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
+                Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
+                Opening_Rejection: formatNumber(item.rcv_rejection),
+                Borma_Rejection: formatNumber(item.issue_add_12),
+                Rejection_Borma_Loss_Kg: formatNumber(item.issue_add_8),
+                Rejection_Borma_Loss_Percentage: formatNumber(item.issue_add_9),
+                Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+                Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
+                Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
+                Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
+                Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
+               
+                Receive_Total:formatNumber((parseFloat(item.issue_add_10)+parseFloat(item.issue_add_11)+parseFloat(item.issue_add_12)
+                +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
+                +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
+                +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0).toString()),  
+                issue_packing: formatNumber(item.issue_packing),
+                issue_mayur: formatNumber(item.issue_mayur),
+                issue_hamsa: formatNumber(item.issue_hamsa),
+                issue_bigTaiho: formatNumber(item.issue_bigTaiho),
+                issue_rejection: formatNumber(item.issue_rejection),
+                issue_outside: formatNumber(item.issue_outside),
+                GatePass_No: item.Remarks,       
+                Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
+                Labour: item.noOfdayOperators,
+                Superisor: item.noOfnightOperators,
+               
+           
+            Edit_Status: item.editStatus,
+            Created_By: item.CreatedBy,
+            Modified_By: item.modifiedBy 
+
+            }));
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        else {
+            transformed = data1.rcnEntries.map((item: VilageData, idx: number) => ({
+                Sl_No: idx + 1, 
+            Issue_Type: item.altid==1 ? 'Fresh Issue' : 'Re-Issue',
+            Item_Lot_No: item.LotNo,
+            Origin: item.origin,
+            Issue_No: item.altid,
+            Rejection_Entry_Date: handletimezone(item.date),
+                Mixing_Lot: item.mixingLot,   
+                Opening_Peeling: formatNumber(item.rcv_peeling),
+                Borma_Peeling: formatNumber(item.issue_add_10),
+                Peeling_Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                Peeling_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+                Opening_Mayur: formatNumber(item.rcv_mayur),
+                Borma_Mayur: formatNumber(item.issue_add_11),
+                Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_5),
+                Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
+                Opening_Rejection: formatNumber(item.rcv_rejection),
+                Borma_Rejection: formatNumber(item.issue_add_12),
+                Rejection_Borma_Loss_Kg: formatNumber(item.issue_add_8),
+                Rejection_Borma_Loss_Percentage: formatNumber(item.issue_add_9),
+                Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+                Opening_LW: item.rcv_wholes ? formatNumber(item.rcv_lw) : 0,
+                Opening_DPDS: item.rcv_wholes ? formatNumber(item.rcv_dpds) : 0,
+                Opening_Sorting: item.rcv_wholes ? formatNumber(item.rcv_sorting) : 0,
+                Opening_BigTaiho: item.rcv_wholes ? formatNumber(item.rcv_bigTaiho) : 0,
+               
+                Receive_Total:formatNumber((parseFloat(item.issue_add_10)+parseFloat(item.issue_add_11)+parseFloat(item.issue_add_12)
+                +item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0+item.rcv_lw ? formatNumber(item.rcv_lw) : 0
+                +item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0+item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0
+                +item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0).toString()),  
+                issue_packing: formatNumber(item.issue_packing),
+                issue_mayur: formatNumber(item.issue_mayur),
+                issue_hamsa: formatNumber(item.issue_hamsa),
+                issue_bigTaiho: formatNumber(item.issue_bigTaiho),
+                issue_rejection: formatNumber(item.issue_rejection),
+                issue_outside: formatNumber(item.issue_outside),
+                GatePass_No: item.Remarks,       
+                Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),          
+                Labour: item.noOfdayOperators,
+                Superisor: item.noOfnightOperators,
+               
+           
+            Edit_Status: item.editStatus,
+            Created_By: item.CreatedBy,
+            Modified_By: item.modifiedBy 
+
+            }));
+            // setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'Village_Production_Entry_' + currDate + '.xlsx');
+
+    }
+    else{
+const response = await axios.put('/api/villageout/villageprimarysearch', {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            origin: origin,
+            type:'VLOT'
         })
         const data1 = await response.data
 
@@ -228,15 +354,18 @@ const VillageTable = () => {
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
         saveAs(blob, 'Village_Production_Entry_' + currDate + '.xlsx');
     }
+    }
     const handleSearch = async () => {
 
         setEditData([])
         setblockpagen('flex')
+         if (searchType === 'LOT') {
         const response = await axios.put('/api/villageout/villageprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
             origin: origin,
+            type:'LOT'
 
 
         }, {
@@ -251,7 +380,28 @@ const VillageTable = () => {
 
         }
         setData(data.rcnEntries)
+    }
+    else{
+        const response = await axios.put('/api/villageout/villageprimarysearch', {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            origin: origin,
+            type:'VLOT'
 
+        }, {
+            params: {
+                page: page,
+                limit: limit
+            }
+        })
+        const data = await response.data
+        if (data.rcnEntries.length === 0 && page > 1) {
+            setPage((prev) => prev - 1)
+
+        }
+        setData(data.rcnEntries)
+    }
 
     }
     useEffect(() => {
@@ -334,6 +484,19 @@ const VillageTable = () => {
         <>
 
         <div className="ml-5 mt-5 ">
+            <div className="w-full">
+                    <select className='mb-5 h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                        onChange={(e) => setsearchType(e.target.value)} value={searchType}>
+
+                        {dropdown.map((data, index) => (
+                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                {data}
+                            </option>
+                        ))}
+                    </select>
+                </div>
             <div className="flex flexbox-search">
 
                 <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />

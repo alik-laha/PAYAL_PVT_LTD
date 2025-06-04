@@ -76,6 +76,8 @@ const LWTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const { editLWLotWiseData } = useContext(Context);
     const [Data, setData] = useState<LWData[]>([])
+    const dropdown = ['LOT', 'V-LOT']
+    const [searchType, setsearchType] = useState('LOT')
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 
@@ -110,11 +112,13 @@ const LWTable = () => {
         })
     }, [page])
     const exportToExcel = async () => {
+         if (searchType === 'LOT') {
         const response = await axios.put('/api/lw/lwprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
             origin: origin,
+            type:'LOT'
         })
         const data1 = await response.data
 
@@ -306,15 +310,216 @@ const LWTable = () => {
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
         saveAs(blob, 'LW_Entry_' + currDate + '.xlsx');
     }
-    const handleSearch = async () => {
-
-        setEditData([])
-        setblockpagen('flex')
+    else{
         const response = await axios.put('/api/lw/lwprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
             origin: origin,
+            type:'VLOT'
+        })
+        const data1 = await response.data
+
+        let ws
+        let transformed: any[] = [];
+        if (EditData.length > 0) {
+            transformed = EditData.map((item: LWData, idx: number) => ({
+                Sl_No: idx + 1,
+                Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+                Item_Lot_No: item.LotNo,
+                Origin: item.origin,
+                Issue_No: item.altid,
+                LW_Entry_Date: handletimezone(item.date),
+                Mixing_Lot: item.mixingLot,
+
+                Opening_Mayur: formatNumber(item.rcv_mayur),
+                Borma_Mayur: formatNumber(item.issue_add_7),
+                Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+                Opening_Hamsa: formatNumber(item.rcv_hamsa),
+                Borma_Hamsa: formatNumber(item.issue_add_8),
+                Hamsa_Borma_Loss_Kg: formatNumber(item.issue_add_5),
+                Hamsa_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
+                Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+                Receive_Total: formatNumber((parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8)
+                    + item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0).toString()),
+                issue_kw: formatNumber(item.issue_kw),
+                issue_kw_1: formatNumber(item.issue_kw_1),
+                issue_kw_2: formatNumber(item.issue_kw_2),
+                issue_kn: formatNumber(item.issue_kn),
+                issue_dw: formatNumber(item.issue_dw),
+                issue_dw_1: formatNumber(item.issue_dw_1),
+                issue_dw_2: formatNumber(item.issue_dw_2),
+                issue_ow: formatNumber(item.issue_ow),
+                issue_ow_1: formatNumber(item.issue_ow_1),
+                issue_ow_2: formatNumber(item.issue_ow_2),
+                issue_jw: formatNumber(item.issue_jw),
+                issue_pw: formatNumber(item.issue_pw),
+                issue_row: formatNumber(item.issue_row),
+                issue_rej_1: formatNumber(item.issue_rej_1),
+                issue_lw3_180: formatNumber(item.issue_lw3_180),
+                issue_lw3_210: formatNumber(item.issue_lw3_210),
+                issue_lw3_240: formatNumber(item.issue_lw3_240),
+                issue_lw3_280: formatNumber(item.issue_lw3_280),
+                issue_lw3_360: formatNumber(item.issue_lw3_360),
+                issue_lw2: formatNumber(item.issue_lw2),
+                issue_lw4: formatNumber(item.issue_lw4),
+                issue_lw5: formatNumber(item.issue_lw5),
+                issue_lw6: formatNumber(item.issue_lw6),
+                issue_lw7: formatNumber(item.issue_lw7),
+                issue_rej_3: formatNumber(item.issue_rej_3),
+                issue_rej_4: formatNumber(item.issue_rej_4),
+                issue_jb2: formatNumber(item.issue_jb2),
+                issue_sjb: formatNumber(item.issue_sjb),
+                issue_k_240: formatNumber(item.issue_k_240),
+                issue_k_280: formatNumber(item.issue_k_280),
+                issue_k_360: formatNumber(item.issue_k_360),
+                issue_pkw: formatNumber(item.issue_pkw),
+                issue_bw: formatNumber(item.issue_bw),
+                issue_rw: formatNumber(item.issue_rw),
+                issue_rrw: formatNumber(item.issue_rrw),
+                issue_fw: formatNumber(item.issue_fw),
+                issue_lw: formatNumber(item.issue_lw),
+                Issue_Packing: formatNumber((
+                    parseFloat(item.issue_kw) + parseFloat(item.issue_kw_1) + parseFloat(item.issue_kw_2) +
+                    parseFloat(item.issue_kn) + parseFloat(item.issue_dw) + parseFloat(item.issue_dw_1) +
+                    parseFloat(item.issue_dw_2) + parseFloat(item.issue_ow) + parseFloat(item.issue_ow_1) +
+                    parseFloat(item.issue_ow_2) + parseFloat(item.issue_jw) + parseFloat(item.issue_pw) +
+                    parseFloat(item.issue_row) + parseFloat(item.issue_rej_1) + parseFloat(item.issue_lw3_180) +
+                    parseFloat(item.issue_lw3_210) + parseFloat(item.issue_lw3_240) + parseFloat(item.issue_lw3_280) +
+                    parseFloat(item.issue_lw3_360) + parseFloat(item.issue_lw2) + parseFloat(item.issue_lw4) +
+                    parseFloat(item.issue_lw5) + parseFloat(item.issue_lw6) + parseFloat(item.issue_lw7) +
+                    parseFloat(item.issue_rej_3) + parseFloat(item.issue_rej_4) + parseFloat(item.issue_jb2) +
+                    parseFloat(item.issue_sjb) + parseFloat(item.issue_k_240) + parseFloat(item.issue_k_280) +
+                    parseFloat(item.issue_k_360) + parseFloat(item.issue_pkw) + parseFloat(item.issue_bw) +
+                    parseFloat(item.issue_rw) + parseFloat(item.issue_rrw) + parseFloat(item.issue_fw) +
+                    parseFloat(item.issue_lw)).toString()),
+                issue_village: formatNumber(item.issue_village),
+                issue_bigTaiho: formatNumber(item.issue_bigTaiho),
+                issue_hamsa: formatNumber(item.issue_hamsa),
+                issue_rejection: formatNumber(item.issue_rejection),
+                Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+
+                Labour: item.noOfdayOperators,
+                Superisor: item.noOfnightOperators,
+
+
+                Edit_Status: item.editStatus,
+                Created_By: item.CreatedBy,
+                Modified_By: item.modifiedBy
+
+            }));
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        else {
+            transformed = data1.rcnEntries.map((item: LWData, idx: number) => ({
+                Sl_No: idx + 1,
+                Issue_Type: item.altid == 1 ? 'Fresh Issue' : 'Re-Issue',
+                Item_Lot_No: item.LotNo,
+                Origin: item.origin,
+                Issue_No: item.altid,
+                LW_Entry_Date: handletimezone(item.date),
+                Mixing_Lot: item.mixingLot,
+
+                Opening_Mayur: formatNumber(item.rcv_mayur),
+                Borma_Mayur: formatNumber((parseFloat(item.rcv_mayur)-parseFloat(item.issue_add_2)).toString()),
+                Mayur_Borma_Loss_Kg: formatNumber(item.issue_add_2),
+                Mayur_Borma_Loss_Percentage: formatNumber(item.issue_add_3),
+                Opening_Hamsa: formatNumber(item.rcv_hamsa),
+                Borma_Hamsa: formatNumber((parseFloat(item.rcv_mayur)-parseFloat(item.issue_add_2)).toString()),
+                Hamsa_Borma_Loss_Kg: formatNumber(item.issue_add_5),
+                Hamsa_Borma_Loss_Percentage: formatNumber(item.issue_add_6),
+                Opening_Wholes: item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0,
+                Receive_Total: formatNumber((parseFloat(item.issue_add_7) + parseFloat(item.issue_add_8)
+                    + item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0).toString()),
+                issue_kw: formatNumber(item.issue_kw),
+                issue_kw_1: formatNumber(item.issue_kw_1),
+                issue_kw_2: formatNumber(item.issue_kw_2),
+                issue_kn: formatNumber(item.issue_kn),
+                issue_dw: formatNumber(item.issue_dw),
+                issue_dw_1: formatNumber(item.issue_dw_1),
+                issue_dw_2: formatNumber(item.issue_dw_2),
+                issue_ow: formatNumber(item.issue_ow),
+                issue_ow_1: formatNumber(item.issue_ow_1),
+                issue_ow_2: formatNumber(item.issue_ow_2),
+                issue_jw: formatNumber(item.issue_jw),
+                issue_pw: formatNumber(item.issue_pw),
+                issue_row: formatNumber(item.issue_row),
+                issue_rej_1: formatNumber(item.issue_rej_1),
+                issue_lw3_180: formatNumber(item.issue_lw3_180),
+                issue_lw3_210: formatNumber(item.issue_lw3_210),
+                issue_lw3_240: formatNumber(item.issue_lw3_240),
+                issue_lw3_280: formatNumber(item.issue_lw3_280),
+                issue_lw3_360: formatNumber(item.issue_lw3_360),
+                issue_lw2: formatNumber(item.issue_lw2),
+                issue_lw4: formatNumber(item.issue_lw4),
+                issue_lw5: formatNumber(item.issue_lw5),
+                issue_lw6: formatNumber(item.issue_lw6),
+                issue_lw7: formatNumber(item.issue_lw7),
+                issue_rej_3: formatNumber(item.issue_rej_3),
+                issue_rej_4: formatNumber(item.issue_rej_4),
+                issue_jb2: formatNumber(item.issue_jb2),
+                issue_sjb: formatNumber(item.issue_sjb),
+                issue_k_240: formatNumber(item.issue_k_240),
+                issue_k_280: formatNumber(item.issue_k_280),
+                issue_k_360: formatNumber(item.issue_k_360),
+                issue_pkw: formatNumber(item.issue_pkw),
+                issue_bw: formatNumber(item.issue_bw),
+                issue_rw: formatNumber(item.issue_rw),
+                issue_rrw: formatNumber(item.issue_rrw),
+                issue_fw: formatNumber(item.issue_fw),
+                issue_lw: formatNumber(item.issue_lw),
+                Issue_Packing: formatNumber((
+                    parseFloat(item.issue_kw) + parseFloat(item.issue_kw_1) + parseFloat(item.issue_kw_2) +
+                    parseFloat(item.issue_kn) + parseFloat(item.issue_dw) + parseFloat(item.issue_dw_1) +
+                    parseFloat(item.issue_dw_2) + parseFloat(item.issue_ow) + parseFloat(item.issue_ow_1) +
+                    parseFloat(item.issue_ow_2) + parseFloat(item.issue_jw) + parseFloat(item.issue_pw) +
+                    parseFloat(item.issue_row) + parseFloat(item.issue_rej_1) + parseFloat(item.issue_lw3_180) +
+                    parseFloat(item.issue_lw3_210) + parseFloat(item.issue_lw3_240) + parseFloat(item.issue_lw3_280) +
+                    parseFloat(item.issue_lw3_360) + parseFloat(item.issue_lw2) + parseFloat(item.issue_lw4) +
+                    parseFloat(item.issue_lw5) + parseFloat(item.issue_lw6) + parseFloat(item.issue_lw7) +
+                    parseFloat(item.issue_rej_3) + parseFloat(item.issue_rej_4) + parseFloat(item.issue_jb2) +
+                    parseFloat(item.issue_sjb) + parseFloat(item.issue_k_240) + parseFloat(item.issue_k_280) +
+                    parseFloat(item.issue_k_360) + parseFloat(item.issue_pkw) + parseFloat(item.issue_bw) +
+                    parseFloat(item.issue_rw) + parseFloat(item.issue_rrw) + parseFloat(item.issue_fw) +
+                    parseFloat(item.issue_lw)).toString()),
+                issue_village: formatNumber(item.issue_village),
+                issue_bigTaiho: formatNumber(item.issue_bigTaiho),
+                issue_hamsa: formatNumber(item.issue_hamsa),
+                issue_rejection: formatNumber(item.issue_rejection),
+                Current_Backlog: Number(item.current_backlog) < 0 ? formatNumberWithSign(Number(item.current_backlog)) : formatNumberWithSign(Number(item.current_backlog)),
+
+                Labour: item.noOfdayOperators,
+                Superisor: item.noOfnightOperators,
+
+
+                Edit_Status: item.editStatus,
+                Created_By: item.CreatedBy,
+                Modified_By: item.modifiedBy
+
+            }));
+            // setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'LW_Entry_' + currDate + '.xlsx');
+    }
+    }
+    const handleSearch = async () => {
+
+        setEditData([])
+        setblockpagen('flex')
+         if (searchType === 'LOT') {
+        const response = await axios.put('/api/lw/lwprimarysearch', {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            origin: origin,
+            type:"LOT"
 
 
         }, {
@@ -329,6 +534,29 @@ const LWTable = () => {
 
         }
         setData(data.rcnEntries)
+    }
+    else{
+         const response = await axios.put('/api/lw/lwprimarysearch', {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            origin: origin,
+            type:"VLOT"
+
+
+        }, {
+            params: {
+                page: page,
+                limit: limit
+            }
+        })
+        const data = await response.data
+        if (data.rcnEntries.length === 0 && page > 1) {
+            setPage((prev) => prev - 1)
+
+        }
+        setData(data.rcnEntries)
+    }
 
 
     }
@@ -412,6 +640,19 @@ const LWTable = () => {
         <>
 
             <div className="ml-5 mt-5 ">
+                <div className="w-full">
+                    <select className='mb-5 h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                        onChange={(e) => setsearchType(e.target.value)} value={searchType}>
+
+                        {dropdown.map((data, index) => (
+                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                {data}
+                            </option>
+                        ))}
+                    </select>
+                </div>
                 <div className="flex flexbox-search">
 
                     <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />
