@@ -7,7 +7,7 @@ import rejectionModel from "../../model/rejectionModel";
 import villageProduction from "../../model/villageProductionModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import lotoriginmodel from "../../model/lotoriginModel";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import mixingModel from "../../model/mixingModel";
 
 // //Rejection.tsx
@@ -515,8 +515,8 @@ export const updateEntireRejection= async (req: Request, res: Response) => {
                  
                  if(lotupdate){
                    
-                    const data = await WhatsappMsg("Rejection", feeledBy,"modify_request","Production")
-                    console.log(data)
+                    //const data = await WhatsappMsg("Rejection", feeledBy,"modify_request","Production")
+                    //console.log(data)
                     return res.status(201).json({ message: "Edit Request of Rejection Entry Raised successfully" });
                
                 }

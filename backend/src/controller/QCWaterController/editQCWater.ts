@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 
 import {  QCWaterData } from "../../type/type";
 
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import QCWater from "../../model/QCWaterModel";
 import QCWaterEdit from "../../model/QCWaterEditModel";
 
@@ -45,8 +45,8 @@ const editQCWater = async (req: Request, res: Response) => {
         if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing QC Water" });
         const updatePackageMaterial = await QCWater.update({ editStatus: "Pending" }, { where: { id } });
         if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing QC Water" });
-        const data = await WhatsappMsg("QC Water", createdBynew,"modify_request","QC")
-        console.log(data)
+        //const data = await WhatsappMsg("QC Water", createdBynew,"modify_request","QC")
+        //console.log(data)
         return res.status(201).json({ message: "QC Water Entry Details edited successfully" });
         
 

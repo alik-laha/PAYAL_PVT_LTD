@@ -5,7 +5,7 @@ import rejectionModel from "../../model/rejectionModel";
 import villageProduction from "../../model/villageProductionModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import lotoriginmodel from "../../model/lotoriginModel";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import villageProductionEdit from "../../model/villageProductionEditModel";
 import Mayur from "../../model/mayurModel";
 import bigTaihoModel from "../../model/bigTaihoModel";
@@ -811,8 +811,8 @@ export const updateEntireVIllage= async (req: Request, res: Response) => {
                  
                  if(lotupdate){
                    
-                    const data = await WhatsappMsg("Village Production", feeledBy,"modify_request","Production")
-                    console.log(data)
+                    //const data = await WhatsappMsg("Village Production", feeledBy,"modify_request","Production")
+                   //console.log(data)
                     return res.status(201).json({ message: "Edit Request of Village Entry Raised successfully" });
                
                 }

@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 
 
-import {  StoreIssueData, storeRcvData } from "../../type/type";
+import {  StoreIssueData } from "../../type/type";
 
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import SkuModel from "../../model/SkuModel";
 //import VendorName from "../../model/vendorNameModel";
 
@@ -63,8 +63,8 @@ const editstoreIssue = async (req: Request, res: Response) => {
         if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Issue details" });
         const updatePackageMaterial = await ItemIssue.update({ editStatus: "Pending" }, { where: { id } });
         if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Issue Details" });
-        const data = await WhatsappMsg("Item Issue", createdBynew,"modify_request","Receiving")
-        console.log(data)
+        //const data = await WhatsappMsg("Item Issue", createdBynew,"modify_request","Receiving")
+        //console.log(data)
         return res.status(201).json({ message: "Item Issue Details edited successfully" });
         }
 

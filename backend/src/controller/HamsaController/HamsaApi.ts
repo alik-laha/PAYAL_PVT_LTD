@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import sequelize from "../../config/databaseConfig";
 import LotNo from "../../model/lotNomodel";
 import { Op } from "sequelize";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import lotoriginmodel from "../../model/lotoriginModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import mixingModel from "../../model/mixingModel";
@@ -1655,8 +1655,8 @@ export const updateEntireHamsa= async (req: Request, res: Response) => {
                  
                  if(lotupdate){
                    
-                    const data = await WhatsappMsg("Hamsa", feeledBy,"modify_request","Production")
-                    console.log(data)
+                   // const data = await WhatsappMsg("Hamsa", feeledBy,"modify_request","Production")
+                    //console.log(data)
                     return res.status(201).json({ message: "Edit Request of Hamsa Entry Raised successfully" });
                
                 }

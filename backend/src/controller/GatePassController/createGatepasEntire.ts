@@ -3,7 +3,7 @@ import gatePass from "../../model/gatepassModel";
 import sequelize from "../../config/databaseConfig";
 import gatePassMaster from "../../model/gatePassMasterModel";
 import RcnPrimary from "../../model/RcnEntryModel";
-import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
+//import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
 import generalPrimaryModel from "../../model/generalPrimaryModel";
@@ -62,8 +62,8 @@ try{
                                 truckNo:data.vehicle,    
                             },{transaction});
                             if(RCNIncoming){
-                                const data = await WpMsgGatePassRcv("Raw Cashew Incoming",gatepassNo,"gatepass_rcv_dispatch_final",'RCN Cashew IN')
-                                console.log(data)
+                                //const data = await WpMsgGatePassRcv("Raw Cashew Incoming",gatepassNo,"gatepass_rcv_dispatch_final",'RCN Cashew IN')
+                                //console.log(data)
                                 //return res.status(200).json({ message: "RCN Initial Entry Created Successfully" });
                             }
                             
@@ -77,8 +77,8 @@ try{
                                 truckNo:data.vehicle,    
                             },{transaction});
                             if(RCNout){
-                                const data = await WpMsgGatePassRcv("Finished Cashew Outgoing",gatepassNo,"gatepass_rcv_dispatch_final",'Finished Cashew OUT')
-                                console.log(data)
+                                //const data = await WpMsgGatePassRcv("Finished Cashew Outgoing",gatepassNo,"gatepass_rcv_dispatch_final",'Finished Cashew OUT')
+                                //console.log(data)
                                 //return res.status(200).json({ message: "RCN Initial Entry Created Successfully" });
                             }
                             
@@ -92,8 +92,8 @@ try{
                                 truckNo:data.vehicle,    
                             },{transaction});
                             if(PCIncoming){
-                                const data = await WpMsgGatePassRcv("Packaging Material", gatepassNo,"gatepass_rcv_dispatch_final",'PC IN')
-                                console.log(data)
+                                //const data = await WpMsgGatePassRcv("Packaging Material", gatepassNo,"gatepass_rcv_dispatch_final",'PC IN')
+                                //console.log(data)
                                 //return res.status(200).json({ message: "PC Initial Entry Created Successfully" });
                             }    
                         }
@@ -107,8 +107,8 @@ try{
                                 gateType:data.type   
                             },{transaction});
                             if(storeEntry){
-                                const data = await WpMsgGatePassRcv("Store", gatepassNo,"gatepass_rcv_dispatch_final",'STORE ENTRY')
-                                console.log(data)
+                                //const data = await WpMsgGatePassRcv("Store", gatepassNo,"gatepass_rcv_dispatch_final",'STORE ENTRY')
+                                //console.log(data)
                                 //return res.status(200).json({ message: "Store Entry Created Successfully" });
                             }
                             
@@ -123,8 +123,8 @@ try{
                     
                             },{transaction});               
                             if(generalEntry){
-                                const data = await WpMsgGatePassRcv("General", gatepassNo,"gatepass_rcv_dispatch_final",'GENERAL ENTRY')
-                                console.log(data)
+                                //const data = await WpMsgGatePassRcv("General", gatepassNo,"gatepass_rcv_dispatch_final",'GENERAL ENTRY')
+                                //console.log(data)
                                 //return res.status(200).json({ message: "General Item Entry Created Successfully" });
                             }
                             
@@ -140,8 +140,8 @@ try{
                             },{transaction});
                            
                             if(generalEntry){
-                                const data = await WpMsgGatePassRcv("Almond", gatepassNo,"gatepass_rcv_dispatch_final",'ALMOND ENTRY')
-                                console.log(data)
+                                //const data = await WpMsgGatePassRcv("Almond", gatepassNo,"gatepass_rcv_dispatch_final",'ALMOND ENTRY')
+                                //console.log(data)
                                // return res.status(200).json({ message: "Almond Item Entry Created Successfully" });
                             }
                             
@@ -158,8 +158,8 @@ try{
                             
                     
                             if(generalEntry){
-                                const data = await WpMsgGatePassRcv("Village Out", gatepassNo,"gatepass_rcv_dispatch_final",'VILLAGE ENTRY')
-                            console.log(data)
+                                //const data = await WpMsgGatePassRcv("Village Out", gatepassNo,"gatepass_rcv_dispatch_final",'VILLAGE ENTRY')
+                            //console.log(data)
                                // return res.status(200).json({ message: "Village Item Entry Created Successfully" });
                             }
                             
@@ -176,8 +176,8 @@ try{
                             
                     
                             if(generalEntry){
-                                const data = await WpMsgGatePassRcv("Village IN", gatepassNo,"gatepass_rcv_dispatch_final",'VILLAGE ENTRY')
-                            console.log(data)
+                                //const data = await WpMsgGatePassRcv("Village IN", gatepassNo,"gatepass_rcv_dispatch_final",'VILLAGE ENTRY')
+                            //console.log(data)
                                // return res.status(200).json({ message: "Village Item Entry Created Successfully" });
                             }
                             
@@ -194,8 +194,8 @@ try{
                             
                     
                             if(agarbatiEntry){
-                                const data = await WpMsgGatePassRcv("Agarbati", gatepassNo,"gatepass_rcv_dispatch_final",'AGARBATI ENTRY')
-                            console.log(data)
+                                //const data = await WpMsgGatePassRcv("Agarbati", gatepassNo,"gatepass_rcv_dispatch_final",'AGARBATI ENTRY')
+                            //console.log(data)
                                // return res.status(200).json({ message: "Village Item Entry Created Successfully" });
                             }
                             
@@ -212,8 +212,8 @@ try{
                             
                     
                             if(oilmill){
-                                const data = await WpMsgGatePassRcv("OilMill", gatepassNo,"gatepass_rcv_dispatch_final",'OILMILL ENTRY')
-                            console.log(data)
+                                //const data = await WpMsgGatePassRcv("OilMill", gatepassNo,"gatepass_rcv_dispatch_final",'OILMILL ENTRY')
+                            //console.log(data)
                                // return res.status(200).json({ message: "Village Item Entry Created Successfully" });
                             }
                             

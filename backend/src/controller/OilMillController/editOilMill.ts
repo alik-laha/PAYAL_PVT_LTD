@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
 
 import { AlmondrcvData } from "../../type/type";
-import WhatsappMsg from "../../helper/WhatsappMsg";
-import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
-import almondPrimaryEntryEditModel from "../../model/almondPrimaryEditModel";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import oilMillModel from "../../model/oilMillModel";
 import oilMillEditModel from "../../model/oilMillEditModel";
 //import VendorName from "../../model/vendorNameModel";
@@ -66,8 +64,8 @@ const EditOilMIllEntry = async (req: Request, res: Response) => {
         if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing OilMill Item" });
         const updatePackageMaterial = await oilMillModel.update({ editStatus: "Pending" }, { where: { id } });
         if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing OilMill Item" });
-        const data = await WhatsappMsg("OilMill Dispatch", createdBynew,"modify_request","Receiving")
-        console.log(data)
+        //const data = await WhatsappMsg("OilMill Dispatch", createdBynew,"modify_request","Receiving")
+        //console.log(data)
         return res.status(201).json({ message: "OilMill material edited successfully" });
 
         

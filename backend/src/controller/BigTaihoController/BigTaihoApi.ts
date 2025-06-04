@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import sequelize from "../../config/databaseConfig";
 import LotNo from "../../model/lotNomodel";
 import { Op } from "sequelize";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import lotoriginmodel from "../../model/lotoriginModel";
 import DPDS from "../../model/dpdsmodel";
 import sectionTransfer from "../../model/transactionsectionmodel";
@@ -1682,8 +1682,8 @@ export const updateEntireBigTaiho= async (req: Request, res: Response) => {
                  
                  if(lotupdate){
                    
-                    const data = await WhatsappMsg("BigTaiho", feeledBy,"modify_request","Production")
-                    console.log(data)
+                    //const data = await WhatsappMsg("BigTaiho", feeledBy,"modify_request","Production")
+                    //console.log(data)
                     return res.status(201).json({ message: "Edit Request of BigTaiho Entry Raised successfully" });
                
                 }

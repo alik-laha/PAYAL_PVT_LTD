@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import RcnPrimary from "../../model/RcnEntryModel";
-import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
+//import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
 import generalPrimaryModel from "../../model/generalPrimaryModel";
@@ -25,8 +25,8 @@ try{
         
 
         if(RCNIncoming){
-            const data = await WpMsgGatePassRcv("Raw Cashew Receiving", gatePassNo,"gatepass_rcv_dispatch_final",'RCN Cashew IN')
-            console.log(data)
+            //const data = await WpMsgGatePassRcv("Raw Cashew Receiving", gatePassNo,"gatepass_rcv_dispatch_final",'RCN Cashew IN')
+            //console.log(data)
             return res.status(200).json({ message: "RCN Initial Entry Created Successfully" });
         }
         
@@ -38,8 +38,8 @@ try{
             grossWt:grossWt,
             truckNo:vehicle,    
         });
-        const data = await WpMsgGatePassRcv("Packaging Material Receiving", gatePassNo,"gatepass_rcv_dispatch_final",'PC IN')
-        console.log(data)
+        //const data = await WpMsgGatePassRcv("Packaging Material Receiving", gatePassNo,"gatepass_rcv_dispatch_final",'PC IN')
+        //console.log(data)
 
         if(PCIncoming){
             return res.status(200).json({ message: "PC Initial Entry Created Successfully" });
@@ -55,8 +55,8 @@ try{
             gateType:type
 
         });
-        const data = await WpMsgGatePassRcv("Store Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch_final",'STORE ENTRY')
-        console.log(data)
+        //const data = await WpMsgGatePassRcv("Store Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch_final",'STORE ENTRY')
+        //console.log(data)
 
         if(storeEntry){
             return res.status(200).json({ message: "Store Entry Created Successfully" });
@@ -72,8 +72,8 @@ try{
             gateType:type
 
         });
-        const data = await WpMsgGatePassRcv("General Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch_final",'GENERAL ENTRY')
-        console.log(data)
+        //const data = await WpMsgGatePassRcv("General Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch_final",'GENERAL ENTRY')
+        //console.log(data)
 
         if(generalEntry){
             return res.status(200).json({ message: "General Item Entry Created Successfully" });
@@ -89,8 +89,8 @@ try{
             gateType:type
 
         });
-        const data = await WpMsgGatePassRcv("Almond Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch_final",'ALMOND ENTRY')
-        console.log(data)
+        //const data = await WpMsgGatePassRcv("Almond Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch_final",'ALMOND ENTRY')
+        //console.log(data)
 
         if(generalEntry){
             return res.status(200).json({ message: "Almond Item Entry Created Successfully" });
@@ -106,8 +106,8 @@ try{
             gateType:type
 
         });
-        const data = await WpMsgGatePassRcv("Village Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch_final",'VILLAGE ENTRY')
-        console.log(data)
+        //const data = await WpMsgGatePassRcv("Village Receiving/Dispatch", gatePassNo,"gatepass_rcv_dispatch_final",'VILLAGE ENTRY')
+        //console.log(data)
 
         if(generalEntry){
             return res.status(200).json({ message: "Village Item Entry Created Successfully" });

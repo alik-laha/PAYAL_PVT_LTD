@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import gatePassMaster from "../../model/gatePassMasterModel";
 import RcnPrimary from "../../model/RcnEntryModel";
-import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
+//import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
 import generalPrimaryModel from "../../model/generalPrimaryModel";
@@ -40,8 +40,8 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 });
         
                 if(rcndelete){
-                    const data = await WpMsgGatePassRcv("RCN Incoming", gatepassNo,"cancel_gatepass",feeledBy)
-            console.log(data)
+                   // const data = await WpMsgGatePassRcv("RCN Incoming", gatepassNo,"cancel_gatepass",feeledBy)
+            //console.log(data)
                     return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }
                 
@@ -55,8 +55,8 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 });
         
                 if(pmdelete){
-                    const data = await WpMsgGatePassRcv("Packaging Material", gatepassNo,"cancel_gatepass",feeledBy)
-            console.log(data)
+                   // const data = await WpMsgGatePassRcv("Packaging Material", gatepassNo,"cancel_gatepass",feeledBy)
+           // console.log(data)
                     return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }
                 
@@ -70,8 +70,8 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 });
         
                 if(pmdelete){
-                    const data = await WpMsgGatePassRcv("Finished Cashew", gatepassNo,"cancel_gatepass",feeledBy)
-            console.log(data)
+                   // const data = await WpMsgGatePassRcv("Finished Cashew", gatepassNo,"cancel_gatepass",feeledBy)
+            //console.log(data)
                     return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }
                 
@@ -84,8 +84,8 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 });
         
                 if(pmdelete){
-                    const data = await WpMsgGatePassRcv("Store Item", gatepassNo,"cancel_gatepass",feeledBy)
-            console.log(data)
+                    //const data = await WpMsgGatePassRcv("Store Item", gatepassNo,"cancel_gatepass",feeledBy)
+           // console.log(data)
                     return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }
                 
@@ -99,8 +99,8 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 });
         
                 if(pmdelete){
-                    const data = await WpMsgGatePassRcv("General Item", gatepassNo,"cancel_gatepass",feeledBy)
-            console.log(data)
+                   // const data = await WpMsgGatePassRcv("General Item", gatepassNo,"cancel_gatepass",feeledBy)
+          //  console.log(data)
                     return res.status(201).json({  message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }
                 
@@ -114,8 +114,8 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 });
         
                 if(pmdelete){
-                    const data = await WpMsgGatePassRcv("Almond", gatepassNo,"cancel_gatepass",feeledBy)
-            console.log(data)
+                    //const data = await WpMsgGatePassRcv("Almond", gatepassNo,"cancel_gatepass",feeledBy)
+           // console.log(data)
                     return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }
                 
@@ -129,8 +129,8 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 });
         
                 if(pmdelete){
-                    const data = await WpMsgGatePassRcv("Village", gatepassNo,"cancel_gatepass",feeledBy)
-            console.log(data)
+                   // const data = await WpMsgGatePassRcv("Village", gatepassNo,"cancel_gatepass",feeledBy)
+            //console.log(data)
                     return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }
                 
@@ -144,8 +144,8 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 });
         
                 if(pmdelete){
-                    const data = await WpMsgGatePassRcv("Village", gatepassNo,"cancel_gatepass",feeledBy)
-            console.log(data)
+                   // const data = await WpMsgGatePassRcv("Village", gatepassNo,"cancel_gatepass",feeledBy)
+            //console.log(data)
                     return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }
                 
@@ -159,8 +159,8 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 });
         
                 if(pmdelete){
-                    const data = await WpMsgGatePassRcv("Agarbati", gatepassNo,"cancel_gatepass",feeledBy)
-            console.log(data)
+                    //const data = await WpMsgGatePassRcv("Agarbati", gatepassNo,"cancel_gatepass",feeledBy)
+           // console.log(data)
                     return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }
                 
@@ -174,8 +174,8 @@ const updateCancelGatePass = async (req: Request, res: Response) => {
                 });
         
                 if(pmdelete){
-                    const data = await WpMsgGatePassRcv("OilMill", gatepassNo,"cancel_gatepass",feeledBy)
-            console.log(data)
+                  //  const data = await WpMsgGatePassRcv("OilMill", gatepassNo,"cancel_gatepass",feeledBy)
+           // console.log(data)
                     return res.status(201).json({ message: `Gatepass ID ${gatepassNo} is Canelled` });
                 }
                 

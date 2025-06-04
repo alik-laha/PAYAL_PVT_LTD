@@ -6,7 +6,7 @@ import sequelize from "../../config/databaseConfig";
 import LotNo from "../../model/lotNomodel";
 import { Op } from "sequelize";
 import MayurEdit from "../../model/mayureditModel";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import lotoriginmodel from "../../model/lotoriginModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import mixingModel from "../../model/mixingModel";
@@ -1725,8 +1725,8 @@ export const updateEntireMayur= async (req: Request, res: Response) => {
                  
                  if(lotupdate){
                    
-                    const data = await WhatsappMsg("Mayur", feeledBy,"modify_request","Production")
-                    console.log(data)
+                    //const data = await WhatsappMsg("Mayur", feeledBy,"modify_request","Production")
+                    //console.log(data)
                     return res.status(201).json({ message: "Edit Request of Mayur Entry Raised successfully" });
                
                 }

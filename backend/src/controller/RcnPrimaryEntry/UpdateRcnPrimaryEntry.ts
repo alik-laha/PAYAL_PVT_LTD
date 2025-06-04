@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import RcnPrimary from "../../model/RcnEntryModel";
 import RcnEdit from "../../model/RcnEditModel";
 import { RcnPrimaryModifyProps } from "../../type/type";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import gatePassMaster from "../../model/gatePassMasterModel";
 
 const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
@@ -66,8 +66,8 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
                             }
                         );
                         if(rcn){
-                            const data = await WhatsappMsg("RCN Primary Receiving", editedBy, "modify_request","Receiving")
-                        console.log(data)
+                            //const data = await WhatsappMsg("RCN Primary Receiving", editedBy, "modify_request","Receiving")
+                        //console.log(data)
                         return res.status(200).json({ message: "Rcn Entry updated successfully Wait for approval" });
                         }
                         
@@ -111,8 +111,8 @@ const UpdateRcnPrimaryEntry = async (req: Request, res: Response) => {
                                     }
                                 );
                                 if(rcn){
-                                    const data = await WhatsappMsg("RCN Primary Receiving", editedBy, "modify_request","Receiving")
-                                console.log(data)
+                                    //const data = await WhatsappMsg("RCN Primary Receiving", editedBy, "modify_request","Receiving")
+                                //console.log(data)
                                 return res.status(200).json({ message: "Rcn Entry updated successfully Wait for approval" });
                                 }
                                 

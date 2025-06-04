@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import RcnGrading from "../../model/RcnGradingModel";
 import RcnGradingEdit from "../../model/RcnGradingEditModel";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 
 const UpdateGradding = async (req: Request, res: Response) => {
     try {
@@ -35,8 +35,8 @@ const UpdateGradding = async (req: Request, res: Response) => {
             
             
             if (RcnGradingEditData) {
-                const data = await WhatsappMsg("RCN Grading", feeledBy,"modify_request","Production")
-                console.log(data)
+                //const data = await WhatsappMsg("RCN Grading", feeledBy,"modify_request","Production")
+                //console.log(data)
                 return res.status(200).json({ message: "Data Modification Request Sent Successfully" })
             }
             else {

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import { HumidrcvData } from "../../type/type";
 import sequelize from "../../config/databaseConfig";
 import Humidifier from "../../model/humidfierModel";
@@ -90,8 +90,8 @@ const updateHumid = async (req: Request, res: Response) => {
             if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Humidifier Item" });
             const updatePackageMaterial = await Humidifier.update({ editStatus: "Pending" }, { where: { id },transaction });
             if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Humidifier Item" });
-            const data = await WhatsappMsg("RCN Humidifier", createdBynew,"modify_request","Production")
-            console.log(data)
+            //const data = await WhatsappMsg("RCN Humidifier", createdBynew,"modify_request","Production")
+            //console.log(data)
             return res.status(201).json({ message: "Humidifier edited successfully" });
             
         })

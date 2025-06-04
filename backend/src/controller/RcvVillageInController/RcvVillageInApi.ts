@@ -6,7 +6,7 @@ import VendorName from "../../model/vendorNameModel";
 import { Op, Sequelize } from "sequelize";
 import RcvVillageInEditModel from "../../model/RcvVillageInEditModel";
 import { VillageInRcvData, vlotNoData } from "../../type/type";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import VLotNo from "../../model/vlotNomodel";
 import VLotDetails from "../../model/vLotDetailsModel";
 import RcnPeeling from "../../model/peelingModel";
@@ -685,8 +685,8 @@ export const editRcvVillageIn = async (req: Request, res: Response) => {
         if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Village material" });
         const updatePackageMaterial = await RcvVillageInModel.update({ editStatus: "Pending" }, { where: { id } });
         if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Village material" });
-        const data = await WhatsappMsg("Village Primary Rcv/Dispatch", createdBynew, "modify_request", "Production")
-        console.log(data)
+        //const data = await WhatsappMsg("Village Primary Rcv/Dispatch", createdBynew, "modify_request", "Production")
+        //console.log(data)
         return res.status(201).json({ message: "Village material edited successfully" });
 
 

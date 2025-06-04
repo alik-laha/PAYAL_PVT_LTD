@@ -10,7 +10,7 @@ import bigTaihoModel from "../../model/bigTaihoModel";
 import rejectionModel from "../../model/rejectionModel";
 import villageProduction from "../../model/villageProductionModel";
 import lotoriginmodel from "../../model/lotoriginModel";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import mixingModel from "../../model/mixingModel";
 
 // //LW.tsx
@@ -1461,8 +1461,8 @@ export const updateEntireLW = async (req: Request, res: Response) => {
 
                 if (lotupdate) {
 
-                    const data = await WhatsappMsg("Lower Grade", feeledBy, "modify_request", "Production")
-                    console.log(data)
+                    //const data = await WhatsappMsg("Lower Grade", feeledBy, "modify_request", "Production")
+                    //console.log(data)
                     return res.status(201).json({ message: "Edit Request of LW Entry Raised successfully" });
 
                 }
