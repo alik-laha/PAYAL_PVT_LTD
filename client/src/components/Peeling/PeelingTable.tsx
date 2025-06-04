@@ -72,6 +72,8 @@ const PeelingTable = () => {
     const [blConNo, setBlConNo] = useState<string>("")
     const { editPeelingLotWiseData } = useContext(Context);
     const [Data, setData] = useState<PeelingData[]>([])
+     const dropdown = ['LOT', 'V-LOT']
+            const [searchType, setsearchType] = useState('LOT')
     const approvesuccessdialog = document.getElementById('rcneditapproveScsDialog') as HTMLInputElement;
     const approvecloseDialogButton = document.getElementById('rcneditScscloseDialog') as HTMLInputElement;
 
@@ -106,11 +108,13 @@ const PeelingTable = () => {
         })
     }, [page])
     const exportToExcel = async () => { 
-        const response = await axios.put('/api/peeling/peelingprimarysearch', {
+         if (searchType === 'LOT') {
+              const response = await axios.put('/api/peeling/peelingprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
             origin: origin,
+            type:'LOT'
         })
         const data1 = await response.data
 
@@ -208,16 +212,125 @@ const PeelingTable = () => {
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
         saveAs(blob, 'Peeling_Entry_' + currDate + '.xlsx');
+         }
+         else{
+  const response = await axios.put('/api/peeling/peelingprimarysearch', {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            origin: origin,
+            type:'VLOT'
+        })
+        const data1 = await response.data
+
+        let ws
+        let transformed: any[] = [];
+        if (EditData.length > 0) {
+            transformed = EditData.map((item: PeelingData, idx: number) => ({
+                SL_No: idx + 1,
+                LotNo: item.LotNo,
+                date: handletimezone(item.date),
+                origin: item.origin,
+                Total_Input:formatNumber(item.TotalInput),
+                Pressure:formatNumber(item.pressure),
+                Moisture:item.moisture ,
+                Peeling_Time:item.peelingTime,
+                Unpeel_Piece:formatNumber(item.UnpeelPiece),
+                WholesPeel_Or_WholesJB: formatNumber(item.WholesPeel),
+                WholesUnpeel_Or_LW:formatNumber(item.WholesUnpeel),
+                DP: formatNumber(item.DP),
+                DS: formatNumber(item.DS),
+                DP1:formatNumber(item.DP1),
+                JJH: formatNumber(item.JJH),
+                SJH: formatNumber(item.SJH),
+                SJH1:formatNumber(item.SJH1),
+                JK_K:formatNumber(item.JK_K),
+                SP1:formatNumber(item.SP1),
+               JH1:formatNumber(item.JH1),
+               Husk:formatNumber(item.Husk),
+               Rejection: formatNumber(item.Rejection),
+               Big_Taiho: formatNumber(item.Big_Taiho),
+                Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
+                Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
+                Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),         
+                otherTime: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
+                Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
+                noOfOperators: Number(item.noOfOperators) || 0,
+                noOfOperators_Day:Number(item.noOfdayOperators) || 0,
+                noOfOperators_Night:Number(item.noOfnightOperators) || 0,
+                noOfOperators_Husk:Number(item.noOfhuskOperators) || 0,
+                NoOfTrolley:Number(item.NoOfTrolley) || 0,
+                Backlog:formatNumber(item.difference),
+                CreatedBy: item.CreatedBy,
+                editStatus: item.editStatus,
+                modifiedBy: item.modifiedBy
+            }));
+            //setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        else {
+            transformed = data1.rcnEntries.map((item: PeelingData, idx: number) => ({
+                SL_No: idx + 1,
+                LotNo: item.LotNo,
+                date: handletimezone(item.date),
+                origin: item.origin,
+                Total_Input:formatNumber(item.TotalInput),
+                Pressure:formatNumber(item.pressure),
+                Moisture:item.moisture ,
+                Peeling_Time:item.peelingTime,
+                Unpeel_Piece:formatNumber(item.UnpeelPiece),
+                WholesPeel_Or_WholesJB: formatNumber(item.WholesPeel),
+                WholesUnpeel_Or_LW:formatNumber(item.WholesUnpeel),
+                DP: formatNumber(item.DP),
+                DS: formatNumber(item.DS),
+                DP1:formatNumber(item.DP1),
+                JJH: formatNumber(item.JJH),
+                SJH: formatNumber(item.SJH),
+                SJH1:formatNumber(item.SJH1),
+                JK_K:formatNumber(item.JK_K),
+                SP1:formatNumber(item.SP1),
+               JH1:formatNumber(item.JH1),
+               Husk:formatNumber(item.Husk),
+               Rejection: formatNumber(item.Rejection),
+               Big_Taiho: formatNumber(item.Big_Taiho),
+                Mc_on: handleAMPM(item.Mc_on.slice(0, 5)),
+                Mc_off: handleAMPM(item.Mc_off.slice(0, 5)),
+                Mc_breakdown: item.Mc_breakdown.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),         
+                otherTime: item.otherTime.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1'),
+                Mc_runTime: item.Mc_runTime.slice(0, 5).replace(/00:00:00/g, '0').replace(/:00/g, '').replace(/^0/, ''),
+                noOfOperators: Number(item.noOfOperators) || 0,
+                noOfOperators_Day:Number(item.noOfdayOperators) || 0,
+                noOfOperators_Night:Number(item.noOfnightOperators) || 0,
+                noOfOperators_Husk:Number(item.noOfhuskOperators) || 0,
+                NoOfTrolley:Number(item.NoOfTrolley) || 0,
+                Backlog:formatNumber(item.difference),
+                CreatedBy: item.CreatedBy,
+                editStatus: item.editStatus,
+                modifiedBy: item.modifiedBy
+
+            }));
+            // setTransformedData(transformed);
+            ws = XLSX.utils.json_to_sheet(transformed);
+        }
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+        saveAs(blob, 'Peeling_Entry_' + currDate + '.xlsx');
+         }
+      
     }
     const handleSearch = async () => {
 
         setEditData([])
         setblockpagen('flex')
-        const response = await axios.put('/api/peeling/peelingprimarysearch', {
+        if (searchType === 'LOT') {
+const response = await axios.put('/api/peeling/peelingprimarysearch', {
             searchitem: blConNo,
             fromDate: fromdate,
             toDate: todate,
             origin: origin,
+            type:'LOT'
 
 
         }, {
@@ -232,6 +345,30 @@ const PeelingTable = () => {
 
         }
         setData(data.rcnEntries)
+        }
+        else{
+            const response = await axios.put('/api/peeling/peelingprimarysearch', {
+            searchitem: blConNo,
+            fromDate: fromdate,
+            toDate: todate,
+            origin: origin,
+            type:'VLOT'
+
+
+        }, {
+            params: {
+                page: page,
+                limit: limit
+            }
+        })
+        const data = await response.data
+        if (data.rcnEntries.length === 0 && page > 1) {
+            setPage((prev) => prev - 1)
+
+        }
+        setData(data.rcnEntries)
+        }
+        
 
 
     }
@@ -326,6 +463,19 @@ const PeelingTable = () => {
         <>
 
             <div className="ml-5 mt-5 ">
+                <div className="w-full">
+                    <select className='mb-5 h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-1 text-sm 
+                ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'
+                        onChange={(e) => setsearchType(e.target.value)} value={searchType}>
+
+                        {dropdown.map((data, index) => (
+                            <option className='relative flex w-full cursor-default select-none items-center rounded-sm 
+                py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' value={data} key={index}>
+                                {data}
+                            </option>
+                        ))}
+                    </select>
+                </div>
                 <div className="flex flexbox-search">
 
                     <Input className="no-padding w-1/6 flexbox-search-width" placeholder=" Lot No." value={blConNo} onChange={(e) => setBlConNo(e.target.value)} />

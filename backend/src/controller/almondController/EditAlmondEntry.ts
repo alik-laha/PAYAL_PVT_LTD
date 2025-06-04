@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import { AlmondrcvData } from "../../type/type";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
 import almondPrimaryEntryEditModel from "../../model/almondPrimaryEditModel";
 //import VendorName from "../../model/vendorNameModel";
@@ -64,8 +64,8 @@ const EditAlmondEntry = async (req: Request, res: Response) => {
         if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Almond Item" });
         const updatePackageMaterial = await almondPrimaryEntryModel.update({ editStatus: "Pending" }, { where: { id } });
         if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Almond Item" });
-        const data = await WhatsappMsg("Almond Primary Rcv/Dispatch", createdBynew,"modify_request","Receiving")
-        console.log(data)
+        //const data = await WhatsappMsg("Almond Primary Rcv/Dispatch", createdBynew,"modify_request","Receiving")
+        //console.log(data)
         return res.status(201).json({ message: "Almond material edited successfully" });
 
         

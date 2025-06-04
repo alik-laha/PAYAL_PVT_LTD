@@ -5,7 +5,7 @@ import RcnScooping from "../../model/scoopingModel";
 import RcnScoopingEdit from "../../model/scoopingEditModel";
 import RcnAllEditScooping from "../../model/scoopingAllEditModel";
 import RcnAllScooping from "../../model/scoopingAllmodel";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 
 const CreateEntireScoopingEdit = async (req: Request, res: Response) => {
     const timeToMilliseconds = (time: string) => {
@@ -167,8 +167,8 @@ const CreateEntireScoopingEdit = async (req: Request, res: Response) => {
             }
         );
         if(lineupdate && lotupdate){
-            const data = await WhatsappMsg("RCN Scooping", feeledBy,"modify_request","Production")
-            console.log(data)
+            //const data = await WhatsappMsg("RCN Scooping", feeledBy,"modify_request","Production")
+            //console.log(data)
             res.status(200).json({ message: "Scooping Modification Raised Successfully" });
         }
         else{

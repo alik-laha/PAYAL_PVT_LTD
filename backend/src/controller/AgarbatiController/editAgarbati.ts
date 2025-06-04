@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import { AlmondrcvData } from "../../type/type";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import agarbatiPrimaryEntryModel from "../../model/agarbatiPrimaryModel";
 import agarbatiPrimaryEntryEditModel from "../../model/agarbatiPrimaryEditModel";
 //import VendorName from "../../model/vendorNameModel";
@@ -64,8 +64,8 @@ const EditAgarbatiEntry = async (req: Request, res: Response) => {
         if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Agarbati Item" });
         const updatePackageMaterial = await agarbatiPrimaryEntryModel.update({ editStatus: "Pending" }, { where: { id } });
         if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Agarbati Item" });
-        const data = await WhatsappMsg("Agarbati Primary Rcv/Dispatch", createdBynew,"modify_request","Receiving")
-        console.log(data)
+        //const data = await WhatsappMsg("Agarbati Primary Rcv/Dispatch", createdBynew,"modify_request","Receiving")
+        //console.log(data)
         return res.status(201).json({ message: "Agarbati material edited successfully" });
 
         

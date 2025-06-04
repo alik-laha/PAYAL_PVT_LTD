@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 
 import {  storeRcvData } from "../../type/type";
 
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import SkuModel from "../../model/SkuModel";
 //import VendorName from "../../model/vendorNameModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
@@ -62,8 +62,8 @@ const editstorePrimary = async (req: Request, res: Response) => {
         if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Store material" });
         const updatePackageMaterial = await storePrimaryModel.update({ editStatus: "Pending" }, { where: { id } });
         if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Store material" });
-        const data = await WhatsappMsg("Store Primary Rcv/Dispatch", createdBynew,"modify_request","Receiving")
-        console.log(data)
+        //const data = await WhatsappMsg("Store Primary Rcv/Dispatch", createdBynew,"modify_request","Receiving")
+        //console.log(data)
         return res.status(201).json({ message: "Store material edited successfully" });
         }
 

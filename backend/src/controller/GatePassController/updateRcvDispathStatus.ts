@@ -3,7 +3,7 @@
 import { Request, Response } from "express";
 
 import gatePassMaster from "../../model/gatePassMasterModel";
-import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
+//import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 
 
 const updateRcvDispathStatus = async (req: Request, res: Response) => {
@@ -23,44 +23,44 @@ try{
         if(gatepassupdate){
 
             if(section==='PackagingMaterial'){
-                const data = await WpMsgGatePassRcv("Packaging Material", gatePassNo,"rcv_dispatch_complt",'Packaging Material IN')
-                console.log(data)
+                //const data = await WpMsgGatePassRcv("Packaging Material", gatePassNo,"rcv_dispatch_complt",'Packaging Material IN')
+                //console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
             if(section==='Store'){
-                const data = await WpMsgGatePassRcv("Store Item", gatePassNo,"rcv_dispatch_complt",'Store Rcv/Dispatch')
-                console.log(data)
+                //const data = await WpMsgGatePassRcv("Store Item", gatePassNo,"rcv_dispatch_complt",'Store Rcv/Dispatch')
+                //console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
             if(section==='General'){
-                const data = await WpMsgGatePassRcv("General Item", gatePassNo,"rcv_dispatch_complt",'General Rcv/Dispatch')
-                console.log(data)
+                //const data = await WpMsgGatePassRcv("General Item", gatePassNo,"rcv_dispatch_complt",'General Rcv/Dispatch')
+                //console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
             if(section==='Almond'){
-                const data = await WpMsgGatePassRcv("Almond", gatePassNo,"rcv_dispatch_complt",'Almond Rcv/Dispatch')
-                console.log(data)
+                //const data = await WpMsgGatePassRcv("Almond", gatePassNo,"rcv_dispatch_complt",'Almond Rcv/Dispatch')
+                //console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
             if(section==='Village'){
-                const data = await WpMsgGatePassRcv("Village", gatePassNo,"rcv_dispatch_complt",'Village Rcv/Dispatch')
-                console.log(data)
+                //const data = await WpMsgGatePassRcv("Village", gatePassNo,"rcv_dispatch_complt",'Village Rcv/Dispatch')
+                //console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
             if(section==='Agarbati'){
-                const data = await WpMsgGatePassRcv("Agarbati", gatePassNo,"rcv_dispatch_complt",'Agarbati Rcv/Dispatch')
-                console.log(data)
+                //const data = await WpMsgGatePassRcv("Agarbati", gatePassNo,"rcv_dispatch_complt",'Agarbati Rcv/Dispatch')
+                //console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
             if(section==='OilMill'){
-                const data = await WpMsgGatePassRcv("OilMill", gatePassNo,"rcv_dispatch_complt",'OilMill Dispatch')
-                console.log(data)
+                //const data = await WpMsgGatePassRcv("OilMill", gatePassNo,"rcv_dispatch_complt",'OilMill Dispatch')
+                //console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
 
             if(section==='FinishedCashew'){
-                const data = await WpMsgGatePassRcv("Finished Cashew", gatePassNo,"rcv_dispatch_complt",'Finished Cashew Dispatch')
-                console.log(data)
+                //const data = await WpMsgGatePassRcv("Finished Cashew", gatePassNo,"rcv_dispatch_complt",'Finished Cashew Dispatch')
+                //console.log(data)
                 res.status(201).json({ message: "Gate Pass Rcv/Dispatch Status updated Successfully" });
             }
 

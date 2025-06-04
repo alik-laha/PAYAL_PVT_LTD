@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { RcnPrimary } from "../../model/indexmapping";
 import gatePassMaster from "../../model/gatePassMasterModel";
-import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
+//import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 
 const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
     try {
@@ -43,8 +43,8 @@ const CreateRcnPrimaryEntry = async (req: Request, res: Response) => {
                 }
         });
         if(gatepassupdate){
-            const data = await WpMsgGatePassRcv("RCN Incoming", gatepass,"rcv_dispatch_complt",'RCN Cashew IN')
-            console.log(data)
+            //const data = await WpMsgGatePassRcv("RCN Incoming", gatepass,"rcv_dispatch_complt",'RCN Cashew IN')
+            //console.log(data)
             res.status(201).json({ message: "Rcn Primary Entry is Created Successfully" });
         }
         }

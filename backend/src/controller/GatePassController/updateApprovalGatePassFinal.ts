@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import gatePassMaster from "../../model/gatePassMasterModel";
 import sequelize from "../../config/databaseConfig";
 import RcnPrimary from "../../model/RcnEntryModel";
-import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
+//import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
 import generalPrimaryModel from "../../model/generalPrimaryModel";
@@ -62,8 +62,8 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
                     }
                 );
                 if (rcnincomingUpdate) {
-                    const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepassNo,"gatepass_modify",feeledBy)
-                    console.log(data)
+                    //const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepassNo,"gatepass_modify",feeledBy)
+                    //console.log(data)
                     return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
                 }
   
@@ -83,8 +83,8 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
                     }
                 );
                 if (pmupdate) {
-                    const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatepassNo,"gatepass_modify",feeledBy)
-                    console.log(data)
+                    //const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatepassNo,"gatepass_modify",feeledBy)
+                    //console.log(data)
                     return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
                 }
 
@@ -105,8 +105,8 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
                     }
                 );
                 if (pmupdate) {
-                    const data = await WpMsgGatePassRcv("Finished Cashew Outgoing", gatepassNo,"gatepass_modify",feeledBy)
-                    console.log(data)
+                    //const data = await WpMsgGatePassRcv("Finished Cashew Outgoing", gatepassNo,"gatepass_modify",feeledBy)
+                    //console.log(data)
                     return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
                 }
 
@@ -128,8 +128,8 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
                 );
 
                 if (pmupdate) {
-                    const data = await WpMsgGatePassRcv("Store Item Rcv/Dispatch", gatepassNo,"gatepass_modify",feeledBy)
-                    console.log(data)
+                    //const data = await WpMsgGatePassRcv("Store Item Rcv/Dispatch", gatepassNo,"gatepass_modify",feeledBy)
+                    //console.log(data)
                     
                     return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
                 }
@@ -149,8 +149,8 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
                     }
                 );
                 if (generalupdate) {
-                    const data = await WpMsgGatePassRcv("General Item Rcv/Dispatch", gatepassNo,"gatepass_modify",feeledBy)
-                    console.log(data)
+                    //const data = await WpMsgGatePassRcv("General Item Rcv/Dispatch", gatepassNo,"gatepass_modify",feeledBy)
+                    //console.log(data)
                     return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
                 } 
 
@@ -170,8 +170,8 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
                     }
                 );
                 if (generalupdate) {
-                    const data = await WpMsgGatePassRcv("Almond Rcv/Dispatch", gatepassNo,"gatepass_modify",feeledBy)
-                    console.log(data)
+                    //const data = await WpMsgGatePassRcv("Almond Rcv/Dispatch", gatepassNo,"gatepass_modify",feeledBy)
+                    //console.log(data)
                     return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
                 }          
             }
@@ -191,8 +191,8 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
                 );
 
                 if (generalupdate) {
-                    const data = await WpMsgGatePassRcv("Village Rcv/Dispatch", gatepassNo,"gatepass_modify",feeledBy)
-                    console.log(data)
+                    //const data = await WpMsgGatePassRcv("Village Rcv/Dispatch", gatepassNo,"gatepass_modify",feeledBy)
+                    //console.log(data)
                     return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
                 }
             }
@@ -212,8 +212,8 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
                 );
 
                 if (generalupdate) {
-                    const data = await WpMsgGatePassRcv("Village Rcv/Dispatch", gatepassNo,"gatepass_modify",feeledBy)
-                    console.log(data)
+                    //const data = await WpMsgGatePassRcv("Village Rcv/Dispatch", gatepassNo,"gatepass_modify",feeledBy)
+                    //console.log(data)
                     return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
                 }
             }
@@ -233,8 +233,8 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
                 );
 
                 if (generalupdate) {
-                    const data = await WpMsgGatePassRcv("Agarbati Rcv/Dispatch", gatepassNo,"gatepass_modify",feeledBy)
-                    console.log(data)
+                    //const data = await WpMsgGatePassRcv("Agarbati Rcv/Dispatch", gatepassNo,"gatepass_modify",feeledBy)
+                    //console.log(data)
                     return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
                 }
             }
@@ -254,8 +254,8 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
                 );
 
                 if (generalupdate) {
-                    const data = await WpMsgGatePassRcv("OilMill Dispatch", gatepassNo,"gatepass_modify",feeledBy)
-                    console.log(data)
+                    //const data = await WpMsgGatePassRcv("OilMill Dispatch", gatepassNo,"gatepass_modify",feeledBy)
+                    //console.log(data)
                     return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
                 }
             }
@@ -276,56 +276,56 @@ const updateApprovalGateFinal = async (req: Request, res: Response) => {
             if(gatepassupdate){
                 if(gatepassupdate){
                     if (section === 'RawCashew' && type === 'IN') {
-                        const data = await WpMsgGatePassRcv("RCN Incoming", gatepassNo,"gatepass_modify",feeledBy)
-                        console.log(data)
+                        //const data = await WpMsgGatePassRcv("RCN Incoming", gatepassNo,"gatepass_modify",feeledBy)
+                        //console.log(data)
                         return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
                     }
                     if (section === 'PackagingMaterial' && type === 'IN'){
-                        const data = await WpMsgGatePassRcv("Packaging Material", gatepassNo,"gatepass_modify",feeledBy)
-                        console.log(data)
+                        //const data = await WpMsgGatePassRcv("Packaging Material", gatepassNo,"gatepass_modify",feeledBy)
+                        //console.log(data)
                         return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
     
                     }
                       if (section==='FinishedCashew' && type==='OUT'){
-                        const data = await WpMsgGatePassRcv("Finished Cashew", gatepassNo,"gatepass_modify",feeledBy)
-                        console.log(data)
+                        //const data = await WpMsgGatePassRcv("Finished Cashew", gatepassNo,"gatepass_modify",feeledBy)
+                        //console.log(data)
                         return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
     
                     }
                     if (section === 'Store'){
-                        const data = await WpMsgGatePassRcv("Store Item", gatepassNo,"gatepass_modify",feeledBy)
-                    console.log(data)
+                        //const data = await WpMsgGatePassRcv("Store Item", gatepassNo,"gatepass_modify",feeledBy)
+                    //console.log(data)
                     
                     return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
     
                     }
                     if (section === 'General'){
-                        const data = await WpMsgGatePassRcv("General Item", gatepassNo,"gatepass_modify",feeledBy)
-                    console.log(data)
+                        //const data = await WpMsgGatePassRcv("General Item", gatepassNo,"gatepass_modify",feeledBy)
+                    //console.log(data)
                     return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
     
                     }
                     if (section === 'Almond'){
-                        const data = await WpMsgGatePassRcv("Almond", gatepassNo,"gatepass_modify",feeledBy)
-                        console.log(data)
+                        //const data = await WpMsgGatePassRcv("Almond", gatepassNo,"gatepass_modify",feeledBy)
+                        //console.log(data)
                         return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
     
                     }
                     if (section === 'Village'){
-                        const data = await WpMsgGatePassRcv("Village", gatepassNo,"gatepass_modify",feeledBy)
-                        console.log(data)
+                        //const data = await WpMsgGatePassRcv("Village", gatepassNo,"gatepass_modify",feeledBy)
+                        //console.log(data)
                         return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
     
                     }
                     if (section === 'Agarbati'){
-                        const data = await WpMsgGatePassRcv("Agarbati", gatepassNo,"gatepass_modify",feeledBy)
-                        console.log(data)
+                        //const data = await WpMsgGatePassRcv("Agarbati", gatepassNo,"gatepass_modify",feeledBy)
+                        //console.log(data)
                         return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
     
                     }
                     if (section === 'OilMill'){
-                        const data = await WpMsgGatePassRcv("OilMill", gatepassNo,"gatepass_modify",feeledBy)
-                        console.log(data)
+                        //const data = await WpMsgGatePassRcv("OilMill", gatepassNo,"gatepass_modify",feeledBy)
+                        //console.log(data)
                         return res.status(200).json({ message: "Gate Pass Details Modified Successfully" });
     
                     }

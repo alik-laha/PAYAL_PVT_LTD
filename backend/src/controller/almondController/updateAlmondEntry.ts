@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import gatePassMaster from "../../model/gatePassMasterModel";
-import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
+//import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 import almondPrimaryEntryModel from "../../model/almondPrimaryModel";
 
 //import VendorName from "../../model/vendorNameModel";
@@ -50,8 +50,8 @@ const updateAlmondPrimaryEntry = async (req: Request, res: Response) => {
                 }
             });
             if (gatepassupdate) {
-                const data = await WpMsgGatePassRcv("Almond", gatepass, "rcv_dispatch_complt", 'Almond IN/OUT')
-                console.log(data)
+                //const data = await WpMsgGatePassRcv("Almond", gatepass, "rcv_dispatch_complt", 'Almond IN/OUT')
+                //console.log(data)
                 res.status(201).json({ message: "Almond Primary Entry is Created Successfully" });
 
 

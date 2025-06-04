@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import sequelize from "../../config/databaseConfig";
 import LotNo from "../../model/lotNomodel";
 import { Op } from "sequelize";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import lotoriginmodel from "../../model/lotoriginModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import mixingModel from "../../model/mixingModel";
@@ -1076,7 +1076,7 @@ export const CreateEntireWholes = async (req: Request, res: Response) => {
 // //WholesTable.tsx
 export const SearchRCNWholes = async (req: Request, res: Response) => {
     try {
-        const { searchitem, fromDate, toDate, origin } = req.body;
+        const { searchitem, fromDate, toDate, origin,type } = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
         const size = parseInt(req.query.limit as string, 10) || 0;
         const offset = (page - 1) * size;
@@ -1103,6 +1103,20 @@ export const SearchRCNWholes = async (req: Request, res: Response) => {
             whereClause.push({
                 origin: {
                     [Op.like]: `%${origin}%`
+                }
+            });
+        }
+        if (type === 'LOT') {
+            whereClause.push({
+                LotNo: {
+                    [Op.notLike]: '%V%'
+                }
+            });
+        }
+        else {
+            whereClause.push({
+                LotNo: {
+                    [Op.like]: '%V%'
                 }
             });
         }
@@ -2409,8 +2423,8 @@ export const updateEntireWholes = async (req: Request, res: Response) => {
 
                 if (lotupdate) {
 
-                    const data = await WhatsappMsg("Wholes Grading", feeledBy, "modify_request", "Production")
-                    console.log(data)
+                    //const data = await WhatsappMsg("Wholes Grading", feeledBy, "modify_request", "Production")
+                    //console.log(data)
                     return res.status(201).json({ message: "Edit Request of Wholes Entry Raised successfully" });
 
                 }

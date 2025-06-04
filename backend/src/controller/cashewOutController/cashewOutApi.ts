@@ -6,7 +6,7 @@ import sequelize from "../../config/databaseConfig";
 import { Op } from "sequelize";
 import orderPackingModel from "../../model/orderPackingModel";
 import { cashewOutRcvData } from "../../type/type";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 
 export const getAllcashewOutEditPending = async (req: Request, res: Response) => {
     try {
@@ -441,8 +441,8 @@ export const EditCashewOutEntry = async (req: Request, res: Response) => {
         if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Cashew Out Item" });
         const updatePackageMaterial = await cashewOutModel.update({ editStatus: "Pending" }, { where: { id } });
         if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Cashew Out Item" });
-        const data = await WhatsappMsg("Finished Cashew Dispatch", createdBynew,"modify_request","Receiving")
-        console.log(data)
+        //const data = await WhatsappMsg("Finished Cashew Dispatch", createdBynew,"modify_request","Receiving")
+        //console.log(data)
         return res.status(201).json({ message: "Finished Cashew Item edited successfully" });
 
         

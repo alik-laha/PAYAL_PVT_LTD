@@ -7,7 +7,7 @@ import rejectionModel from "../../model/rejectionModel";
 import villageProduction from "../../model/villageProductionModel";
 import sectionTransfer from "../../model/transactionsectionmodel";
 import lotoriginmodel from "../../model/lotoriginModel";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import mixingModel from "../../model/mixingModel";
 
 // //Rejection.tsx
@@ -336,7 +336,7 @@ export const CreateEntireRejection = async (req: Request, res: Response) => {
 // //LWTable.tsx
 export const SearchRCNRejection = async (req: Request, res: Response) => {
     try {
-        const { searchitem,fromDate, toDate, origin} = req.body;
+        const { searchitem,fromDate, toDate, origin,type} = req.body;
         const page = parseInt(req.query.page as string, 10) || 0;
         const size = parseInt(req.query.limit as string, 10) || 0;
         const offset = (page - 1) * size;
@@ -363,6 +363,20 @@ export const SearchRCNRejection = async (req: Request, res: Response) => {
             whereClause.push({
                 origin: {
                     [Op.like]: `%${origin}%`
+                }
+            });
+        }
+        if (type === 'LOT') {
+            whereClause.push({
+                LotNo: {
+                    [Op.notLike]: '%V%'
+                }
+            });
+        }
+        else {
+            whereClause.push({
+                LotNo: {
+                    [Op.like]: '%V%'
                 }
             });
         }
@@ -501,8 +515,8 @@ export const updateEntireRejection= async (req: Request, res: Response) => {
                  
                  if(lotupdate){
                    
-                    const data = await WhatsappMsg("Rejection", feeledBy,"modify_request","Production")
-                    console.log(data)
+                    //const data = await WhatsappMsg("Rejection", feeledBy,"modify_request","Production")
+                    //console.log(data)
                     return res.status(201).json({ message: "Edit Request of Rejection Entry Raised successfully" });
                
                 }

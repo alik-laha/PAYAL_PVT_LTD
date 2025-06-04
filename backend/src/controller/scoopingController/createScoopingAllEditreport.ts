@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import RcnAllEditScooping from "../../model/scoopingAllEditModel";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 
 
 const createscoopingAllEditReport = async (req: Request, res: Response) => {
@@ -59,8 +59,8 @@ const createscoopingAllEditReport = async (req: Request, res: Response) => {
         );
 
         if(scoop){
-            const data = await WhatsappMsg("RCN Scooping", createdBy,"modify_request","Production")
-            console.log(data)
+            //const data = await WhatsappMsg("RCN Scooping", createdBy,"modify_request","Production")
+            //console.log(data)
             return res.status(200).json({ message: "RCN Scooping All Edit Entry is Uploaded Successfully", scoop });
         }
         else{

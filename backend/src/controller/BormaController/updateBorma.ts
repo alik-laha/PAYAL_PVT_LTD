@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import RcnBormaEdit from "../../model/bormaEditModel";
 import RcnBorma from "../../model/bormaModel";
 import { BormarcvData } from "../../type/type";
@@ -92,8 +92,8 @@ const updateBorma = async (req: Request, res: Response) => {
             if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Borma Item" });
             const updatePackageMaterial = await RcnBorma.update({ editStatus: "Pending" }, { where: { id },transaction });
             if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Borma Item" });
-            const data = await WhatsappMsg("RCN Borma", createdBynew,"modify_request","Production")
-            console.log(data)
+            //const data = await WhatsappMsg("RCN Borma", createdBynew,"modify_request","Production")
+            //console.log(data)
             return res.status(201).json({ message: "Borma edited successfully" });
             
         })

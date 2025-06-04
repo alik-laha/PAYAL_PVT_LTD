@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import WhatsappMsg from "../../helper/WhatsappMsg";
+//import WhatsappMsg from "../../helper/WhatsappMsg";
 import {  PeelingRcvData } from "../../type/type";
 import sequelize from "../../config/databaseConfig";
 
@@ -136,8 +136,8 @@ const updatePeeling = async (req: Request, res: Response) => {
             if (!editPackageMaterial) return res.status(500).json({ message: "Error In Editing Peeling Item" });
             const updatePackageMaterial = await RcnPeeling.update({ editStatus: "Pending" }, { where: { id },transaction });
             if (!updatePackageMaterial) return res.status(500).json({ message: "Error In Editing Peeling Item" });
-            const data = await WhatsappMsg("RCN Peeling", createdBynew,"modify_request","Production")
-            console.log(data)
+            //const data = await WhatsappMsg("RCN Peeling", createdBynew,"modify_request","Production")
+            //console.log(data)
             return res.status(201).json({ message: "Peeling edited successfully" });
             
         })

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import gatePassMaster from "../../model/gatePassMasterModel";
 import RcnPrimary from "../../model/RcnEntryModel";
 import sequelize from "../../config/databaseConfig";
-import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
+//import WpMsgGatePassRcv from "../../helper/WpMsgGatePassRcv";
 import PackagingMaterial from "../../model/recevingPackagingMaterialModel";
 import storePrimaryModel from "../../model/storePrimaryModel";
 import generalPrimaryModel from "../../model/generalPrimaryModel";
@@ -47,8 +47,8 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(rcnincomingUpdate){
-                    const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepassNo,"verify_gatepass_final",'RCN Cashew IN')
-            console.log(data)
+                    //const data = await WpMsgGatePassRcv("RCN Incoming Cashew", gatepassNo,"verify_gatepass_final",'RCN Cashew IN')
+            //console.log(data)
                     return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }
                 
@@ -68,8 +68,8 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(pmupdate){
-                    const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatepassNo,"verify_gatepass_final",'Packaging Material Incoming')
-            console.log(data)
+                    //const data = await WpMsgGatePassRcv("Packaging Material Incoming", gatepassNo,"verify_gatepass_final",'Packaging Material Incoming')
+            //console.log(data)
                     return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }
                 
@@ -89,8 +89,8 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(pmupdate){
-                    const data = await WpMsgGatePassRcv("Finished Cashew Outgoing", gatepassNo,"verify_gatepass_final",'Finished Cashew Outgoing')
-            console.log(data)
+                    //const data = await WpMsgGatePassRcv("Finished Cashew Outgoing", gatepassNo,"verify_gatepass_final",'Finished Cashew Outgoing')
+            //console.log(data)
                     return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }
                 
@@ -110,8 +110,8 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(pmupdate){
-                    const data = await WpMsgGatePassRcv("Store Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Store Entry/Dispatch')
-            console.log(data)
+                    //const data = await WpMsgGatePassRcv("Store Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Store Entry/Dispatch')
+            //console.log(data)
                     return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }
                 
@@ -131,8 +131,8 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(generalupdate){
-                    const data = await WpMsgGatePassRcv("General Item Entry/Dispatch", gatepassNo,"verify_gatepass_final",'General Item Entry/Dispatch')
-            console.log(data)
+                    //const data = await WpMsgGatePassRcv("General Item Entry/Dispatch", gatepassNo,"verify_gatepass_final",'General Item Entry/Dispatch')
+            //console.log(data)
                     return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }
                 
@@ -152,8 +152,8 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(generalupdate){
-                    const data = await WpMsgGatePassRcv("Almond Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Almond Entry/Dispatch')
-            console.log(data)
+                    //const data = await WpMsgGatePassRcv("Almond Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Almond Entry/Dispatch')
+            //console.log(data)
                     return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }
                 
@@ -173,8 +173,8 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(generalupdate){
-                    const data = await WpMsgGatePassRcv("Village Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Village Entry/Dispatch')
-            console.log(data)
+                    //const data = await WpMsgGatePassRcv("Village Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Village Entry/Dispatch')
+            //console.log(data)
                     return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }
                 
@@ -194,8 +194,8 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(generalupdate){
-                    const data = await WpMsgGatePassRcv("Village Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Village Entry/Dispatch')
-            console.log(data)
+                    //const data = await WpMsgGatePassRcv("Village Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Village Entry/Dispatch')
+            //console.log(data)
                     return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }
                 
@@ -215,8 +215,8 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(generalupdate){
-                    const data = await WpMsgGatePassRcv("Agarbati Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Agarbati Entry/Dispatch')
-            console.log(data)
+                    //const data = await WpMsgGatePassRcv("Agarbati Entry/Dispatch", gatepassNo,"verify_gatepass_final",'Agarbati Entry/Dispatch')
+            //console.log(data)
                     return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }
                 
@@ -236,8 +236,8 @@ const updateNetWeight = async (req: Request, res: Response) => {
                 );
         
                 if(generalupdate){
-                    const data = await WpMsgGatePassRcv("OilMill Dispatch", gatepassNo,"verify_gatepass_final",'OilMill Dispatch')
-            console.log(data)
+                    //const data = await WpMsgGatePassRcv("OilMill Dispatch", gatepassNo,"verify_gatepass_final",'OilMill Dispatch')
+            //console.log(data)
                     return res.status(201).json({ message: `NetWeight is Inserted against Gatepass ID ${gatepassNo}` });
                 }
                 
