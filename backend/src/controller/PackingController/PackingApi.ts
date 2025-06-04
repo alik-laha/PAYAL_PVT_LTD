@@ -20,6 +20,7 @@ import rejectionModel from '../../model/rejectionModel';
 import orderPackingModel from '../../model/orderPackingModel';
 import orderMappingModelAll from '../../model/orderMappingAllModel';
 import qcOutgoingModel from '../../model/outgoingQcModel';
+import SkuModel from '../../model/SkuModel';
 
 
 const CY_FY = process.env.CY_FY ? process.env.CY_FY : '2025-26';
@@ -613,6 +614,12 @@ export const createOrderEntire = async (req: Request, res: Response) => {
                     if (!data.grade || !data.origin) {
                         res.status(500).json({ message: "All Fields Are Required" })
                         throw new Error('Transaction Aborted 1')
+                    }
+
+                    let gradedata = await SkuModel.findOne({ where: { sku: data.grade, type: 'Final Grade', section: 'Packing' } });
+                    if (!gradedata) {
+                        res.status(500).json({ message: "Final Grade Do Not Exists" })
+                        throw new Error('Transaction Aborted 2')
                     }
 
                     await orderPrimaryModel.create({
