@@ -550,8 +550,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center" >Origin</TableHead>
                     <TableHead className="text-center" >Issue_No</TableHead>
                     <TableHead className="text-center" >Village_Entry_Date</TableHead>
-
+    <TableHead className="text-center font-bold">Current_Backlog</TableHead> 
                     <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
+                       <TableHead className="text-center" >Action</TableHead>
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
                     <TableHead className="text-center">Receive Peeling</TableHead>
                     <TableHead className="text-center">Peeling Borma_Loss(Kg)</TableHead>
@@ -593,7 +594,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue Add 10</TableHead> */}
                      <TableHead className="text-center font-bold">Village Total_Issue(Kg)</TableHead>
                     {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
-                    <TableHead className="text-center font-bold">Current_Backlog</TableHead>  
+                 
                     <TableHead className="text-center">No of Labour</TableHead>
                     <TableHead className="text-center">No of Supervisor</TableHead>
                     <TableHead className="text-center">Outside_Type</TableHead>
@@ -603,7 +604,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                
                     <TableHead className="text-center" >Edit Status </TableHead>
                     <TableHead className="text-center" >Created By </TableHead>
-                    <TableHead className="text-center" >Action</TableHead>
+                 
                 </TableHeader>
                 <TableBody>
 
@@ -619,7 +620,46 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                 <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
                                 <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                                                <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
+
                                 <TableCell className="text-center ">{item.mixingLot}</TableCell>
+   <TableCell className="text-center">
+                                    <Popover>
+                                        <PopoverTrigger>
+                                            <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                            <AlertDialog>
+                                                <AlertDialogTrigger className="flex">
+                                                    <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                            <AlertDialog>
+                                                <AlertDialogTrigger className="flex mt-2">
+                                                    <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                        </PopoverContent>
+                                    </Popover>
+                                </TableCell>
                                 {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
                                 <TableCell className="text-center font-semibold">{formatNumber(item.rcv_peeling)}</TableCell>
                                 <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
@@ -664,7 +704,6 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableCell className="text-center font-bold bg-yellow-500 text-white ">{formatNumber((parseFloat(item.issue_packing) + parseFloat(item.issue_mayur)
                                  + parseFloat(item.issue_outside)+parseFloat(item.issue_hamsa)
                                 +parseFloat(item.issue_bigTaiho) +parseFloat(item.issue_rejection)).toString())} Kg</TableCell>
-                                <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                                 
                                
                                 <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
@@ -679,43 +718,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableCell className="text-center">{item.editStatus}</TableCell>
                                 <TableCell className="text-center">{item.CreatedBy}</TableCell>
 
-                            <TableCell className="text-center">
-                                    <Popover>
-                                        <PopoverTrigger>
-                                            <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                            <AlertDialog>
-                                                <AlertDialogTrigger className="flex">
-                                                    <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-                                            <AlertDialog>
-                                                <AlertDialogTrigger className="flex mt-2">
-                                                    <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-                                        </PopoverContent>
-                                    </Popover>
-                                </TableCell>
+                         
                             </TableRow>
                         ) })): (
                         Data.length > 0 ? (Data.map((item: VilageData, idx) => {
@@ -727,67 +730,10 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                 <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                 <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
                                 <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
+                                                                <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
+
                                 <TableCell className="text-center ">{item.mixingLot}</TableCell>
-                                {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
-                               <TableCell className="text-center font-semibold">{formatNumber(item.rcv_peeling)}</TableCell>
-                                <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
-                                <TableCell className="text-center font-semibold  text-red-500 ">{Number(item.rcv_peeling)!==0 ?formatNumber(((Number(item.issue_add_2)/Number(item.rcv_peeling))*100).toString()):0} %</TableCell>
-                                <TableCell className="text-center font-semibold">{formatNumber(item.rcv_mayur)}</TableCell>
-                                <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_5)} Kg</TableCell>
-                                <TableCell className="text-center font-semibold  text-red-500 ">{Number(item.rcv_mayur)!==0 ?formatNumber(((Number(item.issue_add_5)/Number(item.rcv_mayur))*100).toString()):0} %</TableCell>
-                                
-                                <TableCell className="text-center font-semibold">{formatNumber(item.rcv_rejection)}</TableCell>
-                                <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_8)} Kg</TableCell>
-                                <TableCell className="text-center font-semibold  text-red-500 ">{Number(item.rcv_rejection)!==0 ?formatNumber(((Number(item.issue_add_8)/Number(item.rcv_rejection))*100).toString()):0} %</TableCell>
-                                
-                                <TableCell className="text-center text-center bg-yellow-100 font-semibold">
-                                    {formatNumber((parseFloat(item.rcv_peeling)-parseFloat(item.issue_add_2)).toString())}
-                                </TableCell>
-                                <TableCell className="text-center text-center bg-yellow-100 font-semibold">
-                                    {formatNumber((parseFloat(item.rcv_mayur)-parseFloat(item.issue_add_5)).toString())}
-                                </TableCell>
-                                <TableCell className="text-center text-center bg-yellow-100 font-semibold">
-                                    {formatNumber((parseFloat(item.rcv_rejection)-parseFloat(item.issue_add_8)).toString())}
-                                </TableCell>
-                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0}</TableCell>
-                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) : 0}</TableCell>
-                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0}</TableCell>
-                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0}</TableCell>
-                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0}</TableCell>
-                                <TableCell className="text-center font-semibold  bg-green-500 text-white">{formatNumber(((parseFloat(item.rcv_peeling)-parseFloat(item.issue_add_2))
-                                 + (parseFloat(item.rcv_mayur)-parseFloat(item.issue_add_5)) + (parseFloat(item.rcv_rejection)-parseFloat(item.issue_add_8))
-                                    + (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0) + (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)
-                                    + (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0)
-                                    + (item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0) ).toString())
-                                } Kg</TableCell>
-                                <TableCell className="text-center ">{formatNumber(item.issue_packing)}</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_mayur)}</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_hamsa)}</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_bigTaiho)}</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_rejection)}</TableCell>
-                                <TableCell className="text-center  ">{formatNumber(item.issue_outside)}</TableCell>
-                               
-                                {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
-                               
-                                <TableCell className="text-center font-bold bg-yellow-500 text-white ">{formatNumber((parseFloat(item.issue_packing) + parseFloat(item.issue_mayur)
-                                 + parseFloat(item.issue_outside)+parseFloat(item.issue_hamsa)
-                                +parseFloat(item.issue_bigTaiho) +parseFloat(item.issue_rejection)).toString())} Kg</TableCell>
-                                <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
-                                
-                               
-                                <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
-                                <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
-                                <TableCell className="text-center bg-yellow-100 font-semibold">{item.Remarks2}</TableCell>
-                                <TableCell className="text-center bg-yellow-100 ">{item.GatePassStatus === 0 ? (
-                                                <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
-                                            ) :(
-                                                <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Linked</button>
-                                            )}</TableCell>
-                                <TableCell className="text-center bg-yellow-100 font-semibold ">{item.Remarks}</TableCell>
-                                <TableCell className="text-center">{item.editStatus}</TableCell>
-                                <TableCell className="text-center">{item.CreatedBy}</TableCell>
-                                
-                                    <TableCell className="text-center">
+                                  <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>
                                                 <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
@@ -855,6 +801,65 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                             
                                         </Popover>
                                     </TableCell>
+                                {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
+                               <TableCell className="text-center font-semibold">{formatNumber(item.rcv_peeling)}</TableCell>
+                                <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
+                                <TableCell className="text-center font-semibold  text-red-500 ">{Number(item.rcv_peeling)!==0 ?formatNumber(((Number(item.issue_add_2)/Number(item.rcv_peeling))*100).toString()):0} %</TableCell>
+                                <TableCell className="text-center font-semibold">{formatNumber(item.rcv_mayur)}</TableCell>
+                                <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_5)} Kg</TableCell>
+                                <TableCell className="text-center font-semibold  text-red-500 ">{Number(item.rcv_mayur)!==0 ?formatNumber(((Number(item.issue_add_5)/Number(item.rcv_mayur))*100).toString()):0} %</TableCell>
+                                
+                                <TableCell className="text-center font-semibold">{formatNumber(item.rcv_rejection)}</TableCell>
+                                <TableCell className="text-center font-semibold  text-red-500">{formatNumber(item.issue_add_8)} Kg</TableCell>
+                                <TableCell className="text-center font-semibold  text-red-500 ">{Number(item.rcv_rejection)!==0 ?formatNumber(((Number(item.issue_add_8)/Number(item.rcv_rejection))*100).toString()):0} %</TableCell>
+                                
+                                <TableCell className="text-center text-center bg-yellow-100 font-semibold">
+                                    {formatNumber((parseFloat(item.rcv_peeling)-parseFloat(item.issue_add_2)).toString())}
+                                </TableCell>
+                                <TableCell className="text-center text-center bg-yellow-100 font-semibold">
+                                    {formatNumber((parseFloat(item.rcv_mayur)-parseFloat(item.issue_add_5)).toString())}
+                                </TableCell>
+                                <TableCell className="text-center text-center bg-yellow-100 font-semibold">
+                                    {formatNumber((parseFloat(item.rcv_rejection)-parseFloat(item.issue_add_8)).toString())}
+                                </TableCell>
+                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_wholes ? formatNumber(item.rcv_wholes) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_lw ? formatNumber(item.rcv_lw) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_dpds ? formatNumber(item.rcv_dpds) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_sorting ? formatNumber(item.rcv_sorting) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold  bg-yellow-100 ">{item.rcv_bigTaiho ? formatNumber(item.rcv_bigTaiho) : 0}</TableCell>
+                                <TableCell className="text-center font-semibold  bg-green-500 text-white">{formatNumber(((parseFloat(item.rcv_peeling)-parseFloat(item.issue_add_2))
+                                 + (parseFloat(item.rcv_mayur)-parseFloat(item.issue_add_5)) + (parseFloat(item.rcv_rejection)-parseFloat(item.issue_add_8))
+                                    + (item.rcv_wholes ? parseFloat(item.rcv_wholes) : 0) + (item.rcv_lw ? parseFloat(item.rcv_lw) : 0)
+                                    + (item.rcv_dpds ? parseFloat(item.rcv_dpds) : 0) + (item.rcv_sorting ? parseFloat(item.rcv_sorting) : 0)
+                                    + (item.rcv_bigTaiho ? parseFloat(item.rcv_bigTaiho) : 0) ).toString())
+                                } Kg</TableCell>
+                                <TableCell className="text-center ">{formatNumber(item.issue_packing)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_mayur)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_hamsa)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_bigTaiho)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_rejection)}</TableCell>
+                                <TableCell className="text-center  ">{formatNumber(item.issue_outside)}</TableCell>
+                               
+                                {/* <TableCell className="text-center font-semibold text-blue-600">{formatNumber(item.entry_backlog)} kg</TableCell> */}
+                               
+                                <TableCell className="text-center font-bold bg-yellow-500 text-white ">{formatNumber((parseFloat(item.issue_packing) + parseFloat(item.issue_mayur)
+                                 + parseFloat(item.issue_outside)+parseFloat(item.issue_hamsa)
+                                +parseFloat(item.issue_bigTaiho) +parseFloat(item.issue_rejection)).toString())} Kg</TableCell>
+                                
+                               
+                                <TableCell className="text-center">{item.noOfdayOperators}</TableCell>
+                                <TableCell className="text-center">{item.noOfnightOperators}</TableCell>
+                                <TableCell className="text-center bg-yellow-100 font-semibold">{item.Remarks2}</TableCell>
+                                <TableCell className="text-center bg-yellow-100 ">{item.GatePassStatus === 0 ? (
+                                                <button className="bg-red-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Pending</button>
+                                            ) :(
+                                                <button className="bg-green-500 rounded shadow-md  drop-shadow-lg p-1 text-white fix-button-width-rcnprimary">Linked</button>
+                                            )}</TableCell>
+                                <TableCell className="text-center bg-yellow-100 font-semibold ">{item.Remarks}</TableCell>
+                                <TableCell className="text-center">{item.editStatus}</TableCell>
+                                <TableCell className="text-center">{item.CreatedBy}</TableCell>
+                                
+                                  
                                 </TableRow>
                             );
                         })) : (<TableRow>
