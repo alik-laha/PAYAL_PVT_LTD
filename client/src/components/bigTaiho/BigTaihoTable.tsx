@@ -693,8 +693,9 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center" >Origin</TableHead>
                     <TableHead className="text-center" >Issue_No</TableHead>
                     <TableHead className="text-center" >BigTaiho_Entry_Date</TableHead>
-
+ <TableHead className="text-center font-bold">Current_Backlog</TableHead>
                     <TableHead className="text-center" >Incoming_Mixed_Lot_&_Origin</TableHead>
+                      <TableHead className="text-center" >Action</TableHead>
                     {/* <TableHead className="text-center" >Mixed Amount</TableHead> */}
                     <TableHead className="text-center">Receive Peeling</TableHead>
                     
@@ -735,7 +736,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                     <TableHead className="text-center">Issue DPDS</TableHead>
                     <TableHead className="text-center font-bold">BigTaiho Total_Issue(kg)</TableHead>
                     {/* <TableHead className="text-center">Entry_Backlog</TableHead> */}
-                    <TableHead className="text-center font-bold">Current_Backlog</TableHead>
+                   
 
                     <TableHead className="text-center">Mc_On_Taiho</TableHead>
                     <TableHead className="text-center">Mc_Off_Taiho</TableHead>
@@ -761,7 +762,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                
                     <TableHead className="text-center" >Edit Status </TableHead>
                     <TableHead className="text-center" >Created By </TableHead>
-                    <TableHead className="text-center" >Action</TableHead>
+                  
                 </TableHeader>
                 <TableBody>
 
@@ -779,8 +780,46 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                              
+                                                                  <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
+
                                     <TableCell className="text-center ">{item.mixingLot}</TableCell>
+                                      <TableCell className="text-center">
+                                    <Popover>
+                                        <PopoverTrigger>
+                                            <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
+                                            <AlertDialog>
+                                                <AlertDialogTrigger className="flex">
+                                                    <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                            <AlertDialog>
+                                                <AlertDialogTrigger className="flex mt-2">
+                                                    <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                        </PopoverContent>
+                                    </Popover>
+                                </TableCell>
                                     {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
                                     <TableCell className="text-center  font-semibold ">{formatNumber(item.rcv_peeling)}</TableCell>
                                    
@@ -844,7 +883,6 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                      parseFloat(item.issue_sorting) +parseFloat(item.issue_dpds)+
                                      parseFloat(item.issue_ssp_2_small) +parseFloat(item.issue_sdp)).toString())}kg</TableCell>
 
-                                    <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on_1.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off_1.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
@@ -872,43 +910,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
                                     <TableCell className="text-center">{item.CreatedBy}</TableCell>
 
-                            <TableCell className="text-center">
-                                    <Popover>
-                                        <PopoverTrigger>
-                                            <button className="bg-cyan-500 p-2 text-white rounded">Action</button>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="flex flex-col w-30 text-sm font-medium">
-                                            <AlertDialog>
-                                                <AlertDialogTrigger className="flex">
-                                                    <FcApprove size={25} /> <button className="bg-transparent pb-2 pl-1 text-left hover:text-green-500">Approve</button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>Do you want to Approve the Edit Request?</AlertDialogTitle>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <AlertDialogAction onClick={() => handleApprove(item)}>Continue</AlertDialogAction>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-                                            <AlertDialog>
-                                                <AlertDialogTrigger className="flex mt-2">
-                                                    <FcDisapprove size={25} /> <button className="bg-transparent pt-0.5 pl-1 text-left hover:text-red-500">Revert</button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>Do you want to Decline the Edit Request?</AlertDialogTitle>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <AlertDialogAction onClick={() => handleRejection(item)}>Continue</AlertDialogAction>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-                                        </PopoverContent>
-                                    </Popover>
-                                </TableCell>
+                          
                             </TableRow>
                         ) })): (
 
@@ -926,8 +928,62 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center font-semibold text-cyan-600">{item.origin}</TableCell>
                                     <TableCell className="text-center font-semibold ">{item.altid}</TableCell>
                                     <TableCell className="text-center font-semibold">{handletimezone(item.date)}</TableCell>
-                              
+                                                                  <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
+
                                     <TableCell className="text-center ">{item.mixingLot}</TableCell>
+                                    <TableCell className="text-center">
+                                        <Popover>
+                                            <PopoverTrigger>
+                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="flex flex-col text-sm w-30 font-medium">
+                                                <Dialog>
+                                                    <DialogTrigger className="flex"><CiEdit size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-screen">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>BigTaiho Entry Modification</p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        <BigTaihoEditForm borma={[item]} />
+                                                    </DialogContent>
+                                                    
+                                                </Dialog>
+                                                {Number(item.current_backlog) > 0 && <Dialog>
+                                                    <DialogTrigger className="flex"><CiBoxes size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-screen">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                <p className='text-1xl pb-1 text-center mt-1'>BigTaiho Entry Reissue</p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        <RCNBigTaihoReCreateForm borma={[item]} />
+                                                    </DialogContent>
+                                                    
+                                                </Dialog>}
+                                                {Number(item.current_backlog) > 0 && <Dialog>
+                                                    <DialogTrigger className="flex"><CiCrop size={20} />
+                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-screen">
+                                                        <DialogHeader>
+                                                            <DialogTitle>
+                                                                {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}
+                                                                <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
+                                                            </DialogTitle>
+                                                        </DialogHeader>
+                                                        <RCNBigTaihoReMix borma={item} />
+                                                    </DialogContent>
+                                                    
+                                                </Dialog>}
+                                            </PopoverContent>
+                                            
+                                        </Popover>
+                                    </TableCell>
                                     {/* <TableCell className="text-center ">{item.rcv_transfer ? formatNumber(item.rcv_transfer):''}</TableCell> */}
                                     <TableCell className="text-center  font-semibold ">{formatNumber(item.rcv_peeling)}</TableCell>
                                     <TableCell className="text-center font-semibold text-red-500">{formatNumber(item.issue_add_2)} Kg</TableCell>
@@ -990,7 +1046,6 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                      parseFloat(item.issue_husk) +parseFloat(item.issue_rejection)+parseFloat(item.issue_village)+
                                      parseFloat(item.issue_sorting) +parseFloat(item.issue_dpds)+
                                      parseFloat(item.issue_ssp_2_small) +parseFloat(item.issue_sdp)).toString())}kg</TableCell>
-                                    <TableCell className="text-center font-bold bg-blue-500 text-white">{formatNumber(item.current_backlog)}kg</TableCell>
                                     <TableCell className="text-center">{handleAMPM(item.Mc_on_1.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{handleAMPM(item.Mc_off_1.slice(0, 5))}</TableCell>
                             <TableCell className="text-center">{item.Mc_breakdown_1.slice(0, 5).replace(/00:00/g, '0').replace(/:00/g, '').replace(/00:/g, '0:').replace(/^0(\d)$/, '$1')} hr</TableCell>
@@ -1018,59 +1073,7 @@ py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foregrou
                                     <TableCell className="text-center">{item.editStatus}</TableCell>
                                     <TableCell className="text-center">{item.CreatedBy}</TableCell>
 
-                                    <TableCell className="text-center">
-                                        <Popover>
-                                            <PopoverTrigger>
-                                                <button className={`p-2 text-white rounded ${item.editStatus === 'Pending' || item.latest === 0? 'bg-cyan-200' : 'bg-cyan-500'}`} disabled={item.editStatus === 'Pending' || item.latest === 0 ? true : false}>Action</button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="flex flex-col text-sm w-30 font-medium">
-                                                <Dialog>
-                                                    <DialogTrigger className="flex"><CiEdit size={20} />
-                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Modify</button>
-                                                    </DialogTrigger>
-                                                    <DialogContent className="max-w-screen">
-                                                        <DialogHeader>
-                                                            <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>BigTaiho Entry Modification</p>
-                                                            </DialogTitle>
-                                                        </DialogHeader>
-                                                        <BigTaihoEditForm borma={[item]} />
-                                                    </DialogContent>
-                                                    
-                                                </Dialog>
-                                                {Number(item.current_backlog) > 0 && <Dialog>
-                                                    <DialogTrigger className="flex"><CiBoxes size={20} />
-                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Re-Issue</button>
-                                                    </DialogTrigger>
-                                                    <DialogContent className="max-w-screen">
-                                                        <DialogHeader>
-                                                            <DialogTitle>
-                                                                <p className='text-1xl pb-1 text-center mt-1'>BigTaiho Entry Reissue</p>
-                                                            </DialogTitle>
-                                                        </DialogHeader>
-                                                        <RCNBigTaihoReCreateForm borma={[item]} />
-                                                    </DialogContent>
-                                                    
-                                                </Dialog>}
-                                                {Number(item.current_backlog) > 0 && <Dialog>
-                                                    <DialogTrigger className="flex"><CiCrop size={20} />
-                                                        <button className="bg-transparent pb-2 pl-2 text-left hover:text-green-500" >Mix</button>
-                                                    </DialogTrigger>
-                                                    <DialogContent className="max-w-screen">
-                                                        <DialogHeader>
-                                                            <DialogTitle>
-                                                                {/* <p className='text-1xl pb-1 text-center mt-1'>Mayur Entry Mixation</p> */}
-                                                                <p className='text-1xl pb-1 text-center mt-3'>Lot No : {item.LotNo} ({item.origin})</p>
-                                                            </DialogTitle>
-                                                        </DialogHeader>
-                                                        <RCNBigTaihoReMix borma={item} />
-                                                    </DialogContent>
-                                                    
-                                                </Dialog>}
-                                            </PopoverContent>
-                                            
-                                        </Popover>
-                                    </TableCell>
+                                    
                                 </TableRow>
                             );
                         })) : (<TableRow>
