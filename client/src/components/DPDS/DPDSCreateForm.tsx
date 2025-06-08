@@ -338,8 +338,8 @@ const RCNDPDSCreateForm = (props:Props) => {
                                                    {rows[0] ? (
                                                        (
                                                            Number(rows[0].issue_add_1) +
-                                                           Number(rows[0].rcv_Sorting) +
-                                                           Number(rows[0].rcv_transfer)
+                                                           (rows[0].rcv_Sorting ?Number(rows[0].rcv_Sorting):0) +
+                                                           (rows[0].rcv_transfer ?Number(rows[0].rcv_transfer):0)
                                                        ).toFixed(2)
                                                    ) : 0} Kg
                                                </Label>
@@ -416,8 +416,8 @@ const RCNDPDSCreateForm = (props:Props) => {
                                                      {props.borma[0] && rows[0] ? (
                                                          (
                                                           (Number(rows[0].issue_add_1) +
-                                                           Number(rows[0].rcv_Sorting) +
-                                                           Number(rows[0].rcv_transfer)) -
+                                                          (rows[0].rcv_Sorting ?Number(rows[0].rcv_Sorting):0) +
+                                                          (rows[0].rcv_transfer ?Number(rows[0].rcv_transfer):0)) -
                                                              (
                                                             Number(rows[0].issue_m_ds) +
                                                             Number(rows[0].issue_m_dp) +
